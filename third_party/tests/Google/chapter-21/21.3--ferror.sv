@@ -1,7 +1,6 @@
 /*
 :name: ferror_function
 :description: $ferror test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

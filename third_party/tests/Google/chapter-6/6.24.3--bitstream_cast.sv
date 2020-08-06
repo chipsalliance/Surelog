@@ -1,7 +1,6 @@
 /*
 :name: bitstream_cast
 :description: bitstream cast function
-:should_fail: 0
 :tags: 6.24.3
 */
 module top();

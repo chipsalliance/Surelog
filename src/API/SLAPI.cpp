@@ -464,7 +464,8 @@ VObjectType SURELOG::SLgetModuleType(ModuleDefinition* module) {
 FileContent* SURELOG::SLgetModuleFileContent(ModuleDefinition* module) {
   if (!module) return NULL;
   if (module->getFileContents().size())
-    return module->getFileContents()[0];
+    // TODO(alain): fix const cast.
+    return const_cast<FileContent*>(module->getFileContents()[0]);
   else
     return NULL;
 }
@@ -506,7 +507,8 @@ VObjectType SURELOG::SLgetClassType(ClassDefinition* module) {
 FileContent* SURELOG::SLgetClassFileContent(ClassDefinition* module) {
   if (!module) return 0;
   if (module->getFileContents().size() && module->getFileContents()[0])
-    return module->getFileContents()[0];
+    // TODO(Alain): Fix api.
+    return const_cast<FileContent*>(module->getFileContents()[0]);
   else
     return NULL;
 }
@@ -548,7 +550,7 @@ VObjectType SURELOG::SLgetPackageType(Package* module) {
 FileContent* SURELOG::SLgetPackageFileContent(Package* module) {
   if (!module) return 0;
   if (module->getFileContents().size())
-    return module->getFileContents()[0];
+    return const_cast<FileContent*>(module->getFileContents()[0]);
   else
     return NULL;
 }
@@ -590,7 +592,7 @@ VObjectType SURELOG::SLgetProgramType(Program* module) {
 FileContent* SURELOG::SLgetProgramFileContent(Program* module) {
   if (!module) return 0;
   if (module->getFileContents().size())
-    return module->getFileContents()[0];
+    return const_cast<FileContent*>(module->getFileContents()[0]);
   else
     return NULL;
 }
@@ -640,7 +642,8 @@ std::string SURELOG::SLgetInstanceFileName(ModuleInstance* instance) {
 
 FileContent* SURELOG::SLgetInstanceFileContent(ModuleInstance* instance) {
   if (!instance) return NULL;
-  return instance->getFileContent();
+  // TODO(Alain): fix to return const
+  return const_cast<FileContent*>(instance->getFileContent());
 }
 
 NodeId SURELOG::SLgetInstanceNodeId(ModuleInstance* instance) {

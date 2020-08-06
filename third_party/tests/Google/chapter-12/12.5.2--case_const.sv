@@ -1,7 +1,6 @@
 /*
 :name: case_constant
 :description: A module testing case statement with constant expression
-:should_fail: 0
 :tags: 12.5.2
 */
 module case_tb ();

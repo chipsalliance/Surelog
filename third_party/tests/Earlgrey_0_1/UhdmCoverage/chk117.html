@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_alert_receiver.sv Cov: 84.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // The alert receiver primitive decodes alerts that have been differentially</pre>
+<pre style="margin:0; padding:0 ">   6: // encoded and transmitted via a handshake protocol on alert_p/n and</pre>
+<pre style="margin:0; padding:0 ">   7: // ack_p/n. In case an alert handshake is initiated, the output alert_o will</pre>
+<pre style="margin:0; padding:0 ">   8: // immediately be asserted (even before completion of the handshake).</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // In case the differential input is not correctly encoded, this module will</pre>
+<pre style="margin:0; padding:0 ">  11: // raise an error by asserting integ_fail_o.</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // Further, the module supports ping testing of the alert diff pair. In order to</pre>
+<pre style="margin:0; padding:0 ">  14: // initiate a ping test, ping_en_i shall be set to 1'b1 until ping_ok_o is</pre>
+<pre style="margin:0; padding:0 ">  15: // asserted for one cycle. The signal may be de-asserted (e.g. after a long)</pre>
+<pre style="margin:0; padding:0 ">  16: // timeout period. However note that all ping responses that come in after</pre>
+<pre style="margin:0; padding:0 ">  17: // deasserting ping_en_i will be treated as native alerts.</pre>
+<pre style="margin:0; padding:0 ">  18: //</pre>
+<pre style="margin:0; padding:0 ">  19: // The protocol works in both asynchronous and synchronous cases. In the</pre>
+<pre style="margin:0; padding:0 ">  20: // asynchronous case, the parameter AsyncOn must be set to 1'b1 in order to</pre>
+<pre style="margin:0; padding:0 ">  21: // instantiate additional synchronization logic. Further, it must be ensured</pre>
+<pre style="margin:0; padding:0 ">  22: // that the timing skew between all diff pairs is smaller than the shortest</pre>
+<pre style="margin:0; padding:0 ">  23: // clock period of the involved clocks.</pre>
+<pre style="margin:0; padding:0 ">  24: //</pre>
+<pre style="margin:0; padding:0 ">  25: // Note that in case of synchronous operation, alerts on the diffpair are</pre>
+<pre style="margin:0; padding:0 ">  26: // decoded combinationally and forwarded on alert_o within the same cycle.</pre>
+<pre style="margin:0; padding:0 ">  27: //</pre>
+<pre style="margin:0; padding:0 ">  28: // See also: prim_alert_sender, prim_diff_decode, alert_handler</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: module prim_alert_receiver import prim_pkg::*; #(</pre>
+<pre style="margin:0; padding:0 ">  31:   // enables additional synchronization logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   parameter bit AsyncOn = 1'b0</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input             rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  36:   // this triggers a ping test. keep asserted</pre>
+<pre style="margin:0; padding:0 ">  37:   // until ping_ok_o is asserted.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input             ping_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic      ping_ok_o,</pre>
+<pre style="margin:0; padding:0 ">  40:   // asserted if signal integrity issue detected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic      integ_fail_o,</pre>
+<pre style="margin:0; padding:0 ">  42:   // alert output (pulsed high) if a handshake is initiated</pre>
+<pre style="margin:0; padding:0 ">  43:   // on alert_p/n and no ping request is outstanding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic      alert_o,</pre>
+<pre style="margin:0; padding:0 ">  45:   // ping input diff pair and ack diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   output alert_rx_t alert_rx_o,</pre>
+<pre style="margin:0; padding:0 ">  47:   // alert output diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   input alert_tx_t  alert_tx_i</pre>
+<pre style="margin:0; padding:0 ">  49: );</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  53:   // decode differential signals //</pre>
+<pre style="margin:0; padding:0 ">  54:   /////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic alert_level, alert_sigint;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:   prim_diff_decode #(</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:     .AsyncOn(AsyncOn)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   ) i_decode_alert (</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:     .clk_i,</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:     .rst_ni,</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:     .diff_pi  ( alert_tx_i.alert_p     ),</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:     .diff_ni  ( alert_tx_i.alert_n     ),</pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:     .level_o  ( alert_level  ),</pre>
+<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">  65:     .rise_o   (              ),</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:     .fall_o   (              ),</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:     .event_o  (              ),</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:     .sigint_o ( alert_sigint )</pre>
+<pre style="margin:0; padding:0 ">  69:   );</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   /////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  72:   //  main protocol FSM that drives the diff outputs //</pre>
+<pre style="margin:0; padding:0 ">  73:   /////////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   typedef enum logic [1:0] {Idle, HsAckWait, Pause0, Pause1} state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   state_e state_d, state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic ping_rise;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic ping_tog_d, ping_tog_q, ack_d, ack_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic ping_en_d, ping_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic ping_pending_d, ping_pending_q;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:   // signal ping request upon positive transition on ping_en_i</pre>
+<pre style="margin:0; padding:0 ">  82:   // signalling is performed by a level change event on the diff output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   assign ping_en_d  = ping_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   assign ping_rise  = ping_en_i && !ping_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   assign ping_tog_d = (ping_rise) ? ~ping_tog_q : ping_tog_q;</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   // the ping pending signal is used to in the FSM to distinguish whether the</pre>
+<pre style="margin:0; padding:0 ">  88:   // incoming handshake shall be treated as an alert or a ping response.</pre>
+<pre style="margin:0; padding:0 ">  89:   // it is important that this is only set on a rising ping_en level change, since</pre>
+<pre style="margin:0; padding:0 ">  90:   // otherwise the ping enable signal could be abused to "mask" all native alerts</pre>
+<pre style="margin:0; padding:0 ">  91:   // as ping responses by constantly tying it to 1.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   assign ping_pending_d = ping_rise | ((~ping_ok_o) & ping_en_i & ping_pending_q);</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:   // diff pair outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   assign alert_rx_o.ack_p  = ack_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign alert_rx_o.ack_n  = ~ack_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign alert_rx_o.ping_p = ping_tog_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign alert_rx_o.ping_n = ~ping_tog_q;</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="margin:0; padding:0 "> 100:   // this FSM receives the four phase handshakes from the alert receiver</pre>
+<pre style="margin:0; padding:0 "> 101:   // note that the latency of the alert_p/n input diff pair is at least one</pre>
+<pre style="margin:0; padding:0 "> 102:   // cycle until it enters the receiver FSM. the same holds for the ack_* diff</pre>
+<pre style="margin:0; padding:0 "> 103:   // pair outputs.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   always_comb begin : p_fsm</pre>
+<pre style="margin:0; padding:0 "> 105:     // default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     state_d      = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     ack_d        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     ping_ok_o    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     integ_fail_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     alert_o      = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       Idle: begin</pre>
+<pre style="margin:0; padding:0 "> 114:         // wait for handshake to be initiated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:         if (alert_level) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:           state_d = HsAckWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:           ack_d   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 118:           // signal either an alert or ping received on the output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:           if (ping_pending_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:             ping_ok_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:             alert_o   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 123:           end</pre>
+<pre style="margin:0; padding:0 "> 124:         end</pre>
+<pre style="margin:0; padding:0 "> 125:       end</pre>
+<pre style="margin:0; padding:0 "> 126:       // waiting for deassertion of alert to complete HS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       HsAckWait: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:         if (!alert_level) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:           state_d  = Pause0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:           ack_d    = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 132:         end</pre>
+<pre style="margin:0; padding:0 "> 133:       end</pre>
+<pre style="margin:0; padding:0 "> 134:       // pause cycles between back-to-back handshakes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       Pause0: state_d = Pause1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       Pause1: state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       default : ; // full case</pre>
+<pre style="margin:0; padding:0 "> 138:     endcase</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:     // override in case of sigint</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     if (alert_sigint) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       state_d      = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:       ack_d        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       ping_ok_o    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       integ_fail_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       alert_o      = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 147:     end</pre>
+<pre style="margin:0; padding:0 "> 148:   end</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       state_q        <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       ack_q          <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       ping_tog_q     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       ping_en_q      <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       ping_pending_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       state_q        <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       ack_q          <= ack_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       ping_tog_q     <= ping_tog_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       ping_en_q      <= ping_en_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       ping_pending_q <= ping_pending_d;</pre>
+<pre style="margin:0; padding:0 "> 163:     end</pre>
+<pre style="margin:0; padding:0 "> 164:   end</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 168:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 169:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 170: </pre>
+<pre style="margin:0; padding:0 "> 171:   // check whether all outputs have a good known state after reset</pre>
+<pre style="margin:0; padding:0 "> 172:   `ASSERT_KNOWN(PingOkKnownO_A, ping_ok_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 173:   `ASSERT_KNOWN(IntegFailKnownO_A, integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 174:   `ASSERT_KNOWN(AlertKnownO_A, alert_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 175:   `ASSERT_KNOWN(PingPKnownO_A, alert_rx_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 176: </pre>
+<pre style="margin:0; padding:0 "> 177:   // check encoding of outgoing diffpairs</pre>
+<pre style="margin:0; padding:0 "> 178:   `ASSERT(PingDiffOk_A, alert_rx_o.ping_p ^ alert_rx_o.ping_n, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 179:   `ASSERT(AckDiffOk_A, alert_rx_o.ack_p ^ alert_rx_o.ack_n, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 180:   // ping request at input -> need to see encoded ping request</pre>
+<pre style="margin:0; padding:0 "> 181:   `ASSERT(PingRequest0_A, ##1 $rose(ping_en_i) |=> $changed(alert_rx_o.ping_p), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 182:   // ping response implies it has been requested</pre>
+<pre style="margin:0; padding:0 "> 183:   `ASSERT(PingResponse0_A, ping_ok_o |-> ping_pending_q, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 184:   // correctly latch ping request</pre>
+<pre style="margin:0; padding:0 "> 185:   `ASSERT(PingPending_A, ##1 $rose(ping_en_i) |=> ping_pending_q, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:   if (AsyncOn) begin : gen_async_assert</pre>
+<pre style="margin:0; padding:0 "> 188:     // signal integrity check propagation</pre>
+<pre style="margin:0; padding:0 "> 189:     `ASSERT(SigInt_A, alert_tx_i.alert_p == alert_tx_i.alert_n [*2] |-></pre>
+<pre style="margin:0; padding:0 "> 190:         ##2 integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 191:     // TODO: need to add skewed cases as well, the assertions below assume no skew at the moment</pre>
+<pre style="margin:0; padding:0 "> 192:     // ping response</pre>
+<pre style="margin:0; padding:0 "> 193:     `ASSERT(PingResponse1_A, ##1 $rose(alert_tx_i.alert_p) &&</pre>
+<pre style="margin:0; padding:0 "> 194:         (alert_tx_i.alert_p ^ alert_tx_i.alert_n) ##2 state_q == Idle && ping_pending_q |-></pre>
+<pre style="margin:0; padding:0 "> 195:         ping_ok_o, clk_i, !rst_ni || integ_fail_o)</pre>
+<pre style="margin:0; padding:0 "> 196:     // alert</pre>
+<pre style="margin:0; padding:0 "> 197:     `ASSERT(Alert_A, ##1 $rose(alert_tx_i.alert_p) && (alert_tx_i.alert_p ^ alert_tx_i.alert_n) ##2</pre>
+<pre style="margin:0; padding:0 "> 198:         state_q == Idle && !ping_pending_q |-> alert_o, clk_i, !rst_ni || integ_fail_o)</pre>
+<pre id="id199" style="background-color: #FFB6C1; margin:0; padding:0 "> 199:   end else begin : gen_sync_assert</pre>
+<pre style="margin:0; padding:0 "> 200:     // signal integrity check propagation</pre>
+<pre style="margin:0; padding:0 "> 201:     `ASSERT(SigInt_A, alert_tx_i.alert_p == alert_tx_i.alert_n |-> integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 202:     // ping response</pre>
+<pre style="margin:0; padding:0 "> 203:     `ASSERT(PingResponse1_A, ##1 $rose(alert_tx_i.alert_p) && state_q == Idle && ping_pending_q |-></pre>
+<pre style="margin:0; padding:0 "> 204:         ping_ok_o, clk_i, !rst_ni || integ_fail_o)</pre>
+<pre style="margin:0; padding:0 "> 205:     // alert</pre>
+<pre style="margin:0; padding:0 "> 206:     `ASSERT(Alert_A, ##1 $rose(alert_tx_i.alert_p) && state_q == Idle && !ping_pending_q |-></pre>
+<pre style="margin:0; padding:0 "> 207:         alert_o, clk_i, !rst_ni || integ_fail_o)</pre>
+<pre style="margin:0; padding:0 "> 208:   end</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210: endmodule : prim_alert_receiver</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+</body>
+</html>

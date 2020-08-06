@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_tracer_0.1/rtl/ibex_tracer.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Trace executed instructions in simulation</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * This tracer takes execution information from the RISC-V Verification Interface (RVFI) and</pre>
+<pre style="margin:0; padding:0 ">  10:  * produces a text file with a human-readable trace.</pre>
+<pre style="margin:0; padding:0 ">  11:  *</pre>
+<pre style="margin:0; padding:0 ">  12:  * All traced instructions are written to a log file. By default, the log file is named</pre>
+<pre style="margin:0; padding:0 ">  13:  * trace_core_<HARTID>.log, with <HARTID> being the 8 digit hart ID of the core being traced.</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  * The file name base, defaulting to "trace_core" can be set using the "ibex_tracer_file_base"</pre>
+<pre style="margin:0; padding:0 ">  16:  * plusarg passed to the simulation, e.g. "+ibex_tracer_file_base=ibex_my_trace". The exact syntax</pre>
+<pre style="margin:0; padding:0 ">  17:  * of passing plusargs to a simulation depends on the simulator.</pre>
+<pre style="margin:0; padding:0 ">  18:  *</pre>
+<pre style="margin:0; padding:0 ">  19:  * The trace contains six columns, separated by tabs:</pre>
+<pre style="margin:0; padding:0 ">  20:  * - The simulation time</pre>
+<pre style="margin:0; padding:0 ">  21:  * - The clock cycle count since reset</pre>
+<pre style="margin:0; padding:0 ">  22:  * - The program counter (PC)</pre>
+<pre style="margin:0; padding:0 ">  23:  * - The instruction</pre>
+<pre style="margin:0; padding:0 ">  24:  * - The decoded instruction in the same format as objdump, together with the accessed registers and</pre>
+<pre style="margin:0; padding:0 ">  25:  *   read/written memory values. Jumps and branches show the target address.</pre>
+<pre style="margin:0; padding:0 ">  26:  *   This column may be omitted if the instruction does not decode into a long form.</pre>
+<pre style="margin:0; padding:0 ">  27:  * - Accessed registers and memory locations.</pre>
+<pre style="margin:0; padding:0 ">  28:  *</pre>
+<pre style="margin:0; padding:0 ">  29:  * Significant effort is spent to make the decoding produced by this tracer as similar as possible</pre>
+<pre style="margin:0; padding:0 ">  30:  * to the one produced by objdump. This simplifies the correlation between the static program</pre>
+<pre style="margin:0; padding:0 ">  31:  * information from the objdump-generated disassembly, and the runtime information from this tracer.</pre>
+<pre style="margin:0; padding:0 ">  32:  */</pre>
+<pre style="margin:0; padding:0 ">  33: module ibex_tracer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input logic [31:0] hart_id_i,</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // RVFI as described at https://github.com/SymbioticEDA/riscv-formal/blob/master/docs/rvfi.md</pre>
+<pre style="margin:0; padding:0 ">  40:   // The standard interface does not have _i/_o suffixes. For consistency with the standard the</pre>
+<pre style="margin:0; padding:0 ">  41:   // signals in this module don't have the suffixes either.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input logic        rvfi_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   input logic [63:0] rvfi_order,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   input logic [31:0] rvfi_insn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   input logic        rvfi_trap,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input logic        rvfi_halt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input logic        rvfi_intr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   input logic [ 1:0] rvfi_mode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   input logic [ 1:0] rvfi_ixl,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input logic [ 4:0] rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   input logic [ 4:0] rvfi_rs2_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input logic [ 4:0] rvfi_rs3_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input logic [31:0] rvfi_rs1_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input logic [31:0] rvfi_rs2_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input logic [31:0] rvfi_rs3_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input logic [ 4:0] rvfi_rd_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   input logic [31:0] rvfi_rd_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   input logic [31:0] rvfi_pc_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   input logic [31:0] rvfi_pc_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   input logic [31:0] rvfi_mem_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   input logic [ 3:0] rvfi_mem_rmask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   input logic [ 3:0] rvfi_mem_wmask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   input logic [31:0] rvfi_mem_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   input logic [31:0] rvfi_mem_wdata</pre>
+<pre style="margin:0; padding:0 ">  65: );</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   // These signals are part of RVFI, but not used in this module currently.</pre>
+<pre style="margin:0; padding:0 ">  68:   // Keep them as part of the interface to change the tracer more easily in the future. Assigning</pre>
+<pre style="margin:0; padding:0 ">  69:   // these signals to unused_* signals marks them explicitly as unused, an annotation picked up by</pre>
+<pre style="margin:0; padding:0 ">  70:   // linters, including Verilator lint.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic [63:0] unused_rvfi_order = rvfi_order;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic        unused_rvfi_trap = rvfi_trap;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic        unused_rvfi_halt = rvfi_halt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic        unused_rvfi_intr = rvfi_intr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [ 1:0] unused_rvfi_mode = rvfi_mode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic [ 1:0] unused_rvfi_ixl = rvfi_ixl;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:   import ibex_tracer_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   int          file_handle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   string       file_name;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   int unsigned cycle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   string       decoded_str;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   logic        insn_is_compressed;</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   // Data items accessed during this instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   localparam RS1 = (1 << 0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   localparam RS2 = (1 << 1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   localparam RS3 = (1 << 2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   localparam RD  = (1 << 3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   localparam MEM = (1 << 4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic [4:0] data_accessed;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   function automatic void printbuffer_dumpline();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     string rvfi_insn_str;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     if (file_handle == 32'h0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       string file_name_base = "trace_core";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       $value$plusargs("ibex_tracer_file_base=%s", file_name_base);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       $sformat(file_name, "%s_%h.log", file_name_base, hart_id_i);</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       $display("%m: Writing execution trace to %s", file_name);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       file_handle = $fopen(file_name, "w");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       $fwrite(file_handle, "Time\tCycle\tPC\tInsn\tDecoded instruction\tRegister and memory contents\n");</pre>
+<pre style="margin:0; padding:0 "> 106:     end</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108:     // Write compressed instructions as four hex digits (16 bit word), and</pre>
+<pre style="margin:0; padding:0 "> 109:     // uncompressed ones as 8 hex digits (32 bit words).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     if (insn_is_compressed) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       rvfi_insn_str = $sformatf("%h", rvfi_insn[15:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       rvfi_insn_str = $sformatf("%h", rvfi_insn);</pre>
+<pre style="margin:0; padding:0 "> 114:     end</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     $fwrite(file_handle, "%15t\t%d\t%h\t%s\t%s\t", $time, cycle, rvfi_pc_rdata, rvfi_insn_str, decoded_str);</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     if ((data_accessed & RS1) != 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       $fwrite(file_handle, " %s:0x%08x", reg_addr_to_str(rvfi_rs1_addr), rvfi_rs1_rdata);</pre>
+<pre style="margin:0; padding:0 "> 120:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     if ((data_accessed & RS2) != 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       $fwrite(file_handle, " %s:0x%08x", reg_addr_to_str(rvfi_rs2_addr), rvfi_rs2_rdata);</pre>
+<pre style="margin:0; padding:0 "> 123:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     if ((data_accessed & RS3) != 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       $fwrite(file_handle, " %s:0x%08x", reg_addr_to_str(rvfi_rs3_addr), rvfi_rs3_rdata);</pre>
+<pre style="margin:0; padding:0 "> 126:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     if ((data_accessed & RD) != 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       $fwrite(file_handle, " %s=0x%08x", reg_addr_to_str(rvfi_rd_addr), rvfi_rd_wdata);</pre>
+<pre style="margin:0; padding:0 "> 129:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     if ((data_accessed & MEM) != 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:       $fwrite(file_handle, " PA:0x%08x", rvfi_mem_addr);</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       if (rvfi_mem_rmask != 4'b000) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:         $fwrite(file_handle, " store:0x%08x", rvfi_mem_wdata);</pre>
+<pre style="margin:0; padding:0 "> 135:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       if (rvfi_mem_wmask != 4'b000) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:         $fwrite(file_handle, " load:0x%08x", rvfi_mem_rdata);</pre>
+<pre style="margin:0; padding:0 "> 138:       end</pre>
+<pre style="margin:0; padding:0 "> 139:     end</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     $fwrite(file_handle, "\n");</pre>
+<pre style="margin:0; padding:0 "> 142:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   // Format register address with "x" prefix, left-aligned to a fixed width of 3 characters.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   function automatic string reg_addr_to_str(input logic [4:0] addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     if (addr < 10) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       return $sformatf(" x%0d", addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       return $sformatf("x%0d", addr);</pre>
+<pre style="margin:0; padding:0 "> 151:     end</pre>
+<pre style="margin:0; padding:0 "> 152:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:   // Get a CSR name for a CSR address.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   function automatic string get_csr_name(input logic [11:0] csr_addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     unique case (csr_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       12'd0: return "ustatus";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       12'd4: return "uie";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       12'd5: return "utvec";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       12'd64: return "uscratch";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       12'd65: return "uepc";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       12'd66: return "ucause";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:       12'd67: return "utval";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       12'd68: return "uip";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:       12'd1: return "fflags";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:       12'd2: return "frm";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       12'd3: return "fcsr";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:       12'd3072: return "cycle";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       12'd3073: return "time";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       12'd3074: return "instret";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:       12'd3075: return "hpmcounter3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       12'd3076: return "hpmcounter4";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       12'd3077: return "hpmcounter5";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       12'd3078: return "hpmcounter6";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       12'd3079: return "hpmcounter7";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       12'd3080: return "hpmcounter8";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:       12'd3081: return "hpmcounter9";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:       12'd3082: return "hpmcounter10";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:       12'd3083: return "hpmcounter11";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:       12'd3084: return "hpmcounter12";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:       12'd3085: return "hpmcounter13";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:       12'd3086: return "hpmcounter14";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:       12'd3087: return "hpmcounter15";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:       12'd3088: return "hpmcounter16";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:       12'd3089: return "hpmcounter17";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:       12'd3090: return "hpmcounter18";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       12'd3091: return "hpmcounter19";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:       12'd3092: return "hpmcounter20";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       12'd3093: return "hpmcounter21";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       12'd3094: return "hpmcounter22";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       12'd3095: return "hpmcounter23";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       12'd3096: return "hpmcounter24";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       12'd3097: return "hpmcounter25";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       12'd3098: return "hpmcounter26";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       12'd3099: return "hpmcounter27";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       12'd3100: return "hpmcounter28";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       12'd3101: return "hpmcounter29";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       12'd3102: return "hpmcounter30";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       12'd3103: return "hpmcounter31";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       12'd3200: return "cycleh";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       12'd3201: return "timeh";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       12'd3202: return "instreth";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       12'd3203: return "hpmcounter3h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       12'd3204: return "hpmcounter4h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:       12'd3205: return "hpmcounter5h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:       12'd3206: return "hpmcounter6h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       12'd3207: return "hpmcounter7h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:       12'd3208: return "hpmcounter8h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:       12'd3209: return "hpmcounter9h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       12'd3210: return "hpmcounter10h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       12'd3211: return "hpmcounter11h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       12'd3212: return "hpmcounter12h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:       12'd3213: return "hpmcounter13h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:       12'd3214: return "hpmcounter14h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:       12'd3215: return "hpmcounter15h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:       12'd3216: return "hpmcounter16h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:       12'd3217: return "hpmcounter17h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       12'd3218: return "hpmcounter18h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:       12'd3219: return "hpmcounter19h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:       12'd3220: return "hpmcounter20h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:       12'd3221: return "hpmcounter21h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:       12'd3222: return "hpmcounter22h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:       12'd3223: return "hpmcounter23h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       12'd3224: return "hpmcounter24h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:       12'd3225: return "hpmcounter25h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:       12'd3226: return "hpmcounter26h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:       12'd3227: return "hpmcounter27h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:       12'd3228: return "hpmcounter28h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:       12'd3229: return "hpmcounter29h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:       12'd3230: return "hpmcounter30h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       12'd3231: return "hpmcounter31h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:       12'd256: return "sstatus";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:       12'd258: return "sedeleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:       12'd259: return "sideleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:       12'd260: return "sie";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       12'd261: return "stvec";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:       12'd262: return "scounteren";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:       12'd320: return "sscratch";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:       12'd321: return "sepc";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:       12'd322: return "scause";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:       12'd323: return "stval";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       12'd324: return "sip";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:       12'd384: return "satp";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       12'd3857: return "mvendorid";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:       12'd3858: return "marchid";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:       12'd3859: return "mimpid";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:       12'd3860: return "mhartid";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:       12'd768: return "mstatus";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:       12'd769: return "misa";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:       12'd770: return "medeleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:       12'd771: return "mideleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:       12'd772: return "mie";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:       12'd773: return "mtvec";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:       12'd774: return "mcounteren";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:       12'd832: return "mscratch";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:       12'd833: return "mepc";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:       12'd834: return "mcause";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:       12'd835: return "mtval";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:       12'd836: return "mip";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:       12'd928: return "pmpcfg0";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:       12'd929: return "pmpcfg1";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:       12'd930: return "pmpcfg2";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:       12'd931: return "pmpcfg3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:       12'd944: return "pmpaddr0";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:       12'd945: return "pmpaddr1";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:       12'd946: return "pmpaddr2";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:       12'd947: return "pmpaddr3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:       12'd948: return "pmpaddr4";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:       12'd949: return "pmpaddr5";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:       12'd950: return "pmpaddr6";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:       12'd951: return "pmpaddr7";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:       12'd952: return "pmpaddr8";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:       12'd953: return "pmpaddr9";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:       12'd954: return "pmpaddr10";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:       12'd955: return "pmpaddr11";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:       12'd956: return "pmpaddr12";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:       12'd957: return "pmpaddr13";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:       12'd958: return "pmpaddr14";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:       12'd959: return "pmpaddr15";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:       12'd2816: return "mcycle";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:       12'd2818: return "minstret";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:       12'd2819: return "mhpmcounter3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       12'd2820: return "mhpmcounter4";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:       12'd2821: return "mhpmcounter5";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:       12'd2822: return "mhpmcounter6";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:       12'd2823: return "mhpmcounter7";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       12'd2824: return "mhpmcounter8";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:       12'd2825: return "mhpmcounter9";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:       12'd2826: return "mhpmcounter10";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:       12'd2827: return "mhpmcounter11";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       12'd2828: return "mhpmcounter12";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:       12'd2829: return "mhpmcounter13";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:       12'd2830: return "mhpmcounter14";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:       12'd2831: return "mhpmcounter15";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       12'd2832: return "mhpmcounter16";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       12'd2833: return "mhpmcounter17";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       12'd2834: return "mhpmcounter18";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:       12'd2835: return "mhpmcounter19";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       12'd2836: return "mhpmcounter20";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:       12'd2837: return "mhpmcounter21";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       12'd2838: return "mhpmcounter22";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       12'd2839: return "mhpmcounter23";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       12'd2840: return "mhpmcounter24";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:       12'd2841: return "mhpmcounter25";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       12'd2842: return "mhpmcounter26";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       12'd2843: return "mhpmcounter27";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       12'd2844: return "mhpmcounter28";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       12'd2845: return "mhpmcounter29";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:       12'd2846: return "mhpmcounter30";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       12'd2847: return "mhpmcounter31";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:       12'd2944: return "mcycleh";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:       12'd2946: return "minstreth";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:       12'd2947: return "mhpmcounter3h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:       12'd2948: return "mhpmcounter4h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:       12'd2949: return "mhpmcounter5h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       12'd2950: return "mhpmcounter6h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       12'd2951: return "mhpmcounter7h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       12'd2952: return "mhpmcounter8h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:       12'd2953: return "mhpmcounter9h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       12'd2954: return "mhpmcounter10h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       12'd2955: return "mhpmcounter11h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:       12'd2956: return "mhpmcounter12h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:       12'd2957: return "mhpmcounter13h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:       12'd2958: return "mhpmcounter14h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       12'd2959: return "mhpmcounter15h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:       12'd2960: return "mhpmcounter16h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       12'd2961: return "mhpmcounter17h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:       12'd2962: return "mhpmcounter18h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:       12'd2963: return "mhpmcounter19h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:       12'd2964: return "mhpmcounter20h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:       12'd2965: return "mhpmcounter21h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:       12'd2966: return "mhpmcounter22h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:       12'd2967: return "mhpmcounter23h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       12'd2968: return "mhpmcounter24h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:       12'd2969: return "mhpmcounter25h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       12'd2970: return "mhpmcounter26h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:       12'd2971: return "mhpmcounter27h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:       12'd2972: return "mhpmcounter28h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:       12'd2973: return "mhpmcounter29h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:       12'd2974: return "mhpmcounter30h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:       12'd2975: return "mhpmcounter31h";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:       12'd803: return "mhpmevent3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:       12'd804: return "mhpmevent4";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:       12'd805: return "mhpmevent5";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:       12'd806: return "mhpmevent6";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:       12'd807: return "mhpmevent7";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:       12'd808: return "mhpmevent8";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:       12'd809: return "mhpmevent9";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       12'd810: return "mhpmevent10";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:       12'd811: return "mhpmevent11";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       12'd812: return "mhpmevent12";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:       12'd813: return "mhpmevent13";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:       12'd814: return "mhpmevent14";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:       12'd815: return "mhpmevent15";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:       12'd816: return "mhpmevent16";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:       12'd817: return "mhpmevent17";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:       12'd818: return "mhpmevent18";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:       12'd819: return "mhpmevent19";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:       12'd820: return "mhpmevent20";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:       12'd821: return "mhpmevent21";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:       12'd822: return "mhpmevent22";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:       12'd823: return "mhpmevent23";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:       12'd824: return "mhpmevent24";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       12'd825: return "mhpmevent25";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       12'd826: return "mhpmevent26";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       12'd827: return "mhpmevent27";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:       12'd828: return "mhpmevent28";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:       12'd829: return "mhpmevent29";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:       12'd830: return "mhpmevent30";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       12'd831: return "mhpmevent31";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:       12'd1952: return "tselect";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       12'd1953: return "tdata1";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:       12'd1954: return "tdata2";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:       12'd1955: return "tdata3";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:       12'd1968: return "dcsr";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:       12'd1969: return "dpc";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:       12'd1970: return "dscratch";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:       12'd512: return "hstatus";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:       12'd514: return "hedeleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:       12'd515: return "hideleg";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:       12'd516: return "hie";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:       12'd517: return "htvec";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:       12'd576: return "hscratch";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       12'd577: return "hepc";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:       12'd578: return "hcause";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:       12'd579: return "hbadaddr";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:       12'd580: return "hip";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:       12'd896: return "mbase";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:       12'd897: return "mbound";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:       12'd898: return "mibase";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:       12'd899: return "mibound";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:       12'd900: return "mdbase";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:       12'd901: return "mdbound";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:       12'd800: return "mucounteren";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:       12'd801: return "mscounteren";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:       12'd802: return "mhcounteren";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:       default: return $sformatf("0x%x", csr_addr);</pre>
+<pre style="margin:0; padding:0 "> 398:     endcase</pre>
+<pre style="margin:0; padding:0 "> 399:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 400: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:   function automatic void decode_mnemonic(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:     decoded_str = mnemonic;</pre>
+<pre style="margin:0; padding:0 "> 403:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 404: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:   function automatic void decode_r_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:     data_accessed = RS1 | RS2 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:     decoded_str = $sformatf("%s\tx%0d,x%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:         rvfi_rs2_addr);</pre>
+<pre style="margin:0; padding:0 "> 409:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 410: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:   function automatic void decode_r1_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:     decoded_str = $sformatf("%s\tx%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs1_addr);</pre>
+<pre style="margin:0; padding:0 "> 414:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 415: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:   function automatic void decode_r_cmixcmov_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:     data_accessed = RS1 | RS2 | RS3 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:     decoded_str = $sformatf("%s\tx%0d,x%0d,x%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs2_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:         rvfi_rs1_addr, rvfi_rs3_addr);</pre>
+<pre style="margin:0; padding:0 "> 420:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 421: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:   function automatic void decode_r_funnelshift_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:     data_accessed = RS1 | RS2 | RS3 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:     decoded_str = $sformatf("%s\tx%0d,x%0d,x%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:         rvfi_rs3_addr, rvfi_rs2_addr);</pre>
+<pre style="margin:0; padding:0 "> 426:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 427: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:   function automatic void decode_i_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:     decoded_str = $sformatf("%s\tx%0d,x%0d,%0d", mnemonic, rvfi_rd_addr, rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:                     $signed({{20 {rvfi_insn[31]}}, rvfi_insn[31:20]}));</pre>
+<pre style="margin:0; padding:0 "> 432:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 433: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:   function automatic void decode_i_shift_insn(input string mnemonic);</pre>
+<pre style="margin:0; padding:0 "> 435:     // SLLI, SRLI, SRAI, SROI, SLOI, RORI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:     logic [4:0] shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:     shamt = {rvfi_insn[24:20]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:     decoded_str = $sformatf("%s\tx%0d,x%0d,0x%0x", mnemonic, rvfi_rd_addr, rvfi_rs1_addr, shamt);</pre>
+<pre style="margin:0; padding:0 "> 440:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 441: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:   function automatic void decode_i_funnelshift_insn( input string mnemonic);</pre>
+<pre style="margin:0; padding:0 "> 443:     // fsri</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:     logic [5:0] shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:     shamt = {rvfi_insn[25:20]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:     data_accessed = RS1 | RS3 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:     decoded_str = $sformatf("%s\tx%0d,x%0d,x%0d,0x%0x", mnemonic, rvfi_rd_addr, rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:         rvfi_rs3_addr, shamt);</pre>
+<pre style="margin:0; padding:0 "> 449:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 450: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:   function automatic void decode_i_jalr_insn(input string mnemonic);</pre>
+<pre style="margin:0; padding:0 "> 452:     // JALR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:     decoded_str = $sformatf("%s\tx%0d,%0d(x%0d)", mnemonic, rvfi_rd_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:         $signed({{20 {rvfi_insn[31]}}, rvfi_insn[31:20]}), rvfi_rs1_addr);</pre>
+<pre style="margin:0; padding:0 "> 456:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 457: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:   function automatic void decode_u_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:     data_accessed = RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:     decoded_str = $sformatf("%s\tx%0d,0x%0x", mnemonic, rvfi_rd_addr, {rvfi_insn[31:12]});</pre>
+<pre style="margin:0; padding:0 "> 461:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 462: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:   function automatic void decode_j_insn(input string mnemonic);</pre>
+<pre style="margin:0; padding:0 "> 464:     // JAL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:     data_accessed = RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:     decoded_str = $sformatf("%s\tx%0d,%0x", mnemonic, rvfi_rd_addr, rvfi_pc_wdata);</pre>
+<pre style="margin:0; padding:0 "> 467:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 468: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:   function automatic void decode_b_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:     logic [31:0] branch_target;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:     logic [31:0] imm;</pre>
+<pre style="margin:0; padding:0 "> 472: </pre>
+<pre style="margin:0; padding:0 "> 473:     // We cannot use rvfi_pc_wdata for conditional jumps.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:     imm = $signed({ {19 {rvfi_insn[31]}}, rvfi_insn[31], rvfi_insn[7],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:              rvfi_insn[30:25], rvfi_insn[11:8], 1'b0 });</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:     branch_target = rvfi_pc_rdata + imm;</pre>
+<pre style="margin:0; padding:0 "> 477: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:     data_accessed = RS1 | RS2 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:     decoded_str = $sformatf("%s\tx%0d,x%0d,%0x", mnemonic, rvfi_rs1_addr, rvfi_rs2_addr, branch_target);</pre>
+<pre style="margin:0; padding:0 "> 480:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 481: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:   function automatic void decode_csr_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:     logic [11:0] csr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:     string csr_name;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:     csr = rvfi_insn[31:20];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:     csr_name = get_csr_name(csr);</pre>
+<pre style="margin:0; padding:0 "> 487: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:     data_accessed = RD;</pre>
+<pre style="margin:0; padding:0 "> 489: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:     if (!rvfi_insn[14]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:       data_accessed |= RS1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:       decoded_str = $sformatf("%s\tx%0d,%s,x%0d", mnemonic, rvfi_rd_addr, csr_name, rvfi_rs1_addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 494:       decoded_str = $sformatf("%s\tx%0d,%s,%0d", mnemonic, rvfi_rd_addr, csr_name, { 27'b0, rvfi_insn[19:15]});</pre>
+<pre style="margin:0; padding:0 "> 495:     end</pre>
+<pre style="margin:0; padding:0 "> 496:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 497: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:   function automatic void decode_cr_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:     if (rvfi_rs2_addr == 5'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 500:       if (rvfi_insn[12] == 1'b1) begin</pre>
+<pre style="margin:0; padding:0 "> 501:         // C.JALR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:         data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 504:         // C.JR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:         data_accessed = RS1;</pre>
+<pre style="margin:0; padding:0 "> 506:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:       decoded_str = $sformatf("%s\tx%0d", mnemonic, rvfi_rs1_addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:       data_accessed = RS1 | RS2 | RD; // RS1 == RD</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 510:       decoded_str = $sformatf("%s\tx%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs2_addr);</pre>
+<pre style="margin:0; padding:0 "> 511:     end</pre>
+<pre style="margin:0; padding:0 "> 512:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 513: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:   function automatic void decode_ci_cli_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:     logic [5:0] imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:     imm = {rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:     data_accessed = RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:     decoded_str = $sformatf("%s\tx%0d,%0d", mnemonic, rvfi_rd_addr, $signed(imm));</pre>
+<pre style="margin:0; padding:0 "> 519:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 520: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:   function automatic void decode_ci_caddi_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:     logic [5:0] nzimm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:     nzimm = {rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:     decoded_str = $sformatf("%s\tx%0d,%0d", mnemonic, rvfi_rd_addr, $signed(nzimm));</pre>
+<pre style="margin:0; padding:0 "> 526:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 527: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:   function automatic void decode_ci_caddi16sp_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:     logic [9:0] nzimm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:     nzimm = {rvfi_insn[12], rvfi_insn[4:3], rvfi_insn[5], rvfi_insn[2], rvfi_insn[6], 4'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:     decoded_str = $sformatf("%s\tx%0d,%0d", mnemonic, rvfi_rd_addr, $signed(nzimm));</pre>
+<pre style="margin:0; padding:0 "> 533:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 534: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 535:   function automatic void decode_ci_clui_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 536:     logic [5:0] nzimm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:     nzimm = {rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:     data_accessed = RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:     decoded_str = $sformatf("%s\tx%0d,0x%0x", mnemonic, rvfi_rd_addr, 20'($signed(nzimm)));</pre>
+<pre style="margin:0; padding:0 "> 540:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 541: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:   function automatic void decode_ci_cslli_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:     logic [5:0] shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:     shamt = {rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:     decoded_str = $sformatf("%s\tx%0d,0x%0x", mnemonic, rvfi_rd_addr, shamt);</pre>
+<pre style="margin:0; padding:0 "> 547:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 548: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:   function automatic void decode_ciw_insn(input string mnemonic);</pre>
+<pre style="margin:0; padding:0 "> 550:     // C.ADDI4SPN</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:     logic [9:0] nzuimm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:     nzuimm = {rvfi_insn[10:7], rvfi_insn[12:11], rvfi_insn[5], rvfi_insn[6], 2'b00};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 553:     data_accessed = RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554:     decoded_str = $sformatf("%s\tx%0d,x2,%0d", mnemonic, rvfi_rd_addr, nzuimm);</pre>
+<pre style="margin:0; padding:0 "> 555:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 556: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 557:   function automatic void decode_cb_sr_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:     logic [5:0] shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:     shamt = {rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:     data_accessed = RS1 | RD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:     decoded_str = $sformatf("%s\tx%0d,0x%0x", mnemonic, rvfi_rs1_addr, shamt);</pre>
+<pre style="margin:0; padding:0 "> 562:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 563: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:   function automatic void decode_cb_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:     logic [7:0] imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:     logic [31:0] jump_target;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:     if (rvfi_insn[15:13] == 3'b110 || rvfi_insn[15:13] == 3'b111) begin</pre>
+<pre style="margin:0; padding:0 "> 568:       // C.BNEZ and C.BEQZ</pre>
+<pre style="margin:0; padding:0 "> 569:       // We cannot use rvfi_pc_wdata for conditional jumps.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 570:       imm = {rvfi_insn[12], rvfi_insn[6:5], rvfi_insn[2], rvfi_insn[11:10], rvfi_insn[4:3]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:       jump_target = rvfi_pc_rdata + 32'($signed({imm, 1'b0}));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 572:       data_accessed = RS1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573:       decoded_str = $sformatf("%s\tx%0d,%0x", mnemonic, rvfi_rs1_addr, jump_target);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 574:     end else if (rvfi_insn[15:13] == 3'b100) begin</pre>
+<pre style="margin:0; padding:0 "> 575:       // C.ANDI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:       imm = {{2{rvfi_insn[12]}}, rvfi_insn[12], rvfi_insn[6:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 577:       data_accessed = RS1 | RD; // RS1 == RD</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 578:       decoded_str = $sformatf("%s\tx%0d,%0d", mnemonic, rvfi_rd_addr, $signed(imm));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 579:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 580:       imm = {rvfi_insn[12], rvfi_insn[6:2], 2'b00};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:       data_accessed = RS1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 582:       decoded_str = $sformatf("%s\tx%0d,0x%0x", mnemonic, rvfi_rs1_addr, imm);</pre>
+<pre style="margin:0; padding:0 "> 583:     end</pre>
+<pre style="margin:0; padding:0 "> 584:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 585: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 586:   function automatic void decode_cs_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 587:     data_accessed = RS1 | RS2 | RD; // RS1 == RD</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 588:     decoded_str = $sformatf("%s\tx%0d,x%0d", mnemonic, rvfi_rd_addr, rvfi_rs2_addr);</pre>
+<pre style="margin:0; padding:0 "> 589:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 590: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 591:   function automatic void decode_cj_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 592:     if (rvfi_insn[15:13] == 3'b001) begin</pre>
+<pre style="margin:0; padding:0 "> 593:       // C.JAL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:       data_accessed = RD;</pre>
+<pre style="margin:0; padding:0 "> 595:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 596:     decoded_str = $sformatf("%s\t%0x", mnemonic, rvfi_pc_wdata);</pre>
+<pre style="margin:0; padding:0 "> 597:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 598: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 599:   function automatic void decode_compressed_load_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 600:     logic [7:0] imm;</pre>
+<pre style="margin:0; padding:0 "> 601: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 602:     if (rvfi_insn[1:0] == OPCODE_C0) begin</pre>
+<pre style="margin:0; padding:0 "> 603:       // C.LW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 604:       imm = {1'b0, rvfi_insn[5], rvfi_insn[12:10], rvfi_insn[6], 2'b00};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 605:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 606:       // C.LWSP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 607:       imm = {rvfi_insn[3:2], rvfi_insn[12], rvfi_insn[6:4], 2'b00};</pre>
+<pre style="margin:0; padding:0 "> 608:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:     data_accessed = RS1 | RD | MEM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:     decoded_str = $sformatf("%s\tx%0d,%0d(x%0d)", mnemonic, rvfi_rd_addr, imm, rvfi_rs1_addr);</pre>
+<pre style="margin:0; padding:0 "> 611:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 612: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:   function automatic void decode_compressed_store_insn(input string mnemonic);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:     logic [7:0] imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 615:     if (rvfi_insn[1:0] == OPCODE_C0) begin</pre>
+<pre style="margin:0; padding:0 "> 616:       // C.SW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 617:       imm = {1'b0, rvfi_insn[5], rvfi_insn[12:10], rvfi_insn[6], 2'b00};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 618:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 619:       // C.SWSP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 620:       imm = {rvfi_insn[8:7], rvfi_insn[12:9], 2'b00};</pre>
+<pre style="margin:0; padding:0 "> 621:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 622:     data_accessed = RS1 | RS2 | MEM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 623:     decoded_str = $sformatf("%s\tx%0d,%0d(x%0d)", mnemonic, rvfi_rs2_addr, imm, rvfi_rs1_addr);</pre>
+<pre style="margin:0; padding:0 "> 624:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 625: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 626:   function automatic void decode_load_insn();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:     string      mnemonic;</pre>
+<pre style="margin:0; padding:0 "> 628: </pre>
+<pre style="margin:0; padding:0 "> 629:     /*</pre>
+<pre style="margin:0; padding:0 "> 630:     Gives wrong results in Verilator < 4.020.</pre>
+<pre style="margin:0; padding:0 "> 631:     See https://github.com/lowRISC/ibex/issues/372 and</pre>
+<pre style="margin:0; padding:0 "> 632:     https://www.veripool.org/issues/1536-Verilator-Misoptimization-in-if-and-case-with-default-statement-inside-a-function</pre>
+<pre style="margin:0; padding:0 "> 633: </pre>
+<pre style="margin:0; padding:0 "> 634:     unique case (rvfi_insn[14:12])</pre>
+<pre style="margin:0; padding:0 "> 635:       3'b000: mnemonic = "lb";</pre>
+<pre style="margin:0; padding:0 "> 636:       3'b001: mnemonic = "lh";</pre>
+<pre style="margin:0; padding:0 "> 637:       3'b010: mnemonic = "lw";</pre>
+<pre style="margin:0; padding:0 "> 638:       3'b100: mnemonic = "lbu";</pre>
+<pre style="margin:0; padding:0 "> 639:       3'b101: mnemonic = "lhu";</pre>
+<pre style="margin:0; padding:0 "> 640:       default: begin</pre>
+<pre style="margin:0; padding:0 "> 641:         decode_mnemonic("INVALID");</pre>
+<pre style="margin:0; padding:0 "> 642:         return;</pre>
+<pre style="margin:0; padding:0 "> 643:       end</pre>
+<pre style="margin:0; padding:0 "> 644:     endcase</pre>
+<pre style="margin:0; padding:0 "> 645:     */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 646:     logic [2:0] size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 647:     size = rvfi_insn[14:12];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 648:     if (size == 3'b000) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 649:       mnemonic = "lb";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 650:     end else if (size == 3'b001) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 651:       mnemonic = "lh";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 652:     end else if (size == 3'b010) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 653:       mnemonic = "lw";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 654:     end else if (size == 3'b100) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 655:       mnemonic = "lbu";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 656:     end else if (size == 3'b101) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 657:       mnemonic = "lhu";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 658:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 659:       decode_mnemonic("INVALID");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 660:       return;</pre>
+<pre style="margin:0; padding:0 "> 661:     end</pre>
+<pre style="margin:0; padding:0 "> 662: </pre>
+<pre style="margin:0; padding:0 "> 663: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 664:     data_accessed = RD | RS1 | MEM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 665:     decoded_str = $sformatf("%s\tx%0d,%0d(x%0d)", mnemonic, rvfi_rd_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 666:                     $signed({{20 {rvfi_insn[31]}}, rvfi_insn[31:20]}), rvfi_rs1_addr);</pre>
+<pre style="margin:0; padding:0 "> 667:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 668: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 669:   function automatic void decode_store_insn();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 670:     string    mnemonic;</pre>
+<pre style="margin:0; padding:0 "> 671: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 672:     unique case (rvfi_insn[13:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 673:       2'b00:  mnemonic = "sb";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 674:       2'b01:  mnemonic = "sh";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 675:       2'b10:  mnemonic = "sw";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 676:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 677:         decode_mnemonic("INVALID");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 678:         return;</pre>
+<pre style="margin:0; padding:0 "> 679:       end</pre>
+<pre style="margin:0; padding:0 "> 680:     endcase</pre>
+<pre style="margin:0; padding:0 "> 681: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 682:     if (!rvfi_insn[14]) begin</pre>
+<pre style="margin:0; padding:0 "> 683:       // regular store</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 684:       data_accessed = RS1 | RS2 | MEM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 685:       decoded_str = $sformatf("%s\tx%0d,%0d(x%0d)", mnemonic, rvfi_rs2_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 686:                       $signed({ {20 {rvfi_insn[31]}}, rvfi_insn[31:25], rvfi_insn[11:7] }), rvfi_rs1_addr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 687:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 688:       decode_mnemonic("INVALID");</pre>
+<pre style="margin:0; padding:0 "> 689:     end</pre>
+<pre style="margin:0; padding:0 "> 690:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 691: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 692:   function automatic string get_fence_description(logic [3:0] bits);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 693:     string desc = "";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 694:     if (bits[3]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 695:       desc = {desc, "i"};</pre>
+<pre style="margin:0; padding:0 "> 696:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 697:     if (bits[2]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 698:       desc = {desc, "o"};</pre>
+<pre style="margin:0; padding:0 "> 699:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 700:     if (bits[1]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 701:       desc = {desc, "r"};</pre>
+<pre style="margin:0; padding:0 "> 702:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 703:     if (bits[0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 704:       desc = {desc, "w"};</pre>
+<pre style="margin:0; padding:0 "> 705:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 706:     return desc;</pre>
+<pre style="margin:0; padding:0 "> 707:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 708: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 709:   function automatic void decode_fence();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 710:     string predecessor;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 711:     string successor;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 712:     predecessor = get_fence_description(rvfi_insn[27:24]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 713:     successor = get_fence_description(rvfi_insn[23:20]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 714:     decoded_str = $sformatf("fence\t%s,%s", predecessor, successor);</pre>
+<pre style="margin:0; padding:0 "> 715:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 716: </pre>
+<pre style="margin:0; padding:0 "> 717:   // cycle counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 718:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 719:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 720:       cycle <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 721:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 722:       cycle <= cycle + 1;</pre>
+<pre style="margin:0; padding:0 "> 723:     end</pre>
+<pre style="margin:0; padding:0 "> 724:   end</pre>
+<pre style="margin:0; padding:0 "> 725: </pre>
+<pre style="margin:0; padding:0 "> 726:   // close output file for writing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 727:   final begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 728:     if (file_handle != 32'h0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 729:       $fclose(file_handle);</pre>
+<pre style="margin:0; padding:0 "> 730:     end</pre>
+<pre style="margin:0; padding:0 "> 731:   end</pre>
+<pre style="margin:0; padding:0 "> 732: </pre>
+<pre style="margin:0; padding:0 "> 733:   // log execution</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 734:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 735:     if (rvfi_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 736:       printbuffer_dumpline();</pre>
+<pre style="margin:0; padding:0 "> 737:     end</pre>
+<pre style="margin:0; padding:0 "> 738:   end</pre>
+<pre style="margin:0; padding:0 "> 739: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 740:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 741:     decoded_str = "";</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 742:     data_accessed = 5'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 743:     insn_is_compressed = 0;</pre>
+<pre style="margin:0; padding:0 "> 744: </pre>
+<pre style="margin:0; padding:0 "> 745:     // Check for compressed instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 746:     if (rvfi_insn[1:0] != 2'b11) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 747:       insn_is_compressed = 1;</pre>
+<pre style="margin:0; padding:0 "> 748:       // Separate case to avoid overlapping decoding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 749:       if (rvfi_insn[15:13] == 3'b100 && rvfi_insn[1:0] == 2'b10) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 750:         if (rvfi_insn[12]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 751:           if (rvfi_insn[11:2] == 10'h0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 752:             decode_mnemonic("c.ebreak");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 753:           end else if (rvfi_insn[6:2] == 5'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 754:             decode_cr_insn("c.jalr");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 755:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 756:             decode_cr_insn("c.add");</pre>
+<pre style="margin:0; padding:0 "> 757:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 758:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 759:           if (rvfi_insn[6:2] == 5'h0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 760:             decode_cr_insn("c.jr");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 761:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 762:             decode_cr_insn("c.mv");</pre>
+<pre style="margin:0; padding:0 "> 763:           end</pre>
+<pre style="margin:0; padding:0 "> 764:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 765:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 766:         unique casez (rvfi_insn[15:0])</pre>
+<pre style="margin:0; padding:0 "> 767:           // C0 Opcodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 768:           INSN_CADDI4SPN: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 769:             if (rvfi_insn[12:2] == 11'h0) begin</pre>
+<pre style="margin:0; padding:0 "> 770:               // Align with pseudo-mnemonic used by GNU binutils and LLVM's MC layer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 771:               decode_mnemonic("c.unimp");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 772:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 773:               decode_ciw_insn("c.addi4spn");</pre>
+<pre style="margin:0; padding:0 "> 774:             end</pre>
+<pre style="margin:0; padding:0 "> 775:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 776:           INSN_CLW:        decode_compressed_load_insn("c.lw");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 777:           INSN_CSW:        decode_compressed_store_insn("c.sw");</pre>
+<pre style="margin:0; padding:0 "> 778:           // C1 Opcodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 779:           INSN_CADDI:      decode_ci_caddi_insn("c.addi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 780:           INSN_CJAL:       decode_cj_insn("c.jal");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 781:           INSN_CJ:         decode_cj_insn("c.j");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 782:           INSN_CLI:        decode_ci_cli_insn("c.li");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 783:           INSN_CLUI: begin</pre>
+<pre style="margin:0; padding:0 "> 784:             // These two instructions share opcode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 785:             if (rvfi_insn[11:7] == 5'd2) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 786:               decode_ci_caddi16sp_insn("c.addi16sp");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 787:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 788:               decode_ci_clui_insn("c.lui");</pre>
+<pre style="margin:0; padding:0 "> 789:             end</pre>
+<pre style="margin:0; padding:0 "> 790:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 791:           INSN_CSRLI:      decode_cb_sr_insn("c.srli");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 792:           INSN_CSRAI:      decode_cb_sr_insn("c.srai");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 793:           INSN_CANDI:      decode_cb_insn("c.andi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 794:           INSN_CSUB:       decode_cs_insn("c.sub");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 795:           INSN_CXOR:       decode_cs_insn("c.xor");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 796:           INSN_COR:        decode_cs_insn("c.or");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 797:           INSN_CAND:       decode_cs_insn("c.and");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 798:           INSN_CBEQZ:      decode_cb_insn("c.beqz");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 799:           INSN_CBNEZ:      decode_cb_insn("c.bnez");</pre>
+<pre style="margin:0; padding:0 "> 800:           // C2 Opcodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 801:           INSN_CSLLI:      decode_ci_cslli_insn("c.slli");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 802:           INSN_CLWSP:      decode_compressed_load_insn("c.lwsp");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 803:           INSN_SWSP:       decode_compressed_store_insn("c.swsp");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 804:           default:         decode_mnemonic("INVALID");</pre>
+<pre style="margin:0; padding:0 "> 805:         endcase</pre>
+<pre style="margin:0; padding:0 "> 806:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 807:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 808:       unique casez (rvfi_insn)</pre>
+<pre style="margin:0; padding:0 "> 809:         // Regular opcodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 810:         INSN_LUI:        decode_u_insn("lui");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 811:         INSN_AUIPC:      decode_u_insn("auipc");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 812:         INSN_JAL:        decode_j_insn("jal");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 813:         INSN_JALR:       decode_i_jalr_insn("jalr");</pre>
+<pre style="margin:0; padding:0 "> 814:         // BRANCH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 815:         INSN_BEQ:        decode_b_insn("beq");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 816:         INSN_BNE:        decode_b_insn("bne");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 817:         INSN_BLT:        decode_b_insn("blt");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 818:         INSN_BGE:        decode_b_insn("bge");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 819:         INSN_BLTU:       decode_b_insn("bltu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 820:         INSN_BGEU:       decode_b_insn("bgeu");</pre>
+<pre style="margin:0; padding:0 "> 821:         // OPIMM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 822:         INSN_ADDI: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 823:           if (rvfi_insn == 32'h00_00_00_13) begin</pre>
+<pre style="margin:0; padding:0 "> 824:             // TODO: objdump doesn't decode this as nop currently, even though it would be helpful</pre>
+<pre style="margin:0; padding:0 "> 825:             // Decide what to do here: diverge from objdump, or make the trace less readable to</pre>
+<pre style="margin:0; padding:0 "> 826:             // users.</pre>
+<pre style="margin:0; padding:0 "> 827:             //decode_mnemonic("nop");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 828:             decode_i_insn("addi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 829:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 830:             decode_i_insn("addi");</pre>
+<pre style="margin:0; padding:0 "> 831:           end</pre>
+<pre style="margin:0; padding:0 "> 832:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 833:         INSN_SLTI:       decode_i_insn("slti");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 834:         INSN_SLTIU:      decode_i_insn("sltiu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 835:         INSN_XORI:       decode_i_insn("xori");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 836:         INSN_ORI:        decode_i_insn("ori");</pre>
+<pre style="margin:0; padding:0 "> 837:         // Version 0.92 of the Bitmanip Extension defines the pseudo-instruction</pre>
+<pre style="margin:0; padding:0 "> 838:         // zext.b rd rs = andi rd, rs, 255.</pre>
+<pre style="margin:0; padding:0 "> 839:         // Currently instruction set simulators don't output this pseudo-instruction.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 840:         INSN_ANDI:       decode_i_insn("andi");</pre>
+<pre style="margin:0; padding:0 "> 841:         // INSN_ANDI:begin</pre>
+<pre style="margin:0; padding:0 "> 842:           // casez (rvfi_insn)</pre>
+<pre style="margin:0; padding:0 "> 843:             // INSN_ZEXTB:  decode_r1_insn("zext.b");</pre>
+<pre style="margin:0; padding:0 "> 844:             // default:     decode_i_insn("andi");</pre>
+<pre style="margin:0; padding:0 "> 845:           // endcase</pre>
+<pre style="margin:0; padding:0 "> 846:         // end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 847:         INSN_SLLI:       decode_i_shift_insn("slli");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 848:         INSN_SRLI:       decode_i_shift_insn("srli");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 849:         INSN_SRAI:       decode_i_shift_insn("srai");</pre>
+<pre style="margin:0; padding:0 "> 850:         // OP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 851:         INSN_ADD:        decode_r_insn("add");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 852:         INSN_SUB:        decode_r_insn("sub");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 853:         INSN_SLL:        decode_r_insn("sll");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 854:         INSN_SLT:        decode_r_insn("slt");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 855:         INSN_SLTU:       decode_r_insn("sltu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 856:         INSN_XOR:        decode_r_insn("xor");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 857:         INSN_SRL:        decode_r_insn("srl");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 858:         INSN_SRA:        decode_r_insn("sra");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 859:         INSN_OR:         decode_r_insn("or");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 860:         INSN_AND:        decode_r_insn("and");</pre>
+<pre style="margin:0; padding:0 "> 861:         // SYSTEM (CSR manipulation)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 862:         INSN_CSRRW:      decode_csr_insn("csrrw");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 863:         INSN_CSRRS:      decode_csr_insn("csrrs");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 864:         INSN_CSRRC:      decode_csr_insn("csrrc");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 865:         INSN_CSRRWI:     decode_csr_insn("csrrwi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 866:         INSN_CSRRSI:     decode_csr_insn("csrrsi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 867:         INSN_CSRRCI:     decode_csr_insn("csrrci");</pre>
+<pre style="margin:0; padding:0 "> 868:         // SYSTEM (others)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 869:         INSN_ECALL:      decode_mnemonic("ecall");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 870:         INSN_EBREAK:     decode_mnemonic("ebreak");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 871:         INSN_MRET:       decode_mnemonic("mret");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 872:         INSN_DRET:       decode_mnemonic("dret");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 873:         INSN_WFI:        decode_mnemonic("wfi");</pre>
+<pre style="margin:0; padding:0 "> 874:         // RV32M</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 875:         INSN_PMUL:       decode_r_insn("mul");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 876:         INSN_PMUH:       decode_r_insn("mulh");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 877:         INSN_PMULHSU:    decode_r_insn("mulhsu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 878:         INSN_PMULHU:     decode_r_insn("mulhu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 879:         INSN_DIV:        decode_r_insn("div");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 880:         INSN_DIVU:       decode_r_insn("divu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 881:         INSN_REM:        decode_r_insn("rem");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 882:         INSN_REMU:       decode_r_insn("remu");</pre>
+<pre style="margin:0; padding:0 "> 883:         // LOAD & STORE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 884:         INSN_LOAD:       decode_load_insn();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 885:         INSN_STORE:      decode_store_insn();</pre>
+<pre style="margin:0; padding:0 "> 886:         // MISC-MEM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 887:         INSN_FENCE:      decode_fence();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 888:         INSN_FENCEI:     decode_mnemonic("fence.i");</pre>
+<pre style="margin:0; padding:0 "> 889:         // RV32B - ZBB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 890:         INSN_SLOI:       decode_i_shift_insn("sloi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 891:         INSN_SROI:       decode_i_shift_insn("sroi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 892:         INSN_RORI:       decode_i_shift_insn("rori");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 893:         INSN_SLO:        decode_r_insn("slo");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 894:         INSN_SRO:        decode_r_insn("sro");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 895:         INSN_ROL:        decode_r_insn("rol");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 896:         INSN_ROR:        decode_r_insn("ror");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 897:         INSN_MIN:        decode_r_insn("min");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 898:         INSN_MAX:        decode_r_insn("max");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 899:         INSN_MINU:       decode_r_insn("minu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 900:         INSN_MAXU:       decode_r_insn("maxu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 901:         INSN_XNOR:       decode_r_insn("xnor");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 902:         INSN_ORN:        decode_r_insn("orn");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 903:         INSN_ANDN:       decode_r_insn("andn");</pre>
+<pre style="margin:0; padding:0 "> 904:         // Version 0.92 of the Bitmanip Extension defines the pseudo-instruction</pre>
+<pre style="margin:0; padding:0 "> 905:         // zext.h rd rs = pack rd, rs, zero.</pre>
+<pre style="margin:0; padding:0 "> 906:         // Currently instruction set simulators don't output this pseudo-instruction.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 907:         INSN_PACK:       decode_r_insn("pack");</pre>
+<pre style="margin:0; padding:0 "> 908:         // INSN_PACK: begin</pre>
+<pre style="margin:0; padding:0 "> 909:           // casez (rvfi_insn)</pre>
+<pre style="margin:0; padding:0 "> 910:             // INSN_ZEXTH:  decode_r1_insn("zext.h");</pre>
+<pre style="margin:0; padding:0 "> 911:             // default:     decode_r_insn("pack");</pre>
+<pre style="margin:0; padding:0 "> 912:           // endcase</pre>
+<pre style="margin:0; padding:0 "> 913:         // end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 914:         INSN_PACKH:      decode_r_insn("packh");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 915:         INSN_PACKU:      decode_r_insn("packu");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 916:         INSN_CLZ:        decode_r1_insn("clz");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 917:         INSN_CTZ:        decode_r1_insn("ctz");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 918:         INSN_PCNT:       decode_r1_insn("pcnt");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 919:         INSN_SEXTB:      decode_r1_insn("sext.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 920:         INSN_SEXTH:      decode_r1_insn("sext.h");</pre>
+<pre style="margin:0; padding:0 "> 921:         // RV32B - ZBS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 922:         INSN_SBCLRI:     decode_i_insn("sbclri");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 923:         INSN_SBSETI:     decode_i_insn("sbseti");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 924:         INSN_SBINVI:     decode_i_insn("sbinvi");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 925:         INSN_SBEXTI:     decode_i_insn("sbexti");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 926:         INSN_SBCLR:      decode_r_insn("sbclr");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 927:         INSN_SBSET:      decode_r_insn("sbset");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 928:         INSN_SBINV:      decode_r_insn("sbinv");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 929:         INSN_SBEXT:      decode_r_insn("sbext");</pre>
+<pre style="margin:0; padding:0 "> 930:         // RV32B - ZBE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 931:         INSN_BDEP:       decode_r_insn("bdep");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:         INSN_BEXT:       decode_r_insn("bext");</pre>
+<pre style="margin:0; padding:0 "> 933:         // RV32B - ZBP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 934:         INSN_GREV:       decode_r_insn("grev");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 935:         INSN_GREVI: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 936:           unique casez (rvfi_insn)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 937:             INSN_REV_P:  decode_r1_insn("rev.p");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 938:             INSN_REV2_N: decode_r1_insn("rev2.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 939:             INSN_REV_N:  decode_r1_insn("rev.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 940:             INSN_REV4_B: decode_r1_insn("rev4.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 941:             INSN_REV2_B: decode_r1_insn("rev2.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 942:             INSN_REV_B:  decode_r1_insn("rev.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 943:             INSN_REV8_H: decode_r1_insn("rev8.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 944:             INSN_REV4_H: decode_r1_insn("rev4.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:             INSN_REV2_H: decode_r1_insn("rev2.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:             INSN_REV_H:  decode_r1_insn("rev.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947:             INSN_REV16:  decode_r1_insn("rev16");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 948:             INSN_REV8:   decode_r1_insn("rev8");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 949:             INSN_REV4:   decode_r1_insn("rev4");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 950:             INSN_REV2:   decode_r1_insn("rev2");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 951:             INSN_REV:    decode_r1_insn("rev");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 952:             default:     decode_i_insn("grevi");</pre>
+<pre style="margin:0; padding:0 "> 953:           endcase</pre>
+<pre style="margin:0; padding:0 "> 954:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 955:         INSN_GORC:       decode_r_insn("gorc");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 956:         INSN_GORCI: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 957:           unique casez (rvfi_insn)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 958:             INSN_ORC_P:  decode_r1_insn("orc.p");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 959:             INSN_ORC2_N: decode_r1_insn("orc2.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 960:             INSN_ORC_N:  decode_r1_insn("orc.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 961:             INSN_ORC4_B: decode_r1_insn("orc4.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 962:             INSN_ORC2_B: decode_r1_insn("orc2.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 963:             INSN_ORC_B:  decode_r1_insn("orc.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 964:             INSN_ORC8_H: decode_r1_insn("orc8.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 965:             INSN_ORC4_H: decode_r1_insn("orc4.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 966:             INSN_ORC2_H: decode_r1_insn("orc2.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 967:             INSN_ORC_H:  decode_r1_insn("orc.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 968:             INSN_ORC16:  decode_r1_insn("orc16");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 969:             INSN_ORC8:   decode_r1_insn("orc8");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 970:             INSN_ORC4:   decode_r1_insn("orc4");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 971:             INSN_ORC2:   decode_r1_insn("orc2");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 972:             INSN_ORC:    decode_r1_insn("orc");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 973:             default:     decode_i_insn("gorci");</pre>
+<pre style="margin:0; padding:0 "> 974:           endcase</pre>
+<pre style="margin:0; padding:0 "> 975:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 976:         INSN_SHFL:       decode_r_insn("shfl");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 977:         INSN_SHFLI: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 978:           unique casez (rvfi_insn)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 979:             INSN_ZIP_N:  decode_r1_insn("zip.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 980:             INSN_ZIP2_B: decode_r1_insn("zip2.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 981:             INSN_ZIP_B:  decode_r1_insn("zip.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 982:             INSN_ZIP4_H: decode_r1_insn("zip4.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 983:             INSN_ZIP2_H: decode_r1_insn("zip2.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 984:             INSN_ZIP_H:  decode_r1_insn("zip.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 985:             INSN_ZIP8:   decode_r1_insn("zip8");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 986:             INSN_ZIP4:   decode_r1_insn("zip4");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 987:             INSN_ZIP2:   decode_r1_insn("zip2");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 988:             INSN_ZIP:    decode_r1_insn("zip");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 989:             default:     decode_i_insn("shfli");</pre>
+<pre style="margin:0; padding:0 "> 990:           endcase</pre>
+<pre style="margin:0; padding:0 "> 991:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 992:         INSN_UNSHFL:       decode_r_insn("unshfl");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 993:         INSN_UNSHFLI: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 994:           unique casez (rvfi_insn)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 995:             INSN_UNZIP_N:  decode_r1_insn("unzip.n");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 996:             INSN_UNZIP2_B: decode_r1_insn("unzip2.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 997:             INSN_UNZIP_B:  decode_r1_insn("unzip.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 998:             INSN_UNZIP4_H: decode_r1_insn("unzip4.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 999:             INSN_UNZIP2_H: decode_r1_insn("unzip2.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1000:             INSN_UNZIP_H:  decode_r1_insn("unzip.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1001:             INSN_UNZIP8:   decode_r1_insn("unzip8");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1002:             INSN_UNZIP4:   decode_r1_insn("unzip4");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1003:             INSN_UNZIP2:   decode_r1_insn("unzip2");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1004:             INSN_UNZIP:    decode_r1_insn("unzip");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1005:             default:       decode_i_insn("unshfli");</pre>
+<pre style="margin:0; padding:0 ">1006:           endcase</pre>
+<pre style="margin:0; padding:0 ">1007:         end</pre>
+<pre style="margin:0; padding:0 ">1008: </pre>
+<pre style="margin:0; padding:0 ">1009:         // RV32B - ZBT</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1010:         INSN_CMIX:       decode_r_cmixcmov_insn("cmix");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1011:         INSN_CMOV:       decode_r_cmixcmov_insn("cmov");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1012:         INSN_FSR:        decode_r_funnelshift_insn("fsr");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1013:         INSN_FSL:        decode_r_funnelshift_insn("fsl");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1014:         INSN_FSRI:       decode_i_funnelshift_insn("fsri");</pre>
+<pre style="margin:0; padding:0 ">1015: </pre>
+<pre style="margin:0; padding:0 ">1016:         // RV32B - ZBF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1017:         INSN_BFP:        decode_r_insn("bfp");</pre>
+<pre style="margin:0; padding:0 ">1018: </pre>
+<pre style="margin:0; padding:0 ">1019:         // RV32B - ZBC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1020:         INSN_CLMUL:      decode_r_insn("clmul");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1021:         INSN_CLMULR:     decode_r_insn("clmulr");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1022:         INSN_CLMULH:     decode_r_insn("clmulh");</pre>
+<pre style="margin:0; padding:0 ">1023: </pre>
+<pre style="margin:0; padding:0 ">1024:         // RV32B - ZBR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1025:         INSN_CRC32_B:    decode_r1_insn("crc32.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1026:         INSN_CRC32_H:    decode_r1_insn("crc32.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1027:         INSN_CRC32_W:    decode_r1_insn("crc32.w");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1028:         INSN_CRC32C_B:   decode_r1_insn("crc32c.b");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1029:         INSN_CRC32C_H:   decode_r1_insn("crc32c.h");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1030:         INSN_CRC32C_W:   decode_r1_insn("crc32c.w");</pre>
+<pre style="margin:0; padding:0 ">1031: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1032:         default:         decode_mnemonic("INVALID");</pre>
+<pre style="margin:0; padding:0 ">1033:       endcase</pre>
+<pre style="margin:0; padding:0 ">1034:     end</pre>
+<pre style="margin:0; padding:0 ">1035:   end</pre>
+<pre style="margin:0; padding:0 ">1036: </pre>
+<pre style="margin:0; padding:0 ">1037: endmodule</pre>
+<pre style="margin:0; padding:0 ">1038: </pre>
+</body>
+</html>

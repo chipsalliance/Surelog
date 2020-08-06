@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_wb_stage.sv Cov: 72.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: /**</pre>
+<pre style="margin:0; padding:0 ">   6:  * Writeback Stage</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="margin:0; padding:0 ">   8:  * Writeback is an optional third pipeline stage. It writes data back to the register file that was</pre>
+<pre style="margin:0; padding:0 ">   9:  * produced in the ID/EX stage or awaits a response to a load/store (LSU writes direct to register</pre>
+<pre style="margin:0; padding:0 ">  10:  * file for load data). If the writeback stage is not present (WritebackStage == 0) this acts as</pre>
+<pre style="margin:0; padding:0 ">  11:  * a simple passthrough to write data direct to the register file.</pre>
+<pre style="margin:0; padding:0 ">  12:  */</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module ibex_wb_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter bit WritebackStage = 1'b0</pre>
+<pre style="margin:0; padding:0 ">  18: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  logic                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  logic                     rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  logic                     en_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  ibex_pkg::wb_instr_type_e instr_type_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  logic [31:0]              pc_id_i,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic                     ready_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic                     rf_write_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic                     outstanding_load_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic                     outstanding_store_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic [31:0]              pc_wb_o,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic [4:0]               rf_waddr_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  logic [31:0]              rf_wdata_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic                     rf_we_id_i,</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input  logic [31:0]              rf_wdata_lsu_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input  logic                     rf_we_lsu_i,</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic [31:0]              rf_wdata_fwd_wb_o,</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic [4:0]               rf_waddr_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic [31:0]              rf_wdata_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic                     rf_we_wb_o,</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   input logic                      lsu_resp_valid_i,</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   output logic                     instr_done_wb_o</pre>
+<pre style="margin:0; padding:0 ">  48: );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // 0 == RF write from ID</pre>
+<pre style="margin:0; padding:0 ">  53:   // 1 == RF write from LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic [31:0] rf_wdata_wb_mux    [2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [1:0]  rf_wdata_wb_mux_we;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   if(WritebackStage) begin : g_writeback_stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic [31:0]    rf_wdata_wb_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic           rf_we_wb_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     logic [4:0]     rf_waddr_wb_q;</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic           wb_done;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic           wb_valid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     logic [31:0]    wb_pc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     wb_instr_type_e wb_instr_type_q;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     logic           wb_valid_d;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:     // Stage becomes valid if an instruction enters for ID/EX and valid is cleared when instruction</pre>
+<pre style="margin:0; padding:0 ">  71:     // is done</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     assign wb_valid_d = (en_wb_i & ready_wb_o) | (wb_valid_q & ~wb_done);</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:     // Writeback for non load/store instructions always completes in a cycle (so instantly done)</pre>
+<pre style="margin:0; padding:0 ">  75:     // Writeback for load/store must wait for response to be received by the LSU</pre>
+<pre style="margin:0; padding:0 ">  76:     // Signal only relevant if wb_valid_q set</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign wb_done = (wb_instr_type_q == WB_INSTR_OTHER) | lsu_resp_valid_i;</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       if(~rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:         wb_valid_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         wb_valid_q <= wb_valid_d;</pre>
+<pre style="margin:0; padding:0 ">  84:       end</pre>
+<pre style="margin:0; padding:0 ">  85:     end</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       if(en_wb_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:         rf_we_wb_q      <= rf_we_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         rf_waddr_wb_q   <= rf_waddr_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         rf_wdata_wb_q   <= rf_wdata_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         wb_instr_type_q <= instr_type_wb_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:         wb_pc_q         <= pc_id_i;</pre>
+<pre style="margin:0; padding:0 ">  94:       end</pre>
+<pre style="margin:0; padding:0 ">  95:     end</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     assign rf_waddr_wb_o         = rf_waddr_wb_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     assign rf_wdata_wb_mux[0]    = rf_wdata_wb_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     assign rf_wdata_wb_mux_we[0] = rf_we_wb_q & wb_valid_q;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     assign ready_wb_o = ~wb_valid_q | wb_done;</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:     // Instruction in writeback will be writing to register file if either rf_we is set or writeback</pre>
+<pre style="margin:0; padding:0 "> 104:     // is awaiting load data. This is used for determining RF read hazards in ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     assign rf_write_wb_o = wb_valid_q & (rf_we_wb_q | (wb_instr_type_q == WB_INSTR_LOAD));</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     assign outstanding_load_wb_o  = wb_valid_q & (wb_instr_type_q == WB_INSTR_LOAD);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     assign outstanding_store_wb_o = wb_valid_q & (wb_instr_type_q == WB_INSTR_STORE);</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     assign pc_wb_o = wb_pc_q;</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     assign instr_done_wb_o = wb_valid_q & wb_done;</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:     // Forward data that will be written to the RF back to ID to resolve data hazards. The flopped</pre>
+<pre style="margin:0; padding:0 "> 115:     // rf_wdata_wb_q is used rather than rf_wdata_wb_o as the latter includes read data from memory</pre>
+<pre style="margin:0; padding:0 "> 116:     // that returns too late to be used on the forwarding path.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     assign rf_wdata_fwd_wb_o = rf_wdata_wb_q;</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "> 118:   end else begin : g_bypass_wb</pre>
+<pre style="margin:0; padding:0 "> 119:     // without writeback stage just pass through register write signals</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:     assign rf_waddr_wb_o         = rf_waddr_id_i;</pre>
+<pre id="id121" style="background-color: #FFB6C1; margin:0; padding:0 "> 121:     assign rf_wdata_wb_mux[0]    = rf_wdata_id_i;</pre>
+<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 "> 122:     assign rf_wdata_wb_mux_we[0] = rf_we_id_i;</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:     // ready needs to be constant 1 without writeback stage (otherwise ID/EX stage will stall)</pre>
+<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 "> 125:     assign ready_wb_o    = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 126: </pre>
+<pre style="margin:0; padding:0 "> 127:     // Unused Writeback stage only IO & wiring</pre>
+<pre style="margin:0; padding:0 "> 128:     // Assign inputs and internal wiring to unused signals to satisfy lint checks</pre>
+<pre style="margin:0; padding:0 "> 129:     // Tie-off outputs to constant values</pre>
+<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:     logic           unused_clk;</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:     logic           unused_rst;</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:     logic           unused_en_wb;</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:     wb_instr_type_e unused_instr_type_wb;</pre>
+<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:     logic [31:0]    unused_pc_id;</pre>
+<pre id="id135" style="background-color: #FFB6C1; margin:0; padding:0 "> 135:     logic           unused_lsu_resp_valid;</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre id="id137" style="background-color: #FFB6C1; margin:0; padding:0 "> 137:     assign unused_clk            = clk_i;</pre>
+<pre id="id138" style="background-color: #FFB6C1; margin:0; padding:0 "> 138:     assign unused_rst            = rst_ni;</pre>
+<pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:     assign unused_en_wb          = en_wb_i;</pre>
+<pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:     assign unused_instr_type_wb  = instr_type_wb_i;</pre>
+<pre id="id141" style="background-color: #FFB6C1; margin:0; padding:0 "> 141:     assign unused_pc_id          = pc_id_i;</pre>
+<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:     assign unused_lsu_resp_valid = lsu_resp_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:     assign outstanding_load_wb_o  = 1'b0;</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:     assign outstanding_store_wb_o = 1'b0;</pre>
+<pre id="id146" style="background-color: #FFB6C1; margin:0; padding:0 "> 146:     assign pc_wb_o                = '0;</pre>
+<pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 "> 147:     assign rf_write_wb_o          = 1'b0;</pre>
+<pre id="id148" style="background-color: #FFB6C1; margin:0; padding:0 "> 148:     assign rf_wdata_fwd_wb_o      = 32'b0;</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149:     assign instr_done_wb_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 150:   end</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   assign rf_wdata_wb_mux[1]    = rf_wdata_lsu_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   assign rf_wdata_wb_mux_we[1] = rf_we_lsu_i;</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:   // RF write data can come from ID results (all RF writes that aren't because of loads will come</pre>
+<pre style="margin:0; padding:0 "> 156:   // from here) or the LSU (RF writes for load data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign rf_wdata_wb_o = rf_wdata_wb_mux_we[0] ? rf_wdata_wb_mux[0] : rf_wdata_wb_mux[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   assign rf_we_wb_o    = |rf_wdata_wb_mux_we;</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:   `ASSERT(RFWriteFromOneSourceOnly, $onehot0(rf_wdata_wb_mux_we))</pre>
+<pre style="margin:0; padding:0 "> 161: endmodule</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+</body>
+</html>

@@ -39,33 +39,37 @@ class ElaborationStep {
   virtual ~ElaborationStep();
 
  protected:
-  DataType* bindTypeDef_(TypeDef* typd, DesignComponent* parent,
-                         ErrorDefinition::ErrorType errtype);
+  const DataType* bindTypeDef_(TypeDef* typd,
+                               const DesignComponent* parent,
+                               ErrorDefinition::ErrorType errtype);
 
-  DataType* bindDataType_(std::string type_name, FileContent* fC, NodeId id,
-                          DesignComponent* parent,
-                          ErrorDefinition::ErrorType errtype);
+  const DataType* bindDataType_(const std::string& type_name,
+                                const FileContent* fC, NodeId id,
+                                const DesignComponent* parent,
+                                ErrorDefinition::ErrorType errtype);
 
-  Variable* bindVariable_(std::string var_name, Scope* scope, FileContent* fc,
-                          NodeId id, DesignComponent* parent,
+  Variable* bindVariable_(std::string var_name, Scope* scope,
+                          const FileContent* fc,
+                          NodeId id, const DesignComponent* parent,
                           ErrorDefinition::ErrorType errtype,
                           bool returnClassParam);
 
   Variable* locateVariable_(std::vector<std::string>& var_chain,
-                            FileContent* fC, NodeId id, Scope* scope,
+                            const FileContent* fC, NodeId id, Scope* scope,
                             DesignComponent* parentComponent,
                             ErrorDefinition::ErrorType errtype);
 
   Variable* locateStaticVariable_(std::vector<std::string>& var_chain,
-                                  FileContent* fC, NodeId id, Scope* scope,
+                                  const FileContent* fC, NodeId id,
+                                  Scope* scope,
                                   DesignComponent* parentComponent,
                                   ErrorDefinition::ErrorType errtype);
 
   bool bindPortType_(Signal* port,
-                     FileContent* fC, NodeId id, Scope* scope,
+                     const FileContent* fC, NodeId id, Scope* scope,
                      DesignComponent* parentComponent,
                      ErrorDefinition::ErrorType errtype);
-  
+
   CompileDesign* m_compileDesign;
 
   std::map<std::string, Variable*> m_staticVariables;

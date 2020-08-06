@@ -28,12 +28,10 @@
 
 using namespace SURELOG;
 
-DefParam::~DefParam() {}
-
-std::string DefParam::getFullName() {
+std::string DefParam::getFullName() const {
   std::string name;
   std::vector<std::string> chunks;
-  DefParam* parent = this;
+  const DefParam* parent = this;
   while (parent) {
     chunks.push_back(parent->m_name);
     parent = parent->m_parent;

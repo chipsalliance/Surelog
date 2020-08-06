@@ -1,7 +1,6 @@
 /*
 :name: force_release
 :description: force-release statements test
-:should_fail: 0
 :tags: 10.6.2
 */
 module top(clk, q, d, f1, f0);

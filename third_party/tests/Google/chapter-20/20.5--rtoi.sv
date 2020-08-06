@@ -1,7 +1,6 @@
 /*
 :name: rtoi_function
 :description: $rtoi test
-:should_fail: 0
 :tags: 20.5
 :type: simulation parsing
 */

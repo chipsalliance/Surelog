@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/alert_handler/rtl/alert_handler_esc_timer.sv Cov: 95.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module implements the escalation timer, which times the four escalation</pre>
+<pre style="margin:0; padding:0 ">   6: // phases. There are two mechanisms that can trigger the escalation protocol:</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // 1) via accum_trigger_i, which will be asserted once the accumulator value</pre>
+<pre style="margin:0; padding:0 ">   9: //    exceeds a programmable amount of alert occurences.</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // 2) via an interrupt timeout, if this is enabled. If this functionality is</pre>
+<pre style="margin:0; padding:0 ">  12: //    enabled, the internal escalation counter is reused to check whether the</pre>
+<pre style="margin:0; padding:0 ">  13: //    interrupt times out. If it does time out, the outcome is the same as if</pre>
+<pre style="margin:0; padding:0 ">  14: //    accum_trigger_i where asserted.</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: // Note that escalation always takes precedence over the interrupt timeout.</pre>
+<pre style="margin:0; padding:0 ">  17: //</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19: module alert_handler_esc_timer import alert_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input                        en_i,           // enables timeout/escalation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                        clr_i,          // aborts escalation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input                        accum_trig_i,   // this will trigger escalation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                        timeout_en_i,   // enables timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input        [EscCntDw-1:0]  timeout_cyc_i,  // interrupt timeout. 0 = disabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input        [N_ESC_SEV-1:0] esc_en_i,       // escalation signal enables</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:   input        [N_ESC_SEV-1:0]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:                [PHASE_DW-1:0]  esc_map_i,      // escalation signal / phase map</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:   input        [N_PHASES-1:0]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:                [EscCntDw-1:0]  phase_cyc_i,    // cycle counts of individual phases</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic                 esc_trig_o,     // asserted if escalation triggers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic [EscCntDw-1:0]  esc_cnt_o,      // current timeout / escalation count</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic [N_ESC_SEV-1:0] esc_sig_en_o,   // escalation signal outputs</pre>
+<pre style="margin:0; padding:0 ">  35:   // current state output</pre>
+<pre style="margin:0; padding:0 ">  36:   // 000: idle, 001: irq timeout counting 100: phase0, 101: phase1, 110: phase2, 111: phase3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output cstate_e              esc_state_o</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  41:   // Counter //</pre>
+<pre style="margin:0; padding:0 ">  42:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   cstate_e state_d, state_q;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic cnt_en, cnt_clr, cnt_ge;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [EscCntDw-1:0] cnt_d, cnt_q;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:   // escalation counter, used for all phases and the timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign cnt_d = cnt_q + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // current state output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign esc_state_o = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign esc_cnt_o   = cnt_q;</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:   // threshold test, the thresholds are muxed further below</pre>
+<pre style="margin:0; padding:0 ">  57:   // depending on the current state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [EscCntDw-1:0] thresh;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign cnt_ge    = (cnt_q >= thresh);</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  62:   // Main FSM //</pre>
+<pre style="margin:0; padding:0 ">  63:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic [N_PHASES-1:0] phase_oh;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   always_comb begin : p_fsm</pre>
+<pre style="margin:0; padding:0 ">  68:     // default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     state_d    = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     cnt_en     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     cnt_clr    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     esc_trig_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     phase_oh   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     thresh     = timeout_cyc_i;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     unique case (state_q)</pre>
+<pre style="margin:0; padding:0 ">  77:       // wait for an escalation trigger or an alert trigger</pre>
+<pre style="margin:0; padding:0 ">  78:       // the latter will trigger an interrupt timeout</pre>
+<pre style="margin:0; padding:0 ">  79:       // note, clr_i is intentionally not used in Idle such that any trigger</pre>
+<pre style="margin:0; padding:0 ">  80:       // will have to go through escalation, if enabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       Idle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:         cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:         if (accum_trig_i && en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:           state_d    = Phase0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:           cnt_en     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:           esc_trig_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  88:         // the counter is zero in this state. so if the</pre>
+<pre style="margin:0; padding:0 ">  89:         // timeout count is zero (==disabled), cnt_ge will be true.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         end else if (timeout_en_i && !cnt_ge && en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:           cnt_en  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:           state_d = Timeout;</pre>
+<pre style="margin:0; padding:0 ">  93:         end</pre>
+<pre style="margin:0; padding:0 ">  94:       end</pre>
+<pre style="margin:0; padding:0 ">  95:       // we are in interrupt timeout state</pre>
+<pre style="margin:0; padding:0 ">  96:       // in case an escalation comes in, we immediately have to</pre>
+<pre style="margin:0; padding:0 ">  97:       // switch over to the first escalation phase.</pre>
+<pre style="margin:0; padding:0 ">  98:       // in case the interrupt timeout hits it's cycle count, we</pre>
+<pre style="margin:0; padding:0 ">  99:       // also enter escalation phase0.</pre>
+<pre style="margin:0; padding:0 "> 100:       // ongoing timeouts can always be cleared.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       Timeout: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:         if (accum_trig_i || (cnt_ge && timeout_en_i)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:           state_d    = Phase0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:           cnt_en     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:           cnt_clr    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:           esc_trig_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 107:         // the timeout enable is connected to the irq state</pre>
+<pre style="margin:0; padding:0 "> 108:         // if that is cleared, stop the timeout counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:         end else if (timeout_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           cnt_en  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:           cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 114:         end</pre>
+<pre style="margin:0; padding:0 "> 115:       end</pre>
+<pre style="margin:0; padding:0 "> 116:       // note: autolocking the clear signal is done in the regfile</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       Phase0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:         cnt_en      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:         phase_oh[0] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:         thresh      = phase_cyc_i[0];</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:           cnt_en  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:         end else if (cnt_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:           state_d = Phase1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:           cnt_en  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 130:         end</pre>
+<pre style="margin:0; padding:0 "> 131:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       Phase1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:         cnt_en      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:         phase_oh[1] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:         thresh      = phase_cyc_i[1];</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:         if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:           cnt_en  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:         end else if (cnt_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:           state_d = Phase2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:           cnt_en  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 145:         end</pre>
+<pre style="margin:0; padding:0 "> 146:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       Phase2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:         cnt_en      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:         phase_oh[2] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         thresh      = phase_cyc_i[2];</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:           cnt_en  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:         end else if (cnt_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:           state_d = Phase3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:           cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 159:         end</pre>
+<pre style="margin:0; padding:0 "> 160:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       Phase3: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:         cnt_en      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:         phase_oh[3] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:         thresh      = phase_cyc_i[3];</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:         if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:           cnt_en  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         end else if (cnt_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:           state_d = Terminal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:           cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 173:         end</pre>
+<pre style="margin:0; padding:0 "> 174:       end</pre>
+<pre style="margin:0; padding:0 "> 175:       // final, terminal state after escalation.</pre>
+<pre style="margin:0; padding:0 "> 176:       // if clr is locked down, only a system reset</pre>
+<pre style="margin:0; padding:0 "> 177:       // will get us out of this state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:       Terminal: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:         cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:         if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:           state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 182:         end</pre>
+<pre style="margin:0; padding:0 "> 183:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:       default: state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 185:     endcase</pre>
+<pre style="margin:0; padding:0 "> 186:   end</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   logic [N_ESC_SEV-1:0][N_PHASES-1:0] esc_map_oh;</pre>
+<pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 "> 189:   for (genvar k = 0; k < N_ESC_SEV; k++) begin : gen_phase_map</pre>
+<pre style="margin:0; padding:0 "> 190:     // generate configuration mask for escalation enable signals</pre>
+<pre id="id191" style="background-color: #FFB6C1; margin:0; padding:0 "> 191:     assign esc_map_oh[k] = N_ESC_SEV'(esc_en_i[k]) << esc_map_i[k];</pre>
+<pre style="margin:0; padding:0 "> 192:     // mask reduce current phase state vector</pre>
+<pre id="id193" style="background-color: #FFB6C1; margin:0; padding:0 "> 193:     assign esc_sig_en_o[k] = |(esc_map_oh[k] & phase_oh);</pre>
+<pre style="margin:0; padding:0 "> 194:   end</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 197:   // Registers //</pre>
+<pre style="margin:0; padding:0 "> 198:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 199: </pre>
+<pre style="margin:0; padding:0 "> 200:   // switch interrupt / escalation mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       state_q <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       cnt_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:       state_q <= state_d;</pre>
+<pre style="margin:0; padding:0 "> 207: </pre>
+<pre style="margin:0; padding:0 "> 208:       // escalation counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:       if (cnt_en && cnt_clr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:         cnt_q <= EscCntDw'(1'b1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       end else if (cnt_clr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:         cnt_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:       end else if (cnt_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:         cnt_q <= cnt_d;</pre>
+<pre style="margin:0; padding:0 "> 215:       end</pre>
+<pre style="margin:0; padding:0 "> 216:     end</pre>
+<pre style="margin:0; padding:0 "> 217:   end</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+<pre style="margin:0; padding:0 "> 219:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 220:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 221:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 222: </pre>
+<pre style="margin:0; padding:0 "> 223:   // a clear should always bring us back to idle</pre>
+<pre style="margin:0; padding:0 "> 224:   `ASSERT(CheckClr, clr_i && !(state_q inside {Idle, Timeout}) |=></pre>
+<pre style="margin:0; padding:0 "> 225:       state_q == Idle, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 226:   // if currently in idle and not enabled, must remain here</pre>
+<pre style="margin:0; padding:0 "> 227:   `ASSERT(CheckEn,  state_q == Idle && !en_i |=></pre>
+<pre style="margin:0; padding:0 "> 228:       state_q == Idle, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 229:   // Check if accumulation trigger correctly captured</pre>
+<pre style="margin:0; padding:0 "> 230:   `ASSERT(CheckAccumTrig0,  accum_trig_i && state_q == Idle && en_i |=></pre>
+<pre style="margin:0; padding:0 "> 231:       state_q == Phase0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 232:   `ASSERT(CheckAccumTrig1,  accum_trig_i && state_q == Timeout && en_i |=></pre>
+<pre style="margin:0; padding:0 "> 233:       state_q == Phase0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 234:   // Check if timeout correctly captured</pre>
+<pre style="margin:0; padding:0 "> 235:   `ASSERT(CheckTimeout0, state_q == Idle && timeout_en_i && en_i && timeout_cyc_i != 0 |=></pre>
+<pre style="margin:0; padding:0 "> 236:       state_q == Timeout, clk_i, !rst_ni || accum_trig_i)</pre>
+<pre style="margin:0; padding:0 "> 237:   `ASSERT(CheckTimeout1, state_q == Timeout && timeout_en_i && cnt_q < timeout_cyc_i |=></pre>
+<pre style="margin:0; padding:0 "> 238:       state_q == Timeout, clk_i, !rst_ni || accum_trig_i)</pre>
+<pre style="margin:0; padding:0 "> 239:   `ASSERT(CheckTimeout2, state_q == Timeout && !timeout_en_i |=></pre>
+<pre style="margin:0; padding:0 "> 240:       state_q == Idle, clk_i, !rst_ni || accum_trig_i)</pre>
+<pre style="margin:0; padding:0 "> 241:   // Check if timeout correctly triggers escalation</pre>
+<pre style="margin:0; padding:0 "> 242:   `ASSERT(CheckTimeoutTrig, state_q == Timeout && timeout_en_i &&</pre>
+<pre style="margin:0; padding:0 "> 243:       cnt_q == timeout_cyc_i |=> state_q == Phase0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 244:   // Check whether escalation phases are correctly switched</pre>
+<pre style="margin:0; padding:0 "> 245:   `ASSERT(CheckPhase0, state_q == Phase0 && !clr_i && cnt_q >= phase_cyc_i[0] |=></pre>
+<pre style="margin:0; padding:0 "> 246:       state_q == Phase1, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 247:   `ASSERT(CheckPhase1, state_q == Phase1 && !clr_i && cnt_q >= phase_cyc_i[1] |=></pre>
+<pre style="margin:0; padding:0 "> 248:       state_q == Phase2, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 249:   `ASSERT(CheckPhase2, state_q == Phase2 && !clr_i && cnt_q >= phase_cyc_i[2] |=></pre>
+<pre style="margin:0; padding:0 "> 250:       state_q == Phase3, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 251:   `ASSERT(CheckPhase3, state_q == Phase3 && !clr_i && cnt_q >= phase_cyc_i[3] |=></pre>
+<pre style="margin:0; padding:0 "> 252:       state_q == Terminal, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 253: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254: endmodule : alert_handler_esc_timer</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+</body>
+</html>

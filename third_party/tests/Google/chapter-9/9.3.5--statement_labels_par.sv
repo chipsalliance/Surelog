@@ -1,7 +1,6 @@
 /*
 :name: statement_labels_par
 :description: parallel block labels check
-:should_fail: 0
 :tags: 9.3.5
 */
 module block_tb ();

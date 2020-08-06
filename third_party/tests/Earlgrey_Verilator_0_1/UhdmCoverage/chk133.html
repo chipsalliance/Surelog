@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_cipher_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This package holds common constants and functions for PRESENT- and</pre>
+<pre style="margin:0; padding:0 ">   6: // PRINCE-based scrambling devices.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // See also: prim_present, prim_prince</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // References: - https://en.wikipedia.org/wiki/PRESENT</pre>
+<pre style="margin:0; padding:0 ">  11: //             - https://en.wikipedia.org/wiki/Prince_(cipher)</pre>
+<pre style="margin:0; padding:0 ">  12: //             - http://www.lightweightcrypto.org/present/present_ches2007.pdf</pre>
+<pre style="margin:0; padding:0 ">  13: //             - https://eprint.iacr.org/2012/529.pdf</pre>
+<pre style="margin:0; padding:0 ">  14: //             - https://eprint.iacr.org/2015/372.pdf</pre>
+<pre style="margin:0; padding:0 ">  15: //             - https://eprint.iacr.org/2014/656.pdf</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: package prim_cipher_pkg;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  20:   // PRINCE Cipher //</pre>
+<pre style="margin:0; padding:0 ">  21:   ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter logic [15:0][3:0] PRINCE_SBOX4 = {4'h4, 4'hD, 4'h5, 4'hE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:                                               4'h0, 4'h8, 4'h7, 4'h6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:                                               4'h1, 4'h9, 4'hC, 4'hA,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:                                               4'h2, 4'h3, 4'hF, 4'hB};</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   parameter logic [15:0][3:0] PRINCE_SBOX4_INV = {4'h1, 4'hC, 4'hE, 4'h5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:                                                   4'h0, 4'h4, 4'h6, 4'hA,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                                                   4'h9, 4'h8, 4'hD, 4'hF,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:                                                   4'h2, 4'h3, 4'h7, 4'hB};</pre>
+<pre style="margin:0; padding:0 ">  32:   // nibble permutations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   parameter logic [15:0][3:0] PRINCE_SHIFT_ROWS64  = '{4'hB, 4'h6, 4'h1, 4'hC,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:                                                        4'h7, 4'h2, 4'hD, 4'h8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:                                                        4'h3, 4'hE, 4'h9, 4'h4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:                                                        4'hF, 4'hA, 4'h5, 4'h0};</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   parameter logic [15:0][3:0] PRINCE_SHIFT_ROWS64_INV = '{4'h3, 4'h6, 4'h9, 4'hC,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:                                                           4'hF, 4'h2, 4'h5, 4'h8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                                                           4'hB, 4'hE, 4'h1, 4'h4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                                                           4'h7, 4'hA, 4'hD, 4'h0};</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // these are the round constants</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   parameter logic [11:0][63:0] PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                                                      64'hD3B5A399CA0C2399,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:                                                      64'h64A51195E0E3610D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:                                                      64'hC882D32F25323C54,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:                                                      64'h85840851F1AC43AA,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:                                                      64'h7EF84F78FD955CB1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:                                                      64'hBE5466CF34E90C6C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                                                      64'h452821E638D01377,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                                                      64'h082EFA98EC4E6C89,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:                                                      64'hA4093822299F31D0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:                                                      64'h13198A2E03707344,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:                                                      64'h0000000000000000};</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // tweak constant for key modification between enc/dec modes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   parameter logic [63:0] PRINCE_ALPHA_CONST = 64'hC0AC29B7C97C50DD;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // masking constants for shift rows function below</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   parameter logic [15:0] PRINCE_SHIFT_ROWS_CONST0 = 16'hEDB7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   parameter logic [15:0] PRINCE_SHIFT_ROWS_CONST1 = 16'h7EDB;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   parameter logic [15:0] PRINCE_SHIFT_ROWS_CONST2 = 16'hB7ED;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   parameter logic [15:0] PRINCE_SHIFT_ROWS_CONST3 = 16'hDB7E;</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // nibble shifts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   function automatic logic [31:0] prince_shiftrows_32bit(logic [31:0]      state_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:                                                          logic [15:0][3:0] shifts );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     logic [31:0] state_out;</pre>
+<pre style="margin:0; padding:0 ">  70:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     for (int k = 0; k < 32/2; k++) begin</pre>
+<pre style="margin:0; padding:0 ">  72:       // operate on pairs of 2bit instead of nibbles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       state_out[k*2  +: 2] = state_in[shifts[k]*2  +: 2];</pre>
+<pre style="margin:0; padding:0 ">  74:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   endfunction : prince_shiftrows_32bit</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   function automatic logic [63:0] prince_shiftrows_64bit(logic [63:0]      state_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:                                                          logic [15:0][3:0] shifts );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     logic [63:0] state_out;</pre>
+<pre style="margin:0; padding:0 ">  81:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     for (int k = 0; k < 64/4; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       state_out[k*4  +: 4] = state_in[shifts[k]*4  +: 4];</pre>
+<pre style="margin:0; padding:0 ">  84:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   endfunction : prince_shiftrows_64bit</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   // XOR reduction of four nibbles in a 16bit subvector</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   function automatic logic [3:0] prince_nibble_red16(logic [15:0] vect);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     return vect[0 +: 4] ^ vect[4 +: 4] ^ vect[8 +: 4] ^ vect[12 +: 4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   endfunction : prince_nibble_red16</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:   // M prime multiplication</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   function automatic logic [31:0] prince_mult_prime_32bit(logic [31:0] state_in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     logic [31:0] state_out;</pre>
+<pre style="margin:0; padding:0 ">  96:     // M0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     state_out[0  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     state_out[4  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     state_out[8  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     state_out[12 +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="margin:0; padding:0 "> 101:     // M1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     state_out[16 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     state_out[20 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     state_out[24 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     state_out[28 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   endfunction : prince_mult_prime_32bit</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   // M prime multiplication</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   function automatic logic [63:0] prince_mult_prime_64bit(logic [63:0] state_in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     logic [63:0] state_out;</pre>
+<pre style="margin:0; padding:0 "> 112:     // M0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     state_out[0  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     state_out[4  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     state_out[8  +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     state_out[12 +: 4] = prince_nibble_red16(state_in[ 0 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="margin:0; padding:0 "> 117:     // M1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     state_out[16 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     state_out[20 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     state_out[24 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     state_out[28 +: 4] = prince_nibble_red16(state_in[16 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="margin:0; padding:0 "> 122:     // M1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     state_out[32 +: 4] = prince_nibble_red16(state_in[32 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     state_out[36 +: 4] = prince_nibble_red16(state_in[32 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     state_out[40 +: 4] = prince_nibble_red16(state_in[32 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     state_out[44 +: 4] = prince_nibble_red16(state_in[32 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="margin:0; padding:0 "> 127:     // M0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     state_out[48 +: 4] = prince_nibble_red16(state_in[48 +: 16] & PRINCE_SHIFT_ROWS_CONST0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     state_out[52 +: 4] = prince_nibble_red16(state_in[48 +: 16] & PRINCE_SHIFT_ROWS_CONST1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     state_out[56 +: 4] = prince_nibble_red16(state_in[48 +: 16] & PRINCE_SHIFT_ROWS_CONST2);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     state_out[60 +: 4] = prince_nibble_red16(state_in[48 +: 16] & PRINCE_SHIFT_ROWS_CONST3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   endfunction : prince_mult_prime_64bit</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="margin:0; padding:0 "> 136:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 137:   // PRESENT Cipher //</pre>
+<pre style="margin:0; padding:0 "> 138:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:   // this is the sbox from the present cipher</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   parameter logic [15:0][3:0] PRESENT_SBOX4 = {4'h2, 4'h1, 4'h7, 4'h4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:                                                4'h8, 4'hF, 4'hE, 4'h3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:                                                4'hD, 4'hA, 4'h0, 4'h9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:                                                4'hB, 4'h6, 4'h5, 4'hC};</pre>
+<pre style="margin:0; padding:0 "> 145: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   parameter logic [15:0][3:0] PRESENT_SBOX4_INV = {4'hA, 4'h9, 4'h7, 4'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:                                                    4'h3, 4'h6, 4'h4, 4'hB,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:                                                    4'hD, 4'h2, 4'h1, 4'hC,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:                                                    4'h8, 4'hF, 4'hE, 4'h5};</pre>
+<pre style="margin:0; padding:0 "> 150: </pre>
+<pre style="margin:0; padding:0 "> 151:   // these are modified permutation indices for a 32bit version that</pre>
+<pre style="margin:0; padding:0 "> 152:   // follow the same pattern as for the 64bit version</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   parameter logic [31:0][4:0] PRESENT_PERM32 = {5'd31, 5'd23, 5'd15, 5'd07,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:                                                 5'd30, 5'd22, 5'd14, 5'd06,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:                                                 5'd29, 5'd21, 5'd13, 5'd05,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:                                                 5'd28, 5'd20, 5'd12, 5'd04,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:                                                 5'd27, 5'd19, 5'd11, 5'd03,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:                                                 5'd26, 5'd18, 5'd10, 5'd02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:                                                 5'd25, 5'd17, 5'd09, 5'd01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:                                                 5'd24, 5'd16, 5'd08, 5'd00};</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   parameter logic [31:0][4:0] PRESENT_PERM32_INV = {5'd31, 5'd27, 5'd23, 5'd19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:                                                     5'd15, 5'd11, 5'd07, 5'd03,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:                                                     5'd30, 5'd26, 5'd22, 5'd18,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:                                                     5'd14, 5'd10, 5'd06, 5'd02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:                                                     5'd29, 5'd25, 5'd21, 5'd17,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:                                                     5'd13, 5'd09, 5'd05, 5'd01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:                                                     5'd28, 5'd24, 5'd20, 5'd16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:                                                     5'd12, 5'd08, 5'd04, 5'd00};</pre>
+<pre style="margin:0; padding:0 "> 170: </pre>
+<pre style="margin:0; padding:0 "> 171:   // these are the permutation indices of the present cipher</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   parameter logic [63:0][5:0] PRESENT_PERM64 = {6'd63, 6'd47, 6'd31, 6'd15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:                                                 6'd62, 6'd46, 6'd30, 6'd14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:                                                 6'd61, 6'd45, 6'd29, 6'd13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:                                                 6'd60, 6'd44, 6'd28, 6'd12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:                                                 6'd59, 6'd43, 6'd27, 6'd11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:                                                 6'd58, 6'd42, 6'd26, 6'd10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:                                                 6'd57, 6'd41, 6'd25, 6'd09,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:                                                 6'd56, 6'd40, 6'd24, 6'd08,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:                                                 6'd55, 6'd39, 6'd23, 6'd07,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:                                                 6'd54, 6'd38, 6'd22, 6'd06,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:                                                 6'd53, 6'd37, 6'd21, 6'd05,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:                                                 6'd52, 6'd36, 6'd20, 6'd04,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:                                                 6'd51, 6'd35, 6'd19, 6'd03,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:                                                 6'd50, 6'd34, 6'd18, 6'd02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:                                                 6'd49, 6'd33, 6'd17, 6'd01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:                                                 6'd48, 6'd32, 6'd16, 6'd00};</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   parameter logic [63:0][5:0] PRESENT_PERM64_INV = {6'd63, 6'd59, 6'd55, 6'd51,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:                                                     6'd47, 6'd43, 6'd39, 6'd35,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:                                                     6'd31, 6'd27, 6'd23, 6'd19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:                                                     6'd15, 6'd11, 6'd07, 6'd03,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:                                                     6'd62, 6'd58, 6'd54, 6'd50,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:                                                     6'd46, 6'd42, 6'd38, 6'd34,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:                                                     6'd30, 6'd26, 6'd22, 6'd18,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:                                                     6'd14, 6'd10, 6'd06, 6'd02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:                                                     6'd61, 6'd57, 6'd53, 6'd49,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:                                                     6'd45, 6'd41, 6'd37, 6'd33,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:                                                     6'd29, 6'd25, 6'd21, 6'd17,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:                                                     6'd13, 6'd09, 6'd05, 6'd01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:                                                     6'd60, 6'd56, 6'd52, 6'd48,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:                                                     6'd44, 6'd40, 6'd36, 6'd32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:                                                     6'd28, 6'd24, 6'd20, 6'd16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:                                                     6'd12, 6'd08, 6'd04, 6'd00};</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="margin:0; padding:0 "> 206:   // forward key schedule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   function automatic logic [63:0] present_update_key64(logic [63:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:                                                        logic [4:0]  round_idx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     logic [63:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 210:     // rotate by 61 to the left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     key_out = 64'(key_in << 61) | 64'(key_in >> (64-61));</pre>
+<pre style="margin:0; padding:0 "> 212:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     key_out[63 -: 4] = PRESENT_SBOX4[key_out[63 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 214:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     key_out[19:15] ^= round_idx;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   endfunction : present_update_key64</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   function automatic logic [79:0] present_update_key80(logic [79:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:                                                        logic [4:0]  round_idx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     logic [79:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 222:     // rotate by 61 to the left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     key_out = 80'(key_in << 61) | 80'(key_in >> (80-61));</pre>
+<pre style="margin:0; padding:0 "> 224:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     key_out[79 -: 4] = PRESENT_SBOX4[key_out[79 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 226:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     key_out[19:15] ^= round_idx;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   endfunction : present_update_key80</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:   function automatic logic [127:0] present_update_key128(logic [127:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:                                                          logic [4:0]   round_idx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     logic [127:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 234:     // rotate by 61 to the left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     key_out = 128'(key_in << 61) | 128'(key_in >> (128-61));</pre>
+<pre style="margin:0; padding:0 "> 236:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     key_out[127 -: 4] = PRESENT_SBOX4[key_out[127 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 238:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     key_out[19:15] ^= round_idx;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   endfunction : present_update_key128</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="margin:0; padding:0 "> 244:   // inverse key schedule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   function automatic logic [63:0] present_inv_update_key64(logic [63:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:                                                            logic [4:0]  round_idx,</pre>
+<pre style="margin:0; padding:0 "> 247:                                                            // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:                                                            logic [4:0]  round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     logic [63:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 250:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     key_out[19:15] ^= 6'(round_cnt) + 1 - round_idx;</pre>
+<pre style="margin:0; padding:0 "> 252:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     key_out[63 -: 4] = PRESENT_SBOX4_INV[key_out[63 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 254:     // rotate by 61 to the right</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     key_out = 64'(key_in >> 61) | 64'(key_in << (64-61));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:   endfunction : present_inv_update_key64</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:   function automatic logic [79:0] present_inv_update_key80(logic [79:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:                                                            logic [4:0]  round_idx,</pre>
+<pre style="margin:0; padding:0 "> 261:                                                            // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:                                                            logic [4:0]  round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     logic [79:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 264:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     key_out[19:15] ^= 6'(round_cnt) + 1 - round_idx;</pre>
+<pre style="margin:0; padding:0 "> 266:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     key_out[79 -: 4] = PRESENT_SBOX4_INV[key_out[79 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 268:     // rotate by 61 to the right</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     key_out = 80'(key_in >> 61) | 80'(key_in << (80-61));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:   endfunction : present_inv_update_key80</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:   function automatic logic [127:0] present_inv_update_key128(logic [127:0] key_in,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:                                                              logic [4:0]   round_idx,</pre>
+<pre style="margin:0; padding:0 "> 275:                                                              // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:                                                              logic [4:0]   round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:     logic [127:0] key_out;</pre>
+<pre style="margin:0; padding:0 "> 278:     // xor in round counter on bits 19 to 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     key_out[19:15] ^= 6'(round_cnt) + 1 - round_idx;</pre>
+<pre style="margin:0; padding:0 "> 280:     // sbox on uppermost 4 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:     key_out[127 -: 4] = PRESENT_SBOX4_INV[key_out[127 -: 4]];</pre>
+<pre style="margin:0; padding:0 "> 282:     // rotate by 61 to the right</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     key_out = 128'(key_in >> 61) | 128'(key_in << (128-61));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:   endfunction : present_inv_update_key128</pre>
+<pre style="margin:0; padding:0 "> 286: </pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="margin:0; padding:0 "> 288:   // these functions can be used to derive the DEC key from the ENC key by</pre>
+<pre style="margin:0; padding:0 "> 289:   // stepping the key by the correct number of rounds using the keyschedule functions above.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   function automatic logic [63:0] present_get_dec_key64(logic [63:0] key_in,</pre>
+<pre style="margin:0; padding:0 "> 291:                                                         // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:                                                         logic [4:0]  round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:     logic [63:0] key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     key_out = key_in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     for (int k = 0; k < round_cnt; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       key_out = present_update_key64(key_out, 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 297:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   endfunction : present_get_dec_key64</pre>
+<pre style="margin:0; padding:0 "> 300: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:   function automatic logic [79:0] present_get_dec_key80(logic [79:0] key_in,</pre>
+<pre style="margin:0; padding:0 "> 302:                                                         // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:                                                         logic [4:0]  round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:     logic [79:0] key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:     key_out = key_in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:     for (int k = 0; k < round_cnt; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       key_out = present_update_key80(key_out, 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 308:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:   endfunction : present_get_dec_key80</pre>
+<pre style="margin:0; padding:0 "> 311: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   function automatic logic [127:0] present_get_dec_key128(logic [127:0] key_in,</pre>
+<pre style="margin:0; padding:0 "> 313:                                                           // total number of rounds employed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:                                                           logic [4:0]   round_cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:     logic [127:0] key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:     key_out = key_in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:     for (int k = 0; k < round_cnt; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       key_out = present_update_key128(key_out, 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 319:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:     return key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:   endfunction : present_get_dec_key128</pre>
+<pre style="margin:0; padding:0 "> 322: </pre>
+<pre style="margin:0; padding:0 "> 323:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 324:   // Common Subfunctions //</pre>
+<pre style="margin:0; padding:0 "> 325:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:   function automatic logic [31:0] sbox4_32bit(logic [31:0] state_in, logic [15:0][3:0] sbox4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:     logic [31:0] state_out;</pre>
+<pre style="margin:0; padding:0 "> 329:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:     for (int k = 0; k < 32/4; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:       state_out[k*4  +: 4] = sbox4[state_in[k*4  +: 4]];</pre>
+<pre style="margin:0; padding:0 "> 332:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:   endfunction : sbox4_32bit</pre>
+<pre style="margin:0; padding:0 "> 335: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:   function automatic logic [63:0] sbox4_64bit(logic [63:0] state_in, logic [15:0][3:0] sbox4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     logic [63:0] state_out;</pre>
+<pre style="margin:0; padding:0 "> 338:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:     for (int k = 0; k < 64/4; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:       state_out[k*4  +: 4] = sbox4[state_in[k*4  +: 4]];</pre>
+<pre style="margin:0; padding:0 "> 341:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:   endfunction : sbox4_64bit</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:   function automatic logic [31:0] perm_32bit(logic [31:0] state_in, logic [31:0][4:0] perm);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:     logic [31:0] state_out;</pre>
+<pre style="margin:0; padding:0 "> 347:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     for (int k = 0; k < 32; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       state_out[k] = state_in[perm[k]];</pre>
+<pre style="margin:0; padding:0 "> 350:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:   endfunction : perm_32bit</pre>
+<pre style="margin:0; padding:0 "> 353: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:   function automatic logic [63:0] perm_64bit(logic [63:0] state_in, logic [63:0][5:0] perm);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:     logic [63:0] state_out;</pre>
+<pre style="margin:0; padding:0 "> 356:     // note that if simulation performance becomes an issue, this loop can be unrolled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:     for (int k = 0; k < 64; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:       state_out[k] = state_in[perm[k]];</pre>
+<pre style="margin:0; padding:0 "> 359:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:     return state_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:   endfunction : perm_64bit</pre>
+<pre style="margin:0; padding:0 "> 362: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363: endpackage : prim_cipher_pkg</pre>
+<pre style="margin:0; padding:0 "> 364: </pre>
+</body>
+</html>

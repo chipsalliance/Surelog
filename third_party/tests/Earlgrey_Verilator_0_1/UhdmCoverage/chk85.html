@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_tracer_0.1/rtl/ibex_tracer_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2017 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: package ibex_tracer_pkg;</pre>
+<pre style="margin:0; padding:0 ">   7: import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: parameter logic [1:0] OPCODE_C0 = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: parameter logic [1:0] OPCODE_C1 = 2'b01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: parameter logic [1:0] OPCODE_C2 = 2'b10;</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: // instruction masks (for tracer)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: parameter logic [31:0] INSN_LUI     = { 25'b?,                           {OPCODE_LUI  } };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: parameter logic [31:0] INSN_AUIPC   = { 25'b?,                           {OPCODE_AUIPC} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: parameter logic [31:0] INSN_JAL     = { 25'b?,                           {OPCODE_JAL  } };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: parameter logic [31:0] INSN_JALR    = { 17'b?,             3'b000, 5'b?, {OPCODE_JALR } };</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19: // BRANCH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: parameter logic [31:0] INSN_BEQ     = { 17'b?,             3'b000, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21: parameter logic [31:0] INSN_BNE     = { 17'b?,             3'b001, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: parameter logic [31:0] INSN_BLT     = { 17'b?,             3'b100, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: parameter logic [31:0] INSN_BGE     = { 17'b?,             3'b101, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: parameter logic [31:0] INSN_BLTU    = { 17'b?,             3'b110, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: parameter logic [31:0] INSN_BGEU    = { 17'b?,             3'b111, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: parameter logic [31:0] INSN_BALL    = { 17'b?,             3'b010, 5'b?, {OPCODE_BRANCH} };</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: // OPIMM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: parameter logic [31:0] INSN_ADDI    = { 17'b?,             3'b000, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: parameter logic [31:0] INSN_SLTI    = { 17'b?,             3'b010, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: parameter logic [31:0] INSN_SLTIU   = { 17'b?,             3'b011, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: parameter logic [31:0] INSN_XORI    = { 17'b?,             3'b100, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: parameter logic [31:0] INSN_ORI     = { 17'b?,             3'b110, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: parameter logic [31:0] INSN_ANDI    = { 17'b?,             3'b111, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: parameter logic [31:0] INSN_SLLI    = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: parameter logic [31:0] INSN_SRLI    = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37: parameter logic [31:0] INSN_SRAI    = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39: // OP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40: parameter logic [31:0] INSN_ADD     = { 7'b0000000, 10'b?, 3'b000, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: parameter logic [31:0] INSN_SUB     = { 7'b0100000, 10'b?, 3'b000, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42: parameter logic [31:0] INSN_SLL     = { 7'b0000000, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43: parameter logic [31:0] INSN_SLT     = { 7'b0000000, 10'b?, 3'b010, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: parameter logic [31:0] INSN_SLTU    = { 7'b0000000, 10'b?, 3'b011, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: parameter logic [31:0] INSN_XOR     = { 7'b0000000, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: parameter logic [31:0] INSN_SRL     = { 7'b0000000, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: parameter logic [31:0] INSN_SRA     = { 7'b0100000, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: parameter logic [31:0] INSN_OR      = { 7'b0000000, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: parameter logic [31:0] INSN_AND     = { 7'b0000000, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51: // SYSTEM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: parameter logic [31:0] INSN_CSRRW   = { 17'b?,             3'b001, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: parameter logic [31:0] INSN_CSRRS   = { 17'b?,             3'b010, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: parameter logic [31:0] INSN_CSRRC   = { 17'b?,             3'b011, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: parameter logic [31:0] INSN_CSRRWI  = { 17'b?,             3'b101, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: parameter logic [31:0] INSN_CSRRSI  = { 17'b?,             3'b110, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: parameter logic [31:0] INSN_CSRRCI  = { 17'b?,             3'b111, 5'b?, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: parameter logic [31:0] INSN_ECALL   = { 12'b000000000000,         13'b0, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: parameter logic [31:0] INSN_EBREAK  = { 12'b000000000001,         13'b0, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: parameter logic [31:0] INSN_MRET    = { 12'b001100000010,         13'b0, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: parameter logic [31:0] INSN_DRET    = { 12'b011110110010,         13'b0, {OPCODE_SYSTEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: parameter logic [31:0] INSN_WFI     = { 12'b000100000101,         13'b0, {OPCODE_SYSTEM} };</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: // RV32M</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: parameter logic [31:0] INSN_DIV     = { 7'b0000001, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: parameter logic [31:0] INSN_DIVU    = { 7'b0000001, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: parameter logic [31:0] INSN_REM     = { 7'b0000001, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: parameter logic [31:0] INSN_REMU    = { 7'b0000001, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: parameter logic [31:0] INSN_PMUL    = { 7'b0000001, 10'b?, 3'b000, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: parameter logic [31:0] INSN_PMUH    = { 7'b0000001, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: parameter logic [31:0] INSN_PMULHSU = { 7'b0000001, 10'b?, 3'b010, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: parameter logic [31:0] INSN_PMULHU  = { 7'b0000001, 10'b?, 3'b011, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74: // RV32B</pre>
+<pre style="margin:0; padding:0 ">  75: // ZBB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: parameter logic [31:0] INSN_SLOI = { 5'b00100        , 12'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77: parameter logic [31:0] INSN_SROI = { 5'b00100        , 12'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: parameter logic [31:0] INSN_RORI = { 5'b01100        , 12'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: parameter logic [31:0] INSN_CLZ  = { 12'b011000000000, 5'b?,  3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: parameter logic [31:0] INSN_CTZ  = { 12'b011000000001, 5'b?,  3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: parameter logic [31:0] INSN_PCNT = { 12'b011000000010, 5'b?,  3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: parameter logic [31:0] INSN_SEXTB = { 12'b011000000100, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: parameter logic [31:0] INSN_SEXTH = { 12'b011000000101, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 ">  84: // sext -- pseudoinstruction: andi rd, rs 255</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: parameter logic [31:0] INSN_ZEXTB = { 4'b0000, 8'b11111111, 5'b?, 3'b111, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 ">  86: // sext -- pseudoinstruction: pack rd, rs zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87: parameter logic [31:0] INSN_ZEXTH = { 7'b0000100, 5'b00000, 5'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89: parameter logic [31:0] INSN_SLO   = { 7'b0010000, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: parameter logic [31:0] INSN_SRO   = { 7'b0010000, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: parameter logic [31:0] INSN_ROL   = { 7'b0110000, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: parameter logic [31:0] INSN_ROR   = { 7'b0110000, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: parameter logic [31:0] INSN_MIN   = { 7'b0000101, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: parameter logic [31:0] INSN_MAX   = { 7'b0000101, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95: parameter logic [31:0] INSN_MINU  = { 7'b0000101, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: parameter logic [31:0] INSN_MAXU  = { 7'b0000101, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97: parameter logic [31:0] INSN_XNOR  = { 7'b0100000, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98: parameter logic [31:0] INSN_ORN   = { 7'b0100000, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: parameter logic [31:0] INSN_ANDN  = { 7'b0100000, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: parameter logic [31:0] INSN_PACK  = { 7'b0000100, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: parameter logic [31:0] INSN_PACKU = { 7'b0100100, 10'b?, 3'b100, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: parameter logic [31:0] INSN_PACKH = { 7'b0000100, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104: // ZBS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105: parameter logic [31:0] INSN_SBCLRI = { 5'b01001, 12'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: parameter logic [31:0] INSN_SBSETI = { 5'b00101, 12'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107: parameter logic [31:0] INSN_SBINVI = { 5'b01101, 12'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108: parameter logic [31:0] INSN_SBEXTI = { 5'b01001, 12'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110: parameter logic [31:0] INSN_SBCLR = { 7'b0100100, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111: parameter logic [31:0] INSN_SBSET = { 7'b0010100, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112: parameter logic [31:0] INSN_SBINV = { 7'b0110100, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113: parameter logic [31:0] INSN_SBEXT = { 7'b0100100, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="margin:0; padding:0 "> 115: // ZBP</pre>
+<pre style="margin:0; padding:0 "> 116: // grevi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: parameter logic [31:0] INSN_GREVI = { 5'b01101, 12'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 118: // grevi -- pseudo-instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: parameter logic [31:0] INSN_REV_P =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     { 5'b01101, 2'b?, 5'b00001, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121: parameter logic [31:0] INSN_REV2_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     { 5'b01101, 2'b?, 5'b00010, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: parameter logic [31:0] INSN_REV_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     { 5'b01101, 2'b?, 5'b00011, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125: parameter logic [31:0] INSN_REV4_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     { 5'b01101, 2'b?, 5'b00100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127: parameter logic [31:0] INSN_REV2_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     { 5'b01101, 2'b?, 5'b00110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129: parameter logic [31:0] INSN_REV_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     { 5'b01101, 2'b?, 5'b00111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131: parameter logic [31:0] INSN_REV8_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     { 5'b01101, 2'b?, 5'b01000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133: parameter logic [31:0] INSN_REV4_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     { 5'b01101, 2'b?, 5'b01100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135: parameter logic [31:0] INSN_REV2_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     { 5'b01101, 2'b?, 5'b01110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: parameter logic [31:0] INSN_REV_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     { 5'b01101, 2'b?, 5'b01111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139: parameter logic [31:0] INSN_REV16 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     { 5'b01101, 2'b?, 5'b01000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: parameter logic [31:0] INSN_REV8 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     { 5'b01101, 2'b?, 5'b11000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143: parameter logic [31:0] INSN_REV4 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     { 5'b01101, 2'b?, 5'b11100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145: parameter logic [31:0] INSN_REV2 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     { 5'b01101, 2'b?, 5'b11110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147: parameter logic [31:0] INSN_REV =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     { 5'b01101, 2'b?, 5'b11111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 149: // gorci</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150: parameter logic [31:0] INSN_GORCI = { 5'b00101, 12'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 151: // gorci -- pseudo-instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152: parameter logic [31:0] INSN_ORC_P =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     { 5'b00101, 2'b?, 5'b00001, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: parameter logic [31:0] INSN_ORC2_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     { 5'b00101, 2'b?, 5'b00010, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156: parameter logic [31:0] INSN_ORC_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     { 5'b00101, 2'b?, 5'b00011, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158: parameter logic [31:0] INSN_ORC4_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     { 5'b00101, 2'b?, 5'b00100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160: parameter logic [31:0] INSN_ORC2_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     { 5'b00101, 2'b?, 5'b00110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162: parameter logic [31:0] INSN_ORC_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     { 5'b00101, 2'b?, 5'b00111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164: parameter logic [31:0] INSN_ORC8_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     { 5'b00101, 2'b?, 5'b01000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: parameter logic [31:0] INSN_ORC4_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:     { 5'b00101, 2'b?, 5'b01100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168: parameter logic [31:0] INSN_ORC2_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     { 5'b00101, 2'b?, 5'b01110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170: parameter logic [31:0] INSN_ORC_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     { 5'b00101, 2'b?, 5'b01111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172: parameter logic [31:0] INSN_ORC16 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     { 5'b00101, 2'b?, 5'b01000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174: parameter logic [31:0] INSN_ORC8 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     { 5'b00101, 2'b?, 5'b11000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176: parameter logic [31:0] INSN_ORC4 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     { 5'b00101, 2'b?, 5'b11100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178: parameter logic [31:0] INSN_ORC2 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     { 5'b00101, 2'b?, 5'b11110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180: parameter logic [31:0] INSN_ORC =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     { 5'b00101, 2'b?, 5'b11111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 182: // shfli</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183: parameter logic [31:0] INSN_SHFLI = { 6'b000010, 11'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 184: // shfli -- pseudo-instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185: parameter logic [31:0] INSN_ZIP_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     { 5'b00010, 3'b?, 4'b0001, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187: parameter logic [31:0] INSN_ZIP2_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     { 5'b00010, 3'b?, 4'b0010, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189: parameter logic [31:0] INSN_ZIP_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     { 5'b00010, 3'b?, 4'b0011, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191: parameter logic [31:0] INSN_ZIP4_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     { 5'b00010, 3'b?, 4'b0100, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193: parameter logic [31:0] INSN_ZIP2_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     { 5'b00010, 3'b?, 4'b0110, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195: parameter logic [31:0] INSN_ZIP_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     { 5'b00010, 3'b?, 4'b0111, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197: parameter logic [31:0] INSN_ZIP8 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     { 5'b00010, 3'b?, 4'b1000, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199: parameter logic [31:0] INSN_ZIP4 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     { 5'b00010, 3'b?, 4'b1100, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201: parameter logic [31:0] INSN_ZIP2 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     { 5'b00010, 3'b?, 4'b1110, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203: parameter logic [31:0] INSN_ZIP =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:     { 5'b00010, 3'b?, 4'b1111, 5'b?, 3'b001, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 205: // unshfli</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206: parameter logic [31:0] INSN_UNSHFLI = { 6'b000010, 11'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 207: // unshfli -- pseudo-instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208: parameter logic [31:0] INSN_UNZIP_N =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     { 5'b00010, 3'b?, 4'b0001, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210: parameter logic [31:0] INSN_UNZIP2_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     { 5'b00010, 3'b?, 4'b0010, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212: parameter logic [31:0] INSN_UNZIP_B =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     { 5'b00010, 3'b?, 4'b0011, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214: parameter logic [31:0] INSN_UNZIP4_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     { 5'b00010, 3'b?, 4'b0100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216: parameter logic [31:0] INSN_UNZIP2_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     { 5'b00010, 3'b?, 4'b0110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218: parameter logic [31:0] INSN_UNZIP_H =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     { 5'b00010, 3'b?, 4'b0111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220: parameter logic [31:0] INSN_UNZIP8 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     { 5'b00010, 3'b?, 4'b1000, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222: parameter logic [31:0] INSN_UNZIP4 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     { 5'b00010, 3'b?, 4'b1100, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224: parameter logic [31:0] INSN_UNZIP2 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     { 5'b00010, 3'b?, 4'b1110, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226: parameter logic [31:0] INSN_UNZIP =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     { 5'b00010, 3'b?, 4'b1111, 5'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229: parameter logic [31:0] INSN_GREV   = { 7'b0110100, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230: parameter logic [31:0] INSN_GORC   = { 7'b0010100, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231: parameter logic [31:0] INSN_SHFL   = { 7'b0000100, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232: parameter logic [31:0] INSN_UNSHFL = { 7'b0000100, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="margin:0; padding:0 "> 234: // ZBE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235: parameter logic [31:0] INSN_BDEP = {7'b0100100, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236: parameter logic [31:0] INSN_BEXT = {7'b0000100, 10'b?, 3'b110, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="margin:0; padding:0 "> 238: // ZBT</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239: parameter logic [31:0] INSN_FSRI = { 5'b?, 1'b1, 11'b?, 3'b101, 5'b?, {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 240: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241: parameter logic [31:0] INSN_CMIX = {5'b?, 2'b11, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242: parameter logic [31:0] INSN_CMOV = {5'b?, 2'b11, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243: parameter logic [31:0] INSN_FSL  = {5'b?, 2'b10, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244: parameter logic [31:0] INSN_FSR  = {5'b?, 2'b10, 10'b?, 3'b101, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 245: </pre>
+<pre style="margin:0; padding:0 "> 246: // ZBF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247: parameter logic [31:0] INSN_BFP  = {7'b0100100, 10'b?, 3'b111, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 248: </pre>
+<pre style="margin:0; padding:0 "> 249: // ZBC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250: parameter logic [31:0] INSN_CLMUL  = {7'b0000101, 10'b?, 3'b001, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251: parameter logic [31:0] INSN_CLMULR = {7'b0000101, 10'b?, 3'b010, 5'b?, {OPCODE_OP} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252: parameter logic [31:0] INSN_CLMULH = {7'b0000101, 10'b?, 3'b011, 5'b?, {OPCODE_OP} };</pre>
+<pre style="margin:0; padding:0 "> 253: </pre>
+<pre style="margin:0; padding:0 "> 254: // ZBR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255: parameter logic [31:0] INSN_CRC32_B  = {7'b0110000, 5'b10000, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256: parameter logic [31:0] INSN_CRC32_H  = {7'b0110000, 5'b10001, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257: parameter logic [31:0] INSN_CRC32_W  = {7'b0110000, 5'b10010, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258: parameter logic [31:0] INSN_CRC32C_B = {7'b0110000, 5'b11000, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259: parameter logic [31:0] INSN_CRC32C_H = {7'b0110000, 5'b11001, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260: parameter logic [31:0] INSN_CRC32C_W = {7'b0110000, 5'b11010, 5'b?, 3'b001, 5'b?,  {OPCODE_OP_IMM} };</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="margin:0; padding:0 "> 262: // LOAD & STORE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263: parameter logic [31:0] INSN_LOAD    = {25'b?,                            {OPCODE_LOAD } };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264: parameter logic [31:0] INSN_STORE   = {25'b?,                            {OPCODE_STORE} };</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266: // MISC-MEM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267: parameter logic [31:0] INSN_FENCE   = { 17'b?,             3'b000, 5'b?, {OPCODE_MISC_MEM} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268: parameter logic [31:0] INSN_FENCEI  = { 17'b0,             3'b001, 5'b0, {OPCODE_MISC_MEM} };</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="margin:0; padding:0 "> 270: // Compressed Instructions</pre>
+<pre style="margin:0; padding:0 "> 271: // C0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272: parameter logic [15:0] INSN_CADDI4SPN  = { 3'b000,       11'b?,                    {OPCODE_C0} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273: parameter logic [15:0] INSN_CLW        = { 3'b010,       11'b?,                    {OPCODE_C0} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274: parameter logic [15:0] INSN_CSW        = { 3'b110,       11'b?,                    {OPCODE_C0} };</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="margin:0; padding:0 "> 276: // C1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: parameter logic [15:0] INSN_CADDI      = { 3'b000,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278: parameter logic [15:0] INSN_CJAL       = { 3'b001,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279: parameter logic [15:0] INSN_CJ         = { 3'b101,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280: parameter logic [15:0] INSN_CLI        = { 3'b010,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281: parameter logic [15:0] INSN_CLUI       = { 3'b011,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282: parameter logic [15:0] INSN_CBEQZ      = { 3'b110,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283: parameter logic [15:0] INSN_CBNEZ      = { 3'b111,       11'b?,                    {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284: parameter logic [15:0] INSN_CSRLI      = { 3'b100, 1'b?, 2'b00, 8'b?,              {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285: parameter logic [15:0] INSN_CSRAI      = { 3'b100, 1'b?, 2'b01, 8'b?,              {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286: parameter logic [15:0] INSN_CANDI      = { 3'b100, 1'b?, 2'b10, 8'b?,              {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287: parameter logic [15:0] INSN_CSUB       = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b00, 3'b?, {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288: parameter logic [15:0] INSN_CXOR       = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b01, 3'b?, {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289: parameter logic [15:0] INSN_COR        = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b10, 3'b?, {OPCODE_C1} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290: parameter logic [15:0] INSN_CAND       = { 3'b100, 1'b0, 2'b11, 3'b?, 2'b11, 3'b?, {OPCODE_C1} };</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="margin:0; padding:0 "> 292: // C2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293: parameter logic [15:0] INSN_CSLLI      = { 3'b000,       11'b?,                    {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294: parameter logic [15:0] INSN_CLWSP      = { 3'b010,       11'b?,                    {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295: parameter logic [15:0] INSN_SWSP       = { 3'b110,       11'b?,                    {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296: parameter logic [15:0] INSN_CMV        = { 3'b100, 1'b0, 10'b?,                    {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297: parameter logic [15:0] INSN_CADD       = { 3'b100, 1'b1, 10'b?,                    {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298: parameter logic [15:0] INSN_CEBREAK    = { 3'b100, 1'b1,        5'b0,  5'b0,       {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299: parameter logic [15:0] INSN_CJR        = { 3'b100, 1'b0,        5'b?,  5'b0,       {OPCODE_C2} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300: parameter logic [15:0] INSN_CJALR      = { 3'b100, 1'b1,        5'b?,  5'b0,       {OPCODE_C2} };</pre>
+<pre style="margin:0; padding:0 "> 301: </pre>
+<pre style="margin:0; padding:0 "> 302: endpackage</pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+</body>
+</html>

@@ -65,7 +65,7 @@ const std::vector<std::string> copyright = {
 
 const std::vector<std::string> banner = {
     "********************************************",
-    "*  SURELOG System Verilog Compiler/Linter  *",
+    "*  SURELOG SystemVerilog  Compiler/Linter  *",
     "********************************************",
 };
 
@@ -85,7 +85,7 @@ const std::vector<std::string> helpText = {
     "  -Idir                 Specifies include paths",
     "  +libext+<extname>+... Specifies the library extensions",
     "  <file>.v              Verilog File",
-    "  <file>.sv             System Verilog File",
+    "  <file>.sv             SystemVerilog File",
     "  +liborder             Lib Order option (ignored)",
     "  +librescan            Lib Rescan option (ignored)",
     "  +libverbose           Lib Verbose option (ignored)",
@@ -103,7 +103,7 @@ const std::vector<std::string> helpText = {
     "  -sverilog             Forces all files to be parsed as SystemVerilog files",
     "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
     "FLOWS OPTIONS:",
-    "  -fileunit             Compiles each Verilog file as an independent",
+   "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
     "used)",
     "  -diffcompunit         Compiles both all files as a whole unit and",
@@ -134,7 +134,7 @@ const std::vector<std::string> helpText = {
     "  -timescale=<timescale> Specifies the overall timescale",
     "  -nobuiltin            Do not parse SV builtin classes (array...)", "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
@@ -167,13 +167,13 @@ const std::vector<std::string> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -o <path>             Turns on all compilation stages, produces all ",
-    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",        
+    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
     "  -exe <command>        Post execute a system call <command>, passes it the ",
-    "                        preprocessor file list."
-    "  --help               This help",
-    "  --version            Surelog version",
+    "                        preprocessor file list.",
+    "  --help                This help",
+    "  --version             Surelog version",
     "RETURN CODE:",
     "   Bit mask the return code, more than 1 bit can be on.",
     "   0   - No issues",
@@ -261,7 +261,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_filterProtectedRegions(false),
       m_filterComments(false),
       m_parse(false),
-      m_parseOnly(false),  
+      m_parseOnly(false),
       m_compile(false),
       m_elaborate(false),
       m_diff_comp_mode(diff_comp_mode),
@@ -309,10 +309,6 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
     m_verbose = false;
   }
 }
-
-CommandLineParser::CommandLineParser(const CommandLineParser& orig) {}
-
-CommandLineParser::~CommandLineParser() {}
 
 void CommandLineParser::splitPlusArg_(std::string s, std::string prefix,
                                       std::vector<SymbolId>& container) {
@@ -435,7 +431,7 @@ static std::string GetProgramNameAbsolutePath(const char *progname) {
   return progname; // Didn't find anything, return progname as-is.
 }
 
-int CommandLineParser::parseCommandLine(int argc, const char** argv) {
+bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   const std::string exe_name = GetProgramNameAbsolutePath(argv[0]);
   m_exePath = exe_name;
   const std::string exe_path = FileUtils::getPathName(exe_name);
@@ -463,7 +459,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
-    cmd_line.push_back(argv[i]);
+    cmd_line.emplace_back(argv[i]);
     if (!strcmp(argv[i], "-cd")) {
       std::string newDir = argv[i + 1];
       int ret = chdir(newDir.c_str());
@@ -488,16 +484,20 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
         StringUtils::registerEnvVar(def, "");
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(2, loc - 2);
         value = tmp.substr(loc + 1);
         StringUtils::registerEnvVar(def, value);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, value));
       }
     }
   }
   processArgs_(cmd_line, all_arguments);
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" || 
+    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" ||
         all_arguments[i] == "--help") {
       m_help = true;
       std::string help = printStringArray(helpText);
@@ -535,7 +535,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     if (all_arguments[i] == "-odir" || all_arguments[i] == "-o"
     || all_arguments[i] == "--Mdir"){
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
         m_errors->addError(err);
         break;
@@ -551,7 +551,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     if (plus_arguments_(all_arguments[i])) {
     } else if (all_arguments[i] == "-d") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_DEBUG_MISSING_LEVEL, loc);
         m_errors->addError(err);
         break;
@@ -572,7 +572,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else {
         int debugLevel = atoi(all_arguments[i].c_str());
         if (debugLevel < 0 || debugLevel > 4) {
-          Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+          Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_DEBUG_INCORRECT_LEVEL, loc);
           m_errors->addError(err);
         } else {
@@ -582,27 +582,42 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (strstr(all_arguments[i].c_str(), "-timescale=")) {
       std::string timescale;
       timescale = all_arguments[i].substr(11, std::string::npos);
-      if (timescale == "") {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      if (timescale.empty()) {
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_TIMESCALE_MISSING_SETTING, loc);
         m_errors->addError(err);
         break;
       }
       m_timescale = timescale;
     } else if (strstr (all_arguments[i].c_str(), "-D")) {
+      std::string def;
+      std::string value;
+      std::string tmp = all_arguments[i];
+      const size_t loc = tmp.find("=");
+      if (loc == std::string::npos) {
+        StringUtils::registerEnvVar(def, "");
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, std::string()));
+      } else {
+        def = tmp.substr(2, loc - 2);
+        value = tmp.substr(loc + 1);
+        StringUtils::registerEnvVar(def, value);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, value));
+      }
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
-      if (include == "") {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      if (include.empty()) {
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
         m_errors->addError(err);
         break;
       }
-      m_includePaths.push_back(getSymbolTable()->registerSymbol(include));
+      m_includePaths.push_back(mutableSymbolTable()->registerSymbol(include));
     } else if (all_arguments[i] == "-split") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_SPLIT_FILE_MISSING_SIZE, loc);
         m_errors->addError(err);
         break;
@@ -614,11 +629,11 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-exe") {
       i++;
       m_exeCommand = all_arguments[i];
-    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" || 
+    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
       bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_MISSING_LEVEL, loc);
         m_errors->addError(err);
         break;
@@ -634,7 +649,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         maxMT = atoi(all_arguments[i].c_str());
       }
       if (maxMT < 0 || maxMT > 512) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_INCORRECT_LEVEL, loc);
         m_errors->addError(err);
       } else {
@@ -663,7 +678,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
             if (m_nbMaxProcesses < 2) m_nbMaxProcesses = 2;
           }
           Location loc(
-              getSymbolTable()->registerSymbol(std::to_string(maxMT)));
+              mutableSymbolTable()->registerSymbol(std::to_string(maxMT)));
           Error err(ErrorDefinition::CMD_NUMBER_THREADS, loc);
           m_errors->addError(err);
         }
@@ -681,7 +696,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_lineOffsetsAsComments = true;
     } else if (all_arguments[i] == "-v") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LIBRARY_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -690,7 +705,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_libraryFiles.push_back(m_symbolTable->registerSymbol(all_arguments[i]));
     } else if (all_arguments[i] == "-y") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LIBRARY_PATH_MISSING_PATH, loc);
         m_errors->addError(err);
         break;
@@ -699,7 +714,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_libraryPaths.push_back(m_symbolTable->registerSymbol(all_arguments[i]));
     } else if (all_arguments[i] == "-l") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_LOG_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -723,7 +738,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_useConfigs.push_back(m_symbolTable->registerSymbol(all_arguments[i]));
     } else if (all_arguments[i] == "-writeppfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -732,7 +747,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_writePpOutputFileId = m_symbolTable->registerSymbol(all_arguments[i]);
     } else if (all_arguments[i] == "-cache") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -764,19 +779,19 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-sverilog") {
       m_sverilog = true;
     } else if (all_arguments[i] == "-fileunit") {
-      Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_SEPARATE_COMPILATION_UNIT_ON, loc);
       m_errors->addError(err);
     } else if (all_arguments[i] == "-diffcompunit") {
       if (m_fileunit) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_SEPARATE_COMPILATION_UNIT_ON, loc);
         m_errors->addError(err);
       }
     } else if (all_arguments[i] == "-odir") {
       i++;
     } else if (all_arguments[i] == "--Mdir") {
-      i++; 
+      i++;
     } else if (all_arguments[i] == "-o") {
       i++;
       m_writePpOutput = true;
@@ -824,7 +839,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_pythonAllowed = false;
     } else if (all_arguments[i] == "-pythonevalscriptperfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -843,7 +858,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::cout << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-pythonlistenerfile") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -858,7 +873,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       PythonAPI::setListenerScript(all_arguments[i]);
     } else if (all_arguments[i] == "-pythonevalscript") {
       if (i == all_arguments.size() - 1) {
-        Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+        Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_FILE, loc);
         m_errors->addError(err);
         break;
@@ -881,20 +896,20 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
       m_sourceFiles.push_back(id);
       std::string fileName = all_arguments[i];
-      fileName = FileUtils::fileName(fileName);
-      m_svSourceFiles.insert(fileName); 
+      fileName = FileUtils::basename(fileName);
+      m_svSourceFiles.insert(fileName);
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
-      Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '-') {
-      Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else {
-      if (all_arguments[i] != "") {
-        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {
-          Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+      if (!all_arguments[i].empty()) {
+        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i]) || strstr(all_arguments[i].c_str(), ".vlt")) {
+          Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
           m_errors->addError(err);
         } else {
@@ -948,10 +963,8 @@ bool CommandLineParser::checkCommandLine_() {
   return noError;
 }
 
-bool CommandLineParser::isSVFile(const std::string& name) {
-  if (m_svSourceFiles.find(name) != m_svSourceFiles.end())
-    return true;
-  return false;
+bool CommandLineParser::isSVFile(const std::string& name) const {
+  return m_svSourceFiles.find(name) != m_svSourceFiles.end();
 }
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {

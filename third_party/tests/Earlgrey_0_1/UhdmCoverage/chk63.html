@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/flash_ctrl/rtl/flash_phy.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash Phy Module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // This module is an early attempt to model what a custom phy module might look like</pre>
+<pre style="margin:0; padding:0 ">   9: // Long term, it is expected this module will split into its own entity under hw/ip</pre>
+<pre style="margin:0; padding:0 ">  10: // with its own set of register that support technology / node specific flash settings</pre>
+<pre style="margin:0; padding:0 ">  11: // More of those details will be worked out with future partner engagement</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module flash_phy #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int NumBanks = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int PagesPerBank = 256, // pages per bank</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int WordsPerPage = 256, // words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int DataWidth   = 32, // bits per word</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   //Do not touch - Derived parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int BankW = $clog2(NumBanks),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int PageW = $clog2(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam int WordW = $clog2(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   localparam int AddrW = BankW + PageW + WordW</pre>
+<pre style="margin:0; padding:0 ">  24: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input host_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input [AddrW-1:0] host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [DataWidth-1:0] host_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input flash_ctrl_pkg::flash_c2m_t flash_ctrl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output flash_ctrl_pkg::flash_m2c_t flash_ctrl_o</pre>
+<pre style="margin:0; padding:0 ">  34: );</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // Flash macro outstanding refers to how many reads we allow a macro to move ahead of an</pre>
+<pre style="margin:0; padding:0 ">  37:   // in order blocking read. Since the data cannot be returned out of order, this simply</pre>
+<pre style="margin:0; padding:0 ">  38:   // does the reads in advance and store them in a FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   localparam int FlashMacroOustanding = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   localparam int SeqFifoDepth = FlashMacroOustanding * NumBanks;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // flash_phy forwards incoming host transactions to the appropriate bank but is not aware of</pre>
+<pre style="margin:0; padding:0 ">  43:   // any controller / host arbitration within the bank.  This means it is possible for</pre>
+<pre style="margin:0; padding:0 ">  44:   // flash_phy to forward one transaction to bank N and another to bank N+1 only for bank N+1</pre>
+<pre style="margin:0; padding:0 ">  45:   // to finish its transaction first (if for example a controller operation were ongoing in bank</pre>
+<pre style="margin:0; padding:0 ">  46:   // N).</pre>
+<pre style="margin:0; padding:0 ">  47:   // This implies that even though transactions are received in-order, they can complete out of</pre>
+<pre style="margin:0; padding:0 ">  48:   // order.  Thus it is the responsibility of the flash_phy to sequence the responses correctly.</pre>
+<pre style="margin:0; padding:0 ">  49:   // For banks that have finished ahead of time, it is also important to hold its output until</pre>
+<pre style="margin:0; padding:0 ">  50:   // consumed.</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // host to flash_phy interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic [BankW-1:0]     host_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic [BankW-1:0]     rsp_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [NumBanks-1:0]  host_req_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [NumBanks-1:0]  host_req_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [NumBanks-1:0]  host_rsp_avail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [NumBanks-1:0]  host_rsp_vld;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic [NumBanks-1:0]  host_rsp_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic [DataWidth-1:0] host_rsp_data [NumBanks];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic                 seq_fifo_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic                 seq_fifo_pending;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // flash_ctrl to flash_phy interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   logic [BankW-1:0]     ctrl_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic [NumBanks-1:0]  rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [NumBanks-1:0]  prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [NumBanks-1:0]  erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [NumBanks-1:0]  init_busy;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:   // common interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [DataWidth-1:0] rd_data [NumBanks];</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:   // select which bank each is operating on</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   assign host_bank_sel = host_req_i ? host_addr_i[PageW + WordW +: BankW] : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   assign ctrl_bank_sel = flash_ctrl_i.addr[PageW + WordW +: BankW];</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79:   // accept transaction if bank is ready and previous response NOT pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   assign host_req_rdy_o = host_req_rdy[host_bank_sel] & host_rsp_avail[host_bank_sel] &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:                           seq_fifo_rdy;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   assign host_req_done_o = seq_fifo_pending & host_rsp_vld[rsp_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   assign host_rdata_o = host_rsp_data[rsp_bank_sel];</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   assign flash_ctrl_o.rd_done = rd_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   assign flash_ctrl_o.prog_done = prog_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   assign flash_ctrl_o.erase_done = erase_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   assign flash_ctrl_o.rd_data = rd_data[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   assign flash_ctrl_o.init_busy = |init_busy;</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   // This fifo holds the expected return order</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       .Width  (BankW),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       .Pass   (0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       .Depth  (SeqFifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     ) bank_sequence_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       .wvalid (host_req_i & host_req_rdy_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       .wready (seq_fifo_rdy),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       .wdata  (host_bank_sel),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       .rvalid (seq_fifo_pending),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       .rready (host_req_done_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       .rdata  (rsp_bank_sel)</pre>
+<pre style="margin:0; padding:0 "> 108:     );</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   for (genvar bank = 0; bank < NumBanks; bank++) begin : gen_flash_banks</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:     // pop if the response came from the appropriate fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     assign host_rsp_ack[bank] = host_req_done_o & (rsp_bank_sel == bank);</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       .Width  (DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       .Pass   (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       .Depth  (FlashMacroOustanding)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     ) host_rsp_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:       .wvalid (host_req_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:       .wready (host_rsp_avail[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       .wdata  (rd_data[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       .rvalid (host_rsp_vld[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       .rready (host_rsp_ack[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       .rdata  (host_rsp_data[bank])</pre>
+<pre style="margin:0; padding:0 "> 130:     );</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     prim_flash #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       .PagesPerBank(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       .WordsPerPage(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       .DataWidth(DataWidth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     ) u_flash (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       .req_i(flash_ctrl_i.req & (ctrl_bank_sel == bank)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       .host_req_i(host_req_i & host_req_rdy_o & (host_bank_sel == bank)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       .host_addr_i(host_addr_i[0 +: PageW + WordW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       .rd_i(flash_ctrl_i.rd),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:       .prog_i(flash_ctrl_i.prog),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       .pg_erase_i(flash_ctrl_i.pg_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       .bk_erase_i(flash_ctrl_i.bk_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       .addr_i(flash_ctrl_i.addr[0 +: PageW + WordW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       .prog_data_i(flash_ctrl_i.prog_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       .host_req_rdy_o(host_req_rdy[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       .host_req_done_o(host_req_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       .rd_done_o(rd_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       .prog_done_o(prog_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       .erase_done_o(erase_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       .rd_data_o(rd_data[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       .init_busy_o(init_busy[bank])</pre>
+<pre style="margin:0; padding:0 "> 155:     );</pre>
+<pre style="margin:0; padding:0 "> 156:   end</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158: endmodule // flash_phy</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+</body>
+</html>

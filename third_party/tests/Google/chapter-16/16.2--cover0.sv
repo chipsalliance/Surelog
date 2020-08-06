@@ -1,7 +1,6 @@
 /*
 :name: cover0_test
 :description: cover #0 test
-:should_fail: 0
 :tags: 16.4
 */
 module top();

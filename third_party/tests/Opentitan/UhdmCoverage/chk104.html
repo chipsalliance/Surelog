@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_arbiter_tree.sv Cov: 82% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // N:1 arbiter module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Verilog parameter</pre>
+<pre style="margin:0; padding:0 ">   8: //   N:    Number of request ports</pre>
+<pre style="margin:0; padding:0 ">   9: //   DW:   Data width</pre>
+<pre style="margin:0; padding:0 ">  10: //   Lock: Lock arbiter decision when destination is not ready</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: // Hand optimized version which implements a binary tree to optimize</pre>
+<pre style="margin:0; padding:0 ">  13: // timing. In particular, arbitration decisions and data mux steering happen</pre>
+<pre style="margin:0; padding:0 ">  14: // simultaneously on the corresponding tree level, which leads to improved propagation</pre>
+<pre style="margin:0; padding:0 ">  15: // delay compared to a solution that arbitrates first, followed by a data mux selection.</pre>
+<pre style="margin:0; padding:0 ">  16: //</pre>
+<pre style="margin:0; padding:0 ">  17: // If Lock is turned on, the currently winning request is held if the</pre>
+<pre style="margin:0; padding:0 ">  18: // data sink is not ready. This behavior is required by some interconnect</pre>
+<pre style="margin:0; padding:0 ">  19: // protocols (AXI, TL), and hence it is turned on by default.</pre>
+<pre style="margin:0; padding:0 ">  20: // Note that this implies that an asserted request must stay asserted</pre>
+<pre style="margin:0; padding:0 ">  21: // until it has been granted.</pre>
+<pre style="margin:0; padding:0 ">  22: //</pre>
+<pre style="margin:0; padding:0 ">  23: // See also: prim_arbiter_ppc</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: module prim_arbiter_tree #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   parameter int unsigned N  = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter int unsigned DW = 32,</pre>
+<pre style="margin:0; padding:0 ">  28:   // holds the last arbiter decision in case the sink is not ready</pre>
+<pre style="margin:0; padding:0 ">  29:   // this should be enabled when used in AXI or TL protocols.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter bit Lock      = 1'b1</pre>
+<pre style="margin:0; padding:0 ">  31: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input        [ N-1:0]        req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input        [DW-1:0]        data_i [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic [ N-1:0]        gnt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output logic [$clog2(N)-1:0] idx_o,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   output logic          valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic [DW-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input                 ready_i</pre>
+<pre style="margin:0; padding:0 ">  43: );</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   `ASSERT_INIT(CheckNGreaterZero_A, N > 0)</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:   // this case is basically just a bypass</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:   if (N == 1) begin : gen_degenerate_case</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:     assign valid_o  = req_i[0];</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:     assign data_o   = data_i[0];</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:     assign gnt_o[0] = valid_o & ready_i;</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:     assign idx_o    = '0;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   end else begin : gen_normal_case</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:     // align to powers of 2 for simplicity</pre>
+<pre style="margin:0; padding:0 ">  58:     // a full binary tree with N levels has 2**N + 2**N-1 nodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     localparam int unsigned N_LEVELS = $clog2(N);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     logic [N-1:0]                             req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     logic [2**(N_LEVELS+1)-2:0]               req_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic [2**(N_LEVELS+1)-2:0]               gnt_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic [2**(N_LEVELS+1)-2:0][N_LEVELS-1:0] idx_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic [2**(N_LEVELS+1)-2:0][DW-1:0]       data_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     logic [N_LEVELS-1:0]                      rr_q;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:     // req_locked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     if (Lock) begin : gen_lock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       logic [N-1:0]        mask_d, mask_q;</pre>
+<pre style="margin:0; padding:0 ">  70:       // if the request cannot be served, we store the current request bits</pre>
+<pre style="margin:0; padding:0 ">  71:       // and apply it as a mask to the incoming requests in the next cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:       assign mask_d = (valid_o && (!ready_i)) ? req : {N{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       assign req    = mask_q & req_i;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       always_ff @(posedge clk_i) begin : p_lock_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:         if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:           mask_q  <= {N{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:           mask_q  <= mask_d;</pre>
+<pre style="margin:0; padding:0 ">  80:         end</pre>
+<pre style="margin:0; padding:0 ">  81:       end</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:     end else begin : gen_no_lock</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:       assign req = req_i;</pre>
+<pre style="margin:0; padding:0 ">  84:     end</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     for (genvar level = 0; level < N_LEVELS+1; level++) begin : gen_tree</pre>
+<pre style="margin:0; padding:0 ">  87:       //</pre>
+<pre style="margin:0; padding:0 ">  88:       // level+1   c0   c1   <- "base1" points to the first node on "level+1",</pre>
+<pre style="margin:0; padding:0 ">  89:       //            \  /         these nodes are the children of the nodes one level below</pre>
+<pre style="margin:0; padding:0 ">  90:       // level       pa      <- "base0", points to the first node on "level",</pre>
+<pre style="margin:0; padding:0 ">  91:       //                         these nodes are the parents of the nodes one level above</pre>
+<pre style="margin:0; padding:0 ">  92:       //</pre>
+<pre style="margin:0; padding:0 ">  93:       // hence we have the following indices for the pa, c0, c1 nodes:</pre>
+<pre style="margin:0; padding:0 ">  94:       // pa = 2**level     - 1 + offset       = base0 + offset</pre>
+<pre style="margin:0; padding:0 ">  95:       // c0 = 2**(level+1) - 1 + 2*offset     = base1 + 2*offset</pre>
+<pre style="margin:0; padding:0 ">  96:       // c1 = 2**(level+1) - 1 + 2*offset + 1 = base1 + 2*offset + 1</pre>
+<pre style="margin:0; padding:0 ">  97:       //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       localparam int unsigned base0 = (2**level)-1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       localparam int unsigned base1 = (2**(level+1))-1;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       for (genvar offset = 0; offset < 2**level; offset++) begin : gen_level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:         localparam int unsigned pa = base0 + offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:         localparam int unsigned c0 = base1 + 2*offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:         localparam int unsigned c1 = base1 + 2*offset + 1;</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106:         // this assigns the gated interrupt source signals, their</pre>
+<pre style="margin:0; padding:0 "> 107:         // corresponding IDs and priorities to the tree leafs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:         if (level == N_LEVELS) begin : gen_leafs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:           if (offset < N) begin : gen_assign</pre>
+<pre style="margin:0; padding:0 "> 110:             // forward path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:             assign req_tree[pa]  = req[offset];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:             assign idx_tree[pa]  = offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:             assign data_tree[pa] = data_i[offset];</pre>
+<pre style="margin:0; padding:0 "> 114:             // backward (grant) path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:             assign gnt_o[offset] = gnt_tree[pa];</pre>
+<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:           end else begin : gen_tie_off</pre>
+<pre style="margin:0; padding:0 "> 117:             // forward path</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "> 118:             assign req_tree[pa]  = '0;</pre>
+<pre id="id119" style="background-color: #FFB6C1; margin:0; padding:0 "> 119:             assign idx_tree[pa]  = '0;</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:             assign data_tree[pa] = '0;</pre>
+<pre style="margin:0; padding:0 "> 121:           end</pre>
+<pre style="margin:0; padding:0 "> 122:         // this creates the node assignments</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:         end else begin : gen_nodes</pre>
+<pre style="margin:0; padding:0 "> 124:           // NOTE: the code below has been written in this way in order to work</pre>
+<pre style="margin:0; padding:0 "> 125:           // around a synthesis issue in Vivado 2018.3 and 2019.2 where the whole</pre>
+<pre style="margin:0; padding:0 "> 126:           // module would be optimized away if these assign statements contained</pre>
+<pre style="margin:0; padding:0 "> 127:           // ternary statements to implement the muxes.</pre>
+<pre style="margin:0; padding:0 "> 128:           //</pre>
+<pre style="margin:0; padding:0 "> 129:           // TODO: rewrite these lines with ternary statmements onec the problem</pre>
+<pre style="margin:0; padding:0 "> 130:           // has been fixed in the tool.</pre>
+<pre style="margin:0; padding:0 "> 131:           //</pre>
+<pre style="margin:0; padding:0 "> 132:           // See also originating issue:</pre>
+<pre style="margin:0; padding:0 "> 133:           // https://github.com/lowRISC/opentitan/issues/1355</pre>
+<pre style="margin:0; padding:0 "> 134:           // Xilinx issue:</pre>
+<pre style="margin:0; padding:0 "> 135:           // https://forums.xilinx.com/t5/Synthesis/Simulation-Synthesis-Mismatch-with-Vivado-2018-3/m-p/1065923#M33849</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:           // forward path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:           logic sel; // local helper variable</pre>
+<pre style="margin:0; padding:0 "> 139:           // this performs a (local) round robin arbitration using the associated rr counter bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:           assign sel = ~req_tree[c0] | req_tree[c1] & rr_q[N_LEVELS-1-level];</pre>
+<pre style="margin:0; padding:0 "> 141:           // propagate requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:           assign req_tree[pa]  = req_tree[c0] | req_tree[c1];</pre>
+<pre style="margin:0; padding:0 "> 143:           // muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:           assign idx_tree[pa]  = ({N_LEVELS{sel}}  & idx_tree[c1]) | ({N_LEVELS{~sel}}  & idx_tree[c0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:           assign data_tree[pa] = ({DW{sel}} & data_tree[c1])       | ({DW{~sel}} & data_tree[c0]);</pre>
+<pre style="margin:0; padding:0 "> 146:           // backward (grant) path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:           assign gnt_tree[c0] = gnt_tree[pa] & ~sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:           assign gnt_tree[c1] = gnt_tree[pa] &  sel;</pre>
+<pre style="margin:0; padding:0 "> 149:         end</pre>
+<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:       end : gen_level</pre>
+<pre id="id151" style="background-color: #FFB6C1; margin:0; padding:0 "> 151:     end : gen_tree</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="margin:0; padding:0 "> 153:     // the results can be found at the tree root</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     assign idx_o       = idx_tree[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     assign data_o      = data_tree[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     assign valid_o     = req_tree[0];</pre>
+<pre style="margin:0; padding:0 "> 157:     // propagate the grant back to the requestors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     assign gnt_tree[0] = valid_o & ready_i;</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:     // this is the round robin counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:         rr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:         if (gnt_tree[0] && (rr_q == N-1)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:           rr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:         end else if (gnt_tree[0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:           rr_q <= rr_q + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 169:         end</pre>
+<pre style="margin:0; padding:0 "> 170:       end</pre>
+<pre style="margin:0; padding:0 "> 171:     end</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:   end</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 176:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 177:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="margin:0; padding:0 "> 179:   // we can only grant one requestor at a time</pre>
+<pre style="margin:0; padding:0 "> 180:   `ASSERT(CheckHotOne_A, $onehot0(gnt_o), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 181:   // A grant implies that the sink is ready</pre>
+<pre style="margin:0; padding:0 "> 182:   `ASSERT(GntImpliesReady_A, |gnt_o |-> ready_i, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 183:   // A grant implies that the arbiter asserts valid as well</pre>
+<pre style="margin:0; padding:0 "> 184:   `ASSERT(GntImpliesValid_A, |gnt_o |-> valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 185:   // A request and a sink that is ready imply a grant</pre>
+<pre style="margin:0; padding:0 "> 186:   `ASSERT(ReqAndReadyImplyGrant_A, |req_i && ready_i |-> |gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 187:   // A request and a sink that is ready imply a grant</pre>
+<pre style="margin:0; padding:0 "> 188:   `ASSERT(ReqImpliesValid_A, |req_i |-> valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 189:   // Both conditions above combined and reversed</pre>
+<pre style="margin:0; padding:0 "> 190:   `ASSERT(ReadyAndValidImplyGrant_A, ready_i && valid_o |-> |gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 191:   // Both conditions above combined and reversed</pre>
+<pre style="margin:0; padding:0 "> 192:   `ASSERT(NoReadyValidNoGrant_A, !(ready_i || valid_o) |-> gnt_o == 0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 193:   // check index / grant correspond</pre>
+<pre style="margin:0; padding:0 "> 194:   `ASSERT(IndexIsCorrect_A, ready_i && valid_o |-> gnt_o[idx_o] && req_i[idx_o], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 195:   // data flow</pre>
+<pre style="margin:0; padding:0 "> 196:   `ASSERT(DataFlow_A, ready_i && valid_o |-> data_o == data_i[idx_o], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 197:   // KNOWN assertions on outputs, except for data as that may be partially X in simulation</pre>
+<pre style="margin:0; padding:0 "> 198:   // e.g. when used on a BUS</pre>
+<pre style="margin:0; padding:0 "> 199:   `ASSERT_KNOWN(ValidKnown_A, valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 200:   `ASSERT_KNOWN(GrantKnown_A, gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 201:   `ASSERT_KNOWN(IdxKnown_A, idx_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 202: </pre>
+<pre style="margin:0; padding:0 "> 203: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 204:   // A grant implies a request</pre>
+<pre style="margin:0; padding:0 "> 205:   int unsigned k; // this is a symbolic variable</pre>
+<pre style="margin:0; padding:0 "> 206:   `ASSUME(KStable_M, ##1 $stable(k), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 207:   `ASSUME(KRange_M, k < N, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 208:   `ASSERT(GntImpliesReq_A, gnt_o[k] |-> req_i[k], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210:   if (Lock) begin : gen_lock_assertion</pre>
+<pre style="margin:0; padding:0 "> 211:     // requests must stay asserted until they have been granted</pre>
+<pre style="margin:0; padding:0 "> 212:     `ASSUME(ReqStaysHighUntilGranted_M, (|req_i) && !ready_i |=></pre>
+<pre style="margin:0; padding:0 "> 213:         (req_i & $past(req_i)) == $past(req_i), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 214:     // check that the arbitration decision is held if the sink is not ready</pre>
+<pre style="margin:0; padding:0 "> 215:     `ASSERT(LockArbDecision_A, |req_i && !ready_i |=> idx_o == $past(idx_o), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 216:   end</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218: `endif</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220: endmodule</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+</body>
+</html>

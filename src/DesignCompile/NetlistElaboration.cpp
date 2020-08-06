@@ -44,7 +44,11 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/NetlistElaboration.h"
 #include "Common/PortNetHolder.h"
+#include "Design/Enum.h"
 #include "Design/Netlist.h"
+#include "Design/Struct.h"
+#include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include <queue>
 
 #include "uhdm.h"
@@ -52,13 +56,16 @@
 #include "UhdmWriter.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
-  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());        
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
+  m_helper.seterrorReporting(m_compileDesign->getCompiler()->getErrorContainer(),
+      m_compileDesign->getCompiler()->getSymbolTable());
   m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
@@ -69,9 +76,9 @@ NetlistElaboration::~NetlistElaboration() {
 
 bool NetlistElaboration::elaborate() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
-  std::vector<ModuleInstance*>& topModules = design->getTopLevelModuleInstances();
+  const std::vector<ModuleInstance*>& topModules = design->getTopLevelModuleInstances();
   for (ModuleInstance* inst : topModules) {
-    if (!elaborate_(inst)) 
+    if (!elaborate_(inst))
       return false;
   }
   return true;
@@ -85,9 +92,9 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   }
   elab_interfaces_(instance);
   elab_generates_(instance);
-  
+
   VObjectType insttype = instance->getType();
-  if ((insttype != VObjectType::slInterface_instantiation) && 
+  if ((insttype != VObjectType::slInterface_instantiation) &&
       (insttype != VObjectType::slConditional_generate_construct) &&
       (insttype != VObjectType::slLoop_generate_construct) &&
       (insttype != VObjectType::slGenerate_item) &&
@@ -95,13 +102,14 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
       (insttype != VObjectType::slGenerate_module_loop_statement) &&
       (insttype != VObjectType::slGenerate_module_named_block) &&
       (insttype != VObjectType::slGenerate_module_block) &&
-      (insttype != VObjectType::slGenerate_module_item)
+      (insttype != VObjectType::slGenerate_module_item &&
+      (insttype != VObjectType::slGenerate_block))
       ) {
     elab_ports_nets_(instance);
   }
 
   high_conn_(instance);
-  
+
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
   }
@@ -110,7 +118,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
 
 bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   ModuleInstance* parent = instance->getParent();
-  FileContent* fC = instance->getFileContent();
+  const FileContent* fC = instance->getFileContent();
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
@@ -118,22 +126,16 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   VObjectType inst_type = fC->Type(Udp_instantiation);
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
-  VObjectType compType = VObjectType::slNoType;
-  if (comp)
-    compType = comp->getType();
   std::vector<Signal*>* signals = nullptr;
-  if (compType == VObjectType::slModule_declaration) {
-    signals = &((ModuleDefinition*) comp)->getPorts();
-  } else if (compType == VObjectType::slInterface_declaration) {
-    signals = &((ModuleDefinition*) comp)->getPorts();
-  } else if (compType == VObjectType::slProgram_declaration) {
-    signals = &((Program*) comp)->getPorts();
-  } 
+  if (comp) {
+    signals = &comp->getPorts();
+  }
 
   if ((inst_type == VObjectType::slUdp_instantiation) ||
      (inst_type == VObjectType::slModule_instantiation) ||
      (inst_type == VObjectType::slProgram_instantiation)||
-     (inst_type == VObjectType::slInterface_instantiation)) {
+     (inst_type == VObjectType::slInterface_instantiation) ||
+     (inst_type == VObjectType::slGate_instantiation)) {
   /*
   n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
   n<dut> u<179> t<StringConst> p<180> l<20>
@@ -151,39 +153,84 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<191> t<Udp_instantiation> p<192> c<178> l<20>
   */
     NodeId modId = fC->Child(Udp_instantiation);
-    const std::string& modName = fC->SymName(modId);
     NodeId Udp_instance = fC->Sibling(modId);
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
-    NodeId instId = fC->Child(Name_of_instance);
-    const std::string& instName = fC->SymName(instId);
-    NodeId Net_lvalue = fC->Sibling(Name_of_instance);
+    NodeId Net_lvalue = 0;
+    if (fC->Type(Name_of_instance) == slName_of_instance) {
+      Net_lvalue = fC->Sibling(Name_of_instance);
+    } else {
+      Net_lvalue = Name_of_instance;
+      Name_of_instance = 0;
+    }
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
-      unsigned int index = 0; 
+      unsigned int index = 0;
       while (Net_lvalue) {
         std::string sigName;
+        NodeId sigId = 0; 
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-          NodeId sigId = fC->Child(Ps_or_hierarchical_identifier);
+          sigId = fC->Child(Ps_or_hierarchical_identifier);
           sigName = fC->SymName(sigId);
         } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
           NodeId Primary_literal = fC->Child(Primary);
-          NodeId sigId = fC->Child(Primary_literal);
+          sigId = fC->Child(Primary_literal);
           sigName = fC->SymName(sigId);
         }
         if (ports) {
           if (index < ports->size()) {
             port* p = (*ports)[index];
-            p->VpiName(sigName);
+
+            if (fC->Type(sigId) == slStringConst) {
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiFile(fC->getFileName());
+              ref->VpiLineNo(fC->Line(sigId));
+              p->High_conn(ref);
+              ref->VpiName(sigName);
+              any* net = bind_net_(parent, sigName);
+              ref->Actual_group(net);
+            } else { 
+              any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+              p->High_conn(exp);
+            }
+
+            //ref_obj* ref = s.MakeRef_obj();
+            //ref->VpiName(sigName);
+            //p->High_conn(ref);
+            //any* net = bind_net_(parent, sigName);
+            //ref->Actual_group(net);
+          }
+        }
+        if (inst_type == VObjectType::slGate_instantiation) {
+          // N input gate: 1 output, n-1 inputs
+          port* p = nullptr;
+          if (ports == nullptr) {
+            ports = s.MakePortVec();
+            netlist->ports(ports);
+            p = s.MakePort();
+            p->VpiDirection(vpiOutput);
+          } else {
+            p = s.MakePort();
+            p->VpiDirection(vpiInput);
+          }
+          p->VpiFile(fC->getFileName());
+          p->VpiLineNo(fC->Line(Net_lvalue));
+          if (fC->Type(sigId) == slStringConst) {
             ref_obj* ref = s.MakeRef_obj();
-            ref->VpiName(sigName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(sigId));
             p->High_conn(ref);
+            ref->VpiName(sigName);
             any* net = bind_net_(parent, sigName);
             ref->Actual_group(net);
+          } else { 
+            any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+            p->High_conn(exp);
           }
+          ports->push_back(p);
         }
         Net_lvalue = fC->Sibling(Net_lvalue);
         index++;
@@ -192,7 +239,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   /*
   n<TESTBENCH> u<195> t<StringConst> p<212> s<211> l<21>
   n<tb> u<196> t<StringConst> p<197> l<21>
-  n<> u<197> t<Name_of_instance> p<211> c<196> s<210> l<21> 
+  n<> u<197> t<Name_of_instance> p<211> c<196> s<210> l<21>
   n<observe> u<198> t<StringConst> p<203> s<202> l<21>
   n<o> u<199> t<StringConst> p<200> l<21>
   n<> u<200> t<Primary_literal> p<201> c<199> l<21>
@@ -217,31 +264,80 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       }
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (formalId == 0) 
+        if (formalId == 0)
           break;
-        if (fC->Type(formalId) == VObjectType::slExpression) {
-          NodeId Expression = formalId;
+        if (fC->Type(formalId) == VObjectType::slDotStar) {
+          // .* connection
+          if (signals) {
+            for (Signal* s1 : *signals) {
+              port* p = nullptr;
+              if (ports) {
+                if (index < ports->size()) {
+                  p = (*ports)[index];
+                } else {
+                  p = s.MakePort();
+                  ports->push_back(p);
+                }
+              } else {
+                ports = s.MakePortVec();
+                netlist->ports(ports);
+                p = s.MakePort();
+                ports->push_back(p);
+              }
+              const std::string& sigName = s1->getName();
+              p->VpiName(sigName);
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiFile(fC->getFileName());
+              ref->VpiLineNo(fC->Line(formalId));
+              ref->VpiName(sigName);
+              p->High_conn(ref);
+              UHDM::any* net = bind_net_(parent, sigName);
+              ref->Actual_group(net);
+              index++;
+            }
+          }
+          break;
+        }
+
+        std::string formalName = fC->SymName(formalId);
+        NodeId Expression = fC->Sibling(formalId);;
+        if (orderedConnection) {
+          Expression = formalId;
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
-          formalId = fC->Child(Primary_literal);
+          NodeId formalNameId = fC->Child(Primary_literal);
+          formalName = fC->SymName(formalNameId);
+        } else {
+          if (fC->Type(formalId) == VObjectType::slExpression) {
+            NodeId Expression = formalId;
+            NodeId Primary = fC->Child(Expression);
+            NodeId Primary_literal = fC->Child(Primary);
+            formalId = fC->Child(Primary_literal);
+            formalName = fC->SymName(formalId);
+          }
+          Expression =  fC->Sibling(formalId);
         }
-        std::string formalName = fC->SymName(formalId);
         NodeId sigId = formalId;
-        NodeId Expression =  fC->Sibling(formalId);
         expr* hexpr = nullptr;
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Expression) == slAttribute_instance) {
+           attributes =  m_helper.compileAttributes(comp, fC, Expression, m_compileDesign);
+           while (fC->Type(Expression) == slAttribute_instance)
+             Expression =  fC->Sibling(Expression);
+        }
         if (Expression) {
-          hexpr = (expr*) m_helper.compileExpression(nullptr,fC, Expression, m_compileDesign, nullptr, instance);
+          hexpr = (expr*) m_helper.compileExpression(comp, fC, Expression, m_compileDesign, nullptr, instance);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
         }
         std::string sigName;
-        if (fC->Name(sigId)) 
+        if (fC->Name(sigId))
           sigName = fC->SymName(sigId);
         std::string baseName = sigName;
         std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
-          if (fC->Name(subId)) { 
+          if (fC->Name(subId)) {
             selectName = fC->SymName(subId);
             sigName += std::string(".") + selectName;
           }
@@ -255,27 +351,34 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             p = (*ports)[index];
           } else {
             p = s.MakePort();
-            ports->push_back(p); 
+            ports->push_back(p);
           }
         } else {
           ports = s.MakePortVec();
           netlist->ports(ports);
           p = s.MakePort();
-          ports->push_back(p);         
+          ports->push_back(p);
         }
         any* net = nullptr;
-        if (sigName != "") {
+        if (!sigName.empty()) {
+          net = bind_net_(parent, sigName);
+        }
+
+        if ((!sigName.empty()) && (hexpr == nullptr)) {
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));
           ref->VpiName(sigName);
           p->High_conn(ref);
-          net = bind_net_(parent, sigName);
           ref->Actual_group(net);
         } else {
           p->High_conn(hexpr);
+          if (hexpr->UhdmType() == uhdmref_obj) {
+            ((ref_obj*)hexpr)->Actual_group(net);
+          }
         }
         p->VpiName(formalName);
+        p->Attributes(attributes);
         bool lowconn_is_nettype = false;
         if (const any* lc = p->Low_conn()) {
           if (lc->UhdmType() == uhdmref_obj) {
@@ -342,11 +445,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         index++;
       }
     }
-  } 
+  }
   return true;
 }
 
-interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,  
+interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,
                        const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb) {
   Netlist* netlist = instance->getNetlist();
@@ -397,7 +500,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleI
 }
 
 
-modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::string& instName,  
+modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::string& instName,
                        const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb, const std::string& modPortName) {
   Netlist* netlist = instance->getNetlist();
@@ -434,7 +537,7 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
         netlist->gen_scopes(gen_scopes);
       }
 
-      FileContent* fC = mm->getFileContents()[0];
+      const FileContent* fC = mm->getFileContents()[0];
       gen_scope_array* gen_scope_array = s.MakeGen_scope_array();
       std::vector<gen_scope*>* vec = s.MakeGen_scopeVec();
       gen_scope* gen_scope = s.MakeGen_scope();
@@ -449,13 +552,13 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
 
       if (mm->getContAssigns())
         gen_scope->Cont_assigns(mm->getContAssigns());
-      if (mm->getProcesses())  
+      if (mm->getProcesses())
         gen_scope->Process(mm->getProcesses());
       if (mm->getParameters())
         gen_scope->Parameters(mm->getParameters());
-      if (mm->getParam_assigns())  
+      if (mm->getParam_assigns())
         gen_scope->Param_assigns(mm->getParam_assigns());
-      
+
       elab_ports_nets_(instance);
 
       gen_scope->Nets(netlist->nets());
@@ -483,7 +586,7 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
       }
     }
   }
- 
+
   return true;
 }
 
@@ -502,9 +605,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   VObjectType compType = comp->getType();
   std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
-  std::vector<array_var*>* array_vars = netlist->array_vars();
-  for (int pass = 0; pass < 2; pass++) {
-    PortNetHolder* holder = nullptr;
+  std::vector<variables*>* vars = netlist->variables();
+  std::vector<array_net*>* array_nets = netlist->array_nets();
+  for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
@@ -514,134 +617,27 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         compType == VObjectType::slGenerate_module_loop_statement ||
         compType == VObjectType::slGenerate_module_named_block ||
         compType == VObjectType::slGenerate_module_block ||
-        compType == VObjectType::slGenerate_module_item) {
-      if (pass == 0)
-        signals = &((ModuleDefinition*) comp)->getSignals();
+        compType == VObjectType::slGenerate_module_item ||
+        compType == VObjectType::slGenerate_block ||
+        compType == VObjectType::slInterface_declaration ||
+        compType == VObjectType::slProgram_declaration) {
+      if (pass == 1)
+        signals = &comp->getSignals();
       else
-        signals = &((ModuleDefinition*) comp)->getPorts();
-      holder = dynamic_cast<ModuleDefinition*> (comp); 
-    } else if (compType == VObjectType::slInterface_declaration) {
-      if (pass == 0)
-        signals = &((ModuleDefinition*) comp)->getSignals();
-      else
-        signals = &((ModuleDefinition*) comp)->getPorts();
-      holder = dynamic_cast<ModuleDefinition*> (comp);   
-    } else if (compType == VObjectType::slProgram_declaration) {
-      if (pass == 0)
-        signals = &((Program*) comp)->getSignals();
-      else 
-        signals = &((Program*) comp)->getPorts();
-      holder = dynamic_cast<Program*> (comp);   
+        signals = &comp->getPorts();
     } else {
       continue;
     }
+    int portIndex = 0;
     for (Signal* sig : *signals) {
-      FileContent* fC = sig->getFileContent();
+      const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
-      NodeId range = sig->getRange();
-    
+      NodeId packedDimension = sig->getPackedDimension();
+      NodeId unpackedDimension = sig->getUnpackedDimension();
       if (pass == 0) {
-        NodeId dimension = fC->Sibling(id);
-        array_var* array_var = nullptr;
-        if (dimension) {
-          array_var = s.MakeArray_var();
-          array_var->Variables(s.MakeVariablesVec());
-        }
-
-        std::string signame = sig->getName();
-        std::string parentSymbol = prefix + signame;
-        
-        std::vector<UHDM::range*>* ranges = nullptr; 
-        while (range) {
-          VObjectType rangeType = fC->Type(range);
-          if (rangeType == VObjectType::slPacked_dimension) {
-            if (ranges == nullptr)
-              ranges = s.MakeRangeVec();
-            NodeId Constant_range = fC->Child(range);
-            NodeId Constant_expression_left =  fC->Child(Constant_range);
-            NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
-            Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
-            Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            expr* leftc = nullptr;
-            expr* rightc = nullptr;
-            if (leftV->isValid()) {
-              leftc = s.MakeConstant();
-              leftc->VpiValue(leftV->uhdmValue());
-            } else {
-              leftc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_left, m_compileDesign, nullptr, child);
-            }
-            if (rightV->isValid()) {
-              rightc = s.MakeConstant();
-              rightc->VpiValue(rightV->uhdmValue());
-            } else {
-              rightc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_right, m_compileDesign, nullptr, child);
-            }
-            UHDM::range* ran = s.MakeRange();
-            ran->Left_expr(leftc);
-            ran->Right_expr(rightc);
-            ranges->push_back(ran);
-          }
-          range = fC->Sibling(range);
-        }
-
-        any* obj = nullptr;
-        if (array_var == nullptr) {
-          logic_net* logicn = s.MakeLogic_net();
-          obj = logicn;
-          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
-          netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
-          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-          logicn->Ranges(ranges);
-          logicn->VpiName(signame);
-          if (nets == nullptr) {
-            nets = s.MakeNetVec();
-            netlist->nets(nets);
-          } 
-          nets->push_back(logicn);
-        } else {
-          if (array_vars == nullptr) {
-            array_vars = s.MakeArray_varVec();
-            netlist->array_vars(array_vars);
-          } 
-          array_vars->push_back(array_var);
-
-          NodeId assignment = fC->Sibling(dimension);
-
-          NodeId expression = 0;
-          if (assignment) {
-            NodeId Primary = fC->Child(assignment);
-            NodeId Assignment_pattern_expression = fC->Child(Primary);
-            NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
-            expression = fC->Child(Assignment_pattern);
-          } else {
-            expression = fC->Sibling(id);
-            if (fC->Type(expression) != VObjectType::slExpression)
-              expression = 0;
-          }
-
-          if (expression) {
-            while (expression) {
-              logic_var* logicv = s.MakeLogic_var();
-              obj = logicv;
-              logicv->Ranges(ranges);
-              logicv->VpiName(signame);
-              array_var->Variables()->push_back(logicv);
-              logicv->Expr((expr*) m_helper.compileExpression(nullptr,fC, expression, m_compileDesign, nullptr, child));
-              expression = fC->Sibling(expression);
-            }
-          } else {
-            logic_var* logicv = s.MakeLogic_var();
-            obj = logicv;
-            logicv->Ranges(ranges);
-            logicv->VpiName(signame);
-            array_var->Variables()->push_back(logicv);
-          }
-        }
-        obj->VpiLineNo(fC->Line(id));
-        obj->VpiFile(fC->getFileName());
-      } else { 
+        // Ports pass
         port* dest_port = s.MakePort();
-        dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
+        dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection()));
         std::string signame = sig->getName();
         dest_port->VpiName(signame);
         dest_port->VpiLineNo(fC->Line(id));
@@ -649,13 +645,14 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         if (ports == nullptr) {
           ports = s.MakePortVec();
           netlist->ports(ports);
-        } 
+        }
         ports->push_back(dest_port);
 
-        if (any* n = bind_net_(netlist->getParent(), signame)) {
-          ref_obj* ref = s.MakeRef_obj();          
-          ref->Actual_group(n);
-          dest_port->Low_conn(ref);
+        NodeId typeSpecId = sig->getTypeSpecId();
+        if (typeSpecId) {
+           UHDM::typespec* tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign, dest_port, instance, true);
+           if (tps)
+             dest_port->Typespec(tps);
         }
 
         if (ModPort* orig_modport = sig->getModPort()) {
@@ -664,11 +661,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(signame);
           if (itr == netlist->getModPortMap().end()) {
             ModuleDefinition* orig_interf = orig_modport->getParent();
-            modport* mp =  elab_modport_(instance, signame, orig_interf->getName(), orig_interf, 
+            modport* mp =  elab_modport_(instance, signame, orig_interf->getName(), orig_interf,
                         instance->getFileName(),instance->getLineNb(), orig_modport->getName());
-            ref->Actual_group(mp);            
+            ref->Actual_group(mp);
           } else {
-           ref->Actual_group((*itr).second.second); 
+           ref->Actual_group((*itr).second.second);
           }
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           ref_obj* ref = s.MakeRef_obj();
@@ -679,16 +676,312 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                  sig->getNodeId(), instance, signame, orig_interf->getName());
             Netlist* netlist = new Netlist(interfaceInstance);
             interfaceInstance->setNetlist(netlist);
-            interface* sm =  elab_interface_(instance, interfaceInstance, signame, orig_interf->getName(), orig_interf, 
+            interface* sm =  elab_interface_(instance, interfaceInstance, signame, orig_interf->getName(), orig_interf,
                         instance->getFileName(),instance->getLineNb());
             ref->Actual_group(sm);
           } else {
             ref->Actual_group((*itr).second.second);
           }
         }
+
+      } else if (pass == 1) {
+        // Nets pass
+        const DataType* dtype = sig->getDataType();
+        VObjectType subnettype = sig->getType();
+        bool isNet = true;
+        if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
+            sig->isVar() || (subnettype == slClass_scope) || (subnettype == slStringConst)) {
+          isNet = false;
+          if (vars == nullptr) {
+            vars = s.MakeVariablesVec();
+            netlist->variables(vars);
+          }
+        }
+
+        NodeId typeSpecId = sig->getTypeSpecId();
+        UHDM::typespec* tps = nullptr;
+        if (typeSpecId) {
+          tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign, nullptr, instance, true);
+        }
+
+        std::string signame = sig->getName();
+        std::string parentSymbol = prefix + signame;
+        int packedSize;
+        int unpackedSize;
+        std::vector<UHDM::range*>* packedDimensions =
+            m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
+                                   nullptr, child, true, packedSize);
+        std::vector<UHDM::range*>* unpackedDimensions =
+            m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
+                                   nullptr, child, true, unpackedSize);
+
+        any* obj = nullptr;
+
+        //Assignment section
+        NodeId assignment = 0;
+        NodeId Assign = fC->Sibling(id);
+        if (Assign && (fC->Type(Assign) == slExpression)) {
+          assignment = Assign;
+        }
+        if (unpackedDimension) {
+          NodeId tmp = unpackedDimension;
+          while ((fC->Type(tmp) == slUnpacked_dimension) ||
+                 (fC->Type(tmp) == slVariable_dimension)) {
+            tmp = fC->Sibling(tmp);
+          }
+          if (tmp && (fC->Type(tmp) != slUnpacked_dimension) &&
+              (fC->Type(tmp) != slVariable_dimension)) {
+            assignment = tmp;
+          }
+        }
+
+        NodeId expression = 0;
+        if (assignment) {
+          NodeId Primary = fC->Child(assignment);
+          expression = Primary;
+        } else {
+          expression = fC->Sibling(id);
+          if (fC->Type(expression) != VObjectType::slExpression) expression = 0;
+        }
+
+        expr* exp = nullptr;
+        if (expression) {
+          exp = (expr*)m_helper.compileExpression(
+              comp, fC, expression, m_compileDesign, nullptr, child);
+        }
+
+        if (isNet) {
+          // Nets
+          if (dtype) {
+            dtype = dtype->getActual();
+            if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+              enum_net* stv = s.MakeEnum_net();
+              stv->Typespec(en->getTypespec());
+              obj = stv;
+            } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+              struct_net* stv = s.MakeStruct_net();
+              stv->Typespec(st->getTypespec());
+              obj = stv;
+            }
+
+            if (unpackedDimensions) {
+              array_net* array_net = s.MakeArray_net();
+              array_net->Nets(s.MakeNetVec());
+              array_net->Ranges(unpackedDimensions);
+              array_net->VpiName(signame);
+              array_net->VpiSize(unpackedSize);
+              if (array_nets == nullptr) {
+                array_nets = s.MakeArray_netVec();
+                netlist->array_nets(array_nets);
+              }
+
+              array_nets->push_back(array_net);
+              obj->VpiParent(array_net);
+              UHDM::VectorOfnet* array_n = array_net->Nets();
+              array_n->push_back((net*)obj);
+
+            } else {
+              if (nets == nullptr) {
+                nets = s.MakeNetVec();
+                netlist->nets(nets);
+              }
+              if (obj->UhdmType() == uhdmenum_net) {
+                ((enum_net*)obj)->VpiName(signame);
+              } else {
+                ((struct_net*)obj)->VpiName(signame);
+              }
+              nets->push_back((net*) obj);
+            }
+
+          } else {
+            logic_net* logicn = s.MakeLogic_net();
+            logicn->VpiSigned(sig->isSigned());
+            logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+            logicn->Ranges(packedDimensions);
+            if (unpackedDimensions) {
+              array_net* array_net = s.MakeArray_net();
+              array_net->Nets(s.MakeNetVec());
+              array_net->Ranges(unpackedDimensions);
+              array_net->VpiName(signame);
+              array_net->VpiSize(unpackedSize);
+              if (array_nets == nullptr) {
+                array_nets = s.MakeArray_netVec();
+                netlist->array_nets(array_nets);
+              }
+              array_nets->push_back(array_net);
+              logicn->VpiParent(array_net);
+              UHDM::VectorOfnet* array_n = array_net->Nets();
+              array_n->push_back(logicn);
+              obj = array_net;
+            } else {
+              logicn->VpiName(signame);
+              logicn->VpiSigned(sig->isSigned());
+              obj = logicn;
+              if (nets == nullptr) {
+                nets = s.MakeNetVec();
+                netlist->nets(nets);
+              }
+              nets->push_back(logicn);
+            }
+
+          }
+          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
+          netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+
+        } else {
+          // Vars
+
+          if (dtype) {
+            dtype = dtype->getActual();
+            if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+              enum_var* stv = s.MakeEnum_var();
+              stv->Typespec(en->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+              struct_var* stv = s.MakeStruct_var();
+              stv->Typespec(st->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (const Union* un = dynamic_cast<const Union*>(dtype)) {
+              union_var* stv = s.MakeUnion_var();
+              stv->Typespec(un->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
+              // TODO
+              logic_var* logicv = s.MakeLogic_var();
+              logicv->VpiSigned(sig->isSigned());
+              logicv->VpiConstantVariable(sig->isConst());
+              obj = logicv;
+              logicv->Ranges(packedDimensions);
+              logicv->VpiName(signame);
+              logicv->Expr(exp);
+            }
+          } else if (tps) {
+            UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
+            if (tpstype == uhdmstruct_typespec) {
+              struct_var* stv = s.MakeStruct_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } else if (tpstype == uhdmenum_typespec) {
+              enum_var* stv = s.MakeEnum_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } else if (tpstype == uhdmunion_typespec) {
+              union_var* stv = s.MakeUnion_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } 
+          } 
+
+          if (obj == nullptr) {
+            // default type (fallback)
+            logic_var* logicv = s.MakeLogic_var();
+            logicv->VpiSigned(sig->isSigned());
+            logicv->VpiConstantVariable(sig->isConst());
+            obj = logicv;
+            logicv->Ranges(packedDimensions);
+            logicv->VpiName(signame);
+            logicv->Expr(exp);
+          } else if (packedDimensions) {
+            // packed struct array ...
+            UHDM::packed_array_var* parray = s.MakePacked_array_var();
+            parray->Ranges(packedDimensions);
+            VectorOfany* elements = s.MakeAnyVec();
+            parray->Elements(elements);
+            elements->push_back(obj);
+            obj->VpiParent(parray);
+            parray->VpiName(signame);
+            obj = parray;
+          }
+
+          if (unpackedDimensions) {
+            array_var* array_var = s.MakeArray_var();
+            array_var->Variables(s.MakeVariablesVec());
+            array_var->Ranges(unpackedDimensions);
+            array_var->VpiSize(unpackedSize);
+            array_var->VpiName(signame);
+            array_var->VpiArrayType(vpiStaticArray);
+            array_var->VpiRandType(vpiNotRand);
+            array_var->VpiVisibility(vpiPublicVis);
+            vars->push_back(array_var);
+            obj->VpiParent(array_var);
+            UHDM::VectorOfvariables* array_vars = array_var->Variables();
+            array_vars->push_back((variables*)obj);
+            array_var->Expr(exp);
+          } else {
+            if (obj->UhdmType() == uhdmenum_var) {
+              ((enum_var*)obj)->VpiName(signame);
+            } else if (obj->UhdmType() == uhdmstruct_var) {
+              ((struct_var*)obj)->VpiName(signame);
+            } else if (obj->UhdmType() == uhdmunion_var) {
+              ((union_var*)obj)->VpiName(signame);
+            }
+            vars->push_back((variables*)obj);
+          }
+
+        }
+        if (obj) {
+          obj->VpiLineNo(fC->Line(id));
+          obj->VpiFile(fC->getFileName());
+        } else {
+          // Unsupported type
+          ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
+          SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+          Location loc (symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0 , symbols->registerSymbol(signame));
+          Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+          errors->addError(err);
+
+        }
+      } else if (pass == 2) {
+        // Port low conn pass
+        std::string signame = sig->getName();
+        port* dest_port = (*netlist->ports())[portIndex];
+
+        if (any* n = bind_net_(netlist->getParent(), signame)) {
+          ref_obj* ref = s.MakeRef_obj();
+          ref->Actual_group(n);
+          dest_port->Low_conn(ref);
+        }
+
+        if (ModPort* orig_modport = sig->getModPort()) {
+          ref_obj* ref = s.MakeRef_obj();
+          dest_port->Low_conn(ref);
+          Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(signame);
+          if (itr == netlist->getModPortMap().end()) {
+            ModuleDefinition* orig_interf = orig_modport->getParent();
+            modport* mp =  elab_modport_(instance, signame, orig_interf->getName(), orig_interf,
+                        instance->getFileName(),instance->getLineNb(), orig_modport->getName());
+            ref->Actual_group(mp);
+          } else {
+           ref->Actual_group((*itr).second.second);
+          }
+        } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
+          ref_obj* ref = s.MakeRef_obj();
+          dest_port->Low_conn(ref);
+          Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(signame);
+          if (itr == netlist->getInstanceMap().end()) {
+            ModuleInstance* interfaceInstance = new ModuleInstance(orig_interf, sig->getFileContent(),
+                 sig->getNodeId(), instance, signame, orig_interf->getName());
+            Netlist* netlist = new Netlist(interfaceInstance);
+            interfaceInstance->setNetlist(netlist);
+            interface* sm =  elab_interface_(instance, interfaceInstance, signame, orig_interf->getName(), orig_interf,
+                        instance->getFileName(),instance->getLineNb());
+            ref->Actual_group(sm);
+          } else {
+            ref->Actual_group((*itr).second.second);
+          }
+        }
+
       }
+      portIndex++;
     }
   }
+
   return true;
 }
 
@@ -737,7 +1030,7 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
                return p;
               }
             }
-          }   
+          }
         } else {
           modport* mport = dynamic_cast<modport*> (baseclass);
           if (mport) {
@@ -756,5 +1049,3 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
   }
   return result;
 }
-
- 

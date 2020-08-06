@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/abstract/prim_ram_1p.sv Cov: 96% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // TODO: This module is a hard-coded stopgap to select an implementation of an</pre>
+<pre style="margin:0; padding:0 ">   6: // "abstract module". This module is to be replaced by generated code.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   9:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  10: `endif</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module prim_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int Aw             = $clog2(Depth) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  19: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input rst_ni,       // Memory content reset</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                    req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input                    write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input        [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input        [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input        [Width-1:0] wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic             rvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic [Width-1:0] rdata_o</pre>
+<pre style="margin:0; padding:0 ">  30: );</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   if (Impl == ImplGeneric || Impl == ImplXilinx) begin : gen_mem_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       .Width(Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       .Depth(Depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       .DataBitsPerMask(DataBitsPerMask)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     ) u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       .req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:       .write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:       .addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:       .wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:       .wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       .rvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       .rdata_o</pre>
+<pre style="margin:0; padding:0 ">  49:     );</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:   end else begin : gen_failure</pre>
+<pre style="margin:0; padding:0 ">  51:     // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  52:   end</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: endmodule</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+</body>
+</html>

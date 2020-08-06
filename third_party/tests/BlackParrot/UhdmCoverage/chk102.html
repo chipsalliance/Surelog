@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_noc/bsg_mesh_router.v Cov: 63.6% </h3>
+<pre style="margin:0; padding:0 ">   1: // bsg_mesh_router</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // Dimension ordered routing decoder</pre>
+<pre style="margin:0; padding:0 ">   4: // XY_order_p = 0 :  X then Y</pre>
+<pre style="margin:0; padding:0 ">   5: // XY_order_p = 1 :  Y then X</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module bsg_mesh_router_dor_decoder</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: // import enum Dirs for directions</pre>
+<pre style="margin:0; padding:0 ">  10: import bsg_noc_pkg::Dirs</pre>
+<pre style="margin:0; padding:0 ">  11:        , bsg_noc_pkg::P  // proc (processor core)</pre>
+<pre style="margin:0; padding:0 ">  12:        , bsg_noc_pkg::W  // west</pre>
+<pre style="margin:0; padding:0 ">  13:        , bsg_noc_pkg::E  // east</pre>
+<pre style="margin:0; padding:0 ">  14:        , bsg_noc_pkg::N  // north</pre>
+<pre style="margin:0; padding:0 ">  15:        , bsg_noc_pkg::S; // south</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:  #( parameter x_cord_width_p  = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    ,parameter y_cord_width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    ,parameter dirs_lp       = 5</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    ,parameter stub_p        = { dirs_lp {1'b0} }  // SNEWP</pre>
+<pre style="margin:0; padding:0 ">  20: //   ,parameter allow_S_to_EW_p = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    ,parameter XY_order_p    = 1</pre>
+<pre style="margin:0; padding:0 ">  22:  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:  ( input clk_i   // debug only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   ,input reset_i // clock only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   ,input [dirs_lp-1:0] v_i</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   ,input [dirs_lp-1:0][x_cord_width_p-1:0] x_dirs_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   ,input [dirs_lp-1:0][y_cord_width_p-1:0] y_dirs_i</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   ,input [x_cord_width_p-1:0] my_x_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   ,input [y_cord_width_p-1:0] my_y_i</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   ,output [dirs_lp-1:0][dirs_lp-1:0] req_o</pre>
+<pre style="margin:0; padding:0 ">  34:  );</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    wire [dirs_lp-1:0] x_eq, x_gt, x_lt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    wire [dirs_lp-1:0] y_eq, y_gt, y_lt;</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    wire [dirs_lp-1:0] v_i_stub = v_i & ~stub_p;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:    // this is the routing function;</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:    genvar            i, j;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    for (i = 0; i < dirs_lp; i=i+1) begin: comps</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:         assign x_eq[i] = (x_dirs_i[i] == my_x_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:         assign y_eq[i] = (y_dirs_i[i] == my_y_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:         assign x_gt[i] = (x_dirs_i[i] > my_x_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:         assign y_gt[i] = (y_dirs_i[i] > my_y_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:         assign x_lt[i] = ~x_gt[i] & ~x_eq[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:         assign y_lt[i] = ~y_gt[i] & ~y_eq[i];</pre>
+<pre style="margin:0; padding:0 ">  51:    end</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   //-------------------------------------------------------</pre>
+<pre style="margin:0; padding:0 ">  54:   // request signals: format req[<input dir>][<output dir>]</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: if( XY_order_p == 1 ) begin:XY_dor</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     for( i=W; i<=E; i++) begin:x2y // X dim to Y dim</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:         assign req_o[i][N] = v_i_stub[i] & x_eq[i] & y_lt[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:         assign req_o[i][S] = v_i_stub[i] & x_eq[i] & y_gt[i];</pre>
+<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     for( i=N; i<=S; i++) begin:y2x// Y dim to X dim</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:         assign req_o[i][W] = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:         assign req_o[i][E] = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  65:     end</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:     for( i=W; i<=E; i++) begin// the same X dim routings. For X/Y routing, we don't care Y dimesions.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         assign  req_o[i][W] =  i==W ? 1'b0 : v_i_stub[i] & x_lt[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:         assign  req_o[i][E] =  i==E ? 1'b0 : v_i_stub[i] & x_gt[i];</pre>
+<pre style="margin:0; padding:0 ">  70:     end</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:     for( i=N; i<=S; i++) begin// the same Y dim routings. For X/Y routing, X must be equal first.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:         assign  req_o[i][N] =  i==N ? 1'b0 : v_i_stub[i] & x_eq[i] & y_lt[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         assign  req_o[i][S] =  i==S ? 1'b0 : v_i_stub[i] & x_eq[i] & y_gt[i];</pre>
+<pre style="margin:0; padding:0 ">  75:     end</pre>
+<pre style="margin:0; padding:0 ">  76:     //The request from P</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign req_o[P][E]  =  v_i_stub[P] & x_gt [P];  //ignore Y cord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     assign req_o[P][W]  =  v_i_stub[P] & x_lt [P];  //ignore Y cord</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     assign req_o[P][P]  =  v_i_stub[P] & x_eq[P] & y_eq [P];</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     assign req_o[P][S]  =  v_i_stub[P] & x_eq[P] & y_gt [P]; // X must equal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     assign req_o[P][N]  =  v_i_stub[P] & x_eq[P] & y_lt [P]; // X must equal</pre>
+<pre style="margin:0; padding:0 ">  84:     //The request to P</pre>
+<pre style="margin:0; padding:0 ">  85:     for( i=W; i<=S; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         assign req_o[i][P] = v_i_stub[i] & x_eq[i] & y_eq[i];</pre>
+<pre style="margin:0; padding:0 ">  87:     end</pre>
+<pre style="margin:0; padding:0 ">  88:     //--------------------------------------------------------------</pre>
+<pre style="margin:0; padding:0 ">  89:     //  Checking</pre>
+<pre style="margin:0; padding:0 ">  90:     //synopsys translate_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     always@(negedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       begin</pre>
+<pre style="margin:0; padding:0 ">  93:          //Y dim to X dim</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:          assert( (reset_i !== 1'b0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:                  |  ~(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:                       (v_i[N]& ~x_eq[N])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:                       | (v_i[S] & ~x_eq[S])</pre>
+<pre style="margin:0; padding:0 ">  98:                       )</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:                  ) else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:            begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:               $error("%m:Y dim to X dim routing. XY_order_p = %b", XY_order_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:               $finish();</pre>
+<pre style="margin:0; padding:0 "> 103:            end</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105:          // the same X dim routings. For X/Y routing, we don't care Y dimesions.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:          assert( (reset_i !== 1'b0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:                  |  ~(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:                       (v_i[W] & x_lt[W])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:                       | (v_i[E] & x_gt [E] )</pre>
+<pre style="margin:0; padding:0 "> 110:                       )</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 "> 111:                  ) else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:            begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:               $error("%m: X dim loopback routing", XY_order_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:               $finish();</pre>
+<pre style="margin:0; padding:0 "> 115:            end</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:        // the same Y dim routings. For X/Y routing, X must be equal first.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:        assert(  (reset_i !== 1'b0 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:                 |  ~(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:                      (v_i[N] & x_eq[N] & y_lt[N])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:                      | (v_i[S] & x_eq[S] & y_gt [S])</pre>
+<pre style="margin:0; padding:0 "> 122:                      )</pre>
+<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:                 ) else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:          begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:             $error("%m: Y dim loopback routing", XY_order_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:             $finish();</pre>
+<pre style="margin:0; padding:0 "> 127:          end</pre>
+<pre style="margin:0; padding:0 "> 128:     end</pre>
+<pre style="margin:0; padding:0 "> 129:     //synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131:     //--------------------------------------------------------------</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132: end else begin:YX_dor</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:     for( i=W; i<=E; i++) begin:x2y // X dim to Y dim</pre>
+<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:         assign req_o[i][N] = 1'b0;</pre>
+<pre id="id135" style="background-color: #FFB6C1; margin:0; padding:0 "> 135:         assign req_o[i][S] = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 136:     end</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre id="id138" style="background-color: #FFB6C1; margin:0; padding:0 "> 138:     for( i=N; i<=S; i++) begin:y2x // Y dim to X dim</pre>
+<pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:         assign req_o[i][W] = v_i_stub[i] & y_eq[i] & x_lt[i];</pre>
+<pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:         assign req_o[i][E] = v_i_stub[i] & y_eq[i] & x_gt[i];</pre>
+<pre style="margin:0; padding:0 "> 141:     end</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="margin:0; padding:0 "> 143:     for( i=N; i<=S; i++) begin// the same Y dim routings. For Y/X routing, we don't care X dimesions</pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:         assign req_o[i][N] =  i==N ? 1'b0 : v_i_stub[i] &  y_lt[i];</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:         assign req_o[i][S] =  i==S ? 1'b0 : v_i_stub[i] &  y_gt[i];</pre>
+<pre style="margin:0; padding:0 "> 146:     end</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+<pre style="margin:0; padding:0 "> 148:     for( i=W; i<=E; i++) begin// the same X dim routings. For Y/X routing, Y must equal first</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149:         assign req_o[i][W] =  i==W ? 1'b0 : v_i_stub[i] & y_eq[i] & x_lt[i];</pre>
+<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:         assign req_o[i][E] =  i==E ? 1'b0 : v_i_stub[i] & y_eq[i] & x_gt[i];</pre>
+<pre style="margin:0; padding:0 "> 151:     end</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="margin:0; padding:0 "> 153:     //The request from P</pre>
+<pre id="id154" style="background-color: #FFB6C1; margin:0; padding:0 "> 154:     assign req_o[P][S]  =  v_i_stub[P] & y_gt [P];  //ignore X cord</pre>
+<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:     assign req_o[P][N]  =  v_i_stub[P] & y_lt [P];  //ignore X cord</pre>
+<pre style="margin:0; padding:0 "> 156: </pre>
+<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 "> 157:     assign req_o[P][P]  =  v_i_stub[P] & x_eq[P] & y_eq [P];</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre id="id159" style="background-color: #FFB6C1; margin:0; padding:0 "> 159:     assign req_o[P][E]  =  v_i_stub[P] & y_eq[P] & x_gt [P]; // Y must equal first</pre>
+<pre id="id160" style="background-color: #FFB6C1; margin:0; padding:0 "> 160:     assign req_o[P][W]  =  v_i_stub[P] & y_eq[P] & x_lt [P]; // Y must equal first</pre>
+<pre style="margin:0; padding:0 "> 161:     //The request to P</pre>
+<pre style="margin:0; padding:0 "> 162:     for( i=W; i<=S; i++) begin</pre>
+<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 "> 163:         assign req_o[i][P] = v_i_stub[i] & x_eq[i] & y_eq[i];</pre>
+<pre style="margin:0; padding:0 "> 164:     end</pre>
+<pre style="margin:0; padding:0 "> 165:     //--------------------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 166:     //  Checking</pre>
+<pre style="margin:0; padding:0 "> 167:     //synopsys translate_off</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:     always@(negedge clk_i)</pre>
+<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 "> 169:       begin</pre>
+<pre style="margin:0; padding:0 "> 170:          //X dim to Y dim</pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 "> 171:          assert( (reset_i !== 1'b0)</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 "> 172:                  | ~(</pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 "> 173:                      (v_i[W] & ~y_eq[W])</pre>
+<pre id="id174" style="background-color: #FFB6C1; margin:0; padding:0 "> 174:                      | (v_i[E] & ~y_eq[E])</pre>
+<pre style="margin:0; padding:0 "> 175:                      )</pre>
+<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 "> 176:                  ) else</pre>
+<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 "> 177:            begin</pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:               $error("%m:X dim to Y dim routing. XY_order_p = %b", XY_order_p);</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:               $finish();</pre>
+<pre style="margin:0; padding:0 "> 180:            end</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="margin:0; padding:0 "> 182:          // the same X dim routings. For Y/X routing, Y must be equal first</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:          assert( (reset_i !== 1'b0)</pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 "> 184:                  | ~(</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 "> 185:                      (v_i[W] & y_eq[W] & x_lt[W])</pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:                      | (v_i[E] & y_eq[E] & x_gt [E] )</pre>
+<pre style="margin:0; padding:0 "> 187:                      )</pre>
+<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:                  ) else</pre>
+<pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 "> 189:            begin</pre>
+<pre id="id190" style="background-color: #FFB6C1; margin:0; padding:0 "> 190:               $error("%m: X dim loopback routing", XY_order_p);</pre>
+<pre id="id191" style="background-color: #FFB6C1; margin:0; padding:0 "> 191:               $finish();</pre>
+<pre style="margin:0; padding:0 "> 192:            end</pre>
+<pre style="margin:0; padding:0 "> 193: </pre>
+<pre style="margin:0; padding:0 "> 194:          // the same Y dim routings. For Y/X routing, ignore X cord</pre>
+<pre id="id195" style="background-color: #FFB6C1; margin:0; padding:0 "> 195:          assert( (reset_i !== 1'b0)</pre>
+<pre id="id196" style="background-color: #FFB6C1; margin:0; padding:0 "> 196:                  | ~(</pre>
+<pre id="id197" style="background-color: #FFB6C1; margin:0; padding:0 "> 197:                      (v_i  [N] & y_lt[N])</pre>
+<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 "> 198:                      | (v_i[S] & y_gt[S])</pre>
+<pre style="margin:0; padding:0 "> 199:                      )</pre>
+<pre style="margin:0; padding:0 "> 200:                  )</pre>
+<pre id="id201" style="background-color: #FFB6C1; margin:0; padding:0 "> 201:            else</pre>
+<pre id="id202" style="background-color: #FFB6C1; margin:0; padding:0 "> 202:              begin</pre>
+<pre id="id203" style="background-color: #FFB6C1; margin:0; padding:0 "> 203:                 $error("%m: Y dim loopback routing", XY_order_p);</pre>
+<pre id="id204" style="background-color: #FFB6C1; margin:0; padding:0 "> 204:                 $finish();</pre>
+<pre style="margin:0; padding:0 "> 205:              end</pre>
+<pre style="margin:0; padding:0 "> 206:       end</pre>
+<pre style="margin:0; padding:0 "> 207:    //synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 208:    //--------------------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 209: end</pre>
+<pre style="margin:0; padding:0 "> 210: endmodule</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213: module bsg_mesh_router</pre>
+<pre style="margin:0; padding:0 "> 214: import bsg_noc_pkg::Dirs</pre>
+<pre style="margin:0; padding:0 "> 215:        , bsg_noc_pkg::P  // proc (processor core)</pre>
+<pre style="margin:0; padding:0 "> 216:        , bsg_noc_pkg::W  // west</pre>
+<pre style="margin:0; padding:0 "> 217:        , bsg_noc_pkg::E  // east</pre>
+<pre style="margin:0; padding:0 "> 218:        , bsg_noc_pkg::N  // north</pre>
+<pre style="margin:0; padding:0 "> 219:        , bsg_noc_pkg::S; // south</pre>
+<pre id="id220" style="background-color: #FFB6C1; margin:0; padding:0 "> 220:     #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:          parameter width_p        = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:         ,parameter x_cord_width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:         ,parameter y_cord_width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:         ,parameter debug_p       = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:         ,parameter dirs_lp       = 5</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:         ,parameter stub_p        = { dirs_lp {1'b0} }  // SNEWP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:         ,parameter XY_order_p    = 1</pre>
+<pre style="margin:0; padding:0 "> 228:         )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:    (  input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:      ,input reset_i</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="margin:0; padding:0 "> 232:      // dirs: NESWP (P=0, W=1, E=2, N=3, S=4)</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:      ,input   [dirs_lp-1:0] [width_p-1:0] data_i  // from input twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:      ,input   [dirs_lp-1:0]               v_i // from input twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:      ,output  logic [dirs_lp-1:0]         yumi_o  // to input twofer</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:      ,input   [dirs_lp-1:0]               ready_i // from output twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:      ,output  [dirs_lp-1:0] [width_p-1:0] data_o  // to output twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:      ,output  logic [dirs_lp-1:0]         v_o // to output twofer</pre>
+<pre style="margin:0; padding:0 "> 241: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:      ,input   [x_cord_width_p-1:0] my_x_i           // node's x and y coord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:      ,input   [y_cord_width_p-1:0] my_y_i</pre>
+<pre style="margin:0; padding:0 "> 244:      );</pre>
+<pre style="margin:0; padding:0 "> 245: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:    wire [dirs_lp-1:0][x_cord_width_p-1:0] x_dirs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:    wire [dirs_lp-1:0][y_cord_width_p-1:0] y_dirs;</pre>
+<pre style="margin:0; padding:0 "> 248: </pre>
+<pre style="margin:0; padding:0 "> 249:    // stubbed ports accept all I/O and send none.</pre>
+<pre style="margin:0; padding:0 "> 250: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:    wire [dirs_lp-1:0] ready_i_stub = ready_i | stub_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:    wire [dirs_lp-1:0] v_i_stub     = v_i     & ~stub_p;</pre>
+<pre style="margin:0; padding:0 "> 253: </pre>
+<pre id="id254" style="background-color: #FFB6C1; margin:0; padding:0 "> 254:    genvar                               i;</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:    for (i = 0; i < dirs_lp; i=i+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:      begin: reshape</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         assign x_dirs[i] = data_i[i][0+:x_cord_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:         assign y_dirs[i] = data_i[i][x_cord_width_p+:y_cord_width_p];</pre>
+<pre style="margin:0; padding:0 "> 260:      end</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:    wire [dirs_lp-1:0][dirs_lp-1:0] req;</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:    bsg_mesh_router_dor_decoder  #( .x_cord_width_p  (x_cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:                                    ,.y_cord_width_p (y_cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:                                    ,.dirs_lp        (dirs_lp       )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:                                    ,.XY_order_p     (XY_order_p    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:                                    ) dor_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:      (  .clk_i(clk_i)     // debug only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:        ,.reset_i(reset_i) // debug only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:        ,.v_i            (v_i_stub)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:        ,.my_x_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:        ,.my_y_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:        ,.x_dirs_i       (x_dirs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:        ,.y_dirs_i       (y_dirs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:        ,.req_o          (req)</pre>
+<pre style="margin:0; padding:0 "> 277:        );</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="margin:0; padding:0 "> 279:    // grant signals: format <output dir>_gnt_<input dir></pre>
+<pre style="margin:0; padding:0 "> 280:    // these determine whose data we actually send</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:    wire P_gnt_p, P_gnt_e, P_gnt_s, P_gnt_n, P_gnt_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:    wire W_gnt_e, W_gnt_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:    wire E_gnt_w, E_gnt_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:    wire N_gnt_s, N_gnt_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:    wire S_gnt_n, S_gnt_p;</pre>
+<pre style="margin:0; padding:0 "> 286:    // for XY_order_p = 1 only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:         wire N_gnt_e, N_gnt_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:         wire S_gnt_e, S_gnt_w;</pre>
+<pre style="margin:0; padding:0 "> 289:    // for XY_order_p = 0 only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:         wire W_gnt_n, W_gnt_s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:         wire E_gnt_n, E_gnt_s;</pre>
+<pre style="margin:0; padding:0 "> 292: </pre>
+<pre style="margin:0; padding:0 "> 293:    // selection signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:    wire P_sel_p, P_sel_e, P_sel_s, P_sel_n, P_sel_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:    wire W_sel_e, W_sel_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:    wire E_sel_w, E_sel_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:    wire N_sel_s, N_sel_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:    wire S_sel_n, S_sel_p;</pre>
+<pre style="margin:0; padding:0 "> 299:    // for XY_order_p = 1 only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         wire N_sel_e, N_sel_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:         wire S_sel_e, S_sel_w;</pre>
+<pre style="margin:0; padding:0 "> 302:    // for XY_order_p = 0 only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:         wire W_sel_n, W_sel_s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:         wire E_sel_n, E_sel_s;</pre>
+<pre style="margin:0; padding:0 "> 305: </pre>
+<pre style="margin:0; padding:0 "> 306:    //------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 307:    // To West</pre>
+<pre style="margin:0; padding:0 "> 308:    if( XY_order_p == 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:         bsg_round_robin_arb #(.inputs_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:                              ) west_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:                (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:                 ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:                 ,.grants_en_i(ready_i_stub[W])</pre>
+<pre style="margin:0; padding:0 "> 314: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:                 ,.reqs_i             ({req[E][W],    req[P][W]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:                 ,.grants_o           ({W_gnt_e,      W_gnt_p})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:                 ,.sel_one_hot_o      ({W_sel_e,      W_sel_p})</pre>
+<pre style="margin:0; padding:0 "> 318: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:                 ,.v_o    (v_o[W])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:                 ,.tag_o  ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:                 ,.yumi_i (v_o[W] & ready_i_stub[W])</pre>
+<pre style="margin:0; padding:0 "> 322:                 );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:          bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:                                ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:                                ) mux_data_west</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:                ( .data_i        ({data_i[P], data_i[E]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:                 ,.sel_one_hot_i ({W_sel_p  , W_sel_e  })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:                 ,.data_o       (data_o[W])</pre>
+<pre style="margin:0; padding:0 "> 329:                );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:         assign W_gnt_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:         assign W_gnt_s = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 332:    end else begin</pre>
+<pre id="id333" style="background-color: #FFB6C1; margin:0; padding:0 "> 333:         bsg_round_robin_arb #(.inputs_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:                              ) west_rr_arb</pre>
+<pre id="id335" style="background-color: #FFB6C1; margin:0; padding:0 "> 335:                (.clk_i</pre>
+<pre id="id336" style="background-color: #FFB6C1; margin:0; padding:0 "> 336:                 ,.reset_i</pre>
+<pre id="id337" style="background-color: #FFB6C1; margin:0; padding:0 "> 337:                 ,.grants_en_i(ready_i_stub[W])</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 "> 339:                 ,.reqs_i             ({req[E][W],       req[P][W], req[N][W],      req[S][W]})</pre>
+<pre id="id340" style="background-color: #FFB6C1; margin:0; padding:0 "> 340:                 ,.grants_o           ({W_gnt_e,         W_gnt_p,   W_gnt_n,        W_gnt_s  })</pre>
+<pre id="id341" style="background-color: #FFB6C1; margin:0; padding:0 "> 341:                 ,.sel_one_hot_o      ({W_sel_e,         W_sel_p,   W_sel_n,        W_sel_s  })</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
+<pre id="id343" style="background-color: #FFB6C1; margin:0; padding:0 "> 343:                 ,.v_o    (v_o[W])</pre>
+<pre id="id344" style="background-color: #FFB6C1; margin:0; padding:0 "> 344:                 ,.tag_o  ()</pre>
+<pre id="id345" style="background-color: #FFB6C1; margin:0; padding:0 "> 345:                 ,.yumi_i (v_o[W] & ready_i_stub[W])</pre>
+<pre style="margin:0; padding:0 "> 346:                 );</pre>
+<pre id="id347" style="background-color: #FFB6C1; margin:0; padding:0 "> 347:          bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre id="id348" style="background-color: #FFB6C1; margin:0; padding:0 "> 348:                                ,.els_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:                                ) mux_data_west</pre>
+<pre id="id350" style="background-color: #FFB6C1; margin:0; padding:0 "> 350:                ( .data_i        ({data_i[P], data_i[E], data_i[N], data_i[S]})</pre>
+<pre id="id351" style="background-color: #FFB6C1; margin:0; padding:0 "> 351:                 ,.sel_one_hot_i ({W_sel_p  , W_sel_e  , W_sel_n,   W_sel_s  })</pre>
+<pre id="id352" style="background-color: #FFB6C1; margin:0; padding:0 "> 352:                 ,.data_o       (data_o[W])</pre>
+<pre style="margin:0; padding:0 "> 353:                );</pre>
+<pre style="margin:0; padding:0 "> 354:    end</pre>
+<pre style="margin:0; padding:0 "> 355:    //------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 356:    // To East</pre>
+<pre style="margin:0; padding:0 "> 357:    if (XY_order_p == 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:         bsg_round_robin_arb #(.inputs_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:                         ) east_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:           ( .clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:            ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:            ,.grants_en_i(ready_i_stub[E])</pre>
+<pre style="margin:0; padding:0 "> 363: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:            ,.reqs_i             ({req[W][E],    req[P][E]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:            ,.grants_o           ({E_gnt_w,      E_gnt_p})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:            ,.sel_one_hot_o      ({E_sel_w,      E_sel_p})</pre>
+<pre style="margin:0; padding:0 "> 367: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:            ,.v_o   (v_o[E])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:            ,.tag_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:            ,.yumi_i(v_o[E] & ready_i_stub[E])</pre>
+<pre style="margin:0; padding:0 "> 371:            );</pre>
+<pre style="margin:0; padding:0 "> 372: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:                           ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:                           ) mux_data_east</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:           ( .data_i        ({data_i[P], data_i[W]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:            ,.sel_one_hot_i ({E_sel_p  , E_sel_w  })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:            ,.data_o       (data_o[E])</pre>
+<pre style="margin:0; padding:0 "> 379:            );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:         assign E_gnt_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:         assign E_gnt_s = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 382:    end else begin</pre>
+<pre id="id383" style="background-color: #FFB6C1; margin:0; padding:0 "> 383:         bsg_round_robin_arb #(.inputs_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:                         ) east_rr_arb</pre>
+<pre id="id385" style="background-color: #FFB6C1; margin:0; padding:0 "> 385:           ( .clk_i</pre>
+<pre id="id386" style="background-color: #FFB6C1; margin:0; padding:0 "> 386:            ,.reset_i</pre>
+<pre id="id387" style="background-color: #FFB6C1; margin:0; padding:0 "> 387:            ,.grants_en_i(ready_i_stub[E])</pre>
+<pre style="margin:0; padding:0 "> 388: </pre>
+<pre id="id389" style="background-color: #FFB6C1; margin:0; padding:0 "> 389:            ,.reqs_i             ({req[W][E],    req[P][E],      req[N][E],      req[S][E]})</pre>
+<pre id="id390" style="background-color: #FFB6C1; margin:0; padding:0 "> 390:            ,.grants_o           ({E_gnt_w,      E_gnt_p,        E_gnt_n,        E_gnt_s  })</pre>
+<pre id="id391" style="background-color: #FFB6C1; margin:0; padding:0 "> 391:            ,.sel_one_hot_o      ({E_sel_w,      E_sel_p,        E_sel_n,        E_sel_s  })</pre>
+<pre style="margin:0; padding:0 "> 392: </pre>
+<pre id="id393" style="background-color: #FFB6C1; margin:0; padding:0 "> 393:            ,.v_o   (v_o[E])</pre>
+<pre id="id394" style="background-color: #FFB6C1; margin:0; padding:0 "> 394:            ,.tag_o ()</pre>
+<pre id="id395" style="background-color: #FFB6C1; margin:0; padding:0 "> 395:            ,.yumi_i(v_o[E] & ready_i_stub[E])</pre>
+<pre style="margin:0; padding:0 "> 396:            );</pre>
+<pre style="margin:0; padding:0 "> 397: </pre>
+<pre id="id398" style="background-color: #FFB6C1; margin:0; padding:0 "> 398:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre id="id399" style="background-color: #FFB6C1; margin:0; padding:0 "> 399:                           ,.els_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:                           ) mux_data_east</pre>
+<pre id="id401" style="background-color: #FFB6C1; margin:0; padding:0 "> 401:           ( .data_i        ({data_i[P], data_i[W], data_i[N], data_i[S]})</pre>
+<pre id="id402" style="background-color: #FFB6C1; margin:0; padding:0 "> 402:            ,.sel_one_hot_i ({E_sel_p  , E_sel_w,   E_sel_n,   E_sel_s  })</pre>
+<pre id="id403" style="background-color: #FFB6C1; margin:0; padding:0 "> 403:            ,.data_o       (data_o[E])</pre>
+<pre style="margin:0; padding:0 "> 404:            );</pre>
+<pre style="margin:0; padding:0 "> 405:    end</pre>
+<pre style="margin:0; padding:0 "> 406:    //------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 407:    // To North</pre>
+<pre style="margin:0; padding:0 "> 408:    if(XY_order_p == 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:         bsg_round_robin_arb #(.inputs_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:                               ) north_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:           (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:            ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:            ,.grants_en_i(ready_i_stub[N])</pre>
+<pre style="margin:0; padding:0 "> 414: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:            ,.reqs_i          ({req[S][N], req[E][N], req[W][N], req[P][N]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:            ,.grants_o        ({ N_gnt_s,  N_gnt_e,   N_gnt_w,   N_gnt_p })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:            ,.sel_one_hot_o   ({ N_sel_s,  N_sel_e,   N_sel_w,   N_sel_p })</pre>
+<pre style="margin:0; padding:0 "> 418: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:            ,.v_o   (v_o[N])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:            ,.tag_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:            ,.yumi_i(v_o[N] & ready_i_stub[N])</pre>
+<pre style="margin:0; padding:0 "> 422:            );</pre>
+<pre style="margin:0; padding:0 "> 423: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:                           ,.els_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:                           ) mux_data_north</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:           (.data_i        ({data_i[P], data_i[E], data_i[S], data_i[W]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:            ,.sel_one_hot_i({N_sel_p  , N_sel_e  , N_sel_s  , N_sel_w  })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:            ,.data_o       (data_o[N])</pre>
+<pre style="margin:0; padding:0 "> 430:            );</pre>
+<pre style="margin:0; padding:0 "> 431:    end else begin</pre>
+<pre id="id432" style="background-color: #FFB6C1; margin:0; padding:0 "> 432:         assign N_gnt_e = 1'b0;</pre>
+<pre id="id433" style="background-color: #FFB6C1; margin:0; padding:0 "> 433:         assign N_gnt_w = 1'b0;</pre>
+<pre id="id434" style="background-color: #FFB6C1; margin:0; padding:0 "> 434:         bsg_round_robin_arb #(.inputs_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:                               ) north_rr_arb</pre>
+<pre id="id436" style="background-color: #FFB6C1; margin:0; padding:0 "> 436:           (.clk_i</pre>
+<pre id="id437" style="background-color: #FFB6C1; margin:0; padding:0 "> 437:            ,.reset_i</pre>
+<pre id="id438" style="background-color: #FFB6C1; margin:0; padding:0 "> 438:            ,.grants_en_i(ready_i_stub[N])</pre>
+<pre style="margin:0; padding:0 "> 439: </pre>
+<pre id="id440" style="background-color: #FFB6C1; margin:0; padding:0 "> 440:            ,.reqs_i          ({req[S][N], req[P][N]})</pre>
+<pre id="id441" style="background-color: #FFB6C1; margin:0; padding:0 "> 441:            ,.grants_o        ({ N_gnt_s,  N_gnt_p })</pre>
+<pre id="id442" style="background-color: #FFB6C1; margin:0; padding:0 "> 442:            ,.sel_one_hot_o   ({ N_sel_s,  N_sel_p })</pre>
+<pre style="margin:0; padding:0 "> 443: </pre>
+<pre id="id444" style="background-color: #FFB6C1; margin:0; padding:0 "> 444:            ,.v_o   (v_o[N])</pre>
+<pre id="id445" style="background-color: #FFB6C1; margin:0; padding:0 "> 445:            ,.tag_o ()</pre>
+<pre id="id446" style="background-color: #FFB6C1; margin:0; padding:0 "> 446:            ,.yumi_i(v_o[N] & ready_i_stub[N])</pre>
+<pre style="margin:0; padding:0 "> 447:            );</pre>
+<pre style="margin:0; padding:0 "> 448: </pre>
+<pre id="id449" style="background-color: #FFB6C1; margin:0; padding:0 "> 449:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre id="id450" style="background-color: #FFB6C1; margin:0; padding:0 "> 450:                           ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:                           ) mux_data_north</pre>
+<pre id="id452" style="background-color: #FFB6C1; margin:0; padding:0 "> 452:           (.data_i        ({data_i[P],  data_i[S] })</pre>
+<pre id="id453" style="background-color: #FFB6C1; margin:0; padding:0 "> 453:            ,.sel_one_hot_i({N_sel_p  ,  N_sel_s   })</pre>
+<pre id="id454" style="background-color: #FFB6C1; margin:0; padding:0 "> 454:            ,.data_o       (data_o[N])</pre>
+<pre style="margin:0; padding:0 "> 455:            );</pre>
+<pre style="margin:0; padding:0 "> 456:    end</pre>
+<pre style="margin:0; padding:0 "> 457:    //------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 458:    // To South</pre>
+<pre style="margin:0; padding:0 "> 459:    if(XY_order_p == 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:         bsg_round_robin_arb #(.inputs_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:                               ) south_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:           (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:            ,.reset_i</pre>
+<pre style="margin:0; padding:0 "> 464: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:            ,.grants_en_i(ready_i_stub[S])</pre>
+<pre style="margin:0; padding:0 "> 466: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467:            ,.reqs_i          ({req[N][S], req[E][S], req[W][S], req[P][S]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:            ,.grants_o        ({ S_gnt_n,  S_gnt_e,   S_gnt_w,   S_gnt_p })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:            ,.sel_one_hot_o   ({ S_sel_n,  S_sel_e,   S_sel_w,   S_sel_p })</pre>
+<pre style="margin:0; padding:0 "> 470: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:            ,.v_o   (v_o[S])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:            ,.tag_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:            ,.yumi_i(v_o[S] & ready_i_stub[S] )</pre>
+<pre style="margin:0; padding:0 "> 474:            );</pre>
+<pre style="margin:0; padding:0 "> 475: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:                           ,.els_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:                           ) mux_data_south</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:           (.data_i        ({data_i[P], data_i[E], data_i[N], data_i[W]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:            ,.sel_one_hot_i({S_sel_p  , S_sel_e  , S_sel_n  , S_sel_w  })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:            ,.data_o       (data_o[S])</pre>
+<pre style="margin:0; padding:0 "> 482:           );</pre>
+<pre style="margin:0; padding:0 "> 483:    end else begin</pre>
+<pre id="id484" style="background-color: #FFB6C1; margin:0; padding:0 "> 484:         assign S_gnt_e = 1'b0;</pre>
+<pre id="id485" style="background-color: #FFB6C1; margin:0; padding:0 "> 485:         assign S_gnt_w = 1'b0;</pre>
+<pre id="id486" style="background-color: #FFB6C1; margin:0; padding:0 "> 486:         bsg_round_robin_arb #(.inputs_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:                               ) south_rr_arb</pre>
+<pre id="id488" style="background-color: #FFB6C1; margin:0; padding:0 "> 488:           (.clk_i</pre>
+<pre id="id489" style="background-color: #FFB6C1; margin:0; padding:0 "> 489:            ,.reset_i</pre>
+<pre style="margin:0; padding:0 "> 490: </pre>
+<pre id="id491" style="background-color: #FFB6C1; margin:0; padding:0 "> 491:            ,.grants_en_i(ready_i_stub[S])</pre>
+<pre style="margin:0; padding:0 "> 492: </pre>
+<pre id="id493" style="background-color: #FFB6C1; margin:0; padding:0 "> 493:            ,.reqs_i          ({req[N][S], req[P][S]})</pre>
+<pre id="id494" style="background-color: #FFB6C1; margin:0; padding:0 "> 494:            ,.grants_o        ({ S_gnt_n,  S_gnt_p })</pre>
+<pre id="id495" style="background-color: #FFB6C1; margin:0; padding:0 "> 495:            ,.sel_one_hot_o   ({ S_sel_n,  S_sel_p })</pre>
+<pre style="margin:0; padding:0 "> 496: </pre>
+<pre id="id497" style="background-color: #FFB6C1; margin:0; padding:0 "> 497:            ,.v_o   (v_o[S])</pre>
+<pre id="id498" style="background-color: #FFB6C1; margin:0; padding:0 "> 498:            ,.tag_o ()</pre>
+<pre id="id499" style="background-color: #FFB6C1; margin:0; padding:0 "> 499:            ,.yumi_i(v_o[S] & ready_i_stub[S] )</pre>
+<pre style="margin:0; padding:0 "> 500:            );</pre>
+<pre style="margin:0; padding:0 "> 501: </pre>
+<pre id="id502" style="background-color: #FFB6C1; margin:0; padding:0 "> 502:         bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre id="id503" style="background-color: #FFB6C1; margin:0; padding:0 "> 503:                           ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:                           ) mux_data_south</pre>
+<pre id="id505" style="background-color: #FFB6C1; margin:0; padding:0 "> 505:           (.data_i        ({data_i[P],  data_i[N] })</pre>
+<pre id="id506" style="background-color: #FFB6C1; margin:0; padding:0 "> 506:            ,.sel_one_hot_i({S_sel_p  ,  S_sel_n   })</pre>
+<pre id="id507" style="background-color: #FFB6C1; margin:0; padding:0 "> 507:            ,.data_o       (data_o[S])</pre>
+<pre style="margin:0; padding:0 "> 508:           );</pre>
+<pre style="margin:0; padding:0 "> 509:    end</pre>
+<pre style="margin:0; padding:0 "> 510:    //------------------------------------------------</pre>
+<pre style="margin:0; padding:0 "> 511:    // To Processor</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:    bsg_round_robin_arb #(.inputs_p(5)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:                          ) proc_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:      (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:       ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:       ,.grants_en_i(ready_i_stub[P])</pre>
+<pre style="margin:0; padding:0 "> 517: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:       ,.reqs_i          ({req[S][P], req[N][P], req[E][P], req[W][P], req[P][P]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 519:       ,.grants_o        ({ P_gnt_s,  P_gnt_n,   P_gnt_e,   P_gnt_w,   P_gnt_p })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520:       ,.sel_one_hot_o   ({ P_sel_s,  P_sel_n,   P_sel_e,   P_sel_w,   P_sel_p })</pre>
+<pre style="margin:0; padding:0 "> 521: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:       ,.v_o   (v_o[P])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:       ,.tag_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:       ,.yumi_i(v_o[P] & ready_i_stub[P])</pre>
+<pre style="margin:0; padding:0 "> 525:       );</pre>
+<pre style="margin:0; padding:0 "> 526: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:    bsg_mux_one_hot #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:                      ,.els_p(5)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:                      ) mux_data_proc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:      (.data_i        ({data_i[P], data_i[E], data_i[S], data_i[W], data_i[N]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       ,.sel_one_hot_i({P_sel_p  , P_sel_e  , P_sel_s  , P_sel_w  , P_sel_n  })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:       ,.data_o       (data_o[P])</pre>
+<pre style="margin:0; padding:0 "> 533:       );</pre>
+<pre style="margin:0; padding:0 "> 534: </pre>
+<pre style="margin:0; padding:0 "> 535: </pre>
+<pre style="margin:0; padding:0 "> 536:    // yumi signals; this deques the data from the inputs</pre>
+<pre style="margin:0; padding:0 "> 537: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:    assign yumi_o[P] = E_gnt_p | N_gnt_p | S_gnt_p | P_gnt_p | W_gnt_p;</pre>
+<pre style="margin:0; padding:0 "> 539: </pre>
+<pre style="margin:0; padding:0 "> 540:    if( XY_order_p == 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:         assign yumi_o[W] = E_gnt_w | N_gnt_w | S_gnt_w | P_gnt_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:         assign yumi_o[E] = W_gnt_e | N_gnt_e | S_gnt_e | P_gnt_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:         assign yumi_o[N] = S_gnt_n | P_gnt_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:         assign yumi_o[S] = N_gnt_s | P_gnt_s;</pre>
+<pre style="margin:0; padding:0 "> 545:    end else begin</pre>
+<pre id="id546" style="background-color: #FFB6C1; margin:0; padding:0 "> 546:         assign yumi_o[W] = E_gnt_w | P_gnt_w;</pre>
+<pre id="id547" style="background-color: #FFB6C1; margin:0; padding:0 "> 547:         assign yumi_o[E] = W_gnt_e | P_gnt_e;</pre>
+<pre id="id548" style="background-color: #FFB6C1; margin:0; padding:0 "> 548:         assign yumi_o[N] = S_gnt_n | W_gnt_n | E_gnt_n | P_gnt_n;</pre>
+<pre id="id549" style="background-color: #FFB6C1; margin:0; padding:0 "> 549:         assign yumi_o[S] = N_gnt_s | W_gnt_s | E_gnt_s | P_gnt_s;</pre>
+<pre style="margin:0; padding:0 "> 550:    end</pre>
+<pre style="margin:0; padding:0 "> 551: </pre>
+<pre style="margin:0; padding:0 "> 552:    // synopsys translate_off</pre>
+<pre id="id553" style="background-color: #FFB6C1; margin:0; padding:0 "> 553:    if (debug_p)</pre>
+<pre id="id554" style="background-color: #FFB6C1; margin:0; padding:0 "> 554:      for (i = P; i <= S; i=i+1)</pre>
+<pre id="id555" style="background-color: #FFB6C1; margin:0; padding:0 "> 555:        begin: rof</pre>
+<pre id="id556" style="background-color: #FFB6C1; margin:0; padding:0 "> 556:           Dirs dir = Dirs ' (i);</pre>
+<pre style="margin:0; padding:0 "> 557: </pre>
+<pre id="id558" style="background-color: #FFB6C1; margin:0; padding:0 "> 558:           always_ff @(negedge clk_i)</pre>
+<pre id="id559" style="background-color: #FFB6C1; margin:0; padding:0 "> 559:             begin</pre>
+<pre id="id560" style="background-color: #FFB6C1; margin:0; padding:0 "> 560:                if (v_i_stub[i])</pre>
+<pre id="id561" style="background-color: #FFB6C1; margin:0; padding:0 "> 561:                  $display("%m wants to send %x to {x,y}={%x,%x} from dir %s, req[SNEWP] = %b, ready_i[SNEWP] = %b"</pre>
+<pre id="id562" style="background-color: #FFB6C1; margin:0; padding:0 "> 562:                           , data_i[i], x_dirs[i],y_dirs[i],dir.name(), req[i], ready_i_stub);</pre>
+<pre id="id563" style="background-color: #FFB6C1; margin:0; padding:0 "> 563:                if (v_o[i])</pre>
+<pre id="id564" style="background-color: #FFB6C1; margin:0; padding:0 "> 564:                  $display("%m sending %x in dir %s", data_o[i], dir.name());</pre>
+<pre style="margin:0; padding:0 "> 565:             end</pre>
+<pre style="margin:0; padding:0 "> 566:        end</pre>
+<pre style="margin:0; padding:0 "> 567: </pre>
+<pre style="margin:0; padding:0 "> 568:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 569: </pre>
+<pre style="margin:0; padding:0 "> 570: endmodule</pre>
+<pre style="margin:0; padding:0 "> 571: </pre>
+</body>
+</html>

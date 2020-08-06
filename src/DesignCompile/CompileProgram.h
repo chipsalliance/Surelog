@@ -49,7 +49,7 @@ struct FunctorCompileProgram {
 };
 
 class CompileProgram : public CompileToolbox {
- public:
+public:
   CompileProgram(CompileDesign* compiler, Program* program, Design* design,
                  SymbolTable* symbols, ErrorContainer* errors)
       : m_compileDesign(compiler),
@@ -64,15 +64,16 @@ class CompileProgram : public CompileToolbox {
 
   ~CompileProgram() override;
 
- private:
-  CompileDesign* m_compileDesign;
-  Program* m_program;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+private:
+  CompileDesign* const m_compileDesign;
+  Program* const m_program;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+
   CompileHelper m_helper;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILEPROGRAM_H */

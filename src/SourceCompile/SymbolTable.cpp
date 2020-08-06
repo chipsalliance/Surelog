@@ -20,52 +20,39 @@
  *
  * Created on March 6, 2017, 11:10 PM
  */
-#include <iostream>
 #include "SourceCompile/SymbolTable.h"
-#include <mutex>
-#include <vector>
 
 using namespace SURELOG;
 
-std::string SymbolTable::m_badSymbol("@@BAD_SYMBOL@@");
-std::string SymbolTable::m_emptyMacroMarker("@@EMPTY_MACRO@@");
-SymbolId SymbolTable::m_badId = 0;
+const std::string SymbolTable::s_badSymbol("@@BAD_SYMBOL@@");
+const std::string SymbolTable::s_emptyMacroMarker("@@EMPTY_MACRO@@");
+const SymbolId SymbolTable::s_badId = 0;
 
 SymbolTable::SymbolTable() : m_idCounter(1) {
-  m_id2SymbolMap.push_back(m_badSymbol);
-  m_symbol2IdMap.insert(std::make_pair(m_badSymbol, 0));
+  m_id2SymbolMap.push_back(s_badSymbol);
+  m_symbol2IdMap.insert(std::make_pair(s_badSymbol, 0));
 }
 
 SymbolTable::~SymbolTable() {}
 
-SymbolId SymbolTable::registerSymbol(const std::string symbol) {
-  std::unordered_map<std::string, SymbolId>::iterator itr =
-      m_symbol2IdMap.find(symbol);
-  if (itr == m_symbol2IdMap.end()) {
-    m_symbol2IdMap.insert(std::make_pair(symbol, m_idCounter));
-    m_id2SymbolMap.push_back(symbol);
+SymbolId SymbolTable::registerSymbol(const std::string& symbol) {
+  // TODO: use std::string_view and heterogeneous lookup
+  const auto inserted = m_symbol2IdMap.insert({symbol, m_idCounter});
+  if (inserted.second) {
+    m_id2SymbolMap.emplace_back(symbol);
     m_idCounter++;
-    SymbolId tmp = m_idCounter - 1;
-    return (tmp);
-  } else {
-    SymbolId tmp = (*itr).second;
-    return tmp;
   }
+  return inserted.first->second;
 }
 
-SymbolId SymbolTable::getId(const std::string symbol) {
-  std::unordered_map<std::string, SymbolId>::iterator itr =
-      m_symbol2IdMap.find(symbol);
-  if (itr == m_symbol2IdMap.end()) {
-    return 0;
-  } else {
-    SymbolId tmp = (*itr).second;
-    return tmp;
-  }
+SymbolId SymbolTable::getId(const std::string& symbol) const {
+  // TODO: use std::string_view and heterogeneous lookup
+  auto found = m_symbol2IdMap.find(symbol);
+  return (found == m_symbol2IdMap.end()) ? s_badId : found->second;
 }
 
-const std::string SymbolTable::getSymbol(SymbolId id) {
+const std::string& SymbolTable::getSymbol(SymbolId id) const {
   if (id >= m_id2SymbolMap.size())
-    return "@@BAD_SYMBOL@@";
+    return s_badSymbol;
   return m_id2SymbolMap[id];
 }

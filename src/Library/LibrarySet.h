@@ -23,28 +23,30 @@
 
 #ifndef LIBRARYSET_H
 #define LIBRARYSET_H
+
 #include "Library/Library.h"
+
 #include <vector>
+#include <string_view>
 
 namespace SURELOG {
 
-class LibrarySet {
- public:
+class LibrarySet final {
+public:
   LibrarySet();
-  LibrarySet(const LibrarySet& orig);
-  virtual ~LibrarySet();
-  void addLibrary(Library& lib) { m_libraries.push_back(lib); }
 
+  void addLibrary(const Library& lib) { m_libraries.push_back(lib); }
   std::vector<Library>& getLibraries() { return m_libraries; }
-  Library* getLibrary(std::string libName);
+  Library* getLibrary(std::string_view libName);
   Library* getLibrary(SymbolId fileId);
   void checkErrors(SymbolTable* symbols, ErrorContainer* errors);
   std::string report(SymbolTable* symbols);
 
- private:
+private:
+  LibrarySet(const LibrarySet& orig) = default;
   std::vector<Library> m_libraries;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* LIBRARYSET_H */

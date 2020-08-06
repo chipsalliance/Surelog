@@ -23,47 +23,33 @@
 
 #include "Package/Precompiled.h"
 
-Precompiled* Precompiled::m_singleton = NULL;
-
 Precompiled::Precompiled() {
   addPrecompiled("uvm_pkg", "uvm_pkg.sv");
   addPrecompiled("ovm_pkg", "ovm_pkg.sv");
 }
 
 Precompiled* Precompiled::getSingleton() {
-  if (m_singleton == NULL) m_singleton = new Precompiled();
-  return m_singleton;
+  static Precompiled* const singleton = new Precompiled();
+  return singleton;
 }
 
-void Precompiled::addPrecompiled(std::string packageName,
-                                 std::string fileName) {
-  m_packageMap.insert(std::make_pair(packageName, fileName));
+void Precompiled::addPrecompiled(const std::string& packageName,
+                                 const std::string& fileName) {
+  m_packageMap.insert({packageName, fileName});
   m_packageFileSet.insert(fileName);
 }
 
-std::string Precompiled::getFileName(std::string packageName) {
-  auto itr = m_packageMap.find(packageName);
-  if (itr == m_packageMap.end()) {
-    return "";
-  } else {
-    return (*itr).second;
-  }
+std::string Precompiled::getFileName(const std::string& packageName) const {
+  auto found = m_packageMap.find(packageName);
+  return (found == m_packageMap.end()) ? "" : found->second;
 }
 
-bool Precompiled::isFilePrecompiled(std::string fileName) {
-  auto itr = m_packageFileSet.find(fileName);
-  if (itr == m_packageFileSet.end()) {
-    return false;
-  } else {
-    return true;
-  }
+bool Precompiled::isFilePrecompiled(const std::string& fileName) const {
+  auto found = m_packageFileSet.find(fileName);
+  return (found != m_packageFileSet.end());
 }
 
-bool Precompiled::isPackagePrecompiled(std::string packageName) {
-  auto itr = m_packageMap.find(packageName);
-  if (itr == m_packageMap.end()) {
-    return false;
-  } else {
-    return true;
-  }
+bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
+  auto found = m_packageMap.find(packageName);
+  return(found != m_packageMap.end());
 }

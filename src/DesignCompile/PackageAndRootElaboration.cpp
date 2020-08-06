@@ -64,7 +64,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     FileContent* fC = file.second;
     for (auto typed : fC->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, fC));
+      defs.emplace_back(typd, fC);
     }
   }
 
@@ -72,7 +72,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     Package* pack = package.second;
     for (auto typed : pack->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, pack));
+      defs.emplace_back(typd, pack);
     }
   }
 
@@ -80,7 +80,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     Program* program = program_def.second;
     for (auto typed : program->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, program));
+      defs.emplace_back(typd, program);
     }
   }
 
@@ -88,12 +88,12 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     TypeDef* typd = def.first;
     DesignComponent* comp = def.second;
     if (typd->getDefinition() == NULL) {
-      DataType* def =
+      const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
       if (def) {
         typd->setDefinition(def);
       } else {
-        FileContent* fC = typd->getFileContent();
+        const FileContent* fC = typd->getFileContent();
         NodeId id = typd->getNodeId();
         std::string fileName = fC->getFileName(id);
         unsigned int line = fC->Line(id);

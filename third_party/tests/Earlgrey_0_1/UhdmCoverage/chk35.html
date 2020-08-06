@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/tlul/rtl/tlul_adapter_sram.sv Cov: 99.4% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: /**</pre>
+<pre style="margin:0; padding:0 ">   6:  * Tile-Link UL adapter for SRAM-like devices</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="margin:0; padding:0 ">   8:  * - Intentionally omitted BaseAddr in case of multiple memory maps are used in a SoC,</pre>
+<pre style="margin:0; padding:0 ">   9:  *   it means that aliasing can happen if target slave size in TL-UL crossbar is bigger</pre>
+<pre style="margin:0; padding:0 ">  10:  *   than SRAM size</pre>
+<pre style="margin:0; padding:0 ">  11:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int SramAw      = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int SramDw      = 32, // Current version supports TL-UL width only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int Outstanding = 1,  // Only one request is accepted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter bit ByteAccess  = 1,  // 1: true, 0: false</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter bit ErrOnWrite  = 0,  // 1: Writes not allowed, automatically error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter bit ErrOnRead   = 0   // 1: Reads not allowed, automatically error</pre>
+<pre style="margin:0; padding:0 ">  19: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input   clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input   rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // TL-UL interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input   tlul_pkg::tl_h2d_t  tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output  tlul_pkg::tl_d2h_t  tl_o,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // SRAM interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic              req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input                     gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic              we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [SramAw-1:0] addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic [SramDw-1:0] wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic [SramDw-1:0] wmask_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input        [SramDw-1:0] rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input                     rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input        [1:0]        rerror_i // 2 bit error [1]: Uncorrectable, [0]: Correctable</pre>
+<pre style="margin:0; padding:0 ">  37: );</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   import tlul_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   localparam int SramByte = SramDw/8; // TODO: Fatal if SramDw isn't multiple of 8</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam int DataBitWidth = $clog2(SramByte);</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     OpWrite,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     OpRead,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     OpUnknown</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   } req_op_e ;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     req_op_e                    op ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic                       error ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     logic [top_pkg::TL_SZW-1:0] size ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     logic [top_pkg::TL_AIW-1:0] source ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   } req_t ;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic [SramDw-1:0] data ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic              error ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   } rsp_t ;</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   localparam int ReqFifoWidth = $bits(req_t) ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   localparam int RspFifoWidth = $bits(rsp_t) ;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // FIFO signal in case OutStand is greater than 1</pre>
+<pre style="margin:0; padding:0 ">  66:   // If request is latched, {write, source} is pushed to req fifo.</pre>
+<pre style="margin:0; padding:0 ">  67:   // Req fifo is popped when D channel is acknowledged (v & r)</pre>
+<pre style="margin:0; padding:0 ">  68:   // D channel valid is asserted if it is write request or rsp fifo not empty if read.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic reqfifo_wvalid, reqfifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic reqfifo_rvalid, reqfifo_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   req_t reqfifo_wdata,  reqfifo_rdata;</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic rspfifo_wvalid, rspfifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic rspfifo_rvalid, rspfifo_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   rsp_t rspfifo_wdata,  rspfifo_rdata;</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic error_internal; // Internal protocol error checker</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic wr_attr_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic wr_vld_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic rd_vld_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic tlul_error;     // Error from `tlul_err` module</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic a_ack, d_ack, unused_sram_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   assign a_ack    = tl_i.a_valid & tl_o.a_ready ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   assign d_ack    = tl_o.d_valid & tl_i.d_ready ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   assign unused_sram_ack = req_o        & gnt_i ;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   // Valid handling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic d_valid, d_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     d_valid = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     if (reqfifo_rvalid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       if (reqfifo_rdata.error) begin</pre>
+<pre style="margin:0; padding:0 ">  95:         // Return error response. Assume no request went out to SRAM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         d_valid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       end else if (reqfifo_rdata.op == OpRead) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         d_valid = rspfifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 100:         // Write without error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:         d_valid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 102:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       d_valid = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 105:     end</pre>
+<pre style="margin:0; padding:0 "> 106:   end</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     d_error = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     if (reqfifo_rvalid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       if (reqfifo_rdata.op == OpRead) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:         d_error = rspfifo_rdata.error | reqfifo_rdata.error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:         d_error = reqfifo_rdata.error;</pre>
+<pre style="margin:0; padding:0 "> 116:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       d_error = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 119:     end</pre>
+<pre style="margin:0; padding:0 "> 120:   end</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign tl_o = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:       d_valid  : d_valid ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:       d_opcode : (d_valid && reqfifo_rdata.op != OpRead) ? AccessAck : AccessAckData,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       d_param  : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       d_size   : (d_valid) ? reqfifo_rdata.size : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       d_source : (d_valid) ? reqfifo_rdata.source : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       d_sink   : 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       d_data   : (d_valid && rspfifo_rvalid && reqfifo_rdata.op == OpRead)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                  ? rspfifo_rdata.data : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:       d_user   : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       d_error  : d_error,</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       a_ready  : (gnt_i | error_internal) & reqfifo_wready</pre>
+<pre style="margin:0; padding:0 "> 135:   };</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:   // a_ready depends on the FIFO full condition and grant from SRAM (or SRAM arbiter)</pre>
+<pre style="margin:0; padding:0 "> 138:   // assemble response, including read response, write response, and error for unsupported stuff</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:   // Output to SRAM:</pre>
+<pre style="margin:0; padding:0 "> 141:   //    Generate request only when no internal error occurs. If error occurs, the request should be</pre>
+<pre style="margin:0; padding:0 "> 142:   //    dropped and returned error response to the host. So, error to be pushed to reqfifo.</pre>
+<pre style="margin:0; padding:0 "> 143:   //    In this case, it is assumed the request is granted (may cause ordering issue later?)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   assign req_o    = tl_i.a_valid & reqfifo_wready & ~error_internal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   assign we_o     = tl_i.a_valid & logic'(tl_i.a_opcode inside {PutFullData, PutPartialData});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   assign addr_o   = (tl_i.a_valid) ? tl_i.a_address[DataBitWidth+:SramAw] : '0;</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+<pre style="margin:0; padding:0 "> 148:   `ASSERT_INIT(TlUlEqualsToSramDw, top_pkg::TL_DW == SramDw)</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="margin:0; padding:0 "> 150:   // Convert byte mask to SRAM bit mask.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     for (int i = 0 ; i < top_pkg::TL_DW/8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       wmask_o[8*i+:8] = (tl_i.a_valid) ? {8{tl_i.a_mask[i]}} : '0;</pre>
+<pre style="margin:0; padding:0 "> 154:       // only forward valid data here.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       wdata_o[8*i+:8] = (tl_i.a_mask[i] && we_o) ? tl_i.a_data[8*i+:8] : '0;</pre>
+<pre style="margin:0; padding:0 "> 156:     end</pre>
+<pre style="margin:0; padding:0 "> 157:   end</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:   // Begin: Request Error Detection</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="margin:0; padding:0 "> 162:   // wr_attr_error: Check if the request size,mask are permitted.</pre>
+<pre style="margin:0; padding:0 "> 163:   //    Basic check of size, mask, addr align is done in tlul_err module.</pre>
+<pre style="margin:0; padding:0 "> 164:   //    Here it checks any partial write if ByteAccess isn't allowed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign wr_attr_error = (tl_i.a_opcode == PutFullData || tl_i.a_opcode == PutPartialData) ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:                          (ByteAccess == 0) ? (tl_i.a_mask != '1 || tl_i.a_size != 2'h2) : 1'b0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:                          1'b0;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   if (ErrOnWrite == 1) begin : gen_no_writes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     assign wr_vld_error = tl_i.a_opcode != Get;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   end else begin : gen_writes_allowed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     assign wr_vld_error = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 173:   end</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   if (ErrOnRead == 1) begin: gen_no_reads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     assign rd_vld_error = tl_i.a_opcode == Get;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   end else begin : gen_reads_allowed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     assign rd_vld_error = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 179:   end</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   tlul_err u_err (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     .err_o (tlul_error)</pre>
+<pre style="margin:0; padding:0 "> 186:   );</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   assign error_internal = wr_attr_error | wr_vld_error | rd_vld_error | tlul_error;</pre>
+<pre style="margin:0; padding:0 "> 189:   // End: Request Error Detection</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   assign reqfifo_wvalid = a_ack ; // Push to FIFO only when granted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   assign reqfifo_wdata  = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     op:     (tl_i.a_opcode != Get) ? OpWrite : OpRead, // To return AccessAck for opcode error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     error:  error_internal,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     size:   tl_i.a_size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     source: tl_i.a_source</pre>
+<pre id="id197" style="background-color: #FFB6C1; margin:0; padding:0 "> 197:   }; // Store the request only. Doesn't have to store data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:   assign reqfifo_rready = d_ack ;</pre>
+<pre style="margin:0; padding:0 "> 199: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   assign rspfifo_wvalid = rvalid_i & reqfifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   assign rspfifo_wdata  = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     data:  rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     error: rerror_i[1]  // Only care for Uncorrectable error</pre>
+<pre style="margin:0; padding:0 "> 204:   };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   assign rspfifo_rready = (reqfifo_rdata.op == OpRead & ~reqfifo_rdata.error)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:                         ? reqfifo_rready : 1'b0 ;</pre>
+<pre style="margin:0; padding:0 "> 207: </pre>
+<pre style="margin:0; padding:0 "> 208:   // FIFO instance: REQ, RSP</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210:   // ReqFIFO is to store the Access type to match to the Response data.</pre>
+<pre style="margin:0; padding:0 "> 211:   //    For instance, SRAM accepts the write request but doesn't return the</pre>
+<pre style="margin:0; padding:0 "> 212:   //    acknowledge. In this case, it may be hard to determine when the D</pre>
+<pre style="margin:0; padding:0 "> 213:   //    response for the write data should send out if reads/writes are</pre>
+<pre style="margin:0; padding:0 "> 214:   //    interleaved. So, to make it in-order (even TL-UL allows out-of-order</pre>
+<pre style="margin:0; padding:0 "> 215:   //    responses), storing the request is necessary. And if the read entry</pre>
+<pre style="margin:0; padding:0 "> 216:   //    is write op, it is safe to return the response right away. If it is</pre>
+<pre style="margin:0; padding:0 "> 217:   //    read reqeust, then D response is waiting until read data arrives.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     .Width  (ReqFifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     .Pass   (1'b0),</pre>
+<pre style="margin:0; padding:0 "> 221:   // The oustanding+1 allows the reqfifo to absorb back to back transactions</pre>
+<pre style="margin:0; padding:0 "> 222:   // without any wait states.  Alternatively, the depth can be kept as</pre>
+<pre style="margin:0; padding:0 "> 223:   // oustanding as long as the outgoing ready is qualified with the acceptance</pre>
+<pre style="margin:0; padding:0 "> 224:   // of the response in the same cycle.  Doing so however creates a path from</pre>
+<pre style="margin:0; padding:0 "> 225:   // ready_i to ready_o, which may not be desireable.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     .Depth  (Outstanding+1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   ) u_reqfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     .wvalid (reqfifo_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     .wready (reqfifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     .wdata  (reqfifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     .rvalid (reqfifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     .rready (reqfifo_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     .rdata  (reqfifo_rdata)</pre>
+<pre style="margin:0; padding:0 "> 238:   );</pre>
+<pre style="margin:0; padding:0 "> 239: </pre>
+<pre style="margin:0; padding:0 "> 240:   // Rationale having #Outstanding depth in response FIFO.</pre>
+<pre style="margin:0; padding:0 "> 241:   //    In normal case, if the host or the crossbar accepts the response data,</pre>
+<pre style="margin:0; padding:0 "> 242:   //    response FIFO isn't needed. But if in any case it has a chance to be</pre>
+<pre style="margin:0; padding:0 "> 243:   //    back pressured, the response FIFO should store the returned data not to</pre>
+<pre style="margin:0; padding:0 "> 244:   //    lose the data from the SRAM interface. Remember, SRAM interface doesn't</pre>
+<pre style="margin:0; padding:0 "> 245:   //    have back-pressure signal such as read_ready.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     .Width (RspFifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     .Pass  (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     .Depth (Outstanding)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:   ) u_rspfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     .wvalid (rspfifo_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     .wready (rspfifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     .wdata  (rspfifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:     .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:     .rvalid (rspfifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:     .rready (rspfifo_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     .rdata  (rspfifo_rdata)</pre>
+<pre style="margin:0; padding:0 "> 261:   );</pre>
+<pre style="margin:0; padding:0 "> 262: </pre>
+<pre style="margin:0; padding:0 "> 263:   // below assertion fails when SRAM rvalid is asserted even though ReqFifo is empty</pre>
+<pre style="margin:0; padding:0 "> 264:   `ASSERT(rvalidHighReqFifoEmpty, rvalid_i |-> reqfifo_rvalid, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266:   // below assertion fails when outstanding value is too small (SRAM rvalid is asserted</pre>
+<pre style="margin:0; padding:0 "> 267:   // even though the RspFifo is full)</pre>
+<pre style="margin:0; padding:0 "> 268:   `ASSERT(rvalidHighWhenRspFifoFull, rvalid_i |-> rspfifo_wready, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="margin:0; padding:0 "> 270:   // If both ErrOnWrite and ErrOnRead are set, this block is useless</pre>
+<pre style="margin:0; padding:0 "> 271:   `ASSERT_INIT(adapterNoReadOrWrite, (ErrOnWrite & ErrOnRead) == 0)</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="margin:0; padding:0 "> 273:   // make sure outputs are defined</pre>
+<pre style="margin:0; padding:0 "> 274:   `ASSERT_KNOWN(TlOutKnown_A,    tl_o,    clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 275:   `ASSERT_KNOWN(ReqOutKnown_A,   req_o,   clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 276:   `ASSERT_KNOWN(WeOutKnown_A,    we_o,    clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 277:   `ASSERT_KNOWN(AddrOutKnown_A,  addr_o,  clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 278:   `ASSERT_KNOWN(WdataOutKnown_A, wdata_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 279:   `ASSERT_KNOWN(WmaskOutKnown_A, wmask_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 280: </pre>
+<pre style="margin:0; padding:0 "> 281: endmodule</pre>
+<pre style="margin:0; padding:0 "> 282: </pre>
+</body>
+</html>

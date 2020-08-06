@@ -32,7 +32,7 @@ class CompileStep {
   CompileStep(const CompileStep& orig);
   virtual ~CompileStep();
 
-  virtual VObject& Object(NodeId index) = 0;
+  virtual const VObject Object(NodeId index) const = 0;
 
   virtual NodeId UniqueId(NodeId index) = 0;
 
@@ -42,11 +42,11 @@ class CompileStep {
 
   virtual NodeId Sibling(NodeId index) = 0;
 
-  virtual NodeId& Definition(NodeId index) = 0;
+  virtual NodeId Definition(NodeId index) const = 0;
 
   virtual NodeId Parent(NodeId index) = 0;
 
-  virtual unsigned short& Type(NodeId index) = 0;
+  virtual unsigned short Type(NodeId index) const = 0;
 
   virtual unsigned int Line(NodeId index) = 0;
 

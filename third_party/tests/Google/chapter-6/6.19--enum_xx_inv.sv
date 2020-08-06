@@ -1,7 +1,7 @@
 /*
 :name: enum_xx_inv
 :description: invalid enum with x tests
-:should_fail: 1
+:should_fail_because: an enumerated name with x or z assignments assigned to an enum with no explicit data type or an explicit 2-state declaration shall be an error
 :tags: 6.19
 :type: simulation
 */

@@ -25,28 +25,28 @@
 #define PROGRAM_H
 #include "Design/DesignComponent.h"
 #include "Common/ClockingBlockHolder.h"
-#include "Common/PortNetHolder.h"
 
 namespace SURELOG {
 
 class CompileProgram;
 
-class Program : public DesignComponent, public ClockingBlockHolder,
-   public PortNetHolder {
+class Program : public DesignComponent, public ClockingBlockHolder {
   friend class CompileProgram;
 
  public:
   Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), PortNetHolder(), m_name(name), m_library(library) {
+      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
 
   ~Program() override;
 
-  unsigned int getSize() override;
-  VObjectType getType() override { return (m_fileContents[0]->Type(m_nodeIds[0])); }
-  bool isInstance() override { return true; }
-  std::string getName() override { return m_name; }
+  unsigned int getSize() const override;
+  VObjectType getType() const override {
+    return (m_fileContents[0]->Type(m_nodeIds[0]));
+  }
+  bool isInstance() const override { return true; }
+  const std::string& getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

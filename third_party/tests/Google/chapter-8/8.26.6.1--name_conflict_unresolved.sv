@@ -1,7 +1,7 @@
 /*
 :name: name_conflict_unresolved
 :description: unresolved interface class method name conflict
-:should_fail: 1
+:should_fail_because: in this test it's unclear which interface is hello() part of
 :tags: 8.26.6.1
 :type: simulation
 */

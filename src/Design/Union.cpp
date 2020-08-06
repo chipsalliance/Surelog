@@ -25,7 +25,7 @@
 #include "Design/Union.h"
 using namespace SURELOG;
 
-Union::Union(FileContent* fC, NodeId nameId, NodeId structId)
+Union::Union(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {}
 
 Union::~Union() {}

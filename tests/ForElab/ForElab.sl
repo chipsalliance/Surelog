@@ -1,1 +1,1 @@
- top.v  -writepp  -parse -verbose -d inst  -mt max -fileunit
+top.v -writepp  -parse -verbose -d inst -fileunit -d uhdm -d coveruhdm

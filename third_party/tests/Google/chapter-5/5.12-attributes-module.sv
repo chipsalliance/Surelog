@@ -1,7 +1,6 @@
 /*
 :name: attributes-module
 :description: Assing attributes to a module
-:should_fail: 0
 :tags: 5.12
 */
 

@@ -1,7 +1,6 @@
 /*
 :name: parameter_type_conflict
 :description: superclass type declaration conflicts must be resolved in subclass
-:should_fail: 0
 :tags: 8.26.6.2
 */
 module class_tb ();

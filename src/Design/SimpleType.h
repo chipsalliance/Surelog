@@ -36,16 +36,20 @@ class FileContent;
 
 class SimpleType : public DataType {
  public:
-  SimpleType(FileContent* fC, NodeId nameId, NodeId structId);
+  SimpleType(const FileContent* fC, NodeId nameId, NodeId structId);
   ~SimpleType() override;
+
+  Category getCategory() const final { return Category::SIMPLE_TYPEDEF; }
+
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() { return m_typespec; }
+  UHDM::typespec* getTypespec() const { return m_typespec; }
   NodeId getNameId() { return m_nameId; }
+
  private:
   NodeId m_nameId;
   UHDM::typespec* m_typespec;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* SIMPLE_TYPE_H */

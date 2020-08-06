@@ -188,7 +188,7 @@ bool CompileSourceFile::pythonAPI_() {
   }
   if (getCommandLineParser()->pythonEvalScriptPerFile()) {
     PythonAPI::evalScriptPerFile(
-        getCommandLineParser()->getSymbolTable()->getSymbol(
+        getCommandLineParser()->getSymbolTable().getSymbol(
             getCommandLineParser()->pythonEvalScriptPerFileId()),
         m_errors, m_parser->getFileContent(), m_interpState);
   }
@@ -218,7 +218,7 @@ bool CompileSourceFile::parse_() {
 bool CompileSourceFile::preprocess_() {
   Precompiled* prec = Precompiled::getSingleton();
   std::string root = getSymbolTable()->getSymbol(m_fileId);
-  root = FileUtils::fileName(root);
+  root = FileUtils::basename(root);
 
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,

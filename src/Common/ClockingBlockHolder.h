@@ -23,6 +23,7 @@
 
 #ifndef CLOCKINGBLOCKHOLDER_H
 #define CLOCKINGBLOCKHOLDER_H
+
 #include <map>
 #include "SourceCompile/SymbolTable.h"
 #include "Design/Signal.h"
@@ -32,10 +33,10 @@ namespace SURELOG {
 
 class ClockingBlockHolder {
  public:
-  ClockingBlockHolder() {}
-  virtual ~ClockingBlockHolder() {}
-
   typedef std::map<SymbolId, ClockingBlock> ClockingBlockMap;
+
+  virtual ~ClockingBlockHolder() {}  // virtual as used as interface
+
   ClockingBlockMap& getClockingBlockMap() { return m_clockingBlockMap; }
   void addClockingBlock(SymbolId blockId, ClockingBlock& block);
   ClockingBlock* getClockingBlock(SymbolId blockId);

@@ -1,7 +1,6 @@
 /*
 :name: fgetc_function
 :description: $fgetc test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

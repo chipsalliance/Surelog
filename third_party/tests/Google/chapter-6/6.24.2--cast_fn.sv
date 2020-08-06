@@ -1,7 +1,6 @@
 /*
 :name: cast_fn
 :description: $cast function
-:should_fail: 0
 :tags: 6.24.2
 */
 module top();

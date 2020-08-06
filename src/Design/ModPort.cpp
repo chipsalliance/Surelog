@@ -26,12 +26,8 @@
 
 using namespace SURELOG;
 
-ModPort::~ModPort()
-{
-}
-
-Signal* ModPort::getPort(std::string& name) {
-  for (Signal& sig : m_ports) {
+const Signal* ModPort::getPort(const std::string& name) const {
+  for (const Signal& sig : m_ports) {
     if (sig.getName() == name) {
       return &sig;
     }

@@ -1,7 +1,7 @@
 /*
 :name: function_void_return
 :description: void function return value test
-:should_fail: 1
+:should_fail_because: void function shall not return a value
 :tags: 13.4.1
 :type: simulation
 */

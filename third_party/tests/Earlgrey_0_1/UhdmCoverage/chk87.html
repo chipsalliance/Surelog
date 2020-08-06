@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usb_fs_nb_pe/rtl/usb_consts_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: package usb_consts_pkg;</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7:   // Definitions for USB Packet Identifier (called PID in the spec)</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9:   // Bottom two bits of the PID are type</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     UsbPidTypeSpecial    = 2'b00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     UsbPidTypeToken      = 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     UsbPidTypeHandshake  = 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     UsbPidTypeData       = 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   } usb_pid_type_e;</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // Direct from USB 2.0 Spec Table 8-1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   typedef enum logic [3:0] {</pre>
+<pre style="margin:0; padding:0 ">  19:     // TOKEN</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     UsbPidOut   = 4'b0001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     UsbPidIn    = 4'b1001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     UsbPidSof   = 4'b0101,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     UsbPidSetup = 4'b1101,</pre>
+<pre style="margin:0; padding:0 ">  24:     // DATA</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     UsbPidData0 = 4'b0011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     UsbPidData1 = 4'b1011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     UsbPidData2 = 4'b0111, // Only valid for High Speed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     UsbPidMData = 4'b1111, // Only valid for High Speed</pre>
+<pre style="margin:0; padding:0 ">  29:     // HANDSHAKE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     UsbPidAck   = 4'b0010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     UsbPidNak   = 4'b1010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     UsbPidStall = 4'b1110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     UsbPidNyet  = 4'b0110</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   } usb_pid_e;</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // USB SETUP packet commands (USB2.0 Table 9-4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   typedef enum logic [7:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     SetupGetStatus        = 8'd0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     SetupClearFeature     = 8'd1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     SetupSetFeature       = 8'd3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     SetupSetAddress       = 8'd5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     SetupGetDescriptor    = 8'd6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     SetupSetDescriptor    = 8'd7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     SetupGetConfiguration = 8'd8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     SetupSetConfiguration = 8'd9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     SetupGetInterface     = 8'd10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     SetupSetInterface     = 8'd11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     SetupSynchFrame       = 8'd12</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   } usb_setup_request_e;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // USB Desctiptor Types (USB2.0 Table 9-5)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   typedef enum logic [7:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     DscrTypeDevice        = 8'd1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     DscrTypeConfiguration = 8'd2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     DscrTypeString        = 8'd3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     DscrTypeInterface     = 8'd4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     DscrTypeEndpoint      = 8'd5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     DscrTypeDevQual       = 8'd6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     DscrTypeOthrSpd       = 8'd7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     DscrTypeIntPwr        = 8'd8</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   } usb_dscr_type_e;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: endpackage</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+</body>
+</html>

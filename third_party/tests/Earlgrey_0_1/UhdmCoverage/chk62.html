@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/flash_ctrl/rtl/flash_mp.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash Memory Protection</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module flash_mp #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int MpRegions = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int NumBanks = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int AllPagesW = 16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int TotalRegions = MpRegions+1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int BankW = $clog2(NumBanks)</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:   // configuration from sw</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t [TotalRegions-1:0] region_cfgs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_bank_cfg_mreg_t [NumBanks-1:0] bank_cfgs_i,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // interface signals to/from *_ctrl</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input [AllPagesW-1:0] req_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input addr_ovfl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input [BankW-1:0] req_bk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input rd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic rd_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic prog_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic erase_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic error_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [AllPagesW-1:0] err_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [BankW-1:0] err_bank_o,</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:   // interface signals to/from flash_phy</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   output logic rd_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic prog_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic pg_erase_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic bk_erase_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   input rd_done_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   input prog_done_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input erase_done_i</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48: );</pre>
+<pre style="margin:0; padding:0 ">  49:   import flash_ctrl_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // There could be multiple region matches due to region overlap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [AllPagesW-1:0] region_end[TotalRegions];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic [TotalRegions-1:0] region_match;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic [TotalRegions-1:0] region_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [TotalRegions-1:0] rd_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [TotalRegions-1:0] prog_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [TotalRegions-1:0] pg_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [NumBanks-1:0] bk_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic final_rd_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic final_prog_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic final_pg_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic final_bk_erase_en;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // Lower indices always have priority</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign region_sel[0] = region_match[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   for (genvar i = 1; i < TotalRegions; i++) begin: gen_region_priority</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     assign region_sel[i] = region_match[i] & ~|region_match[i-1:0];</pre>
+<pre style="margin:0; padding:0 ">  68:   end</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:   // check for region match</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     for (int unsigned i = 0; i < TotalRegions; i++) begin: region_comps</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       region_end[i] = region_cfgs_i[i].base.q + region_cfgs_i[i].size.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       region_match[i] = req_addr_i >= region_cfgs_i[i].base.q &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:                         req_addr_i <  region_end[i] &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:                         req_i;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       rd_en[i] = region_cfgs_i[i].en.q & region_cfgs_i[i].rd_en.q & region_sel[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       prog_en[i] = region_cfgs_i[i].en.q & region_cfgs_i[i].prog_en.q & region_sel[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       pg_erase_en[i] = region_cfgs_i[i].en.q & region_cfgs_i[i].erase_en.q & region_sel[i];</pre>
+<pre style="margin:0; padding:0 ">  81:     end</pre>
+<pre style="margin:0; padding:0 ">  82:   end</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:   // check for bank erase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     for (int unsigned i = 0; i < NumBanks; i++) begin: bank_comps</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       bk_erase_en[i] = (req_bk_i == i) & bank_cfgs_i[i].q;</pre>
+<pre style="margin:0; padding:0 ">  88:     end</pre>
+<pre style="margin:0; padding:0 ">  89:   end</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   assign final_rd_en = rd_i & |rd_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   assign final_prog_en = prog_i & |prog_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   assign final_pg_erase_en = pg_erase_i & |pg_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   assign final_bk_erase_en = bk_erase_i & |bk_erase_en;</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign rd_o = req_i & final_rd_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign prog_o = req_i & final_prog_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign pg_erase_o = req_i & final_pg_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign bk_erase_o = req_i & final_bk_erase_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   assign req_o = rd_o | prog_o | pg_erase_o | bk_erase_o;</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   logic txn_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   logic txn_ens;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic no_allowed_txn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign txn_ens = final_rd_en | final_prog_en | final_pg_erase_en | final_bk_erase_en;</pre>
+<pre style="margin:0; padding:0 "> 106:   // if incoming address overflowed or no transaction enbales, error back</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign no_allowed_txn = req_i & (addr_ovfl_i | ~txn_ens);</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   // return done and error the next cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       txn_err <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       err_addr_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       err_bank_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     end else if (txn_err) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       txn_err <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     end else if (no_allowed_txn) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       txn_err <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       err_addr_o <= req_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       err_bank_o <= req_bk_i;</pre>
+<pre style="margin:0; padding:0 "> 121:     end</pre>
+<pre style="margin:0; padding:0 "> 122:   end</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign rd_done_o = rd_done_i | txn_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign prog_done_o = prog_done_i | txn_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign erase_done_o = erase_done_i | txn_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   assign error_o = txn_err;</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="margin:0; padding:0 "> 129:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 130:   // Assertions, Assumptions, and Coverpoints //</pre>
+<pre style="margin:0; padding:0 "> 131:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="margin:0; padding:0 "> 133:   // Bank erase enable should always be one-hot.  We cannot erase multiple banks</pre>
+<pre style="margin:0; padding:0 "> 134:   // at the same time</pre>
+<pre style="margin:0; padding:0 "> 135:   `ASSERT(bkEraseEnOnehot_a, (req_o & bk_erase_o) |-> $onehot(bk_erase_en), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 136:   // Requests can only happen one at a time</pre>
+<pre style="margin:0; padding:0 "> 137:   `ASSERT(requestTypesOnehot_a, req_o |-> $onehot({rd_o, prog_o, pg_erase_o, bk_erase_o}),</pre>
+<pre style="margin:0; padding:0 "> 138:                                                     clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140: endmodule // flash_erase_ctrl</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+</body>
+</html>

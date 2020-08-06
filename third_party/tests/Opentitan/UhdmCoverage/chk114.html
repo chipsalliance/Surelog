@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_subreg.sv Cov: 72% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Register slice conforming to Comportibility guide.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module prim_subreg #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int            DW       = 32  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter                SWACCESS = "RW",  // {RW, RO, WO, W1C, W1S, W0C, RC}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter logic [DW-1:0] RESVAL   = '0     // Reset value</pre>
+<pre style="margin:0; padding:0 ">  11: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // From SW: valid for RW, WO, W1C, W1S, W0C, RC</pre>
+<pre style="margin:0; padding:0 ">  16:   // In case of RC, Top connects Read Pulse to we</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input          we,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input [DW-1:0] wd,</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   // From HW: valid for HRW, HWO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input          de,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input [DW-1:0] d,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // output to HW and Reg Read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic          qe,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic [DW-1:0] q,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [DW-1:0] qs</pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic          wr_en ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   logic [DW-1:0] wr_data;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   if ((SWACCESS == "RW") || (SWACCESS == "WO")) begin : gen_w</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     assign wr_en   = we | de ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     assign wr_data = (we == 1'b1) ? wd : d ; // SW higher priority</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36:   end else if (SWACCESS == "RO") begin : gen_ro</pre>
+<pre style="margin:0; padding:0 ">  37:     // Unused we, wd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     assign wr_en   = de ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     assign wr_data = d  ;</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:   end else if (SWACCESS == "W1S") begin : gen_w1s</pre>
+<pre style="margin:0; padding:0 ">  41:     // If SWACCESS is W1S, then assume hw tries to clear.</pre>
+<pre style="margin:0; padding:0 ">  42:     // So, give a chance HW to clear when SW tries to set.</pre>
+<pre style="margin:0; padding:0 ">  43:     // If both try to set/clr at the same bit pos, SW wins.</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:     assign wr_en   = we | de ;</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     assign wr_data = (de ? d : q) | (we ? wd : '0);</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:   end else if (SWACCESS == "W1C") begin : gen_w1c</pre>
+<pre style="margin:0; padding:0 ">  47:     // If SWACCESS is W1C, then assume hw tries to set.</pre>
+<pre style="margin:0; padding:0 ">  48:     // So, give a chance HW to set when SW tries to clear.</pre>
+<pre style="margin:0; padding:0 ">  49:     // If both try to set/clr at the same bit pos, SW wins.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     assign wr_en   = we | de ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     assign wr_data = (de ? d : q) & (we ? ~wd : '1);</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:   end else if (SWACCESS == "W0C") begin : gen_w0c</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     assign wr_en   = we | de ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     assign wr_data = (de ? d : q) & (we ? wd : '1);</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:   end else if (SWACCESS == "RC") begin : gen_rc</pre>
+<pre style="margin:0; padding:0 ">  56:     // This swtype is not recommended but exists for compatibility.</pre>
+<pre style="margin:0; padding:0 ">  57:     // WARN: we signal is actually read signal not write enable.</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:     assign wr_en  = we | de ;</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:     assign wr_data = (de ? d : q) & (we ? '0 : '1);</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:   end else begin : gen_hw</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:     assign wr_en   = de ;</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:     assign wr_data = d  ;</pre>
+<pre style="margin:0; padding:0 ">  63:   end</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     if (!rst_ni) qe <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     else        qe <= we  ;</pre>
+<pre style="margin:0; padding:0 ">  68:   end</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     if (!rst_ni)     q <= RESVAL ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     else if (wr_en) q <= wr_data;</pre>
+<pre style="margin:0; padding:0 ">  73:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   assign qs = q;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76: endmodule</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+</body>
+</html>

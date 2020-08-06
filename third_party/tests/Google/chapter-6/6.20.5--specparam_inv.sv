@@ -1,7 +1,7 @@
 /*
 :name: specparam_inv
 :description: specparam assignment to param should be invalid
-:should_fail: 1
+:should_fail_because: specparam assignment to param should be invalid
 :tags: 6.20.5
 :type: simulation
 */

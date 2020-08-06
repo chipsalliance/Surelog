@@ -32,13 +32,12 @@
 namespace SURELOG {
 
 class CommandLineParser;
- 
+
 class ErrorContainer {
  public:
   class Stats {
-   public:
-    Stats() : nbFatal(0), nbSyntax(0), nbError(0), nbWarning(0), nbNote(0), nbInfo(0){};
-    Stats& operator+=(Stats& r) {
+  public:
+    Stats& operator+=(const Stats& r) {
       nbFatal += r.nbFatal;
       nbSyntax += r.nbSyntax;
       nbError += r.nbError;
@@ -47,12 +46,13 @@ class ErrorContainer {
       nbInfo += r.nbInfo;
       return *this;
     }
-    int nbFatal;
-    int nbSyntax;
-    int nbError;
-    int nbWarning;
-    int nbNote;
-    int nbInfo;
+
+    int nbFatal = 0;
+    int nbSyntax = 0;
+    int nbError = 0;
+    int nbWarning = 0;
+    int nbNote = 0;
+    int nbInfo = 0;
   };
 
   ErrorContainer(SymbolTable* symbolTable);

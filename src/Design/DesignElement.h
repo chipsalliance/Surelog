@@ -26,7 +26,7 @@
 
 namespace SURELOG {
 
-class DesignElement {
+class DesignElement final {
  public:
    enum ElemType {
     Module,
@@ -46,7 +46,6 @@ class DesignElement {
 
   DesignElement(SymbolId name, SymbolId fileId, ElemType type,
                 SymbolId uniqueId, unsigned int line, SymbolId parent);
-  virtual ~DesignElement();
 
   SymbolId m_name;
   SymbolId m_fileId;
@@ -58,9 +57,8 @@ class DesignElement {
   NodeId m_node;
   void* m_context;  // Not persisted field, only used to build the DesignElement
                     // -> VNode relation
- private:
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* DESIGNELEMENT_H */

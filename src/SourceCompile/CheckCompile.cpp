@@ -43,8 +43,17 @@ using namespace SURELOG;
 CheckCompile::~CheckCompile() {}
 
 bool CheckCompile::check() {
+  if (!checkSyntaxErrors_()) return false;
   if (!mergeSymbolTables_()) return false;
   if (!checkTimescale_()) return false;
+  return true;
+}
+
+bool CheckCompile::checkSyntaxErrors_() {
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  const SURELOG::ErrorContainer::Stats& stats = errors->getErrorStats();
+  if (stats.nbSyntax)
+    return false;
   return true;
 }
 
@@ -55,7 +64,8 @@ bool CheckCompile::mergeSymbolTables_() {
     auto fileContent = (*fitr).second;
     m_compiler->getSymbolTable()->registerSymbol(fileContent->getFileName());
     for (NodeId id : fileContent->getNodeIds()) {
-      fileContent->getFileId(id) = m_compiler->getSymbolTable()->registerSymbol(
+      *fileContent->getMutableFileId(id) =
+        m_compiler->getSymbolTable()->registerSymbol(
           fileContent->getSymbolTable()->getSymbol(fileContent->getFileId(id)));
     }
     for (DesignElement& elem : fileContent->getDesignElements()) {
@@ -72,7 +82,7 @@ bool CheckCompile::mergeSymbolTables_() {
 bool CheckCompile::checkTimescale_() {
   std::string globaltimescale =
       m_compiler->getCommandLineParser()->getTimeScale();
-  if (globaltimescale != "") {
+  if (!globaltimescale.empty()) {
     Location loc(0, 0, 0,
                  m_compiler->getSymbolTable()->registerSymbol(globaltimescale));
     Error err(ErrorDefinition::CMD_USING_GLOBAL_TIMESCALE, loc);
@@ -95,9 +105,9 @@ bool CheckCompile::checkTimescale_() {
           elem.m_type == DesignElement::Package ||
           elem.m_type == DesignElement::Primitive ||
           elem.m_type == DesignElement::Program) {
-        if (elem.m_timeInfo.m_type == TimeInfo::TimeUnitTimePrecision) {
+        if (elem.m_timeInfo.m_type == TimeInfo::Type::TimeUnitTimePrecision) {
           timeUnitUsed = true;
-        } else if (elem.m_timeInfo.m_type == TimeInfo::Timescale) {
+        } else if (elem.m_timeInfo.m_type == TimeInfo::Type::Timescale) {
           timeScaleUsed = true;
           Location loc(m_compiler->getSymbolTable()->registerSymbol(
                            fileContent->getSymbolTable()->getSymbol(

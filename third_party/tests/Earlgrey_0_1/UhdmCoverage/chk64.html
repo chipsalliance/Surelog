@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/flash_ctrl/rtl/flash_ctrl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Faux Flash Controller Module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: module flash_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   // Bus Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input        tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   output       tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // Flash Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input        flash_ctrl_pkg::flash_m2c_t flash_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output       flash_ctrl_pkg::flash_c2m_t flash_o,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // Interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic intr_prog_empty_o, // Program fifo is empty</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic intr_prog_lvl_o,   // Program fifo is empty</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic intr_rd_full_o,    // Read fifo is full</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic intr_rd_lvl_o,     // Read fifo is full</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic intr_op_done_o,    // Requested flash operation (wr/erase) done</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic intr_op_error_o    // Requested flash operation (wr/erase) done</pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   import flash_ctrl_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  31:   import flash_ctrl_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   localparam int NumBanks = top_pkg::FLASH_BANKS;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   localparam int PagesPerBank = top_pkg::FLASH_PAGES_PER_BANK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   localparam int WordsPerPage = top_pkg::FLASH_WORDS_PER_PAGE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   localparam int BankW = top_pkg::FLASH_BKW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   localparam int PageW = top_pkg::FLASH_PGW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   localparam int WordW = top_pkg::FLASH_WDW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   localparam int AllPagesW = BankW + PageW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   localparam int AddrW = top_pkg::FLASH_AW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   localparam int DataWidth = top_pkg::FLASH_DW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam int DataBitWidth = $clog2(DataWidth/8);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   localparam int EraseBitWidth = $bits(flash_erase_op_e);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   localparam int FifoDepth = 16;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   localparam int FifoDepthW = $clog2(FifoDepth+1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int MpRegions = 8;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   flash_ctrl_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   flash_ctrl_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   tlul_pkg::tl_h2d_t tl_fifo_h2d [2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   tlul_pkg::tl_d2h_t tl_fifo_d2h [2];</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // Register module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   flash_ctrl_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .tl_o,</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .tl_win_o (tl_fifo_h2d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     .tl_win_i (tl_fifo_d2h),</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 ">  70:   );</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:   // FIFO Connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic                 prog_fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic                 prog_fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic                 prog_fifo_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic                 prog_fifo_wen;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic                 prog_fifo_ren;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic [DataWidth-1:0] prog_fifo_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic [DataWidth-1:0] prog_fifo_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic [FifoDepthW-1:0] prog_fifo_depth;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic                 rd_fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic                 rd_fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic                 rd_fifo_wen;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic                 rd_fifo_ren;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   logic [DataWidth-1:0] rd_fifo_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic [DataWidth-1:0] rd_fifo_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   logic [FifoDepthW-1:0] rd_fifo_depth;</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:   // Program Control Connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic prog_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic prog_flash_ovfl;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic [AddrW-1:0] prog_flash_addr;</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:   // Read Control Connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic rd_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic rd_flash_ovfl;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic [AddrW-1:0] rd_flash_addr;</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="margin:0; padding:0 ">  99:   // Erase Control Connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   logic erase_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   logic [AddrW-1:0] erase_flash_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   logic [EraseBitWidth-1:0] erase_flash_type;</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104:   // Done / Error signaling from ctrl modules</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic [2:0] ctrl_done, ctrl_err;</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   // Flash Memory Protection Connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   logic flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   logic flash_rd_done, flash_prog_done, flash_erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   logic flash_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   logic [AddrW-1:0] flash_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   logic [DataWidth-1:0] flash_prog_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   logic [DataWidth-1:0] flash_rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   logic init_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   logic rd_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   logic prog_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   logic erase_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   logic [AllPagesW-1:0] err_page;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic [BankW-1:0] err_bank;</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign rd_op = reg2hw.control.op.q == FlashRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign prog_op = reg2hw.control.op.q == FlashProg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign erase_op = reg2hw.control.op.q == FlashErase;</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+<pre style="margin:0; padding:0 "> 125:   // Program FIFO</pre>
+<pre style="margin:0; padding:0 "> 126:   // Since the program and read FIFOs are never used at the same time, it should really be one</pre>
+<pre style="margin:0; padding:0 "> 127:   // FIFO with muxed inputs and outputs.  This should be addressed once the flash integration</pre>
+<pre style="margin:0; padding:0 "> 128:   // strategy has been identified</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     .SramAw(1),         //address unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     .SramDw(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     .ByteAccess(0),     //flash may not support byte access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     .ErrOnRead(1)       //reads not supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   ) u_to_prog_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     .tl_i       (tl_fifo_h2d[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     .tl_o       (tl_fifo_d2h[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     .req_o      (prog_fifo_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     .gnt_i      (prog_fifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     .we_o       (prog_fifo_wen),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     .addr_o     (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     .wmask_o    (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     .wdata_o    (prog_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     .rdata_i    (DataWidth'(0)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     .rvalid_i   (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     .rerror_i   (2'b0)</pre>
+<pre style="margin:0; padding:0 "> 148:   );</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     .Width(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     .Depth(FifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   ) u_prog_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     .rst_ni (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     .clr_i  (reg2hw.control.fifo_rst.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     .wvalid (prog_fifo_req & prog_fifo_wen),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     .wready (prog_fifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     .wdata  (prog_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     .depth  (prog_fifo_depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     .rvalid (prog_fifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     .rready (prog_fifo_ren),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     .rdata  (prog_fifo_rdata)</pre>
+<pre style="margin:0; padding:0 "> 164:   );</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="margin:0; padding:0 "> 166:   // Program handler is consumer of prog_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   flash_prog_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     .DataW(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     .AddrW(AddrW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   ) u_flash_prog_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="margin:0; padding:0 "> 174:     // Software Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     .op_start_i     (reg2hw.control.start.q & prog_op),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     .op_num_words_i (reg2hw.control.num.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     .op_done_o      (ctrl_done[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     .op_err_o       (ctrl_err[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     .op_addr_i      (reg2hw.addr.q[DataBitWidth +: AddrW]),</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:     // FIFO Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     .data_i         (prog_fifo_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     .data_rdy_i     (prog_fifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     .data_rd_o      (prog_fifo_ren),</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186:     // Flash Macro Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     .flash_req_o    (prog_flash_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     .flash_addr_o   (prog_flash_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     .flash_ovfl_o   (prog_flash_ovfl),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     .flash_data_o   (flash_prog_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     .flash_done_i   (flash_prog_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     .flash_error_i  (flash_error)</pre>
+<pre style="margin:0; padding:0 "> 193:   );</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="margin:0; padding:0 "> 195:   // Read FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   logic adapter_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       adapter_rvalid <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       adapter_rvalid <= rd_fifo_ren && rd_fifo_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 202:     end</pre>
+<pre style="margin:0; padding:0 "> 203:   end</pre>
+<pre style="margin:0; padding:0 "> 204: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     .SramAw(1),         //address unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     .SramDw(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     .ByteAccess(0),     //flash may not support byte access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     .ErrOnWrite(1)      //writes not supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   ) u_to_rd_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     .tl_i       (tl_fifo_h2d[1]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     .tl_o       (tl_fifo_d2h[1]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     .req_o      (rd_fifo_ren),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     .gnt_i      (rd_fifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     .we_o       (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:     .addr_o     (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     .wmask_o    (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     .wdata_o    (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     .rdata_i    (rd_fifo_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:     .rvalid_i   (adapter_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     .rerror_i   (2'b0)</pre>
+<pre style="margin:0; padding:0 "> 224:   );</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     .Width(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     .Depth(FifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   ) u_rd_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     .rst_ni (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     .clr_i  (reg2hw.control.fifo_rst.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     .wvalid (rd_fifo_wen),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     .wready (rd_fifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     .wdata  (rd_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     .depth  (rd_fifo_depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     .rvalid (rd_fifo_rvalid),</pre>
+<pre style="margin:0; padding:0 "> 238:     //adapter_rvalid is used here because adapter_sram does not accept data the same cycle.</pre>
+<pre style="margin:0; padding:0 "> 239:     //It expects an sram like interface where data arrives during the next cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     .rready (adapter_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:     .rdata  (rd_fifo_rdata)</pre>
+<pre style="margin:0; padding:0 "> 242:   );</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="margin:0; padding:0 "> 244:   // Read handler is consumer of rd_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   flash_rd_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     .DataW(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     .AddrW(AddrW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   ) u_flash_rd_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="margin:0; padding:0 "> 252:     // Software Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     .op_start_i     (reg2hw.control.start.q & rd_op),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     .op_num_words_i (reg2hw.control.num.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     .op_done_o      (ctrl_done[1]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     .op_err_o       (ctrl_err[1]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:     .op_addr_i      (reg2hw.addr.q[DataBitWidth +: AddrW]),</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
+<pre style="margin:0; padding:0 "> 259:     // FIFO Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     .data_rdy_i     (rd_fifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     .data_o         (rd_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .data_wr_o      (rd_fifo_wen),</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="margin:0; padding:0 "> 264:     // Flash Macro Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     .flash_req_o    (rd_flash_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:     .flash_addr_o   (rd_flash_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .flash_ovfl_o   (rd_flash_ovfl),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     .flash_data_i   (flash_rd_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     .flash_done_i   (flash_rd_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .flash_error_i  (flash_error)</pre>
+<pre style="margin:0; padding:0 "> 271:   );</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="margin:0; padding:0 "> 273:   // Erase handler does not consume fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   flash_erase_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     .AddrW(AddrW),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .PagesPerBank(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:     .WordsPerPage(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     .EraseBitWidth(EraseBitWidth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:   ) u_flash_erase_ctrl (</pre>
+<pre style="margin:0; padding:0 "> 280:     // Software Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:     .op_start_i     (reg2hw.control.start.q & erase_op),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:     .op_type_i      (reg2hw.control.erase_sel.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     .op_done_o      (ctrl_done[2]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:     .op_err_o       (ctrl_err[2]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     .op_addr_i      (reg2hw.addr.q[DataBitWidth +: AddrW]),</pre>
+<pre style="margin:0; padding:0 "> 286: </pre>
+<pre style="margin:0; padding:0 "> 287:     // Flash Macro Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:     .flash_req_o    (erase_flash_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:     .flash_addr_o   (erase_flash_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:     .flash_op_o     (erase_flash_type),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:     .flash_done_i   (flash_erase_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     .flash_error_i  (flash_error)</pre>
+<pre style="margin:0; padding:0 "> 293:   );</pre>
+<pre style="margin:0; padding:0 "> 294: </pre>
+<pre style="margin:0; padding:0 "> 295:   // Final muxing to flash macro module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     unique case (reg2hw.control.op.q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:       FlashRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:         flash_req = rd_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         flash_addr = rd_flash_addr;</pre>
+<pre style="margin:0; padding:0 "> 301:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       FlashProg: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:         flash_req = prog_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:         flash_addr = prog_flash_addr;</pre>
+<pre style="margin:0; padding:0 "> 305:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       FlashErase: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:         flash_req = erase_flash_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:         flash_addr = erase_flash_addr;</pre>
+<pre style="margin:0; padding:0 "> 309:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:         flash_req = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:         flash_addr  = '0;</pre>
+<pre style="margin:0; padding:0 "> 313:       end</pre>
+<pre style="margin:0; padding:0 "> 314:     endcase // unique case (flash_op_e'(reg2hw.control.op.q))</pre>
+<pre style="margin:0; padding:0 "> 315:   end</pre>
+<pre style="margin:0; padding:0 "> 316: </pre>
+<pre style="margin:0; padding:0 "> 317:   // extra region is the default region</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:   flash_ctrl_reg2hw_mp_region_cfg_mreg_t [MpRegions:0] region_cfgs;</pre>
+<pre style="margin:0; padding:0 "> 319: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:   assign region_cfgs[MpRegions-1:0] = reg2hw.mp_region_cfg[MpRegions-1:0];</pre>
+<pre style="margin:0; padding:0 "> 321: </pre>
+<pre style="margin:0; padding:0 "> 322:   //last region</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:   assign region_cfgs[MpRegions].base.q = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:   assign region_cfgs[MpRegions].size.q = {AllPagesW{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:   assign region_cfgs[MpRegions].en.q = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:   assign region_cfgs[MpRegions].rd_en.q = reg2hw.default_region.rd_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:   assign region_cfgs[MpRegions].prog_en.q = reg2hw.default_region.prog_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:   assign region_cfgs[MpRegions].erase_en.q = reg2hw.default_region.erase_en.q;</pre>
+<pre style="margin:0; padding:0 "> 329: </pre>
+<pre style="margin:0; padding:0 "> 330:   // Flash memory protection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   flash_mp #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     .MpRegions(MpRegions),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     .NumBanks(NumBanks),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     .AllPagesW(AllPagesW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:   ) u_flash_mp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre style="margin:0; padding:0 "> 339:     // sw configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:     .region_cfgs_i(region_cfgs),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     .bank_cfgs_i(reg2hw.mp_bank_cfg),</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
+<pre style="margin:0; padding:0 "> 343:     // read / prog / erase controls</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     .req_i(flash_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     .req_addr_i(flash_addr[WordW +: AllPagesW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:     .addr_ovfl_i(rd_flash_ovfl | prog_flash_ovfl),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:     .req_bk_i(flash_addr[WordW + PageW +: BankW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     .rd_i(rd_op),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:     .prog_i(prog_op),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:     .pg_erase_i(erase_op & (erase_flash_type == PageErase)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:     .bk_erase_i(erase_op & (erase_flash_type == BankErase)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:     .rd_done_o(flash_rd_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:     .prog_done_o(flash_prog_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:     .erase_done_o(flash_erase_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:     .error_o(flash_error),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:     .err_addr_o(err_page),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:     .err_bank_o(err_bank),</pre>
+<pre style="margin:0; padding:0 "> 358: </pre>
+<pre style="margin:0; padding:0 "> 359:     // flash phy interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:     .req_o(flash_o.req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:     .rd_o(flash_o.rd),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:     .prog_o(flash_o.prog),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:     .pg_erase_o(flash_o.pg_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:     .bk_erase_o(flash_o.bk_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:     .rd_done_i(flash_i.rd_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:     .prog_done_i(flash_i.prog_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:     .erase_done_i(flash_i.erase_done)</pre>
+<pre style="margin:0; padding:0 "> 368:   );</pre>
+<pre style="margin:0; padding:0 "> 369: </pre>
+<pre style="margin:0; padding:0 "> 370: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:   assign hw2reg.op_status.done.d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:   assign hw2reg.op_status.done.de = |ctrl_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:   assign hw2reg.op_status.err.d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:   assign hw2reg.op_status.err.de = |ctrl_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:   assign hw2reg.status.rd_full.d = ~rd_fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:   assign hw2reg.status.rd_empty.d = ~rd_fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:   assign hw2reg.status.prog_full.d = ~prog_fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:   assign hw2reg.status.prog_empty.d = ~prog_fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:   assign hw2reg.status.init_wip.d = init_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:   assign hw2reg.status.error_page.d = err_page;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:   assign hw2reg.status.error_bank.d = err_bank;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:   assign hw2reg.control.start.d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:   assign hw2reg.control.start.de = |ctrl_done;</pre>
+<pre style="margin:0; padding:0 "> 384: </pre>
+<pre style="margin:0; padding:0 "> 385:   // Flash Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:   assign flash_o.addr = flash_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:   assign flash_o.prog_data = flash_prog_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:   assign flash_rd_data = flash_i.rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:   assign init_busy = flash_i.init_busy;</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="margin:0; padding:0 "> 391:   // Interrupts</pre>
+<pre style="margin:0; padding:0 "> 392:   // Generate edge triggered signals for sources that are level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:   logic [3:0] intr_src;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:   logic [3:0] intr_src_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:   logic [3:0] intr_assert;</pre>
+<pre style="margin:0; padding:0 "> 396: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:   assign intr_src = { ~prog_fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:                       reg2hw.fifo_lvl.prog.q == prog_fifo_depth,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:                       ~rd_fifo_wready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:                       reg2hw.fifo_lvl.rd.q == rd_fifo_depth</pre>
+<pre style="margin:0; padding:0 "> 401:                     };</pre>
+<pre style="margin:0; padding:0 "> 402: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:       intr_src_q <= 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:       intr_src_q <= intr_src;</pre>
+<pre style="margin:0; padding:0 "> 408:     end</pre>
+<pre style="margin:0; padding:0 "> 409:   end</pre>
+<pre style="margin:0; padding:0 "> 410: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:   assign intr_assert = ~intr_src_q & intr_src;</pre>
+<pre style="margin:0; padding:0 "> 412: </pre>
+<pre style="margin:0; padding:0 "> 413: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:   assign intr_prog_empty_o = reg2hw.intr_enable.prog_empty.q & reg2hw.intr_state.prog_empty.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:   assign intr_prog_lvl_o = reg2hw.intr_enable.prog_lvl.q & reg2hw.intr_state.prog_lvl.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:   assign intr_rd_full_o = reg2hw.intr_enable.rd_full.q & reg2hw.intr_state.rd_full.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:   assign intr_rd_lvl_o = reg2hw.intr_enable.rd_lvl.q & reg2hw.intr_state.rd_lvl.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:   assign intr_op_done_o = reg2hw.intr_enable.op_done.q & reg2hw.intr_state.op_done.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:   assign intr_op_error_o = reg2hw.intr_enable.op_error.q & reg2hw.intr_state.op_error.q;</pre>
+<pre style="margin:0; padding:0 "> 420: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:   assign hw2reg.intr_state.prog_empty.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:   assign hw2reg.intr_state.prog_empty.de = intr_assert[3]  |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:                                            (reg2hw.intr_test.prog_empty.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:                                            reg2hw.intr_test.prog_empty.q);</pre>
+<pre style="margin:0; padding:0 "> 425: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:   assign hw2reg.intr_state.prog_lvl.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:   assign hw2reg.intr_state.prog_lvl.de = intr_assert[2]  |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:                                          (reg2hw.intr_test.prog_lvl.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:                                          reg2hw.intr_test.prog_lvl.q);</pre>
+<pre style="margin:0; padding:0 "> 430: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:   assign hw2reg.intr_state.rd_full.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:   assign hw2reg.intr_state.rd_full.de = intr_assert[1] |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:                                         (reg2hw.intr_test.rd_full.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:                                         reg2hw.intr_test.rd_full.q);</pre>
+<pre style="margin:0; padding:0 "> 435: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:   assign hw2reg.intr_state.rd_lvl.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:   assign hw2reg.intr_state.rd_lvl.de =  intr_assert[0] |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:                                        (reg2hw.intr_test.rd_lvl.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:                                        reg2hw.intr_test.rd_lvl.q);</pre>
+<pre style="margin:0; padding:0 "> 440: </pre>
+<pre style="margin:0; padding:0 "> 441: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:   assign hw2reg.intr_state.op_done.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:   assign hw2reg.intr_state.op_done.de = |ctrl_done  |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:                                         (reg2hw.intr_test.op_done.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:                                         reg2hw.intr_test.op_done.q);</pre>
+<pre style="margin:0; padding:0 "> 446: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:   assign hw2reg.intr_state.op_error.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:   assign hw2reg.intr_state.op_error.de = |ctrl_err  |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:                                         (reg2hw.intr_test.op_error.qe  &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:                                         reg2hw.intr_test.op_error.q);</pre>
+<pre style="margin:0; padding:0 "> 451: </pre>
+<pre style="margin:0; padding:0 "> 452: </pre>
+<pre style="margin:0; padding:0 "> 453: </pre>
+<pre style="margin:0; padding:0 "> 454:   // Unused bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:   logic [DataBitWidth-1:0] unused_byte_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:   logic [31-AddrW:0] unused_higher_addr_bits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:   logic [31:0] unused_scratch;</pre>
+<pre style="margin:0; padding:0 "> 458: </pre>
+<pre style="margin:0; padding:0 "> 459: </pre>
+<pre style="margin:0; padding:0 "> 460:   // Unused signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:   assign unused_byte_sel = reg2hw.addr.q[DataBitWidth-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:   assign unused_higher_addr_bits = reg2hw.addr.q[31:AddrW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:   assign unused_scratch = reg2hw.scratch;</pre>
+<pre style="margin:0; padding:0 "> 464: </pre>
+<pre style="margin:0; padding:0 "> 465: </pre>
+<pre style="margin:0; padding:0 "> 466:   // Assertions</pre>
+<pre style="margin:0; padding:0 "> 467: </pre>
+<pre style="margin:0; padding:0 "> 468:   `ASSERT_KNOWN(TlDValidKnownO_A,       tl_o.d_valid,       clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 469:   `ASSERT_KNOWN(TlAReadyKnownO_A,       tl_o.a_ready,       clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 470:   `ASSERT_KNOWN(FlashKnownO_A,          {flash_o.req, flash_o.rd, flash_o.prog, flash_o.pg_erase,</pre>
+<pre style="margin:0; padding:0 "> 471:                                          flash_o.bk_erase}, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 472:   `ASSERT_VALID_DATA(FlashAddrKnown_A,  flash_o.req, flash_o.addr, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 473:   `ASSERT_VALID_DATA(FlashProgKnown_A,  flash_o.prog & flash_o.req, flash_o.prog_data,</pre>
+<pre style="margin:0; padding:0 "> 474:                                         clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 475:   `ASSERT_KNOWN(IntrProgEmptyKnownO_A,  intr_prog_empty_o,  clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 476:   `ASSERT_KNOWN(IntrProgLvlKnownO_A,    intr_prog_lvl_o,    clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 477:   `ASSERT_KNOWN(IntrProgRdFullKnownO_A, intr_rd_full_o,     clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 478:   `ASSERT_KNOWN(IntrRdLvlKnownO_A,      intr_rd_lvl_o,      clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 479:   `ASSERT_KNOWN(IntrOpDoneKnownO_A,     intr_op_done_o,     clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 480:   `ASSERT_KNOWN(IntrOpErrorKnownO_A,    intr_op_error_o,    clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 481: </pre>
+<pre style="margin:0; padding:0 "> 482: endmodule</pre>
+<pre style="margin:0; padding:0 "> 483: </pre>
+</body>
+</html>

@@ -23,35 +23,37 @@
 
 #ifndef MODULEDEFINITION_H
 #define MODULEDEFINITION_H
+
+#include <string_view>
 #include <vector>
+
 #include "Design/DesignComponent.h"
 #include "Design/ValuedComponentI.h"
 #include "Design/Signal.h"
 #include "Design/ClockingBlock.h"
 #include "Design/DataType.h"
 #include "Common/ClockingBlockHolder.h"
-#include "Common/PortNetHolder.h"
 #include "ModPort.h"
 
 namespace SURELOG {
 class CompileModule;
 
-class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
-   public PortNetHolder {
+class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   friend CompileModule;
 
  public:
-  ModuleDefinition(FileContent* fileContent, NodeId nodeId, std::string& name);
+  ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
+                   std::string_view name);
 
   ~ModuleDefinition() override;
 
-  std::string getName() override { return m_name; }
-  VObjectType getType() override {
+  const std::string& getName() const override { return m_name; }
+  VObjectType getType() const override {
     return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
                                    : VObjectType::slN_input_gate_instance;
   }
-  bool isInstance() override;
-  unsigned int getSize() override;
+  bool isInstance() const override;
+  unsigned int getSize() const override;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
   typedef std::map<std::string, ModPort> ModPortSignalMap;
@@ -64,24 +66,24 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
   }
   void insertModPort(const std::string& modport, Signal& signal);
   void insertModPort(const std::string& modport, ClockingBlock& block);
-  Signal* getModPortSignal(const std::string& modport, NodeId port);
+  const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
   ModPort* getModPort(const std::string& modport);
-  
+
   ClockingBlock* getModPortClockingBlock(const std::string& modport, NodeId port);
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(const std::string &className, ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
   void setGenBlockId(NodeId id) { m_gen_block_id = id; }
-  NodeId getGenBlockId() { return m_gen_block_id; }
+  NodeId getGenBlockId() const { return m_gen_block_id; }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
@@ -90,8 +92,9 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
 
 class ModuleDefinitionFactory {
  public:
-  ModuleDefinition* newModuleDefinition(FileContent* fileContent, NodeId nodeId,
-                                        std::string name);
+  ModuleDefinition* newModuleDefinition(const FileContent* fileContent,
+                                        NodeId nodeId,
+                                        std::string_view name);
 };
 
 };  // namespace SURELOG

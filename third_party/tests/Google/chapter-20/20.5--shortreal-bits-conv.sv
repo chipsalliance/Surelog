@@ -1,7 +1,6 @@
 /*
 :name: shortrealtobits_bitstoshortreal_functions
 :description: $shortrealtobits and $bitstoshortreal test
-:should_fail: 0
 :tags: 20.5
 :type: simulation parsing
 */

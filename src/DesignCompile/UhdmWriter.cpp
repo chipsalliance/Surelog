@@ -14,10 +14,10 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   UhdmWriter.cpp
  * Author: alain
- * 
+ *
  * Created on January 17, 2020, 9:13 PM
  */
 #include <map>
@@ -49,7 +49,7 @@
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
-#include "Design/ModuleInstance.h" 
+#include "Design/ModuleInstance.h"
 #include "Design/Netlist.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
@@ -67,63 +67,83 @@ using namespace SURELOG;
 using namespace UHDM;
 
 typedef std::map<ModPort*, modport*> ModPortMap;
-typedef std::map<DesignComponent*, BaseClass*> ComponentMap;
+typedef std::map<const DesignComponent*, BaseClass*> ComponentMap;
 typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
 typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
 typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
-UhdmWriter::~UhdmWriter()
-{
-}
-
-unsigned int UhdmWriter::getDataType(VObjectType type) { 
+unsigned int UhdmWriter::getStrengthType(VObjectType type) {
   switch (type) {
-  case VObjectType::slIntVec_TypeLogic:
-    return vpiLogicVar;
+  case VObjectType::slSupply0:
+    return vpiSupply0;
+  case VObjectType::slSupply1:
+    return vpiSupply1;
+  case VObjectType::slStrong0:
+    return vpiStrongDrive;
+  case VObjectType::slStrong1:
+    return vpiStrongDrive;
+  case VObjectType::slPull0:
+    return vpiPullDrive;
+  case VObjectType::slPull1:
+    return vpiPullDrive;
+  case VObjectType::slWeak0:
+    return vpiWeakDrive;
+  case VObjectType::slWeak1:
+    return vpiWeakDrive;
+  case VObjectType::slHighZ0:
+    return vpiHighZ;
+  case VObjectType::slHighZ1:
+    return vpiHighZ;
   default:
     return 0;
   }
 }
 
-unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
+unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   switch (type) {
-  case VObjectType::slBinOp_Plus: 
-    return vpiAddOp;  
-  case VObjectType::slBinOp_Minus: 
-    return vpiSubOp;   
-  case VObjectType::slBinOp_Mult: 
-    return vpiMultOp;      
-  case VObjectType::slBinOp_Div: 
-    return vpiDivOp;     
-  case VObjectType::slBinOp_Great: 
-    return vpiGtOp;          
-  case VObjectType::slBinOp_GreatEqual: 
-    return vpiGeOp;     
-  case VObjectType::slBinOp_Less: 
-    return vpiLtOp;     
-  case VObjectType::slBinOp_LessEqual: 
-    return vpiLeOp;     
-  case VObjectType::slBinOp_Equiv: 
-    return vpiEqOp;   
-  case VObjectType::slBinOp_Not: 
-    return vpiNeqOp;    
-  case VObjectType::slBinOp_Percent: 
-    return vpiModOp;    
-  case VObjectType::slBinOp_LogicAnd: 
-    return vpiLogAndOp;      
-  case VObjectType::slBinOp_LogicOr: 
-    return vpiLogOrOp;     
-  case VObjectType::slBinOp_BitwAnd: 
+  case VObjectType::slBinOp_Plus:
+    return vpiAddOp;
+  case VObjectType::slBinOp_Minus:
+    return vpiSubOp;
+  case VObjectType::slBinOp_Mult:
+    return vpiMultOp;
+  case VObjectType::slBinOp_MultMult:
+    return vpiPowerOp;
+  case VObjectType::slBinOp_Div:
+    return vpiDivOp;
+  case VObjectType::slBinOp_Great:
+    return vpiGtOp;
+  case VObjectType::slBinOp_GreatEqual:
+    return vpiGeOp;
+  case VObjectType::slBinOp_Less:
+    return vpiLtOp;
+  case VObjectType::slBinOp_Imply:
+    return vpiImplyOp;
+  case VObjectType::slBinOp_Equivalence:
+    return vpiEqOp;
+  case VObjectType::slBinOp_LessEqual:
+    return vpiLeOp;
+  case VObjectType::slBinOp_Equiv:
+    return vpiEqOp;
+  case VObjectType::slBinOp_Not:
+    return vpiNeqOp;
+  case VObjectType::slBinOp_Percent:
+    return vpiModOp;
+  case VObjectType::slBinOp_LogicAnd:
+    return vpiLogAndOp;
+  case VObjectType::slBinOp_LogicOr:
+    return vpiLogOrOp;
+  case VObjectType::slBinOp_BitwAnd:
     return vpiBitAndOp;
-  case VObjectType::slBinOp_BitwOr: 
-    return vpiBitOrOp;   
-  case VObjectType::slBinOp_BitwXor: 
-    return vpiBitXorOp;    
+  case VObjectType::slBinOp_BitwOr:
+    return vpiBitOrOp;
+  case VObjectType::slBinOp_BitwXor:
+    return vpiBitXorOp;
 	case VObjectType::slBinOp_ReductXnor1:
-	case VObjectType::slBinOp_ReductXnor2: 
+	case VObjectType::slBinOp_ReductXnor2:
   case VObjectType::slBinModOp_ReductXnor1:
-	case VObjectType::slBinModOp_ReductXnor2: 
+	case VObjectType::slBinModOp_ReductXnor2:
 		return vpiBitXNorOp;
   case VObjectType::slBinOp_ReductNand:
     return vpiUnaryNandOp;
@@ -132,11 +152,11 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slUnary_Plus:
     return vpiPlusOp;
   case VObjectType::slUnary_Minus:
-    return vpiMinusOp; 
+    return vpiMinusOp;
   case VObjectType::slUnary_Not:
     return vpiNotOp;
   case VObjectType::slUnary_Tilda:
-    return vpiBitNegOp;       
+    return vpiBitNegOp;
   case VObjectType::slUnary_BitwAnd:
     return vpiUnaryAndOp;
   case VObjectType::slUnary_BitwOr:
@@ -146,28 +166,70 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slUnary_ReductNand:
     return vpiUnaryNandOp;
   case VObjectType::slUnary_ReductNor:
-    return vpiUnaryNorOp;  
+    return vpiUnaryNorOp;
   case VObjectType::slUnary_ReductXnor1:
-  case VObjectType::slUnary_ReductXnor2:  
+  case VObjectType::slUnary_ReductXnor2:
     return  vpiUnaryXNorOp;
-  case VObjectType::slBinOp_ShiftLeft: 
-    return vpiLShiftOp;    
-  case VObjectType::slBinOp_ShiftRight: 
-    return vpiRShiftOp;  
+  case VObjectType::slBinOp_ShiftLeft:
+    return vpiLShiftOp;
+  case VObjectType::slBinOp_ShiftRight:
+    return vpiRShiftOp;
   case VObjectType::slBinOp_ArithShiftLeft:
     return vpiArithLShiftOp;
   case VObjectType::slBinOp_ArithShiftRight:
     return vpiArithRShiftOp;
   case VObjectType::slIncDec_PlusPlus:
 		return vpiPostIncOp;
-  case VObjectType::slIncDec_MinusMinus: 
-    return vpiPostDecOp; 
-  case VObjectType::slConditional_operator: 
-    return vpiConditionOp;        
+  case VObjectType::slIncDec_MinusMinus:
+    return vpiPostDecOp;
+  case VObjectType::slConditional_operator:
+  case VObjectType::slQmark:
+    return vpiConditionOp;
   case VObjectType::slInsideOp:
+  case VObjectType::slOpen_range_list:
     return vpiInsideOp;
+  case VObjectType::slBinOp_FourStateLogicEqual:
+    return vpiCaseEqOp;
+  case VObjectType::slBinOp_FourStateLogicNotEqual:
+    return vpiCaseNeqOp;
+  case VObjectType::slAssignOp_Assign:
+    return vpiAssignmentOp;
+  case VObjectType::slAssignOp_Add:
+    return vpiAddOp;
+  case VObjectType::slAssignOp_Sub:
+    return vpiSubOp;
+  case VObjectType::slAssignOp_Mult:
+    return vpiMultOp;
+  case VObjectType::slAssignOp_Div:
+    return vpiDivOp;
+  case VObjectType::slAssignOp_Modulo:
+    return vpiModOp;
+  case VObjectType::slAssignOp_BitwAnd:
+    return vpiBitAndOp;
+  case VObjectType::slAssignOp_BitwOr:
+    return vpiBitOrOp;
+  case VObjectType::slAssignOp_BitwXor:
+    return vpiBitXorOp;
+  case VObjectType::slAssignOp_BitwLeftShift:
+    return vpiLShiftOp;
+  case VObjectType::slAssignOp_BitwRightShift:
+    return vpiRShiftOp;
+  case VObjectType::slAssignOp_ArithShiftLeft:
+    return vpiArithLShiftOp;
+  case VObjectType::slAssignOp_ArithShiftRight:
+    return vpiArithRShiftOp;
+  case VObjectType::slMatches:
+    return vpiMatchOp;
+  case VObjectType::slBinOp_WildcardEqual:
+  case VObjectType::slBinOp_WildEqual:
+    return vpiWildEqOp;
+  case VObjectType::slBinOp_WildcardNotEqual: 
+  case VObjectType::slBinOp_WildNotEqual:
+    return vpiWildNeqOp;
+  case VObjectType::slIff:
+    return vpiIffOp;
   default:
-    return 0;      
+    return 0;
   }
 }
 
@@ -185,7 +247,7 @@ unsigned int UhdmWriter::getVpiDirection(VObjectType type)
     direction = vpiInout;
   else if (type == VObjectType::slTfPortDir_Ref ||
            type == VObjectType::slTfPortDir_ConstRef)
-    direction = vpiRef;  
+    direction = vpiRef;
   return direction;
 }
 
@@ -206,18 +268,20 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type)
   return nettype;
 }
 
-void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent, 
-        VectorOfport* dest_ports, VectorOfnet* dest_nets,
-        Serializer& s, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap, ModuleInstance* instance = nullptr) {
+static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
+                       VectorOfport* dest_ports, VectorOfnet* dest_nets,
+                       Serializer& s, ComponentMap& componentMap,
+                       ModPortMap& modPortMap,
+                       SignalBaseClassMap& signalBaseMap,
+                       SignalMap& signalMap,
+                       ModuleInstance* instance = nullptr) {
   for (Signal* orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
     signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
     dest_port->VpiName(orig_port->getName());
     unsigned int direction = UhdmWriter::getVpiDirection(orig_port->getDirection());
-    dest_port->VpiDirection(direction);    
+    dest_port->VpiDirection(direction);
     dest_port->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
     dest_port->VpiFile(orig_port->getFileContent()->getFileName());
     dest_port->VpiParent(parent);
@@ -231,51 +295,35 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     } else if (ModuleDefinition* orig_interf = orig_port->getInterfaceDef()) {
       ref_obj* ref = s.MakeRef_obj();
       dest_port->Low_conn(ref);
-      std::map<DesignComponent*, BaseClass*>::iterator itr = 
-                                                componentMap.find(orig_interf);
-      if (itr != componentMap.end()) {
-        ref->Actual_group((*itr).second);
+      const auto& found = componentMap.find(orig_interf);
+      if (found != componentMap.end()) {
+        ref->Actual_group(found->second);
       }
     }
     dest_ports->push_back(dest_port);
   }
 }
 
-void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
+void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
                     BaseClass* parent, VectorOftypespec* dest_typespecs,
                     Serializer& s) {
-  for (std::map<std::string, DataType*>::iterator itr = datatypeMap.begin();
-       itr != datatypeMap.end(); itr++) {
-    DataType* dtype = (*itr).second;
-    while (dtype) {
-      TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
-      if (typed) {
-        DataType* dt = typed->getDataType();
-        Enum* en = dynamic_cast<Enum*> (dt);
-        if (en) {
-          dest_typespecs->push_back(en->getTypespec());
-        }
-        Struct* st = dynamic_cast<Struct*> (dt);
-        if (st) {
-          dest_typespecs->push_back(st->getTypespec());
-        }
-        Union* un = dynamic_cast<Union*> (dt);
-        if (un) {
-          dest_typespecs->push_back(un->getTypespec());
-        }
-        SimpleType* sit =dynamic_cast<SimpleType*> (dt);
-        if (sit) {
-          dest_typespecs->push_back(sit->getTypespec());
-        }
-      }
-      dtype = dtype->getDefinition();
+  for (const auto& entry : datatypeMap) {
+    const DataType* dtype = entry.second->getActual();
+    if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+      dest_typespecs->push_back(en->getTypespec());
+    } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+      dest_typespecs->push_back(st->getTypespec());
+    } else if (const Union* un = dynamic_cast<const Union*>(dtype)) {
+      dest_typespecs->push_back(un->getTypespec());
+    } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
+      dest_typespecs->push_back(sit->getTypespec());
     }
   }
 }
 
-void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent, 
-        VectorOfnet* dest_nets, Serializer& s, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap, SignalMap& portMap, ModuleInstance* instance = nullptr) {   
+void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
+        VectorOfnet* dest_nets, Serializer& s, SignalBaseClassMap& signalBaseMap,
+        SignalMap& signalMap, SignalMap& portMap, ModuleInstance* instance = nullptr) {
 
   for (auto& orig_net : orig_nets ) {
     net* dest_net = nullptr;
@@ -301,7 +349,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
           if (itr != signalBaseMap.end()) {
             port* p = (port*) ((*itr).second);
             if (p->Low_conn() == nullptr) {
-              ref_obj* ref = s.MakeRef_obj();          
+              ref_obj* ref = s.MakeRef_obj();
               ref->Actual_group(dest_net);
               p->Low_conn(ref);
             }
@@ -337,34 +385,34 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
    }
 }
 
-void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes, 
-        VectorOfclass_defn* dest_classes, Serializer& s, 
+void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
+        VectorOfclass_defn* dest_classes, Serializer& s,
         ComponentMap& componentMap) {
   for (auto& orig_class : orig_classes ) {
     ClassDefinition* orig_def = orig_class.second;
-    std::map<DesignComponent*, BaseClass*>::iterator itr = 
-                componentMap.find(orig_def);
-    if (itr != componentMap.end()) {
-      dest_classes->push_back((class_defn*) (*itr).second);
+    const auto &found = componentMap.find(orig_def);
+    if (found != componentMap.end()) {
+      dest_classes->push_back((class_defn*) found->second);
     }
   }
 }
 
-void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
-        VectorOfvariables* dest_vars, Serializer& s, ComponentMap& componentMap) {
+void writeVariables(const DesignComponent::VariableMap& orig_vars,
+                    BaseClass* parent,
+                    VectorOfvariables* dest_vars,
+                    Serializer& s, ComponentMap& componentMap) {
   for (auto& orig_var : orig_vars) {
     Variable* var = orig_var.second;
-    DataType* dtype = var->getDataType();
-    ClassDefinition* classdef = dynamic_cast<ClassDefinition*> (dtype);
+    const DataType* dtype = var->getDataType();
+    const ClassDefinition* classdef = dynamic_cast<const ClassDefinition*> (dtype);
     if (classdef) {
       class_var* cvar = s.MakeClass_var();
       cvar->VpiName(var->getName());
       cvar->VpiLineNo(var->getFileContent()->Line(var->getNodeId()));
       cvar->VpiFile(var->getFileContent()->getFileName());
       cvar->VpiParent(parent);
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-              componentMap.find(classdef);
-      if (itr != componentMap.end()) {
+      const auto& found = componentMap.find(classdef);
+      if (found != componentMap.end()) {
         //TODO: Bind Class type,
         // class_var -> class_typespec -> class_defn
       }
@@ -373,50 +421,7 @@ void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
   }
 }
 
-void bindExpr(expr* ex, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap)
-{
-  if (!ex)
-    return;
-  switch (ex->UhdmType()) {
-  case UHDM_OBJECT_TYPE::uhdmref_obj:
-  {
-    ref_obj* ref = (ref_obj*) ex;
-    const std::string& name = ref->VpiName();
-    SignalMap::iterator sigitr = signalMap.find(name);
-    if (sigitr != signalMap.end()) {
-      Signal* sig = (*sigitr).second;
-      SignalBaseClassMap::iterator sigbaseitr = signalBaseMap.find(sig);
-      if (sigbaseitr != signalBaseMap.end()) {
-        BaseClass* baseclass = (*sigbaseitr).second;
-        ref->Actual_group(baseclass);
-        
-      }
-    }
-    break;
-  }
-  default:
-    break;
-  }
-}
-
-void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
-        module* parent, Serializer& s, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap) {
-  if (orig_cont_assigns == nullptr)
-    return;
-  for (cont_assign* cassign : *orig_cont_assigns) {
-    expr* lexpr = (expr*) cassign->Lhs();
-    bindExpr(lexpr, componentMap, modPortMap, signalBaseMap, signalMap);
-    expr* rexpr = (expr*) cassign->Rhs();
-    bindExpr(rexpr, componentMap, modPortMap, signalBaseMap, signalMap);
-  }
-}
-
-
-void writePackage(Package* pack, package* p, Serializer& s, 
+void writePackage(Package* pack, package* p, Serializer& s,
         ComponentMap& componentMap) {
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
@@ -428,11 +433,15 @@ void writePackage(Package* pack, package* p, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   p->Class_defns(dest_classes);
   // Parameters
-  if (pack->getParameters())
+  if (pack->getParameters()) {
     p->Parameters(pack->getParameters());
+    for (auto ps : *p->Parameters()) {
+      ps->VpiParent(p);
+    }
+  }
   // Param_assigns
   p->Param_assigns(pack->getParam_assigns());
-  // Function and tasks 
+  // Function and tasks
   p->Task_funcs(pack->getTask_funcs());
   if (p->Task_funcs()) {
     for (auto tf : *p->Task_funcs()) {
@@ -441,9 +450,9 @@ void writePackage(Package* pack, package* p, Serializer& s,
   }
 }
 
-void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
+void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
         ComponentMap& componentMap,
-        ModPortMap& modPortMap, 
+        ModPortMap& modPortMap,
         ModuleInstance* instance = nullptr) {
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
@@ -470,14 +479,12 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   m->Class_defns(dest_classes);
   // Variables
-  DesignComponent::VariableMap& orig_vars = mod->getVariables();
-  VectorOfvariables* dest_vars = s.MakeVariablesVec();
-  writeVariables(orig_vars, m, dest_vars, s, componentMap);
-  m->Variables(dest_vars);
+  //DesignComponent::VariableMap& orig_vars = mod->getVariables();
+  //VectorOfvariables* dest_vars = s.MakeVariablesVec();
+  //writeVariables(orig_vars, m, dest_vars, s, componentMap);
+  //m->Variables(dest_vars);
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
-          signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
   if (m->Cont_assigns()) {
     for (auto ps : *m->Cont_assigns()) {
@@ -496,7 +503,7 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
     m->Parameters(mod->getParameters());
   // Param_assigns
   m->Param_assigns(mod->getParam_assigns());
-  // Function and tasks 
+  // Function and tasks
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
     for (auto tf : *m->Task_funcs()) {
@@ -530,7 +537,8 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(m);
+    //dest_modport->Interface(m); // Loop in elaboration!
+    dest_modport->VpiParent(m);
     modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -545,7 +553,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
-  // Function and tasks 
+  // Function and tasks
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
     for (auto tf : *m->Task_funcs()) {
@@ -583,7 +591,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   m->Class_defns(dest_classes);
   // Variables
-  DesignComponent::VariableMap& orig_vars = mod->getVariables();
+  const DesignComponent::VariableMap& orig_vars = mod->getVariables();
   VectorOfvariables* dest_vars = s.MakeVariablesVec();
   writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
@@ -618,7 +626,24 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
     }
   }
   m->Gen_scope_arrays(netlist->gen_scopes());
+  m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   return true;
 }
 
@@ -631,7 +656,7 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
       obj->VpiParent(m);
     }
   }
-  
+
   std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
   if (gen_scope_arrays) {
     for (gen_scope_array* scope_arr : *gen_scope_arrays) {
@@ -649,19 +674,35 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
           }
         }
         if (scope->Parameters())
-          m->Parameters(scope->Parameters());     
-        m->Param_assigns(scope->Param_assigns());     
+          m->Parameters(scope->Parameters());
+        m->Param_assigns(scope->Param_assigns());
       }
     }
   }
 
-  m->Nets(netlist->nets());
+  m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   return true;
 }
 
 
-bool writeElabModule(ModuleInstance* instance, module* m) {
+bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   if (netlist->ports()) {
@@ -681,7 +722,25 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
       obj->VpiParent(m);
     }
   }
+  m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
+
   return true;
 }
 
@@ -700,14 +759,31 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
       obj->VpiParent(m);
     }
   }
+  m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(m);
+     dest_modport->Interface(m);
     dest_modport->VpiName(orig_modport.first);
     dest_modport->VpiParent(m);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -727,17 +803,39 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   return true;
 }
 
-void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m, 
-        Serializer& s, 
+void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
+  Netlist* netlist = instance->getNetlist();
+  VectorOfprim_term* terms = s.MakePrim_termVec();
+  prim->Prim_terms(terms);
+  if (netlist->ports()) {
+    int index = 0;
+    for (auto port : *netlist->ports()) {
+      prim_term* term = s.MakePrim_term();
+      terms->push_back(term);
+      const any* hconn = port->High_conn();
+      term->Expr((expr*)hconn);
+      term->VpiFile(port->VpiFile());
+      term->VpiLineNo(port->VpiLineNo());
+      term->VpiDirection(port->VpiDirection());
+      term->VpiParent(prim);
+      term->VpiTermIndex(index);
+      index++;
+    }
+  }
+}
+
+void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
+        Serializer& s,
         ComponentMap& componentMap,
         ModPortMap& modPortMap,
         InstanceMap& instanceMap) {
-  VectorOfmodule* subModules = nullptr; 
+  VectorOfmodule* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
+  VectorOfprimitive* subPrimitives = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   if (m->UhdmType() == uhdmmodule) {
-    writeElabModule(instance, (module*) m);
+    writeElabModule(s, instance, (module*) m);
   } else if (m->UhdmType() == uhdmgen_scope) {
     writeElabGenScope(instance, (gen_scope*) m);
   }
@@ -752,7 +850,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
     else if (m->UhdmType() == uhdmgen_scope)
       params = ((gen_scope*)m)->Parameters();
     else if (m->UhdmType() == uhdminterface)
-      params = ((interface*)m)->Parameters();  
+      params = ((interface*)m)->Parameters();
     if (params == nullptr) {
       params = s.MakeAnyVec();
     }
@@ -767,7 +865,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
     else if (m->UhdmType() == uhdmgen_scope)
       ((gen_scope*)m)->Parameters(params);
     else if (m->UhdmType() == uhdminterface)
-      ((interface*)m)->Parameters(params);  
+      ((interface*)m)->Parameters(params);
   }
 
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -825,7 +923,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           sm->VpiParent(m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays);
-          sm->VpiParent(m); 
+          sm->VpiParent(m);
         }
         writeInstance(mm, child, a_gen_scope, s, componentMap, modPortMap,instanceMap);
 
@@ -852,7 +950,24 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {
-        // TODO
+        if (subPrimitives == nullptr)
+          subPrimitives = s.MakePrimitiveVec();
+        UHDM::gate* gate = s.MakeGate();
+        gate->VpiName(child->getInstanceName());
+        gate->VpiDefName(child->getModuleName());
+        gate->VpiFullName(child->getFullPathName());
+        gate->VpiFile(child->getFileName());
+        gate->VpiLineNo(child->getLineNb());
+        subPrimitives->push_back(gate);
+        UHDM_OBJECT_TYPE utype = m->UhdmType();
+        if (utype == uhdmmodule) {
+          ((module*) m)->Primitives(subPrimitives);
+          gate->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
+          ((gen_scope*) m)->Primitives(subPrimitives);
+          gate->VpiParent(m);
+        }
+        writePrimTerms(child, gate, s);
       } else {
         // Unknown object type
       }
@@ -875,7 +990,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         ((gen_scope*) m)->Programs(subPrograms);
         sm->VpiParent(m);
       }
-      writeElabProgram(child, sm);     
+      writeElabProgram(child, sm);
     } else {
       // Undefined module
       if (subModules == nullptr)
@@ -888,7 +1003,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       sm->VpiLineNo(child->getLineNb());
       subModules->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
-      if (utype == uhdmmodule) { 
+      if (utype == uhdmmodule) {
         ((module*) m)->Modules(subModules);
         sm->Instance((module*) m);
         sm->Module((module*) m);
@@ -902,7 +1017,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   }
 }
 
-vpiHandle UhdmWriter::write(std::string uhdmFile) {
+vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
@@ -920,62 +1035,62 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     }
     d->VpiName(designName);
     designs.push_back(designHandle);
-    // ------------------------------- 
+    // -------------------------------
     // Non-Elaborated Model
-    
+
     // Packages
     auto packages = m_design->getPackageDefinitions();
     VectorOfpackage* v2 = s.MakePackageVec();
     for (auto packNamePair : packages) {
       Package* pack = packNamePair.second;
-      if (pack->getFileContents().size() && 
+      if (pack->getFileContents().size() &&
           pack->getType() == VObjectType::slPackage_declaration) {
-        FileContent* fC = pack->getFileContents()[0];
+        const FileContent* fC = pack->getFileContents()[0];
         package* p = s.MakePackage();
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
         p->VpiDefName(pack->getName());
         writePackage(pack, p, s, componentMap);
         if (fC) {
-          // Builtin package has no file 
+          // Builtin package has no file
           p->VpiFile(fC->getFileName());
           p->VpiLineNo(fC->Line(pack->getNodeIds()[0]));
         }
-        v2->push_back(p);      
+        v2->push_back(p);
       }
     }
     d->AllPackages(v2);
-    
+
     // Programs
     auto programs = m_design->getProgramDefinitions();
     VectorOfprogram* uhdm_programs = s.MakeProgramVec();
     for (auto progNamePair : programs) {
       Program* prog = progNamePair.second;
-      if (prog->getFileContents().size() && 
+      if (prog->getFileContents().size() &&
           prog->getType() == VObjectType::slProgram_declaration) {
-        FileContent* fC = prog->getFileContents()[0];
+        const FileContent* fC = prog->getFileContents()[0];
         program* p = s.MakeProgram();
-        componentMap.insert(std::make_pair(prog, p)); 
+        componentMap.insert(std::make_pair(prog, p));
         p->VpiParent(d);
-        p->VpiDefName(prog->getName());    
+        p->VpiDefName(prog->getName());
         p->VpiFile(fC->getFileName());
         p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
         writeProgram(prog, p, s, componentMap,modPortMap);
-        uhdm_programs->push_back(p);      
+        uhdm_programs->push_back(p);
       }
     }
     d->AllPrograms(uhdm_programs);
-    
+
     // Classes
     auto classes = m_design->getClassDefinitions();
     VectorOfclass_defn* v4 = s.MakeClass_defnVec();
     for (auto classNamePair : classes) {
       ClassDefinition* classDef = classNamePair.second;
-      if (classDef->getFileContents().size() && 
+      if (classDef->getFileContents().size() &&
           classDef->getType() == VObjectType::slClass_declaration) {
-        FileContent* fC = classDef->getFileContents()[0];
+        const FileContent* fC = classDef->getFileContents()[0];
         class_defn* c = s.MakeClass_defn();
-        componentMap.insert(std::make_pair(classDef, c));  
+        componentMap.insert(std::make_pair(classDef, c));
         c->VpiParent(d);
         c->VpiName(classDef->getName());
         if (fC) {
@@ -983,7 +1098,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
           c->VpiFile(fC->getFileName());
           c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
         }
-        v4->push_back(c);      
+        v4->push_back(c);
       }
     }
     d->AllClasses(v4);
@@ -996,19 +1111,19 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
       if (mod->getFileContents().size() == 0) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slInterface_declaration) {
-        FileContent* fC = mod->getFileContents()[0];
+        const FileContent* fC = mod->getFileContents()[0];
         interface* m = s.MakeInterface();
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
-        m->VpiDefName(mod->getName());    
+        m->VpiDefName(mod->getName());
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        uhdm_interfaces->push_back(m); 
+        uhdm_interfaces->push_back(m);
         writeInterface(mod, m, s, componentMap, modPortMap);
       }
     }
     d->AllInterfaces(uhdm_interfaces);
-    
+
     // Modules
     VectorOfmodule* uhdm_modules = s.MakeModuleVec();
     for (auto modNamePair : modules) {
@@ -1016,55 +1131,52 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
       if (mod->getFileContents().size() == 0) {
         // Built-in primitive
       } else if (mod->getType() == VObjectType::slModule_declaration) {
-        FileContent* fC = mod->getFileContents()[0];
+        const FileContent* fC = mod->getFileContents()[0];
         module* m = s.MakeModule();
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
-        m->VpiDefName(mod->getName());    
+        m->VpiDefName(mod->getName());
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        uhdm_modules->push_back(m); 
+        uhdm_modules->push_back(m);
         writeModule(mod, m, s, componentMap, modPortMap);
-      } 
+      }
     }
     d->AllModules(uhdm_modules);
-    
+
     // Repair parent relationship
     for (auto classNamePair : classes) {
       ClassDefinition* classDef = classNamePair.second;
       DesignComponent* parent = classDef->getContainer();
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-              componentMap.find(parent);
+      const auto& itr = componentMap.find(parent);
       if (itr != componentMap.end()) {
-        std::map<DesignComponent*, BaseClass*>::iterator itr2 =
-                componentMap.find(classDef);
-        (*itr2).second->VpiParent((*itr).second);
+        const auto &itr2 = componentMap.find(classDef);
+        itr2->second->VpiParent(itr->second);
       }
     }
-    
-    // ------------------------------- 
+
+    // -------------------------------
     // Elaborated Model (Folded)
-   
+
     // Top-level modules
     VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
     for (ModuleInstance* inst : topLevelModules) {
       DesignComponent* component = inst->getDefinition();
       ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (component);
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-                componentMap.find(mod);
+      const auto &itr = componentMap.find(mod);
       module* m = s.MakeModule();
-      module* def = (module*) (*itr).second;
+      module* def = (module*) itr->second;
       m->VpiDefName(def->VpiDefName());
       m->VpiName(def->VpiDefName()); // Top's instance name is module name
       m->VpiFullName(def->VpiDefName()); // Top's full instance name is module name
       m->VpiFile(def->VpiFile());
       m->VpiLineNo(def->VpiLineNo());
       writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap);
-      uhdm_top_modules->push_back(m); 
+      uhdm_top_modules->push_back(m);
     }
     d->TopModules(uhdm_top_modules);
   }
-  
+
   // ----------------------------------
   // Fully elaborated model
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getElabUhdm()) {
@@ -1092,7 +1204,6 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     std::cout << "===================\n";
 
   }
-  
+  m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   return designHandle;
 }
- 

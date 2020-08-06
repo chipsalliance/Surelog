@@ -50,8 +50,6 @@ int FunctorCompileFileContent::operator()() const {
   return true;
 }
 
-CompileFileContent::~CompileFileContent() {}
-
 bool CompileFileContent::compile() { return collectObjects_(); }
 
 bool CompileFileContent::collectObjects_() {

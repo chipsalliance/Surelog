@@ -1,0 +1,1124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_mem/bp_be_dcache/bp_be_dcache.v Cov: 97.9% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
+<pre style="margin:0; padding:0 ">   3:  *    bp_be_dcache.v</pre>
+<pre style="margin:0; padding:0 ">   4:  *</pre>
+<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
+<pre style="margin:0; padding:0 ">   6:  *    L1 data cache. It receives load or store instruction from the mmu. This</pre>
+<pre style="margin:0; padding:0 ">   7:  *    is virtually-indexed and physically-tagged cache. It is 8-way</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  *    set-associative.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:  *    There are three different 1rw memory blocks: data_mem, tag_mem, stat_mem.</pre>
+<pre style="margin:0; padding:0 ">  11:  *    </pre>
+<pre style="margin:0; padding:0 ">  12:  *    data_mem is divided into 8 different banks, and cache blocks are</pre>
+<pre style="margin:0; padding:0 ">  13:  *    interleaved among the banks. The governing relationship is "bank_id =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:  *    word_offset ^ way_id".  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:  *    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:  *    tag_mem contains tag and coherence state bits.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:  *    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:  *    stat_mem contains information about dirty bits for each cache block and</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:  *    LRU info about each way group. This cache uses pseudo tree-LRU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:  *    algorithm.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:  *    There are two pipeline stages: tag lookup (tl) and tag verity (tv) stages.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:  *    Signals or registers belonging to each stage is suffixed by "_tl" or</pre>
+<pre style="margin:0; padding:0 ">  24:  *    "tv". We could also think of input as another stage.</pre>
+<pre style="margin:0; padding:0 ">  25:  *</pre>
+<pre style="margin:0; padding:0 ">  26:  *    Physical tag translated by TLB arrives in tag lookup stages. tag_mem and</pre>
+<pre style="margin:0; padding:0 ">  27:  *    TLB are accessed in the same cycle for each instruction. tlb_miss_i</pre>
+<pre style="margin:0; padding:0 ">  28:  *    indicates that there is TLB miss and all instructions in tl and input stage</pre>
+<pre style="margin:0; padding:0 ">  29:  *    has to be poisoned.</pre>
+<pre style="margin:0; padding:0 ">  30:  *</pre>
+<pre style="margin:0; padding:0 ">  31:  *    Instructions from mmu arrives in the form of bp_be_dcache_pkt_s. It</pre>
+<pre style="margin:0; padding:0 ">  32:  *    contains opcode, addr, data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:  *    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:  *    There is write buffer which allows holding write data info that left tv stage,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:  *    in forms of "bp_be_dcache_wbuf_entry_s" until data_mem becomes free from incoming</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:  *    load instructions. It also allows bypassing of store data when load moving</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:  *    from tl to tv stage has the same address as the entries in write buffer.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:  *    LCE can snoop write buffer entries to hold off lce_data_mem operations until entries</pre>
+<pre style="margin:0; padding:0 ">  39:  *    with matching address is no longer present in write buffer.</pre>
+<pre style="margin:0; padding:0 ">  40:  *</pre>
+<pre style="margin:0; padding:0 ">  41:  *    There are tags in two different contexts: 'ptag' and 'tag'. 'ptag' is</pre>
+<pre style="margin:0; padding:0 ">  42:  *    used in the context of translating 'vtag' into 'ptag', and its width is</pre>
+<pre style="margin:0; padding:0 ">  43:  *    fixed as defined by sv39. 'tag' width can vary with the number of sets,</pre>
+<pre style="margin:0; padding:0 ">  44:  *    and it is the width of the tag that is stored inside the cache.</pre>
+<pre style="margin:0; padding:0 ">  45:  *    </pre>
+<pre style="margin:0; padding:0 ">  46:  *    paddr_width = ptag_width + page_offset_width = tag_width + index_width</pre>
+<pre style="margin:0; padding:0 ">  47:  *    + block_offset_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:  *    Load reserved and store conditional are implemented at a cache line granularity.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:  *    A load reserved acts as a normal load with the following addtional properties:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:  *    1) If the block is not in an exclusive ownership state (M or E in MESI), then the cache</pre>
+<pre style="margin:0; padding:0 ">  52:  *    will send an upgrade request (store miss).</pre>
+<pre style="margin:0; padding:0 ">  53:  *    2) If the LR is successful, a reservation is placed on the cache line. This reservation is </pre>
+<pre style="margin:0; padding:0 ">  54:  *    valid for the current hart only.</pre>
+<pre style="margin:0; padding:0 ">  55:  *    A store conditional will succeed (return 0) if there is a valid reservation on the address of</pre>
+<pre style="margin:0; padding:0 ">  56:  *    the SC. Else, it will fail (return nonzero and will not commit the store). A failing store </pre>
+<pre style="margin:0; padding:0 ">  57:  *    conditional will not produce a cache miss.</pre>
+<pre style="margin:0; padding:0 ">  58:  *</pre>
+<pre style="margin:0; padding:0 ">  59:  *    The reservation can be cleared by:</pre>
+<pre style="margin:0; padding:0 ">  60:  *    1) Any SC to any address by this hart.</pre>
+<pre style="margin:0; padding:0 ">  61:  *    2) A second LR (this will not clear the reservation, but it will change the reservation</pre>
+<pre style="margin:0; padding:0 ">  62:  *    address).</pre>
+<pre style="margin:0; padding:0 ">  63:  *    3) An invalidate received from the LCE. This command covers all cases of losing exclusive</pre>
+<pre style="margin:0; padding:0 ">  64:  *    access to the block in this hart, including eviction and a cache miss.</pre>
+<pre style="margin:0; padding:0 ">  65:  </pre>
+<pre style="margin:0; padding:0 ">  66:  *    RISC-V guarantees forward progress for LR/SC sequences that match a set of conditions.</pre>
+<pre style="margin:0; padding:0 ">  67:  *    Currently, BlackParrot makes no guarantees about these sequences, but one option to guarantee</pre>
+<pre style="margin:0; padding:0 ">  68:  *    progress is to block reservation invalidates from other harts until a following SC. There is</pre>
+<pre style="margin:0; padding:0 ">  69:  *    a design space exploration to be done between QoS and performance based on the backoff model</pre>
+<pre style="margin:0; padding:0 ">  70:  *    used for these schemes.</pre>
+<pre style="margin:0; padding:0 ">  71:  *</pre>
+<pre style="margin:0; padding:0 ">  72:  *    LR/SC aq/rl semantics are irrelevant for BlackParrot. Since we are in-order single issue and</pre>
+<pre style="margin:0; padding:0 ">  73:  *    do not use a store buffer that allows stores before cache lines have been fetched,, all</pre>
+<pre style="margin:0; padding:0 ">  74:  *    memory requests are inherently ordered within a hart. </pre>
+<pre style="margin:0; padding:0 ">  75:  */</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77: module bp_be_dcache</pre>
+<pre style="margin:0; padding:0 ">  78:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  79:   import bp_be_dcache_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  80:   import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  81:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">  83:    </pre>
+<pre style="margin:0; padding:0 ">  84:     , parameter debug_p=0 </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:     , localparam block_size_in_words_lp=lce_assoc_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     , localparam data_mask_width_lp=(dword_width_p>>3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     , localparam byte_offset_width_lp=`BSG_SAFE_CLOG2(dword_width_p>>3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     , localparam word_offset_width_lp=`BSG_SAFE_CLOG2(block_size_in_words_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     , localparam block_offset_width_lp=(word_offset_width_lp+byte_offset_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     , localparam index_width_lp=`BSG_SAFE_CLOG2(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     , localparam ptag_width_lp=(paddr_width_p-bp_page_offset_width_gp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     , localparam tag_width_lp=(paddr_width_p-block_offset_width_lp-index_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     , localparam way_id_width_lp=`BSG_SAFE_CLOG2(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     , localparam lce_data_width_lp=(lce_assoc_p*dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     , localparam lce_id_width_lp=`BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     , localparam dcache_pkt_width_lp=`bp_be_dcache_pkt_width(page_offset_width_p,dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     , localparam tag_info_width_lp=`bp_be_dcache_tag_info_width(tag_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     , localparam stat_info_width_lp=`bp_be_dcache_stat_info_width(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   )</pre>
+<pre style="margin:0; padding:0 "> 105:   (</pre>
+<pre style="margin:0; padding:0 "> 106:     input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     , input freeze_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     // Config channel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     , input                        cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     , input [cfg_addr_width_p-1:0] cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     , input [cfg_data_width_p-1:0] cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     , input [lce_id_width_lp-1:0] lce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     , input [dcache_pkt_width_lp-1:0] dcache_pkt_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     , input v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     , output logic ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     , output logic [dword_width_p-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     , output logic v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     // TLB interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     , input tlb_miss_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     , input [ptag_width_lp-1:0] ptag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     , input uncached_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128: </pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:     // ctrl</pre>
+<pre style="margin:0; padding:0 "> 130:     , output logic cache_miss_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     , input poison_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     // LCE-CCE interface</pre>
+<pre style="margin:0; padding:0 "> 134:     , output logic [lce_cce_req_width_lp-1:0] lce_req_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     , output logic lce_req_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     , input lce_req_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     , output logic [lce_cce_resp_width_lp-1:0] lce_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     , output logic lce_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     , input lce_resp_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     // CCE-LCE interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     , input [lce_cmd_width_lp-1:0] lce_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     , input lce_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     , output logic lce_cmd_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     // LCE-LCE interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     , output logic [lce_cmd_width_lp-1:0] lce_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     , output logic lce_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     , input lce_cmd_ready_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     , output credits_full_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     , output credits_empty_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     , output load_access_fault_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     , output store_access_fault_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   );</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   // packet decoding</pre>
+<pre style="margin:0; padding:0 "> 160:   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   `declare_bp_be_dcache_pkt_s(bp_page_offset_width_gp, dword_width_p);</pre>
+<pre style="margin:0; padding:0 "> 162:   bp_be_dcache_pkt_s dcache_pkt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   assign dcache_pkt = dcache_pkt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164: </pre>
+<pre style="margin:0; padding:0 "> 165:   logic lr_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   logic sc_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   logic load_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   logic store_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   logic signed_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   logic [1:0] size_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   logic double_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic word_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   logic half_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   logic byte_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic [index_width_lp-1:0] addr_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   logic [word_offset_width_lp-1:0] addr_word_offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177: </pre>
+<pre style="margin:0; padding:0 "> 178:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     lr_op     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     sc_op     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     load_op   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     store_op  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     signed_op = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     double_op = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     word_op   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     half_op   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     byte_op   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     size_op   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189: </pre>
+<pre style="margin:0; padding:0 "> 190:     unique case (dcache_pkt.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       e_dcache_opcode_lrw, e_dcache_opcode_lrd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:         // An LR is a load operation of either double word or word size, inherently signed</pre>
+<pre style="margin:0; padding:0 "> 193:         lr_op     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:         load_op   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       end</pre>
+<pre style="margin:0; padding:0 "> 196:       e_dcache_opcode_scw, e_dcache_opcode_scd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:         // An SC is a store operation of either double word or word size, inherently signed</pre>
+<pre style="margin:0; padding:0 "> 198:         sc_op     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:         store_op  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       end</pre>
+<pre style="margin:0; padding:0 "> 201:       e_dcache_opcode_ld, e_dcache_opcode_lw, e_dcache_opcode_lh, e_dcache_opcode_lb: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         load_op   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       end</pre>
+<pre style="margin:0; padding:0 "> 204:       e_dcache_opcode_lwu, e_dcache_opcode_lhu, e_dcache_opcode_lbu: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:         load_op   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:         signed_op = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       end</pre>
+<pre style="margin:0; padding:0 "> 208:       e_dcache_opcode_sd, e_dcache_opcode_sw, e_dcache_opcode_sh, e_dcache_opcode_sb: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:         store_op  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       end</pre>
+<pre style="margin:0; padding:0 "> 211:       default: begin end</pre>
+<pre style="margin:0; padding:0 "> 212:     endcase</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214:     unique case (dcache_pkt.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:       e_dcache_opcode_ld, e_dcache_opcode_lrd, e_dcache_opcode_sd, e_dcache_opcode_scd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:         double_op = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:         size_op   = 2'b11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       end</pre>
+<pre style="margin:0; padding:0 "> 219:       e_dcache_opcode_lw, e_dcache_opcode_lwu, e_dcache_opcode_sw</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:         , e_dcache_opcode_lrw, e_dcache_opcode_scw: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:         word_op = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:         size_op = 2'b10;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:       end</pre>
+<pre style="margin:0; padding:0 "> 224:       e_dcache_opcode_lh, e_dcache_opcode_lhu, e_dcache_opcode_sh: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:         half_op = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:         size_op = 2'b01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:       end</pre>
+<pre style="margin:0; padding:0 "> 228:       e_dcache_opcode_lb, e_dcache_opcode_lbu, e_dcache_opcode_sb: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         byte_op = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:         size_op = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       end</pre>
+<pre style="margin:0; padding:0 "> 232:       default: begin end</pre>
+<pre style="margin:0; padding:0 "> 233:     endcase</pre>
+<pre style="margin:0; padding:0 "> 234:   end</pre>
+<pre style="margin:0; padding:0 "> 235: </pre>
+<pre style="margin:0; padding:0 "> 236:   assign addr_index = dcache_pkt.page_offset[block_offset_width_lp+:index_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   assign addr_word_offset = dcache_pkt.page_offset[byte_offset_width_lp+:word_offset_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   </pre>
+<pre style="margin:0; padding:0 "> 239:   // TL stage</pre>
+<pre style="margin:0; padding:0 "> 240:   //</pre>
+<pre style="margin:0; padding:0 "> 241:   logic v_tl_r; // valid bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:   logic tl_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:   logic lr_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   logic sc_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   logic load_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:   logic store_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:   logic signed_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   logic [1:0] size_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:   logic double_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:   logic word_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:   logic half_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:   logic byte_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:   logic [bp_page_offset_width_gp-1:0] page_offset_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:   logic [dword_width_p-1:0] data_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255: </pre>
+<pre style="margin:0; padding:0 "> 256:   assign tl_we = v_i & ready_o & ~poison_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:  </pre>
+<pre style="margin:0; padding:0 "> 258:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:       v_tl_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     end</pre>
+<pre style="margin:0; padding:0 "> 262:     else begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:       v_tl_r <= tl_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:       if (tl_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         lr_op_tl_r <= lr_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:         sc_op_tl_r <= sc_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:         load_op_tl_r <= load_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:         store_op_tl_r <= store_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:         signed_op_tl_r <= signed_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:         size_op_tl_r <= size_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:         double_op_tl_r <= double_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:         word_op_tl_r <= word_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         half_op_tl_r <= half_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:         byte_op_tl_r <= byte_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:         page_offset_tl_r <= dcache_pkt.page_offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:       end</pre>
+<pre style="margin:0; padding:0 "> 277:     </pre>
+<pre style="margin:0; padding:0 "> 278:       if (tl_we & store_op) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:         data_tl_r <= dcache_pkt.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:       end</pre>
+<pre style="margin:0; padding:0 "> 281:     end</pre>
+<pre style="margin:0; padding:0 "> 282:   end </pre>
+<pre style="margin:0; padding:0 "> 283:  </pre>
+<pre style="margin:0; padding:0 "> 284:   // tag_mem</pre>
+<pre style="margin:0; padding:0 "> 285:   //</pre>
+<pre style="margin:0; padding:0 "> 286:   `declare_bp_be_dcache_tag_info_s(tag_width_lp);</pre>
+<pre style="margin:0; padding:0 "> 287:   logic tag_mem_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:   logic tag_mem_w_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:   logic [index_width_lp-1:0] tag_mem_addr_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   bp_be_dcache_tag_info_s [lce_assoc_p-1:0] tag_mem_data_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:   bp_be_dcache_tag_info_s [lce_assoc_p-1:0] tag_mem_mask_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:   bp_be_dcache_tag_info_s [lce_assoc_p-1:0] tag_mem_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   </pre>
+<pre style="margin:0; padding:0 "> 294:   bsg_mem_1rw_sync_mask_write_bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     #(.width_p(tag_info_width_lp*lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       ,.els_p(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     )</pre>
+<pre style="margin:0; padding:0 "> 298:     tag_mem</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       ,.v_i(~reset_i & tag_mem_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       ,.w_i(tag_mem_w_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       ,.addr_i(tag_mem_addr_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:       ,.data_i(tag_mem_data_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       ,.w_mask_i(tag_mem_mask_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       ,.data_o(tag_mem_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       );</pre>
+<pre style="margin:0; padding:0 "> 308: </pre>
+<pre style="margin:0; padding:0 "> 309:   // data_mem</pre>
+<pre style="margin:0; padding:0 "> 310:   //</pre>
+<pre id="id311" style="background-color: #FFB6C1; margin:0; padding:0 "> 311:   logic [lce_assoc_p-1:0] data_mem_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   logic data_mem_w_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:   logic [lce_assoc_p-1:0][index_width_lp+word_offset_width_lp-1:0] data_mem_addr_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:   logic [lce_assoc_p-1:0][dword_width_p-1:0] data_mem_data_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:   logic [lce_assoc_p-1:0][data_mask_width_lp-1:0] data_mem_mask_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   logic [lce_assoc_p-1:0][dword_width_p-1:0] data_mem_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:   </pre>
+<pre style="margin:0; padding:0 "> 318:   for (genvar i = 0; i < lce_assoc_p; i++) begin: data_mem</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:     bsg_mem_1rw_sync_mask_write_byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       #(.data_width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:         ,.els_p(lce_sets_p*lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:         )</pre>
+<pre id="id323" style="background-color: #FFB6C1; margin:0; padding:0 "> 323:       data_mem</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:         (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:         ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:         ,.v_i(~reset_i & data_mem_v_li[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:         ,.w_i(data_mem_w_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:         ,.addr_i(data_mem_addr_li[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:         ,.data_i(data_mem_data_li[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:         ,.write_mask_i(data_mem_mask_li[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:         ,.data_o(data_mem_data_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:         );</pre>
+<pre style="margin:0; padding:0 "> 333:   end</pre>
+<pre style="margin:0; padding:0 "> 334: </pre>
+<pre style="margin:0; padding:0 "> 335:   // TV stage</pre>
+<pre style="margin:0; padding:0 "> 336:   //</pre>
+<pre style="margin:0; padding:0 "> 337:   logic v_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:   logic tv_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:   logic lr_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:   logic sc_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:   logic load_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:   logic store_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:   logic signed_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:   logic [1:0] size_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:   logic double_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:   logic word_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:   logic half_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:   logic byte_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:   logic uncached_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:   logic [paddr_width_p-1:0] paddr_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:   logic [dword_width_p-1:0] data_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:   bp_be_dcache_tag_info_s [lce_assoc_p-1:0] tag_info_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:   logic [lce_assoc_p-1:0][dword_width_p-1:0] ld_data_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:   logic [tag_width_lp-1:0] addr_tag_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:   logic [index_width_lp-1:0] addr_index_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:   logic [word_offset_width_lp-1:0] addr_word_offset_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357: </pre>
+<pre style="margin:0; padding:0 "> 358:   assign tv_we = v_tl_r & ~poison_i & ~tlb_miss_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359: </pre>
+<pre style="margin:0; padding:0 "> 360:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:       v_tv_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363: </pre>
+<pre style="margin:0; padding:0 "> 364:       lr_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       sc_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       load_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:       store_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:       uncached_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:       signed_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       size_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:       double_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       word_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:       half_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:       byte_op_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:       paddr_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:       tag_info_tv_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377: </pre>
+<pre style="margin:0; padding:0 "> 378:     end</pre>
+<pre style="margin:0; padding:0 "> 379:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:       v_tv_r <= tv_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381: </pre>
+<pre style="margin:0; padding:0 "> 382:       if (tv_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:         lr_op_tv_r <= lr_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:         sc_op_tv_r <= sc_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:         load_op_tv_r <= load_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:         store_op_tv_r <= store_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:         signed_op_tv_r <= signed_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:         size_op_tv_r <= size_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:         double_op_tv_r <= double_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:         word_op_tv_r <= word_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:         half_op_tv_r <= half_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:         byte_op_tv_r <= byte_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:         paddr_tv_r <= {ptag_i, page_offset_tl_r};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:         tag_info_tv_r <= tag_mem_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:         uncached_tv_r <= uncached_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:       end</pre>
+<pre style="margin:0; padding:0 "> 397: </pre>
+<pre style="margin:0; padding:0 "> 398:       if (tv_we & load_op_tl_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:         ld_data_tv_r <= data_mem_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:       end</pre>
+<pre style="margin:0; padding:0 "> 401: </pre>
+<pre style="margin:0; padding:0 "> 402:       if (tv_we & store_op_tl_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:         data_tv_r <= data_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:       end</pre>
+<pre style="margin:0; padding:0 "> 405:     end</pre>
+<pre style="margin:0; padding:0 "> 406:   end</pre>
+<pre style="margin:0; padding:0 "> 407: </pre>
+<pre style="margin:0; padding:0 "> 408:   assign addr_tag_tv = paddr_tv_r[block_offset_width_lp+index_width_lp+:tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:   assign addr_index_tv = paddr_tv_r[block_offset_width_lp+:index_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:   assign addr_word_offset_tv = paddr_tv_r[byte_offset_width_lp+:word_offset_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411: </pre>
+<pre style="margin:0; padding:0 "> 412:   // miss_detect</pre>
+<pre style="margin:0; padding:0 "> 413:   //</pre>
+<pre style="margin:0; padding:0 "> 414:   logic [lce_assoc_p-1:0] tag_match_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:   logic [lce_assoc_p-1:0] load_hit_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:   logic [lce_assoc_p-1:0] store_hit_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:   logic [lce_assoc_p-1:0] invalid_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:   logic load_miss_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:   logic store_miss_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:   logic load_hit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:   logic store_hit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:   logic [way_id_width_lp-1:0] load_hit_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:   logic [way_id_width_lp-1:0] store_hit_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424: </pre>
+<pre style="margin:0; padding:0 "> 425:   for (genvar i = 0; i < lce_assoc_p; i++) begin: tag_comp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:     assign tag_match_tv[i] = addr_tag_tv == tag_info_tv_r[i].tag;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:     assign load_hit_tv[i] = tag_match_tv[i] & (tag_info_tv_r[i].coh_state != e_COH_I);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:     assign store_hit_tv[i] = tag_match_tv[i] & ((tag_info_tv_r[i].coh_state == e_COH_M)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:                                                 || (tag_info_tv_r[i].coh_state == e_COH_E));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:     assign invalid_tv[i] = (tag_info_tv_r[i].coh_state == e_COH_I);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:   end</pre>
+<pre style="margin:0; padding:0 "> 432: </pre>
+<pre style="margin:0; padding:0 "> 433:   bsg_priority_encode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:     #(.width_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:       ,.lo_to_hi_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:       )</pre>
+<pre style="margin:0; padding:0 "> 437:     pe_load_hit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:     (.i(load_hit_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:       ,.v_o(load_hit)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:       ,.addr_o(load_hit_way)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:       );</pre>
+<pre style="margin:0; padding:0 "> 442:   </pre>
+<pre style="margin:0; padding:0 "> 443:   bsg_priority_encode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:     #(.width_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:       ,.lo_to_hi_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:       )</pre>
+<pre style="margin:0; padding:0 "> 447:     pe_store_hit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:     (.i(store_hit_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:       ,.v_o(store_hit)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:       ,.addr_o(store_hit_way)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:       );</pre>
+<pre style="margin:0; padding:0 "> 452: </pre>
+<pre style="margin:0; padding:0 "> 453:   assign load_miss_tv = ~load_hit & v_tv_r & load_op_tv_r & ~uncached_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:   assign store_miss_tv = ~store_hit & v_tv_r & store_op_tv_r & ~uncached_tv_r & ~sc_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455: </pre>
+<pre style="margin:0; padding:0 "> 456:   // uncached req</pre>
+<pre style="margin:0; padding:0 "> 457:   //</pre>
+<pre style="margin:0; padding:0 "> 458:   logic uncached_load_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:   logic uncached_store_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:   logic uncached_load_data_v_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:   logic [dword_width_p-1:0] uncached_load_data_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462: </pre>
+<pre style="margin:0; padding:0 "> 463:   // load reserved / store conditional</pre>
+<pre style="margin:0; padding:0 "> 464:   logic lr_miss_tv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:   logic sc_success;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:   logic sc_fail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467:   logic [ptag_width_lp-1:0]  load_reserved_tag_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:   logic [index_width_lp-1:0] load_reserved_index_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:   logic load_reserved_v_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470: </pre>
+<pre style="margin:0; padding:0 "> 471:   // Upgrade if a load reserved and we don't have the line in exclusive state</pre>
+<pre style="margin:0; padding:0 "> 472:   assign lr_miss_tv = v_tv_r & lr_op_tv_r & load_hit & ~store_hit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:   // Succeed if the address matches and we have a store hit</pre>
+<pre style="margin:0; padding:0 "> 474:   assign sc_success  = v_tv_r & sc_op_tv_r & store_hit & load_reserved_v_r </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:                        & (load_reserved_tag_r == addr_tag_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:                        & (load_reserved_index_r == addr_index_tv);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:   // Fail if we have a store conditional without success</pre>
+<pre style="margin:0; padding:0 "> 478:   assign sc_fail     = v_tv_r & sc_op_tv_r & ~sc_success;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:   assign uncached_load_req = v_tv_r & load_op_tv_r & uncached_tv_r & ~uncached_load_data_v_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:   assign uncached_store_req = v_tv_r & store_op_tv_r & uncached_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481: </pre>
+<pre style="margin:0; padding:0 "> 482:   // write buffer</pre>
+<pre style="margin:0; padding:0 "> 483:   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:   `declare_bp_be_dcache_wbuf_entry_s(paddr_width_p, dword_width_p, lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 "> 485: </pre>
+<pre style="margin:0; padding:0 "> 486:   bp_be_dcache_wbuf_entry_s wbuf_entry_in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:   logic wbuf_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488: </pre>
+<pre style="margin:0; padding:0 "> 489:   bp_be_dcache_wbuf_entry_s wbuf_entry_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:   logic wbuf_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:   logic wbuf_yumi_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:   </pre>
+<pre style="margin:0; padding:0 "> 493:   logic wbuf_empty_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 494:   </pre>
+<pre style="margin:0; padding:0 "> 495:   logic bypass_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 496:   logic bypass_addr_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:   logic [dword_width_p-1:0] bypass_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:   logic [data_mask_width_lp-1:0] bypass_mask_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499: </pre>
+<pre style="margin:0; padding:0 "> 500:   logic [index_width_lp-1:0] lce_snoop_index_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 501:   logic [way_id_width_lp-1:0] lce_snoop_way_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:   logic lce_snoop_match_lo; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:  </pre>
+<pre style="margin:0; padding:0 "> 504:   bp_be_dcache_wbuf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:     #(.data_width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:       ,.paddr_width_p(paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:       ,.ways_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:       ,.sets_p(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:       )</pre>
+<pre style="margin:0; padding:0 "> 510:     wbuf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 511:     ( .clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513: </pre>
+<pre style="margin:0; padding:0 "> 514:       ,.v_i(wbuf_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:       ,.wbuf_entry_i(wbuf_entry_in)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516: </pre>
+<pre style="margin:0; padding:0 "> 517:       ,.v_o(wbuf_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:       ,.yumi_i(wbuf_yumi_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 519:       ,.wbuf_entry_o(wbuf_entry_out)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520: </pre>
+<pre style="margin:0; padding:0 "> 521:       ,.empty_o(wbuf_empty_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:     </pre>
+<pre style="margin:0; padding:0 "> 523:       ,.bypass_v_i(bypass_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:       ,.bypass_addr_i({ptag_i, page_offset_tl_r})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:       ,.bypass_data_o(bypass_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 526:       ,.bypass_mask_o(bypass_mask_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527: </pre>
+<pre style="margin:0; padding:0 "> 528:       ,.lce_snoop_index_i(lce_snoop_index_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:       ,.lce_snoop_way_i(lce_snoop_way_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:       ,.lce_snoop_match_o(lce_snoop_match_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       );</pre>
+<pre style="margin:0; padding:0 "> 532: </pre>
+<pre style="margin:0; padding:0 "> 533:   logic [word_offset_width_lp-1:0] wbuf_entry_out_word_offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 534:   logic [index_width_lp-1:0] wbuf_entry_out_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 535: </pre>
+<pre style="margin:0; padding:0 "> 536:   assign wbuf_entry_out_word_offset = wbuf_entry_out.paddr[byte_offset_width_lp+:word_offset_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:   assign wbuf_entry_out_index = wbuf_entry_out.paddr[block_offset_width_lp+:index_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538: </pre>
+<pre style="margin:0; padding:0 "> 539:   assign wbuf_entry_in.paddr = paddr_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540:   assign wbuf_entry_in.way_id = store_hit_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541: </pre>
+<pre style="margin:0; padding:0 "> 542:   // TODO: Add assertion, otherwise this will just infer latches....</pre>
+<pre style="margin:0; padding:0 "> 543:   if (dword_width_p == 64) begin</pre>
+<pre style="margin:0; padding:0 "> 544:     assign wbuf_entry_in.data = double_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:       ? data_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:       : (word_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:         ? {2{data_tv_r[0+:32]}}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:         : (half_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:           ? {4{data_tv_r[0+:16]}}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 550:           : {8{data_tv_r[0+:8]}}));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551: </pre>
+<pre style="margin:0; padding:0 "> 552:     assign wbuf_entry_in.mask = double_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 553:       ? 8'b1111_1111</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554:       : (word_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:         ? {{4{paddr_tv_r[2]}}, {4{~paddr_tv_r[2]}}}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 556:         : (half_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 557:           ? {{2{paddr_tv_r[2] & paddr_tv_r[1]}}, {2{paddr_tv_r[2] & ~paddr_tv_r[1]}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:              {2{~paddr_tv_r[2] & paddr_tv_r[1]}}, {2{~paddr_tv_r[2] & ~paddr_tv_r[1]}}}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:           : {(paddr_tv_r[2] & paddr_tv_r[1] & paddr_tv_r[0]), </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:              (paddr_tv_r[2] & paddr_tv_r[1] & ~paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:              (paddr_tv_r[2] & ~paddr_tv_r[1] & paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 562:              (paddr_tv_r[2] & ~paddr_tv_r[1] & ~paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 563:              (~paddr_tv_r[2] & paddr_tv_r[1] & paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:              (~paddr_tv_r[2] & paddr_tv_r[1] & ~paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:              (~paddr_tv_r[2] & ~paddr_tv_r[1] & paddr_tv_r[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:              (~paddr_tv_r[2] & ~paddr_tv_r[1] & ~paddr_tv_r[0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:             }));</pre>
+<pre style="margin:0; padding:0 "> 568:   end</pre>
+<pre style="margin:0; padding:0 "> 569: </pre>
+<pre style="margin:0; padding:0 "> 570:   // stat_mem {lru, dirty}</pre>
+<pre style="margin:0; padding:0 "> 571:   // It has (ways_p-1) bits to form pseudo-LRU tree, and ways_p bits for dirty</pre>
+<pre style="margin:0; padding:0 "> 572:   // bit for each block in set.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573:   `declare_bp_be_dcache_stat_info_s(lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 "> 574: </pre>
+<pre style="margin:0; padding:0 "> 575:   logic stat_mem_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:   logic stat_mem_w_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 577:   logic [index_width_lp-1:0] stat_mem_addr_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 578:   bp_be_dcache_stat_info_s stat_mem_data_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 579:   bp_be_dcache_stat_info_s stat_mem_mask_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 580:   bp_be_dcache_stat_info_s stat_mem_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581: </pre>
+<pre style="margin:0; padding:0 "> 582:   bsg_mem_1rw_sync_mask_write_bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 583:     #(.width_p(stat_info_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 584:       ,.els_p(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 585:       )</pre>
+<pre style="margin:0; padding:0 "> 586:     stat_mem</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 587:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 588:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:       ,.v_i(~reset_i & stat_mem_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 590:       ,.w_i(stat_mem_w_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 591:       ,.addr_i(stat_mem_addr_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 592:       ,.data_i(stat_mem_data_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 593:       ,.w_mask_i(stat_mem_mask_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:       ,.data_o(stat_mem_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 595:       );</pre>
+<pre style="margin:0; padding:0 "> 596:   </pre>
+<pre style="margin:0; padding:0 "> 597:   logic [way_id_width_lp-1:0] lru_encode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 598: </pre>
+<pre style="margin:0; padding:0 "> 599:   bsg_lru_pseudo_tree_encode #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 600:     .ways_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 601:   ) lru_encoder (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 602:     .lru_i(stat_mem_data_lo.lru)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 603:     ,.way_id_o(lru_encode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 604:   );</pre>
+<pre style="margin:0; padding:0 "> 605: </pre>
+<pre style="margin:0; padding:0 "> 606:   logic invalid_exist;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 607:   logic [way_id_width_lp-1:0] invalid_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 608:   bsg_priority_encode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:     #(.width_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:       ,.lo_to_hi_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:       )</pre>
+<pre style="margin:0; padding:0 "> 612:     pe_invalid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:       (.i(invalid_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:       ,.v_o(invalid_exist)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 615:       ,.addr_o(invalid_way)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 616:       );</pre>
+<pre style="margin:0; padding:0 "> 617: </pre>
+<pre style="margin:0; padding:0 "> 618:   // if there is invalid way, then it take prioirty over LRU way.</pre>
+<pre style="margin:0; padding:0 "> 619:   logic [way_id_width_lp-1:0] lce_lru_way_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 620:   assign lce_lru_way_li = invalid_exist ? invalid_way : lru_encode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 621:  </pre>
+<pre style="margin:0; padding:0 "> 622:   // LCE</pre>
+<pre style="margin:0; padding:0 "> 623:   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 624:   `declare_bp_be_dcache_lce_data_mem_pkt_s(lce_sets_p, lce_assoc_p, dword_width_p*lce_assoc_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 625:   `declare_bp_be_dcache_lce_tag_mem_pkt_s(lce_sets_p, lce_assoc_p, tag_width_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 626:   `declare_bp_be_dcache_lce_stat_mem_pkt_s(lce_sets_p, lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 "> 627: </pre>
+<pre style="margin:0; padding:0 "> 628:   bp_be_dcache_lce_data_mem_pkt_s lce_data_mem_pkt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 629:   bp_be_dcache_lce_tag_mem_pkt_s lce_tag_mem_pkt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 630:   bp_be_dcache_lce_stat_mem_pkt_s lce_stat_mem_pkt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 631: </pre>
+<pre style="margin:0; padding:0 "> 632:   logic lce_data_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 633:   logic [lce_assoc_p-1:0][dword_width_p-1:0] lce_data_mem_data_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 634:   logic lce_data_mem_pkt_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 635: </pre>
+<pre style="margin:0; padding:0 "> 636:   logic lce_tag_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 637:   logic lce_tag_mem_pkt_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 638: </pre>
+<pre style="margin:0; padding:0 "> 639:   logic lce_stat_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 640:   logic lce_stat_mem_pkt_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 641: </pre>
+<pre style="margin:0; padding:0 "> 642:   bp_be_dcache_lce_mode_e lce_mode_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 643:  </pre>
+<pre style="margin:0; padding:0 "> 644:   bp_be_dcache_lce</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 645:     #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 646:     lce</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 647:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 648:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 649:       ,.freeze_i(freeze_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 650:     </pre>
+<pre style="margin:0; padding:0 "> 651:       ,.cfg_w_v_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 652:       ,.cfg_addr_i(cfg_addr_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 653:       ,.cfg_data_i(cfg_data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 654: </pre>
+<pre style="margin:0; padding:0 "> 655:       ,.lce_id_i(lce_id_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 656: </pre>
+<pre style="margin:0; padding:0 "> 657:       ,.ready_o(ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 658:       ,.cache_miss_o(cache_miss_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 659:     </pre>
+<pre style="margin:0; padding:0 "> 660:       ,.load_miss_i(load_miss_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 661:       ,.store_miss_i(store_miss_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 662:       ,.lr_miss_i(lr_miss_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 663:       ,.uncached_load_req_i(uncached_load_req)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 664:       ,.uncached_store_req_i(uncached_store_req)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 665: </pre>
+<pre style="margin:0; padding:0 "> 666:       ,.miss_addr_i(paddr_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 667:       ,.size_op_i(size_op_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 668:       ,.store_data_i(data_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 669: </pre>
+<pre style="margin:0; padding:0 "> 670:       ,.data_mem_pkt_v_o(lce_data_mem_pkt_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 671:       ,.data_mem_pkt_o(lce_data_mem_pkt)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 672:       ,.data_mem_data_i(lce_data_mem_data_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 673:       ,.data_mem_pkt_yumi_i(lce_data_mem_pkt_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 674: </pre>
+<pre style="margin:0; padding:0 "> 675:       ,.tag_mem_pkt_v_o(lce_tag_mem_pkt_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 676:       ,.tag_mem_pkt_o(lce_tag_mem_pkt)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 677:       ,.tag_mem_pkt_yumi_i(lce_tag_mem_pkt_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 678: </pre>
+<pre style="margin:0; padding:0 "> 679:       ,.stat_mem_pkt_v_o(lce_stat_mem_pkt_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 680:       ,.stat_mem_pkt_o(lce_stat_mem_pkt)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 681:       ,.dirty_i(stat_mem_data_lo.dirty)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 682:       ,.lru_way_i(lce_lru_way_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 683:       ,.stat_mem_pkt_yumi_i(lce_stat_mem_pkt_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 684:   </pre>
+<pre style="margin:0; padding:0 "> 685:       ,.lce_req_o(lce_req_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 686:       ,.lce_req_v_o(lce_req_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 687:       ,.lce_req_ready_i(lce_req_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 688: </pre>
+<pre style="margin:0; padding:0 "> 689:       ,.lce_resp_o(lce_resp_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 690:       ,.lce_resp_v_o(lce_resp_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 691:       ,.lce_resp_ready_i(lce_resp_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 692: </pre>
+<pre style="margin:0; padding:0 "> 693:       ,.lce_cmd_i(lce_cmd_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 694:       ,.lce_cmd_v_i(lce_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 695:       ,.lce_cmd_ready_o(lce_cmd_ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 696: </pre>
+<pre style="margin:0; padding:0 "> 697:       ,.lce_cmd_o(lce_cmd_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 698:       ,.lce_cmd_v_o(lce_cmd_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 699:       ,.lce_cmd_ready_i(lce_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 700: </pre>
+<pre style="margin:0; padding:0 "> 701:       ,.credits_full_o(credits_full_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 702:       ,.credits_empty_o(credits_empty_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 703: </pre>
+<pre style="margin:0; padding:0 "> 704:       ,.lce_mode_o(lce_mode_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 705:       );</pre>
+<pre style="margin:0; padding:0 "> 706: </pre>
+<pre style="margin:0; padding:0 "> 707:   // Fault if in uncached mode but access is not for an uncached address</pre>
+<pre style="margin:0; padding:0 "> 708:   assign load_access_fault_o  = (lce_mode_lo == e_dcache_lce_mode_uncached)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 709:     ? (load_op_tv_r & ~uncached_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 710:     : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 711:   assign store_access_fault_o = (lce_mode_lo == e_dcache_lce_mode_uncached)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 712:     ? (store_op_tv_r & ~uncached_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 713:     : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 714: </pre>
+<pre style="margin:0; padding:0 "> 715:   // output stage</pre>
+<pre style="margin:0; padding:0 "> 716:   //</pre>
+<pre style="margin:0; padding:0 "> 717:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 718:     if (v_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 719:       if (uncached_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 720:         if (load_op_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 721:           v_o = uncached_load_data_v_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 722:         end</pre>
+<pre style="margin:0; padding:0 "> 723:         else if (store_op_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 724:           // uncached store_op can be committed,</pre>
+<pre style="margin:0; padding:0 "> 725:           // as long as there is no cache_miss_o signal raised.</pre>
+<pre style="margin:0; padding:0 "> 726:           v_o = ~cache_miss_o;  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 727:         end</pre>
+<pre style="margin:0; padding:0 "> 728:         else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 729:           v_o = 1'b0; // this should never happen</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 730:         end</pre>
+<pre style="margin:0; padding:0 "> 731:       end</pre>
+<pre style="margin:0; padding:0 "> 732:       else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 733:         v_o = v_tv_r & ~cache_miss_o; // cached request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 734:       end</pre>
+<pre style="margin:0; padding:0 "> 735:     end</pre>
+<pre style="margin:0; padding:0 "> 736:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 737:       v_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 738:     end</pre>
+<pre style="margin:0; padding:0 "> 739:   end</pre>
+<pre style="margin:0; padding:0 "> 740: </pre>
+<pre style="margin:0; padding:0 "> 741:   logic [dword_width_p-1:0] ld_data_way_picked;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 742:   logic [dword_width_p-1:0] bypass_data_masked;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 743: </pre>
+<pre style="margin:0; padding:0 "> 744:   bsg_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 745:     .width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 746:     ,.els_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 747:   ) ld_data_set_select_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 748:     .data_i(ld_data_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 749:     ,.sel_i(load_hit_way ^ addr_word_offset_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 750:     ,.data_o(ld_data_way_picked)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 751:   );</pre>
+<pre style="margin:0; padding:0 "> 752: </pre>
+<pre style="margin:0; padding:0 "> 753:   bsg_mux_segmented #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 754:     .segments_p(data_mask_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 755:     ,.segment_width_p(8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 756:   ) bypass_mux_segmented (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 757:     .data0_i(ld_data_way_picked)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 758:     ,.data1_i(bypass_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 759:     ,.sel_i(bypass_mask_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 760:     ,.data_o(bypass_data_masked)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 761:   );</pre>
+<pre style="margin:0; padding:0 "> 762: </pre>
+<pre style="margin:0; padding:0 "> 763:   logic [dword_width_p-1:0] final_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 764:   bsg_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 765:     .width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 766:     ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 767:   ) final_data_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 768:     .data_i({uncached_load_data_r, bypass_data_masked})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 769:     ,.sel_i(uncached_load_data_v_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 770:     ,.data_o(final_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 771:   );</pre>
+<pre style="margin:0; padding:0 "> 772: </pre>
+<pre style="margin:0; padding:0 "> 773:   if (dword_width_p == 64) begin: output64</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 774:     logic [31:0] data_word_selected;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 775:     logic [15:0] data_half_selected;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 776:     logic [7:0] data_byte_selected;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 777:     logic word_sigext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 778:     logic half_sigext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 779:     logic byte_sigext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 780:     </pre>
+<pre style="margin:0; padding:0 "> 781:     bsg_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 782:       .width_p(32)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 783:       ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 784:     ) word_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 785:       .data_i(final_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 786:       ,.sel_i(paddr_tv_r[2])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 787:       ,.data_o(data_word_selected)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 788:     );</pre>
+<pre style="margin:0; padding:0 "> 789:     </pre>
+<pre style="margin:0; padding:0 "> 790:     bsg_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 791:       .width_p(16)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 792:       ,.els_p(4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 793:     ) half_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 794:       .data_i(final_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 795:       ,.sel_i(paddr_tv_r[2:1])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 796:       ,.data_o(data_half_selected)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 797:     );</pre>
+<pre style="margin:0; padding:0 "> 798: </pre>
+<pre style="margin:0; padding:0 "> 799:     bsg_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 800:       .width_p(8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 801:       ,.els_p(8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 802:     ) byte_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 803:       .data_i(final_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 804:       ,.sel_i(paddr_tv_r[2:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 805:       ,.data_o(data_byte_selected)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 806:     );</pre>
+<pre style="margin:0; padding:0 "> 807: </pre>
+<pre style="margin:0; padding:0 "> 808:     assign word_sigext = signed_op_tv_r & data_word_selected[31]; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 809:     assign half_sigext = signed_op_tv_r & data_half_selected[15]; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 810:     assign byte_sigext = signed_op_tv_r & data_byte_selected[7]; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 811: </pre>
+<pre style="margin:0; padding:0 "> 812:     assign data_o = load_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 813:       ? (double_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 814:         ? final_data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 815:         : (word_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 816:           ? {{32{word_sigext}}, data_word_selected}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 817:           : (half_op_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 818:             ? {{48{half_sigext}}, data_half_selected}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 819:             : {{56{byte_sigext}}, data_byte_selected})))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 820:       : (sc_op_tv_r & ~sc_success</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 821:          ? 64'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 822:          : 64'b0);;</pre>
+<pre style="margin:0; padding:0 "> 823: </pre>
+<pre style="margin:0; padding:0 "> 824:   end</pre>
+<pre style="margin:0; padding:0 "> 825:  </pre>
+<pre style="margin:0; padding:0 "> 826:   // ctrl logic</pre>
+<pre style="margin:0; padding:0 "> 827:   //</pre>
+<pre style="margin:0; padding:0 "> 828: </pre>
+<pre style="margin:0; padding:0 "> 829:   // data_mem</pre>
+<pre style="margin:0; padding:0 "> 830:   //</pre>
+<pre style="margin:0; padding:0 "> 831:   logic [lce_assoc_p-1:0] wbuf_data_mem_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 832:   bsg_decode #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 833:     .num_out_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 834:   ) wbuf_data_mem_v_decode (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 835:     .i(wbuf_entry_out.way_id ^ wbuf_entry_out_word_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 836:     ,.o(wbuf_data_mem_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 837:   );  </pre>
+<pre style="margin:0; padding:0 "> 838: </pre>
+<pre style="margin:0; padding:0 "> 839:   logic lce_data_mem_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 840:   assign lce_data_mem_v = (lce_data_mem_pkt.opcode != e_dcache_lce_data_mem_uncached)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 841:     & lce_data_mem_pkt_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 842: </pre>
+<pre style="margin:0; padding:0 "> 843:   assign data_mem_v_li = (load_op & tl_we)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 844:     ? {lce_assoc_p{1'b1}}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 845:     : (wbuf_yumi_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 846:       ? wbuf_data_mem_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 847:       : {lce_assoc_p{lce_data_mem_v}});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 848: </pre>
+<pre style="margin:0; padding:0 "> 849:   assign data_mem_w_li = wbuf_yumi_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 850:     | (lce_data_mem_pkt_yumi & lce_data_mem_pkt.opcode == e_dcache_lce_data_mem_write);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 851: </pre>
+<pre style="margin:0; padding:0 "> 852:   logic [lce_assoc_p-1:0][dword_width_p-1:0] lce_data_mem_write_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 853: </pre>
+<pre style="margin:0; padding:0 "> 854:   for (genvar i = 0; i < lce_assoc_p; i++) begin</pre>
+<pre style="margin:0; padding:0 "> 855:     assign data_mem_addr_li[i] = (load_op & tl_we)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 856:       ? {addr_index, addr_word_offset}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 857:       : (wbuf_yumi_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 858:         ? {wbuf_entry_out_index, wbuf_entry_out_word_offset}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 859:         : {lce_data_mem_pkt.index, lce_data_mem_pkt.way_id ^ ((word_offset_width_lp)'(i))});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 860:     assign data_mem_data_li[i] = wbuf_yumi_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 861:       ? wbuf_entry_out.data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 862:       : lce_data_mem_write_data[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 863:   </pre>
+<pre style="margin:0; padding:0 "> 864:     assign data_mem_mask_li[i] = wbuf_yumi_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 865:       ? wbuf_entry_out.mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 866:       : {data_mask_width_lp{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 867:   end</pre>
+<pre style="margin:0; padding:0 "> 868: </pre>
+<pre style="margin:0; padding:0 "> 869:   bsg_mux_butterfly#(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 870:     .width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 871:     ,.els_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 872:   ) write_mux_butterfly (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 873:     .data_i(lce_data_mem_pkt.data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 874:     ,.sel_i(lce_data_mem_pkt.way_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 875:     ,.data_o(lce_data_mem_write_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 876:   );</pre>
+<pre style="margin:0; padding:0 "> 877:  </pre>
+<pre style="margin:0; padding:0 "> 878:   // tag_mem</pre>
+<pre style="margin:0; padding:0 "> 879:   //</pre>
+<pre style="margin:0; padding:0 "> 880:   assign tag_mem_v_li = tl_we | lce_tag_mem_pkt_yumi; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 881:   assign tag_mem_w_li = ~tl_we & lce_tag_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 882:   assign tag_mem_addr_li = tl_we </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 883:     ? addr_index</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 884:     : lce_tag_mem_pkt.index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 885: </pre>
+<pre style="margin:0; padding:0 "> 886:   logic [lce_assoc_p-1:0] lce_tag_mem_way_one_hot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 887:   bsg_decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 888:     #(.num_out_p(lce_assoc_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 889:     lce_tag_mem_way_decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 890:       (.i(lce_tag_mem_pkt.way_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 891:       ,.o(lce_tag_mem_way_one_hot)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 892:       );</pre>
+<pre style="margin:0; padding:0 "> 893: </pre>
+<pre style="margin:0; padding:0 "> 894:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 895:     case (lce_tag_mem_pkt.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 896:       e_dcache_lce_tag_mem_set_clear: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 897:         tag_mem_data_li = {(tag_info_width_lp*lce_assoc_p){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 898:         tag_mem_mask_li = {(tag_info_width_lp*lce_assoc_p){1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 899:       end</pre>
+<pre style="margin:0; padding:0 "> 900:       e_dcache_lce_tag_mem_invalidate: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 901:         tag_mem_data_li = {((tag_info_width_lp)*lce_assoc_p){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 902:         for (integer i = 0; i < lce_assoc_p; i++) begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 903:           tag_mem_mask_li[i].coh_state = {`bp_coh_bits{lce_tag_mem_way_one_hot[i]}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 904:           tag_mem_mask_li[i].tag = {tag_width_lp{1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 905:         end</pre>
+<pre style="margin:0; padding:0 "> 906:       end</pre>
+<pre style="margin:0; padding:0 "> 907:       e_dcache_lce_tag_mem_set_tag: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 908:         tag_mem_data_li = {lce_assoc_p{lce_tag_mem_pkt.state, lce_tag_mem_pkt.tag}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 909:         for (integer i = 0; i < lce_assoc_p; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 910:           tag_mem_mask_li[i].coh_state = {`bp_coh_bits{lce_tag_mem_way_one_hot[i]}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 911:           tag_mem_mask_li[i].tag = {tag_width_lp{lce_tag_mem_way_one_hot[i]}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 912:         end</pre>
+<pre style="margin:0; padding:0 "> 913:       end</pre>
+<pre style="margin:0; padding:0 "> 914:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 915:         tag_mem_data_li = {(tag_info_width_lp*lce_assoc_p){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 916:         tag_mem_mask_li = {(tag_info_width_lp*lce_assoc_p){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 917:       end</pre>
+<pre style="margin:0; padding:0 "> 918:     endcase</pre>
+<pre style="margin:0; padding:0 "> 919:   end</pre>
+<pre style="margin:0; padding:0 "> 920: </pre>
+<pre style="margin:0; padding:0 "> 921:   // stat_mem</pre>
+<pre style="margin:0; padding:0 "> 922:   //</pre>
+<pre style="margin:0; padding:0 "> 923:   assign stat_mem_v_li = (v_tv_r & ~uncached_tv_r) | lce_stat_mem_pkt_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 924:   assign stat_mem_w_li = v_tv_r </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 925:     ? ~(load_miss_tv | store_miss_tv | lr_miss_tv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 926:     : lce_stat_mem_pkt_yumi & (lce_stat_mem_pkt.opcode != e_dcache_lce_stat_mem_read);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 927:   assign stat_mem_addr_li = v_tv_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 928:     ? addr_index_tv</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 929:     : lce_stat_mem_pkt.index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 930: </pre>
+<pre style="margin:0; padding:0 "> 931:   logic [way_id_width_lp-1:0] lru_decode_way_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:   logic [lce_assoc_p-2:0] lru_decode_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 933:   logic [lce_assoc_p-2:0] lru_decode_mask_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 934: </pre>
+<pre style="margin:0; padding:0 "> 935:   bsg_lru_pseudo_tree_decode #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 936:     .ways_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 937:   ) lru_decode (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 938:     .way_id_i(lru_decode_way_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 939:     ,.data_o(lru_decode_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 940:     ,.mask_o(lru_decode_mask_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 941:   );</pre>
+<pre style="margin:0; padding:0 "> 942:   </pre>
+<pre style="margin:0; padding:0 "> 943: </pre>
+<pre style="margin:0; padding:0 "> 944:   logic [way_id_width_lp-1:0] dirty_mask_way_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:   logic dirty_mask_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:   logic [lce_assoc_p-1:0] dirty_mask_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947: </pre>
+<pre style="margin:0; padding:0 "> 948:   bsg_decode_with_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 949:     #(.num_out_p(lce_assoc_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 950:     dirty_mask_decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 951:       (.i(dirty_mask_way_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 952:       ,.v_i(dirty_mask_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 953:       ,.o(dirty_mask_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 954:       );</pre>
+<pre style="margin:0; padding:0 "> 955: </pre>
+<pre style="margin:0; padding:0 "> 956:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 957:     if (v_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 958:       lru_decode_way_li = store_op_tv_r ? store_hit_way : load_hit_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 959:       dirty_mask_way_li = store_hit_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 960:       dirty_mask_v_li = store_op_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 961:       </pre>
+<pre style="margin:0; padding:0 "> 962:       stat_mem_data_li.lru = lru_decode_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 963:       stat_mem_data_li.dirty = {lce_assoc_p{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 964:       stat_mem_mask_li = {lru_decode_mask_lo, dirty_mask_lo};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 965:     end</pre>
+<pre style="margin:0; padding:0 "> 966:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 967:       lru_decode_way_li = lce_stat_mem_pkt.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 968:       dirty_mask_way_li = lce_stat_mem_pkt.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 969:       dirty_mask_v_li = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 970:       case (lce_stat_mem_pkt.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 971:         e_dcache_lce_stat_mem_set_clear: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 972:           stat_mem_data_li = {(stat_info_width_lp){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 973:           stat_mem_mask_li = {(stat_info_width_lp){1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 974:         end</pre>
+<pre style="margin:0; padding:0 "> 975:         e_dcache_lce_stat_mem_clear_dirty: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 976:           stat_mem_data_li = {(stat_info_width_lp){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 977:           stat_mem_mask_li.lru = {(lce_assoc_p-1){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 978:           stat_mem_mask_li.dirty = dirty_mask_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 979:         end</pre>
+<pre style="margin:0; padding:0 "> 980:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 981:           stat_mem_data_li = {(stat_info_width_lp){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 982:           stat_mem_mask_li = {(stat_info_width_lp){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 983:         end</pre>
+<pre style="margin:0; padding:0 "> 984:       endcase</pre>
+<pre style="margin:0; padding:0 "> 985:     end</pre>
+<pre style="margin:0; padding:0 "> 986:   end</pre>
+<pre style="margin:0; padding:0 "> 987: </pre>
+<pre style="margin:0; padding:0 "> 988: </pre>
+<pre style="margin:0; padding:0 "> 989:   // write buffer</pre>
+<pre style="margin:0; padding:0 "> 990:   //</pre>
+<pre style="margin:0; padding:0 "> 991:   assign wbuf_v_li = v_tv_r & store_op_tv_r & store_hit & ~sc_fail & ~uncached_tv_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 992:   assign wbuf_yumi_li = wbuf_v_lo & ~(load_op & tl_we);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 993:   assign bypass_v_li = tv_we & load_op_tl_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 994:   assign lce_snoop_index_li = lce_data_mem_pkt.index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 995:   assign lce_snoop_way_li = lce_data_mem_pkt.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 996: </pre>
+<pre style="margin:0; padding:0 "> 997:   // LCE data_mem</pre>
+<pre style="margin:0; padding:0 "> 998:   //</pre>
+<pre style="margin:0; padding:0 "> 999:   logic [way_id_width_lp-1:0] lce_data_mem_pkt_way_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1000: </pre>
+<pre style="margin:0; padding:0 ">1001:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1002:     if (lce_data_mem_pkt_yumi & (lce_data_mem_pkt.opcode == e_dcache_lce_data_mem_read)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1003:       lce_data_mem_pkt_way_r <= lce_data_mem_pkt.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1004:     end</pre>
+<pre style="margin:0; padding:0 ">1005:   end</pre>
+<pre style="margin:0; padding:0 ">1006: </pre>
+<pre style="margin:0; padding:0 ">1007:   bsg_mux_butterfly #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1008:     .width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1009:     ,.els_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1010:   ) read_mux_butterfly (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1011:     .data_i(data_mem_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1012:     ,.sel_i(lce_data_mem_pkt_way_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1013:     ,.data_o(lce_data_mem_data_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1014:   );</pre>
+<pre style="margin:0; padding:0 ">1015: </pre>
+<pre style="margin:0; padding:0 ">1016:   assign lce_data_mem_pkt_yumi = (lce_data_mem_pkt.opcode == e_dcache_lce_data_mem_uncached)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1017:     ? lce_data_mem_pkt_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1018:     : ~(load_op & tl_we) & ~wbuf_v_lo & ~lce_snoop_match_lo & lce_data_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1019: </pre>
+<pre style="margin:0; padding:0 ">1020:   // load reservation logic</pre>
+<pre style="margin:0; padding:0 ">1021:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1022:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1023:       load_reserved_v_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1024:     end</pre>
+<pre style="margin:0; padding:0 ">1025:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1026:       // The LR has successfully completed, without a cache miss or upgrade request</pre>
+<pre style="margin:0; padding:0 ">1027:       if (lr_op_tv_r & v_o & ~lr_miss_tv) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1028:         load_reserved_v_r     <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1029:         load_reserved_tag_r   <= paddr_tv_r[block_offset_width_lp+index_width_lp+:tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1030:         load_reserved_index_r <= paddr_tv_r[block_offset_width_lp+:index_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1031:       // All SCs clear the reservation (regardless of success)</pre>
+<pre style="margin:0; padding:0 ">1032:       end else if (sc_op_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1033:         load_reserved_v_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1034:       // Invalidates from other harts which match the reservation address clear the reservation</pre>
+<pre style="margin:0; padding:0 ">1035:       end else if (lce_tag_mem_pkt_v & (lce_tag_mem_pkt.opcode == e_dcache_lce_tag_mem_invalidate) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1036:                   & (lce_tag_mem_pkt.tag == load_reserved_tag_r) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1037:                   & (lce_tag_mem_pkt.index == load_reserved_index_r)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1038:         load_reserved_v_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1039:       end</pre>
+<pre style="margin:0; padding:0 ">1040:     end</pre>
+<pre style="margin:0; padding:0 ">1041:   end</pre>
+<pre style="margin:0; padding:0 ">1042: </pre>
+<pre style="margin:0; padding:0 ">1043:   //  uncached load data logic</pre>
+<pre style="margin:0; padding:0 ">1044:   //</pre>
+<pre style="margin:0; padding:0 ">1045:   //synopsys sync_set_reset "reset_i"</pre>
+<pre style="margin:0; padding:0 ">1046:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1047:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1048:       uncached_load_data_v_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1049:     end</pre>
+<pre style="margin:0; padding:0 ">1050:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1051:       if (lce_data_mem_pkt_yumi & (lce_data_mem_pkt.opcode == e_dcache_lce_data_mem_uncached)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1052:         uncached_load_data_r <= lce_data_mem_pkt.data[0+:dword_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1053:         uncached_load_data_v_r <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1054:       end</pre>
+<pre style="margin:0; padding:0 ">1055:       else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1056:         // once uncached load request is replayed, and v_o goes high,</pre>
+<pre style="margin:0; padding:0 ">1057:         // cleared the valid bit.</pre>
+<pre style="margin:0; padding:0 ">1058:         if (v_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1059:           uncached_load_data_v_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1060:         end</pre>
+<pre style="margin:0; padding:0 ">1061:       end</pre>
+<pre style="margin:0; padding:0 ">1062:     end</pre>
+<pre style="margin:0; padding:0 ">1063:   end</pre>
+<pre style="margin:0; padding:0 ">1064:   </pre>
+<pre style="margin:0; padding:0 ">1065:   // LCE tag_mem</pre>
+<pre style="margin:0; padding:0 ">1066:   //</pre>
+<pre style="margin:0; padding:0 ">1067:   assign lce_tag_mem_pkt_yumi = lce_tag_mem_pkt_v & ~tl_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1068:   </pre>
+<pre style="margin:0; padding:0 ">1069:   // LCE stat_mem</pre>
+<pre style="margin:0; padding:0 ">1070:   //</pre>
+<pre style="margin:0; padding:0 ">1071:   assign lce_stat_mem_pkt_yumi = ~(v_tv_r & ~uncached_tv_r) & lce_stat_mem_pkt_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1072: </pre>
+<pre style="margin:0; padding:0 ">1073:   // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">1074:   if (debug_p) begin: axe</pre>
+<pre id="id1075" style="background-color: #FFB6C1; margin:0; padding:0 ">1075:     bp_be_dcache_axe_trace_gen</pre>
+<pre id="id1076" style="background-color: #FFB6C1; margin:0; padding:0 ">1076:       #(.addr_width_p(paddr_width_p)</pre>
+<pre id="id1077" style="background-color: #FFB6C1; margin:0; padding:0 ">1077:         ,.data_width_p(dword_width_p)</pre>
+<pre id="id1078" style="background-color: #FFB6C1; margin:0; padding:0 ">1078:         ,.num_lce_p(num_lce_p)</pre>
+<pre id="id1079" style="background-color: #FFB6C1; margin:0; padding:0 ">1079:         )</pre>
+<pre style="margin:0; padding:0 ">1080:       axe_trace_gen</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1081:         (.clk_i(clk_i)</pre>
+<pre id="id1082" style="background-color: #FFB6C1; margin:0; padding:0 ">1082:         ,.id_i(lce_id_i)</pre>
+<pre id="id1083" style="background-color: #FFB6C1; margin:0; padding:0 ">1083:         ,.v_i(v_o)</pre>
+<pre id="id1084" style="background-color: #FFB6C1; margin:0; padding:0 ">1084:         ,.addr_i(paddr_tv_r)</pre>
+<pre id="id1085" style="background-color: #FFB6C1; margin:0; padding:0 ">1085:         ,.load_data_i(data_o)</pre>
+<pre id="id1086" style="background-color: #FFB6C1; margin:0; padding:0 ">1086:         ,.store_data_i(data_tv_r)</pre>
+<pre id="id1087" style="background-color: #FFB6C1; margin:0; padding:0 ">1087:         ,.load_i(load_op_tv_r)</pre>
+<pre id="id1088" style="background-color: #FFB6C1; margin:0; padding:0 ">1088:         ,.store_i(store_op_tv_r)</pre>
+<pre id="id1089" style="background-color: #FFB6C1; margin:0; padding:0 ">1089:         );</pre>
+<pre style="margin:0; padding:0 ">1090:   end</pre>
+<pre style="margin:0; padding:0 ">1091: </pre>
+<pre style="margin:0; padding:0 ">1092:   always_ff @ (negedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1093:     if (v_tv_r) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1094:       assert($countones(load_hit_tv) <= 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1095:         else $error("multiple load hit: %b. id = %0d", load_hit_tv, lce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1096:       assert($countones(store_hit_tv) <= 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1097:         else $error("multiple store hit: %b. id = %0d", store_hit_tv, lce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1098:       assert (~(sc_op_tv_r & load_reserved_v_r & (load_reserved_tag_r == addr_tag_tv) & (load_reserved_index_r == addr_index_tv)) | store_hit)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1099:           else $error("sc success without exclusive ownership of cache line: %x %x", load_reserved_tag_r, load_reserved_index_r);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1100:     end</pre>
+<pre style="margin:0; padding:0 ">1101:   end</pre>
+<pre style="margin:0; padding:0 ">1102: </pre>
+<pre style="margin:0; padding:0 ">1103:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1104:     assert(dword_width_p == 64) else $error("dword_width_p has to be 64");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1105:     assert(lce_assoc_p == 8) else $error("lce_assoc_p has to be 8");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1106:   end</pre>
+<pre style="margin:0; padding:0 ">1107:   // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">1108: </pre>
+<pre style="margin:0; padding:0 ">1109: endmodule</pre>
+<pre style="margin:0; padding:0 ">1110: </pre>
+</body>
+</html>

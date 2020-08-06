@@ -1,7 +1,6 @@
 /*
 :name: value_plusargs
 :description: $value$plusargs test
-:should_fail: 0
 :tags: 21.6
 :type: simulation parsing
 */

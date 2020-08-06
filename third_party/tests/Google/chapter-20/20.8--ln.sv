@@ -1,7 +1,6 @@
 /*
 :name: ln_function
 :description: $ln test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

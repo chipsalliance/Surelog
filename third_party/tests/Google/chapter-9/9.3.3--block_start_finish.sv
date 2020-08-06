@@ -1,7 +1,6 @@
 /*
 :name: block_start_finish
 :description: block start finish check
-:should_fail: 0
 :tags: 9.3.3
 */
 module block_tb ();

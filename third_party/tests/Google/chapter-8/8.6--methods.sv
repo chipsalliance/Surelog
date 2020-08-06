@@ -1,7 +1,6 @@
 /*
 :name: methods
 :description: class method test
-:should_fail: 0
 :tags: 8.6
 */
 module class_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: event_conditional
 :description: event conditional
-:should_fail: 0
 :tags: 9.4.2.3
 */
 module block_tb ();

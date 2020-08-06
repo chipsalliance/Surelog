@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/rv_plic/rtl/rv_plic_target.sv Cov: 89.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // RISC-V Platform-Level Interrupt Generator for Target</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module basically doing IE & IP based on priority and threshold.</pre>
+<pre style="margin:0; padding:0 ">   8: // Keep in mind that increasing MAX_PRIO affects logic size a lot.</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // The module implements a binary tree to find the maximal entry. the solution</pre>
+<pre style="margin:0; padding:0 ">  11: // has O(N) area and O(log(N)) delay complexity, and thus scales well with</pre>
+<pre style="margin:0; padding:0 ">  12: // many input sources.</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: module rv_plic_target #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int N_SOURCE = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int MAX_PRIO = 7,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // Local param (Do not change this through parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int unsigned SRCW  = $clog2(N_SOURCE+1),  // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int unsigned PRIOW = $clog2(MAX_PRIO+1)   // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  22: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input [N_SOURCE-1:0] ip,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input [N_SOURCE-1:0] ie,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input [PRIOW-1:0] prio [N_SOURCE],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input [PRIOW-1:0] threshold,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic            irq,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic [SRCW-1:0] irq_id</pre>
+<pre style="margin:0; padding:0 ">  34: );</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // this only works with 2 or more sources</pre>
+<pre style="margin:0; padding:0 ">  37:   `ASSERT_INIT(NumSources_A, N_SOURCE >= 2)</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // align to powers of 2 for simplicity</pre>
+<pre style="margin:0; padding:0 ">  40:   // a full binary tree with N levels has 2**N + 2**N-1 nodes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   localparam int unsigned N_LEVELS = $clog2(N_SOURCE);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [2**(N_LEVELS+1)-2:0]            is_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [2**(N_LEVELS+1)-2:0][SRCW-1:0]  id_tree;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [2**(N_LEVELS+1)-2:0][PRIOW-1:0] max_tree;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   for (genvar level = 0; level < N_LEVELS+1; level++) begin : gen_tree</pre>
+<pre style="margin:0; padding:0 ">  47:     //</pre>
+<pre style="margin:0; padding:0 ">  48:     // level+1   c0   c1   <- "base1" points to the first node on "level+1",</pre>
+<pre style="margin:0; padding:0 ">  49:     //            \  /         these nodes are the children of the nodes one level below</pre>
+<pre style="margin:0; padding:0 ">  50:     // level       pa      <- "base0", points to the first node on "level",</pre>
+<pre style="margin:0; padding:0 ">  51:     //                         these nodes are the parents of the nodes one level above</pre>
+<pre style="margin:0; padding:0 ">  52:     //</pre>
+<pre style="margin:0; padding:0 ">  53:     // hence we have the following indices for the pa, c0, c1 nodes:</pre>
+<pre style="margin:0; padding:0 ">  54:     // pa = 2**level     - 1 + offset       = base0 + offset</pre>
+<pre style="margin:0; padding:0 ">  55:     // c0 = 2**(level+1) - 1 + 2*offset     = base1 + 2*offset</pre>
+<pre style="margin:0; padding:0 ">  56:     // c1 = 2**(level+1) - 1 + 2*offset + 1 = base1 + 2*offset + 1</pre>
+<pre style="margin:0; padding:0 ">  57:     //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     localparam int unsigned base0 = (2**level)-1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     localparam int unsigned base1 = (2**(level+1))-1;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     for (genvar offset = 0; offset < 2**level; offset++) begin : gen_level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       localparam int unsigned pa = base0 + offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       localparam int unsigned c0 = base1 + 2*offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       localparam int unsigned c1 = base1 + 2*offset + 1;</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:       // this assigns the gated interrupt source signals, their</pre>
+<pre style="margin:0; padding:0 ">  67:       // corresponding IDs and priorities to the tree leafs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       if (level == N_LEVELS) begin : gen_leafs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:         if (offset < N_SOURCE) begin : gen_assign</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:           assign is_tree[pa]  = ip[offset] & ie[offset];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:           assign id_tree[pa]  = offset+1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:           assign max_tree[pa] = prio[offset];</pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:         end else begin : gen_tie_off</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:           assign is_tree[pa]  = '0;</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:           assign id_tree[pa]  = '0;</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:           assign max_tree[pa] = '0;</pre>
+<pre style="margin:0; padding:0 ">  77:         end</pre>
+<pre style="margin:0; padding:0 ">  78:       // this creates the node assignments</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       end else begin : gen_nodes</pre>
+<pre style="margin:0; padding:0 ">  80:         // NOTE: the code below has been written in this way in order to work</pre>
+<pre style="margin:0; padding:0 ">  81:         // around a synthesis issue in Vivado 2018.3 and 2019.2 where the whole</pre>
+<pre style="margin:0; padding:0 ">  82:         // module would be optimized away if these assign statements contained</pre>
+<pre style="margin:0; padding:0 ">  83:         // ternary statements to implement the muxes.</pre>
+<pre style="margin:0; padding:0 ">  84:         //</pre>
+<pre style="margin:0; padding:0 ">  85:         // TODO: rewrite these lines with ternary statmements onec the problem</pre>
+<pre style="margin:0; padding:0 ">  86:         // has been fixed in the tool.</pre>
+<pre style="margin:0; padding:0 ">  87:         //</pre>
+<pre style="margin:0; padding:0 ">  88:         // See also originating issue:</pre>
+<pre style="margin:0; padding:0 ">  89:         // https://github.com/lowRISC/opentitan/issues/1355</pre>
+<pre style="margin:0; padding:0 ">  90:         // Xilinx issue:</pre>
+<pre style="margin:0; padding:0 ">  91:         // https://forums.xilinx.com/t5/Synthesis/Simulation-Synthesis-Mismatch-with-Vivado-2018-3/m-p/1065923#M33849</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:         logic sel; // local helper variable</pre>
+<pre style="margin:0; padding:0 ">  94:         // in case only one of the parent has a pending irq, forward that one</pre>
+<pre style="margin:0; padding:0 ">  95:         // in case both irqs are pending, forward the one with higher priority</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         assign sel = (~is_tree[c0] & is_tree[c1]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:                      (is_tree[c0] & is_tree[c1] & logic'(max_tree[c1] > max_tree[c0]));</pre>
+<pre style="margin:0; padding:0 ">  98:         // forwarding muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         assign is_tree[pa]  = (sel          & is_tree[c1])  | ((~sel)        & is_tree[c0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:         assign id_tree[pa]  = ({SRCW{sel}}  & id_tree[c1])  | ({SRCW{~sel}}  & id_tree[c0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:         assign max_tree[pa] = ({PRIOW{sel}} & max_tree[c1]) | ({PRIOW{~sel}} & max_tree[c0]);</pre>
+<pre style="margin:0; padding:0 "> 102:       end</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:     end : gen_level</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:   end : gen_tree</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   logic irq_d, irq_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   logic [SRCW-1:0] irq_id_d, irq_id_q;</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   // the results can be found at the tree root</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign irq_d    = (max_tree[0] > threshold) ? is_tree[0] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign irq_id_d = (is_tree[0]) ? id_tree[0] : '0;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   always_ff @(posedge clk_i or negedge rst_ni) begin : gen_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       irq_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       irq_id_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       irq_q    <= irq_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       irq_id_q <= irq_id_d;</pre>
+<pre style="margin:0; padding:0 "> 120:     end</pre>
+<pre style="margin:0; padding:0 "> 121:   end</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign irq    = irq_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign irq_id = irq_id_q;</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126: endmodule</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+</body>
+</html>

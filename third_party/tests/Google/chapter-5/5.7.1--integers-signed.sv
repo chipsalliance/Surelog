@@ -1,7 +1,6 @@
 /*
 :name: integers-signed
 :description: Integer literal constants
-:should_fail: 0
 :tags: 5.7.1
 */
 module top();

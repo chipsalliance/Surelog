@@ -1,7 +1,6 @@
 /*
 :name: unpacked-arrays-as-arguments-to-subroutines
 :description: Test support of arrays as arugments to subroutines
-:should_fail: 0
 :tags: 7.7 7.4.2
 :type: simulation parsing
 */

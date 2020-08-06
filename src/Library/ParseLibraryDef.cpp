@@ -50,10 +50,6 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
       m_configSet(configSet),
       m_fileContent(NULL) {}
 
-ParseLibraryDef::ParseLibraryDef(const ParseLibraryDef& orig) {}
-
-ParseLibraryDef::~ParseLibraryDef() {}
-
 bool ParseLibraryDef::parseLibrariesDefinition() {
   // Get .map files from command line
   std::vector<SymbolId> libraryMapFiles =
@@ -138,9 +134,9 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
   SVLibShapeListener* m_listener =
       new SVLibShapeListener(this, m_tokens, relativePath);
   m_fileContent = m_listener->getFileContent();
-  
+
   tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
- 
+
   if (m_fileContent->getLibrary() == NULL) {
     if (lib) {
       m_fileContent->setLibrary(lib);
@@ -222,7 +218,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
       if (type == slInst_clause) instName = fC->Child(instName);
       std::string instNameS;
       while (instName) {
-        if (instNameS == "")
+        if (instNameS.empty())
           instNameS = fC->SymName(instName);
         else
           instNameS += "." + fC->SymName(instName);
@@ -252,7 +248,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         } else {
           NodeId mem = use;
           while (use) {
-            if (useName == "")
+            if (useName.empty())
               useName = fC->SymName(use);
             else
               useName += "." + fC->SymName(use);
@@ -270,7 +266,7 @@ bool ParseLibraryDef::parseConfigDefinition() {
         std::string useName;
         NodeId mem = use;
         while (use) {
-          if (useName == "")
+          if (useName.empty())
             useName = fC->SymName(use);
           else
             useName += "@" + fC->SymName(use);

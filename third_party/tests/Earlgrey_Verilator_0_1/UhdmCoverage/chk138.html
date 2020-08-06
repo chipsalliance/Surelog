@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_filter.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright 2018 lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Indentifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Primitive input filter, with enable.  Configurable number of cycles.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // when in reset, stored vector is zero</pre>
+<pre style="margin:0; padding:0 ">   8: // when enable is false, output is input</pre>
+<pre style="margin:0; padding:0 ">   9: // when enable is true, output is stored value,</pre>
+<pre style="margin:0; padding:0 ">  10: //   new input must be opposite value from stored value for</pre>
+<pre style="margin:0; padding:0 ">  11: //   #Cycles before switching to new value.</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: module prim_filter #(parameter int Cycles = 4) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  filter_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output filter_o</pre>
+<pre style="margin:0; padding:0 ">  19: );</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   logic [Cycles-1:0] stored_vector_q, stored_vector_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic stored_value_q, update_stored_value;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic unused_stored_vector_q_msb;</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       stored_value_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     end else if (update_stored_value) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       stored_value_q <= filter_i;</pre>
+<pre style="margin:0; padding:0 ">  30:     end</pre>
+<pre style="margin:0; padding:0 ">  31:   end</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   assign stored_vector_d = {stored_vector_q[Cycles-2:0],filter_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   assign unused_stored_vector_q_msb = stored_vector_q[Cycles-1];</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       stored_vector_q <= {Cycles{1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:       stored_vector_q <= stored_vector_d;</pre>
+<pre style="margin:0; padding:0 ">  41:     end</pre>
+<pre style="margin:0; padding:0 ">  42:   end</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   assign update_stored_value =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:              (stored_vector_d == {Cycles{1'b0}}) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:              (stored_vector_d == {Cycles{1'b1}});</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign filter_o = enable_i ? stored_value_q : filter_i;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50: endmodule</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+</body>
+</html>

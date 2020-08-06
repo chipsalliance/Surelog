@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usb_fs_nb_pe/rtl/usb_fs_nb_out_pe.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright Luke Valenty (TinyFPGA project)</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: // USB Full Speed Non-Buffered Protocol Engine for OUT/SETUP endpoints</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // Decode OUT/SETUP requests from host and accept data unless buffers are full</pre>
+<pre style="margin:0; padding:0 ">   9: // (SETUP is a special form of OUT and starts a transaction sequence)</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // Based on usb_fs_out_pe.v from the TinyFPGA-Bootloader project but</pre>
+<pre style="margin:0; padding:0 ">  12: // this version contains no packet buffers</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: module usb_fs_nb_out_pe #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned NumOutEps = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int unsigned MaxOutPktSizeByte = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int unsigned PktW = $clog2(MaxOutPktSizeByte),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int unsigned OutEpW = $clog2(NumOutEps)</pre>
+<pre style="margin:0; padding:0 ">  19: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  logic                   clk_48mhz_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input  logic                   rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  logic                   link_reset_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  logic [6:0]             dev_addr_i,</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  26:   // endpoint interface //</pre>
+<pre style="margin:0; padding:0 ">  27:   ////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic [3:0]             out_ep_current_o, // Other signals address to this ep, this signal will be stable for several cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic                   out_ep_data_put_o, // put the data (put addr advances after)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic [PktW - 1:0]      out_ep_put_addr_o, // Offset to put data (0..pktlen)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [7:0]             out_ep_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic                   out_ep_newpkt_o, // new packed, current was set</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                   out_ep_acked_o, // good termination, device has acked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic                   out_ep_rollback_o, // bad termination, discard data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [NumOutEps-1:0]   out_ep_setup_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input  logic [NumOutEps-1:0]   out_ep_full_i, // Cannot accept data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input  logic [NumOutEps-1:0]   out_ep_stall_i, // Stalled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input  logic [NumOutEps-1:0]   out_ep_iso_i, // Configure endpoint in isochronous mode</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input logic  [NumOutEps-1:0]   data_toggle_clear_i, // Clear the data toggles for an EP</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  43:   // rx path //</pre>
+<pre style="margin:0; padding:0 ">  44:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // Strobed on reception of packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input  logic                 rx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   input  logic                 rx_pkt_end_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   input  logic                 rx_pkt_valid_i,</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // Most recent packet received.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input  logic [3:0]           rx_pid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  logic [6:0]           rx_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input  logic [3:0]           rx_endp_i,</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:   // rx_data is pushed into endpoint controller.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   input  logic                 rx_data_put_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   input  logic [7:0]           rx_data_i,</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  62:   // tx path //</pre>
+<pre style="margin:0; padding:0 ">  63:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // Strobe to send new packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   output logic                 tx_pkt_start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   input  logic                 tx_pkt_end_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   output logic [3:0]           tx_pid_o</pre>
+<pre style="margin:0; padding:0 ">  69: );</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   // suppress warnings</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic                      unused_1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   assign unused_1 = tx_pkt_end_i;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  76:   // out transfer state machine //</pre>
+<pre style="margin:0; padding:0 ">  77:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  78:   import usb_consts_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     StIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     StRcvdOut,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     StRcvdDataStart,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     StRcvdDataEnd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     StRcvdIsoDataEnd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   } state_out_e;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   state_out_e  out_xfr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   state_out_e  out_xfr_state_next;</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic out_xfr_start;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic new_pkt_end;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic rollback_data;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95:   // set when the endpoint buffer is unable to receive the out transfer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic nak_out_transfer;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="margin:0; padding:0 ">  98:   // data toggle state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic [NumOutEps - 1:0] data_toggle_q, data_toggle_d;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // Make widths work</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   logic [OutEpW - 1 : 0]    out_ep_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign out_ep_index = out_ep_current_o[0 +: OutEpW];</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105:   // Decode the rx token</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   logic token_received, out_token_received, setup_token_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   logic invalid_packet_received, data_packet_received, non_data_packet_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   logic bad_data_toggle;</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:   // 1: If the current transfer is a SETUP, 0: OUT</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   logic current_xfer_setup_q;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   // More syntax so can compare with enum</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   usb_pid_type_e rx_pid_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   usb_pid_e      rx_pid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   assign rx_pid_type = usb_pid_type_e'(rx_pid_i[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   assign rx_pid      = usb_pid_e'(rx_pid_i);</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     rx_pkt_valid_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     rx_pid_type == UsbPidTypeToken &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     rx_addr_i == dev_addr_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     rx_endp_i < NumOutEps;</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign out_token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     token_received &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     rx_pid == UsbPidOut;</pre>
+<pre style="margin:0; padding:0 "> 129: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   assign setup_token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     token_received &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     rx_pid == UsbPidSetup;</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   assign invalid_packet_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     !rx_pkt_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   assign data_packet_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     rx_pkt_valid_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     ((rx_pid == UsbPidData0) || (rx_pid == UsbPidData1));</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   assign non_data_packet_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     rx_pkt_valid_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     !((rx_pid == UsbPidData0) || (rx_pid == UsbPidData1));</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign bad_data_toggle =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     data_packet_received &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     rx_pid_i[3] != data_toggle_q[rx_endp_i[0 +: OutEpW]]; // lint: rx_endp_i range was checked</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       out_ep_setup_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       if (setup_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:         out_ep_setup_o[rx_endp_i[0 +: OutEpW]] <= 1; // lint: rx_endp_i range was checked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       end else if (out_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:         out_ep_setup_o[rx_endp_i[0 +: OutEpW]] <= 0; // lint: rx_endp_i range was checked</pre>
+<pre style="margin:0; padding:0 "> 162:       end</pre>
+<pre style="margin:0; padding:0 "> 163:     end</pre>
+<pre style="margin:0; padding:0 "> 164:   end</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:       out_ep_data_o <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       if (rx_data_put_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:         out_ep_data_o <= rx_data_i;</pre>
+<pre style="margin:0; padding:0 "> 172:       end</pre>
+<pre style="margin:0; padding:0 "> 173:     end</pre>
+<pre style="margin:0; padding:0 "> 174:   end</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 177:   // out transfer state machine //</pre>
+<pre style="margin:0; padding:0 "> 178:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 179: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     out_ep_acked_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     out_xfr_start = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     out_xfr_state_next = out_xfr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     tx_pkt_start_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     tx_pid_o = 4'b0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     new_pkt_end = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     rollback_data = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     unique case (out_xfr_state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:         if (out_token_received || setup_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:           out_xfr_state_next = StRcvdOut;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:           out_xfr_start = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           out_xfr_state_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 196:         end</pre>
+<pre style="margin:0; padding:0 "> 197:       end</pre>
+<pre style="margin:0; padding:0 "> 198: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       StRcvdOut: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:         if (rx_pkt_start_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:           out_xfr_state_next = StRcvdDataStart;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:           out_xfr_state_next = StRcvdOut;</pre>
+<pre style="margin:0; padding:0 "> 204:         end</pre>
+<pre style="margin:0; padding:0 "> 205:       end</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       StRcvdDataStart: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:         if (out_ep_iso_i[out_ep_index] && data_packet_received) begin</pre>
+<pre style="margin:0; padding:0 "> 209:           // ISO endpoint: Don't send a handshake, ignore toggle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:           out_xfr_state_next = StRcvdIsoDataEnd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:         end else if (bad_data_toggle) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:           out_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:           rollback_data = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:           tx_pkt_start_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:           tx_pid_o = {UsbPidAck}; // ACK by spec because this is most likely previous ACK was lost</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:         end else if (invalid_packet_received || non_data_packet_received) begin</pre>
+<pre style="margin:0; padding:0 "> 217:           // in these cases eg bad CRC, send no response (not a NAK)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:           out_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:           rollback_data = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:         end else if (data_packet_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:           out_xfr_state_next = StRcvdDataEnd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:           out_xfr_state_next = StRcvdDataStart;</pre>
+<pre style="margin:0; padding:0 "> 224:         end</pre>
+<pre style="margin:0; padding:0 "> 225:       end</pre>
+<pre style="margin:0; padding:0 "> 226: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:       StRcvdDataEnd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:         out_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         tx_pkt_start_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:         if (out_ep_stall_i[out_ep_index] && !current_xfer_setup_q) begin // lint: out_ep_index range was checked</pre>
+<pre style="margin:0; padding:0 "> 232:           // We only send STALL for OUT transfers, not for SETUP transfers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:           tx_pid_o = {UsbPidStall}; // STALL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:         end else if (nak_out_transfer) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:           tx_pid_o = {UsbPidNak}; // NAK -- the endpoint could not accept the data at the moment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           rollback_data = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:           tx_pid_o = {UsbPidAck}; // ACK</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:           new_pkt_end = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:           out_ep_acked_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 241:         end</pre>
+<pre style="margin:0; padding:0 "> 242:       end</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       StRcvdIsoDataEnd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         out_xfr_state_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         if (out_ep_stall_i[out_ep_index] && !current_xfer_setup_q) begin</pre>
+<pre style="margin:0; padding:0 "> 248:           // Send a STALL (something bad happened and the host needs to resolve it)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:           tx_pkt_start_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:           tx_pid_o       = {UsbPidStall}; // STALL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:         end else if (nak_out_transfer) begin</pre>
+<pre style="margin:0; padding:0 "> 252:           // We got a valid packet, but can't store it (error that the software must resolve)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:           rollback_data = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 255:           // We got a valid packet, but we don't send an ACK on the bus</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:           new_pkt_end    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:           out_ep_acked_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 258:         end</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
+<pre style="margin:0; padding:0 "> 260:       end</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:       default: out_xfr_state_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 263:     endcase</pre>
+<pre style="margin:0; padding:0 "> 264:   end</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266:   // could flop this if needed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:   assign out_ep_rollback_o = rollback_data;</pre>
+<pre style="margin:0; padding:0 "> 268: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:       out_xfr_state <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:       out_xfr_state <= link_reset_i ? StIdle : out_xfr_state_next;</pre>
+<pre style="margin:0; padding:0 "> 274:     end</pre>
+<pre style="margin:0; padding:0 "> 275:   end</pre>
+<pre style="margin:0; padding:0 "> 276: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:   always_comb begin : proc_data_toggle_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     data_toggle_d = data_toggle_q;</pre>
+<pre style="margin:0; padding:0 "> 279: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:     if (setup_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:       data_toggle_d[rx_endp_i[0 +: OutEpW]] = 1'b0; // lint: rx_endp_i range was checked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:     end else if (new_pkt_end) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       data_toggle_d[out_ep_index] = ~data_toggle_q[out_ep_index]; // lint: range was checked</pre>
+<pre style="margin:0; padding:0 "> 284:     end</pre>
+<pre style="margin:0; padding:0 "> 285: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:     data_toggle_d = data_toggle_d & ~data_toggle_clear_i;</pre>
+<pre style="margin:0; padding:0 "> 287:   end</pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       data_toggle_q <= '0; // All endpoints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     end else if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:       data_toggle_q <= '0; // All endpoints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       data_toggle_q <= data_toggle_d;</pre>
+<pre style="margin:0; padding:0 "> 296:     end</pre>
+<pre style="margin:0; padding:0 "> 297:   end</pre>
+<pre style="margin:0; padding:0 "> 298: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       out_ep_newpkt_o       <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       out_ep_current_o      <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       current_xfer_setup_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       if (out_xfr_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:         out_ep_newpkt_o      <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:         out_ep_current_o     <= rx_endp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:         current_xfer_setup_q <= setup_token_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:         out_ep_newpkt_o <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 311:       end</pre>
+<pre style="margin:0; padding:0 "> 312:     end</pre>
+<pre style="margin:0; padding:0 "> 313:   end</pre>
+<pre style="margin:0; padding:0 "> 314: </pre>
+<pre style="margin:0; padding:0 "> 315:   // put data strobe follows the rx strobe (which will latch the data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       out_ep_data_put_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       out_ep_data_put_o <= ((out_xfr_state == StRcvdDataStart) && rx_data_put_i);</pre>
+<pre style="margin:0; padding:0 "> 321:     end</pre>
+<pre style="margin:0; padding:0 "> 322:   end</pre>
+<pre style="margin:0; padding:0 "> 323: </pre>
+<pre style="margin:0; padding:0 "> 324:   // nack an OUT if any data comes in with the endpoint full</pre>
+<pre style="margin:0; padding:0 "> 325:   // Note that if there is a full size packet buffer this will only be all or nothing</pre>
+<pre style="margin:0; padding:0 "> 326:   // but in the case there was a FIFO with less than a max packet size free you</pre>
+<pre style="margin:0; padding:0 "> 327:   // could get lucky and the packet received be small and fit with no need to NAK</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:       nak_out_transfer <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:       if ((out_xfr_state == StIdle) || (out_xfr_state == StRcvdOut)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:         nak_out_transfer <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       end else if (out_ep_data_put_o && out_ep_full_i[out_ep_index]) begin // lint: range checked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:         nak_out_transfer <= 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 336:       end</pre>
+<pre style="margin:0; padding:0 "> 337:     end</pre>
+<pre style="margin:0; padding:0 "> 338:   end</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
+<pre style="margin:0; padding:0 "> 340:   // address increment whenever there is a data put unless</pre>
+<pre style="margin:0; padding:0 "> 341:   // -- already going to NAK transaction and replay things</pre>
+<pre style="margin:0; padding:0 "> 342:   // -- the address is at max packet size</pre>
+<pre style="margin:0; padding:0 "> 343:   // NOTE if more than max packet size received then data is lost</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:   logic increment_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:   assign increment_addr = !nak_out_transfer && (~&out_ep_put_addr_o) && out_ep_data_put_o;</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       out_ep_put_addr_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       if (out_xfr_state == StRcvdOut) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:         out_ep_put_addr_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:       end else if ((out_xfr_state == StRcvdDataStart) && increment_addr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:         out_ep_put_addr_o <= out_ep_put_addr_o + 1;</pre>
+<pre style="margin:0; padding:0 "> 355:       end</pre>
+<pre style="margin:0; padding:0 "> 356:     end</pre>
+<pre style="margin:0; padding:0 "> 357:   end</pre>
+<pre style="margin:0; padding:0 "> 358: </pre>
+<pre style="margin:0; padding:0 "> 359: endmodule</pre>
+<pre style="margin:0; padding:0 "> 360: </pre>
+</body>
+</html>

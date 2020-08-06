@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_mem/bsg_mem_2r1w_sync.v Cov: 90.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 7/7/2016</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // 2 read-port, 1 write-port ram</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // reads are synchronous</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // although we could merge this with normal bsg_mem_1r1w</pre>
+<pre style="margin:0; padding:0 ">   8: // and select with a parameter, we do not do this because</pre>
+<pre style="margin:0; padding:0 ">   9: // it's typically a very big change to the instantiating code</pre>
+<pre style="margin:0; padding:0 ">  10: // to move to/from sync/async, and we want to reflect this.</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module bsg_mem_2r1w_sync #(parameter width_p=-1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:                            , parameter els_p=-1</pre>
+<pre style="margin:0; padding:0 ">  15:                            , parameter read_write_same_addr_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:                            , parameter addr_width_lp=`BSG_SAFE_CLOG2(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:                            , parameter harden_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:                            , parameter enable_clock_gating_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                            )</pre>
+<pre style="margin:0; padding:0 ">  20:    (input   clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:     , input                     w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , input [addr_width_lp-1:0] w_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , input [width_p-1:0]       w_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:     // currently unused</pre>
+<pre style="margin:0; padding:0 ">  28:     , input                      r0_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , input [addr_width_lp-1:0]  r0_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , output logic [width_p-1:0] r0_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:     , input                      r1_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , input [addr_width_lp-1:0]  r1_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , output logic [width_p-1:0] r1_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     );</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:    wire clk_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:    if (enable_clock_gating_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:      begin</pre>
+<pre style="margin:0; padding:0 ">  41:        bsg_clkgate_optional icg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:          (.clk_i( clk_i )</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:          ,.en_i( w_v_i | r0_v_i | r1_v_i )</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:          ,.bypass_i( 1'b0 )</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:          ,.gated_clock_o( clk_lo )</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:          );</pre>
+<pre style="margin:0; padding:0 ">  47:      end</pre>
+<pre style="margin:0; padding:0 ">  48:    else</pre>
+<pre style="margin:0; padding:0 ">  49:      begin</pre>
+<pre style="margin:0; padding:0 ">  50:        assign clk_lo = clk_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:      end</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:    bsg_mem_2r1w_sync_synth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:      #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:        ,.els_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:        ,.read_write_same_addr_p(read_write_same_addr_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:        ,.harden_p(harden_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:        ) synth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     (.clk_i( clk_lo )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     ,.w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     ,.w_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     ,.w_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     ,.r0_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     ,.r0_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     ,.r0_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     ,.r1_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     ,.r1_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     ,.r1_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     );</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73: //synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:    always_ff @(posedge clk_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:      if (w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:        begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:           assert (w_addr_i < els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:             else $error("Invalid address %x to %m of size %x\n", w_addr_i, els_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:           assert (~(r0_addr_i == w_addr_i && w_v_i && r0_v_i && !read_write_same_addr_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:             else $error("%m: port 0 Attempt to read and write same address");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:           assert (~(r1_addr_i == w_addr_i && w_v_i && r1_v_i && !read_write_same_addr_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:             else $error("%m: port 1 Attempt to read and write same address");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:        end</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:    initial</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:      begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         $display("## %L: instantiating width_p=%d, els_p=%d, read_write_same_addr_p=%d, harden_p=%d (%m)"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: 		 ,width_p,els_p,read_write_same_addr_p,harden_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:      end</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94: //synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  95:    </pre>
+<pre style="margin:0; padding:0 ">  96: endmodule</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+</body>
+</html>

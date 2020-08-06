@@ -1,7 +1,7 @@
 /*
 :name: 22.5.1--define_expansion_7
 :description: Test
-:should_fail: 1
+:should_fail_because: macro requires two arguments but the call passes none arguments
 :tags: 22.5.1
 :type: preprocessing
 */

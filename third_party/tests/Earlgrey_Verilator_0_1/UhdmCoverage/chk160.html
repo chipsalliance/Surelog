@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_ram_2p_adv_0.1/rtl/prim_ram_2p_adv.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Dual-Port SRAM Wrapper</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Supported configurations:</pre>
+<pre style="margin:0; padding:0 ">   8: // - ECC for 32b wide memories with no write mask</pre>
+<pre style="margin:0; padding:0 ">   9: //   (Width == 32 && DataBitsPerMask == 32).</pre>
+<pre style="margin:0; padding:0 ">  10: // - Byte parity if Width is a multiple of 8 bit and write masks have Byte</pre>
+<pre style="margin:0; padding:0 ">  11: //   granularity (DataBitsPerMask == 8).</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // Note that the write mask needs to be per Byte if parity is enabled. If ECC is enabled, the write</pre>
+<pre style="margin:0; padding:0 ">  14: // mask cannot be used and has to be tied to {Width{1'b1}}.</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  17: `include "prim_util.svh"</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module prim_ram_2p_adv #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter  int Depth                = 512,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   parameter  int Width                = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter  int DataBitsPerMask      = 1,  // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter  int CfgW                 = 8,  // WTC, RTC, etc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   parameter      MemInitFile          = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Configurations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter  bit EnableECC            = 0, // Enables per-word ECC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   parameter  bit EnableParity         = 0, // Enables per-Byte Parity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   parameter  bit EnableInputPipeline  = 0, // Adds an input register (read latency +1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter  bit EnableOutputPipeline = 0, // Adds an output register (read latency +1)</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int Aw                   = vbits(Depth)</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input                    clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input                    rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input                    a_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input                    a_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [Aw-1:0]    a_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input        [Width-1:0] a_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   input        [Width-1:0] a_wmask_i,  // cannot be used with ECC, tie to 1 in that case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic [Width-1:0] a_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic             a_rvalid_o, // read response (a_rdata_o) is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic [1:0]       a_rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input                    b_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input                    b_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   input        [Aw-1:0]    b_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   input        [Width-1:0] b_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input        [Width-1:0] b_wmask_i,  // cannot be used with ECC, tie to 1 in that case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   output logic [Width-1:0] b_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   output logic             b_rvalid_o, // read response (b_rdata_o) is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   output logic [1:0]       b_rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input        [CfgW-1:0]  cfg_i</pre>
+<pre style="margin:0; padding:0 ">  56: );</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   prim_ram_2p_async_adv #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .Depth               (Depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .Width               (Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .DataBitsPerMask     (DataBitsPerMask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .CfgW                (CfgW),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .MemInitFile         (MemInitFile),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     .EnableECC           (EnableECC),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .EnableParity        (EnableParity),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .EnableInputPipeline (EnableInputPipeline),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .EnableOutputPipeline(EnableOutputPipeline)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   ) i_prim_ram_2p_async_adv (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .clk_a_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .rst_a_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .clk_b_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .rst_b_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .a_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .a_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .a_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .a_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .a_wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     .a_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .a_rvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .a_rerror_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .b_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .b_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .b_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .b_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .b_wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .b_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     .b_rvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .b_rerror_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     .cfg_i</pre>
+<pre style="margin:0; padding:0 ">  90:   );</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: endmodule : prim_ram_2p_adv</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+</body>
+</html>

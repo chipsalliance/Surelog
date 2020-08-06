@@ -1,7 +1,6 @@
 /*
 :name: array-locator-methods-find-last
 :description: Test support of array locator methods
-:should_fail: 0
 :tags: 7.12.1 7.12 7.10
 :type: simulation parsing
 */

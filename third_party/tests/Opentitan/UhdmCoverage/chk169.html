@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/abstract/prim_clock_gating.sv Cov: 68% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // TODO: This module is a hard-coded stopgap to select an implementation of an</pre>
+<pre style="margin:0; padding:0 ">   6: // "abstract module". This module is to be replaced by generated code.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   9:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  10: `endif</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module prim_clock_gating #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input        en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input        test_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic clk_o</pre>
+<pre style="margin:0; padding:0 ">  19: );</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   if (Impl == ImplGeneric) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     prim_generic_clock_gating u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:       .en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       .test_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:       .clk_o</pre>
+<pre style="margin:0; padding:0 ">  29:     );</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:   end else if (Impl == ImplXilinx) begin : gen_xilinx</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     prim_xilinx_clock_gating u_impl_xilinx (</pre>
+<pre id="id32" style="background-color: #FFB6C1; margin:0; padding:0 ">  32:       .clk_i,</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:       .en_i,</pre>
+<pre id="id34" style="background-color: #FFB6C1; margin:0; padding:0 ">  34:       .test_en_i,</pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35:       .clk_o</pre>
+<pre style="margin:0; padding:0 ">  36:     );</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37:   end else begin : gen_failure</pre>
+<pre style="margin:0; padding:0 ">  38:     // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  39:   end</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41: endmodule</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_calculator/bp_be_bypass.v Cov: 95.8% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_be_bypass.v</pre>
+<pre style="margin:0; padding:0 ">   5:  * </pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   Register bypass network for up to 2 source registers and 1 destination register.</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Notes:</pre>
+<pre style="margin:0; padding:0 ">  10:  * </pre>
+<pre style="margin:0; padding:0 ">  11:  */</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module bp_be_bypass</pre>
+<pre style="margin:0; padding:0 ">  14:  import bp_common_rv64_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:  #(parameter fwd_els_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:    // Default params</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    , parameter enable_p = 1</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:    // Generated params</pre>
+<pre style="margin:0; padding:0 ">  21:    // # Bypasses == Number of forwarded elements + 1 for the dispatched data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    , localparam bypass_els_lp     = fwd_els_p + 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , localparam reg_addr_width_lp = rv64_reg_addr_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:    , localparam reg_data_width_lp = rv64_reg_data_width_gp</pre>
+<pre style="margin:0; padding:0 ">  25:    )</pre>
+<pre style="margin:0; padding:0 ">  26:   (</pre>
+<pre style="margin:0; padding:0 ">  27:    // Dispatched instruction operands</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:    input [reg_addr_width_lp-1:0]                  id_rs1_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    , input [reg_data_width_lp-1:0]                id_rs1_i</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    , input [reg_addr_width_lp-1:0]                id_rs2_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    , input [reg_data_width_lp-1:0]                id_rs2_i</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:    // Completed rd writes in the pipeline</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    , input [fwd_els_p-1:0]                        fwd_rd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    , input [fwd_els_p-1:0][reg_addr_width_lp-1:0] fwd_rd_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , input [fwd_els_p-1:0][reg_data_width_lp-1:0] fwd_rd_i</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:    // The latest valid rs1, rs2 data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , output [reg_data_width_lp-1:0]               bypass_rs1_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , output [reg_data_width_lp-1:0]               bypass_rs2_o</pre>
+<pre style="margin:0; padding:0 ">  42:    );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: initial begin : parameter_validation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   assert (fwd_els_p > 0 && fwd_els_p != "inv") </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     else $error("fwd_els_p must be positive, else there is nothing to bypass. \</pre>
+<pre style="margin:0; padding:0 ">  47:                  Did you remember to set it?"</pre>
+<pre style="margin:0; padding:0 ">  48:                 );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assert (enable_p == 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     else $warning("Bypassing disabled.");</pre>
+<pre style="margin:0; padding:0 ">  52: end</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: // Intermediate connections</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: logic [bypass_els_lp-1:0]                        rs1_match_vector       , rs2_match_vector;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: logic [bypass_els_lp-1:0]                        rs1_match_vector_onehot, rs2_match_vector_onehot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: logic [bypass_els_lp-1:0][reg_data_width_lp-1:0] rs1_data_vector        , rs2_data_vector;</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59: // Datapath</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: if (enable_p == 1) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   begin : bypass</pre>
+<pre style="margin:0; padding:0 ">  62:     // Find the youngest valid data to forward</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     bsg_priority_encode_one_hot_out </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:      #(.width_p(bypass_els_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:        ,.lo_to_hi_p(1)</pre>
+<pre style="margin:0; padding:0 ">  66:        ) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:      match_one_hot_rs1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       (.i(rs1_match_vector)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:        ,.o(rs1_match_vector_onehot)</pre>
+<pre style="margin:0; padding:0 ">  70:        );</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     bsg_priority_encode_one_hot_out </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:      #(.width_p(bypass_els_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:        ,.lo_to_hi_p(1)</pre>
+<pre style="margin:0; padding:0 ">  75:        ) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:      match_one_hot_rs2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       (.i(rs2_match_vector)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:        ,.o(rs2_match_vector_onehot)</pre>
+<pre style="margin:0; padding:0 ">  79:        );</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:     // Bypass data with a simple crossbar</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     bsg_crossbar_o_by_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:      #(.i_els_p(bypass_els_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:        ,.o_els_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:        ,.width_p(reg_data_width_lp)</pre>
+<pre style="margin:0; padding:0 ">  86:        ) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:      rs1_crossbar</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       (.i(rs1_data_vector)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:        ,.sel_oi_one_hot_i(rs1_match_vector_onehot)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:        ,.o(bypass_rs1_o)</pre>
+<pre style="margin:0; padding:0 ">  91:        );</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     bsg_crossbar_o_by_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:      #(.i_els_p(bypass_els_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:        ,.o_els_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:        ,.width_p(reg_data_width_lp)</pre>
+<pre style="margin:0; padding:0 ">  97:        ) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:      rs2_crossbar</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       (.i(rs2_data_vector)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:        ,.sel_oi_one_hot_i(rs2_match_vector_onehot)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:        ,.o(bypass_rs2_o)</pre>
+<pre style="margin:0; padding:0 "> 102:        );</pre>
+<pre style="margin:0; padding:0 "> 103:   end // bypass</pre>
+<pre style="margin:0; padding:0 "> 104: else </pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 "> 105:   begin : passthrough</pre>
+<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 "> 106:     assign bypass_rs1_o = id_rs1_i;</pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:     assign bypass_rs2_o = id_rs2_i;</pre>
+<pre style="margin:0; padding:0 "> 108:   end // passthrough</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110: always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   begin : vector_generation</pre>
+<pre style="margin:0; padding:0 "> 112:     // Completion data has priority over dispatched data, so dispatched data goes to MSB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     rs1_data_vector = {id_rs1_i, fwd_rd_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     rs2_data_vector = {id_rs2_i, fwd_rd_i};</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     for (integer i = 0; i < bypass_els_lp; i++) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       begin : match_vector</pre>
+<pre style="margin:0; padding:0 "> 118:         // Dispatched data always matches the dispatched data, otherwise check for:</pre>
+<pre style="margin:0; padding:0 "> 119:         //   * Register address match </pre>
+<pre style="margin:0; padding:0 "> 120:         //   * The completing instruction is writing and the dispatched instruction is reading</pre>
+<pre style="margin:0; padding:0 "> 121:         //   * Do not forward x0 data, RISC-V defines this as always 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         rs1_match_vector[i] = ((i == bypass_els_lp-1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:                                || ((id_rs1_addr_i == fwd_rd_addr_i[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:                                    & fwd_rd_v_i[i]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:                                    & (id_rs1_addr_i != reg_addr_width_lp'(0))</pre>
+<pre style="margin:0; padding:0 "> 126:                                    )</pre>
+<pre style="margin:0; padding:0 "> 127:                                );</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:         rs2_match_vector[i] = ((i == bypass_els_lp-1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                                || ((id_rs2_addr_i == fwd_rd_addr_i[i]) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:                                    & fwd_rd_v_i[i]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                                    & (id_rs2_addr_i != reg_addr_width_lp'(0))</pre>
+<pre style="margin:0; padding:0 "> 133:                                    )</pre>
+<pre style="margin:0; padding:0 "> 134:                                );</pre>
+<pre style="margin:0; padding:0 "> 135:       end</pre>
+<pre style="margin:0; padding:0 "> 136:   end</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138: endmodule : bp_be_bypass</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+</body>
+</html>

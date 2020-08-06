@@ -29,6 +29,7 @@
 #include "Design/FileCNodeId.h"
 #include "Design/DataType.h"
 #include "Testbench/TypeDef.h"
+#include "Common/PortNetHolder.h"
 #include "Design/ValuedComponentI.h"
 
 namespace SURELOG {
@@ -37,15 +38,17 @@ class Package;
 class Function;
 class Variable;
 
-class DesignComponent : public ValuedComponentI {
+class DesignComponent : public ValuedComponentI, public PortNetHolder {
  public:
-  DesignComponent(DesignComponent* parent, DesignComponent* definition) : ValuedComponentI(parent, definition) {}
+  DesignComponent(const DesignComponent* parent,
+                  DesignComponent* definition)
+    : ValuedComponentI(parent, definition), PortNetHolder() {}
   ~DesignComponent() override {}
 
-  virtual unsigned int getSize() = 0;
-  virtual VObjectType getType() = 0;
-  virtual bool isInstance() = 0;
-  virtual std::string getName() = 0;
+  virtual unsigned int getSize() const = 0;
+  virtual VObjectType getType() const = 0;
+  virtual bool isInstance() const = 0;
+  virtual const std::string& getName() const = 0;
   void append(DesignComponent*);
 
   typedef std::map<std::string, DataType*> DataTypeMap;
@@ -53,12 +56,14 @@ class DesignComponent : public ValuedComponentI {
   typedef std::map<std::string, Function*> FunctionMap;
   typedef std::map<std::string, Variable*> VariableMap;
 
-  void addFileContent(FileContent* fileContent, NodeId nodeId);
-  std::vector<FileContent*>& getFileContents() { return m_fileContents; }
-  std::vector<NodeId>& getNodeIds() { return m_nodeIds; }
+  void addFileContent(const FileContent* fileContent, NodeId nodeId);
+  const std::vector<const FileContent*>& getFileContents() const {
+    return m_fileContents;
+  }
+  const std::vector<NodeId>& getNodeIds() const { return m_nodeIds; }
 
   // Precompiled Object of interest
-  std::vector<FileCNodeId>& getObjects(VObjectType type);
+  const std::vector<FileCNodeId>& getObjects(VObjectType type) const;
   void addObject(VObjectType type, FileCNodeId object);
 
   void addNamedObject(std::string name, FileCNodeId object,
@@ -67,33 +72,33 @@ class DesignComponent : public ValuedComponentI {
   getNamedObjects() {
     return m_namedObjects;
   }
-  std::pair<FileCNodeId, DesignComponent*>* getNamedObject(std::string name);
+  const std::pair<FileCNodeId, DesignComponent*>* getNamedObject(const std::string& name) const;
 
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
   DataType* getUsedDataType(const std::string& name);
   void insertUsedDataType(const std::string& dataTypeName, DataType* dataType);
 
-  DataTypeMap& getDataTypeMap() { return m_dataTypes; }
-  DataType* getDataType(const std::string& name);
+  const DataTypeMap& getDataTypeMap() const { return m_dataTypes; }
+  const DataType* getDataType(const std::string& name) const;
   void insertDataType(const std::string& dataTypeName, DataType* dataType);
 
-  TypeDefMap& getTypeDefMap() { return m_typedefs; }
-  TypeDef* getTypeDef(const std::string& name);
+  const TypeDefMap& getTypeDefMap() const { return m_typedefs; }
+  const TypeDef* getTypeDef(const std::string& name) const;
   void insertTypeDef(TypeDef* p);
 
   FunctionMap& getFunctionMap() { return m_functions; }
-  virtual Function* getFunction(const std::string& name);
+  virtual Function* getFunction(const std::string& name) const;
   void insertFunction(Function* p);
 
   void addAccessPackage(Package* p) { m_packages.push_back(p); }
-  std::vector<Package*>& getAccessPackages() { return m_packages; }
+  const std::vector<Package*>& getAccessPackages() const { return m_packages; }
 
   void addVariable(Variable* var);
-  VariableMap& getVariables() { return m_variables; }
+  const VariableMap& getVariables() const { return m_variables; }
   Variable* getVariable(const std::string& name);
 
  protected:
-  std::vector<FileContent*> m_fileContents;
+  std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
   FunctionMap m_functions;
 
@@ -102,7 +107,9 @@ class DesignComponent : public ValuedComponentI {
   std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>
       m_namedObjects;
   std::vector<FileCNodeId> m_empty;
+ protected: 
   DataTypeMap m_dataTypes;
+ private: 
   DataTypeMap m_usedDataTypes;
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;

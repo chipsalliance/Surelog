@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_decoder.sv Cov: 98.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: // Source/Destination register instruction index</pre>
+<pre style="margin:0; padding:0 ">   7: `define REG_S1 19:15</pre>
+<pre style="margin:0; padding:0 ">   8: `define REG_S2 24:20</pre>
+<pre style="margin:0; padding:0 ">   9: `define REG_D  11:07</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: /**</pre>
+<pre style="margin:0; padding:0 ">  12:  * Instruction decoder</pre>
+<pre style="margin:0; padding:0 ">  13:  *</pre>
+<pre style="margin:0; padding:0 ">  14:  * This module is fully combinatorial, clock and reset are used for</pre>
+<pre style="margin:0; padding:0 ">  15:  * assertions only.</pre>
+<pre style="margin:0; padding:0 ">  16:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: module ibex_decoder #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     parameter bit RV32E = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     parameter bit RV32M = 1</pre>
+<pre style="margin:0; padding:0 ">  20: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     input  logic                 clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input  logic                 rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:     // to/from controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     output logic                 illegal_insn_o,        // illegal instr encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     output logic                 ebrk_insn_o,           // trap instr encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     output logic                 mret_insn_o,           // return from exception instr</pre>
+<pre style="margin:0; padding:0 ">  28:                                                         // encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     output logic                 dret_insn_o,           // return from debug instr encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     output logic                 ecall_insn_o,          // syscall instr encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     output logic                 wfi_insn_o,            // wait for interrupt instr encountered</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output logic                 jump_set_o,            // jump taken set signal</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:     // from IF-ID pipeline register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic                 instr_new_i,           // instruction read is new</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic [31:0]          instr_rdata_i,         // instruction read from memory/cache</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     input  logic                 illegal_c_insn_i,      // compressed instruction decode failed</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:     // immediates</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     output ibex_pkg::imm_a_sel_e imm_a_mux_sel_o,       // immediate selection for operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     output ibex_pkg::imm_b_sel_e imm_b_mux_sel_o,       // immediate selection for operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     output logic [31:0]          imm_i_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     output logic [31:0]          imm_s_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     output logic [31:0]          imm_b_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     output logic [31:0]          imm_u_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     output logic [31:0]          imm_j_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     output logic [31:0]          zimm_rs1_type_o,</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:     // register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     output ibex_pkg::rf_wd_sel_e regfile_wdata_sel_o,   // RF write data selection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     output logic                 regfile_we_o,          // write enable for regfile</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic [4:0]           regfile_raddr_a_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     output logic [4:0]           regfile_raddr_b_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     output logic [4:0]           regfile_waddr_o,</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:     // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     output ibex_pkg::alu_op_e    alu_operator_o,        // ALU operation selection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     output ibex_pkg::op_a_sel_e  alu_op_a_mux_sel_o,    // operand a selection: reg value, PC,</pre>
+<pre style="margin:0; padding:0 ">  59:                                                         // immediate or zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     output ibex_pkg::op_b_sel_e  alu_op_b_mux_sel_o,    // operand b selection: reg value or</pre>
+<pre style="margin:0; padding:0 ">  61:                                                         // immediate</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:     // MULT & DIV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     output logic                 mult_en_o,             // perform integer multiplication</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     output logic                 div_en_o,              // perform integer division or</pre>
+<pre style="margin:0; padding:0 ">  66:                                                         // remainder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     output ibex_pkg::md_op_e     multdiv_operator_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     output logic [1:0]           multdiv_signed_mode_o,</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:     // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     output logic                 csr_access_o,          // access to CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     output ibex_pkg::csr_op_e    csr_op_o,              // operation to perform on CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     output logic                 csr_pipe_flush_o,      // CSR-related pipeline flush</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:     // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     output logic                 data_req_o,            // start transaction to data memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     output logic                 data_we_o,             // write enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     output logic [1:0]           data_type_o,           // size of transaction: byte, half</pre>
+<pre style="margin:0; padding:0 ">  79:                                                         // word or word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     output logic                 data_sign_extension_o, // sign extension for data read from</pre>
+<pre style="margin:0; padding:0 ">  81:                                                         // memory</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:     // jump/branches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     output logic                 jump_in_dec_o,         // jump is being calculated in ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     output logic                 branch_in_dec_o</pre>
+<pre style="margin:0; padding:0 ">  86: );</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic        illegal_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic        illegal_reg_rv32e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic        csr_illegal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic        regfile_we;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic [31:0] instr;</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   csr_op_e     csr_op;</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   opcode_e     opcode;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign instr = instr_rdata_i;</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 104:   // Register and immediate selection //</pre>
+<pre style="margin:0; padding:0 "> 105:   //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   // immediate extraction and sign extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign imm_i_type_o = { {20{instr[31]}}, instr[31:20] };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign imm_s_type_o = { {20{instr[31]}}, instr[31:25], instr[11:7] };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign imm_b_type_o = { {19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0 };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign imm_u_type_o = { instr[31:12], 12'b0 };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign imm_j_type_o = { {12{instr[31]}}, instr[19:12], instr[20], instr[30:21], 1'b0 };</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:   // immediate for CSR manipulation (zero extended)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign zimm_rs1_type_o = { 27'b0, instr[`REG_S1] }; // rs1</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:   // source registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   assign regfile_raddr_a_o = instr[`REG_S1]; // rs1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign regfile_raddr_b_o = instr[`REG_S2]; // rs2</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="margin:0; padding:0 "> 121:   // destination register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign regfile_waddr_o   = instr[`REG_D]; // rd</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 125:   // Register check //</pre>
+<pre style="margin:0; padding:0 "> 126:   ////////////////////</pre>
+<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 "> 127:   if (RV32E) begin : gen_rv32e_reg_check_active</pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:     assign illegal_reg_rv32e = ((regfile_raddr_a_o[4] & (alu_op_a_mux_sel_o == OP_A_REG_A)) |</pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:                                 (regfile_raddr_b_o[4] & (alu_op_b_mux_sel_o == OP_B_REG_B)) |</pre>
+<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:                                 (regfile_waddr_o[4]   & regfile_we));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   end else begin : gen_rv32e_reg_check_inactive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     assign illegal_reg_rv32e = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 133:   end</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 136:   // CSR operand check //</pre>
+<pre style="margin:0; padding:0 "> 137:   ///////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   always_comb begin : csr_operand_check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     csr_op_o = csr_op;</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="margin:0; padding:0 "> 141:     // CSRRSI/CSRRCI must not write 0 to CSRs (uimm[4:0]=='0)</pre>
+<pre style="margin:0; padding:0 "> 142:     // CSRRS/CSRRC must not write from x0 to CSRs (rs1=='0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     if ((csr_op == CSR_OP_SET || csr_op == CSR_OP_CLEAR) &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:         instr[`REG_S1] == '0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       csr_op_o = CSR_OP_READ;</pre>
+<pre style="margin:0; padding:0 "> 146:     end</pre>
+<pre style="margin:0; padding:0 "> 147:   end</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="margin:0; padding:0 "> 149:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 150:   // CSR-related pipline flushes //</pre>
+<pre style="margin:0; padding:0 "> 151:   /////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   always_comb begin : csr_pipeline_flushes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     csr_pipe_flush_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:     // A pipeline flush is needed to let the controller react after modifying certain CSRs:</pre>
+<pre style="margin:0; padding:0 "> 156:     // - When enabling interrupts, pending IRQs become visible to the controller only during</pre>
+<pre style="margin:0; padding:0 "> 157:     //   the next cycle. If during that cycle the core disables interrupts again, it does not</pre>
+<pre style="margin:0; padding:0 "> 158:     //   see any pending IRQs and consequently does not start to handle interrupts.</pre>
+<pre style="margin:0; padding:0 "> 159:     // - When modifying debug CSRs - TODO: Check if this is really needed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     if (csr_access_o == 1'b1 && (csr_op_o == CSR_OP_WRITE || csr_op_o == CSR_OP_SET)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       if (csr_num_e'(instr[31:20]) == CSR_MSTATUS   ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:           csr_num_e'(instr[31:20]) == CSR_MIE) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:         csr_pipe_flush_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 164:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     end else if (csr_access_o == 1'b1 && csr_op_o != CSR_OP_READ) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:       if (csr_num_e'(instr[31:20]) == CSR_DCSR      ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:           csr_num_e'(instr[31:20]) == CSR_DPC       ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:           csr_num_e'(instr[31:20]) == CSR_DSCRATCH0 ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:           csr_num_e'(instr[31:20]) == CSR_DSCRATCH1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         csr_pipe_flush_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 171:       end</pre>
+<pre style="margin:0; padding:0 "> 172:     end</pre>
+<pre style="margin:0; padding:0 "> 173:   end</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 176:   // Decoder //</pre>
+<pre style="margin:0; padding:0 "> 177:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     jump_in_dec_o               = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     jump_set_o                  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     branch_in_dec_o             = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     alu_operator_o              = ALU_SLTU;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     alu_op_a_mux_sel_o          = OP_A_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     alu_op_b_mux_sel_o          = OP_B_IMM;</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     imm_a_mux_sel_o             = IMM_A_ZERO;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     imm_b_mux_sel_o             = IMM_B_I;</pre>
+<pre style="margin:0; padding:0 "> 189: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     mult_en_o                   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     div_en_o                    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     multdiv_operator_o          = MD_OP_MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     multdiv_signed_mode_o       = 2'b00;</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     regfile_wdata_sel_o         = RF_WD_EX;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     regfile_we                  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     csr_access_o                = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     csr_illegal                 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     csr_op                      = CSR_OP_READ;</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     data_we_o                   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     data_type_o                 = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:     data_sign_extension_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:     data_req_o                  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     illegal_insn                = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     ebrk_insn_o                 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     mret_insn_o                 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     dret_insn_o                 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     ecall_insn_o                = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     wfi_insn_o                  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     opcode                      = opcode_e'(instr[6:0]);</pre>
+<pre style="margin:0; padding:0 "> 215: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     unique case (opcode)</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218:       ///////////</pre>
+<pre style="margin:0; padding:0 "> 219:       // Jumps //</pre>
+<pre style="margin:0; padding:0 "> 220:       ///////////</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:       OPCODE_JAL: begin   // Jump and Link</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:         jump_in_dec_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:         if (instr_new_i) begin</pre>
+<pre style="margin:0; padding:0 "> 225:           // Calculate jump target</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:           alu_op_a_mux_sel_o  = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:           imm_b_mux_sel_o     = IMM_B_J;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:           alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:           regfile_we          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:           jump_set_o          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 233:           // Calculate and store PC+4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:           alu_op_a_mux_sel_o  = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           imm_b_mux_sel_o     = IMM_B_INCR_PC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:           alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:           regfile_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 239:         end</pre>
+<pre style="margin:0; padding:0 "> 240:       end</pre>
+<pre style="margin:0; padding:0 "> 241: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       OPCODE_JALR: begin  // Jump and Link Register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:         jump_in_dec_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:         if (instr_new_i) begin</pre>
+<pre style="margin:0; padding:0 "> 245:           // Calculate jump target</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:           alu_op_a_mux_sel_o  = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:           imm_b_mux_sel_o     = IMM_B_I;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:           alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:           regfile_we          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           jump_set_o          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 253:           // Calculate and store PC+4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:           alu_op_a_mux_sel_o  = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:           imm_b_mux_sel_o     = IMM_B_INCR_PC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:           alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:           regfile_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 259:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         if (instr[14:12] != 3'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:           illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 262:         end</pre>
+<pre style="margin:0; padding:0 "> 263:       end</pre>
+<pre style="margin:0; padding:0 "> 264: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:       OPCODE_BRANCH: begin // Branch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:         branch_in_dec_o       = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 267:         // Check branch condition selection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:         unique case (instr[14:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           3'b000:  alu_operator_o = ALU_EQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:           3'b001:  alu_operator_o = ALU_NE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:           3'b100:  alu_operator_o = ALU_LT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:           3'b101:  alu_operator_o = ALU_GE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:           3'b110:  alu_operator_o = ALU_LTU;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:           3'b111:  alu_operator_o = ALU_GEU;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:           default: illegal_insn   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 276:         endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:         if (instr_new_i) begin</pre>
+<pre style="margin:0; padding:0 "> 278:           // Evaluate branch condition</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:           alu_op_a_mux_sel_o  = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:           alu_op_b_mux_sel_o  = OP_B_REG_B;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 282:           // Calculate jump target in EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:           alu_op_a_mux_sel_o  = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:           imm_b_mux_sel_o     = IMM_B_B;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:           alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           regfile_we          = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 288:         end</pre>
+<pre style="margin:0; padding:0 "> 289:       end</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:       ////////////////</pre>
+<pre style="margin:0; padding:0 "> 292:       // Load/store //</pre>
+<pre style="margin:0; padding:0 "> 293:       ////////////////</pre>
+<pre style="margin:0; padding:0 "> 294: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       OPCODE_STORE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:         alu_op_a_mux_sel_o = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:         alu_op_b_mux_sel_o = OP_B_REG_B;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:         data_req_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:         data_we_o          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         alu_operator_o     = ALU_ADD;</pre>
+<pre style="margin:0; padding:0 "> 301: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:         if (!instr[14]) begin</pre>
+<pre style="margin:0; padding:0 "> 303:           // offset from immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:           imm_b_mux_sel_o     = IMM_B_S;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 307:           // Register offset is illegal since no register c available</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:           illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 309:         end</pre>
+<pre style="margin:0; padding:0 "> 310: </pre>
+<pre style="margin:0; padding:0 "> 311:         // store size</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:         unique case (instr[13:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:           2'b00:   data_type_o  = 2'b10; // SB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:           2'b01:   data_type_o  = 2'b01; // SH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:           2'b10:   data_type_o  = 2'b00; // SW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:           default: illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 317:         endcase</pre>
+<pre style="margin:0; padding:0 "> 318:       end</pre>
+<pre style="margin:0; padding:0 "> 319: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       OPCODE_LOAD: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:         alu_op_a_mux_sel_o  = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:         data_req_o          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:         regfile_wdata_sel_o = RF_WD_LSU;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:         regfile_we          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:         data_type_o         = 2'b00;</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="margin:0; padding:0 "> 327:         // offset from immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:         alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:         alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:         imm_b_mux_sel_o     = IMM_B_I;</pre>
+<pre style="margin:0; padding:0 "> 331: </pre>
+<pre style="margin:0; padding:0 "> 332:         // sign/zero extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:         data_sign_extension_o = ~instr[14];</pre>
+<pre style="margin:0; padding:0 "> 334: </pre>
+<pre style="margin:0; padding:0 "> 335:         // load size</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:         unique case (instr[13:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:           2'b00: data_type_o = 2'b10; // LB(U)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:           2'b01: data_type_o = 2'b01; // LH(U)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:           2'b10: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:             data_type_o = 2'b00;      // LW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:             if (instr[14]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:               illegal_insn = 1'b1;    // LWU does not exist</pre>
+<pre style="margin:0; padding:0 "> 343:             end</pre>
+<pre style="margin:0; padding:0 "> 344:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:             illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 347:           end</pre>
+<pre style="margin:0; padding:0 "> 348:         endcase</pre>
+<pre style="margin:0; padding:0 "> 349:       end</pre>
+<pre style="margin:0; padding:0 "> 350: </pre>
+<pre style="margin:0; padding:0 "> 351:       /////////</pre>
+<pre style="margin:0; padding:0 "> 352:       // ALU //</pre>
+<pre style="margin:0; padding:0 "> 353:       /////////</pre>
+<pre style="margin:0; padding:0 "> 354: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:       OPCODE_LUI: begin  // Load Upper Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:         alu_op_a_mux_sel_o  = OP_A_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:         alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:         imm_a_mux_sel_o     = IMM_A_ZERO;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:         imm_b_mux_sel_o     = IMM_B_U;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:         alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:         regfile_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 362:       end</pre>
+<pre style="margin:0; padding:0 "> 363: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       OPCODE_AUIPC: begin  // Add Upper Immediate to PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:         alu_op_a_mux_sel_o  = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:         alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:         imm_b_mux_sel_o     = IMM_B_U;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:         alu_operator_o      = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:         regfile_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 370:       end</pre>
+<pre style="margin:0; padding:0 "> 371: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       OPCODE_OP_IMM: begin // Register-Immediate ALU Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:         alu_op_a_mux_sel_o  = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:         alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:         imm_b_mux_sel_o     = IMM_B_I;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:         regfile_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 377: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:         unique case (instr[14:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:           3'b000: alu_operator_o = ALU_ADD;  // Add Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:           3'b010: alu_operator_o = ALU_SLT;  // Set to one if Lower Than Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:           3'b011: alu_operator_o = ALU_SLTU; // Set to one if Lower Than Immediate Unsigned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:           3'b100: alu_operator_o = ALU_XOR;  // Exclusive Or with Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:           3'b110: alu_operator_o = ALU_OR;   // Or with Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:           3'b111: alu_operator_o = ALU_AND;  // And with Immediate</pre>
+<pre style="margin:0; padding:0 "> 385: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:           3'b001: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:             alu_operator_o = ALU_SLL;  // Shift Left Logical by Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:             if (instr[31:25] != 7'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:               illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 390:             end</pre>
+<pre style="margin:0; padding:0 "> 391:           end</pre>
+<pre style="margin:0; padding:0 "> 392: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:           3'b101: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:             if (instr[31:25] == 7'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:               alu_operator_o = ALU_SRL;  // Shift Right Logical by Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:             end else if (instr[31:25] == 7'b010_0000) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:               alu_operator_o = ALU_SRA;  // Shift Right Arithmetically by Immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:               illegal_insn   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 400:             end</pre>
+<pre style="margin:0; padding:0 "> 401:           end</pre>
+<pre style="margin:0; padding:0 "> 402: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:             alu_operator_o = ALU_SLTU;</pre>
+<pre style="margin:0; padding:0 "> 405:           end</pre>
+<pre style="margin:0; padding:0 "> 406:         endcase</pre>
+<pre style="margin:0; padding:0 "> 407:       end</pre>
+<pre style="margin:0; padding:0 "> 408: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:       OPCODE_OP: begin  // Register-Register ALU operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:         alu_op_a_mux_sel_o = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:         alu_op_b_mux_sel_o = OP_B_REG_B;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:         regfile_we         = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 413: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:         if (instr[31]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:           illegal_insn = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:           unique case ({instr[30:25], instr[14:12]})</pre>
+<pre style="margin:0; padding:0 "> 418:             // RV32I ALU operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:             {6'b00_0000, 3'b000}: alu_operator_o = ALU_ADD;   // Add</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:             {6'b10_0000, 3'b000}: alu_operator_o = ALU_SUB;   // Sub</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:             {6'b00_0000, 3'b010}: alu_operator_o = ALU_SLT;   // Set Lower Than</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:             {6'b00_0000, 3'b011}: alu_operator_o = ALU_SLTU;  // Set Lower Than Unsigned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:             {6'b00_0000, 3'b100}: alu_operator_o = ALU_XOR;   // Xor</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:             {6'b00_0000, 3'b110}: alu_operator_o = ALU_OR;    // Or</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:             {6'b00_0000, 3'b111}: alu_operator_o = ALU_AND;   // And</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:             {6'b00_0000, 3'b001}: alu_operator_o = ALU_SLL;   // Shift Left Logical</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:             {6'b00_0000, 3'b101}: alu_operator_o = ALU_SRL;   // Shift Right Logical</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:             {6'b10_0000, 3'b101}: alu_operator_o = ALU_SRA;   // Shift Right Arithmetic</pre>
+<pre style="margin:0; padding:0 "> 429: </pre>
+<pre style="margin:0; padding:0 "> 430:             // supported RV32M instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:             {6'b00_0001, 3'b000}: begin // mul</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:               multdiv_operator_o    = MD_OP_MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:               mult_en_o             = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:               multdiv_signed_mode_o = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 437:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:             {6'b00_0001, 3'b001}: begin // mulh</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:               multdiv_operator_o    = MD_OP_MULH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:               mult_en_o             = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:               multdiv_signed_mode_o = 2'b11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 444:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:             {6'b00_0001, 3'b010}: begin // mulhsu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:               multdiv_operator_o    = MD_OP_MULH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:               mult_en_o             = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:               multdiv_signed_mode_o = 2'b01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 451:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:             {6'b00_0001, 3'b011}: begin // mulhu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:               multdiv_operator_o    = MD_OP_MULH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:               mult_en_o             = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:               multdiv_signed_mode_o = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 458:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:             {6'b00_0001, 3'b100}: begin // div</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:               multdiv_operator_o    = MD_OP_DIV;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:               div_en_o              = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:               multdiv_signed_mode_o = 2'b11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 465:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:             {6'b00_0001, 3'b101}: begin // divu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:               multdiv_operator_o    = MD_OP_DIV;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:               div_en_o              = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:               multdiv_signed_mode_o = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 472:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:             {6'b00_0001, 3'b110}: begin // rem</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:               multdiv_operator_o    = MD_OP_REM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:               div_en_o              = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:               multdiv_signed_mode_o = 2'b11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 479:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:             {6'b00_0001, 3'b111}: begin // remu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:               alu_operator_o        = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:               multdiv_operator_o    = MD_OP_REM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:               div_en_o              = RV32M ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:               multdiv_signed_mode_o = 2'b00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:               illegal_insn          = RV32M ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 486:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:             default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:               illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 489:             end</pre>
+<pre style="margin:0; padding:0 "> 490:           endcase</pre>
+<pre style="margin:0; padding:0 "> 491:         end</pre>
+<pre style="margin:0; padding:0 "> 492:       end</pre>
+<pre style="margin:0; padding:0 "> 493: </pre>
+<pre style="margin:0; padding:0 "> 494:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 495:       // Special //</pre>
+<pre style="margin:0; padding:0 "> 496:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 497: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:       OPCODE_MISC_MEM: begin</pre>
+<pre style="margin:0; padding:0 "> 499:         // For now, treat the FENCE (funct3 == 000) instruction as a NOP.  This may not be correct</pre>
+<pre style="margin:0; padding:0 "> 500:         // in a system with caches and should be revisited.</pre>
+<pre style="margin:0; padding:0 "> 501:         // FENCE.I will flush the IF stage and prefetch buffer but nothing else.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:         unique case (instr[14:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:           3'b000: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:             alu_operator_o     = ALU_ADD; // nop</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:             alu_op_a_mux_sel_o = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:             alu_op_b_mux_sel_o = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:             regfile_we         = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 508:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:           3'b001: begin</pre>
+<pre style="margin:0; padding:0 "> 510:             // FENCE.I is implemented as a jump to the next PC, this gives the required flushing</pre>
+<pre style="margin:0; padding:0 "> 511:             // behaviour (iside prefetch buffer flushed and response to any outstanding iside</pre>
+<pre style="margin:0; padding:0 "> 512:             // requests will be ignored).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:             jump_in_dec_o      = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 514: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:             alu_op_a_mux_sel_o = OP_A_CURRPC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:             alu_op_b_mux_sel_o = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:             imm_b_mux_sel_o    = IMM_B_INCR_PC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:             alu_operator_o     = ALU_ADD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 519:             regfile_we         = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 520: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:             if (instr_new_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:               jump_set_o       = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 523:             end</pre>
+<pre style="margin:0; padding:0 "> 524:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 526:             illegal_insn       = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 527:           end</pre>
+<pre style="margin:0; padding:0 "> 528:         endcase</pre>
+<pre style="margin:0; padding:0 "> 529:       end</pre>
+<pre style="margin:0; padding:0 "> 530: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       OPCODE_SYSTEM: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:         if (instr[14:12] == 3'b000) begin</pre>
+<pre style="margin:0; padding:0 "> 533:           // non CSR related SYSTEM instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 534:           alu_op_a_mux_sel_o = OP_A_REG_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 535:           alu_op_b_mux_sel_o = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 536:           unique case (instr[31:20])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:             12'h000:  // ECALL</pre>
+<pre style="margin:0; padding:0 "> 538:               // environment (system) call</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:               ecall_insn_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 540: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:             12'h001:  // ebreak</pre>
+<pre style="margin:0; padding:0 "> 542:               // debugger trap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:               ebrk_insn_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 544: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:             12'h302:  // mret</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:               mret_insn_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 547: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:             12'h7b2:  // dret</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:               dret_insn_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 550: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:             12'h105:  // wfi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:               wfi_insn_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 553: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554:             default:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:               illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 556:           endcase</pre>
+<pre style="margin:0; padding:0 "> 557: </pre>
+<pre style="margin:0; padding:0 "> 558:           // rs1 and rd must be 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:           if (instr[`REG_S1] != 5'b0 || instr[`REG_D] != 5'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:             illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 561:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 562:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 563:           // instruction to read/modify CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:           csr_access_o        = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:           regfile_wdata_sel_o = RF_WD_CSR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:           regfile_we          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:           alu_op_b_mux_sel_o  = OP_B_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 568:           imm_a_mux_sel_o     = IMM_A_Z;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:           imm_b_mux_sel_o     = IMM_B_I;  // CSR address is encoded in I imm</pre>
+<pre style="margin:0; padding:0 "> 570: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:           if (instr[14]) begin</pre>
+<pre style="margin:0; padding:0 "> 572:             // rs1 field is used as immediate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573:             alu_op_a_mux_sel_o = OP_A_IMM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 574:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 575:             alu_op_a_mux_sel_o = OP_A_REG_A;</pre>
+<pre style="margin:0; padding:0 "> 576:           end</pre>
+<pre style="margin:0; padding:0 "> 577: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 578:           unique case (instr[13:12])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 579:             2'b01:   csr_op = CSR_OP_WRITE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 580:             2'b10:   csr_op = CSR_OP_SET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:             2'b11:   csr_op = CSR_OP_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 582:             default: csr_illegal = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 583:           endcase</pre>
+<pre style="margin:0; padding:0 "> 584: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 585:           illegal_insn = csr_illegal;</pre>
+<pre style="margin:0; padding:0 "> 586:         end</pre>
+<pre style="margin:0; padding:0 "> 587: </pre>
+<pre style="margin:0; padding:0 "> 588:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 590:         illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 591:       end</pre>
+<pre style="margin:0; padding:0 "> 592:     endcase</pre>
+<pre style="margin:0; padding:0 "> 593: </pre>
+<pre style="margin:0; padding:0 "> 594:     // make sure illegal compressed instructions cause illegal instruction exceptions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 595:     if (illegal_c_insn_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 596:       illegal_insn = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 597:     end</pre>
+<pre style="margin:0; padding:0 "> 598: </pre>
+<pre style="margin:0; padding:0 "> 599:     // make sure illegal instructions detected in the decoder do not propagate from decoder</pre>
+<pre style="margin:0; padding:0 "> 600:     // into register file, LSU, EX, WB, CSRs, PC</pre>
+<pre style="margin:0; padding:0 "> 601:     // NOTE: instructions can also be detected to be illegal inside the CSRs (upon accesses with</pre>
+<pre style="margin:0; padding:0 "> 602:     // insufficient privileges), or when accessing non-available registers in RV32E,</pre>
+<pre style="margin:0; padding:0 "> 603:     // these cases are not handled here</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 604:     if (illegal_insn) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 605:       regfile_we      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 606:       data_req_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 607:       data_we_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 608:       mult_en_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:       div_en_o        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:       jump_in_dec_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:       jump_set_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 612:       branch_in_dec_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:       csr_access_o    = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 614:     end</pre>
+<pre style="margin:0; padding:0 "> 615:   end</pre>
+<pre style="margin:0; padding:0 "> 616: </pre>
+<pre style="margin:0; padding:0 "> 617:   // make sure instructions accessing non-available registers in RV32E cause illegal</pre>
+<pre style="margin:0; padding:0 "> 618:   // instruction exceptions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 619:   assign illegal_insn_o = illegal_insn | illegal_reg_rv32e;</pre>
+<pre style="margin:0; padding:0 "> 620: </pre>
+<pre style="margin:0; padding:0 "> 621:   // do not propgate regfile write enable if non-available registers are accessed in RV32E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 622:   assign regfile_we_o = regfile_we & ~illegal_reg_rv32e;</pre>
+<pre style="margin:0; padding:0 "> 623: </pre>
+<pre style="margin:0; padding:0 "> 624:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 625:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 626:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 627: </pre>
+<pre style="margin:0; padding:0 "> 628:   // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 "> 629:   `ASSERT(IbexRegImmAluOpKnown, (opcode == OPCODE_OP_IMM) |-></pre>
+<pre style="margin:0; padding:0 "> 630:       !$isunknown(instr[14:12]), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 631: </pre>
+<pre style="margin:0; padding:0 "> 632: endmodule // controller</pre>
+<pre style="margin:0; padding:0 "> 633: </pre>
+</body>
+</html>

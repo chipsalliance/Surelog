@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_intr_hw.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Indentifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Primitive interrupt handler. This assumes the existence of three</pre>
+<pre style="margin:0; padding:0 ">   6: // controller registers: INTR_ENABLE, INTR_STATE, INTR_TEST.</pre>
+<pre style="margin:0; padding:0 ">   7: // This module can be instantiated once per interrupt field, or</pre>
+<pre style="margin:0; padding:0 ">   8: // "bussified" with all fields of the interrupt vector.</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module prim_intr_hw #(parameter int unsigned Width = 1) (</pre>
+<pre style="margin:0; padding:0 ">  11:   // event</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  [Width-1:0]  event_intr_i,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // register interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  [Width-1:0]  reg2hw_intr_enable_q_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  [Width-1:0]  reg2hw_intr_test_q_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input               reg2hw_intr_test_qe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  [Width-1:0]  reg2hw_intr_state_q_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output              hw2reg_intr_state_de_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output [Width-1:0]  hw2reg_intr_state_d_o,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // outgoing interrupt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output [Width-1:0]  intr_o</pre>
+<pre style="margin:0; padding:0 ">  24: );</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic  [Width-1:0]    new_event;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   assign new_event =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:              (({Width{reg2hw_intr_test_qe_i}} & reg2hw_intr_test_q_i) | event_intr_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   assign hw2reg_intr_state_de_o = |new_event;</pre>
+<pre style="margin:0; padding:0 ">  30:   // for scalar interrupts, this resolves to '1' with new event</pre>
+<pre style="margin:0; padding:0 ">  31:   // for vector interrupts, new events are OR'd in to existing interrupt state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign hw2reg_intr_state_d_o  =  new_event | reg2hw_intr_state_q_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   assign intr_o = reg2hw_intr_state_q_i & reg2hw_intr_enable_q_i;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35: endmodule</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/abstract/prim_rom.sv Cov: 69% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // TODO: This module is a hard-coded stopgap to select an implementation of an</pre>
+<pre style="margin:0; padding:0 ">   6: // "abstract module". This module is to be replaced by generated code.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   9:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  10: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module prim_rom #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int Width = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int Depth = 2048, // 8kB default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int Aw    = $clog2(Depth)</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        [Aw-1:0]        addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input                        cs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic [Width-1:0]     dout_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic                 dvalid_o</pre>
+<pre style="margin:0; padding:0 ">  23: );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   if (Impl == ImplGeneric) begin: gen_mem_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     prim_generic_rom #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       .Width(Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       .Depth(Depth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     ) u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       .addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:       .cs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       .dout_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       .dvalid_o</pre>
+<pre style="margin:0; padding:0 ">  38:     );</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:   end else if (Impl == ImplXilinx) begin: gen_rom_xilinx</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     prim_xilinx_rom #(</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:       .Width(Width),</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:       .Depth(Depth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     ) u_impl_generic (</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:       .clk_i,</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:       .addr_i,</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:       .cs_i,</pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:       .dout_o,</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:       .dvalid_o</pre>
+<pre style="margin:0; padding:0 ">  49:     );</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:   end else begin : gen_rom_unsupported_impl</pre>
+<pre style="margin:0; padding:0 ">  51:     // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  52:   end</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: endmodule</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+</body>
+</html>

@@ -26,22 +26,13 @@
 #include <sstream>
 #include <string.h>
 #include <math.h>
+#include "Utils/StringUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/Design.h"
 
 using namespace SURELOG;
-
-ExprBuilder::ExprBuilder() {
-  m_symbols = NULL;
-  m_errors = NULL;
-  m_design = NULL;
-}
-
-ExprBuilder::ExprBuilder(const ExprBuilder& orig) {}
-
-ExprBuilder::~ExprBuilder() {}
 
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = NULL;
@@ -56,7 +47,7 @@ Value* ExprBuilder::clone(Value* val) {
   return clone;
 }
 
-Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
+Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
   NodeId child = fC->Child(parent);
@@ -125,6 +116,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
+      case VObjectType::slUnpacked_dimension:
+        // Only works for the case of constant_expression, not range
+        m_valueFactory.deleteValue(value);
+        value = evalExpr(fC, child, instance, muteErrors);
+        break;
       case VObjectType::slInc_or_dec_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
@@ -144,7 +140,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slHierarchical_identifier:  {
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
-        break; 
+        break;
       }
       case VObjectType::slConstant_expression: {
         Value* valueL = evalExpr(fC, child, instance, muteErrors);
@@ -327,6 +323,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             }
           }
           std::string v = val.substr(i + 2);
+          v = StringUtils::replaceAll(v, "_", "");
           switch (base) {
             case 'h':
               hex_value = std::strtoul(v.c_str(), 0, 16);
@@ -374,16 +371,16 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
               sval = pack->getValue(name);
             }
           }
-          if (sval == NULL) 
+          if (sval == NULL)
             fullName = packageName + "::" + name;
         } else {
           const std::string& name = fC->SymName(child);
-          if (instance) 
+          if (instance)
             sval = instance->getValue(name);
-          if (sval == NULL) 
+          if (sval == NULL)
             fullName = name;
         }
-       
+
         if (sval == NULL) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,
@@ -413,7 +410,14 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slNumber_1TickB0:
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0:  {
+      case VObjectType::slNumber_Tick0:
+      case VObjectType::slInitVal_1Tickb0:
+      case VObjectType::slInitVal_1TickB0:
+      case VObjectType::slScalar_1Tickb0:
+      case VObjectType::slScalar_1TickB0:
+      case VObjectType::slScalar_Tickb0:
+      case VObjectType::slScalar_TickB0:
+      case VObjectType::sl0: {
         value->set(0,Value::Type::Scalar, 1);
         break;
       }
@@ -421,7 +425,14 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slNumber_1TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:  {
+      case VObjectType::slNumber_Tick1:
+      case VObjectType::slInitVal_1Tickb1:
+      case VObjectType::slInitVal_1TickB1:
+      case VObjectType::slScalar_1Tickb1:
+      case VObjectType::slScalar_1TickB1:
+      case VObjectType::slScalar_Tickb1:
+      case VObjectType::slScalar_TickB1:
+      case VObjectType::sl1: {
         value->set(1,Value::Type::Scalar, 1);
         break;
       }
@@ -434,7 +445,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             variableVal->incr();
           else if (opType == VObjectType::slIncDec_MinusMinus)
             variableVal->decr();
-        } 
+        }
         m_valueFactory.deleteValue(value);
         value = variableVal;
         break;
@@ -454,36 +465,97 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           int val = args[0]->getValueL();
           val = val-1;
           if (val < 0) {
-            value->set((int64_t) 0); 
-            value->setInvalid(); 
+            value->set((int64_t) 0);
+            value->setInvalid();
             break;
           }
           int clog2=0;
           for (; val>0; clog2=clog2+1) {
             val = val>>1;
           }
-          value->set((int64_t) clog2);  
+          value->set((int64_t) clog2);
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log(val));    
+          value->set((int64_t) log(val));
         } else if (funcName == "clog") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log10(val));    
+          value->set((int64_t) log10(val));
         } else if (funcName == "exp") {
           int val = args[0]->getValueL();
-          value->set((int64_t) exp2(val));    
+          value->set((int64_t) exp2(val));
         } else if (funcName == "bits") {
-          // TODO
-          value->set((int64_t) 0); 
+          // $bits is implemented in compileExpression.cpp
+          value->set((int64_t) 0);
           value->setInvalid();
         } else {
-          value->set((int64_t) 0); 
+          value->set((int64_t) 0);
           value->setInvalid();
         }
         break;
       }
+      case VObjectType::slConstant_concatenation: {
+        NodeId Constant_expression = fC->Child(child);
+        char base = 'h';
+        std::string svalue;
+        uint64_t hex_value = 0;
+        while (Constant_expression) {
+          NodeId Constant_primary = fC->Child(Constant_expression);
+          NodeId Primary_literal = fC->Child(Constant_primary);
+          NodeId ConstVal = fC->Child(Primary_literal);
+          std::string token;
+          if (fC->Type(ConstVal) == slIntConst) {
+            token = fC->SymName(ConstVal);
+          } else {
+            Value* constVal = evalExpr(fC, Primary_literal, instance, muteErrors);
+            token = std::to_string(constVal->getValueUL());
+          }
+          if (strstr(token.c_str(), "'")) {
+            unsigned int i = 0;
+            for (i = 0; i < token.size(); i++) {
+              if (token[i] == '\'') {
+                base = token[i + 1];
+                break;
+              }
+            }
+            std::string v = token.substr(i + 2);
+            v = StringUtils::replaceAll(v, "_", "");
+            std::string size = token.substr(0, i);
+            uint64_t isize = std::strtoul(size.c_str(), 0, 10);
+            unsigned int vsize = v.size();
+            for (unsigned int i = 0; i < isize - vsize; i++) 
+              v = "0" + v;
+            svalue += v;
+          } else {
+            std::string v = token;
+            svalue += v;
+            base = 'd';
+          }
+          Constant_expression = fC->Sibling(Constant_expression);
+        }
+
+        switch (base) {
+          case 'h':
+            hex_value = std::strtoul(svalue.c_str(), 0, 16);
+            break;
+          case 'b':
+            hex_value = std::strtoul(svalue.c_str(), 0, 2);
+            break;
+          case 'o':
+            hex_value = std::strtoul(svalue.c_str(), 0, 8);
+            break;
+          case 'd':
+            hex_value = std::strtoul(svalue.c_str(), 0, 10);
+            break;
+          default:
+            break;
+        }
+        value->set(hex_value);
+        value->setInvalid(); // We can't distinguish in between concatenation or array initialization in this context
+        // se we mark the value as invalid for most purposes. Enum value can still use it as concatenation
+        break;
+      }
       default:
-        value->set((int64_t) 0); 
+        value->set((int64_t) 0);
         value->setInvalid();
         break;
     }

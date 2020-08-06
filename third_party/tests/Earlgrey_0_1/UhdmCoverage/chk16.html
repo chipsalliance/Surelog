@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_prefetch_buffer.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Prefetcher Buffer for 32 bit memory interface</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Prefetch Buffer that caches instructions. This cuts overly long critical</pre>
+<pre style="margin:0; padding:0 ">  10:  * paths to the instruction cache.</pre>
+<pre style="margin:0; padding:0 ">  11:  */</pre>
+<pre style="margin:0; padding:0 ">  12: module ibex_prefetch_buffer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     input  logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     input  logic        req_i,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic        branch_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic [31:0] addr_i,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input  logic        ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     output logic        valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     output logic [31:0] rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     output logic [31:0] addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     output logic        err_o,</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // goes to instruction memory / instruction cache</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     output logic        instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     input  logic        instr_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output logic [31:0] instr_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     input  logic [31:0] instr_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     input  logic        instr_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic        instr_pmp_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic        instr_rvalid_i,</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:     // Prefetch Buffer Status</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     output logic        busy_o</pre>
+<pre style="margin:0; padding:0 ">  40: );</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam int unsigned NUM_REQS  = 2;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic                valid_new_req, valid_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic                valid_req_d, valid_req_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic                discard_req_d, discard_req_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic                gnt_or_pmp_err, rvalid_or_pmp_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic [NUM_REQS-1:0] rdata_outstanding_n, rdata_outstanding_s, rdata_outstanding_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic [NUM_REQS-1:0] branch_discard_n, branch_discard_s, branch_discard_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic [NUM_REQS-1:0] rdata_pmp_err_n, rdata_pmp_err_s, rdata_pmp_err_q;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [31:0]         stored_addr_d, stored_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic                stored_addr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic [31:0]         fetch_addr_d, fetch_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic                fetch_addr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [31:0]         instr_addr, instr_addr_w_aligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic                instr_or_pmp_err;</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic                fifo_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic                fifo_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic                fifo_clear;</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  64:   // Prefetch buffer status //</pre>
+<pre style="margin:0; padding:0 ">  65:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign busy_o = (|rdata_outstanding_q) | instr_req_o;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  70:   // Fetch fifo - consumes addresses and data //</pre>
+<pre style="margin:0; padding:0 ">  71:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:   // Instruction fetch errors are valid on the data phase of a request</pre>
+<pre style="margin:0; padding:0 ">  74:   // PMP errors are generated in the address phase, and registered into a fake data phase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   assign instr_or_pmp_err = instr_err_i | rdata_pmp_err_q[0];</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77:   // A branch will invalidate any previously fetched instructions.</pre>
+<pre style="margin:0; padding:0 ">  78:   // Note that the FENCE.I instruction relies on this flushing behaviour on branch. If it is</pre>
+<pre style="margin:0; padding:0 ">  79:   // altered the FENCE.I implementation may require changes.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   assign fifo_clear = branch_i;</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   ibex_fetch_fifo #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .NUM_REQS (NUM_REQS)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   ) fifo_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       .clk_i                 ( clk_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:       .rst_ni                ( rst_ni            ),</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       .clear_i               ( fifo_clear        ),</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       .in_valid_i            ( fifo_valid        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       .in_addr_i             ( addr_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       .in_rdata_i            ( instr_rdata_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       .in_err_i              ( instr_or_pmp_err  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       .in_ready_o            ( fifo_ready        ),</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       .out_valid_o           ( valid_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       .out_ready_i           ( ready_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       .out_rdata_o           ( rdata_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       .out_addr_o            ( addr_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       .out_err_o             ( err_o             )</pre>
+<pre style="margin:0; padding:0 "> 102:   );</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 105:   // Requests //</pre>
+<pre style="margin:0; padding:0 "> 106:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108:   // Make a new request any time there is space in the FIFO, and space in the request queue</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign valid_new_req = req_i & (fifo_ready | branch_i) & ~rdata_outstanding_q[NUM_REQS-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign valid_req = valid_req_q | valid_new_req;</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:   // If a request address triggers a PMP error, the external bus request is suppressed. We might</pre>
+<pre style="margin:0; padding:0 "> 113:   // therefore never receive a grant for such a request. The grant is faked in this case to make</pre>
+<pre style="margin:0; padding:0 "> 114:   // sure the request proceeds and the error is pushed to the FIFO.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign gnt_or_pmp_err = instr_gnt_i | instr_pmp_err_i;</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:   // As with the grant, the rvalid must be faked for a PMP error, since the request was suppressed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   assign rvalid_or_pmp_err = rdata_outstanding_q[0] & (instr_rvalid_i | rdata_pmp_err_q[0]);</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="margin:0; padding:0 "> 120:   // Hold the request stable for requests that didn't get granted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign valid_req_d = valid_req & ~gnt_or_pmp_err;</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123:   // Record whether an outstanding bus request is cancelled by a branch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign discard_req_d = valid_req_q & (branch_i | discard_req_q);</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 127:   // Fetch addr //</pre>
+<pre style="margin:0; padding:0 "> 128:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 129: </pre>
+<pre style="margin:0; padding:0 "> 130:   // Two addresses are tracked in the prefetch buffer:</pre>
+<pre style="margin:0; padding:0 "> 131:   // 1. stored_addr_q - This is the address issued on the bus. It stays stable until</pre>
+<pre style="margin:0; padding:0 "> 132:   //                    the request is granted.</pre>
+<pre style="margin:0; padding:0 "> 133:   // 2. fetch_addr_q  - This is our next address to fetch from. It is updated on branches to</pre>
+<pre style="margin:0; padding:0 "> 134:   //                    capture the new address, and then for each new request issued.</pre>
+<pre style="margin:0; padding:0 "> 135:   // A third address is tracked in the fetch FIFO itself:</pre>
+<pre style="margin:0; padding:0 "> 136:   // 3. instr_addr_q  - This is the address at the head of the FIFO, efectively our oldest fetched</pre>
+<pre style="margin:0; padding:0 "> 137:   //                    address. This address is updated on branches, and does its own increment</pre>
+<pre style="margin:0; padding:0 "> 138:   //                    each time the FIFO is popped.</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:   // 1. stored_addr_q</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre style="margin:0; padding:0 "> 142:   // Only update stored_addr_q for new ungranted requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   assign stored_addr_en = valid_new_req & ~valid_req_q & ~gnt_or_pmp_err;</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   // Store whatever address was issued on the bus</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   assign stored_addr_d = instr_addr;</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+<pre style="margin:0; padding:0 "> 148:   // CPU resets with a branch, so no need to reset these addresses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     if (stored_addr_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       stored_addr_q <= stored_addr_d;</pre>
+<pre style="margin:0; padding:0 "> 152:     end</pre>
+<pre style="margin:0; padding:0 "> 153:   end</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:   // 2. fetch_addr_q</pre>
+<pre style="margin:0; padding:0 "> 156: </pre>
+<pre style="margin:0; padding:0 "> 157:   // Update on a branch or as soon as a request is issued</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   assign fetch_addr_en = branch_i | (valid_new_req & ~valid_req_q);</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign fetch_addr_d = (branch_i ? addr_i : </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:                                     {fetch_addr_q[31:2], 2'b00}) +</pre>
+<pre style="margin:0; padding:0 "> 162:                         // Current address + 4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:                         {{29{1'b0}},(valid_new_req & ~valid_req_q),2'b00};</pre>
+<pre style="margin:0; padding:0 "> 164: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     if (fetch_addr_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       fetch_addr_q <= fetch_addr_d;</pre>
+<pre style="margin:0; padding:0 "> 168:     end</pre>
+<pre style="margin:0; padding:0 "> 169:   end</pre>
+<pre style="margin:0; padding:0 "> 170: </pre>
+<pre style="margin:0; padding:0 "> 171:   // Address mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   assign instr_addr = valid_req_q ? stored_addr_q :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:                       branch_i    ? addr_i :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:                                     fetch_addr_q;</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   assign instr_addr_w_aligned = {instr_addr[31:2], 2'b00};</pre>
+<pre style="margin:0; padding:0 "> 177: </pre>
+<pre style="margin:0; padding:0 "> 178:   ///////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 179:   // Request outstanding queue //</pre>
+<pre style="margin:0; padding:0 "> 180:   ///////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   for (genvar i = 0; i < NUM_REQS; i++) begin : g_outstanding_reqs</pre>
+<pre style="margin:0; padding:0 "> 183:     // Request 0 (always the oldest outstanding request)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     if (i == 0) begin : g_req0</pre>
+<pre style="margin:0; padding:0 "> 185:       // A request becomes outstanding once granted, and is cleared once the rvalid is received.</pre>
+<pre style="margin:0; padding:0 "> 186:       // Outstanding requests shift down the queue towards entry 0.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       assign rdata_outstanding_n[i] = (valid_req & gnt_or_pmp_err) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:                                       rdata_outstanding_q[i];</pre>
+<pre style="margin:0; padding:0 "> 189:       // If a branch is received at any point while a request is outstanding, it must be tracked</pre>
+<pre style="margin:0; padding:0 "> 190:       // to ensure we discard the data once received</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       assign branch_discard_n[i]    = (valid_req & gnt_or_pmp_err & discard_req_d) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:                                       (branch_i & rdata_outstanding_q[i]) | branch_discard_q[i];</pre>
+<pre style="margin:0; padding:0 "> 193:       // Record whether this request received a PMP error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       assign rdata_pmp_err_n[i]     = (valid_req & ~rdata_outstanding_q[i] & instr_pmp_err_i) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:                                       rdata_pmp_err_q[i];</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     end else begin : g_reqtop</pre>
+<pre style="margin:0; padding:0 "> 198:     // Entries > 0 consider the FIFO fill state to calculate their next state (by checking</pre>
+<pre style="margin:0; padding:0 "> 199:     // whether the previous entry is valid)</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       assign rdata_outstanding_n[i] = (valid_req & gnt_or_pmp_err &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:                                        rdata_outstanding_q[i-1]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:                                       rdata_outstanding_q[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       assign branch_discard_n[i]    = (valid_req & gnt_or_pmp_err & discard_req_d &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:                                        rdata_outstanding_q[i-1]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:                                       (branch_i & rdata_outstanding_q[i]) | branch_discard_q[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       assign rdata_pmp_err_n[i]     = (valid_req & ~rdata_outstanding_q[i] & instr_pmp_err_i &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:                                        rdata_outstanding_q[i-1]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:                                       rdata_pmp_err_q[i];</pre>
+<pre style="margin:0; padding:0 "> 210:     end</pre>
+<pre style="margin:0; padding:0 "> 211:   end</pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:   // Shift the entries down on each instr_rvalid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   assign rdata_outstanding_s = rvalid_or_pmp_err ? {1'b0,rdata_outstanding_n[NUM_REQS-1:1]} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:                                                    rdata_outstanding_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   assign branch_discard_s    = rvalid_or_pmp_err ? {1'b0,branch_discard_n[NUM_REQS-1:1]} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:                                                    branch_discard_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   assign rdata_pmp_err_s     = rvalid_or_pmp_err ? {1'b0,rdata_pmp_err_n[NUM_REQS-1:1]} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:                                                    rdata_pmp_err_n;</pre>
+<pre style="margin:0; padding:0 "> 220: </pre>
+<pre style="margin:0; padding:0 "> 221:   // Push a new entry to the FIFO once complete (and not cancelled by a branch)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   assign fifo_valid = rvalid_or_pmp_err & ~branch_discard_q[0];</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="margin:0; padding:0 "> 224:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 225:   // Registers //</pre>
+<pre style="margin:0; padding:0 "> 226:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 227: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:       valid_req_q          <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       discard_req_q        <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:       rdata_outstanding_q  <= 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:       branch_discard_q     <= 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:       rdata_pmp_err_q      <= 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       valid_req_q          <= valid_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:       discard_req_q        <= discard_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:       rdata_outstanding_q  <= rdata_outstanding_s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:       branch_discard_q     <= branch_discard_s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:       rdata_pmp_err_q      <= rdata_pmp_err_s;</pre>
+<pre style="margin:0; padding:0 "> 241:     end</pre>
+<pre style="margin:0; padding:0 "> 242:   end</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="margin:0; padding:0 "> 244:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 245:   // Outputs //</pre>
+<pre style="margin:0; padding:0 "> 246:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 247: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   assign instr_req_o  = valid_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:   assign instr_addr_o = instr_addr_w_aligned;</pre>
+<pre style="margin:0; padding:0 "> 250: </pre>
+<pre style="margin:0; padding:0 "> 251: endmodule</pre>
+<pre style="margin:0; padding:0 "> 252: </pre>
+</body>
+</html>

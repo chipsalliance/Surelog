@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_mux_butterfly.v Cov: 61.1% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  bsg_mux_butterfly.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="margin:0; padding:0 ">   4:  *  @author tommy</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  *  This module has stages of mux which interleaves input data.</pre>
+<pre style="margin:0; padding:0 ">   7:  *  Output data width is same as the input data width.</pre>
+<pre style="margin:0; padding:0 ">   8:  *  The unit of swapping increases in higher stage.</pre>
+<pre style="margin:0; padding:0 ">   9:  *</pre>
+<pre style="margin:0; padding:0 ">  10:  *  The lowest order bit swaps odd and even words</pre>
+<pre style="margin:0; padding:0 ">  11:  *  the highest order bit swaps the upper half of all</pre>
+<pre style="margin:0; padding:0 ">  12:  *  the words and the lower half of all the words. </pre>
+<pre style="margin:0; padding:0 ">  13:  *  The second lowest order bit swaps odd and even pairs of words.</pre>
+<pre style="margin:0; padding:0 ">  14:  *  Etc.</pre>
+<pre style="margin:0; padding:0 ">  15:  *</pre>
+<pre style="margin:0; padding:0 ">  16:  *  The pattern mirrors that of a FFT butterfly network.</pre>
+<pre style="margin:0; padding:0 ">  17:  *</pre>
+<pre style="margin:0; padding:0 ">  18:  *  In the first stage, the swapping is done by LSB of sel_i.</pre>
+<pre style="margin:0; padding:0 ">  19:  *</pre>
+<pre style="margin:0; padding:0 ">  20:  *  example (els_p = 4):</pre>
+<pre style="margin:0; padding:0 ">  21:  *  For input  =  {b3,b2,b1,b0}</pre>
+<pre style="margin:0; padding:0 ">  22:  *  ---------------------------</pre>
+<pre style="margin:0; padding:0 ">  23:  *  sel_i = 00 => {b3,b2,b1,b0}</pre>
+<pre style="margin:0; padding:0 ">  24:  *  sel_i = 01 => {b2,b3,b0,b1}</pre>
+<pre style="margin:0; padding:0 ">  25:  *  sel_i = 10 => {b1,b0,b3,b2}</pre>
+<pre style="margin:0; padding:0 ">  26:  *  sel_i = 11 => {b0,b1,b2,b3}</pre>
+<pre style="margin:0; padding:0 ">  27:  *  ---------------------------</pre>
+<pre style="margin:0; padding:0 ">  28:  *</pre>
+<pre style="margin:0; padding:0 ">  29:  */</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: module bsg_mux_butterfly</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   #(parameter width_p="inv"</pre>
+<pre style="margin:0; padding:0 ">  34:     , parameter els_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     , localparam lg_els_lp=`BSG_SAFE_CLOG2(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   )</pre>
+<pre style="margin:0; padding:0 ">  37:   (</pre>
+<pre style="margin:0; padding:0 ">  38:     input [els_p-1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     , input [lg_els_lp-1:0] sel_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     , output logic [els_p-1:0][width_p-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   );</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   logic [lg_els_lp:0][(els_p*width_p)-1:0] data_stage;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   assign data_stage[0] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:   for (genvar i = 0; i < lg_els_lp; i++) begin: mux_stage</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:     for (genvar j = 0; j < els_p/(2**(i+1)); j++) begin: mux_swap</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:       bsg_swap #(</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:         .width_p(width_p*(2**i))</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:       ) swap_inst (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:         .data_i(data_stage[i][2*width_p*(2**i)*j+:2*width_p*(2**i)])</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:         ,.swap_i(sel_i[i])</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:         ,.data_o(data_stage[i+1][2*width_p*(2**i)*j+:2*width_p*(2**i)])</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:       );</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:     end </pre>
+<pre style="margin:0; padding:0 ">  59:   end</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   assign data_o = data_stage[lg_els_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63: endmodule</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+</body>
+</html>

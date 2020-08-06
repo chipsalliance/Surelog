@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_subreg_ext.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Register slice conforming to Comportibility guide.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module prim_subreg_ext #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int unsigned DW = 32</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input          re,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input          we,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input [DW-1:0] wd,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input [DW-1:0] d,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   // output to HW and Reg Read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic          qe,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic          qre,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic [DW-1:0] q,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [DW-1:0] qs</pre>
+<pre style="margin:0; padding:0 ">  21: );</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   assign qs = d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   assign q = wd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   assign qe = we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   assign qre = re;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: endmodule</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+</body>
+</html>

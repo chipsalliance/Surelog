@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_adapter_reg_0.1/rtl/tlul_adapter_reg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: /**</pre>
+<pre style="margin:0; padding:0 ">   8:  * Tile-Link UL adapter for Register interface</pre>
+<pre style="margin:0; padding:0 ">   9:  */</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module tlul_adapter_reg import tlul_pkg::*; #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter  int RegAw = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter  int RegDw = 32, // Shall be matched with TL_DW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam int RegBw = RegDw/8</pre>
+<pre style="margin:0; padding:0 ">  15: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // TL-UL interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // Register interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic             re_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic             we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic [RegAw-1:0] addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [RegDw-1:0] wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic [RegBw-1:0] be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input        [RegDw-1:0] rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input                    error_i</pre>
+<pre style="margin:0; padding:0 ">  31: );</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   localparam int IW  = $bits(tl_i.a_source);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   localparam int SZW = $bits(tl_i.a_size);</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic outstanding;    // Indicates current request is pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic a_ack, d_ack;</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic [RegDw-1:0] rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic             error, err_internal;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic addr_align_err;     // Size and alignment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic malformed_meta_err; // User signal format error or unsupported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic tl_err;             // Common TL-UL error checker</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic [IW-1:0]  reqid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [SZW-1:0] reqsz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   tl_d_op_e       rspop;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic rd_req, wr_req;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign a_ack   = tl_i.a_valid & tl_o.a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign d_ack   = tl_o.d_valid & tl_i.d_ready;</pre>
+<pre style="margin:0; padding:0 ">  54:   // Request signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign wr_req  = a_ack & ((tl_i.a_opcode == PutFullData) | (tl_i.a_opcode == PutPartialData));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign rd_req  = a_ack & (tl_i.a_opcode == Get);</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   assign we_o    = wr_req & ~err_internal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign re_o    = rd_req & ~err_internal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   assign addr_o  = {tl_i.a_address[RegAw-1:2], 2'b00}; // generate always word-align</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   assign wdata_o = tl_i.a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign be_o    = tl_i.a_mask;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     if (!rst_ni)    outstanding <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     else if (a_ack) outstanding <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     else if (d_ack) outstanding <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  68:   end</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:       reqid <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       reqsz <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       rspop <= AccessAck;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     end else if (a_ack) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       reqid <= tl_i.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       reqsz <= tl_i.a_size;</pre>
+<pre style="margin:0; padding:0 ">  78:       // Return AccessAckData regardless of error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       rspop <= (rd_req) ? AccessAckData : AccessAck ;</pre>
+<pre style="margin:0; padding:0 ">  80:     end</pre>
+<pre style="margin:0; padding:0 ">  81:   end</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       rdata  <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:       error <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     end else if (a_ack) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       rdata <= (err_internal) ? '1 : rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       error <= error_i | err_internal;</pre>
+<pre style="margin:0; padding:0 ">  90:     end</pre>
+<pre style="margin:0; padding:0 ">  91:   end</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   assign tl_o = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     a_ready:  ~outstanding,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     d_valid:  outstanding,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     d_opcode: rspop,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     d_param:  '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     d_size:   reqsz,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     d_source: reqid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     d_sink:   '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     d_data:   rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     d_user:  '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     d_error: error</pre>
+<pre style="margin:0; padding:0 "> 104:   };</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 107:   // Error Handling //</pre>
+<pre style="margin:0; padding:0 "> 108:   ////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign err_internal = addr_align_err | malformed_meta_err | tl_err ;</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:   // malformed_meta_err</pre>
+<pre style="margin:0; padding:0 "> 112:   //    Raised if not supported feature is turned on or user signal has malformed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign malformed_meta_err = (tl_i.a_user.parity_en == 1'b1);</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="margin:0; padding:0 "> 115:   // addr_align_err</pre>
+<pre style="margin:0; padding:0 "> 116:   //    Raised if addr isn't aligned with the size</pre>
+<pre style="margin:0; padding:0 "> 117:   //    Read size error is checked in tlul_assert.sv</pre>
+<pre style="margin:0; padding:0 "> 118:   //    Here is it added due to the limitation of register interface.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     if (wr_req) begin</pre>
+<pre style="margin:0; padding:0 "> 121:       // Only word-align is accepted based on comportability spec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       addr_align_err = |tl_i.a_address[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 124:       // No request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       addr_align_err = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 126:     end</pre>
+<pre style="margin:0; padding:0 "> 127:   end</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="margin:0; padding:0 "> 129:   // tl_err : separate checker</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   tlul_err u_err (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     .err_o (tl_err)</pre>
+<pre style="margin:0; padding:0 "> 135:   );</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:   `ASSERT_INIT(MatchedWidthAssert, RegDw == top_pkg::TL_DW)</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139: endmodule</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+</body>
+</html>

@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_hmac_0.1/rtl/hmac_core.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // HMAC Core implementation</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module hmac_core import hmac_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input [255:0] secret_key, // {word0, word1, ..., word7}</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input        wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input [31:0] wipe_v,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input        hmac_en,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input        reg_hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        reg_hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic hash_done,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic sha_hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic sha_hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input        sha_hash_done,</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic      sha_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output sha_fifo_t sha_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input             sha_rready,</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input             fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  sha_fifo_t fifo_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic      fifo_rready,</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // fifo control (select and fifo write data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic       fifo_wsel,    // 0: from reg, 1: from digest</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic       fifo_wvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic [2:0] fifo_wdata_sel, // 0: digest[0] .. 7: digest[7]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input              fifo_wready,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  [63:0] message_length,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output [63:0] sha_message_length</pre>
+<pre style="margin:0; padding:0 ">  42: );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   localparam int unsigned BlockSize = 512;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   localparam int unsigned BlockSizeBits = $clog2(BlockSize);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int unsigned HashWordBits = $clog2($bits(sha_word_t));</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic hash_start; // generated from internal state machine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic hash_process; // generated from internal state machine to trigger hash</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic hmac_hash_done;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [BlockSize-1:0] i_pad ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic [BlockSize-1:0] o_pad ;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [63:0] txcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [BlockSizeBits-HashWordBits-1:0] pad_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic clr_txcount, inc_txcount;</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic hmac_sha_rvalid;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     SelIPad,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     SelOPad,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     SelFifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   } sel_rdata_t;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   sel_rdata_t sel_rdata;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     SelIPadMsg,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     SelOPadMsg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   } sel_msglen_t;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   sel_msglen_t sel_msglen;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     Inner,  // Update when state goes to StIPad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     Outer   // Update when state enters StOPad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   } round_t ;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic update_round ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   round_t round_q, round_d;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     StIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     StIPad,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     StMsg,              // Actual Msg, and Digest both</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     StPushToMsgFifo,    // Digest --> Msg Fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     StWaitResp,         // Hash done( by checking processed_length? or hash_done)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     StOPad,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     StDone              // hmac_done</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   } st_e ;</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   st_e st_q, st_d;</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic clr_fifo_wdata_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic txcnt_eq_blksz ;</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic reg_hash_process_flag;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign sha_hash_start   = (hmac_en) ? hash_start                       : reg_hash_start ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign sha_hash_process = (hmac_en) ? reg_hash_process | hash_process  : reg_hash_process ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign hash_done        = (hmac_en) ? hmac_hash_done                   : sha_hash_done  ;</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign pad_index = txcount[BlockSizeBits-1:HashWordBits];</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign i_pad = {secret_key, {(BlockSize-256){1'b0}}} ^ {(BlockSize/8){8'h36}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign o_pad = {secret_key, {(BlockSize-256){1'b0}}} ^ {(BlockSize/8){8'h5c}};</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign fifo_rready  = (hmac_en) ? (st_q == StMsg) & sha_rready : sha_rready ;</pre>
+<pre style="margin:0; padding:0 "> 112:   // sha_rvalid is controlled by State Machine below.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign sha_rvalid = (!hmac_en) ? fifo_rvalid : hmac_sha_rvalid ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign sha_rdata =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     (!hmac_en)             ? fifo_rdata                                               :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     (sel_rdata == SelIPad) ? '{data: i_pad[(BlockSize-1)-32*pad_index-:32], mask: '1} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     (sel_rdata == SelOPad) ? '{data: o_pad[(BlockSize-1)-32*pad_index-:32], mask: '1} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     (sel_rdata == SelFifo) ? fifo_rdata                                               :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     '{default: '0};</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign sha_message_length = (!hmac_en)                 ? message_length             :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:                               (sel_msglen == SelIPadMsg) ? message_length + BlockSize :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:                               (sel_msglen == SelOPadMsg) ? BlockSize + 256            :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:                               '0 ;</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign txcnt_eq_blksz = (txcount[BlockSizeBits:0] == BlockSize);</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   assign inc_txcount = sha_rready && sha_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 129: </pre>
+<pre style="margin:0; padding:0 "> 130:   // txcount</pre>
+<pre style="margin:0; padding:0 "> 131:   //    Looks like txcount can be removed entirely here in hmac_core</pre>
+<pre style="margin:0; padding:0 "> 132:   //    In the first round (InnerPaddedKey), it can just watch process and hash_done</pre>
+<pre style="margin:0; padding:0 "> 133:   //    In the second round, it only needs count 256 bits for hash digest to trigger</pre>
+<pre style="margin:0; padding:0 "> 134:   //    hash_process to SHA2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       txcount <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     end else if (clr_txcount) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       txcount <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     end else if (inc_txcount) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       txcount[63:5] <= txcount[63:5] + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 142:     end</pre>
+<pre style="margin:0; padding:0 "> 143:   end</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   // reg_hash_process trigger logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       reg_hash_process_flag <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     end else if (reg_hash_process) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       reg_hash_process_flag <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     end else if (hmac_hash_done || reg_hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       reg_hash_process_flag <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 153:     end</pre>
+<pre style="margin:0; padding:0 "> 154:   end</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       round_q <= Inner;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     end else if (update_round) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       round_q <= round_d;</pre>
+<pre style="margin:0; padding:0 "> 161:     end</pre>
+<pre style="margin:0; padding:0 "> 162:   end</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:       fifo_wdata_sel <= 3'h 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:     end else if (clr_fifo_wdata_sel) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:       fifo_wdata_sel <= 3'h 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     end else if (fifo_wsel && fifo_wvalid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       fifo_wdata_sel <= fifo_wdata_sel + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 171:     end</pre>
+<pre style="margin:0; padding:0 "> 172:   end</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   assign sel_msglen = (round_q == Inner) ? SelIPadMsg : SelOPadMsg ;</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   always_ff @(posedge clk_i or negedge rst_ni) begin : state_ff</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     if (!rst_ni) st_q <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     else         st_q <= st_d;</pre>
+<pre style="margin:0; padding:0 "> 179:   end</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   always_comb begin : next_state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     hmac_hash_done  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     hmac_sha_rvalid = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     clr_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     update_round = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     round_d      = Inner;</pre>
+<pre style="margin:0; padding:0 "> 189: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     fifo_wsel    = 1'b0;   // from register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     fifo_wvalid  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 192: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     clr_fifo_wdata_sel = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     sel_rdata = SelFifo;</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     hash_start   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     hash_process = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 199: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     unique case (st_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         if (hmac_en && reg_hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:           st_d = StIPad;</pre>
+<pre style="margin:0; padding:0 "> 204: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:           clr_txcount  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:           update_round = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:           round_d      = Inner;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:           hash_start   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:           st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 211:         end</pre>
+<pre style="margin:0; padding:0 "> 212:       end</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:       StIPad: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:         sel_rdata = SelIPad;</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:         if (txcnt_eq_blksz) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:           st_d = StMsg;</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:           hmac_sha_rvalid = 1'b0; // block new read request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:           st_d = StIPad;</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:           hmac_sha_rvalid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 225:         end</pre>
+<pre style="margin:0; padding:0 "> 226:       end</pre>
+<pre style="margin:0; padding:0 "> 227: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:       StMsg: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         sel_rdata = SelFifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:         fifo_wsel = (round_q == Outer);</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:         if ( (((round_q == Inner) && reg_hash_process_flag) || (round_q == Outer))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:             && (txcount >= sha_message_length)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:           st_d = StWaitResp;</pre>
+<pre style="margin:0; padding:0 "> 235: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           hmac_sha_rvalid = 1'b0; // block</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:           hash_process = (round_q == Outer);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:           st_d = StMsg;</pre>
+<pre style="margin:0; padding:0 "> 240: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:           hmac_sha_rvalid = fifo_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 242:         end</pre>
+<pre style="margin:0; padding:0 "> 243:       end</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:       StWaitResp: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:         hmac_sha_rvalid = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 247: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:         if (sha_hash_done) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:           if (round_q == Outer) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:             st_d = StDone;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           end else begin // round_q == Inner</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:             st_d = StPushToMsgFifo;</pre>
+<pre style="margin:0; padding:0 "> 253:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:           st_d = StWaitResp;</pre>
+<pre style="margin:0; padding:0 "> 256:         end</pre>
+<pre style="margin:0; padding:0 "> 257:       end</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:       StPushToMsgFifo: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         hmac_sha_rvalid    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:         fifo_wsel          = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:         fifo_wvalid        = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         clr_fifo_wdata_sel = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 264: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         if (fifo_wready && fifo_wdata_sel == 3'h7) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:           st_d = StOPad;</pre>
+<pre style="margin:0; padding:0 "> 267: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:           clr_txcount  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           update_round = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:           round_d      = Outer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:           hash_start   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:           st_d = StPushToMsgFifo;</pre>
+<pre style="margin:0; padding:0 "> 274: </pre>
+<pre style="margin:0; padding:0 "> 275:         end</pre>
+<pre style="margin:0; padding:0 "> 276:       end</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:       StOPad: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:         sel_rdata = SelOPad;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:         fifo_wsel = 1'b1; // Remained HMAC select to indicate HMAC is in second stage</pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:         if (txcnt_eq_blksz) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:           st_d = StMsg;</pre>
+<pre style="margin:0; padding:0 "> 284: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:           hmac_sha_rvalid = 1'b0; // block new read request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           st_d = StOPad;</pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:           hmac_sha_rvalid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 290:         end</pre>
+<pre style="margin:0; padding:0 "> 291:       end</pre>
+<pre style="margin:0; padding:0 "> 292: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:       StDone: begin</pre>
+<pre style="margin:0; padding:0 "> 294:         // raise interrupt (hash_done)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:         st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 296: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:         hmac_hash_done = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 298:       end</pre>
+<pre style="margin:0; padding:0 "> 299: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:         st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 302:       end</pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+<pre style="margin:0; padding:0 "> 304:     endcase</pre>
+<pre style="margin:0; padding:0 "> 305:   end</pre>
+<pre style="margin:0; padding:0 "> 306: endmodule</pre>
+<pre style="margin:0; padding:0 "> 307: </pre>
+</body>
+</html>

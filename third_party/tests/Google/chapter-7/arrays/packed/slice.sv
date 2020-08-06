@@ -1,7 +1,6 @@
 /*
 :name: operations-on-packed-arrays-slice-rw
 :description: Test packed arrays operations support (R&W slice)
-:should_fail: 0
 :tags: 7.4.3
 :type: simulation parsing
 */

@@ -1,0 +1,1057 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_cs_registers.sv Cov: 83% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Control and Status Registers</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Control and Status Registers (CSRs) following the RISC-V Privileged</pre>
+<pre style="margin:0; padding:0 ">  10:  * Specification, draft version 1.11</pre>
+<pre style="margin:0; padding:0 ">  11:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module ibex_cs_registers #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     parameter bit          DbgTriggerEn     = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     parameter int unsigned MHPMCounterNum   = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     parameter int unsigned MHPMCounterWidth = 40,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     parameter bit          PMPEnable        = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     parameter int unsigned PMPGranularity   = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     parameter int unsigned PMPNumRegions    = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     parameter bit          RV32E            = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     parameter bit          RV32M            = 0</pre>
+<pre style="margin:0; padding:0 ">  21: ) (</pre>
+<pre style="margin:0; padding:0 ">  22:     // Clock and Reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     input  logic                 clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  logic                 rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:     // Hart ID</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     input  logic [31:0]          hart_id_i,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // Privilege mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     output ibex_pkg::priv_lvl_e  priv_mode_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     output ibex_pkg::priv_lvl_e  priv_mode_if_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output ibex_pkg::priv_lvl_e  priv_mode_lsu_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     output logic                 csr_mstatus_tw_o,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     // mtvec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     output logic [31:0]          csr_mtvec_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     input  logic                 csr_mtvec_init_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic [31:0]          boot_addr_i,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:     // Interface to registers (SRAM like)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     input  logic                 csr_access_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     input  ibex_pkg::csr_num_e   csr_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     input  logic [31:0]          csr_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     input  ibex_pkg::csr_op_e    csr_op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     output logic [31:0]          csr_rdata_o,</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:     // interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     input  logic                 irq_software_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     input  logic                 irq_timer_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     input  logic                 irq_external_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     input  logic [14:0]          irq_fast_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic                 irq_pending_o,          // interupt request pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     input  logic                 nmi_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     output logic                 csr_msip_o,             // software interrupt pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     output logic                 csr_mtip_o,             // timer interrupt pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     output logic                 csr_meip_o,             // external interrupt pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     output logic [14:0]          csr_mfip_o,             // fast interrupt pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     output logic                 csr_mstatus_mie_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     output logic [31:0]          csr_mepc_o,</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:     // PMP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     output ibex_pkg::pmp_cfg_t   csr_pmp_cfg_o  [PMPNumRegions],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     output logic [33:0]          csr_pmp_addr_o [PMPNumRegions],</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:     // debug</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     input  logic                 debug_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     input  ibex_pkg::dbg_cause_e debug_cause_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     input  logic                 debug_csr_save_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     output logic [31:0]          csr_depc_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     output logic                 debug_single_step_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     output logic                 debug_ebreakm_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     output logic                 debug_ebreaku_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     output logic                 trigger_match_o,</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     input  logic [31:0]          pc_if_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     input  logic [31:0]          pc_id_i,</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     input  logic                 csr_save_if_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     input  logic                 csr_save_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     input  logic                 csr_restore_mret_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     input  logic                 csr_restore_dret_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     input  logic                 csr_save_cause_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     input  ibex_pkg::exc_cause_e csr_mcause_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     input  logic [31:0]          csr_mtval_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     output logic                 illegal_csr_insn_o,     // access to non-existent CSR,</pre>
+<pre style="margin:0; padding:0 ">  86:                                                          // with wrong priviledge level, or</pre>
+<pre style="margin:0; padding:0 ">  87:                                                          // missing write permissions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     input  logic                 instr_new_id_i,         // ID stage sees a new instr</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90:     // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     input  logic                 instr_ret_i,            // instr retired in ID/EX stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     input  logic                 instr_ret_compressed_i, // compressed instr retired</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     input  logic                 imiss_i,                // instr fetch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     input  logic                 pc_set_i,               // PC was set to a new value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     input  logic                 jump_i,                 // jump instr seen (j, jr, jal, jalr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     input  logic                 branch_i,               // branch instr seen (bf, bnf)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     input  logic                 branch_taken_i,         // branch was taken</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     input  logic                 mem_load_i,             // load from memory in this cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     input  logic                 mem_store_i,            // store to memory in this cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     input  logic                 lsu_busy_i</pre>
+<pre style="margin:0; padding:0 "> 101: );</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105:   // misa</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   localparam logic [1:0] MXL = 2'd1; // M-XLEN: XLEN in M-Mode for RV32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   localparam logic [31:0] MISA_VALUE =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       (0          <<  0)  // A - Atomic Instructions extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     | (1          <<  2)  // C - Compressed extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     | (0          <<  3)  // D - Double precision floating-point extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     | (32'(RV32E) <<  4)  // E - RV32E base ISA</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     | (0          <<  5)  // F - Single precision floating-point extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     | (1          <<  8)  // I - RV32I/64I/128I base ISA</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     | (32'(RV32M) << 12)  // M - Integer Multiply/Divide extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     | (0          << 13)  // N - User level interrupts supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     | (0          << 18)  // S - Supervisor mode implemented</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     | (1          << 20)  // U - User mode implemented</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     | (0          << 23)  // X - Non-standard extensions present</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     | (32'(MXL)   << 30); // M-XLEN</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     logic      mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     logic      mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     priv_lvl_e mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     logic      mprv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     logic      tw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   } Status_t;</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     logic      mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     priv_lvl_e mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   } StatusStk_t;</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="margin:0; padding:0 "> 134:   // struct for mip/mie CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     logic        irq_software;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     logic        irq_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     logic        irq_external;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     logic [14:0] irq_fast; // 15 fast interrupts,</pre>
+<pre style="margin:0; padding:0 "> 140:                            // one interrupt is reserved for NMI (not visible through mip/mie)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   } Interrupts_t;</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       x_debug_ver_e xdebugver;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       logic [11:0]  zero2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       logic         ebreakm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       logic         zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       logic         ebreaks;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       logic         ebreaku;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       logic         stepie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       logic         stopcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       logic         stoptime;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       dbg_cause_e   cause;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       logic         zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       logic         mprven;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       logic         nmip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       logic         step;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       priv_lvl_e    prv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   } Dcsr_t;</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="margin:0; padding:0 "> 161:   // Interrupt and exception control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   logic [31:0] exception_pc;</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="margin:0; padding:0 "> 164:   // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   priv_lvl_e   priv_lvl_q, priv_lvl_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   Status_t     mstatus_q, mstatus_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   Interrupts_t mie_q, mie_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   logic [31:0] mscratch_q, mscratch_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   logic [31:0] mepc_q, mepc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   logic  [5:0] mcause_q, mcause_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   logic [31:0] mtval_q, mtval_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic [31:0] mtvec_q, mtvec_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   Interrupts_t mip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   Dcsr_t       dcsr_q, dcsr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic [31:0] depc_q, depc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   logic [31:0] dscratch0_q, dscratch0_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   logic [31:0] dscratch1_q, dscratch1_d;</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="margin:0; padding:0 "> 179:   // CSRs for recoverable NMIs</pre>
+<pre style="margin:0; padding:0 "> 180:   // NOTE: these CSRS are nonstandard, see https://github.com/riscv/riscv-isa-manual/issues/261</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   StatusStk_t  mstack_q, mstack_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   logic [31:0] mstack_epc_q, mstack_epc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:   logic  [5:0] mstack_cause_q, mstack_cause_d;</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:   // PMP Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   logic [31:0]                 pmp_addr_rdata  [PMP_MAX_REGIONS];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   logic [PMP_CFG_W-1:0]        pmp_cfg_rdata   [PMP_MAX_REGIONS];</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="margin:0; padding:0 "> 189:   // Hardware performance monitor signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic [31:0]                 mcountinhibit;</pre>
+<pre style="margin:0; padding:0 "> 191:   // Only have mcountinhibit flops for counters that actually exist</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   logic [MHPMCounterNum+3-1:0] mcountinhibit_d, mcountinhibit_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:   logic                        mcountinhibit_we;</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   logic [63:0] mhpmcounter_d [32];</pre>
+<pre style="margin:0; padding:0 "> 196:   // mhpmcounter flops are elaborated below providing only the precise number that is required based</pre>
+<pre style="margin:0; padding:0 "> 197:   // on MHPMCounterNum/MHPMCounterWidth. This signal connects to the Q output of these flops</pre>
+<pre style="margin:0; padding:0 "> 198:   // where they exist and is otherwise 0.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:   logic [63:0] mhpmcounter [32];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   logic [31:0] mhpmcounter_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   logic [31:0] mhpmcounterh_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   logic [31:0] mhpmcounter_incr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   logic [31:0] mhpmevent [32];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   logic  [4:0] mhpmcounter_idx;</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="margin:0; padding:0 "> 206:   // Debug / trigger registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   logic [31:0] tselect_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   logic [31:0] tmatch_control_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   logic [31:0] tmatch_value_rdata;</pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="margin:0; padding:0 "> 211:   // CSR update logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   logic [31:0] csr_wdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   logic [31:0] csr_rdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   logic        csr_we_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   logic        csr_wreq;</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="margin:0; padding:0 "> 217:   // Access violation signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   logic        illegal_csr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   logic        illegal_csr_priv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:   logic        illegal_csr_write;</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   logic [7:0]  unused_boot_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   logic [2:0]  unused_csr_addr;</pre>
+<pre style="margin:0; padding:0 "> 224: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   assign unused_boot_addr = boot_addr_i[7:0];</pre>
+<pre style="margin:0; padding:0 "> 226: </pre>
+<pre style="margin:0; padding:0 "> 227:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 228:   // CSR reg //</pre>
+<pre style="margin:0; padding:0 "> 229:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:   logic [$bits(csr_num_e)-1:0] csr_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   assign csr_addr           = {csr_addr_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:   assign unused_csr_addr    = csr_addr[7:5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:   assign mhpmcounter_idx    = csr_addr[4:0];</pre>
+<pre style="margin:0; padding:0 "> 235: </pre>
+<pre style="margin:0; padding:0 "> 236:   // See RISC-V Privileged Specification, version 1.11, Section 2.1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   assign illegal_csr_priv   = (csr_addr[9:8] > {priv_lvl_q});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   assign illegal_csr_write  = (csr_addr[11:10] == 2'b11) && csr_wreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:   assign illegal_csr_insn_o = csr_access_i & (illegal_csr | illegal_csr_write | illegal_csr_priv);</pre>
+<pre style="margin:0; padding:0 "> 240: </pre>
+<pre style="margin:0; padding:0 "> 241:   // mip CSR is purely combinational - must be able to re-enable the clock upon WFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:   assign mip.irq_software = irq_software_i & mie_q.irq_software;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:   assign mip.irq_timer    = irq_timer_i    & mie_q.irq_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   assign mip.irq_external = irq_external_i & mie_q.irq_external;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   assign mip.irq_fast     = irq_fast_i     & mie_q.irq_fast;</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="margin:0; padding:0 "> 247:   // read logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     csr_rdata_int = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     illegal_csr   = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     unique case (csr_addr_i)</pre>
+<pre style="margin:0; padding:0 "> 253:       // mhartid: unique hardware thread id</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:       CSR_MHARTID: csr_rdata_int = hart_id_i;</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+<pre style="margin:0; padding:0 "> 256:       // mstatus: always M-mode, contains IE bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:       CSR_MSTATUS: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         csr_rdata_int                                                   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:         csr_rdata_int[CSR_MSTATUS_MIE_BIT]                              = mstatus_q.mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         csr_rdata_int[CSR_MSTATUS_MPIE_BIT]                             = mstatus_q.mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:         csr_rdata_int[CSR_MSTATUS_MPP_BIT_HIGH:CSR_MSTATUS_MPP_BIT_LOW] = mstatus_q.mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:         csr_rdata_int[CSR_MSTATUS_MPRV_BIT]                             = mstatus_q.mprv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         csr_rdata_int[CSR_MSTATUS_TW_BIT]                               = mstatus_q.tw;</pre>
+<pre style="margin:0; padding:0 "> 264:       end</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266:       // misa</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:       CSR_MISA: csr_rdata_int = MISA_VALUE;</pre>
+<pre style="margin:0; padding:0 "> 268: </pre>
+<pre style="margin:0; padding:0 "> 269:       // interrupt enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:       CSR_MIE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:         csr_rdata_int                                     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:         csr_rdata_int[CSR_MSIX_BIT]                       = mie_q.irq_software;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         csr_rdata_int[CSR_MTIX_BIT]                       = mie_q.irq_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:         csr_rdata_int[CSR_MEIX_BIT]                       = mie_q.irq_external;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:         csr_rdata_int[CSR_MFIX_BIT_HIGH:CSR_MFIX_BIT_LOW] = mie_q.irq_fast;</pre>
+<pre style="margin:0; padding:0 "> 276:       end</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:       CSR_MSCRATCH: csr_rdata_int = mscratch_q;</pre>
+<pre style="margin:0; padding:0 "> 279: </pre>
+<pre style="margin:0; padding:0 "> 280:       // mtvec: trap-vector base address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:       CSR_MTVEC: csr_rdata_int = mtvec_q;</pre>
+<pre style="margin:0; padding:0 "> 282: </pre>
+<pre style="margin:0; padding:0 "> 283:       // mepc: exception program counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:       CSR_MEPC: csr_rdata_int = mepc_q;</pre>
+<pre style="margin:0; padding:0 "> 285: </pre>
+<pre style="margin:0; padding:0 "> 286:       // mcause: exception cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       CSR_MCAUSE: csr_rdata_int = {mcause_q[5], 26'b0, mcause_q[4:0]};</pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="margin:0; padding:0 "> 289:       // mtval: trap value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:       CSR_MTVAL: csr_rdata_int = mtval_q;</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="margin:0; padding:0 "> 292:       // mip: interrupt pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:       CSR_MIP: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:         csr_rdata_int                                     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:         csr_rdata_int[CSR_MSIX_BIT]                       = mip.irq_software;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:         csr_rdata_int[CSR_MTIX_BIT]                       = mip.irq_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:         csr_rdata_int[CSR_MEIX_BIT]                       = mip.irq_external;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:         csr_rdata_int[CSR_MFIX_BIT_HIGH:CSR_MFIX_BIT_LOW] = mip.irq_fast;</pre>
+<pre style="margin:0; padding:0 "> 299:       end</pre>
+<pre style="margin:0; padding:0 "> 300: </pre>
+<pre style="margin:0; padding:0 "> 301:       // PMP registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       CSR_PMPCFG0:   csr_rdata_int = {pmp_cfg_rdata[3],  pmp_cfg_rdata[2],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:                                       pmp_cfg_rdata[1],  pmp_cfg_rdata[0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:       CSR_PMPCFG1:   csr_rdata_int = {pmp_cfg_rdata[7],  pmp_cfg_rdata[6],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:                                       pmp_cfg_rdata[5],  pmp_cfg_rdata[4]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       CSR_PMPCFG2:   csr_rdata_int = {pmp_cfg_rdata[11], pmp_cfg_rdata[10],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:                                       pmp_cfg_rdata[9],  pmp_cfg_rdata[8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       CSR_PMPCFG3:   csr_rdata_int = {pmp_cfg_rdata[15], pmp_cfg_rdata[14],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:                                       pmp_cfg_rdata[13], pmp_cfg_rdata[12]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       CSR_PMPADDR0:  csr_rdata_int = pmp_addr_rdata[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:       CSR_PMPADDR1:  csr_rdata_int = pmp_addr_rdata[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:       CSR_PMPADDR2:  csr_rdata_int = pmp_addr_rdata[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:       CSR_PMPADDR3:  csr_rdata_int = pmp_addr_rdata[3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:       CSR_PMPADDR4:  csr_rdata_int = pmp_addr_rdata[4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:       CSR_PMPADDR5:  csr_rdata_int = pmp_addr_rdata[5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       CSR_PMPADDR6:  csr_rdata_int = pmp_addr_rdata[6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       CSR_PMPADDR7:  csr_rdata_int = pmp_addr_rdata[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       CSR_PMPADDR8:  csr_rdata_int = pmp_addr_rdata[8];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:       CSR_PMPADDR9:  csr_rdata_int = pmp_addr_rdata[9];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       CSR_PMPADDR10: csr_rdata_int = pmp_addr_rdata[10];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       CSR_PMPADDR11: csr_rdata_int = pmp_addr_rdata[11];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:       CSR_PMPADDR12: csr_rdata_int = pmp_addr_rdata[12];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:       CSR_PMPADDR13: csr_rdata_int = pmp_addr_rdata[13];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:       CSR_PMPADDR14: csr_rdata_int = pmp_addr_rdata[14];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       CSR_PMPADDR15: csr_rdata_int = pmp_addr_rdata[15];</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       CSR_DCSR: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:         csr_rdata_int = dcsr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:         illegal_csr = ~debug_mode_i;</pre>
+<pre style="margin:0; padding:0 "> 330:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:       CSR_DPC: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:         csr_rdata_int = depc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:         illegal_csr = ~debug_mode_i;</pre>
+<pre style="margin:0; padding:0 "> 334:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:       CSR_DSCRATCH0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:         csr_rdata_int = dscratch0_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:         illegal_csr = ~debug_mode_i;</pre>
+<pre style="margin:0; padding:0 "> 338:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:       CSR_DSCRATCH1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:         csr_rdata_int = dscratch1_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:         illegal_csr = ~debug_mode_i;</pre>
+<pre style="margin:0; padding:0 "> 342:       end</pre>
+<pre style="margin:0; padding:0 "> 343: </pre>
+<pre style="margin:0; padding:0 "> 344:       // machine counter/timers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:       CSR_MCOUNTINHIBIT: csr_rdata_int = mcountinhibit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:       CSR_MHPMEVENT3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:       CSR_MHPMEVENT4,  CSR_MHPMEVENT5,  CSR_MHPMEVENT6,  CSR_MHPMEVENT7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:       CSR_MHPMEVENT8,  CSR_MHPMEVENT9,  CSR_MHPMEVENT10, CSR_MHPMEVENT11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       CSR_MHPMEVENT12, CSR_MHPMEVENT13, CSR_MHPMEVENT14, CSR_MHPMEVENT15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:       CSR_MHPMEVENT16, CSR_MHPMEVENT17, CSR_MHPMEVENT18, CSR_MHPMEVENT19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       CSR_MHPMEVENT20, CSR_MHPMEVENT21, CSR_MHPMEVENT22, CSR_MHPMEVENT23,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:       CSR_MHPMEVENT24, CSR_MHPMEVENT25, CSR_MHPMEVENT26, CSR_MHPMEVENT27,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:       CSR_MHPMEVENT28, CSR_MHPMEVENT29, CSR_MHPMEVENT30, CSR_MHPMEVENT31: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:         csr_rdata_int = mhpmevent[mhpmcounter_idx];</pre>
+<pre style="margin:0; padding:0 "> 355:       end</pre>
+<pre style="margin:0; padding:0 "> 356: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:       CSR_MCYCLE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:       CSR_MINSTRET,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:       CSR_MHPMCOUNTER3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:       CSR_MHPMCOUNTER4,  CSR_MHPMCOUNTER5,  CSR_MHPMCOUNTER6,  CSR_MHPMCOUNTER7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:       CSR_MHPMCOUNTER8,  CSR_MHPMCOUNTER9,  CSR_MHPMCOUNTER10, CSR_MHPMCOUNTER11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:       CSR_MHPMCOUNTER12, CSR_MHPMCOUNTER13, CSR_MHPMCOUNTER14, CSR_MHPMCOUNTER15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:       CSR_MHPMCOUNTER16, CSR_MHPMCOUNTER17, CSR_MHPMCOUNTER18, CSR_MHPMCOUNTER19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       CSR_MHPMCOUNTER20, CSR_MHPMCOUNTER21, CSR_MHPMCOUNTER22, CSR_MHPMCOUNTER23,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       CSR_MHPMCOUNTER24, CSR_MHPMCOUNTER25, CSR_MHPMCOUNTER26, CSR_MHPMCOUNTER27,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       CSR_MHPMCOUNTER28, CSR_MHPMCOUNTER29, CSR_MHPMCOUNTER30, CSR_MHPMCOUNTER31: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:         csr_rdata_int = mhpmcounter[mhpmcounter_idx][31:0];</pre>
+<pre style="margin:0; padding:0 "> 368:       end</pre>
+<pre style="margin:0; padding:0 "> 369: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       CSR_MCYCLEH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:       CSR_MINSTRETH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       CSR_MHPMCOUNTER3H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:       CSR_MHPMCOUNTER4H,  CSR_MHPMCOUNTER5H,  CSR_MHPMCOUNTER6H,  CSR_MHPMCOUNTER7H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:       CSR_MHPMCOUNTER8H,  CSR_MHPMCOUNTER9H,  CSR_MHPMCOUNTER10H, CSR_MHPMCOUNTER11H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:       CSR_MHPMCOUNTER12H, CSR_MHPMCOUNTER13H, CSR_MHPMCOUNTER14H, CSR_MHPMCOUNTER15H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:       CSR_MHPMCOUNTER16H, CSR_MHPMCOUNTER17H, CSR_MHPMCOUNTER18H, CSR_MHPMCOUNTER19H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:       CSR_MHPMCOUNTER20H, CSR_MHPMCOUNTER21H, CSR_MHPMCOUNTER22H, CSR_MHPMCOUNTER23H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:       CSR_MHPMCOUNTER24H, CSR_MHPMCOUNTER25H, CSR_MHPMCOUNTER26H, CSR_MHPMCOUNTER27H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:       CSR_MHPMCOUNTER28H, CSR_MHPMCOUNTER29H, CSR_MHPMCOUNTER30H, CSR_MHPMCOUNTER31H: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:         csr_rdata_int = mhpmcounter[mhpmcounter_idx][63:32];</pre>
+<pre style="margin:0; padding:0 "> 381:       end</pre>
+<pre style="margin:0; padding:0 "> 382: </pre>
+<pre style="margin:0; padding:0 "> 383:       // Debug triggers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       CSR_TSELECT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:         csr_rdata_int = tselect_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 387:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:       CSR_TDATA1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:         csr_rdata_int = tmatch_control_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 391:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:       CSR_TDATA2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:         csr_rdata_int = tmatch_value_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 395:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:       CSR_TDATA3: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:         csr_rdata_int = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 399:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:       CSR_MCONTEXT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:         csr_rdata_int = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 403:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:       CSR_SCONTEXT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:         csr_rdata_int = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:         illegal_csr   = ~DbgTriggerEn;</pre>
+<pre style="margin:0; padding:0 "> 407:       end</pre>
+<pre style="margin:0; padding:0 "> 408: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:         illegal_csr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 411:       end</pre>
+<pre style="margin:0; padding:0 "> 412:     endcase</pre>
+<pre style="margin:0; padding:0 "> 413:   end</pre>
+<pre style="margin:0; padding:0 "> 414: </pre>
+<pre style="margin:0; padding:0 "> 415:   // write logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:     exception_pc = pc_id_i;</pre>
+<pre style="margin:0; padding:0 "> 418: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:     priv_lvl_d   = priv_lvl_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:     mstatus_d    = mstatus_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:     mie_d        = mie_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:     mscratch_d   = mscratch_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:     mepc_d       = mepc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:     mcause_d     = mcause_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:     mtval_d      = mtval_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:     mtvec_d      = csr_mtvec_init_i ? {boot_addr_i[31:8], 6'b0, 2'b01} : mtvec_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:     dcsr_d       = dcsr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:     depc_d       = depc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:     dscratch0_d  = dscratch0_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:     dscratch1_d  = dscratch1_q;</pre>
+<pre style="margin:0; padding:0 "> 431: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:     mstack_d       = mstack_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:     mstack_epc_d   = mstack_epc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:     mstack_cause_d = mstack_cause_q;</pre>
+<pre style="margin:0; padding:0 "> 435: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:     mcountinhibit_we = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:     mhpmcounter_we   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:     mhpmcounterh_we  = '0;</pre>
+<pre style="margin:0; padding:0 "> 439: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:     if (csr_we_int) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:       unique case (csr_addr_i)</pre>
+<pre style="margin:0; padding:0 "> 442:         // mstatus: IE bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:         CSR_MSTATUS: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:           mstatus_d = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:               mie:  csr_wdata_int[CSR_MSTATUS_MIE_BIT],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:               mpie: csr_wdata_int[CSR_MSTATUS_MPIE_BIT],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:               mpp:  priv_lvl_e'(csr_wdata_int[CSR_MSTATUS_MPP_BIT_HIGH:CSR_MSTATUS_MPP_BIT_LOW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:               mprv: csr_wdata_int[CSR_MSTATUS_MPRV_BIT],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:               tw:   csr_wdata_int[CSR_MSTATUS_TW_BIT]</pre>
+<pre style="margin:0; padding:0 "> 450:           };</pre>
+<pre style="margin:0; padding:0 "> 451:           // Convert illegal values to M-mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:           if ((mstatus_d.mpp != PRIV_LVL_M) && (mstatus_d.mpp != PRIV_LVL_U)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:             mstatus_d.mpp = PRIV_LVL_M;</pre>
+<pre style="margin:0; padding:0 "> 454:           end</pre>
+<pre style="margin:0; padding:0 "> 455:         end</pre>
+<pre style="margin:0; padding:0 "> 456: </pre>
+<pre style="margin:0; padding:0 "> 457:         // interrupt enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:         CSR_MIE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:           mie_d.irq_software = csr_wdata_int[CSR_MSIX_BIT];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:           mie_d.irq_timer    = csr_wdata_int[CSR_MTIX_BIT];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:           mie_d.irq_external = csr_wdata_int[CSR_MEIX_BIT];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:           mie_d.irq_fast     = csr_wdata_int[CSR_MFIX_BIT_HIGH:CSR_MFIX_BIT_LOW];</pre>
+<pre style="margin:0; padding:0 "> 463:         end</pre>
+<pre style="margin:0; padding:0 "> 464: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:         CSR_MSCRATCH: mscratch_d = csr_wdata_int;</pre>
+<pre style="margin:0; padding:0 "> 466: </pre>
+<pre style="margin:0; padding:0 "> 467:         // mepc: exception program counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:         CSR_MEPC: mepc_d = {csr_wdata_int[31:1], 1'b0};</pre>
+<pre style="margin:0; padding:0 "> 469: </pre>
+<pre style="margin:0; padding:0 "> 470:         // mcause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:         CSR_MCAUSE: mcause_d = {csr_wdata_int[31], csr_wdata_int[4:0]};</pre>
+<pre style="margin:0; padding:0 "> 472: </pre>
+<pre style="margin:0; padding:0 "> 473:         // mtval: trap value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:         CSR_MTVAL: mtval_d = csr_wdata_int;</pre>
+<pre style="margin:0; padding:0 "> 475: </pre>
+<pre style="margin:0; padding:0 "> 476:         // mtvec</pre>
+<pre style="margin:0; padding:0 "> 477:         // mtvec.MODE set to vectored</pre>
+<pre style="margin:0; padding:0 "> 478:         // mtvec.BASE must be 256-byte aligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:         CSR_MTVEC: mtvec_d = {csr_wdata_int[31:8], 6'b0, 2'b01};</pre>
+<pre style="margin:0; padding:0 "> 480: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:         CSR_DCSR: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:           dcsr_d = csr_wdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:           dcsr_d.xdebugver = XDEBUGVER_STD;</pre>
+<pre style="margin:0; padding:0 "> 484:           // Change to PRIV_LVL_M if software writes an unsupported value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:           if ((dcsr_d.prv != PRIV_LVL_M) && (dcsr_d.prv != PRIV_LVL_U)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:             dcsr_d.prv = PRIV_LVL_M;</pre>
+<pre style="margin:0; padding:0 "> 487:           end</pre>
+<pre style="margin:0; padding:0 "> 488: </pre>
+<pre style="margin:0; padding:0 "> 489:           // currently not supported:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:           dcsr_d.nmip = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:           dcsr_d.mprven = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:           dcsr_d.stopcount = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:           dcsr_d.stoptime = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 494: </pre>
+<pre style="margin:0; padding:0 "> 495:           // forced to be zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 496:           dcsr_d.zero0 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:           dcsr_d.zero1 = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:           dcsr_d.zero2 = 12'h0;</pre>
+<pre style="margin:0; padding:0 "> 499:         end</pre>
+<pre style="margin:0; padding:0 "> 500: </pre>
+<pre style="margin:0; padding:0 "> 501:         // dpc: debug program counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:         CSR_DPC: depc_d = {csr_wdata_int[31:1], 1'b0};</pre>
+<pre style="margin:0; padding:0 "> 503: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:         CSR_DSCRATCH0: dscratch0_d = csr_wdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:         CSR_DSCRATCH1: dscratch1_d = csr_wdata_int;</pre>
+<pre style="margin:0; padding:0 "> 506: </pre>
+<pre style="margin:0; padding:0 "> 507:         // machine counter/timers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:         CSR_MCOUNTINHIBIT: mcountinhibit_we = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 509: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 510:         CSR_MCYCLE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 511:         CSR_MINSTRET,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:         CSR_MHPMCOUNTER3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:         CSR_MHPMCOUNTER4,  CSR_MHPMCOUNTER5,  CSR_MHPMCOUNTER6,  CSR_MHPMCOUNTER7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:         CSR_MHPMCOUNTER8,  CSR_MHPMCOUNTER9,  CSR_MHPMCOUNTER10, CSR_MHPMCOUNTER11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:         CSR_MHPMCOUNTER12, CSR_MHPMCOUNTER13, CSR_MHPMCOUNTER14, CSR_MHPMCOUNTER15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:         CSR_MHPMCOUNTER16, CSR_MHPMCOUNTER17, CSR_MHPMCOUNTER18, CSR_MHPMCOUNTER19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:         CSR_MHPMCOUNTER20, CSR_MHPMCOUNTER21, CSR_MHPMCOUNTER22, CSR_MHPMCOUNTER23,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:         CSR_MHPMCOUNTER24, CSR_MHPMCOUNTER25, CSR_MHPMCOUNTER26, CSR_MHPMCOUNTER27,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 519:         CSR_MHPMCOUNTER28, CSR_MHPMCOUNTER29, CSR_MHPMCOUNTER30, CSR_MHPMCOUNTER31: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520:           mhpmcounter_we[mhpmcounter_idx] = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 521:         end</pre>
+<pre style="margin:0; padding:0 "> 522: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:         CSR_MCYCLEH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:         CSR_MINSTRETH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:         CSR_MHPMCOUNTER3H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 526:         CSR_MHPMCOUNTER4H,  CSR_MHPMCOUNTER5H,  CSR_MHPMCOUNTER6H,  CSR_MHPMCOUNTER7H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:         CSR_MHPMCOUNTER8H,  CSR_MHPMCOUNTER9H,  CSR_MHPMCOUNTER10H, CSR_MHPMCOUNTER11H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:         CSR_MHPMCOUNTER12H, CSR_MHPMCOUNTER13H, CSR_MHPMCOUNTER14H, CSR_MHPMCOUNTER15H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:         CSR_MHPMCOUNTER16H, CSR_MHPMCOUNTER17H, CSR_MHPMCOUNTER18H, CSR_MHPMCOUNTER19H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:         CSR_MHPMCOUNTER20H, CSR_MHPMCOUNTER21H, CSR_MHPMCOUNTER22H, CSR_MHPMCOUNTER23H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:         CSR_MHPMCOUNTER24H, CSR_MHPMCOUNTER25H, CSR_MHPMCOUNTER26H, CSR_MHPMCOUNTER27H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:         CSR_MHPMCOUNTER28H, CSR_MHPMCOUNTER29H, CSR_MHPMCOUNTER30H, CSR_MHPMCOUNTER31H: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 533:           mhpmcounterh_we[mhpmcounter_idx] = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 534:         end</pre>
+<pre style="margin:0; padding:0 "> 535: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 536:         default:;</pre>
+<pre style="margin:0; padding:0 "> 537:       endcase</pre>
+<pre style="margin:0; padding:0 "> 538:     end</pre>
+<pre style="margin:0; padding:0 "> 539: </pre>
+<pre style="margin:0; padding:0 "> 540:     // exception controller gets priority over other writes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:     unique case (1'b1)</pre>
+<pre style="margin:0; padding:0 "> 542: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:       csr_save_cause_i: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:         unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:           csr_save_if_i: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:             exception_pc = pc_if_i;</pre>
+<pre style="margin:0; padding:0 "> 547:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:           csr_save_id_i: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:             exception_pc = pc_id_i;</pre>
+<pre style="margin:0; padding:0 "> 550:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:           default:;</pre>
+<pre style="margin:0; padding:0 "> 552:         endcase</pre>
+<pre style="margin:0; padding:0 "> 553: </pre>
+<pre style="margin:0; padding:0 "> 554:         // Any exception, including debug mode, causes a switch to M-mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:         priv_lvl_d = PRIV_LVL_M;</pre>
+<pre style="margin:0; padding:0 "> 556: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 557:         if (debug_csr_save_i) begin</pre>
+<pre style="margin:0; padding:0 "> 558:           // all interrupts are masked</pre>
+<pre style="margin:0; padding:0 "> 559:           // do not update cause, epc, tval, epc and status</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:           dcsr_d.prv   = priv_lvl_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:           dcsr_d.cause = debug_cause_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 562:           depc_d       = exception_pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 563:         end else if (!debug_mode_i) begin</pre>
+<pre style="margin:0; padding:0 "> 564:           // In debug mode, "exceptions do not update any registers. That</pre>
+<pre style="margin:0; padding:0 "> 565:           // includes cause, epc, tval, dpc and mstatus." [Debug Spec v0.13.2, p.39]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:           mtval_d        = csr_mtval_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:           mstatus_d.mie  = 1'b0; // disable interrupts</pre>
+<pre style="margin:0; padding:0 "> 568:           // save current status</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:           mstatus_d.mpie = mstatus_q.mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 570:           mstatus_d.mpp  = priv_lvl_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:           mepc_d         = exception_pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 572:           mcause_d       = {csr_mcause_i};</pre>
+<pre style="margin:0; padding:0 "> 573:           // save previous status for recoverable NMI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 574:           mstack_d.mpie  = mstatus_q.mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 575:           mstack_d.mpp   = mstatus_q.mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:           mstack_epc_d   = mepc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 577:           mstack_cause_d = mcause_q;</pre>
+<pre style="margin:0; padding:0 "> 578:         end</pre>
+<pre style="margin:0; padding:0 "> 579:       end // csr_save_cause_i</pre>
+<pre style="margin:0; padding:0 "> 580: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:       csr_restore_dret_i: begin // DRET</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 582:         priv_lvl_d = dcsr_q.prv;</pre>
+<pre style="margin:0; padding:0 "> 583:       end // csr_restore_dret_i</pre>
+<pre style="margin:0; padding:0 "> 584: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 585:       csr_restore_mret_i: begin // MRET</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 586:         priv_lvl_d     = mstatus_q.mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 587:         mstatus_d.mie  = mstatus_q.mpie; // re-enable interrupts</pre>
+<pre style="margin:0; padding:0 "> 588: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:         if (nmi_mode_i) begin</pre>
+<pre style="margin:0; padding:0 "> 590:           // when returning from an NMI restore state from mstack CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 591:           mstatus_d.mpie = mstack_q.mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 592:           mstatus_d.mpp  = mstack_q.mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 593:           mepc_d         = mstack_epc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:           mcause_d       = mstack_cause_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 595:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 596:           // otherwise just set mstatus.MPIE/MPP</pre>
+<pre style="margin:0; padding:0 "> 597:           // See RISC-V Privileged Specification, version 1.11, Section 3.1.6.1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 598:           mstatus_d.mpie = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 599:           mstatus_d.mpp  = PRIV_LVL_U;</pre>
+<pre style="margin:0; padding:0 "> 600:         end</pre>
+<pre style="margin:0; padding:0 "> 601:       end // csr_restore_mret_i</pre>
+<pre style="margin:0; padding:0 "> 602: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 603:       default:;</pre>
+<pre style="margin:0; padding:0 "> 604:     endcase</pre>
+<pre style="margin:0; padding:0 "> 605:   end</pre>
+<pre style="margin:0; padding:0 "> 606: </pre>
+<pre style="margin:0; padding:0 "> 607:   // CSR operation logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 608:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:     csr_wreq = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 610: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:     unique case (csr_op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 612:       CSR_OP_WRITE: csr_wdata_int =  csr_wdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:       CSR_OP_SET:   csr_wdata_int =  csr_wdata_i | csr_rdata_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:       CSR_OP_CLEAR: csr_wdata_int = ~csr_wdata_i & csr_rdata_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 615:       CSR_OP_READ: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 616:         csr_wdata_int = csr_wdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 617:         csr_wreq      = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 618:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 619:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 620:         csr_wdata_int = csr_wdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 621:         csr_wreq      = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 622:       end</pre>
+<pre style="margin:0; padding:0 "> 623:     endcase</pre>
+<pre style="margin:0; padding:0 "> 624:   end</pre>
+<pre style="margin:0; padding:0 "> 625: </pre>
+<pre style="margin:0; padding:0 "> 626:   // only write CSRs during one clock cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:   assign csr_we_int  = csr_wreq & ~illegal_csr_insn_o & instr_new_id_i;</pre>
+<pre style="margin:0; padding:0 "> 628: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 629:   assign csr_rdata_o = csr_rdata_int;</pre>
+<pre style="margin:0; padding:0 "> 630: </pre>
+<pre style="margin:0; padding:0 "> 631:   // directly output some registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 632:   assign csr_msip_o  = mip.irq_software;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 633:   assign csr_mtip_o  = mip.irq_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 634:   assign csr_meip_o  = mip.irq_external;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 635:   assign csr_mfip_o  = mip.irq_fast;</pre>
+<pre style="margin:0; padding:0 "> 636: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 637:   assign csr_mepc_o  = mepc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 638:   assign csr_depc_o  = depc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 639:   assign csr_mtvec_o = mtvec_q;</pre>
+<pre style="margin:0; padding:0 "> 640: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 641:   assign csr_mstatus_mie_o   = mstatus_q.mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 642:   assign csr_mstatus_tw_o    = mstatus_q.tw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 643:   assign debug_single_step_o = dcsr_q.step;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 644:   assign debug_ebreakm_o     = dcsr_q.ebreakm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 645:   assign debug_ebreaku_o     = dcsr_q.ebreaku;</pre>
+<pre style="margin:0; padding:0 "> 646: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 647:   assign irq_pending_o = csr_msip_o | csr_mtip_o | csr_meip_o | (|csr_mfip_o);</pre>
+<pre style="margin:0; padding:0 "> 648: </pre>
+<pre style="margin:0; padding:0 "> 649:   // actual registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 650:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 651:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 652:       priv_lvl_q     <= PRIV_LVL_M;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 653:       mstatus_q      <= '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 654:           mie:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 655:           mpie: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 656:           mpp:  PRIV_LVL_U,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 657:           mprv: 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 658:           tw:   1'b0</pre>
+<pre style="margin:0; padding:0 "> 659:       };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 660:       mie_q          <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 661:       mscratch_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 662:       mepc_q         <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 663:       mcause_q       <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 664:       mtval_q        <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 665:       mtvec_q        <= 32'b01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 666:       dcsr_q         <= '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 667:           xdebugver: XDEBUGVER_STD,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 668:           cause:     DBG_CAUSE_NONE, // 3'h0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 669:           prv:       PRIV_LVL_M,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 670:           default:   '0</pre>
+<pre style="margin:0; padding:0 "> 671:       };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 672:       depc_q         <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 673:       dscratch0_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 674:       dscratch1_q    <= '0;</pre>
+<pre style="margin:0; padding:0 "> 675: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 676:       mstack_q       <= '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 677:           mpie: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 678:           mpp:  PRIV_LVL_U</pre>
+<pre style="margin:0; padding:0 "> 679:       };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 680:       mstack_epc_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 681:       mstack_cause_q <= '0;</pre>
+<pre style="margin:0; padding:0 "> 682: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 683:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 684:       // update CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 685:       priv_lvl_q     <= priv_lvl_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 686:       mstatus_q      <= mstatus_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 687:       mie_q          <= mie_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 688:       mscratch_q     <= mscratch_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 689:       mepc_q         <= mepc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 690:       mcause_q       <= mcause_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 691:       mtval_q        <= mtval_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 692:       mtvec_q        <= mtvec_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 693:       dcsr_q         <= dcsr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 694:       depc_q         <= depc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 695:       dscratch0_q    <= dscratch0_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 696:       dscratch1_q    <= dscratch1_d;</pre>
+<pre style="margin:0; padding:0 "> 697: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 698:       mstack_q       <= mstack_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 699:       mstack_epc_q   <= mstack_epc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 700:       mstack_cause_q <= mstack_cause_d;</pre>
+<pre style="margin:0; padding:0 "> 701: </pre>
+<pre style="margin:0; padding:0 "> 702:     end</pre>
+<pre style="margin:0; padding:0 "> 703:   end</pre>
+<pre style="margin:0; padding:0 "> 704: </pre>
+<pre style="margin:0; padding:0 "> 705:   // Send current priv level to the decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 706:   assign priv_mode_id_o = priv_lvl_q;</pre>
+<pre style="margin:0; padding:0 "> 707:   // New instruction fetches need to account for updates to priv_lvl_q this cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 708:   assign priv_mode_if_o = priv_lvl_d;</pre>
+<pre style="margin:0; padding:0 "> 709:   // Load/store instructions must factor in MPRV for PMP checking</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 710:   assign priv_mode_lsu_o = mstatus_q.mprv ? mstatus_q.mpp : priv_lvl_q;</pre>
+<pre style="margin:0; padding:0 "> 711: </pre>
+<pre style="margin:0; padding:0 "> 712:   // -----------------</pre>
+<pre style="margin:0; padding:0 "> 713:   // PMP registers</pre>
+<pre style="margin:0; padding:0 "> 714:   // -----------------</pre>
+<pre style="margin:0; padding:0 "> 715: </pre>
+<pre id="id716" style="background-color: #FFB6C1; margin:0; padding:0 "> 716:   if (PMPEnable) begin : g_pmp_registers</pre>
+<pre id="id717" style="background-color: #FFB6C1; margin:0; padding:0 "> 717:     pmp_cfg_t                    pmp_cfg         [PMPNumRegions];</pre>
+<pre id="id718" style="background-color: #FFB6C1; margin:0; padding:0 "> 718:     pmp_cfg_t                    pmp_cfg_wdata   [PMPNumRegions];</pre>
+<pre id="id719" style="background-color: #FFB6C1; margin:0; padding:0 "> 719:     logic [31:0]                 pmp_addr        [PMPNumRegions];</pre>
+<pre id="id720" style="background-color: #FFB6C1; margin:0; padding:0 "> 720:     logic [PMPNumRegions-1:0]    pmp_cfg_we;</pre>
+<pre id="id721" style="background-color: #FFB6C1; margin:0; padding:0 "> 721:     logic [PMPNumRegions-1:0]    pmp_addr_we;</pre>
+<pre style="margin:0; padding:0 "> 722: </pre>
+<pre style="margin:0; padding:0 "> 723:     // Expanded / qualified register read data</pre>
+<pre id="id724" style="background-color: #FFB6C1; margin:0; padding:0 "> 724:     for (genvar i = 0; i < PMP_MAX_REGIONS; i++) begin : g_exp_rd_data</pre>
+<pre id="id725" style="background-color: #FFB6C1; margin:0; padding:0 "> 725:       if (i < PMPNumRegions) begin : g_implemented_regions</pre>
+<pre style="margin:0; padding:0 "> 726:         // Add in zero padding for reserved fields</pre>
+<pre id="id727" style="background-color: #FFB6C1; margin:0; padding:0 "> 727:         assign pmp_cfg_rdata[i] = {pmp_cfg[i].lock, 2'b00, pmp_cfg[i].mode,</pre>
+<pre id="id728" style="background-color: #FFB6C1; margin:0; padding:0 "> 728:                                    pmp_cfg[i].exec, pmp_cfg[i].write, pmp_cfg[i].read};</pre>
+<pre style="margin:0; padding:0 "> 729: </pre>
+<pre style="margin:0; padding:0 "> 730:         // Address field read data depends on the current programmed mode and the granularity</pre>
+<pre style="margin:0; padding:0 "> 731:         // See RISC-V Privileged Specification, version 1.11, Section 3.6.1</pre>
+<pre id="id732" style="background-color: #FFB6C1; margin:0; padding:0 "> 732:         if (PMPGranularity == 0) begin : g_pmp_g0</pre>
+<pre style="margin:0; padding:0 "> 733:           // If G == 0, read data is unmodified</pre>
+<pre id="id734" style="background-color: #FFB6C1; margin:0; padding:0 "> 734:           assign pmp_addr_rdata[i] = pmp_addr[i];</pre>
+<pre style="margin:0; padding:0 "> 735: </pre>
+<pre id="id736" style="background-color: #FFB6C1; margin:0; padding:0 "> 736:         end else if (PMPGranularity == 1) begin : g_pmp_g1</pre>
+<pre style="margin:0; padding:0 "> 737:           // If G == 1, bit [G-1] reads as zero in TOR or OFF mode</pre>
+<pre id="id738" style="background-color: #FFB6C1; margin:0; padding:0 "> 738:           always_comb begin</pre>
+<pre id="id739" style="background-color: #FFB6C1; margin:0; padding:0 "> 739:             pmp_addr_rdata[i] = pmp_addr[i];</pre>
+<pre id="id740" style="background-color: #FFB6C1; margin:0; padding:0 "> 740:             if ((pmp_cfg[i].mode == PMP_MODE_OFF) || (pmp_cfg[i].mode == PMP_MODE_TOR)) begin</pre>
+<pre id="id741" style="background-color: #FFB6C1; margin:0; padding:0 "> 741:               pmp_addr_rdata[i][PMPGranularity-1:0] = '0;</pre>
+<pre style="margin:0; padding:0 "> 742:             end</pre>
+<pre style="margin:0; padding:0 "> 743:           end</pre>
+<pre style="margin:0; padding:0 "> 744: </pre>
+<pre id="id745" style="background-color: #FFB6C1; margin:0; padding:0 "> 745:         end else begin : g_pmp_g2</pre>
+<pre style="margin:0; padding:0 "> 746:           // For G >= 2, bits are masked to one or zero depending on the mode</pre>
+<pre id="id747" style="background-color: #FFB6C1; margin:0; padding:0 "> 747:           always_comb begin</pre>
+<pre id="id748" style="background-color: #FFB6C1; margin:0; padding:0 "> 748:             pmp_addr_rdata[i] = pmp_addr[i];</pre>
+<pre id="id749" style="background-color: #FFB6C1; margin:0; padding:0 "> 749:             if ((pmp_cfg[i].mode == PMP_MODE_OFF) || (pmp_cfg[i].mode == PMP_MODE_TOR)) begin</pre>
+<pre style="margin:0; padding:0 "> 750:               // In TOR or OFF mode, bits [G-1:0] must read as zero</pre>
+<pre id="id751" style="background-color: #FFB6C1; margin:0; padding:0 "> 751:               pmp_addr_rdata[i][PMPGranularity-1:0] = '0;</pre>
+<pre id="id752" style="background-color: #FFB6C1; margin:0; padding:0 "> 752:             end else if (pmp_cfg[i].mode == PMP_MODE_NAPOT) begin</pre>
+<pre style="margin:0; padding:0 "> 753:               // In NAPOT mode, bits [G-2:0] must read as one</pre>
+<pre id="id754" style="background-color: #FFB6C1; margin:0; padding:0 "> 754:               pmp_addr_rdata[i][PMPGranularity-2:0] = '1;</pre>
+<pre style="margin:0; padding:0 "> 755:             end</pre>
+<pre style="margin:0; padding:0 "> 756:           end</pre>
+<pre style="margin:0; padding:0 "> 757:         end</pre>
+<pre style="margin:0; padding:0 "> 758: </pre>
+<pre id="id759" style="background-color: #FFB6C1; margin:0; padding:0 "> 759:       end else begin : g_other_regions</pre>
+<pre style="margin:0; padding:0 "> 760:         // Non-implemented regions read as zero</pre>
+<pre id="id761" style="background-color: #FFB6C1; margin:0; padding:0 "> 761:         assign pmp_cfg_rdata[i]  = '0;</pre>
+<pre id="id762" style="background-color: #FFB6C1; margin:0; padding:0 "> 762:         assign pmp_addr_rdata[i] = '0;</pre>
+<pre style="margin:0; padding:0 "> 763:       end</pre>
+<pre style="margin:0; padding:0 "> 764:     end</pre>
+<pre style="margin:0; padding:0 "> 765: </pre>
+<pre style="margin:0; padding:0 "> 766:     // Write data calculation</pre>
+<pre id="id767" style="background-color: #FFB6C1; margin:0; padding:0 "> 767:     for (genvar i = 0; i < PMPNumRegions; i++) begin : g_pmp_csrs</pre>
+<pre style="margin:0; padding:0 "> 768:       // -------------------------</pre>
+<pre style="margin:0; padding:0 "> 769:       // Instantiate cfg registers</pre>
+<pre style="margin:0; padding:0 "> 770:       // -------------------------</pre>
+<pre id="id771" style="background-color: #FFB6C1; margin:0; padding:0 "> 771:       assign pmp_cfg_we[i] = csr_we_int & ~pmp_cfg[i].lock &</pre>
+<pre id="id772" style="background-color: #FFB6C1; margin:0; padding:0 "> 772:                              (csr_addr == (CSR_OFF_PMP_CFG + (i[11:0] >> 2)));</pre>
+<pre style="margin:0; padding:0 "> 773: </pre>
+<pre style="margin:0; padding:0 "> 774:       // Select the correct WDATA (each CSR contains 4 CFG fields, each with 2 RES bits)</pre>
+<pre id="id775" style="background-color: #FFB6C1; margin:0; padding:0 "> 775:       assign pmp_cfg_wdata[i].lock  = csr_wdata_int[(i%4)*PMP_CFG_W+7];</pre>
+<pre style="margin:0; padding:0 "> 776:       // NA4 mode is not selectable when G > 0, mode is treated as OFF</pre>
+<pre id="id777" style="background-color: #FFB6C1; margin:0; padding:0 "> 777:       always_comb begin</pre>
+<pre id="id778" style="background-color: #FFB6C1; margin:0; padding:0 "> 778:         unique case (csr_wdata_int[(i%4)*PMP_CFG_W+3+:2])</pre>
+<pre id="id779" style="background-color: #FFB6C1; margin:0; padding:0 "> 779:           2'b00   : pmp_cfg_wdata[i].mode = PMP_MODE_OFF;</pre>
+<pre id="id780" style="background-color: #FFB6C1; margin:0; padding:0 "> 780:           2'b01   : pmp_cfg_wdata[i].mode = PMP_MODE_TOR;</pre>
+<pre id="id781" style="background-color: #FFB6C1; margin:0; padding:0 "> 781:           2'b10   : pmp_cfg_wdata[i].mode = (PMPGranularity == 0) ? PMP_MODE_NA4:</pre>
+<pre id="id782" style="background-color: #FFB6C1; margin:0; padding:0 "> 782:                                                                     PMP_MODE_OFF;</pre>
+<pre id="id783" style="background-color: #FFB6C1; margin:0; padding:0 "> 783:           2'b11   : pmp_cfg_wdata[i].mode = PMP_MODE_NAPOT;</pre>
+<pre id="id784" style="background-color: #FFB6C1; margin:0; padding:0 "> 784:           default : pmp_cfg_wdata[i].mode = PMP_MODE_OFF;</pre>
+<pre style="margin:0; padding:0 "> 785:         endcase</pre>
+<pre style="margin:0; padding:0 "> 786:       end</pre>
+<pre id="id787" style="background-color: #FFB6C1; margin:0; padding:0 "> 787:       assign pmp_cfg_wdata[i].exec  = csr_wdata_int[(i%4)*PMP_CFG_W+2];</pre>
+<pre style="margin:0; padding:0 "> 788:       // W = 1, R = 0 is a reserved combination. For now, we force W to 0 if R == 0</pre>
+<pre id="id789" style="background-color: #FFB6C1; margin:0; padding:0 "> 789:       assign pmp_cfg_wdata[i].write = &csr_wdata_int[(i%4)*PMP_CFG_W+:2];</pre>
+<pre id="id790" style="background-color: #FFB6C1; margin:0; padding:0 "> 790:       assign pmp_cfg_wdata[i].read  = csr_wdata_int[(i%4)*PMP_CFG_W];</pre>
+<pre style="margin:0; padding:0 "> 791: </pre>
+<pre id="id792" style="background-color: #FFB6C1; margin:0; padding:0 "> 792:       always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id793" style="background-color: #FFB6C1; margin:0; padding:0 "> 793:         if (!rst_ni) begin</pre>
+<pre id="id794" style="background-color: #FFB6C1; margin:0; padding:0 "> 794:           pmp_cfg[i] <= pmp_cfg_t'('b0);</pre>
+<pre id="id795" style="background-color: #FFB6C1; margin:0; padding:0 "> 795:         end else if (pmp_cfg_we[i]) begin</pre>
+<pre id="id796" style="background-color: #FFB6C1; margin:0; padding:0 "> 796:           pmp_cfg[i] <= pmp_cfg_wdata[i];</pre>
+<pre style="margin:0; padding:0 "> 797:         end</pre>
+<pre style="margin:0; padding:0 "> 798:       end</pre>
+<pre style="margin:0; padding:0 "> 799: </pre>
+<pre style="margin:0; padding:0 "> 800:       // --------------------------</pre>
+<pre style="margin:0; padding:0 "> 801:       // Instantiate addr registers</pre>
+<pre style="margin:0; padding:0 "> 802:       // --------------------------</pre>
+<pre id="id803" style="background-color: #FFB6C1; margin:0; padding:0 "> 803:       if (i < PMPNumRegions - 1) begin : g_lower</pre>
+<pre id="id804" style="background-color: #FFB6C1; margin:0; padding:0 "> 804:         assign pmp_addr_we[i] = csr_we_int & ~pmp_cfg[i].lock &</pre>
+<pre id="id805" style="background-color: #FFB6C1; margin:0; padding:0 "> 805:                                 (pmp_cfg[i+1].mode != PMP_MODE_TOR) &</pre>
+<pre id="id806" style="background-color: #FFB6C1; margin:0; padding:0 "> 806:                                 (csr_addr == (CSR_OFF_PMP_ADDR + i[11:0]));</pre>
+<pre id="id807" style="background-color: #FFB6C1; margin:0; padding:0 "> 807:       end else begin : g_upper</pre>
+<pre id="id808" style="background-color: #FFB6C1; margin:0; padding:0 "> 808:         assign pmp_addr_we[i] = csr_we_int & ~pmp_cfg[i].lock &</pre>
+<pre id="id809" style="background-color: #FFB6C1; margin:0; padding:0 "> 809:                                 (csr_addr == (CSR_OFF_PMP_ADDR + i[11:0]));</pre>
+<pre style="margin:0; padding:0 "> 810:       end</pre>
+<pre style="margin:0; padding:0 "> 811: </pre>
+<pre id="id812" style="background-color: #FFB6C1; margin:0; padding:0 "> 812:       always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id813" style="background-color: #FFB6C1; margin:0; padding:0 "> 813:         if (!rst_ni) begin</pre>
+<pre id="id814" style="background-color: #FFB6C1; margin:0; padding:0 "> 814:           pmp_addr[i] <= 'b0;</pre>
+<pre id="id815" style="background-color: #FFB6C1; margin:0; padding:0 "> 815:         end else if (pmp_addr_we[i]) begin</pre>
+<pre id="id816" style="background-color: #FFB6C1; margin:0; padding:0 "> 816:           pmp_addr[i] <= csr_wdata_int;</pre>
+<pre style="margin:0; padding:0 "> 817:         end</pre>
+<pre style="margin:0; padding:0 "> 818:       end</pre>
+<pre id="id819" style="background-color: #FFB6C1; margin:0; padding:0 "> 819:       assign csr_pmp_cfg_o[i]  = pmp_cfg[i];</pre>
+<pre id="id820" style="background-color: #FFB6C1; margin:0; padding:0 "> 820:       assign csr_pmp_addr_o[i] = {pmp_addr[i],2'b00};</pre>
+<pre style="margin:0; padding:0 "> 821:     end</pre>
+<pre style="margin:0; padding:0 "> 822: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 823:   end else begin : g_no_pmp_tieoffs</pre>
+<pre style="margin:0; padding:0 "> 824:     // Generate tieoffs when PMP is not configured</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 825:     for (genvar i = 0; i < PMP_MAX_REGIONS; i++) begin : g_rdata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 826:       assign pmp_addr_rdata[i] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 827:       assign pmp_cfg_rdata[i]  = '0;</pre>
+<pre style="margin:0; padding:0 "> 828:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 829:     for (genvar i = 0; i < PMPNumRegions; i++) begin : g_outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 830:       assign csr_pmp_cfg_o[i]  = pmp_cfg_t'(1'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 831:       assign csr_pmp_addr_o[i] = '0;</pre>
+<pre style="margin:0; padding:0 "> 832:     end</pre>
+<pre style="margin:0; padding:0 "> 833:   end</pre>
+<pre style="margin:0; padding:0 "> 834: </pre>
+<pre style="margin:0; padding:0 "> 835:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 836:   //  Performance monitor //</pre>
+<pre style="margin:0; padding:0 "> 837:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 838: </pre>
+<pre style="margin:0; padding:0 "> 839:   // update enable signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 840:   always_comb begin : mcountinhibit_update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 841:     if (mcountinhibit_we == 1'b1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 842:       mcountinhibit_d = {csr_wdata_int[MHPMCounterNum+2:2], 1'b0, csr_wdata_int[0]}; // bit 1 must always be 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 843:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 844:       mcountinhibit_d = mcountinhibit_q;</pre>
+<pre style="margin:0; padding:0 "> 845:     end</pre>
+<pre style="margin:0; padding:0 "> 846:   end</pre>
+<pre style="margin:0; padding:0 "> 847: </pre>
+<pre style="margin:0; padding:0 "> 848:   // event selection (hardwired) & control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 849:   always_comb begin : gen_mhpmcounter_incr</pre>
+<pre style="margin:0; padding:0 "> 850: </pre>
+<pre style="margin:0; padding:0 "> 851:     // When adding or altering performance counter meanings and default</pre>
+<pre style="margin:0; padding:0 "> 852:     // mappings please update dv/verilator/pcount/cpp/ibex_pcounts.cc</pre>
+<pre style="margin:0; padding:0 "> 853:     // appropriately.</pre>
+<pre style="margin:0; padding:0 "> 854:     //</pre>
+<pre style="margin:0; padding:0 "> 855:     // active counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 856:     mhpmcounter_incr[0]  = 1'b1;                   // mcycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 857:     mhpmcounter_incr[1]  = 1'b0;                   // reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 858:     mhpmcounter_incr[2]  = instr_ret_i;            // minstret</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 859:     mhpmcounter_incr[3]  = lsu_busy_i;             // cycles waiting for data memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 860:     mhpmcounter_incr[4]  = imiss_i & ~pc_set_i;    // cycles waiting for instr fetches</pre>
+<pre style="margin:0; padding:0 "> 861:                                                    // excl. jump and branch set cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 862:     mhpmcounter_incr[5]  = mem_load_i;             // num of loads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 863:     mhpmcounter_incr[6]  = mem_store_i;            // num of stores</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 864:     mhpmcounter_incr[7]  = jump_i;                 // num of jumps (unconditional)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 865:     mhpmcounter_incr[8]  = branch_i;               // num of branches (conditional)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 866:     mhpmcounter_incr[9]  = branch_taken_i;         // num of taken branches (conditional)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 867:     mhpmcounter_incr[10] = instr_ret_compressed_i; // num of compressed instr</pre>
+<pre style="margin:0; padding:0 "> 868: </pre>
+<pre style="margin:0; padding:0 "> 869:     // inactive counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 870:     for (int unsigned i=3+MHPMCounterNum; i<32; i++) begin : gen_mhpmcounter_incr_inactive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 871:       mhpmcounter_incr[i] = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 872:     end</pre>
+<pre style="margin:0; padding:0 "> 873:   end</pre>
+<pre style="margin:0; padding:0 "> 874: </pre>
+<pre style="margin:0; padding:0 "> 875:   // event selector (hardwired, 0 means no event)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 876:   always_comb begin : gen_mhpmevent</pre>
+<pre style="margin:0; padding:0 "> 877: </pre>
+<pre style="margin:0; padding:0 "> 878:     // activate all</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 879:     for (int i=0; i<32; i++) begin : gen_mhpmevent_active</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 880:       mhpmevent[i]    =   '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 881:       mhpmevent[i][i] = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 882:     end</pre>
+<pre style="margin:0; padding:0 "> 883: </pre>
+<pre style="margin:0; padding:0 "> 884:     // deactivate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 885:     mhpmevent[1] = '0; // not existing, reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 886:     for (int unsigned i=3+MHPMCounterNum; i<32; i++) begin : gen_mhpmevent_inactive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 887:       mhpmevent[i] = '0;</pre>
+<pre style="margin:0; padding:0 "> 888:     end</pre>
+<pre style="margin:0; padding:0 "> 889:   end</pre>
+<pre style="margin:0; padding:0 "> 890: </pre>
+<pre style="margin:0; padding:0 "> 891:   // update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 892:   always_comb begin : mhpmcounter_update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 893:     mhpmcounter_d = mhpmcounter;</pre>
+<pre style="margin:0; padding:0 "> 894: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 895:     for (int i=0; i<32; i++) begin : gen_mhpmcounter_update</pre>
+<pre style="margin:0; padding:0 "> 896: </pre>
+<pre style="margin:0; padding:0 "> 897:       // increment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 898:       if (mhpmcounter_incr[i] & ~mcountinhibit[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 899:         mhpmcounter_d[i] = mhpmcounter[i] + 64'h1;</pre>
+<pre style="margin:0; padding:0 "> 900:       end</pre>
+<pre style="margin:0; padding:0 "> 901: </pre>
+<pre style="margin:0; padding:0 "> 902:       // write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 903:       if (mhpmcounter_we[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 904:         mhpmcounter_d[i][31: 0] = csr_wdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 905:       end else if (mhpmcounterh_we[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 906:         mhpmcounter_d[i][63:32] = csr_wdata_int;</pre>
+<pre style="margin:0; padding:0 "> 907:       end</pre>
+<pre style="margin:0; padding:0 "> 908:     end</pre>
+<pre style="margin:0; padding:0 "> 909:   end</pre>
+<pre style="margin:0; padding:0 "> 910: </pre>
+<pre style="margin:0; padding:0 "> 911:   // Performance monitor registers</pre>
+<pre style="margin:0; padding:0 "> 912:   // Only elaborate flops that are needed from the given MHPMCounterWidth and MHPMCounterNum</pre>
+<pre style="margin:0; padding:0 "> 913:   // parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 914:   for (genvar i = 0; i < 32; i++) begin : g_mhpmcounter</pre>
+<pre style="margin:0; padding:0 "> 915:     // First 3 counters (cycle, time, instret) must always be elaborated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 916:     if (i < 3 + MHPMCounterNum) begin : g_mhpmcounter_exists</pre>
+<pre style="margin:0; padding:0 "> 917:       // First 3 counters must be 64-bit the rest have parameterisable width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 918:       localparam int unsigned IMHPMCounterWidth = i < 3 ? 64 : MHPMCounterWidth;</pre>
+<pre style="margin:0; padding:0 "> 919: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 920:       logic [IMHPMCounterWidth-1:0] mhpmcounter_q;</pre>
+<pre style="margin:0; padding:0 "> 921: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 922:       always @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 923:         if(~rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 924:           mhpmcounter_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 925:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 926:           mhpmcounter_q <= mhpmcounter_d[i][IMHPMCounterWidth-1:0];</pre>
+<pre style="margin:0; padding:0 "> 927:         end</pre>
+<pre style="margin:0; padding:0 "> 928:       end</pre>
+<pre style="margin:0; padding:0 "> 929: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 930:       if (IMHPMCounterWidth < 64) begin : g_mhpmcounter_narrow</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 931:         assign mhpmcounter[i][IMHPMCounterWidth-1:0] = mhpmcounter_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:         assign mhpmcounter[i][63:IMHPMCounterWidth]  = '0;</pre>
+<pre id="id933" style="background-color: #FFB6C1; margin:0; padding:0 "> 933:       end else begin : g_mhpmcounter_full</pre>
+<pre id="id934" style="background-color: #FFB6C1; margin:0; padding:0 "> 934:         assign mhpmcounter[i] = mhpmcounter_q;</pre>
+<pre style="margin:0; padding:0 "> 935:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 936:     end else begin : g_no_mhpmcounter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 937:       assign mhpmcounter[i] = '0;</pre>
+<pre style="margin:0; padding:0 "> 938:     end</pre>
+<pre style="margin:0; padding:0 "> 939:   end</pre>
+<pre style="margin:0; padding:0 "> 940: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 941:   if(MHPMCounterNum < 29) begin : g_mcountinhibit_reduced</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 942:     assign mcountinhibit = {{29-MHPMCounterNum{1'b1}}, mcountinhibit_q};</pre>
+<pre id="id943" style="background-color: #FFB6C1; margin:0; padding:0 "> 943:   end else begin : g_mcountinhibit_full</pre>
+<pre id="id944" style="background-color: #FFB6C1; margin:0; padding:0 "> 944:     assign mcountinhibit = mcountinhibit_q;</pre>
+<pre style="margin:0; padding:0 "> 945:   end</pre>
+<pre style="margin:0; padding:0 "> 946: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 948:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 949:       mcountinhibit_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 950:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 951:       mcountinhibit_q <= mcountinhibit_d;</pre>
+<pre style="margin:0; padding:0 "> 952:     end</pre>
+<pre style="margin:0; padding:0 "> 953:   end</pre>
+<pre style="margin:0; padding:0 "> 954: </pre>
+<pre style="margin:0; padding:0 "> 955:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 956:   // Debug trigger registers //</pre>
+<pre style="margin:0; padding:0 "> 957:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 958: </pre>
+<pre id="id959" style="background-color: #FFB6C1; margin:0; padding:0 "> 959:   if (DbgTriggerEn) begin : gen_trigger_regs</pre>
+<pre style="margin:0; padding:0 "> 960:     // Register values</pre>
+<pre id="id961" style="background-color: #FFB6C1; margin:0; padding:0 "> 961:     logic        tmatch_control_d, tmatch_control_q;</pre>
+<pre id="id962" style="background-color: #FFB6C1; margin:0; padding:0 "> 962:     logic [31:0] tmatch_value_d, tmatch_value_q;</pre>
+<pre style="margin:0; padding:0 "> 963:     // Write enables</pre>
+<pre id="id964" style="background-color: #FFB6C1; margin:0; padding:0 "> 964:     logic tmatch_control_we;</pre>
+<pre id="id965" style="background-color: #FFB6C1; margin:0; padding:0 "> 965:     logic tmatch_value_we;</pre>
+<pre style="margin:0; padding:0 "> 966: </pre>
+<pre style="margin:0; padding:0 "> 967:     // Write select</pre>
+<pre id="id968" style="background-color: #FFB6C1; margin:0; padding:0 "> 968:     assign tmatch_control_we = csr_we_int & debug_mode_i & (csr_addr_i == CSR_TDATA1);</pre>
+<pre id="id969" style="background-color: #FFB6C1; margin:0; padding:0 "> 969:     assign tmatch_value_we   = csr_we_int & debug_mode_i & (csr_addr_i == CSR_TDATA2);</pre>
+<pre style="margin:0; padding:0 "> 970: </pre>
+<pre style="margin:0; padding:0 "> 971:     // tmatch_control is enabled when the execute bit is set</pre>
+<pre id="id972" style="background-color: #FFB6C1; margin:0; padding:0 "> 972:     assign tmatch_control_d = tmatch_control_we ? csr_wdata_int[2] :</pre>
+<pre id="id973" style="background-color: #FFB6C1; margin:0; padding:0 "> 973:                                                   tmatch_control_q;</pre>
+<pre style="margin:0; padding:0 "> 974:     // tmatch_value has its own clock gate</pre>
+<pre id="id975" style="background-color: #FFB6C1; margin:0; padding:0 "> 975:     assign tmatch_value_d   = csr_wdata_int[31:0];</pre>
+<pre style="margin:0; padding:0 "> 976: </pre>
+<pre style="margin:0; padding:0 "> 977:     // Registers</pre>
+<pre id="id978" style="background-color: #FFB6C1; margin:0; padding:0 "> 978:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id979" style="background-color: #FFB6C1; margin:0; padding:0 "> 979:       if (!rst_ni) begin</pre>
+<pre id="id980" style="background-color: #FFB6C1; margin:0; padding:0 "> 980:         tmatch_control_q <= 'b0;</pre>
+<pre id="id981" style="background-color: #FFB6C1; margin:0; padding:0 "> 981:       end else begin</pre>
+<pre id="id982" style="background-color: #FFB6C1; margin:0; padding:0 "> 982:         tmatch_control_q <= tmatch_control_d;</pre>
+<pre style="margin:0; padding:0 "> 983:       end</pre>
+<pre style="margin:0; padding:0 "> 984:     end</pre>
+<pre style="margin:0; padding:0 "> 985: </pre>
+<pre id="id986" style="background-color: #FFB6C1; margin:0; padding:0 "> 986:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id987" style="background-color: #FFB6C1; margin:0; padding:0 "> 987:       if (!rst_ni) begin</pre>
+<pre id="id988" style="background-color: #FFB6C1; margin:0; padding:0 "> 988:         tmatch_value_q <= 'b0;</pre>
+<pre id="id989" style="background-color: #FFB6C1; margin:0; padding:0 "> 989:       end else if (tmatch_value_we) begin</pre>
+<pre id="id990" style="background-color: #FFB6C1; margin:0; padding:0 "> 990:         tmatch_value_q <= tmatch_value_d;</pre>
+<pre style="margin:0; padding:0 "> 991:       end</pre>
+<pre style="margin:0; padding:0 "> 992:     end</pre>
+<pre style="margin:0; padding:0 "> 993: </pre>
+<pre style="margin:0; padding:0 "> 994:     // Assign read data</pre>
+<pre style="margin:0; padding:0 "> 995:     // TSELECT - only one supported</pre>
+<pre id="id996" style="background-color: #FFB6C1; margin:0; padding:0 "> 996:     assign tselect_rdata = 'b0;</pre>
+<pre style="margin:0; padding:0 "> 997:     // TDATA0 - only support simple address matching</pre>
+<pre id="id998" style="background-color: #FFB6C1; margin:0; padding:0 "> 998:     assign tmatch_control_rdata = {4'h2,              // type    : address/data match</pre>
+<pre id="id999" style="background-color: #FFB6C1; margin:0; padding:0 "> 999:                                    1'b1,              // dmode   : access from D mode only</pre>
+<pre id="id1000" style="background-color: #FFB6C1; margin:0; padding:0 ">1000:                                    6'h00,             // maskmax : exact match only</pre>
+<pre id="id1001" style="background-color: #FFB6C1; margin:0; padding:0 ">1001:                                    1'b0,              // hit     : not supported</pre>
+<pre id="id1002" style="background-color: #FFB6C1; margin:0; padding:0 ">1002:                                    1'b0,              // select  : address match only</pre>
+<pre id="id1003" style="background-color: #FFB6C1; margin:0; padding:0 ">1003:                                    1'b0,              // timing  : match before execution</pre>
+<pre id="id1004" style="background-color: #FFB6C1; margin:0; padding:0 ">1004:                                    2'b00,             // sizelo  : match any access</pre>
+<pre id="id1005" style="background-color: #FFB6C1; margin:0; padding:0 ">1005:                                    4'h1,              // action  : enter debug mode</pre>
+<pre id="id1006" style="background-color: #FFB6C1; margin:0; padding:0 ">1006:                                    1'b0,              // chain   : not supported</pre>
+<pre id="id1007" style="background-color: #FFB6C1; margin:0; padding:0 ">1007:                                    4'h0,              // match   : simple match</pre>
+<pre id="id1008" style="background-color: #FFB6C1; margin:0; padding:0 ">1008:                                    1'b1,              // m       : match in m-mode</pre>
+<pre id="id1009" style="background-color: #FFB6C1; margin:0; padding:0 ">1009:                                    1'b0,              // 0       : zero</pre>
+<pre id="id1010" style="background-color: #FFB6C1; margin:0; padding:0 ">1010:                                    1'b0,              // s       : not supported</pre>
+<pre id="id1011" style="background-color: #FFB6C1; margin:0; padding:0 ">1011:                                    1'b1,              // u       : match in u-mode</pre>
+<pre id="id1012" style="background-color: #FFB6C1; margin:0; padding:0 ">1012:                                    tmatch_control_q,  // execute : match instruction address</pre>
+<pre id="id1013" style="background-color: #FFB6C1; margin:0; padding:0 ">1013:                                    1'b0,              // store   : not supported</pre>
+<pre id="id1014" style="background-color: #FFB6C1; margin:0; padding:0 ">1014:                                    1'b0};             // load    : not supported</pre>
+<pre style="margin:0; padding:0 ">1015:     // TDATA1 - address match value only</pre>
+<pre id="id1016" style="background-color: #FFB6C1; margin:0; padding:0 ">1016:     assign tmatch_value_rdata = tmatch_value_q;</pre>
+<pre style="margin:0; padding:0 ">1017: </pre>
+<pre style="margin:0; padding:0 ">1018:     // Breakpoint matching</pre>
+<pre style="margin:0; padding:0 ">1019:     // We match against the next address, as the breakpoint must be taken before execution</pre>
+<pre id="id1020" style="background-color: #FFB6C1; margin:0; padding:0 ">1020:     assign trigger_match_o = tmatch_control_q & (pc_if_i[31:0] == tmatch_value_q[31:0]);</pre>
+<pre style="margin:0; padding:0 ">1021: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1022:   end else begin : gen_no_trigger_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1023:     assign tselect_rdata        = 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1024:     assign tmatch_control_rdata = 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1025:     assign tmatch_value_rdata   = 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1026:     assign trigger_match_o      = 'b0;</pre>
+<pre style="margin:0; padding:0 ">1027:   end</pre>
+<pre style="margin:0; padding:0 ">1028: </pre>
+<pre style="margin:0; padding:0 ">1029:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">1030:   // Assertions //</pre>
+<pre style="margin:0; padding:0 ">1031:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">1032: </pre>
+<pre style="margin:0; padding:0 ">1033:   // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 ">1034:   `ASSERT(IbexCsrOpValid, csr_op_i inside {</pre>
+<pre style="margin:0; padding:0 ">1035:       CSR_OP_READ,</pre>
+<pre style="margin:0; padding:0 ">1036:       CSR_OP_WRITE,</pre>
+<pre style="margin:0; padding:0 ">1037:       CSR_OP_SET,</pre>
+<pre style="margin:0; padding:0 ">1038:       CSR_OP_CLEAR</pre>
+<pre style="margin:0; padding:0 ">1039:       }, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">1040:   `ASSERT_KNOWN(IbexCsrWdataIntKnown, csr_wdata_int, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">1041: </pre>
+<pre style="margin:0; padding:0 ">1042: endmodule</pre>
+<pre style="margin:0; padding:0 ">1043: </pre>
+</body>
+</html>

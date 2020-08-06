@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/uart/rtl/uart.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Description: UART top level wrapper file</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module uart (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input           clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input           rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11:   // Bus Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Generic IO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input           cio_rx_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic    cio_tx_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic    cio_tx_en_o,</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   // Interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic    intr_tx_watermark_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic    intr_rx_watermark_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic    intr_tx_empty_o  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic    intr_rx_overflow_o  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic    intr_rx_frame_err_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic    intr_rx_break_err_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic    intr_rx_timeout_o   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic    intr_rx_parity_err_o</pre>
+<pre style="margin:0; padding:0 ">  29: );</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   import uart_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   uart_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   uart_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   uart_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     .tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 ">  45:   );</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   uart_core uart_core (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     .rx    (cio_rx_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .tx    (cio_tx_o   ),</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .intr_tx_watermark_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .intr_rx_watermark_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .intr_tx_empty_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .intr_rx_overflow_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .intr_rx_frame_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .intr_rx_break_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .intr_rx_timeout_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .intr_rx_parity_err_o</pre>
+<pre style="margin:0; padding:0 ">  64:   );</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // always enable the driving out of TX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign cio_tx_en_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   // Assert Known for outputs</pre>
+<pre style="margin:0; padding:0 ">  70:   `ASSERT_KNOWN(txenKnown, cio_tx_en_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  71:   `ASSERT_KNOWN(txKnown, cio_tx_o, clk_i, !rst_ni || !cio_tx_en_o)</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:   // Assert Known for interrupts</pre>
+<pre style="margin:0; padding:0 ">  74:   `ASSERT_KNOWN(txWatermarkKnown, intr_tx_watermark_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  75:   `ASSERT_KNOWN(rxWatermarkKnown, intr_rx_watermark_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  76:   `ASSERT_KNOWN(txEmptyKnown, intr_tx_empty_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  77:   `ASSERT_KNOWN(rxOverflowKnown, intr_rx_overflow_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  78:   `ASSERT_KNOWN(rxFrameErrKnown, intr_rx_frame_err_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  79:   `ASSERT_KNOWN(rxBreakErrKnown, intr_rx_break_err_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  80:   `ASSERT_KNOWN(rxTimeoutKnown, intr_rx_timeout_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  81:   `ASSERT_KNOWN(rxParityErrKnown, intr_rx_parity_err_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83: endmodule</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+</body>
+</html>

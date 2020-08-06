@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/top_earlgrey/rtl/padctl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: module padctl (</pre>
+<pre style="margin:0; padding:0 ">   6:   // UART device side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   input   cio_uart_tx_d2p,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input   cio_uart_tx_en_d2p,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   output  cio_uart_rx_p2d,</pre>
+<pre style="margin:0; padding:0 ">  10:   // UART pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input   IO_URX,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output  IO_UTX,</pre>
+<pre style="margin:0; padding:0 ">  13:   // GPIO device side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input   [31:0] cio_gpio_d2p,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input   [31:0] cio_gpio_en_d2p,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output  [31:0] cio_gpio_p2d,</pre>
+<pre style="margin:0; padding:0 ">  17:   // GPIO pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   inout   IO_GP0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   inout   IO_GP1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   inout   IO_GP2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   inout   IO_GP3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   inout   IO_GP4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   inout   IO_GP5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   inout   IO_GP6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   inout   IO_GP7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   inout   IO_GP8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   inout   IO_GP9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   inout   IO_GP10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   inout   IO_GP11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   inout   IO_GP12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   inout   IO_GP13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   inout   IO_GP14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   inout   IO_GP15,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   // SPI device interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output cio_spi_device_sck_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output cio_spi_device_csb_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output cio_spi_device_mosi_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input  cio_spi_device_miso_d2p,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  cio_spi_device_miso_en_d2p,</pre>
+<pre style="margin:0; padding:0 ">  41:   // JTAG interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output cio_jtag_tck_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output cio_jtag_tms_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output cio_jtag_trst_n_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output cio_jtag_srst_n_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   output cio_jtag_tdi_p2d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input  cio_jtag_tdo_d2p,</pre>
+<pre style="margin:0; padding:0 ">  48:   // FTDI MSEE pins shared between JTAG and SPI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   input  IO_DPS0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input  IO_DPS1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   output IO_DPS2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input  IO_DPS3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  IO_DPS4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input  IO_DPS5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input  IO_DPS6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input  IO_DPS7</pre>
+<pre style="margin:0; padding:0 ">  57: );</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:   // JTAG or SPI mux to the FTDI MSEE pins DPS0-DPS6</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic    jtag_spi_n, dps2, dps2_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic    boot_strap;</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign  cio_uart_rx_p2d = IO_URX;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign  IO_UTX = cio_uart_tx_en_d2p ? cio_uart_tx_d2p : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign  cio_gpio_p2d = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:       14'h0,      // unpopulated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       boot_strap, // Use GPIO17 to pass rom boot_strap indication</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       jtag_spi_n, // Use GPIO16 to pass SPI/JTAG control flag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:       IO_GP15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:       IO_GP14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:       IO_GP13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       IO_GP12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       IO_GP11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       IO_GP10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       IO_GP9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       IO_GP8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       IO_GP7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       IO_GP6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       IO_GP5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       IO_GP4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       IO_GP3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       IO_GP2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       IO_GP1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       IO_GP0</pre>
+<pre style="margin:0; padding:0 ">  86:   };</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   assign  IO_GP0  = cio_gpio_en_d2p[0]  ? cio_gpio_d2p[0]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   assign  IO_GP1  = cio_gpio_en_d2p[1]  ? cio_gpio_d2p[1]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   assign  IO_GP2  = cio_gpio_en_d2p[2]  ? cio_gpio_d2p[2]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   assign  IO_GP3  = cio_gpio_en_d2p[3]  ? cio_gpio_d2p[3]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   assign  IO_GP4  = cio_gpio_en_d2p[4]  ? cio_gpio_d2p[4]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   assign  IO_GP5  = cio_gpio_en_d2p[5]  ? cio_gpio_d2p[5]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   assign  IO_GP6  = cio_gpio_en_d2p[6]  ? cio_gpio_d2p[6]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   assign  IO_GP7  = cio_gpio_en_d2p[7]  ? cio_gpio_d2p[7]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign  IO_GP8  = cio_gpio_en_d2p[8]  ? cio_gpio_d2p[8]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign  IO_GP9  = cio_gpio_en_d2p[9]  ? cio_gpio_d2p[9]  : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign  IO_GP10 = cio_gpio_en_d2p[10] ? cio_gpio_d2p[10] : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign  IO_GP11 = cio_gpio_en_d2p[11] ? cio_gpio_d2p[11] : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   assign  IO_GP12 = cio_gpio_en_d2p[12] ? cio_gpio_d2p[12] : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign  IO_GP13 = cio_gpio_en_d2p[13] ? cio_gpio_d2p[13] : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign  IO_GP14 = cio_gpio_en_d2p[14] ? cio_gpio_d2p[14] : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign  IO_GP15 = cio_gpio_en_d2p[15] ? cio_gpio_d2p[15] : 1'bz;</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign jtag_spi_n = IO_DPS6;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign boot_strap = IO_DPS7;</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign cio_spi_device_sck_p2d  = jtag_spi_n ?  0         : IO_DPS0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign cio_jtag_tck_p2d        = jtag_spi_n ?  IO_DPS0   : 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign cio_spi_device_mosi_p2d = jtag_spi_n ?  0         : IO_DPS1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign cio_jtag_tdi_p2d        = jtag_spi_n ?  IO_DPS1   : 0;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign dps2    = jtag_spi_n ?    cio_jtag_tdo_d2p : cio_spi_device_miso_d2p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign dps2_en = jtag_spi_n ?    1                : cio_spi_device_miso_en_d2p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   assign IO_DPS2 = dps2_en ? dps2 : 1'bz;</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   assign cio_spi_device_csb_p2d  = jtag_spi_n ?  1         : IO_DPS3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign cio_jtag_tms_p2d        = jtag_spi_n ?  IO_DPS3   : 0;</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign cio_jtag_trst_n_p2d     = jtag_spi_n ?  IO_DPS4   : 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign cio_jtag_srst_n_p2d     = jtag_spi_n ?  IO_DPS5   : 1;</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124: endmodule</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+</body>
+</html>

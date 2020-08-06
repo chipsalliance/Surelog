@@ -1,7 +1,6 @@
 /*
 :name: parametrized_class_scope_resolution
 :description: parametrized class scope resolution
-:should_fail: 0
 :tags: 8.25.1
 */
 module class_tb ();

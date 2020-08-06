@@ -59,7 +59,7 @@ class PreprocessFile {
  public:
   class SpecialInstructions;
   class DescriptiveErrorListener;
-  
+
   /* Constructors */
   PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
@@ -96,7 +96,7 @@ class PreprocessFile {
                        SymbolId embeddedMacroCallFile = 0);
   bool deleteMacro(const std::string name, std::set<PreprocessFile*>& visited);
   void undefineAllMacros(std::set<PreprocessFile*>& visited);
-  bool isMacroBody() { return (m_macroBody != ""); }
+  bool isMacroBody() { return !m_macroBody.empty(); }
   std::string getMacroBody() { return m_macroBody; }
   MacroInfo* getMacroInfo() { return m_macroInfo; }
   SymbolId getMacroSignature();
@@ -296,11 +296,11 @@ class PreprocessFile {
   LoopCheck m_loopChecker;
 
   void setFileContent(FileContent* content) { m_fileContent = content; }
-  FileContent* getFileContent() { return m_fileContent; } 
-  
+  FileContent* getFileContent() { return m_fileContent; }
+
   void setVerilogVersion(VerilogVersion version) { m_verilogVersion = version; }
-  VerilogVersion getVerilogVersion() { return m_verilogVersion; } 
-  
+  VerilogVersion getVerilogVersion() { return m_verilogVersion; }
+
   // For cache processing
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);

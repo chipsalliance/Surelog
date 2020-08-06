@@ -1,7 +1,6 @@
 /*
 :name: integers-left-padding-bit
 :description: Automatic left padding of literal numbers using single-bit value
-:should_fail: 0
 :tags: 5.7.1
 */
 module top();

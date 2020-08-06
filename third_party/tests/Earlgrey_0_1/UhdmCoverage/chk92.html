@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usb_fs_nb_pe/rtl/usb_fs_tx_mux.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright ETH Zurich.</pre>
+<pre style="margin:0; padding:0 ">   3: // Copyright Luke Valenty (TinyFPGA project, https://github.com/tinyfpga/TinyFPGA-Bootloader).</pre>
+<pre style="margin:0; padding:0 ">   4: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   5: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module usb_fs_tx_mux (</pre>
+<pre style="margin:0; padding:0 ">   8:   // interface to IN Protocol Engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input  logic in_tx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  logic [3:0] in_tx_pid_i,</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12:   // interface to OUT Protocol Engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  logic out_tx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic [3:0] out_tx_pid_i,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   // interface to tx module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic tx_pkt_start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [3:0] tx_pid_o</pre>
+<pre style="margin:0; padding:0 ">  19: );</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   assign tx_pkt_start_o = in_tx_pkt_start_i | out_tx_pkt_start_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   assign tx_pid_o       = out_tx_pkt_start_i ? out_tx_pid_i : in_tx_pid_i;</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24: endmodule</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+</body>
+</html>

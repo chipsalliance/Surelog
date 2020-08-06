@@ -1,7 +1,6 @@
 /*
 :name: define-directive
 :description: Define and undef checks
-:should_fail: 0
 :tags: 5.6.4
 */
 

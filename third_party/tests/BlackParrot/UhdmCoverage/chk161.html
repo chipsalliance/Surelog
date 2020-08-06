@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_top/src/v/bp_mmio_enclave.v Cov: 98.6% </h3>
+<pre style="margin:0; padding:0 ">   1: /*</pre>
+<pre style="margin:0; padding:0 ">   2:  * Note: Should rename to I/O enclave and instantiate CLINT and CFG submodules</pre>
+<pre style="margin:0; padding:0 ">   3:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4: module bp_mmio_enclave</pre>
+<pre style="margin:0; padding:0 ">   5:  import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   6:  import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   7:  import bp_be_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  import bp_cfg_link_pkg::*;</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  import bp_cce_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:  import bsg_noc_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  11:  import bsg_wormhole_router_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  12:  import bp_me_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  13:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">  15:    `declare_bp_me_if_widths(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p)</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:    , localparam mem_noc_ral_link_width_lp = `bsg_ready_and_link_sif_width(mem_noc_flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    )</pre>
+<pre style="margin:0; padding:0 ">  19:   (input                                           clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:    , input                                         reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:    // BP side</pre>
+<pre style="margin:0; padding:0 ">  23:    , input [mem_noc_cord_width_p-1:0]              my_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:    , input [mem_noc_cid_width_p-1:0]               my_cid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:    , input [mem_noc_ral_link_width_lp-1:0]         cmd_link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    , output [mem_noc_ral_link_width_lp-1:0]        cmd_link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:    , input [mem_noc_ral_link_width_lp-1:0]         resp_link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    , output [mem_noc_ral_link_width_lp-1:0]        resp_link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:    // Local interrupts</pre>
+<pre style="margin:0; padding:0 ">  33:    , output [num_core_p-1:0]                       soft_irq_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:    , output [num_core_p-1:0]                       timer_irq_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    , output [num_core_p-1:0]                       external_irq_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:    // Core config link</pre>
+<pre style="margin:0; padding:0 ">  38:    , output [num_core_p-1:0]                       cfg_w_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , output [num_core_p-1:0][cfg_addr_width_p-1:0] cfg_addr_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , output [num_core_p-1:0][cfg_data_width_p-1:0] cfg_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    );</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43: `declare_bp_me_if(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45: // Cast ports</pre>
+<pre style="margin:0; padding:0 ">  46: bp_cce_mem_msg_s mem_cmd_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: logic mem_cmd_v_li, mem_cmd_yumi_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49: bp_cce_mem_msg_s mem_resp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: logic mem_resp_v_lo, mem_resp_ready_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52: localparam lg_num_core_lp = `BSG_SAFE_CLOG2(num_core_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: logic cfg_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: logic mipi_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: logic mtimecmp_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: logic mtime_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: logic plic_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: logic wr_not_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     cfg_cmd_v           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     mipi_cmd_v          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     mtimecmp_cmd_v      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     mtime_cmd_v         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     plic_cmd_v          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:     wr_not_rd = mem_cmd_li.msg_type inside {e_cce_mem_wb, e_cce_mem_uc_wr};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:     unique </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     casez (mem_cmd_li.addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       cfg_link_dev_base_addr_gp: cfg_cmd_v      = mem_cmd_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       mipi_reg_base_addr_gp    : mipi_cmd_v     = mem_cmd_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       mtimecmp_reg_base_addr_gp: mtimecmp_cmd_v = mem_cmd_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       mtime_reg_addr_gp        : mtime_cmd_v    = mem_cmd_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       plic_reg_base_addr_gp    : plic_cmd_v     = mem_cmd_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       default: begin end</pre>
+<pre style="margin:0; padding:0 ">  79:     endcase</pre>
+<pre style="margin:0; padding:0 ">  80:   end</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: logic [num_core_p-1:0] mtimecmp_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: logic [num_core_p-1:0] mipi_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: logic [num_core_p-1:0] plic_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86: // Memory-mapped I/O is 64 bit aligned</pre>
+<pre style="margin:0; padding:0 ">  87: // Low 8 bits are core id for MMIO addresses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: localparam mipi_core_offset_lp = 2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89: localparam mtimecmp_core_offset_lp = 3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: wire [lg_num_core_lp-1:0] mipi_cmd_core_enc = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   mem_cmd_li.addr[mipi_core_offset_lp+:lg_num_core_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: wire [lg_num_core_lp-1:0] mtimecmp_cmd_core_enc = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   mem_cmd_li.addr[mtimecmp_core_offset_lp+:lg_num_core_lp];  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95: bsg_decode_with_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:  #(.num_out_p(num_core_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:  mipi_cmd_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   (.v_i(mipi_cmd_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:    ,.i(mipi_cmd_core_enc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    ,.o(mipi_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: bsg_decode_with_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:  #(.num_out_p(num_core_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:  mtimecmp_cmd_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   (.v_i(mtimecmp_cmd_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:    ,.i(mtimecmp_cmd_core_enc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:    ,.o(mtimecmp_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112: </pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113: bsg_decode_with_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:  #(.num_out_p(num_core_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:  plic_cmd_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   (.v_i(plic_cmd_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:    ,.i(mtimecmp_cmd_core_enc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:    ,.o(plic_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122: logic [dword_width_p-1:0] mtime_n, mtime_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: wire mtime_w_v_li = wr_not_rd & mtime_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124: assign mtime_n    = mtime_w_v_li </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:                     ? mem_cmd_li.data[0+:dword_width_p] </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:                     : mtime_r + dword_width_p'(1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   bsg_dff_reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:    #(.width_p(dword_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    mtime_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     (.clk_i(clk_i) // TODO: Should be a RTC once CDC strategy is decided</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:      ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:      ,.data_i(mtime_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:      ,.data_o(mtime_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:      );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: logic [num_core_p-1:0][dword_width_p-1:0] mtimecmp_n, mtimecmp_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138: logic [num_core_p-1:0]                    mipi_n, mipi_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139: logic [num_core_p-1:0]                    plic_n, plic_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: // cfg link to tile</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142: // TODO: cfg_link payload should be a struct</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143: logic [num_core_p-1:0]      cfg_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144: wire [cfg_core_width_p-1:0] cfg_core_li      = mem_cmd_li.data[cfg_data_width_p+cfg_addr_width_p+:cfg_core_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145: wire [cfg_addr_width_p-1:0] cfg_addr_li      = mem_cmd_li.data[cfg_data_width_p+:cfg_addr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146: wire [cfg_data_width_p-1:0] cfg_data_li      = mem_cmd_li.data[0+:cfg_data_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147: wire                        cfg_broadcast_li = cfg_cmd_v & (cfg_core_li == '1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148: </pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149: bsg_decode_with_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:  #(.num_out_p(num_core_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:  cfg_link_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   (.v_i(cfg_cmd_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:    ,.i(cfg_core_li[0+:`BSG_SAFE_CLOG2(num_core_p)])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:    ,.o(cfg_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157: for (genvar i = 0; i < num_core_p; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   begin : rof1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     assign mtimecmp_n[i] = mem_cmd_li.data[0+:dword_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     wire mtimecmp_w_v_li = wr_not_rd & mtimecmp_v_li[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:      #(.width_p(dword_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:      mtimecmp_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:        ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:        ,.en_i(mtimecmp_w_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:        ,.data_i(mtimecmp_n[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:        ,.data_o(mtimecmp_r[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:        );</pre>
+<pre style="margin:0; padding:0 "> 171:     assign timer_irq_o[i] = mtimecmp_r[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:     assign mipi_n[i] = mem_cmd_li.data[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     wire mipi_w_v_li = wr_not_rd & mipi_v_li[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:      #(.width_p(1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:      mipi_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:        ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:        ,.en_i(mipi_w_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: </pre>
+<pre style="margin:0; padding:0 "> 182:        ,.data_i(mipi_n[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:        ,.data_o(mipi_r[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:        );</pre>
+<pre style="margin:0; padding:0 "> 185:     assign soft_irq_o[i] = mipi_r[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186: </pre>
+<pre style="margin:0; padding:0 "> 187:     assign plic_n[i] = mem_cmd_li.data[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     wire plic_w_v_li = wr_not_rd & plic_v_li[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:      #(.width_p(1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:      plic_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:        ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:        ,.en_i(plic_w_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:        ,.data_i(plic_n[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:        ,.data_o(plic_r[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:        );</pre>
+<pre style="margin:0; padding:0 "> 199:     assign external_irq_o[i] = plic_r[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200: </pre>
+<pre style="margin:0; padding:0 "> 201:     // cfg link dff chain</pre>
+<pre style="margin:0; padding:0 "> 202:     wire cfg_w_v_li = wr_not_rd & cfg_v_li[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203: </pre>
+<pre style="margin:0; padding:0 "> 204:     assign cfg_w_v_o[i]  = cfg_w_v_li | cfg_broadcast_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:     assign cfg_addr_o[i] = cfg_addr_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     assign cfg_data_o[i] = cfg_data_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   end // rof1</pre>
+<pre style="margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209: logic mipi_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210: bsg_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:  #(.width_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:    ,.els_p(num_core_p) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:    )</pre>
+<pre style="margin:0; padding:0 "> 214:  mipi_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   (.data_i(mipi_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:    ,.sel_one_hot_i(mipi_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:    ,.data_o(mipi_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:    );</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220: logic [dword_width_p-1:0] mtimecmp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221: bsg_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:  #(.width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:    ,.els_p(num_core_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:    )</pre>
+<pre style="margin:0; padding:0 "> 225:  mtimecmp_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   (.data_i(mtimecmp_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:    ,.sel_one_hot_i(mtimecmp_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:    ,.data_o(mtimecmp_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:    );</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="margin:0; padding:0 "> 231: logic plic_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232: bsg_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:  #(.width_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:    ,.els_p(num_core_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:    )</pre>
+<pre style="margin:0; padding:0 "> 236:  plic_mux_one_hot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   (.data_i(plic_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:    ,.sel_one_hot_i(plic_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:    ,.data_o(plic_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:    );</pre>
+<pre style="margin:0; padding:0 "> 241: </pre>
+<pre style="margin:0; padding:0 "> 242: wire [dword_width_p-1:0] rdata_lo = plic_cmd_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:                                     ? dword_width_p'(plic_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:                                     : mipi_cmd_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:                                       ? dword_width_p'(mipi_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:                                       : mtimecmp_cmd_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:                                         ? dword_width_p'(mtimecmp_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:                                         : mtime_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249: </pre>
+<pre style="margin:0; padding:0 "> 250: assign mem_resp_lo =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:   '{msg_type       : mem_cmd_li.msg_type</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     ,addr          : mem_cmd_li.addr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     ,payload       : mem_cmd_li.payload</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     ,size          : mem_cmd_li.size</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     ,data          : cce_block_width_p'(rdata_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     };</pre>
+<pre style="margin:0; padding:0 "> 257: </pre>
+<pre style="margin:0; padding:0 "> 258: // CCE-MEM IF to wormhole link conversion</pre>
+<pre style="margin:0; padding:0 "> 259: assign mem_cmd_yumi_lo = mem_cmd_v_li & mem_resp_ready_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260: assign mem_resp_v_lo = mem_cmd_yumi_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261: bp_me_cce_to_wormhole_link_client</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:  #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:  client_link</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266: </pre>
+<pre style="margin:0; padding:0 "> 267:    ,.mem_cmd_o(mem_cmd_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:    ,.mem_cmd_v_o(mem_cmd_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:    ,.mem_cmd_yumi_i(mem_cmd_yumi_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270: </pre>
+<pre style="margin:0; padding:0 "> 271:    ,.mem_resp_i(mem_resp_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:    ,.mem_resp_v_i(mem_resp_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:    ,.mem_resp_ready_o(mem_resp_ready_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274: </pre>
+<pre style="margin:0; padding:0 "> 275:    ,.my_cord_i(my_cord_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:    ,.my_cid_i(my_cid_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: </pre>
+<pre style="margin:0; padding:0 "> 278:    ,.cmd_link_i(cmd_link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:    ,.cmd_link_o(cmd_link_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280: </pre>
+<pre style="margin:0; padding:0 "> 281:    ,.resp_link_i(resp_link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:    ,.resp_link_o(resp_link_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:    );</pre>
+<pre style="margin:0; padding:0 "> 284: </pre>
+<pre style="margin:0; padding:0 "> 285: endmodule</pre>
+<pre style="margin:0; padding:0 "> 286: </pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+</body>
+</html>

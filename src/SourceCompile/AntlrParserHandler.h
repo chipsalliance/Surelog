@@ -24,6 +24,10 @@
 #ifndef ANTLRPARSERHANDLER_H
 #define ANTLRPARSERHANDLER_H
 
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "antlr4-runtime.h"
+
 namespace SURELOG {
 
 class AntlrParserErrorListener;

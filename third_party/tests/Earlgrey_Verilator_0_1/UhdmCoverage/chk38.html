@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_ctr.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES counter for CTR mode</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module uses a 16-bit counter to iteratively increment the 128-bit counter value.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module aes_ctr(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  logic             rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  logic             incr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output logic             ready_o,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  logic [7:0][15:0] ctr_i, // 8 times 2 bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic [7:0][15:0] ctr_o, // 8 times 2 bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [7:0]       ctr_we_o</pre>
+<pre style="margin:0; padding:0 ">  21: );</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // Reverse byte order</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   function automatic logic [15:0][7:0] aes_rev_order_byte(logic [15:0][7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     logic [15:0][7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     for (int i=0; i<16; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       out[i] = in[15-i];</pre>
+<pre style="margin:0; padding:0 ">  28:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     return out;</pre>
+<pre style="margin:0; padding:0 ">  30:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // Reverse bit order</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   function automatic logic [7:0] aes_rev_order_bit(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     logic [7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     for (int i=0; i<8; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       out[i] = in[7-i];</pre>
+<pre style="margin:0; padding:0 ">  37:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     return out;</pre>
+<pre style="margin:0; padding:0 ">  39:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:   // Types</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     IDLE, INCR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   } aes_ctr_e;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   aes_ctr_e         aes_ctr_ns, aes_ctr_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic       [2:0] ctr_slice_idx_d, ctr_slice_idx_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic             ctr_carry_d, ctr_carry_q;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   logic [7:0][15:0] ctr_i_rev; // 8 times 2 bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [7:0][15:0] ctr_o_rev; // 8 times 2 bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic [7:0]       ctr_we_o_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic             ctr_we;</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic      [15:0] ctr_i_slice;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic      [15:0] ctr_o_slice;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic      [16:0] ctr_value;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   ////////////</pre>
+<pre style="margin:0; padding:0 ">  61:   // Inputs //</pre>
+<pre style="margin:0; padding:0 ">  62:   ////////////</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // Reverse byte order</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign ctr_i_rev = aes_rev_order_byte(ctr_i);</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  68:   // Counter //</pre>
+<pre style="margin:0; padding:0 ">  69:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   // We do 16 bits at a time.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign ctr_i_slice = ctr_i_rev[ctr_slice_idx_q];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   assign ctr_value   = ctr_i_slice + {15'b0, ctr_carry_q};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   assign ctr_o_slice = ctr_value[15:0];</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  77:   // Control //</pre>
+<pre style="margin:0; padding:0 ">  78:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:   // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   always_comb begin : aes_ctr_fsm</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:     // Outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     ready_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     ctr_we          = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:     // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     aes_ctr_ns      = aes_ctr_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     ctr_slice_idx_d = ctr_slice_idx_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     ctr_carry_d     = ctr_carry_q;</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     unique case (aes_ctr_cs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       IDLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         if (incr_i) begin</pre>
+<pre style="margin:0; padding:0 ">  96:           // Initialize slice index and carry bit.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:           ctr_slice_idx_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:           ctr_carry_d     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:           aes_ctr_ns      = INCR;</pre>
+<pre style="margin:0; padding:0 "> 100:         end</pre>
+<pre style="margin:0; padding:0 "> 101:       end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       INCR: begin</pre>
+<pre style="margin:0; padding:0 "> 104:         // Increment slice index.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:         ctr_slice_idx_d = ctr_slice_idx_q + 3'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:         ctr_carry_d     = ctr_value[16];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:         ctr_we          = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:         if (ctr_slice_idx_q == 3'b111) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           aes_ctr_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 111:         end</pre>
+<pre style="margin:0; padding:0 "> 112:       end</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       default: aes_ctr_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 115:     endcase</pre>
+<pre style="margin:0; padding:0 "> 116:   end</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="margin:0; padding:0 "> 118:   // Registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       aes_ctr_cs      <= IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       ctr_slice_idx_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:       ctr_carry_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       aes_ctr_cs      <= aes_ctr_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       ctr_slice_idx_q <= ctr_slice_idx_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       ctr_carry_q     <= ctr_carry_d;</pre>
+<pre style="margin:0; padding:0 "> 128:     end</pre>
+<pre style="margin:0; padding:0 "> 129:   end</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 132:   // Outputs //</pre>
+<pre style="margin:0; padding:0 "> 133:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135:   // Combine input and counter output.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     ctr_o_rev                  = ctr_i_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     ctr_o_rev[ctr_slice_idx_q] = ctr_o_slice;</pre>
+<pre style="margin:0; padding:0 "> 139:   end</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="margin:0; padding:0 "> 141:   // Generate the sliced write enable.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     ctr_we_o_rev                  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     ctr_we_o_rev[ctr_slice_idx_q] = ctr_we;</pre>
+<pre style="margin:0; padding:0 "> 145:   end</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="margin:0; padding:0 "> 147:   // Reverse byte and bit order.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   assign ctr_o    = aes_rev_order_byte(ctr_o_rev);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign ctr_we_o = aes_rev_order_bit(ctr_we_o_rev);</pre>
+<pre style="margin:0; padding:0 "> 150: </pre>
+<pre style="margin:0; padding:0 "> 151:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 152:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 153:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 154:   `ASSERT_KNOWN(AesCtrStateKnown, aes_ctr_cs)</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156: endmodule</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+</body>
+</html>

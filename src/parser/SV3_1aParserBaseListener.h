@@ -430,6 +430,9 @@ public:
   virtual void enterConst_type(SV3_1aParser::Const_typeContext * /*ctx*/) override { }
   virtual void exitConst_type(SV3_1aParser::Const_typeContext * /*ctx*/) override { }
 
+  virtual void enterVar_type(SV3_1aParser::Var_typeContext * /*ctx*/) override { }
+  virtual void exitVar_type(SV3_1aParser::Var_typeContext * /*ctx*/) override { }
+
   virtual void enterData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext * /*ctx*/) override { }
   virtual void exitData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext * /*ctx*/) override { }
 
@@ -484,41 +487,8 @@ public:
   virtual void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * /*ctx*/) override { }
   virtual void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * /*ctx*/) override { }
 
-  virtual void enterNetType_Supply0(SV3_1aParser::NetType_Supply0Context * /*ctx*/) override { }
-  virtual void exitNetType_Supply0(SV3_1aParser::NetType_Supply0Context * /*ctx*/) override { }
-
-  virtual void enterNetType_Supply1(SV3_1aParser::NetType_Supply1Context * /*ctx*/) override { }
-  virtual void exitNetType_Supply1(SV3_1aParser::NetType_Supply1Context * /*ctx*/) override { }
-
-  virtual void enterNetType_Tri(SV3_1aParser::NetType_TriContext * /*ctx*/) override { }
-  virtual void exitNetType_Tri(SV3_1aParser::NetType_TriContext * /*ctx*/) override { }
-
-  virtual void enterNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * /*ctx*/) override { }
-  virtual void exitNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * /*ctx*/) override { }
-
-  virtual void enterNetType_TriOr(SV3_1aParser::NetType_TriOrContext * /*ctx*/) override { }
-  virtual void exitNetType_TriOr(SV3_1aParser::NetType_TriOrContext * /*ctx*/) override { }
-
-  virtual void enterNetType_TriReg(SV3_1aParser::NetType_TriRegContext * /*ctx*/) override { }
-  virtual void exitNetType_TriReg(SV3_1aParser::NetType_TriRegContext * /*ctx*/) override { }
-
-  virtual void enterNetType_Tri0(SV3_1aParser::NetType_Tri0Context * /*ctx*/) override { }
-  virtual void exitNetType_Tri0(SV3_1aParser::NetType_Tri0Context * /*ctx*/) override { }
-
-  virtual void enterNetType_Tri1(SV3_1aParser::NetType_Tri1Context * /*ctx*/) override { }
-  virtual void exitNetType_Tri1(SV3_1aParser::NetType_Tri1Context * /*ctx*/) override { }
-
-  virtual void enterNetType_Uwire(SV3_1aParser::NetType_UwireContext * /*ctx*/) override { }
-  virtual void exitNetType_Uwire(SV3_1aParser::NetType_UwireContext * /*ctx*/) override { }
-
-  virtual void enterNetType_Wire(SV3_1aParser::NetType_WireContext * /*ctx*/) override { }
-  virtual void exitNetType_Wire(SV3_1aParser::NetType_WireContext * /*ctx*/) override { }
-
-  virtual void enterNetType_Wand(SV3_1aParser::NetType_WandContext * /*ctx*/) override { }
-  virtual void exitNetType_Wand(SV3_1aParser::NetType_WandContext * /*ctx*/) override { }
-
-  virtual void enterNetType_Wor(SV3_1aParser::NetType_WorContext * /*ctx*/) override { }
-  virtual void exitNetType_Wor(SV3_1aParser::NetType_WorContext * /*ctx*/) override { }
+  virtual void enterNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) override { }
+  virtual void exitNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) override { }
 
   virtual void enterNet_port_type(SV3_1aParser::Net_port_typeContext * /*ctx*/) override { }
   virtual void exitNet_port_type(SV3_1aParser::Net_port_typeContext * /*ctx*/) override { }
@@ -562,38 +532,14 @@ public:
   virtual void enterDrive_strength(SV3_1aParser::Drive_strengthContext * /*ctx*/) override { }
   virtual void exitDrive_strength(SV3_1aParser::Drive_strengthContext * /*ctx*/) override { }
 
-  virtual void enterStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * /*ctx*/) override { }
-  virtual void exitStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * /*ctx*/) override { }
+  virtual void enterStrength0(SV3_1aParser::Strength0Context * /*ctx*/) override { }
+  virtual void exitStrength0(SV3_1aParser::Strength0Context * /*ctx*/) override { }
 
-  virtual void enterStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * /*ctx*/) override { }
-  virtual void exitStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * /*ctx*/) override { }
+  virtual void enterStrength1(SV3_1aParser::Strength1Context * /*ctx*/) override { }
+  virtual void exitStrength1(SV3_1aParser::Strength1Context * /*ctx*/) override { }
 
-  virtual void enterStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * /*ctx*/) override { }
-  virtual void exitStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * /*ctx*/) override { }
-
-  virtual void enterStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * /*ctx*/) override { }
-  virtual void exitStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * /*ctx*/) override { }
-
-  virtual void enterStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * /*ctx*/) override { }
-  virtual void exitStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * /*ctx*/) override { }
-
-  virtual void enterStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * /*ctx*/) override { }
-  virtual void exitStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * /*ctx*/) override { }
-
-  virtual void enterStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * /*ctx*/) override { }
-  virtual void exitStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * /*ctx*/) override { }
-
-  virtual void enterStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * /*ctx*/) override { }
-  virtual void exitStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * /*ctx*/) override { }
-
-  virtual void enterChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * /*ctx*/) override { }
-  virtual void exitChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * /*ctx*/) override { }
-
-  virtual void enterChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * /*ctx*/) override { }
-  virtual void exitChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * /*ctx*/) override { }
-
-  virtual void enterChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * /*ctx*/) override { }
-  virtual void exitChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * /*ctx*/) override { }
+  virtual void enterCharge_strength(SV3_1aParser::Charge_strengthContext * /*ctx*/) override { }
+  virtual void exitCharge_strength(SV3_1aParser::Charge_strengthContext * /*ctx*/) override { }
 
   virtual void enterDelay3(SV3_1aParser::Delay3Context * /*ctx*/) override { }
   virtual void exitDelay3(SV3_1aParser::Delay3Context * /*ctx*/) override { }
@@ -1093,23 +1039,11 @@ public:
   virtual void enterPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext * /*ctx*/) override { }
   virtual void exitPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext * /*ctx*/) override { }
 
-  virtual void enterPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * /*ctx*/) override { }
-  virtual void exitPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * /*ctx*/) override { }
+  virtual void enterPulldown_strength(SV3_1aParser::Pulldown_strengthContext * /*ctx*/) override { }
+  virtual void exitPulldown_strength(SV3_1aParser::Pulldown_strengthContext * /*ctx*/) override { }
 
-  virtual void enterPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * /*ctx*/) override { }
-  virtual void exitPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * /*ctx*/) override { }
-
-  virtual void enterPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * /*ctx*/) override { }
-  virtual void exitPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * /*ctx*/) override { }
-
-  virtual void enterPullupStrength_01(SV3_1aParser::PullupStrength_01Context * /*ctx*/) override { }
-  virtual void exitPullupStrength_01(SV3_1aParser::PullupStrength_01Context * /*ctx*/) override { }
-
-  virtual void enterPullupStrength_10(SV3_1aParser::PullupStrength_10Context * /*ctx*/) override { }
-  virtual void exitPullupStrength_10(SV3_1aParser::PullupStrength_10Context * /*ctx*/) override { }
-
-  virtual void enterPullupStrength_1(SV3_1aParser::PullupStrength_1Context * /*ctx*/) override { }
-  virtual void exitPullupStrength_1(SV3_1aParser::PullupStrength_1Context * /*ctx*/) override { }
+  virtual void enterPullup_strength(SV3_1aParser::Pullup_strengthContext * /*ctx*/) override { }
+  virtual void exitPullup_strength(SV3_1aParser::Pullup_strengthContext * /*ctx*/) override { }
 
   virtual void enterCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext * /*ctx*/) override { }
   virtual void exitCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext * /*ctx*/) override { }
@@ -1456,44 +1390,8 @@ public:
   virtual void enterOperator_assignment(SV3_1aParser::Operator_assignmentContext * /*ctx*/) override { }
   virtual void exitOperator_assignment(SV3_1aParser::Operator_assignmentContext * /*ctx*/) override { }
 
-  virtual void enterAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_Add(SV3_1aParser::AssignOp_AddContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Add(SV3_1aParser::AssignOp_AddContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_Div(SV3_1aParser::AssignOp_DivContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Div(SV3_1aParser::AssignOp_DivContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * /*ctx*/) override { }
-  virtual void exitAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * /*ctx*/) override { }
-  virtual void exitAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * /*ctx*/) override { }
-  virtual void exitAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * /*ctx*/) override { }
-  virtual void exitAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * /*ctx*/) override { }
-  virtual void exitAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * /*ctx*/) override { }
-  virtual void exitAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * /*ctx*/) override { }
-  virtual void exitAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * /*ctx*/) override { }
-
-  virtual void enterAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * /*ctx*/) override { }
-  virtual void exitAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * /*ctx*/) override { }
+  virtual void enterAssignment_operator(SV3_1aParser::Assignment_operatorContext * /*ctx*/) override { }
+  virtual void exitAssignment_operator(SV3_1aParser::Assignment_operatorContext * /*ctx*/) override { }
 
   virtual void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * /*ctx*/) override { }
   virtual void exitNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * /*ctx*/) override { }
@@ -2137,9 +2035,6 @@ public:
   virtual void enterExpression(SV3_1aParser::ExpressionContext * /*ctx*/) override { }
   virtual void exitExpression(SV3_1aParser::ExpressionContext * /*ctx*/) override { }
 
-  virtual void enterTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * /*ctx*/) override { }
-  virtual void exitTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * /*ctx*/) override { }
-
   virtual void enterValue_range(SV3_1aParser::Value_rangeContext * /*ctx*/) override { }
   virtual void exitValue_range(SV3_1aParser::Value_rangeContext * /*ctx*/) override { }
 
@@ -2374,11 +2269,8 @@ public:
   virtual void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) override { }
   virtual void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) override { }
 
-  virtual void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) override { }
-  virtual void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) override { }
-
-  virtual void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) override { }
-  virtual void exitIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) override { }
+  virtual void enterInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) override { }
+  virtual void exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) override { }
 
   virtual void enterUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * /*ctx*/) override { }
   virtual void exitUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * /*ctx*/) override { }

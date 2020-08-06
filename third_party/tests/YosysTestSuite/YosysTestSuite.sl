@@ -1,1 +1,1 @@
--parse -sverilog -fileunit +incdir+. -nocache */*.v */*/*.v */*.sv */*/*.sv
+-batch batch.txt 

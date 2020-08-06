@@ -1520,6 +1520,17 @@ def enterConst_type(prog, ctx):
 def exitConst_type(prog, ctx):
 	pass
 
+def enterVar_type(prog, ctx):
+	if trace:
+		print("enterVar_type")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitVar_type(prog, ctx):
+	pass
+
 def enterData_type_or_implicit(prog, ctx):
 	if trace:
 		print("enterData_type_or_implicit")
@@ -1718,136 +1729,15 @@ def enterNonIntType_RealTime(prog, ctx):
 def exitNonIntType_RealTime(prog, ctx):
 	pass
 
-def enterNetType_Supply0(prog, ctx):
+def enterNet_type(prog, ctx):
 	if trace:
-		print("enterNetType_Supply0")
+		print("enterNet_type")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitNetType_Supply0(prog, ctx):
-	pass
-
-def enterNetType_Supply1(prog, ctx):
-	if trace:
-		print("enterNetType_Supply1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Supply1(prog, ctx):
-	pass
-
-def enterNetType_Tri(prog, ctx):
-	if trace:
-		print("enterNetType_Tri")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri(prog, ctx):
-	pass
-
-def enterNetType_TriAnd(prog, ctx):
-	if trace:
-		print("enterNetType_TriAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriAnd(prog, ctx):
-	pass
-
-def enterNetType_TriOr(prog, ctx):
-	if trace:
-		print("enterNetType_TriOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriOr(prog, ctx):
-	pass
-
-def enterNetType_TriReg(prog, ctx):
-	if trace:
-		print("enterNetType_TriReg")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriReg(prog, ctx):
-	pass
-
-def enterNetType_Tri0(prog, ctx):
-	if trace:
-		print("enterNetType_Tri0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri0(prog, ctx):
-	pass
-
-def enterNetType_Tri1(prog, ctx):
-	if trace:
-		print("enterNetType_Tri1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri1(prog, ctx):
-	pass
-
-def enterNetType_Uwire(prog, ctx):
-	if trace:
-		print("enterNetType_Uwire")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Uwire(prog, ctx):
-	pass
-
-def enterNetType_Wire(prog, ctx):
-	if trace:
-		print("enterNetType_Wire")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wire(prog, ctx):
-	pass
-
-def enterNetType_Wand(prog, ctx):
-	if trace:
-		print("enterNetType_Wand")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wand(prog, ctx):
-	pass
-
-def enterNetType_Wor(prog, ctx):
-	if trace:
-		print("enterNetType_Wor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wor(prog, ctx):
+def exitNet_type(prog, ctx):
 	pass
 
 def enterNet_port_type(prog, ctx):
@@ -2004,125 +1894,37 @@ def enterDrive_strength(prog, ctx):
 def exitDrive_strength(prog, ctx):
 	pass
 
-def enterStrength0_Supply0(prog, ctx):
+def enterStrength0(prog, ctx):
 	if trace:
-		print("enterStrength0_Supply0")
+		print("enterStrength0")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Supply0(prog, ctx):
+def exitStrength0(prog, ctx):
 	pass
 
-def enterStrength0_Strong0(prog, ctx):
+def enterStrength1(prog, ctx):
 	if trace:
-		print("enterStrength0_Strong0")
+		print("enterStrength1")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Strong0(prog, ctx):
+def exitStrength1(prog, ctx):
 	pass
 
-def enterStrength0_Pull0(prog, ctx):
+def enterCharge_strength(prog, ctx):
 	if trace:
-		print("enterStrength0_Pull0")
+		print("enterCharge_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Pull0(prog, ctx):
-	pass
-
-def enterStrength0_Weak0(prog, ctx):
-	if trace:
-		print("enterStrength0_Weak0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength0_Weak0(prog, ctx):
-	pass
-
-def enterStrength1_Supply1(prog, ctx):
-	if trace:
-		print("enterStrength1_Supply1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Supply1(prog, ctx):
-	pass
-
-def enterStrength1_Strong1(prog, ctx):
-	if trace:
-		print("enterStrength1_Strong1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Strong1(prog, ctx):
-	pass
-
-def enterStrength1_Pull1(prog, ctx):
-	if trace:
-		print("enterStrength1_Pull1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Pull1(prog, ctx):
-	pass
-
-def enterStrength1_Weak1(prog, ctx):
-	if trace:
-		print("enterStrength1_Weak1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Weak1(prog, ctx):
-	pass
-
-def enterChargeStrength_Small(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Small")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Small(prog, ctx):
-	pass
-
-def enterChargeStrength_Medium(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Medium")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Medium(prog, ctx):
-	pass
-
-def enterChargeStrength_Large(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Large")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Large(prog, ctx):
+def exitCharge_strength(prog, ctx):
 	pass
 
 def enterDelay3(prog, ctx):
@@ -3951,70 +3753,26 @@ def enterPull_gate_instance(prog, ctx):
 def exitPull_gate_instance(prog, ctx):
 	pass
 
-def enterPulldownStrength_01(prog, ctx):
+def enterPulldown_strength(prog, ctx):
 	if trace:
-		print("enterPulldownStrength_01")
+		print("enterPulldown_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitPulldownStrength_01(prog, ctx):
+def exitPulldown_strength(prog, ctx):
 	pass
 
-def enterPulldownStrength_10(prog, ctx):
+def enterPullup_strength(prog, ctx):
 	if trace:
-		print("enterPulldownStrength_10")
+		print("enterPullup_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitPulldownStrength_10(prog, ctx):
-	pass
-
-def enterPulldownStrength_0(prog, ctx):
-	if trace:
-		print("enterPulldownStrength_0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPulldownStrength_0(prog, ctx):
-	pass
-
-def enterPullupStrength_01(prog, ctx):
-	if trace:
-		print("enterPullupStrength_01")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_01(prog, ctx):
-	pass
-
-def enterPullupStrength_10(prog, ctx):
-	if trace:
-		print("enterPullupStrength_10")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_10(prog, ctx):
-	pass
-
-def enterPullupStrength_1(prog, ctx):
-	if trace:
-		print("enterPullupStrength_1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_1(prog, ctx):
+def exitPullup_strength(prog, ctx):
 	pass
 
 def enterCmosSwitchType_Cmos(prog, ctx):
@@ -5282,147 +5040,15 @@ def enterOperator_assignment(prog, ctx):
 def exitOperator_assignment(prog, ctx):
 	pass
 
-def enterAssignOp_Assign(prog, ctx):
+def enterAssignment_operator(prog, ctx):
 	if trace:
-		print("enterAssignOp_Assign")
+		print("enterAssignment_operator")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitAssignOp_Assign(prog, ctx):
-	pass
-
-def enterAssignOp_Add(prog, ctx):
-	if trace:
-		print("enterAssignOp_Add")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Add(prog, ctx):
-	pass
-
-def enterAssignOp_Sub(prog, ctx):
-	if trace:
-		print("enterAssignOp_Sub")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Sub(prog, ctx):
-	pass
-
-def enterAssignOp_Mult(prog, ctx):
-	if trace:
-		print("enterAssignOp_Mult")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Mult(prog, ctx):
-	pass
-
-def enterAssignOp_Div(prog, ctx):
-	if trace:
-		print("enterAssignOp_Div")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Div(prog, ctx):
-	pass
-
-def enterAssignOp_Modulo(prog, ctx):
-	if trace:
-		print("enterAssignOp_Modulo")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Modulo(prog, ctx):
-	pass
-
-def enterAssignOp_BitwAnd(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwAnd(prog, ctx):
-	pass
-
-def enterAssignOp_BitwOr(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwOr(prog, ctx):
-	pass
-
-def enterAssignOp_BitwXor(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwXor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwXor(prog, ctx):
-	pass
-
-def enterAssignOp_BitwLeftShift(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwLeftShift")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwLeftShift(prog, ctx):
-	pass
-
-def enterAssignOp_BitwRightShift(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwRightShift")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwRightShift(prog, ctx):
-	pass
-
-def enterAssignOp_ArithShiftLeft(prog, ctx):
-	if trace:
-		print("enterAssignOp_ArithShiftLeft")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_ArithShiftLeft(prog, ctx):
-	pass
-
-def enterAssignOp_ArithShiftRight(prog, ctx):
-	if trace:
-		print("enterAssignOp_ArithShiftRight")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_ArithShiftRight(prog, ctx):
+def exitAssignment_operator(prog, ctx):
 	pass
 
 def enterNonblocking_assignment(prog, ctx):
@@ -7779,17 +7405,6 @@ def enterExpression(prog, ctx):
 def exitExpression(prog, ctx):
 	pass
 
-def enterTagged_union_expression(prog, ctx):
-	if trace:
-		print("enterTagged_union_expression")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitTagged_union_expression(prog, ctx):
-	pass
-
 def enterValue_range(prog, ctx):
 	if trace:
 		print("enterValue_range")
@@ -8648,26 +8263,15 @@ def enterBinOp_Equivalence(prog, ctx):
 def exitBinOp_Equivalence(prog, ctx):
 	pass
 
-def enterIncDec_PlusPlus(prog, ctx):
+def enterInc_or_dec_operator(prog, ctx):
 	if trace:
-		print("enterIncDec_PlusPlus")
+		print("enterInc_or_dec_operator")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitIncDec_PlusPlus(prog, ctx):
-	pass
-
-def enterIncDec_MinusMinus(prog, ctx):
-	if trace:
-		print("enterIncDec_MinusMinus")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitIncDec_MinusMinus(prog, ctx):
+def exitInc_or_dec_operator(prog, ctx):
 	pass
 
 def enterUnaryModOp_Not(prog, ctx):

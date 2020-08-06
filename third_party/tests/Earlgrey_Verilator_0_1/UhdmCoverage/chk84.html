@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_dv_dpi_jtagdpi_0.1/jtagdpi.sv Cov: 71.4% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module jtagdpi #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   parameter string Name = "jtag0", // name of the JTAG interface (display only)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   parameter int ListenPort = 44853 // TCP port to listen on</pre>
+<pre style="margin:0; padding:0 ">   8: )(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input  logic clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  logic rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic jtag_tck,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic jtag_tms,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output logic jtag_tdi,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  logic jtag_tdo,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output logic jtag_trst_n,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic jtag_srst_n</pre>
+<pre style="margin:0; padding:0 ">  18: );</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:   import "DPI-C"</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:   function chandle jtagdpi_create(input string name, input int listen_port);</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:   import "DPI-C"</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:   function void jtagdpi_tick(input chandle ctx, output bit tck, output bit tms,</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:                              output bit tdi, output bit trst_n,</pre>
+<pre id="id26" style="background-color: #FFB6C1; margin:0; padding:0 ">  26:                              output bit srst_n, input bit tdo);</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:   import "DPI-C"</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:   function void jtagdpi_close(input chandle ctx);</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   chandle ctx;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     ctx = jtagdpi_create(Name, ListenPort);</pre>
+<pre style="margin:0; padding:0 ">  35:   end</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   final begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     jtagdpi_close(ctx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     ctx = 0;</pre>
+<pre style="margin:0; padding:0 ">  40:   end</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   always_ff @(posedge clk_i, negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     jtagdpi_tick(ctx, jtag_tck, jtag_tms, jtag_tdi, jtag_trst_n, jtag_srst_n,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                  jtag_tdo);</pre>
+<pre style="margin:0; padding:0 ">  45:   end</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47: endmodule</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+</body>
+</html>

@@ -26,28 +26,74 @@
 
 using namespace SURELOG;
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
-               VObjectType direction, NodeId range)
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
+               VObjectType direction, NodeId packedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
       m_direction(direction),
       m_interfaceDef(NULL),
       m_modPort(NULL),
+      m_dataType(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(0),
-      m_range(range) {}
+      m_packedDimension(packedDimension),
+      m_typeSpecId(0),
+      m_unpackedDimension(0),
+      m_const(false),
+      m_var(false),
+      m_signed(is_signed) {}
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId)
+Signal::Signal(const FileContent* fileContent, NodeId nodeId,
+               NodeId interfaceTypeNameId, VObjectType subnettype, NodeId unpackedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
-      m_type(VObjectType::slNoType),
+      m_type(subnettype),
       m_direction(VObjectType::slNoType),
       m_interfaceDef(NULL),
       m_modPort(NULL),
+      m_dataType(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(interfaceTypeNameId),
-      m_range(0) {}
+      m_packedDimension(0),
+      m_typeSpecId(0),
+      m_unpackedDimension(unpackedDimension),
+      m_const(false),
+      m_var(false),
+      m_signed(is_signed) {}
 
-Signal::~Signal() {}
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
+         NodeId packedDimension, VObjectType direction, NodeId typeSpecId, NodeId unpackedDimension, bool is_signed)
+    : m_fileContent(fileContent),
+      m_nodeId(nodeId),
+      m_type(type),
+      m_direction(direction),
+      m_interfaceDef(NULL),
+      m_modPort(NULL),
+      m_dataType(NULL),
+      m_lowConn(NULL),
+      m_interfaceTypeNameId(0),
+      m_packedDimension(packedDimension),
+      m_typeSpecId(typeSpecId),
+      m_unpackedDimension(unpackedDimension),
+      m_const(false),
+      m_var(false),
+      m_signed(is_signed) {}
+
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type, 
+               NodeId packedDimension, VObjectType direction, NodeId unpackedDimension, bool is_signed)
+    : m_fileContent(fileContent),
+      m_nodeId(nodeId),
+      m_type(type),
+      m_direction(direction),
+      m_interfaceDef(NULL),
+      m_modPort(NULL),
+      m_dataType(NULL),
+      m_lowConn(NULL),
+      m_interfaceTypeNameId(0),
+      m_packedDimension(packedDimension),
+      m_typeSpecId(0),
+      m_unpackedDimension(unpackedDimension),
+      m_const(false),
+      m_var(false), 
+      m_signed(is_signed) {}

@@ -36,10 +36,13 @@ class FileContent;
 
 class Struct : public DataType {
  public:
-  Struct(FileContent* fC, NodeId nameId, NodeId structId);
+  Struct(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;
+
+  Category getCategory() const final { return Category::STRUCT; }
+
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() { return m_typespec; }
+  UHDM::typespec* getTypespec() const { return m_typespec; }
   NodeId getNameId() { return m_nameId; }
  private:
   NodeId m_nameId;

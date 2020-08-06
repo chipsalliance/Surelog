@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/cce/bp_cce_reg.v Cov: 99% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_cce_reg.v</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  */</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bp_cce_reg</pre>
+<pre style="margin:0; padding:0 ">  11:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  12:   import bp_cce_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  13:   import bp_me_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  14:   import bp_cfg_link_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   #(parameter num_lce_p                     = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , parameter num_cce_p                   = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , parameter paddr_width_p                = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , parameter lce_assoc_p                 = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , parameter lce_sets_p                  = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     , parameter block_size_in_bytes_p       = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , parameter lce_req_data_width_p        = "inv"</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , parameter cfg_addr_width_p            = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , parameter cfg_data_width_p            = "inv"</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:     // Derived parameters</pre>
+<pre style="margin:0; padding:0 ">  27:     , localparam lg_num_lce_lp              = `BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , localparam lg_num_cce_lp              = `BSG_SAFE_CLOG2(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , localparam block_size_in_bits_lp      = (block_size_in_bytes_p*8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , localparam lg_block_size_in_bytes_lp  = `BSG_SAFE_CLOG2(block_size_in_bytes_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , localparam lg_lce_assoc_lp            = `BSG_SAFE_CLOG2(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , localparam lg_lce_sets_lp             = `BSG_SAFE_CLOG2(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , localparam tag_width_lp               =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       (paddr_width_p-lg_lce_sets_lp-lg_block_size_in_bytes_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     , localparam entry_width_lp             = (tag_width_lp+`bp_coh_bits)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , localparam tag_set_width_lp           = (entry_width_lp*lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     , localparam mshr_width_lp = `bp_cce_mshr_width(num_lce_p, lce_assoc_p, paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, lce_req_data_width_p, block_size_in_bits_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     `declare_bp_me_if_widths(paddr_width_p, block_size_in_bits_lp, num_lce_p, lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   (input                                                                   clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , input                                                                 reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:    , input bp_cce_inst_decoded_s                                           decoded_inst_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:    , input [lce_cce_req_width_lp-1:0]                                      lce_req_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:    , input                                                                 null_wb_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:    , input bp_lce_cce_resp_type_e                                          lce_resp_type_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:    , input bp_cce_mem_cmd_type_e                                           mem_resp_type_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:    , input [cce_mem_msg_width_lp-1:0]                                      mem_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:    , input [`bp_cce_inst_gpr_width-1:0]                                    alu_res_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    , input [`bp_cce_inst_gpr_width-1:0]                                    mov_src_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:    , input                                                                 pending_o_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    , input                                                                 pending_v_o_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:    , input                                                                 dir_lru_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    , input                                                                 dir_lru_cached_excl_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    , input [tag_width_lp-1:0]                                              dir_lru_tag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:    , input [tag_width_lp-1:0]                                              dir_tag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:    , input [lg_lce_assoc_lp-1:0]                                           gad_req_addr_way_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:    , input [lg_num_lce_lp-1:0]                                             gad_transfer_lce_i</pre>
+<pre style="margin:0; padding:0 ">  67:    , input [lg_lce_assoc_lp-1:0]                                           gad_transfer_lce_way_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:    , input                                                                 gad_transfer_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:    , input                                                                 gad_replacement_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:    , input                                                                 gad_upgrade_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:    , input                                                                 gad_invalidate_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    , input                                                                 gad_cached_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    , input                                                                 gad_cached_exclusive_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:    , input                                                                 gad_cached_owned_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:    , input                                                                 gad_cached_dirty_flag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:    // Config channel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:    , input                                                                 cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:    , input [cfg_addr_width_p-1:0]                                          cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    , input [cfg_data_width_p-1:0]                                          cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:    // Register value outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:    , output logic [mshr_width_lp-1:0]                                      mshr_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:    , output logic [`bp_cce_inst_num_gpr-1:0][`bp_cce_inst_gpr_width-1:0]   gpr_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:    , output logic [lce_req_data_width_p-1:0]                               nc_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:    , output logic [lg_num_lce_lp-1:0]                                      num_lce_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   );</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   wire unused = pending_v_o_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   // Define structure variables for input queues</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   `declare_bp_me_if(paddr_width_p, block_size_in_bits_lp, num_lce_p, lce_assoc_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, lce_req_data_width_p, block_size_in_bits_lp);</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   bp_lce_cce_req_s lce_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // assign input and output queues to/from structure variables</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign lce_req = lce_req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic uc_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign uc_req = (lce_req.msg_type == e_lce_req_type_uc_rd) | (lce_req.msg_type == e_lce_req_type_uc_wr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   bp_cce_mem_msg_s mem_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign mem_cmd = mem_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:   // Registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   `declare_bp_cce_mshr_s(num_lce_p, lce_assoc_p, paddr_width_p);</pre>
+<pre id="id112" style="background-color: #FFB6C1; margin:0; padding:0 "> 112:   bp_cce_mshr_s mshr_r, mshr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:   logic [`bp_cce_inst_num_gpr-1:0][`bp_cce_inst_gpr_width-1:0] gpr_r, gpr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   logic [lce_req_data_width_p-1:0] nc_data_r, nc_data_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   logic [lg_num_lce_lp-1:0] num_lce_r, num_lce_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   // Config link</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   wire cfg_num_lce_w_v = (cfg_w_v_i & (cfg_addr_i == bp_cfg_reg_num_lce_gp));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   // Output register values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign mshr_o = mshr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign gpr_o = gpr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign nc_data_o = nc_data_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign num_lce_o = num_lce_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: </pre>
+<pre style="margin:0; padding:0 "> 127:   always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     // GPR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     for (int i = 0; i < `bp_cce_inst_num_gpr; i=i+1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       if (decoded_inst_i.alu_dst_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:         gpr_n[i] = alu_res_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       end else if (decoded_inst_i.mov_dst_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:         gpr_n[i] = mov_src_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       end else if (decoded_inst_i.resp_type_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:         gpr_n[i] = {'0, lce_resp_type_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       end else if (decoded_inst_i.mem_resp_type_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:         gpr_n[i] = {'0, mem_resp_type_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       end else if (decoded_inst_i.mem_cmd_type_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:         gpr_n[i] = {'0, mem_cmd.msg_type};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       end else if (decoded_inst_i.dir_r_v & (decoded_inst_i.dir_r_cmd == e_rde_op)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:                    & decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:         gpr_n[i] = {'0, dir_tag_i} << (paddr_width_p - tag_width_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:         gpr_n[i] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       end</pre>
+<pre style="margin:0; padding:0 "> 148:     end</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     // Uncached data register is always sourced from LCE Request</pre>
+<pre style="margin:0; padding:0 "> 151:     // Uncached data that is being returned to an LCE from a Mem Data Resp does not need</pre>
+<pre style="margin:0; padding:0 "> 152:     // to be registered, and is handled by bp_cce_msg module.</pre>
+<pre style="margin:0; padding:0 "> 153:     nc_data_n = lce_req.msg.uc_req.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:     // Num LCE register - always come from move source, unless config link writes it</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     if (cfg_num_lce_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       num_lce_n = cfg_data_i[0+:lg_num_lce_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       num_lce_n = mov_src_i[0+:lg_num_lce_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     end</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     // MSHR</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="margin:0; padding:0 "> 164:     // by default, hold mshr value</pre>
+<pre style="margin:0; padding:0 "> 165:     mshr_n = mshr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:     // Next value for MSHR depends on whether the full MSHR is being restored (by MemResp msg),</pre>
+<pre style="margin:0; padding:0 "> 168:     // cleared (by clm instruction), or being updated in pieces (lots of other instructions during</pre>
+<pre style="margin:0; padding:0 "> 169:     // normal request processing).</pre>
+<pre style="margin:0; padding:0 "> 170:     if (decoded_inst_i.mshr_clear) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:       mshr_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       // Request LCE, address, tag</pre>
+<pre style="margin:0; padding:0 "> 174:       case (decoded_inst_i.req_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:         e_req_sel_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:           mshr_n.lce_id = lce_req.src_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:           mshr_n.paddr = lce_req.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:         end</pre>
+<pre style="margin:0; padding:0 "> 179:         e_req_sel_pending: begin // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:           mshr_n.lce_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:           mshr_n.paddr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:         end</pre>
+<pre style="margin:0; padding:0 "> 183:         e_req_sel_mem_cmd: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:           mshr_n.lce_id = mem_cmd.payload.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:           mshr_n.paddr = mem_cmd.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:         end</pre>
+<pre style="margin:0; padding:0 "> 187:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:           mshr_n.lce_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:           mshr_n.paddr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:         end</pre>
+<pre style="margin:0; padding:0 "> 191:       endcase</pre>
+<pre style="margin:0; padding:0 "> 192: </pre>
+<pre style="margin:0; padding:0 "> 193:       // Request Address Way</pre>
+<pre style="margin:0; padding:0 "> 194:       mshr_n.way_id = gad_req_addr_way_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:       // LRU Way</pre>
+<pre style="margin:0; padding:0 "> 197:       case (decoded_inst_i.lru_way_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:         e_lru_way_sel_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:           mshr_n.lru_way_id = lce_req.msg.req.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:         end</pre>
+<pre style="margin:0; padding:0 "> 201:         e_lru_way_sel_pending: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:           mshr_n.lru_way_id = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:         end</pre>
+<pre style="margin:0; padding:0 "> 204:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:             mshr_n.lru_way_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:         end</pre>
+<pre style="margin:0; padding:0 "> 207:       endcase</pre>
+<pre style="margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209:       // Transfer LCE and Transfer LCE Way</pre>
+<pre style="margin:0; padding:0 "> 210:       mshr_n.tr_lce_id = gad_transfer_lce_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       mshr_n.tr_way_id = gad_transfer_lce_way_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:       // Flags</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:       case (decoded_inst_i.rqf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:         e_rqf_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:           mshr_n.flags[e_flag_sel_rqf] = lce_req.msg_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:         end</pre>
+<pre style="margin:0; padding:0 "> 219:         e_rqf_pending: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:           mshr_n.flags[e_flag_sel_rqf] = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:         end</pre>
+<pre style="margin:0; padding:0 "> 222:         e_rqf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:           mshr_n.flags[e_flag_sel_rqf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:         end</pre>
+<pre style="margin:0; padding:0 "> 225:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:           mshr_n.flags[e_flag_sel_rqf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:         end</pre>
+<pre style="margin:0; padding:0 "> 228:       endcase</pre>
+<pre style="margin:0; padding:0 "> 229: </pre>
+<pre style="margin:0; padding:0 "> 230:       case (decoded_inst_i.ucf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:         e_ucf_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:           mshr_n.flags[e_flag_sel_ucf] = uc_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:           mshr_n.uc_req_size           = bp_lce_cce_uc_req_size_e'(lce_req.msg.uc_req.uc_size);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:         end</pre>
+<pre style="margin:0; padding:0 "> 235:         e_ucf_pending: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           mshr_n.flags[e_flag_sel_ucf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:           mshr_n.uc_req_size           = bp_lce_cce_uc_req_size_e'('0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:         end</pre>
+<pre style="margin:0; padding:0 "> 239:         e_ucf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:           mshr_n.flags[e_flag_sel_ucf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:           mshr_n.uc_req_size           = bp_lce_cce_uc_req_size_e'('0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:         end</pre>
+<pre style="margin:0; padding:0 "> 243:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:           mshr_n.flags[e_flag_sel_ucf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:           mshr_n.uc_req_size           = bp_lce_cce_uc_req_size_e'('0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:         end</pre>
+<pre style="margin:0; padding:0 "> 247:       endcase</pre>
+<pre style="margin:0; padding:0 "> 248: </pre>
+<pre style="margin:0; padding:0 "> 249:       case (decoded_inst_i.nerf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:         e_nerf_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           mshr_n.flags[e_flag_sel_nerf] = lce_req.msg.req.non_exclusive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:         end</pre>
+<pre style="margin:0; padding:0 "> 253:         e_nerf_pending: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:           mshr_n.flags[e_flag_sel_nerf] = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:         end</pre>
+<pre style="margin:0; padding:0 "> 256:         e_nerf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:           mshr_n.flags[e_flag_sel_nerf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         end</pre>
+<pre style="margin:0; padding:0 "> 259:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:           mshr_n.flags[e_flag_sel_nerf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:         end</pre>
+<pre style="margin:0; padding:0 "> 262:       endcase</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="margin:0; padding:0 "> 264:       case (decoded_inst_i.ldf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         e_ldf_lce_req: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:           mshr_n.flags[e_flag_sel_ldf] = lce_req.msg.req.lru_dirty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:         end</pre>
+<pre style="margin:0; padding:0 "> 268:         e_ldf_pending: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           mshr_n.flags[e_flag_sel_ldf] = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:         end</pre>
+<pre style="margin:0; padding:0 "> 271:         e_ldf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:           mshr_n.flags[e_flag_sel_ldf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         end</pre>
+<pre style="margin:0; padding:0 "> 274:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:           mshr_n.flags[e_flag_sel_ldf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:         end</pre>
+<pre style="margin:0; padding:0 "> 277:       endcase</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="margin:0; padding:0 "> 279:       case (decoded_inst_i.nwbf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:         e_nwbf_lce_resp: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:           mshr_n.flags[e_flag_sel_nwbf] = null_wb_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:         end</pre>
+<pre style="margin:0; padding:0 "> 283:         e_nwbf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:           mshr_n.flags[e_flag_sel_nwbf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:         end</pre>
+<pre style="margin:0; padding:0 "> 286:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           mshr_n.flags[e_flag_sel_nwbf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:         end</pre>
+<pre style="margin:0; padding:0 "> 289:       endcase</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:       case (decoded_inst_i.tf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:         e_tf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:           mshr_n.flags[e_flag_sel_tf] = gad_transfer_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:         end</pre>
+<pre style="margin:0; padding:0 "> 295:         e_tf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:           mshr_n.flags[e_flag_sel_tf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:         end</pre>
+<pre style="margin:0; padding:0 "> 298:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:           mshr_n.flags[e_flag_sel_tf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         end</pre>
+<pre style="margin:0; padding:0 "> 301:       endcase</pre>
+<pre style="margin:0; padding:0 "> 302: </pre>
+<pre style="margin:0; padding:0 "> 303:       case (decoded_inst_i.pf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:         e_pf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:           mshr_n.flags[e_flag_sel_pf] = pending_o_i; // RDP instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:         end</pre>
+<pre style="margin:0; padding:0 "> 307:         e_pf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:           mshr_n.flags[e_flag_sel_pf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:         end</pre>
+<pre style="margin:0; padding:0 "> 310:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:           mshr_n.flags[e_flag_sel_pf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:         end</pre>
+<pre style="margin:0; padding:0 "> 313:       endcase</pre>
+<pre style="margin:0; padding:0 "> 314:       case (decoded_inst_i.rf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:         e_rf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:           mshr_n.flags[e_flag_sel_rf] = gad_replacement_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:         end</pre>
+<pre style="margin:0; padding:0 "> 318:         e_rf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:           mshr_n.flags[e_flag_sel_rf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:         end</pre>
+<pre style="margin:0; padding:0 "> 321:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:           mshr_n.flags[e_flag_sel_rf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:         end</pre>
+<pre style="margin:0; padding:0 "> 324:       endcase</pre>
+<pre style="margin:0; padding:0 "> 325:       case (decoded_inst_i.uf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:         e_uf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:           mshr_n.flags[e_flag_sel_uf] = gad_upgrade_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:         end</pre>
+<pre style="margin:0; padding:0 "> 329:         e_uf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:           mshr_n.flags[e_flag_sel_uf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:         end</pre>
+<pre style="margin:0; padding:0 "> 332:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:           mshr_n.flags[e_flag_sel_uf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:         end</pre>
+<pre style="margin:0; padding:0 "> 335:       endcase</pre>
+<pre style="margin:0; padding:0 "> 336:       case (decoded_inst_i.if_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:         e_if_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:           mshr_n.flags[e_flag_sel_if] = gad_invalidate_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:         end</pre>
+<pre style="margin:0; padding:0 "> 340:         e_if_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:           mshr_n.flags[e_flag_sel_if] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:         end</pre>
+<pre style="margin:0; padding:0 "> 343:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:           mshr_n.flags[e_flag_sel_if] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:         end</pre>
+<pre style="margin:0; padding:0 "> 346:       endcase</pre>
+<pre style="margin:0; padding:0 "> 347:       case (decoded_inst_i.cf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:         e_cf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:           mshr_n.flags[e_flag_sel_cf] = gad_cached_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:         end</pre>
+<pre style="margin:0; padding:0 "> 351:         e_cf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:           mshr_n.flags[e_flag_sel_cf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:         end</pre>
+<pre style="margin:0; padding:0 "> 354:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:           mshr_n.flags[e_flag_sel_cf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:         end</pre>
+<pre style="margin:0; padding:0 "> 357:       endcase</pre>
+<pre style="margin:0; padding:0 "> 358:       case (decoded_inst_i.cef_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:         e_cef_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:           mshr_n.flags[e_flag_sel_cef] = gad_cached_exclusive_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:         end</pre>
+<pre style="margin:0; padding:0 "> 362:         e_cef_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:           mshr_n.flags[e_flag_sel_cef] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:         end</pre>
+<pre style="margin:0; padding:0 "> 365:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:           mshr_n.flags[e_flag_sel_cef] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:         end</pre>
+<pre style="margin:0; padding:0 "> 368:       endcase</pre>
+<pre style="margin:0; padding:0 "> 369:       case (decoded_inst_i.cof_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:         e_cof_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:           mshr_n.flags[e_flag_sel_cof] = gad_cached_owned_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:         end</pre>
+<pre style="margin:0; padding:0 "> 373:         e_cof_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:           mshr_n.flags[e_flag_sel_cof] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:         end</pre>
+<pre style="margin:0; padding:0 "> 376:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:           mshr_n.flags[e_flag_sel_cof] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:         end</pre>
+<pre style="margin:0; padding:0 "> 379:       endcase</pre>
+<pre style="margin:0; padding:0 "> 380:       case (decoded_inst_i.cdf_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:         e_cdf_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:           mshr_n.flags[e_flag_sel_cdf] = gad_cached_dirty_flag_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:         end</pre>
+<pre style="margin:0; padding:0 "> 384:         e_cdf_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:           mshr_n.flags[e_flag_sel_cdf] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:         end</pre>
+<pre style="margin:0; padding:0 "> 387:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:           mshr_n.flags[e_flag_sel_cdf] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:         end</pre>
+<pre style="margin:0; padding:0 "> 390:       endcase</pre>
+<pre style="margin:0; padding:0 "> 391:       case (decoded_inst_i.lef_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:         e_lef_logic: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:           mshr_n.flags[e_flag_sel_lef] = dir_lru_cached_excl_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:         end</pre>
+<pre style="margin:0; padding:0 "> 395:         e_lef_imm0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:           mshr_n.flags[e_flag_sel_lef] = decoded_inst_i.imm[`bp_cce_inst_flag_imm_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:         end</pre>
+<pre style="margin:0; padding:0 "> 398:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:           mshr_n.flags[e_flag_sel_lef] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:         end</pre>
+<pre style="margin:0; padding:0 "> 401:       endcase</pre>
+<pre style="margin:0; padding:0 "> 402: </pre>
+<pre style="margin:0; padding:0 "> 403:       // Next Coh State</pre>
+<pre style="margin:0; padding:0 "> 404:       mshr_n.next_coh_state = bp_coh_states_e'(decoded_inst_i.imm[`bp_coh_bits-1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405: </pre>
+<pre style="margin:0; padding:0 "> 406:       // LRU Addr</pre>
+<pre style="margin:0; padding:0 "> 407:       mshr_n.lru_paddr = {dir_lru_tag_i, mshr_r.paddr[lg_block_size_in_bytes_lp +: lg_lce_sets_lp],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:                           {lg_block_size_in_bytes_lp{1'b0}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409: </pre>
+<pre style="margin:0; padding:0 "> 410:     end</pre>
+<pre style="margin:0; padding:0 "> 411:   end // always_comb</pre>
+<pre style="margin:0; padding:0 "> 412: </pre>
+<pre style="margin:0; padding:0 "> 413:   always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:       mshr_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:       gpr_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:       nc_data_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:       num_lce_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:       // MSHR writes</pre>
+<pre style="margin:0; padding:0 "> 422:       if (decoded_inst_i.mshr_clear) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:         mshr_r <= mshr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:         if (decoded_inst_i.req_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:           mshr_r.lce_id <= mshr_n.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:           mshr_r.paddr <= mshr_n.paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:         end</pre>
+<pre style="margin:0; padding:0 "> 429:         if (decoded_inst_i.req_addr_way_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:           mshr_r.way_id <= mshr_n.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:         end</pre>
+<pre style="margin:0; padding:0 "> 432:         if (decoded_inst_i.lru_way_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:           mshr_r.lru_way_id <= mshr_n.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:         end</pre>
+<pre style="margin:0; padding:0 "> 435:         if (decoded_inst_i.transfer_lce_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:           mshr_r.tr_lce_id <= mshr_n.tr_lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:           mshr_r.tr_way_id <= mshr_n.tr_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:         end</pre>
+<pre style="margin:0; padding:0 "> 439:         // Flags</pre>
+<pre style="margin:0; padding:0 "> 440:         for (int i = 0; i < `bp_cce_inst_num_flags; i=i+1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:           if (decoded_inst_i.flag_mask_w_v[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:             mshr_r.flags[i] <= mshr_n.flags[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:           end</pre>
+<pre style="margin:0; padding:0 "> 444:         end</pre>
+<pre style="margin:0; padding:0 "> 445:         if (dir_lru_v_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:           mshr_r.flags[e_flag_sel_lef] <= mshr_n.flags[e_flag_sel_lef];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:           mshr_r.lru_paddr <= mshr_n.lru_paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:         end</pre>
+<pre style="margin:0; padding:0 "> 449:         // Next Coh State</pre>
+<pre style="margin:0; padding:0 "> 450:         if (decoded_inst_i.mov_dst_w_v & (decoded_inst_i.dst_sel == e_dst_sel_special)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:             & (decoded_inst_i.dst.special == e_dst_next_coh_state)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:           mshr_r.next_coh_state <= mshr_n.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:         end</pre>
+<pre style="margin:0; padding:0 "> 454: </pre>
+<pre style="margin:0; padding:0 "> 455:         if (decoded_inst_i.nc_req_size_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:           mshr_r.uc_req_size <= mshr_n.uc_req_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:         end</pre>
+<pre style="margin:0; padding:0 "> 458:       end</pre>
+<pre style="margin:0; padding:0 "> 459: </pre>
+<pre style="margin:0; padding:0 "> 460:       // GPR</pre>
+<pre style="margin:0; padding:0 "> 461:       for (int i = 0; i < `bp_cce_inst_num_gpr; i=i+1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:         if (decoded_inst_i.gpr_w_mask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:           gpr_r[i] <= gpr_n[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:         end</pre>
+<pre style="margin:0; padding:0 "> 465:       end</pre>
+<pre style="margin:0; padding:0 "> 466: </pre>
+<pre style="margin:0; padding:0 "> 467:       // Uncached data and request size</pre>
+<pre style="margin:0; padding:0 "> 468:       if (decoded_inst_i.nc_data_w_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:         nc_data_r <= nc_data_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:       end</pre>
+<pre style="margin:0; padding:0 "> 471: </pre>
+<pre style="margin:0; padding:0 "> 472:       // Num LCE register</pre>
+<pre style="margin:0; padding:0 "> 473:       // written on move special operation or by config link</pre>
+<pre style="margin:0; padding:0 "> 474:       if (cfg_num_lce_w_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:           | (decoded_inst_i.mov_dst_w_v & (decoded_inst_i.dst_sel == e_dst_sel_special)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:              & (decoded_inst_i.dst.special == e_dst_num_lce))) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:         num_lce_r <= num_lce_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:       end</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre style="margin:0; padding:0 "> 480:     end // else</pre>
+<pre style="margin:0; padding:0 "> 481:   end // always_ff</pre>
+<pre style="margin:0; padding:0 "> 482: </pre>
+<pre style="margin:0; padding:0 "> 483: endmodule</pre>
+<pre style="margin:0; padding:0 "> 484: </pre>
+</body>
+</html>

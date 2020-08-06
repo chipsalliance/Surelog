@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_flash.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // prim flash module - Emulated using memory</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module prim_generic_flash #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int PagesPerBank = 256, // pages per bank</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int WordsPerPage = 256, // words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int DataWidth   = 32,   // bits per word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter bit SkipInit = 1,       // this is an option to reset flash to all F's at reset</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // Derived parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int PageW = $clog2(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam int WordW = $clog2(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam int AddrW = PageW + WordW</pre>
+<pre style="margin:0; padding:0 ">  18: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input                        req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input                        host_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input [AddrW-1:0]            host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input                        rd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                        prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input                        pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input                        bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input [AddrW-1:0]            addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input [DataWidth-1:0]        prog_data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic                 host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic                 host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic                 rd_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                 prog_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic                 erase_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [DataWidth-1:0] rd_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic                 init_busy_o</pre>
+<pre style="margin:0; padding:0 ">  37: );</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Emulated flash macro values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   localparam int ReadCycles = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   localparam int ProgCycles = 50;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam int PgEraseCycles = 200;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   localparam int BkEraseCycles = 2000;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   // Locally derived values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int WordsPerBank  = PagesPerBank * WordsPerPage;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     StReset    = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     StInit     = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     StIdle     = 'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     StHostRead = 'h3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     StRead     = 'h4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     StProg     = 'h5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     StErase    = 'h6</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   } state_e;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   state_e st_next, st;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic [31:0]              time_cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic [31:0]              index_cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic                     time_cnt_inc ,time_cnt_clr, time_cnt_set1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic                     index_cnt_inc, index_cnt_clr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic [31:0]              index_limit, index_limit_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic [31:0]              time_limit, time_limit_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   logic                     prog_pend, prog_pend_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic                     mem_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic                     mem_wr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [AddrW-1:0]         mem_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [DataWidth-1:0]     held_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic [DataWidth-1:0]     mem_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic                     hold_rd_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [AddrW-1:0]         held_rd_addr;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     if (!rst_ni) st <= StReset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     else st <= st_next;</pre>
+<pre style="margin:0; padding:0 ">  78:   end</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     if (!rst_ni) held_rd_addr <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     else if (hold_rd_cmd) held_rd_addr <= host_addr_i;</pre>
+<pre style="margin:0; padding:0 ">  83:   end</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // prog_pend is necessary to emulate flash behavior that a bit written to 0 cannot be written</pre>
+<pre style="margin:0; padding:0 ">  86:   // back to 1 without an erase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       time_cnt <= 32'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       index_cnt <= 32'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       time_limit <= 32'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       index_limit <= 32'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       held_data <= 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       prog_pend <= 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     end else begin</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       time_limit <= time_limit_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       index_limit <= index_limit_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       prog_pend <= prog_pend_next;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       if (time_cnt_inc) time_cnt <= time_cnt + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       else if (time_cnt_set1) time_cnt <= 32'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       else if (time_cnt_clr) time_cnt <= 32'h0;</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       if (index_cnt_inc) index_cnt <= index_cnt + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       else if (index_cnt_clr) index_cnt <= 32'h0;</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       if (prog_pend) held_data <= rd_data_o;</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:     end</pre>
+<pre style="margin:0; padding:0 "> 111:   end</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     st_next          = st;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     index_limit_next = index_limit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     time_limit_next  = time_limit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     prog_pend_next   = prog_pend;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     mem_req          = 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     mem_wr           = 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     mem_addr         = 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     mem_wdata        = 'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     time_cnt_inc     = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     time_cnt_clr     = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     time_cnt_set1    = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     index_cnt_inc    = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     index_cnt_clr    = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     rd_done_o        = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     prog_done_o      = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     erase_done_o     = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     init_busy_o      = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     host_req_rdy_o   = 1'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     host_req_done_o  = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     hold_rd_cmd      = 1'h0;</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     unique case (st)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       StReset: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:         host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:         init_busy_o = 1'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:         st_next = StInit;</pre>
+<pre style="margin:0; padding:0 "> 141:       end</pre>
+<pre style="margin:0; padding:0 "> 142:       // Emulate flash power up to all 1's</pre>
+<pre style="margin:0; padding:0 "> 143:       // This implies this flash will not survive a reset</pre>
+<pre style="margin:0; padding:0 "> 144:       // Might need a different RESET for FPGA purposes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       StInit: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:         host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:         init_busy_o = 1'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:         if (index_cnt < WordsPerBank && !SkipInit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:           st_next = StInit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:           index_cnt_inc = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:           mem_req = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:           mem_wr  = 1'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           mem_addr = index_cnt[AddrW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           mem_wdata = {DataWidth{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:           st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:           index_cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 158:         end</pre>
+<pre style="margin:0; padding:0 "> 159:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       StIdle: begin</pre>
+<pre style="margin:0; padding:0 "> 161:         // host reads will always take priority over controller operations.  However ongoing</pre>
+<pre style="margin:0; padding:0 "> 162:         // controller operations will not be interrupted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:         if (host_req_i) begin</pre>
+<pre style="margin:0; padding:0 "> 164:           // reads begin immediately</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:           hold_rd_cmd = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:           mem_addr = host_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:           mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:           time_cnt_inc = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:           st_next = StHostRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         end else if (req_i && rd_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:           st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:         end else if (req_i && prog_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:           st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:           prog_pend_next = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:         end else if (req_i && pg_erase_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:           st_next = StErase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:           index_limit_next = WordsPerPage;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:           time_limit_next = PgEraseCycles;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:         end else if (req_i && bk_erase_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:           st_next = StErase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:           index_limit_next = WordsPerBank;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           time_limit_next = BkEraseCycles;</pre>
+<pre style="margin:0; padding:0 "> 183:         end</pre>
+<pre style="margin:0; padding:0 "> 184:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:       StHostRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:         mem_addr = held_rd_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:         if (time_cnt < ReadCycles) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:           mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:           time_cnt_inc = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:           host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:           host_req_done_o = 1'b1; //finish up transaction</pre>
+<pre style="margin:0; padding:0 "> 193: </pre>
+<pre style="margin:0; padding:0 "> 194:           // if another request already pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           if (host_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:             hold_rd_cmd = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:             mem_addr = host_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:             mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:             time_cnt_set1 = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:             st_next = StHostRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:             time_cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:             st_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 204:           end</pre>
+<pre style="margin:0; padding:0 "> 205:         end</pre>
+<pre style="margin:0; padding:0 "> 206:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       StRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:         host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:         mem_addr = addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:         if (time_cnt < ReadCycles) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:           mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:           time_cnt_inc = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:           prog_pend_next = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:           rd_done_o  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:           time_cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:           st_next = prog_pend ? StProg : StIdle;</pre>
+<pre style="margin:0; padding:0 "> 218:         end</pre>
+<pre style="margin:0; padding:0 "> 219:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:       StProg: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:         host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:         mem_addr = addr_i;</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="margin:0; padding:0 "> 224:         // if data is already 0, cannot program to 1 without erase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:         mem_wdata = prog_data_i & held_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:         if (time_cnt < ProgCycles) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:           mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:           mem_wr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:           time_cnt_inc = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:           st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:           prog_done_o  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:           time_cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 234:         end</pre>
+<pre style="margin:0; padding:0 "> 235:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       StErase: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:         host_req_rdy_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 238: </pre>
+<pre style="margin:0; padding:0 "> 239:         // Actual erasing of the page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:         if (index_cnt < index_limit || time_cnt < time_limit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:           mem_req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:           mem_wr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:           mem_wdata = {DataWidth{1'b1}};</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:           mem_addr = addr_i + index_cnt[AddrW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:           time_cnt_inc = (time_cnt < time_limit);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:           index_cnt_inc = (index_cnt < index_limit);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:           st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:           erase_done_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           time_cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:           index_cnt_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 253:         end</pre>
+<pre style="margin:0; padding:0 "> 254:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:         host_req_rdy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:         st_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 258:       end</pre>
+<pre style="margin:0; padding:0 "> 259:     endcase // unique case (st)</pre>
+<pre style="margin:0; padding:0 "> 260:   end // always_comb</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:   prim_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     .Width(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:     .Depth(WordsPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     .DataBitsPerMask(DataWidth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:   ) u_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     .req_i    (mem_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .write_i  (mem_wr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     .addr_i   (mem_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:     .wdata_i  (mem_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     .wmask_i  ({DataWidth{1'b1}}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .rvalid_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     .rdata_o  (rd_data_o)</pre>
+<pre style="margin:0; padding:0 "> 276:   );</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="margin:0; padding:0 "> 279: </pre>
+<pre style="margin:0; padding:0 "> 280: endmodule // prim_generic_flash</pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
+</body>
+</html>

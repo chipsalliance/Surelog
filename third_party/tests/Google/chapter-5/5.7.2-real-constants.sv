@@ -1,7 +1,6 @@
 /*
 :name: real-constants
 :description: Examples of real literal constants
-:should_fail: 0
 :tags: 5.7.2
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: dist_normal_function
 :description: $dist_normal test
-:should_fail: 0
 :tags: 20.15
 :type: simulation parsing
 */

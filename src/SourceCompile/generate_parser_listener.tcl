@@ -32,7 +32,7 @@ set HEADER_OUTPUT(PreProc)    "SourceCompile/SV3_1aPpTreeShapeListener.h"
 set VOBJECTTYPES_CPP_BASENAME "SourceCompile/VObjectTypes"
 set VOBJECTTYPES_PY_H         "API/vobjecttypes_py.h"
 
-puts "Outputting stuff e.g. to ${VOBJECTTYPES_CPP_BASENAME}"
+puts "Creating Parser listener $HEADER_OUTPUT(Parser) and object types ${VOBJECTTYPES_CPP_BASENAME}"
 
 proc generate_header { listener } {
     global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR
@@ -257,7 +257,106 @@ set TYPES(slWhile) 1
 set TYPES(slFor) 1
 set TYPES(slDo) 1
 set TYPES(slForeach) 1
+set TYPES(slElse) 1
 
+set TYPES(slSupply0) 1
+set TYPES(slStrong0) 1
+set TYPES(slPull0) 1
+set TYPES(slWeak0) 1
+set TYPES(slSupply1) 1
+set TYPES(slStrong1) 1
+set TYPES(slPull1) 1
+set TYPES(slWeak1) 1
+set TYPES(slHighZ1) 1
+set TYPES(slHighZ0) 1
+set TYPES(slSmall) 1
+set TYPES(slMedium) 1
+set TYPES(slLarge) 1
+set TYPES(slDot) 1
+set TYPES(slDotStar) 1
+set TYPES(slNonBlockingTriggerEvent) 1
+
+set TYPES(slUnary_Plus) 1
+set TYPES(slUnary_Minus) 1
+set TYPES(slUnary_Not) 1
+set TYPES(slUnary_Tilda) 1
+set TYPES(slUnary_BitwAnd) 1
+set TYPES(slUnary_BitwOr) 1
+set TYPES(slUnary_BitwXor) 1
+set TYPES(slUnary_ReductNand) 1
+set TYPES(slUnary_ReductNor) 1
+set TYPES(slUnary_ReductXnor1) 1
+set TYPES(slUnary_ReductXnor2) 1
+set TYPES(slBinOp_MultMult) 1
+set TYPES(slBinOp_Mult) 1
+set TYPES(slBinOp_Div) 1
+set TYPES(slBinOp_Percent) 1
+set TYPES(slBinOp_Plus) 1
+set TYPES(slBinOp_Minus) 1
+set TYPES(slBinOp_ShiftRight) 1
+set TYPES(slBinOp_ShiftLeft) 1
+set TYPES(slBinOp_ArithShiftRight) 1
+set TYPES(slBinOp_ArithShiftLeft) 1
+set TYPES(slBinOp_Less) 1
+set TYPES(slBinOp_LessEqual) 1
+set TYPES(slBinOp_Great) 1
+set TYPES(slBinOp_GreatEqual) 1
+set TYPES(slInsideOp) 1
+set TYPES(slBinOp_Equiv) 1
+set TYPES(slBinOp_Not) 1
+set TYPES(slBinOp_WildcardEqual) 1
+set TYPES(slBinOp_WildcardNotEqual) 1
+set TYPES(slBinOp_FourStateLogicEqual) 1
+set TYPES(slBinOp_FourStateLogicNotEqual) 1
+set TYPES(slBinOp_WildEqual) 1
+set TYPES(slBinOp_WildNotEqual) 1
+set TYPES(slBinOp_BitwAnd) 1
+set TYPES(slBinOp_ReductXnor1) 1
+set TYPES(slBinOp_ReductXnor2) 1
+set TYPES(slBinOp_ReductNand) 1
+set TYPES(slBinOp_ReductNor) 1
+set TYPES(slBinOp_BitwXor) 1
+set TYPES(slBinOp_BitwOr) 1
+set TYPES(slBinOp_LogicAnd) 1
+set TYPES(slBinOp_LogicOr) 1
+set TYPES(slBinOp_Imply) 1
+set TYPES(slBinOp_Equivalence) 1
+set TYPES(slIncDec_PlusPlus) 1
+set TYPES(slIncDec_MinusMinus) 1
+set TYPES(slTagged) 1
+set TYPES(slQmark) 1
+set TYPES(slMatches) 1
+set TYPES(slIff) 1
+
+set TYPES(slAssignOp_Assign) 1
+set TYPES(slAssignOp_Add) 1
+set TYPES(slAssignOp_Sub) 1
+set TYPES(slAssignOp_Mult) 1
+set TYPES(slAssignOp_Div) 1
+set TYPES(slAssignOp_Modulo) 1
+set TYPES(slAssignOp_BitwAnd) 1
+set TYPES(slAssignOp_BitwOr) 1
+set TYPES(slAssignOp_BitwXor) 1
+set TYPES(slAssignOp_BitwLeftShift) 1
+set TYPES(slAssignOp_BitwRightShift) 1
+set TYPES(slAssignOp_ArithShiftLeft) 1
+set TYPES(slAssignOp_ArithShiftRight) 1
+
+set TYPES(slIncDec_PlusPlus) 1
+set TYPES(slIncDec_MinusMinus) 1
+
+set TYPES(slNetType_Supply0) 1 
+set TYPES(slNetType_Supply1) 1 
+set TYPES(slNetType_Tri) 1 
+set TYPES(slNetType_TriAnd) 1 
+set TYPES(slNetType_TriOr) 1 
+set TYPES(slNetType_TriReg) 1 
+set TYPES(slNetType_Tri0) 1 
+set TYPES(slNetType_Tri1) 1 
+set TYPES(slNetType_Uwire) 1 
+set TYPES(slNetType_Wire) 1
+set TYPES(slNetType_Wand) 1 
+set TYPES(slNetType_Wor) 1 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]
 puts $oid ""

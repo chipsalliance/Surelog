@@ -1,7 +1,6 @@
 /*
 :name: const
 :description: const test
-:should_fail: 0
 :tags: 6.20.6
 */
 module top();

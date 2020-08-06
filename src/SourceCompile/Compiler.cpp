@@ -14,6 +14,8 @@
  limitations under the License.
  */
 
+#include "SourceCompile/Compiler.h"
+
 /*
  * File:   Compiler.cpp
  * Author: alain
@@ -22,23 +24,25 @@
  */
 #include <stdint.h>
 #include <cstdlib>
+
 #include "CommandLine/CommandLineParser.h"
+#include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Library/ParseLibraryDef.h"
+#include "Package/Precompiled.h"
+#include "SourceCompile/AnalyzeFile.h"
+#include "SourceCompile/CheckCompile.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/CheckCompile.h"
-#include "antlr4-runtime.h"
-#include "DesignCompile/CompileDesign.h"
-#include "SourceCompile/AnalyzeFile.h"
-#include "Library/ParseLibraryDef.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/ContainerUtils.h"
 #include "Utils/FileUtils.h"
-#include "Package/Precompiled.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Timer.h"
+#include "antlr4-runtime.h"
+
 #include <math.h>
 using namespace antlr4;
 
@@ -46,7 +50,7 @@ using namespace antlr4;
 #include "SourceCompile/CheckCompile.h"
 
 #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <process.h>  // Has to be included before <thread>
+#  include <process.h>  // Has to be included before <thread>
 #endif
 
 #include <mutex>
@@ -72,16 +76,12 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
 #endif
 }
 
-Compiler::Compiler(const Compiler& orig) {}
-
 Compiler::~Compiler() {
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr;
   for (itr = m_antlrPpMap.begin(); itr != m_antlrPpMap.end(); itr++) {
     delete (*itr).second;
   }
-  if (m_commonCompilationUnit) {
-    delete m_commonCompilationUnit;
-  }
+  delete m_commonCompilationUnit;
   cleanup_();
 }
 
@@ -111,12 +111,8 @@ bool Compiler::compileOneFile_(CompileSourceFile* compiler,
   return status;
 }
 
-bool Compiler::isLibraryFile(SymbolId id) {
-  if (m_libraryFiles.find(id) == m_libraryFiles.end()) {
-    return false;
-  } else {
-    return true;
-  }
+bool Compiler::isLibraryFile(SymbolId id) const {
+  return (m_libraryFiles.find(id) != m_libraryFiles.end());
 }
 
 bool Compiler::ppinit_() {
@@ -129,30 +125,29 @@ bool Compiler::ppinit_() {
   // Source files (.v, .sv on the command line)
   std::set<SymbolId> sourceFiles;
   unsigned int size = m_commandLineParser->getSourceFiles().size();
-  for (unsigned int i = 0; i < size; i++) {
+  for (const SymbolId source_file_id : m_commandLineParser->getSourceFiles()) {
     SymbolTable* symbols = m_symbolTable;
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
       m_compilationUnits.push_back(comp_unit);
-      symbols = new SymbolTable(*m_commandLineParser->getSymbolTable());
+      symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
     m_errorContainers.push_back(errors);
     errors->regiterCmdLine(m_commandLineParser);
 
-    SymbolId id = m_commandLineParser->getSourceFiles()[i];
-
-    std::string fileName = m_commandLineParser->getSymbolTable()->getSymbol(id);
-    std::string fullPath = FileUtils::getFullPath(fileName);
-    SymbolId fullPathId =
-        m_commandLineParser->getSymbolTable()->registerSymbol(fullPath);
+    const std::string fileName = m_commandLineParser->getSymbolTable()
+      .getSymbol(source_file_id);
+    const std::string fullPath = FileUtils::getFullPath(fileName);
+    const SymbolId fullPathId =
+        m_commandLineParser->mutableSymbolTable()->registerSymbol(fullPath);
     Library* library = m_librarySet->getLibrary(fullPathId);
     sourceFiles.insert(fullPathId);
 
     CompileSourceFile* compiler = new CompileSourceFile(
-        m_commandLineParser->getSourceFiles()[i], m_commandLineParser, errors,
-        this, symbols, comp_unit, library);
+      source_file_id, m_commandLineParser, errors,
+      this, symbols, comp_unit, library);
     m_compilers.push_back(compiler);
   }
 
@@ -168,7 +163,7 @@ bool Compiler::ppinit_() {
   for (auto path : m_commandLineParser->getLibraryPaths()) {
     for (auto ext : m_commandLineParser->getLibraryExtensions()) {
       auto files = FileUtils::collectFiles(
-          path, ext, m_commandLineParser->getSymbolTable());
+          path, ext, m_commandLineParser->mutableSymbolTable());
       for (auto file : files) {
         libFiles.insert(file);
       }
@@ -179,7 +174,7 @@ bool Compiler::ppinit_() {
     if (m_commandLineParser->fileunit()) {
       comp_unit = new CompilationUnit(true);
       m_compilationUnits.push_back(comp_unit);
-      symbols = new SymbolTable(*m_commandLineParser->getSymbolTable());
+      symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
       m_symbolTables.push_back(symbols);
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
@@ -187,11 +182,11 @@ bool Compiler::ppinit_() {
     errors->regiterCmdLine(m_commandLineParser);
 
     std::string fullPath = FileUtils::getFullPath(
-        m_commandLineParser->getSymbolTable()->getSymbol(id));
+        m_commandLineParser->getSymbolTable().getSymbol(id));
 
     // This line registers the file in the "work" library:
     SymbolId fullPathId =
-        m_commandLineParser->getSymbolTable()->registerSymbol(fullPath);
+        m_commandLineParser->mutableSymbolTable()->registerSymbol(fullPath);
     /*Library* library  = */ m_librarySet->getLibrary(fullPathId);
     m_libraryFiles.insert(id);
     m_libraryFiles.insert(fullPathId);
@@ -222,7 +217,7 @@ bool Compiler::ppinit_() {
       if (m_commandLineParser->fileunit()) {
         comp_unit = new CompilationUnit(true);
         m_compilationUnits.push_back(comp_unit);
-        symbols = new SymbolTable(*m_commandLineParser->getSymbolTable());
+        symbols = new SymbolTable(m_commandLineParser->getSymbolTable());
         m_symbolTables.push_back(symbols);
       }
       ErrorContainer* errors = new ErrorContainer(symbols);
@@ -262,7 +257,7 @@ bool Compiler::createFileList_()
   }
   return true;
 }
- 
+
 bool Compiler::createMultiProcess_() {
   unsigned int nbProcesses = m_commandLineParser->getNbMaxProcesses();
   if (nbProcesses == 0)
@@ -299,7 +294,7 @@ bool Compiler::createMultiProcess_() {
       Precompiled* prec = Precompiled::getSingleton();
       for (unsigned int i = 0; i < m_compilers.size(); i++) {
         std::string root = m_compilers[i]->getSymbolTable()->getSymbol(m_compilers[i]->getFileId());
-        root = FileUtils::fileName(root);
+        root = FileUtils::basename(root);
         if (prec->isFilePrecompiled(root)) {
           continue;
         }
@@ -319,37 +314,37 @@ bool Compiler::createMultiProcess_() {
         jobSize[newJobIndex] += size;
         jobArray[newJobIndex].push_back(m_compilers[i]);
       }
-      
+
       std::string full_exe_path = m_commandLineParser->getExePath();
       full_exe_path = FileUtils::getFullPath(full_exe_path);
       if (m_commandLineParser->profile()) {
         full_exe_path += " -profile";
       }
-        
+
       std::string fileUnit = "";
       if (m_commandLineParser->fileunit())
         fileUnit = " -fileunit ";
-     
+
       std::vector<std::string > targets;
       int absoluteIndex = 0;
-      
+
       // Big jobs
       for (CompileSourceFile* compiler : bigJobs) {
         absoluteIndex++;
         std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
-        std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::fileName(fileName);
+        std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::basename(fileName);
         targets.push_back(targetname);
         ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
         ofs <<"  COMMAND " << full_exe_path << fileUnit <<
                             " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
-                           <<  directory + FileUtils::fileName(targetname) + ".log" << " " << fileName << std::endl;
-        ofs << ")" << std::endl;  
+                           <<  directory + FileUtils::basename(targetname) + ".log" << " " << fileName << std::endl;
+        ofs << ")" << std::endl;
       }
-        
+
       // Small jobs batch in clump processes
-      for (unsigned short i = 0; i < nbProcesses; i++) {  
-        std::string fileList; 
+      for (unsigned short i = 0; i < nbProcesses; i++) {
+        std::string fileList;
         std::string lastFile;
         absoluteIndex++;
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
@@ -358,24 +353,24 @@ bool Compiler::createMultiProcess_() {
                                         compiler->getPpOutputFileId());
           fileList += " " + fileName;
           lastFile = fileName;
-        } 
-        if (fileList != "") {
-          std::string targetname = std::to_string(absoluteIndex) + "_" + FileUtils::fileName(lastFile);
+        }
+        if (!fileList.empty()) {
+          std::string targetname = std::to_string(absoluteIndex) + "_" + FileUtils::basename(lastFile);
           targets.push_back(targetname);
           ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
           ofs << "  COMMAND " << full_exe_path << fileUnit <<
                   " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
-                  << directory + FileUtils::fileName(targetname) + ".log" << " " << fileList << std::endl;
-          ofs << ")" << std::endl; 
+                  << directory + FileUtils::basename(targetname) + ".log" << " " << fileList << std::endl;
+          ofs << ")" << std::endl;
         }
       }
-            
-      ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl; 
+
+      ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl;
       for (auto target : targets) {
-        ofs << target << std::endl;  
+        ofs << target << std::endl;
       }
-      ofs << ")" << std::endl; 
-      ofs << std::flush;      
+      ofs << ")" << std::endl;
+      ofs << std::flush;
       ofs.close();
       std::string command = "cd " + directory + ";" + "cmake .; make -j " + std::to_string(nbProcesses);
       std::cout << "Running: " << command << std::endl << std::flush;
@@ -385,87 +380,79 @@ bool Compiler::createMultiProcess_() {
       std::cout << "Could not create CMakeLists.txt: " << fileList << std::endl;
     }
   }
-  
-  
+
+
   return true;
 }
-  
+
+static int calculateEffectiveThreads(int nbThreads) {
+  if (nbThreads <= 4)
+    return nbThreads;
+  return (int) (log(((float) nbThreads + 1.0) / 4.0) * 10.0);
+}
+
 bool Compiler::parseinit_() {
-  Precompiled* prec = Precompiled::getSingleton();
+  Precompiled* const prec = Precompiled::getSingleton();
+
   // Single out the large files.
   // Small files are going to be scheduled in multiple threads based on size.
   // Large files are going to be compiled in a different batch in multithread
-  
+
   if (!m_commandLineParser->fileunit()) {
-    unsigned int size = m_symbolTables.size();
-    for (unsigned int i = 0; i < size; i++) {
-      delete m_symbolTables[i];
-    }
-    size = m_errorContainers.size();
-    for (unsigned int i = 0; i < size; i++) {
-      delete m_errorContainers[i];
-    }
-    m_symbolTables.clear();
-    m_errorContainers.clear();
+    DeleteContainerPointersAndClear(&m_symbolTables);
+    DeleteContainerPointersAndClear(&m_errorContainers);
   }
 
   std::vector<CompileSourceFile*> tmp_compilers;
-  unsigned int size = m_compilers.size();
-  for (unsigned int i = 0; i < size; i++) {
-    std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
-        m_compilers[i]->getPpOutputFileId());
-    std::string origFile = m_compilers[i]->getSymbolTable()->getSymbol(
-        m_compilers[i]->getFileId());
-    unsigned int nbThreads = m_commandLineParser->getNbMaxTreads();
-    std::string root = FileUtils::fileName(fileName);
-    if (prec->isFilePrecompiled(root)) {
-      nbThreads = 0;
-    }
-    int effectiveNbThreads = 0;
+  for (CompileSourceFile *const compiler : m_compilers) {
+    const std::string fileName = compiler->getSymbolTable()->getSymbol(
+      compiler->getPpOutputFileId());
+    const std::string origFile = compiler->getSymbolTable()->getSymbol(
+      compiler->getFileId());
+    const std::string root = FileUtils::basename(fileName);
+    const unsigned int nbThreads = prec->isFilePrecompiled(root)
+      ? 0
+      : m_commandLineParser->getNbMaxTreads();
 
-    if (nbThreads > 4)
-      effectiveNbThreads = (int) (log(((float) nbThreads + 1.0) / 4.0) * 10.0);
-    else
-      effectiveNbThreads = nbThreads;
-    
-    AnalyzeFile* fileAnalyzer = new AnalyzeFile(
-        m_commandLineParser, m_design, fileName, origFile, effectiveNbThreads);
+    const int effectiveNbThreads = calculateEffectiveThreads(nbThreads);
+
+    AnalyzeFile* const fileAnalyzer = new AnalyzeFile(
+      m_commandLineParser, m_design, fileName, origFile, effectiveNbThreads);
     fileAnalyzer->analyze();
-    m_compilers[i]->setFileAnalyzer(fileAnalyzer);
+    compiler->setFileAnalyzer(fileAnalyzer);
     if (fileAnalyzer->getSplitFiles().size() > 1) {
       // Schedule parent
-      m_compilersParentFiles.push_back(m_compilers[i]);
-      m_compilers[i]->initParser();
+      m_compilersParentFiles.push_back(compiler);
+      compiler->initParser();
 
       if (!m_commandLineParser->fileunit()) {
         SymbolTable* symbols =
-            new SymbolTable(*m_commandLineParser->getSymbolTable());
+          new SymbolTable(m_commandLineParser->getSymbolTable());
         m_symbolTables.push_back(symbols);
-        m_compilers[i]->setSymbolTable(symbols);
+        compiler->setSymbolTable(symbols);
         // fileContent->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
         m_errorContainers.push_back(errors);
         errors->regiterCmdLine(m_commandLineParser);
-        m_compilers[i]->setErrorContainer(errors);
+        compiler->setErrorContainer(errors);
       }
 
-      FileContent* fileContent =
-          new FileContent(m_compilers[i]->getParser()->getFileId(0),
-                          m_compilers[i]->getParser()->getLibrary(),
-                          m_compilers[i]->getSymbolTable(),
-                          m_compilers[i]->getErrorContainer(), NULL, 0);
-      m_compilers[i]->getParser()->setFileContent(fileContent);
+      compiler->getParser()->setFileContent(
+        new FileContent(compiler->getParser()->getFileId(0),
+                        compiler->getParser()->getLibrary(),
+                        compiler->getSymbolTable(),
+                        compiler->getErrorContainer(), NULL, 0));
 
       int j = 0;
-      for (auto chunk : fileAnalyzer->getSplitFiles()) {
+      for (auto& chunk : fileAnalyzer->getSplitFiles()) {
         SymbolTable* symbols =
-            new SymbolTable(*m_commandLineParser->getSymbolTable());
+          new SymbolTable(m_commandLineParser->getSymbolTable());
         m_symbolTables.push_back(symbols);
         SymbolId ppId = symbols->registerSymbol(chunk);
         symbols->registerSymbol(
-            m_compilers[i]->getParser()->getFileName(LINE1));
+          compiler->getParser()->getFileName(LINE1));
         CompileSourceFile* chunkCompiler = new CompileSourceFile(
-            m_compilers[i], ppId, fileAnalyzer->getLineOffsets()[j]);
+          compiler, ppId, fileAnalyzer->getLineOffsets()[j]);
         // Schedule chunk
         tmp_compilers.push_back(chunkCompiler);
 
@@ -476,29 +463,29 @@ bool Compiler::parseinit_() {
         chunkCompiler->setErrorContainer(errors);
         // chunkCompiler->getParser ()->setFileContent (fileContent);
 
-        FileContent* fileContent =
-            new FileContent(m_compilers[i]->getParser()->getFileId(0),
-                            m_compilers[i]->getParser()->getLibrary(), symbols,
-                            errors, NULL, ppId);
-        chunkCompiler->getParser()->setFileContent(fileContent);
-        getDesign()->addFileContent(m_compilers[i]->getParser()->getFileId(0),
-                                    fileContent);
+        FileContent* const chunkFileContent =
+          new FileContent(compiler->getParser()->getFileId(0),
+                          compiler->getParser()->getLibrary(), symbols,
+                          errors, NULL, ppId);
+        chunkCompiler->getParser()->setFileContent(chunkFileContent);
+        getDesign()->addFileContent(compiler->getParser()->getFileId(0),
+                                    chunkFileContent);
 
         j++;
       }
     } else {
       if (!m_commandLineParser->fileunit()) {
         SymbolTable* symbols =
-            new SymbolTable(*m_commandLineParser->getSymbolTable());
+          new SymbolTable(m_commandLineParser->getSymbolTable());
         m_symbolTables.push_back(symbols);
-        m_compilers[i]->setSymbolTable(symbols);
+        compiler->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
         m_errorContainers.push_back(errors);
         errors->regiterCmdLine(m_commandLineParser);
-        m_compilers[i]->setErrorContainer(errors);
+        compiler->setErrorContainer(errors);
       }
 
-      tmp_compilers.push_back(m_compilers[i]);
+      tmp_compilers.push_back(compiler);
     }
   }
   m_compilers = tmp_compilers;
@@ -508,91 +495,73 @@ bool Compiler::parseinit_() {
 
 bool Compiler::pythoninit_() { return parseinit_(); }
 
-ErrorContainer::Stats Compiler::getErrorStats() {
+ErrorContainer::Stats Compiler::getErrorStats() const {
   ErrorContainer::Stats stats;
-  unsigned int size = m_errorContainers.size();
-  for (unsigned int i = 0; i < size; i++) {
-    ErrorContainer::Stats tmp;
-    tmp = m_errorContainers[i]->getErrorStats();
-    stats += tmp;
+  for (const auto &s : m_errorContainers) {
+    stats += s->getErrorStats();
   }
 
   return stats;
 }
 
 bool Compiler::cleanup_() {
-  unsigned int size = m_compilers.size();
-  for (unsigned int i = 0; i < size; i++) {
-    delete m_compilers[i];
-  }
-  size = m_compilationUnits.size();
-  for (unsigned int i = 0; i < size; i++) {
-    delete m_compilationUnits[i];
-  }
-  size = m_symbolTables.size();
-  for (unsigned int i = 0; i < size; i++) {
-    delete m_symbolTables[i];
-  }
-  size = m_errorContainers.size();
-  for (unsigned int i = 0; i < size; i++) {
-    delete m_errorContainers[i];
-  }
+  DeleteContainerPointersAndClear(&m_compilers);
+  DeleteContainerPointersAndClear(&m_compilationUnits);
+  DeleteContainerPointersAndClear(&m_symbolTables);
+  DeleteContainerPointersAndClear(&m_errorContainers);
   return true;
 }
 
 bool Compiler::compileFileSet_(CompileSourceFile::Action action,
                                bool allowMultithread,
                                std::vector<CompileSourceFile*>& container) {
-  unsigned short maxThreadCount = m_commandLineParser->getNbMaxTreads();
-  if (allowMultithread == false) {
-    maxThreadCount = 0;
-  }
+  const unsigned short maxThreadCount = allowMultithread
+    ? m_commandLineParser->getNbMaxTreads()
+    : 0;
 
   if (maxThreadCount == 0) {
     // Single thread
-    unsigned int size = container.size();
-    for (unsigned int i = 0; i < size; i++) {
-      container[i]->setPythonInterp(PythonAPI::getMainInterp());
-      bool status = compileOneFile_(container[i], action);
-      m_errors->appendErrors(*container[i]->getErrorContainer());
+    for (CompileSourceFile *const source : container) {
+      source->setPythonInterp(PythonAPI::getMainInterp());
+      bool status = compileOneFile_(source, action);
+      m_errors->appendErrors(*source->getErrorContainer());
       m_errors->printMessages(m_commandLineParser->muteStdout());
-      if ((!status) || container[i]->getErrorContainer()->hasFatalErrors())
+      if ((!status) || source->getErrorContainer()->hasFatalErrors())
         return false;
     }
   } else if (getCommandLineParser()->useTbb() &&
              (action != CompileSourceFile::Action::Parse)) {
 #ifdef USETBB
     // TBB Thread management
-    int maxThreadCount = m_commandLineParser->getNbMaxTreads();
-    if (allowMultithread == false) {
-      maxThreadCount = 0;
-    }
-    unsigned int size = container.size();
+    const int maxThreadCount = allowMultithread
+      ? m_commandLineParser->getNbMaxTreads()
+      : 0;
+
     if (maxThreadCount) {
-      for (unsigned int i = 0; i < size; i++) {
-        m_taskGroup.run(FunctorCompileOneFile(container[i], action));
+      for (CompileSourceFile *const source : container) {
+        m_taskGroup.run(FunctorCompileOneFile(source, action));
       }
       m_taskGroup.wait();
       bool fatalErrors = false;
-      for (unsigned int i = 0; i < size; i++) {
+      for (CompileSourceFile *const source : container) {
         // Promote report to master error container
-        m_errors->appendErrors(*container[i]->getErrorContainer());
-        if (container[i]->getErrorContainer()->hasFatalErrors()) {
+        m_errors->appendErrors(*source->getErrorContainer());
+        if (source->getErrorContainer()->hasFatalErrors()) {
           fatalErrors = true;
         }
         if (getCommandLineParser()->pythonListener()) {
-          container[i]->shutdownPythonInterp();
+          source->shutdownPythonInterp();
         }
         m_errors->printMessages(m_commandLineParser->muteStdout());
       }
       if (fatalErrors) return false;
     } else {
-      for (unsigned int i = 0; i < size; i++) {
-        container[i]->setPythonInterp(PythonAPI::getMainInterp());
-        bool status = compileOneFile_(container[i], action);
-        m_errors->appendErrors(*container[i]->getErrorContainer());
+      for (CompileSourceFile *const source : container) {
+        source->setPythonInterp(PythonAPI::getMainInterp());
+        bool status = compileOneFile_(source, action);
+        m_errors->appendErrors(*souirce->getErrorContainer());
         m_errors->printMessages(m_commandLineParser->muteStdout());
-        if ((!status) || container[i]->getErrorContainer()->hasFatalErrors())
+        if ((!status) || source->getErrorContainer()->hasFatalErrors())
           return false;
       }
     }
@@ -603,13 +572,10 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
     // Optimize the load balance, try to even out the work in each thread by the
     // size of the files
     std::vector<std::vector<CompileSourceFile*>> jobArray(maxThreadCount);
+    std::vector<unsigned long> jobSize(maxThreadCount, 0);
 
-    std::vector<unsigned long> jobSize(maxThreadCount);
-
-    for (unsigned short i = 0; i < maxThreadCount; i++) jobSize[i] = 0;
-
-    for (unsigned int i = 0; i < container.size(); i++) {
-      unsigned int size = container[i]->getJobSize(action);
+    for (CompileSourceFile *const source : container) {
+      const unsigned int size = source->getJobSize(action);
       unsigned int newJobIndex = 0;
       uint64_t minJobQueue = ULLONG_MAX;
       for (unsigned short ii = 0; ii < maxThreadCount; ii++) {
@@ -620,7 +586,7 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
       }
 
       jobSize[newJobIndex] += size;
-      jobArray[newJobIndex].push_back(container[i]);
+      jobArray[newJobIndex].push_back(source);
     }
 
     if (getCommandLineParser()->profile()) {
@@ -669,21 +635,19 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
       threads.push_back(th);
     }
 
-    // Sync the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      threads[th]->join();
+    // Wait for all of them to finish
+    for (auto &t : threads) {
+      t->join();
     }
 
     // Delete the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      delete threads[th];
-    }
+    DeleteContainerPointersAndClear(&threads);
 
     // Promote report to master error container
     bool fatalErrors = false;
-    for (unsigned int j = 0; j < container.size(); j++) {
-      m_errors->appendErrors(*container[j]->getErrorContainer());
-      if (container[j]->getErrorContainer()->hasFatalErrors())
+    for (CompileSourceFile *const source : container) {
+      m_errors->appendErrors(*source->getErrorContainer());
+      if (source->getErrorContainer()->hasFatalErrors())
         fatalErrors = true;
     }
     m_errors->printMessages(m_commandLineParser->muteStdout());
@@ -765,13 +729,13 @@ bool Compiler::compile() {
 
   // Check Parsing
   CheckCompile* checkComp = new CheckCompile(this);
-  checkComp->check();
+  bool parseOk = checkComp->check();
   delete checkComp;
   m_errors->printMessages(m_commandLineParser->muteStdout());
 
   // Python Listener
-  if (m_commandLineParser->pythonListener() ||
-      m_commandLineParser->pythonEvalScriptPerFile()) {
+  if (parseOk && (m_commandLineParser->pythonListener() ||
+      m_commandLineParser->pythonEvalScriptPerFile())) {
     if (!parserInitialized) pythoninit_();
     if (!compileFileSet_(CompileSourceFile::PythonAPI, true, m_compilers))
       return false;
@@ -788,7 +752,7 @@ bool Compiler::compile() {
     }
   }
 
-  if (m_commandLineParser->compile()) {
+  if (parseOk && m_commandLineParser->compile()) {
     // Compile Design, has its own thread management
     CompileDesign* compileDesign = new CompileDesign(this);
     compileDesign->compile();
@@ -815,7 +779,7 @@ bool Compiler::compile() {
       }
 
       if (m_commandLineParser->pythonEvalScript()) {
-        PythonAPI::evalScript(m_commandLineParser->getSymbolTable()->getSymbol(
+        PythonAPI::evalScript(m_commandLineParser->getSymbolTable().getSymbol(
                                   m_commandLineParser->pythonEvalScriptId()),
                               m_design);
         if (m_commandLineParser->profile()) {
@@ -830,7 +794,7 @@ bool Compiler::compile() {
       m_errors->printMessages(m_commandLineParser->muteStdout());
     }
 
-    std::string directory = m_commandLineParser->getSymbolTable()->getSymbol(m_commandLineParser->getFullCompileDir());
+    std::string directory = m_commandLineParser->getSymbolTable().getSymbol(m_commandLineParser->getFullCompileDir());
     std::string uhdmFile = directory + "/surelog.uhdm";
     m_uhdmDesign = compileDesign->writeUHDM(uhdmFile);
     // Do not delete as now UHDM has to live past the compilation step

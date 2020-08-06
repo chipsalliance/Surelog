@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_noc/bsg_noc_repeater_node.v Cov: 51% </h3>
+<pre style="margin:0; padding:0 ">   1: //</pre>
+<pre style="margin:0; padding:0 ">   2: // This module instantiates num_nodes_p two-element-fifos in chains</pre>
+<pre style="margin:0; padding:0 ">   3: // It supports multiple bsg_noc_links in parallel</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Insert this module into long routings on chip, which can become critical path</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Node that side_A_reset_i signal shoule be close to side A</pre>
+<pre style="margin:0; padding:0 ">   8: // If reset happens to be close to side B, please swap side A and side B connection, </pre>
+<pre style="margin:0; padding:0 ">   9: // since side A and side B are symmetric, functionality will not be affected.</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module bsg_noc_repeater_node</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: #(parameter width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: , parameter num_in_p = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: , parameter num_nodes_p = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: , parameter bsg_ready_and_link_sif_width_lp = `bsg_ready_and_link_sif_width(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: )</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20: ( input  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21: , input  side_A_reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23: , input  [num_in_p-1:0][bsg_ready_and_link_sif_width_lp-1:0] side_A_links_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: , output [num_in_p-1:0][bsg_ready_and_link_sif_width_lp-1:0] side_A_links_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26: , input  [num_in_p-1:0][bsg_ready_and_link_sif_width_lp-1:0] side_B_links_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: , output [num_in_p-1:0][bsg_ready_and_link_sif_width_lp-1:0] side_B_links_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   genvar i, n;</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // declare the bsg_ready_and_link_sif_s struct</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   `declare_bsg_ready_and_link_sif_s(width_p, bsg_ready_and_link_sif_s);</pre>
+<pre style="margin:0; padding:0 ">  34:   </pre>
+<pre style="margin:0; padding:0 ">  35:   // noc links</pre>
+<pre style="margin:0; padding:0 ">  36:   bsg_ready_and_link_sif_s [num_nodes_p:0][num_in_p-1:0] links_cast_A2B, links_cast_B2A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   </pre>
+<pre style="margin:0; padding:0 ">  38:   // Attach to input and output ports</pre>
+<pre style="margin:0; padding:0 ">  39:   assign links_cast_A2B[0]           = side_A_links_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign side_B_links_o              = links_cast_A2B[num_nodes_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign links_cast_B2A[num_nodes_p] = side_B_links_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   assign side_A_links_o              = links_cast_B2A[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   </pre>
+<pre style="margin:0; padding:0 ">  44:   // pipelines reset</pre>
+<pre style="margin:0; padding:0 ">  45:   logic [num_nodes_p:0] reset_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   assign reset_r[0] = side_A_reset_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:  </pre>
+<pre style="margin:0; padding:0 ">  48:   if (num_nodes_p == 0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     wire unused = &{clk_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   for (i = 0; i < num_in_p; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     begin: ch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       </pre>
+<pre style="margin:0; padding:0 ">  54:       for (n = 0; n < num_nodes_p; n++)</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:         begin: node</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:         </pre>
+<pre style="margin:0; padding:0 ">  57:           always_ff @(posedge clk_i)</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:             reset_r[n+1] <= reset_r[n];</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:           bsg_two_fifo #(.width_p( width_p ))</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:             A_to_B</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:               (.clk_i   ( clk_i )</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:               ,.reset_i ( reset_r[n] )</pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:               ,.v_o     ( links_cast_A2B[n+1][i].v )</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:               ,.data_o  ( links_cast_A2B[n+1][i].data )</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:               ,.yumi_i  ( links_cast_A2B[n+1][i].v & links_cast_B2A[n+1][i].ready_and_rev)</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:               ,.v_i     ( links_cast_A2B[n][i].v )</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:               ,.data_i  ( links_cast_A2B[n][i].data )</pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:               ,.ready_o ( links_cast_B2A[n][i].ready_and_rev )</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72:               );</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:           bsg_two_fifo #(.width_p( width_p ))</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:             B_to_A</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:               (.clk_i   ( clk_i )</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:               ,.reset_i ( reset_r[n] )</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79:               ,.ready_o ( links_cast_A2B[n+1][i].ready_and_rev )</pre>
+<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">  80:               ,.data_i  ( links_cast_B2A[n+1][i].data )</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:               ,.v_i     ( links_cast_B2A[n+1][i].v )</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:               ,.v_o     ( links_cast_B2A[n][i].v )</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:               ,.data_o  ( links_cast_B2A[n][i].data )</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:               ,.yumi_i  ( links_cast_B2A[n][i].v & links_cast_A2B[n][i].ready_and_rev )</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:               );</pre>
+<pre style="margin:0; padding:0 ">  87:           </pre>
+<pre style="margin:0; padding:0 ">  88:         end: node</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:     end: ch</pre>
+<pre id="id90" style="background-color: #FFB6C1; margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91: endmodule</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+</body>
+</html>

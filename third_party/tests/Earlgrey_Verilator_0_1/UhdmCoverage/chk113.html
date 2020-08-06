@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_fifo_sync.sv Cov: 97.8% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Generic synchronous fifo for use in a variety of devices.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int unsigned Width       = 16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter bit Pass                 = 1'b1, // if == 1 allow requests to pass through empty FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int unsigned Depth       = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter bit OutputZeroIfEmpty    = 1'b1, // if == 1 always output 0 when FIFO is empty</pre>
+<pre style="margin:0; padding:0 ">  14:   // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int unsigned DepthWNorm = $clog2(Depth+1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam int unsigned DepthW     = (DepthWNorm == 0) ? 1 : DepthWNorm</pre>
+<pre style="margin:0; padding:0 ">  17: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                   clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                   rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20:   // synchronous clear / flush port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input                   clr_i,</pre>
+<pre style="margin:0; padding:0 ">  22:   // write port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                   wvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output                  wready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input   [Width-1:0]     wdata,</pre>
+<pre style="margin:0; padding:0 ">  26:   // read port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output                  rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input                   rready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output  [Width-1:0]     rdata,</pre>
+<pre style="margin:0; padding:0 ">  30:   // occupancy</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output  [DepthW-1:0]    depth</pre>
+<pre style="margin:0; padding:0 ">  32: );</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // FIFO is in complete passthrough mode</pre>
+<pre style="margin:0; padding:0 ">  35:   if (Depth == 0) begin : gen_passthru_fifo</pre>
+<pre style="margin:0; padding:0 ">  36:     `ASSERT_INIT(paramCheckPass, Pass == 1)</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     assign depth = 1'b0; //output is meaningless</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:     // devie facing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     assign rvalid = wvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     assign rdata = wdata;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:     // host facing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     assign wready = rready;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:     // this avoids lint warnings</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     logic unused_clr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     assign unused_clr = clr_i;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // Normal FIFO construction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   end else begin : gen_normal_fifo</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:     // consider Depth == 1 case when $clog2(1) == 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     localparam int unsigned PTRV_W    = $clog2(Depth) + ~|$clog2(Depth);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     localparam int unsigned PTR_WIDTH = PTRV_W+1;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic [PTR_WIDTH-1:0] fifo_wptr, fifo_rptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic                 fifo_incr_wptr, fifo_incr_rptr, fifo_empty;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:     // create the write and read pointers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic  full, empty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic  wptr_msb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic  rptr_msb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     logic  [PTRV_W-1:0] wptr_value;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     logic  [PTRV_W-1:0] rptr_value;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     assign wptr_msb = fifo_wptr[PTR_WIDTH-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     assign rptr_msb = fifo_rptr[PTR_WIDTH-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     assign wptr_value = fifo_wptr[0+:PTRV_W];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     assign rptr_value = fifo_rptr[0+:PTRV_W];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     assign depth = (full)                 ? DepthW'(Depth) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:                    (wptr_msb == rptr_msb) ? DepthW'(wptr_value) - DepthW'(rptr_value) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:                    (DepthW'(Depth) - DepthW'(rptr_value) + DepthW'(wptr_value)) ;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     assign fifo_incr_wptr = wvalid & wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign fifo_incr_rptr = rvalid & rready;</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     assign wready = ~full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     assign rvalid = ~empty;</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:         fifo_wptr <= {(PTR_WIDTH){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       end else if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         fifo_wptr <= {(PTR_WIDTH){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       end else if (fifo_incr_wptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:         if (fifo_wptr[PTR_WIDTH-2:0] == (Depth-1)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:           fifo_wptr <= {~fifo_wptr[PTR_WIDTH-1],{(PTR_WIDTH-1){1'b0}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:           fifo_wptr <= fifo_wptr + {{(PTR_WIDTH-1){1'b0}},1'b1};</pre>
+<pre style="margin:0; padding:0 ">  92:         end</pre>
+<pre style="margin:0; padding:0 ">  93:       end</pre>
+<pre style="margin:0; padding:0 ">  94:     end</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         fifo_rptr <= {(PTR_WIDTH){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       end else if (clr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:         fifo_rptr <= {(PTR_WIDTH){1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       end else if (fifo_incr_rptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:         if (fifo_rptr[PTR_WIDTH-2:0] == (Depth-1)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:           fifo_rptr <= {~fifo_rptr[PTR_WIDTH-1],{(PTR_WIDTH-1){1'b0}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:           fifo_rptr <= fifo_rptr + {{(PTR_WIDTH-1){1'b0}},1'b1};</pre>
+<pre style="margin:0; padding:0 "> 106:         end</pre>
+<pre style="margin:0; padding:0 "> 107:       end</pre>
+<pre style="margin:0; padding:0 "> 108:     end</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     assign  full       = (fifo_wptr == (fifo_rptr ^ {1'b1,{(PTR_WIDTH-1){1'b0}}}));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     assign  fifo_empty = (fifo_wptr ==  fifo_rptr);</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:     // the generate blocks below are needed to avoid lint errors due to array indexing</pre>
+<pre style="margin:0; padding:0 "> 115:     // in the where the fifo only has one storage element</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     logic [Depth-1:0][Width-1:0] storage;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     logic [Width-1:0] storage_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     if (Depth == 1) begin : gen_depth_eq1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       assign storage_rdata = storage[0];</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         if (fifo_incr_wptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:           storage[0] <= wdata;</pre>
+<pre style="margin:0; padding:0 "> 124:         end</pre>
+<pre style="margin:0; padding:0 "> 125:     // fifo with more than one storage element</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     end else begin : gen_depth_gt1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       assign storage_rdata = storage[fifo_rptr[PTR_WIDTH-2:0]];</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:         if (fifo_incr_wptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:           storage[fifo_wptr[PTR_WIDTH-2:0]] <= wdata;</pre>
+<pre style="margin:0; padding:0 "> 132:         end</pre>
+<pre style="margin:0; padding:0 "> 133:     end</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     logic [Width-1:0] rdata_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     if (Pass == 1'b1) begin : gen_pass</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       assign rdata_int = (fifo_empty && wvalid) ? wdata : storage_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       assign empty = fifo_empty & ~wvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     end else begin : gen_nopass</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       assign rdata_int = storage_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       assign empty = fifo_empty;</pre>
+<pre style="margin:0; padding:0 "> 142:     end</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     if (OutputZeroIfEmpty == 1'b1) begin : gen_output_zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       assign rdata = empty ? 'b0 : rdata_int;</pre>
+<pre id="id146" style="background-color: #FFB6C1; margin:0; padding:0 "> 146:     end else begin : gen_no_output_zero</pre>
+<pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 "> 147:       assign rdata = rdata_int;</pre>
+<pre style="margin:0; padding:0 "> 148:     end</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="margin:0; padding:0 "> 150:     `ASSERT(depthShallNotExceedParamDepth, !empty |-> depth <= DepthW'(Depth))</pre>
+<pre style="margin:0; padding:0 "> 151:   end // block: gen_normal_fifo</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:   //////////////////////</pre>
+<pre style="margin:0; padding:0 "> 155:   // Known Assertions //</pre>
+<pre style="margin:0; padding:0 "> 156:   //////////////////////</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158:   `ASSERT(DataKnown_A, rvalid |-> !$isunknown(rdata))</pre>
+<pre style="margin:0; padding:0 "> 159:   `ASSERT_KNOWN(DepthKnown_A, depth)</pre>
+<pre style="margin:0; padding:0 "> 160:   `ASSERT_KNOWN(RvalidKnown_A, rvalid)</pre>
+<pre style="margin:0; padding:0 "> 161:   `ASSERT_KNOWN(WreadyKnown_A, wready)</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="margin:0; padding:0 "> 163: endmodule</pre>
+<pre style="margin:0; padding:0 "> 164: </pre>
+</body>
+</html>

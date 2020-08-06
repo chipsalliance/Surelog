@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/aes/rtl/aes_mix_columns.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES MixColumns</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module aes_mix_columns (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input  aes_pkg::mode_e       mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input  logic [3:0][3:0][7:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   output logic [3:0][3:0][7:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  11: );</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Transpose to operate on columns</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   logic [3:0][3:0][7:0] data_i_transposed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   logic [3:0][3:0][7:0] data_o_transposed;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   assign data_i_transposed = aes_transpose(data_i);</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // Individually mix columns</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   for (genvar i = 0; i < 4; i++) begin : gen_mix_column</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     aes_mix_single_column aes_mix_column_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:       .mode_i ( mode_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       .data_i ( data_i_transposed[i] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:       .data_o ( data_o_transposed[i] )</pre>
+<pre style="margin:0; padding:0 ">  27:     );</pre>
+<pre style="margin:0; padding:0 ">  28:   end</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign data_o = aes_transpose(data_o_transposed);</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32: endmodule</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+</body>
+</html>

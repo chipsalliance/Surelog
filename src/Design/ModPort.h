@@ -31,20 +31,23 @@ namespace SURELOG {
 
 class ModuleDefinition;
 
-class ModPort {
+class ModPort final {
 public:
-  ModPort(ModuleDefinition* parent, const std::string& name) : m_parent(parent), m_name(name) {}
-  virtual ~ModPort();
-  const std::string& getName() { return m_name; }
-  void addSignal(Signal& sig) { m_ports.push_back(sig); }
-  std::vector<Signal>& getPorts() { return m_ports; }
-  Signal* getPort(std::string& name);
+  ModPort(ModuleDefinition* parent, const std::string_view name)
+    : m_parent(parent), m_name(name) {}
+
+  const std::string& getName() const { return m_name; }
+  void addSignal(const Signal& sig) { m_ports.push_back(sig); }
+  const std::vector<Signal>& getPorts() const { return m_ports; }
+  const Signal* getPort(const std::string& name) const;
   ModuleDefinition* getParent () { return m_parent; }
+
 private:
-  ModuleDefinition* m_parent;
-  std::string m_name;
+  ModuleDefinition* const m_parent;
+  const std::string m_name;
+
   std::vector<Signal> m_ports;
 };
-};
+}  // namespace SURELOG
 
 #endif /* MODPORT_H */

@@ -27,6 +27,8 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+
+set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
 add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
 
@@ -220,65 +222,114 @@ add_custom_command(
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-# TODO: Avoid GLOBing. Also, never mention generated files in the globbing
-# section, as they will be missed at generation time.
-# Put these in surelog_generated_SRC
-file(GLOB surelog_SRC
+# Put source code here, files that are generated at build time in
+# surelog_generated_SRC
+set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
   ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
   ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Library/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AnalyzeFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserErrorListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserHandler.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeListenerHelper.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CommonListenerHelper.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CheckCompile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/Cache.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
+  ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
+  ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.cpp
+  ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
+  ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DefParam.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Design.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Enum.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/FileContent.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Function.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/ModPort.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Netlist.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Parameter.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Scope.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Signal.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Statement.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Struct.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Task.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/Union.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/VObject.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/Builtin.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileClass.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileFileContent.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStmt.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileType.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileModule.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilePackage.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileProgram.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStep.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileToolbox.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileType.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/PackageAndRootElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ResolveSymbols.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/TestbenchElaboration.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmWriter.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmChecker.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/UVMElaboration.cpp
-  ${PROJECT_SOURCE_DIR}/src/Testbench/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/CommandLine/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Common/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Utils/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Cache/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Config/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Package/*.cpp)
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmChecker.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmWriter.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.cpp
+  ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.cpp
+  ${PROJECT_SOURCE_DIR}/src/Expression/Value.cpp
+  ${PROJECT_SOURCE_DIR}/src/Library/AntlrLibParserErrorListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/Library/Library.cpp
+  ${PROJECT_SOURCE_DIR}/src/Library/LibrarySet.cpp
+  ${PROJECT_SOURCE_DIR}/src/Library/ParseLibraryDef.cpp
+  ${PROJECT_SOURCE_DIR}/src/Library/SVLibShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/Package/Package.cpp
+  ${PROJECT_SOURCE_DIR}/src/Package/Precompiled.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AnalyzeFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserErrorListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserHandler.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CheckCompile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CommonListenerHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeListenerHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/ClassObject.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/FunctionMethod.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Program.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Property.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/TaskMethod.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.cpp
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Variable.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/FileUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/ParseUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/StringUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/Timer.cpp
+)
 
 # TODO: these generated sources should go to a directory that
 # does not mess with the original source, e.g.
@@ -341,20 +392,37 @@ endif()
 
 # Unit tests
 enable_testing()
+include(GoogleTest)
+# All unit-tests are registered with this custom target as dependency, so
+# just `make UnitTests` will build them all.
+add_custom_target(UnitTests)
 
-add_executable(CompileHelper-Test EXCLUDE_FROM_ALL
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
-)
-target_link_libraries(CompileHelper-Test
-  PRIVATE surelog
-  PRIVATE gtest
-  PRIVATE gmock
-  PRIVATE gtest_main)
-#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+# Concise way to register a new google test
+# call with register_gtest(path/to/UnitTestFile.cpp)
+function(register_gtests)
+  foreach(gtest_cc_file IN LISTS ARGN)
+    # We create the binary name and test prefix from the cpp-filepath
+    get_filename_component(test_bin ${gtest_cc_file} NAME_WE)
+    get_filename_component(test_prefix ${gtest_cc_file} DIRECTORY)
 
-add_custom_target(UnitTests
-  DEPENDS CompileHelper-Test
-  # Add further test binaries above
+    # Build binary, link all relevant libs and extract tests
+    add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
+
+    # For simplicity, we link the test with libsurelog, but there is of
+    # course a lot unnecessary churn if headers are modified.
+    # Often it is sufficient to just have a few depeendencies.
+    target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
+    gtest_discover_tests(${test_bin} TEST_PREFIX "${test_prefix}/")
+
+    # Now, add this binary to our UnitTests target that it builds this
+    add_dependencies(UnitTests ${test_bin})
+  endforeach()
+endfunction()
+
+register_gtests(
+  src/Utils/StringUtils_test.cpp
+  src/DesignCompile/CompileHelper_test.cpp
+  src/SourceCompile/SymbolTable_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)
@@ -523,10 +591,9 @@ install(FILES ${PROJECT_SOURCE_DIR}/src/Config/Config.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.h
-        ${PROJECT_SOURCE_DIR}/src/Expression/Expr.h
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
-  
+
 if (WIN32)
   install(
     FILES $<TARGET_PDB_FILE:surelog-bin>

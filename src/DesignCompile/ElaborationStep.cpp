@@ -45,12 +45,14 @@ using namespace SURELOG;
 
 ElaborationStep::~ElaborationStep() {}
 
-DataType* ElaborationStep::bindTypeDef_(TypeDef* typd, DesignComponent* parent,
-                                        ErrorDefinition::ErrorType errtype) {
+const DataType* ElaborationStep::bindTypeDef_(
+  TypeDef* typd,
+  const DesignComponent* parent,
+  ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   SymbolTable* symbols = compiler->getSymbolTable();
   NodeId defNode = typd->getDefinitionNode();
-  FileContent* fC = typd->getFileContent();
+  const FileContent* fC = typd->getFileContent();
   VObjectType defType = fC->Type(defNode);
   std::string objName;
   if (defType == VObjectType::slStringConst) {
@@ -60,46 +62,45 @@ DataType* ElaborationStep::bindTypeDef_(TypeDef* typd, DesignComponent* parent,
     symbols->registerSymbol(objName);
   }
 
-  DataType* result = bindDataType_(objName, fC, defNode, parent, errtype);
+  const DataType* result = bindDataType_(objName, fC, defNode, parent, errtype);
   if (result != typd)
     return result;
   else
     return NULL;
 }
 
-DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
-                                         NodeId id, DesignComponent* parent,
-                                         ErrorDefinition::ErrorType errtype) {
-  DataType* result = NULL;
+const DataType* ElaborationStep::bindDataType_(
+  const std::string& type_name,
+  const FileContent* fC,
+  NodeId id, const DesignComponent* parent,
+  ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
   std::string libName = "work";
-  if (parent->getFileContents().size())
+  if (parent->getFileContents().size()) {
     libName = parent->getFileContents()[0]->getLibrary()->getName();
+  }
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
   bool found = false;
   bool classFound = false;
   std::string class_in_lib = libName + "@" + type_name;
   ClassNameClassDefinitionMultiMap::iterator itr1 = classes.end();
+
   if (type_name == "signed") {
-    result = new DataType(fC, id, type_name, VObjectType::slSigning_Signed);
-    return result;
+    return new DataType(fC, id, type_name, VObjectType::slSigning_Signed);
   } else if (type_name == "unsigned") {
-    result = new DataType(fC, id, type_name, VObjectType::slSigning_Unsigned);
-    return result;
+    return new DataType(fC, id, type_name, VObjectType::slSigning_Unsigned);
   } else if (type_name == "logic") {
-    result = new DataType(fC, id, type_name, VObjectType::slIntVec_TypeLogic);
-    return result;
+    return new DataType(fC, id, type_name, VObjectType::slIntVec_TypeLogic);
   } else if (type_name == "bit") {
-    result = new DataType(fC, id, type_name, VObjectType::slIntVec_TypeBit);
-    return result;
+    return new DataType(fC, id, type_name, VObjectType::slIntVec_TypeBit);
   } else if (type_name == "byte") {
-    result =
-        new DataType(fC, id, type_name, VObjectType::slIntegerAtomType_Byte);
-    return result;
+    return new DataType(fC, id, type_name, VObjectType::slIntegerAtomType_Byte);
   }
+
+  const DataType* result = nullptr;
   if ((result = parent->getDataType(type_name))) {
     found = true;
   }
@@ -133,7 +134,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
     }
   }
   if (found == false) {
-    for (auto package : parent->getAccessPackages()) {
+    for (const auto& package : parent->getAccessPackages()) {
       std::string class_in_package = package->getName() + "::" + type_name;
       itr1 = classes.find(class_in_package);
       if (itr1 != classes.end()) {
@@ -141,7 +142,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
         classFound = true;
         break;
       }
-      DataType* dtype = package->getDataType(type_name);
+      const DataType* dtype = package->getDataType(type_name);
       if (dtype) {
         found = true;
         result = dtype;
@@ -150,7 +151,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
     }
   }
   if (found == false) {
-    ClassDefinition* classDefinition = dynamic_cast<ClassDefinition*>(parent);
+    const ClassDefinition* classDefinition = dynamic_cast<const ClassDefinition*>(parent);
     if (classDefinition) {
       if (classDefinition->getName() == type_name) {
         result = classDefinition;
@@ -170,7 +171,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
       }
       if (found == false) {
         if (classDefinition->getContainer()) {
-          DataType* dtype =
+          const DataType* dtype =
               classDefinition->getContainer()->getDataType(type_name);
           if (dtype) {
             found = true;
@@ -181,7 +182,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
     }
   }
   if (found == false) {
-    TypeDef* def = parent->getTypeDef(type_name);
+    const TypeDef* def = parent->getTypeDef(type_name);
     if (def) {
       found = true;
       result = def;
@@ -221,7 +222,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
         }
       }
       if (itr1 != classes.end()) {
-        DataType* dtype = (*itr1).second->getDataType(the_type_name);
+        const DataType* dtype = (*itr1).second->getDataType(the_type_name);
         if (dtype) {
           result = dtype;
           found = true;
@@ -230,7 +231,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
       if (found == false) {
         Package* pack = design->getPackage(classOrPackageName);
         if (pack) {
-          DataType* dtype = pack->getDataType(the_type_name);
+          const DataType* dtype = pack->getDataType(the_type_name);
           if (dtype) {
             result = dtype;
             found = true;
@@ -247,7 +248,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
             if (dtype) {
               result = dtype;
               found = true;
-            }            
+            }
           }
         }
       }
@@ -277,8 +278,8 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
 }
 
 Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
-                                         FileContent* fC, NodeId id,
-                                         DesignComponent* parent,
+                                         const FileContent* fC, NodeId id,
+                                         const DesignComponent* parent,
                                          ErrorDefinition::ErrorType errtype,
                                          bool returnClassParam) {
   Compiler* compiler = m_compileDesign->getCompiler();
@@ -286,7 +287,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   SymbolTable* symbols = compiler->getSymbolTable();
   Variable* result = NULL;
 
-  ClassDefinition* classDefinition = dynamic_cast<ClassDefinition*>(parent);
+  const ClassDefinition* classDefinition = dynamic_cast<const ClassDefinition*>(parent);
   if (classDefinition) result = classDefinition->getProperty(var_name);
 
   if (result == NULL) {
@@ -333,7 +334,7 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   if (!returnClassParam) {
     // Class parameters datatype have no definition and are strings
     if (result) {
-      DataType* dtype = result->getDataType();
+      const DataType* dtype = result->getDataType();
       if (dtype && !dtype->getDefinition()) {
         if (dtype->getType() == VObjectType::slStringConst) {
           result = NULL;
@@ -346,21 +347,21 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
 }
 
 Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
-                                           FileContent* fC, NodeId id,
+                                           const FileContent* fC, NodeId id,
                                            Scope* scope,
                                            DesignComponent* parentComponent,
                                            ErrorDefinition::ErrorType errtype) {
   Variable* the_obj = NULL;
-  DesignComponent* currentComponent = parentComponent;
+  const DesignComponent* currentComponent = parentComponent;
   for (auto var : var_chain) {
     if (var == "this") {
     } else if (var == "super") {
-      ClassDefinition* classDefinition =
-          dynamic_cast<ClassDefinition*>(currentComponent);
+      const ClassDefinition* classDefinition =
+          dynamic_cast<const ClassDefinition*>(currentComponent);
       if (classDefinition) {
         currentComponent = NULL;
-        for (auto cc : classDefinition->getBaseClassMap()) {
-          currentComponent = dynamic_cast<ClassDefinition*>(cc.second);
+        for (const auto &cc : classDefinition->getBaseClassMap()) {
+          currentComponent = dynamic_cast<const ClassDefinition*>(cc.second);
           var = "this";
           break;
         }
@@ -374,11 +375,11 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
     the_obj =
         bindVariable_(var, scope, fC, id, currentComponent, errtype, false);
     if (the_obj) {
-      DataType* dtype = the_obj->getDataType();
+      const DataType* dtype = the_obj->getDataType();
       while (dtype && dtype->getDefinition()) {
         dtype = dtype->getDefinition();
       }
-      ClassDefinition* tmpClass = dynamic_cast<ClassDefinition*>(dtype);
+      const ClassDefinition* tmpClass = dynamic_cast<const ClassDefinition*>(dtype);
       if (tmpClass) {
         currentComponent = tmpClass;
       }
@@ -388,7 +389,7 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
 }
 
 Variable* ElaborationStep::locateStaticVariable_(
-    std::vector<std::string>& var_chain, FileContent* fC, NodeId id,
+    std::vector<std::string>& var_chain, const FileContent* fC, NodeId id,
     Scope* scope, DesignComponent* parentComponent,
     ErrorDefinition::ErrorType errtype) {
   std::string name;
@@ -443,8 +444,10 @@ Variable* ElaborationStep::locateStaticVariable_(
           std::vector<std::string> tmp;
           tmp.push_back(var_chain[1]);
 
-          DataType* dtype = bindDataType_(var_chain[1], fC, id, classDefinition,
-                                          ErrorDefinition::NO_ERROR_MESSAGE);
+          const DataType* dtype = bindDataType_(
+            var_chain[1], fC, id,
+            classDefinition,
+            ErrorDefinition::NO_ERROR_MESSAGE);
           if (dtype) {
             result = new Variable(dtype, dtype->getFileContent(),
                                   dtype->getNodeId(), 0, dtype->getName());
@@ -457,7 +460,7 @@ Variable* ElaborationStep::locateStaticVariable_(
   }
   if (result == NULL) {
     if (var_chain.size()) {
-      DataType* dtype =
+      const DataType* dtype =
           bindDataType_(var_chain[0], fC, id, parentComponent, errtype);
       if (dtype) {
         result = new Variable(dtype, dtype->getFileContent(),
@@ -470,7 +473,7 @@ Variable* ElaborationStep::locateStaticVariable_(
 }
 
 bool ElaborationStep::bindPortType_(Signal* signal,
-        FileContent* fC, NodeId id, Scope* scope,
+        const FileContent* fC, NodeId id, Scope* scope,
         DesignComponent* parentComponent,
         ErrorDefinition::ErrorType errtype)
 {
@@ -548,10 +551,10 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       NodeId interfIdName = fC->Child(interface_identifier);
       std::string interfName = fC->SymName(interfIdName);
 
-      DesignComponent* def = NULL;
-      DataType* type = NULL;
+      DesignComponent* def = nullptr;
+      const DataType* type = nullptr;
 
-      std::pair<FileCNodeId, DesignComponent*>* datatype =
+      const std::pair<FileCNodeId, DesignComponent*>* datatype =
               parentComponent->getNamedObject(interfName);
       if (!datatype) {
         def = design->getClassDefinition(parentComponent->getName() +
@@ -596,9 +599,6 @@ bool ElaborationStep::bindPortType_(Signal* signal,
   }
   case slStringConst:
   {
-    if (signal->getType() != slNoType) {
-      return true;
-    }
     std::string interfName = signal->getInterfaceTypeName();
     std::string baseName = interfName;
     std::string modPort;
@@ -607,18 +607,18 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       StringUtils::ltrim(modPort,'.');
       StringUtils::rtrim(baseName,'.');
     }
-      
-    DesignComponent* def = NULL;
-    DataType* type = NULL;
 
-    std::pair<FileCNodeId, DesignComponent*>* datatype =
+    DesignComponent* def = nullptr;
+    const DataType* type = nullptr;
+
+    const std::pair<FileCNodeId, DesignComponent*>* datatype =
             parentComponent->getNamedObject(interfName);
     if (datatype) {
       def = datatype->second;
     } else {
       std::string name = parentComponent->getName() + "::" + interfName;
       def = design->getClassDefinition(name);
-    } 
+    }
     if (def == NULL) {
       def = design->getComponentDefinition(libName + "@" + baseName);
       if (def) {
@@ -628,9 +628,9 @@ bool ElaborationStep::bindPortType_(Signal* signal,
         } else {
           def = NULL;
         }
-        if (modPort != "") {
+        if (!modPort.empty()) {
           if (module) {
-            if (ModPort* modport = module->getModPort(modPort)) {    
+            if (ModPort* modport = module->getModPort(modPort)) {
               signal->setModPort(modport);
             } else {
               def = NULL;
@@ -649,9 +649,13 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       } else {
         def = NULL;
       }
-    }   
+    }
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
+      signal->setDataType(type);
+    }
+    if (signal->getType() != slNoType) {
+      return true;
     }
     if (def == NULL && type == NULL && (interfName != "logic") &&
             (interfName != "byte") && (interfName != "bit") &&

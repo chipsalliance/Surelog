@@ -1,7 +1,6 @@
 /*
 :name: delay_control
 :description: delay control
-:should_fail: 0
 :tags: 9.4.1
 */
 module block_tb ();

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_calculator/bp_be_int_alu.v Cov: 98.1% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_be_int_alu.v</pre>
+<pre style="margin:0; padding:0 ">   5:  * </pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   Integer ALU for rv64i arithmetic instructions.</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Parameters:</pre>
+<pre style="margin:0; padding:0 ">  10:  *</pre>
+<pre style="margin:0; padding:0 ">  11:  * Inputs:</pre>
+<pre style="margin:0; padding:0 ">  12:  *   src1_i           - Register operand data</pre>
+<pre style="margin:0; padding:0 ">  13:  *   src2_i           - Register or immediate operand data</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  *   op_i             - Which operation to perform. Several operations are shared </pre>
+<pre style="margin:0; padding:0 ">  16:  *                        e.g. sltu is used for both compute + branch</pre>
+<pre style="margin:0; padding:0 ">  17:  *   opw_v_i          - Whether the operation is word width</pre>
+<pre style="margin:0; padding:0 ">  18:  *</pre>
+<pre style="margin:0; padding:0 ">  19:  * Outputs:</pre>
+<pre style="margin:0; padding:0 ">  20:  *   result_o         - The calculated result of the arithmetic operation</pre>
+<pre style="margin:0; padding:0 ">  21:  *   </pre>
+<pre style="margin:0; padding:0 ">  22:  * Keywords:</pre>
+<pre style="margin:0; padding:0 ">  23:  *   calculator, alu, int, integer, rv64i</pre>
+<pre style="margin:0; padding:0 ">  24:  *</pre>
+<pre style="margin:0; padding:0 ">  25:  * Notes:</pre>
+<pre style="margin:0; padding:0 ">  26:  *   Currently, we leave arithmetic optimization up to the compiler. For example, several </pre>
+<pre style="margin:0; padding:0 ">  27:  *     operations could be implemented by a single calculation and a bit toggle.</pre>
+<pre style="margin:0; padding:0 ">  28:  *   This could synthesize as two seperately sized alus, if the compiler doesn't realize </pre>
+<pre style="margin:0; padding:0 ">  29:  *     that result and resultw are mutually exclusive.</pre>
+<pre style="margin:0; padding:0 ">  30:  */</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: module bp_be_int_alu </pre>
+<pre style="margin:0; padding:0 ">  33:   import bp_be_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  34:   import bp_common_rv64_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  35:  #(// Generated parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    localparam fu_op_width_lp      = `bp_be_fu_op_width</pre>
+<pre style="margin:0; padding:0 ">  37:    // From RISC-V specifications</pre>
+<pre style="margin:0; padding:0 ">  38:    , localparam reg_data_width_lp = rv64_reg_data_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , localparam word_width_lp     = rv64_word_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , localparam shamt_width_lp    = rv64_shamt_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , localparam shamtw_width_lp   = rv64_shamtw_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    )</pre>
+<pre style="margin:0; padding:0 ">  43:   (// Source data</pre>
+<pre style="margin:0; padding:0 ">  44:    input [reg_data_width_lp-1:0]    src1_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    , input [reg_data_width_lp-1:0]  src2_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:    // Arithmetic operation metadata</pre>
+<pre style="margin:0; padding:0 ">  48:    , input [fu_op_width_lp-1:0]     op_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:    , input                          opw_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:    // Result</pre>
+<pre style="margin:0; padding:0 ">  52:    , output [reg_data_width_lp-1:0] result_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    );</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55: // Intermediate connections</pre>
+<pre style="margin:0; padding:0 ">  56: // These are signed because we're doing math on them, most of which is signed</pre>
+<pre style="margin:0; padding:0 ">  57: logic signed [reg_data_width_lp-1:0] src1_sgn   , src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: logic signed [word_width_lp-1:0]     src1_w_sgn , src2_w_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: logic signed [reg_data_width_lp-1:0] result_sgn ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: logic signed [word_width_lp-1:0]     resultw_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: logic        [shamt_width_lp-1:0]    shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: logic        [shamtw_width_lp-1:0]   shamtw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:  </pre>
+<pre style="margin:0; padding:0 ">  64: // Casting </pre>
+<pre style="margin:0; padding:0 ">  65: assign src1_sgn   = $signed(src1_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: assign src2_sgn   = $signed(src2_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: assign src1_w_sgn = $signed(src1_i[0+:word_width_lp]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: assign src2_w_sgn = $signed(src2_i[0+:word_width_lp]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70: assign shamt      = src2_i[0+:shamt_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: assign shamtw     = src2_i[0+:shamtw_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73: // The actual computation</pre>
+<pre style="margin:0; padding:0 ">  74: always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     // These two case statements are mutually exclusive, but we separate them because they </pre>
+<pre style="margin:0; padding:0 ">  77:     //   assign to different results</pre>
+<pre style="margin:0; padding:0 ">  78:     // Calculate result for 32-bit operations</pre>
+<pre style="margin:0; padding:0 ">  79:     unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       e_int_op_add : resultw_sgn = src1_w_sgn +   src2_w_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       e_int_op_sub : resultw_sgn = src1_w_sgn -   src2_w_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       e_int_op_sll : resultw_sgn = src1_w_sgn <<  shamtw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       e_int_op_srl : resultw_sgn = src1_w_sgn >>  shamtw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       e_int_op_sra : resultw_sgn = src1_w_sgn >>> shamtw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       default      : resultw_sgn = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     endcase</pre>
+<pre style="margin:0; padding:0 ">  87:   </pre>
+<pre style="margin:0; padding:0 ">  88:     // Calculate result for 64-bit operations</pre>
+<pre style="margin:0; padding:0 ">  89:     unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       e_int_op_add       : result_sgn = src1_sgn +   src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       e_int_op_sub       : result_sgn = src1_sgn -   src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       e_int_op_xor       : result_sgn = src1_sgn ^   src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       e_int_op_or        : result_sgn = src1_sgn |   src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       e_int_op_and       : result_sgn = src1_sgn &   src2_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       e_int_op_sll       : result_sgn = src1_sgn <<  shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       e_int_op_srl       : result_sgn = src1_sgn >>  shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       e_int_op_sra       : result_sgn = src1_sgn >>> shamt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       e_int_op_pass_src2 : result_sgn =              src2_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   </pre>
+<pre style="margin:0; padding:0 "> 100:       // Single bit results</pre>
+<pre style="margin:0; padding:0 "> 101:       e_int_op_slt  : result_sgn = (reg_data_width_lp)'($unsigned(src1_sgn <  src2_sgn));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       e_int_op_sge  : result_sgn = (reg_data_width_lp)'($unsigned(src1_sgn >= src2_sgn));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       e_int_op_eq   : result_sgn = (reg_data_width_lp)'($unsigned(src1_i   == src2_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       e_int_op_ne   : result_sgn = (reg_data_width_lp)'($unsigned(src1_i   != src2_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       e_int_op_sltu : result_sgn = (reg_data_width_lp)'($unsigned(src1_i   <  src2_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       e_int_op_sgeu : result_sgn = (reg_data_width_lp)'($unsigned(src1_i   >= src2_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       default       : result_sgn = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     endcase</pre>
+<pre style="margin:0; padding:0 "> 109:   end</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111: // Select between word and double word width results</pre>
+<pre style="margin:0; padding:0 "> 112: assign result_o = opw_v_i ? reg_data_width_lp'(resultw_sgn) : result_sgn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114: endmodule : bp_be_int_alu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+</body>
+</html>

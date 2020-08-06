@@ -1,7 +1,6 @@
 /*
 :name: name_conflict_resolved
 :description: resolved interface class method name conflict
-:should_fail: 0
 :tags: 8.26.6.1
 :type: simulation parsing
 */

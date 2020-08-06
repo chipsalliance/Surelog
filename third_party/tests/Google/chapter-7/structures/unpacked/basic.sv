@@ -1,7 +1,6 @@
 /*
 :name: basic-unpacked-structures
 :description: Test unpacked structures support
-:should_fail: 0
 :tags: 7.2 7.1
 :type: simulation parsing
 */

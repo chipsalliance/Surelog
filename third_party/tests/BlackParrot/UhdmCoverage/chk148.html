@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/wormhole/bp_me_cce_id_to_cord.v Cov: 97.2% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="margin:0; padding:0 ">   2: // TODO: Configure to handle network configurations more flexibly</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   3: module bp_me_cce_id_to_cord</pre>
+<pre style="margin:0; padding:0 ">   4:  import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   5:  import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   6:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9:    , localparam cce_id_width_lp = `BSG_SAFE_CLOG2(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    )</pre>
+<pre style="margin:0; padding:0 ">  11:   (input [cce_id_width_lp-1:0]         cce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:    , output [coh_noc_cord_width_p-1:0] cce_cord_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:    , output [coh_noc_cid_width_p-1:0]  cce_cid_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:    );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   if (coh_noc_dims_p > 0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     begin : x_cord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:       assign cce_cord_o[0+:coh_noc_x_cord_width_p]                      = cce_id_i % coh_noc_x_dim_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     end</pre>
+<pre style="margin:0; padding:0 ">  20:   if (coh_noc_dims_p > 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     begin : y_cord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:       assign cce_cord_o[coh_noc_x_cord_width_p+:coh_noc_y_cord_width_p] = cce_id_i / coh_noc_x_dim_p;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     end</pre>
+<pre style="margin:0; padding:0 ">  24:       assign cce_cid_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26: endmodule</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+</body>
+</html>

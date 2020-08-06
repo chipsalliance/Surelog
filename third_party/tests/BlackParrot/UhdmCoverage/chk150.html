@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/wormhole/bp_me_cce_to_wormhole_link_master.v Cov: 97.5% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  * bp_me_cce_to_wormhole_link_master.v</pre>
+<pre style="margin:0; padding:0 ">   3:  */</pre>
+<pre style="margin:0; padding:0 ">   4:  </pre>
+<pre style="margin:0; padding:0 ">   5: `include "bp_mem_wormhole.vh"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module bp_me_cce_to_wormhole_link_master</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   import bp_cce_pkg::*;</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:   import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  11:   import bp_me_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  12:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">  14:   `declare_bp_me_if_widths(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p)</pre>
+<pre style="margin:0; padding:0 ">  15:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   , localparam bsg_ready_and_link_sif_width_lp = `bsg_ready_and_link_sif_width(mem_noc_flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   (input                                         clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   , input                                        reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // CCE-MEM Interface</pre>
+<pre style="margin:0; padding:0 ">  23:   , input  [cce_mem_msg_width_lp-1:0]            mem_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   , input                                        mem_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   , output                                       mem_cmd_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:                                                   </pre>
+<pre style="margin:0; padding:0 ">  27:   , output [cce_mem_msg_width_lp-1:0]            mem_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   , output                                       mem_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   , input                                        mem_resp_yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                                                  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   // Configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   , input [mem_noc_cord_width_p-1:0]             my_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   , input [mem_noc_cid_width_p-1:0]              my_cid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   , input [mem_noc_cord_width_p-1:0]             mmio_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   , input [mem_noc_cord_width_p-1:0]             dram_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   , input [mem_noc_cord_width_p-1:0]             host_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   </pre>
+<pre style="margin:0; padding:0 ">  38:   // bsg_noc_wormhole interface</pre>
+<pre style="margin:0; padding:0 ">  39:   , input [bsg_ready_and_link_sif_width_lp-1:0]  cmd_link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   , output [bsg_ready_and_link_sif_width_lp-1:0] cmd_link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   , input [bsg_ready_and_link_sif_width_lp-1:0]  resp_link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   , output [bsg_ready_and_link_sif_width_lp-1:0] resp_link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   );</pre>
+<pre style="margin:0; padding:0 ">  45:   </pre>
+<pre style="margin:0; padding:0 ">  46: // CCE-MEM interface packets</pre>
+<pre style="margin:0; padding:0 ">  47: `declare_bp_me_if(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 ">  48:   </pre>
+<pre style="margin:0; padding:0 ">  49: bp_cce_mem_msg_s mem_cmd_cast_i, mem_resp_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51: assign mem_cmd_cast_i = mem_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: assign mem_resp_o = mem_resp_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: // CCE-MEM IF to Wormhole routed interface</pre>
+<pre style="margin:0; padding:0 ">  55: `declare_bp_mem_wormhole_payload_s(mem_noc_reserved_width_p, mem_noc_cord_width_p, mem_noc_cid_width_p, cce_mem_msg_width_lp, mem_cmd_payload_s);</pre>
+<pre style="margin:0; padding:0 ">  56: `declare_bp_mem_wormhole_payload_s(mem_noc_reserved_width_p, mem_noc_cord_width_p, mem_noc_cid_width_p, cce_mem_msg_width_lp, mem_resp_payload_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: `declare_bsg_wormhole_concentrator_packet_s(mem_noc_cord_width_p, mem_noc_len_width_p, mem_noc_cid_width_p, $bits(mem_cmd_payload_s), mem_cmd_packet_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: `declare_bsg_wormhole_concentrator_packet_s(mem_noc_cord_width_p, mem_noc_len_width_p, mem_noc_cid_width_p, $bits(mem_resp_payload_s), mem_resp_packet_s);</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: logic [mem_noc_cord_width_p-1:0] mem_cmd_dst_cord_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: logic [mem_noc_cid_width_p-1:0]  mem_cmd_dst_cid_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: bp_addr_map</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:  #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:  cmd_map</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   (.paddr_i(mem_cmd_cast_i.addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   ,.mmio_cord_i(mmio_cord_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   ,.dram_cord_i(dram_cord_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   ,.host_cord_i(host_cord_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   ,.dst_cid_o(mem_cmd_dst_cid_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   ,.dst_cord_o(mem_cmd_dst_cord_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   );</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75: mem_cmd_packet_s mem_cmd_packet_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: bp_me_wormhole_packet_encode_mem_cmd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:  #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:  mem_cmd_encode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   (.mem_cmd_i(mem_cmd_cast_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    ,.src_cord_i(my_cord_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:    ,.src_cid_i(my_cid_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:    ,.dst_cord_i(mem_cmd_dst_cord_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:    ,.dst_cid_i(mem_cmd_dst_cid_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:    ,.packet_o(mem_cmd_packet_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    );</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87: bsg_wormhole_router_adapter_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:  #(.max_payload_width_p($bits(mem_cmd_payload_s)+mem_noc_cid_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:    ,.len_width_p(mem_noc_len_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    ,.cord_width_p(mem_noc_cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:    ,.flit_width_p(mem_noc_flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:  mem_cmd_adapter_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:    ,.packet_i(mem_cmd_packet_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:    ,.v_i(mem_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:    ,.ready_o(mem_cmd_ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    ,.link_i(cmd_link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    ,.link_o(cmd_link_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105: mem_resp_packet_s mem_resp_packet_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: bsg_wormhole_router_adapter_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:  #(.max_payload_width_p($bits(mem_resp_payload_s)+mem_noc_cid_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:    ,.len_width_p(mem_noc_len_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:    ,.cord_width_p(mem_noc_cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:    ,.flit_width_p(mem_noc_flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:  mem_resp_adapter_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:     ,.link_i(resp_link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     ,.link_o(resp_link_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     ,.packet_o(mem_resp_packet_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     ,.v_o(mem_resp_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     ,.yumi_i(mem_resp_yumi_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: mem_resp_payload_s mem_resp_payload_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124: assign mem_resp_payload_lo = mem_resp_packet_lo.payload;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125: assign mem_resp_cast_o = mem_resp_payload_lo.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127: endmodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128: </pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129: </pre>
+</body>
+</html>

@@ -30,7 +30,8 @@
 
 using namespace SURELOG;
 
-void DesignComponent::addFileContent(FileContent* fileContent, NodeId nodeId) {
+void DesignComponent::addFileContent(const FileContent* fileContent,
+                                     NodeId nodeId) {
   bool add = true;
   for (auto f : m_fileContents)
     if (fileContent == f) add = false;
@@ -40,7 +41,8 @@ void DesignComponent::addFileContent(FileContent* fileContent, NodeId nodeId) {
   }
 }
 
-std::vector<FileCNodeId>& DesignComponent::getObjects(VObjectType type) {
+const std::vector<FileCNodeId>& DesignComponent::getObjects(VObjectType type)
+  const {
   auto itr = m_objects.find(type);
   if (itr == m_objects.end()) {
     return m_empty;
@@ -65,10 +67,9 @@ void DesignComponent::addNamedObject(std::string name, FileCNodeId object,
   m_namedObjects.insert(std::make_pair(name, std::make_pair(object, def)));
 }
 
-std::pair<FileCNodeId, DesignComponent*>* DesignComponent::getNamedObject(
-    std::string name) {
-  std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>::iterator
-      itr = m_namedObjects.find(name);
+const std::pair<FileCNodeId, DesignComponent*>* DesignComponent::getNamedObject(
+    const std::string& name) const {
+  auto itr = m_namedObjects.find(name);
   if (itr == m_namedObjects.end()) {
     return NULL;
   } else {
@@ -94,10 +95,10 @@ void DesignComponent::insertDataType(const std::string& dataTypeName,
   m_dataTypes.insert(std::make_pair(dataTypeName, dataType));
 }
 
-DataType* DesignComponent::getDataType(const std::string& name) {
-  DataTypeMap::iterator itr = m_dataTypes.find(name);
+const DataType* DesignComponent::getDataType(const std::string& name) const {
+  DataTypeMap::const_iterator itr = m_dataTypes.find(name);
   if (itr == m_dataTypes.end()) {
-    DesignComponent* parent = (DesignComponent*)getParentScope();
+    const DesignComponent* parent = (const DesignComponent*)getParentScope();
     if (parent) {
       return parent->getDataType(name);
     } else
@@ -121,10 +122,10 @@ DataType* DesignComponent::getUsedDataType(const std::string& name) {
   }
 }
 
-TypeDef* DesignComponent::getTypeDef(const std::string& name) {
-  TypeDefMap::iterator itr = m_typedefs.find(name);
+const TypeDef* DesignComponent::getTypeDef(const std::string& name) const {
+  TypeDefMap::const_iterator itr = m_typedefs.find(name);
   if (itr == m_typedefs.end()) {
-    DesignComponent* parent = dynamic_cast<DesignComponent*>(getParentScope());
+    const DesignComponent* parent = dynamic_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getTypeDef(name);
     } else
@@ -138,10 +139,10 @@ void DesignComponent::insertTypeDef(TypeDef* p) {
   m_typedefs.insert(std::make_pair(p->getName(), p));
 }
 
-Function* DesignComponent::getFunction(const std::string& name) {
-  FunctionMap::iterator itr = m_functions.find(name);
+Function* DesignComponent::getFunction(const std::string& name) const {
+  FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr == m_functions.end()) {
-    DesignComponent* parent = dynamic_cast<DesignComponent*>(getParentScope());
+    const DesignComponent* parent = dynamic_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getFunction(name);
     } else

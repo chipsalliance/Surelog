@@ -32,14 +32,14 @@ namespace SURELOG {
 
 class Task : public Procedure {
  public:
-  Task(DesignComponent* parent, FileContent* fC, NodeId id, std::string name)
+  Task(DesignComponent* parent, const FileContent* fC,
+       NodeId id, std::string name)
       : Procedure(parent, fC, id, name) {}
+
   bool compile(CompileHelper& compile_helper);
   ~Task() override;
-
- private:
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* TASK_H */

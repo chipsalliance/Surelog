@@ -108,6 +108,9 @@ std::string ErrorDefinition::getCategoryName(
     case ErrorDefinition::USER:
       cat = "US";
       break;
+    case ErrorDefinition::UHDM:
+      cat = "UH";
+      break;
   }
   return cat;
 }
@@ -135,6 +138,8 @@ ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(std::string cat) {
     return ErrorDefinition::LINT;
   else if (cat == "US")
     return ErrorDefinition::USER;
+  else if (cat == "UH")
+    return ErrorDefinition::UHDM;
   return ErrorDefinition::USER;
 }
 
@@ -310,6 +315,7 @@ bool ErrorDefinition::init() {
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
+  rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP, "Internal out of bound error");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
@@ -357,5 +363,11 @@ bool ErrorDefinition::init() {
       "Out of range parameter index: \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
+  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
+  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");  
+  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
+  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");  
+  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
+  rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   return true;
 }

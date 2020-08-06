@@ -1,7 +1,6 @@
 /*
 :name: event_comma_op
 :description: event comma operator
-:should_fail: 0
 :tags: 9.4.2.1
 */
 module block_tb ();

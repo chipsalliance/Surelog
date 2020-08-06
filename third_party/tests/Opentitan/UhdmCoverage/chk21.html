@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_pmp.sv Cov: 39% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module ibex_pmp #(</pre>
+<pre style="margin:0; padding:0 ">   6:     // Granularity of NAPOT access,</pre>
+<pre style="margin:0; padding:0 ">   7:     // 0 = No restriction, 1 = 8 byte, 2 = 16 byte, 3 = 32 byte, etc.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:     parameter int unsigned PMPGranularity = 0,</pre>
+<pre style="margin:0; padding:0 ">   9:     // Number of access channels (e.g. i-side + d-side)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     parameter int unsigned PMPNumChan     = 2,</pre>
+<pre style="margin:0; padding:0 ">  11:     // Number of implemented regions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     parameter int unsigned PMPNumRegions  = 4</pre>
+<pre style="margin:0; padding:0 ">  13: ) (</pre>
+<pre style="margin:0; padding:0 ">  14:     // Clock and Reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     input  logic                    clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     input  logic                    rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:     // Interface to CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  ibex_pkg::pmp_cfg_t      csr_pmp_cfg_i  [PMPNumRegions],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     input  logic [33:0]             csr_pmp_addr_i [PMPNumRegions],</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input  ibex_pkg::priv_lvl_e     priv_mode_i    [PMPNumChan],</pre>
+<pre style="margin:0; padding:0 ">  23:     // Access checking channels</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  logic [33:0]             pmp_req_addr_i [PMPNumChan],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     input  ibex_pkg::pmp_req_e      pmp_req_type_i [PMPNumChan],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     output logic                    pmp_req_err_o  [PMPNumChan]</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // Access Checking Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   logic [33:0]                                region_start_addr [PMPNumRegions];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   logic [33:PMPGranularity+2]                 region_addr_mask  [PMPNumRegions];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_high;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_low;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_both;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_perm_check;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   machine_access_fault;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic [PMPNumChan-1:0][PMPNumRegions-1:0]   user_access_allowed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic [PMPNumChan-1:0]                      access_fault;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   // ---------------</pre>
+<pre style="margin:0; padding:0 ">  45:   // Access checking</pre>
+<pre style="margin:0; padding:0 ">  46:   // ---------------</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:   for (genvar r = 0; r < PMPNumRegions; r++) begin : g_addr_exp</pre>
+<pre style="margin:0; padding:0 ">  49:     // Start address for TOR matching</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:     if (r == 0) begin : g_entry0</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:       assign region_start_addr[r] = (csr_pmp_cfg_i[r].mode == PMP_MODE_TOR) ? 34'h000000000 :</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:                                                                               csr_pmp_addr_i[r];</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:     end else begin : g_oth</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:       assign region_start_addr[r] = (csr_pmp_cfg_i[r].mode == PMP_MODE_TOR) ? csr_pmp_addr_i[r-1] :</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:                                                                               csr_pmp_addr_i[r];</pre>
+<pre style="margin:0; padding:0 ">  56:     end</pre>
+<pre style="margin:0; padding:0 ">  57:     // Address mask for NA matching</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:     for (genvar b = PMPGranularity+2; b < 34; b++) begin : g_bitmask</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:       if (b == PMPGranularity+2) begin : g_bit0</pre>
+<pre style="margin:0; padding:0 ">  60:         // Always mask bit (G+2) for NAPOT</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:         assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT);</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:       end else begin : g_others</pre>
+<pre style="margin:0; padding:0 ">  63:         // We will mask this bit if it is within the programmed granule</pre>
+<pre style="margin:0; padding:0 ">  64:         // i.e. addr = yyyy 0111</pre>
+<pre style="margin:0; padding:0 ">  65:         //                  ^</pre>
+<pre style="margin:0; padding:0 ">  66:         //                  | This bit pos is the top of the mask, all lower bits set</pre>
+<pre style="margin:0; padding:0 ">  67:         // thus mask = 1111 0000</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:         assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT) |</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:                                         ~&csr_pmp_addr_i[r][b-1:PMPGranularity+2];</pre>
+<pre style="margin:0; padding:0 ">  70:       end</pre>
+<pre style="margin:0; padding:0 ">  71:     end</pre>
+<pre style="margin:0; padding:0 ">  72:   end</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:   for (genvar c = 0; c < PMPNumChan; c++) begin : g_access_check</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:     for (genvar r = 0; r < PMPNumRegions; r++) begin : g_regions</pre>
+<pre style="margin:0; padding:0 ">  76:       // TOR Region high/low matching is reused for all match types</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:       assign region_match_low[c][r]     = (pmp_req_addr_i[c][33:PMPGranularity+2] >=</pre>
+<pre style="margin:0; padding:0 ">  78:                                            // Comparators are sized according to granularity</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:                                            (region_start_addr[r][33:PMPGranularity+2] &</pre>
+<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">  80:                                             region_addr_mask[r]));</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:       assign region_match_high[c][r]    = (pmp_req_addr_i[c][33:PMPGranularity+2] <=</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:                                            csr_pmp_addr_i[r][33:PMPGranularity+2]);</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:       assign region_match_both[c][r]    = region_match_low[c][r] & region_match_high[c][r] &</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:                                           (csr_pmp_cfg_i[r].mode != PMP_MODE_OFF);</pre>
+<pre style="margin:0; padding:0 ">  85:       // Check specific required permissions</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:       assign region_perm_check[c][r] =</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:           ((pmp_req_type_i[c] == PMP_ACC_EXEC)  & csr_pmp_cfg_i[r].exec) |</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:           ((pmp_req_type_i[c] == PMP_ACC_WRITE) & csr_pmp_cfg_i[r].write) |</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:           ((pmp_req_type_i[c] == PMP_ACC_READ)  & csr_pmp_cfg_i[r].read);</pre>
+<pre style="margin:0; padding:0 ">  90:       // In machine mode, any match to a locked region without sufficient permissions is a fault</pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:       assign machine_access_fault[c][r] = region_match_both[c][r] & csr_pmp_cfg_i[r].lock &</pre>
+<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:                                           ~region_perm_check[c][r];</pre>
+<pre style="margin:0; padding:0 ">  93:       // In any other mode, any access should fault unless is matches a region</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94:       assign user_access_allowed[c][r]  = region_match_both[c][r] & region_perm_check[c][r];</pre>
+<pre style="margin:0; padding:0 ">  95:     end</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  96:     assign access_fault[c] = (priv_mode_i[c] == PRIV_LVL_M) ? |machine_access_fault[c] :</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:                                                               ~|user_access_allowed[c];</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:     assign pmp_req_err_o[c] = access_fault[c];</pre>
+<pre style="margin:0; padding:0 "> 100:   end</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="margin:0; padding:0 "> 102: endmodule</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+</body>
+</html>

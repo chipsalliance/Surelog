@@ -27,7 +27,7 @@
 
 using namespace SURELOG;
 
-Struct::Struct(FileContent* fC, NodeId nameId, NodeId structId)
+Struct::Struct(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {}
 
 Struct::~Struct() {}

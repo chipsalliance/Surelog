@@ -1,7 +1,6 @@
 /*
 :name: jump_return
 :description: A module testing return statement
-:should_fail: 0
 :tags: 12.8
 */
 module jump_tb ();

@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_flash_ctrl_pkg_0.1/rtl/flash_phy_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash phy module package</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package flash_phy_pkg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int NumBanks     = flash_ctrl_pkg::NumBanks;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int PagesPerBank = flash_ctrl_pkg::PagesPerBank;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int WordsPerPage = flash_ctrl_pkg::WordsPerPage;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int BytesPerWord = flash_ctrl_pkg::BytesPerWord;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int BankW        = flash_ctrl_pkg::BankW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int PageW        = flash_ctrl_pkg::PageW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int WordW        = flash_ctrl_pkg::WordW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int BusWidth     = flash_ctrl_pkg::BusWidth;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int DataWidth    = flash_ctrl_pkg::DataWidth;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int NumBuf       = 4; // number of flash read buffers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   parameter int RspOrderDepth = 2; // this should be DataWidth / BusWidth</pre>
+<pre style="margin:0; padding:0 ">  20:                                    // will switch to this after bus widening</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // This address width is from the perspective of the sw / flash controller</pre>
+<pre style="margin:0; padding:0 ">  23:   // which may assume a different width relative to the flash primitive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   parameter int BankAddrW = flash_ctrl_pkg::BankAddrW;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // This address width is from the perspective of the flash primitive,</pre>
+<pre style="margin:0; padding:0 ">  27:   // which is an integer multiple of the bus width.  As a result, the number</pre>
+<pre style="margin:0; padding:0 ">  28:   // of relevant address bits changes.</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // address bits remain must be 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   parameter int AddrBitsRemain = DataWidth % BusWidth;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   // must be powers of 2 multiple</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   parameter int WidthMultiple = DataWidth / BusWidth;</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // number of flash words per page vs bus words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   parameter int FlashWordsPerPage = WordsPerPage / WidthMultiple;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   parameter int FlashWordsW = $clog2(FlashWordsPerPage);</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // base index</pre>
+<pre style="margin:0; padding:0 ">  41:   // This is the lsb position of the prim flash address when looking at the bus address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   parameter int LsbAddrBit = $clog2(WidthMultiple);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   parameter int WordSelW = WidthMultiple == 1 ? 1 : LsbAddrBit;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   // prim flash addr width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   parameter int PrimFlashAddrW = BankAddrW - LsbAddrBit;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Read buffer metadata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     Invalid     = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     Wip         = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     Valid       = 2'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     Undef       = 2'h3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   } rd_buf_attr_e;</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     logic [DataWidth-1:0] data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic [PrimFlashAddrW-1:0] addr; // all address bits preserved to pick return portion</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     rd_buf_attr_e attr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   } rd_buf_t;</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic [NumBuf-1:0] buf_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic [WordSelW-1:0] word_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   } rsp_fifo_entry_t;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   parameter int RspOrderFifoWidth = $bits(rsp_fifo_entry_t);</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   // Flash Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     PhyRead      = 3'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     PhyProg      = 3'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     PhyPgErase   = 3'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     PhyBkErase   = 3'h3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     PhyOps       = 3'h4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   } flash_phy_op_e;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:   // Flash Operations Selected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     None         = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     Host         = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     Ctrl         = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   } flash_phy_op_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88: endpackage // flash_phy_pkg</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+</body>
+</html>

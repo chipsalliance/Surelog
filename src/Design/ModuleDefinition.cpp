@@ -28,31 +28,30 @@
 
 using namespace SURELOG;
 
-ModuleDefinition::ModuleDefinition(FileContent* fileContent, NodeId nodeId,
-                                   std::string& name)
-    : DesignComponent(fileContent, NULL), PortNetHolder(), m_name(name), m_gen_block_id(0) {
+ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
+                                   NodeId nodeId,
+                                   const std::string_view name)
+    : DesignComponent(fileContent, NULL), m_name(name), m_gen_block_id(0) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }
 }
 
-bool ModuleDefinition::isInstance() {
+bool ModuleDefinition::isInstance() const {
   VObjectType type = getType();
-  if ((type == VObjectType::slN_input_gate_instance) ||
-      (type == VObjectType::slModule_declaration) ||
-      (type == VObjectType::slUdp_declaration))
-    return true;
-  return false;
+  return ((type == VObjectType::slN_input_gate_instance) ||
+          (type == VObjectType::slModule_declaration) ||
+          (type == VObjectType::slUdp_declaration));
 }
 
 ModuleDefinition::~ModuleDefinition() {}
 
 ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(
-    FileContent* fileContent, NodeId nodeId, std::string name) {
+  const FileContent* fileContent, NodeId nodeId, std::string_view name) {
   return new ModuleDefinition(fileContent, nodeId, name);
 }
 
-unsigned int ModuleDefinition::getSize() {
+unsigned int ModuleDefinition::getSize() const {
   if (m_fileContents.size()) {
     return 0;
   }
@@ -76,8 +75,8 @@ void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal)
   }
 }
 
-Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) {
-  ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
+const Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) const {
+  ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return NULL;
   } else {

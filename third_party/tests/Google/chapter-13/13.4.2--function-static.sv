@@ -1,7 +1,6 @@
 /*
 :name: function_static
 :description: static function test
-:should_fail: 0
 :tags: 13.4.2
 */
 module top();

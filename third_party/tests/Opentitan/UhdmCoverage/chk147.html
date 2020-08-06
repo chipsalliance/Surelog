@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/aes/rtl/aes_sub_bytes.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES SubBytes</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module aes_sub_bytes #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter SBoxImpl = "lut"</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  aes_pkg::mode_e       mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic [3:0][3:0][7:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic [3:0][3:0][7:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  13: );</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Individually substitute bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   for (genvar j = 0; j < 4; j++) begin : gen_sbox_j</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     for (genvar i = 0; i < 4; i++) begin : gen_sbox_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:       aes_sbox #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:         .SBoxImpl ( SBoxImpl )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:       ) aes_sbox_ij (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:         .mode_i ( mode_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:         .data_i ( data_i[i][j] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:         .data_o ( data_o[i][j] )</pre>
+<pre style="margin:0; padding:0 ">  24:       );</pre>
+<pre style="margin:0; padding:0 ">  25:     end</pre>
+<pre style="margin:0; padding:0 ">  26:   end</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: endmodule</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+</body>
+</html>

@@ -1,7 +1,6 @@
 /*
 :name: function_return
 :description: function return value test
-:should_fail: 0
 :tags: 13.4.1
 :type: simulation parsing
 */

@@ -1,7 +1,6 @@
 /*
 :name: system-functions
 :description: Calling system functions
-:should_fail: 0
 :tags: 5.6.3
 */
 module systemfn();

@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_dv_dpi_dmidpi_0.1/dmidpi.sv Cov: 69.4% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module dmidpi #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   parameter string Name = "dmi0", // name of the interface (display only)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   parameter int ListenPort = 44853 // TCP port to listen on</pre>
+<pre style="margin:0; padding:0 ">   8: )(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input  bit        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  bit        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output bit        dmi_req_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  bit        dmi_req_ready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output bit [6:0]  dmi_req_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   output bit [1:0]  dmi_req_op,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output bit [31:0] dmi_req_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  bit        dmi_rsp_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output bit        dmi_rsp_ready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  bit [31:0] dmi_rsp_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  bit [1:0]  dmi_rsp_resp,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output bit        dmi_rst_n</pre>
+<pre style="margin:0; padding:0 ">  22: );</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:   import "DPI-C"</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:   function chandle dmidpi_create(input string name, input int listen_port);</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre id="id27" style="background-color: #FFB6C1; margin:0; padding:0 ">  27:   import "DPI-C"</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:   function void dmidpi_tick(input chandle ctx, output bit dmi_req_valid,</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:                             input bit dmi_req_ready, output bit [6:0] dmi_req_addr,</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:                             output bit [1:0] dmi_req_op, output bit [31:0] dmi_req_data,</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:                             input bit dmi_rsp_valid, output bit dmi_rsp_ready,</pre>
+<pre id="id32" style="background-color: #FFB6C1; margin:0; padding:0 ">  32:                             input bit [31:0] dmi_rsp_data, input bit [1:0] dmi_rsp_resp,</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:                             output bit dmi_rst_n);</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35:   import "DPI-C"</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36:   function void dmidpi_close(input chandle ctx);</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   chandle ctx;</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     ctx = dmidpi_create(Name, ListenPort);</pre>
+<pre style="margin:0; padding:0 ">  42:   end</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   final begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     dmidpi_close(ctx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     ctx = 0;</pre>
+<pre style="margin:0; padding:0 ">  47:   end</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   always_ff @(posedge clk_i, negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     dmidpi_tick(ctx, dmi_req_valid, dmi_req_ready, dmi_req_addr, dmi_req_op,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                 dmi_req_data, dmi_rsp_valid, dmi_rsp_ready, dmi_rsp_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                 dmi_rsp_resp, dmi_rst_n);</pre>
+<pre style="margin:0; padding:0 ">  53:   end</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55: endmodule</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+</body>
+</html>

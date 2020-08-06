@@ -1,7 +1,6 @@
 /*
 :name: time-literals
 :description: Examples of time literals
-:should_fail: 0
 :tags: 5.8
 */
 

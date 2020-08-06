@@ -29,7 +29,7 @@
 
 namespace SURELOG {
 
-class VObject {
+class VObject final {
  public:
   VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
           NodeId parent = 0)
@@ -52,12 +52,10 @@ class VObject {
         m_child(child),
         m_sibling(sibling) {}
 
-  virtual ~VObject();
-
   static std::string getTypeName(unsigned short type);
 
   std::string print(SymbolTable* symbols, unsigned int uniqueId,
-                    NodeId definitionFile);
+                    NodeId definitionFile) const;
   SymbolId m_name;
   SymbolId m_fileId;
   unsigned short m_type;
@@ -66,10 +64,8 @@ class VObject {
   NodeId m_definition;
   NodeId m_child;
   NodeId m_sibling;
-
- private:
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* VOBJECT_H */

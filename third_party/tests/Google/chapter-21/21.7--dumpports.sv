@@ -1,7 +1,6 @@
 /*
 :name: vcd_dumpports_test
 :description: vcd dump ports tests
-:should_fail: 0
 :tags: 21.7
 :type: simulation parsing
 */

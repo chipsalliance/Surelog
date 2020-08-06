@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_flop_2sync.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Generic double-synchronizer flop</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int Width      = 16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter bit ResetValue = 0</pre>
+<pre style="margin:0; padding:0 ">  10: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input                    clk_i,    // receive clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input                    rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input        [Width-1:0] d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output logic [Width-1:0] q</pre>
+<pre style="margin:0; padding:0 ">  15: );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   logic [Width-1:0] intq;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   always_ff @(posedge clk_i or negedge rst_ni)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:       intq <= {Width{ResetValue}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:       q    <= {Width{ResetValue}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:       intq <= d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       q    <= intq;</pre>
+<pre style="margin:0; padding:0 ">  26:     end</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28: endmodule</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+</body>
+</html>

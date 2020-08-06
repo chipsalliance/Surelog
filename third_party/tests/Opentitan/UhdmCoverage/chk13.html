@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_register_file_ff.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * RISC-V register file</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Register file with 31 or 15x 32 bit wide registers. Register 0 is fixed to 0.</pre>
+<pre style="margin:0; padding:0 ">  10:  * This register file is based on flip flops. Use this register file when</pre>
+<pre style="margin:0; padding:0 ">  11:  * targeting FPGA synthesis or Verilator simulation.</pre>
+<pre style="margin:0; padding:0 ">  12:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module ibex_register_file #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     parameter bit RV32E              = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     parameter int unsigned DataWidth = 32</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="margin:0; padding:0 ">  17:     // Clock and Reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic                 clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic                 rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     input  logic                 test_en_i,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:     //Read port R1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  logic [4:0]           raddr_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     output logic [DataWidth-1:0] rdata_a_o,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:     //Read port R2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     input  logic [4:0]           raddr_b_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     output logic [DataWidth-1:0] rdata_b_o,</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:     // Write port W1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     input  logic [4:0]           waddr_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     input  logic [DataWidth-1:0] wdata_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic                 we_a_i</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37: );</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   localparam int unsigned ADDR_WIDTH = RV32E ? 4 : 5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   localparam int unsigned NUM_WORDS  = 2**ADDR_WIDTH;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [NUM_WORDS-1:0][DataWidth-1:0] rf_reg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [NUM_WORDS-1:1][DataWidth-1:0] rf_reg_tmp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [NUM_WORDS-1:1]                we_a_dec;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   always_comb begin : we_a_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     for (int unsigned i = 1; i < NUM_WORDS; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       we_a_dec[i] = (waddr_a_i == 5'(i)) ?  we_a_i : 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  49:     end</pre>
+<pre style="margin:0; padding:0 ">  50:   end</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // loop from 1 to NUM_WORDS-1 as R0 is nil</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       rf_reg_tmp <= '{default:'0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       for (int r = 1; r < NUM_WORDS; r++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:         if (we_a_dec[r]) rf_reg_tmp[r] <= wdata_a_i;</pre>
+<pre style="margin:0; padding:0 ">  59:       end</pre>
+<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  61:   end</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:   // R0 is nil</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign rf_reg[0] = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign rf_reg[NUM_WORDS-1:1] = rf_reg_tmp[NUM_WORDS-1:1];</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign rdata_a_o = rf_reg[raddr_a_i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   assign rdata_b_o = rf_reg[raddr_b_i];</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70: endmodule</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+</body>
+</html>

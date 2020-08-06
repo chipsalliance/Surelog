@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/uart/rtl/uart_tx.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Description: UART Transmit Module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: module uart_tx (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input               clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input               rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input               tx_enable,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input               tick_baud_x16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic        parity_enable,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input               wr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  logic        wr_parity,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input   [7:0]       wr_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output              idle,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic        tx</pre>
+<pre style="margin:0; padding:0 ">  22: );</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic    [3:0] baud_div_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic          tick_baud_q;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   logic    [3:0] bit_cnt_q, bit_cnt_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic   [10:0] sreg_q, sreg_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic          tx_q, tx_d;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign tx = tx_q;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       baud_div_q  <= 4'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       tick_baud_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     end else if (tick_baud_x16) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:       {tick_baud_q, baud_div_q} <= {1'b0,baud_div_q} + 5'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:       tick_baud_q <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  42:     end</pre>
+<pre style="margin:0; padding:0 ">  43:   end</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       bit_cnt_q <= 4'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       sreg_q    <= 11'h7ff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       tx_q      <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       bit_cnt_q <= bit_cnt_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:       sreg_q    <= sreg_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       tx_q      <= tx_d;</pre>
+<pre style="margin:0; padding:0 ">  54:     end</pre>
+<pre style="margin:0; padding:0 ">  55:   end</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     if (!tx_enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       bit_cnt_d = 4'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:       sreg_d    = 11'h7ff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       tx_d      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       bit_cnt_d = bit_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       sreg_d    = sreg_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       tx_d      = tx_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       if (wr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:         sreg_d    = {1'b1, (parity_enable ? wr_parity : 1'b1), wr_data, 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         bit_cnt_d = (parity_enable ? 4'd11 : 4'd10);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       end else if (tick_baud_q && (bit_cnt_q != 4'h0)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:         sreg_d    = {1'b1, sreg_q[10:1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         tx_d      = sreg_q[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:         bit_cnt_d = bit_cnt_q - 4'h1;</pre>
+<pre style="margin:0; padding:0 ">  73:       end</pre>
+<pre style="margin:0; padding:0 ">  74:     end</pre>
+<pre style="margin:0; padding:0 ">  75:   end</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   assign idle = (tx_enable) ? (bit_cnt_q == 4'h0) : 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79: endmodule</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+</body>
+</html>

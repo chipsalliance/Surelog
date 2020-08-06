@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/rv_dm/rtl/tlul_adapter_host.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // tlul_adapter (Host adapter) converts basic req/grant/rvalid into TL-UL</pre>
+<pre style="margin:0; padding:0 ">   6: // interface. It doesn't need register but combinational logics.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module tlul_adapter_host #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int unsigned AW = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int unsigned DW = 32</pre>
+<pre style="margin:0; padding:0 ">  11: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input clk_i   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input rst_ni  ,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input                   req_i   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output logic            gnt_o   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input        [AW-1:0]   addr_i  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                   we_i    ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        [DW-1:0]   wdata_i ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input        [DW/8-1:0] be_i    ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input        [1:0]      size_i  , // 2**(size_i)</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic            valid_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic [DW-1:0]   rdata_o ,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output tlul_pkg::tl_h2d_t tl_o ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input  tlul_pkg::tl_d2h_t tl_i</pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   tlul_pkg::tl_a_op_e req_op;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign req_op = (we_i) ? tlul_pkg::PutFullData : tlul_pkg::Get ;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   assign tl_o = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     a_valid:      req_i       ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     a_opcode:     req_op      ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     a_param:      '0          ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     a_size:       size_i      ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     a_source:     '0          ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     a_address:    addr_i      ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     a_mask:       be_i        ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     a_data:       wdata_i     ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     a_user:       '0          ,</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     d_ready:      1'b1          // Ready to accept</pre>
+<pre style="margin:0; padding:0 ">  46:   };</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign gnt_o   = tl_i.a_ready; // Do we need to and with req_i? then registers are required</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign valid_o = tl_i.d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   assign rdata_o = tl_i.d_data;</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   // this assertion fails when DBG adapter cannot handle error response</pre>
+<pre style="margin:0; padding:0 ">  54:   `ASSERT(handleErrorResponse, tl_i.d_valid |-> (tl_i.d_error == 1'b0), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56: endmodule</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+</body>
+</html>

@@ -52,7 +52,7 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     const std::string& logFileName =
-        m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
+        m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
     std::ofstream ofs;
     ofs.open(logFileName, std::fstream::out);
     if (!ofs.good()) {
@@ -84,12 +84,12 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
   for (std::multimap<ErrorDefinition::ErrorType, Waiver::WaiverData>::iterator
            it = ret.first;
        it != ret.second; ++it) {
-    if ((((*it).second.m_fileName == "") ||
+    if ((((*it).second.m_fileName.empty()) ||
          (m_symbolTable->getSymbol(error.m_locations[0].m_fileId) ==
           (*it).second.m_fileName)) &&
         (((*it).second.m_line == 0) ||
          (error.m_locations[0].m_line == (*it).second.m_line)) &&
-        (((*it).second.m_objectId == "") ||
+        (((*it).second.m_objectId.empty()) ||
          (m_symbolTable->getSymbol(error.m_locations[0].m_object) ==
           (*it).second.m_objectId))) {
       error.m_waived = true;
@@ -211,8 +211,8 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           size_t objectOffset = text.find("%exloc");
           if (objectOffset != std::string::npos) {
             text = text.replace(objectOffset, 6, extraLocation);
-          } else if (info.m_extraText != "") {
-            text += ",\n               " + info.m_extraText;
+          } else if (!info.m_extraText.empty()) {
+            text += ",\n             " + info.m_extraText;
             // text += ",\n" + info.m_extraText;
             size_t objectOffset = text.find("%exloc");
             if (objectOffset != std::string::npos) {
@@ -220,11 +220,11 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
             }
           }
         } else {
-          if (info.m_extraText != "") {
+          if (!info.m_extraText.empty()) {
             if ((nbExtraLoc == 2) && (extraLoc.m_fileId == 0))
               text += ",\n" + info.m_extraText;
             else
-              text += ",\n               " + info.m_extraText;
+              text += ",\n             " + info.m_extraText;
           }
         }
         if (extraLoc.m_object) {
@@ -374,7 +374,7 @@ bool ErrorContainer::printToLogFile(std::string report) {
   if (!m_clp)
     return false;
   const std::string& logFileName =
-      m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
+      m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
   std::ofstream ofs;
   ofs.open(logFileName, std::fstream::app);
   if (!ofs.good()) {

@@ -1,1 +1,1 @@
-  -timescale=1ns/1ns +vcs+flush+all  +warn=all -sverilog    -d inst   -writepp   -verbose  -mt max -parse +incdir+.+../../../UVM/uvm-1.2/src/    top.v -d ast
+ -timescale=1ns/1ns +vcs+flush+all  +warn=all -sverilog -d inst -writepp -verbose -parse +incdir+.+../../../UVM/uvm-1.2/src/ top.v -d ast -d uhdm -d coveruhdm

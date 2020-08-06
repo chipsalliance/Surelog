@@ -1,7 +1,6 @@
 /*
 :name: structure-arrays
 :description: Structure array assignment tests
-:should_fail: 0
 :tags: 5.10
 */
 module top();

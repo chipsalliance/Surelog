@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_concentrator_out.v Cov: 98.7% </h3>
+<pre style="margin:0; padding:0 ">   1: //</pre>
+<pre style="margin:0; padding:0 ">   2: // bsg_wormhole_concentrator_out.v</pre>
+<pre style="margin:0; padding:0 ">   3: // </pre>
+<pre style="margin:0; padding:0 ">   4: // 08/2019</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // This is an adapter between 1 concentrated wormhole link and N unconcentrated wormhole links.</pre>
+<pre style="margin:0; padding:0 ">   7: // Extra bits (cid) are used in wormhole header to indicate wormhole packet destination.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: // From implementation perspective this is a simplified version bsg_wormhole_router.</pre>
+<pre style="margin:0; padding:0 ">  10: // Wormhole_router relies on 2D routing_matrix, while wormhole_concentrator has fixed 1-to-n </pre>
+<pre style="margin:0; padding:0 ">  11: // and n-to-1 routing. This concentrator reuses most of the building blocks of wormhole_router, </pre>
+<pre style="margin:0; padding:0 ">  12: // concentrator header struct is defined in bsg_wormhole_router.vh.</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // This concentrator has 1-cycle delay from input wormhole link(s) to output wormhole link(s).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: // It has zero bubble between wormhole packets.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19: `include "bsg_defines.v"</pre>
+<pre style="margin:0; padding:0 ">  20: `include "bsg_noc_links.vh"</pre>
+<pre style="margin:0; padding:0 ">  21: `include "bsg_wormhole_router.vh"</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: module bsg_wormhole_concentrator_out</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   #(parameter flit_width_p        = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    ,parameter len_width_p         = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    ,parameter cid_width_p         = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:    ,parameter cord_width_p        = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    ,parameter num_in_p            = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    ,parameter debug_lp            = 0</pre>
+<pre style="margin:0; padding:0 ">  31:    )</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   (input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   ,input reset_i</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // unconcentrated multiple links</pre>
+<pre style="margin:0; padding:0 ">  37:   ,input  [num_in_p-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] links_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   ,output [num_in_p-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] links_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // concentrated single link</pre>
+<pre style="margin:0; padding:0 ">  41:   ,input  [`bsg_ready_and_link_sif_width(flit_width_p)-1:0] concentrated_link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   ,output [`bsg_ready_and_link_sif_width(flit_width_p)-1:0] concentrated_link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   );</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   `declare_bsg_ready_and_link_sif_s(flit_width_p,bsg_ready_and_link_sif_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   `declare_bsg_wormhole_concentrator_header_s(cord_width_p, len_width_p, cid_width_p, bsg_wormhole_concentrator_header_s);</pre>
+<pre style="margin:0; padding:0 ">  47:   </pre>
+<pre style="margin:0; padding:0 ">  48:   bsg_ready_and_link_sif_s [num_in_p-1:0] links_i_cast, links_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   bsg_ready_and_link_sif_s concentrated_link_i_cast, concentrated_link_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   </pre>
+<pre style="margin:0; padding:0 ">  51:   assign links_i_cast = links_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign links_o = links_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   </pre>
+<pre style="margin:0; padding:0 ">  54:   assign concentrated_link_i_cast = concentrated_link_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign concentrated_link_o = concentrated_link_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   </pre>
+<pre style="margin:0; padding:0 ">  57:   genvar i,j;</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:   // Stub unused links</pre>
+<pre style="margin:0; padding:0 ">  60:   for (i = 0; i < num_in_p; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     begin : stub</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       assign links_o_cast[i].ready_and_rev = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     end</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   assign concentrated_link_o_cast.v    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign concentrated_link_o_cast.data = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:   /********** From concentrated side to unconcentrated side **********/</pre>
+<pre style="margin:0; padding:0 ">  69:   </pre>
+<pre style="margin:0; padding:0 ">  70:   wire [flit_width_p-1:0] concentrated_fifo_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   wire                    concentrated_fifo_valid_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:   // one for each input channel; it broadcasts that it is finished to all of the outputs</pre>
+<pre style="margin:0; padding:0 ">  74:   wire concentrated_releases;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:   // from concentrated input to each output</pre>
+<pre style="margin:0; padding:0 ">  77:   wire [num_in_p-1:0] concentrated_reqs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79:   // from each output to concentrated input</pre>
+<pre style="margin:0; padding:0 ">  80:   wire [num_in_p-1:0] concentrated_yumis;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: </pre>
+<pre style="margin:0; padding:0 ">  82:   wire concentrated_any_yumi = | concentrated_yumis;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:   bsg_two_fifo #(.width_p(flit_width_p)) concentrated_twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     ,.ready_o(concentrated_link_o_cast.ready_and_rev)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     ,.data_i (concentrated_link_i_cast.data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     ,.v_i    (concentrated_link_i_cast.v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     ,.v_o    (concentrated_fifo_valid_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     ,.data_o (concentrated_fifo_data_lo )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     ,.yumi_i (concentrated_any_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:      );</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95:   bsg_wormhole_concentrator_header_s concentrated_hdr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign concentrated_hdr = concentrated_fifo_data_lo[$bits(bsg_wormhole_concentrator_header_s)-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   </pre>
+<pre style="margin:0; padding:0 ">  98:   wire [num_in_p-1:0] concentrated_decoded_dest_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   bsg_decode #(.num_out_p(num_in_p)) concentrated_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     (.i(concentrated_hdr.cid[0+:`BSG_SAFE_CLOG2(num_in_p)])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     ,.o(concentrated_decoded_dest_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     );</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104:   bsg_wormhole_router_input_control #(.output_dirs_p(num_in_p), .payload_len_bits_p($bits(concentrated_hdr.len))) concentrated_wic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     ,.fifo_v_i           (concentrated_fifo_valid_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     ,.fifo_yumi_i        (concentrated_any_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     ,.fifo_decoded_dest_i(concentrated_decoded_dest_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     ,.fifo_payload_len_i (concentrated_hdr.len)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     ,.reqs_o             (concentrated_reqs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     ,.release_o          (concentrated_releases) // broadcast to all</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     ,.detected_header_o  ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     );</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:   // iterate through each output channel</pre>
+<pre style="margin:0; padding:0 "> 117:   for (i = 0; i < num_in_p; i=i+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     begin: out_ch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: </pre>
+<pre style="margin:0; padding:0 "> 120:       bsg_wormhole_router_output_control #(.input_dirs_p(1)) concentrated_woc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:         (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:         ,.reqs_i    (concentrated_reqs[i] )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:         ,.release_i (concentrated_releases)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:         ,.valid_i   (concentrated_fifo_valid_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:         ,.yumi_o    (concentrated_yumis[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:         ,.ready_i   (links_i_cast[i].ready_and_rev)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:         ,.valid_o   (links_o_cast[i].v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:         ,.data_sel_o()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:         );</pre>
+<pre style="margin:0; padding:0 "> 131:       </pre>
+<pre style="margin:0; padding:0 "> 132:       assign links_o_cast[i].data = concentrated_fifo_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       </pre>
+<pre style="margin:0; padding:0 "> 134:     end</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="margin:0; padding:0 "> 136: endmodule</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+</body>
+</html>

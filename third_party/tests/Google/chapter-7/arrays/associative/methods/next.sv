@@ -1,7 +1,6 @@
 /*
 :name: associative-arrays-next
 :description: Test support of associative arrays methods (next)
-:should_fail: 0
 :tags: 7.9.6 7.9
 :type: simulation parsing
 */

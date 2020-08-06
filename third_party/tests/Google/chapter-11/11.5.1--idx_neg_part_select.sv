@@ -1,7 +1,6 @@
 /*
 :name: idx_neg_part_select
 :description: indexed negative part-select bit test
-:should_fail: 0
 :tags: 11.5.1
 */
 module top();

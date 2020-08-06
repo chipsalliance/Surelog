@@ -428,6 +428,9 @@ public:
   virtual void enterConst_type(SV3_1aParser::Const_typeContext *ctx) = 0;
   virtual void exitConst_type(SV3_1aParser::Const_typeContext *ctx) = 0;
 
+  virtual void enterVar_type(SV3_1aParser::Var_typeContext *ctx) = 0;
+  virtual void exitVar_type(SV3_1aParser::Var_typeContext *ctx) = 0;
+
   virtual void enterData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext *ctx) = 0;
   virtual void exitData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext *ctx) = 0;
 
@@ -482,41 +485,8 @@ public:
   virtual void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
   virtual void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
 
-  virtual void enterNetType_Supply0(SV3_1aParser::NetType_Supply0Context *ctx) = 0;
-  virtual void exitNetType_Supply0(SV3_1aParser::NetType_Supply0Context *ctx) = 0;
-
-  virtual void enterNetType_Supply1(SV3_1aParser::NetType_Supply1Context *ctx) = 0;
-  virtual void exitNetType_Supply1(SV3_1aParser::NetType_Supply1Context *ctx) = 0;
-
-  virtual void enterNetType_Tri(SV3_1aParser::NetType_TriContext *ctx) = 0;
-  virtual void exitNetType_Tri(SV3_1aParser::NetType_TriContext *ctx) = 0;
-
-  virtual void enterNetType_TriAnd(SV3_1aParser::NetType_TriAndContext *ctx) = 0;
-  virtual void exitNetType_TriAnd(SV3_1aParser::NetType_TriAndContext *ctx) = 0;
-
-  virtual void enterNetType_TriOr(SV3_1aParser::NetType_TriOrContext *ctx) = 0;
-  virtual void exitNetType_TriOr(SV3_1aParser::NetType_TriOrContext *ctx) = 0;
-
-  virtual void enterNetType_TriReg(SV3_1aParser::NetType_TriRegContext *ctx) = 0;
-  virtual void exitNetType_TriReg(SV3_1aParser::NetType_TriRegContext *ctx) = 0;
-
-  virtual void enterNetType_Tri0(SV3_1aParser::NetType_Tri0Context *ctx) = 0;
-  virtual void exitNetType_Tri0(SV3_1aParser::NetType_Tri0Context *ctx) = 0;
-
-  virtual void enterNetType_Tri1(SV3_1aParser::NetType_Tri1Context *ctx) = 0;
-  virtual void exitNetType_Tri1(SV3_1aParser::NetType_Tri1Context *ctx) = 0;
-
-  virtual void enterNetType_Uwire(SV3_1aParser::NetType_UwireContext *ctx) = 0;
-  virtual void exitNetType_Uwire(SV3_1aParser::NetType_UwireContext *ctx) = 0;
-
-  virtual void enterNetType_Wire(SV3_1aParser::NetType_WireContext *ctx) = 0;
-  virtual void exitNetType_Wire(SV3_1aParser::NetType_WireContext *ctx) = 0;
-
-  virtual void enterNetType_Wand(SV3_1aParser::NetType_WandContext *ctx) = 0;
-  virtual void exitNetType_Wand(SV3_1aParser::NetType_WandContext *ctx) = 0;
-
-  virtual void enterNetType_Wor(SV3_1aParser::NetType_WorContext *ctx) = 0;
-  virtual void exitNetType_Wor(SV3_1aParser::NetType_WorContext *ctx) = 0;
+  virtual void enterNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
+  virtual void exitNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
 
   virtual void enterNet_port_type(SV3_1aParser::Net_port_typeContext *ctx) = 0;
   virtual void exitNet_port_type(SV3_1aParser::Net_port_typeContext *ctx) = 0;
@@ -560,38 +530,14 @@ public:
   virtual void enterDrive_strength(SV3_1aParser::Drive_strengthContext *ctx) = 0;
   virtual void exitDrive_strength(SV3_1aParser::Drive_strengthContext *ctx) = 0;
 
-  virtual void enterStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context *ctx) = 0;
-  virtual void exitStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context *ctx) = 0;
+  virtual void enterStrength0(SV3_1aParser::Strength0Context *ctx) = 0;
+  virtual void exitStrength0(SV3_1aParser::Strength0Context *ctx) = 0;
 
-  virtual void enterStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context *ctx) = 0;
-  virtual void exitStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context *ctx) = 0;
+  virtual void enterStrength1(SV3_1aParser::Strength1Context *ctx) = 0;
+  virtual void exitStrength1(SV3_1aParser::Strength1Context *ctx) = 0;
 
-  virtual void enterStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context *ctx) = 0;
-  virtual void exitStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context *ctx) = 0;
-
-  virtual void enterStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context *ctx) = 0;
-  virtual void exitStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context *ctx) = 0;
-
-  virtual void enterStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context *ctx) = 0;
-  virtual void exitStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context *ctx) = 0;
-
-  virtual void enterStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context *ctx) = 0;
-  virtual void exitStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context *ctx) = 0;
-
-  virtual void enterStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context *ctx) = 0;
-  virtual void exitStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context *ctx) = 0;
-
-  virtual void enterStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context *ctx) = 0;
-  virtual void exitStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context *ctx) = 0;
-
-  virtual void enterChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext *ctx) = 0;
-  virtual void exitChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext *ctx) = 0;
-
-  virtual void enterChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext *ctx) = 0;
-  virtual void exitChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext *ctx) = 0;
-
-  virtual void enterChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext *ctx) = 0;
-  virtual void exitChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext *ctx) = 0;
+  virtual void enterCharge_strength(SV3_1aParser::Charge_strengthContext *ctx) = 0;
+  virtual void exitCharge_strength(SV3_1aParser::Charge_strengthContext *ctx) = 0;
 
   virtual void enterDelay3(SV3_1aParser::Delay3Context *ctx) = 0;
   virtual void exitDelay3(SV3_1aParser::Delay3Context *ctx) = 0;
@@ -1091,23 +1037,11 @@ public:
   virtual void enterPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext *ctx) = 0;
   virtual void exitPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext *ctx) = 0;
 
-  virtual void enterPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context *ctx) = 0;
-  virtual void exitPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context *ctx) = 0;
+  virtual void enterPulldown_strength(SV3_1aParser::Pulldown_strengthContext *ctx) = 0;
+  virtual void exitPulldown_strength(SV3_1aParser::Pulldown_strengthContext *ctx) = 0;
 
-  virtual void enterPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context *ctx) = 0;
-  virtual void exitPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context *ctx) = 0;
-
-  virtual void enterPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context *ctx) = 0;
-  virtual void exitPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context *ctx) = 0;
-
-  virtual void enterPullupStrength_01(SV3_1aParser::PullupStrength_01Context *ctx) = 0;
-  virtual void exitPullupStrength_01(SV3_1aParser::PullupStrength_01Context *ctx) = 0;
-
-  virtual void enterPullupStrength_10(SV3_1aParser::PullupStrength_10Context *ctx) = 0;
-  virtual void exitPullupStrength_10(SV3_1aParser::PullupStrength_10Context *ctx) = 0;
-
-  virtual void enterPullupStrength_1(SV3_1aParser::PullupStrength_1Context *ctx) = 0;
-  virtual void exitPullupStrength_1(SV3_1aParser::PullupStrength_1Context *ctx) = 0;
+  virtual void enterPullup_strength(SV3_1aParser::Pullup_strengthContext *ctx) = 0;
+  virtual void exitPullup_strength(SV3_1aParser::Pullup_strengthContext *ctx) = 0;
 
   virtual void enterCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext *ctx) = 0;
   virtual void exitCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext *ctx) = 0;
@@ -1454,44 +1388,8 @@ public:
   virtual void enterOperator_assignment(SV3_1aParser::Operator_assignmentContext *ctx) = 0;
   virtual void exitOperator_assignment(SV3_1aParser::Operator_assignmentContext *ctx) = 0;
 
-  virtual void enterAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext *ctx) = 0;
-  virtual void exitAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext *ctx) = 0;
-
-  virtual void enterAssignOp_Add(SV3_1aParser::AssignOp_AddContext *ctx) = 0;
-  virtual void exitAssignOp_Add(SV3_1aParser::AssignOp_AddContext *ctx) = 0;
-
-  virtual void enterAssignOp_Sub(SV3_1aParser::AssignOp_SubContext *ctx) = 0;
-  virtual void exitAssignOp_Sub(SV3_1aParser::AssignOp_SubContext *ctx) = 0;
-
-  virtual void enterAssignOp_Mult(SV3_1aParser::AssignOp_MultContext *ctx) = 0;
-  virtual void exitAssignOp_Mult(SV3_1aParser::AssignOp_MultContext *ctx) = 0;
-
-  virtual void enterAssignOp_Div(SV3_1aParser::AssignOp_DivContext *ctx) = 0;
-  virtual void exitAssignOp_Div(SV3_1aParser::AssignOp_DivContext *ctx) = 0;
-
-  virtual void enterAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext *ctx) = 0;
-  virtual void exitAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext *ctx) = 0;
-  virtual void exitAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext *ctx) = 0;
-  virtual void exitAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext *ctx) = 0;
-  virtual void exitAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext *ctx) = 0;
-  virtual void exitAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext *ctx) = 0;
-  virtual void exitAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext *ctx) = 0;
-
-  virtual void enterAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext *ctx) = 0;
-  virtual void exitAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext *ctx) = 0;
-
-  virtual void enterAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext *ctx) = 0;
-  virtual void exitAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext *ctx) = 0;
+  virtual void enterAssignment_operator(SV3_1aParser::Assignment_operatorContext *ctx) = 0;
+  virtual void exitAssignment_operator(SV3_1aParser::Assignment_operatorContext *ctx) = 0;
 
   virtual void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext *ctx) = 0;
   virtual void exitNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext *ctx) = 0;
@@ -2135,9 +2033,6 @@ public:
   virtual void enterExpression(SV3_1aParser::ExpressionContext *ctx) = 0;
   virtual void exitExpression(SV3_1aParser::ExpressionContext *ctx) = 0;
 
-  virtual void enterTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext *ctx) = 0;
-  virtual void exitTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext *ctx) = 0;
-
   virtual void enterValue_range(SV3_1aParser::Value_rangeContext *ctx) = 0;
   virtual void exitValue_range(SV3_1aParser::Value_rangeContext *ctx) = 0;
 
@@ -2372,11 +2267,8 @@ public:
   virtual void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
   virtual void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
 
-  virtual void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext *ctx) = 0;
-  virtual void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext *ctx) = 0;
-
-  virtual void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext *ctx) = 0;
-  virtual void exitIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext *ctx) = 0;
+  virtual void enterInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext *ctx) = 0;
+  virtual void exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext *ctx) = 0;
 
   virtual void enterUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext *ctx) = 0;
   virtual void exitUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext *ctx) = 0;

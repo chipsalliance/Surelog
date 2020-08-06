@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/top_earlgrey/rtl/clkgen_xil7series.sv Cov: 79.7% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: module clkgen_xil7series (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   input IO_CLK,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   input IO_RST_N,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   output clk_sys,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   output clk_48MHz,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   output rst_sys_n</pre>
+<pre style="margin:0; padding:0 ">  11: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   logic locked_pll;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   logic io_clk_buf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   logic clk_50_buf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   logic clk_50_unbuf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   logic clk_fb_buf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   logic clk_fb_unbuf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic clk_48_buf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   logic clk_48_unbuf;</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // input buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   IBUF io_clk_ibuf (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     .I (IO_CLK),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     .O (io_clk_buf)</pre>
+<pre style="margin:0; padding:0 ">  25:   );</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   PLLE2_ADV #(</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:     .BANDWIDTH            ("OPTIMIZED"),</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:     .COMPENSATION         ("ZHOLD"),</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:     .STARTUP_WAIT         ("FALSE"),</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:     .DIVCLK_DIVIDE        (1),</pre>
+<pre id="id32" style="background-color: #FFB6C1; margin:0; padding:0 ">  32:     .CLKFBOUT_MULT        (12),</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:     .CLKFBOUT_PHASE       (0.000),</pre>
+<pre id="id34" style="background-color: #FFB6C1; margin:0; padding:0 ">  34:     .CLKOUT0_DIVIDE       (24),</pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35:     .CLKOUT0_PHASE        (0.000),</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36:     .CLKOUT0_DUTY_CYCLE   (0.500),</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37:     .CLKOUT1_DIVIDE       (25),</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:     .CLKOUT1_PHASE        (0.000),</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:     .CLKOUT1_DUTY_CYCLE   (0.500),</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     .CLKIN1_PERIOD        (10.000)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   ) pll (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .CLKFBOUT            (clk_fb_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     .CLKOUT0             (clk_50_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     .CLKOUT1             (clk_48_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     .CLKOUT2             (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     .CLKOUT3             (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     .CLKOUT4             (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .CLKOUT5             (),</pre>
+<pre style="margin:0; padding:0 ">  49:      // Input clock control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     .CLKFBIN             (clk_fb_buf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     .CLKIN1              (io_clk_buf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     .CLKIN2              (1'b0),</pre>
+<pre style="margin:0; padding:0 ">  53:      // Tied to always select the primary input clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .CLKINSEL            (1'b1),</pre>
+<pre style="margin:0; padding:0 ">  55:     // Ports for dynamic reconfiguration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .DADDR               (7'h0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .DCLK                (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .DEN                 (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .DI                  (16'h0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .DO                  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .DRDY                (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .DWE                 (1'b0),</pre>
+<pre style="margin:0; padding:0 ">  63:     // Other control and status signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     .LOCKED              (locked_pll),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .PWRDWN              (1'b0),</pre>
+<pre style="margin:0; padding:0 ">  66:     // Do not reset PLL on external reset, otherwise ILA disconnects at a reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .RST                 (1'b0));</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   // output buffering</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   BUFG clk_fb_bufg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .I (clk_fb_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .O (clk_fb_buf)</pre>
+<pre style="margin:0; padding:0 ">  73:   );</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   BUFG clk_50_bufg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .I (clk_50_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .O (clk_50_buf)</pre>
+<pre style="margin:0; padding:0 ">  78:   );</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   BUFG clk_48_bufg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .I (clk_48_unbuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .O (clk_48_buf)</pre>
+<pre style="margin:0; padding:0 ">  83:   );</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // outputs</pre>
+<pre style="margin:0; padding:0 ">  86:   // clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   assign clk_sys = clk_50_buf; // TODO: choose 50 MHz clock as sysclock for now</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   assign clk_48MHz = clk_48_buf;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90:   // reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   assign rst_sys_n = locked_pll & IO_RST_N;</pre>
+<pre style="margin:0; padding:0 ">  92: endmodule</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+</body>
+</html>

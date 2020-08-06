@@ -27,19 +27,18 @@
 #include "Library/Library.h"
 #include "Design/FileContent.h"
 #include "Design/DesignComponent.h"
-#include "Common/PortNetHolder.h"
 #include "Design/ValuedComponentI.h"
 #include "Design/DataType.h"
 
 namespace SURELOG {
 class CompilePackage;
 
-class Package : public DesignComponent, public PortNetHolder  {
+class Package : public DesignComponent {
   friend CompilePackage;
 
  public:
   Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), PortNetHolder(), m_name(name), m_library(library) {
+      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
   void append(Package* package);
@@ -48,10 +47,10 @@ class Package : public DesignComponent, public PortNetHolder  {
 
   Library* getLibrary() { return m_library; }
 
-  unsigned int getSize() override;
-  VObjectType getType() override { return VObjectType::slPackage_declaration; }
-  bool isInstance() override { return false; }
-  std::string getName() override { return m_name; }
+  unsigned int getSize() const override;
+  VObjectType getType() const override { return VObjectType::slPackage_declaration; }
+  bool isInstance() const override { return false; }
+  const std::string& getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
@@ -66,7 +65,6 @@ class Package : public DesignComponent, public PortNetHolder  {
   std::string m_name;
   Library* m_library;
   ExprBuilder m_exprBuilder;
-  DataTypeMap m_dataTypes;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 };
 

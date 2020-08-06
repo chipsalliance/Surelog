@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_spi_device_0.1/rtl/spi_device.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Serial Peripheral Interface (SPI) Device module.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module spi_device #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int SramAw = 9, // 2kB, SRAM Width is DW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int SramDw = 32</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:   // Register interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // SPI Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input              cio_sck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input              cio_csb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic       cio_miso_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic       cio_miso_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input              cio_mosi_i,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   // Interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic intr_rxf_o,         // RX FIFO Full</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic intr_rxlvl_o,       // RX FIFO above level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic intr_txlvl_o,       // TX FIFO below level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic intr_rxerr_o,       // RX Frame error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic intr_rxoverflow_o,  // RX Async FIFO Overflow</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic intr_txunderflow_o, // TX Async FIFO Underflow</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input scanmode_i</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   import spi_device_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  41:   import spi_device_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   localparam int FifoWidth = $bits(spi_byte_t);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   localparam int FifoDepth = 8; // 2 DWords</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   localparam int SDW = $clog2(SramDw/FifoWidth);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int PtrW = SramAw + 1 + SDW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   localparam int AsFifoDepthW = $clog2(FifoDepth+1);</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic clk_spi_in;   // clock for latch MOSI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic clk_spi_out;  // clock for driving MISO</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   spi_device_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   spi_device_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   tlul_pkg::tl_h2d_t tl_sram_h2d [1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   tlul_pkg::tl_d2h_t tl_sram_d2h [1];</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:   // Dual-port SRAM Interface: Refer prim_ram_2p_wrapper.sv</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic              mem_a_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic              mem_a_write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic [SramAw-1:0] mem_a_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic [SramDw-1:0] mem_a_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic              mem_a_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic [SramDw-1:0] mem_a_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic [1:0]        mem_a_rerror;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic              mem_b_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic              mem_b_write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [SramAw-1:0] mem_b_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [SramDw-1:0] mem_b_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic              mem_b_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic [SramDw-1:0] mem_b_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [1:0]        mem_b_rerror;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  76:   // Control signals //</pre>
+<pre style="margin:0; padding:0 ">  77:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic cpol; // Clock polarity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic cpha; // Phase : Not complete</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic txorder; // TX bitstream order: 0(bit 7 to 0), 1(bit 0 to 7)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic rxorder; // RX bitstream order: 0(bit 7 to 0), 1(bit 0 to 7)</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic abort;  // Abort current operations (txf only at this time)</pre>
+<pre style="margin:0; padding:0 ">  85:                 // Think how FW knows abort is done.</pre>
+<pre style="margin:0; padding:0 ">  86:   //logic abort_done; // TODO: Not implemented yet</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   logic csb_syncd;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic rst_txfifo_n, rst_rxfifo_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic rst_txfifo_reg, rst_rxfifo_reg;</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:   //spi_addr_size_e addr_size; // Not used in fwmode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   spi_mode_e spi_mode;</pre>
+<pre style="margin:0; padding:0 ">  95:   //spi_byte_t fw_dummy_byte;</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic intr_sram_rxf_full, intr_fwm_rxerr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic intr_fwm_rxlvl, rxlvl, rxlvl_d, intr_fwm_txlvl, txlvl, txlvl_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic intr_fwm_rxoverflow, intr_fwm_txunderflow;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // RX Async FIFO Signals</pre>
+<pre style="margin:0; padding:0 "> 102:   //  Write: SCK positive edge</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   logic      rxf_wvalid, rxf_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   spi_byte_t rxf_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic      rxf_overflow;</pre>
+<pre style="margin:0; padding:0 "> 106:   //  Read: Main clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   logic      rxf_rvalid, rxf_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   spi_byte_t rxf_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   logic      rxf_full_syncd;</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:   // TX Async FIFO Signals</pre>
+<pre style="margin:0; padding:0 "> 112:   //   Read: SCK negative edge</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   logic      txf_rvalid, txf_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   spi_byte_t txf_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   logic      txf_underflow;</pre>
+<pre style="margin:0; padding:0 "> 116:   //   Write: Main clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   logic      txf_wvalid, txf_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   spi_byte_t txf_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic      txf_empty_syncd;</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="margin:0; padding:0 "> 121:   // SRAM FIFO control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   typedef enum int {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     FwModeRxFifo = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     FwModeTxFifo = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   } fwm_fifo_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   logic        [7:0] timer_v;   // Wait timer inside rxf control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   logic   [PtrW-1:0] sram_rxf_rptr, sram_rxf_wptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   logic   [PtrW-1:0] sram_txf_rptr, sram_txf_wptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   logic   [PtrW-1:0] sram_rxf_depth, sram_txf_depth;</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   logic [SramAw-1:0] sram_rxf_bindex, sram_txf_bindex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   logic [SramAw-1:0] sram_rxf_lindex, sram_txf_lindex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic        [1:0] fwm_sram_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   logic [SramAw-1:0] fwm_sram_addr  [2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   logic              fwm_sram_write [2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic [SramDw-1:0] fwm_sram_wdata [2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   logic        [1:0] fwm_sram_gnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   logic        [1:0] fwm_sram_rvalid;    // RXF doesn't use</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   logic [SramDw-1:0] fwm_sram_rdata [2]; // RXF doesn't use</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   logic        [1:0] fwm_sram_error [2];</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [AsFifoDepthW-1:0] as_txfifo_depth, as_rxfifo_depth;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   //////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 146:   // Connect phase (between control signals above and register module //</pre>
+<pre style="margin:0; padding:0 "> 147:   //////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign cpol = reg2hw.cfg.cpol.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   assign cpha = reg2hw.cfg.cpha.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   assign txorder = reg2hw.cfg.tx_order.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   assign rxorder = reg2hw.cfg.rx_order.q;</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   assign rst_txfifo_reg = reg2hw.control.rst_txfifo.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign rst_rxfifo_reg = reg2hw.control.rst_rxfifo.q;</pre>
+<pre style="margin:0; padding:0 "> 156: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign timer_v = reg2hw.cfg.timer_v.q;</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   assign sram_rxf_bindex = reg2hw.rxf_addr.base.q[SDW+:SramAw];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign sram_rxf_lindex = reg2hw.rxf_addr.limit.q[SDW+:SramAw];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   assign sram_txf_bindex = reg2hw.txf_addr.base.q[SDW+:SramAw];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   assign sram_txf_lindex = reg2hw.txf_addr.limit.q[SDW+:SramAw];</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign sram_rxf_rptr = reg2hw.rxf_ptr.rptr.q[PtrW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign hw2reg.rxf_ptr.wptr.d = {{(16-PtrW){1'b0}}, sram_rxf_wptr};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   assign hw2reg.rxf_ptr.wptr.de = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 167: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign sram_txf_wptr = reg2hw.txf_ptr.wptr.q[PtrW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   assign hw2reg.txf_ptr.rptr.d = {{(16-PtrW){1'b0}}, sram_txf_rptr};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   assign hw2reg.txf_ptr.rptr.de = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 171: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   assign abort = reg2hw.control.abort.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   assign hw2reg.status.abort_done.d  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   assign hw2reg.status.rxf_empty.d = ~rxf_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   assign hw2reg.status.txf_full.d  = ~txf_wready;</pre>
+<pre style="margin:0; padding:0 "> 177: </pre>
+<pre style="margin:0; padding:0 "> 178:   // SYNC logic required</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   assign hw2reg.status.rxf_full.d = rxf_full_syncd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   assign hw2reg.status.txf_empty.d = txf_empty_syncd;</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="margin:0; padding:0 "> 182:   // CSb : after 2stage synchronizer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:   assign hw2reg.status.csb.d = csb_syncd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   prim_flop_2sync #(.Width(1)) u_sync_csb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     .d(cio_csb_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     .q(csb_syncd)</pre>
+<pre style="margin:0; padding:0 "> 189:   );</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   logic rxf_full_q, txf_empty_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   always_ff @(posedge clk_spi_in or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     if (!rst_ni) rxf_full_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     else         rxf_full_q <= ~rxf_wready;</pre>
+<pre style="margin:0; padding:0 "> 195:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   always_ff @(posedge clk_spi_out or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     if (!rst_ni) txf_empty_q <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     else         txf_empty_q <= ~txf_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 199:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   prim_flop_2sync #(.Width(1)) u_sync_rxf (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     .d(rxf_full_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:     .q(rxf_full_syncd)</pre>
+<pre style="margin:0; padding:0 "> 205:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   prim_flop_2sync #(.Width(1), .ResetValue(1'b1)) u_sync_txe (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     .d(txf_empty_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     .q(txf_empty_syncd)</pre>
+<pre style="margin:0; padding:0 "> 211:   );</pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   assign spi_mode = spi_mode_e'(reg2hw.control.mode.q);</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:   // Async FIFO level</pre>
+<pre style="margin:0; padding:0 "> 216:   //  rx rdepth, tx wdepth to be in main clock domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   assign hw2reg.async_fifo_level.txlvl.d  = {{(8-AsFifoDepthW){1'b0}}, as_txfifo_depth};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   assign hw2reg.async_fifo_level.rxlvl.d  = {{(8-AsFifoDepthW){1'b0}}, as_rxfifo_depth};</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:   // Interrupt</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="margin:0; padding:0 "> 222:   // Edge</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   logic sram_rxf_full_q, fwm_rxerr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:   logic sram_rxf_full  , fwm_rxerr  ;</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226:   // TODO: Check if CE# deasserted in the middle of bit transfer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   assign fwm_rxerr = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       sram_rxf_full_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:       fwm_rxerr_q     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:       sram_rxf_full_q <= sram_rxf_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:       fwm_rxerr_q     <= fwm_rxerr;</pre>
+<pre style="margin:0; padding:0 "> 236:     end</pre>
+<pre style="margin:0; padding:0 "> 237:   end</pre>
+<pre style="margin:0; padding:0 "> 238: </pre>
+<pre style="margin:0; padding:0 "> 239:   // Interrupt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:   assign intr_sram_rxf_full = ~sram_rxf_full_q & sram_rxf_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   assign intr_fwm_rxerr     = ~fwm_rxerr_q & fwm_rxerr;</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:   assign rxlvl_d = (sram_rxf_depth >= reg2hw.fifo_level.rxlvl.q[PtrW-1:0]) ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   assign txlvl_d = (sram_txf_depth <  reg2hw.fifo_level.txlvl.q[PtrW-1:0]) ;</pre>
+<pre style="margin:0; padding:0 "> 245: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:       rxlvl <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:       txlvl <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:       rxlvl <= rxlvl_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:       txlvl <= txlvl_d;</pre>
+<pre style="margin:0; padding:0 "> 253:     end</pre>
+<pre style="margin:0; padding:0 "> 254:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:   assign intr_fwm_rxlvl = ~rxlvl && rxlvl_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:   assign intr_fwm_txlvl = ~txlvl && txlvl_d;</pre>
+<pre style="margin:0; padding:0 "> 257: </pre>
+<pre style="margin:0; padding:0 "> 258:   // rxf_overflow</pre>
+<pre style="margin:0; padding:0 "> 259:   //    Could trigger lint error for input clock.</pre>
+<pre style="margin:0; padding:0 "> 260:   //    It's unavoidable due to the characteristics of SPI intf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:   prim_pulse_sync u_rxf_overflow (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .clk_src_i   (clk_spi_in         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     .rst_src_ni  (rst_ni             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:     .src_pulse_i (rxf_overflow       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     .clk_dst_i   (clk_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:     .rst_dst_ni  (rst_ni             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .dst_pulse_o (intr_fwm_rxoverflow)</pre>
+<pre style="margin:0; padding:0 "> 268:   );</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="margin:0; padding:0 "> 270:   // txf_underflow</pre>
+<pre style="margin:0; padding:0 "> 271:   //    Could trigger lint error for input clock.</pre>
+<pre style="margin:0; padding:0 "> 272:   //    It's unavoidable due to the characteristics of SPI intf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:   prim_pulse_sync u_txf_underflow (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .clk_src_i   (clk_spi_out         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     .rst_src_ni  (rst_ni              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .src_pulse_i (txf_underflow       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:     .clk_dst_i   (clk_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     .rst_dst_ni  (rst_ni              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     .dst_pulse_o (intr_fwm_txunderflow)</pre>
+<pre style="margin:0; padding:0 "> 280:   );</pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:   assign intr_rxlvl_o       = reg2hw.intr_enable.rxlvl.q       & reg2hw.intr_state.rxlvl.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:   assign intr_txlvl_o       = reg2hw.intr_enable.txlvl.q       & reg2hw.intr_state.txlvl.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:   assign intr_rxf_o         = reg2hw.intr_enable.rxf.q         & reg2hw.intr_state.rxf.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:   assign intr_rxerr_o       = reg2hw.intr_enable.rxerr.q       & reg2hw.intr_state.rxerr.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:   assign intr_rxoverflow_o  = reg2hw.intr_enable.rxoverflow.q  & reg2hw.intr_state.rxoverflow.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:   assign intr_txunderflow_o = reg2hw.intr_enable.txunderflow.q & reg2hw.intr_state.txunderflow.q;</pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:   assign hw2reg.intr_state.rxf.d    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   assign hw2reg.intr_state.rxf.de   = intr_sram_rxf_full |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:                                       (reg2hw.intr_test.rxf.qe   & reg2hw.intr_test.rxf.q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:   assign hw2reg.intr_state.rxerr.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   assign hw2reg.intr_state.rxerr.de = intr_fwm_rxerr |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:                                       (reg2hw.intr_test.rxerr.qe & reg2hw.intr_test.rxerr.q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:   assign hw2reg.intr_state.rxlvl.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   assign hw2reg.intr_state.rxlvl.de = intr_fwm_rxlvl |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:                                       (reg2hw.intr_test.rxlvl.qe & reg2hw.intr_test.rxlvl.q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:   assign hw2reg.intr_state.txlvl.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   assign hw2reg.intr_state.txlvl.de = intr_fwm_txlvl |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:                                       (reg2hw.intr_test.txlvl.qe & reg2hw.intr_test.txlvl.q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:   assign hw2reg.intr_state.rxoverflow.d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:   assign hw2reg.intr_state.rxoverflow.de  = intr_fwm_rxoverflow |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       (reg2hw.intr_test.rxoverflow.qe  & reg2hw.intr_test.rxoverflow.q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:   assign hw2reg.intr_state.txunderflow.d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:   assign hw2reg.intr_state.txunderflow.de = intr_fwm_txunderflow |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       (reg2hw.intr_test.txunderflow.qe & reg2hw.intr_test.txunderflow.q);</pre>
+<pre style="margin:0; padding:0 "> 307: </pre>
+<pre style="margin:0; padding:0 "> 308:   //////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 309:   // // Clock & reset control //</pre>
+<pre style="margin:0; padding:0 "> 310:   //////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 311:   //  clk_spi cannot use glitch-free clock mux as clock switching in glitch-free</pre>
+<pre style="margin:0; padding:0 "> 312:   //  requires two clocks to propagate clock selection and enable but SPI clock</pre>
+<pre style="margin:0; padding:0 "> 313:   //  doesn't exist until it transmits data through MOSI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:   logic sck_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:   logic rst_spi_n;</pre>
+<pre style="margin:0; padding:0 "> 316: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:   prim_clock_inverter u_clk_spi (.clk_i(cio_sck_i), .clk_no(sck_n), .scanmode_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:   assign clk_spi_in  = (cpha ^ cpol) ? sck_n    : cio_sck_i   ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:   assign clk_spi_out = (cpha ^ cpol) ? cio_sck_i    : sck_n   ;</pre>
+<pre style="margin:0; padding:0 "> 320: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:   assign rst_spi_n = (scanmode_i) ? rst_ni : rst_ni & ~cio_csb_i;</pre>
+<pre style="margin:0; padding:0 "> 322: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:   assign rst_txfifo_n = (scanmode_i) ? rst_ni : rst_ni & ~rst_txfifo_reg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:   assign rst_rxfifo_n = (scanmode_i) ? rst_ni : rst_ni & ~rst_rxfifo_reg;</pre>
+<pre style="margin:0; padding:0 "> 325: </pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="margin:0; padding:0 "> 327:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 328:   // FW Mode //</pre>
+<pre style="margin:0; padding:0 "> 329:   /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:   spi_fwmode u_fwmode (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:     .clk_in_i     (clk_spi_in),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     .rst_in_ni    (rst_spi_n),</pre>
+<pre style="margin:0; padding:0 "> 333: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     .clk_out_i    (clk_spi_out),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     .rst_out_ni   (rst_spi_n),</pre>
+<pre style="margin:0; padding:0 "> 336: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     .cpha_i        (cpha),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:     .cfg_rxorder_i (rxorder),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:     .cfg_txorder_i (txorder),</pre>
+<pre style="margin:0; padding:0 "> 340: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     .mode_i        (spi_mode),</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:     .rx_wvalid_o   (rxf_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     .rx_wready_i   (rxf_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     .rx_data_o     (rxf_wdata),</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:     .tx_rvalid_i   (txf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     .tx_rready_o   (txf_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:     .tx_data_i     (txf_rdata),</pre>
+<pre style="margin:0; padding:0 "> 350: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:     .rx_overflow_o  (rxf_overflow),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:     .tx_underflow_o (txf_underflow),</pre>
+<pre style="margin:0; padding:0 "> 353: </pre>
+<pre style="margin:0; padding:0 "> 354:     // SPI signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:     .csb_i         (cio_csb_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:     .mosi          (cio_mosi_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:     .miso          (cio_miso_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:     .miso_oe       (cio_miso_en_o)</pre>
+<pre style="margin:0; padding:0 "> 359:   );</pre>
+<pre style="margin:0; padding:0 "> 360: </pre>
+<pre style="margin:0; padding:0 "> 361:   // FIFO: Connecting FwMode to SRAM CTRLs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:   prim_fifo_async #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:     .Width (FifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:     .Depth (FifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:   ) u_rx_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:     .clk_wr_i     (clk_spi_in),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:     .rst_wr_ni    (rst_rxfifo_n),</pre>
+<pre style="margin:0; padding:0 "> 368: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     .clk_rd_i     (clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:     .rst_rd_ni    (rst_rxfifo_n),</pre>
+<pre style="margin:0; padding:0 "> 371: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:     .wvalid       (rxf_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:     .wready       (rxf_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:     .wdata        (rxf_wdata),</pre>
+<pre style="margin:0; padding:0 "> 375: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:     .rvalid       (rxf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:     .rready       (rxf_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:     .rdata        (rxf_rdata),</pre>
+<pre style="margin:0; padding:0 "> 379: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:     .wdepth       (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:     .rdepth       (as_rxfifo_depth)</pre>
+<pre style="margin:0; padding:0 "> 382:   );</pre>
+<pre style="margin:0; padding:0 "> 383: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:   prim_fifo_async #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:     .Width (FifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:     .Depth (FifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:   ) u_tx_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:     .clk_wr_i     (clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:     .rst_wr_ni    (rst_txfifo_n),</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:     .clk_rd_i     (clk_spi_out),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:     .rst_rd_ni    (rst_txfifo_n),</pre>
+<pre style="margin:0; padding:0 "> 393: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:     .wvalid       (txf_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:     .wready       (txf_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:     .wdata        (txf_wdata),</pre>
+<pre style="margin:0; padding:0 "> 397: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:     .rvalid       (txf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:     .rready       (txf_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:     .rdata        (txf_rdata),</pre>
+<pre style="margin:0; padding:0 "> 401: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:     .wdepth       (as_txfifo_depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:     .rdepth       ()</pre>
+<pre style="margin:0; padding:0 "> 404:   );</pre>
+<pre style="margin:0; padding:0 "> 405: </pre>
+<pre style="margin:0; padding:0 "> 406:   // RX Fifo control (FIFO Read port --> SRAM request)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:   spi_fwm_rxf_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:     .FifoDw (FifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:     .SramAw (SramAw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:     .SramDw (SramDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:   ) u_rxf_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 414: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:     .base_index_i  (sram_rxf_bindex),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:     .limit_index_i (sram_rxf_lindex),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:     .timer_v      (timer_v),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:     .rptr         (sram_rxf_rptr),  // Given by FW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:     .wptr         (sram_rxf_wptr),  // to Register interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:     .depth        (sram_rxf_depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:     .full         (sram_rxf_full),</pre>
+<pre style="margin:0; padding:0 "> 422: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:     .fifo_valid  (rxf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:     .fifo_ready  (rxf_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:     .fifo_rdata  (rxf_rdata),</pre>
+<pre style="margin:0; padding:0 "> 426: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:     .sram_req    (fwm_sram_req   [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:     .sram_write  (fwm_sram_write [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:     .sram_addr   (fwm_sram_addr  [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:     .sram_wdata  (fwm_sram_wdata [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:     .sram_gnt    (fwm_sram_gnt   [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:     .sram_rvalid (fwm_sram_rvalid[FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:     .sram_rdata  (fwm_sram_rdata [FwModeRxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:     .sram_error  (fwm_sram_error [FwModeRxFifo])</pre>
+<pre style="margin:0; padding:0 "> 435:   );</pre>
+<pre style="margin:0; padding:0 "> 436: </pre>
+<pre style="margin:0; padding:0 "> 437:   // TX Fifo control (SRAM read request --> FIFO write)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:   spi_fwm_txf_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:     .FifoDw (FifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:     .SramAw (SramAw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:     .SramDw (SramDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:   ) u_txf_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 445: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:     .base_index_i  (sram_txf_bindex),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:     .limit_index_i (sram_txf_lindex),</pre>
+<pre style="margin:0; padding:0 "> 448: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:     .abort        (abort),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:     .rptr         (sram_txf_rptr),  // Given by FW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:     .wptr         (sram_txf_wptr),  // to Register interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:     .depth        (sram_txf_depth),</pre>
+<pre style="margin:0; padding:0 "> 453: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:     .fifo_valid  (txf_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:     .fifo_ready  (txf_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:     .fifo_wdata  (txf_wdata),</pre>
+<pre style="margin:0; padding:0 "> 457: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:     .sram_req    (fwm_sram_req   [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:     .sram_write  (fwm_sram_write [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:     .sram_addr   (fwm_sram_addr  [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:     .sram_wdata  (fwm_sram_wdata [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:     .sram_gnt    (fwm_sram_gnt   [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:     .sram_rvalid (fwm_sram_rvalid[FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:     .sram_rdata  (fwm_sram_rdata [FwModeTxFifo]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:     .sram_error  (fwm_sram_error [FwModeTxFifo])</pre>
+<pre style="margin:0; padding:0 "> 466:   );</pre>
+<pre style="margin:0; padding:0 "> 467: </pre>
+<pre style="margin:0; padding:0 "> 468:   // Arbiter for FIFOs : Connecting between SRAM Ctrls and SRAM interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:   prim_sram_arbiter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:     .N       (2),  // RXF, TXF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:     .SramDw (SramDw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:     .SramAw (SramAw)   // 2kB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:   ) u_fwmode_arb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 476: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:     .req          (fwm_sram_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:     .req_addr     (fwm_sram_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:     .req_write    (fwm_sram_write),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:     .req_wdata    (fwm_sram_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:     .gnt          (fwm_sram_gnt),</pre>
+<pre style="margin:0; padding:0 "> 482: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:     .rsp_rvalid   (fwm_sram_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:     .rsp_rdata    (fwm_sram_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:     .rsp_error    (fwm_sram_error),</pre>
+<pre style="margin:0; padding:0 "> 486: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:     .sram_req     (mem_b_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:     .sram_addr    (mem_b_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:     .sram_write   (mem_b_write),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:     .sram_wdata   (mem_b_wdata),</pre>
+<pre style="margin:0; padding:0 "> 491: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:     .sram_rvalid  (mem_b_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:     .sram_rdata   (mem_b_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 494:     .sram_rerror  (mem_b_rerror)</pre>
+<pre style="margin:0; padding:0 "> 495:   );</pre>
+<pre style="margin:0; padding:0 "> 496: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:   tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:     .SramAw      (SramAw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:     .SramDw      (SramDw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 500:     .Outstanding (1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 501:     .ByteAccess  (0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:   ) u_tlul2sram (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 505: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:     .tl_i (tl_sram_h2d [0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:     .tl_o (tl_sram_d2h [0]),</pre>
+<pre style="margin:0; padding:0 "> 508: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:     .req_o    (mem_a_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 510:     .gnt_i    (mem_a_req),  //Always grant when request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 511:     .we_o     (mem_a_write),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:     .addr_o   (mem_a_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:     .wdata_o  (mem_a_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:     .wmask_o  (),           // Not used</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:     .rdata_i  (mem_a_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:     .rvalid_i (mem_a_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:     .rerror_i (mem_a_rerror)</pre>
+<pre style="margin:0; padding:0 "> 518:   );</pre>
+<pre style="margin:0; padding:0 "> 519: </pre>
+<pre style="margin:0; padding:0 "> 520:   // SRAM Wrapper</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:   prim_ram_2p_adv #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:     .Depth (512),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:     .Width (SramDw),    // 32 x 512 --> 2kB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:     .DataBitsPerMask (1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:     .CfgW  (8),</pre>
+<pre style="margin:0; padding:0 "> 526: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:     .EnableECC           (1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:     .EnableParity        (0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:     .EnableInputPipeline (0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:     .EnableOutputPipeline(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:   ) u_memory_2p (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 533:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 534:     .a_req_i    (mem_a_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 535:     .a_write_i  (mem_a_write),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 536:     .a_addr_i   (mem_a_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:     .a_wdata_i  (mem_a_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:     .a_wmask_i  ({SramDw{1'b1}}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:     .a_rvalid_o (mem_a_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540:     .a_rdata_o  (mem_a_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:     .a_rerror_o (mem_a_rerror),</pre>
+<pre style="margin:0; padding:0 "> 542: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:     .b_req_i    (mem_b_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:     .b_write_i  (mem_b_write),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:     .b_addr_i   (mem_b_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:     .b_wdata_i  (mem_b_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:     .b_wmask_i  ({SramDw{1'b1}}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:     .b_rvalid_o (mem_b_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:     .b_rdata_o  (mem_b_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 550:     .b_rerror_o (mem_b_rerror),</pre>
+<pre style="margin:0; padding:0 "> 551: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:     .cfg_i      ('0)</pre>
+<pre style="margin:0; padding:0 "> 553:   );</pre>
+<pre style="margin:0; padding:0 "> 554: </pre>
+<pre style="margin:0; padding:0 "> 555:   // Register module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 556:   spi_device_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 557:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 559: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:     .tl_i (tl_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:     .tl_o (tl_o),</pre>
+<pre style="margin:0; padding:0 "> 562: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 563:     .tl_win_o (tl_sram_h2d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:     .tl_win_i (tl_sram_d2h),</pre>
+<pre style="margin:0; padding:0 "> 565: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 "> 568: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 "> 570:   );</pre>
+<pre style="margin:0; padding:0 "> 571: </pre>
+<pre style="margin:0; padding:0 "> 572:   // make sure scanmode_i is never X (including during reset)</pre>
+<pre style="margin:0; padding:0 "> 573:   `ASSERT_KNOWN(scanmodeKnown, scanmode_i, clk_i, 0)</pre>
+<pre style="margin:0; padding:0 "> 574:   `ASSERT_KNOWN(CioMisoEnOKnown, cio_miso_en_o)</pre>
+<pre style="margin:0; padding:0 "> 575: </pre>
+<pre style="margin:0; padding:0 "> 576:   `ASSERT_KNOWN(IntrRxfOKnown,         intr_rxf_o        )</pre>
+<pre style="margin:0; padding:0 "> 577:   `ASSERT_KNOWN(IntrRxlvlOKnown,       intr_rxlvl_o      )</pre>
+<pre style="margin:0; padding:0 "> 578:   `ASSERT_KNOWN(IntrTxlvlOKnown,       intr_txlvl_o      )</pre>
+<pre style="margin:0; padding:0 "> 579:   `ASSERT_KNOWN(IntrRxerrOKnown,       intr_rxerr_o      )</pre>
+<pre style="margin:0; padding:0 "> 580:   `ASSERT_KNOWN(IntrRxoverflowOKnown,  intr_rxoverflow_o )</pre>
+<pre style="margin:0; padding:0 "> 581:   `ASSERT_KNOWN(IntrTxunderflowOKnown, intr_txunderflow_o)</pre>
+<pre style="margin:0; padding:0 "> 582: </pre>
+<pre style="margin:0; padding:0 "> 583: endmodule</pre>
+<pre style="margin:0; padding:0 "> 584: </pre>
+</body>
+</html>

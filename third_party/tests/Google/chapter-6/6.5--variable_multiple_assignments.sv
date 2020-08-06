@@ -1,7 +1,7 @@
 /*
 :name: variable_multiple_assignments
 :description: Variable multiple assignments tests
-:should_fail: 1
+:should_fail_because: multiple continuous assignements are not allowed
 :tags: 6.5
 :type: simulation
 */

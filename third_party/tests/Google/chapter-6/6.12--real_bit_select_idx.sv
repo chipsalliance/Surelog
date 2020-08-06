@@ -1,7 +1,7 @@
 /*
 :name: real_bit_select
 :description: real bit select tests
-:should_fail: 1
+:should_fail_because: bit selection index cannot be real value
 :tags: 6.12
 :type: simulation
 */

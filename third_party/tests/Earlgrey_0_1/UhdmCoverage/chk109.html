@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_clock_inverter.sv Cov: 73.3% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Clock inverter</pre>
+<pre style="margin:0; padding:0 ">   6: //   Varies on the process</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module prim_clock_inverter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter bit HasScanMode = 1'b1</pre>
+<pre style="margin:0; padding:0 ">  10: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input        scanmode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic clk_no      // Inverted</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   if (HasScanMode) begin : gen_scan</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     prim_clock_mux2 i_dft_tck_mux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:      .clk0_i ( ~clk_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:      .clk1_i ( clk_i      ), // bypass the inverted clock for testing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:      .sel_i  ( scanmode_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:      .clk_o  ( clk_no     )</pre>
+<pre style="margin:0; padding:0 ">  22:     );</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:   end else begin : gen_noscan</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:     logic unused_scanmode;</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:     assign unused_scanmode = scanmode_i;</pre>
+<pre id="id26" style="background-color: #FFB6C1; margin:0; padding:0 ">  26:     assign clk_no = ~clk_i;</pre>
+<pre style="margin:0; padding:0 ">  27:   end</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29: endmodule</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+</body>
+</html>

@@ -43,36 +43,42 @@ class ClassDefinition : public DesignComponent, public DataType {
 
  public:
   ClassDefinition(std::string name, Library* library,
-                  DesignComponent* container, FileContent* fC, NodeId nodeId,
+                  DesignComponent* container, const FileContent* fC,
+                  NodeId nodeId,
                   ClassDefinition* parent);
 
   ~ClassDefinition() override;
 
-  unsigned int getSize() override;
-  VObjectType getType() override { return VObjectType::slClass_declaration; }
-  bool isInstance() override { return false; }
-  std::string getName() override { return m_name; }
+  virtual Category getCategory() { return Category::CLASS; }
+
+  unsigned int getSize() const override;
+  VObjectType getType() const override {
+    return VObjectType::slClass_declaration;
+  }
+  bool isInstance() const override { return false; }
+  const std::string& getName() const override { return m_name; }
   Library* getLibrary() { return m_library; }
-  DesignComponent* getContainer() { return m_container; }
+  DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
 
   // Parameter definitions are stored DesignComponent maps
   typedef std::map<std::string, Property*> PropertyMap;
   typedef std::map<std::string, TaskMethod*> TaskMap;
   typedef std::map<std::string, Constraint*> ConstraintMap;
-  typedef std::map<std::string, DataType*> BaseClassMap;
+  typedef std::map<std::string, const DataType*> BaseClassMap;
   typedef std::map<std::string, ClassDefinition*> ClassMap;
   typedef std::map<std::string, CoverGroupDefinition*> CoverGroupMap;
   typedef std::map<std::string, Parameter*> ParameterMap;
 
   PropertyMap& getPropertyMap() { return m_properties; }
-  Property* getProperty(const std::string& name);
+  Property* getProperty(const std::string& name) const;
   void insertProperty(Property* p);
 
-  Function* getFunction(const std::string& name) override;
+  Function* getFunction(const std::string& name) const override;
 
-  TaskMap& getTaskMap() { return m_tasks; }
-  TaskMethod* getTask(const std::string& name);
+  const TaskMap& getTaskMap() const { return m_tasks; }
+  TaskMap& getMutableTaskMap() { return m_tasks; }
+  TaskMethod* getTask(const std::string& name) const;
   void insertTask(TaskMethod* p);
 
   ConstraintMap& getConstraintMap() { return m_constraints; }
@@ -88,17 +94,18 @@ class ClassDefinition : public DesignComponent, public DataType {
   CoverGroupDefinition* getCoverGroup(const std::string& name);
   void insertCoverGroup(CoverGroupDefinition* p);
 
-  BaseClassMap& getBaseClassMap() { return m_baseclasses; }
-  DataType* getBaseClass(const std::string& name);
+  const BaseClassMap& getBaseClassMap() const { return m_baseclasses; }
+  BaseClassMap& getMutableBaseClassMap() { return m_baseclasses; }
+  const DataType* getBaseClass(const std::string& name) const;
   void insertBaseClass(DataType* p);
 
   ParameterMap& getParameterMap() { return m_parameters; }
-  Parameter* getParameter(const std::string& name);
+  Parameter* getParameter(const std::string& name) const;
   void insertParameter(Parameter* p);
 
-  DataType* getBaseDataType(std::string type);
+  const DataType* getBaseDataType(const std::string& type) const;
 
-  bool hasCompleteBaseSpecification();
+  bool hasCompleteBaseSpecification() const;
 
  private:
   std::string m_name;
@@ -114,6 +121,6 @@ class ClassDefinition : public DesignComponent, public DataType {
   ParameterMap m_parameters;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* CLASSDEFINITION_H */

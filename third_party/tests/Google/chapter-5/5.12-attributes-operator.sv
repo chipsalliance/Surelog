@@ -1,7 +1,6 @@
 /*
 :name: attributes-operator
 :description: Assing attributes to an operator
-:should_fail: 0
 :tags: 5.12
 */
 

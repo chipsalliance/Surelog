@@ -1,7 +1,6 @@
 /*
 :name: stream_concat
 :description: stream concatenation test
-:should_fail: 0
 :tags: 11.4.14.1
 */
 module top();

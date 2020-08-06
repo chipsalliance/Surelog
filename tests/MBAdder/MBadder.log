@@ -1,0 +1,313 @@
+[INF:CM0023] Creating log file ../../build/tests/MBadder/slpp_all/surelog.log.
+
+[WRN:CM0010] Command line argument "-ast" ignored.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "MultibitAdder".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:1: Compile module "work@MultibitAdder".
+
+[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
+
+[INF:CP0302] builtin.sv:33: Compile class "work@process".
+
+[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+
+[NTE:CP0309] dut.sv:1: Implicit port type (wire) for "sum",
+there are 1 more instances of this message.
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:1: Top level module "work@MultibitAdder".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/MBadder/slpp_all//surelog.uhdm.chk
+====== UHDM =======
+design: (work@MultibitAdder)
+|vpiName:work@MultibitAdder
+|uhdmallPackages:
+\_package: builtin, parent:work@MultibitAdder
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiFullName:builtin::builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiFullName:builtin::builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiFullName:builtin::builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiFullName:builtin::builtin::system
+|uhdmallClasses:
+\_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@MultibitAdder
+  |vpiName:work@mailbox
+|uhdmallClasses:
+\_class_defn: (work@process), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:33, parent:work@MultibitAdder
+  |vpiName:work@process
+|uhdmallClasses:
+\_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@MultibitAdder
+  |vpiName:work@semaphore
+|uhdmallModules:
+\_module: work@MultibitAdder, file:dut.sv, line:1, parent:work@MultibitAdder
+  |vpiDefName:work@MultibitAdder
+  |vpiFullName:work@MultibitAdder
+  |vpiPort:
+  \_port: (a), line:1
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (a), line:1
+        |vpiName:a
+        |vpiFullName:work@MultibitAdder.a
+  |vpiPort:
+  \_port: (b), line:1
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (b), line:1
+        |vpiName:b
+        |vpiFullName:work@MultibitAdder.b
+  |vpiPort:
+  \_port: (cin), line:1
+    |vpiName:cin
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (cin), line:1
+        |vpiName:cin
+        |vpiFullName:work@MultibitAdder.cin
+  |vpiPort:
+  \_port: (sum), line:1
+    |vpiName:sum
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (sum), line:1
+        |vpiName:sum
+        |vpiFullName:work@MultibitAdder.sum
+  |vpiPort:
+  \_port: (cout), line:1
+    |vpiName:cout
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (cout), line:1
+        |vpiName:cout
+        |vpiFullName:work@MultibitAdder.cout
+  |vpiContAssign:
+  \_cont_assign: , line:6
+    |vpiRhs:
+    \_operation: , line:6
+      |vpiOpType:24
+      |vpiOperand:
+      \_operation: , line:6
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (a), line:6
+          |vpiName:a
+          |vpiFullName:work@MultibitAdder.a
+        |vpiOperand:
+        \_ref_obj: (b), line:6
+          |vpiName:b
+          |vpiFullName:work@MultibitAdder.b
+      |vpiOperand:
+      \_ref_obj: (cin), line:6
+        |vpiName:cin
+        |vpiFullName:work@MultibitAdder.cin
+    |vpiLhs:
+    \_operation: , line:6
+      |vpiOpType:33
+      |vpiOperand:
+      \_ref_obj: (cout), line:6
+        |vpiName:cout
+        |vpiFullName:work@MultibitAdder.cout
+      |vpiOperand:
+      \_ref_obj: (sum), line:6
+        |vpiName:sum
+        |vpiFullName:work@MultibitAdder.sum
+  |vpiNet:
+  \_logic_net: (a), line:1
+  |vpiNet:
+  \_logic_net: (b), line:1
+  |vpiNet:
+  \_logic_net: (cin), line:1
+  |vpiNet:
+  \_logic_net: (sum), line:1
+  |vpiNet:
+  \_logic_net: (cout), line:1
+|uhdmtopModules:
+\_module: work@MultibitAdder (work@MultibitAdder), file:dut.sv, line:1
+  |vpiDefName:work@MultibitAdder
+  |vpiName:work@MultibitAdder
+  |vpiPort:
+  \_port: (a), line:1, parent:work@MultibitAdder
+    |vpiName:a
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (a), line:1, parent:work@MultibitAdder
+        |vpiName:a
+        |vpiFullName:work@MultibitAdder.a
+        |vpiRange:
+        \_range: , line:2
+          |vpiLeftRange:
+          \_constant: , line:2
+            |vpiConstType:7
+            |vpiDecompile:3
+            |vpiSize:32
+            |INT:3
+          |vpiRightRange:
+          \_constant: , line:2
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+  |vpiPort:
+  \_port: (b), line:1, parent:work@MultibitAdder
+    |vpiName:b
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (b), line:1, parent:work@MultibitAdder
+        |vpiName:b
+        |vpiFullName:work@MultibitAdder.b
+        |vpiRange:
+        \_range: , line:2
+          |vpiLeftRange:
+          \_constant: , line:2
+            |vpiConstType:7
+            |vpiDecompile:3
+            |vpiSize:32
+            |INT:3
+          |vpiRightRange:
+          \_constant: , line:2
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+  |vpiPort:
+  \_port: (cin), line:1, parent:work@MultibitAdder
+    |vpiName:cin
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (cin), line:1, parent:work@MultibitAdder
+        |vpiName:cin
+        |vpiFullName:work@MultibitAdder.cin
+  |vpiPort:
+  \_port: (sum), line:1, parent:work@MultibitAdder
+    |vpiName:sum
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (sum), line:1, parent:work@MultibitAdder
+        |vpiName:sum
+        |vpiFullName:work@MultibitAdder.sum
+        |vpiRange:
+        \_range: , line:4
+          |vpiLeftRange:
+          \_constant: , line:4
+            |vpiConstType:7
+            |vpiDecompile:3
+            |vpiSize:32
+            |INT:3
+          |vpiRightRange:
+          \_constant: , line:4
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+  |vpiPort:
+  \_port: (cout), line:1, parent:work@MultibitAdder
+    |vpiName:cout
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (cout), line:1, parent:work@MultibitAdder
+        |vpiName:cout
+        |vpiFullName:work@MultibitAdder.cout
+  |vpiContAssign:
+  \_cont_assign: , line:6
+    |vpiRhs:
+    \_operation: , line:6
+      |vpiOpType:24
+      |vpiOperand:
+      \_operation: , line:6
+        |vpiOpType:24
+        |vpiOperand:
+        \_ref_obj: (a), line:6
+          |vpiName:a
+          |vpiFullName:work@MultibitAdder.a
+          |vpiActual:
+          \_logic_net: (a), line:1, parent:work@MultibitAdder
+        |vpiOperand:
+        \_ref_obj: (b), line:6
+          |vpiName:b
+          |vpiFullName:work@MultibitAdder.b
+          |vpiActual:
+          \_logic_net: (b), line:1, parent:work@MultibitAdder
+      |vpiOperand:
+      \_ref_obj: (cin), line:6
+        |vpiName:cin
+        |vpiFullName:work@MultibitAdder.cin
+        |vpiActual:
+        \_logic_net: (cin), line:1, parent:work@MultibitAdder
+    |vpiLhs:
+    \_operation: , line:6
+      |vpiOpType:33
+      |vpiOperand:
+      \_ref_obj: (cout), line:6
+        |vpiName:cout
+        |vpiFullName:work@MultibitAdder.cout
+        |vpiActual:
+        \_logic_net: (cout), line:1, parent:work@MultibitAdder
+      |vpiOperand:
+      \_ref_obj: (sum), line:6
+        |vpiName:sum
+        |vpiFullName:work@MultibitAdder.sum
+        |vpiActual:
+        \_logic_net: (sum), line:1, parent:work@MultibitAdder
+  |vpiNet:
+  \_logic_net: (a), line:1, parent:work@MultibitAdder
+  |vpiNet:
+  \_logic_net: (b), line:1, parent:work@MultibitAdder
+  |vpiNet:
+  \_logic_net: (cin), line:1, parent:work@MultibitAdder
+  |vpiNet:
+  \_logic_net: (sum), line:1, parent:work@MultibitAdder
+  |vpiNet:
+  \_logic_net: (cout), line:1, parent:work@MultibitAdder
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 6
+

@@ -1,7 +1,6 @@
 /*
 :name: implemented_class_handle
 :description: it should be possible to assign object handle to a variable of an implemented class type
-:should_fail: 0
 :tags: 8.26.5
 */
 module class_tb ();

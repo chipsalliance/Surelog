@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/tlul/rtl/tlul_err_resp.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // TL-UL error responder module, used by tlul_socket_1n to help response</pre>
+<pre style="margin:0; padding:0 ">   6: // to requests to no correct address space. Responses are always one cycle</pre>
+<pre style="margin:0; padding:0 ">   7: // after request with no stalling unless response is stuck on the way out.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: module tlul_err_resp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input                     rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output tlul_pkg::tl_d2h_t tl_h_o</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15:   import tlul_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   tl_a_op_e                          err_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic [$bits(tl_h_i.a_source)-1:0] err_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   logic [$bits(tl_h_i.a_size)-1:0]   err_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic                              err_req_pending, err_rsp_pending;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:       err_req_pending <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       err_source      <= {top_pkg::TL_AIW{1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:       err_opcode      <= Get;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       err_size        <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     end else if (tl_h_i.a_valid && tl_h_o.a_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       err_req_pending <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       err_source      <= tl_h_i.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:       err_opcode      <= tl_h_i.a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:       err_size        <= tl_h_i.a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     end else if (!err_rsp_pending) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       err_req_pending <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  35:     end</pre>
+<pre style="margin:0; padding:0 ">  36:   end</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   assign tl_h_o.a_ready  = ~err_rsp_pending & ~(err_req_pending & ~tl_h_i.d_ready);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   assign tl_h_o.d_valid  = err_req_pending | err_rsp_pending;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign tl_h_o.d_data   = '1; // Return all F</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign tl_h_o.d_source = err_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   assign tl_h_o.d_sink   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   assign tl_h_o.d_param  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   assign tl_h_o.d_size   = err_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   assign tl_h_o.d_opcode = (err_opcode == Get) ? AccessAckData : AccessAck;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   assign tl_h_o.d_user   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   assign tl_h_o.d_error  = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       err_rsp_pending <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     end else if ((err_req_pending || err_rsp_pending) && !tl_h_i.d_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       err_rsp_pending <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       err_rsp_pending <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  56:     end</pre>
+<pre style="margin:0; padding:0 ">  57:   end</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59: endmodule</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+</body>
+</html>

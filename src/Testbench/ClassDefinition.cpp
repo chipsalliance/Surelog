@@ -27,7 +27,8 @@
 using namespace SURELOG;
 
 ClassDefinition::ClassDefinition(std::string name, Library* library,
-                                 DesignComponent* container, FileContent* fC,
+                                 DesignComponent* container,
+                                 const FileContent* fC,
                                  NodeId nodeId, ClassDefinition* parent)
     : DesignComponent(container ? container : fC, NULL),
       DataType(fC, nodeId, name,
@@ -41,20 +42,20 @@ ClassDefinition::ClassDefinition(std::string name, Library* library,
 
 ClassDefinition::~ClassDefinition() {}
 
-unsigned int ClassDefinition::getSize() {
+unsigned int ClassDefinition::getSize() const {
   NodeId end = m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
   unsigned int size = end - begin;
   return size;
 }
 
-Property* ClassDefinition::getProperty(const std::string& name) {
-  PropertyMap::iterator itr = m_properties.find(name);
+Property* ClassDefinition::getProperty(const std::string& name) const {
+  PropertyMap::const_iterator itr = m_properties.find(name);
   if (itr == m_properties.end()) {
     for (auto parent : getBaseClassMap()) {
       if (parent.second) {
-        ClassDefinition* cparent =
-            dynamic_cast<ClassDefinition*>(parent.second);
+        const ClassDefinition* cparent =
+            dynamic_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
           Property* d = cparent->getProperty(name);
           if (d) return d;
@@ -71,15 +72,16 @@ void ClassDefinition::insertProperty(Property* p) {
   m_properties.insert(std::make_pair(p->getName(), p));
 }
 
-Function* ClassDefinition::getFunction(const std::string& name) {
-  FunctionMap::iterator itr = m_functions.find(name);
+Function* ClassDefinition::getFunction(const std::string& name) const {
+  FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr != m_functions.end()) {
     return (*itr).second;
   }
 
-  for (auto parent : getBaseClassMap()) {
+  for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
-      ClassDefinition* cparent = dynamic_cast<ClassDefinition*>(parent.second);
+      const ClassDefinition* cparent
+        = dynamic_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         Function* d = cparent->getFunction(name);
         if (d) return d;
@@ -94,13 +96,13 @@ Function* ClassDefinition::getFunction(const std::string& name) {
   return NULL;
 }
 
-TaskMethod* ClassDefinition::getTask(const std::string& name) {
-  TaskMap::iterator itr = m_tasks.find(name);
+TaskMethod* ClassDefinition::getTask(const std::string& name) const {
+  TaskMap::const_iterator itr = m_tasks.find(name);
   if (itr == m_tasks.end()) {
-    for (auto parent : getBaseClassMap()) {
+    for (const auto& parent : getBaseClassMap()) {
       if (parent.second) {
-        ClassDefinition* cparent =
-            dynamic_cast<ClassDefinition*>(parent.second);
+        const ClassDefinition* cparent =
+            dynamic_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
           TaskMethod* d = cparent->getTask(name);
           if (d) return d;
@@ -156,8 +158,8 @@ void ClassDefinition::insertCoverGroup(CoverGroupDefinition* p) {
   m_covergroups.insert(std::make_pair(p->getName(), p));
 }
 
-DataType* ClassDefinition::getBaseClass(const std::string& name) {
-  BaseClassMap::iterator itr = m_baseclasses.find(name);
+const DataType* ClassDefinition::getBaseClass(const std::string& name) const {
+  BaseClassMap::const_iterator itr = m_baseclasses.find(name);
   if (itr == m_baseclasses.end()) {
     return NULL;
   } else {
@@ -169,8 +171,8 @@ void ClassDefinition::insertBaseClass(DataType* p) {
   m_baseclasses.insert(std::make_pair(p->getName(), p));
 }
 
-Parameter* ClassDefinition::getParameter(const std::string& name) {
-  ParameterMap::iterator itr = m_parameters.find(name);
+Parameter* ClassDefinition::getParameter(const std::string& name) const {
+  ParameterMap::const_iterator itr = m_parameters.find(name);
   if (itr == m_parameters.end()) {
     return NULL;
   } else {
@@ -182,16 +184,17 @@ void ClassDefinition::insertParameter(Parameter* p) {
   m_parameters.insert(std::make_pair(p->getName(), p));
 }
 
-DataType* ClassDefinition::getBaseDataType(std::string name) {
-  DataTypeMap& dataTypes = getDataTypeMap();
-  DataTypeMap::iterator itr = dataTypes.find(name);
+const DataType* ClassDefinition::getBaseDataType(const std::string& name)
+  const {
+  const DataTypeMap& dataTypes = getDataTypeMap();
+  DataTypeMap::const_iterator itr = dataTypes.find(name);
   if (itr == dataTypes.end()) {
     for (auto parent : getBaseClassMap()) {
       if (parent.second) {
-        ClassDefinition* cparent =
-            dynamic_cast<ClassDefinition*>(parent.second);
+        const ClassDefinition* cparent =
+            dynamic_cast<const ClassDefinition*>(parent.second);
         if (cparent) {
-          DataType* d = cparent->getBaseDataType(name);
+          const DataType* d = cparent->getBaseDataType(name);
           if (d) return d;
         }
       }
@@ -202,14 +205,15 @@ DataType* ClassDefinition::getBaseDataType(std::string name) {
   }
 }
 
-bool ClassDefinition::hasCompleteBaseSpecification() {
-  for (auto parent : getBaseClassMap()) {
+bool ClassDefinition::hasCompleteBaseSpecification() const {
+  for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
-      ClassDefinition* cparent = dynamic_cast<ClassDefinition*>(parent.second);
+      const ClassDefinition* cparent
+        = dynamic_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         return cparent->hasCompleteBaseSpecification();
       }
-      Parameter* param = dynamic_cast<Parameter*>(parent.second);
+      const Parameter* param = dynamic_cast<const Parameter*>(parent.second);
       if (param) return false;
     }
   }

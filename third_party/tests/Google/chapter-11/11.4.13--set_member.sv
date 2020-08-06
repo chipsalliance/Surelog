@@ -1,7 +1,6 @@
 /*
 :name: set_member
 :description: inside operator test
-:should_fail: 0
 :tags: 11.4.13
 */
 module top();

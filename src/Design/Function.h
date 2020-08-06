@@ -38,7 +38,7 @@ namespace SURELOG {
 
 class Procedure : public Scope, public Statement {
  public:
-  Procedure(DesignComponent* parent, FileContent* fC, NodeId id,
+  Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
             std::string name)
       : Scope(name, NULL),
         Statement(this, NULL, fC, id,
@@ -50,19 +50,19 @@ class Procedure : public Scope, public Statement {
 
   ~Procedure() override {}
 
-  DesignComponent* getParent() { return m_parent; }
+  DesignComponent* getParent() const { return m_parent; }
 
-  std::string getName() { return m_name; }
+  const std::string& getName() const { return m_name; }
 
-  FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
 
-  NodeId getNodeId() { return m_nodeId; }
+  NodeId getNodeId() const { return m_nodeId; }
 
   TfPortList& getParams() { return m_params; }
 
  protected:
   DesignComponent* m_parent;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   std::string m_name;
   TfPortList m_params;
@@ -71,7 +71,7 @@ class Procedure : public Scope, public Statement {
 class SeqBlock : public Scope, public Statement {
  public:
   SeqBlock(std::string name, Scope* parent, Statement* parentStmt,
-           FileContent* fC, NodeId id)
+           const FileContent* fC, NodeId id)
       : Scope(name, parent),
         Statement(this, parentStmt, fC, id,
                   fC ? fC->Type(id) : VObjectType::slSeq_block){};
@@ -79,7 +79,7 @@ class SeqBlock : public Scope, public Statement {
 
 class Function : public Procedure {
  public:
-  Function(DesignComponent* parent, FileContent* fC, NodeId id,
+  Function(DesignComponent* parent, const FileContent* fC, NodeId id,
            std::string name, DataType* returnType)
       : Procedure(parent, fC, id, name), m_returnType(returnType) {}
   bool compile(CompileHelper& compile_helper);

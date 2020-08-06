@@ -28,29 +28,34 @@ limitations under the License.
 #include <set>
 #include <map>
 #include <thread>
-#include "Design/Design.h"
-#include "Library/LibrarySet.h"
+
 #include "Config/ConfigSet.h"
+#include "Design/Design.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Library/LibrarySet.h"
+#include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
 #include "sv_vpi_user.h"
 
 #ifdef USETBB
-#include <tbb/task.h>
-#include <tbb/task_group.h>
-#include "tbb/task_scheduler_init.h"
+#  include <tbb/task.h>
+#  include <tbb/task_group.h>
+#  include "tbb/task_scheduler_init.h"
 #endif
 
 namespace SURELOG {
 
 class PreprocessFile;
+class FileContent;
 
 class Compiler {
  public:
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
-  bool compile();
-  Compiler(const Compiler& orig);
   virtual ~Compiler();
+
+  bool compile();
   CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   ErrorContainer* getErrorContainer() { return m_errors; }
@@ -62,17 +67,20 @@ class Compiler {
   void registerAntlrPpHandlerForId(SymbolId id,
                                    PreprocessFile::AntlrParserHandler* pp);
   PreprocessFile::AntlrParserHandler* getAntlrPpHandlerForId(SymbolId);
-  ErrorContainer::Stats getErrorStats();
+
   LibrarySet* getLibrarySet() { return m_librarySet; }
   Design* getDesign() { return m_design; }
   vpiHandle getUhdmDesign() { return m_uhdmDesign; }
-  bool isLibraryFile(SymbolId id);
+
+  ErrorContainer::Stats getErrorStats() const;
+  bool isLibraryFile(SymbolId id) const;
 
 #ifdef USETBB
   tbb::task_group& getTaskGroup() { return m_taskGroup; }
 #endif
 
  private:
+  Compiler(const Compiler& orig) = delete;
   bool parseLibrariesDef_();
 
   bool ppinit_();

@@ -1,7 +1,6 @@
 /*
 :name: inheritance
 :description: class inheritance test
-:should_fail: 0
 :tags: 8.13
 */
 module class_tb ();

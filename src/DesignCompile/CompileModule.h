@@ -51,8 +51,8 @@ struct FunctorCompileModule {
   ValuedComponentI* m_instance;
 };
 
-class CompileModule {
- public:
+class CompileModule final {
+public:
   CompileModule(CompileDesign* compiler, ModuleDefinition* module,
                 Design* design, SymbolTable* symbols, ErrorContainer* errors, ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
@@ -66,24 +66,24 @@ class CompileModule {
 
   bool compile();
 
-  virtual ~CompileModule();
+private:
+  CompileModule(const CompileModule&) = delete;
 
- private:
   bool collectModuleObjects_();
   bool checkModule_();
   bool collectInterfaceObjects_();
   bool checkInterface_();
-  void compileClockingBlock_(FileContent* fC, NodeId id);
- 
-  CompileDesign* m_compileDesign;
-  ModuleDefinition* m_module;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  void compileClockingBlock_(const FileContent* fC, NodeId id);
+
+  CompileDesign* const m_compileDesign;
+  ModuleDefinition* const m_module;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
   CompileHelper m_helper;
-  ValuedComponentI* m_instance;
+  ValuedComponentI* const m_instance;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILEMODULE_H */

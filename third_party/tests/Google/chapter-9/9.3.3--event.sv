@@ -1,7 +1,6 @@
 /*
 :name: event_order
 :description: event order test
-:should_fail: 0
 :tags: 9.3.3
 */
 module block_tb ();

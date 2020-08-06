@@ -1,7 +1,6 @@
 /*
 :name: process_cls_self
 :description: process class self method
-:should_fail: 0
 :tags: 9.7
 */
 module process_tb ();

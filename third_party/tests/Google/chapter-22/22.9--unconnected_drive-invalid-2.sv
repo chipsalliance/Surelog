@@ -1,7 +1,7 @@
 /*
 :name: 22.9--unconnected_drive-invalid-2
 :description: Test
-:should_fail: 1
+:should_fail_because: the directive `unconnected_drive takes one of two arguments: pull1 or pull0
 :tags: 22.9
 :type: preprocessing
 */

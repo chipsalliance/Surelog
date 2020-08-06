@@ -1,7 +1,6 @@
 /*
 :name: onehot_function
 :description: $onehot test
-:should_fail: 0
 :tags: 20.9
 :type: simulation parsing
 */

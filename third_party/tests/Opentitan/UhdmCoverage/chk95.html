@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_arbiter_ppc.sv Cov: 89% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // N:1 arbiter module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Verilog parameter</pre>
+<pre style="margin:0; padding:0 ">   8: //   N:    Number of request ports</pre>
+<pre style="margin:0; padding:0 ">   9: //   DW:   Data width</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // This is the original implementation of the arbiter which relies on parallel prefix</pre>
+<pre style="margin:0; padding:0 ">  12: // computing optimization to optimize the request / arbiter tree. Not all synthesis tools</pre>
+<pre style="margin:0; padding:0 ">  13: // may support this.</pre>
+<pre style="margin:0; padding:0 ">  14: //</pre>
+<pre style="margin:0; padding:0 ">  15: // Note that the currently winning request is held if the data sink is not ready.</pre>
+<pre style="margin:0; padding:0 ">  16: // This behavior is required by some interconnect protocols (AXI, TL). Note that</pre>
+<pre style="margin:0; padding:0 ">  17: // this implies that an asserted request must stay asserted</pre>
+<pre style="margin:0; padding:0 ">  18: // until it has been granted. Note that for PPC, this option cannot</pre>
+<pre style="margin:0; padding:0 ">  19: // be disabled.</pre>
+<pre style="margin:0; padding:0 ">  20: //</pre>
+<pre style="margin:0; padding:0 ">  21: // See also: prim_arbiter_tree</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: module prim_arbiter_ppc #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   parameter int unsigned N  = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   parameter int unsigned DW = 32</pre>
+<pre style="margin:0; padding:0 ">  26: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input        [ N-1:0]        req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input        [DW-1:0]        data_i [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic [ N-1:0]        gnt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic [$clog2(N)-1:0] idx_o,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic          valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [DW-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input                 ready_i</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   `ASSERT_INIT(CheckNGreaterZero_A, N > 0)</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // this case is basically just a bypass</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:   if (N == 1) begin : gen_degenerate_case</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     assign valid_o  = req_i[0];</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:     assign data_o   = data_i[0];</pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:     assign gnt_o[0] = valid_o & ready_i;</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:     assign idx_o    = '0;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   end else begin : gen_normal_case</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic [N-1:0] masked_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     logic [N-1:0] ppc_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     logic [N-1:0] arb_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     logic [N-1:0] mask, mask_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic [N-1:0] winner;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     assign masked_req = mask & req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     assign arb_req = (|masked_req) ? masked_req : req_i;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:     // PPC</pre>
+<pre style="margin:0; padding:0 ">  62:     //   Even below code looks O(n) but DC optimizes it to O(log(N))</pre>
+<pre style="margin:0; padding:0 ">  63:     //   Using Parallel Prefix Computation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       ppc_out[0] = arb_req[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       for (int i = 1 ; i < N ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:         ppc_out[i] = ppc_out[i-1] | arb_req[i];</pre>
+<pre style="margin:0; padding:0 ">  68:       end</pre>
+<pre style="margin:0; padding:0 ">  69:     end</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:     // Grant Generation: Leading-One detector</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     assign winner = ppc_out ^ {ppc_out[N-2:0], 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     assign gnt_o    = (ready_i) ? winner : '0;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     assign valid_o = |req_i;</pre>
+<pre style="margin:0; padding:0 ">  76:     // Mask Generation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign mask_next = {ppc_out[N-2:0], 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:         mask <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       end else if (valid_o && ready_i) begin</pre>
+<pre style="margin:0; padding:0 ">  82:         // Latch only when requests accepted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         mask <= mask_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       end else if (valid_o && !ready_i) begin</pre>
+<pre style="margin:0; padding:0 ">  85:         // Downstream isn't yet ready so, keep current request alive. (First come first serve)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         mask <= ppc_out;</pre>
+<pre style="margin:0; padding:0 ">  87:       end</pre>
+<pre style="margin:0; padding:0 ">  88:     end</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       data_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       idx_o  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       for (int i = 0 ; i < N ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         if (winner[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:           data_o = data_i[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:           idx_o  = i;</pre>
+<pre style="margin:0; padding:0 ">  97:         end</pre>
+<pre style="margin:0; padding:0 ">  98:       end</pre>
+<pre style="margin:0; padding:0 ">  99:     end</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 104:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 105:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   // we can only grant one requestor at a time</pre>
+<pre style="margin:0; padding:0 "> 108:   `ASSERT(CheckHotOne_A, $onehot0(gnt_o), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 109:   // A grant implies that the sink is ready</pre>
+<pre style="margin:0; padding:0 "> 110:   `ASSERT(GntImpliesReady_A, |gnt_o |-> ready_i, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 111:   // A grant implies that the arbiter asserts valid as well</pre>
+<pre style="margin:0; padding:0 "> 112:   `ASSERT(GntImpliesValid_A, |gnt_o |-> valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 113:   // A request and a sink that is ready imply a grant</pre>
+<pre style="margin:0; padding:0 "> 114:   `ASSERT(ReqAndReadyImplyGrant_A, |req_i && ready_i |-> |gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 115:   // A request and a sink that is ready imply a grant</pre>
+<pre style="margin:0; padding:0 "> 116:   `ASSERT(ReqImpliesValid_A, |req_i |-> valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 117:   // Both conditions above combined and reversed</pre>
+<pre style="margin:0; padding:0 "> 118:   `ASSERT(ReadyAndValidImplyGrant_A, ready_i && valid_o |-> |gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 119:   // Both conditions above combined and reversed</pre>
+<pre style="margin:0; padding:0 "> 120:   `ASSERT(NoReadyValidNoGrant_A, !(ready_i || valid_o) |-> gnt_o == 0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 121:   // check index / grant correspond</pre>
+<pre style="margin:0; padding:0 "> 122:   `ASSERT(IndexIsCorrect_A, ready_i && valid_o |-> gnt_o[idx_o] && req_i[idx_o], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 123:   // data flow</pre>
+<pre style="margin:0; padding:0 "> 124:   `ASSERT(DataFlow_A, ready_i && valid_o |-> data_o == data_i[idx_o], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 125:   // KNOWN assertions on outputs, except for data as that may be partially X in simulation</pre>
+<pre style="margin:0; padding:0 "> 126:   // e.g. when used on a BUS</pre>
+<pre style="margin:0; padding:0 "> 127:   `ASSERT_KNOWN(ValidKnown_A, valid_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 128:   `ASSERT_KNOWN(GrantKnown_A, gnt_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 129:   `ASSERT_KNOWN(IdxKnown_A, idx_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 132:   // A grant implies a request</pre>
+<pre style="margin:0; padding:0 "> 133:   int unsigned k; // this is a symbolic variable</pre>
+<pre style="margin:0; padding:0 "> 134:   `ASSUME(KStable_M, ##1 $stable(k), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 135:   `ASSUME(KRange_M, k < N, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 136:   `ASSERT(GntImpliesReq_A, gnt_o[k] |-> req_i[k], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="margin:0; padding:0 "> 138:   // requests must stay asserted until they have been granted</pre>
+<pre style="margin:0; padding:0 "> 139:   `ASSUME(ReqStaysHighUntilGranted_M, (|req_i) && !ready_i |=></pre>
+<pre style="margin:0; padding:0 "> 140:       (req_i & $past(req_i)) == $past(req_i), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 141:   // check that the arbitration decision is held if the sink is not ready</pre>
+<pre style="margin:0; padding:0 "> 142:   `ASSERT(LockArbDecision_A, |req_i && !ready_i |=> idx_o == $past(idx_o), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="margin:0; padding:0 "> 144: `endif</pre>
+<pre style="margin:0; padding:0 "> 145: </pre>
+<pre style="margin:0; padding:0 "> 146: endmodule</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+</body>
+</html>

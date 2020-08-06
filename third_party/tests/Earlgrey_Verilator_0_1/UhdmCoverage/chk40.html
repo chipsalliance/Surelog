@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_cipher_core.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES cipher core implementation</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module contains the AES cipher core including, state register, full key and decryption key</pre>
+<pre style="margin:0; padding:0 ">   8: // registers as well as key expand module and control unit.</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module aes_cipher_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter bit AES192Enable = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter     SBoxImpl     = "lut"</pre>
+<pre style="margin:0; padding:0 ">  15: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  logic                 clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  logic                 rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // Input handshake signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  logic                 in_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic                 in_ready_o,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // Output handshake signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic                 out_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic                 out_ready_i,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // Control and sync signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  aes_pkg::ciph_op_e    op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input  aes_pkg::key_len_e    key_len_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic                 crypt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic                 crypt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic                 dec_key_gen_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                 dec_key_gen_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic                 key_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic                 key_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input  logic                 data_out_clear_i, // Re-use the cipher core muxes.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic                 data_out_clear_o,</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Pseudo-random data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  logic          [63:0] prng_data_i,</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // I/O data & initial key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   input  logic [3:0][3:0][7:0] state_init_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   input  logic     [7:0][31:0] key_init_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output logic [3:0][3:0][7:0] state_o</pre>
+<pre style="margin:0; padding:0 ">  46: );</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   // Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   logic [3:0][3:0][7:0] state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [3:0][3:0][7:0] state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic                 state_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   state_sel_e           state_sel;</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [3:0][3:0][7:0] sub_bytes_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [3:0][3:0][7:0] shift_rows_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [3:0][3:0][7:0] mix_columns_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic [3:0][3:0][7:0] add_round_key_in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic [3:0][3:0][7:0] add_round_key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   add_rk_sel_e          add_round_key_in_sel;</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic     [7:0][31:0] key_full_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic     [7:0][31:0] key_full_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic                 key_full_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   key_full_sel_e        key_full_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic     [7:0][31:0] key_dec_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic     [7:0][31:0] key_dec_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic                 key_dec_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   key_dec_sel_e         key_dec_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic     [7:0][31:0] key_expand_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   ciph_op_e             key_expand_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic                 key_expand_step;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic                 key_expand_clear;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic           [3:0] key_expand_round;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   key_words_sel_e       key_words_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic     [3:0][31:0] key_words;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic [3:0][3:0][7:0] key_bytes;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic [3:0][3:0][7:0] key_mix_columns_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic [3:0][3:0][7:0] round_key;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   round_key_sel_e       round_key_sel;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:   //////////</pre>
+<pre style="margin:0; padding:0 ">  84:   // Data //</pre>
+<pre style="margin:0; padding:0 ">  85:   //////////</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   // State registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   always_comb begin : state_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     unique case (state_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       STATE_INIT:  state_d = state_init_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       STATE_ROUND: state_d = add_round_key_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       STATE_CLEAR: state_d = {prng_data_i, prng_data_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       default:     state_d = {prng_data_i, prng_data_i};</pre>
+<pre style="margin:0; padding:0 ">  94:     endcase</pre>
+<pre style="margin:0; padding:0 ">  95:   end</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   always_ff @(posedge clk_i) begin : state_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     if (state_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       state_q <= state_d;</pre>
+<pre style="margin:0; padding:0 "> 100:     end</pre>
+<pre style="margin:0; padding:0 "> 101:   end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   // Cipher data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   aes_sub_bytes #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     .SBoxImpl ( SBoxImpl )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   ) aes_sub_bytes (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     .op_i   ( op_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     .data_i ( state_q       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     .data_o ( sub_bytes_out )</pre>
+<pre style="margin:0; padding:0 "> 110:   );</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   aes_shift_rows aes_shift_rows (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     .op_i   ( op_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .data_i ( sub_bytes_out  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     .data_o ( shift_rows_out )</pre>
+<pre style="margin:0; padding:0 "> 116:   );</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   aes_mix_columns aes_mix_columns (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     .op_i   ( op_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     .data_i ( shift_rows_out  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     .data_o ( mix_columns_out )</pre>
+<pre style="margin:0; padding:0 "> 122:   );</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   always_comb begin : add_round_key_in_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     unique case (add_round_key_in_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       ADD_RK_INIT:  add_round_key_in = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       ADD_RK_ROUND: add_round_key_in = mix_columns_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       ADD_RK_FINAL: add_round_key_in = shift_rows_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       default:      add_round_key_in = state_q;</pre>
+<pre style="margin:0; padding:0 "> 130:     endcase</pre>
+<pre style="margin:0; padding:0 "> 131:   end</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   assign add_round_key_out = add_round_key_in ^ round_key;</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135:   /////////</pre>
+<pre style="margin:0; padding:0 "> 136:   // Key //</pre>
+<pre style="margin:0; padding:0 "> 137:   /////////</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:   // Full Key registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   always_comb begin : key_full_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     unique case (key_full_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       KEY_FULL_ENC_INIT: key_full_d = key_init_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:       KEY_FULL_DEC_INIT: key_full_d = key_dec_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       KEY_FULL_ROUND:    key_full_d = key_expand_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       KEY_FULL_CLEAR:    key_full_d = {prng_data_i, prng_data_i, prng_data_i, prng_data_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       default:           key_full_d = {prng_data_i, prng_data_i, prng_data_i, prng_data_i};</pre>
+<pre style="margin:0; padding:0 "> 147:     endcase</pre>
+<pre style="margin:0; padding:0 "> 148:   end</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   always_ff @(posedge clk_i) begin : key_full_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     if (key_full_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       key_full_q <= key_full_d;</pre>
+<pre style="margin:0; padding:0 "> 153:     end</pre>
+<pre style="margin:0; padding:0 "> 154:   end</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:   // Decryption Key registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   always_comb begin : key_dec_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     unique case (key_dec_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       KEY_DEC_EXPAND: key_dec_d = key_expand_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       KEY_DEC_CLEAR:  key_dec_d = {prng_data_i, prng_data_i, prng_data_i, prng_data_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       default:        key_dec_d = {prng_data_i, prng_data_i, prng_data_i, prng_data_i};</pre>
+<pre style="margin:0; padding:0 "> 162:     endcase</pre>
+<pre style="margin:0; padding:0 "> 163:   end</pre>
+<pre style="margin:0; padding:0 "> 164: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   always_ff @(posedge clk_i) begin : key_dec_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     if (key_dec_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       key_dec_q <= key_dec_d;</pre>
+<pre style="margin:0; padding:0 "> 168:     end</pre>
+<pre style="margin:0; padding:0 "> 169:   end</pre>
+<pre style="margin:0; padding:0 "> 170: </pre>
+<pre style="margin:0; padding:0 "> 171:   // Key expand data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   aes_key_expand #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     .AES192Enable ( AES192Enable ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     .SBoxImpl     ( SBoxImpl     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   ) aes_key_expand (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     .clk_i     ( clk_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     .rst_ni    ( rst_ni           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     .op_i      ( key_expand_op    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     .step_i    ( key_expand_step  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     .clear_i   ( key_expand_clear ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     .round_i   ( key_expand_round ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     .key_len_i ( key_len_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     .key_i     ( key_full_q       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     .key_o     ( key_expand_out   )</pre>
+<pre style="margin:0; padding:0 "> 185:   );</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   always_comb begin : key_words_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     unique case (key_words_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       KEY_WORDS_0123: key_words = key_full_q[3:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       KEY_WORDS_2345: key_words = AES192Enable ? key_full_q[5:2] : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       KEY_WORDS_4567: key_words = key_full_q[7:4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       KEY_WORDS_ZERO: key_words = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       default:        key_words = '0;</pre>
+<pre style="margin:0; padding:0 "> 194:     endcase</pre>
+<pre style="margin:0; padding:0 "> 195:   end</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="margin:0; padding:0 "> 197:   // Convert words to bytes (every key word contains one column)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:   assign key_bytes = aes_transpose(key_words);</pre>
+<pre style="margin:0; padding:0 "> 199: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   aes_mix_columns aes_key_mix_columns (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     .op_i   ( CIPH_INV            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     .data_i ( key_bytes           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     .data_o ( key_mix_columns_out )</pre>
+<pre style="margin:0; padding:0 "> 204:   );</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   always_comb begin : round_key_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     unique case (round_key_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:       ROUND_KEY_DIRECT: round_key = key_bytes;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:       ROUND_KEY_MIXED:  round_key = key_mix_columns_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       default:          round_key = key_bytes;</pre>
+<pre style="margin:0; padding:0 "> 211:     endcase</pre>
+<pre style="margin:0; padding:0 "> 212:   end</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 215:   // Control //</pre>
+<pre style="margin:0; padding:0 "> 216:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218:   // Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   aes_cipher_control aes_cipher_control (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     .clk_i                  ( clk_i                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     .rst_ni                 ( rst_ni               ),</pre>
+<pre style="margin:0; padding:0 "> 222: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     .in_valid_i             ( in_valid_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:     .in_ready_o             ( in_ready_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     .out_valid_o            ( out_valid_o          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     .out_ready_i            ( out_ready_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     .op_i                   ( op_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     .key_len_i              ( key_len_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     .crypt_i                ( crypt_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     .crypt_o                ( crypt_o              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     .dec_key_gen_i          ( dec_key_gen_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     .dec_key_gen_o          ( dec_key_gen_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     .key_clear_i            ( key_clear_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     .key_clear_o            ( key_clear_o          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     .data_out_clear_i       ( data_out_clear_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     .data_out_clear_o       ( data_out_clear_o     ),</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:     .state_sel_o            ( state_sel            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     .state_we_o             ( state_we             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     .add_rk_sel_o           ( add_round_key_in_sel ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:     .key_expand_op_o        ( key_expand_op        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     .key_full_sel_o         ( key_full_sel         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:     .key_full_we_o          ( key_full_we          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:     .key_dec_sel_o          ( key_dec_sel          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:     .key_dec_we_o           ( key_dec_we           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     .key_expand_step_o      ( key_expand_step      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     .key_expand_clear_o     ( key_expand_clear     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     .key_expand_round_o     ( key_expand_round     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     .key_words_sel_o        ( key_words_sel        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     .round_key_sel_o        ( round_key_sel        )</pre>
+<pre style="margin:0; padding:0 "> 251:   );</pre>
+<pre style="margin:0; padding:0 "> 252: </pre>
+<pre style="margin:0; padding:0 "> 253:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 254:   // Outputs //</pre>
+<pre style="margin:0; padding:0 "> 255:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 256: </pre>
+<pre style="margin:0; padding:0 "> 257:   // The output of the last round is not stored into the state register but forwarded directly.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:   assign state_o = add_round_key_out;</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
+<pre style="margin:0; padding:0 "> 260:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 261:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 262:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="margin:0; padding:0 "> 264:   // Selectors must be known/valid</pre>
+<pre style="margin:0; padding:0 "> 265:   `ASSERT(AesStateSelValid, state_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 266:       STATE_INIT,</pre>
+<pre style="margin:0; padding:0 "> 267:       STATE_ROUND,</pre>
+<pre style="margin:0; padding:0 "> 268:       STATE_CLEAR</pre>
+<pre style="margin:0; padding:0 "> 269:       })</pre>
+<pre style="margin:0; padding:0 "> 270:   `ASSERT(AesAddRKSelValid, add_round_key_in_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 271:       ADD_RK_INIT,</pre>
+<pre style="margin:0; padding:0 "> 272:       ADD_RK_ROUND,</pre>
+<pre style="margin:0; padding:0 "> 273:       ADD_RK_FINAL</pre>
+<pre style="margin:0; padding:0 "> 274:       })</pre>
+<pre style="margin:0; padding:0 "> 275:   `ASSERT_KNOWN(AesKeyFullSelKnown, key_full_sel)</pre>
+<pre style="margin:0; padding:0 "> 276:   `ASSERT_KNOWN(AesKeyDecSelKnown, key_dec_sel)</pre>
+<pre style="margin:0; padding:0 "> 277:   `ASSERT_KNOWN(AesKeyWordsSelKnown, key_words_sel)</pre>
+<pre style="margin:0; padding:0 "> 278:   `ASSERT_KNOWN(AesRoundKeySelKnown, round_key_sel)</pre>
+<pre style="margin:0; padding:0 "> 279: </pre>
+<pre style="margin:0; padding:0 "> 280: endmodule</pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_shift_reg.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 10-29-14</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // implements a shift register of fixed latency</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module bsg_shift_reg #(parameter width_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:                        , parameter stages_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">   9:                        )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    (input clk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , input valid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , input [width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , output valid_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     , output [width_p-1:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  16:     );</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    logic [stages_p-1:0][width_p+1-1:0] shift_r;</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:    always_ff @(posedge clk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:      if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:        shift_r <= '0;</pre>
+<pre style="margin:0; padding:0 ">  23:      else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:        begin</pre>
+<pre style="margin:0; padding:0 ">  25: 	  // maxes and mins are for handling stages_p=1</pre>
+<pre style="margin:0; padding:0 ">  26: 	  shift_r[stages_p-1:`BSG_MIN(stages_p-1,1)] <= shift_r[`BSG_MAX(stages_p-2,0):0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: 	  shift_r[0] <= { valid_i, data_i };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:        end</pre>
+<pre style="margin:0; padding:0 ">  29:    assign { valid_o, data_o } = shift_r[stages_p-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31: endmodule</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+</body>
+</html>

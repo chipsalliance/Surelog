@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/cce/bp_cce_msg_cached.v Cov: 98.4% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_cce_msg.v</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   This module handles sending and receiving of all messages in normal operation mode.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  *</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  *   Processing of a Memory Data Response takes priority over processing of any other memory</pre>
+<pre id="id10" style="background-color: #FFB6C1; margin:0; padding:0 ">  10:  *   messages being sent or received. This arbitration is handled by the instruction decoder.</pre>
+<pre style="margin:0; padding:0 ">  11:  *</pre>
+<pre style="margin:0; padding:0 ">  12:  */</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: module bp_cce_msg_cached</pre>
+<pre style="margin:0; padding:0 ">  15:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  16:   import bp_cce_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  17:   import bp_me_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   #(parameter num_lce_p                    = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , parameter num_cce_p                  = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     , parameter paddr_width_p              = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , parameter lce_assoc_p                = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , parameter lce_sets_p                 = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , parameter block_size_in_bytes_p      = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , parameter lce_req_data_width_p       = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , parameter num_way_groups_p           = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , parameter cce_block_width_p          = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , parameter dword_width_p              = "inv"</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // Derived parameters</pre>
+<pre style="margin:0; padding:0 ">  30:     , localparam lg_num_cce_lp             = `BSG_SAFE_CLOG2(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , localparam lg_num_lce_lp             = `BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , localparam lg_lce_assoc_lp           = `BSG_SAFE_CLOG2(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , localparam block_size_in_bits_lp     = (block_size_in_bytes_p*8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , localparam mshr_width_lp = `bp_cce_mshr_width(num_lce_p, lce_assoc_p, paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, lce_req_data_width_p, block_size_in_bits_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     `declare_bp_me_if_widths(paddr_width_p, block_size_in_bits_lp, num_lce_p, lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     , localparam lg_lce_sets_lp            = `BSG_SAFE_CLOG2(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     , localparam lg_block_size_in_bytes_lp = `BSG_SAFE_CLOG2(block_size_in_bytes_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     , localparam lg_num_way_groups_lp      = `BSG_SAFE_CLOG2(num_way_groups_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     , localparam way_group_offset_high_lp  = (lg_block_size_in_bytes_lp+lg_lce_sets_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   (input                                               clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , input                                             reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:    , input [lg_num_cce_lp-1:0]                         cce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    , input bp_cce_mode_e                               cce_mode_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:    // LCE-CCE Interface</pre>
+<pre style="margin:0; padding:0 ">  50:    // inbound: valid->ready (a.k.a., valid->yumi), demanding consumer (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  51:    // outbound: ready&valid (connects directly to ME network)</pre>
+<pre style="margin:0; padding:0 ">  52:    , input [lce_cce_req_width_lp-1:0]                  lce_req_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , input                                             lce_req_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , output logic                                      lce_req_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:    , input [lce_cce_resp_width_lp-1:0]                 lce_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:    , input                                             lce_resp_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    , output logic                                      lce_resp_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:    , output logic [lce_cmd_width_lp-1:0]               lce_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    , output logic                                      lce_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    , input                                             lce_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:    // CCE-MEM Interface</pre>
+<pre style="margin:0; padding:0 ">  65:    // inbound: valid->ready (a.k.a., valid->yumi), demanding consumer (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  66:    // outbound: ready&valid (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  67:    , input [cce_mem_msg_width_lp-1:0]                  mem_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:    , input                                             mem_resp_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:    , output logic                                      mem_resp_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:    , input [cce_mem_msg_width_lp-1:0]                  mem_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    , input                                             mem_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    , output logic                                      mem_cmd_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:    , output logic [cce_mem_msg_width_lp-1:0]           mem_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:    , output logic                                      mem_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:    , input                                             mem_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:    , output logic [cce_mem_msg_width_lp-1:0]           mem_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    , output logic                                      mem_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:    , input                                             mem_resp_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:    // MSHR</pre>
+<pre style="margin:0; padding:0 ">  84:    , input [mshr_width_lp-1:0]                         mshr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:    // Decoded Instruction</pre>
+<pre style="margin:0; padding:0 ">  87:    , input bp_cce_inst_decoded_s                       decoded_inst_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:    // Pending bit write</pre>
+<pre style="margin:0; padding:0 ">  90:    , output logic                                      pending_w_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:    , output logic [lg_num_way_groups_lp-1:0]           pending_w_way_group_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:    , output logic                                      pending_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:    // arbitration signals to instruction decode</pre>
+<pre style="margin:0; padding:0 ">  95:    , output logic                                      pending_w_busy_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:    , output logic                                      lce_cmd_busy_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:    , input [`bp_cce_inst_num_gpr-1:0][`bp_cce_inst_gpr_width-1:0] gpr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:    , input [num_lce_p-1:0][lg_lce_assoc_lp-1:0]        sharers_ways_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    , input [dword_width_p-1:0]                         nc_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:    , output logic                                      fence_zero_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   `declare_bp_cce_mshr_s(num_lce_p, lce_assoc_p, paddr_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   bp_cce_mshr_s mshr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign mshr = mshr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   // Interfaces</pre>
+<pre id="id112" style="background-color: #FFB6C1; margin:0; padding:0 "> 112:   `declare_bp_me_if(paddr_width_p, block_size_in_bits_lp, num_lce_p, lce_assoc_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, lce_req_data_width_p, block_size_in_bits_lp);</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   // structures for casting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   bp_lce_cmd_s lce_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   bp_lce_cce_resp_s lce_resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   bp_cce_mem_msg_s mem_resp_li, mem_resp_lo, mem_cmd_lo, mem_cmd_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   // cast output queue messages from structure variables</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign lce_cmd_o = lce_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign mem_cmd_o = mem_cmd_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign mem_resp_o = mem_resp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   // cast input queue messages to structure variables</pre>
+<pre style="margin:0; padding:0 "> 127:   assign mem_resp_li = mem_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   assign mem_cmd_li = mem_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   assign lce_resp = lce_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   // signals for setting fields in outbound messages</pre>
+<pre style="margin:0; padding:0 "> 132:   logic [paddr_width_p-1:0] mem_cmd_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic [lg_num_lce_lp-1:0] lce_cmd_lce;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   logic [paddr_width_p-1:0] lce_cmd_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   logic [lg_lce_assoc_lp-1:0] lce_cmd_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:   // NOTE: num_cce_p must be a power of two</pre>
+<pre style="margin:0; padding:0 "> 138:   localparam gpr_shift_lp = (num_cce_p == 1) ? 0 : lg_num_cce_lp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   localparam [paddr_width_p-lg_lce_sets_lp-1:0] lce_cmd_addr_0 =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     (paddr_width_p-lg_lce_sets_lp)'('0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [lg_lce_sets_lp-1:0] gpr_set;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   // CCE fence counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   logic fence_inc, fence_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic [`BSG_WIDTH(2*num_way_groups_p)-1:0] fence_cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   assign fence_zero_o = (fence_cnt == '0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   bsg_counter_up_down</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     #(.max_val_p(2*num_way_groups_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       ,.init_val_p('0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       ,.max_step_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       )</pre>
+<pre style="margin:0; padding:0 "> 153:     fence_counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:        ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:        ,.up_i(fence_inc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:        ,.down_i(fence_dec)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:        ,.count_o(fence_cnt)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:        );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     // defaults</pre>
+<pre style="margin:0; padding:0 "> 163:     mem_cmd_v_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     mem_cmd_lo = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     mem_resp_v_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     mem_resp_lo = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167: </pre>
+<pre style="margin:0; padding:0 "> 168:     lce_cmd_v_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     lce_cmd = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170: </pre>
+<pre style="margin:0; padding:0 "> 171:     lce_req_yumi_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     lce_resp_yumi_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     mem_resp_yumi_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     mem_cmd_yumi_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:     pending_w_v_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     pending_w_way_group_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     pending_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179: </pre>
+<pre style="margin:0; padding:0 "> 180:     pending_w_busy_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     lce_cmd_busy_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182: </pre>
+<pre style="margin:0; padding:0 "> 183:     fence_inc = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     fence_dec = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186:     /*</pre>
+<pre style="margin:0; padding:0 "> 187:      * Memory Responses</pre>
+<pre style="margin:0; padding:0 "> 188:      *</pre>
+<pre style="margin:0; padding:0 "> 189:      * Most memory responses are dequeued automatically, without the ucode engine explicitly processing them.</pre>
+<pre style="margin:0; padding:0 "> 190:      *</pre>
+<pre style="margin:0; padding:0 "> 191:      * LCE Command network feeds to a wormhole router, so command must be held valid until ready_i signal goes high.</pre>
+<pre style="margin:0; padding:0 "> 192:      * The pending bit is written in the cycle that ready_i goes high. If the ucode engine tries to write the pending</pre>
+<pre style="margin:0; padding:0 "> 193:      * bits in the same cycle, the ucode engine will stall for one cycle.</pre>
+<pre style="margin:0; padding:0 "> 194:      */</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:     if (mem_resp_v_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:       // Memory Response with data (cache block or uncached load)</pre>
+<pre style="margin:0; padding:0 "> 199:       if ((mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_rd)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:           | (mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_wr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:           | (mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_uc_rd)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202: </pre>
+<pre style="margin:0; padding:0 "> 203:         // handshaking</pre>
+<pre style="margin:0; padding:0 "> 204:         lce_cmd_v_o = mem_resp_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:         mem_resp_yumi_o = lce_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206: </pre>
+<pre style="margin:0; padding:0 "> 207:         // decrement the fence counter when dequeueing the memory response</pre>
+<pre style="margin:0; padding:0 "> 208:         fence_dec = mem_resp_yumi_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210:         // inform ucode decode that this unit is using the LCE Command network</pre>
+<pre style="margin:0; padding:0 "> 211:         lce_cmd_busy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:         // output command message</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:         lce_cmd.dst_id = mem_resp_li.payload.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216: </pre>
+<pre style="margin:0; padding:0 "> 217:         // Data is copied directly from the Mem Data Response</pre>
+<pre style="margin:0; padding:0 "> 218:         // For uncached responses, only the least significant 64-bits will be valid</pre>
+<pre style="margin:0; padding:0 "> 219:         if (mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_uc_rd) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:           lce_cmd.msg_type = e_lce_cmd_uc_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:           lce_cmd.way_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:           lce_cmd.msg.dt_cmd.data[0+:dword_width_p] = mem_resp_li.data[0+:dword_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:           lce_cmd.msg.dt_cmd.addr = mem_resp_li.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:           lce_cmd.msg_type = e_lce_cmd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:           lce_cmd.way_id = mem_resp_li.payload.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:           lce_cmd.msg.dt_cmd.data = mem_resp_li.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:           lce_cmd.msg.dt_cmd.addr = mem_resp_li.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:           lce_cmd.msg.dt_cmd.state = mem_resp_li.payload.state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:         end</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="margin:0; padding:0 "> 232:         // Clear the pending bit in the cycle that the LCE Command ready_i goes high</pre>
+<pre style="margin:0; padding:0 "> 233:         // Pending bit only cleared if this is a cached request response</pre>
+<pre style="margin:0; padding:0 "> 234:         if (lce_cmd_ready_i & ~(mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_uc_rd)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:           pending_w_v_o = lce_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           pending_w_way_group_o =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:             mem_resp_li.addr[(way_group_offset_high_lp-1) -: lg_num_way_groups_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:           pending_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:           // TODO: only blocking on cycle that message sends because Mem Cmd are sent to a full width buffer, so it only</pre>
+<pre style="margin:0; padding:0 "> 240:           // takes a single cycle to send Mem Cmd.</pre>
+<pre style="margin:0; padding:0 "> 241:           // If mem_cmd is sent directly to a wormhole router (i.e., the output buffers are removed, the arbitration logic</pre>
+<pre style="margin:0; padding:0 "> 242:           // for pending bits needs to be reworked. Would it be safe to have one or more cycle gap between flits in a WH routed</pre>
+<pre style="margin:0; padding:0 "> 243:           // message?</pre>
+<pre style="margin:0; padding:0 "> 244:           pending_w_busy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         end</pre>
+<pre style="margin:0; padding:0 "> 246:       end</pre>
+<pre style="margin:0; padding:0 "> 247: </pre>
+<pre style="margin:0; padding:0 "> 248:       // Writeback response - clears the pending bit</pre>
+<pre style="margin:0; padding:0 "> 249:       else if (mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_wb) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:         mem_resp_yumi_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:         pending_w_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:         pending_w_way_group_o =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:           mem_resp_li.addr[(way_group_offset_high_lp-1) -: lg_num_way_groups_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:         pending_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:         pending_w_busy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256: </pre>
+<pre style="margin:0; padding:0 "> 257:         // decrement the fence counter when dequeueing the memory response</pre>
+<pre style="margin:0; padding:0 "> 258:         fence_dec = mem_resp_yumi_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259: </pre>
+<pre style="margin:0; padding:0 "> 260:       end</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="margin:0; padding:0 "> 262:       // Uncached store response - send uncached store done command on LCE Command</pre>
+<pre style="margin:0; padding:0 "> 263:       // This transaction does not modify the pending bits</pre>
+<pre style="margin:0; padding:0 "> 264:       else if (mem_resp_li.msg_type.cce_mem_cmd == e_cce_mem_uc_wr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         // after store response is received, need to send uncached store done command to LCE</pre>
+<pre style="margin:0; padding:0 "> 266:         lce_cmd_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267: </pre>
+<pre style="margin:0; padding:0 "> 268:         // inform ucode decode that this unit is using the LCE Command network</pre>
+<pre style="margin:0; padding:0 "> 269:         lce_cmd_busy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270: </pre>
+<pre style="margin:0; padding:0 "> 271:         lce_cmd.dst_id = mem_resp_li.payload.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:         lce_cmd.msg_type = e_lce_cmd_uc_st_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         lce_cmd.way_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274: </pre>
+<pre style="margin:0; padding:0 "> 275:         lce_cmd.msg.cmd.src_id = (lg_num_cce_lp)'(cce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:         lce_cmd.msg.cmd.addr = mem_resp_li.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: </pre>
+<pre style="margin:0; padding:0 "> 278:         // dequeue the mem data response if outbound lce data cmd is accepted</pre>
+<pre style="margin:0; padding:0 "> 279:         mem_resp_yumi_o = lce_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280: </pre>
+<pre style="margin:0; padding:0 "> 281:         // decrement the fence counter when dequeueing the memory response</pre>
+<pre style="margin:0; padding:0 "> 282:         fence_dec = mem_resp_yumi_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283: </pre>
+<pre style="margin:0; padding:0 "> 284:       end</pre>
+<pre style="margin:0; padding:0 "> 285: </pre>
+<pre style="margin:0; padding:0 "> 286:     end</pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="margin:0; padding:0 "> 289:     /*</pre>
+<pre style="margin:0; padding:0 "> 290:      * Microcode message send/receive</pre>
+<pre style="margin:0; padding:0 "> 291:      *</pre>
+<pre style="margin:0; padding:0 "> 292:      */</pre>
+<pre style="margin:0; padding:0 "> 293: </pre>
+<pre style="margin:0; padding:0 "> 294:     case (decoded_inst_i.mem_cmd_addr_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       e_mem_cmd_addr_r0: mem_cmd_addr = gpr_i[e_gpr_r0][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       e_mem_cmd_addr_r1: mem_cmd_addr = gpr_i[e_gpr_r1][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       e_mem_cmd_addr_r2: mem_cmd_addr = gpr_i[e_gpr_r2][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:       e_mem_cmd_addr_r3: mem_cmd_addr = gpr_i[e_gpr_r3][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       e_mem_cmd_addr_r4: mem_cmd_addr = gpr_i[e_gpr_r4][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:       e_mem_cmd_addr_r5: mem_cmd_addr = gpr_i[e_gpr_r5][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       e_mem_cmd_addr_r6: mem_cmd_addr = gpr_i[e_gpr_r6][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       e_mem_cmd_addr_r7: mem_cmd_addr = gpr_i[e_gpr_r7][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       e_mem_cmd_addr_lru_way_addr: mem_cmd_addr = mshr.lru_paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:       e_mem_cmd_addr_req_addr: mem_cmd_addr = mshr.paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       default mem_cmd_addr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:     endcase</pre>
+<pre style="margin:0; padding:0 "> 307: </pre>
+<pre style="margin:0; padding:0 "> 308:     gpr_set = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:     case (decoded_inst_i.lce_cmd_lce_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       e_lce_cmd_lce_r0: lce_cmd_lce = gpr_i[e_gpr_r0][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:       e_lce_cmd_lce_r1: lce_cmd_lce = gpr_i[e_gpr_r1][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:       e_lce_cmd_lce_r2: lce_cmd_lce = gpr_i[e_gpr_r2][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:       e_lce_cmd_lce_r3: lce_cmd_lce = gpr_i[e_gpr_r3][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:       e_lce_cmd_lce_r4: lce_cmd_lce = gpr_i[e_gpr_r4][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:       e_lce_cmd_lce_r5: lce_cmd_lce = gpr_i[e_gpr_r5][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       e_lce_cmd_lce_r6: lce_cmd_lce = gpr_i[e_gpr_r6][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       e_lce_cmd_lce_r7: lce_cmd_lce = gpr_i[e_gpr_r7][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       e_lce_cmd_lce_req_lce: lce_cmd_lce = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:       e_lce_cmd_lce_tr_lce: lce_cmd_lce = mshr.tr_lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       e_lce_cmd_lce_0: lce_cmd_lce = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       default: lce_cmd_lce = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:     endcase</pre>
+<pre style="margin:0; padding:0 "> 323: </pre>
+<pre id="id324" style="background-color: #FFB6C1; margin:0; padding:0 "> 324:     case (decoded_inst_i.lce_cmd_addr_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       e_lce_cmd_addr_r0: lce_cmd_addr = gpr_i[e_gpr_r0][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:       e_lce_cmd_addr_r1: lce_cmd_addr = gpr_i[e_gpr_r1][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       e_lce_cmd_addr_r2: lce_cmd_addr = gpr_i[e_gpr_r2][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:       e_lce_cmd_addr_r3: lce_cmd_addr = gpr_i[e_gpr_r3][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:       e_lce_cmd_addr_r4: lce_cmd_addr = gpr_i[e_gpr_r4][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:       e_lce_cmd_addr_r5: lce_cmd_addr = gpr_i[e_gpr_r5][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:       e_lce_cmd_addr_r6: lce_cmd_addr = gpr_i[e_gpr_r6][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:       e_lce_cmd_addr_r7: lce_cmd_addr = gpr_i[e_gpr_r7][0+:paddr_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:       e_lce_cmd_addr_req_addr: lce_cmd_addr = mshr.paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       e_lce_cmd_addr_lru_way_addr: lce_cmd_addr = mshr.lru_paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:       e_lce_cmd_addr_0: lce_cmd_addr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       default: lce_cmd_addr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     endcase</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 "> 339:     case (decoded_inst_i.lce_cmd_way_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:       e_lce_cmd_way_r0: lce_cmd_way = gpr_i[e_gpr_r0][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:       e_lce_cmd_way_r1: lce_cmd_way = gpr_i[e_gpr_r1][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:       e_lce_cmd_way_r2: lce_cmd_way = gpr_i[e_gpr_r2][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:       e_lce_cmd_way_r3: lce_cmd_way = gpr_i[e_gpr_r3][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:       e_lce_cmd_way_r4: lce_cmd_way = gpr_i[e_gpr_r4][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:       e_lce_cmd_way_r5: lce_cmd_way = gpr_i[e_gpr_r5][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:       e_lce_cmd_way_r6: lce_cmd_way = gpr_i[e_gpr_r6][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:       e_lce_cmd_way_r7: lce_cmd_way = gpr_i[e_gpr_r7][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:       e_lce_cmd_way_req_addr_way: lce_cmd_way = mshr.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       e_lce_cmd_way_tr_addr_way: lce_cmd_way = mshr.tr_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:       e_lce_cmd_way_sh_list_r0: lce_cmd_way = sharers_ways_i[gpr_i[e_gpr_r0][lg_num_lce_lp-1:0]];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       e_lce_cmd_way_lru_addr_way: lce_cmd_way = mshr.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:       e_lce_cmd_way_0: lce_cmd_way = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:       default: lce_cmd_way = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:     endcase</pre>
+<pre style="margin:0; padding:0 "> 355: </pre>
+<pre style="margin:0; padding:0 "> 356:     // Outbound Messages - pushq</pre>
+<pre style="margin:0; padding:0 "> 357: </pre>
+<pre style="margin:0; padding:0 "> 358:     // Mem Command</pre>
+<pre style="margin:0; padding:0 "> 359:     if (decoded_inst_i.mem_cmd_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360: </pre>
+<pre style="margin:0; padding:0 "> 361:       // set some defaults - cached load/store miss request</pre>
+<pre style="margin:0; padding:0 "> 362:       mem_cmd_lo.msg_type.cce_mem_cmd = (mshr.flags[e_flag_sel_rqf]) ? e_cce_mem_wr : e_cce_mem_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:       mem_cmd_lo.addr = mem_cmd_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       mem_cmd_lo.size = e_mem_size_64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       mem_cmd_lo.payload.lce_id = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       mem_cmd_lo.payload.way_id = mshr.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:       mem_cmd_lo.payload.state = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:       mem_cmd_lo.data = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369: </pre>
+<pre style="margin:0; padding:0 "> 370:       // Uncached command - no need to block on pending_w_busy_o because uncached access does not use pending bits</pre>
+<pre style="margin:0; padding:0 "> 371:       if (mshr.flags[e_flag_sel_ucf]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:         mem_cmd_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:         // load or store</pre>
+<pre style="margin:0; padding:0 "> 374:         if (mshr.flags[e_flag_sel_rqf]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:           mem_cmd_lo.msg_type.cce_mem_cmd = e_cce_mem_uc_wr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:           mem_cmd_lo.data = {(cce_block_width_p-dword_width_p)'('0),nc_data_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:           mem_cmd_lo.msg_type.cce_mem_cmd = e_cce_mem_uc_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:         end</pre>
+<pre style="margin:0; padding:0 "> 380: </pre>
+<pre style="margin:0; padding:0 "> 381:         mem_cmd_lo.size =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:           (mshr.uc_req_size == e_lce_uc_req_1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:           ? e_mem_size_1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:           : (mshr.uc_req_size == e_lce_uc_req_2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:             ? e_mem_size_2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:             : (mshr.uc_req_size == e_lce_uc_req_4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:               ? e_mem_size_4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:               : e_mem_size_8</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:           ;</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="margin:0; padding:0 "> 391:         // increment fence counter if message is accepted</pre>
+<pre style="margin:0; padding:0 "> 392:         fence_inc = mem_cmd_v_o & mem_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393: </pre>
+<pre style="margin:0; padding:0 "> 394:       end</pre>
+<pre style="margin:0; padding:0 "> 395: </pre>
+<pre style="margin:0; padding:0 "> 396:       // Cached request - only send if this module isn't already writing the pending bits</pre>
+<pre style="margin:0; padding:0 "> 397:       else if (~pending_w_busy_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:         mem_cmd_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399: </pre>
+<pre style="margin:0; padding:0 "> 400:         // Writeback command - override default command fields as needed</pre>
+<pre style="margin:0; padding:0 "> 401:         if (decoded_inst_i.mem_cmd == e_cce_mem_wb) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:           mem_cmd_lo.msg_type.cce_mem_cmd = e_cce_mem_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:           mem_cmd_lo.data = lce_resp.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:           mem_cmd_lo.payload.lce_id = lce_resp.src_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:           mem_cmd_lo.payload.way_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:         end</pre>
+<pre style="margin:0; padding:0 "> 407: </pre>
+<pre style="margin:0; padding:0 "> 408:         // Load or store miss request uses defaults defined above</pre>
+<pre style="margin:0; padding:0 "> 409: </pre>
+<pre style="margin:0; padding:0 "> 410:         // write pending bit</pre>
+<pre style="margin:0; padding:0 "> 411:         pending_w_v_o = mem_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:         pending_w_way_group_o =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:           mem_cmd_addr[(way_group_offset_high_lp-1) -: lg_num_way_groups_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:         pending_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415: </pre>
+<pre style="margin:0; padding:0 "> 416:         // increment fence counter if message is accepted</pre>
+<pre style="margin:0; padding:0 "> 417:         if (mem_cmd_lo.msg_type.cce_mem_cmd == e_cce_mem_wb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:             | mem_cmd_lo.msg_type.cce_mem_cmd == e_cce_mem_wr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:             | mem_cmd_lo.msg_type.cce_mem_cmd == e_cce_mem_rd) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:           fence_inc = mem_cmd_v_o & mem_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:         end</pre>
+<pre style="margin:0; padding:0 "> 422: </pre>
+<pre style="margin:0; padding:0 "> 423:       end</pre>
+<pre style="margin:0; padding:0 "> 424: </pre>
+<pre style="margin:0; padding:0 "> 425:     end // mem_cmd</pre>
+<pre style="margin:0; padding:0 "> 426: </pre>
+<pre style="margin:0; padding:0 "> 427:     // Memory Response</pre>
+<pre style="margin:0; padding:0 "> 428:     else if (decoded_inst_i.mem_resp_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:       // TODO: implement pushq memResp with more flexibility</pre>
+<pre style="margin:0; padding:0 "> 430:       mem_resp_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:       mem_resp_lo.msg_type = decoded_inst_i.mem_resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:       // mem_cmd_li stores addr into mshr. This assumes it is still valid.</pre>
+<pre style="margin:0; padding:0 "> 433:       mem_resp_lo.addr = mshr.paddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434: </pre>
+<pre style="margin:0; padding:0 "> 435:     end // mem_resp</pre>
+<pre style="margin:0; padding:0 "> 436: </pre>
+<pre style="margin:0; padding:0 "> 437:     // LCE Command</pre>
+<pre style="margin:0; padding:0 "> 438:     else if (decoded_inst_i.lce_cmd_v & ~lce_cmd_busy_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:       lce_cmd_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440: </pre>
+<pre style="margin:0; padding:0 "> 441:       lce_cmd.dst_id = lce_cmd_lce;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:       lce_cmd.msg_type = decoded_inst_i.lce_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:       lce_cmd.way_id = lce_cmd_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444: </pre>
+<pre style="margin:0; padding:0 "> 445:       lce_cmd.msg.cmd.src_id = (lg_num_cce_lp)'(cce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:       lce_cmd.msg.cmd.addr = lce_cmd_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447: </pre>
+<pre style="margin:0; padding:0 "> 448:       lce_cmd.msg.cmd.state = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:       lce_cmd.msg.cmd.target = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:       lce_cmd.msg.cmd.target_way_id = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451: </pre>
+<pre style="margin:0; padding:0 "> 452:       if ((decoded_inst_i.lce_cmd == e_lce_cmd_set_tag)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:           | (decoded_inst_i.lce_cmd == e_lce_cmd_set_tag_wakeup)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:         lce_cmd.msg.cmd.state = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:       end</pre>
+<pre style="margin:0; padding:0 "> 456:       else if (decoded_inst_i.lce_cmd == e_lce_cmd_transfer) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:         lce_cmd.msg.cmd.state = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:         lce_cmd.msg.cmd.target = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:         lce_cmd.msg.cmd.target_way_id = mshr.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:       end</pre>
+<pre style="margin:0; padding:0 "> 461: </pre>
+<pre style="margin:0; padding:0 "> 462:     end // lce_cmd</pre>
+<pre style="margin:0; padding:0 "> 463: </pre>
+<pre style="margin:0; padding:0 "> 464:     // Inbound Messages - popq</pre>
+<pre style="margin:0; padding:0 "> 465: </pre>
+<pre style="margin:0; padding:0 "> 466:     // LCE Request</pre>
+<pre style="margin:0; padding:0 "> 467:     else if (decoded_inst_i.lce_req_yumi) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:       lce_req_yumi_o = decoded_inst_i.lce_req_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:     end</pre>
+<pre style="margin:0; padding:0 "> 470:     // LCE Response</pre>
+<pre style="margin:0; padding:0 "> 471:     else if (decoded_inst_i.lce_resp_yumi) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:       lce_resp_yumi_o = decoded_inst_i.lce_resp_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:     end</pre>
+<pre style="margin:0; padding:0 "> 474:     // Mem Response</pre>
+<pre style="margin:0; padding:0 "> 475:     else if (decoded_inst_i.mem_resp_yumi) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:       mem_resp_yumi_o = decoded_inst_i.mem_resp_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:     end</pre>
+<pre style="margin:0; padding:0 "> 478:     // Mem Command</pre>
+<pre style="margin:0; padding:0 "> 479:     else if (decoded_inst_i.mem_cmd_yumi) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:       mem_cmd_yumi_o = decoded_inst_i.mem_cmd_yumi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:     end</pre>
+<pre style="margin:0; padding:0 "> 482: </pre>
+<pre style="margin:0; padding:0 "> 483:   end</pre>
+<pre style="margin:0; padding:0 "> 484: </pre>
+<pre style="margin:0; padding:0 "> 485: endmodule</pre>
+<pre style="margin:0; padding:0 "> 486: </pre>
+</body>
+</html>

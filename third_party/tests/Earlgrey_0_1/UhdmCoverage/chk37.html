@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_pad_wrapper.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Generic, technology independent pad wrapper. This is NOT synthesizable!</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module prim_generic_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int unsigned AttrDw = 6</pre>
+<pre style="margin:0; padding:0 ">  10: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   inout wire         inout_io, // bidirectional pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic       in_o,     // input data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input              out_i,    // output data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input              oe_i,     // output enable</pre>
+<pre style="margin:0; padding:0 ">  15:   // additional attributes {drive strength, keeper, pull-up, pull-down, open-drain, invert}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [AttrDw-1:0] attr_i</pre>
+<pre style="margin:0; padding:0 ">  17: );</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // get pad attributes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic kp, pu, pd, od, inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   typedef enum logic {STRONG_DRIVE = 1'b0, WEAK_DRIVE = 1'b1} drv_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   drv_e drv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   assign {drv, kp, pu, pd, od, inv} = attr_i[5:0];</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // input inversion</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   assign in_o     = inv ^ inout_io;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   // virtual open drain emulation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic oe, out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign out      = out_i ^ inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   assign oe       = oe_i & ((od & ~out) | ~od);</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33: // driving strength attributes are not supported by verilator</pre>
+<pre style="margin:0; padding:0 ">  34: `ifdef VERILATOR</pre>
+<pre style="margin:0; padding:0 ">  35:   assign inout_io = (oe) ? out : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">  36: `else</pre>
+<pre style="margin:0; padding:0 ">  37:   // different driver types</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   assign (strong0, strong1) inout_io = (oe && drv == STRONG_DRIVE) ? out : 1'bz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   assign (pull0, pull1)     inout_io = (oe && drv == WEAK_DRIVE)   ? out : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">  40:   // pullup / pulldown termination</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign (highz0, weak1)    inout_io = pu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   assign (weak0, highz1)    inout_io = ~pd;</pre>
+<pre style="margin:0; padding:0 ">  43:   // fake trireg emulation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   assign (weak0, weak1)     inout_io = (kp) ? inout_io : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">  45: `endif</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:   // assertions</pre>
+<pre style="margin:0; padding:0 ">  48:   `ASSERT_INIT(AttrDwCheck_A, AttrDw >= 7)</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: endmodule : prim_generic_pad_wrapper</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+</body>
+</html>

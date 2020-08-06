@@ -42,11 +42,12 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
+
+#include <string_view>
+
 using namespace SURELOG;
 
-Builtin::~Builtin() {}
-
-VObjectType convert(std::string type) {
+static VObjectType convert(std::string_view type) {
   VObjectType result = VObjectType::slNoType;
   if (type == "int")
     result = VObjectType::slIntegerAtomType_Int;
@@ -56,7 +57,7 @@ VObjectType convert(std::string type) {
 }
 
 void Builtin::addBuiltins() {
-  std::vector<std::vector<std::string>> functionDef = {
+  static const std::vector<std::vector<std::string>> functionDef = {
       {"builtin", "array", "generic", "find"},
       {"builtin", "array", "int", "find_index"},
       {"builtin", "array", "int", "find_first"},
@@ -197,17 +198,18 @@ void Builtin::addBuiltins() {
       {"builtin", "system", "void", "value$plusargs", "generic"},
 
   };
-  for (auto function : functionDef) {
-    std::string packageName = function[0];
-    std::string className = function[1];
-    std::string returnTypeName = function[2];
-    std::string functionName = function[3];
+
+  for (const auto& function : functionDef) {
+    const std::string& packageName = function[0];
+    const std::string& className = function[1];
+    const std::string& returnTypeName = function[2];
+    const std::string& functionName = function[3];
     Package* package = m_design->getPackage(packageName);
     if (package == NULL) {
       package = new Package(packageName, NULL, NULL, 0);
       m_design->addPackageDefinition(packageName, package);
     }
-    std::string fullClassName = packageName + "::" + className;
+    const std::string fullClassName = packageName + "::" + className;
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == NULL) {
       classDef =

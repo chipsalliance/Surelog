@@ -29,7 +29,7 @@ Task::~Task() {}
 
 bool Task::compile(CompileHelper& compile_helper) {
   bool result = true;
-  FileContent* fC = m_fileContent;
+  const FileContent* const fC = m_fileContent;
   NodeId task_declaration = fC->Child(m_nodeId);
   NodeId task_body_declaration = fC->Child(task_declaration);
   NodeId task_name = fC->Child(task_body_declaration);

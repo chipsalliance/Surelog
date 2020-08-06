@@ -1,7 +1,6 @@
 /*
 :name: class_member_test_57
 :description: Test
-:should_fail: 0
 :tags: 8.3
 */
 class foo_class extends bar;

@@ -1,7 +1,6 @@
 /*
 :name: itor_function
 :description: $itor test
-:should_fail: 0
 :tags: 20.5
 :type: simulation parsing
 */

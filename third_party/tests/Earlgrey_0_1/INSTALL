@@ -1,0 +1,22 @@
+1. Clone the repo
+
+git clone https://github.com/lowRISC/opentitan
+cd opentitan
+
+2. Initialize env and install deps
+
+pip3 install virtualenv
+python3 -m virtualenv env
+source env/bin/activate
+pip3 install -r python-requirements.txt
+
+
+3. run fusesoc
+
+fusesoc --cores-root $(pwd) sim lowrisc:systems:top_earlgrey:0.1
+
+The simulation will fail - icarus cannot handle the SV code, but FuseSoC will generate all the files we need. 
+
+In the build/lowrisc_systems_top_earlgrey_0.1/sim-icarus directory you can find the lowrisc_systems_top_earlgrey_0.1.scr file listing all the sources used for simulating the design. 
+The sources are collected in the build/lowrisc_systems_top_earlgrey_0.1/src directory.
+Note that some sources are generated. Those can be found in the build/lowrisc_systems_top_earlgrey_0.1/sim-icarus/generated directory.

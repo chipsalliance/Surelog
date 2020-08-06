@@ -242,10 +242,8 @@ ansi_port_declaration
     ; 
 
 elaboration_system_task  
-    : DOLLAR Simple_identifier ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLUMN 
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN  
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN 
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN 
+    : DOLLAR Simple_identifier ( ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLUMN 
+                               | ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN )
     ;
     
 module_common_item  
@@ -351,12 +349,12 @@ program_item
     ;    
 
 non_port_program_item  
-    : ( attribute_instance )* continuous_assign         
-    | ( attribute_instance )* module_or_generate_item_declaration                                    
-    | ( attribute_instance )* specparam_declaration     
-    | ( attribute_instance )* initial_construct         
-    | ( attribute_instance )* final_construct           
-    | ( attribute_instance )* concurrent_assertion_item 
+    : ( attribute_instance )* ( continuous_assign         
+                              | module_or_generate_item_declaration                                    
+                              | specparam_declaration     
+                              | initial_construct         
+                              | final_construct           
+                              | concurrent_assertion_item )
     | timeunits_declaration                             
     | program_generate_item                             
     | surelog_macro_not_defined
@@ -422,8 +420,8 @@ class_item
     ; 
 
 class_property  
-    : ( CONST )? ( property_qualifier )* data_declaration      
-    | CONST ( class_item_qualifier )* data_type identifier  
+    : ( const_type )? ( property_qualifier )* data_declaration      
+    | const_type ( class_item_qualifier )* data_type identifier  
       ( ASSIGN_OP constant_expression )? SEMICOLUMN     
     ; 
 
@@ -572,14 +570,14 @@ anonymous_program_item
     ; 
 
 local_parameter_declaration 
-   : LOCALPARAM data_type_or_implicit list_of_param_assignments 
-   | LOCALPARAM TYPE list_of_param_assignments                  
+   : LOCALPARAM ( data_type_or_implicit list_of_param_assignments 
+   | TYPE list_of_param_assignments )                
    ; 
 
 
 parameter_declaration  
-    : PARAMETER data_type_or_implicit list_of_param_assignments 
-    | PARAMETER TYPE list_of_type_assignments                   
+    : PARAMETER ( data_type_or_implicit list_of_param_assignments 
+    | TYPE list_of_type_assignments )                   
     ; 
      
 
@@ -592,14 +590,14 @@ inout_declaration : INOUT net_port_type list_of_port_identifiers ;
 
 
 input_declaration  
-    : INPUT net_port_type list_of_port_identifiers     
-    | INPUT variable_port_type? list_of_variable_identifiers 
+    : INPUT ( net_port_type list_of_port_identifiers     
+    |  variable_port_type? list_of_variable_identifiers )
     ; 
 
 
 output_declaration  
-    : OUTPUT net_port_type list_of_port_identifiers             
-    | OUTPUT variable_port_type? list_of_variable_port_identifiers    
+    : OUTPUT ( net_port_type list_of_port_identifiers             
+    |  variable_port_type? list_of_variable_port_identifiers )   
     ; 
 
 
@@ -615,7 +613,7 @@ ref_declaration : REF variable_port_type list_of_variable_identifiers ;
 
 
 data_declaration 
-    : ( CONST )? ( VAR )? ( lifetime )? variable_declaration
+    : ( const_type )? ( var_type )? ( lifetime )? variable_declaration
     | type_declaration                              
     | package_import_declaration
     | net_type_declaration                                          
@@ -632,8 +630,7 @@ package_import_declaration :
 
 
 package_import_item  
-    : identifier COLUMNCOLUMN identifier 
-    | identifier COLUMNCOLUMN STAR       
+    : identifier COLUMNCOLUMN ( identifier | STAR )
     ; 
 
 package_export_declaration  
@@ -693,7 +690,8 @@ casting_type
 //    | constant_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?    
 //    | constant_multiple_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?                        
 //    | subroutine_call
-    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS 
+//    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS
+     | OPEN_PARENS constant_expression CLOSE_PARENS
 //    | casting_type TICK ( OPEN_PARENS constant_expression CLOSE_PARENS | constant_concatenation | constant_multiple_concatenation )                      
 //    | constant_assignment_pattern_expression           
 //    | type_reference
@@ -728,6 +726,8 @@ chandle_type : CHANDLE ;
 event_type : EVENT ;
 
 const_type : CONST ;
+
+var_type : VAR ;
 
 data_type_or_implicit  
     : data_type                               
@@ -790,18 +790,18 @@ non_integer_type
 
 
 net_type  
-    : SUPPLY0 # NetType_Supply0 
-    | SUPPLY1 # NetType_Supply1 
-    | TRI     # NetType_Tri 
-    | TRIAND  # NetType_TriAnd 
-    | TRIOR   # NetType_TriOr 
-    | TRIREG  # NetType_TriReg 
-    | TRI0    # NetType_Tri0 
-    | TRI1    # NetType_Tri1 
-    | UWIRE   # NetType_Uwire 
-    | WIRE    # NetType_Wire 
-    | WAND    # NetType_Wand 
-    | WOR     # NetType_Wor 
+    : SUPPLY0 
+    | SUPPLY1
+    | TRI    
+    | TRIAND  
+    | TRIOR  
+    | TRIREG 
+    | TRI0    
+    | TRI1  
+    | UWIRE 
+    | WIRE  
+    | WAND 
+    | WOR  
     ; 
 
 net_port_type : 
@@ -816,7 +816,7 @@ variable_port_type
 
 var_data_type : 
         data_type 
-      | VAR data_type_or_implicit ; 
+      | var_type data_type_or_implicit ; 
   
 signing  
     : SIGNED    # Signing_Signed 
@@ -855,32 +855,30 @@ type_reference :
       TYPE OPEN_PARENS expression CLOSE_PARENS | TYPE OPEN_PARENS data_type CLOSE_PARENS ; 
 
 drive_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS 
-    | OPEN_PARENS strength0 COMMA HIGHZ1 CLOSE_PARENS    
-    | OPEN_PARENS strength1 COMMA HIGHZ0 CLOSE_PARENS    
-    | OPEN_PARENS HIGHZ0 COMMA strength1 CLOSE_PARENS    
-    | OPEN_PARENS HIGHZ1 COMMA strength0 CLOSE_PARENS    
-; 
+    : OPEN_PARENS ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) CLOSE_PARENS 
+    | OPEN_PARENS ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) COMMA ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 | HIGHZ0 ) CLOSE_PARENS 
+    | OPEN_PARENS HIGHZ0 COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 ) CLOSE_PARENS    
+    | OPEN_PARENS HIGHZ1 COMMA ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  CLOSE_PARENS    
+    ; 
 
 strength0  
-    : SUPPLY0 # Strength0_Supply0 
-    | STRONG0 # Strength0_Strong0 
-    | PULL0   # Strength0_Pull0 
-    | WEAK0   # Strength0_Weak0 
+    : SUPPLY0 
+    | STRONG0 
+    | PULL0  
+    | WEAK0   
     ; 
 
 strength1  
-    : SUPPLY1 # Strength1_Supply1 
-    | STRONG1 # Strength1_Strong1 
-    | PULL1   # Strength1_Pull1 
-    | WEAK1   # Strength1_Weak1 
+    : SUPPLY1 
+    | STRONG1
+    | PULL1   
+    | WEAK1  
     ;
    
 charge_strength  
-    :  SMALL  # ChargeStrength_Small 
-    |  MEDIUM # ChargeStrength_Medium  
-    |  LARGE  # ChargeStrength_Large 
+    : SMALL  
+    | MEDIUM   
+    | LARGE  
     ; 
 
 delay3  
@@ -975,7 +973,8 @@ dynamic_array_new : NEW OPEN_BRACKET expression CLOSE_BRACKET ( OPEN_PARENS expr
 
 unpacked_dimension  
     : OPEN_BRACKET constant_range CLOSE_BRACKET      
-    | OPEN_BRACKET constant_expression CLOSE_BRACKET 
+    | OPEN_BRACKET constant_expression CLOSE_BRACKET
+    | unsized_dimension
     ; 
 
 packed_dimension  
@@ -1066,7 +1065,7 @@ tf_item_declaration
 tf_port_list : tf_port_item ( COMMA tf_port_item )* ; 
 
 tf_port_item : ( attribute_instance )* 
-        ( tf_port_direction )? ( VAR )? data_type_or_implicit 
+        ( tf_port_direction )? ( var_type )? data_type_or_implicit 
         identifier variable_dimension* ( ASSIGN_OP expression )? ; 
 
 tf_port_direction
@@ -1077,7 +1076,7 @@ tf_port_direction
     | CONST REF # TfPortDir_ConstRef      
     ; 
 
-tf_port_declaration : ( attribute_instance )* tf_port_direction ( VAR )? 
+tf_port_declaration : ( attribute_instance )* tf_port_direction ( var_type )? 
                       data_type_or_implicit list_of_tf_variable_identifiers SEMICOLUMN ; 
 
 
@@ -1598,16 +1597,16 @@ pull_gate_instance : ( name_of_instance )? OPEN_PARENS net_lvalue CLOSE_PARENS ;
 
 
 pulldown_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS # PulldownStrength_01 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS # PulldownStrength_10 
-    | OPEN_PARENS strength0 CLOSE_PARENS                 # PulldownStrength_0 
+    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
+    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS  
+    | OPEN_PARENS strength0 CLOSE_PARENS                 
     ; 
 
 
 pullup_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS # PullupStrength_01 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS # PullupStrength_10 
-    | OPEN_PARENS strength1 CLOSE_PARENS                 # PullupStrength_1 
+    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
+    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS 
+    | OPEN_PARENS strength1 CLOSE_PARENS                 
     ; 
 
 cmos_switchtype  
@@ -2000,19 +1999,19 @@ blocking_assignment
 operator_assignment : variable_lvalue assignment_operator expression ; 
 
 assignment_operator  
-    : ASSIGN_OP  # AssignOp_Assign
-    | ADD_ASSIGN  # AssignOp_Add
-    | SUB_ASSIGN  # AssignOp_Sub
-    | MULT_ASSIGN  # AssignOp_Mult
-    | DIV_ASSIGN  # AssignOp_Div
-    | MODULO_ASSIGN  # AssignOp_Modulo
-    | BITW_AND_ASSIGN  # AssignOp_BitwAnd
-    | BITW_OR_ASSIGN  # AssignOp_BitwOr
-    | BITW_XOR_ASSIGN  # AssignOp_BitwXor
-    | BITW_LEFT_SHIFT_ASSIGN  # AssignOp_BitwLeftShift
-    | BITW_RIGHT_SHIFT_ASSIGN  # AssignOp_BitwRightShift
-    | ARITH_SHIFT_LEFT_ASSIGN  # AssignOp_ArithShiftLeft
-    | ARITH_SHIFT_RIGHT_ASSIGN  # AssignOp_ArithShiftRight
+    : ASSIGN_OP
+    | ADD_ASSIGN 
+    | SUB_ASSIGN 
+    | MULT_ASSIGN
+    | DIV_ASSIGN 
+    | MODULO_ASSIGN 
+    | BITW_AND_ASSIGN 
+    | BITW_OR_ASSIGN 
+    | BITW_XOR_ASSIGN 
+    | BITW_LEFT_SHIFT_ASSIGN 
+    | BITW_RIGHT_SHIFT_ASSIGN  
+    | ARITH_SHIFT_LEFT_ASSIGN  
+    | ARITH_SHIFT_RIGHT_ASSIGN 
     ; 
 
 nonblocking_assignment : variable_lvalue LESS_EQUAL ( delay_or_event_control )? expression ; 
@@ -2141,10 +2140,8 @@ jump_statement
 
 
 wait_statement  
-    : WAIT OPEN_PARENS expression CLOSE_PARENS statement_or_null   
-    | WAIT FORK SEMICOLUMN                                         
-    | WAIT_ORDER OPEN_PARENS  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*
-      ( COMMA  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  )? CLOSE_PARENS action_block 
+    : WAIT (( OPEN_PARENS expression CLOSE_PARENS statement_or_null ) | ( FORK SEMICOLUMN ))
+    | WAIT_ORDER OPEN_PARENS hierarchical_identifier (COMMA hierarchical_identifier )* CLOSE_PARENS action_block 
     ; 
      
 event_trigger  
@@ -2154,8 +2151,7 @@ event_trigger
     ; 
 
 disable_statement  
-    : DISABLE hierarchical_identifier SEMICOLUMN  
-    | DISABLE FORK SEMICOLUMN                          
+    : DISABLE ( hierarchical_identifier | FORK ) SEMICOLUMN  
     ; 
 
 conditional_statement : 
@@ -2653,14 +2649,12 @@ dollar_nochange_timing_check :
     end_edge_offset ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;   
 
 delayed_data 
-    : identifier 
-    | identifier OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET  
+    : identifier (OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET )?
     ; 
 
 
 delayed_reference  
-    : identifier 
-    | identifier OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET  
+    : identifier ( OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET ) ?
     ; 
 
 end_edge_offset : mintypmax_expression ; 
@@ -2679,7 +2673,7 @@ start_edge_offset : mintypmax_expression ;
 
 threshold : constant_expression ; 
 
-timing_check_limit : expression ; 
+timing_check_limit : mintypmax_expression ; 
 
 timing_check_event : 
     (timing_check_event_control)? specify_terminal_descriptor ( COND_PRED_OP timing_check_condition )? ; 
@@ -2878,29 +2872,28 @@ inc_or_dec_expression
     ; 
 
 constant_expression  
-    : constant_primary                                        
-    | unary_operator ( attribute_instance )* constant_primary 
-    | constant_expression binary_operator_prec1 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec2 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec3 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec4 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec5 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec6 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec7 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec8 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec9 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec10 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec11 ( attribute_instance )* constant_expression                    
-    | constant_expression conditional_operator ( attribute_instance )* constant_expression COLUMN constant_expression  
-    | constant_expression binary_operator_prec12 ( attribute_instance )* constant_expression                    
-    | system_task                                             
+    : constant_primary
+    | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* constant_primary
+    | constant_expression STARSTAR ( attribute_instance )* constant_expression 
+    | constant_expression ( STAR | DIV | PERCENT ) ( attribute_instance )* constant_expression 
+    | constant_expression ( PLUS | MINUS ) ( attribute_instance )* constant_expression 
+    | constant_expression ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )* constant_expression 
+    | constant_expression ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* constant_expression 
+    | constant_expression ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* constant_expression 
+    | constant_expression BITW_AND ( attribute_instance )* constant_expression 
+    | constant_expression ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* constant_expression 
+    | constant_expression BITW_OR ( attribute_instance )* constant_expression 
+    | constant_expression LOGICAL_AND ( attribute_instance )* constant_expression 
+    | constant_expression LOGICAL_OR ( attribute_instance )* constant_expression  
+    | constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN constant_expression 
+    | constant_expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* constant_expression
+    | system_task
     ;
 
 conditional_operator : QMARK ;
 
 constant_mintypmax_expression  
-    : constant_expression 
-    | constant_expression COLUMN constant_expression COLUMN constant_expression  
+    : constant_expression ( COLUMN constant_expression COLUMN constant_expression ) ?
     ; 
 
 constant_param_expression  
@@ -2936,36 +2929,62 @@ constant_indexed_range
     : constant_expression part_select_op constant_expression                                              
     ; 
 
+/*
 
-expression  
-    : primary                                                 
-    | OPEN_PARENS operator_assignment CLOSE_PARENS            
-    | unary_operator ( attribute_instance )* primary          
-    | inc_or_dec_expression                                   
-    | expression binary_operator_prec1 ( attribute_instance )* expression 
-    | expression binary_operator_prec2 ( attribute_instance )* expression 
-    | expression binary_operator_prec3 ( attribute_instance )* expression 
-    | expression binary_operator_prec4 ( attribute_instance )* expression 
-    | expression binary_operator_prec5 ( attribute_instance )* expression 
-    | expression binary_operator_prec6 ( attribute_instance )* expression 
-    | expression binary_operator_prec7 ( attribute_instance )* expression 
-    | expression binary_operator_prec8 ( attribute_instance )* expression 
-    | expression binary_operator_prec9 ( attribute_instance )* expression 
-    | expression binary_operator_prec10 ( attribute_instance )* expression 
-    | expression binary_operator_prec11 ( attribute_instance )* expression 
-    | expression ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
-    | expression binary_operator_prec12 ( attribute_instance )* expression 
-    | expression matches pattern ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* 
-       expression COLUMN expression
-    |  OPEN_PARENS expression matches pattern ( binary_operator_prec10 expression )* CLOSE_PARENS conditional_operator ( attribute_instance )* 
-       expression COLUMN expression
-    | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY 
-    | tagged_union_expression                                 
+ Non left-recursive grammar is slower by far
+ 
+expression : primary expression_prime
+             | OPEN_PARENS expression CLOSE_PARENS expression_prime
+             | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression expression_prime
+             | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue expression_prime
+             | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )  expression_prime
+             | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression CLOSE_PARENS expression_prime
+             | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK  ( attribute_instance )* expression COLUMN expression expression_prime
+             | TAGGED identifier ( expression )?  expression_prime ;
+	     
+expression_prime : STARSTAR  ( attribute_instance )* expression expression_prime
+             | ( STAR | DIV | PERCENT ) ( attribute_instance )* expression expression_prime
+             | ( PLUS | MINUS ) ( attribute_instance )* expression expression_prime
+             | ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )*  expression expression_prime
+             | ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* expression expression_prime
+             | ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* expression expression_prime
+             | BITW_AND ( attribute_instance )* expression expression_prime
+             | ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* expression expression_prime
+             | BITW_OR ( attribute_instance )* expression expression_prime
+             | LOGICAL_AND ( attribute_instance )* expression expression_prime
+             | LOGICAL_OR ( attribute_instance )* expression expression_prime
+             | ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression expression_prime
+             | ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression expression_prime
+             | MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression expression_prime
+             | INSIDE OPEN_CURLY open_range_list CLOSE_CURLY expression_prime
+             | ;
+*/
+
+expression
+    : primary
+    | OPEN_PARENS expression CLOSE_PARENS             
+    | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression
+    | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue   
+    | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )     
+    | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression  CLOSE_PARENS            
+    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLUMN expression
+    | TAGGED identifier ( expression )?  
+    | expression STARSTAR ( attribute_instance )* expression 
+    | expression ( STAR | DIV | PERCENT ) ( attribute_instance )* expression 
+    | expression ( PLUS | MINUS ) ( attribute_instance )* expression 
+    | expression ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )* expression 
+    | expression ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* expression 
+    | expression ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* expression 
+    | expression BITW_AND ( attribute_instance )* expression 
+    | expression ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* expression 
+    | expression BITW_OR ( attribute_instance )* expression 
+    | expression LOGICAL_AND ( attribute_instance )* expression 
+    | expression LOGICAL_OR ( attribute_instance )* expression 
+    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
+    | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
+    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
+    | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
     ; 
-
-
-tagged_union_expression : 
-    TAGGED identifier ( expression )? ;  
 
 
 value_range  
@@ -2975,9 +2994,7 @@ value_range
 
 
 mintypmax_expression  
-    : expression                                     
-    | expression COLUMN expression COLUMN expression 
-    ; 
+    : expression ( COLUMN expression COLUMN expression )? ; 
 
 module_path_expression  
     : module_path_primary                 
@@ -2990,9 +3007,7 @@ module_path_expression
 ; 
 
 module_path_mintypmax_expression  
-    : module_path_expression  
-    | module_path_expression COLUMN module_path_expression COLUMN module_path_expression 
-                              
+    : module_path_expression ( COLUMN module_path_expression COLUMN module_path_expression ) ?
     ; 
 
 range_expression  
@@ -3026,11 +3041,11 @@ constant_primary
     | constant_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?    
     | constant_multiple_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?                        
     | subroutine_call                        
-    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS 
     | constant_cast                                    
     | constant_assignment_pattern_expression           
     | type_reference
     | dollar_keyword                         
+    | OPEN_PARENS constant_expression ( COLUMN constant_expression COLUMN constant_expression )? CLOSE_PARENS
     ; 
 
 module_path_primary  
@@ -3045,18 +3060,17 @@ module_path_primary
 /*
   Replaces let_expression, tf_call, method_call
 */
-complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword )?  
+complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword | LOCAL COLUMNCOLUMN )?  
        ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* ( attribute_instance )* ( ( OPEN_PARENS (list_of_arguments) CLOSE_PARENS ) | select ) (DOT? method_call_body)? ;
 
 primary
     : primary_literal                
     | complex_func_call
     | ( concatenation | multiple_concatenation ) ( OPEN_BRACKET range_expression CLOSE_BRACKET )? 
-    | OPEN_PARENS mintypmax_expression CLOSE_PARENS
+//    | OPEN_PARENS mintypmax_expression CLOSE_PARENS
     | cast                           
     | assignment_pattern_expression  
     | streaming_concatenation        
-//    | sequence_method_call           
     | system_task                    
     | class_type COLUMNCOLUMN method_call_body 
     | this_keyword                          
@@ -3064,6 +3078,8 @@ primary
     | null_keyword                  
     | empty_queue                    
     | randomize_call
+ // mintypmax_expression moved here:   
+    | OPEN_PARENS expression COLUMN expression COLUMN expression CLOSE_PARENS
     ;
     
 this_keyword : THIS; 
@@ -3230,8 +3246,8 @@ binary_operator_prec12
     ; 
 
 inc_or_dec_operator
-    : PLUSPLUS   # IncDec_PlusPlus
-    | MINUSMINUS # IncDec_MinusMinus
+    : PLUSPLUS  
+    | MINUSMINUS 
     ; 
 
 unary_module_path_operator
@@ -3285,7 +3301,7 @@ unbased_unsized_literal
     ;  
 
 
-attribute_instance : OPEN_PARENS_STAR attr_spec ( COMMA attr_spec )* STAR_CLOSE_PARENS ; 
+attribute_instance : OPEN_PARENS_STAR attr_spec (COMMA attr_spec )* STAR_CLOSE_PARENS ; 
 
 attr_spec : attr_name ( ASSIGN_OP constant_expression )? ; 
 

@@ -38,7 +38,8 @@ class ModuleInstance;
 class Netlist {
  public:
   Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(nullptr), m_nets(nullptr), 
-                                    m_ports(nullptr), m_gen_scope_arrays(nullptr), m_array_vars(nullptr) {}
+                                    m_ports(nullptr), m_gen_scope_arrays(nullptr), m_variables(nullptr), 
+                                    m_array_vars(nullptr), m_array_nets(nullptr) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -49,13 +50,17 @@ class Netlist {
   std::vector<UHDM::port*>*        ports() { return m_ports;}
   std::vector<UHDM::net*>*         nets() { return m_nets;}
   std::vector<UHDM::gen_scope_array*>*  gen_scopes() { return m_gen_scope_arrays; }
+  std::vector<UHDM::variables*>*        variables() { return m_variables;}
   std::vector<UHDM::array_var*>*        array_vars() { return m_array_vars;}
+  std::vector<UHDM::array_net*>*        array_nets() { return m_array_nets;}
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
   void nets(std::vector<UHDM::net*>* nets) { m_nets = nets;}
   void gen_scopes(std::vector<UHDM::gen_scope_array*>* gen_scopes) {m_gen_scope_arrays = gen_scopes; } 
+  void variables(std::vector<UHDM::variables*>* variables) {m_variables = variables; } 
   void array_vars(std::vector<UHDM::array_var*>* array_vars) {m_array_vars = array_vars; } 
+  void array_nets(std::vector<UHDM::array_net*>* array_nets) {m_array_nets = array_nets; } 
 
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
@@ -68,7 +73,10 @@ class Netlist {
   std::vector<UHDM::net*>*         m_nets;
   std::vector<UHDM::port*>*        m_ports;
   std::vector<UHDM::gen_scope_array*>* m_gen_scope_arrays;
+  std::vector<UHDM::variables*>* m_variables;
   std::vector<UHDM::array_var*>* m_array_vars;
+  std::vector<UHDM::array_net*>* m_array_nets;
+
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

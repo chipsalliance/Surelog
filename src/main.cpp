@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   main.cpp
  * Author: alain
  *
@@ -40,7 +40,7 @@
 #include "API/PythonAPI.h"
 #include "Utils/StringUtils.h"
 
-unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode, 
+unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode,
                                 bool fileunit, SURELOG::ErrorContainer::Stats* overallStats = NULL)
 {
   bool success = true;
@@ -67,7 +67,7 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
           }
         }
 
-      SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);  
+      SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
       if (!compiler)
         codedReturn |= 1;
       SURELOG::shutdown_compiler(compiler);
@@ -91,9 +91,9 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   if (noFErrors == false) {
      noFatalErrors = false;
   }
-  
+
   std::string ext_command = clp->getExeCommand();
-  if (ext_command != "") {
+  if (!ext_command.empty()) {
     std::string directory = symbolTable->getSymbol(clp->getFullCompileDir());
     std::string fileList = directory + "/file.lst";
     std::string command = ext_command + " " + fileList;
@@ -102,12 +102,12 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
     std::cout << "Command result: " << result << std::endl;
   }
   clp->logFooter();
-  if (diff_comp_mode && fileunit) 
+  if (diff_comp_mode && fileunit)
     {
        SURELOG::Report* report = new SURELOG::Report();
        std::pair<bool, bool> results = report->makeDiffCompUnitReport(clp, symbolTable );
        success = results.first;
-       noFatalErrors = results.second; 
+       noFatalErrors = results.second;
        delete report;
     }
   delete clp;
@@ -117,8 +117,8 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
     codedReturn |= 1;
   if (parseOnly)
     return 0;
-  else 
-    return codedReturn;  
+  else
+    return codedReturn;
 }
 enum COMP_MODE {
     NORMAL,
@@ -164,7 +164,7 @@ int batchCompilation(const char* argv0, std::string batchFile)
     if (ret < 0) {
       std::cout << "Could not change directory to " << path << "\n" << std::endl;
       returnCode |= 1;
-    }    
+    }
   }
   std::cout << "Processed " << count << " tests." << std::endl << std::flush;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
@@ -182,7 +182,7 @@ int main(int argc, const char ** argv) {
   unsigned int codedReturn = 0;
   COMP_MODE mode = NORMAL;
   bool python_mode = true;
-  
+
   std::string batchFile;
   std::string diff_unit_opt = "-diffcompunit";
   std::string nopython_opt  = "-nopython";
@@ -246,5 +246,3 @@ int main(int argc, const char ** argv) {
     SURELOG::PythonAPI::shutdown();
   return codedReturn;
 }
-
-

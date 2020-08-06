@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_spi_device_0.1/rtl/spi_fwmode.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // SPI FW Mode: Intention of this mode is to download FW image. Doesn't parse Commands</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: module spi_fwmode (</pre>
+<pre style="margin:0; padding:0 ">   9:   // MOSI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input clk_in_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input rst_in_ni,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   // MISO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input clk_out_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_out_ni,</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // Configurations</pre>
+<pre style="margin:0; padding:0 ">  18:   // No sync logic. Configuration should be static when SPI operating</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                             cpha_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input                             cfg_rxorder_i, // 1: 0->7 , 0:7->0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input                             cfg_txorder_i, // 1: 0->7 , 0:7->0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  spi_device_pkg::spi_mode_e mode_i, // Only works at mode_i == FwMode</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // RX, TX FIFO interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic                      rx_wvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input                             rx_wready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output spi_device_pkg::spi_byte_t rx_data_o,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input                             tx_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic                      tx_rready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  spi_device_pkg::spi_byte_t tx_data_i,</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                      rx_overflow_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic                      tx_underflow_o,</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // SPI Interface: clock is given (ckl_in_i, clk_out_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input        csb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input        mosi,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic miso,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   output logic miso_oe</pre>
+<pre style="margin:0; padding:0 ">  41: );</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   import spi_device_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   localparam int unsigned BITS     = $bits(spi_byte_t);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int unsigned BITWIDTH = $clog2(BITS);</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic [BITWIDTH-1:0] rx_bitcount;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     TxIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     TxActive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   } tx_state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   tx_state_e tx_state;   // Only for handling CPHA</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   spi_byte_t rx_data_d, rx_data_q;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:   // Serial to Parallel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     if (cfg_rxorder_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       rx_data_d = {mosi, rx_data_q[BITS-1:1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       rx_data_d = {rx_data_q[BITS-2:0], mosi};</pre>
+<pre style="margin:0; padding:0 ">  64:     end</pre>
+<pre style="margin:0; padding:0 ">  65:   end</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   always_ff @(posedge clk_in_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     rx_data_q <= rx_data_d;</pre>
+<pre style="margin:0; padding:0 ">  69:   end</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   // As SCK shut off right after bytes are transferred,</pre>
+<pre style="margin:0; padding:0 ">  72:   // HW should give current MOSI and latched version of rx_data</pre>
+<pre style="margin:0; padding:0 ">  73:   // if not, FIFO request should be generated next cycle but it cannot be (as no clock exist)</pre>
+<pre style="margin:0; padding:0 ">  74:   // It means RX_FIFO should latch the write request at negedge of clk_in_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   assign rx_data_o = rx_data_d;</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77:   // Counter to generate write signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   always_ff @(posedge clk_in_i or negedge rst_in_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     if (!rst_in_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       rx_bitcount <= BITWIDTH'(BITS-1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       if (rx_bitcount == '0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         rx_bitcount <= BITWIDTH'(BITS-1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         rx_bitcount <= rx_bitcount -1;</pre>
+<pre style="margin:0; padding:0 ">  86:       end</pre>
+<pre style="margin:0; padding:0 ">  87:     end</pre>
+<pre style="margin:0; padding:0 ">  88:   end</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   assign rx_wvalid_o = (rx_bitcount == '0);</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   // TX Serialize</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic [BITWIDTH-1:0] tx_bitcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   logic first_bit, last_bit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   spi_byte_t miso_shift;</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign first_bit = (tx_bitcount == BITWIDTH'(BITS-1)) ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign last_bit  = (tx_bitcount == '0) ? 1'b1 : 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  99:   // Pop the entry from the FIFO at bit 1.</pre>
+<pre style="margin:0; padding:0 "> 100:   //    This let the module pop the entry correctly when CPHA == 1 If CPHA is set, there is no clock</pre>
+<pre style="margin:0; padding:0 "> 101:   //    posedge after bitcnt is 0 right before CSb is de-asserted.  So TX Async FIFO pop signal</pre>
+<pre style="margin:0; padding:0 "> 102:   //    cannot be latched inside FIFO.  It is safe to pop between bitcnt 6 to 1. If pop signal is</pre>
+<pre style="margin:0; padding:0 "> 103:   //    asserted when bitcnt 7 it can pop twice if CPHA is 1.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   assign tx_rready_o = (tx_bitcount == BITWIDTH'(1)); // Pop at second bit transfer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   always_ff @(posedge clk_out_i or negedge rst_out_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     if (!rst_out_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       tx_bitcount <= BITWIDTH'(BITS-1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       if (last_bit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:         tx_bitcount <= BITWIDTH'(BITS-1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       end else if (tx_state != TxIdle || cpha_i == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:         tx_bitcount <= tx_bitcount - 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 113:       end</pre>
+<pre style="margin:0; padding:0 "> 114:     end</pre>
+<pre style="margin:0; padding:0 "> 115:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   always_ff @(posedge clk_out_i or negedge rst_out_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     if (!rst_out_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       tx_state <= TxIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       tx_state <= TxActive;</pre>
+<pre style="margin:0; padding:0 "> 121:     end</pre>
+<pre style="margin:0; padding:0 "> 122:   end</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign miso = (cfg_txorder_i) ? ((~first_bit) ? miso_shift[0] : tx_data_i[0]) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:                 (~first_bit) ? miso_shift[7] : tx_data_i[7] ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign miso_oe = ~csb_i;</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   always_ff @(posedge clk_out_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     if (cfg_txorder_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       if (first_bit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:         miso_shift <= {1'b0, tx_data_i[7:1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:         miso_shift <= {1'b0, miso_shift[7:1]};</pre>
+<pre style="margin:0; padding:0 "> 134:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       if (first_bit) begin</pre>
+<pre style="margin:0; padding:0 "> 137:         // Dummy byte cannot be used. empty signal could be delayed two clocks to cross</pre>
+<pre style="margin:0; padding:0 "> 138:         // async clock domain. It means even FW writes value to FIFO, empty signal deasserts</pre>
+<pre style="margin:0; padding:0 "> 139:         // after two negative edge of SCK. HW module already in the middle of sending DUMMY.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:         miso_shift <= {tx_data_i[6:0], 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:         miso_shift <= {miso_shift[6:0], 1'b0};</pre>
+<pre style="margin:0; padding:0 "> 143:       end</pre>
+<pre style="margin:0; padding:0 "> 144:     end</pre>
+<pre style="margin:0; padding:0 "> 145:   end</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="margin:0; padding:0 "> 147:   // Events: rx_overflow, tx_underflow</pre>
+<pre style="margin:0; padding:0 "> 148:   //    Reminder: Those events are not 100% accurate. If the event happens at</pre>
+<pre style="margin:0; padding:0 "> 149:   //    the end of the transaction right before CSb de-assertion, the event</pre>
+<pre style="margin:0; padding:0 "> 150:   //    cannot be propagated to the main clock domain due to the reset and lack</pre>
+<pre style="margin:0; padding:0 "> 151:   //    of SCK after CSb de-assertion.</pre>
+<pre style="margin:0; padding:0 "> 152:   //</pre>
+<pre style="margin:0; padding:0 "> 153:   //    For these events to be propagated to the main clock domain, it needds</pre>
+<pre style="margin:0; padding:0 "> 154:   //    one more clock edge to creates toggle signal in the pulse synchronizer.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign rx_overflow_o  = rx_wvalid_o & ~rx_wready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   assign tx_underflow_o = tx_rready_o & ~tx_rvalid_i;</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158: endmodule</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+</body>
+</html>

@@ -1,7 +1,6 @@
 /*
 :name: case
 :description: A module testing case statement
-:should_fail: 0
 :tags: 12.5
 */
 module case_tb ();

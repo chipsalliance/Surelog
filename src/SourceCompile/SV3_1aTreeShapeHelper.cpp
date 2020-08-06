@@ -164,7 +164,7 @@ unsigned int SV3_1aTreeShapeHelper::getFileLine(ParserRuleContext* ctx,
 std::pair<double, TimeInfo::Unit> SV3_1aTreeShapeHelper::getTimeValue(
     SV3_1aParser::Time_literalContext* ctx) {
   double actual_value = 0;
-  TimeInfo::Unit unit = TimeInfo::Second;
+  TimeInfo::Unit unit = TimeInfo::Unit::Second;
   if (ctx->Integral_number())
     actual_value = atoi(ctx->Integral_number()->getText().c_str());
   if (ctx->Real_number())

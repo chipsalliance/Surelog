@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_sram_arbiter.sv Cov: 84.7% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // N:1 SRAM arbiter</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Parameter</pre>
+<pre style="margin:0; padding:0 ">   8: //  N:  Number of requst port</pre>
+<pre style="margin:0; padding:0 ">   9: //  DW: Data width (SECDED is not included)</pre>
+<pre style="margin:0; padding:0 ">  10: //  Aw: Address width</pre>
+<pre style="margin:0; padding:0 ">  11: //  ArbiterImpl: can be either PPC or BINTREE.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module prim_sram_arbiter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int N  = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int SramDw = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int SramAw = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter ArbiterImpl = "PPC"</pre>
+<pre style="margin:0; padding:0 ">  17: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input        [     N-1:0] req,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input        [SramAw-1:0] req_addr   [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                     req_write  [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input        [SramDw-1:0] req_wdata  [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic [     N-1:0] gnt,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [     N-1:0] rsp_rvalid,      // Pulse</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic [SramDw-1:0] rsp_rdata  [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic [       1:0] rsp_error  [N],</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   // SRAM Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic              sram_req,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic [SramAw-1:0] sram_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic              sram_write,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [SramDw-1:0] sram_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input                     sram_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input        [SramDw-1:0] sram_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input        [1:0]        sram_rerror</pre>
+<pre style="margin:0; padding:0 ">  39: );</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     logic write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     logic [SramAw-1:0] addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     logic [SramDw-1:0] wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   } req_t;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   localparam int ARB_DW = $bits(req_t);</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   req_t req_packed [N];</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   for (genvar i = 0 ; i < N ; i++) begin : gen_reqs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     assign req_packed[i] = {req_write[i], req_addr[i], req_wdata[i]};</pre>
+<pre style="margin:0; padding:0 ">  54:   end</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   req_t sram_packed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign sram_write = sram_packed.write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   assign sram_addr  = sram_packed.addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign sram_wdata = sram_packed.wdata;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   if (ArbiterImpl == "PPC") begin : gen_arb_ppc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     prim_arbiter_ppc #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       .N (N),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       .DW(ARB_DW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     ) u_reqarb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       .req_i   ( req         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       .data_i  ( req_packed  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:       .gnt_o   ( gnt         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:       .idx_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:       .valid_o ( sram_req    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       .data_o  ( sram_packed ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       .ready_i ( 1'b1        )</pre>
+<pre style="margin:0; padding:0 ">  75:     );</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:   end else if (ArbiterImpl == "BINTREE") begin : gen_tree_arb</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:     prim_arbiter_arb #(</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78:       .N (N),</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:       .DW(ARB_DW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     ) u_reqarb (</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:       .clk_i,</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:       .rst_ni,</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:       .req_i   ( req         ),</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:       .data_i  ( req_packed  ),</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:       .gnt_o   ( gnt         ),</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:       .idx_o   (             ),</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:       .valid_o ( sram_req    ),</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:       .data_o  ( sram_packed ),</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:       .ready_i ( 1'b1        )</pre>
+<pre style="margin:0; padding:0 ">  90:     );</pre>
+<pre style="margin:0; padding:0 ">  91:   end else begin : gen_unknown</pre>
+<pre style="margin:0; padding:0 ">  92:     `ASSERT_INIT(UnknownArbImpl_A, 0)</pre>
+<pre style="margin:0; padding:0 ">  93:   end</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [N-1:0] steer;    // Steering sram_rvalid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic sram_ack;         // Ack for rvalid. |sram_rvalid</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign sram_ack = sram_rvalid & (|steer);</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // Request FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     .Width    (N),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     .Pass     (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     .Depth    (4)        // Assume at most 4 pipelined</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   ) u_req_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     .clr_i    (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     .wvalid   (sram_req && !sram_write),  // Push only for read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     .wready   (),     // TODO: Generate Error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     .wdata    (gnt),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     .depth    (),     // Not used</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .rvalid   (),     // TODO; Generate error if sram_rvalid but rvalid==0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     .rready   (sram_ack),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     .rdata    (steer)</pre>
+<pre style="margin:0; padding:0 "> 117:   );</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign rsp_rvalid = steer & {N{sram_rvalid}};</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   for (genvar i = 0 ; i < N ; i++) begin : gen_rsp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     assign rsp_rdata[i] = sram_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     assign rsp_error[i] = sram_rerror; // No SECDED yet</pre>
+<pre style="margin:0; padding:0 "> 124:   end</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126: endmodule</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+</body>
+</html>

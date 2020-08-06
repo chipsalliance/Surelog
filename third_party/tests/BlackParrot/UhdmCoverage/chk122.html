@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_calculator/bp_be_pipe_int.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_be_pipe_int.v</pre>
+<pre style="margin:0; padding:0 ">   5:  * </pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   Pipeline for RISC-V integer instructions. Handles integer computation.</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Parameters:</pre>
+<pre style="margin:0; padding:0 ">  10:  *   num_core_p       - </pre>
+<pre style="margin:0; padding:0 ">  11:  *</pre>
+<pre style="margin:0; padding:0 ">  12:  * Inputs:</pre>
+<pre style="margin:0; padding:0 ">  13:  *   clk_i            -</pre>
+<pre style="margin:0; padding:0 ">  14:  *   reset_i          -</pre>
+<pre style="margin:0; padding:0 ">  15:  *</pre>
+<pre style="margin:0; padding:0 ">  16:  *   decode_i         - All of the pipeline control information needed for a dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  17:  *   pc_i             - PC of the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  18:  *   rs1_i            - Source register data for the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  19:  *   rs2_i            - Source register data for the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  20:  *   imm_i            - Immediate data for the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  21:  *   exc_i            - Exception information for a dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  22:  * </pre>
+<pre style="margin:0; padding:0 ">  23:  * Outputs:</pre>
+<pre style="margin:0; padding:0 ">  24:  *   data_o           - The calculated result of the instruction</pre>
+<pre style="margin:0; padding:0 ">  25:  *   br_tgt_o         - The calculated branch target from branch instructions</pre>
+<pre style="margin:0; padding:0 ">  26:  *   </pre>
+<pre style="margin:0; padding:0 ">  27:  * Keywords:</pre>
+<pre style="margin:0; padding:0 ">  28:  *   calculator, alu, int, integer, rv64i</pre>
+<pre style="margin:0; padding:0 ">  29:  *</pre>
+<pre style="margin:0; padding:0 ">  30:  * Notes:</pre>
+<pre style="margin:0; padding:0 ">  31:  *   </pre>
+<pre style="margin:0; padding:0 ">  32:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: module bp_be_pipe_int </pre>
+<pre style="margin:0; padding:0 ">  34:  import bp_common_rv64_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  35:  import bp_be_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:  #(parameter vaddr_width_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:    // Generated parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , localparam decode_width_lp        = `bp_be_decode_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , localparam exception_width_lp   = `bp_be_exception_width</pre>
+<pre style="margin:0; padding:0 ">  41:    // From RISC-V specifications</pre>
+<pre style="margin:0; padding:0 ">  42:    , localparam reg_data_width_lp = rv64_reg_data_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , localparam reg_addr_width_lp = rv64_reg_addr_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    )</pre>
+<pre style="margin:0; padding:0 ">  45:   (input                            clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    , input                          reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:    // Common pipeline interface</pre>
+<pre style="margin:0; padding:0 ">  49:    , input                          kill_ex1_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:    , input [decode_width_lp-1:0]    decode_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:    , input [vaddr_width_p-1:0]      pc_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , input [reg_data_width_lp-1:0]  rs1_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , input [reg_data_width_lp-1:0]  rs2_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    , input [reg_data_width_lp-1:0]  imm_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:    // Pipeline results</pre>
+<pre style="margin:0; padding:0 ">  58:    , output [reg_data_width_lp-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:    , output [vaddr_width_p-1:0]     br_tgt_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    );</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63: // Cast input and output ports </pre>
+<pre style="margin:0; padding:0 ">  64: bp_be_decode_s      decode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66: assign decode = decode_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68: // Suppress unused signal warning</pre>
+<pre style="margin:0; padding:0 ">  69: wire unused0 = clk_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: wire unused1 = reset_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: wire unused2 = kill_ex1_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73: // Sign-extend PC for calculation</pre>
+<pre style="margin:0; padding:0 ">  74: wire [reg_data_width_lp-1:0] pc_sext_li = reg_data_width_lp'($signed(pc_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76: // Submodule connections</pre>
+<pre style="margin:0; padding:0 ">  77: logic [reg_data_width_lp-1:0] src1, src2, baddr, alu_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: logic [reg_data_width_lp-1:0] pc_plus4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: logic [reg_data_width_lp-1:0] data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81: // Perform the actual ALU computation</pre>
+<pre style="margin:0; padding:0 ">  82: bp_be_int_alu </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:  alu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   (.src1_i(src1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    ,.src2_i(src2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    ,.op_i(decode.fu_op)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:    ,.opw_v_i(decode.opw_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:    ,.result_o(alu_result)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    );</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92: always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     src1     = decode.src1_sel  ? pc_sext_li : rs1_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     src2     = decode.src2_sel  ? imm_i      : rs2_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     baddr    = decode.baddr_sel ? src1       : pc_sext_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     pc_plus4 = pc_sext_li + reg_data_width_lp'(4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   end</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="margin:0; padding:0 "> 100: assign data_o   = decode.result_sel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                   ? pc_plus4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                   : alu_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: assign br_tgt_o = baddr + imm_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105: endmodule : bp_be_pipe_int</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+</body>
+</html>

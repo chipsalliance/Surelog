@@ -321,6 +321,344 @@ PP TREE: (top_level_rule null_rule (source_text (description (module module)) (d
 
 [NTE:EL0511] Nb leaf instances: 3.
 
+UHDM HTML COVERAGE REPORT: ../../build/tests/ModPortTest/slpp_unit//surelog.uhdm.chk
+====== UHDM =======
+design: (work@dff0_test)
+|vpiName:work@dff0_test
+|uhdmallPackages:
+\_package: builtin, parent:work@dff0_test
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiFullName:builtin::builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiFullName:builtin::builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiFullName:builtin::builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiFullName:builtin::builtin::system
+|uhdmallInterfaces:
+\_interface: work@AXI_BUS, file:top.v, line:8, parent:work@dff0_test
+  |vpiDefName:work@AXI_BUS
+  |vpiFullName:work@AXI_BUS
+  |vpiModport:
+  \_modport: (Master)
+    |vpiName:Master
+    |vpiIODecl:
+    \_io_decl: (aw_id)
+      |vpiName:aw_id
+      |vpiDirection:2
+  |vpiModport:
+  \_modport: (Slave)
+    |vpiName:Slave
+    |vpiIODecl:
+    \_io_decl: (ww_id)
+      |vpiName:ww_id
+      |vpiDirection:2
+  |vpiNet:
+  \_logic_net: (aw_id), line:14
+    |vpiName:aw_id
+    |vpiFullName:work@AXI_BUS.aw_id
+  |vpiNet:
+  \_logic_net: (rw_id), line:20
+    |vpiName:rw_id
+    |vpiFullName:work@AXI_BUS.rw_id
+|uhdmallInterfaces:
+\_interface: work@mem_if, file:top.v, line:29, parent:work@dff0_test
+  |vpiDefName:work@mem_if
+  |vpiFullName:work@mem_if
+  |vpiModport:
+  \_modport: (memory)
+    |vpiName:memory
+    |vpiIODecl:
+    \_io_decl: (clk)
+      |vpiName:clk
+      |vpiDirection:2
+  |vpiModport:
+  \_modport: (system)
+    |vpiName:system
+    |vpiIODecl:
+    \_io_decl: (clk)
+      |vpiName:clk
+      |vpiDirection:1
+  |vpiPort:
+  \_port: (clk), line:29
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (clk), line:29
+        |vpiName:clk
+        |vpiFullName:work@mem_if.clk
+        |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (clk), line:29
+|uhdmallModules:
+\_module: work@dff0_test, file:top.v, line:1, parent:work@dff0_test
+  |vpiDefName:work@dff0_test
+  |vpiFullName:work@dff0_test
+  |vpiPort:
+  \_port: (n1), line:1
+    |vpiName:n1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (n1), line:4
+        |vpiName:n1
+        |vpiFullName:work@dff0_test.n1
+        |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (n1), line:4
+|uhdmallModules:
+\_module: work@memory_ctrl1, file:top.v, line:36, parent:work@dff0_test
+  |vpiDefName:work@memory_ctrl1
+  |vpiFullName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif), line:36
+    |vpiName:sif
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@mem_if, file:top.v, line:29, parent:work@dff0_test
+        |vpiDefName:work@mem_if
+        |vpiFullName:work@mem_if
+        |vpiModport:
+        \_modport: (memory)
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:2
+        |vpiModport:
+        \_modport: (system)
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:1
+        |vpiPort:
+        \_port: (clk), line:29
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (clk), line:29
+              |vpiName:clk
+              |vpiFullName:work@mem_if.clk
+              |vpiNetType:1
+        |vpiNet:
+        \_logic_net: (clk), line:29
+  |vpiNet:
+  \_logic_net: (state), line:40
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl1.state
+  |vpiNet:
+  \_logic_net: (sif), line:36
+    |vpiName:sif
+    |vpiFullName:work@memory_ctrl1.sif
+  |vpiTypedef:
+  \_enum_typespec: (fsm_t), line:38
+    |vpiName:fsm_t
+    |vpiEnumConst:
+    \_enum_const: (DONE), line:38
+      |vpiName:DONE
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (IDLE), line:38
+      |vpiName:IDLE
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (READ), line:38
+      |vpiName:READ
+      |INT:2
+    |vpiEnumConst:
+    \_enum_const: (WRITE), line:38
+      |vpiName:WRITE
+      |INT:1
+|uhdmallModules:
+\_module: work@memory_ctrl2, file:top.v, line:45, parent:work@dff0_test
+  |vpiDefName:work@memory_ctrl2
+  |vpiFullName:work@memory_ctrl2
+  |vpiPort:
+  \_port: (sif), line:45
+    |vpiName:sif
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (system)
+  |vpiNet:
+  \_logic_net: (state), line:49
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl2.state
+  |vpiNet:
+  \_logic_net: (t), line:51
+    |vpiName:t
+    |vpiFullName:work@memory_ctrl2.t
+  |vpiNet:
+  \_logic_net: (sif), line:45
+    |vpiName:sif
+    |vpiFullName:work@memory_ctrl2.sif
+  |vpiTypedef:
+  \_enum_typespec: (fsm_t), line:47
+    |vpiName:fsm_t
+    |vpiEnumConst:
+    \_enum_const: (DONE), line:47
+      |vpiName:DONE
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (IDLE), line:47
+      |vpiName:IDLE
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (READ), line:47
+      |vpiName:READ
+      |INT:2
+    |vpiEnumConst:
+    \_enum_const: (WRITE), line:47
+      |vpiName:WRITE
+      |INT:1
+|uhdmtopModules:
+\_module: work@dff0_test (work@dff0_test), file:top.v, line:1
+  |vpiDefName:work@dff0_test
+  |vpiName:work@dff0_test
+  |vpiPort:
+  \_port: (n1), line:1, parent:work@dff0_test
+    |vpiName:n1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (n1), line:4, parent:work@dff0_test
+        |vpiName:n1
+        |vpiFullName:work@dff0_test.n1
+        |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (n1), line:4, parent:work@dff0_test
+|uhdmtopModules:
+\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36
+  |vpiDefName:work@memory_ctrl1
+  |vpiName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif), line:36, parent:work@memory_ctrl1
+    |vpiName:sif
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@mem_if (sif), file:top.v, line:36
+        |vpiDefName:work@mem_if
+        |vpiName:sif
+        |vpiModport:
+        \_modport: (memory)
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:2
+        |vpiModport:
+        \_modport: (system)
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:1
+  |vpiNet:
+  \_logic_net: (sif), line:36, parent:work@memory_ctrl1
+    |vpiName:sif
+    |vpiFullName:work@memory_ctrl1.sif
+  |vpiVariables:
+  \_enum_var: (state), line:40, parent:work@memory_ctrl1
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl1.state
+    |vpiTypespec:
+    \_enum_typespec: (fsm_t), line:38
+      |vpiName:fsm_t
+      |vpiEnumConst:
+      \_enum_const: (DONE), line:38
+        |vpiName:DONE
+        |INT:3
+      |vpiEnumConst:
+      \_enum_const: (IDLE), line:38
+        |vpiName:IDLE
+        |INT:0
+      |vpiEnumConst:
+      \_enum_const: (READ), line:38
+        |vpiName:READ
+        |INT:2
+      |vpiEnumConst:
+      \_enum_const: (WRITE), line:38
+        |vpiName:WRITE
+        |INT:1
+|uhdmtopModules:
+\_module: work@memory_ctrl2 (work@memory_ctrl2), file:top.v, line:45
+  |vpiDefName:work@memory_ctrl2
+  |vpiName:work@memory_ctrl2
+  |vpiPort:
+  \_port: (sif), line:45, parent:work@memory_ctrl2
+    |vpiName:sif
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (system)
+        |vpiName:system
+        |vpiIODecl:
+        \_io_decl: (clk)
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiExpr:
+          \_logic_net: (clk), line:29
+            |vpiName:clk
+            |vpiNetType:1
+  |vpiPort:
+  \_port: (clk), line:29, parent:work@memory_ctrl2
+    |vpiName:clk
+    |vpiDirection:1
+  |vpiNet:
+  \_logic_net: (t), line:51, parent:work@memory_ctrl2
+    |vpiName:t
+    |vpiFullName:work@memory_ctrl2.t
+  |vpiNet:
+  \_logic_net: (sif), line:45, parent:work@memory_ctrl2
+    |vpiName:sif
+    |vpiFullName:work@memory_ctrl2.sif
+  |vpiVariables:
+  \_enum_var: (state), line:49, parent:work@memory_ctrl2
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl2.state
+    |vpiTypespec:
+    \_enum_typespec: (fsm_t), line:47
+      |vpiName:fsm_t
+      |vpiEnumConst:
+      \_enum_const: (DONE), line:47
+        |vpiName:DONE
+        |INT:3
+      |vpiEnumConst:
+      \_enum_const: (IDLE), line:47
+        |vpiName:IDLE
+        |INT:0
+      |vpiEnumConst:
+      \_enum_const: (READ), line:47
+        |vpiName:READ
+        |INT:2
+      |vpiEnumConst:
+      \_enum_const: (WRITE), line:47
+        |vpiName:WRITE
+        |INT:1
+===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 4

@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_gate_gen.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Simple parameterizable gate generator. Used to fill up the netlist</pre>
+<pre style="margin:0; padding:0 ">   6: // with gates that cannot be optimized away.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // The module leverages 4bit SBoxes from the PRINCE cipher, and interleaves</pre>
+<pre style="margin:0; padding:0 ">   9: // them with registers, resulting in a split of around 50/50 between logic and</pre>
+<pre style="margin:0; padding:0 ">  10: // sequential cells.</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: // This generator has been tested with 32bit wide data, and produces</pre>
+<pre style="margin:0; padding:0 ">  13: // the following results:</pre>
+<pre style="margin:0; padding:0 ">  14: //</pre>
+<pre style="margin:0; padding:0 ">  15: // if valid_i constantly set to 1'b1:</pre>
+<pre style="margin:0; padding:0 ">  16: // -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">  17: // requested GE | actual GE | GE error</pre>
+<pre style="margin:0; padding:0 ">  18: // -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">  19: // 500          |   679     |   179</pre>
+<pre style="margin:0; padding:0 ">  20: // 1000         |   1018    |   18</pre>
+<pre style="margin:0; padding:0 ">  21: // 1500         |   1696    |   196</pre>
+<pre style="margin:0; padding:0 ">  22: // 2500         |   2714    |   214</pre>
+<pre style="margin:0; padding:0 ">  23: // 5000         |   5210    |   210</pre>
+<pre style="margin:0; padding:0 ">  24: // 7500         |   7456    |   -44</pre>
+<pre style="margin:0; padding:0 ">  25: // 10000        |   10015   |   15</pre>
+<pre style="margin:0; padding:0 ">  26: // 15000        |   15191   |   191</pre>
+<pre style="margin:0; padding:0 ">  27: // 25000        |   25228   |   228</pre>
+<pre style="margin:0; padding:0 ">  28: // 50000        |   50485   |   485</pre>
+<pre style="margin:0; padding:0 ">  29: //</pre>
+<pre style="margin:0; padding:0 ">  30: // otherwise, with clock gating enabled:</pre>
+<pre style="margin:0; padding:0 ">  31: // -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">  32: // requested GE | actual GE | GE error</pre>
+<pre style="margin:0; padding:0 ">  33: // -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">  34: // 500          |   696     |   196</pre>
+<pre style="margin:0; padding:0 ">  35: // 1000         |   1043    |   43</pre>
+<pre style="margin:0; padding:0 ">  36: // 1500         |   1737    |   237</pre>
+<pre style="margin:0; padding:0 ">  37: // 2500         |   2779    |   279</pre>
+<pre style="margin:0; padding:0 ">  38: // 5000         |   5340    |   340</pre>
+<pre style="margin:0; padding:0 ">  39: // 7500         |   7634    |   134</pre>
+<pre style="margin:0; padding:0 ">  40: // 10000        |   10284   |   284</pre>
+<pre style="margin:0; padding:0 ">  41: // 15000        |   15585   |   585</pre>
+<pre style="margin:0; padding:0 ">  42: // 25000        |   25855   |   855</pre>
+<pre style="margin:0; padding:0 ">  43: // 50000        |   51732   |   1732</pre>
+<pre style="margin:0; padding:0 ">  44: //</pre>
+<pre style="margin:0; padding:0 ">  45: // Note that the generator is not very accurate for smaller gate counts due</pre>
+<pre style="margin:0; padding:0 ">  46: // to the generate loop granularity. Hence, do not use for fever than 500 GE.</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: module prim_gate_gen #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   parameter int DataWidth = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   parameter int NumGates = 1000</pre>
+<pre style="margin:0; padding:0 ">  52: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input                        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input                        valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   input        [DataWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   output logic [DataWidth-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   output                       valid_o</pre>
+<pre style="margin:0; padding:0 ">  60: );</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  63:   // Local parameters and assertions //</pre>
+<pre style="margin:0; padding:0 ">  64:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // technology specific tuning, do not modify.</pre>
+<pre style="margin:0; padding:0 ">  67:   // an inner round is comprised of a 2bit rotation, followed by a 4bit SBox Layer.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   localparam int NumInnerRounds = 2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   localparam int GatesPerRound  = DataWidth * 10;</pre>
+<pre style="margin:0; padding:0 ">  70:   // an outer round consists of NumInnerRounds, followed by a register.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   localparam int NumOuterRounds = (NumGates + GatesPerRound / 2) / GatesPerRound;</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:   // do not use for fewer than 500 GE</pre>
+<pre style="margin:0; padding:0 ">  74:   `ASSERT(MinimumNumGates_A, NumGates >= 500)</pre>
+<pre style="margin:0; padding:0 ">  75:   `ASSERT(DataMustBeMultipleOfFour_A, DataWidth % 4 == 0)</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  78:   // Generator Loops //</pre>
+<pre style="margin:0; padding:0 ">  79:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic [NumOuterRounds-1:0][DataWidth-1:0] regs_d, regs_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic [NumOuterRounds-1:0] valid_d, valid_q;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   for (genvar k = 0; k < NumOuterRounds; k++) begin : gen_outer_round</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     logic [NumInnerRounds:0][DataWidth-1:0] inner_data;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     if (k==0) begin : gen_first</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       assign inner_data[0] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       assign valid_d[0]    = valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     end else begin : gen_others</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       assign inner_data[0] = regs_q[k-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       assign valid_d[k]    = valid_q[k-1];</pre>
+<pre style="margin:0; padding:0 ">  94:     end</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     for (genvar l = 0; l < NumInnerRounds; l++) begin : gen_inner</pre>
+<pre style="margin:0; padding:0 ">  97:       // 2bit rotation + sbox layer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       assign inner_data[l+1] = prim_cipher_pkg::sbox4_32bit({inner_data[l][1:0],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:                                                              inner_data[l][DataWidth-1:2]},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:                                                              prim_cipher_pkg::PRINCE_SBOX4);</pre>
+<pre style="margin:0; padding:0 "> 101:     end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     assign regs_d[k] = inner_data[NumInnerRounds];</pre>
+<pre style="margin:0; padding:0 "> 104:   end</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       regs_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       valid_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       valid_q <= valid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       for (int k = 0; k < NumOuterRounds; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:         if (valid_d[k]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:           regs_q[k] <= regs_d[k];</pre>
+<pre style="margin:0; padding:0 "> 115:         end</pre>
+<pre style="margin:0; padding:0 "> 116:       end</pre>
+<pre style="margin:0; padding:0 "> 117:     end</pre>
+<pre style="margin:0; padding:0 "> 118:   end</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   assign data_o = regs_q[NumOuterRounds-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign valid_o = valid_q[NumOuterRounds-1];</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: endmodule : prim_gate_gen</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
 :name: variable_mixed_assignments
 :description: Variable mixed assignments tests
-:should_fail: 1
+:should_fail_because: mixed assignment types are not allowed
 :tags: 6.5
 :type: simulation
 */

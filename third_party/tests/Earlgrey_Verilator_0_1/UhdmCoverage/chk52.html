@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr_por.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module stretches the POR</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module rstmgr_por #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int FilterStages = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int StretchCount = 32</pre>
+<pre style="margin:0; padding:0 ">  13: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input pok_i, // TODO: This should not be an actual separate port but the POR itself</pre>
+<pre style="margin:0; padding:0 ">  17:                // However, this cannot be done until AST integration is done.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic rst_no</pre>
+<pre style="margin:0; padding:0 ">  19: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int CtrWidth = $clog2(StretchCount+1);</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic rst_root_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic [FilterStages-1:0] rst_filter_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic rst_stable;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic rst_clean_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic [CtrWidth-1:0] cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   logic cnt_en;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   // sync the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     .ResetValue(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   ) rst_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     .rst_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .q(rst_root_n)</pre>
+<pre style="margin:0; padding:0 ">  38:   );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // filter the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   always_ff @(posedge clk_i or negedge rst_root_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     if (!rst_root_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:       rst_filter_n <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     end else if (pok_i) begin // once AST is in, this conditional should not be here.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:       rst_filter_n <= {rst_filter_n[0 +: FilterStages-1], 1'b1};</pre>
+<pre style="margin:0; padding:0 ">  46:     end</pre>
+<pre style="margin:0; padding:0 ">  47:   end</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:   // The stable is a vote of all filter stages.</pre>
+<pre style="margin:0; padding:0 ">  50:   // Only when all the stages agree is the reset considered stable and count allowed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   assign rst_clean_n = rst_filter_n[FilterStages-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign rst_stable = &rst_filter_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign cnt_en = rst_stable & !rst_no;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // stretch the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   always_ff @(posedge clk_i or negedge rst_clean_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     if (!rst_clean_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:       cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       rst_no <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     end else if (!rst_stable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       rst_no <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     end else if (cnt_en && cnt == StretchCount) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       rst_no <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     end else if (cnt_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       cnt <= cnt + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  67:     end</pre>
+<pre style="margin:0; padding:0 ">  68:   end</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70: endmodule // rstmgr_por</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_usbdev_0.1/rtl/usbdev_flop_2syncpulse.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Generic double-synchronizer flop followed by pulse generation</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module usbdev_flop_2syncpulse #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int unsigned Width = 16</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  logic             clk_i,    // receive clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic             rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic [Width-1:0] d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic [Width-1:0] q</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   // double-flop synchronizer cell</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   logic [Width-1:0] d_sync;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   prim_flop_2sync #(.Width (Width)) prim_flop_2sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     .d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     .q (d_sync)</pre>
+<pre style="margin:0; padding:0 ">  23:   );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // delay d_sync by 1 cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic [Width-1:0] d_sync_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       d_sync_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:       d_sync_q <= d_sync;</pre>
+<pre style="margin:0; padding:0 ">  32:     end</pre>
+<pre style="margin:0; padding:0 ">  33:   end</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   // rising edge detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   assign q = d_sync & ~d_sync_q;</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38: endmodule</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+</body>
+</html>

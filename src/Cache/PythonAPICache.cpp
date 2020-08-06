@@ -51,17 +51,13 @@ static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
-PythonAPICache::PythonAPICache(const PythonAPICache& orig) {}
-
-PythonAPICache::~PythonAPICache() {}
-
 std::string PythonAPICache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_listener->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   std::string cacheDirName = m_listener->getParseFile()->getSymbol(cacheDirId);
-  if (svFileName == "")
+  if (svFileName.empty())
     svFileName = m_listener->getParseFile()->getFileName(LINE1);
-  svFileName = FileUtils::fileName(svFileName);
+  svFileName = FileUtils::basename(svFileName);
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
   std::string libName = lib->getName() + "/";
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpy";

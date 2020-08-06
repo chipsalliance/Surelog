@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/alert_handler/rtl/alert_handler_accu.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module accumulates incoming alert triggers. Once the current accumulator</pre>
+<pre style="margin:0; padding:0 ">   6: // value is greater or equal the accumulator threshold, the next occurence of</pre>
+<pre style="margin:0; padding:0 ">   7: // class_trig_i will trigger escalation.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: // Note that the accumulator is implemented using a saturation counter which</pre>
+<pre style="margin:0; padding:0 ">  10: // does not wrap around.</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: module alert_handler_accu import alert_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input                        class_en_i,   // class enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                        clr_i,        // clear the accumulator</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                        class_trig_i, // increments the accu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        [AccuCntDw-1:0] thresh_i,     // escalation trigger threshold</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [AccuCntDw-1:0] accu_cnt_o,   // output of current accu value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic                 accu_trig_o   // escalation trigger output</pre>
+<pre style="margin:0; padding:0 ">  22: );</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic trig_gated;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic [AccuCntDw-1:0] accu_d, accu_q;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   assign trig_gated = class_trig_i & class_en_i;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   assign accu_d = (clr_i)                    ? '0            : // clear</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                   (trig_gated && !(&accu_q)) ? accu_q + 1'b1 : // saturate counter at maximum</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:                                                accu_q;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   assign accu_trig_o = (accu_q >= thresh_i) & trig_gated;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   assign accu_cnt_o = accu_q;</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:       accu_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:       accu_q <= accu_d;</pre>
+<pre style="margin:0; padding:0 ">  42:     end</pre>
+<pre style="margin:0; padding:0 ">  43:   end</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  47:   // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  48:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   `ASSERT(DisabledNoTrigFwd_A, !class_en_i |-> !accu_trig_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  51:   `ASSERT(DisabledNoTrigBkwd_A, accu_trig_o |-> class_en_i, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: endmodule : alert_handler_accu</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+</body>
+</html>

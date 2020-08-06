@@ -47,8 +47,8 @@ struct FunctorCompileFileContent {
   ErrorContainer* m_errors;
 };
 
-class CompileFileContent {
- public:
+class CompileFileContent final {
+public:
   CompileFileContent(CompileDesign* compiler, FileContent* file, Design* design,
                      SymbolTable* symbols, ErrorContainer* errors)
       : m_compileDesign(compiler),
@@ -61,18 +61,19 @@ class CompileFileContent {
 
   bool compile();
 
-  virtual ~CompileFileContent();
+private:
+  CompileFileContent(const CompileFileContent&) = delete;
 
- private:
   bool collectObjects_();
-  CompileDesign* m_compileDesign;
-  FileContent* m_fileContent;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  CompileDesign* const m_compileDesign;
+  FileContent* const m_fileContent;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+
   CompileHelper m_helper;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILEFILECONTENT_H */

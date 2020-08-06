@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rv_timer_0.1/rtl/rv_timer.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: module rv_timer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output logic intr_timer_expired_0_0_o</pre>
+<pre style="margin:0; padding:0 ">  17: );</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int N_HARTS  = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int N_TIMERS = 1;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   import rv_timer_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   rv_timer_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   rv_timer_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   logic [N_HARTS-1:0] active;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic [11:0] prescaler [N_HARTS];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic [7:0]  step      [N_HARTS];</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   logic [N_HARTS-1:0] tick;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   logic [63:0] mtime_d  [N_HARTS];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   logic [63:0] mtime    [N_HARTS];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic [63:0] mtimecmp [N_HARTS][N_TIMERS]; // Only [harts][0] is connected to mtimecmp CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic        mtimecmp_update [N_HARTS][N_TIMERS];</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic [N_HARTS*N_TIMERS-1:0] intr_timer_set;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic [N_HARTS*N_TIMERS-1:0] intr_timer_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic [N_HARTS*N_TIMERS-1:0] intr_timer_test_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [N_HARTS-1:0]          intr_timer_test_qe;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [N_HARTS*N_TIMERS-1:0] intr_timer_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [N_HARTS-1:0]          intr_timer_state_de;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic [N_HARTS*N_TIMERS-1:0] intr_timer_state_d;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [N_HARTS*N_TIMERS-1:0] intr_out;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:   /////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  50:   // Connecting register interface to the signal //</pre>
+<pre style="margin:0; padding:0 ">  51:   /////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   // Once reggen supports nested multireg, the following can be automated. For the moment, it must</pre>
+<pre style="margin:0; padding:0 ">  54:   // be connected manually.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign active[0]  = reg2hw.ctrl[0].q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign prescaler = '{reg2hw.cfg0.prescale.q};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign step      = '{reg2hw.cfg0.step.q};</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign hw2reg.timer_v_upper0.de = tick[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   assign hw2reg.timer_v_lower0.de = tick[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   assign hw2reg.timer_v_upper0.d = mtime_d[0][63:32];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign hw2reg.timer_v_lower0.d = mtime_d[0][31: 0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign mtime[0] = {reg2hw.timer_v_upper0.q, reg2hw.timer_v_lower0.q};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign mtimecmp = '{'{{reg2hw.compare_upper0_0.q,reg2hw.compare_lower0_0.q}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign mtimecmp_update[0][0] = reg2hw.compare_upper0_0.qe | reg2hw.compare_lower0_0.qe;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign intr_timer_expired_0_0_o = intr_out[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   assign intr_timer_en            = reg2hw.intr_enable0[0].q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   assign intr_timer_state_q       = reg2hw.intr_state0[0].q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   assign intr_timer_test_q        = reg2hw.intr_test0[0].q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   assign intr_timer_test_qe       = reg2hw.intr_test0[0].qe;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign hw2reg.intr_state0[0].de = intr_timer_state_de | mtimecmp_update[0][0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   assign hw2reg.intr_state0[0].d  = intr_timer_state_d & ~mtimecmp_update[0][0];</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   for (genvar h = 0 ; h < N_HARTS ; h++) begin : gen_harts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     prim_intr_hw #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       .Width(N_TIMERS)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     ) u_intr_hw (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       .event_intr_i           (intr_timer_set),</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       .reg2hw_intr_enable_q_i (intr_timer_en[h*N_TIMERS+:N_TIMERS]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       .reg2hw_intr_test_q_i   (intr_timer_test_q[h*N_TIMERS+:N_TIMERS]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       .reg2hw_intr_test_qe_i  (intr_timer_test_qe[h]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       .reg2hw_intr_state_q_i  (intr_timer_state_q[h*N_TIMERS+:N_TIMERS]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:       .hw2reg_intr_state_de_o (intr_timer_state_de),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       .hw2reg_intr_state_d_o  (intr_timer_state_d[h*N_TIMERS+:N_TIMERS]),</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       .intr_o                 (intr_out[h*N_TIMERS+:N_TIMERS])</pre>
+<pre style="margin:0; padding:0 ">  90:     );</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     timer_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       .N (N_TIMERS)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     ) u_core (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       .active    (active[h]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       .prescaler (prescaler[h]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       .step      (step[h]),</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       .tick      (tick[h]),</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       .mtime_d   (mtime_d[h]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       .mtime     (mtime[h]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       .mtimecmp  (mtimecmp[h]),</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       .intr      (intr_timer_set[h*N_TIMERS+:N_TIMERS])</pre>
+<pre style="margin:0; padding:0 "> 109:     );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   end : gen_harts</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:   // Register module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   rv_timer_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     .tl_o,</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 "> 124:   );</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 127:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 128:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 129:   `ASSERT_KNOWN(TlODValidKnown, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 "> 130:   `ASSERT_KNOWN(TlOAReadyKnown, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 "> 131:   `ASSERT_KNOWN(IntrTimerExpired00Known, intr_timer_expired_0_0_o)</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="margin:0; padding:0 "> 133: endmodule</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+</body>
+</html>

@@ -1,7 +1,6 @@
 /*
 :name: parametrized_class_extend
 :description: parametrized class extending another parametrized class
-:should_fail: 0
 :tags: 8.25
 */
 module class_tb ();

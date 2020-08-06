@@ -1,7 +1,6 @@
 /*
 :name: program_construct
 :description: program construct test
-:should_fail: 0
 :tags: 24.3
 :type: simulation parsing
 */

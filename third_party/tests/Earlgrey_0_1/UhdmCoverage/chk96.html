@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_esc_sender.sv Cov: 88.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module differentially encodes an escalation enable pulse</pre>
+<pre style="margin:0; padding:0 ">   6: // of arbitrary width.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // The module supports in-band ping testing of the escalation</pre>
+<pre style="margin:0; padding:0 ">   9: // wires. This is accomplished by sending out a single, differentially</pre>
+<pre style="margin:0; padding:0 ">  10: // encoded pulse on esc_p/n which will be interpreted as a ping</pre>
+<pre style="margin:0; padding:0 ">  11: // request by the escalation receiver. Note that ping_en_i shall</pre>
+<pre style="margin:0; padding:0 ">  12: // be held high until either ping_ok_o or integ_fail_o is asserted.</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // Native escalation enable pulses are differentiated from ping</pre>
+<pre style="margin:0; padding:0 ">  15: // requests by making sure that these pulses are always longer than 1 cycle.</pre>
+<pre style="margin:0; padding:0 ">  16: //</pre>
+<pre style="margin:0; padding:0 ">  17: // If there is a differential encoding error, integ_fail_o</pre>
+<pre style="margin:0; padding:0 ">  18: // will be asserted.</pre>
+<pre style="margin:0; padding:0 ">  19: //</pre>
+<pre style="margin:0; padding:0 ">  20: // See also: prim_esc_receiver, prim_diff_decode, alert_handler</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: module prim_esc_sender import prim_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input           clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input           rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  25:   // this triggers a ping test. keep asserted</pre>
+<pre style="margin:0; padding:0 ">  26:   // until either ping_ok_o or ping_fail_o is asserted.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input           ping_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic    ping_ok_o,</pre>
+<pre style="margin:0; padding:0 ">  29:   // asserted if signal integrity issue detected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic    integ_fail_o,</pre>
+<pre style="margin:0; padding:0 ">  31:   // escalation enable signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input           esc_en_i,</pre>
+<pre style="margin:0; padding:0 ">  33:   // escalation / ping response</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input esc_rx_t  esc_rx_i,</pre>
+<pre style="margin:0; padding:0 ">  35:   // escalation output diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output esc_tx_t esc_tx_o</pre>
+<pre style="margin:0; padding:0 ">  37: );</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  40:   // decode differential signals //</pre>
+<pre style="margin:0; padding:0 ">  41:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic resp, sigint_detected;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:   prim_diff_decode #(</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:     .AsyncOn(1'b0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   ) i_decode_resp (</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:     .clk_i,</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:     .rst_ni,</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:     .diff_pi  ( esc_rx_i.resp_p ),</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:     .diff_ni  ( esc_rx_i.resp_n ),</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:     .level_o  ( resp            ),</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:     .rise_o   (                 ),</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:     .fall_o   (                 ),</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:     .event_o  (                 ),</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:     .sigint_o ( sigint_detected )</pre>
+<pre style="margin:0; padding:0 ">  57:   );</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  60:   // TX Logic //</pre>
+<pre style="margin:0; padding:0 ">  61:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic ping_en_d, ping_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic esc_en_d, esc_en_q, esc_en_q1;</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign ping_en_d = ping_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign esc_en_d  = esc_en_i;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   // ping enable is 1 cycle pulse</pre>
+<pre style="margin:0; padding:0 ">  70:   // escalation pulse is always longer than 2 cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   assign esc_tx_o.esc_p = esc_en_i | esc_en_q | ( ping_en_d & ~ping_en_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign esc_tx_o.esc_n = ~esc_tx_o.esc_p;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  75:   // RX Logic //</pre>
+<pre style="margin:0; padding:0 ">  76:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   typedef enum logic [2:0] {Idle, CheckEscRespLo, CheckEscRespHi,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     CheckPingResp0, CheckPingResp1, CheckPingResp2, CheckPingResp3} fsm_e;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   fsm_e state_d, state_q;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   always_comb begin : p_fsm</pre>
+<pre style="margin:0; padding:0 ">  84:     // default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     state_d      = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     ping_ok_o    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     integ_fail_o = sigint_detected;</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     unique case (state_q)</pre>
+<pre style="margin:0; padding:0 ">  90:       // wait for ping or escalation enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       Idle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         if (esc_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:           state_d = CheckEscRespHi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         end else if (ping_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:           state_d = CheckPingResp0;</pre>
+<pre style="margin:0; padding:0 ">  96:         end</pre>
+<pre style="margin:0; padding:0 ">  97:         // any assertion of the response signal</pre>
+<pre style="margin:0; padding:0 ">  98:         // signal here will trigger a sigint error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         if (resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:           integ_fail_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 101:         end</pre>
+<pre style="margin:0; padding:0 "> 102:       end</pre>
+<pre style="margin:0; padding:0 "> 103:       // check whether response is 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       CheckEscRespLo: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:         state_d      = CheckEscRespHi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:         if (!esc_en_i || resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:           integ_fail_o = sigint_detected | resp;</pre>
+<pre style="margin:0; padding:0 "> 109:         end</pre>
+<pre style="margin:0; padding:0 "> 110:       end</pre>
+<pre style="margin:0; padding:0 "> 111:       // check whether response is 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       CheckEscRespHi: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:         state_d = CheckEscRespLo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:         if (!esc_en_i || !resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:           integ_fail_o = sigint_detected | ~resp;</pre>
+<pre style="margin:0; padding:0 "> 117:         end</pre>
+<pre style="margin:0; padding:0 "> 118:       end</pre>
+<pre style="margin:0; padding:0 "> 119:       // start of ping response sequence</pre>
+<pre style="margin:0; padding:0 "> 120:       // we expect the sequence "1010"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       CheckPingResp0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         state_d = CheckPingResp1;</pre>
+<pre style="margin:0; padding:0 "> 123:         // abort sequence immediately if escalation is signalled,</pre>
+<pre style="margin:0; padding:0 "> 124:         // jump to escalation response checking (lo state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:         if (esc_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:           state_d = CheckEscRespLo;</pre>
+<pre style="margin:0; padding:0 "> 127:         // abort if response is wrong</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:         end else if (!resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:           integ_fail_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 131:         end</pre>
+<pre style="margin:0; padding:0 "> 132:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       CheckPingResp1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:         state_d = CheckPingResp2;</pre>
+<pre style="margin:0; padding:0 "> 135:         // abort sequence immediately if escalation is signalled,</pre>
+<pre style="margin:0; padding:0 "> 136:         // jump to escalation response checking (hi state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:         if (esc_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:           state_d = CheckEscRespHi;</pre>
+<pre style="margin:0; padding:0 "> 139:         // abort if response is wrong</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:         end else if (resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:           integ_fail_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 143:         end</pre>
+<pre style="margin:0; padding:0 "> 144:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       CheckPingResp2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:         state_d = CheckPingResp3;</pre>
+<pre style="margin:0; padding:0 "> 147:         // abort sequence immediately if escalation is signalled,</pre>
+<pre style="margin:0; padding:0 "> 148:         // jump to escalation response checking (lo state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:         if (esc_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:           state_d = CheckEscRespLo;</pre>
+<pre style="margin:0; padding:0 "> 151:         // abort if response is wrong</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         end else if (!resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           state_d = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           integ_fail_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 155:         end</pre>
+<pre style="margin:0; padding:0 "> 156:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       CheckPingResp3: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:         state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 159:         // abort sequence immediately if escalation is signalled,</pre>
+<pre style="margin:0; padding:0 "> 160:         // jump to escalation response checking (hi state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:         if (esc_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:           state_d = CheckEscRespHi;</pre>
+<pre style="margin:0; padding:0 "> 163:         // abort if response is wrong</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:         end else if (resp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:           integ_fail_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:           ping_ok_o = ping_en_i;</pre>
+<pre style="margin:0; padding:0 "> 168:         end</pre>
+<pre style="margin:0; padding:0 "> 169:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       default : state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 171:     endcase</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:     // escalation takes precedence,</pre>
+<pre style="margin:0; padding:0 "> 174:     // immediately return ok in that case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     if ((esc_en_i || esc_en_q || esc_en_q1) && ping_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       ping_ok_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 177:     end</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="margin:0; padding:0 "> 179:     // a sigint error will reset the state machine</pre>
+<pre style="margin:0; padding:0 "> 180:     // and have it pause for two cycles to let the</pre>
+<pre style="margin:0; padding:0 "> 181:     // receiver recover</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     if (sigint_detected) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:       ping_ok_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:       state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 185:     end</pre>
+<pre style="margin:0; padding:0 "> 186:   end</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="margin:0; padding:0 "> 188:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 189:   // Registers //</pre>
+<pre style="margin:0; padding:0 "> 190:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 191: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       state_q   <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       esc_en_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       esc_en_q1 <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       ping_en_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       state_q   <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       esc_en_q  <= esc_en_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       esc_en_q1 <= esc_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       ping_en_q <= ping_en_d;</pre>
+<pre style="margin:0; padding:0 "> 203:     end</pre>
+<pre style="margin:0; padding:0 "> 204:   end</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="margin:0; padding:0 "> 206:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 207:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 208:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210:   // check whether all outputs have a good known state after reset</pre>
+<pre style="margin:0; padding:0 "> 211:   `ASSERT_KNOWN(PingOkKnownO_A, ping_ok_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 212:   `ASSERT_KNOWN(IntegFailKnownO_A, integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 213:   `ASSERT_KNOWN(EscPKnownO_A, esc_tx_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:   // diff encoding of output</pre>
+<pre style="margin:0; padding:0 "> 216:   `ASSERT(DiffEncCheck_A, esc_tx_o.esc_p ^ esc_tx_o.esc_n, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 217:   // signal integrity check propagation</pre>
+<pre style="margin:0; padding:0 "> 218:   `ASSERT(SigIntCheck0_A, esc_rx_i.resp_p == esc_rx_i.resp_n  |-> integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 219:   // this happens in case we did not get a correct escalation response</pre>
+<pre style="margin:0; padding:0 "> 220:   `ASSERT(SigIntCheck1_A, ##1 $rose(esc_en_i) &&</pre>
+<pre style="margin:0; padding:0 "> 221:       state_q inside {Idle, CheckPingResp1, CheckPingResp3} ##1 !esc_rx_i.resp_p |-></pre>
+<pre style="margin:0; padding:0 "> 222:       integ_fail_o, clk_i, !rst_ni || (esc_rx_i.resp_p == esc_rx_i.resp_n) ||</pre>
+<pre style="margin:0; padding:0 "> 223:       (state_q == Idle && resp))</pre>
+<pre style="margin:0; padding:0 "> 224:   `ASSERT(SigIntCheck2_A, ##1 $rose(esc_en_i) &&</pre>
+<pre style="margin:0; padding:0 "> 225:       state_q inside {CheckPingResp0, CheckPingResp2} ##1 esc_rx_i.resp_p |-></pre>
+<pre style="margin:0; padding:0 "> 226:       integ_fail_o, clk_i, !rst_ni || (esc_rx_i.resp_p == esc_rx_i.resp_n) ||</pre>
+<pre style="margin:0; padding:0 "> 227:       (state_q == Idle && resp))</pre>
+<pre style="margin:0; padding:0 "> 228:   // unexpected response</pre>
+<pre style="margin:0; padding:0 "> 229:   `ASSERT(SigIntCheck3_A, state_q == Idle && resp |-> integ_fail_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 230:   // check that escalation signal is at least 2 cycles high</pre>
+<pre style="margin:0; padding:0 "> 231:   `ASSERT(EscCheck_A, esc_en_i |-> esc_tx_o.esc_p [*2] , clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 232:   // escalation / ping collision</pre>
+<pre style="margin:0; padding:0 "> 233:   `ASSERT(EscPingCheck_A, esc_en_i && ping_en_i |-> ping_ok_o, clk_i, !rst_ni || integ_fail_o)</pre>
+<pre style="margin:0; padding:0 "> 234:   // check that ping request results in only a single cycle pulse</pre>
+<pre style="margin:0; padding:0 "> 235:   `ASSERT(PingCheck_A, ##1 $rose(ping_en_i) |-> esc_tx_o.esc_p ##1 !esc_tx_o.esc_p , clk_i,</pre>
+<pre style="margin:0; padding:0 "> 236:       !rst_ni || esc_en_i || integ_fail_o)</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238: endmodule : prim_esc_sender</pre>
+<pre style="margin:0; padding:0 "> 239: </pre>
+</body>
+</html>

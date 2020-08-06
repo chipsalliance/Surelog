@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_wake_info.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Power Manager Wake Information</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module pwrmgr_wake_info import pwrmgr_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input wr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input [TotalWakeWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input start_capture_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input record_dis_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input [WakeUpPeris-1:0] wakeups_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input fall_through_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input abort_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [TotalWakeWidth-1:0] info_o</pre>
+<pre style="margin:0; padding:0 ">  21: );</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic record_en;</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // generate the record enbale signal</pre>
+<pre style="margin:0; padding:0 ">  26:   // HW enables the recording</pre>
+<pre style="margin:0; padding:0 ">  27:   // Software can suppress the recording or disable it</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       record_en <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     end else if (start_capture_i && !record_dis_i) begin</pre>
+<pre style="margin:0; padding:0 ">  32:       // if not disabled by software</pre>
+<pre style="margin:0; padding:0 ">  33:       // a recording enable puls by HW starts recording</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       record_en <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     end else if (record_dis_i && record_en) begin</pre>
+<pre style="margin:0; padding:0 ">  36:       // if recording is already ongoing</pre>
+<pre style="margin:0; padding:0 ">  37:       // a disable command by software shuts things down</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       record_en <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  39:     end</pre>
+<pre style="margin:0; padding:0 ">  40:   end</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:       info_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     end else if (wr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:       info_o <= info_o & ~data_i; // W1C</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     end else if (record_en) begin // If set once, hold until clear</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       info_o[0 +: WakeUpPeris] <= info_o[0 +: WakeUpPeris] | wakeups_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       info_o[WakeUpPeris +: 2] <= info_o[WakeUpPeris +: 2] | {abort_i, fall_through_i};</pre>
+<pre style="margin:0; padding:0 ">  50:     end</pre>
+<pre style="margin:0; padding:0 ">  51:   end</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: endmodule</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+</body>
+</html>

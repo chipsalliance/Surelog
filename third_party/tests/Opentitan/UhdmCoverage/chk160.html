@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_ram_2p.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Synchronous dual-port SRAM register model</pre>
+<pre style="margin:0; padding:0 ">   6: //   This module is for simulation and small size SRAM.</pre>
+<pre style="margin:0; padding:0 ">   7: //   Implementing ECC should be done inside wrapper not this model.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module prim_generic_ram_2p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter  int Width = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter  int Depth = 128,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int Aw    = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input clk_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input clk_b_i,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                    a_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                    a_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input        [Aw-1:0]    a_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input        [Width-1:0] a_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic [Width-1:0] a_rdata_o,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                    b_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input                    b_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input        [Aw-1:0]    b_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input        [Width-1:0] b_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic [Width-1:0] b_rdata_o</pre>
+<pre style="margin:0; padding:0 ">  30: );</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   logic [Width-1:0] mem [Depth];</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // Xilinx FPGA specific Dual-port RAM coding style</pre>
+<pre style="margin:0; padding:0 ">  35:   // using always instead of always_ff to avoid 'ICPD  - illegal combination of drivers' error</pre>
+<pre style="margin:0; padding:0 ">  36:   // thrown due to 'mem' being driven by two always processes below</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   always @(posedge clk_a_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     if (a_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:       if (a_write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:         mem[a_addr_i] <= a_wdata_i;</pre>
+<pre style="margin:0; padding:0 ">  41:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       a_rdata_o <= mem[a_addr_i];</pre>
+<pre style="margin:0; padding:0 ">  43:     end</pre>
+<pre style="margin:0; padding:0 ">  44:   end</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   always @(posedge clk_b_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     if (b_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       if (b_write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:         mem[b_addr_i] <= b_wdata_i;</pre>
+<pre style="margin:0; padding:0 ">  50:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       b_rdata_o <= mem[b_addr_i];</pre>
+<pre style="margin:0; padding:0 ">  52:     end</pre>
+<pre style="margin:0; padding:0 ">  53:   end</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55: endmodule</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+</body>
+</html>

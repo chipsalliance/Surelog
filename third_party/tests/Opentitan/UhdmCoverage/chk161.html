@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_xilinx/rtl/prim_xilinx_rom.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: /**</pre>
+<pre style="margin:0; padding:0 ">   6:  * Implementation of a Read-Only Memory (ROM) primitive for Xilinx FPGAs</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="margin:0; padding:0 ">   8:  * This implementation of a ROM primitive is coded as outlined in UG 901 to</pre>
+<pre style="margin:0; padding:0 ">   9:  * enable Xilinx Vivado infer Block RAM (BRAM) or LUT RAM from it. No mapping</pre>
+<pre style="margin:0; padding:0 ">  10:  * target is forced; depending on the Width, Depth and other factors Vivado</pre>
+<pre style="margin:0; padding:0 ">  11:  * chooses a mapping target.</pre>
+<pre style="margin:0; padding:0 ">  12:  *</pre>
+<pre style="margin:0; padding:0 ">  13:  * It is possible to force the mapping to BRAM or distributed RAM by using the</pre>
+<pre style="margin:0; padding:0 ">  14:  * ROM_STYLE directive in an XDC file.</pre>
+<pre style="margin:0; padding:0 ">  15:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module prim_xilinx_rom #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter  int Width     = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter  int Depth     = 2048, // 8kB default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   parameter  int Aw        = $clog2(Depth)</pre>
+<pre style="margin:0; padding:0 ">  20: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input        [Aw-1:0]        addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                        cs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic [Width-1:0]     dout_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic                 dvalid_o</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   `ifdef ROM_INIT_FILE</pre>
+<pre style="margin:0; padding:0 ">  30:    // Only create an actual ROM block if ROM data is specified</pre>
+<pre style="margin:0; padding:0 ">  31:    //</pre>
+<pre style="margin:0; padding:0 ">  32:    // Xilinx Vivado infers a BRAM or LUTRAM from the ROM code below only if mem</pre>
+<pre style="margin:0; padding:0 ">  33:    // is actually being written to through $readmemh(). If no ROM_INIT_FILE is</pre>
+<pre style="margin:0; padding:0 ">  34:    // given and hence the mem initialization is missing, registers are inferred</pre>
+<pre style="margin:0; padding:0 ">  35:    // instead. This severely degrades the synthesis quality for no good reason.</pre>
+<pre style="margin:0; padding:0 ">  36:    logic [Width-1:0] mem [Depth];</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:    localparam MEM_FILE = `"`ROM_INIT_FILE`";</pre>
+<pre style="margin:0; padding:0 ">  39:    initial</pre>
+<pre style="margin:0; padding:0 ">  40:    begin</pre>
+<pre style="margin:0; padding:0 ">  41:       $display("Initializing ROM from %s", MEM_FILE);</pre>
+<pre style="margin:0; padding:0 ">  42:       $readmemh(MEM_FILE, mem);</pre>
+<pre style="margin:0; padding:0 ">  43:    end</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     if (cs_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       dout_o <= mem[addr_i];</pre>
+<pre style="margin:0; padding:0 ">  48:     end</pre>
+<pre style="margin:0; padding:0 ">  49:   end</pre>
+<pre style="margin:0; padding:0 ">  50:   `else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     // ROM is not initialized</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     always_ff @(posedge clk_i) begin</pre>
+<pre style="margin:0; padding:0 ">  53:       dout_o <= '0;</pre>
+<pre style="margin:0; padding:0 ">  54:     end</pre>
+<pre style="margin:0; padding:0 ">  55:   `endif</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   always_ff @(posedge clk_i) begin</pre>
+<pre style="margin:0; padding:0 ">  58:     dvalid_o <= cs_i;</pre>
+<pre style="margin:0; padding:0 ">  59:   end</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  63:   // ASSERTIONS //</pre>
+<pre style="margin:0; padding:0 ">  64:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // Control Signals should never be X</pre>
+<pre style="margin:0; padding:0 ">  67:   `ASSERT(noXOnCsI, !$isunknown(cs_i), clk_i, '0)</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69: endmodule</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+</body>
+</html>

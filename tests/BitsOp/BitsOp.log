@@ -2,25 +2,45 @@
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[WRN:PA0205] dut.sv:1: No timescale set for "dut".
+[WRN:PA0205] dut.sv:1: No timescale set for "top_pkg".
 
-[WRN:PA0205] dut.sv:18: No timescale set for "dmi_jtag".
+[WRN:PA0205] dut.sv:22: No timescale set for "tlul_pkg".
+
+[WRN:PA0205] dut.sv:44: No timescale set for "hmac_pkg".
+
+[WRN:PA0205] dut.sv:61: No timescale set for "flash_ctrl_pkg".
+
+[WRN:PA0205] dut.sv:71: No timescale set for "dut".
+
+[WRN:PA0205] dut.sv:100: No timescale set for "dmi_jtag".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:18: Compile module "work@dmi_jtag".
+[INF:CP0301] dut.sv:1: Compile package "top_pkg".
 
-[INF:CP0303] dut.sv:1: Compile module "work@dut".
+[INF:CP0301] dut.sv:22: Compile package "tlul_pkg".
+
+[INF:CP0301] dut.sv:44: Compile package "hmac_pkg".
+
+[INF:CP0301] dut.sv:61: Compile package "flash_ctrl_pkg".
+
+[INF:CP0303] dut.sv:100: Compile module "work@dmi_jtag".
+
+[INF:CP0303] dut.sv:71: Compile module "work@dut".
+
+[ERR:EL0514] dut.sv:56: Undefined variable: sha_word_t.
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1: Top level module "work@dut".
+[NTE:EL0503] dut.sv:71: Top level module "work@dut".
 
-[NTE:EL0503] dut.sv:18: Top level module "work@dmi_jtag".
+[NTE:EL0503] dut.sv:100: Top level module "work@dmi_jtag".
 
 [NTE:EL0504] Multiple top level modules in design.
 
-[ERR:EL0514] dut.sv:4: Undefined variable: sha_word_t.
+[ERR:EL0514] dut.sv:74: Undefined variable: sha_word_t.
+
+[ERR:EL0514] dut.sv:78: Undefined variable: flash_erase_op_e.
 
 [NTE:EL0508] Nb Top level modules: 2.
 
@@ -30,543 +50,1565 @@
 
 [NTE:EL0511] Nb leaf instances: 1.
 
-[ERR:EL0514] dut.sv:26: Undefined variable: dmi_t.
-
+UHDM HTML COVERAGE REPORT: ../../build/tests/BitsOp/slpp_unit//surelog.uhdm.chk
 ====== UHDM =======
-design: (work@dut), id:83
+design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin, id:84, parent:work@dut
+\_package: builtin, parent:work@dut
   |vpiDefName:builtin
   |vpiFullName:builtin
+|uhdmallPackages:
+\_package: flash_ctrl_pkg, file:dut.sv, line:61, parent:work@dut
+  |vpiDefName:flash_ctrl_pkg
+  |vpiFullName:flash_ctrl_pkg
+  |vpiTypedef:
+  \_enum_typespec: (flash_erase_op_e), line:65
+    |vpiName:flash_erase_op_e
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:62
+    |vpiEnumConst:
+    \_enum_const: (BankErase), line:64
+      |vpiName:BankErase
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (PageErase), line:63
+      |vpiName:PageErase
+      |INT:0
+  |vpiTypedef:
+  \_logic_typespec: (sha_word_t), line:67
+    |vpiName:sha_word_t
+    |vpiRange:
+    \_range: , line:67
+      |vpiLeftRange:
+      \_constant: , line:67
+        |vpiConstType:7
+        |vpiDecompile:31
+        |vpiSize:32
+        |INT:31
+      |vpiRightRange:
+      \_constant: , line:67
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:32
+        |INT:0
+|uhdmallPackages:
+\_package: hmac_pkg, file:dut.sv, line:44, parent:work@dut
+  |vpiDefName:hmac_pkg
+  |vpiFullName:hmac_pkg
+  |vpiTypedef:
+  \_logic_typespec: (sha_word_t), line:55
+    |vpiName:sha_word_t
+    |vpiRange:
+    \_range: , line:55
+      |vpiLeftRange:
+      \_constant: , line:55
+        |vpiConstType:7
+        |vpiDecompile:31
+        |vpiSize:32
+        |INT:31
+      |vpiRightRange:
+      \_constant: , line:55
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:32
+        |INT:0
+  |vpiParamAssign:
+  \_param_assign: , line:48
+    |vpiRhs:
+    \_constant: , line:48
+      |vpiConstType:7
+      |vpiDecompile:1
+      |vpiSize:32
+      |INT:1
+    |vpiLhs:
+    \_parameter: (NumAlerts), line:48
+      |vpiName:NumAlerts
+      |vpiFullName:hmac_pkg::NumAlerts
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:48
+  |vpiParamAssign:
+  \_param_assign: , line:49
+    |vpiRhs:
+    \_operation: , line:49
+      |vpiOpType:67
+      |vpiOperand:
+      \_constant: , line:49
+        |vpiConstType:3
+        |vpiDecompile:'b1
+        |vpiSize:1
+        |BIN:1
+      |vpiTypespec:
+      \_void_typespec: (NumAlerts), line:49
+        |vpiName:NumAlerts
+    |vpiLhs:
+    \_parameter: (AlertAsyncOn), line:49
+      |vpiName:AlertAsyncOn
+      |vpiFullName:hmac_pkg::AlertAsyncOn
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_logic_typespec: , line:49
+        |vpiRange:
+        \_range: , line:49
+          |vpiLeftRange:
+          \_constant: , line:49
+            |vpiDecompile:0
+            |INT:0
+          |vpiRightRange:
+          \_constant: , line:49
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+  |vpiParamAssign:
+  \_param_assign: , line:51
+    |vpiRhs:
+    \_constant: , line:51
+      |vpiConstType:7
+      |vpiDecompile:16
+      |vpiSize:32
+      |INT:16
+    |vpiLhs:
+    \_parameter: (MsgFifoDepth), line:51
+      |vpiName:MsgFifoDepth
+      |vpiFullName:hmac_pkg::MsgFifoDepth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:51
+  |vpiParamAssign:
+  \_param_assign: , line:53
+    |vpiRhs:
+    \_constant: , line:53
+      |vpiConstType:7
+      |vpiDecompile:64
+      |vpiSize:32
+      |INT:64
+    |vpiLhs:
+    \_parameter: (NumRound), line:53
+      |vpiName:NumRound
+      |vpiFullName:hmac_pkg::NumRound
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:53
+  |vpiParamAssign:
+  \_param_assign: , line:56
+    |vpiRhs:
+    \_constant: , line:56
+      |vpiDecompile:4
+      |INT:4
+    |vpiLhs:
+    \_parameter: (WordByte), line:56
+      |vpiName:WordByte
+      |vpiFullName:hmac_pkg::WordByte
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:56
+  |vpiParameter:
+  \_parameter: (NumAlerts), line:48
+  |vpiParameter:
+  \_parameter: (AlertAsyncOn), line:49
+  |vpiParameter:
+  \_parameter: (MsgFifoDepth), line:51
+  |vpiParameter:
+  \_parameter: (NumRound), line:53
+  |vpiParameter:
+  \_parameter: (WordByte), line:56
+|uhdmallPackages:
+\_package: tlul_pkg, file:dut.sv, line:22, parent:work@dut
+  |vpiDefName:tlul_pkg
+  |vpiFullName:tlul_pkg
+  |vpiTypedef:
+  \_struct_typespec: (tl_a_op_e), line:24
+    |vpiPacked:1
+    |vpiName:tl_a_op_e
+    |vpiTypespecMember:
+    \_typespec_member: (b_valid), line:25
+      |vpiName:b_valid
+      |vpiTypespec:
+      \_logic_typespec: , line:25
+  |vpiTypedef:
+  \_struct_typespec: (tl_h2d_t), line:28
+    |vpiPacked:1
+    |vpiName:tl_h2d_t
+    |vpiTypespecMember:
+    \_typespec_member: (a_valid), line:29
+      |vpiName:a_valid
+      |vpiTypespec:
+      \_logic_typespec: , line:29
+    |vpiTypespecMember:
+    \_typespec_member: (a_opcode), line:30
+      |vpiName:a_opcode
+      |vpiTypespec:
+      \_struct_typespec: (tl_a_op_e), line:24
+    |vpiTypespecMember:
+    \_typespec_member: (a_param), line:31
+      |vpiName:a_param
+      |vpiTypespec:
+      \_logic_typespec: , line:31
+        |vpiRange:
+        \_range: , line:31, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:31
+            |vpiConstType:7
+            |vpiDecompile:2
+            |vpiSize:32
+            |INT:2
+          |vpiRightRange:
+          \_constant: , line:31
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_size), line:32
+      |vpiName:a_size
+      |vpiTypespec:
+      \_logic_typespec: , line:32
+        |vpiRange:
+        \_range: , line:32, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:32
+            |vpiDecompile:1
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:32
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_source), line:33
+      |vpiName:a_source
+      |vpiTypespec:
+      \_logic_typespec: , line:33
+        |vpiRange:
+        \_range: , line:33, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:33
+            |vpiDecompile:7
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:33
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_address), line:34
+      |vpiName:a_address
+      |vpiTypespec:
+      \_logic_typespec: , line:34
+        |vpiRange:
+        \_range: , line:34, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:34
+            |vpiDecompile:31
+            |INT:31
+          |vpiRightRange:
+          \_constant: , line:34
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_mask), line:35
+      |vpiName:a_mask
+      |vpiTypespec:
+      \_logic_typespec: , line:35
+        |vpiRange:
+        \_range: , line:35, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:35
+            |vpiDecompile:3
+            |INT:3
+          |vpiRightRange:
+          \_constant: , line:35
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_data), line:36
+      |vpiName:a_data
+      |vpiTypespec:
+      \_logic_typespec: , line:36
+        |vpiRange:
+        \_range: , line:36, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:36
+            |vpiDecompile:31
+            |INT:31
+          |vpiRightRange:
+          \_constant: , line:36
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (a_user), line:37
+      |vpiName:a_user
+      |vpiTypespec:
+      \_void_typespec: (tl_a_user_t), line:37
+        |vpiName:tl_a_user_t
+    |vpiTypespecMember:
+    \_typespec_member: (d_ready), line:39
+      |vpiName:d_ready
+      |vpiTypespec:
+      \_logic_typespec: , line:39
+|uhdmallPackages:
+\_package: top_pkg, file:dut.sv, line:1, parent:work@dut
+  |vpiDefName:top_pkg
+  |vpiFullName:top_pkg
+  |vpiParamAssign:
+  \_param_assign: , line:3
+    |vpiRhs:
+    \_constant: , line:3
+      |vpiConstType:7
+      |vpiDecompile:32
+      |vpiSize:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (TL_AW), line:3
+      |vpiName:TL_AW
+      |vpiFullName:top_pkg::TL_AW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:4
+    |vpiRhs:
+    \_constant: , line:4
+      |vpiConstType:7
+      |vpiDecompile:32
+      |vpiSize:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (TL_DW), line:4
+      |vpiName:TL_DW
+      |vpiFullName:top_pkg::TL_DW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:5
+    |vpiRhs:
+    \_constant: , line:5
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (TL_AIW), line:5
+      |vpiName:TL_AIW
+      |vpiFullName:top_pkg::TL_AIW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:6
+    |vpiRhs:
+    \_constant: , line:6
+      |vpiConstType:7
+      |vpiDecompile:1
+      |vpiSize:32
+      |INT:1
+    |vpiLhs:
+    \_parameter: (TL_DIW), line:6
+      |vpiName:TL_DIW
+      |vpiFullName:top_pkg::TL_DIW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:7
+    |vpiRhs:
+    \_constant: , line:7
+      |vpiConstType:7
+      |vpiDecompile:16
+      |vpiSize:32
+      |INT:16
+    |vpiLhs:
+    \_parameter: (TL_DUW), line:7
+      |vpiName:TL_DUW
+      |vpiFullName:top_pkg::TL_DUW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:8
+    |vpiRhs:
+    \_constant: , line:8
+      |vpiDecompile:4
+      |INT:4
+    |vpiLhs:
+    \_parameter: (TL_DBW), line:8
+      |vpiName:TL_DBW
+      |vpiFullName:top_pkg::TL_DBW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:9
+    |vpiRhs:
+    \_constant: , line:9
+      |vpiDecompile:2
+      |INT:2
+    |vpiLhs:
+    \_parameter: (TL_SZW), line:9
+      |vpiName:TL_SZW
+      |vpiFullName:top_pkg::TL_SZW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:10
+    |vpiRhs:
+    \_constant: , line:10
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:32
+      |INT:2
+    |vpiLhs:
+    \_parameter: (FLASH_BANKS), line:10
+      |vpiName:FLASH_BANKS
+      |vpiFullName:top_pkg::FLASH_BANKS
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:11
+    |vpiRhs:
+    \_constant: , line:11
+      |vpiConstType:7
+      |vpiDecompile:256
+      |vpiSize:32
+      |INT:256
+    |vpiLhs:
+    \_parameter: (FLASH_PAGES_PER_BANK), line:11
+      |vpiName:FLASH_PAGES_PER_BANK
+      |vpiFullName:top_pkg::FLASH_PAGES_PER_BANK
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:12
+    |vpiRhs:
+    \_constant: , line:12
+      |vpiConstType:7
+      |vpiDecompile:256
+      |vpiSize:32
+      |INT:256
+    |vpiLhs:
+    \_parameter: (FLASH_WORDS_PER_PAGE), line:12
+      |vpiName:FLASH_WORDS_PER_PAGE
+      |vpiFullName:top_pkg::FLASH_WORDS_PER_PAGE
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:13
+    |vpiRhs:
+    \_constant: , line:13
+      |vpiConstType:7
+      |vpiDecompile:4
+      |vpiSize:32
+      |INT:4
+    |vpiLhs:
+    \_parameter: (FLASH_BYTES_PER_WORD), line:13
+      |vpiName:FLASH_BYTES_PER_WORD
+      |vpiFullName:top_pkg::FLASH_BYTES_PER_WORD
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:14
+    |vpiRhs:
+    \_constant: , line:14
+      |vpiDecompile:1
+      |INT:1
+    |vpiLhs:
+    \_parameter: (FLASH_BKW), line:14
+      |vpiName:FLASH_BKW
+      |vpiFullName:top_pkg::FLASH_BKW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:15
+    |vpiRhs:
+    \_constant: , line:15
+      |vpiDecompile:8
+      |INT:8
+    |vpiLhs:
+    \_parameter: (FLASH_PGW), line:15
+      |vpiName:FLASH_PGW
+      |vpiFullName:top_pkg::FLASH_PGW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:16
+    |vpiRhs:
+    \_constant: , line:16
+      |vpiDecompile:8
+      |INT:8
+    |vpiLhs:
+    \_parameter: (FLASH_WDW), line:16
+      |vpiName:FLASH_WDW
+      |vpiFullName:top_pkg::FLASH_WDW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:17
+    |vpiRhs:
+    \_constant: , line:17
+      |vpiDecompile:17
+      |INT:17
+    |vpiLhs:
+    \_parameter: (FLASH_AW), line:17
+      |vpiName:FLASH_AW
+      |vpiFullName:top_pkg::FLASH_AW
+      |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , line:18
+    |vpiRhs:
+    \_constant: , line:18
+      |vpiDecompile:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (FLASH_DW), line:18
+      |vpiName:FLASH_DW
+      |vpiFullName:top_pkg::FLASH_DW
+      |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (TL_AW), line:3
+  |vpiParameter:
+  \_parameter: (TL_DW), line:4
+  |vpiParameter:
+  \_parameter: (TL_AIW), line:5
+  |vpiParameter:
+  \_parameter: (TL_DIW), line:6
+  |vpiParameter:
+  \_parameter: (TL_DUW), line:7
+  |vpiParameter:
+  \_parameter: (TL_DBW), line:8
+  |vpiParameter:
+  \_parameter: (TL_SZW), line:9
+  |vpiParameter:
+  \_parameter: (FLASH_BANKS), line:10
+  |vpiParameter:
+  \_parameter: (FLASH_PAGES_PER_BANK), line:11
+  |vpiParameter:
+  \_parameter: (FLASH_WORDS_PER_PAGE), line:12
+  |vpiParameter:
+  \_parameter: (FLASH_BYTES_PER_WORD), line:13
+  |vpiParameter:
+  \_parameter: (FLASH_BKW), line:14
+  |vpiParameter:
+  \_parameter: (FLASH_PGW), line:15
+  |vpiParameter:
+  \_parameter: (FLASH_WDW), line:16
+  |vpiParameter:
+  \_parameter: (FLASH_AW), line:17
+  |vpiParameter:
+  \_parameter: (FLASH_DW), line:18
 |uhdmallClasses:
-\_class_defn: (builtin::array), id:85
+\_class_defn: (builtin::array)
   |vpiName:builtin::array
-  |vpiFullName:builtin.builtin::array
+  |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue), id:86
+\_class_defn: (builtin::queue)
   |vpiName:builtin::queue
-  |vpiFullName:builtin.builtin::queue
+  |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string), id:87
+\_class_defn: (builtin::string)
   |vpiName:builtin::string
-  |vpiFullName:builtin.builtin::string
+  |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system), id:88
+\_class_defn: (builtin::system)
   |vpiName:builtin::system
-  |vpiFullName:builtin.builtin::system
+  |vpiFullName:builtin::builtin::system
 |uhdmallModules:
-\_module: work@dmi_jtag, id:89, file:dut.sv, line:18, parent:work@dut
+\_module: work@dmi_jtag, file:dut.sv, line:100, parent:work@dut
   |vpiDefName:work@dmi_jtag
   |vpiFullName:work@dmi_jtag
   |vpiProcess:
-  \_always: , id:21, line:31
+  \_always: , line:113
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (p_shift), id:22, line:31
+    \_named_begin: (p_shift), line:113
       |vpiName:p_shift
       |vpiFullName:work@dmi_jtag.p_shift
       |vpiStmt:
-      \_if_stmt: , id:24, line:33, parent:p_shift
+      \_if_stmt: , line:115, parent:p_shift
         |vpiCondition:
-        \_ref_obj: (shift_dr), id:23, line:33
+        \_ref_obj: (shift_dr), line:115
           |vpiName:shift_dr
           |vpiFullName:work@dmi_jtag.p_shift.shift_dr
         |vpiStmt:
-        \_begin: , id:25, line:33
+        \_begin: , line:115
           |vpiFullName:work@dmi_jtag.p_shift
           |vpiStmt:
-          \_if_stmt: , id:27, line:34
+          \_if_stmt: , line:116
             |vpiCondition:
-            \_ref_obj: (dmi_access), id:26, line:34
+            \_ref_obj: (dmi_access), line:116
               |vpiName:dmi_access
               |vpiFullName:work@dmi_jtag.p_shift.dmi_access
             |vpiStmt:
-            \_begin: , id:28, line:34
+            \_begin: , line:116
               |vpiFullName:work@dmi_jtag.p_shift
               |vpiStmt:
-              \_assignment: , id:46, line:35
+              \_assignment: , line:117
+                |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (dr_d), id:29, line:35
+                \_ref_obj: (dr_d), line:117
                   |vpiName:dr_d
                   |vpiFullName:work@dmi_jtag.p_shift.dr_d
                 |vpiRhs:
-                \_operation: , id:30, line:35
+                \_operation: , line:117
                   |vpiOpType:33
                   |vpiOperand:
-                  \_ref_obj: (dmi_tdi), id:31, line:35
+                  \_ref_obj: (dmi_tdi), line:117
                     |vpiName:dmi_tdi
                   |vpiOperand:
-                  \_part_select: , id:44, line:35, parent:dr_q
+                  \_part_select: , line:117, parent:dr_q
                     |vpiConstantSelect:1
                     |vpiParent:
-                    \_ref_obj: (dr_q), id:45
+                    \_ref_obj: (dr_q)
                     |vpiLeftRange:
-                    \_operation: , id:41, line:35
+                    \_operation: , line:117
                       |vpiOpType:11
                       |vpiOperand:
-                      \_sys_func_call: ($bits), id:39, line:35
-                        |vpiName:$bits
-                        |vpiArgument:
-                        \_ref_obj: (dr_q), id:40, line:35
-                          |vpiName:dr_q
+                      \_constant: , line:117
+                        |vpiDecompile:41
+                        |INT:41
                       |vpiOperand:
-                      \_constant: , id:42, line:35
+                      \_constant: , line:117
                         |vpiConstType:7
+                        |vpiDecompile:1
                         |vpiSize:32
                         |INT:1
                     |vpiRightRange:
-                    \_constant: , id:43, line:35
+                    \_constant: , line:117
                       |vpiConstType:7
+                      |vpiDecompile:1
                       |vpiSize:32
                       |INT:1
   |vpiContAssign:
-  \_cont_assign: , id:20, line:29
+  \_cont_assign: , line:111
     |vpiRhs:
-    \_operation: , id:17, line:29
+    \_operation: , line:111
       |vpiOpType:67
       |vpiOperand:
-      \_ref_obj: (dr_q), id:19, line:29
+      \_ref_obj: (dr_q), line:111
         |vpiName:dr_q
         |vpiFullName:work@dmi_jtag.dr_q
       |vpiTypespec:
-      \_void_typespec: (dmi_t), id:18, line:29
+      \_struct_typespec: (dmi_t), line:102
+        |vpiPacked:1
         |vpiName:dmi_t
+        |vpiTypespecMember:
+        \_typespec_member: (address), line:103
+          |vpiName:address
+          |vpiTypespec:
+          \_logic_typespec: , line:103
+            |vpiRange:
+            \_range: , line:103, parent:dmi_t
+              |vpiLeftRange:
+              \_constant: , line:103
+                |vpiConstType:7
+                |vpiDecompile:6
+                |vpiSize:32
+                |INT:6
+              |vpiRightRange:
+              \_constant: , line:103
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (data), line:104
+          |vpiName:data
+          |vpiTypespec:
+          \_logic_typespec: , line:104
+            |vpiRange:
+            \_range: , line:104, parent:dmi_t
+              |vpiLeftRange:
+              \_constant: , line:104
+                |vpiConstType:7
+                |vpiDecompile:31
+                |vpiSize:32
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:104
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (op), line:105
+          |vpiName:op
+          |vpiTypespec:
+          \_logic_typespec: , line:105
+            |vpiRange:
+            \_range: , line:105, parent:dmi_t
+              |vpiLeftRange:
+              \_constant: , line:105
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
+              |vpiRightRange:
+              \_constant: , line:105
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
     |vpiLhs:
-    \_ref_obj: (dmi), id:16, line:29
+    \_ref_obj: (dmi), line:111
       |vpiName:dmi
       |vpiFullName:work@dmi_jtag.dmi
-      |vpiActual:
-      \_logic_net: (dmi), id:92, line:28
-        |vpiName:dmi
-        |vpiFullName:work@dmi_jtag.dmi
   |vpiNet:
-  \_logic_net: (dr_d), id:90, line:26
+  \_logic_net: (dr_d), line:108
     |vpiName:dr_d
     |vpiFullName:work@dmi_jtag.dr_d
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (dr_q), id:91, line:26
+  \_logic_net: (dr_q), line:108
     |vpiName:dr_q
     |vpiFullName:work@dmi_jtag.dr_q
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (dmi), id:92, line:28
+  \_logic_net: (dmi), line:110
+    |vpiName:dmi
+    |vpiFullName:work@dmi_jtag.dmi
   |vpiTypedef:
-  \_struct_typespec: (dmi_t), id:0, line:20
-    |vpiPacked:1
-    |vpiName:dmi_t
-    |vpiTypespecMember:
-    \_typespec_member: (address), id:5, line:21
-      |vpiName:address
-      |vpiTypespec:
-      \_logic_typespec: , id:4, line:21
-        |vpiRange:
-        \_range: , id:1, line:21
-          |vpiLeftRange:
-          \_constant: , id:2, line:21
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:6
-          |vpiRightRange:
-          \_constant: , id:3, line:21
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:0
-    |vpiTypespecMember:
-    \_typespec_member: (data), id:10, line:22
-      |vpiName:data
-      |vpiTypespec:
-      \_logic_typespec: , id:9, line:22
-        |vpiRange:
-        \_range: , id:6, line:22
-          |vpiLeftRange:
-          \_constant: , id:7, line:22
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:31
-          |vpiRightRange:
-          \_constant: , id:8, line:22
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:0
-    |vpiTypespecMember:
-    \_typespec_member: (op), id:15, line:23
-      |vpiName:op
-      |vpiTypespec:
-      \_logic_typespec: , id:14, line:23
-        |vpiRange:
-        \_range: , id:11, line:23
-          |vpiLeftRange:
-          \_constant: , id:12, line:23
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:1
-          |vpiRightRange:
-          \_constant: , id:13, line:23
-            |vpiConstType:7
-            |vpiSize:32
-            |INT:0
+  \_struct_typespec: (dmi_t), line:102
 |uhdmallModules:
-\_module: work@dut, id:93, file:dut.sv, line:1, parent:work@dut
+\_module: work@dut, file:dut.sv, line:71, parent:work@dut
   |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiPort:
+  \_port: (tl_h_i), line:71
+    |vpiName:tl_h_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (tl_h_i), line:71
+        |vpiName:tl_h_i
+        |vpiFullName:work@dut.tl_h_i
   |vpiNet:
-  \_logic_net: (b), id:94, line:12
+  \_logic_net: (tl_h_i), line:71
+  |vpiNet:
+  \_logic_net: (err_source), line:84
+    |vpiName:err_source
+    |vpiFullName:work@dut.err_source
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (err_size), line:85
+    |vpiName:err_size
+    |vpiFullName:work@dut.err_size
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (b), line:94
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiTypedef:
-  \_bit_typespec: (MyBits), id:68, line:11
+  \_bit_typespec: (MyBits), line:93
     |vpiName:MyBits
     |vpiRange:
-    \_range: , id:65, line:11
+    \_range: , line:93
       |vpiLeftRange:
-      \_constant: , id:66, line:11
+      \_constant: , line:93
+        |vpiDecompile:9
         |INT:9
       |vpiRightRange:
-      \_constant: , id:67, line:11
+      \_constant: , line:93
         |vpiConstType:7
+        |vpiDecompile:1
         |vpiSize:32
         |INT:1
   |vpiTypedef:
-  \_struct_typespec: (MyType), id:57, line:6
+  \_struct_typespec: (MyType), line:88
     |vpiName:MyType
     |vpiTypespecMember:
-    \_typespec_member: (valid), id:59, line:7
+    \_typespec_member: (valid), line:89
       |vpiName:valid
       |vpiTypespec:
-      \_logic_typespec: , id:58, line:7
+      \_logic_typespec: , line:89
     |vpiTypespecMember:
-    \_typespec_member: (data), id:64, line:8
+    \_typespec_member: (data), line:90
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , id:63, line:8
+      \_bit_typespec: , line:90
         |vpiRange:
-        \_range: , id:60, line:8
+        \_range: , line:90, parent:MyType
           |vpiLeftRange:
-          \_constant: , id:61, line:8
+          \_constant: , line:90
             |vpiConstType:7
+            |vpiDecompile:8
             |vpiSize:32
             |INT:8
           |vpiRightRange:
-          \_constant: , id:62, line:8
+          \_constant: , line:90
             |vpiConstType:7
+            |vpiDecompile:1
             |vpiSize:32
             |INT:1
   |vpiTypedef:
-  \_logic_typespec: (sha_word_t), id:50, line:3
+  \_enum_typespec: (flash_erase_op_e), line:65
+    |vpiName:flash_erase_op_e
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:62
+    |vpiEnumConst:
+    \_enum_const: (BankErase), line:64
+      |vpiName:BankErase
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (PageErase), line:63
+      |vpiName:PageErase
+      |INT:0
+  |vpiTypedef:
+  \_logic_typespec: (sha_word_t), line:67
     |vpiName:sha_word_t
     |vpiRange:
-    \_range: , id:47, line:3
+    \_range: , line:67
       |vpiLeftRange:
-      \_constant: , id:48, line:3
+      \_constant: , line:67
         |vpiConstType:7
+        |vpiDecompile:31
         |vpiSize:32
         |INT:31
       |vpiRightRange:
-      \_constant: , id:49, line:3
+      \_constant: , line:67
         |vpiConstType:7
+        |vpiDecompile:0
         |vpiSize:32
         |INT:0
   |vpiParamAssign:
-  \_param_assign: , id:53, line:4
+  \_param_assign: , line:74
     |vpiRhs:
-    \_operation: , id:55, line:4
-      |vpiOpType:12
-      |vpiOperand:
-      \_constant: , id:54, line:4
-        |INT:32
-      |vpiOperand:
-      \_constant: , id:56, line:4
-        |vpiConstType:7
-        |vpiSize:32
-        |INT:8
+    \_constant: , line:74
+      |vpiDecompile:4
+      |INT:4
     |vpiLhs:
-    \_parameter: (WordByte), id:52, line:4
+    \_parameter: (WordByte), line:74
       |vpiName:WordByte
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , id:51, line:4
+      \_int_typespec: , line:74
+  |vpiParamAssign:
+  \_param_assign: , line:76
+    |vpiRhs:
+    \_constant: , line:76
+      |vpiDecompile:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (DataWidth), line:76
+      |vpiName:DataWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:76
+  |vpiParamAssign:
+  \_param_assign: , line:77
+    |vpiRhs:
+    \_constant: , line:77
+      |vpiDecompile:2
+      |INT:2
+    |vpiLhs:
+    \_parameter: (DataBitWidth), line:77
+      |vpiName:DataBitWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:77
+  |vpiParamAssign:
+  \_param_assign: , line:78
+    |vpiRhs:
+    \_constant: , line:78
+      |vpiDecompile:1
+      |INT:1
+    |vpiLhs:
+    \_parameter: (EraseBitWidth), line:78
+      |vpiName:EraseBitWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:78
+  |vpiParamAssign:
+  \_param_assign: , line:80
+    |vpiRhs:
+    \_constant: , line:80
+      |vpiDecompile:5
+      |INT:5
+    |vpiLhs:
+    \_parameter: (HashWordBits), line:80
+      |vpiName:HashWordBits
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:80
+  |vpiParamAssign:
+  \_param_assign: , line:82
+    |vpiRhs:
+    \_constant: , line:82
+      |vpiDecompile:82
+      |INT:82
+    |vpiLhs:
+    \_parameter: (REQFIFO_WIDTH), line:82
+      |vpiName:REQFIFO_WIDTH
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:82
   |vpiParameter:
-  \_parameter: (WordByte), id:52, line:4
+  \_parameter: (WordByte), line:74
+  |vpiParameter:
+  \_parameter: (DataWidth), line:76
+  |vpiParameter:
+  \_parameter: (DataBitWidth), line:77
+  |vpiParameter:
+  \_parameter: (EraseBitWidth), line:78
+  |vpiParameter:
+  \_parameter: (HashWordBits), line:80
+  |vpiParameter:
+  \_parameter: (REQFIFO_WIDTH), line:82
 |uhdmtopModules:
-\_module: work@dut (work@dut), id:95, file:dut.sv, line:1
+\_module: work@dut (work@dut), file:dut.sv, line:71
   |vpiDefName:work@dut
   |vpiName:work@dut
+  |vpiPort:
+  \_port: (tl_h_i), line:71, parent:work@dut
+    |vpiName:tl_h_i
+    |vpiDirection:1
+    |vpiTypedef:
+    \_struct_typespec: (tl_h2d_t), line:28
+      |vpiPacked:1
+      |vpiName:tl_h2d_t
+      |vpiTypespecMember:
+      \_typespec_member: (a_valid), line:29
+        |vpiName:a_valid
+        |vpiTypespec:
+        \_logic_typespec: , line:29
+      |vpiTypespecMember:
+      \_typespec_member: (a_opcode), line:30
+        |vpiName:a_opcode
+        |vpiTypespec:
+        \_struct_typespec: (tl_a_op_e), line:24
+          |vpiPacked:1
+          |vpiName:tl_a_op_e
+          |vpiTypespecMember:
+          \_typespec_member: (b_valid), line:25
+            |vpiName:b_valid
+            |vpiTypespec:
+            \_logic_typespec: , line:25
+      |vpiTypespecMember:
+      \_typespec_member: (a_param), line:31
+        |vpiName:a_param
+        |vpiTypespec:
+        \_logic_typespec: , line:31
+          |vpiRange:
+          \_range: , line:31, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:2
+              |vpiSize:32
+              |INT:2
+            |vpiRightRange:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_size), line:32
+        |vpiName:a_size
+        |vpiTypespec:
+        \_logic_typespec: , line:32
+          |vpiRange:
+          \_range: , line:32, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:32
+              |vpiDecompile:1
+              |INT:1
+            |vpiRightRange:
+            \_constant: , line:32
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_source), line:33
+        |vpiName:a_source
+        |vpiTypespec:
+        \_logic_typespec: , line:33
+          |vpiRange:
+          \_range: , line:33, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:33
+              |vpiDecompile:7
+              |INT:7
+            |vpiRightRange:
+            \_constant: , line:33
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_address), line:34
+        |vpiName:a_address
+        |vpiTypespec:
+        \_logic_typespec: , line:34
+          |vpiRange:
+          \_range: , line:34, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:34
+              |vpiDecompile:31
+              |INT:31
+            |vpiRightRange:
+            \_constant: , line:34
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_mask), line:35
+        |vpiName:a_mask
+        |vpiTypespec:
+        \_logic_typespec: , line:35
+          |vpiRange:
+          \_range: , line:35, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:35
+              |vpiDecompile:3
+              |INT:3
+            |vpiRightRange:
+            \_constant: , line:35
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_data), line:36
+        |vpiName:a_data
+        |vpiTypespec:
+        \_logic_typespec: , line:36
+          |vpiRange:
+          \_range: , line:36, parent:tl_h2d_t
+            |vpiLeftRange:
+            \_constant: , line:36
+              |vpiDecompile:31
+              |INT:31
+            |vpiRightRange:
+            \_constant: , line:36
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiTypespecMember:
+      \_typespec_member: (a_user), line:37
+        |vpiName:a_user
+        |vpiTypespec:
+        \_void_typespec: (tl_a_user_t), line:37
+          |vpiName:tl_a_user_t
+      |vpiTypespecMember:
+      \_typespec_member: (d_ready), line:39
+        |vpiName:d_ready
+        |vpiTypespec:
+        \_logic_typespec: , line:39
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (tl_h_i), line:71, parent:work@dut
+        |vpiName:tl_h_i
+        |vpiFullName:work@dut.tl_h_i
   |vpiNet:
-  \_logic_net: (b), id:69, line:12, parent:work@dut
+  \_logic_net: (tl_h_i), line:71, parent:work@dut
+  |vpiNet:
+  \_logic_net: (err_source), line:84, parent:work@dut
+    |vpiName:err_source
+    |vpiFullName:work@dut.err_source
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:84
+      |vpiLeftRange:
+      \_constant: , line:84
+        |vpiDecompile:83
+        |INT:83
+      |vpiRightRange:
+      \_constant: , line:84
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:32
+        |INT:0
+  |vpiNet:
+  \_logic_net: (err_size), line:85, parent:work@dut
+    |vpiName:err_size
+    |vpiFullName:work@dut.err_size
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:85
+      |vpiLeftRange:
+      \_constant: , line:85
+        |vpiDecompile:83
+        |INT:83
+      |vpiRightRange:
+      \_constant: , line:85
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:32
+        |INT:0
+  |vpiVariables:
+  \_logic_var: (b), line:94, parent:work@dut
     |vpiName:b
     |vpiFullName:work@dut.b
   |vpiTypedef:
-  \_bit_typespec: (MyBits), id:98, line:11
+  \_bit_typespec: (MyBits), line:93
     |vpiName:MyBits
     |vpiRange:
-    \_range: , id:99, line:11
+    \_range: , line:93, parent:MyBits
       |vpiLeftRange:
-      \_constant: , id:100, line:11
+      \_constant: , line:93
+        |vpiDecompile:9
         |INT:9
       |vpiRightRange:
-      \_constant: , id:101, line:11
+      \_constant: , line:93
         |vpiConstType:7
+        |vpiDecompile:1
         |vpiSize:32
         |INT:1
   |vpiTypedef:
-  \_struct_typespec: (MyType), id:102, line:6
+  \_struct_typespec: (MyType), line:88
     |vpiName:MyType
     |vpiTypespecMember:
-    \_typespec_member: (valid), id:103, line:7
+    \_typespec_member: (valid), line:89, parent:MyType
       |vpiName:valid
       |vpiTypespec:
-      \_logic_typespec: , id:104, line:7
+      \_logic_typespec: , line:89, parent:valid
     |vpiTypespecMember:
-    \_typespec_member: (data), id:105, line:8
+    \_typespec_member: (data), line:90, parent:MyType
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , id:106, line:8
+      \_bit_typespec: , line:90, parent:data
         |vpiRange:
-        \_range: , id:107, line:8
+        \_range: , line:90
           |vpiLeftRange:
-          \_constant: , id:108, line:8
+          \_constant: , line:90
             |vpiConstType:7
+            |vpiDecompile:8
             |vpiSize:32
             |INT:8
           |vpiRightRange:
-          \_constant: , id:109, line:8
+          \_constant: , line:90
             |vpiConstType:7
+            |vpiDecompile:1
             |vpiSize:32
             |INT:1
   |vpiTypedef:
-  \_logic_typespec: (sha_word_t), id:110, line:3
+  \_enum_typespec: (flash_erase_op_e), line:65
+    |vpiName:flash_erase_op_e
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:62, parent:flash_erase_op_e
+    |vpiEnumConst:
+    \_enum_const: (BankErase), line:64, parent:flash_erase_op_e
+      |vpiName:BankErase
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (PageErase), line:63, parent:flash_erase_op_e
+      |vpiName:PageErase
+      |INT:0
+  |vpiTypedef:
+  \_logic_typespec: (sha_word_t), line:67
     |vpiName:sha_word_t
     |vpiRange:
-    \_range: , id:111, line:3
+    \_range: , line:67, parent:sha_word_t
       |vpiLeftRange:
-      \_constant: , id:112, line:3
+      \_constant: , line:67
         |vpiConstType:7
+        |vpiDecompile:31
         |vpiSize:32
         |INT:31
       |vpiRightRange:
-      \_constant: , id:113, line:3
+      \_constant: , line:67
         |vpiConstType:7
+        |vpiDecompile:0
         |vpiSize:32
         |INT:0
   |vpiParamAssign:
-  \_param_assign: , id:114, line:4
+  \_param_assign: , line:74
     |vpiRhs:
-    \_operation: , id:115, line:4
-      |vpiOpType:12
-      |vpiOperand:
-      \_constant: , id:116, line:4
-        |INT:32
-      |vpiOperand:
-      \_constant: , id:117, line:4
-        |vpiConstType:7
-        |vpiSize:32
-        |INT:8
+    \_constant: , line:74
+      |vpiDecompile:4
+      |INT:4
     |vpiLhs:
-    \_parameter: (WordByte), id:96, line:4
+    \_parameter: (WordByte), line:74
       |vpiName:WordByte
+      |vpiFullName:work@dut.WordByte
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , id:119, line:4
+      \_int_typespec: , line:74, parent:WordByte
+  |vpiParamAssign:
+  \_param_assign: , line:76
+    |vpiRhs:
+    \_constant: , line:76
+      |vpiDecompile:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (DataWidth), line:76
+      |vpiName:DataWidth
+      |vpiFullName:work@dut.DataWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:76, parent:DataWidth
+  |vpiParamAssign:
+  \_param_assign: , line:77
+    |vpiRhs:
+    \_constant: , line:77
+      |vpiDecompile:2
+      |INT:2
+    |vpiLhs:
+    \_parameter: (DataBitWidth), line:77
+      |vpiName:DataBitWidth
+      |vpiFullName:work@dut.DataBitWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:77, parent:DataBitWidth
+  |vpiParamAssign:
+  \_param_assign: , line:78
+    |vpiRhs:
+    \_constant: , line:78
+      |vpiDecompile:1
+      |INT:1
+    |vpiLhs:
+    \_parameter: (EraseBitWidth), line:78
+      |vpiName:EraseBitWidth
+      |vpiFullName:work@dut.EraseBitWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:78, parent:EraseBitWidth
+  |vpiParamAssign:
+  \_param_assign: , line:80
+    |vpiRhs:
+    \_constant: , line:80
+      |vpiDecompile:5
+      |INT:5
+    |vpiLhs:
+    \_parameter: (HashWordBits), line:80
+      |vpiName:HashWordBits
+      |vpiFullName:work@dut.HashWordBits
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:80, parent:HashWordBits
+  |vpiParamAssign:
+  \_param_assign: , line:82
+    |vpiRhs:
+    \_constant: , line:82
+      |vpiDecompile:82
+      |INT:82
+    |vpiLhs:
+    \_parameter: (REQFIFO_WIDTH), line:82
+      |vpiName:REQFIFO_WIDTH
+      |vpiFullName:work@dut.REQFIFO_WIDTH
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:82, parent:REQFIFO_WIDTH
   |vpiParameter:
-  \_parameter: (WordByte), id:96, line:4
+  \_parameter: (WordByte), line:74
+  |vpiParameter:
+  \_parameter: (DataWidth), line:76
+  |vpiParameter:
+  \_parameter: (DataBitWidth), line:77
+  |vpiParameter:
+  \_parameter: (EraseBitWidth), line:78
+  |vpiParameter:
+  \_parameter: (HashWordBits), line:80
+  |vpiParameter:
+  \_parameter: (REQFIFO_WIDTH), line:82
 |uhdmtopModules:
-\_module: work@dmi_jtag (work@dmi_jtag), id:97, file:dut.sv, line:18
+\_module: work@dmi_jtag (work@dmi_jtag), file:dut.sv, line:100
   |vpiDefName:work@dmi_jtag
   |vpiName:work@dmi_jtag
   |vpiProcess:
-  \_always: , id:120, line:31
+  \_always: , line:113
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (p_shift), id:121, line:31
+    \_named_begin: (p_shift), line:113
       |vpiName:p_shift
       |vpiFullName:work@dmi_jtag.p_shift
       |vpiStmt:
-      \_if_stmt: , id:122, line:33, parent:p_shift
+      \_if_stmt: , line:115, parent:p_shift
         |vpiCondition:
-        \_ref_obj: (shift_dr), id:123, line:33
+        \_ref_obj: (shift_dr), line:115
           |vpiName:shift_dr
           |vpiFullName:work@dmi_jtag.p_shift.shift_dr
         |vpiStmt:
-        \_begin: , id:124, line:33
+        \_begin: , line:115
           |vpiFullName:work@dmi_jtag.p_shift
           |vpiStmt:
-          \_if_stmt: , id:125, line:34
+          \_if_stmt: , line:116
             |vpiCondition:
-            \_ref_obj: (dmi_access), id:126, line:34
+            \_ref_obj: (dmi_access), line:116
               |vpiName:dmi_access
               |vpiFullName:work@dmi_jtag.p_shift.dmi_access
             |vpiStmt:
-            \_begin: , id:127, line:34
+            \_begin: , line:116
               |vpiFullName:work@dmi_jtag.p_shift
               |vpiStmt:
-              \_assignment: , id:128, line:35
+              \_assignment: , line:117
+                |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (dr_d), id:129, line:35
+                \_ref_obj: (dr_d), line:117
                   |vpiName:dr_d
                   |vpiFullName:work@dmi_jtag.p_shift.dr_d
                   |vpiActual:
-                  \_logic_net: (dr_d), id:75, line:26, parent:work@dmi_jtag
+                  \_logic_net: (dr_d), line:108, parent:work@dmi_jtag
                     |vpiName:dr_d
                     |vpiFullName:work@dmi_jtag.dr_d
                     |vpiNetType:36
                     |vpiRange:
-                    \_range: , id:74
+                    \_range: , line:108
                       |vpiLeftRange:
-                      \_operation: , id:71, line:26
-                        |vpiOpType:11
-                        |vpiOperand:
-                        \_constant: , id:70, line:26
-                          |INT:41
-                        |vpiOperand:
-                        \_constant: , id:72, line:26
-                          |vpiConstType:7
-                          |vpiSize:32
-                          |INT:1
+                      \_constant: , line:108
+                        |vpiDecompile:40
+                        |INT:40
                       |vpiRightRange:
-                      \_constant: , id:73
+                      \_constant: , line:108
+                        |vpiConstType:7
+                        |vpiDecompile:0
+                        |vpiSize:32
                         |INT:0
                 |vpiRhs:
-                \_operation: , id:130, line:35
+                \_operation: , line:117
                   |vpiOpType:33
                   |vpiOperand:
-                  \_ref_obj: (dmi_tdi), id:131, line:35
+                  \_ref_obj: (dmi_tdi), line:117
                     |vpiName:dmi_tdi
+                    |vpiFullName:work@dmi_jtag.p_shift.dmi_tdi
                   |vpiOperand:
-                  \_part_select: , id:132, line:35, parent:dr_q
+                  \_part_select: , line:117, parent:dr_q
                     |vpiConstantSelect:1
                     |vpiParent:
-                    \_ref_obj: (dr_q), id:45
+                    \_ref_obj: (dr_q)
                     |vpiLeftRange:
-                    \_operation: , id:133, line:35
+                    \_operation: , line:117
                       |vpiOpType:11
                       |vpiOperand:
-                      \_sys_func_call: ($bits), id:134, line:35
-                        |vpiName:$bits
-                        |vpiArgument:
-                        \_ref_obj: (dr_q), id:135, line:35
-                          |vpiName:dr_q
-                          |vpiActual:
-                          \_logic_net: (dr_q), id:81, line:26, parent:work@dmi_jtag
-                            |vpiName:dr_q
-                            |vpiFullName:work@dmi_jtag.dr_q
-                            |vpiNetType:36
-                            |vpiRange:
-                            \_range: , id:80
-                              |vpiLeftRange:
-                              \_operation: , id:77, line:26
-                                |vpiOpType:11
-                                |vpiOperand:
-                                \_constant: , id:76, line:26
-                                  |INT:41
-                                |vpiOperand:
-                                \_constant: , id:78, line:26
-                                  |vpiConstType:7
-                                  |vpiSize:32
-                                  |INT:1
-                              |vpiRightRange:
-                              \_constant: , id:79
-                                |INT:0
+                      \_constant: , line:117
+                        |vpiDecompile:41
+                        |INT:41
                       |vpiOperand:
-                      \_constant: , id:136, line:35
+                      \_constant: , line:117
                         |vpiConstType:7
+                        |vpiDecompile:1
                         |vpiSize:32
                         |INT:1
                     |vpiRightRange:
-                    \_constant: , id:137, line:35
+                    \_constant: , line:117
                       |vpiConstType:7
+                      |vpiDecompile:1
                       |vpiSize:32
                       |INT:1
   |vpiContAssign:
-  \_cont_assign: , id:138, line:29
+  \_cont_assign: , line:111
     |vpiRhs:
-    \_operation: , id:139, line:29
+    \_operation: , line:111
       |vpiOpType:67
       |vpiOperand:
-      \_ref_obj: (dr_q), id:140, line:29
+      \_ref_obj: (dr_q), line:111
         |vpiName:dr_q
         |vpiFullName:work@dmi_jtag.dr_q
         |vpiActual:
-        \_logic_net: (dr_q), id:81, line:26, parent:work@dmi_jtag
+        \_logic_net: (dr_q), line:108, parent:work@dmi_jtag
+          |vpiName:dr_q
+          |vpiFullName:work@dmi_jtag.dr_q
+          |vpiNetType:36
+          |vpiRange:
+          \_range: , line:108
+            |vpiLeftRange:
+            \_constant: , line:108
+              |vpiDecompile:40
+              |INT:40
+            |vpiRightRange:
+            \_constant: , line:108
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
       |vpiTypespec:
-      \_void_typespec: (dmi_t), id:141, line:29
+      \_struct_typespec: (dmi_t), line:102
+        |vpiPacked:1
         |vpiName:dmi_t
+        |vpiTypespecMember:
+        \_typespec_member: (address), line:103, parent:dmi_t
+          |vpiName:address
+          |vpiTypespec:
+          \_logic_typespec: , line:103, parent:address
+            |vpiRange:
+            \_range: , line:103
+              |vpiLeftRange:
+              \_constant: , line:103
+                |vpiConstType:7
+                |vpiDecompile:6
+                |vpiSize:32
+                |INT:6
+              |vpiRightRange:
+              \_constant: , line:103
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (data), line:104, parent:dmi_t
+          |vpiName:data
+          |vpiTypespec:
+          \_logic_typespec: , line:104, parent:data
+            |vpiRange:
+            \_range: , line:104
+              |vpiLeftRange:
+              \_constant: , line:104
+                |vpiConstType:7
+                |vpiDecompile:31
+                |vpiSize:32
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:104
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (op), line:105, parent:dmi_t
+          |vpiName:op
+          |vpiTypespec:
+          \_logic_typespec: , line:105, parent:op
+            |vpiRange:
+            \_range: , line:105
+              |vpiLeftRange:
+              \_constant: , line:105
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
+              |vpiRightRange:
+              \_constant: , line:105
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
     |vpiLhs:
-    \_ref_obj: (dmi), id:142, line:29
+    \_ref_obj: (dmi), line:111
       |vpiName:dmi
       |vpiFullName:work@dmi_jtag.dmi
       |vpiActual:
-      \_logic_net: (dmi), id:82, line:28
+      \_struct_var: (dmi), line:110, parent:work@dmi_jtag
         |vpiName:dmi
         |vpiFullName:work@dmi_jtag.dmi
+        |vpiTypespec:
+        \_struct_typespec: (dmi_t), line:102
+          |vpiPacked:1
+          |vpiName:dmi_t
+          |vpiTypespecMember:
+          \_typespec_member: (address), line:103
+            |vpiName:address
+            |vpiTypespec:
+            \_logic_typespec: , line:103
+              |vpiRange:
+              \_range: , line:103, parent:dmi_t
+                |vpiLeftRange:
+                \_constant: , line:103
+                  |vpiConstType:7
+                  |vpiDecompile:6
+                  |vpiSize:32
+                  |INT:6
+                |vpiRightRange:
+                \_constant: , line:103
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+          |vpiTypespecMember:
+          \_typespec_member: (data), line:104
+            |vpiName:data
+            |vpiTypespec:
+            \_logic_typespec: , line:104
+              |vpiRange:
+              \_range: , line:104, parent:dmi_t
+                |vpiLeftRange:
+                \_constant: , line:104
+                  |vpiConstType:7
+                  |vpiDecompile:31
+                  |vpiSize:32
+                  |INT:31
+                |vpiRightRange:
+                \_constant: , line:104
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+          |vpiTypespecMember:
+          \_typespec_member: (op), line:105
+            |vpiName:op
+            |vpiTypespec:
+            \_logic_typespec: , line:105
+              |vpiRange:
+              \_range: , line:105, parent:dmi_t
+                |vpiLeftRange:
+                \_constant: , line:105
+                  |vpiConstType:7
+                  |vpiDecompile:1
+                  |vpiSize:32
+                  |INT:1
+                |vpiRightRange:
+                \_constant: , line:105
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
   |vpiNet:
-  \_logic_net: (dr_d), id:75, line:26, parent:work@dmi_jtag
+  \_logic_net: (dr_d), line:108, parent:work@dmi_jtag
   |vpiNet:
-  \_logic_net: (dr_q), id:81, line:26, parent:work@dmi_jtag
-  |vpiNet:
-  \_logic_net: (dmi), id:82, line:28
+  \_logic_net: (dr_q), line:108, parent:work@dmi_jtag
+  |vpiVariables:
+  \_struct_var: (dmi), line:110, parent:work@dmi_jtag
   |vpiTypedef:
-  \_struct_typespec: (dmi_t), id:143, line:20
+  \_struct_typespec: (dmi_t), line:102
     |vpiPacked:1
     |vpiName:dmi_t
     |vpiTypespecMember:
-    \_typespec_member: (address), id:144, line:21
+    \_typespec_member: (address), line:103, parent:dmi_t
       |vpiName:address
       |vpiTypespec:
-      \_logic_typespec: , id:145, line:21
+      \_logic_typespec: , line:103, parent:address
         |vpiRange:
-        \_range: , id:146, line:21
+        \_range: , line:103
           |vpiLeftRange:
-          \_constant: , id:147, line:21
+          \_constant: , line:103
             |vpiConstType:7
+            |vpiDecompile:6
             |vpiSize:32
             |INT:6
           |vpiRightRange:
-          \_constant: , id:148, line:21
+          \_constant: , line:103
             |vpiConstType:7
+            |vpiDecompile:0
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data), id:149, line:22
+    \_typespec_member: (data), line:104, parent:dmi_t
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , id:150, line:22
+      \_logic_typespec: , line:104, parent:data
         |vpiRange:
-        \_range: , id:151, line:22
+        \_range: , line:104
           |vpiLeftRange:
-          \_constant: , id:152, line:22
+          \_constant: , line:104
             |vpiConstType:7
+            |vpiDecompile:31
             |vpiSize:32
             |INT:31
           |vpiRightRange:
-          \_constant: , id:153, line:22
+          \_constant: , line:104
             |vpiConstType:7
+            |vpiDecompile:0
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (op), id:154, line:23
+    \_typespec_member: (op), line:105, parent:dmi_t
       |vpiName:op
       |vpiTypespec:
-      \_logic_typespec: , id:155, line:23
+      \_logic_typespec: , line:105, parent:op
         |vpiRange:
-        \_range: , id:156, line:23
+        \_range: , line:105
           |vpiLeftRange:
-          \_constant: , id:157, line:23
+          \_constant: , line:105
             |vpiConstType:7
+            |vpiDecompile:1
             |vpiSize:32
             |INT:1
           |vpiRightRange:
-          \_constant: , id:158, line:23
+          \_constant: , line:105
             |vpiConstType:7
+            |vpiDecompile:0
             |vpiSize:32
             |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
-[WARNING] : 2
+[  ERROR] : 3
+[WARNING] : 6
 [   NOTE] : 7
 

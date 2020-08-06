@@ -68,11 +68,19 @@ using namespace SURELOG;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 
-CompileDesign::CompileDesign(const CompileDesign& orig) {}
-
-CompileDesign::~CompileDesign() {}
 
 bool CompileDesign::compile() {
+
+  // Handle UHDM Internal errors
+  UHDM::ErrorHandler errHandler = [=](const std::string& msg) {
+     ErrorContainer* errors = m_compiler->getErrorContainer();
+     SymbolTable* symbols = m_compiler->getSymbolTable();
+     Location loc(symbols->registerSymbol(msg));
+     Error err (ErrorDefinition::UHDM_WRONG_OBJECT_TYPE, loc);
+     errors->addError(err);
+  };
+  m_serializer.SetErrorHandler(errHandler);
+
   Location loc(0);
   Error err1(ErrorDefinition::COMP_COMPILE, loc);
   ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
@@ -157,18 +165,18 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   // Collect all packages and module definitions
   for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
        itr != all_files.end(); itr++) {
-    FileContent* fC = (*itr).second;
-    std::string fileName = fC->getFileName();
+    const FileContent* fC = (*itr).second;
+    const std::string fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
-    for (auto mod : fC->getModuleDefinitions()) {
+    for (const auto& mod : fC->getModuleDefinitions()) {
       ModuleDefinition* existing = design->getModuleDefinition(mod.first);
       if (existing) {
-        FileContent* oldFC = existing->getFileContents()[0];
-        FileContent* oldParentFile = oldFC->getParent();
+        const FileContent* oldFC = existing->getFileContents()[0];
+        const FileContent* oldParentFile = oldFC->getParent();
 
         ModuleDefinition* newM = mod.second;
-        FileContent* newFC = newM->getFileContents()[0];
-        FileContent* newParentFile = newFC->getParent();
+        const FileContent* newFC = newM->getFileContents()[0];
+        const FileContent* newParentFile = newFC->getParent();
 
         if (oldParentFile && (oldParentFile == newParentFile)) {
           // Recombine splitted module
@@ -193,14 +201,14 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
     for (auto pack : fC->getPackageDefinitions()) {
       Package* existing = design->getPackage(pack.first);
       if (existing) {
-        FileContent* oldFC = existing->getFileContents()[0];
-        FileContent* oldParentFile = oldFC->getParent();
+        const FileContent* oldFC = existing->getFileContents()[0];
+        const FileContent* oldParentFile = oldFC->getParent();
         NodeId oldNodeId = existing->getNodeIds()[0];
         std::string oldFileName = oldFC->getFileName();
         unsigned int oldLine = oldFC->Line(oldNodeId);
         Package* newP = pack.second;
-        FileContent* newFC = newP->getFileContents()[0];
-        FileContent* newParentFile = newFC->getParent();
+        const FileContent* newFC = newP->getFileContents()[0];
+        const FileContent* newParentFile = newFC->getParent();
         NodeId newNodeId = newP->getNodeIds()[0];
         std::string newFileName = newFC->getFileName();
         unsigned int newLine = newFC->Line(newNodeId);
@@ -261,7 +269,7 @@ bool CompileDesign::compilation_() {
   int index = 0;
   do {
     SymbolTable* symbols = new SymbolTable(
-            *m_compiler->getCommandLineParser()->getSymbolTable());
+            m_compiler->getCommandLineParser()->getSymbolTable());
     m_symbolTables.push_back(symbols);
     ErrorContainer* errors = new ErrorContainer(symbols);
     errors->regiterCmdLine(m_compiler->getCommandLineParser());

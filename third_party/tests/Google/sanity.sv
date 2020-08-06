@@ -1,7 +1,7 @@
 /*
 :name: sanity
 :description: A simple module that should fail during parsing
-:should_fail: 1
+:should_fail_because: syntaxerror line is not SV code
 :tags: sanity
 */
 module sanity_tb (

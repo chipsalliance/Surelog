@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/flash_ctrl/rtl/flash_erase_ctrl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Faux Flash Erase Control</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module flash_erase_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int AddrW = 10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int WordsPerPage = 256,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int PagesPerBank = 256,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int EraseBitWidth = 1</pre>
+<pre style="margin:0; padding:0 ">  13: ) (</pre>
+<pre style="margin:0; padding:0 ">  14:   // Software Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input                     op_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [EraseBitWidth-1:0] op_type_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input [AddrW-1:0]         op_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic              op_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic              op_err_o,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // Flash Macro Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic             flash_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic [AddrW-1:0] flash_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic [EraseBitWidth-1:0] flash_op_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                    flash_done_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input                    flash_error_i</pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   import flash_ctrl_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   localparam int WordsBitWidth = $clog2(WordsPerPage);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int PagesBitWidth = $clog2(PagesPerBank);</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // The *AddrMask below masks out the bits that are not required</pre>
+<pre style="margin:0; padding:0 ">  35:   // e.g, assume we have an address 0x5_0004_345C</pre>
+<pre style="margin:0; padding:0 ">  36:   // 0x5 represents bank address</pre>
+<pre style="margin:0; padding:0 ">  37:   // 0x0004 represents page address</pre>
+<pre style="margin:0; padding:0 ">  38:   // PageAddrMask would be 0xF_FFFF_0000</pre>
+<pre style="margin:0; padding:0 ">  39:   // BankAddrMask would be 0xF_0000_0000</pre>
+<pre style="margin:0; padding:0 ">  40:   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   localparam logic[AddrW-1:0] PageAddrMask = ~(('h1 << WordsBitWidth) - 1'b1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   localparam logic[AddrW-1:0] BankAddrMask = ~(('h1 << (PagesBitWidth + WordsBitWidth)) - 1'b1);</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   // IO assignments</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   assign op_done_o = flash_req_o & flash_done_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   assign op_err_o = flash_req_o & flash_error_i;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Flash Interface assignments</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign flash_req_o = op_start_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign flash_op_o = op_type_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   assign flash_addr_o = (op_type_i == PageErase) ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                         op_addr_i & PageAddrMask :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:                         op_addr_i & BankAddrMask;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // unused bus</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [WordsBitWidth-1:0] unused_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign unused_addr_i = op_addr_i[WordsBitWidth-1:0];</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59: endmodule // flash_erase_ctrl</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+</body>
+</html>

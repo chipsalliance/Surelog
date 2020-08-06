@@ -20,16 +20,13 @@
  *
  * Created on February 10, 2018, 11:14 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Config/ConfigSet.h"
+
 using namespace SURELOG;
 
-ConfigSet::~ConfigSet() {}
-
-Config* ConfigSet::getConfig(std::string configName) {
-  for (unsigned int i = 0; i < m_configs.size(); i++) {
-    if (m_configs[i].getName() == configName) return &m_configs[i];
+Config* ConfigSet::getMutableConfigByName(std::string_view configName) {
+  for (auto &config : m_configs) {
+    if (config.getName() == configName) return &config;
   }
-  return NULL;
+  return nullptr;
 }

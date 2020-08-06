@@ -26,21 +26,14 @@
 
 #include "SourceCompile/SymbolTable.h"
 
+#include <string_view>
+
 namespace SURELOG {
 
-class TimeInfo {
- public:
-  TimeInfo()
-      : m_type(None),
-        m_fileId(0),
-        m_line(0),
-        m_timeUnit(Second),
-        m_timeUnitValue(0.0f),
-        m_timePrecision(Second),
-        m_timePrecisionValue(0.0f) {}
-  virtual ~TimeInfo();
-  enum Type { None, Timescale, TimeUnitTimePrecision };
-  enum Unit {
+class TimeInfo final {
+public:
+  enum class Type { None, Timescale, TimeUnitTimePrecision };
+  enum class Unit {
     Second,
     Millisecond,
     Microsecond,
@@ -49,19 +42,17 @@ class TimeInfo {
     Femtosecond
   };
 
-  Type m_type;
-  SymbolId m_fileId;
-  unsigned int m_line;
-  Unit m_timeUnit;
-  double m_timeUnitValue;
-  Unit m_timePrecision;
-  double m_timePrecisionValue;
+  Type m_type = Type::None;
+  SymbolId m_fileId = 0;
+  unsigned int m_line = 0;
+  Unit m_timeUnit = Unit::Second;
+  double m_timeUnitValue = 0.0;
+  Unit m_timePrecision = Unit::Second;
+  double m_timePrecisionValue = 0.0;
 
-  static Unit unitFromString(std::string s);
-
- private:
+  static Unit unitFromString(std::string_view s);
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* TIMEINFO_H */

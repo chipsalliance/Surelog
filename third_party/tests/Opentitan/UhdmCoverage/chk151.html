@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_ram_1p.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Synchronous single-port SRAM model</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  12: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input rst_ni,       // Memory content reset</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input                    req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                    write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input        [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input        [Width-1:0] wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic             rvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic [Width-1:0] rdata_o</pre>
+<pre style="margin:0; padding:0 ">  23: );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // Width of internal write mask. Note wmask_i input into the module is always assumed</pre>
+<pre style="margin:0; padding:0 ">  26:   // to be the full bit mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   localparam int MaskWidth = Width / DataBitsPerMask;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic [Width-1:0] mem [Depth];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic [MaskWidth-1:0] wmask;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     for (int i=0; i < MaskWidth; i = i + 1) begin : create_wmask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       wmask[i] = &wmask_i[i*DataBitsPerMask +: DataBitsPerMask];</pre>
+<pre style="margin:0; padding:0 ">  35:     end</pre>
+<pre style="margin:0; padding:0 ">  36:   end</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:   // using always instead of always_ff to avoid 'ICPD  - illegal combination of drivers' error</pre>
+<pre style="margin:0; padding:0 ">  39:   // thrown when using $readmemh system task to backdoor load an image</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   always @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     if (req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       if (write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:         for (int i=0; i < MaskWidth; i = i + 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:           if (wmask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:             mem[addr_i][i*DataBitsPerMask +: DataBitsPerMask] <=</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:               wdata_i[i*DataBitsPerMask +: DataBitsPerMask];</pre>
+<pre style="margin:0; padding:0 ">  47:           end</pre>
+<pre style="margin:0; padding:0 ">  48:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:         rdata_o <= mem[addr_i];</pre>
+<pre style="margin:0; padding:0 ">  51:       end</pre>
+<pre style="margin:0; padding:0 ">  52:     end</pre>
+<pre style="margin:0; padding:0 ">  53:   end</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   always_ff @(posedge clk_i, negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       rvalid_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       rvalid_o <= req_i & ~write_i;</pre>
+<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  61:   end</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:   `ifdef VERILATOR</pre>
+<pre style="margin:0; padding:0 ">  64:     // Task for loading 'mem' with SystemVerilog system task $readmemh()</pre>
+<pre style="margin:0; padding:0 ">  65:     export "DPI-C" task simutil_verilator_memload;</pre>
+<pre style="margin:0; padding:0 ">  66:     // Function for setting a specific 32 bit element in |mem|</pre>
+<pre style="margin:0; padding:0 ">  67:     // Returns 1 (true) for success, 0 (false) for errors.</pre>
+<pre style="margin:0; padding:0 ">  68:     export "DPI-C" function simutil_verilator_set_mem;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:     task simutil_verilator_memload;</pre>
+<pre style="margin:0; padding:0 ">  71:       input string file;</pre>
+<pre style="margin:0; padding:0 ">  72:       $readmemh(file, mem);</pre>
+<pre style="margin:0; padding:0 ">  73:     endtask</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:     // TODO: Allow 'val' to have other widths than 32 bit</pre>
+<pre style="margin:0; padding:0 ">  76:     function int simutil_verilator_set_mem(input int index,</pre>
+<pre style="margin:0; padding:0 ">  77:                                            input logic[31:0] val);</pre>
+<pre style="margin:0; padding:0 ">  78:       if (index >= Depth) begin</pre>
+<pre style="margin:0; padding:0 ">  79:         return 0;</pre>
+<pre style="margin:0; padding:0 ">  80:       end</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="margin:0; padding:0 ">  82:       mem[index] = val;</pre>
+<pre style="margin:0; padding:0 ">  83:       return 1;</pre>
+<pre style="margin:0; padding:0 ">  84:     endfunction</pre>
+<pre style="margin:0; padding:0 ">  85:   `endif</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   `ifdef SRAM_INIT_FILE</pre>
+<pre style="margin:0; padding:0 ">  88:     localparam MEM_FILE = `"`SRAM_INIT_FILE`";</pre>
+<pre style="margin:0; padding:0 ">  89:     initial begin</pre>
+<pre style="margin:0; padding:0 ">  90:       $display("Initializing SRAM from %s", MEM_FILE);</pre>
+<pre style="margin:0; padding:0 ">  91:       $readmemh(MEM_FILE, mem);</pre>
+<pre style="margin:0; padding:0 ">  92:     end</pre>
+<pre style="margin:0; padding:0 ">  93:   `endif</pre>
+<pre style="margin:0; padding:0 ">  94: endmodule</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+</body>
+</html>

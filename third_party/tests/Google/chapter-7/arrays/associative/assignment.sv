@@ -1,7 +1,6 @@
 /*
 :name: associative-arrays-assignment
 :description: Test associative arrays assignment support
-:should_fail: 0
 :tags: 7.9.9 7.8
 :type: simulation parsing
 */

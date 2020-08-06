@@ -1,7 +1,6 @@
 /*
 :name: readmemb_task
 :description: $readmemb test
-:should_fail: 0
 :tags: 21.4
 :type: parsing
 */

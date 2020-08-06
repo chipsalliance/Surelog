@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/hmac/rtl/hmac.sv Cov: 99% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // HMAC-SHA256</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module hmac</pre>
+<pre style="margin:0; padding:0 ">   8:   import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   9:   import hmac_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  10:   import hmac_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  11: (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic intr_hmac_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic intr_fifo_full_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic intr_hmac_err_o,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // alerts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  alert_rx_t [NumAlerts-1:0] alert_rx_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output alert_tx_t [NumAlerts-1:0] alert_tx_o</pre>
+<pre style="margin:0; padding:0 ">  25: );</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  29:   // Signal declarations //</pre>
+<pre style="margin:0; padding:0 ">  30:   /////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   hmac_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   hmac_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   tlul_pkg::tl_h2d_t  tl_win_h2d[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   tlul_pkg::tl_d2h_t  tl_win_d2h[1];</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic [255:0] secret_key;</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic        wipe_secret;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic [31:0] wipe_v;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic        fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic        fifo_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   sha_fifo_t   fifo_rdata;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic        fifo_wvalid, fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   sha_fifo_t   fifo_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic        fifo_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic        fifo_empty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic [4:0]  fifo_depth;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic        msg_fifo_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic        msg_fifo_gnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic        msg_fifo_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [8:0]  msg_fifo_addr;   // NOT_READ</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [31:0] msg_fifo_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [31:0] msg_fifo_wmask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [31:0] msg_fifo_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic        msg_fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic [1:0]  msg_fifo_rerror;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic [31:0] msg_fifo_wdata_endian;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic [31:0] msg_fifo_wmask_endian;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic        packer_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic        packer_flush_done;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic        reg_fifo_wvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   sha_word_t   reg_fifo_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   sha_word_t   reg_fifo_wmask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic        hmac_fifo_wsel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic        hmac_fifo_wvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic [2:0]  hmac_fifo_wdata_sel;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic        shaf_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   sha_fifo_t   shaf_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic        shaf_rready;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic        sha_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic        hmac_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic        endian_swap;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic        digest_swap;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic        reg_hash_start;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic        sha_hash_start;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   logic        hash_start;      // Valid hash_start_signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic        reg_hash_process;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   logic        sha_hash_process;</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic        reg_hash_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic        sha_hash_done;</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic [63:0] message_length;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic [63:0] sha_message_length;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   err_code_e   err_code;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic        err_valid;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   sha_word_t [7:0] digest;</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   hmac_reg2hw_cfg_reg_t cfg_reg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   logic                 cfg_block;  // Prevent changing config</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 104:   // Connect registers //</pre>
+<pre style="margin:0; padding:0 "> 105:   ///////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign hw2reg.status.fifo_full.d  = fifo_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign hw2reg.status.fifo_empty.d = fifo_empty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign hw2reg.status.fifo_depth.d = fifo_depth;</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:   // secret key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign wipe_secret = reg2hw.wipe_secret.qe;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign wipe_v      = reg2hw.wipe_secret.q;</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       secret_key <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     end else if (wipe_secret) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       secret_key <= secret_key ^ {8{wipe_v}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     end else if (!cfg_block) begin</pre>
+<pre style="margin:0; padding:0 "> 120:       // Allow updating secret key only when the engine is in Idle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       for (int i = 0; i < 8; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         if (reg2hw.key[7-i].qe) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:           secret_key[32*i+:32] <= reg2hw.key[7-i].q;</pre>
+<pre style="margin:0; padding:0 "> 124:         end</pre>
+<pre style="margin:0; padding:0 "> 125:       end</pre>
+<pre style="margin:0; padding:0 "> 126:     end</pre>
+<pre style="margin:0; padding:0 "> 127:   end</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   for (genvar i = 0; i < 8; i++) begin : gen_key_digest</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     assign hw2reg.key[7-i].d      = '0;</pre>
+<pre style="margin:0; padding:0 "> 131:     // digest</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     assign hw2reg.digest[i].d = conv_endian(digest[i], digest_swap);</pre>
+<pre style="margin:0; padding:0 "> 133:   end</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   logic [3:0] unused_cfg_qe;</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   assign unused_cfg_qe = {cfg_reg.sha_en.qe,      cfg_reg.hmac_en.qe,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:                           cfg_reg.endian_swap.qe, cfg_reg.digest_swap.qe};</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   assign sha_en      = cfg_reg.sha_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   assign hmac_en     = cfg_reg.hmac_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   assign endian_swap = cfg_reg.endian_swap.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   assign digest_swap = cfg_reg.digest_swap.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   assign hw2reg.cfg.hmac_en.d     = cfg_reg.hmac_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   assign hw2reg.cfg.sha_en.d      = cfg_reg.sha_en.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   assign hw2reg.cfg.endian_swap.d = cfg_reg.endian_swap.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   assign hw2reg.cfg.digest_swap.d = cfg_reg.digest_swap.q;</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign reg_hash_start   = reg2hw.cmd.hash_start.qe   & reg2hw.cmd.hash_start.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   assign reg_hash_process = reg2hw.cmd.hash_process.qe & reg2hw.cmd.hash_process.q;</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="margin:0; padding:0 "> 152:   // Error code register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   assign hw2reg.err_code.de = err_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   assign hw2reg.err_code.d  = err_code;</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 157:   // Control signals //</pre>
+<pre style="margin:0; padding:0 "> 158:   /////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   assign hash_start = reg_hash_start & sha_en;</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:       cfg_block <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     end else if (hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:       cfg_block <= 1'b 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     end else if (reg_hash_done) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       cfg_block <= 1'b 0;</pre>
+<pre style="margin:0; padding:0 "> 168:     end</pre>
+<pre style="margin:0; padding:0 "> 169:   end</pre>
+<pre style="margin:0; padding:0 "> 170:   // Hold the configuration during the process</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       cfg_reg <= '{endian_swap: '{q: 1'b1, qe: 1'b0}, default:'0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     end else if (!cfg_block && reg2hw.cfg.hmac_en.qe) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       cfg_reg <= reg2hw.cfg ;</pre>
+<pre style="margin:0; padding:0 "> 176:     end</pre>
+<pre style="margin:0; padding:0 "> 177:   end</pre>
+<pre style="margin:0; padding:0 "> 178:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 179:   // Interrupts //</pre>
+<pre style="margin:0; padding:0 "> 180:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   logic fifo_full_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     if (!rst_ni) fifo_full_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     else fifo_full_q <= fifo_full;</pre>
+<pre style="margin:0; padding:0 "> 185:   end</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   logic fifo_full_event;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   assign fifo_full_event = fifo_full & !fifo_full_q;</pre>
+<pre style="margin:0; padding:0 "> 189: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic [2:0] event_intr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   assign event_intr = {err_valid, fifo_full_event, reg_hash_done};</pre>
+<pre style="margin:0; padding:0 "> 192: </pre>
+<pre style="margin:0; padding:0 "> 193:   // instantiate interrupt hardware primitive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   prim_intr_hw #(.Width(1)) intr_hw_hmac_done (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     .event_intr_i           (event_intr[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     .reg2hw_intr_enable_q_i (reg2hw.intr_enable.hmac_done.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     .reg2hw_intr_test_q_i   (reg2hw.intr_test.hmac_done.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     .reg2hw_intr_test_qe_i  (reg2hw.intr_test.hmac_done.qe),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     .reg2hw_intr_state_q_i  (reg2hw.intr_state.hmac_done.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     .hw2reg_intr_state_de_o (hw2reg.intr_state.hmac_done.de),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     .hw2reg_intr_state_d_o  (hw2reg.intr_state.hmac_done.d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     .intr_o                 (intr_hmac_done_o)</pre>
+<pre style="margin:0; padding:0 "> 203:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   prim_intr_hw #(.Width(1)) intr_hw_fifo_full (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:     .event_intr_i           (event_intr[1]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     .reg2hw_intr_enable_q_i (reg2hw.intr_enable.fifo_full.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     .reg2hw_intr_test_q_i   (reg2hw.intr_test.fifo_full.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     .reg2hw_intr_test_qe_i  (reg2hw.intr_test.fifo_full.qe),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     .reg2hw_intr_state_q_i  (reg2hw.intr_state.fifo_full.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     .hw2reg_intr_state_de_o (hw2reg.intr_state.fifo_full.de),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     .hw2reg_intr_state_d_o  (hw2reg.intr_state.fifo_full.d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     .intr_o                 (intr_fifo_full_o)</pre>
+<pre style="margin:0; padding:0 "> 213:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   prim_intr_hw #(.Width(1)) intr_hw_hmac_err (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     .event_intr_i           (event_intr[2]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     .reg2hw_intr_enable_q_i (reg2hw.intr_enable.hmac_err.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     .reg2hw_intr_test_q_i   (reg2hw.intr_test.hmac_err.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:     .reg2hw_intr_test_qe_i  (reg2hw.intr_test.hmac_err.qe),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     .reg2hw_intr_state_q_i  (reg2hw.intr_state.hmac_err.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     .hw2reg_intr_state_de_o (hw2reg.intr_state.hmac_err.de),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     .hw2reg_intr_state_d_o  (hw2reg.intr_state.hmac_err.d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:     .intr_o                 (intr_hmac_err_o)</pre>
+<pre style="margin:0; padding:0 "> 223:   );</pre>
+<pre style="margin:0; padding:0 "> 224: </pre>
+<pre style="margin:0; padding:0 "> 225:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 226:   // Instances //</pre>
+<pre style="margin:0; padding:0 "> 227:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   assign msg_fifo_rvalid = msg_fifo_req & ~msg_fifo_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:   assign msg_fifo_rdata  = '1;  // Return all F</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:   assign msg_fifo_rerror = '1;  // Return error for read access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   assign msg_fifo_gnt    = msg_fifo_req & ~hmac_fifo_wsel & packer_ready;</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="margin:0; padding:0 "> 234:   // FIFO control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:   sha_fifo_t reg_fifo_wentry;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:   assign reg_fifo_wentry.data = conv_endian(reg_fifo_wdata, 1'b1); // always convert</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   assign reg_fifo_wentry.mask = {reg_fifo_wmask[0],  reg_fifo_wmask[8],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:                                  reg_fifo_wmask[16], reg_fifo_wmask[24]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:   assign fifo_full   = ~fifo_wready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:   assign fifo_empty  = ~fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   assign fifo_wvalid = (hmac_fifo_wsel && fifo_wready) ? hmac_fifo_wvalid : reg_fifo_wvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:   assign fifo_wdata  = (hmac_fifo_wsel) ? '{data: digest[hmac_fifo_wdata_sel], mask: '1}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:                                        : reg_fifo_wentry;</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     .Width ($bits(sha_fifo_t)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     .Pass  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     .Depth (MsgFifoDepth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:   ) u_msg_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     .clr_i  (1'b0),</pre>
+<pre style="margin:0; padding:0 "> 253: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     .wvalid (fifo_wvalid & sha_en),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     .wready (fifo_wready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     .wdata  (fifo_wdata),</pre>
+<pre style="margin:0; padding:0 "> 257: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:     .depth  (fifo_depth),</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     .rvalid (fifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     .rready (fifo_rready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .rdata  (fifo_rdata)</pre>
+<pre style="margin:0; padding:0 "> 263:   );</pre>
+<pre style="margin:0; padding:0 "> 264: </pre>
+<pre style="margin:0; padding:0 "> 265:   // TL ADAPTER SRAM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:   tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .SramAw (9),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     .SramDw (32),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     .Outstanding (1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .ByteAccess  (1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     .ErrOnRead   (1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:   ) u_tlul_adapter (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     .tl_i   (tl_win_h2d[0]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .tl_o   (tl_win_d2h[0]),</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     .req_o    (msg_fifo_req   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     .gnt_i    (msg_fifo_gnt   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:     .we_o     (msg_fifo_we    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:     .addr_o   (msg_fifo_addr  ), // Doesn't care the address other than sub-word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:     .wdata_o  (msg_fifo_wdata ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     .wmask_o  (msg_fifo_wmask ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:     .rdata_i  (msg_fifo_rdata ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     .rvalid_i (msg_fifo_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:     .rerror_i (msg_fifo_rerror)</pre>
+<pre style="margin:0; padding:0 "> 287:   );</pre>
+<pre style="margin:0; padding:0 "> 288: </pre>
+<pre style="margin:0; padding:0 "> 289:   // TL-UL to MSG_FIFO byte write handling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   logic msg_write;</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:   assign msg_write = msg_fifo_req & msg_fifo_we & ~hmac_fifo_wsel;</pre>
+<pre style="margin:0; padding:0 "> 293: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:   logic [$clog2(32+1)-1:0] wmask_ones;</pre>
+<pre style="margin:0; padding:0 "> 295: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     wmask_ones = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:     for (int i = 0 ; i < 32 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       wmask_ones = wmask_ones + reg_fifo_wmask[i];</pre>
+<pre style="margin:0; padding:0 "> 300:     end</pre>
+<pre style="margin:0; padding:0 "> 301:   end</pre>
+<pre style="margin:0; padding:0 "> 302: </pre>
+<pre style="margin:0; padding:0 "> 303:   // Calculate written message</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       message_length <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:     end else if (hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       message_length <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:     end else if (reg_fifo_wvalid && fifo_wready && !hmac_fifo_wsel) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       message_length <= message_length + 64'(wmask_ones);</pre>
+<pre style="margin:0; padding:0 "> 311:     end</pre>
+<pre style="margin:0; padding:0 "> 312:   end</pre>
+<pre style="margin:0; padding:0 "> 313: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:   assign hw2reg.msg_length_upper.de = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:   assign hw2reg.msg_length_upper.d = message_length[63:32];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   assign hw2reg.msg_length_lower.de = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:   assign hw2reg.msg_length_lower.d = message_length[31:0];</pre>
+<pre style="margin:0; padding:0 "> 318: </pre>
+<pre style="margin:0; padding:0 "> 319: </pre>
+<pre style="margin:0; padding:0 "> 320:   // Convert endian here</pre>
+<pre style="margin:0; padding:0 "> 321:   //    prim_packer always packs to the right, but SHA engine assumes incoming</pre>
+<pre style="margin:0; padding:0 "> 322:   //    to be big-endian, [31:24] comes first. So, the data is reverted after</pre>
+<pre style="margin:0; padding:0 "> 323:   //    prim_packer before the message fifo. here to reverse if not big-endian</pre>
+<pre style="margin:0; padding:0 "> 324:   //    before pushing to the packer.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:   assign msg_fifo_wdata_endian = conv_endian(msg_fifo_wdata, ~endian_swap);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:   assign msg_fifo_wmask_endian = conv_endian(msg_fifo_wmask, ~endian_swap);</pre>
+<pre style="margin:0; padding:0 "> 327: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:   prim_packer #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:     .InW      (32),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:     .OutW     (32)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   ) u_packer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 334: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     .valid_i      (msg_write & sha_en),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     .data_i       (msg_fifo_wdata_endian),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     .mask_i       (msg_fifo_wmask_endian),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:     .ready_o      (packer_ready),</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:     .valid_o      (reg_fifo_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     .data_o       (reg_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:     .mask_o       (reg_fifo_wmask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:     .ready_i      (fifo_wready & ~hmac_fifo_wsel),</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     .flush_i      (reg_hash_process),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:     .flush_done_o (packer_flush_done) // ignore at this moment</pre>
+<pre style="margin:0; padding:0 "> 347:   );</pre>
+<pre style="margin:0; padding:0 "> 348: </pre>
+<pre style="margin:0; padding:0 "> 349: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:   hmac_core u_hmac (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 353: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:     .secret_key,</pre>
+<pre style="margin:0; padding:0 "> 355: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:     .wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:     .wipe_v,</pre>
+<pre style="margin:0; padding:0 "> 358: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:     .hmac_en,</pre>
+<pre style="margin:0; padding:0 "> 360: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:     .reg_hash_start   (hash_start),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:     .reg_hash_process (packer_flush_done), // Trigger after all msg written</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:     .hash_done      (reg_hash_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:     .sha_hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:     .sha_hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:     .sha_hash_done,</pre>
+<pre style="margin:0; padding:0 "> 367: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:     .sha_rvalid     (shaf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     .sha_rdata      (shaf_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:     .sha_rready     (shaf_rready),</pre>
+<pre style="margin:0; padding:0 "> 371: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:     .fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:     .fifo_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:     .fifo_rready,</pre>
+<pre style="margin:0; padding:0 "> 375: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:     .fifo_wsel      (hmac_fifo_wsel),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:     .fifo_wvalid    (hmac_fifo_wvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:     .fifo_wdata_sel (hmac_fifo_wdata_sel),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:     .fifo_wready,</pre>
+<pre style="margin:0; padding:0 "> 380: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:     .message_length,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:     .sha_message_length</pre>
+<pre style="margin:0; padding:0 "> 383:   );</pre>
+<pre style="margin:0; padding:0 "> 384: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:   sha2 u_sha2 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 388: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:     .wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:     .wipe_v,</pre>
+<pre style="margin:0; padding:0 "> 391: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:     .fifo_rvalid      (shaf_rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:     .fifo_rdata       (shaf_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:     .fifo_rready      (shaf_rready),</pre>
+<pre style="margin:0; padding:0 "> 395: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:     .sha_en,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:     .hash_start       (sha_hash_start),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:     .hash_process     (sha_hash_process),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:     .hash_done        (sha_hash_done),</pre>
+<pre style="margin:0; padding:0 "> 400: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:     .message_length   (sha_message_length),</pre>
+<pre style="margin:0; padding:0 "> 402: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:     .digest</pre>
+<pre style="margin:0; padding:0 "> 404:   );</pre>
+<pre style="margin:0; padding:0 "> 405: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:   hmac_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 409: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:     .tl_o,</pre>
+<pre style="margin:0; padding:0 "> 412: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:     .tl_win_o   (tl_win_h2d),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:     .tl_win_i   (tl_win_d2h),</pre>
+<pre style="margin:0; padding:0 "> 415: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 "> 418: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 "> 420:   );</pre>
+<pre style="margin:0; padding:0 "> 421: </pre>
+<pre style="margin:0; padding:0 "> 422:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 423:   // HMAC Error Handling //</pre>
+<pre style="margin:0; padding:0 "> 424:   /////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:   logic msg_push_sha_disabled, hash_start_sha_disabled, update_seckey_inprocess;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:   assign msg_push_sha_disabled = msg_write & ~sha_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:   assign hash_start_sha_disabled = reg_hash_start & ~sha_en;</pre>
+<pre style="margin:0; padding:0 "> 428: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:     update_seckey_inprocess = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:     if (cfg_block) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:       for (int i = 0 ; i < 8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:         if (reg2hw.key[i].qe) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:           update_seckey_inprocess = update_seckey_inprocess | 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 435:         end</pre>
+<pre style="margin:0; padding:0 "> 436:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:       update_seckey_inprocess = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 439:     end</pre>
+<pre style="margin:0; padding:0 "> 440:   end</pre>
+<pre style="margin:0; padding:0 "> 441: </pre>
+<pre style="margin:0; padding:0 "> 442:   // Update ERR_CODE register and interrupt only when no pending interrupt.</pre>
+<pre style="margin:0; padding:0 "> 443:   // This ensures only the first event of the series of events can be seen to sw.</pre>
+<pre style="margin:0; padding:0 "> 444:   // It is recommended that the software reads ERR_CODE register when interrupt</pre>
+<pre style="margin:0; padding:0 "> 445:   // is pending to avoid any race conditions.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:   assign err_valid = ~reg2hw.intr_state.hmac_err.q &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:                    ( msg_push_sha_disabled | hash_start_sha_disabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:                    | update_seckey_inprocess);</pre>
+<pre style="margin:0; padding:0 "> 449: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:     err_code = NoError;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:     unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:       msg_push_sha_disabled: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:         err_code = SwPushMsgWhenShaDisabled;</pre>
+<pre style="margin:0; padding:0 "> 455:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:       hash_start_sha_disabled: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:         err_code = SwHashStartWhenShaDisabled;</pre>
+<pre style="margin:0; padding:0 "> 458:       end</pre>
+<pre style="margin:0; padding:0 "> 459: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:       update_seckey_inprocess: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:         err_code = SwUpdateSecretKeyInProcess;</pre>
+<pre style="margin:0; padding:0 "> 462:       end</pre>
+<pre style="margin:0; padding:0 "> 463: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:         err_code = NoError;</pre>
+<pre style="margin:0; padding:0 "> 466:       end</pre>
+<pre style="margin:0; padding:0 "> 467:     endcase</pre>
+<pre style="margin:0; padding:0 "> 468:   end</pre>
+<pre style="margin:0; padding:0 "> 469: </pre>
+<pre style="margin:0; padding:0 "> 470:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 471:   // Hardware Alerts //</pre>
+<pre style="margin:0; padding:0 "> 472:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 473: </pre>
+<pre style="margin:0; padding:0 "> 474:   // TODO: add CSR with REGWEN to test alert via SW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:   logic [NumAlerts-1:0] alerts;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:   assign alerts = {msg_push_sha_disabled};</pre>
+<pre style="margin:0; padding:0 "> 477: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:   for (genvar j = 0; j < hmac_pkg::NumAlerts; j++) begin : gen_alert_tx</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:     prim_alert_sender #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:       .AsyncOn(hmac_pkg::AlertAsyncOn[j])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:     ) i_prim_alert_sender (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:       .clk_i      ( clk_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:       .rst_ni     ( rst_ni        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:       .alert_i    ( alerts[j]     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:       .alert_rx_i ( alert_rx_i[j] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:       .alert_tx_o ( alert_tx_o[j] )</pre>
+<pre style="margin:0; padding:0 "> 487:     );</pre>
+<pre id="id488" style="background-color: #FFB6C1; margin:0; padding:0 "> 488:   end : gen_alert_tx</pre>
+<pre style="margin:0; padding:0 "> 489: </pre>
+<pre style="margin:0; padding:0 "> 490:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 491:   // Assertions, Assumptions, and Coverpoints //</pre>
+<pre style="margin:0; padding:0 "> 492:   //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 493: </pre>
+<pre style="margin:0; padding:0 "> 494: `ifndef VERILATOR</pre>
+<pre style="margin:0; padding:0 "> 495: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 496:   // HMAC assumes TL-UL mask is byte-aligned.</pre>
+<pre style="margin:0; padding:0 "> 497:     property wmask_bytealign_p(wmask_byte, clk, rst_n);</pre>
+<pre style="margin:0; padding:0 "> 498:       @(posedge clk) disable iff (rst_n == 0)</pre>
+<pre style="margin:0; padding:0 "> 499:         msg_fifo_req & msg_fifo_we |-> wmask_byte inside {'0, '1};</pre>
+<pre style="margin:0; padding:0 "> 500:     endproperty</pre>
+<pre style="margin:0; padding:0 "> 501: </pre>
+<pre style="margin:0; padding:0 "> 502:     for (genvar i = 0 ; i < 4; i++) begin: gen_assert_wmask_bytealign</pre>
+<pre style="margin:0; padding:0 "> 503:       assert property (wmask_bytealign_p(msg_fifo_wmask[8*i+:8], clk_i, rst_ni));</pre>
+<pre style="margin:0; padding:0 "> 504:     end</pre>
+<pre style="margin:0; padding:0 "> 505: </pre>
+<pre style="margin:0; padding:0 "> 506:   // To pass FPV, this shouldn't add pragma translate_off even these two signals</pre>
+<pre style="margin:0; padding:0 "> 507:   // are used in Assertion only</pre>
+<pre style="margin:0; padding:0 "> 508:   logic in_process;</pre>
+<pre style="margin:0; padding:0 "> 509:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 510:     if (!rst_ni)               in_process <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 511:     else if (reg_hash_process) in_process <= 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 512:     else if (reg_hash_done)    in_process <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 513:   end</pre>
+<pre style="margin:0; padding:0 "> 514: </pre>
+<pre style="margin:0; padding:0 "> 515:   logic initiated;</pre>
+<pre style="margin:0; padding:0 "> 516:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 517:     if (!rst_ni)               initiated <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 518:     else if (hash_start)       initiated <= 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 519:     else if (reg_hash_process) initiated <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 520:   end</pre>
+<pre style="margin:0; padding:0 "> 521: </pre>
+<pre style="margin:0; padding:0 "> 522:   // the host doesn't write data after hash_process until hash_start.</pre>
+<pre style="margin:0; padding:0 "> 523:   // Same as "message_length shouldn't be changed between hash_process and done</pre>
+<pre style="margin:0; padding:0 "> 524:   `ASSERT(ValidWriteAssert, msg_fifo_req |-> !in_process, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 525: </pre>
+<pre style="margin:0; padding:0 "> 526:   // `hash_process` shall be toggle and paired with `hash_start`.</pre>
+<pre style="margin:0; padding:0 "> 527:   `ASSERT(ValidHashStartAssert, hash_start |-> !initiated, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 528:   `ASSERT(ValidHashProcessAssert, reg_hash_process |-> initiated, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 529: </pre>
+<pre style="margin:0; padding:0 "> 530:   // between `hash_done` and `hash_start`, message FIFO should be empty</pre>
+<pre style="margin:0; padding:0 "> 531:   `ASSERT(MsgFifoEmptyWhenNoOpAssert,</pre>
+<pre style="margin:0; padding:0 "> 532:           !in_process && !initiated |-> $stable(message_length),</pre>
+<pre style="margin:0; padding:0 "> 533:           clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 534: </pre>
+<pre style="margin:0; padding:0 "> 535:   // hmac_en should be modified only when the logic is Idle</pre>
+<pre style="margin:0; padding:0 "> 536:   `ASSERT(ValidHmacEnConditionAssert,</pre>
+<pre style="margin:0; padding:0 "> 537:           hmac_en != $past(hmac_en) |-> !in_process && !initiated,</pre>
+<pre style="margin:0; padding:0 "> 538:           clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 539: </pre>
+<pre style="margin:0; padding:0 "> 540:   // All outputs should be known value after reset</pre>
+<pre style="margin:0; padding:0 "> 541:   `ASSERT_KNOWN(IntrHmacDoneOKnown, intr_hmac_done_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 542:   `ASSERT_KNOWN(IntrFifoFullOKnown, intr_fifo_full_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 543:   `ASSERT_KNOWN(TlODValidKnown, tl_o.d_valid, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 544:   `ASSERT_KNOWN(TlOAReadyKnown, tl_o.a_ready, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 545: </pre>
+<pre style="margin:0; padding:0 "> 546:   // Alert outputs</pre>
+<pre style="margin:0; padding:0 "> 547:   `ASSERT_KNOWN(AlertTxOKnown, alert_tx_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 548: </pre>
+<pre style="margin:0; padding:0 "> 549: `endif // SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 550: `endif // VERILATOR</pre>
+<pre style="margin:0; padding:0 "> 551: </pre>
+<pre style="margin:0; padding:0 "> 552: endmodule</pre>
+<pre style="margin:0; padding:0 "> 553: </pre>
+</body>
+</html>

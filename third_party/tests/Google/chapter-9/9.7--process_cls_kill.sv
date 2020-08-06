@@ -1,7 +1,6 @@
 /*
 :name: process_cls_kill
 :description: process class kill method
-:should_fail: 0
 :tags: 9.7
 */
 module process_tb ();

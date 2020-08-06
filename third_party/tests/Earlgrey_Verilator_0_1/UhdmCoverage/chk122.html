@@ -1,0 +1,1310 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_core.sv Cov: 89.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: `ifdef RISCV_FORMAL</pre>
+<pre style="margin:0; padding:0 ">   7:   `define RVFI</pre>
+<pre style="margin:0; padding:0 ">   8: `endif</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: /**</pre>
+<pre style="margin:0; padding:0 ">  13:  * Top level module of the ibex RISC-V core</pre>
+<pre style="margin:0; padding:0 ">  14:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: module ibex_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     parameter bit          PMPEnable                = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     parameter int unsigned PMPGranularity           = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     parameter int unsigned PMPNumRegions            = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     parameter int unsigned MHPMCounterNum           = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     parameter int unsigned MHPMCounterWidth         = 40,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     parameter bit          RV32E                    = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     parameter bit          RV32M                    = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     parameter bit          RV32B                    = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     parameter bit          BranchTargetALU          = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     parameter bit          WritebackStage           = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     parameter              MultiplierImplementation = "fast",</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     parameter bit          ICache                   = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     parameter bit          ICacheECC                = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     parameter bit          DbgTriggerEn             = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     parameter bit          SecureIbex               = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     parameter int unsigned DmHaltAddr               = 32'h1A110800,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     parameter int unsigned DmExceptionAddr          = 32'h1A110808</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="margin:0; padding:0 ">  34:     // Clock and Reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic        test_en_i,     // enable all clock gates for testing</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     input  logic [31:0] hart_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     input  logic [31:0] boot_addr_i,</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:     // Instruction memory interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     output logic        instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     input  logic        instr_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     input  logic        instr_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     output logic [31:0] instr_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     input  logic [31:0] instr_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     input  logic        instr_err_i,</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:     // Data memory interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic        data_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     input  logic        data_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     input  logic        data_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     output logic        data_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     output logic [3:0]  data_be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     output logic [31:0] data_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     output logic [31:0] data_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     input  logic [31:0] data_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     input  logic        data_err_i,</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:     // Interrupt inputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     input  logic        irq_software_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     input  logic        irq_timer_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     input  logic        irq_external_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     input  logic [14:0] irq_fast_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     input  logic        irq_nm_i,       // non-maskeable interrupt</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:     // Debug Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     input  logic        debug_req_i,</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:     // RISC-V Formal Interface</pre>
+<pre style="margin:0; padding:0 ">  73:     // Does not comply with the coding standards of _i/_o suffixes, but follows</pre>
+<pre style="margin:0; padding:0 ">  74:     // the convention of RISC-V Formal Interface Specification.</pre>
+<pre style="margin:0; padding:0 ">  75: `ifdef RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     output logic        rvfi_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     output logic [63:0] rvfi_order,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     output logic [31:0] rvfi_insn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     output logic        rvfi_trap,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     output logic        rvfi_halt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     output logic        rvfi_intr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     output logic [ 1:0] rvfi_mode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     output logic [ 1:0] rvfi_ixl,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     output logic [ 4:0] rvfi_rs1_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     output logic [ 4:0] rvfi_rs2_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     output logic [ 4:0] rvfi_rs3_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     output logic [31:0] rvfi_rs1_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     output logic [31:0] rvfi_rs2_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     output logic [31:0] rvfi_rs3_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     output logic [ 4:0] rvfi_rd_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     output logic [31:0] rvfi_rd_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     output logic [31:0] rvfi_pc_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     output logic [31:0] rvfi_pc_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     output logic [31:0] rvfi_mem_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     output logic [ 3:0] rvfi_mem_rmask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     output logic [ 3:0] rvfi_mem_wmask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     output logic [31:0] rvfi_mem_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     output logic [31:0] rvfi_mem_wdata,</pre>
+<pre style="margin:0; padding:0 ">  99: `endif</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:     // CPU Control Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     input  logic        fetch_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     output logic        core_sleep_o</pre>
+<pre style="margin:0; padding:0 "> 104: );</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   localparam int unsigned PMP_NUM_CHAN      = 2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   localparam bit          DataIndTiming     = SecureIbex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   localparam bit          DummyInstructions = SecureIbex;</pre>
+<pre style="margin:0; padding:0 "> 111:   // Speculative branch option, trades-off performance against timing.</pre>
+<pre style="margin:0; padding:0 "> 112:   // Setting this to 1 eases branch target critical paths significantly but reduces performance</pre>
+<pre style="margin:0; padding:0 "> 113:   // by ~3% (based on Coremark/MHz score).</pre>
+<pre style="margin:0; padding:0 "> 114:   // Set by default in the max PMP config which has the tightest budget for branch target timing.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   localparam bit          SpecBranch        = PMPEnable & (PMPNumRegions == 16);</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:   // IF/ID signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   logic        dummy_instr_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic        instr_valid_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   logic        instr_new_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic [31:0] instr_rdata_id;                 // Instruction sampled inside IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   logic [31:0] instr_rdata_alu_id;             // Instruction sampled inside IF stage (replicated to ease</pre>
+<pre style="margin:0; padding:0 "> 123:                                                // fan-out)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   logic [15:0] instr_rdata_c_id;               // Compressed instruction sampled inside IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   logic        instr_is_compressed_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   logic        instr_fetch_err;                // Bus error on instr fetch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   logic        instr_fetch_err_plus2;          // Instruction error is misaligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   logic        illegal_c_insn_id;              // Illegal compressed instruction sent to ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   logic [31:0] pc_if;                          // Program counter in IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   logic [31:0] pc_id;                          // Program counter in ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   logic [31:0] pc_wb;                          // Program counter in WB stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   logic [33:0] imd_val_d_ex;                   // Intermediate register for multicycle Ops</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic [33:0] imd_val_q_ex;                   // Intermediate register for multicycle Ops</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   logic        imd_val_we_ex;</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic        data_ind_timing;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   logic        dummy_instr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   logic [2:0]  dummy_instr_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   logic        dummy_instr_seed_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   logic [31:0] dummy_instr_seed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   logic        icache_enable;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic        icache_inval;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   logic        instr_first_cycle_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   logic        instr_valid_clear;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic        pc_set;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   logic        pc_set_spec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   pc_sel_e     pc_mux_id;                      // Mux selector for next PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   exc_pc_sel_e exc_pc_mux_id;                  // Mux selector for exception PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   exc_cause_e  exc_cause;                      // Exception cause</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   logic        lsu_load_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   logic        lsu_store_err;</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:   // LSU signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   logic        lsu_addr_incr_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   logic [31:0] lsu_addr_last;</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="margin:0; padding:0 "> 159:   // Jump and branch target and decision (EX->IF)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   logic [31:0] branch_target_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   logic        branch_decision;</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="margin:0; padding:0 "> 163:   // Core busy signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   logic        ctrl_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   logic        if_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   logic        lsu_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   logic        core_busy_d, core_busy_q;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="margin:0; padding:0 "> 169:   // Register File</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   logic [4:0]  rf_raddr_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   logic [31:0] rf_rdata_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic [4:0]  rf_raddr_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   logic [31:0] rf_rdata_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   logic [4:0]  rf_waddr_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic [31:0] rf_wdata_wb;</pre>
+<pre style="margin:0; padding:0 "> 176:   // Writeback register write data that can be used on the forwarding path (doesn't factor in memory</pre>
+<pre style="margin:0; padding:0 "> 177:   // read data as this is too late for the forwarding path)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   logic [31:0] rf_wdata_fwd_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   logic [31:0] rf_wdata_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   logic        rf_we_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   logic        rf_we_lsu;</pre>
+<pre style="margin:0; padding:0 "> 182: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:   logic [4:0]  rf_waddr_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   logic [31:0] rf_wdata_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   logic        rf_we_id;</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="margin:0; padding:0 "> 187:   // ALU Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   alu_op_e     alu_operator_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   logic [31:0] alu_operand_a_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic [31:0] alu_operand_b_ex;</pre>
+<pre style="margin:0; padding:0 "> 191: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   logic [31:0] bt_a_operand;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:   logic [31:0] bt_b_operand;</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   logic [31:0] alu_adder_result_ex;    // Used to forward computed address to LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   logic [31:0] result_ex;</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:   // Multiplier Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:   logic        mult_en_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   logic        div_en_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   logic        mult_sel_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   logic        div_sel_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   md_op_e      multdiv_operator_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   logic [1:0]  multdiv_signed_mode_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   logic [31:0] multdiv_operand_a_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   logic [31:0] multdiv_operand_b_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   logic        multdiv_ready_id;</pre>
+<pre style="margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209:   // CSR control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   logic        csr_access;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   csr_op_e     csr_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   logic        csr_op_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   csr_num_e    csr_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   logic [31:0] csr_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   logic [31:0] csr_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   logic        illegal_csr_insn_id;    // CSR access to non-existent register,</pre>
+<pre style="margin:0; padding:0 "> 217:                                        // with wrong priviledge level,</pre>
+<pre style="margin:0; padding:0 "> 218:                                        // or missing write permissions</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:   // Data Memory Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   logic        lsu_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   logic [1:0]  lsu_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   logic        lsu_sign_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:   logic        lsu_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   logic [31:0] lsu_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   logic        lsu_req_done;</pre>
+<pre style="margin:0; padding:0 "> 227: </pre>
+<pre style="margin:0; padding:0 "> 228:   // stall control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   logic        id_in_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:   logic        ex_valid;</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   logic        lsu_resp_valid;</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="margin:0; padding:0 "> 234:   // Signals between instruction core interface and pipe (if and id stages)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:   logic        instr_req_int;          // Id stage asserts a req to instruction core interface</pre>
+<pre style="margin:0; padding:0 "> 236: </pre>
+<pre style="margin:0; padding:0 "> 237:   // Writeback stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   logic           en_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:   wb_instr_type_e instr_type_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:   logic           ready_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   logic           rf_write_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:   logic           outstanding_load_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:   logic           outstanding_store_wb;</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="margin:0; padding:0 "> 245:   // Interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:   logic        irq_pending;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:   logic        nmi_mode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   irqs_t       irqs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:   logic        csr_mstatus_mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:   logic [31:0] csr_mepc, csr_depc;</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="margin:0; padding:0 "> 252:   // PMP signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:   logic [33:0] csr_pmp_addr [PMPNumRegions];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:   pmp_cfg_t    csr_pmp_cfg  [PMPNumRegions];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:   logic        pmp_req_err  [PMP_NUM_CHAN];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:   logic        instr_req_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:   logic        data_req_out;</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:   logic        csr_save_if;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:   logic        csr_save_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:   logic        csr_save_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:   logic        csr_restore_mret_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:   logic        csr_restore_dret_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:   logic        csr_save_cause;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:   logic        csr_mtvec_init;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:   logic [31:0] csr_mtvec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:   logic [31:0] csr_mtval;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:   logic        csr_mstatus_tw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:   priv_lvl_e   priv_mode_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:   priv_lvl_e   priv_mode_if;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:   priv_lvl_e   priv_mode_lsu;</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="margin:0; padding:0 "> 273:   // debug mode and dcsr configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   logic        debug_mode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:   dbg_cause_e  debug_cause;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:   logic        debug_csr_save;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:   logic        debug_single_step;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:   logic        debug_ebreakm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:   logic        debug_ebreaku;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:   logic        trigger_match;</pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
+<pre style="margin:0; padding:0 "> 282:   // signals relating to instruction movements between pipeline stages</pre>
+<pre style="margin:0; padding:0 "> 283:   // used by performance counters and RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:   logic        instr_id_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:   logic        instr_id_done_compressed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:   logic        instr_done_wb;</pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:   logic        perf_iside_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:   logic        perf_dside_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   logic        perf_mul_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:   logic        perf_div_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:   logic        perf_jump;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   logic        perf_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:   logic        perf_tbranch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:   logic        perf_load;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   logic        perf_store;</pre>
+<pre style="margin:0; padding:0 "> 297: </pre>
+<pre style="margin:0; padding:0 "> 298:   // for RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   logic        illegal_insn_id, unused_illegal_insn_id; // ID stage sees an illegal instruction</pre>
+<pre style="margin:0; padding:0 "> 300: </pre>
+<pre style="margin:0; padding:0 "> 301:   // RISC-V Formal Interface signals</pre>
+<pre style="margin:0; padding:0 "> 302: `ifdef RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:   logic        rvfi_instr_new_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:   logic        rvfi_intr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:   logic        rvfi_intr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:   logic        rvfi_set_trap_pc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:   logic        rvfi_set_trap_pc_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:   logic [31:0] rvfi_insn_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:   logic [4:0]  rvfi_rs1_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:   logic [4:0]  rvfi_rs1_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:   logic [4:0]  rvfi_rs2_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   logic [4:0]  rvfi_rs2_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:   logic [4:0]  rvfi_rs3_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:   logic [31:0] rvfi_rs1_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:   logic [31:0] rvfi_rs1_data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   logic [31:0] rvfi_rs2_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:   logic [31:0] rvfi_rs2_data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:   logic [31:0] rvfi_rs3_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:   logic [4:0]  rvfi_rd_addr_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:   logic [4:0]  rvfi_rd_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:   logic [4:0]  rvfi_rd_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:   logic [31:0] rvfi_rd_wdata_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:   logic [31:0] rvfi_rd_wdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:   logic [31:0] rvfi_rd_wdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:   logic        rvfi_rd_we_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:   logic [3:0]  rvfi_mem_mask_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:   logic [31:0] rvfi_mem_rdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:   logic [31:0] rvfi_mem_rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:   logic [31:0] rvfi_mem_wdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:   logic [31:0] rvfi_mem_wdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   logic [31:0] rvfi_mem_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:   logic [31:0] rvfi_mem_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:   logic        rf_ren_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:   logic        rf_ren_b;</pre>
+<pre style="margin:0; padding:0 "> 335: `endif</pre>
+<pre style="margin:0; padding:0 "> 336: </pre>
+<pre style="margin:0; padding:0 "> 337:   //////////////////////</pre>
+<pre style="margin:0; padding:0 "> 338:   // Clock management //</pre>
+<pre style="margin:0; padding:0 "> 339:   //////////////////////</pre>
+<pre style="margin:0; padding:0 "> 340: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:   logic        clk;</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:   logic        clock_en;</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre style="margin:0; padding:0 "> 345:   // Before going to sleep, wait for I- and D-side</pre>
+<pre style="margin:0; padding:0 "> 346:   // interfaces to finish ongoing operations.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:   assign core_busy_d = ctrl_busy | if_busy | lsu_busy;</pre>
+<pre style="margin:0; padding:0 "> 348: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       core_busy_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:       core_busy_q <= core_busy_d;</pre>
+<pre style="margin:0; padding:0 "> 354:     end</pre>
+<pre style="margin:0; padding:0 "> 355:   end</pre>
+<pre style="margin:0; padding:0 "> 356: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:   assign clock_en     = core_busy_q | debug_req_i | irq_pending | irq_nm_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:   assign core_sleep_o = ~clock_en;</pre>
+<pre style="margin:0; padding:0 "> 359: </pre>
+<pre style="margin:0; padding:0 "> 360:   // main clock gate of the core</pre>
+<pre style="margin:0; padding:0 "> 361:   // generates all clocks except the one for the debug unit which is</pre>
+<pre style="margin:0; padding:0 "> 362:   // independent</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:   prim_clock_gating core_clock_gate_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       .clk_i     ( clk_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       .en_i      ( clock_en        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       .test_en_i ( test_en_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:       .clk_o     ( clk             )</pre>
+<pre style="margin:0; padding:0 "> 368:   );</pre>
+<pre style="margin:0; padding:0 "> 369: </pre>
+<pre style="margin:0; padding:0 "> 370:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 371:   // IF stage //</pre>
+<pre style="margin:0; padding:0 "> 372:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 373: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:   ibex_if_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:       .DmHaltAddr        ( DmHaltAddr        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:       .DmExceptionAddr   ( DmExceptionAddr   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:       .DummyInstructions ( DummyInstructions ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:       .ICache            ( ICache            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:       .ICacheECC         ( ICacheECC         )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:   ) if_stage_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:       .clk_i                    ( clk                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:       .rst_ni                   ( rst_ni                 ),</pre>
+<pre style="margin:0; padding:0 "> 383: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       .boot_addr_i              ( boot_addr_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:       .req_i                    ( instr_req_int          ), // instruction request control</pre>
+<pre style="margin:0; padding:0 "> 386: </pre>
+<pre style="margin:0; padding:0 "> 387:       // instruction cache interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:       .instr_req_o              ( instr_req_out          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:       .instr_addr_o             ( instr_addr_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:       .instr_gnt_i              ( instr_gnt_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:       .instr_rvalid_i           ( instr_rvalid_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:       .instr_rdata_i            ( instr_rdata_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:       .instr_err_i              ( instr_err_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:       .instr_pmp_err_i          ( pmp_req_err[PMP_I]     ),</pre>
+<pre style="margin:0; padding:0 "> 395: </pre>
+<pre style="margin:0; padding:0 "> 396:       // outputs to ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:       .instr_valid_id_o         ( instr_valid_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:       .instr_new_id_o           ( instr_new_id           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:       .instr_rdata_id_o         ( instr_rdata_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:       .instr_rdata_alu_id_o     ( instr_rdata_alu_id     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:       .instr_rdata_c_id_o       ( instr_rdata_c_id       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:       .instr_is_compressed_id_o ( instr_is_compressed_id ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:       .instr_fetch_err_o        ( instr_fetch_err        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:       .instr_fetch_err_plus2_o  ( instr_fetch_err_plus2  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:       .illegal_c_insn_id_o      ( illegal_c_insn_id      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:       .dummy_instr_id_o         ( dummy_instr_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:       .pc_if_o                  ( pc_if                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:       .pc_id_o                  ( pc_id                  ),</pre>
+<pre style="margin:0; padding:0 "> 409: </pre>
+<pre style="margin:0; padding:0 "> 410:       // control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:       .instr_valid_clear_i      ( instr_valid_clear      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:       .pc_set_i                 ( pc_set                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:       .pc_set_spec_i            ( pc_set_spec            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:       .pc_mux_i                 ( pc_mux_id              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:       .exc_pc_mux_i             ( exc_pc_mux_id          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:       .exc_cause                ( exc_cause              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:       .dummy_instr_en_i         ( dummy_instr_en         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:       .dummy_instr_mask_i       ( dummy_instr_mask       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:       .dummy_instr_seed_en_i    ( dummy_instr_seed_en    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:       .dummy_instr_seed_i       ( dummy_instr_seed       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:       .icache_enable_i          ( icache_enable          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:       .icache_inval_i           ( icache_inval           ),</pre>
+<pre style="margin:0; padding:0 "> 423: </pre>
+<pre style="margin:0; padding:0 "> 424:       // branch targets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:       .branch_target_ex_i       ( branch_target_ex       ),</pre>
+<pre style="margin:0; padding:0 "> 426: </pre>
+<pre style="margin:0; padding:0 "> 427:       // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:       .csr_mepc_i               ( csr_mepc               ), // exception return address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:       .csr_depc_i               ( csr_depc               ), // debug return address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:       .csr_mtvec_i              ( csr_mtvec              ), // trap-vector base address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:       .csr_mtvec_init_o         ( csr_mtvec_init         ),</pre>
+<pre style="margin:0; padding:0 "> 432: </pre>
+<pre style="margin:0; padding:0 "> 433:       // pipeline stalls</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:       .id_in_ready_i            ( id_in_ready            ),</pre>
+<pre style="margin:0; padding:0 "> 435: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:       .if_busy_o                ( if_busy                )</pre>
+<pre style="margin:0; padding:0 "> 437:   );</pre>
+<pre style="margin:0; padding:0 "> 438: </pre>
+<pre style="margin:0; padding:0 "> 439:   // Core is waiting for the ISide when ID/EX stage is ready for a new instruction but none are</pre>
+<pre style="margin:0; padding:0 "> 440:   // available</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:   assign perf_iside_wait = id_in_ready & ~instr_valid_id;</pre>
+<pre style="margin:0; padding:0 "> 442: </pre>
+<pre style="margin:0; padding:0 "> 443:   // Qualify the instruction request with PMP error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:   assign instr_req_o = instr_req_out & ~pmp_req_err[PMP_I];</pre>
+<pre style="margin:0; padding:0 "> 445: </pre>
+<pre style="margin:0; padding:0 "> 446:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 447:   // ID stage //</pre>
+<pre style="margin:0; padding:0 "> 448:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 449: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:   ibex_id_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:       .RV32E           ( RV32E           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:       .RV32M           ( RV32M           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:       .RV32B           ( RV32B           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:       .BranchTargetALU ( BranchTargetALU ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:       .DataIndTiming   ( DataIndTiming   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:       .SpecBranch      ( SpecBranch      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:       .WritebackStage  ( WritebackStage  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:   ) id_stage_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:       .clk_i                        ( clk                      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:       .rst_ni                       ( rst_ni                   ),</pre>
+<pre style="margin:0; padding:0 "> 461: </pre>
+<pre style="margin:0; padding:0 "> 462:       // Processor Enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:       .fetch_enable_i               ( fetch_enable_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       .ctrl_busy_o                  ( ctrl_busy                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:       .illegal_insn_o               ( illegal_insn_id          ),</pre>
+<pre style="margin:0; padding:0 "> 466: </pre>
+<pre style="margin:0; padding:0 "> 467:       // from/to IF-ID pipeline register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:       .instr_valid_i                ( instr_valid_id           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469:       .instr_rdata_i                ( instr_rdata_id           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:       .instr_rdata_alu_i            ( instr_rdata_alu_id       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:       .instr_rdata_c_i              ( instr_rdata_c_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:       .instr_is_compressed_i        ( instr_is_compressed_id   ),</pre>
+<pre style="margin:0; padding:0 "> 473: </pre>
+<pre style="margin:0; padding:0 "> 474:       // Jumps and branches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:       .branch_decision_i            ( branch_decision          ),</pre>
+<pre style="margin:0; padding:0 "> 476: </pre>
+<pre style="margin:0; padding:0 "> 477:       // IF and ID control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:       .instr_first_cycle_id_o       ( instr_first_cycle_id     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:       .instr_valid_clear_o          ( instr_valid_clear        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:       .id_in_ready_o                ( id_in_ready              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:       .instr_req_o                  ( instr_req_int            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:       .pc_set_o                     ( pc_set                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:       .pc_set_spec_o                ( pc_set_spec              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:       .pc_mux_o                     ( pc_mux_id                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:       .exc_pc_mux_o                 ( exc_pc_mux_id            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:       .exc_cause_o                  ( exc_cause                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:       .icache_inval_o               ( icache_inval             ),</pre>
+<pre style="margin:0; padding:0 "> 488: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:       .instr_fetch_err_i            ( instr_fetch_err          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:       .instr_fetch_err_plus2_i      ( instr_fetch_err_plus2    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:       .illegal_c_insn_i             ( illegal_c_insn_id        ),</pre>
+<pre style="margin:0; padding:0 "> 492: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:       .pc_id_i                      ( pc_id                    ),</pre>
+<pre style="margin:0; padding:0 "> 494: </pre>
+<pre style="margin:0; padding:0 "> 495:       // Stalls</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 496:       .ex_valid_i                   ( ex_valid                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:       .lsu_resp_valid_i             ( lsu_resp_valid           ),</pre>
+<pre style="margin:0; padding:0 "> 498: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:       .alu_operator_ex_o            ( alu_operator_ex          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 500:       .alu_operand_a_ex_o           ( alu_operand_a_ex         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 501:       .alu_operand_b_ex_o           ( alu_operand_b_ex         ),</pre>
+<pre style="margin:0; padding:0 "> 502: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:       .imd_val_q_ex_o               ( imd_val_q_ex             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:       .imd_val_d_ex_i               ( imd_val_d_ex             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:       .imd_val_we_ex_i              ( imd_val_we_ex            ),</pre>
+<pre style="margin:0; padding:0 "> 506: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:       .bt_a_operand_o               ( bt_a_operand             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:       .bt_b_operand_o               ( bt_b_operand             ),</pre>
+<pre style="margin:0; padding:0 "> 509: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 510:       .mult_en_ex_o                 ( mult_en_ex               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 511:       .div_en_ex_o                  ( div_en_ex                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:       .mult_sel_ex_o                ( mult_sel_ex              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:       .div_sel_ex_o                 ( div_sel_ex               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:       .multdiv_operator_ex_o        ( multdiv_operator_ex      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:       .multdiv_signed_mode_ex_o     ( multdiv_signed_mode_ex   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:       .multdiv_operand_a_ex_o       ( multdiv_operand_a_ex     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:       .multdiv_operand_b_ex_o       ( multdiv_operand_b_ex     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:       .multdiv_ready_id_o           ( multdiv_ready_id         ),</pre>
+<pre style="margin:0; padding:0 "> 519: </pre>
+<pre style="margin:0; padding:0 "> 520:       // CSR ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:       .csr_access_o                 ( csr_access               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:       .csr_op_o                     ( csr_op                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:       .csr_op_en_o                  ( csr_op_en                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:       .csr_save_if_o                ( csr_save_if              ), // control signal to save PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:       .csr_save_id_o                ( csr_save_id              ), // control signal to save PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 526:       .csr_save_wb_o                ( csr_save_wb              ), // control signal to save PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:       .csr_restore_mret_id_o        ( csr_restore_mret_id      ), // restore mstatus upon MRET</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:       .csr_restore_dret_id_o        ( csr_restore_dret_id      ), // restore mstatus upon MRET</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:       .csr_save_cause_o             ( csr_save_cause           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:       .csr_mtval_o                  ( csr_mtval                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       .priv_mode_i                  ( priv_mode_id             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:       .csr_mstatus_tw_i             ( csr_mstatus_tw           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 533:       .illegal_csr_insn_i           ( illegal_csr_insn_id      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 534:       .data_ind_timing_i            ( data_ind_timing          ),</pre>
+<pre style="margin:0; padding:0 "> 535: </pre>
+<pre style="margin:0; padding:0 "> 536:       // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:       .lsu_req_o                    ( lsu_req                  ), // to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:       .lsu_we_o                     ( lsu_we                   ), // to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:       .lsu_type_o                   ( lsu_type                 ), // to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540:       .lsu_sign_ext_o               ( lsu_sign_ext             ), // to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:       .lsu_wdata_o                  ( lsu_wdata                ), // to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:       .lsu_req_done_i               ( lsu_req_done             ), // from load store unit</pre>
+<pre style="margin:0; padding:0 "> 543: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:       .lsu_addr_incr_req_i          ( lsu_addr_incr_req        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:       .lsu_addr_last_i              ( lsu_addr_last            ),</pre>
+<pre style="margin:0; padding:0 "> 546: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:       .lsu_load_err_i               ( lsu_load_err             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:       .lsu_store_err_i              ( lsu_store_err            ),</pre>
+<pre style="margin:0; padding:0 "> 549: </pre>
+<pre style="margin:0; padding:0 "> 550:       // Interrupt Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:       .csr_mstatus_mie_i            ( csr_mstatus_mie          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:       .irq_pending_i                ( irq_pending              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 553:       .irqs_i                       ( irqs                     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554:       .irq_nm_i                     ( irq_nm_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:       .nmi_mode_o                   ( nmi_mode                 ),</pre>
+<pre style="margin:0; padding:0 "> 556: </pre>
+<pre style="margin:0; padding:0 "> 557:       // Debug Signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:       .debug_mode_o                 ( debug_mode               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:       .debug_cause_o                ( debug_cause              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:       .debug_csr_save_o             ( debug_csr_save           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:       .debug_req_i                  ( debug_req_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 562:       .debug_single_step_i          ( debug_single_step        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 563:       .debug_ebreakm_i              ( debug_ebreakm            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:       .debug_ebreaku_i              ( debug_ebreaku            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:       .trigger_match_i              ( trigger_match            ),</pre>
+<pre style="margin:0; padding:0 "> 566: </pre>
+<pre style="margin:0; padding:0 "> 567:       // write data to commit in the register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 568:       .result_ex_i                  ( result_ex                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:       .csr_rdata_i                  ( csr_rdata                ),</pre>
+<pre style="margin:0; padding:0 "> 570: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:       .rf_raddr_a_o                 ( rf_raddr_a               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 572:       .rf_rdata_a_i                 ( rf_rdata_a               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573:       .rf_raddr_b_o                 ( rf_raddr_b               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 574:       .rf_rdata_b_i                 ( rf_rdata_b               ),</pre>
+<pre style="margin:0; padding:0 "> 575: `ifdef RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:       .rf_ren_a_o                   ( rf_ren_a                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 577:       .rf_ren_b_o                   ( rf_ren_b                 ),</pre>
+<pre style="margin:0; padding:0 "> 578: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 579:       .rf_waddr_id_o                ( rf_waddr_id              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 580:       .rf_wdata_id_o                ( rf_wdata_id              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:       .rf_we_id_o                   ( rf_we_id                 ),</pre>
+<pre style="margin:0; padding:0 "> 582: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 583:       .rf_waddr_wb_i                ( rf_waddr_wb              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 584:       .rf_wdata_fwd_wb_i            ( rf_wdata_fwd_wb          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 585:       .rf_write_wb_i                ( rf_write_wb              ),</pre>
+<pre style="margin:0; padding:0 "> 586: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 587:       .en_wb_o                      ( en_wb                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 588:       .instr_type_wb_o              ( instr_type_wb            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:       .ready_wb_i                   ( ready_wb                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 590:       .outstanding_load_wb_i        ( outstanding_load_wb      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 591:       .outstanding_store_wb_i       ( outstanding_store_wb     ),</pre>
+<pre style="margin:0; padding:0 "> 592: </pre>
+<pre style="margin:0; padding:0 "> 593:       // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:       .perf_jump_o                  ( perf_jump                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 595:       .perf_branch_o                ( perf_branch              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 596:       .perf_tbranch_o               ( perf_tbranch             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 597:       .perf_dside_wait_o            ( perf_dside_wait          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 598:       .perf_mul_wait_o              ( perf_mul_wait            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 599:       .perf_div_wait_o              ( perf_div_wait            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 600:       .instr_id_done_o              ( instr_id_done            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 601:       .instr_id_done_compressed_o   ( instr_id_done_compressed )</pre>
+<pre style="margin:0; padding:0 "> 602:   );</pre>
+<pre style="margin:0; padding:0 "> 603: </pre>
+<pre style="margin:0; padding:0 "> 604:   // for RVFI only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 605:   assign unused_illegal_insn_id = illegal_insn_id;</pre>
+<pre style="margin:0; padding:0 "> 606: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 607:   ibex_ex_block #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 608:       .RV32M                    ( RV32M                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:       .RV32B                    ( RV32B                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:       .BranchTargetALU          ( BranchTargetALU          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:       .MultiplierImplementation ( MultiplierImplementation )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 612:   ) ex_block_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:       .clk_i                    ( clk                      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:       .rst_ni                   ( rst_ni                   ),</pre>
+<pre style="margin:0; padding:0 "> 615: </pre>
+<pre style="margin:0; padding:0 "> 616:       // ALU signal from ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 617:       .alu_operator_i           ( alu_operator_ex          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 618:       .alu_operand_a_i          ( alu_operand_a_ex         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 619:       .alu_operand_b_i          ( alu_operand_b_ex         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 620:       .alu_instr_first_cycle_i  ( instr_first_cycle_id     ),</pre>
+<pre style="margin:0; padding:0 "> 621: </pre>
+<pre style="margin:0; padding:0 "> 622:       // Branch target ALU signal from ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 623:       .bt_a_operand_i           ( bt_a_operand             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 624:       .bt_b_operand_i           ( bt_b_operand             ),</pre>
+<pre style="margin:0; padding:0 "> 625: </pre>
+<pre style="margin:0; padding:0 "> 626:       // Multipler/Divider signal from ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:       .multdiv_operator_i       ( multdiv_operator_ex      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 628:       .mult_en_i                ( mult_en_ex               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 629:       .div_en_i                 ( div_en_ex                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 630:       .mult_sel_i               ( mult_sel_ex              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 631:       .div_sel_i                ( div_sel_ex               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 632:       .multdiv_signed_mode_i    ( multdiv_signed_mode_ex   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 633:       .multdiv_operand_a_i      ( multdiv_operand_a_ex     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 634:       .multdiv_operand_b_i      ( multdiv_operand_b_ex     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 635:       .multdiv_ready_id_i       ( multdiv_ready_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 636:       .data_ind_timing_i        ( data_ind_timing          ),</pre>
+<pre style="margin:0; padding:0 "> 637: </pre>
+<pre style="margin:0; padding:0 "> 638:       // Intermediate value register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 639:       .imd_val_we_o             ( imd_val_we_ex            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 640:       .imd_val_d_o              ( imd_val_d_ex             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 641:       .imd_val_q_i              ( imd_val_q_ex             ),</pre>
+<pre style="margin:0; padding:0 "> 642: </pre>
+<pre style="margin:0; padding:0 "> 643:       // Outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 644:       .alu_adder_result_ex_o    ( alu_adder_result_ex      ), // to LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 645:       .result_ex_o              ( result_ex                ), // to ID</pre>
+<pre style="margin:0; padding:0 "> 646: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 647:       .branch_target_o          ( branch_target_ex         ), // to IF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 648:       .branch_decision_o        ( branch_decision          ), // to ID</pre>
+<pre style="margin:0; padding:0 "> 649: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 650:       .ex_valid_o               ( ex_valid                 )</pre>
+<pre style="margin:0; padding:0 "> 651:   );</pre>
+<pre style="margin:0; padding:0 "> 652: </pre>
+<pre style="margin:0; padding:0 "> 653:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 654:   // Load/store unit //</pre>
+<pre style="margin:0; padding:0 "> 655:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 656: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 657:   assign data_req_o = data_req_out & ~pmp_req_err[PMP_D];</pre>
+<pre style="margin:0; padding:0 "> 658: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 659:   ibex_load_store_unit load_store_unit_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 660:       .clk_i                 ( clk                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 661:       .rst_ni                ( rst_ni              ),</pre>
+<pre style="margin:0; padding:0 "> 662: </pre>
+<pre style="margin:0; padding:0 "> 663:       // data interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 664:       .data_req_o            ( data_req_out        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 665:       .data_gnt_i            ( data_gnt_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 666:       .data_rvalid_i         ( data_rvalid_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 667:       .data_err_i            ( data_err_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 668:       .data_pmp_err_i        ( pmp_req_err[PMP_D]  ),</pre>
+<pre style="margin:0; padding:0 "> 669: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 670:       .data_addr_o           ( data_addr_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 671:       .data_we_o             ( data_we_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 672:       .data_be_o             ( data_be_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 673:       .data_wdata_o          ( data_wdata_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 674:       .data_rdata_i          ( data_rdata_i        ),</pre>
+<pre style="margin:0; padding:0 "> 675: </pre>
+<pre style="margin:0; padding:0 "> 676:       // signals to/from ID/EX stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 677:       .lsu_we_i              ( lsu_we              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 678:       .lsu_type_i            ( lsu_type            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 679:       .lsu_wdata_i           ( lsu_wdata           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 680:       .lsu_sign_ext_i        ( lsu_sign_ext        ),</pre>
+<pre style="margin:0; padding:0 "> 681: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 682:       .lsu_rdata_o           ( rf_wdata_lsu        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 683:       .lsu_rdata_valid_o     ( rf_we_lsu           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 684:       .lsu_req_i             ( lsu_req             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 685:       .lsu_req_done_o        ( lsu_req_done        ),</pre>
+<pre style="margin:0; padding:0 "> 686: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 687:       .adder_result_ex_i     ( alu_adder_result_ex ),</pre>
+<pre style="margin:0; padding:0 "> 688: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 689:       .addr_incr_req_o       ( lsu_addr_incr_req   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 690:       .addr_last_o           ( lsu_addr_last       ),</pre>
+<pre style="margin:0; padding:0 "> 691: </pre>
+<pre style="margin:0; padding:0 "> 692: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 693:       .lsu_resp_valid_o      ( lsu_resp_valid      ),</pre>
+<pre style="margin:0; padding:0 "> 694: </pre>
+<pre style="margin:0; padding:0 "> 695:       // exception signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 696:       .load_err_o            ( lsu_load_err        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 697:       .store_err_o           ( lsu_store_err       ),</pre>
+<pre style="margin:0; padding:0 "> 698: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 699:       .busy_o                ( lsu_busy            ),</pre>
+<pre style="margin:0; padding:0 "> 700: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 701:       .perf_load_o           ( perf_load           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 702:       .perf_store_o          ( perf_store          )</pre>
+<pre style="margin:0; padding:0 "> 703:   );</pre>
+<pre style="margin:0; padding:0 "> 704: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 705:   ibex_wb_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 706:     .WritebackStage ( WritebackStage )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 707:   ) wb_stage_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 708:     .clk_i                      ( clk_i                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 709:     .rst_ni                     ( rst_ni                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 710:     .en_wb_i                    ( en_wb                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 711:     .instr_type_wb_i            ( instr_type_wb            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 712:     .pc_id_i                    ( pc_id                    ),</pre>
+<pre style="margin:0; padding:0 "> 713: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 714:     .ready_wb_o                 ( ready_wb                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 715:     .rf_write_wb_o              ( rf_write_wb              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 716:     .outstanding_load_wb_o      ( outstanding_load_wb      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 717:     .outstanding_store_wb_o     ( outstanding_store_wb     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 718:     .pc_wb_o                    ( pc_wb                    ),</pre>
+<pre style="margin:0; padding:0 "> 719: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 720:     .rf_waddr_id_i              ( rf_waddr_id              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 721:     .rf_wdata_id_i              ( rf_wdata_id              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 722:     .rf_we_id_i                 ( rf_we_id                 ),</pre>
+<pre style="margin:0; padding:0 "> 723: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 724:     .rf_wdata_lsu_i             ( rf_wdata_lsu             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 725:     .rf_we_lsu_i                ( rf_we_lsu                ),</pre>
+<pre style="margin:0; padding:0 "> 726: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 727:     .rf_wdata_fwd_wb_o          ( rf_wdata_fwd_wb          ),</pre>
+<pre style="margin:0; padding:0 "> 728: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 729:     .rf_waddr_wb_o              ( rf_waddr_wb              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 730:     .rf_wdata_wb_o              ( rf_wdata_wb              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 731:     .rf_we_wb_o                 ( rf_we_wb                 ),</pre>
+<pre style="margin:0; padding:0 "> 732: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 733:     .lsu_resp_valid_i           ( lsu_resp_valid           ),</pre>
+<pre style="margin:0; padding:0 "> 734: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 735:     .instr_done_wb_o            ( instr_done_wb            )</pre>
+<pre style="margin:0; padding:0 "> 736:   );</pre>
+<pre style="margin:0; padding:0 "> 737: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 738:   ibex_register_file #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 739:       .RV32E             (RV32E),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 740:       .DataWidth         (32),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 741:       .DummyInstructions (DummyInstructions)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 742:   ) register_file_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 743:       .clk_i            ( clk_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 744:       .rst_ni           ( rst_ni         ),</pre>
+<pre style="margin:0; padding:0 "> 745: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 746:       .test_en_i        ( test_en_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 747:       .dummy_instr_id_i ( dummy_instr_id ),</pre>
+<pre style="margin:0; padding:0 "> 748: </pre>
+<pre style="margin:0; padding:0 "> 749:       // Read port a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 750:       .raddr_a_i        ( rf_raddr_a     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 751:       .rdata_a_o        ( rf_rdata_a     ),</pre>
+<pre style="margin:0; padding:0 "> 752:       // Read port b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 753:       .raddr_b_i        ( rf_raddr_b     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 754:       .rdata_b_o        ( rf_rdata_b     ),</pre>
+<pre style="margin:0; padding:0 "> 755:       // write port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 756:       .waddr_a_i        ( rf_waddr_wb    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 757:       .wdata_a_i        ( rf_wdata_wb    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 758:       .we_a_i           ( rf_we_wb       )</pre>
+<pre style="margin:0; padding:0 "> 759:   );</pre>
+<pre style="margin:0; padding:0 "> 760: </pre>
+<pre style="margin:0; padding:0 "> 761:   // Explict INC_ASSERT block to avoid unused signal lint warnings were asserts are not included</pre>
+<pre style="margin:0; padding:0 "> 762:   `ifdef INC_ASSERT</pre>
+<pre style="margin:0; padding:0 "> 763:   // Signals used for assertions only</pre>
+<pre style="margin:0; padding:0 "> 764:   logic outstanding_load_resp;</pre>
+<pre style="margin:0; padding:0 "> 765:   logic outstanding_store_resp;</pre>
+<pre style="margin:0; padding:0 "> 766: </pre>
+<pre style="margin:0; padding:0 "> 767:   logic outstanding_load_id;</pre>
+<pre style="margin:0; padding:0 "> 768:   logic outstanding_store_id;</pre>
+<pre style="margin:0; padding:0 "> 769: </pre>
+<pre style="margin:0; padding:0 "> 770:   assign outstanding_load_id  = id_stage_i.instr_executing & id_stage_i.lsu_req_dec & ~id_stage_i.lsu_we;</pre>
+<pre style="margin:0; padding:0 "> 771:   assign outstanding_store_id = id_stage_i.instr_executing & id_stage_i.lsu_req_dec &  id_stage_i.lsu_we;</pre>
+<pre style="margin:0; padding:0 "> 772: </pre>
+<pre style="margin:0; padding:0 "> 773:   if (WritebackStage) begin</pre>
+<pre style="margin:0; padding:0 "> 774:     // When the writeback stage is present a load/store could be in ID or WB. A Load/store in ID can</pre>
+<pre style="margin:0; padding:0 "> 775:     // see a response before it moves to WB when it is unaligned otherwise we should only see</pre>
+<pre style="margin:0; padding:0 "> 776:     // a response when load/store is in WB.</pre>
+<pre style="margin:0; padding:0 "> 777:     assign outstanding_load_resp  = outstanding_load_wb |</pre>
+<pre style="margin:0; padding:0 "> 778:       (outstanding_load_id  & load_store_unit_i.split_misaligned_access);</pre>
+<pre style="margin:0; padding:0 "> 779: </pre>
+<pre style="margin:0; padding:0 "> 780:     assign outstanding_store_resp = outstanding_store_wb |</pre>
+<pre style="margin:0; padding:0 "> 781:       (outstanding_store_id & load_store_unit_i.split_misaligned_access);</pre>
+<pre style="margin:0; padding:0 "> 782: </pre>
+<pre style="margin:0; padding:0 "> 783:     // When writing back the result of a load, the load must have made it to writeback</pre>
+<pre style="margin:0; padding:0 "> 784:     `ASSERT(NoMemRFWriteWithoutPendingLoad, rf_we_lsu |-> outstanding_load_wb, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 785:   end else begin</pre>
+<pre style="margin:0; padding:0 "> 786:     // Without writeback stage only look into whether load or store is in ID to determine if</pre>
+<pre style="margin:0; padding:0 "> 787:     // a response is expected.</pre>
+<pre style="margin:0; padding:0 "> 788:     assign outstanding_load_resp  = outstanding_load_id;</pre>
+<pre style="margin:0; padding:0 "> 789:     assign outstanding_store_resp = outstanding_store_id;</pre>
+<pre style="margin:0; padding:0 "> 790: </pre>
+<pre style="margin:0; padding:0 "> 791:     `ASSERT(NoMemRFWriteWithoutPendingLoad, rf_we_lsu |-> outstanding_load_id, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 792:   end</pre>
+<pre style="margin:0; padding:0 "> 793: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 794:   `ASSERT(NoMemResponseWithoutPendingAccess,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 795:     data_rvalid_i |-> outstanding_load_resp | outstanding_store_resp, clk_i, !rst_ni)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 796:   `endif</pre>
+<pre style="margin:0; padding:0 "> 797: </pre>
+<pre style="margin:0; padding:0 "> 798:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 799:   // RF (Register File) //</pre>
+<pre style="margin:0; padding:0 "> 800:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 801: `ifdef RVFI</pre>
+<pre style="margin:0; padding:0 "> 802:   assign rvfi_rd_addr_wb  = rf_waddr_wb;</pre>
+<pre style="margin:0; padding:0 "> 803:   assign rvfi_rd_wdata_wb = rf_we_wb ? rf_wdata_wb : rf_wdata_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 804:   assign rvfi_rd_we_wb    = rf_we_wb | rf_we_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 805: `endif</pre>
+<pre style="margin:0; padding:0 "> 806: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 807: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 808:   /////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 809:   // CSRs (Control and Status Registers) //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 810:   /////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 811: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 812:   assign csr_wdata  = alu_operand_a_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 813:   assign csr_addr   = csr_num_e'(csr_access ? alu_operand_b_ex[11:0] : 12'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 814: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 815:   ibex_cs_registers #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 816:       .DbgTriggerEn      ( DbgTriggerEn      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 817:       .DataIndTiming     ( DataIndTiming     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 818:       .DummyInstructions ( DummyInstructions ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 819:       .ICache            ( ICache            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 820:       .MHPMCounterNum    ( MHPMCounterNum    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 821:       .MHPMCounterWidth  ( MHPMCounterWidth  ),</pre>
+<pre style="margin:0; padding:0 "> 822:       .PMPEnable         ( PMPEnable         ),</pre>
+<pre style="margin:0; padding:0 "> 823:       .PMPGranularity    ( PMPGranularity    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 824:       .PMPNumRegions     ( PMPNumRegions     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 825:       .RV32E             ( RV32E             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 826:       .RV32M             ( RV32M             )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 827:   ) cs_registers_i (</pre>
+<pre style="margin:0; padding:0 "> 828:       .clk_i                   ( clk                      ),</pre>
+<pre style="margin:0; padding:0 "> 829:       .rst_ni                  ( rst_ni                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 830: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 831:       // Hart ID from outside</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 832:       .hart_id_i               ( hart_id_i                ),</pre>
+<pre style="margin:0; padding:0 "> 833:       .priv_mode_id_o          ( priv_mode_id             ),</pre>
+<pre style="margin:0; padding:0 "> 834:       .priv_mode_if_o          ( priv_mode_if             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 835:       .priv_mode_lsu_o         ( priv_mode_lsu            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 836: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 837:       // mtvec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 838:       .csr_mtvec_o             ( csr_mtvec                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 839:       .csr_mtvec_init_i        ( csr_mtvec_init           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 840:       .boot_addr_i             ( boot_addr_i              ),</pre>
+<pre style="margin:0; padding:0 "> 841: </pre>
+<pre style="margin:0; padding:0 "> 842:       // Interface to CSRs     ( SRAM like                )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 843:       .csr_access_i            ( csr_access               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 844:       .csr_addr_i              ( csr_addr                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 845:       .csr_wdata_i             ( csr_wdata                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 846:       .csr_op_i                ( csr_op                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 847:       .csr_op_en_i             ( csr_op_en                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 848:       .csr_rdata_o             ( csr_rdata                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 849: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 850:       // Interrupt related control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 851:       .irq_software_i          ( irq_software_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 852:       .irq_timer_i             ( irq_timer_i              ),</pre>
+<pre style="margin:0; padding:0 "> 853:       .irq_external_i          ( irq_external_i           ),</pre>
+<pre style="margin:0; padding:0 "> 854:       .irq_fast_i              ( irq_fast_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 855:       .nmi_mode_i              ( nmi_mode                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 856:       .irq_pending_o           ( irq_pending              ),</pre>
+<pre style="margin:0; padding:0 "> 857:       .irqs_o                  ( irqs                     ),</pre>
+<pre style="margin:0; padding:0 "> 858:       .csr_mstatus_mie_o       ( csr_mstatus_mie          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 859:       .csr_mstatus_tw_o        ( csr_mstatus_tw           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 860:       .csr_mepc_o              ( csr_mepc                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 861: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 862:       // PMP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 863:       .csr_pmp_cfg_o           ( csr_pmp_cfg              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 864:       .csr_pmp_addr_o          ( csr_pmp_addr             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 865: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 866:       // debug</pre>
+<pre style="margin:0; padding:0 "> 867:       .csr_depc_o              ( csr_depc                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 868:       .debug_mode_i            ( debug_mode               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 869:       .debug_cause_i           ( debug_cause              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 870:       .debug_csr_save_i        ( debug_csr_save           ),</pre>
+<pre style="margin:0; padding:0 "> 871:       .debug_single_step_o     ( debug_single_step        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 872:       .debug_ebreakm_o         ( debug_ebreakm            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 873:       .debug_ebreaku_o         ( debug_ebreaku            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 874:       .trigger_match_o         ( trigger_match            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 875: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 876:       .pc_if_i                 ( pc_if                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 877:       .pc_id_i                 ( pc_id                    ),</pre>
+<pre style="margin:0; padding:0 "> 878:       .pc_wb_i                 ( pc_wb                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 879: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 880:       .data_ind_timing_o       ( data_ind_timing          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 881:       .dummy_instr_en_o        ( dummy_instr_en           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 882:       .dummy_instr_mask_o      ( dummy_instr_mask         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 883:       .dummy_instr_seed_en_o   ( dummy_instr_seed_en      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 884:       .dummy_instr_seed_o      ( dummy_instr_seed         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 885:       .icache_enable_o         ( icache_enable            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 886: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 887:       .csr_save_if_i           ( csr_save_if              ),</pre>
+<pre style="margin:0; padding:0 "> 888:       .csr_save_id_i           ( csr_save_id              ),</pre>
+<pre style="margin:0; padding:0 "> 889:       .csr_save_wb_i           ( csr_save_wb              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 890:       .csr_restore_mret_i      ( csr_restore_mret_id      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 891:       .csr_restore_dret_i      ( csr_restore_dret_id      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 892:       .csr_save_cause_i        ( csr_save_cause           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 893:       .csr_mcause_i            ( exc_cause                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 894:       .csr_mtval_i             ( csr_mtval                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 895:       .illegal_csr_insn_o      ( illegal_csr_insn_id      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 896: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 897:       // performance counter related signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 898:       .instr_ret_i             ( instr_id_done            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 899:       .instr_ret_compressed_i  ( instr_id_done_compressed ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 900:       .iside_wait_i            ( perf_iside_wait          ),</pre>
+<pre style="margin:0; padding:0 "> 901:       .jump_i                  ( perf_jump                ),</pre>
+<pre style="margin:0; padding:0 "> 902:       .branch_i                ( perf_branch              ),</pre>
+<pre style="margin:0; padding:0 "> 903:       .branch_taken_i          ( perf_tbranch             ),</pre>
+<pre style="margin:0; padding:0 "> 904:       .mem_load_i              ( perf_load                ),</pre>
+<pre style="margin:0; padding:0 "> 905:       .mem_store_i             ( perf_store               ),</pre>
+<pre style="margin:0; padding:0 "> 906:       .dside_wait_i            ( perf_dside_wait          ),</pre>
+<pre style="margin:0; padding:0 "> 907:       .mul_wait_i              ( perf_mul_wait            ),</pre>
+<pre style="margin:0; padding:0 "> 908:       .div_wait_i              ( perf_div_wait            )</pre>
+<pre style="margin:0; padding:0 "> 909:   );</pre>
+<pre style="margin:0; padding:0 "> 910: </pre>
+<pre style="margin:0; padding:0 "> 911:   // These assertions are in top-level as instr_valid_id required as the enable term</pre>
+<pre style="margin:0; padding:0 "> 912:   `ASSERT(IbexCsrOpValid, instr_valid_id |-> csr_op inside {</pre>
+<pre style="margin:0; padding:0 "> 913:       CSR_OP_READ,</pre>
+<pre style="margin:0; padding:0 "> 914:       CSR_OP_WRITE,</pre>
+<pre style="margin:0; padding:0 "> 915:       CSR_OP_SET,</pre>
+<pre style="margin:0; padding:0 "> 916:       CSR_OP_CLEAR</pre>
+<pre style="margin:0; padding:0 "> 917:       })</pre>
+<pre style="margin:0; padding:0 "> 918:   `ASSERT_KNOWN_IF(IbexCsrWdataIntKnown, cs_registers_i.csr_wdata_int, csr_op_en)</pre>
+<pre style="margin:0; padding:0 "> 919: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 920:   if (PMPEnable) begin : g_pmp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 921:     logic [33:0] pmp_req_addr [PMP_NUM_CHAN];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 922:     pmp_req_e    pmp_req_type [PMP_NUM_CHAN];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 923:     priv_lvl_e   pmp_priv_lvl [PMP_NUM_CHAN];</pre>
+<pre style="margin:0; padding:0 "> 924: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 925:     assign pmp_req_addr[PMP_I] = {2'b00,instr_addr_o[31:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 926:     assign pmp_req_type[PMP_I] = PMP_ACC_EXEC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 927:     assign pmp_priv_lvl[PMP_I] = priv_mode_if;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 928:     assign pmp_req_addr[PMP_D] = {2'b00,data_addr_o[31:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 929:     assign pmp_req_type[PMP_D] = data_we_o ? PMP_ACC_WRITE : PMP_ACC_READ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 930:     assign pmp_priv_lvl[PMP_D] = priv_mode_lsu;</pre>
+<pre style="margin:0; padding:0 "> 931: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:     ibex_pmp #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 933:         .PMPGranularity        ( PMPGranularity ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 934:         .PMPNumChan            ( PMP_NUM_CHAN   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 935:         .PMPNumRegions         ( PMPNumRegions  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 936:     ) pmp_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 937:         .clk_i                 ( clk            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 938:         .rst_ni                ( rst_ni         ),</pre>
+<pre style="margin:0; padding:0 "> 939:         // Interface to CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 940:         .csr_pmp_cfg_i         ( csr_pmp_cfg    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 941:         .csr_pmp_addr_i        ( csr_pmp_addr   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 942:         .priv_mode_i           ( pmp_priv_lvl   ),</pre>
+<pre style="margin:0; padding:0 "> 943:         // Access checking channels</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 944:         .pmp_req_addr_i        ( pmp_req_addr   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:         .pmp_req_type_i        ( pmp_req_type   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:         .pmp_req_err_o         ( pmp_req_err    )</pre>
+<pre style="margin:0; padding:0 "> 947:     );</pre>
+<pre id="id948" style="background-color: #FFB6C1; margin:0; padding:0 "> 948:   end else begin : g_no_pmp</pre>
+<pre style="margin:0; padding:0 "> 949:     // Unused signal tieoff</pre>
+<pre id="id950" style="background-color: #FFB6C1; margin:0; padding:0 "> 950:     priv_lvl_e unused_priv_lvl_if, unused_priv_lvl_ls;</pre>
+<pre id="id951" style="background-color: #FFB6C1; margin:0; padding:0 "> 951:     logic [33:0] unused_csr_pmp_addr [PMPNumRegions];</pre>
+<pre id="id952" style="background-color: #FFB6C1; margin:0; padding:0 "> 952:     pmp_cfg_t    unused_csr_pmp_cfg  [PMPNumRegions];</pre>
+<pre id="id953" style="background-color: #FFB6C1; margin:0; padding:0 "> 953:     assign unused_priv_lvl_if = priv_mode_if;</pre>
+<pre id="id954" style="background-color: #FFB6C1; margin:0; padding:0 "> 954:     assign unused_priv_lvl_ls = priv_mode_lsu;</pre>
+<pre id="id955" style="background-color: #FFB6C1; margin:0; padding:0 "> 955:     assign unused_csr_pmp_addr = csr_pmp_addr;</pre>
+<pre id="id956" style="background-color: #FFB6C1; margin:0; padding:0 "> 956:     assign unused_csr_pmp_cfg = csr_pmp_cfg;</pre>
+<pre style="margin:0; padding:0 "> 957: </pre>
+<pre style="margin:0; padding:0 "> 958:     // Output tieoff</pre>
+<pre id="id959" style="background-color: #FFB6C1; margin:0; padding:0 "> 959:     assign pmp_req_err[PMP_I] = 1'b0;</pre>
+<pre id="id960" style="background-color: #FFB6C1; margin:0; padding:0 "> 960:     assign pmp_req_err[PMP_D] = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 961:   end</pre>
+<pre style="margin:0; padding:0 "> 962: </pre>
+<pre style="margin:0; padding:0 "> 963: `ifdef RVFI</pre>
+<pre style="margin:0; padding:0 "> 964:   // When writeback stage is present RVFI information is emitted when instruction is finished in</pre>
+<pre style="margin:0; padding:0 "> 965:   // third stage but some information must be captured whilst the instruction is in the second</pre>
+<pre style="margin:0; padding:0 "> 966:   // stage. Without writeback stage RVFI information is all emitted when instruction retires in</pre>
+<pre style="margin:0; padding:0 "> 967:   // second stage. RVFI outputs are all straight from flops. So 2 stage pipeline requires a single</pre>
+<pre style="margin:0; padding:0 "> 968:   // set of flops (instr_info => RVFI_out), 3 stage pipeline requires two sets (instr_info => wb</pre>
+<pre style="margin:0; padding:0 "> 969:   // => RVFI_out)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 970:   localparam RVFI_STAGES = WritebackStage ? 2 : 1;</pre>
+<pre style="margin:0; padding:0 "> 971: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 972:   logic        rvfi_stage_valid     [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 973:   logic [63:0] rvfi_stage_order     [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 974:   logic [31:0] rvfi_stage_insn      [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 975:   logic        rvfi_stage_trap      [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 976:   logic        rvfi_stage_halt      [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 977:   logic        rvfi_stage_intr      [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 978:   logic [ 1:0] rvfi_stage_mode      [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 979:   logic [ 1:0] rvfi_stage_ixl       [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 980:   logic [ 4:0] rvfi_stage_rs1_addr  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 981:   logic [ 4:0] rvfi_stage_rs2_addr  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 982:   logic [ 4:0] rvfi_stage_rs3_addr  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 983:   logic [31:0] rvfi_stage_rs1_rdata [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 984:   logic [31:0] rvfi_stage_rs2_rdata [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 985:   logic [31:0] rvfi_stage_rs3_rdata [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 986:   logic [ 4:0] rvfi_stage_rd_addr   [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 987:   logic [31:0] rvfi_stage_rd_wdata  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 988:   logic [31:0] rvfi_stage_pc_rdata  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 989:   logic [31:0] rvfi_stage_pc_wdata  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 990:   logic [31:0] rvfi_stage_mem_addr  [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 991:   logic [ 3:0] rvfi_stage_mem_rmask [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 992:   logic [ 3:0] rvfi_stage_mem_wmask [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 993:   logic [31:0] rvfi_stage_mem_rdata [RVFI_STAGES-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 994:   logic [31:0] rvfi_stage_mem_wdata [RVFI_STAGES-1:0];</pre>
+<pre style="margin:0; padding:0 "> 995: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 996:   logic        rvfi_stage_valid_d   [RVFI_STAGES-1:0];</pre>
+<pre style="margin:0; padding:0 "> 997: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 998:   assign rvfi_valid     = rvfi_stage_valid    [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 999:   assign rvfi_order     = rvfi_stage_order    [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1000:   assign rvfi_insn      = rvfi_stage_insn     [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1001:   assign rvfi_trap      = rvfi_stage_trap     [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1002:   assign rvfi_halt      = rvfi_stage_halt     [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1003:   assign rvfi_intr      = rvfi_stage_intr     [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1004:   assign rvfi_mode      = rvfi_stage_mode     [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1005:   assign rvfi_ixl       = rvfi_stage_ixl      [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1006:   assign rvfi_rs1_addr  = rvfi_stage_rs1_addr [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1007:   assign rvfi_rs2_addr  = rvfi_stage_rs2_addr [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1008:   assign rvfi_rs3_addr  = rvfi_stage_rs3_addr [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1009:   assign rvfi_rs1_rdata = rvfi_stage_rs1_rdata[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1010:   assign rvfi_rs2_rdata = rvfi_stage_rs2_rdata[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1011:   assign rvfi_rs3_rdata = rvfi_stage_rs3_rdata[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1012:   assign rvfi_rd_addr   = rvfi_stage_rd_addr  [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1013:   assign rvfi_rd_wdata  = rvfi_stage_rd_wdata [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1014:   assign rvfi_pc_rdata  = rvfi_stage_pc_rdata [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1015:   assign rvfi_pc_wdata  = rvfi_stage_pc_wdata [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1016:   assign rvfi_mem_addr  = rvfi_stage_mem_addr [RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1017:   assign rvfi_mem_rmask = rvfi_stage_mem_rmask[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1018:   assign rvfi_mem_wmask = rvfi_stage_mem_wmask[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1019:   assign rvfi_mem_rdata = rvfi_stage_mem_rdata[RVFI_STAGES-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1020:   assign rvfi_mem_wdata = rvfi_stage_mem_wdata[RVFI_STAGES-1];</pre>
+<pre style="margin:0; padding:0 ">1021: </pre>
+<pre style="margin:0; padding:0 ">1022:   if (WritebackStage) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1023:     logic unused_instr_new_id;</pre>
+<pre style="margin:0; padding:0 ">1024: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1025:     assign unused_instr_new_id = instr_new_id;</pre>
+<pre style="margin:0; padding:0 ">1026: </pre>
+<pre style="margin:0; padding:0 ">1027:     // With writeback stage first RVFI stage buffers instruction information captured in ID/EX</pre>
+<pre style="margin:0; padding:0 ">1028:     // awaiting instruction retirement and RF Write data/Mem read data whilst instruction is in WB</pre>
+<pre style="margin:0; padding:0 ">1029:     // So first stage becomes valid when instruction leaves ID/EX stage and remains valid until</pre>
+<pre style="margin:0; padding:0 ">1030:     // instruction leaves WB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1031:     assign rvfi_stage_valid_d[0] = (instr_id_done & ~dummy_instr_id) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1032:                                    (rvfi_stage_valid[0] & ~instr_done_wb);</pre>
+<pre style="margin:0; padding:0 ">1033:     // Second stage is output stage so simple valid cycle after instruction leaves WB (and so has</pre>
+<pre style="margin:0; padding:0 ">1034:     // retired)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1035:     assign rvfi_stage_valid_d[1] = instr_done_wb;</pre>
+<pre style="margin:0; padding:0 ">1036: </pre>
+<pre style="margin:0; padding:0 ">1037:     // Signal new instruction in WB cycle after instruction leaves ID/EX (to enter WB)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1038:     logic rvfi_instr_new_wb_q;</pre>
+<pre style="margin:0; padding:0 ">1039: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1040:     assign rvfi_instr_new_wb = rvfi_instr_new_wb_q;</pre>
+<pre style="margin:0; padding:0 ">1041: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1042:     always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1043:       if (~rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1044:         rvfi_instr_new_wb_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1045:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1046:         rvfi_instr_new_wb_q <= instr_id_done;</pre>
+<pre style="margin:0; padding:0 ">1047:       end</pre>
+<pre style="margin:0; padding:0 ">1048:     end</pre>
+<pre style="margin:0; padding:0 ">1049:   end else begin</pre>
+<pre style="margin:0; padding:0 ">1050:     // Without writeback stage first RVFI stage is output stage so simply valid the cycle after</pre>
+<pre style="margin:0; padding:0 ">1051:     // instruction leaves ID/EX (and so has retired)</pre>
+<pre id="id1052" style="background-color: #FFB6C1; margin:0; padding:0 ">1052:     assign rvfi_stage_valid_d[0] = instr_id_done & ~dummy_instr_id;</pre>
+<pre style="margin:0; padding:0 ">1053:     // Without writeback stage signal new instr_new_wb when instruction enters ID/EX to correctly</pre>
+<pre style="margin:0; padding:0 ">1054:     // setup register write signals</pre>
+<pre id="id1055" style="background-color: #FFB6C1; margin:0; padding:0 ">1055:     assign rvfi_instr_new_wb = instr_new_id;</pre>
+<pre style="margin:0; padding:0 ">1056:   end</pre>
+<pre style="margin:0; padding:0 ">1057: </pre>
+<pre id="id1058" style="background-color: #FFB6C1; margin:0; padding:0 ">1058:   for (genvar i = 0;i < RVFI_STAGES; i = i + 1) begin : g_rvfi_stages</pre>
+<pre id="id1059" style="background-color: #FFB6C1; margin:0; padding:0 ">1059:     always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre id="id1060" style="background-color: #FFB6C1; margin:0; padding:0 ">1060:       if (!rst_ni) begin</pre>
+<pre id="id1061" style="background-color: #FFB6C1; margin:0; padding:0 ">1061:         rvfi_stage_halt[i]      <= '0;</pre>
+<pre id="id1062" style="background-color: #FFB6C1; margin:0; padding:0 ">1062:         rvfi_stage_trap[i]      <= '0;</pre>
+<pre id="id1063" style="background-color: #FFB6C1; margin:0; padding:0 ">1063:         rvfi_stage_intr[i]      <= '0;</pre>
+<pre id="id1064" style="background-color: #FFB6C1; margin:0; padding:0 ">1064:         rvfi_stage_order[i]     <= '0;</pre>
+<pre id="id1065" style="background-color: #FFB6C1; margin:0; padding:0 ">1065:         rvfi_stage_insn[i]      <= '0;</pre>
+<pre id="id1066" style="background-color: #FFB6C1; margin:0; padding:0 ">1066:         rvfi_stage_mode[i]      <= {PRIV_LVL_M};</pre>
+<pre id="id1067" style="background-color: #FFB6C1; margin:0; padding:0 ">1067:         rvfi_stage_ixl[i]       <= CSR_MISA_MXL;</pre>
+<pre id="id1068" style="background-color: #FFB6C1; margin:0; padding:0 ">1068:         rvfi_stage_rs1_addr[i]  <= '0;</pre>
+<pre id="id1069" style="background-color: #FFB6C1; margin:0; padding:0 ">1069:         rvfi_stage_rs2_addr[i]  <= '0;</pre>
+<pre id="id1070" style="background-color: #FFB6C1; margin:0; padding:0 ">1070:         rvfi_stage_rs3_addr[i]  <= '0;</pre>
+<pre id="id1071" style="background-color: #FFB6C1; margin:0; padding:0 ">1071:         rvfi_stage_pc_rdata[i]  <= '0;</pre>
+<pre id="id1072" style="background-color: #FFB6C1; margin:0; padding:0 ">1072:         rvfi_stage_pc_wdata[i]  <= '0;</pre>
+<pre id="id1073" style="background-color: #FFB6C1; margin:0; padding:0 ">1073:         rvfi_stage_mem_rmask[i] <= '0;</pre>
+<pre id="id1074" style="background-color: #FFB6C1; margin:0; padding:0 ">1074:         rvfi_stage_mem_wmask[i] <= '0;</pre>
+<pre id="id1075" style="background-color: #FFB6C1; margin:0; padding:0 ">1075:         rvfi_stage_valid[i]     <= '0;</pre>
+<pre id="id1076" style="background-color: #FFB6C1; margin:0; padding:0 ">1076:         rvfi_stage_rs1_rdata[i] <= '0;</pre>
+<pre id="id1077" style="background-color: #FFB6C1; margin:0; padding:0 ">1077:         rvfi_stage_rs2_rdata[i] <= '0;</pre>
+<pre id="id1078" style="background-color: #FFB6C1; margin:0; padding:0 ">1078:         rvfi_stage_rs3_rdata[i] <= '0;</pre>
+<pre id="id1079" style="background-color: #FFB6C1; margin:0; padding:0 ">1079:         rvfi_stage_rd_wdata[i]  <= '0;</pre>
+<pre id="id1080" style="background-color: #FFB6C1; margin:0; padding:0 ">1080:         rvfi_stage_rd_addr[i]   <= '0;</pre>
+<pre id="id1081" style="background-color: #FFB6C1; margin:0; padding:0 ">1081:         rvfi_stage_mem_rdata[i] <= '0;</pre>
+<pre id="id1082" style="background-color: #FFB6C1; margin:0; padding:0 ">1082:         rvfi_stage_mem_wdata[i] <= '0;</pre>
+<pre id="id1083" style="background-color: #FFB6C1; margin:0; padding:0 ">1083:         rvfi_stage_mem_addr[i]  <= '0;</pre>
+<pre id="id1084" style="background-color: #FFB6C1; margin:0; padding:0 ">1084:       end else begin</pre>
+<pre id="id1085" style="background-color: #FFB6C1; margin:0; padding:0 ">1085:         rvfi_stage_valid[i] <= rvfi_stage_valid_d[i];</pre>
+<pre style="margin:0; padding:0 ">1086: </pre>
+<pre id="id1087" style="background-color: #FFB6C1; margin:0; padding:0 ">1087:         if (i == 0) begin</pre>
+<pre id="id1088" style="background-color: #FFB6C1; margin:0; padding:0 ">1088:           if(instr_id_done) begin</pre>
+<pre id="id1089" style="background-color: #FFB6C1; margin:0; padding:0 ">1089:             rvfi_stage_halt[i]      <= '0;</pre>
+<pre id="id1090" style="background-color: #FFB6C1; margin:0; padding:0 ">1090:             rvfi_stage_trap[i]      <= illegal_insn_id;</pre>
+<pre id="id1091" style="background-color: #FFB6C1; margin:0; padding:0 ">1091:             rvfi_stage_intr[i]      <= rvfi_intr_d;</pre>
+<pre id="id1092" style="background-color: #FFB6C1; margin:0; padding:0 ">1092:             rvfi_stage_order[i]     <= rvfi_stage_order[i] + 64'(rvfi_stage_valid_d[i]);</pre>
+<pre id="id1093" style="background-color: #FFB6C1; margin:0; padding:0 ">1093:             rvfi_stage_insn[i]      <= rvfi_insn_id;</pre>
+<pre id="id1094" style="background-color: #FFB6C1; margin:0; padding:0 ">1094:             rvfi_stage_mode[i]      <= {priv_mode_id};</pre>
+<pre id="id1095" style="background-color: #FFB6C1; margin:0; padding:0 ">1095:             rvfi_stage_ixl[i]       <= CSR_MISA_MXL;</pre>
+<pre id="id1096" style="background-color: #FFB6C1; margin:0; padding:0 ">1096:             rvfi_stage_rs1_addr[i]  <= rvfi_rs1_addr_d;</pre>
+<pre id="id1097" style="background-color: #FFB6C1; margin:0; padding:0 ">1097:             rvfi_stage_rs2_addr[i]  <= rvfi_rs2_addr_d;</pre>
+<pre id="id1098" style="background-color: #FFB6C1; margin:0; padding:0 ">1098:             rvfi_stage_rs3_addr[i]  <= rvfi_rs3_addr_d;</pre>
+<pre id="id1099" style="background-color: #FFB6C1; margin:0; padding:0 ">1099:             rvfi_stage_pc_rdata[i]  <= pc_id;</pre>
+<pre id="id1100" style="background-color: #FFB6C1; margin:0; padding:0 ">1100:             rvfi_stage_pc_wdata[i]  <= pc_set ? branch_target_ex : pc_if;</pre>
+<pre id="id1101" style="background-color: #FFB6C1; margin:0; padding:0 ">1101:             rvfi_stage_mem_rmask[i] <= rvfi_mem_mask_int;</pre>
+<pre id="id1102" style="background-color: #FFB6C1; margin:0; padding:0 ">1102:             rvfi_stage_mem_wmask[i] <= data_we_o ? rvfi_mem_mask_int : 4'b0000;</pre>
+<pre id="id1103" style="background-color: #FFB6C1; margin:0; padding:0 ">1103:             rvfi_stage_rs1_rdata[i] <= rvfi_rs1_data_d;</pre>
+<pre id="id1104" style="background-color: #FFB6C1; margin:0; padding:0 ">1104:             rvfi_stage_rs2_rdata[i] <= rvfi_rs2_data_d;</pre>
+<pre id="id1105" style="background-color: #FFB6C1; margin:0; padding:0 ">1105:             rvfi_stage_rs3_rdata[i] <= rvfi_rs3_data_d;</pre>
+<pre id="id1106" style="background-color: #FFB6C1; margin:0; padding:0 ">1106:             rvfi_stage_rd_addr[i]   <= rvfi_rd_addr_d;</pre>
+<pre id="id1107" style="background-color: #FFB6C1; margin:0; padding:0 ">1107:             rvfi_stage_rd_wdata[i]  <= rvfi_rd_wdata_d;</pre>
+<pre id="id1108" style="background-color: #FFB6C1; margin:0; padding:0 ">1108:             rvfi_stage_mem_rdata[i] <= rvfi_mem_rdata_d;</pre>
+<pre id="id1109" style="background-color: #FFB6C1; margin:0; padding:0 ">1109:             rvfi_stage_mem_wdata[i] <= rvfi_mem_wdata_d;</pre>
+<pre id="id1110" style="background-color: #FFB6C1; margin:0; padding:0 ">1110:             rvfi_stage_mem_addr[i]  <= rvfi_mem_addr_d;</pre>
+<pre style="margin:0; padding:0 ">1111:           end</pre>
+<pre id="id1112" style="background-color: #FFB6C1; margin:0; padding:0 ">1112:         end else begin</pre>
+<pre id="id1113" style="background-color: #FFB6C1; margin:0; padding:0 ">1113:           if(instr_done_wb) begin</pre>
+<pre id="id1114" style="background-color: #FFB6C1; margin:0; padding:0 ">1114:             rvfi_stage_halt[i]      <= rvfi_stage_halt[i-1];</pre>
+<pre id="id1115" style="background-color: #FFB6C1; margin:0; padding:0 ">1115:             rvfi_stage_trap[i]      <= rvfi_stage_trap[i-1];</pre>
+<pre id="id1116" style="background-color: #FFB6C1; margin:0; padding:0 ">1116:             rvfi_stage_intr[i]      <= rvfi_stage_intr[i-1];</pre>
+<pre id="id1117" style="background-color: #FFB6C1; margin:0; padding:0 ">1117:             rvfi_stage_order[i]     <= rvfi_stage_order[i-1];</pre>
+<pre id="id1118" style="background-color: #FFB6C1; margin:0; padding:0 ">1118:             rvfi_stage_insn[i]      <= rvfi_stage_insn[i-1];</pre>
+<pre id="id1119" style="background-color: #FFB6C1; margin:0; padding:0 ">1119:             rvfi_stage_mode[i]      <= rvfi_stage_mode[i-1];</pre>
+<pre id="id1120" style="background-color: #FFB6C1; margin:0; padding:0 ">1120:             rvfi_stage_ixl[i]       <= rvfi_stage_ixl[i-1];</pre>
+<pre id="id1121" style="background-color: #FFB6C1; margin:0; padding:0 ">1121:             rvfi_stage_rs1_addr[i]  <= rvfi_stage_rs1_addr[i-1];</pre>
+<pre id="id1122" style="background-color: #FFB6C1; margin:0; padding:0 ">1122:             rvfi_stage_rs2_addr[i]  <= rvfi_stage_rs2_addr[i-1];</pre>
+<pre id="id1123" style="background-color: #FFB6C1; margin:0; padding:0 ">1123:             rvfi_stage_rs3_addr[i]  <= rvfi_stage_rs3_addr[i-1];</pre>
+<pre id="id1124" style="background-color: #FFB6C1; margin:0; padding:0 ">1124:             rvfi_stage_pc_rdata[i]  <= rvfi_stage_pc_rdata[i-1];</pre>
+<pre id="id1125" style="background-color: #FFB6C1; margin:0; padding:0 ">1125:             rvfi_stage_pc_wdata[i]  <= rvfi_stage_pc_wdata[i-1];</pre>
+<pre id="id1126" style="background-color: #FFB6C1; margin:0; padding:0 ">1126:             rvfi_stage_mem_rmask[i] <= rvfi_stage_mem_rmask[i-1];</pre>
+<pre id="id1127" style="background-color: #FFB6C1; margin:0; padding:0 ">1127:             rvfi_stage_mem_wmask[i] <= rvfi_stage_mem_wmask[i-1];</pre>
+<pre id="id1128" style="background-color: #FFB6C1; margin:0; padding:0 ">1128:             rvfi_stage_rs1_rdata[i] <= rvfi_stage_rs1_rdata[i-1];</pre>
+<pre id="id1129" style="background-color: #FFB6C1; margin:0; padding:0 ">1129:             rvfi_stage_rs2_rdata[i] <= rvfi_stage_rs2_rdata[i-1];</pre>
+<pre id="id1130" style="background-color: #FFB6C1; margin:0; padding:0 ">1130:             rvfi_stage_rs3_rdata[i] <= rvfi_stage_rs3_rdata[i-1];</pre>
+<pre id="id1131" style="background-color: #FFB6C1; margin:0; padding:0 ">1131:             rvfi_stage_mem_wdata[i] <= rvfi_stage_mem_wdata[i-1];</pre>
+<pre id="id1132" style="background-color: #FFB6C1; margin:0; padding:0 ">1132:             rvfi_stage_mem_addr[i]  <= rvfi_stage_mem_addr[i-1];</pre>
+<pre style="margin:0; padding:0 ">1133: </pre>
+<pre style="margin:0; padding:0 ">1134:             // For 2 RVFI_STAGES/Writeback Stage ignore first stage flops for rd_addr, rd_wdata and</pre>
+<pre style="margin:0; padding:0 ">1135:             // mem_rdata. For RF write addr/data actual write happens in writeback so capture</pre>
+<pre style="margin:0; padding:0 ">1136:             // address/data there. For mem_rdata that is only available from the writeback stage.</pre>
+<pre style="margin:0; padding:0 ">1137:             // Previous stage flops still exist in RTL as they are used by the non writeback config</pre>
+<pre id="id1138" style="background-color: #FFB6C1; margin:0; padding:0 ">1138:             rvfi_stage_rd_addr[i]   <= rvfi_rd_addr_d;</pre>
+<pre id="id1139" style="background-color: #FFB6C1; margin:0; padding:0 ">1139:             rvfi_stage_rd_wdata[i]  <= rvfi_rd_wdata_d;</pre>
+<pre id="id1140" style="background-color: #FFB6C1; margin:0; padding:0 ">1140:             rvfi_stage_mem_rdata[i] <= rvfi_mem_rdata_d;</pre>
+<pre style="margin:0; padding:0 ">1141:           end</pre>
+<pre style="margin:0; padding:0 ">1142:         end</pre>
+<pre style="margin:0; padding:0 ">1143:       end</pre>
+<pre style="margin:0; padding:0 ">1144:     end</pre>
+<pre style="margin:0; padding:0 ">1145:   end</pre>
+<pre style="margin:0; padding:0 ">1146: </pre>
+<pre style="margin:0; padding:0 ">1147: </pre>
+<pre style="margin:0; padding:0 ">1148:   // Memory adddress/write data available first cycle of ld/st instruction from register read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1149:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1150:     if (instr_first_cycle_id) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1151:       rvfi_mem_addr_d  = alu_adder_result_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1152:       rvfi_mem_wdata_d = lsu_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1153:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1154:       rvfi_mem_addr_d  = rvfi_mem_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1155:       rvfi_mem_wdata_d = rvfi_mem_wdata_q;</pre>
+<pre style="margin:0; padding:0 ">1156:     end</pre>
+<pre style="margin:0; padding:0 ">1157:   end</pre>
+<pre style="margin:0; padding:0 ">1158: </pre>
+<pre style="margin:0; padding:0 ">1159:   // Capture read data from LSU when it becomes valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1160:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1161:     if (lsu_resp_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1162:       rvfi_mem_rdata_d = rf_wdata_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1163:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1164:       rvfi_mem_rdata_d = rvfi_mem_rdata_q;</pre>
+<pre style="margin:0; padding:0 ">1165:     end</pre>
+<pre style="margin:0; padding:0 ">1166:   end</pre>
+<pre style="margin:0; padding:0 ">1167: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1168:   always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1169:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1170:       rvfi_mem_addr_q  <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1171:       rvfi_mem_rdata_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1172:       rvfi_mem_wdata_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1173:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1174:       rvfi_mem_addr_q  <= rvfi_mem_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1175:       rvfi_mem_rdata_q <= rvfi_mem_rdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1176:       rvfi_mem_wdata_q <= rvfi_mem_wdata_d;</pre>
+<pre style="margin:0; padding:0 ">1177:     end</pre>
+<pre style="margin:0; padding:0 ">1178:   end</pre>
+<pre style="margin:0; padding:0 ">1179:   // Byte enable based on data type</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1180:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1181:     unique case (lsu_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1182:       2'b00:   rvfi_mem_mask_int = 4'b1111;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1183:       2'b01:   rvfi_mem_mask_int = 4'b0011;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1184:       2'b10:   rvfi_mem_mask_int = 4'b0001;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1185:       default: rvfi_mem_mask_int = 4'b0000;</pre>
+<pre style="margin:0; padding:0 ">1186:     endcase</pre>
+<pre style="margin:0; padding:0 ">1187:   end</pre>
+<pre style="margin:0; padding:0 ">1188: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1189:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1190:     if (instr_is_compressed_id) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1191:       rvfi_insn_id = {16'b0, instr_rdata_c_id};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1192:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1193:       rvfi_insn_id = instr_rdata_id;</pre>
+<pre style="margin:0; padding:0 ">1194:     end</pre>
+<pre style="margin:0; padding:0 ">1195:   end</pre>
+<pre style="margin:0; padding:0 ">1196: </pre>
+<pre style="margin:0; padding:0 ">1197:   // Source registers 1 and 2 are read in the first instruction cycle</pre>
+<pre style="margin:0; padding:0 ">1198:   // Source register 3 is read in the second instruction cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1199:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1200:     if (instr_first_cycle_id) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1201:       rvfi_rs1_data_d = rf_ren_a ? multdiv_operand_a_ex : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1202:       rvfi_rs1_addr_d = rf_ren_a ? rf_raddr_a : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1203:       rvfi_rs2_data_d = rf_ren_b ? multdiv_operand_b_ex : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1204:       rvfi_rs2_addr_d = rf_ren_b ? rf_raddr_b : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1205:       rvfi_rs3_data_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1206:       rvfi_rs3_addr_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1207:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1208:       rvfi_rs1_data_d = rvfi_rs1_data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1209:       rvfi_rs1_addr_d = rvfi_rs1_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1210:       rvfi_rs2_data_d = rvfi_rs2_data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1211:       rvfi_rs2_addr_d = rvfi_rs2_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1212:       rvfi_rs3_data_d = multdiv_operand_a_ex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1213:       rvfi_rs3_addr_d = rf_raddr_a;</pre>
+<pre style="margin:0; padding:0 ">1214:     end</pre>
+<pre style="margin:0; padding:0 ">1215:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1216:   always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1217:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1218:       rvfi_rs1_data_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1219:       rvfi_rs1_addr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1220:       rvfi_rs2_data_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1221:       rvfi_rs2_addr_q <= '0;</pre>
+<pre style="margin:0; padding:0 ">1222: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1223:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1224:       rvfi_rs1_data_q <= rvfi_rs1_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1225:       rvfi_rs1_addr_q <= rvfi_rs1_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1226:       rvfi_rs2_data_q <= rvfi_rs2_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1227:       rvfi_rs2_addr_q <= rvfi_rs2_addr_d;</pre>
+<pre style="margin:0; padding:0 ">1228:     end</pre>
+<pre style="margin:0; padding:0 ">1229:   end</pre>
+<pre style="margin:0; padding:0 ">1230: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1231:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1232:     if(rvfi_rd_we_wb) begin</pre>
+<pre style="margin:0; padding:0 ">1233:       // Capture address/data of write to register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1234:       rvfi_rd_addr_d  = rvfi_rd_addr_wb;</pre>
+<pre style="margin:0; padding:0 ">1235:       // If writing to x0 zero write data as required by RVFI specification</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1236:       if(rvfi_rd_addr_wb == 5'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1237:         rvfi_rd_wdata_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1238:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1239:         rvfi_rd_wdata_d = rvfi_rd_wdata_wb;</pre>
+<pre style="margin:0; padding:0 ">1240:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1241:     end else if(rvfi_instr_new_wb) begin</pre>
+<pre style="margin:0; padding:0 ">1242:       // If no RF write but new instruction in Writeback (when present) or ID/EX (when no writeback</pre>
+<pre style="margin:0; padding:0 ">1243:       // stage present) then zero RF write address/data as required by RVFI specification</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1244:       rvfi_rd_addr_d  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1245:       rvfi_rd_wdata_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1246:     end else begin</pre>
+<pre style="margin:0; padding:0 ">1247:       // Otherwise maintain previous value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1248:       rvfi_rd_addr_d  = rvfi_rd_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1249:       rvfi_rd_wdata_d = rvfi_rd_wdata_q;</pre>
+<pre style="margin:0; padding:0 ">1250:     end</pre>
+<pre style="margin:0; padding:0 ">1251:   end</pre>
+<pre style="margin:0; padding:0 ">1252: </pre>
+<pre style="margin:0; padding:0 ">1253:   // RD write register is refreshed only once per cycle and</pre>
+<pre style="margin:0; padding:0 ">1254:   // then it is kept stable for the cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1255:   always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1256:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1257:       rvfi_rd_addr_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1258:       rvfi_rd_wdata_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1259:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1260:       rvfi_rd_addr_q    <= rvfi_rd_addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1261:       rvfi_rd_wdata_q   <= rvfi_rd_wdata_d;</pre>
+<pre style="margin:0; padding:0 ">1262:     end</pre>
+<pre style="margin:0; padding:0 ">1263:   end</pre>
+<pre style="margin:0; padding:0 ">1264: </pre>
+<pre style="margin:0; padding:0 ">1265:   // rvfi_intr must be set for first instruction that is part of a trap handler.</pre>
+<pre style="margin:0; padding:0 ">1266:   // On the first cycle of a new instruction see if a trap PC was set by the previous instruction,</pre>
+<pre style="margin:0; padding:0 ">1267:   // otherwise maintain value.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1268:   assign rvfi_intr_d = instr_first_cycle_id ? rvfi_set_trap_pc_q : rvfi_intr_q;</pre>
+<pre style="margin:0; padding:0 ">1269: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1270:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1271:     rvfi_set_trap_pc_d = rvfi_set_trap_pc_q;</pre>
+<pre style="margin:0; padding:0 ">1272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1273:     if (pc_set && pc_mux_id == PC_EXC &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1274:         (exc_pc_mux_id == EXC_PC_EXC || exc_pc_mux_id == EXC_PC_IRQ)) begin</pre>
+<pre style="margin:0; padding:0 ">1275:       // PC is set to enter a trap handler</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1276:       rvfi_set_trap_pc_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1277:     end else if (rvfi_set_trap_pc_q && instr_id_done) begin</pre>
+<pre style="margin:0; padding:0 ">1278:       // first instruction has been executed after PC is set to trap handler</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1279:       rvfi_set_trap_pc_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">1280:     end</pre>
+<pre style="margin:0; padding:0 ">1281:   end</pre>
+<pre style="margin:0; padding:0 ">1282: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1283:   always_ff @(posedge clk or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1284:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1285:       rvfi_set_trap_pc_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1286:       rvfi_intr_q        <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1287:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1288:       rvfi_set_trap_pc_q <= rvfi_set_trap_pc_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1289:       rvfi_intr_q        <= rvfi_intr_d;</pre>
+<pre style="margin:0; padding:0 ">1290:     end</pre>
+<pre style="margin:0; padding:0 ">1291:   end</pre>
+<pre style="margin:0; padding:0 ">1292: </pre>
+<pre style="margin:0; padding:0 ">1293: `endif</pre>
+<pre style="margin:0; padding:0 ">1294: </pre>
+<pre style="margin:0; padding:0 ">1295: endmodule</pre>
+<pre style="margin:0; padding:0 ">1296: </pre>
+</body>
+</html>

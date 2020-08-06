@@ -24,27 +24,31 @@
 #ifndef CONSTRAINT_H
 #define CONSTRAINT_H
 
+#include <string_view>
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
-class Constraint {
+class Constraint final {
  public:
-  Constraint(FileContent* fC, NodeId id, std::string name)
+  Constraint(const FileContent* fC, NodeId id, std::string_view name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
-  virtual ~Constraint();
-  std::string getName() { return m_name; }
-  FileContent* getFileContent() { return m_fileContent; }
-  NodeId getNodeId() { return m_nodeId; }
+
+  const std::string& getName() const { return m_name; }
+  const FileContent* getFileContent() const { return m_fileContent; }
+  NodeId getNodeId() const { return m_nodeId; }
 
  private:
-  FileContent* m_fileContent;
-  NodeId m_nodeId;
-  std::string m_name;
+  Constraint(const Constraint&) = delete;
+
+  const FileContent* const m_fileContent;
+  const NodeId m_nodeId;
+  const std::string m_name;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* CONSTRAINT_H */

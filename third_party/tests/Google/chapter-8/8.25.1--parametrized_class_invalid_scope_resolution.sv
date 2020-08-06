@@ -1,7 +1,7 @@
 /*
 :name: parametrized_class_invalid_scope_resolution
 :description: parametrized class invalid scope resolution
-:should_fail: 1
+:should_fail_because: par_cls:: is not permitted in this context
 :tags: 8.25.1
 :type: simulation
 */
@@ -16,6 +16,7 @@ module class_tb ();
 	initial begin
 		inst = new;
 
+		// par_cls:: is not permitted in this context
 		$display(par_cls::b);
 	end
 endmodule

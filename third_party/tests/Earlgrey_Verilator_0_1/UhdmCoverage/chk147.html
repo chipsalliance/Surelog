@@ -1,0 +1,1049 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_id_stage.sv Cov: 88.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: `ifdef RISCV_FORMAL</pre>
+<pre style="margin:0; padding:0 ">   7:   `define RVFI</pre>
+<pre style="margin:0; padding:0 ">   8: `endif</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: /**</pre>
+<pre style="margin:0; padding:0 ">  11:  * Instruction Decode Stage</pre>
+<pre style="margin:0; padding:0 ">  12:  *</pre>
+<pre style="margin:0; padding:0 ">  13:  * Decode stage of the core. It decodes the instructions and hosts the register</pre>
+<pre style="margin:0; padding:0 ">  14:  * file.</pre>
+<pre style="margin:0; padding:0 ">  15:  */</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module ibex_id_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     parameter bit RV32E           = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     parameter bit RV32M           = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     parameter bit RV32B           = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     parameter bit DataIndTiming   = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     parameter bit BranchTargetALU = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     parameter bit SpecBranch      = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     parameter bit WritebackStage  = 0</pre>
+<pre style="margin:0; padding:0 ">  27: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     input  logic                      clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     input  logic                      rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     input  logic                      fetch_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output logic                      ctrl_busy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     output logic                      illegal_insn_o,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     // Interface to IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic                      instr_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     input  logic [31:0]               instr_rdata_i,         // from IF-ID pipeline registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic [31:0]               instr_rdata_alu_i,     // from IF-ID pipeline registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     input  logic [15:0]               instr_rdata_c_i,       // from IF-ID pipeline registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     input  logic                      instr_is_compressed_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     output logic                      instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     output logic                      instr_first_cycle_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     output logic                      instr_valid_clear_o,   // kill instr in IF-ID reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     output logic                      id_in_ready_o,         // ID stage is ready for next instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     output logic                      icache_inval_o,</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:     // Jumps and branches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     input  logic                      branch_decision_i,</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:     // IF and ID stage signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     output logic                      pc_set_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic                      pc_set_spec_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     output ibex_pkg::pc_sel_e         pc_mux_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     output ibex_pkg::exc_pc_sel_e     exc_pc_mux_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     output ibex_pkg::exc_cause_e      exc_cause_o,</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     input  logic                      illegal_c_insn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     input  logic                      instr_fetch_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     input  logic                      instr_fetch_err_plus2_i,</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     input  logic [31:0]               pc_id_i,</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:     // Stalls</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     input  logic                      ex_valid_i,       // EX stage has valid output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     input  logic                      lsu_resp_valid_i, // LSU has valid output, or is done</pre>
+<pre style="margin:0; padding:0 ">  66:     // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     output ibex_pkg::alu_op_e         alu_operator_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     output logic [31:0]               alu_operand_a_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     output logic [31:0]               alu_operand_b_ex_o,</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:     // Multicycle Operation Stage Register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     input  logic                      imd_val_we_ex_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     input  logic [33:0]               imd_val_d_ex_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     output logic [33:0]               imd_val_q_ex_o,</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:     // Branch target ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     output logic [31:0]               bt_a_operand_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     output logic [31:0]               bt_b_operand_o,</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:     // MUL, DIV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     output logic                      mult_en_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     output logic                      div_en_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     output logic                      mult_sel_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     output logic                      div_sel_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     output ibex_pkg::md_op_e          multdiv_operator_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     output logic  [1:0]               multdiv_signed_mode_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     output logic [31:0]               multdiv_operand_a_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     output logic [31:0]               multdiv_operand_b_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     output logic                      multdiv_ready_id_o,</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:     // CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     output logic                      csr_access_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     output ibex_pkg::csr_op_e         csr_op_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     output logic                      csr_op_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     output logic                      csr_save_if_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     output logic                      csr_save_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     output logic                      csr_save_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     output logic                      csr_restore_mret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     output logic                      csr_restore_dret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     output logic                      csr_save_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     output logic [31:0]               csr_mtval_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     input  ibex_pkg::priv_lvl_e       priv_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     input  logic                      csr_mstatus_tw_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     input  logic                      illegal_csr_insn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     input  logic                      data_ind_timing_i,</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:     // Interface to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     output logic                      lsu_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     output logic                      lsu_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     output logic [1:0]                lsu_type_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     output logic                      lsu_sign_ext_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     output logic [31:0]               lsu_wdata_o,</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     input  logic                      lsu_req_done_i, // Data req to LSU is complete and</pre>
+<pre style="margin:0; padding:0 "> 115:                                                       // instruction can move to writeback</pre>
+<pre style="margin:0; padding:0 "> 116:                                                       // (only relevant where writeback stage is</pre>
+<pre style="margin:0; padding:0 "> 117:                                                       // present)</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     input  logic                      lsu_addr_incr_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     input  logic [31:0]               lsu_addr_last_i,</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122:     // Interrupt signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     input  logic                      csr_mstatus_mie_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     input  logic                      irq_pending_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     input  ibex_pkg::irqs_t           irqs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     input  logic                      irq_nm_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     output logic                      nmi_mode_o,</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     input  logic                      lsu_load_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     input  logic                      lsu_store_err_i,</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="margin:0; padding:0 "> 132:     // Debug Signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     output logic                      debug_mode_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     output ibex_pkg::dbg_cause_e      debug_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     output logic                      debug_csr_save_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     input  logic                      debug_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     input  logic                      debug_single_step_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     input  logic                      debug_ebreakm_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     input  logic                      debug_ebreaku_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     input  logic                      trigger_match_i,</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre style="margin:0; padding:0 "> 142:     // Write back signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     input  logic [31:0]               result_ex_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     input  logic [31:0]               csr_rdata_i,</pre>
+<pre style="margin:0; padding:0 "> 145: </pre>
+<pre style="margin:0; padding:0 "> 146:     // Register file read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     output logic [4:0]                rf_raddr_a_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     input  logic [31:0]               rf_rdata_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     output logic [4:0]                rf_raddr_b_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     input  logic [31:0]               rf_rdata_b_i,</pre>
+<pre style="margin:0; padding:0 "> 151: `ifdef RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     output logic                      rf_ren_a_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     output logic                      rf_ren_b_o,</pre>
+<pre style="margin:0; padding:0 "> 154: `endif</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:     // Register file write (via writeback)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     output logic [4:0]                rf_waddr_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     output logic [31:0]               rf_wdata_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     output logic                      rf_we_id_o,</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="margin:0; padding:0 "> 161:     // Register write information from writeback (for resolving data hazards)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     input  logic [4:0]                rf_waddr_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     input  logic [31:0]               rf_wdata_fwd_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     input  logic                      rf_write_wb_i,</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     output  logic                     en_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:     output  ibex_pkg::wb_instr_type_e instr_type_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     input logic                       ready_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     input logic                       outstanding_load_wb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     input logic                       outstanding_store_wb_i,</pre>
+<pre style="margin:0; padding:0 "> 171: </pre>
+<pre style="margin:0; padding:0 "> 172:     // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     output logic                      perf_jump_o,    // executing a jump instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     output logic                      perf_branch_o,  // executing a branch instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     output logic                      perf_tbranch_o, // executing a taken branch instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     output logic                      perf_dside_wait_o, // instruction in ID/EX is awaiting memory</pre>
+<pre style="margin:0; padding:0 "> 177:                                                          // access to finish before proceeding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     output logic                      perf_mul_wait_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     output logic                      perf_div_wait_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     output logic                      instr_id_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     output logic                      instr_id_done_compressed_o</pre>
+<pre style="margin:0; padding:0 "> 182: );</pre>
+<pre style="margin:0; padding:0 "> 183: </pre>
+<pre style="margin:0; padding:0 "> 184:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186:   // Decoder/Controller, ID stage internal signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   logic        illegal_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   logic        ebrk_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   logic        mret_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic        dret_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   logic        ecall_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   logic        wfi_insn_dec;</pre>
+<pre style="margin:0; padding:0 "> 193: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   logic        wb_exception;</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   logic        branch_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:   logic        branch_spec, branch_set_spec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:   logic        branch_set, branch_set_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:   logic        branch_taken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:   logic        jump_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   logic        jump_set_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   logic        jump_set;</pre>
+<pre style="margin:0; padding:0 "> 203: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   logic        instr_first_cycle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   logic        instr_executing;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   logic        instr_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   logic        controller_run;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   logic        stall_ld_hz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   logic        stall_mem;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   logic        lsu_req_in_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   logic        stall_multdiv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   logic        stall_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   logic        stall_jump;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   logic        stall_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   logic        stall_wb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   logic        flush_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   logic        multicycle_done;</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+<pre style="margin:0; padding:0 "> 219:   // Immediate decoding and sign extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:   logic [31:0] imm_i_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   logic [31:0] imm_s_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   logic [31:0] imm_b_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   logic [31:0] imm_u_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:   logic [31:0] imm_j_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   logic [31:0] zimm_rs1_type;</pre>
+<pre style="margin:0; padding:0 "> 226: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   logic [31:0] imm_a;       // contains the immediate for operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:   logic [31:0] imm_b;       // contains the immediate for operand b</pre>
+<pre style="margin:0; padding:0 "> 229: </pre>
+<pre style="margin:0; padding:0 "> 230:   // Register file interface</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   rf_wd_sel_e  rf_wdata_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:   logic        rf_we_dec, rf_we_raw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:   logic        rf_ren_a, rf_ren_b;</pre>
+<pre style="margin:0; padding:0 "> 235: </pre>
+<pre style="margin:0; padding:0 "> 236: `ifdef RVFI</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   assign rf_ren_a_o = rf_ren_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   assign rf_ren_b_o = rf_ren_b;</pre>
+<pre style="margin:0; padding:0 "> 239: `endif</pre>
+<pre style="margin:0; padding:0 "> 240: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   logic [31:0] rf_rdata_a_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:   logic [31:0] rf_rdata_b_fwd;</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="margin:0; padding:0 "> 244:   // ALU Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   alu_op_e     alu_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:   op_a_sel_e   alu_op_a_mux_sel, alu_op_a_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:   op_b_sel_e   alu_op_b_mux_sel, alu_op_b_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   logic        alu_multicycle_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:   logic        stall_alu;</pre>
+<pre style="margin:0; padding:0 "> 250: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:   logic [33:0] imd_val_q;</pre>
+<pre style="margin:0; padding:0 "> 252: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:   op_a_sel_e   bt_a_mux_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:   imm_b_sel_e  bt_b_mux_sel;</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:   imm_a_sel_e  imm_a_mux_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:   imm_b_sel_e  imm_b_mux_sel, imm_b_mux_sel_dec;</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
+<pre style="margin:0; padding:0 "> 259:   // Multiplier Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:   logic        mult_en_id, mult_en_dec; // use integer multiplier</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:   logic        div_en_id, div_en_dec;   // use integer division or reminder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:   logic        multdiv_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:   md_op_e      multdiv_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:   logic [1:0]  multdiv_signed_mode;</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266:   // Data Memory Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:   logic        lsu_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:   logic [1:0]  lsu_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:   logic        lsu_sign_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:   logic        lsu_req, lsu_req_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:   logic        data_req_allowed;</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="margin:0; padding:0 "> 273:   // CSR control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   logic        csr_pipe_flush;</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:   logic [31:0] alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:   logic [31:0] alu_operand_b;</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="margin:0; padding:0 "> 279:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 280:   // LSU Mux //</pre>
+<pre style="margin:0; padding:0 "> 281:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 282: </pre>
+<pre style="margin:0; padding:0 "> 283:   // Misaligned loads/stores result in two aligned loads/stores, compute second address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:   assign alu_op_a_mux_sel = lsu_addr_incr_req_i ? OP_A_FWD        : alu_op_a_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:   assign alu_op_b_mux_sel = lsu_addr_incr_req_i ? OP_B_IMM        : alu_op_b_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:   assign imm_b_mux_sel    = lsu_addr_incr_req_i ? IMM_B_INCR_ADDR : imm_b_mux_sel_dec;</pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="margin:0; padding:0 "> 288:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 289:   // Operand MUXES //</pre>
+<pre style="margin:0; padding:0 "> 290:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="margin:0; padding:0 "> 292:   // Main ALU immediate MUX for Operand A</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   assign imm_a = (imm_a_mux_sel == IMM_A_Z) ? zimm_rs1_type : '0;</pre>
+<pre style="margin:0; padding:0 "> 294: </pre>
+<pre style="margin:0; padding:0 "> 295:   // Main ALU MUX for Operand A</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   always_comb begin : alu_operand_a_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     unique case (alu_op_a_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:       OP_A_REG_A:  alu_operand_a = rf_rdata_a_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       OP_A_FWD:    alu_operand_a = lsu_addr_last_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:       OP_A_CURRPC: alu_operand_a = pc_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       OP_A_IMM:    alu_operand_a = imm_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       default:     alu_operand_a = pc_id_i;</pre>
+<pre style="margin:0; padding:0 "> 303:     endcase</pre>
+<pre style="margin:0; padding:0 "> 304:   end</pre>
+<pre style="margin:0; padding:0 "> 305: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:   if (BranchTargetALU) begin : g_btalu_muxes</pre>
+<pre style="margin:0; padding:0 "> 307:     // Branch target ALU operand A mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:     always_comb begin : bt_operand_a_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:       unique case (bt_a_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:         OP_A_REG_A:  bt_a_operand_o = rf_rdata_a_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:         OP_A_CURRPC: bt_a_operand_o = pc_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:         default:     bt_a_operand_o = pc_id_i;</pre>
+<pre style="margin:0; padding:0 "> 313:       endcase</pre>
+<pre style="margin:0; padding:0 "> 314:     end</pre>
+<pre style="margin:0; padding:0 "> 315: </pre>
+<pre style="margin:0; padding:0 "> 316:     // Branch target ALU operand B mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:     always_comb begin : bt_immediate_b_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       unique case (bt_b_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:         IMM_B_I:         bt_b_operand_o = imm_i_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:         IMM_B_B:         bt_b_operand_o = imm_b_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:         IMM_B_J:         bt_b_operand_o = imm_j_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:         IMM_B_INCR_PC:   bt_b_operand_o = instr_is_compressed_i ? 32'h2 : 32'h4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:         default:         bt_b_operand_o = instr_is_compressed_i ? 32'h2 : 32'h4;</pre>
+<pre style="margin:0; padding:0 "> 324:       endcase</pre>
+<pre style="margin:0; padding:0 "> 325:     end</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="margin:0; padding:0 "> 327:     // Reduced main ALU immediate MUX for Operand B</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:     always_comb begin : immediate_b_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:       unique case (imm_b_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:         IMM_B_I:         imm_b = imm_i_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:         IMM_B_S:         imm_b = imm_s_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:         IMM_B_U:         imm_b = imm_u_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:         IMM_B_INCR_PC:   imm_b = instr_is_compressed_i ? 32'h2 : 32'h4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:         IMM_B_INCR_ADDR: imm_b = 32'h4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:         default:         imm_b = 32'h4;</pre>
+<pre style="margin:0; padding:0 "> 336:       endcase</pre>
+<pre style="margin:0; padding:0 "> 337:     end</pre>
+<pre style="margin:0; padding:0 "> 338:     `ASSERT(IbexImmBMuxSelValid, instr_valid_i |-> imm_b_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 339:         IMM_B_I,</pre>
+<pre id="id340" style="background-color: #FFB6C1; margin:0; padding:0 "> 340:         IMM_B_S,</pre>
+<pre id="id341" style="background-color: #FFB6C1; margin:0; padding:0 "> 341:         IMM_B_U,</pre>
+<pre id="id342" style="background-color: #FFB6C1; margin:0; padding:0 "> 342:         IMM_B_INCR_PC,</pre>
+<pre style="margin:0; padding:0 "> 343:         IMM_B_INCR_ADDR})</pre>
+<pre id="id344" style="background-color: #FFB6C1; margin:0; padding:0 "> 344:   end else begin : g_nobtalu</pre>
+<pre id="id345" style="background-color: #FFB6C1; margin:0; padding:0 "> 345:     op_a_sel_e  unused_a_mux_sel;</pre>
+<pre id="id346" style="background-color: #FFB6C1; margin:0; padding:0 "> 346:     imm_b_sel_e unused_b_mux_sel;</pre>
+<pre id="id347" style="background-color: #FFB6C1; margin:0; padding:0 "> 347: </pre>
+<pre style="margin:0; padding:0 "> 348:     assign unused_a_mux_sel = bt_a_mux_sel;</pre>
+<pre style="margin:0; padding:0 "> 349:     assign unused_b_mux_sel = bt_b_mux_sel;</pre>
+<pre id="id350" style="background-color: #FFB6C1; margin:0; padding:0 "> 350:     assign bt_a_operand_o   = '0;</pre>
+<pre id="id351" style="background-color: #FFB6C1; margin:0; padding:0 "> 351:     assign bt_b_operand_o   = '0;</pre>
+<pre id="id352" style="background-color: #FFB6C1; margin:0; padding:0 "> 352: </pre>
+<pre id="id353" style="background-color: #FFB6C1; margin:0; padding:0 "> 353:     // Full main ALU immediate MUX for Operand B</pre>
+<pre id="id354" style="background-color: #FFB6C1; margin:0; padding:0 "> 354:     always_comb begin : immediate_b_mux</pre>
+<pre id="id355" style="background-color: #FFB6C1; margin:0; padding:0 "> 355:       unique case (imm_b_mux_sel)</pre>
+<pre id="id356" style="background-color: #FFB6C1; margin:0; padding:0 "> 356:         IMM_B_I:         imm_b = imm_i_type;</pre>
+<pre id="id357" style="background-color: #FFB6C1; margin:0; padding:0 "> 357:         IMM_B_S:         imm_b = imm_s_type;</pre>
+<pre id="id358" style="background-color: #FFB6C1; margin:0; padding:0 "> 358:         IMM_B_B:         imm_b = imm_b_type;</pre>
+<pre id="id359" style="background-color: #FFB6C1; margin:0; padding:0 "> 359:         IMM_B_U:         imm_b = imm_u_type;</pre>
+<pre style="margin:0; padding:0 "> 360:         IMM_B_J:         imm_b = imm_j_type;</pre>
+<pre style="margin:0; padding:0 "> 361:         IMM_B_INCR_PC:   imm_b = instr_is_compressed_i ? 32'h2 : 32'h4;</pre>
+<pre style="margin:0; padding:0 "> 362:         IMM_B_INCR_ADDR: imm_b = 32'h4;</pre>
+<pre style="margin:0; padding:0 "> 363:         default:         imm_b = 32'h4;</pre>
+<pre style="margin:0; padding:0 "> 364:       endcase</pre>
+<pre style="margin:0; padding:0 "> 365:     end</pre>
+<pre style="margin:0; padding:0 "> 366:     `ASSERT(IbexImmBMuxSelValid, instr_valid_i |-> imm_b_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 367:         IMM_B_I,</pre>
+<pre style="margin:0; padding:0 "> 368:         IMM_B_S,</pre>
+<pre style="margin:0; padding:0 "> 369:         IMM_B_B,</pre>
+<pre style="margin:0; padding:0 "> 370:         IMM_B_U,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:         IMM_B_J,</pre>
+<pre style="margin:0; padding:0 "> 372:         IMM_B_INCR_PC,</pre>
+<pre style="margin:0; padding:0 "> 373:         IMM_B_INCR_ADDR})</pre>
+<pre style="margin:0; padding:0 "> 374:   end</pre>
+<pre style="margin:0; padding:0 "> 375: </pre>
+<pre style="margin:0; padding:0 "> 376:   // ALU MUX for Operand B</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:   assign alu_operand_b = (alu_op_b_mux_sel == OP_B_IMM) ? imm_b : rf_rdata_b_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:   /////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:   // Multicycle Operation Stage Register //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:   /////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 382: </pre>
+<pre style="margin:0; padding:0 "> 383:   always_ff @(posedge clk_i or negedge rst_ni) begin : intermediate_val_reg</pre>
+<pre style="margin:0; padding:0 "> 384:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:       imd_val_q <= '0;</pre>
+<pre style="margin:0; padding:0 "> 386:     end else if (imd_val_we_ex_i) begin</pre>
+<pre style="margin:0; padding:0 "> 387:       imd_val_q <= imd_val_d_ex_i;</pre>
+<pre style="margin:0; padding:0 "> 388:     end</pre>
+<pre style="margin:0; padding:0 "> 389:   end</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="margin:0; padding:0 "> 391:   assign imd_val_q_ex_o = imd_val_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392: </pre>
+<pre style="margin:0; padding:0 "> 393:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 394:   // Register File MUX //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:   ///////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:   // Suppress register write if there is an illegal CSR access or instruction is not executing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:   assign rf_we_id_o = rf_we_raw & instr_executing & ~illegal_csr_insn_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399: </pre>
+<pre id="id400" style="background-color: #FFB6C1; margin:0; padding:0 "> 400:   // Register file write data mux</pre>
+<pre style="margin:0; padding:0 "> 401:   always_comb begin : rf_wdata_id_mux</pre>
+<pre style="margin:0; padding:0 "> 402:     unique case (rf_wdata_sel)</pre>
+<pre style="margin:0; padding:0 "> 403:       RF_WD_EX:  rf_wdata_id_o = result_ex_i;</pre>
+<pre style="margin:0; padding:0 "> 404:       RF_WD_CSR: rf_wdata_id_o = csr_rdata_i;</pre>
+<pre style="margin:0; padding:0 "> 405:       default:   rf_wdata_id_o = result_ex_i;</pre>
+<pre style="margin:0; padding:0 "> 406:     endcase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:   /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:   // Decoder //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:   /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:   ibex_decoder #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:       .RV32E           ( RV32E           ),</pre>
+<pre style="margin:0; padding:0 "> 415:       .RV32M           ( RV32M           ),</pre>
+<pre style="margin:0; padding:0 "> 416:       .RV32B           ( RV32B           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:       .BranchTargetALU ( BranchTargetALU )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:   ) decoder_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:       .clk_i                           ( clk_i                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:       .rst_ni                          ( rst_ni               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:       // controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:       .illegal_insn_o                  ( illegal_insn_dec     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:       .ebrk_insn_o                     ( ebrk_insn            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:       .mret_insn_o                     ( mret_insn_dec        ),</pre>
+<pre style="margin:0; padding:0 "> 426:       .dret_insn_o                     ( dret_insn_dec        ),</pre>
+<pre style="margin:0; padding:0 "> 427:       .ecall_insn_o                    ( ecall_insn_dec       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:       .wfi_insn_o                      ( wfi_insn_dec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:       .jump_set_o                      ( jump_set_dec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430:       .branch_taken_i                  ( branch_taken         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:       .icache_inval_o                  ( icache_inval_o       ),</pre>
+<pre style="margin:0; padding:0 "> 432: </pre>
+<pre style="margin:0; padding:0 "> 433:       // from IF-ID pipeline register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 434:       .instr_first_cycle_i             ( instr_first_cycle    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:       .instr_rdata_i                   ( instr_rdata_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:       .instr_rdata_alu_i               ( instr_rdata_alu_i    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:       .illegal_c_insn_i                ( illegal_c_insn_i     ),</pre>
+<pre style="margin:0; padding:0 "> 438: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:       // immediates</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:       .imm_a_mux_sel_o                 ( imm_a_mux_sel        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:       .imm_b_mux_sel_o                 ( imm_b_mux_sel_dec    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 442:       .bt_a_mux_sel_o                  ( bt_a_mux_sel         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:       .bt_b_mux_sel_o                  ( bt_b_mux_sel         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444: </pre>
+<pre style="margin:0; padding:0 "> 445:       .imm_i_type_o                    ( imm_i_type           ),</pre>
+<pre style="margin:0; padding:0 "> 446:       .imm_s_type_o                    ( imm_s_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:       .imm_b_type_o                    ( imm_b_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:       .imm_u_type_o                    ( imm_u_type           ),</pre>
+<pre style="margin:0; padding:0 "> 449:       .imm_j_type_o                    ( imm_j_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:       .zimm_rs1_type_o                 ( zimm_rs1_type        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:       // register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:       .rf_wdata_sel_o                  ( rf_wdata_sel         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:       .rf_we_o                         ( rf_we_dec            ),</pre>
+<pre style="margin:0; padding:0 "> 455: </pre>
+<pre style="margin:0; padding:0 "> 456:       .rf_raddr_a_o                    ( rf_raddr_a_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:       .rf_raddr_b_o                    ( rf_raddr_b_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:       .rf_waddr_o                      ( rf_waddr_id_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:       .rf_ren_a_o                      ( rf_ren_a             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:       .rf_ren_b_o                      ( rf_ren_b             ),</pre>
+<pre style="margin:0; padding:0 "> 461: </pre>
+<pre style="margin:0; padding:0 "> 462:       // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:       .alu_operator_o                  ( alu_operator         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       .alu_op_a_mux_sel_o              ( alu_op_a_mux_sel_dec ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:       .alu_op_b_mux_sel_o              ( alu_op_b_mux_sel_dec ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:       .alu_multicycle_o                ( alu_multicycle_dec   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:       // MULT & DIV</pre>
+<pre style="margin:0; padding:0 "> 469:       .mult_en_o                       ( mult_en_dec          ),</pre>
+<pre style="margin:0; padding:0 "> 470:       .div_en_o                        ( div_en_dec           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:       .mult_sel_o                      ( mult_sel_ex_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:       .div_sel_o                       ( div_sel_ex_o         ),</pre>
+<pre style="margin:0; padding:0 "> 473:       .multdiv_operator_o              ( multdiv_operator     ),</pre>
+<pre style="margin:0; padding:0 "> 474:       .multdiv_signed_mode_o           ( multdiv_signed_mode  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:       // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:       .csr_access_o                    ( csr_access_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:       .csr_op_o                        ( csr_op_o             ),</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre style="margin:0; padding:0 "> 480:       // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:       .data_req_o                      ( lsu_req_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:       .data_we_o                       ( lsu_we               ),</pre>
+<pre style="margin:0; padding:0 "> 483:       .data_type_o                     ( lsu_type             ),</pre>
+<pre style="margin:0; padding:0 "> 484:       .data_sign_extension_o           ( lsu_sign_ext         ),</pre>
+<pre style="margin:0; padding:0 "> 485: </pre>
+<pre style="margin:0; padding:0 "> 486:       // jump/branches</pre>
+<pre style="margin:0; padding:0 "> 487:       .jump_in_dec_o                   ( jump_in_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:       .branch_in_dec_o                 ( branch_in_dec        )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:   );</pre>
+<pre style="margin:0; padding:0 "> 490: </pre>
+<pre style="margin:0; padding:0 "> 491:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 492:   // CSR-related pipline flushes //</pre>
+<pre style="margin:0; padding:0 "> 493:   /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 494:   always_comb begin : csr_pipeline_flushes</pre>
+<pre style="margin:0; padding:0 "> 495:     csr_pipe_flush = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 496: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:     // A pipeline flush is needed to let the controller react after modifying certain CSRs:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:     // - When enabling interrupts, pending IRQs become visible to the controller only during</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:     //   the next cycle. If during that cycle the core disables interrupts again, it does not</pre>
+<pre style="margin:0; padding:0 "> 500:     //   see any pending IRQs and consequently does not start to handle interrupts.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 501:     // - When modifying debug CSRs - TODO: Check if this is really needed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:     if (csr_op_en_o == 1'b1 && (csr_op_o == CSR_OP_WRITE || csr_op_o == CSR_OP_SET)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:       if (csr_num_e'(instr_rdata_i[31:20]) == CSR_MSTATUS   ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:           csr_num_e'(instr_rdata_i[31:20]) == CSR_MIE) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:         csr_pipe_flush = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:       end</pre>
+<pre style="margin:0; padding:0 "> 507:     end else if (csr_op_en_o == 1'b1 && csr_op_o != CSR_OP_READ) begin</pre>
+<pre style="margin:0; padding:0 "> 508:       if (csr_num_e'(instr_rdata_i[31:20]) == CSR_DCSR      ||</pre>
+<pre style="margin:0; padding:0 "> 509:           csr_num_e'(instr_rdata_i[31:20]) == CSR_DPC       ||</pre>
+<pre style="margin:0; padding:0 "> 510:           csr_num_e'(instr_rdata_i[31:20]) == CSR_DSCRATCH0 ||</pre>
+<pre style="margin:0; padding:0 "> 511:           csr_num_e'(instr_rdata_i[31:20]) == CSR_DSCRATCH1) begin</pre>
+<pre style="margin:0; padding:0 "> 512:         csr_pipe_flush = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 513:       end</pre>
+<pre style="margin:0; padding:0 "> 514:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:   end</pre>
+<pre style="margin:0; padding:0 "> 516: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:   // Controller //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 519:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:   assign illegal_insn_o = instr_valid_i & (illegal_insn_dec | illegal_csr_insn_i);</pre>
+<pre style="margin:0; padding:0 "> 522: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 523:   ibex_controller #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:     .WritebackStage ( WritebackStage )</pre>
+<pre style="margin:0; padding:0 "> 525:   ) controller_i (</pre>
+<pre style="margin:0; padding:0 "> 526:       .clk_i                          ( clk_i                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:       .rst_ni                         ( rst_ni                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:       .fetch_enable_i                 ( fetch_enable_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:       .ctrl_busy_o                    ( ctrl_busy_o             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:       // decoder related signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 533:       .illegal_insn_i                 ( illegal_insn_o          ),</pre>
+<pre style="margin:0; padding:0 "> 534:       .ecall_insn_i                   ( ecall_insn_dec          ),</pre>
+<pre style="margin:0; padding:0 "> 535:       .mret_insn_i                    ( mret_insn_dec           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 536:       .dret_insn_i                    ( dret_insn_dec           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:       .wfi_insn_i                     ( wfi_insn_dec            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:       .ebrk_insn_i                    ( ebrk_insn               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:       .csr_pipe_flush_i               ( csr_pipe_flush          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:       // from IF-ID pipeline</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:       .instr_valid_i                  ( instr_valid_i           ),</pre>
+<pre style="margin:0; padding:0 "> 543:       .instr_i                        ( instr_rdata_i           ),</pre>
+<pre style="margin:0; padding:0 "> 544:       .instr_compressed_i             ( instr_rdata_c_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:       .instr_is_compressed_i          ( instr_is_compressed_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:       .instr_fetch_err_i              ( instr_fetch_err_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:       .instr_fetch_err_plus2_i        ( instr_fetch_err_plus2_i ),</pre>
+<pre style="margin:0; padding:0 "> 548:       .pc_id_i                        ( pc_id_i                 ),</pre>
+<pre style="margin:0; padding:0 "> 549: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 550:       // to IF-ID pipeline</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:       .instr_valid_clear_o            ( instr_valid_clear_o     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:       .id_in_ready_o                  ( id_in_ready_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 553:       .controller_run_o               ( controller_run          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:       // to prefetcher</pre>
+<pre style="margin:0; padding:0 "> 556:       .instr_req_o                    ( instr_req_o             ),</pre>
+<pre style="margin:0; padding:0 "> 557:       .pc_set_o                       ( pc_set_o                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:       .pc_set_spec_o                  ( pc_set_spec_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:       .pc_mux_o                       ( pc_mux_o                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:       .exc_pc_mux_o                   ( exc_pc_mux_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:       .exc_cause_o                    ( exc_cause_o             ),</pre>
+<pre style="margin:0; padding:0 "> 562: </pre>
+<pre style="margin:0; padding:0 "> 563:       // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:       .lsu_addr_last_i                ( lsu_addr_last_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:       .load_err_i                     ( lsu_load_err_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:       .store_err_i                    ( lsu_store_err_i         ),</pre>
+<pre style="margin:0; padding:0 "> 567:       .wb_exception_o                 ( wb_exception            ),</pre>
+<pre style="margin:0; padding:0 "> 568: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:       // jump/branch control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 570:       .branch_set_i                   ( branch_set              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:       .branch_set_spec_i              ( branch_set_spec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 572:       .jump_set_i                     ( jump_set                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573: </pre>
+<pre style="margin:0; padding:0 "> 574:       // interrupt signals</pre>
+<pre style="margin:0; padding:0 "> 575:       .csr_mstatus_mie_i              ( csr_mstatus_mie_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:       .irq_pending_i                  ( irq_pending_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 577:       .irqs_i                         ( irqs_i                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 578:       .irq_nm_i                       ( irq_nm_i                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 579:       .nmi_mode_o                     ( nmi_mode_o              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 580: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:       // CSR Controller Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 582:       .csr_save_if_o                  ( csr_save_if_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 583:       .csr_save_id_o                  ( csr_save_id_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 584:       .csr_save_wb_o                  ( csr_save_wb_o           ),</pre>
+<pre style="margin:0; padding:0 "> 585:       .csr_restore_mret_id_o          ( csr_restore_mret_id_o   ),</pre>
+<pre style="margin:0; padding:0 "> 586:       .csr_restore_dret_id_o          ( csr_restore_dret_id_o   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 587:       .csr_save_cause_o               ( csr_save_cause_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 588:       .csr_mtval_o                    ( csr_mtval_o             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:       .priv_mode_i                    ( priv_mode_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 590:       .csr_mstatus_tw_i               ( csr_mstatus_tw_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 591: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 592:       // Debug Signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 593:       .debug_mode_o                   ( debug_mode_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:       .debug_cause_o                  ( debug_cause_o           ),</pre>
+<pre style="margin:0; padding:0 "> 595:       .debug_csr_save_o               ( debug_csr_save_o        ),</pre>
+<pre style="margin:0; padding:0 "> 596:       .debug_req_i                    ( debug_req_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 597:       .debug_single_step_i            ( debug_single_step_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 598:       .debug_ebreakm_i                ( debug_ebreakm_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 599:       .debug_ebreaku_i                ( debug_ebreaku_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 600:       .trigger_match_i                ( trigger_match_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 601: </pre>
+<pre style="margin:0; padding:0 "> 602:       // stall signals</pre>
+<pre style="margin:0; padding:0 "> 603:       .lsu_req_in_id_i                ( lsu_req_in_id           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 604:       .stall_id_i                     ( stall_id                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 605:       .stall_wb_i                     ( stall_wb                ),</pre>
+<pre style="margin:0; padding:0 "> 606:       .flush_id_o                     ( flush_id                ),</pre>
+<pre style="margin:0; padding:0 "> 607:       .ready_wb_i                     ( ready_wb_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 608: </pre>
+<pre style="margin:0; padding:0 "> 609:       // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:       .perf_jump_o                    ( perf_jump_o             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:       .perf_tbranch_o                 ( perf_tbranch_o          )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 612:   );</pre>
+<pre style="margin:0; padding:0 "> 613: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:   assign multdiv_en_dec   = mult_en_dec | div_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 615: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 616:   assign lsu_req         = instr_executing ? data_req_allowed & lsu_req_dec  : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 617:   assign mult_en_id      = instr_executing ? mult_en_dec                     : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 618:   assign div_en_id       = instr_executing ? div_en_dec                      : 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 619: </pre>
+<pre style="margin:0; padding:0 "> 620:   assign lsu_req_o               = lsu_req;</pre>
+<pre style="margin:0; padding:0 "> 621:   assign lsu_we_o                = lsu_we;</pre>
+<pre style="margin:0; padding:0 "> 622:   assign lsu_type_o              = lsu_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 623:   assign lsu_sign_ext_o          = lsu_sign_ext;</pre>
+<pre style="margin:0; padding:0 "> 624:   assign lsu_wdata_o             = rf_rdata_b_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 625:   // csr_op_en_o is set when CSR access should actually happen.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 626:   // csv_access_o is set when CSR access instruction is present and is used to compute whether a CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:   // access is illegal. A combinational loop would be created if csr_op_en_o was used along (as</pre>
+<pre style="margin:0; padding:0 "> 628:   // asserting it for an illegal csr access would result in a flush that would need to deassert it).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 629:   assign csr_op_en_o             = csr_access_o & instr_executing & instr_id_done_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 630: </pre>
+<pre style="margin:0; padding:0 "> 631:   assign alu_operator_ex_o           = alu_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 632:   assign alu_operand_a_ex_o          = alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 633:   assign alu_operand_b_ex_o          = alu_operand_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 634: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 635:   assign mult_en_ex_o                = mult_en_id;</pre>
+<pre style="margin:0; padding:0 "> 636:   assign div_en_ex_o                 = div_en_id;</pre>
+<pre style="margin:0; padding:0 "> 637: </pre>
+<pre style="margin:0; padding:0 "> 638:   assign multdiv_operator_ex_o       = multdiv_operator;</pre>
+<pre style="margin:0; padding:0 "> 639:   assign multdiv_signed_mode_ex_o    = multdiv_signed_mode;</pre>
+<pre style="margin:0; padding:0 "> 640:   assign multdiv_operand_a_ex_o      = rf_rdata_a_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 641:   assign multdiv_operand_b_ex_o      = rf_rdata_b_fwd;</pre>
+<pre style="margin:0; padding:0 "> 642: </pre>
+<pre style="margin:0; padding:0 "> 643:   ////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 644:   // Branch set control //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 645:   ////////////////////////</pre>
+<pre id="id646" style="background-color: #FFB6C1; margin:0; padding:0 "> 646: </pre>
+<pre style="margin:0; padding:0 "> 647:   if (BranchTargetALU && !DataIndTiming) begin : g_branch_set_direct</pre>
+<pre style="margin:0; padding:0 "> 648:     // Branch set fed straight to controller with branch target ALU</pre>
+<pre id="id649" style="background-color: #FFB6C1; margin:0; padding:0 "> 649:     // (condition pass/fail used same cycle as generated instruction request)</pre>
+<pre style="margin:0; padding:0 "> 650:     assign branch_set      = branch_set_d;</pre>
+<pre id="id651" style="background-color: #FFB6C1; margin:0; padding:0 "> 651:     assign branch_set_spec = branch_spec;</pre>
+<pre id="id652" style="background-color: #FFB6C1; margin:0; padding:0 "> 652:   end else begin : g_branch_set_flop</pre>
+<pre id="id653" style="background-color: #FFB6C1; margin:0; padding:0 "> 653:     // Branch set flopped without branch target ALU, or in fixed time execution mode</pre>
+<pre id="id654" style="background-color: #FFB6C1; margin:0; padding:0 "> 654:     // (condition pass/fail used next cycle where branch target is calculated)</pre>
+<pre id="id655" style="background-color: #FFB6C1; margin:0; padding:0 "> 655:     logic branch_set_q;</pre>
+<pre style="margin:0; padding:0 "> 656: </pre>
+<pre style="margin:0; padding:0 "> 657:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 658:       if (!rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 659:         branch_set_q <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 660:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 661:         branch_set_q <= branch_set_d;</pre>
+<pre id="id662" style="background-color: #FFB6C1; margin:0; padding:0 "> 662:       end</pre>
+<pre style="margin:0; padding:0 "> 663:     end</pre>
+<pre id="id664" style="background-color: #FFB6C1; margin:0; padding:0 "> 664: </pre>
+<pre style="margin:0; padding:0 "> 665:     // Branches always take two cycles in fixed time execution mode, with or without the branch</pre>
+<pre style="margin:0; padding:0 "> 666:     // target ALU (to avoid a path from the branch decision into the branch target ALU operand</pre>
+<pre style="margin:0; padding:0 "> 667:     // muxing).</pre>
+<pre style="margin:0; padding:0 "> 668:     assign branch_set      = (BranchTargetALU && !data_ind_timing_i) ? branch_set_d : branch_set_q;</pre>
+<pre id="id669" style="background-color: #FFB6C1; margin:0; padding:0 "> 669:     // Use the speculative branch signal when BTALU is enabled</pre>
+<pre id="id670" style="background-color: #FFB6C1; margin:0; padding:0 "> 670:     assign branch_set_spec = (BranchTargetALU && !data_ind_timing_i) ? branch_spec : branch_set_q;</pre>
+<pre style="margin:0; padding:0 "> 671:   end</pre>
+<pre id="id672" style="background-color: #FFB6C1; margin:0; padding:0 "> 672: </pre>
+<pre id="id673" style="background-color: #FFB6C1; margin:0; padding:0 "> 673:   // Branch condition is calculated in the first cycle and flopped for use in the second cycle</pre>
+<pre id="id674" style="background-color: #FFB6C1; margin:0; padding:0 "> 674:   // (only used in fixed time execution mode to determine branch destination).</pre>
+<pre id="id675" style="background-color: #FFB6C1; margin:0; padding:0 "> 675:   if (DataIndTiming) begin : g_sec_branch_taken</pre>
+<pre id="id676" style="background-color: #FFB6C1; margin:0; padding:0 "> 676:     logic branch_taken_q;</pre>
+<pre style="margin:0; padding:0 "> 677: </pre>
+<pre style="margin:0; padding:0 "> 678:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 679:       if (!rst_ni) begin</pre>
+<pre id="id680" style="background-color: #FFB6C1; margin:0; padding:0 "> 680:         branch_taken_q <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 681:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 682:         branch_taken_q <= branch_decision_i;</pre>
+<pre style="margin:0; padding:0 "> 683:       end</pre>
+<pre style="margin:0; padding:0 "> 684:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 685: </pre>
+<pre style="margin:0; padding:0 "> 686:     assign branch_taken = ~data_ind_timing_i | branch_taken_q;</pre>
+<pre style="margin:0; padding:0 "> 687: </pre>
+<pre style="margin:0; padding:0 "> 688:   end else begin : g_nosec_branch_taken</pre>
+<pre style="margin:0; padding:0 "> 689: </pre>
+<pre style="margin:0; padding:0 "> 690:     // Signal unused without fixed time execution mode - only taken branches will trigger branch_set</pre>
+<pre style="margin:0; padding:0 "> 691:     assign branch_taken = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 692: </pre>
+<pre style="margin:0; padding:0 "> 693:   end</pre>
+<pre style="margin:0; padding:0 "> 694: </pre>
+<pre style="margin:0; padding:0 "> 695:   // Holding branch_set/jump_set high for more than one cycle may not cause a functional issue but</pre>
+<pre style="margin:0; padding:0 "> 696:   // could generate needless prefetch buffer flushes and instruction fetches. ID/EX is designed such</pre>
+<pre style="margin:0; padding:0 "> 697:   // that this shouldn't ever happen.</pre>
+<pre style="margin:0; padding:0 "> 698:   `ASSERT(NeverDoubleBranch, branch_set |=> ~branch_set)</pre>
+<pre style="margin:0; padding:0 "> 699:   `ASSERT(NeverDoubleJump, jump_set |=> ~jump_set)</pre>
+<pre style="margin:0; padding:0 "> 700: </pre>
+<pre style="margin:0; padding:0 "> 701:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 702:   // ID-EX FSM //</pre>
+<pre style="margin:0; padding:0 "> 703:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 704: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 705:   typedef enum logic { FIRST_CYCLE, MULTI_CYCLE } id_fsm_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 706:   id_fsm_e id_fsm_q, id_fsm_d;</pre>
+<pre style="margin:0; padding:0 "> 707: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 708:   always_ff @(posedge clk_i or negedge rst_ni) begin : id_pipeline_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 709:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 710:       id_fsm_q            <= FIRST_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 711:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 712:       id_fsm_q            <= id_fsm_d;</pre>
+<pre style="margin:0; padding:0 "> 713:     end</pre>
+<pre style="margin:0; padding:0 "> 714:   end</pre>
+<pre style="margin:0; padding:0 "> 715: </pre>
+<pre style="margin:0; padding:0 "> 716:   // ID/EX stage can be in two states, FIRST_CYCLE and MULTI_CYCLE. An instruction enters</pre>
+<pre style="margin:0; padding:0 "> 717:   // MULTI_CYCLE if it requires multiple cycles to complete regardless of stalls and other</pre>
+<pre style="margin:0; padding:0 "> 718:   // considerations. An instruction may be held in FIRST_CYCLE if it's unable to begin executing</pre>
+<pre style="margin:0; padding:0 "> 719:   // (this is controlled by instr_executing).</pre>
+<pre style="margin:0; padding:0 "> 720: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 721:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 722:     id_fsm_d                = id_fsm_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 723:     rf_we_raw               = rf_we_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 724:     stall_multdiv           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 725:     stall_jump              = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 726:     stall_branch            = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 727:     stall_alu               = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 728:     branch_set_d            = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 729:     branch_spec             = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 730:     jump_set                = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 731:     perf_branch_o           = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 732: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 733:     if (instr_executing) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 734:       unique case (id_fsm_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 735:         FIRST_CYCLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 736:           unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 737:             lsu_req_dec: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 738:               if (!WritebackStage) begin</pre>
+<pre style="margin:0; padding:0 "> 739:                 // LSU operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 740:                 id_fsm_d    = MULTI_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 741:               end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 742:                 if(~lsu_req_done_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 743:                   id_fsm_d  = MULTI_CYCLE;</pre>
+<pre style="margin:0; padding:0 "> 744:                 end</pre>
+<pre style="margin:0; padding:0 "> 745:               end</pre>
+<pre style="margin:0; padding:0 "> 746:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 747:             multdiv_en_dec: begin</pre>
+<pre style="margin:0; padding:0 "> 748:               // MUL or DIV operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 749:               if (~ex_valid_i) begin</pre>
+<pre style="margin:0; padding:0 "> 750:                 // When single-cycle multiply is configured mul can finish in the first cycle so</pre>
+<pre style="margin:0; padding:0 "> 751:                 // only enter MULTI_CYCLE state if a result isn't immediately available</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 752:                 id_fsm_d      = MULTI_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 753:                 rf_we_raw     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 754:                 stall_multdiv = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 755:               end</pre>
+<pre style="margin:0; padding:0 "> 756:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 757:             branch_in_dec: begin</pre>
+<pre style="margin:0; padding:0 "> 758:               // cond branch operation</pre>
+<pre style="margin:0; padding:0 "> 759:               // All branches take two cycles in fixed time execution mode, regardless of branch</pre>
+<pre style="margin:0; padding:0 "> 760:               // condition.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 761:               id_fsm_d      = (data_ind_timing_i || (!BranchTargetALU && branch_decision_i)) ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 762:                                   MULTI_CYCLE : FIRST_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 763:               stall_branch  = (~BranchTargetALU & branch_decision_i) | data_ind_timing_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 764:               branch_set_d  = branch_decision_i | data_ind_timing_i;</pre>
+<pre style="margin:0; padding:0 "> 765:               // Speculative branch (excludes branch_decision_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 766:               branch_spec   = SpecBranch ? 1'b1 : branch_decision_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 767:               perf_branch_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 768:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 769:             jump_in_dec: begin</pre>
+<pre style="margin:0; padding:0 "> 770:               // uncond branch operation</pre>
+<pre style="margin:0; padding:0 "> 771:               // BTALU means jumps only need one cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 772:               id_fsm_d      = BranchTargetALU ? FIRST_CYCLE : MULTI_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 773:               stall_jump    = ~BranchTargetALU;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 774:               jump_set      = jump_set_dec;</pre>
+<pre style="margin:0; padding:0 "> 775:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 776:             alu_multicycle_dec: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 777:               stall_alu     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 778:               id_fsm_d      = MULTI_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 779:               rf_we_raw     = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 780:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 781:             default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 782:               id_fsm_d      = FIRST_CYCLE;</pre>
+<pre style="margin:0; padding:0 "> 783:             end</pre>
+<pre style="margin:0; padding:0 "> 784:           endcase</pre>
+<pre style="margin:0; padding:0 "> 785:         end</pre>
+<pre style="margin:0; padding:0 "> 786: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 787:         MULTI_CYCLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 788:           if(multdiv_en_dec) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 789:             rf_we_raw       = rf_we_dec & ex_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 790:           end</pre>
+<pre style="margin:0; padding:0 "> 791: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 792:           if (multicycle_done & ready_wb_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 793:             id_fsm_d        = FIRST_CYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 794:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 795:             stall_multdiv   = multdiv_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 796:             stall_branch    = branch_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 797:             stall_jump      = jump_in_dec;</pre>
+<pre style="margin:0; padding:0 "> 798:           end</pre>
+<pre style="margin:0; padding:0 "> 799:         end</pre>
+<pre style="margin:0; padding:0 "> 800: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 801:         default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 802:           id_fsm_d          = FIRST_CYCLE;</pre>
+<pre style="margin:0; padding:0 "> 803:         end</pre>
+<pre style="margin:0; padding:0 "> 804:       endcase</pre>
+<pre style="margin:0; padding:0 "> 805:     end</pre>
+<pre style="margin:0; padding:0 "> 806:   end</pre>
+<pre style="margin:0; padding:0 "> 807: </pre>
+<pre style="margin:0; padding:0 "> 808:   // Note for the two-stage configuration ready_wb_i is always set</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 809:   assign multdiv_ready_id_o = ready_wb_i;</pre>
+<pre style="margin:0; padding:0 "> 810: </pre>
+<pre style="margin:0; padding:0 "> 811:   `ASSERT(StallIDIfMulticycle, (id_fsm_q == FIRST_CYCLE) & (id_fsm_d == MULTI_CYCLE) |-> stall_id)</pre>
+<pre style="margin:0; padding:0 "> 812: </pre>
+<pre style="margin:0; padding:0 "> 813:   // Stall ID/EX stage for reason that relates to instruction in ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 814:   assign stall_id = stall_ld_hz | stall_mem | stall_multdiv | stall_jump | stall_branch |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 815:                       stall_alu;</pre>
+<pre style="margin:0; padding:0 "> 816: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 817:   assign instr_done = ~stall_id & ~flush_id & instr_executing;</pre>
+<pre style="margin:0; padding:0 "> 818: </pre>
+<pre style="margin:0; padding:0 "> 819:   if (WritebackStage) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 820:     assign multicycle_done = lsu_req_dec ? ~stall_mem : ex_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 821:   end else begin</pre>
+<pre id="id822" style="background-color: #FFB6C1; margin:0; padding:0 "> 822:     assign multicycle_done = lsu_req_dec ? lsu_resp_valid_i : ex_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 823:   end</pre>
+<pre style="margin:0; padding:0 "> 824: </pre>
+<pre style="margin:0; padding:0 "> 825:   // Signal instruction in ID is in it's first cycle. It can remain in its</pre>
+<pre style="margin:0; padding:0 "> 826:   // first cycle if it is stalled.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 827:   assign instr_first_cycle      = instr_valid_i & (id_fsm_q == FIRST_CYCLE);</pre>
+<pre style="margin:0; padding:0 "> 828:   // Used by RVFI to know when to capture register read data</pre>
+<pre style="margin:0; padding:0 "> 829:   // Used by ALU to access RS3 if ternary instruction.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 830:   assign instr_first_cycle_id_o = instr_first_cycle;</pre>
+<pre style="margin:0; padding:0 "> 831: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 832:   if (WritebackStage) begin : gen_stall_mem</pre>
+<pre style="margin:0; padding:0 "> 833:     // Register read address matches write address in WB</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 834:     logic rf_rd_a_wb_match;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 835:     logic rf_rd_b_wb_match;</pre>
+<pre style="margin:0; padding:0 "> 836:     // Hazard between registers being read and written</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 837:     logic rf_rd_a_hz;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 838:     logic rf_rd_b_hz;</pre>
+<pre style="margin:0; padding:0 "> 839: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 840:     logic outstanding_memory_access;</pre>
+<pre style="margin:0; padding:0 "> 841: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 842:     logic instr_kill;</pre>
+<pre style="margin:0; padding:0 "> 843: </pre>
+<pre style="margin:0; padding:0 "> 844:     // Is a memory access ongoing that isn't finishing this cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 845:     assign outstanding_memory_access = (outstanding_load_wb_i | outstanding_store_wb_i) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 846:                                        ~lsu_resp_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 847: </pre>
+<pre style="margin:0; padding:0 "> 848:     // Can start a new memory access if any previous one has finished or is finishing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 849:     assign data_req_allowed = ~outstanding_memory_access;</pre>
+<pre style="margin:0; padding:0 "> 850: </pre>
+<pre style="margin:0; padding:0 "> 851:     // Instruction won't execute because:</pre>
+<pre style="margin:0; padding:0 "> 852:     // - There is a pending exception in writeback</pre>
+<pre style="margin:0; padding:0 "> 853:     //   The instruction in ID/EX will be flushed and the core will jump to an exception handler</pre>
+<pre style="margin:0; padding:0 "> 854:     // - The controller isn't running instructions</pre>
+<pre style="margin:0; padding:0 "> 855:     //   This either happens in preparation for a flush and jump to an exception handler e.g. in</pre>
+<pre style="margin:0; padding:0 "> 856:     //   response to an IRQ or debug request or whilst the core is sleeping or resetting/fetching</pre>
+<pre style="margin:0; padding:0 "> 857:     //   first instruction in which case any valid instruction in ID/EX should be ignored.</pre>
+<pre style="margin:0; padding:0 "> 858:     // - There was an error on instruction fetch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 859:     assign instr_kill = instr_fetch_err_i |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 860:                         wb_exception      |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 861:                         ~controller_run;</pre>
+<pre style="margin:0; padding:0 "> 862: </pre>
+<pre style="margin:0; padding:0 "> 863:     // With writeback stage instructions must be prevented from executing if there is:</pre>
+<pre style="margin:0; padding:0 "> 864:     // - A load hazard</pre>
+<pre style="margin:0; padding:0 "> 865:     // - A pending memory access</pre>
+<pre style="margin:0; padding:0 "> 866:     //   If it receives an error response this results in a precise exception from WB so ID/EX</pre>
+<pre style="margin:0; padding:0 "> 867:     //   instruction must not execute until error response is known).</pre>
+<pre style="margin:0; padding:0 "> 868:     // - A load/store error</pre>
+<pre style="margin:0; padding:0 "> 869:     //   This will cause a precise exception for the instruction in WB so ID/EX instruction must not</pre>
+<pre style="margin:0; padding:0 "> 870:     //   execute</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 871:     assign instr_executing = instr_valid_i              &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 872:                              ~instr_kill                &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 873:                              ~stall_ld_hz               &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 874:                              ~outstanding_memory_access;</pre>
+<pre style="margin:0; padding:0 "> 875: </pre>
+<pre style="margin:0; padding:0 "> 876:     `ASSERT(IbexStallIfValidInstrNotExecuting,</pre>
+<pre style="margin:0; padding:0 "> 877:       instr_valid_i & ~instr_kill & ~instr_executing |-> stall_id)</pre>
+<pre style="margin:0; padding:0 "> 878: </pre>
+<pre style="margin:0; padding:0 "> 879:     // Stall for reasons related to memory:</pre>
+<pre style="margin:0; padding:0 "> 880:     // * There is an outstanding memory access that won't resolve this cycle (need to wait to allow</pre>
+<pre style="margin:0; padding:0 "> 881:     //   precise exceptions)</pre>
+<pre style="margin:0; padding:0 "> 882:     // * There is a load/store request not being granted or which is unaligned and waiting to issue</pre>
+<pre style="margin:0; padding:0 "> 883:     //   a second request (needs to stay in ID for the address calculation)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 884:     assign stall_mem = instr_valid_i & (outstanding_memory_access | (lsu_req_dec & ~lsu_req_done_i));</pre>
+<pre style="margin:0; padding:0 "> 885: </pre>
+<pre style="margin:0; padding:0 "> 886:     // If we stall a load in ID for any reason, it must not make an LSU request</pre>
+<pre style="margin:0; padding:0 "> 887:     // (otherwide we might issue two requests for the same instruction)</pre>
+<pre style="margin:0; padding:0 "> 888:     `ASSERT(IbexStallMemNoRequest,</pre>
+<pre style="margin:0; padding:0 "> 889:       instr_valid_i & lsu_req_dec & ~instr_done |-> ~lsu_req_done_i)</pre>
+<pre style="margin:0; padding:0 "> 890: </pre>
+<pre style="margin:0; padding:0 "> 891:     // Indicate to the controller that an lsu req is in ID stage - we cannot handle interrupts or</pre>
+<pre style="margin:0; padding:0 "> 892:     // debug requests until the load/store completes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 893:     assign lsu_req_in_id = instr_valid_i & lsu_req_dec;</pre>
+<pre style="margin:0; padding:0 "> 894: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 895:     assign rf_rd_a_wb_match = (rf_waddr_wb_i == rf_raddr_a_o) & |rf_raddr_a_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 896:     assign rf_rd_b_wb_match = (rf_waddr_wb_i == rf_raddr_b_o) & |rf_raddr_b_o;</pre>
+<pre style="margin:0; padding:0 "> 897: </pre>
+<pre style="margin:0; padding:0 "> 898:     // If instruction is reading register that load will be writing stall in</pre>
+<pre style="margin:0; padding:0 "> 899:     // ID until load is complete. No need to stall when reading zero register.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 900:     assign rf_rd_a_hz = rf_rd_a_wb_match & rf_ren_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 901:     assign rf_rd_b_hz = rf_rd_b_wb_match & rf_ren_b;</pre>
+<pre style="margin:0; padding:0 "> 902: </pre>
+<pre style="margin:0; padding:0 "> 903:     // If instruction is read register that writeback is writing forward writeback data to read</pre>
+<pre style="margin:0; padding:0 "> 904:     // data. Note this doesn't factor in load data as it arrives too late, such hazards are</pre>
+<pre style="margin:0; padding:0 "> 905:     // resolved via a stall (see above).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 906:     assign rf_rdata_a_fwd = rf_rd_a_wb_match & rf_write_wb_i ? rf_wdata_fwd_wb_i : rf_rdata_a_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 907:     assign rf_rdata_b_fwd = rf_rd_b_wb_match & rf_write_wb_i ? rf_wdata_fwd_wb_i : rf_rdata_b_i;</pre>
+<pre style="margin:0; padding:0 "> 908: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 909:     assign stall_ld_hz = outstanding_load_wb_i & (rf_rd_a_hz | rf_rd_b_hz);</pre>
+<pre style="margin:0; padding:0 "> 910: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 911:     assign instr_type_wb_o = ~lsu_req_dec ? WB_INSTR_OTHER :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 912:                               lsu_we      ? WB_INSTR_STORE :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 913:                                             WB_INSTR_LOAD;</pre>
+<pre style="margin:0; padding:0 "> 914: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 915:     assign en_wb_o = instr_done;</pre>
+<pre style="margin:0; padding:0 "> 916: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 917:     assign instr_id_done_o = en_wb_o & ready_wb_i;</pre>
+<pre style="margin:0; padding:0 "> 918: </pre>
+<pre style="margin:0; padding:0 "> 919:     // Stall ID/EX as instruction in ID/EX cannot proceed to writeback yet</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 920:     assign stall_wb = en_wb_o & ~ready_wb_i;</pre>
+<pre style="margin:0; padding:0 "> 921: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 922:     assign perf_dside_wait_o = instr_valid_i & ~instr_kill & (outstanding_memory_access | stall_ld_hz);</pre>
+<pre style="margin:0; padding:0 "> 923:   end else begin</pre>
+<pre style="margin:0; padding:0 "> 924: </pre>
+<pre id="id925" style="background-color: #FFB6C1; margin:0; padding:0 "> 925:     assign data_req_allowed = instr_first_cycle;</pre>
+<pre style="margin:0; padding:0 "> 926: </pre>
+<pre style="margin:0; padding:0 "> 927:     // Without Writeback Stage always stall the first cycle of a load/store.</pre>
+<pre style="margin:0; padding:0 "> 928:     // Then stall until it is complete</pre>
+<pre id="id929" style="background-color: #FFB6C1; margin:0; padding:0 "> 929:     assign stall_mem = instr_valid_i & (lsu_req_dec & (~lsu_resp_valid_i | instr_first_cycle));</pre>
+<pre style="margin:0; padding:0 "> 930: </pre>
+<pre style="margin:0; padding:0 "> 931:     // No load hazards without Writeback Stage</pre>
+<pre id="id932" style="background-color: #FFB6C1; margin:0; padding:0 "> 932:     assign stall_ld_hz   = 1'b0;</pre>
+<pre id="id933" style="background-color: #FFB6C1; margin:0; padding:0 "> 933:     assign lsu_req_in_id = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 934: </pre>
+<pre style="margin:0; padding:0 "> 935:     // Without writeback stage any valid instruction that hasn't seen an error will execute</pre>
+<pre id="id936" style="background-color: #FFB6C1; margin:0; padding:0 "> 936:     assign instr_executing = instr_valid_i & ~instr_fetch_err_i & controller_run;</pre>
+<pre style="margin:0; padding:0 "> 937: </pre>
+<pre style="margin:0; padding:0 "> 938:     `ASSERT(IbexStallIfValidInstrNotExecuting,</pre>
+<pre style="margin:0; padding:0 "> 939:       instr_valid_i & ~instr_fetch_err_i & ~instr_executing & controller_run |-> stall_id)</pre>
+<pre style="margin:0; padding:0 "> 940: </pre>
+<pre style="margin:0; padding:0 "> 941:     // No data forwarding without writeback stage so always take source register data direct from</pre>
+<pre style="margin:0; padding:0 "> 942:     // register file</pre>
+<pre id="id943" style="background-color: #FFB6C1; margin:0; padding:0 "> 943:     assign rf_rdata_a_fwd = rf_rdata_a_i;</pre>
+<pre id="id944" style="background-color: #FFB6C1; margin:0; padding:0 "> 944:     assign rf_rdata_b_fwd = rf_rdata_b_i;</pre>
+<pre style="margin:0; padding:0 "> 945: </pre>
+<pre style="margin:0; padding:0 "> 946:     // Unused Writeback stage only IO & wiring</pre>
+<pre style="margin:0; padding:0 "> 947:     // Assign inputs and internal wiring to unused signals to satisfy lint checks</pre>
+<pre style="margin:0; padding:0 "> 948:     // Tie-off outputs to constant values</pre>
+<pre id="id949" style="background-color: #FFB6C1; margin:0; padding:0 "> 949:     logic unused_data_req_done_ex;</pre>
+<pre id="id950" style="background-color: #FFB6C1; margin:0; padding:0 "> 950:     logic unused_lsu_load;</pre>
+<pre id="id951" style="background-color: #FFB6C1; margin:0; padding:0 "> 951:     logic [4:0] unused_rf_waddr_wb;</pre>
+<pre id="id952" style="background-color: #FFB6C1; margin:0; padding:0 "> 952:     logic unused_rf_write_wb;</pre>
+<pre id="id953" style="background-color: #FFB6C1; margin:0; padding:0 "> 953:     logic unused_outstanding_load_wb;</pre>
+<pre id="id954" style="background-color: #FFB6C1; margin:0; padding:0 "> 954:     logic unused_outstanding_store_wb;</pre>
+<pre id="id955" style="background-color: #FFB6C1; margin:0; padding:0 "> 955:     logic unused_wb_exception;</pre>
+<pre id="id956" style="background-color: #FFB6C1; margin:0; padding:0 "> 956:     logic unused_rf_ren_a, unused_rf_ren_b;</pre>
+<pre id="id957" style="background-color: #FFB6C1; margin:0; padding:0 "> 957:     logic [31:0] unused_rf_wdata_fwd_wb;</pre>
+<pre style="margin:0; padding:0 "> 958: </pre>
+<pre id="id959" style="background-color: #FFB6C1; margin:0; padding:0 "> 959:     assign unused_data_req_done_ex     = lsu_req_done_i;</pre>
+<pre id="id960" style="background-color: #FFB6C1; margin:0; padding:0 "> 960:     assign unused_rf_waddr_wb          = rf_waddr_wb_i;</pre>
+<pre id="id961" style="background-color: #FFB6C1; margin:0; padding:0 "> 961:     assign unused_rf_write_wb          = rf_write_wb_i;</pre>
+<pre id="id962" style="background-color: #FFB6C1; margin:0; padding:0 "> 962:     assign unused_outstanding_load_wb  = outstanding_load_wb_i;</pre>
+<pre id="id963" style="background-color: #FFB6C1; margin:0; padding:0 "> 963:     assign unused_outstanding_store_wb = outstanding_store_wb_i;</pre>
+<pre id="id964" style="background-color: #FFB6C1; margin:0; padding:0 "> 964:     assign unused_wb_exception         = wb_exception;</pre>
+<pre id="id965" style="background-color: #FFB6C1; margin:0; padding:0 "> 965:     assign unused_rf_ren_a             = rf_ren_a;</pre>
+<pre id="id966" style="background-color: #FFB6C1; margin:0; padding:0 "> 966:     assign unused_rf_ren_b             = rf_ren_b;</pre>
+<pre id="id967" style="background-color: #FFB6C1; margin:0; padding:0 "> 967:     assign unused_rf_wdata_fwd_wb      = rf_wdata_fwd_wb_i;</pre>
+<pre style="margin:0; padding:0 "> 968: </pre>
+<pre id="id969" style="background-color: #FFB6C1; margin:0; padding:0 "> 969:     assign instr_type_wb_o = WB_INSTR_OTHER;</pre>
+<pre id="id970" style="background-color: #FFB6C1; margin:0; padding:0 "> 970:     assign stall_wb        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 971: </pre>
+<pre id="id972" style="background-color: #FFB6C1; margin:0; padding:0 "> 972:     assign perf_dside_wait_o = instr_executing & lsu_req_dec & ~lsu_resp_valid_i;</pre>
+<pre style="margin:0; padding:0 "> 973: </pre>
+<pre id="id974" style="background-color: #FFB6C1; margin:0; padding:0 "> 974:     assign en_wb_o         = 1'b0;</pre>
+<pre id="id975" style="background-color: #FFB6C1; margin:0; padding:0 "> 975:     assign instr_id_done_o = instr_done;</pre>
+<pre style="margin:0; padding:0 "> 976:   end</pre>
+<pre style="margin:0; padding:0 "> 977: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 978:   assign perf_mul_wait_o = stall_multdiv & mult_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 979:   assign perf_div_wait_o = stall_multdiv & div_en_dec;</pre>
+<pre style="margin:0; padding:0 "> 980: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 981:   assign instr_id_done_compressed_o = instr_id_done_o & instr_is_compressed_i;</pre>
+<pre style="margin:0; padding:0 "> 982: </pre>
+<pre style="margin:0; padding:0 "> 983:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 984:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 985:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 986: </pre>
+<pre style="margin:0; padding:0 "> 987:   // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 "> 988:   `ASSERT_KNOWN_IF(IbexAluOpMuxSelKnown, alu_op_a_mux_sel, instr_valid_i)</pre>
+<pre style="margin:0; padding:0 "> 989:   `ASSERT(IbexAluAOpMuxSelValid, instr_valid_i |-> alu_op_a_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 990:       OP_A_REG_A,</pre>
+<pre style="margin:0; padding:0 "> 991:       OP_A_FWD,</pre>
+<pre style="margin:0; padding:0 "> 992:       OP_A_CURRPC,</pre>
+<pre style="margin:0; padding:0 "> 993:       OP_A_IMM})</pre>
+<pre style="margin:0; padding:0 "> 994:   `ASSERT_KNOWN_IF(IbexBTAluAOpMuxSelKnown, bt_a_mux_sel, instr_valid_i)</pre>
+<pre style="margin:0; padding:0 "> 995:   `ASSERT(IbexBTAluAOpMuxSelValid, instr_valid_i |-> bt_a_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 "> 996:       OP_A_REG_A,</pre>
+<pre style="margin:0; padding:0 "> 997:       OP_A_CURRPC})</pre>
+<pre style="margin:0; padding:0 "> 998:   `ASSERT_KNOWN_IF(IbexBTAluBOpMuxSelKnown, bt_b_mux_sel, instr_valid_i)</pre>
+<pre style="margin:0; padding:0 "> 999:   `ASSERT(IbexBTAluBOpMuxSelValid, instr_valid_i |-> bt_b_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 ">1000:       IMM_B_I,</pre>
+<pre style="margin:0; padding:0 ">1001:       IMM_B_B,</pre>
+<pre style="margin:0; padding:0 ">1002:       IMM_B_J,</pre>
+<pre style="margin:0; padding:0 ">1003:       IMM_B_INCR_PC})</pre>
+<pre style="margin:0; padding:0 ">1004:   `ASSERT(IbexRegfileWdataSelValid, instr_valid_i |-> rf_wdata_sel inside {</pre>
+<pre style="margin:0; padding:0 ">1005:       RF_WD_EX,</pre>
+<pre style="margin:0; padding:0 ">1006:       RF_WD_CSR})</pre>
+<pre style="margin:0; padding:0 ">1007:   `ASSERT_KNOWN(IbexWbStateKnown, id_fsm_q)</pre>
+<pre style="margin:0; padding:0 ">1008: </pre>
+<pre style="margin:0; padding:0 ">1009:   // Branch decision must be valid when jumping.</pre>
+<pre style="margin:0; padding:0 ">1010:   `ASSERT_KNOWN_IF(IbexBranchDecisionValid, branch_decision_i,</pre>
+<pre style="margin:0; padding:0 ">1011:       instr_valid_i && !(illegal_csr_insn_i || instr_fetch_err_i))</pre>
+<pre style="margin:0; padding:0 ">1012: </pre>
+<pre style="margin:0; padding:0 ">1013:   // Instruction delivered to ID stage can not contain X.</pre>
+<pre style="margin:0; padding:0 ">1014:   `ASSERT_KNOWN_IF(IbexIdInstrKnown, instr_rdata_i,</pre>
+<pre style="margin:0; padding:0 ">1015:       instr_valid_i && !(illegal_c_insn_i || instr_fetch_err_i))</pre>
+<pre style="margin:0; padding:0 ">1016: </pre>
+<pre style="margin:0; padding:0 ">1017:   // Instruction delivered to ID stage can not contain X.</pre>
+<pre style="margin:0; padding:0 ">1018:   `ASSERT_KNOWN_IF(IbexIdInstrALUKnown, instr_rdata_alu_i,</pre>
+<pre style="margin:0; padding:0 ">1019:       instr_valid_i && !(illegal_c_insn_i || instr_fetch_err_i))</pre>
+<pre style="margin:0; padding:0 ">1020: </pre>
+<pre style="margin:0; padding:0 ">1021:   // Multicycle enable signals must be unique.</pre>
+<pre style="margin:0; padding:0 ">1022:   `ASSERT(IbexMulticycleEnableUnique,</pre>
+<pre style="margin:0; padding:0 ">1023:       $onehot0({lsu_req_dec, multdiv_en_dec, branch_in_dec, jump_in_dec}))</pre>
+<pre style="margin:0; padding:0 ">1024: </pre>
+<pre style="margin:0; padding:0 ">1025:   // Duplicated instruction flops must match</pre>
+<pre style="margin:0; padding:0 ">1026:   // === as DV environment can produce instructions with Xs in, so must use precise match that</pre>
+<pre style="margin:0; padding:0 ">1027:   // includes Xs</pre>
+<pre style="margin:0; padding:0 ">1028:   `ASSERT(IbexDuplicateInstrMatch, instr_valid_i |-> instr_rdata_i === instr_rdata_alu_i)</pre>
+<pre style="margin:0; padding:0 ">1029: </pre>
+<pre style="margin:0; padding:0 ">1030:   `ifdef CHECK_MISALIGNED</pre>
+<pre style="margin:0; padding:0 ">1031:   `ASSERT(IbexMisalignedMemoryAccess, !lsu_addr_incr_req_i)</pre>
+<pre style="margin:0; padding:0 ">1032:   `endif</pre>
+<pre style="margin:0; padding:0 ">1033: </pre>
+<pre style="margin:0; padding:0 ">1034: endmodule</pre>
+<pre style="margin:0; padding:0 ">1035: </pre>
+</body>
+</html>

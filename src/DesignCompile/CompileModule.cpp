@@ -46,8 +46,6 @@
 
 using namespace SURELOG;
 
-CompileModule::~CompileModule() {}
-
 int FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(m_compileDesign, m_module,
                                               m_design, m_symbols, m_errors, m_instance);
@@ -57,7 +55,7 @@ int FunctorCompileModule::operator()() const {
 }
 
 bool CompileModule::compile() {
-  FileContent* fC = m_module->m_fileContents[0];
+  const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
                fC->Line(nodeId), 0,
@@ -104,7 +102,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
-    case VObjectType::slLoop_generate_construct:  
+    case VObjectType::slLoop_generate_construct:
     case VObjectType::slConditional_generate_construct:
     case VObjectType::slGenerate_item:
     case VObjectType::slGenerate_block:
@@ -141,18 +139,20 @@ bool CompileModule::collectModuleObjects_() {
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration,
-      VObjectType::slClass_declaration};
+      VObjectType::slClass_declaration,
+      VObjectType::slFunction_body_declaration,
+      VObjectType::slTask_body_declaration};
 
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
-    FileContent* fC = m_module->m_fileContents[i];
+    const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
-    
+
     NodeId endOfBlockId = 0;
     if (m_module->getGenBlockId()) {
       id = m_module->getGenBlockId();
-      NodeId tmp = id; 
+      NodeId tmp = id;
       if (fC->Type(id) == VObjectType::slGenerate_block) {
         tmp = fC->Child(tmp);
       }
@@ -177,7 +177,7 @@ bool CompileModule::collectModuleObjects_() {
     }
 
     for (auto pack_import : pack_imports) {
-      FileContent* pack_fC = pack_import.fC;
+      const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
       m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
     }
@@ -204,7 +204,7 @@ bool CompileModule::collectModuleObjects_() {
         }
         case VObjectType::slPort: {
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
-          break;  
+          break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
@@ -216,11 +216,11 @@ bool CompileModule::collectModuleObjects_() {
           compileClockingBlock_(fC, id);
           break;
         case VObjectType::slNet_declaration: {
-          m_helper.compileNetDeclaration(m_module, fC, id, false);
+          m_helper.compileNetDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
-          m_helper.compileDataDeclaration(m_module, m_module, fC,id, false, m_compileDesign);
+          m_helper.compileDataDeclaration(m_module, fC,id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -229,7 +229,7 @@ bool CompileModule::collectModuleObjects_() {
         }
         case VObjectType::slContinuous_assign:
         {
-          m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
           break;
         }
         case VObjectType::slAlways_construct:
@@ -253,7 +253,7 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
-        case VObjectType::slParam_assignment: 
+        case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
         case VObjectType::slN_output_gate_instance:
@@ -276,6 +276,9 @@ bool CompileModule::collectModuleObjects_() {
         case VObjectType::slInitial_construct:
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
+        case VObjectType::slFinal_construct:
+          m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          break; 
         default:
           break;
       }
@@ -317,7 +320,7 @@ bool CompileModule::collectModuleObjects_() {
 
 bool CompileModule::collectInterfaceObjects_() {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
-    FileContent* fC = m_module->m_fileContents[i];
+    const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
@@ -332,7 +335,7 @@ bool CompileModule::collectInterfaceObjects_() {
     }
 
     for (auto pack_import : pack_imports) {
-      FileContent* pack_fC = pack_import.fC;
+      const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
       m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
     }
@@ -358,17 +361,17 @@ bool CompileModule::collectInterfaceObjects_() {
       }
       case VObjectType::slNet_declaration:
       {
-        m_helper.compileNetDeclaration(m_module, fC, id, true);
+        m_helper.compileNetDeclaration(m_module, fC, id, true, m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration:
       {
-        m_helper.compileDataDeclaration(m_module, m_module, fC,id, true, m_compileDesign);
+        m_helper.compileDataDeclaration(m_module, fC,id, true, m_compileDesign);
         break;
       }
       case VObjectType::slContinuous_assign:
       {
-        m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+        m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
         break;
       }
       case VObjectType::slTask_declaration: {
@@ -410,77 +413,78 @@ bool CompileModule::collectInterfaceObjects_() {
          n<> u<55> t<Modport_ports_declaration> p<56> c<54> l<43>
          n<> u<56> t<Modport_item> p<57> c<45> l<43>
          */
-      {
-        NodeId modportname = fC->Child(id);
-        const std::string& modportsymb = fC->SymName(modportname);
-        NodeId modport_ports_declaration = fC->Sibling(modportname);
-        VObjectType port_direction_type = VObjectType::slNoType;
-        while (modport_ports_declaration) {
-          NodeId port_declaration = fC->Child(modport_ports_declaration);
-          VObjectType port_declaration_type = fC->Type(port_declaration);
-          if (port_declaration_type ==
-                  VObjectType::slModport_simple_ports_declaration) {
-            NodeId port_direction = fC->Child(port_declaration);
-            port_direction_type = fC->Type(port_direction);
-            NodeId modport_simple_port = fC->Sibling(port_direction);
-            while (modport_simple_port) {
-              NodeId simple_port_name = fC->Child(modport_simple_port);
-              SymbolId port_symbol = fC->Name(simple_port_name);
-              bool port_exists = false;
-              for (auto& port : m_module->m_signals) {
-                if (fC->Name(port->getNodeId()) == port_symbol) {
-                  port_exists = true;
-                  break;
+        {
+          NodeId modportname = fC->Child(id);
+          const std::string& modportsymb = fC->SymName(modportname);
+          NodeId modport_ports_declaration = fC->Sibling(modportname);
+          VObjectType port_direction_type = VObjectType::slNoType;
+          while (modport_ports_declaration) {
+            NodeId port_declaration = fC->Child(modport_ports_declaration);
+            VObjectType port_declaration_type = fC->Type(port_declaration);
+            if (port_declaration_type ==
+                VObjectType::slModport_simple_ports_declaration) {
+              NodeId port_direction = fC->Child(port_declaration);
+              port_direction_type = fC->Type(port_direction);
+              NodeId modport_simple_port = fC->Sibling(port_direction);
+              while (modport_simple_port) {
+                NodeId simple_port_name = fC->Child(modport_simple_port);
+                SymbolId port_symbol = fC->Name(simple_port_name);
+                bool port_exists = false;
+                for (auto& port : m_module->m_signals) {
+                  if (fC->Name(port->getNodeId()) == port_symbol) {
+                    port_exists = true;
+                    break;
+                  }
                 }
+                if (!port_exists) {
+                  Location loc(
+                      m_symbols->registerSymbol(
+                          fC->getFileName(simple_port_name)),
+                      fC->Line(simple_port_name), 0,
+                      m_symbols->registerSymbol(fC->SymName(simple_port_name)));
+                  Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT, loc);
+                  m_errors->addError(err);
+                }
+                Signal signal(fC, simple_port_name,
+                              VObjectType::slData_type_or_implicit,
+                              port_direction_type, 0, false);
+                m_module->insertModPort(modportsymb, signal);
+                modport_simple_port = fC->Sibling(modport_simple_port);
               }
-              if (!port_exists) {
-                Location loc(m_symbols->registerSymbol(
-                        fC->getFileName(simple_port_name)),
-                        fC->Line(simple_port_name), 0,
-                        m_symbols->registerSymbol(
-                        fC->SymName(simple_port_name)));
-                Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
-                        loc);
-                m_errors->addError(err);
-              }
-              Signal signal(fC, simple_port_name,
-                      VObjectType::slData_type_or_implicit,
-                      port_direction_type);
-              m_module->insertModPort(modportsymb, signal);
-              modport_simple_port = fC->Sibling(modport_simple_port);
-            }
-          } else if (port_declaration_type ==
-                  VObjectType::
-                  slModport_hierarchical_ports_declaration) {
-          } else if (port_declaration_type ==
-                  VObjectType::slModport_tf_ports_declaration) {
-          } else {
-            // CLOCKING
-            NodeId clocking_block_name = port_declaration;
-            SymbolId clocking_block_symbol =
-                    m_symbols->registerSymbol(fC->SymName(clocking_block_name));
-            ClockingBlock* cb =
-                    m_module->getClockingBlock(clocking_block_symbol);
-            if (cb == NULL) {
-              Location loc(m_symbols->registerSymbol(
-                      fC->getFileName(clocking_block_name)),
-                      fC->Line(clocking_block_name), 0,
-                      clocking_block_symbol);
-              Error err(
-                      ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
-                      loc);
-              m_errors->addError(err);
+            } else if (port_declaration_type ==
+                       VObjectType::slModport_hierarchical_ports_declaration) {
+            } else if (port_declaration_type ==
+                       VObjectType::slModport_tf_ports_declaration) {
             } else {
-              m_module->insertModPort(modportsymb, *cb);
+              // CLOCKING
+              NodeId clocking_block_name = port_declaration;
+              SymbolId clocking_block_symbol =
+                  m_symbols->registerSymbol(fC->SymName(clocking_block_name));
+              ClockingBlock* cb =
+                  m_module->getClockingBlock(clocking_block_symbol);
+              if (cb == NULL) {
+                Location loc(m_symbols->registerSymbol(
+                                 fC->getFileName(clocking_block_name)),
+                             fC->Line(clocking_block_name), 0,
+                             clocking_block_symbol);
+                Error err(
+                    ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
+                    loc);
+                m_errors->addError(err);
+              } else {
+               m_module->insertModPort(modportsymb, *cb);
+              }
             }
+            modport_ports_declaration = fC->Sibling(modport_ports_declaration);
           }
-          modport_ports_declaration =
-                  fC->Sibling(modport_ports_declaration);
         }
-      }
+        break;
       case VObjectType::slInitial_construct:
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
+      case VObjectType::slFinal_construct:
+        m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+        break;  
       case VObjectType::slParameter_declaration: {
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
         break;
@@ -494,7 +498,7 @@ bool CompileModule::collectInterfaceObjects_() {
         FileCNodeId fnid(fC, id);
        m_module->addObject(type, fnid);
         break;
-      }  
+      }
       default:
         break;
       }
@@ -615,7 +619,7 @@ bool CompileModule::checkInterface_() {
   return true;
 }
 
-void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
+void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   /*
     n<cb> u<12> t<StringConst> p<21> s<20> l<39>
     n<> u<13> t<Edge_Posedge> p<19> s<18> l<39>
@@ -636,4 +640,3 @@ void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
   ClockingBlock cb(fC, clocking_block_name, clocking_event);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
-

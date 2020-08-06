@@ -1,7 +1,6 @@
 /*
 :name: virtual_method
 :description: class with virtual methods
-:should_fail: 0
 :tags: 8.20
 */
 module class_tb ();

@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_alu.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Arithmetic logic unit</pre>
+<pre style="margin:0; padding:0 ">   8:  */</pre>
+<pre style="margin:0; padding:0 ">   9: module ibex_alu (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     input  ibex_pkg::alu_op_e operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     input  logic [31:0]       operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     input  logic [31:0]       operand_b_i,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     input  logic [32:0]       multdiv_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     input  logic [32:0]       multdiv_operand_b_i,</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     input  logic              multdiv_en_i,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     output logic [31:0]       adder_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     output logic [33:0]       adder_result_ext_o,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     output logic [31:0]       result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     output logic              comparison_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     output logic              is_equal_result_o</pre>
+<pre style="margin:0; padding:0 ">  25: );</pre>
+<pre style="margin:0; padding:0 ">  26:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   logic [31:0] operand_a_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic [32:0] operand_b_neg;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   // bit reverse operand_a for left shifts and bit counting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   for (genvar k = 0; k < 32; k++) begin : gen_rev_operand_a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     assign operand_a_rev[k] = operand_a_i[31-k];</pre>
+<pre style="margin:0; padding:0 ">  34:   end</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   ///////////</pre>
+<pre style="margin:0; padding:0 ">  37:   // Adder //</pre>
+<pre style="margin:0; padding:0 ">  38:   ///////////</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic        adder_op_b_negate;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic [32:0] adder_in_a, adder_in_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [31:0] adder_result;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     adder_op_b_negate = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 ">  48:       // Adder OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       ALU_SUB,</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:       // Comparator OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:       ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:       ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       ALU_SLT,  ALU_SLTU: adder_op_b_negate = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       default:;</pre>
+<pre style="margin:0; padding:0 ">  58:     endcase</pre>
+<pre style="margin:0; padding:0 ">  59:   end</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // prepare operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign adder_in_a    = multdiv_en_i ? multdiv_operand_a_i : {operand_a_i,1'b1};</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // prepare operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign operand_b_neg = {operand_b_i,1'b0} ^ {33{adder_op_b_negate}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign adder_in_b    = multdiv_en_i ? multdiv_operand_b_i : operand_b_neg ;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:   // actual adder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   assign adder_result_ext_o = $unsigned(adder_in_a) + $unsigned(adder_in_b);</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   assign adder_result       = adder_result_ext_o[32:1];</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   assign adder_result_o     = adder_result;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:   ///////////</pre>
+<pre style="margin:0; padding:0 ">  76:   // Shift //</pre>
+<pre style="margin:0; padding:0 ">  77:   ///////////</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic        shift_left;         // should we shift left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic        shift_arithmetic;</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic  [4:0] shift_amt;          // amount of shift, to the right</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic [31:0] shift_op_a;         // input of the shifter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic [31:0] shift_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   logic [31:0] shift_right_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic [31:0] shift_left_result;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   assign shift_amt = operand_b_i[4:0];</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   assign shift_left = (operator_i == ALU_SLL);</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   assign shift_arithmetic = (operator_i == ALU_SRA);</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:   // choose the bit reversed or the normal input for shift operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   assign shift_op_a    = shift_left ? operand_a_rev : operand_a_i;</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="margin:0; padding:0 ">  97:   // right shifts, we let the synthesizer optimize this</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic [32:0] shift_op_a_32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign shift_op_a_32 = {shift_arithmetic & shift_op_a[31], shift_op_a};</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // The MSB of shift_right_result_ext can safely be ignored. We just extend the input to always</pre>
+<pre style="margin:0; padding:0 "> 102:   // do arithmetic shifts.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   logic signed [32:0] shift_right_result_signed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic        [32:0] shift_right_result_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign shift_right_result_signed = $signed(shift_op_a_32) >>> shift_amt[4:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign shift_right_result_ext    = $unsigned(shift_right_result_signed);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign shift_right_result        = shift_right_result_ext[31:0];</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   // bit reverse the shift_right_result for left shifts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   for (genvar j = 0; j < 32; j++) begin : gen_rev_shift_right_result</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     assign shift_left_result[j] = shift_right_result[31-j];</pre>
+<pre style="margin:0; padding:0 "> 112:   end</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign shift_result = shift_left ? shift_left_result : shift_right_result;</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 117:   // Comparison //</pre>
+<pre style="margin:0; padding:0 "> 118:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   logic is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic is_greater_equal;  // handles both signed and unsigned forms</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   logic cmp_signed;</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     cmp_signed = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 126: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       ALU_GE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       ALU_LT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       ALU_SLT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:         cmp_signed = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 132:       end</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       default:;</pre>
+<pre style="margin:0; padding:0 "> 135:     endcase</pre>
+<pre style="margin:0; padding:0 "> 136:   end</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   assign is_equal = (adder_result == 32'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   assign is_equal_result_o = is_equal;</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="margin:0; padding:0 "> 141:   // Is greater equal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     if ((operand_a_i[31] ^ operand_b_i[31]) == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       is_greater_equal = (adder_result[31] == 1'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       is_greater_equal = operand_a_i[31] ^ (cmp_signed);</pre>
+<pre style="margin:0; padding:0 "> 147:     end</pre>
+<pre style="margin:0; padding:0 "> 148:   end</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="margin:0; padding:0 "> 150:   // GTE unsigned:</pre>
+<pre style="margin:0; padding:0 "> 151:   // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 "> 152:   // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 "> 153:   // (a[31] == 1 && b[31] == 0) => 1</pre>
+<pre style="margin:0; padding:0 "> 154:   // (a[31] == 0 && b[31] == 1) => 0</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:   // GTE signed:</pre>
+<pre style="margin:0; padding:0 "> 157:   // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 "> 158:   // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 "> 159:   // (a[31] == 1 && b[31] == 0) => 0</pre>
+<pre style="margin:0; padding:0 "> 160:   // (a[31] == 0 && b[31] == 1) => 1</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="margin:0; padding:0 "> 162:   // generate comparison result</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   logic cmp_result;</pre>
+<pre style="margin:0; padding:0 "> 164: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     cmp_result = is_equal;</pre>
+<pre style="margin:0; padding:0 "> 167: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       ALU_EQ:            cmp_result =  is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       ALU_NE:            cmp_result = ~is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:       ALU_GE,  ALU_GEU:  cmp_result = is_greater_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       ALU_LT,  ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       ALU_SLT, ALU_SLTU: cmp_result = ~is_greater_equal;</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       default:;</pre>
+<pre style="margin:0; padding:0 "> 176:     endcase</pre>
+<pre style="margin:0; padding:0 "> 177:   end</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   assign comparison_result_o = cmp_result;</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 182:   // Result mux //</pre>
+<pre style="margin:0; padding:0 "> 183:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     result_o   = '0;</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 "> 189:       // Standard Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       ALU_AND:  result_o = operand_a_i & operand_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       ALU_OR:   result_o = operand_a_i | operand_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       ALU_XOR:  result_o = operand_a_i ^ operand_b_i;</pre>
+<pre style="margin:0; padding:0 "> 193: </pre>
+<pre style="margin:0; padding:0 "> 194:       // Adder Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       ALU_ADD, ALU_SUB: result_o = adder_result;</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="margin:0; padding:0 "> 197:       // Shift Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       ALU_SLL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       ALU_SRL, ALU_SRA: result_o = shift_result;</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="margin:0; padding:0 "> 201:       // Comparison Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:       ALU_SLT,  ALU_SLTU: result_o = {31'h0,cmp_result};</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       default:;</pre>
+<pre style="margin:0; padding:0 "> 208:     endcase</pre>
+<pre style="margin:0; padding:0 "> 209:   end</pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="margin:0; padding:0 "> 211: endmodule</pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+</body>
+</html>

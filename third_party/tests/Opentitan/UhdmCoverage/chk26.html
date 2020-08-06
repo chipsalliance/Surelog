@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_clock_mux2.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: module prim_generic_clock_mux2 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   input        clk0_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   input        clk1_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input        sel_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   output logic clk_o</pre>
+<pre style="margin:0; padding:0 ">  10: );</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   assign clk_o = (sel_i) ? clk1_i : clk0_i;</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // make sure sel is never X (including during reset)</pre>
+<pre style="margin:0; padding:0 ">  15:   // need to use ##1 as this could break with inverted clocks that</pre>
+<pre style="margin:0; padding:0 ">  16:   // start with a rising edge at the beginning of the simulation.</pre>
+<pre style="margin:0; padding:0 ">  17:   `ASSERT(selKnown0, ##1 !$isunknown(sel_i), clk0_i, 0)</pre>
+<pre style="margin:0; padding:0 ">  18:   `ASSERT(selKnown1, ##1 !$isunknown(sel_i), clk1_i, 0)</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: endmodule : prim_generic_clock_mux2</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+</body>
+</html>

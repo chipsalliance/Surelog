@@ -56,7 +56,7 @@ int FunctorCompileProgram::operator()() const {
 }
 
 bool CompileProgram::compile() {
-  FileContent* fC = m_program->m_fileContents[0];
+  const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
 
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
@@ -94,7 +94,7 @@ bool CompileProgram::compile() {
   }
 
   for (auto pack_import : pack_imports) {
-    FileContent* pack_fC = pack_import.fC;
+    const FileContent* pack_fC = pack_import.fC;
     NodeId pack_id = pack_import.nodeId;
     m_helper.importPackage(m_program, m_design, pack_fC, pack_id);
   }
@@ -145,7 +145,7 @@ bool CompileProgram::compile() {
     }
     case VObjectType::slContinuous_assign:
     {
-      m_helper.compileContinuousAssignment(m_program, fC, id, m_compileDesign);
+      m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id), m_compileDesign);
       break;
     }
     case VObjectType::slClass_declaration:
@@ -164,12 +164,12 @@ bool CompileProgram::compile() {
     }
     case VObjectType::slNet_declaration:
     {
-      m_helper.compileNetDeclaration(m_program, fC, id, false);
+      m_helper.compileNetDeclaration(m_program, fC, id, false, m_compileDesign);
       break;
     }
     case VObjectType::slData_declaration:
     {
-      m_helper.compileDataDeclaration(m_program, m_program, fC, id, false, m_compileDesign);
+      m_helper.compileDataDeclaration(m_program, fC, id, false, m_compileDesign);
       break;
     }
     case VObjectType::slInitial_construct:
@@ -180,7 +180,7 @@ bool CompileProgram::compile() {
       FileCNodeId fnid(fC, id);
       m_program->addObject(type, fnid);
       break;
-    }   
+    }
     default:
       break;
     }

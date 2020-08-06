@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/pulp_riscv_dbg/src/dmi_cdc.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">   2: * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">   3: * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">   4: * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">   5: * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">   6: * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">   7: * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">   8: * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">   9: * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">  10: *</pre>
+<pre style="margin:0; padding:0 ">  11: * File:   axi_riscv_debug_module.sv</pre>
+<pre style="margin:0; padding:0 ">  12: * Author: Andreas Traber <atraber@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  13: * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  14: *</pre>
+<pre style="margin:0; padding:0 ">  15: * Description: Clock domain crossings for JTAG to DMI very heavily based</pre>
+<pre style="margin:0; padding:0 ">  16: *              on previous work by Andreas Traber for the PULP project.</pre>
+<pre style="margin:0; padding:0 ">  17: *              This is mainly a wrapper around the existing CDCs.</pre>
+<pre style="margin:0; padding:0 ">  18: */</pre>
+<pre style="margin:0; padding:0 ">  19: module dmi_cdc (</pre>
+<pre style="margin:0; padding:0 ">  20:   // JTAG side (master side)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input  logic             tck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  logic             trst_ni,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  dm::dmi_req_t     jtag_dmi_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic             jtag_dmi_ready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic             jtag_dmi_valid_i,</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output dm::dmi_resp_t    jtag_dmi_resp_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic             jtag_dmi_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic             jtag_dmi_ready_i,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // core side (slave side)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic             rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output dm::dmi_req_t     core_dmi_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic             core_dmi_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input  logic             core_dmi_ready_i,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input dm::dmi_resp_t     core_dmi_resp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic             core_dmi_ready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input  logic             core_dmi_valid_i</pre>
+<pre style="margin:0; padding:0 ">  43: );</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   // TODO: Make it clean for synthesis.</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   prim_fifo_async #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .Width( $bits(dm::dmi_req_t) ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .Depth( 4 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   ) i_cdc_req (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     .clk_wr_i    ( tck_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     .rst_wr_ni   ( trst_ni          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     .wvalid      ( jtag_dmi_valid_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .wready      ( jtag_dmi_ready_o ), // wrclk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     .wdata       ( jtag_dmi_req_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .wdepth      (                  ),</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .clk_rd_i    ( clk_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .rst_rd_ni   ( rst_ni           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .rvalid      ( core_dmi_valid_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .rready      ( core_dmi_ready_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .rdata       ( core_dmi_req_o   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .rdepth      (                  )</pre>
+<pre style="margin:0; padding:0 ">  64:   );</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   prim_fifo_async #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .Width( $bits(dm::dmi_resp_t) ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     .Depth( 4 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   ) i_cdc_resp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .clk_wr_i    ( clk_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .rst_wr_ni   ( rst_ni           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .wvalid      ( core_dmi_valid_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .wready      ( core_dmi_ready_o ), // wrclk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .wdata       ( core_dmi_resp_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .wdepth      (                  ),</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .clk_rd_i    ( tck_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     .rst_rd_ni   ( trst_ni          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .rvalid      ( jtag_dmi_valid_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .rready      ( jtag_dmi_ready_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .rdata       ( jtag_dmi_resp_o  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .rdepth      (                  )</pre>
+<pre style="margin:0; padding:0 ">  83:   );</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: endmodule : dmi_cdc</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+</body>
+</html>

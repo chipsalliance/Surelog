@@ -42,10 +42,6 @@
 
 using namespace SURELOG;
 
-Design::Design(const Design& orig) {}
-
-Design::~Design() {}
-
 static std::mutex m;
 void Design::addFileContent(SymbolId fileId, FileContent* content) {
   m.lock();
@@ -79,7 +75,7 @@ ModuleDefinition* Design::getModuleDefinition(const std::string& moduleName) {
   return NULL;
 }
 
-std::string Design::reportInstanceTree() {
+std::string Design::reportInstanceTree() const {
   std::string tree;
   ModuleInstance* tmp;
   std::queue<ModuleInstance*> queue;
@@ -194,7 +190,8 @@ void Design::reportInstanceTreeStats(unsigned int& nbTopLevelModules,
   nbUndefinedModules = undefModules.size();
 }
 
-ModuleInstance* Design::findInstance(std::string path, ModuleInstance* scope) {
+ModuleInstance* Design::findInstance(const std::string& path,
+                                     ModuleInstance* scope) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(path, ".", vpath);
   return findInstance(vpath, scope);
@@ -254,7 +251,7 @@ ModuleInstance* Design::findInstance_(std::vector<std::string>& path,
   return NULL;
 }
 
-DefParam* Design::getDefParam(std::string name) {
+DefParam* Design::getDefParam(const std::string& name) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
   std::map<std::string, DefParam*>::iterator itr = m_defParams.find(vpath[0]);
@@ -265,7 +262,7 @@ DefParam* Design::getDefParam(std::string name) {
   return NULL;
 }
 
-Value* Design::getDefParamValue(std::string name) {
+Value* Design::getDefParamValue(const std::string& name) {
   DefParam* def = getDefParam(name);
   if (def) return def->getValue();
   return NULL;
@@ -285,8 +282,8 @@ DefParam* Design::getDefParam_(std::vector<std::string>& path,
   return NULL;
 }
 
-void Design::addDefParam(std::string name, FileContent* fC, NodeId nodeId,
-                         Value* value) {
+void Design::addDefParam(const std::string& name, const FileContent* fC,
+                         NodeId nodeId, Value* value) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
   std::map<std::string, DefParam*>::iterator itr = m_defParams.find(vpath[0]);
@@ -301,7 +298,8 @@ void Design::addDefParam(std::string name, FileContent* fC, NodeId nodeId,
   }
 }
 
-void Design::addDefParam_(std::vector<std::string>& path, FileContent* fC,
+void Design::addDefParam_(std::vector<std::string>& path,
+                          const FileContent* fC,
                           NodeId nodeId, Value* value, DefParam* parent) {
   if (path.size() == 0) {
     parent->setValue(value);
@@ -372,7 +370,7 @@ void Design::checkDefParamUsage(DefParam* parent) {
   }
 }
 
-Package* Design::getPackage(std::string name) {
+Package* Design::getPackage(const std::string& name) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(name);
   if (itr == m_packageDefinitions.end()) {
@@ -382,7 +380,7 @@ Package* Design::getPackage(std::string name) {
   }
 }
 
-Program* Design::getProgram(std::string name) {
+Program* Design::getProgram(const std::string& name) {
   ProgramNameProgramDefinitionMap::iterator itr =
       m_programDefinitions.find(name);
   if (itr == m_programDefinitions.end()) {
@@ -392,7 +390,7 @@ Program* Design::getProgram(std::string name) {
   }
 }
 
-ClassDefinition* Design::getClassDefinition(std::string name) {
+ClassDefinition* Design::getClassDefinition(const std::string& name) {
   ClassNameClassDefinitionMap::iterator itr =
       m_uniqueClassDefinitions.find(name);
   if (itr == m_uniqueClassDefinitions.end()) {
@@ -435,7 +433,7 @@ void Design::orderPackages() {
   }
 }
 
-Package* Design::addPackageDefinition(std::string packageName,
+Package* Design::addPackageDefinition(const std::string& packageName,
                                       Package* package) {
   PackageNamePackageDefinitionMultiMap::iterator itr =
       m_packageDefinitions.find(packageName);
@@ -456,7 +454,7 @@ Package* Design::addPackageDefinition(std::string packageName,
   }
 }
 
-void Design::addClassDefinition(std::string className,
+void Design::addClassDefinition(const std::string& className,
                                 ClassDefinition* classDef) {
   m_classDefinitions.insert(std::make_pair(className, classDef));
   m_uniqueClassDefinitions.insert(std::make_pair(className, classDef));

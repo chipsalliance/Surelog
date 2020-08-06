@@ -1,3 +1,24 @@
+interface mem_interface(input bit clock);
+
+   parameter setup_time = 5ns;
+   parameter hold_time = 3ns;
+
+   wire [7:0] mem_data;
+   wire [1:0] mem_add;
+   wire       mem_en;
+   wire       mem_rd_wr;
+   
+   clocking cb@(posedge clock);
+      default input #setup_time output #hold_time;
+      output     mem_data;
+      output      mem_add;
+      output mem_en;
+      output mem_rd_wr;
+   endclocking:cb
+   
+   modport MEM(clocking cb,input clock);
+
+endinterface :mem_interface
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++
 // Define the interface

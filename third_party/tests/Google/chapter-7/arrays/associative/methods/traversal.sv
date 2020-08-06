@@ -1,7 +1,6 @@
 /*
 :name: associative-arrays-arg-traversal
 :description: Test support of associative arrays methods
-:should_fail: 0
 :tags: 7.9.8 7.9
 :type: simulation parsing
 */

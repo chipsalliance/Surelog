@@ -150,6 +150,7 @@ private:
 
   // Individual semantic predicate functions triggered by sempred() above.
   bool TYPESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool REFSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool NEWSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool BYTESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
   bool BITSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);

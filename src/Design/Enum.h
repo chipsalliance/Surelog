@@ -37,31 +37,33 @@ class FileContent;
 
 class Enum : public DataType {
  public:
-  Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId);
+  Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
+
+  Category getCategory() const final { return Category::ENUM; }
 
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
-  void addValue(std::string& name, unsigned int lineNb, Value* value) {
+  void addValue(const std::string& name, unsigned int lineNb, Value* value) {
     m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
   }
-  Value* getValue(std::string& name);
-  NodeId getDefinitionId() { return m_nameId;}
+  Value* getValue(const std::string& name);
+  NodeId getDefinitionId() const { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
 
-  UHDM::typespec* getTypespec() { return m_typespec; }
+  UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
 
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:
+  const NodeId m_nameId;
   NameValueMap m_values;
-  NodeId m_nameId;
   UHDM::typespec* m_typespec;
   UHDM::typespec* m_baseTypespec;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* ENUM_H */

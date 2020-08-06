@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/cce/bp_cce_pc.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_cce_pc.v</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   PC register, next PC logic, and instruction memory</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Configuration Link</pre>
+<pre style="margin:0; padding:0 ">  10:  *   The config link is used to fill the instruction RAM, and to set the operating mode of the CCE.</pre>
+<pre style="margin:0; padding:0 ">  11:  *   At startup, reset_i and freeze_i will both be high. After reset_i goes low, and while freeze_i</pre>
+<pre style="margin:0; padding:0 ">  12:  *   is still high, the CCE waits for the mode register to be written.</pre>
+<pre style="margin:0; padding:0 ">  13:  *</pre>
+<pre style="margin:0; padding:0 ">  14:  *   After freeze_i goes low, the CCE begins operation.</pre>
+<pre style="margin:0; padding:0 ">  15:  *</pre>
+<pre style="margin:0; padding:0 ">  16:  *   config_addr_i specifies which address to read or write from. The address must be large enough</pre>
+<pre style="margin:0; padding:0 ">  17:  *   to support 2*inst_ram_els_p addresses, plus the CCE mode register.</pre>
+<pre style="margin:0; padding:0 ">  18:  *</pre>
+<pre style="margin:0; padding:0 ">  19:  *   cfg_link_addr_width_p is assumed to be 16 bits, and cfg_link_data_width_p to be 32 bits</pre>
+<pre style="margin:0; padding:0 ">  20:  *</pre>
+<pre style="margin:0; padding:0 ">  21:  *   The msb of cfg_link_addr_width_p is reserved for the bridge link module. Of the address bits</pre>
+<pre style="margin:0; padding:0 ">  22:  *   that are sent to the CCE, they are used as follows:</pre>
+<pre style="margin:0; padding:0 ">  23:  *</pre>
+<pre style="margin:0; padding:0 ">  24:  *   The address arriving on config_addr_i is interpreted as follows (and is 15-bits wide)</pre>
+<pre style="margin:0; padding:0 ">  25:  *   14 - 1 if address is for CCE</pre>
+<pre style="margin:0; padding:0 ">  26:  *   13 - 1 if address is for CCE instruction RAM, 0 if control register</pre>
+<pre style="margin:0; padding:0 ">  27:  *</pre>
+<pre style="margin:0; padding:0 ">  28:  *   For instruction RAM addresses (15'b11._...._...._....)</pre>
+<pre style="margin:0; padding:0 ">  29:  *   1+:inst_ram_addr_width_lp - address into instruction RAM</pre>
+<pre style="margin:0; padding:0 ">  30:  *   0 - specifies if instruction RAM address is for lo (0) or hi (1) 32-bit chunk of instruction</pre>
+<pre style="margin:0; padding:0 ">  31:  *</pre>
+<pre style="margin:0; padding:0 ">  32:  *   For configuration register addresses (15'b10._...._...._....)</pre>
+<pre style="margin:0; padding:0 ">  33:  *   0+:cfg_reg_addr_width_lp - config register address</pre>
+<pre style="margin:0; padding:0 ">  34:  *</pre>
+<pre style="margin:0; padding:0 ">  35:  *   Current configuration registers:</pre>
+<pre style="margin:0; padding:0 ">  36:  *   0 - cce_mode_r : controls the operating mode of the CCE</pre>
+<pre style="margin:0; padding:0 ">  37:  *</pre>
+<pre style="margin:0; padding:0 ">  38:  */</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40: module bp_cce_pc</pre>
+<pre style="margin:0; padding:0 ">  41:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  42:   import bp_cce_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  43:   import bp_cfg_link_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   #(parameter inst_ram_els_p             = "inv"</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:     // Config channel parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     , parameter cfg_link_addr_width_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     , parameter cfg_link_data_width_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     , parameter cfg_ram_base_addr_p   = "inv"</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:     // Default parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     , parameter harden_p                 = 0</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:     // Derived parameters</pre>
+<pre style="margin:0; padding:0 ">  55:     , localparam inst_width_lp           = `bp_cce_inst_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     , localparam inst_ram_addr_width_lp  = `BSG_SAFE_CLOG2(inst_ram_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:     // number of bits in cfg data packet used for hi part write</pre>
+<pre style="margin:0; padding:0 ">  59:     , localparam cfg_link_hi_data_width_lp = (inst_width_lp-cfg_link_data_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     , localparam cfg_link_hi_pad_width_lp = cfg_link_data_width_p-cfg_link_hi_data_width_lp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:     // number of bits for addressing cfg control registers</pre>
+<pre style="margin:0; padding:0 ">  63:     // top three bits of address are reserved: one by external sender, two by this module</pre>
+<pre style="margin:0; padding:0 ">  64:     , localparam cfg_reg_addr_width_lp = (cfg_link_addr_width_p-3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   )</pre>
+<pre style="margin:0; padding:0 ">  66:   (input                                         clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:    , input                                       reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:    , input                                       freeze_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:    // Config channel</pre>
+<pre style="margin:0; padding:0 ">  71:    , input                                       cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    , input [cfg_link_addr_width_p-1:0]           cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    , input [cfg_link_data_width_p-1:0]           cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:    // CCE mode output</pre>
+<pre style="margin:0; padding:0 ">  76:    , output bp_cce_mode_e                        cce_mode_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:    // ALU branch result signal</pre>
+<pre style="margin:0; padding:0 ">  79:    , input                                       alu_branch_res_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:    // Directory busy signal</pre>
+<pre style="margin:0; padding:0 ">  82:    , input                                       dir_busy_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:    // control from decode</pre>
+<pre style="margin:0; padding:0 ">  85:    , input                                       pc_stall_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    , input [inst_ram_addr_width_lp-1:0]          pc_branch_target_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:    // instruction output to decode</pre>
+<pre style="margin:0; padding:0 ">  89:    , output logic [inst_width_lp-1:0]            inst_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    , output logic                                inst_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   );</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:   //synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  94:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     assert(cfg_link_addr_width_p == 16) else $error("config link address not 16-bits");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     assert(cfg_link_data_width_p == 32) else $error("config link data not 32-bits");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   end</pre>
+<pre style="margin:0; padding:0 ">  98:   //synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="margin:0; padding:0 "> 100:   typedef enum logic [3:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     RESET</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     ,INIT</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     ,INIT_CFG_REG_RESP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     ,INIT_RAM_RD_RESP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     ,INIT_END</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     ,FETCH_1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     ,FETCH_2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     ,FETCH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   } pc_state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:   pc_state_e pc_state_r, pc_state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   // CCE mode register</pre>
+<pre style="margin:0; padding:0 "> 114:   bp_cce_mode_e cce_mode_r, cce_mode_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign cce_mode_o = cce_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:   logic [inst_ram_addr_width_lp-1:0] ex_pc_r, ex_pc_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   logic inst_v_r, inst_v_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic ram_v_r, ram_v_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   logic ram_w_r, ram_w_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic [inst_ram_addr_width_lp-1:0] ram_addr_li, ram_addr_r, ram_addr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   logic [inst_width_lp-1:0] ram_data_r, ram_data_n, ram_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   logic [inst_width_lp-1:0] ram_w_mask_r, ram_w_mask_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124: </pre>
+<pre style="margin:0; padding:0 "> 125:   bsg_mem_1rw_sync_mask_write_bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     #(.width_p(inst_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       ,.els_p(inst_ram_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       )</pre>
+<pre style="margin:0; padding:0 "> 129:     cce_inst_ram</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       ,.v_i(ram_v_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       ,.data_i(ram_data_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       ,.addr_i(ram_addr_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       ,.w_i(ram_w_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       ,.data_o(ram_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       ,.w_mask_i(ram_w_mask_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       );</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:   //synopsys sync_set_reset "reset_i"</pre>
+<pre style="margin:0; padding:0 "> 141:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:       pc_state_r <= RESET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:       ex_pc_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       inst_v_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       ram_v_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       ram_w_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       ram_addr_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       ram_data_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       ram_w_mask_r <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152: </pre>
+<pre style="margin:0; padding:0 "> 153:       cce_mode_r <= e_cce_mode_uncached;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       pc_state_r <= pc_state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158:       ex_pc_r <= ex_pc_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       inst_v_r <= inst_v_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       ram_v_r <= ram_v_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       ram_w_r <= ram_w_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       ram_addr_r <= ram_addr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:       ram_data_r <= ram_data_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       ram_w_mask_r <= ram_w_mask_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165: </pre>
+<pre style="margin:0; padding:0 "> 166:       cce_mode_r <= cce_mode_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:     end</pre>
+<pre style="margin:0; padding:0 "> 168:   end</pre>
+<pre style="margin:0; padding:0 "> 169: </pre>
+<pre style="margin:0; padding:0 "> 170:   // config logic</pre>
+<pre style="margin:0; padding:0 "> 171: </pre>
+<pre style="margin:0; padding:0 "> 172:   // address is for CCE if high bit is set</pre>
+<pre style="margin:0; padding:0 "> 173:   // We should probably use a casez address matching here...</pre>
+<pre style="margin:0; padding:0 "> 174:   wire cfg_cce_ucode_addr_v = cfg_addr_i[cfg_link_addr_width_p-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   wire cfg_cce_mode_addr_v  = cfg_addr_i == bp_cfg_reg_cce_mode_gp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176: </pre>
+<pre style="margin:0; padding:0 "> 177:   // lsb of address determines if command is for lo or hi chunk of instruction RAM address</pre>
+<pre style="margin:0; padding:0 "> 178:   // note: only used if this is an instruction RAM read or write</pre>
+<pre style="margin:0; padding:0 "> 179:   wire config_hi = cfg_addr_i[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:   assign inst_v_o = (dir_busy_i) ? 1'b0 : inst_v_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   assign inst_o = (inst_v_o) ? ram_data_lo : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183: </pre>
+<pre style="margin:0; padding:0 "> 184:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     // by default, regardless of the pc_state, send the instruction ram the registered value</pre>
+<pre style="margin:0; padding:0 "> 186:     ram_addr_li = ram_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187: </pre>
+<pre style="margin:0; padding:0 "> 188:     // defaults</pre>
+<pre style="margin:0; padding:0 "> 189:     pc_state_n = pc_state_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     ex_pc_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     inst_v_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     ram_v_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     ram_w_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     ram_addr_n = ram_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     ram_data_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     ram_w_mask_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:     cce_mode_n = cce_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199: </pre>
+<pre style="margin:0; padding:0 "> 200:     case (pc_state_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       RESET: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         pc_state_n = INIT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       end</pre>
+<pre style="margin:0; padding:0 "> 204:       INIT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:         // In INIT, the CCE waits for commands to arrive on the configuration link</pre>
+<pre style="margin:0; padding:0 "> 206:         // init complete when freeze is low and cce mode is normal</pre>
+<pre style="margin:0; padding:0 "> 207:         // if freeze goes low, but mode is uncached, the CCE operates in uncached mode</pre>
+<pre style="margin:0; padding:0 "> 208:         // and this module stays in the INIT state and does not fetch microcode</pre>
+<pre style="margin:0; padding:0 "> 209:         if (~freeze_i & (cce_mode_r == e_cce_mode_normal)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:           // finalize init, then start fetching microcode next</pre>
+<pre style="margin:0; padding:0 "> 211:           pc_state_n = INIT_END;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:         // only do something if the config link input is valid, and the address targets the CCE</pre>
+<pre style="margin:0; padding:0 "> 213:         // address is setting a configuration register</pre>
+<pre style="margin:0; padding:0 "> 214:         end else if (cfg_w_v_i & cfg_cce_mode_addr_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:           cce_mode_n = bp_cce_mode_e'(cfg_data_i[0+:`bp_cce_mode_bits]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:         // address is reading or writing the instruction RAM</pre>
+<pre style="margin:0; padding:0 "> 217:         end else if (cfg_w_v_i & cfg_cce_ucode_addr_v) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:           // inputs to RAM are valid if config address high bit is set</pre>
+<pre style="margin:0; padding:0 "> 219:           ram_v_n = cfg_w_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:           ram_w_n = cfg_w_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:           // lsb of config address specifies if write is first or second part, so ram addr</pre>
+<pre style="margin:0; padding:0 "> 222:           // starts at bit 1</pre>
+<pre style="margin:0; padding:0 "> 223:           ram_addr_n = cfg_addr_i[1+:inst_ram_addr_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:           if (cfg_addr_i[0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:             ram_w_mask_n = {(cfg_link_hi_data_width_lp)'('1),(cfg_link_data_width_p)'('0)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:             ram_data_n = {cfg_data_i[0+:cfg_link_hi_data_width_lp],(cfg_link_data_width_p)'('0)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:             ram_w_mask_n = {(cfg_link_hi_data_width_lp)'('0),(cfg_link_data_width_p)'('1)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:             ram_data_n = {(cfg_link_hi_data_width_lp)'('0),cfg_data_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:           end</pre>
+<pre style="margin:0; padding:0 "> 231:         end</pre>
+<pre style="margin:0; padding:0 "> 232:       end</pre>
+<pre style="margin:0; padding:0 "> 233:       INIT_END: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:         // let the last cfg link write finish (if there is one)</pre>
+<pre style="margin:0; padding:0 "> 235:         pc_state_n = FETCH_1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       end</pre>
+<pre style="margin:0; padding:0 "> 237:       FETCH_1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:         // At the end of this cycle, the RAM will write the last instruction from the boot ROM</pre>
+<pre style="margin:0; padding:0 "> 239:         // into its memory array. The following cycle, PC will be setup to start fetching from</pre>
+<pre style="margin:0; padding:0 "> 240:         // address 0</pre>
+<pre style="margin:0; padding:0 "> 241: </pre>
+<pre style="margin:0; padding:0 "> 242:         // setup to fetch first instruction</pre>
+<pre style="margin:0; padding:0 "> 243:         // at end of cycle 1, RAM controls are captured into registers</pre>
+<pre style="margin:0; padding:0 "> 244:         // at end of cycle 2, RAM captures the registers</pre>
+<pre style="margin:0; padding:0 "> 245:         // in cycle 3, the instruction is produced and executed</pre>
+<pre style="margin:0; padding:0 "> 246:         pc_state_n = FETCH_2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247: </pre>
+<pre style="margin:0; padding:0 "> 248:         // setup input registers for instruction RAM</pre>
+<pre style="margin:0; padding:0 "> 249:         // fetch address 0</pre>
+<pre style="margin:0; padding:0 "> 250:         ram_v_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:         ram_addr_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252: </pre>
+<pre style="margin:0; padding:0 "> 253:         ex_pc_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:         inst_v_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255: </pre>
+<pre style="margin:0; padding:0 "> 256:       end</pre>
+<pre style="margin:0; padding:0 "> 257:       FETCH_2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         // setup the registers for the first instruction</pre>
+<pre style="margin:0; padding:0 "> 259:         pc_state_n = FETCH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260: </pre>
+<pre style="margin:0; padding:0 "> 261:         ram_v_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:         ram_addr_n = ram_addr_r + 'd1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263: </pre>
+<pre style="margin:0; padding:0 "> 264:         // at the end of this cycle, inputs to the instruction RAM will be latched into the</pre>
+<pre style="margin:0; padding:0 "> 265:         // registers that feed the RAM inputs</pre>
+<pre style="margin:0; padding:0 "> 266: </pre>
+<pre style="margin:0; padding:0 "> 267:         // Thus, next cycle, no instruction will be valid</pre>
+<pre style="margin:0; padding:0 "> 268:         ex_pc_n = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:         inst_v_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270: </pre>
+<pre style="margin:0; padding:0 "> 271:       end</pre>
+<pre style="margin:0; padding:0 "> 272:       FETCH: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         // Always continue fetching instructions</pre>
+<pre style="margin:0; padding:0 "> 274:         pc_state_n = FETCH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:         // next instruction is always valid once in steady state</pre>
+<pre style="margin:0; padding:0 "> 276:         inst_v_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: </pre>
+<pre style="margin:0; padding:0 "> 278:         // Always fetch an instruction</pre>
+<pre style="margin:0; padding:0 "> 279:         ram_v_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:         // setup RAM address register and register tracking PC of instruction being executed</pre>
+<pre style="margin:0; padding:0 "> 281:         // also, determine input address for RAM depending on stall and branch in execution</pre>
+<pre style="margin:0; padding:0 "> 282: </pre>
+<pre style="margin:0; padding:0 "> 283:         if (pc_stall_i | dir_busy_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:           // when stalling, hold executing pc and ram addr registers constant</pre>
+<pre style="margin:0; padding:0 "> 285:           ex_pc_n = ex_pc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:           ram_addr_n = ram_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           // feed the currently executing pc as input to instruction ram</pre>
+<pre style="margin:0; padding:0 "> 288:           ram_addr_li = ex_pc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:         end else if (alu_branch_res_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:           // when branching, the instruction executed next is the branch target</pre>
+<pre style="margin:0; padding:0 "> 291:           ex_pc_n = pc_branch_target_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:           // the following instruction to fetch is after the branch target</pre>
+<pre style="margin:0; padding:0 "> 293:           ram_addr_n = pc_branch_target_i + 'd1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:           // if branching, use the branch target from the current instruction</pre>
+<pre style="margin:0; padding:0 "> 295:           ram_addr_li = pc_branch_target_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:           // normal execution, the instruction that will be executed is the one that will</pre>
+<pre style="margin:0; padding:0 "> 298:           // be fetched in sequential order</pre>
+<pre style="margin:0; padding:0 "> 299:           ex_pc_n = ram_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:           // the next instruction to fetch follows sequentially</pre>
+<pre style="margin:0; padding:0 "> 301:           ram_addr_n = ram_addr_r + 'd1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:           // normally, use the address register (i.e., sequential execution)</pre>
+<pre style="margin:0; padding:0 "> 303:           ram_addr_li = ram_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:         end</pre>
+<pre style="margin:0; padding:0 "> 305:       end</pre>
+<pre style="margin:0; padding:0 "> 306:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:         pc_state_n = RESET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       end</pre>
+<pre style="margin:0; padding:0 "> 309:     endcase</pre>
+<pre style="margin:0; padding:0 "> 310:   end</pre>
+<pre style="margin:0; padding:0 "> 311: endmodule</pre>
+<pre style="margin:0; padding:0 "> 312: </pre>
+<pre style="margin:0; padding:0 "> 313: </pre>
+</body>
+</html>

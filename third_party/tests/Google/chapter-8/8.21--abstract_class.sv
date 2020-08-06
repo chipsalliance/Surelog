@@ -1,7 +1,6 @@
 /*
 :name: abstract_class
 :description: class extending abstract class
-:should_fail: 0
 :tags: 8.21
 */
 module class_tb ();

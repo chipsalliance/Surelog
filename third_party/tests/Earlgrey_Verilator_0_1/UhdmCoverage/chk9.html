@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_diff_decode_0/rtl/prim_diff_decode.sv Cov: 31.4% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module decodes a differentially encoded signal and detects</pre>
+<pre style="margin:0; padding:0 ">   6: // incorrectly encoded differential states.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // In case the differential pair crosses an asynchronous boundary, it has</pre>
+<pre style="margin:0; padding:0 ">   9: // to be re-synchronized to the local clock. This can be achieved by</pre>
+<pre style="margin:0; padding:0 ">  10: // setting the AsyncOn parameter to 1'b1. In that case, two additional</pre>
+<pre style="margin:0; padding:0 ">  11: // input registers are added (to counteract metastability), and</pre>
+<pre style="margin:0; padding:0 ">  12: // a pattern detector is instantiated that detects skewed level changes on</pre>
+<pre style="margin:0; padding:0 ">  13: // the differential pair (i.e., when level changes on the diff pair are</pre>
+<pre style="margin:0; padding:0 ">  14: // sampled one cycle apart due to a timing skew between the two wires).</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: // See also: prim_alert_sender, prim_alert_receiver, alert_handler</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: module prim_diff_decode #(</pre>
+<pre style="margin:0; padding:0 ">  21:   // enables additional synchronization logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter bit AsyncOn = 1'b0</pre>
+<pre style="margin:0; padding:0 ">  23: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  26:   // input diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input        diff_pi,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input        diff_ni,</pre>
+<pre style="margin:0; padding:0 ">  29:   // logical level and</pre>
+<pre style="margin:0; padding:0 ">  30:   // detected edges</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic level_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic rise_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic fall_o,</pre>
+<pre style="margin:0; padding:0 ">  34:   // either rise or fall</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic event_o,</pre>
+<pre style="margin:0; padding:0 ">  36:   //signal integrity issue detected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic sigint_o</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic level_d, level_q;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   ///////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  43:   // synchronization regs for incoming diff pair (if required) //</pre>
+<pre style="margin:0; padding:0 ">  44:   ///////////////////////////////////////////////////////////////</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:   if (AsyncOn) begin : gen_async</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     typedef enum logic [1:0] {IsStd, IsSkewed, SigInt} state_e;</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:     state_e state_d, state_q;</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:     logic diff_p_edge, diff_n_edge, diff_check_ok, level;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:     // 2 sync regs, one reg for edge detection</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:     logic diff_pq, diff_nq, diff_pd, diff_nd;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:     prim_flop_2sync #(</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:       .Width(1),</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:       .ResetValue(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     ) i_sync_p (</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:       .clk_i,</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:       .rst_ni,</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:       .d(diff_pi),</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:       .q(diff_pd)</pre>
+<pre style="margin:0; padding:0 ">  62:     );</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:     prim_flop_2sync #(</pre>
+<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">  65:       .Width(1),</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:       .ResetValue(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     ) i_sync_n (</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:       .clk_i,</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:       .rst_ni,</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:       .d(diff_ni),</pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:       .q(diff_nd)</pre>
+<pre style="margin:0; padding:0 ">  72:     );</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:     // detect level transitions</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:     assign diff_p_edge   = diff_pq ^ diff_pd;</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:     assign diff_n_edge   = diff_nq ^ diff_nd;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:     // detect sigint issue</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:     assign diff_check_ok = diff_pd ^ diff_nd;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:     // this is the current logical level</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:     assign level         = diff_pd;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:     // outputs</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:     assign level_o  = level_d;</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:     assign event_o = rise_o | fall_o;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:     // sigint detection is a bit more involved in async case since</pre>
+<pre style="margin:0; padding:0 ">  89:     // we might have skew on the diff pair, which can result in a</pre>
+<pre style="margin:0; padding:0 ">  90:     // one cycle sampling delay between the two wires</pre>
+<pre style="margin:0; padding:0 ">  91:     // so we need a simple pattern matcher</pre>
+<pre style="margin:0; padding:0 ">  92:     // the following waves are legal</pre>
+<pre style="margin:0; padding:0 ">  93:     // clk    |   |   |   |   |   |   |   |</pre>
+<pre style="margin:0; padding:0 ">  94:     //           _______     _______</pre>
+<pre style="margin:0; padding:0 ">  95:     // p _______/        ...        \________</pre>
+<pre style="margin:0; padding:0 ">  96:     //   _______                     ________</pre>
+<pre style="margin:0; padding:0 ">  97:     // n        \_______ ... _______/</pre>
+<pre style="margin:0; padding:0 ">  98:     //              ____     ___</pre>
+<pre style="margin:0; padding:0 ">  99:     // p __________/     ...    \________</pre>
+<pre style="margin:0; padding:0 "> 100:     //   _______                     ________</pre>
+<pre style="margin:0; padding:0 "> 101:     // n        \_______ ... _______/</pre>
+<pre style="margin:0; padding:0 "> 102:     //</pre>
+<pre style="margin:0; padding:0 "> 103:     // i.e., level changes may be off by one cycle - which is permissible</pre>
+<pre style="margin:0; padding:0 "> 104:     // as long as this condition is only one cycle long.</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:     always_comb begin : p_diff_fsm</pre>
+<pre style="margin:0; padding:0 "> 108:       // default</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:       state_d  = state_q;</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:       level_d  = level_q;</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 "> 111:       rise_o   = 1'b0;</pre>
+<pre id="id112" style="background-color: #FFB6C1; margin:0; padding:0 "> 112:       fall_o   = 1'b0;</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:       sigint_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:       unique case (state_q)</pre>
+<pre style="margin:0; padding:0 "> 116:         // we remain here as long as</pre>
+<pre style="margin:0; padding:0 "> 117:         // the diff pair is correctly encoded</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "> 118:         IsStd: begin</pre>
+<pre id="id119" style="background-color: #FFB6C1; margin:0; padding:0 "> 119:           if (diff_check_ok) begin</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:             level_d = level;</pre>
+<pre id="id121" style="background-color: #FFB6C1; margin:0; padding:0 "> 121:             if (diff_p_edge && diff_n_edge) begin</pre>
+<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 "> 122:               if (level) begin</pre>
+<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:                 rise_o = 1'b1;</pre>
+<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "> 124:               end else begin</pre>
+<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 "> 125:                 fall_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 126:               end</pre>
+<pre style="margin:0; padding:0 "> 127:             end</pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:           end else begin</pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:             if (diff_p_edge || diff_n_edge) begin</pre>
+<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:               state_d = IsSkewed;</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:             end else begin</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:               state_d = SigInt;</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:               sigint_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 134:             end</pre>
+<pre style="margin:0; padding:0 "> 135:           end</pre>
+<pre style="margin:0; padding:0 "> 136:         end</pre>
+<pre style="margin:0; padding:0 "> 137:         // diff pair must be correctly encoded, otherwise we got a sigint</pre>
+<pre id="id138" style="background-color: #FFB6C1; margin:0; padding:0 "> 138:         IsSkewed: begin</pre>
+<pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:           if (diff_check_ok) begin</pre>
+<pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:             state_d = IsStd;</pre>
+<pre id="id141" style="background-color: #FFB6C1; margin:0; padding:0 "> 141:             level_d = level;</pre>
+<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:             if (level) rise_o = 1'b1;</pre>
+<pre id="id143" style="background-color: #FFB6C1; margin:0; padding:0 "> 143:             else       fall_o = 1'b1;</pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:           end else begin</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:             state_d  = SigInt;</pre>
+<pre id="id146" style="background-color: #FFB6C1; margin:0; padding:0 "> 146:             sigint_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 147:           end</pre>
+<pre style="margin:0; padding:0 "> 148:         end</pre>
+<pre style="margin:0; padding:0 "> 149:         // Signal integrity issue detected, remain here</pre>
+<pre style="margin:0; padding:0 "> 150:         // until resolved</pre>
+<pre id="id151" style="background-color: #FFB6C1; margin:0; padding:0 "> 151:         SigInt: begin</pre>
+<pre id="id152" style="background-color: #FFB6C1; margin:0; padding:0 "> 152:           sigint_o = 1'b1;</pre>
+<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:           if (diff_check_ok) begin</pre>
+<pre id="id154" style="background-color: #FFB6C1; margin:0; padding:0 "> 154:             state_d  = IsStd;</pre>
+<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:             sigint_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 156:           end</pre>
+<pre style="margin:0; padding:0 "> 157:         end</pre>
+<pre id="id158" style="background-color: #FFB6C1; margin:0; padding:0 "> 158:         default : ;</pre>
+<pre style="margin:0; padding:0 "> 159:       endcase</pre>
+<pre style="margin:0; padding:0 "> 160:     end</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre id="id162" style="background-color: #FFB6C1; margin:0; padding:0 "> 162:     always_ff @(posedge clk_i or negedge rst_ni) begin : p_sync_reg</pre>
+<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 "> 163:       if (!rst_ni) begin</pre>
+<pre id="id164" style="background-color: #FFB6C1; margin:0; padding:0 "> 164:         state_q  <= IsStd;</pre>
+<pre id="id165" style="background-color: #FFB6C1; margin:0; padding:0 "> 165:         diff_pq  <= 1'b0;</pre>
+<pre id="id166" style="background-color: #FFB6C1; margin:0; padding:0 "> 166:         diff_nq  <= 1'b1;</pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:         level_q  <= 1'b0;</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:       end else begin</pre>
+<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 "> 169:         state_q  <= state_d;</pre>
+<pre id="id170" style="background-color: #FFB6C1; margin:0; padding:0 "> 170:         diff_pq  <= diff_pd;</pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 "> 171:         diff_nq  <= diff_nd;</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 "> 172:         level_q  <= level_d;</pre>
+<pre style="margin:0; padding:0 "> 173:       end</pre>
+<pre style="margin:0; padding:0 "> 174:     end</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:   //////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 177:   // fully synchronous case, no skew present in this case //</pre>
+<pre style="margin:0; padding:0 "> 178:   //////////////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   end else begin : gen_no_async</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     logic diff_pq, diff_pd;</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="margin:0; padding:0 "> 182:     // one reg for edge detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     assign diff_pd = diff_pi;</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:     // incorrect encoding -> signal integrity issue</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     assign sigint_o = ~(diff_pi ^ diff_ni);</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     assign level_o = (sigint_o) ? level_q : diff_pi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     assign level_d = level_o;</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="margin:0; padding:0 "> 191:     // detect level transitions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     assign rise_o  = (~diff_pq &  diff_pi) & ~sigint_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     assign fall_o  = ( diff_pq & ~diff_pi) & ~sigint_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     assign event_o = rise_o | fall_o;</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     always_ff @(posedge clk_i or negedge rst_ni) begin : p_edge_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:         diff_pq  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:         level_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:         diff_pq  <= diff_pd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         level_q  <= level_d;</pre>
+<pre style="margin:0; padding:0 "> 203:       end</pre>
+<pre style="margin:0; padding:0 "> 204:     end</pre>
+<pre style="margin:0; padding:0 "> 205:   end</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="margin:0; padding:0 "> 207:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 208:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 209:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="margin:0; padding:0 "> 211:   // shared assertions</pre>
+<pre style="margin:0; padding:0 "> 212:   // sigint -> level stays the same during sigint</pre>
+<pre style="margin:0; padding:0 "> 213:   // $isunknown is needed to avoid false assertion in first clock cycle</pre>
+<pre style="margin:0; padding:0 "> 214:   `ASSERT(SigintLevelCheck_A, ##1 sigint_o |-> $stable(level_o))</pre>
+<pre style="margin:0; padding:0 "> 215:   // sigint -> no additional events asserted at output</pre>
+<pre style="margin:0; padding:0 "> 216:   `ASSERT(SigintEventCheck_A, sigint_o |-> !event_o)</pre>
+<pre style="margin:0; padding:0 "> 217:   `ASSERT(SigintRiseCheck_A,  sigint_o |-> !rise_o)</pre>
+<pre style="margin:0; padding:0 "> 218:   `ASSERT(SigintFallCheck_A,  sigint_o |-> !fall_o)</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre id="id220" style="background-color: #FFB6C1; margin:0; padding:0 "> 220:   if (AsyncOn) begin : gen_async_assert</pre>
+<pre style="margin:0; padding:0 "> 221:     // assertions for asynchronous case</pre>
+<pre style="margin:0; padding:0 "> 222:     // correctly detect sigint issue (only one transition cycle of permissible due to skew)</pre>
+<pre style="margin:0; padding:0 "> 223:     `ASSERT(SigintCheck0_A, diff_pi == diff_ni [*2] |-> ##[1:2] sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 224:     // the synchronizer adds 2 cycles of latency</pre>
+<pre style="margin:0; padding:0 "> 225:     `ASSERT(SigintCheck1_A, ##1 (diff_pi ^ diff_ni) && $stable(diff_pi) && $stable(diff_ni) ##1</pre>
+<pre style="margin:0; padding:0 "> 226:         $rose(diff_pi) && $stable(diff_ni) ##1 $stable(diff_pi) && $fell(diff_ni) |-></pre>
+<pre style="margin:0; padding:0 "> 227:         ##2 rise_o)</pre>
+<pre style="margin:0; padding:0 "> 228:     `ASSERT(SigintCheck2_A, ##1 (diff_pi ^ diff_ni) && $stable(diff_pi) && $stable(diff_ni) ##1</pre>
+<pre style="margin:0; padding:0 "> 229:         $fell(diff_pi) && $stable(diff_ni) ##1 $stable(diff_pi) && $rose(diff_ni) |-></pre>
+<pre style="margin:0; padding:0 "> 230:         ##2 fall_o)</pre>
+<pre style="margin:0; padding:0 "> 231:     `ASSERT(SigintCheck3_A, ##1 (diff_pi ^ diff_ni) && $stable(diff_pi) && $stable(diff_ni) ##1</pre>
+<pre style="margin:0; padding:0 "> 232:         $rose(diff_ni) && $stable(diff_pi) ##1 $stable(diff_ni) && $fell(diff_pi) |-></pre>
+<pre style="margin:0; padding:0 "> 233:         ##2 fall_o)</pre>
+<pre style="margin:0; padding:0 "> 234:     `ASSERT(SigintCheck4_A, ##1 (diff_pi ^ diff_ni) && $stable(diff_pi) && $stable(diff_ni) ##1</pre>
+<pre style="margin:0; padding:0 "> 235:         $fell(diff_ni) && $stable(diff_pi) ##1 $stable(diff_ni) && $rose(diff_pi) |-></pre>
+<pre style="margin:0; padding:0 "> 236:         ##2 rise_o)</pre>
+<pre style="margin:0; padding:0 "> 237:     // correctly detect edges</pre>
+<pre style="margin:0; padding:0 "> 238:     `ASSERT(RiseCheck_A,  ##1 $rose(diff_pi)     && (diff_pi ^ diff_ni) |-></pre>
+<pre style="margin:0; padding:0 "> 239:         ##[2:3] rise_o,  clk_i, !rst_ni || sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 240:     `ASSERT(FallCheck_A,  ##1 $fell(diff_pi)     && (diff_pi ^ diff_ni) |-></pre>
+<pre style="margin:0; padding:0 "> 241:         ##[2:3] fall_o,  clk_i, !rst_ni || sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 242:     `ASSERT(EventCheck_A, ##1 $changed(diff_pi)  && (diff_pi ^ diff_ni) |-></pre>
+<pre style="margin:0; padding:0 "> 243:         ##[2:3] event_o, clk_i, !rst_ni || sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 244:     // correctly detect level</pre>
+<pre style="margin:0; padding:0 "> 245:     `ASSERT(LevelCheck0_A, !sigint_o && (diff_pi ^ diff_ni) [*3] |=> $past(diff_pi, 2) == level_o,</pre>
+<pre style="margin:0; padding:0 "> 246:         clk_i, !rst_ni || sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 247: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   end else begin : gen_sync_assert</pre>
+<pre style="margin:0; padding:0 "> 249:     // assertions for synchronous case</pre>
+<pre style="margin:0; padding:0 "> 250:     // correctly detect sigint issue</pre>
+<pre style="margin:0; padding:0 "> 251:     `ASSERT(SigintCheck_A, diff_pi == diff_ni |-> sigint_o)</pre>
+<pre style="margin:0; padding:0 "> 252:     // correctly detect edges</pre>
+<pre style="margin:0; padding:0 "> 253:     `ASSERT(RiseCheck_A,  ##1 $rose(diff_pi)    && (diff_pi ^ diff_ni) |->  rise_o)</pre>
+<pre style="margin:0; padding:0 "> 254:     `ASSERT(FallCheck_A,  ##1 $fell(diff_pi)    && (diff_pi ^ diff_ni) |->  fall_o)</pre>
+<pre style="margin:0; padding:0 "> 255:     `ASSERT(EventCheck_A, ##1 $changed(diff_pi) && (diff_pi ^ diff_ni) |-> event_o)</pre>
+<pre style="margin:0; padding:0 "> 256:     // correctly detect level</pre>
+<pre style="margin:0; padding:0 "> 257:     `ASSERT(LevelCheck_A, (diff_pi ^ diff_ni) |-> diff_pi == level_o)</pre>
+<pre style="margin:0; padding:0 "> 258:   end</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260: endmodule : prim_diff_decode</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+</body>
+</html>

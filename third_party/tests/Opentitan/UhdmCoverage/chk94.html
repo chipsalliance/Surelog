@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_rom.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module prim_generic_rom #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   parameter  int Width     = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   parameter  int Depth     = 2048, // 8kB default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter  int Aw        = $clog2(Depth)</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input        [Aw-1:0]        addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input                        cs_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output logic [Width-1:0]     dout_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   output logic                 dvalid_o</pre>
+<pre style="margin:0; padding:0 ">  16: );</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic [Width-1:0] mem [Depth];</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     if (cs_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:       dout_o <= mem[addr_i];</pre>
+<pre style="margin:0; padding:0 ">  23:     end</pre>
+<pre style="margin:0; padding:0 ">  24:   end</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:       dvalid_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       dvalid_o <= cs_i;</pre>
+<pre style="margin:0; padding:0 ">  31:     end</pre>
+<pre style="margin:0; padding:0 ">  32:   end</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  35:   // ASSERTIONS //</pre>
+<pre style="margin:0; padding:0 ">  36:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:   // Control Signals should never be X</pre>
+<pre style="margin:0; padding:0 ">  39:   `ASSERT(noXOnCsI, !$isunknown(cs_i), clk_i, '0)</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:   `ifdef VERILATOR</pre>
+<pre style="margin:0; padding:0 ">  42:     // Task for loading 'mem' with SystemVerilog system task $readmemh()</pre>
+<pre style="margin:0; padding:0 ">  43:     export "DPI-C" task simutil_verilator_memload;</pre>
+<pre style="margin:0; padding:0 ">  44:     // Function for setting a specific 32 bit element in |mem|</pre>
+<pre style="margin:0; padding:0 ">  45:     // Returns 1 (true) for success, 0 (false) for errors.</pre>
+<pre style="margin:0; padding:0 ">  46:     export "DPI-C" function simutil_verilator_set_mem;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:     task simutil_verilator_memload;</pre>
+<pre style="margin:0; padding:0 ">  49:       input string file;</pre>
+<pre style="margin:0; padding:0 ">  50:       $readmemh(file, mem);</pre>
+<pre style="margin:0; padding:0 ">  51:     endtask</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:     // TODO: Allow 'val' to have other widths than 32 bit</pre>
+<pre style="margin:0; padding:0 ">  54:     function int simutil_verilator_set_mem(input int index,</pre>
+<pre style="margin:0; padding:0 ">  55:                                            input logic[31:0] val);</pre>
+<pre style="margin:0; padding:0 ">  56:       if (index >= Depth) begin</pre>
+<pre style="margin:0; padding:0 ">  57:         return 0;</pre>
+<pre style="margin:0; padding:0 ">  58:       end</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:       mem[index] = val;</pre>
+<pre style="margin:0; padding:0 ">  61:       return 1;</pre>
+<pre style="margin:0; padding:0 ">  62:     endfunction</pre>
+<pre style="margin:0; padding:0 ">  63:   `endif</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   `ifdef ROM_INIT_FILE</pre>
+<pre style="margin:0; padding:0 ">  66:     localparam MEM_FILE = `"`ROM_INIT_FILE`";</pre>
+<pre style="margin:0; padding:0 ">  67:     initial begin</pre>
+<pre style="margin:0; padding:0 ">  68:       $display("Initializing ROM from %s", MEM_FILE);</pre>
+<pre style="margin:0; padding:0 ">  69:       $readmemh(MEM_FILE, mem);</pre>
+<pre style="margin:0; padding:0 ">  70:     end</pre>
+<pre style="margin:0; padding:0 ">  71:   `endif</pre>
+<pre style="margin:0; padding:0 ">  72: endmodule</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+</body>
+</html>

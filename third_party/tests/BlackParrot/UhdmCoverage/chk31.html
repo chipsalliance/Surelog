@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_counter_set_down.v Cov: 77.8% </h3>
+<pre style="margin:0; padding:0 ">   1: // parallel to bsg_counter_clear_up</pre>
+<pre style="margin:0; padding:0 ">   2: // set occurs before down, and both events can take place in the same cycle.</pre>
+<pre style="margin:0; padding:0 ">   3: // we do not output an overflow flag because there is no == that we would</pre>
+<pre style="margin:0; padding:0 ">   4: // want to amortize the cost of</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: module bsg_counter_set_down #(parameter width_p="inv", parameter init_val_p='0, parameter set_and_down_exclusive_p=0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   (input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:    , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:    , input set_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    , input [width_p-1:0] val_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:    , input down_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:    , output [width_p-1:0] count_r_o</pre>
+<pre style="margin:0; padding:0 ">  13:   );</pre>
+<pre style="margin:0; padding:0 ">  14:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   logic [width_p-1:0] ctr_r, ctr_n;</pre>
+<pre style="margin:0; padding:0 ">  16:  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   always_ff @(posedge clk_i)	    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:       ctr_r <= width_p ' (init_val_p);</pre>
+<pre style="margin:0; padding:0 ">  20:     else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:       ctr_r <= ctr_n;</pre>
+<pre style="margin:0; padding:0 ">  22: 	</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   if (set_and_down_exclusive_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     begin: excl</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:        always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: 	 begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: 	    ctr_n = ctr_r;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: 	    if (set_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:               ctr_n = val_i;</pre>
+<pre style="margin:0; padding:0 ">  31: 	    else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:               if (down_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: 		ctr_n = ctr_n - 1;     </pre>
+<pre style="margin:0; padding:0 ">  34: 	 end</pre>
+<pre style="margin:0; padding:0 ">  35:     end</pre>
+<pre style="margin:0; padding:0 ">  36:      else</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37:     begin : non_excl </pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:       always_comb</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:     	begin</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:           ctr_n = ctr_r;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:           if (set_i)</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:             ctr_n = val_i;</pre>
+<pre style="margin:0; padding:0 ">  44:       </pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:           if (down_i)</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:             ctr_n = ctr_n - 1;</pre>
+<pre style="margin:0; padding:0 ">  47:         end</pre>
+<pre style="margin:0; padding:0 ">  48:     end</pre>
+<pre style="margin:0; padding:0 ">  49:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign count_r_o = ctr_r;</pre>
+<pre style="margin:0; padding:0 ">  51:   </pre>
+<pre style="margin:0; padding:0 ">  52: `ifndef SYNTHESIS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   always_ff @(negedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       if (!reset_i && down_i && (ctr_n == '1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:         $display("%m error: counter underflow at time %t", $time);</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:       if (~reset_i & set_and_down_exclusive_p & set_i & down_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: 	      $display("%m error: set and down non-exclusive at time %t", $time);</pre>
+<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  61: `endif</pre>
+<pre style="margin:0; padding:0 ">  62:       </pre>
+<pre style="margin:0; padding:0 ">  63: endmodule</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+</body>
+</html>

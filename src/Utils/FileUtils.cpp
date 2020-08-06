@@ -55,27 +55,21 @@
 
 using namespace SURELOG;
 
-FileUtils::FileUtils() {}
-
-FileUtils::FileUtils(const FileUtils& orig) {}
-
-FileUtils::~FileUtils() {}
-
-bool FileUtils::fileExists(const std::string name) {
+bool FileUtils::fileExists(const std::string& name) {
   std::error_code ec;
   return fs::exists(name, ec);
 }
 
-unsigned long FileUtils::fileSize(const std::string name) {
+unsigned long FileUtils::fileSize(const std::string& name) {
   std::error_code ec;
   return fs::file_size(name, ec);
 }
 
-bool FileUtils::fileIsDirectory(const std::string name) {
+bool FileUtils::fileIsDirectory(const std::string& name) {
   return fs::is_directory(name);
 }
 
-bool FileUtils::fileIsRegular(const std::string name) {
+bool FileUtils::fileIsRegular(const std::string& name) {
   return fs::is_regular_file(name);
 }
 
@@ -108,18 +102,13 @@ int FileUtils::mkDir(const char* path) {
   return fs::is_directory(dirpath) ? 0 : -1;
 }
 
-std::string FileUtils::getPathName(const std::string path) {
-  fs::path fs_path(path);
-  return fs_path.has_parent_path() ? (fs::path(path).parent_path() += fs::path::preferred_separator).string() : "";
-}
-
-std::string FileUtils::getFullPath(const std::string path) {
+std::string FileUtils::getFullPath(const std::string& path) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
   return ec ? path : fullPath.string();
 }
 
-bool FileUtils::getFullPath(const std::string path, std::string* const result) {
+bool FileUtils::getFullPath(const std::string& path, std::string* result) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
   bool found = (!ec && fileIsRegular(fullPath.string()));
@@ -140,8 +129,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const std::string dirPath,
-                                              const std::string ext,
+std::vector<SymbolId> FileUtils::collectFiles(const std::string& dirPath,
+                                              const std::string& ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
@@ -228,18 +217,23 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
   return result;
 }
 
-std::string FileUtils::getFileContent(const std::string filename) {
+std::string FileUtils::getFileContent(const std::string& filename) {
   std::ifstream in(filename, std::ios::in | std::ios::binary);
   if (in) {
-    std::ostringstream contents;
-    contents << in.rdbuf();
-    in.close();
-    return (contents.str());
+    std::string result;
+    result.assign(std::istreambuf_iterator<char>(in),
+                  std::istreambuf_iterator<char>());
+    return result;
   }
   return "FAILED_TO_LOAD_CONTENT";
 }
 
-std::string FileUtils::fileName(std::string str) {
+std::string FileUtils::getPathName(const std::string& path) {
+  fs::path fs_path(path);
+  return fs_path.has_parent_path() ? (fs::path(path).parent_path() += fs::path::preferred_separator).string() : "";
+}
+
+std::string FileUtils::basename(const std::string& str) {
   return fs::path(str).filename().string();
 }
 
@@ -247,11 +241,11 @@ std::string FileUtils::getPreferredPath(const std::string& path) {
   return fs::path(path).make_preferred().string();
 }
 
-std::string FileUtils::makeRelativePath(std::string path) {
+std::string FileUtils::makeRelativePath(const std::string& in_path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
-  fs::path p(path);
-  path = p.make_preferred().string();
+  fs::path p(in_path);
+  std::string path = p.make_preferred().string();
   // Handle Windows specific absolute paths
   if (p.is_absolute() && (path.length() > 1) && (path[1] == ':')) path[1] = '$';
   // Swap "..\" (or "../") for "__\" (or "__/")

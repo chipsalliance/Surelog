@@ -171,8 +171,8 @@
 // be required by the GCC compiler.
 //-------------------------------------------------------
 //`define PER_SIZE_CUSTOM
-//`define PER_SIZE_32_KB
-/`define PER_SIZE_16_KB
+`define PER_SIZE_32_KB
+//`define PER_SIZE_16_KB
 //`define PER_SIZE_8_KB
 //`define PER_SIZE_4_KB
 //`define PER_SIZE_2_KB

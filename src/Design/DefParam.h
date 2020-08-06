@@ -28,7 +28,7 @@
 
 namespace SURELOG {
 
-class DefParam {
+class DefParam final {
  public:
   DefParam(std::string name, DefParam* parent = NULL)
       : m_name(name),
@@ -38,9 +38,7 @@ class DefParam {
         m_fileContent(NULL),
         m_nodeId(0) {}
 
-  DefParam(const DefParam& orig);
-
-  virtual ~DefParam();
+  DefParam(const DefParam& orig) = delete;
 
   Value* getValue() { return m_value; }
   void setValue(Value* value) { m_value = value; }
@@ -49,15 +47,15 @@ class DefParam {
     m_children.insert(std::make_pair(name, child));
   }
   std::map<std::string, DefParam*>& getChildren() { return m_children; }
-  bool isUsed() { return m_used; }
+  bool isUsed() const { return m_used; }
   void setUsed() { m_used = true; }
-  void setLocation(FileContent* fC, NodeId nodeId) {
+  void setLocation(const FileContent* fC, NodeId nodeId) {
     m_fileContent = fC;
     m_nodeId = nodeId;
   }
-  FileContent* getLocation() { return m_fileContent; }
-  NodeId getNodeId() { return m_nodeId; }
-  std::string getFullName();
+  const FileContent* getLocation() const { return m_fileContent; }
+  NodeId getNodeId() const { return m_nodeId; }
+  std::string getFullName() const;
   DefParam* getParent() { return m_parent; }
 
  private:
@@ -66,10 +64,10 @@ class DefParam {
   Value* m_value;
   bool m_used;
   DefParam* m_parent;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* DEFPARAM_H */

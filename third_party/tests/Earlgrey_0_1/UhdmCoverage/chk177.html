@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/abstract/prim_pad_wrapper.sv Cov: 67.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // TODO: This module is a hard-coded stopgap to select an implementation of an</pre>
+<pre style="margin:0; padding:0 ">   6: // "abstract module". This module is to be replaced by generated code.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  10:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  11: `endif</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned AttrDw = 6</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   inout  wire        inout_io, // bidirectional pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic       in_o,     // input data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input              out_i,    // output data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input              oe_i,     // output enable</pre>
+<pre style="margin:0; padding:0 ">  21:   // additional attributes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input [AttrDw-1:0] attr_i</pre>
+<pre style="margin:0; padding:0 ">  23: );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // The generic implementation is NOT synthesizable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   if (Impl == ImplGeneric) begin : gen_pad_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     prim_generic_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:       .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     ) i_pad_wrapper (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:       .inout_io,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:       .in_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:       .out_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:       .oe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       .attr_i</pre>
+<pre style="margin:0; padding:0 ">  37:     );</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:   end else if (Impl == ImplXilinx) begin : gen_pad_xilinx</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:     prim_xilinx_pad_wrapper #(</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:       .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     ) i_pad_wrapper (</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:       .inout_io,</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:       .in_o,</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:       .out_i,</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:       .oe_i,</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:       .attr_i</pre>
+<pre style="margin:0; padding:0 ">  47:     );</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:   end else begin : gen_failure</pre>
+<pre style="margin:0; padding:0 ">  49:     // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  50:   end</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: endmodule : prim_pad_wrapper</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+</body>
+</html>

@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_key_expand.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES KeyExpand</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module aes_key_expand #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter bit AES192Enable = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter     SBoxImpl     = "lut"</pre>
+<pre style="margin:0; padding:0 ">  12: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  logic              clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic              rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  logic              step_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  logic              clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  logic        [3:0] round_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  aes_pkg::key_len_e key_len_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input  logic  [7:0][31:0] key_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic  [7:0][31:0] key_o</pre>
+<pre style="margin:0; padding:0 ">  22: );</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic       [7:0] rcon_d, rcon_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   logic             rcon_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   logic             use_rcon;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic       [3:0] rnd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   logic       [3:0] rnd_type;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   logic      [31:0] spec_in_128, spec_in_192;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   logic      [31:0] rot_word_in, rot_word_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   logic             use_rot_word;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic      [31:0] sub_word_in, sub_word_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic       [7:0] rcon_add_in, rcon_add_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   logic      [31:0] rcon_added;</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic      [31:0] irregular;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic [7:0][31:0] regular;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   assign rnd = round_i;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   // For AES-192, there are four different types of rounds.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   always_comb begin : get_rnd_type</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     if (AES192Enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       rnd_type[0] = (rnd == 0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       rnd_type[1] = (rnd == 1 || rnd == 4 || rnd == 7 || rnd == 10);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       rnd_type[2] = (rnd == 2 || rnd == 5 || rnd == 8 || rnd == 11);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       rnd_type[3] = (rnd == 3 || rnd == 6 || rnd == 9 || rnd == 12);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       rnd_type = '0;</pre>
+<pre style="margin:0; padding:0 ">  54:     end</pre>
+<pre style="margin:0; padding:0 ">  55:   end</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   //////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  58:   // Irregular part involving Rcon, RotWord & SubWord //</pre>
+<pre style="margin:0; padding:0 ">  59:   //////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // Depending on key length and round, RotWord may not be used.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign use_rot_word = (key_len_i == AES_256 && rnd[0] == 1'b0) ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // Depending on operation, key length and round, Rcon may not be used thus must not be updated.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   always_comb begin : rcon_usage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     use_rcon = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     if (AES192Enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       if (key_len_i == AES_192 &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:           ((op_i == CIPH_FWD &&  rnd_type[1]) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:            (op_i == CIPH_INV && (rnd_type[0] || rnd_type[3])))) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:         use_rcon = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  73:       end</pre>
+<pre style="margin:0; padding:0 ">  74:     end</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     if (key_len_i == AES_256 && rnd[0] == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       use_rcon = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  78:     end</pre>
+<pre style="margin:0; padding:0 ">  79:   end</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:   // Generate Rcon</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   always_comb begin : rcon_update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     rcon_d = rcon_q;</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     if (clear_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:       rcon_d = (op_i == CIPH_FWD)                            ? 8'h01 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:               ((op_i == CIPH_INV) && (key_len_i == AES_128)) ? 8'h36 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:               ((op_i == CIPH_INV) && (key_len_i == AES_192)) ? 8'h80 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:               ((op_i == CIPH_INV) && (key_len_i == AES_256)) ? 8'h40 : 8'h01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       rcon_d = (op_i == CIPH_FWD) ? aes_mul2(rcon_q) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:                (op_i == CIPH_INV) ? aes_div2(rcon_q) : 8'h01;</pre>
+<pre style="margin:0; padding:0 ">  93:     end</pre>
+<pre style="margin:0; padding:0 ">  94:   end</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign rcon_we = clear_i | (step_i & use_rcon);</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="margin:0; padding:0 ">  98:   // Rcon register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   always_ff @(posedge clk_i or negedge rst_ni) begin : reg_rcon</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:       rcon_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     end else if (rcon_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       rcon_q <= rcon_d;</pre>
+<pre style="margin:0; padding:0 "> 104:     end</pre>
+<pre style="margin:0; padding:0 "> 105:   end</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   // Special input, equivalent to key_o[3] in the used cases</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign spec_in_128 = key_i[3] ^ key_i[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign spec_in_192 = AES192Enable ? key_i[5] ^ key_i[1] ^ key_i[0] : '0;</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:   // Select input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   always_comb begin : rot_word_in_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     unique case (key_len_i)</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="margin:0; padding:0 "> 115:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 116:       // AES-128 //</pre>
+<pre style="margin:0; padding:0 "> 117:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       AES_128: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:         unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:           CIPH_FWD: rot_word_in = key_i[3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:           CIPH_INV: rot_word_in = spec_in_128;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:           default:  rot_word_in = key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 123:         endcase</pre>
+<pre style="margin:0; padding:0 "> 124:       end</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 127:       // AES-192 //</pre>
+<pre style="margin:0; padding:0 "> 128:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       AES_192: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:         if (AES192Enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:           unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:             CIPH_FWD: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:               rot_word_in = rnd_type[0] ? key_i[5]    :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:                             rnd_type[2] ? key_i[5]    :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:                             rnd_type[3] ? spec_in_192 : key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 136:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:             CIPH_INV: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:               rot_word_in = rnd_type[1] ? key_i[3] :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:                             rnd_type[2] ? key_i[1] : key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 140:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:             default: rot_word_in = key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 142:           endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:           rot_word_in = key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 145:         end</pre>
+<pre style="margin:0; padding:0 "> 146:       end</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+<pre style="margin:0; padding:0 "> 148:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 149:       // AES-256 //</pre>
+<pre style="margin:0; padding:0 "> 150:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       AES_256: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           CIPH_FWD: rot_word_in = key_i[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           CIPH_INV: rot_word_in = key_i[3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:           default:  rot_word_in = key_i[7];</pre>
+<pre style="margin:0; padding:0 "> 156:         endcase</pre>
+<pre style="margin:0; padding:0 "> 157:       end</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       default: rot_word_in = key_i[3];</pre>
+<pre style="margin:0; padding:0 "> 160:     endcase</pre>
+<pre style="margin:0; padding:0 "> 161:   end</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="margin:0; padding:0 "> 163:   // RotWord: cyclic byte shift</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign rot_word_out = aes_circ_byte_shift(rot_word_in, 2'h3);</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="margin:0; padding:0 "> 166:   // Mux input for SubWord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign sub_word_in = use_rot_word ? rot_word_out : rot_word_in;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="margin:0; padding:0 "> 169:   // SubWord - individually substitute bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   for (genvar i = 0; i < 4; i++) begin : gen_sbox</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     aes_sbox #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       .SBoxImpl ( SBoxImpl )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     ) aes_sbox_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       .op_i   ( CIPH_FWD               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       .data_i ( sub_word_in[8*i +: 8]  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       .data_o ( sub_word_out[8*i +: 8] )</pre>
+<pre style="margin:0; padding:0 "> 177:     );</pre>
+<pre style="margin:0; padding:0 "> 178:   end</pre>
+<pre style="margin:0; padding:0 "> 179: </pre>
+<pre style="margin:0; padding:0 "> 180:   // Add Rcon</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   assign rcon_add_in  = sub_word_out[7:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   assign rcon_add_out = rcon_add_in ^ rcon_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:   assign rcon_added   = {sub_word_out[31:8], rcon_add_out};</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:   // Mux output coming from Rcon & SubWord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   assign irregular = use_rcon ? rcon_added : sub_word_out;</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="margin:0; padding:0 "> 188:   ///////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 189:   // The more regular part //</pre>
+<pre style="margin:0; padding:0 "> 190:   ///////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 191: </pre>
+<pre style="margin:0; padding:0 "> 192:   // To reduce muxing resources, we re-use existing</pre>
+<pre style="margin:0; padding:0 "> 193:   // connections for unused words and default cases.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   always_comb begin : drive_regular</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     unique case (key_len_i)</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="margin:0; padding:0 "> 197:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 198:       // AES-128 //</pre>
+<pre style="margin:0; padding:0 "> 199:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       AES_128: begin</pre>
+<pre style="margin:0; padding:0 "> 201:         // key_o[7:4] not used</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         regular[7:4] = key_i[3:0];</pre>
+<pre style="margin:0; padding:0 "> 203: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:         regular[0] = irregular ^ key_i[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:         unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:           CIPH_FWD: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:             for (int i=1; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:               regular[i] = regular[i-1] ^ key_i[i];</pre>
+<pre style="margin:0; padding:0 "> 209:             end</pre>
+<pre style="margin:0; padding:0 "> 210:           end</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:           CIPH_INV: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:             for (int i=1; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:               regular[i] = key_i[i-1] ^ key_i[i];</pre>
+<pre style="margin:0; padding:0 "> 215:             end</pre>
+<pre style="margin:0; padding:0 "> 216:           end</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:           default: regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="margin:0; padding:0 "> 219:         endcase</pre>
+<pre style="margin:0; padding:0 "> 220:       end</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="margin:0; padding:0 "> 222:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 223:       // AES-192 //</pre>
+<pre style="margin:0; padding:0 "> 224:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:       AES_192: begin</pre>
+<pre style="margin:0; padding:0 "> 226:         // key_o[7:6] not used</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:         regular[7:6] = key_i[3:2];</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         if (AES192Enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:           unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:             CIPH_FWD: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:               if (rnd_type[0]) begin</pre>
+<pre style="margin:0; padding:0 "> 233:                 // Shift down four upper most words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:                 regular[3:0] = key_i[5:2];</pre>
+<pre style="margin:0; padding:0 "> 235:                 // Generate Words 6 and 7</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:                 regular[4]   = irregular  ^ key_i[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:                 regular[5]   = regular[4] ^ key_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:               end else begin</pre>
+<pre style="margin:0; padding:0 "> 239:                 // Shift down two upper most words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:                 regular[1:0] = key_i[5:4];</pre>
+<pre style="margin:0; padding:0 "> 241:                 // Generate new upper four words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:                 for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:                   if ((i == 0 && rnd_type[2]) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:                       (i == 2 && rnd_type[3])) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:                     regular[i+2] = irregular    ^ key_i[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:                   end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:                     regular[i+2] = regular[i+1] ^ key_i[i];</pre>
+<pre style="margin:0; padding:0 "> 248:                   end</pre>
+<pre style="margin:0; padding:0 "> 249:                 end</pre>
+<pre style="margin:0; padding:0 "> 250:               end // rnd_type[0]</pre>
+<pre style="margin:0; padding:0 "> 251:             end</pre>
+<pre style="margin:0; padding:0 "> 252: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:             CIPH_INV: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:               if (rnd_type[0]) begin</pre>
+<pre style="margin:0; padding:0 "> 255:                 // Shift up four lowest words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:                 regular[5:2] = key_i[3:0];</pre>
+<pre style="margin:0; padding:0 "> 257:                 // Generate Word 44 and 45</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:                 for (int i=0; i<2; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:                   regular[i] = key_i[3+i] ^ key_i[3+i+1];</pre>
+<pre style="margin:0; padding:0 "> 260:                 end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:               end else begin</pre>
+<pre style="margin:0; padding:0 "> 262:                 // Shift up two lowest words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:                 regular[5:4] = key_i[1:0];</pre>
+<pre style="margin:0; padding:0 "> 264:                 // Generate new lower four words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:                 for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:                   if ((i == 2 && rnd_type[1]) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:                       (i == 0 && rnd_type[2])) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:                     regular[i] = irregular  ^ key_i[i+2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:                   end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:                     regular[i] = key_i[i+1] ^ key_i[i+2];</pre>
+<pre style="margin:0; padding:0 "> 271:                   end</pre>
+<pre style="margin:0; padding:0 "> 272:                 end</pre>
+<pre style="margin:0; padding:0 "> 273:               end // rnd_type[0]</pre>
+<pre style="margin:0; padding:0 "> 274:             end</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:             default: regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="margin:0; padding:0 "> 277:           endcase</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:           regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="margin:0; padding:0 "> 281:         end // AES192Enable</pre>
+<pre style="margin:0; padding:0 "> 282:       end</pre>
+<pre style="margin:0; padding:0 "> 283: </pre>
+<pre style="margin:0; padding:0 "> 284:       /////////////</pre>
+<pre style="margin:0; padding:0 "> 285:       // AES-256 //</pre>
+<pre style="margin:0; padding:0 "> 286:       /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       AES_256: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:         unique case (op_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:           CIPH_FWD: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:             if (rnd == 0) begin</pre>
+<pre style="margin:0; padding:0 "> 291:               // Round 0: Nothing to be done</pre>
+<pre style="margin:0; padding:0 "> 292:               // The Full Key registers are not updated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:               regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:             end else begin</pre>
+<pre style="margin:0; padding:0 "> 295:               // Shift down old upper half</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:               regular[3:0] = key_i[7:4];</pre>
+<pre style="margin:0; padding:0 "> 297:               // Generate new upper half</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:               regular[4]   = irregular ^ key_i[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:               for (int i=1; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:                 regular[i+4] = regular[i+4-1] ^ key_i[i];</pre>
+<pre style="margin:0; padding:0 "> 301:               end</pre>
+<pre style="margin:0; padding:0 "> 302:             end // rnd == 0</pre>
+<pre style="margin:0; padding:0 "> 303:           end</pre>
+<pre style="margin:0; padding:0 "> 304: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:           CIPH_INV: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:             if (rnd == 0) begin</pre>
+<pre style="margin:0; padding:0 "> 307:               // Round 0: Nothing to be done</pre>
+<pre style="margin:0; padding:0 "> 308:               // The Full Key registers are not updated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:               regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:             end else begin</pre>
+<pre style="margin:0; padding:0 "> 311:               // Shift up old lower half</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:               regular[7:4] = key_i[3:0];</pre>
+<pre style="margin:0; padding:0 "> 313:               // Generate new lower half</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:               regular[0]   = irregular ^ key_i[4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:               for (int i=0; i<3; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:                 regular[i+1] = key_i[4+i] ^ key_i[4+i+1];</pre>
+<pre style="margin:0; padding:0 "> 317:               end</pre>
+<pre style="margin:0; padding:0 "> 318:             end // rnd == 0</pre>
+<pre style="margin:0; padding:0 "> 319:           end</pre>
+<pre style="margin:0; padding:0 "> 320: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:           default: regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="margin:0; padding:0 "> 322:         endcase</pre>
+<pre style="margin:0; padding:0 "> 323:       end</pre>
+<pre style="margin:0; padding:0 "> 324: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       default: regular = {key_i[3:0], key_i[7:4]};</pre>
+<pre style="margin:0; padding:0 "> 326:     endcase // key_len_i</pre>
+<pre style="margin:0; padding:0 "> 327:   end</pre>
+<pre style="margin:0; padding:0 "> 328: </pre>
+<pre style="margin:0; padding:0 "> 329:   // Drive output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:   assign key_o = regular;</pre>
+<pre style="margin:0; padding:0 "> 331: </pre>
+<pre style="margin:0; padding:0 "> 332:   // Selectors must be known/valid</pre>
+<pre style="margin:0; padding:0 "> 333:   `ASSERT_KNOWN(AesCiphOpKnown, op_i)</pre>
+<pre style="margin:0; padding:0 "> 334:   `ASSERT(AesKeyLenValid, key_len_i inside {</pre>
+<pre style="margin:0; padding:0 "> 335:       AES_128,</pre>
+<pre style="margin:0; padding:0 "> 336:       AES_192,</pre>
+<pre style="margin:0; padding:0 "> 337:       AES_256</pre>
+<pre style="margin:0; padding:0 "> 338:       })</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
+<pre style="margin:0; padding:0 "> 340: endmodule</pre>
+<pre style="margin:0; padding:0 "> 341: </pre>
+</body>
+</html>

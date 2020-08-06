@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/tlul/rtl/sram2tlul.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // SRAM interface to TL-UL converter</pre>
+<pre style="margin:0; padding:0 ">   6: //      Current version only supports if TL-UL width and SRAM width are same</pre>
+<pre style="margin:0; padding:0 ">   7: //      If SRAM interface requests more than MaxOutstanding cap, it generates</pre>
+<pre style="margin:0; padding:0 ">   8: //      error in simulation but not in Silicon.</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module sram2tlul #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int                        SramAw = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int                        SramDw = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter logic [top_pkg::TL_AW-1:0] TlBaseAddr = 'h0  // Base address of SRAM request</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output tlul_pkg::tl_h2d_t tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  tlul_pkg::tl_d2h_t tl_i,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // SRAM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input                     mem_req,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                     mem_write,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input        [SramAw-1:0] mem_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input        [SramDw-1:0] mem_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic              mem_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [SramDw-1:0] mem_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic        [1:0] mem_error</pre>
+<pre style="margin:0; padding:0 ">  29: );</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   import tlul_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 ">  34:   if (SramDw != top_pkg::TL_DW) $fatal("SRAM_DW should be same as TL-UL DW");</pre>
+<pre style="margin:0; padding:0 ">  35:   `endif</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   localparam int unsigned SRAM_DWB = $clog2(SramDw/8);</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   assign tl_o.a_valid   = mem_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign tl_o.a_opcode  = (mem_write) ? PutFullData : Get;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign tl_o.a_param   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   assign tl_o.a_size    = top_pkg::TL_SZW'(SRAM_DWB); // Max Size always</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   assign tl_o.a_source  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   assign tl_o.a_address = TlBaseAddr |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                           {{(top_pkg::TL_AW-SramAw-SRAM_DWB){1'b0}},mem_addr,{(SRAM_DWB){1'b0}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   assign tl_o.a_mask    = '1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   assign tl_o.a_data    = mem_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign tl_o.a_user    = '0;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign tl_o.d_ready   = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign mem_rvalid     = tl_i.d_valid && (tl_i.d_opcode == AccessAckData);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign mem_rdata      = tl_i.d_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign mem_error      = {2{tl_i.d_error}};</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:   // below assertion fails when TL-UL doesn't accept request in a cycle,</pre>
+<pre style="margin:0; padding:0 ">  57:   // which is currently not supported by sram2tlul</pre>
+<pre style="margin:0; padding:0 ">  58:   `ASSERT(validNotReady, tl_o.a_valid |-> tl_i.a_ready, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: endmodule</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+</body>
+</html>

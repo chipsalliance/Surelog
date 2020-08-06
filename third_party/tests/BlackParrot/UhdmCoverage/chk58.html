@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_fifo_1rw_large.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: `include "bsg_defines.v"</pre>
+<pre style="margin:0; padding:0 ">   2: // MBT</pre>
+<pre style="margin:0; padding:0 ">   3: // 11/9/14</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // a fifo with only one read or write port,</pre>
+<pre style="margin:0; padding:0 ">   6: // using a 1RW *synchronous read* ram.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // NOTE: read results appear on next cycle</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module bsg_fifo_1rw_large #(parameter width_p         = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:                           , parameter els_p           = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: 			  , parameter verbose_p       = 0</pre>
+<pre style="margin:0; padding:0 ">  14:                           )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:    (input                  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , input                reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , input [width_p-1:0]  data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input                v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , input                enq_not_deq_i</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:     // full and empty are richer</pre>
+<pre style="margin:0; padding:0 ">  22:     // than ready_enq and ready_deq</pre>
+<pre style="margin:0; padding:0 ">  23:     // which could mean just this cycle</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , output full_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , output empty_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , output [width_p-1:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  28:     );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:    localparam ptr_width_lp = `BSG_SAFE_CLOG2(els_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:    logic [ptr_width_lp-1:0]       rd_ptr, wr_ptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:    logic                          last_op_is_read_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:    wire mem_we = enq_not_deq_i & v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:    wire mem_re = ~enq_not_deq_i & v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:      if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:        last_op_is_read_r <= 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:      else</pre>
+<pre style="margin:0; padding:0 ">  44:        if (v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:          last_op_is_read_r <= mem_re;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:    // empty versus full detection. very nice for</pre>
+<pre style="margin:0; padding:0 ">  48:    // one port case. if ptrs match and last op was a read</pre>
+<pre style="margin:0; padding:0 ">  49:    // a read, it must be empty; if last op was a write,</pre>
+<pre style="margin:0; padding:0 ">  50:    // it must be full.</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:    wire fifo_empty = (rd_ptr == wr_ptr) & last_op_is_read_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    wire fifo_full  = (rd_ptr == wr_ptr) & ~last_op_is_read_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:    assign full_o  = fifo_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:    assign empty_o = fifo_empty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:    // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:      assert (reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:              | ((fifo_full & mem_we) !== 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:              ) else $error("enque on full fifo");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:      assert (reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:              | ((fifo_empty & mem_re) !== 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:              ) else $error("deque on empty fifo %x %x", fifo_empty, mem_re, v_i, enq_not_deq_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:      if (verbose_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:        if (v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:          begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:             if (enq_not_deq_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:               $display("### %m enq %x onto fifo (r=%x w=%x)",data_i,rd_ptr,wr_ptr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:             else</pre>
+<pre style="margin:0; padding:0 ">  77:               $display("### %m deq fifo (r=%x w=%x)",rd_ptr,wr_ptr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:          end</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:    wire [31:0] num_elements_debug = (fifo_empty</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:                                      ? 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:                                      : (fifo_full</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:                                         ? els_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:                                         : (wr_ptr > rd_ptr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:                                            ? (wr_ptr - rd_ptr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                                            : (els_p - (rd_ptr - wr_ptr)))));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:    bsg_circular_ptr #(.slots_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:                       ,.max_add_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:                       ) rd_circ_ptr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:      (.clk      (clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       , .reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       , .add_i  (mem_re)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:       , .o      (rd_ptr )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       );</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="margin:0; padding:0 "> 100:    bsg_circular_ptr #(.slots_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                       ,.max_add_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                       ) wr_circ_ptr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:      (.clk      (clk_i  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       , .reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       , .add_i  (mem_we)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       , .o      (wr_ptr )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       );</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:    bsg_mem_1rw_sync #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:                       ,.els_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:                       )</pre>
+<pre style="margin:0; padding:0 "> 112:    mem_1srw (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:              ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:              ,.data_i (data_i                   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:              ,.addr_i (mem_we ? wr_ptr : rd_ptr )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:              ,.v_i    (v_i                      )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:              ,.w_i    (mem_we                   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:              ,.data_o (data_o                   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:              );</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123: endmodule</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+</body>
+</html>

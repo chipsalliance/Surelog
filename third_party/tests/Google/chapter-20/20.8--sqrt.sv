@@ -1,7 +1,6 @@
 /*
 :name: sqrt_function
 :description: $sqrt test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

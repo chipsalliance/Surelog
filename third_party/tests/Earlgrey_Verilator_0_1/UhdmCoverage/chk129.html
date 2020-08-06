@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_sync_reqack.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // REQ/ACK synchronizer</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module synchronizes a REQ/ACK handshake across a clock domain crossing.</pre>
+<pre style="margin:0; padding:0 ">   8: // Both domains will see a handshake with the duration of one clock cycle.</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // Notes:</pre>
+<pre style="margin:0; padding:0 ">  11: // - Once asserted, the source domain is not allowed to de-assert REQ without ACK.</pre>
+<pre style="margin:0; padding:0 ">  12: // - The destination domain is not allowed to send an ACK without a REQ.</pre>
+<pre style="margin:0; padding:0 ">  13: // - This module works both when syncing from a faster to a slower clock domain and vice versa.</pre>
+<pre style="margin:0; padding:0 ">  14: // - Internally, this module uses a return-to-zero, four-phase handshake protocol. Assuming the</pre>
+<pre style="margin:0; padding:0 ">  15: //   destination side responds with an ACK immediately, the latency from asserting the REQ on the</pre>
+<pre style="margin:0; padding:0 ">  16: //   source side is:</pre>
+<pre style="margin:0; padding:0 ">  17: //   - 1 source + 2 destination clock cycles until the handshake is performed on the</pre>
+<pre style="margin:0; padding:0 ">  18: //     destination side,</pre>
+<pre style="margin:0; padding:0 ">  19: //   - 1 source + 2 destination + 1 destination + 2 source clock cycles until the handshake is</pre>
+<pre style="margin:0; padding:0 ">  20: //     performed on the source side.</pre>
+<pre style="margin:0; padding:0 ">  21: //   - It takes another round trip (3 source + 3 destination clock cycles) before the next</pre>
+<pre style="margin:0; padding:0 ">  22: //     REQ is starting to be propagated to the destination side. The module is thus not suitable</pre>
+<pre style="margin:0; padding:0 ">  23: //     for high-bandwidth communication.</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27: module prim_sync_reqack (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  clk_src_i,       // REQ side, SRC domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input  rst_src_ni,      // REQ side, SRC domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  clk_dst_i,       // ACK side, DST domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  rst_dst_ni,      // ACK side, DST domain</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  logic src_req_i, // REQ side, SRC domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic src_ack_o, // REQ side, SRC domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic dst_req_o, // ACK side, DST domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input  logic dst_ack_i  // ACK side, DST domain</pre>
+<pre style="margin:0; padding:0 ">  37: );</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Types</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     HANDSHAKE, SYNC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   } sync_reqack_fsm_e;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   // Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   sync_reqack_fsm_e src_fsm_ns, src_fsm_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   sync_reqack_fsm_e dst_fsm_ns, dst_fsm_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic src_req_d, src_req_q, src_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic dst_ack_d, dst_ack_q, dst_req;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   // Move REQ over to ACK side.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     .Width(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   ) req_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .clk_i  (clk_dst_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     .rst_ni (rst_dst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .d      (src_req_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .q      (dst_req)</pre>
+<pre style="margin:0; padding:0 ">  58:   );</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // Move ACK over to REQ side.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .Width(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   ) ack_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     .clk_i  (clk_src_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .rst_ni (rst_src_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .d      (dst_ack_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .q      (src_ack)</pre>
+<pre style="margin:0; padding:0 ">  68:   );</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:   // REQ-side FSM (source domain)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   always_comb begin : src_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     src_fsm_ns = src_fsm_cs;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:     // By default, we forward the REQ and ACK.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     src_req_d = src_req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     src_ack_o = src_ack;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     unique case (src_fsm_cs)</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       HANDSHAKE: begin</pre>
+<pre style="margin:0; padding:0 ">  81:         // The handshake on the REQ side is done for exactly 1 clock cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:         if (src_req_i && src_ack) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:           src_fsm_ns = SYNC;</pre>
+<pre style="margin:0; padding:0 ">  84:           // Tell ACK side that we are done.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:           src_req_d  = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  86:         end</pre>
+<pre style="margin:0; padding:0 ">  87:       end</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       SYNC: begin</pre>
+<pre style="margin:0; padding:0 ">  90:         // Make sure ACK side knows that we are done.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         src_req_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         src_ack_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:         if (!src_ack) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:           src_fsm_ns = HANDSHAKE;</pre>
+<pre style="margin:0; padding:0 ">  95:         end</pre>
+<pre style="margin:0; padding:0 ">  96:       end</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:       default: ;</pre>
+<pre style="margin:0; padding:0 ">  99:     endcase</pre>
+<pre style="margin:0; padding:0 "> 100:   end</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="margin:0; padding:0 "> 102:   // ACK-side FSM (destination domain)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   always_comb begin : dst_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     dst_fsm_ns = dst_fsm_cs;</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106:     // By default, we forward the REQ and ACK.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     dst_req_o = dst_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     dst_ack_d = dst_ack_i;</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     unique case (dst_fsm_cs)</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       HANDSHAKE: begin</pre>
+<pre style="margin:0; padding:0 "> 113:         // The handshake on the ACK side is done for exactly 1 clock cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:         if (dst_req && dst_ack_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:           dst_fsm_ns = SYNC;</pre>
+<pre style="margin:0; padding:0 "> 116:         end</pre>
+<pre style="margin:0; padding:0 "> 117:       end</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       SYNC: begin</pre>
+<pre style="margin:0; padding:0 "> 120:         // Don't forward REQ, hold ACK, wait for REQ side.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:         dst_req_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         dst_ack_d  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:         if (!dst_req) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:           dst_fsm_ns = HANDSHAKE;</pre>
+<pre style="margin:0; padding:0 "> 125:         end</pre>
+<pre style="margin:0; padding:0 "> 126:       end</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       default: ;</pre>
+<pre style="margin:0; padding:0 "> 129:     endcase</pre>
+<pre style="margin:0; padding:0 "> 130:   end</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="margin:0; padding:0 "> 132:   // Registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   always_ff @(posedge clk_src_i or negedge rst_src_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     if (!rst_src_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       src_fsm_cs <= HANDSHAKE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       src_req_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       src_fsm_cs <= src_fsm_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       src_req_q  <= src_req_d;</pre>
+<pre style="margin:0; padding:0 "> 140:     end</pre>
+<pre style="margin:0; padding:0 "> 141:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   always_ff @(posedge clk_dst_i or negedge rst_dst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     if (!rst_dst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       dst_fsm_cs <= HANDSHAKE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       dst_ack_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       dst_fsm_cs <= dst_fsm_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       dst_ack_q  <= dst_ack_d;</pre>
+<pre style="margin:0; padding:0 "> 149:     end</pre>
+<pre style="margin:0; padding:0 "> 150:   end</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="margin:0; padding:0 "> 152:   // Source domain cannot de-assert REQ while waiting for ACK.</pre>
+<pre style="margin:0; padding:0 "> 153:   `ASSERT(ReqAckSyncHoldReq, $fell(src_req_i) |-> (src_fsm_cs != HANDSHAKE), clk_src_i, rst_src_ni)</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="margin:0; padding:0 "> 155:   // Destination domain cannot assert ACK without REQ.</pre>
+<pre style="margin:0; padding:0 "> 156:   `ASSERT(ReqAckSyncAckNeedsReq, dst_ack_i |-> dst_req_o, clk_dst_i, rst_dst_ni)</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158: endmodule</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+</body>
+</html>

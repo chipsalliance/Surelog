@@ -1,7 +1,6 @@
 /*
 :name: disable
 :description: disable block
-:should_fail: 0
 :tags: 9.6.2
 */
 module fork_tb ();

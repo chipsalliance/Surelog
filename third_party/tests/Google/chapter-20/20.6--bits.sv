@@ -1,7 +1,6 @@
 /*
 :name: bits_function
 :description: $bits test
-:should_fail: 0
 :tags: 20.6
 :type: simulation parsing
 */

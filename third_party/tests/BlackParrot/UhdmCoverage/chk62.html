@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_flow_counter.v Cov: 64.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // bsg_flow_counter, would be attached to a module or set of</pre>
+<pre style="margin:0; padding:0 ">   2: // modules which have ready-and-valid or ready-then-valid</pre>
+<pre style="margin:0; padding:0 ">   3: // (base on the ready_THEN_valid_p parameter) input protocol</pre>
+<pre style="margin:0; padding:0 ">   4: // and valid-then-yumi protocol for the output. Based on the </pre>
+<pre style="margin:0; padding:0 ">   5: // count_free_p it will count the number of free elements or</pre>
+<pre style="margin:0; padding:0 ">   6: // number of existing elements in the connected module.</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module bsg_flow_counter #(parameter els_p              = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:                         , parameter count_free_p       = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:                         , parameter ready_THEN_valid_p = 0</pre>
+<pre style="margin:0; padding:0 ">  11:                         </pre>
+<pre style="margin:0; padding:0 ">  12:                         //localpara</pre>
+<pre style="margin:0; padding:0 ">  13:                         , parameter ptr_width_lp = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:                           `BSG_WIDTH(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:                          )                           </pre>
+<pre style="margin:0; padding:0 ">  16:     </pre>
+<pre style="margin:0; padding:0 ">  17:     ( input                     clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input                     reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:     , input                     v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , input                     ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , input                     yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:     , output [ptr_width_lp-1:0] count_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     );</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27: // internal signals</pre>
+<pre style="margin:0; padding:0 ">  28: logic enque;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30: // In valid-ready protocol both ends assert their signal at the </pre>
+<pre style="margin:0; padding:0 ">  31: // beginning of the cycle, and if the sender end finds that receiver</pre>
+<pre style="margin:0; padding:0 ">  32: // was not ready it would send it again. So in the receiver side</pre>
+<pre style="margin:0; padding:0 ">  33: // valid means enque if it could accept it</pre>
+<pre style="margin:0; padding:0 ">  34: if (ready_THEN_valid_p) begin: gen_blk_protocol_select</pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35:   assign enque = v_i;</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36: end else begin: gen_blk_protocol_select</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   assign enque = v_i & ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: end</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40: generate</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:   if (count_free_p) begin: gen_blk_0</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:     // An up-down counter is used for counting free slots.</pre>
+<pre style="margin:0; padding:0 ">  43:     // it starts with number of elements and that is also </pre>
+<pre style="margin:0; padding:0 ">  44:     // the max value it can reach. </pre>
+<pre style="margin:0; padding:0 ">  45:     bsg_counter_up_down #( .max_val_p(els_p)  </pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:                          , .init_val_p(els_p) </pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:                          , .max_step_p(1)</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:                          ) counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     </pre>
+<pre style="margin:0; padding:0 ">  50:         ( .clk_i(clk_i)</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:         , .reset_i(reset_i)</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:     </pre>
+<pre style="margin:0; padding:0 ">  53:         , .up_i(yumi_i)</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:         , .down_i(enque)</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:     </pre>
+<pre style="margin:0; padding:0 ">  56:         , .count_o(count_o)</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:         );</pre>
+<pre style="margin:0; padding:0 ">  58:    end else begin: gen_blk_0</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:     bsg_counter_up_down #( .max_val_p(els_p)  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                          , .init_val_p(0) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:                          , .max_step_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                          ) counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     </pre>
+<pre style="margin:0; padding:0 ">  64:         ( .clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:         , .reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     </pre>
+<pre style="margin:0; padding:0 ">  67:         , .up_i(enque)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         , .down_i(yumi_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     </pre>
+<pre style="margin:0; padding:0 ">  70:         , .count_o(count_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         );</pre>
+<pre style="margin:0; padding:0 ">  72:   end</pre>
+<pre style="margin:0; padding:0 ">  73: endgenerate</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75: endmodule</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+</body>
+</html>

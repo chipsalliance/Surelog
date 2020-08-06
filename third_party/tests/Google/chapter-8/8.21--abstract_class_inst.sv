@@ -1,7 +1,7 @@
 /*
 :name: abstract_class_inst
 :description: instantiating abstract class
-:should_fail: 1
+:should_fail_because: abstract class cannot be instantiated
 :tags: 8.21
 :type: simulation
 */

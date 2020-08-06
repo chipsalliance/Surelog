@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_mem/bsg_mem_1rw_sync_mask_write_bit_synth.v Cov: 70.2% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 11/9/2014</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // Synchronous 1-port ram.</pre>
+<pre style="margin:0; padding:0 ">   4: // Only one read or one write may be done per cycle.</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // NOTE: Users of BaseJump STL should not instantiate this module directly</pre>
+<pre style="margin:0; padding:0 ">   7: // they should use bsg_mem_1rw_sync_mask_write_bit.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bsg_mem_1rw_sync_mask_write_bit_synth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   #(parameter width_p=-1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , parameter els_p=-1</pre>
+<pre style="margin:0; padding:0 ">  13:     , parameter latch_last_read_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , parameter addr_width_lp=`BSG_SAFE_CLOG2(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:    )</pre>
+<pre style="margin:0; padding:0 ">  16:    (input   clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input [width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , input [addr_width_lp-1:0] addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     , input v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , input [width_p-1:0] w_mask_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , input w_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , output logic [width_p-1:0]  data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     );</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:    wire unused = reset_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:    logic [addr_width_lp-1:0] addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    logic [width_p-1:0] mem [els_p-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    logic read_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:    assign read_en = v_i & ~w_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:      if (read_en)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:        addr_r <= addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:      else</pre>
+<pre style="margin:0; padding:0 ">  38:        addr_r <= 'X;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:    logic [width_p-1:0] data_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:    assign data_out = mem[addr_r];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:    if (latch_last_read_p)</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:      begin: llr</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:       logic read_en_r; </pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:       bsg_dff #(</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:         .width_p(1)</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:       ) read_en_dff (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:         .clk_i(clk_i)</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:         ,.data_i(read_en)</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:         ,.data_o(read_en_r)</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:       );</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:       bsg_dff_en_bypass #(</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:         .width_p(width_p)</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:       ) dff_bypass (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:         .clk_i(clk_i)</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:         ,.en_i(read_en_r)</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:         ,.data_i(data_out)</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:         ,.data_o(data_o)</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:       );</pre>
+<pre style="margin:0; padding:0 ">  64:      end</pre>
+<pre style="margin:0; padding:0 ">  65:    else</pre>
+<pre style="margin:0; padding:0 ">  66:      begin: no_llr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:        assign data_o = data_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:      end</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72: // The Verilator and non-Verilator models are functionally equivalent. However, Verilator</pre>
+<pre style="margin:0; padding:0 ">  73: //   cannot handle an array of non-blocking assignments in a for loop. It would be nice to </pre>
+<pre style="margin:0; padding:0 ">  74: //   see if these two models synthesize the same, because we can then reduce to the Verilator</pre>
+<pre style="margin:0; padding:0 ">  75: //   model and avoid double maintenence. One could also add this feature to Verilator...</pre>
+<pre style="margin:0; padding:0 ">  76: //   (Identified in Verilator 4.011)</pre>
+<pre style="margin:0; padding:0 ">  77: `ifdef VERILATOR</pre>
+<pre style="margin:0; padding:0 ">  78:    logic [width_p-1:0] data_n;</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:    for (genvar i = 0; i < width_p; i++)</pre>
+<pre style="margin:0; padding:0 ">  81:      begin : rof1</pre>
+<pre style="margin:0; padding:0 ">  82:        assign data_n[i] = w_mask_i[i] ? data_i[i] : mem[addr_i][i];</pre>
+<pre style="margin:0; padding:0 ">  83:      end // rof1</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:    always_ff @(posedge clk_i)</pre>
+<pre style="margin:0; padding:0 ">  86:      if (v_i & w_i)</pre>
+<pre style="margin:0; padding:0 ">  87:        mem[addr_i] <= data_n;</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89: `else </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:      if (v_i & w_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:        for (integer i = 0; i < width_p; i=i+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:          if (w_mask_i[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:            mem[addr_i][i] <= data_i[i];</pre>
+<pre style="margin:0; padding:0 ">  95: `endif</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="margin:0; padding:0 ">  97: endmodule</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+</body>
+</html>

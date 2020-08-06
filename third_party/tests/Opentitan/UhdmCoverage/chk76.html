@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/pulp_riscv_dbg/src/dm_sba.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">   2: * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">   3: * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">   4: * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">   5: * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">   6: * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">   7: * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">   8: * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">   9: * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">  10: *</pre>
+<pre style="margin:0; padding:0 ">  11: * File:   dm_sba.sv</pre>
+<pre style="margin:0; padding:0 ">  12: * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  13: * Date:   1.8.2018</pre>
+<pre style="margin:0; padding:0 ">  14: *</pre>
+<pre style="margin:0; padding:0 ">  15: * Description: System Bus Access Module</pre>
+<pre style="margin:0; padding:0 ">  16: *</pre>
+<pre style="margin:0; padding:0 ">  17: */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: module dm_sba #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   parameter int unsigned BusWidth = 32</pre>
+<pre style="margin:0; padding:0 ">  20: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input  logic                   clk_i,       // Clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  logic                   rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  logic                   dmactive_i,  // synchronous reset active low</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic                   master_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic [BusWidth-1:0]    master_add_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic                   master_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic [BusWidth-1:0]    master_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic [BusWidth/8-1:0]  master_be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic                   master_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  logic                   master_r_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic [BusWidth-1:0]    master_r_rdata_i,</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic [BusWidth-1:0]    sbaddress_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input  logic                   sbaddress_write_valid_i,</pre>
+<pre style="margin:0; padding:0 ">  36:   // control signals in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input  logic                   sbreadonaddr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output logic [BusWidth-1:0]    sbaddress_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input  logic                   sbautoincrement_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  logic [2:0]             sbaccess_i,</pre>
+<pre style="margin:0; padding:0 ">  41:   // data in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input  logic                   sbreadondata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   input  logic [BusWidth-1:0]    sbdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   input  logic                   sbdata_read_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   input  logic                   sbdata_write_valid_i,</pre>
+<pre style="margin:0; padding:0 ">  46:   // read data out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   output logic [BusWidth-1:0]    sbdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   output logic                   sbdata_valid_o,</pre>
+<pre style="margin:0; padding:0 ">  49:   // control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   output logic                   sbbusy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   output logic                   sberror_valid_o, // bus error occurred</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   output logic [2:0]             sberror_o // bus error occurred</pre>
+<pre style="margin:0; padding:0 ">  53: );</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   typedef enum logic [2:0] { Idle, Read, Write, WaitRead, WaitWrite } state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   state_e state_d, state_q;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [BusWidth-1:0]           address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic                          req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic                          gnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic                          we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic [BusWidth/8-1:0]         be;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic [$clog2(BusWidth/8)-1:0] be_idx;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign sbbusy_o = logic'(state_q != Idle);</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   always_comb begin : p_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     req     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     address = sbaddress_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     we      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     be      = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     be_idx  = sbaddress_i[$clog2(BusWidth/8)-1:0];</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     sberror_o       = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     sberror_valid_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     sbaddress_o     = sbaddress_i;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     state_d = state_q;</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       Idle: begin</pre>
+<pre style="margin:0; padding:0 ">  82:         // debugger requested a read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         if (sbaddress_write_valid_i && sbreadonaddr_i)  state_d = Read;</pre>
+<pre style="margin:0; padding:0 ">  84:         // debugger requested a write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         if (sbdata_write_valid_i) state_d = Write;</pre>
+<pre style="margin:0; padding:0 ">  86:         // perform another read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:         if (sbdata_read_valid_i && sbreadondata_i) state_d = Read;</pre>
+<pre style="margin:0; padding:0 ">  88:       end</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       Read: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         if (gnt) state_d = WaitRead;</pre>
+<pre style="margin:0; padding:0 ">  93:       end</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       Write: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         req = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         we  = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  98:         // generate byte enable mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         unique case (sbaccess_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:           3'b000: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:             be[be_idx] = '1;</pre>
+<pre style="margin:0; padding:0 "> 102:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:           3'b001: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:             be[int'({be_idx[$high(be_idx):1], 1'b0}) +: 2] = '1;</pre>
+<pre style="margin:0; padding:0 "> 105:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:           3'b010: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:             if (BusWidth == 32'd64) be[int'({be_idx[$high(be_idx)], 2'b0}) +: 4] = '1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:             else                    be = '1;</pre>
+<pre style="margin:0; padding:0 "> 109:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           3'b011: be = '1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:           default: ;</pre>
+<pre style="margin:0; padding:0 "> 112:         endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:         if (gnt) state_d = WaitWrite;</pre>
+<pre style="margin:0; padding:0 "> 114:       end</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       WaitRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:         if (sbdata_valid_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:           state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 119:           // auto-increment address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:           if (sbautoincrement_i) sbaddress_o = sbaddress_i + (32'b1 << sbaccess_i);</pre>
+<pre style="margin:0; padding:0 "> 121:         end</pre>
+<pre style="margin:0; padding:0 "> 122:       end</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:       WaitWrite: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:         if (sbdata_valid_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:           state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 127:           // auto-increment address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:           if (sbautoincrement_i) sbaddress_o = sbaddress_i + (32'b1 << sbaccess_i);</pre>
+<pre style="margin:0; padding:0 "> 129:         end</pre>
+<pre style="margin:0; padding:0 "> 130:       end</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       default: state_d = Idle; // catch parasitic state</pre>
+<pre style="margin:0; padding:0 "> 133:     endcase</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135:     // handle error case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     if (sbaccess_i > 3 && state_q != Idle) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       req             = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       state_d         = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       sberror_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       sberror_o       = 3'd3;</pre>
+<pre style="margin:0; padding:0 "> 141:     end</pre>
+<pre style="margin:0; padding:0 "> 142:     // further error handling should go here ...</pre>
+<pre style="margin:0; padding:0 "> 143:   end</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       state_q <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       state_q <= state_d;</pre>
+<pre style="margin:0; padding:0 "> 150:     end</pre>
+<pre style="margin:0; padding:0 "> 151:   end</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   assign master_req_o    = req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   assign master_add_o    = address[BusWidth-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign master_we_o     = we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   assign master_wdata_o  = sbdata_i[BusWidth-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign master_be_o     = be[BusWidth/8-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   assign gnt             = master_gnt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   assign sbdata_valid_o  = master_r_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign sbdata_o        = master_r_rdata_i[BusWidth-1:0];</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="margin:0; padding:0 "> 163:   //pragma translate_off</pre>
+<pre style="margin:0; padding:0 "> 164:   `ifndef VERILATOR</pre>
+<pre style="margin:0; padding:0 "> 165:     // maybe bump severity to $error if not handled at runtime</pre>
+<pre id="id166" style="background-color: #FFB6C1; margin:0; padding:0 "> 166:     dm_sba_access_size: assert property(@(posedge clk_i) disable iff (dmactive_i !== 1'b0)</pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:         (state_d != Idle) |-> (sbaccess_i < 4))</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:             else $warning ("accesses > 8 byte not supported at the moment");</pre>
+<pre style="margin:0; padding:0 "> 169:   `endif</pre>
+<pre style="margin:0; padding:0 "> 170:   //pragma translate_on</pre>
+<pre style="margin:0; padding:0 "> 171: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172: endmodule : dm_sba</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+</body>
+</html>

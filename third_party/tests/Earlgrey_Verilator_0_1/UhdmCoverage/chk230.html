@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rv_timer_0.1/rtl/timer_core.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module timer_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int N = 1</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input        active,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input [11:0] prescaler,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input [ 7:0] step,</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic        tick,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [63:0] mtime_d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input        [63:0] mtime,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input        [63:0] mtimecmp [N],</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic [N-1:0] intr</pre>
+<pre style="margin:0; padding:0 ">  23: );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic [11:0] tick_count;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   always_ff @(posedge clk_i or negedge rst_ni) begin : generate_tick</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       tick_count <= 12'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     end else if (!active) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:       tick_count <= 12'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     end else if (tick_count == prescaler) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:       tick_count <= 12'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:       tick_count <= tick_count + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  36:     end</pre>
+<pre style="margin:0; padding:0 ">  37:   end</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   assign tick = active & (tick_count >= prescaler);</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign mtime_d = mtime + 64'(step);</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // interrupt is generated if mtime is greater than or equal to mtimecmp</pre>
+<pre style="margin:0; padding:0 ">  44:   // TODO: Check if it must consider overflow case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   for (genvar t = 0 ; t < N ; t++) begin : gen_intr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     assign intr[t] = active & (mtime >= mtimecmp[t]);</pre>
+<pre style="margin:0; padding:0 ">  47:   end</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: endmodule : timer_core</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+</body>
+</html>

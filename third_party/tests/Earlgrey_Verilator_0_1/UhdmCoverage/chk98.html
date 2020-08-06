@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_abstract_ram_2p_0/prim_ram_2p.sv Cov: 96.7% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // This file is auto-generated.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   8:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">   9: `endif</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module prim_ram_2p</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre id="id13" style="background-color: #FFB6C1; margin:0; padding:0 ">  13: #(</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter      MemInitFile     = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input clk_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input clk_b_i,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input                    a_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input                    a_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input        [Aw-1:0]    a_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input        [Width-1:0] a_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic [Width-1:0] a_wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [Width-1:0] a_rdata_o,</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input                    b_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input                    b_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input        [Aw-1:0]    b_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input        [Width-1:0] b_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input  logic [Width-1:0] b_wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic [Width-1:0] b_rdata_o</pre>
+<pre style="margin:0; padding:0 ">  40: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   if (1) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     prim_generic_ram_2p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:       .DataBitsPerMask(DataBitsPerMask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:       .Depth(Depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       .MemInitFile(MemInitFile),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:       .Width(Width)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     ) u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       .*</pre>
+<pre style="margin:0; padding:0 ">  51:     );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   end</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55: endmodule</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+</body>
+</html>

@@ -1,7 +1,6 @@
 /*
 :name: partial_implementation
 :description: virtual classes can implement their interfaces partially
-:should_fail: 0
 :tags: 8.26.7
 */
 module class_tb ();

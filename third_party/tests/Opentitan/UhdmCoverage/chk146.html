@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/aes/rtl/aes_sbox.sv Cov: 73% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES SBox</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module aes_sbox #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter SBoxImpl = "lut"</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  aes_pkg::mode_e mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic [7:0]     data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic [7:0]     data_o</pre>
+<pre style="margin:0; padding:0 ">  13: );</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   if (SBoxImpl == "lut") begin : gen_sbox_lut</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     aes_sbox_lut aes_sbox (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:       .mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:       .data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:       .data_o</pre>
+<pre style="margin:0; padding:0 ">  20:     );</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:   end else if (SBoxImpl == "canright") begin : gen_sbox_canright</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     aes_sbox_canright aes_sbox (</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:       .mode_i,</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:       .data_i,</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:       .data_o</pre>
+<pre style="margin:0; padding:0 ">  26:     );</pre>
+<pre style="margin:0; padding:0 ">  27:   end</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29: endmodule</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+</body>
+</html>
