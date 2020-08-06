@@ -26,6 +26,7 @@
 #include <sstream>
 #include <string.h>
 #include <math.h>
+#include "Utils/StringUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
@@ -322,6 +323,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
           }
           std::string v = val.substr(i + 2);
+          v = StringUtils::replaceAll(v, "_", "");
           switch (base) {
             case 'h':
               hex_value = std::strtoul(v.c_str(), 0, 16);
@@ -489,6 +491,67 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           value->set((int64_t) 0);
           value->setInvalid();
         }
+        break;
+      }
+      case VObjectType::slConstant_concatenation: {
+        NodeId Constant_expression = fC->Child(child);
+        char base = 'h';
+        std::string svalue;
+        uint64_t hex_value = 0;
+        while (Constant_expression) {
+          NodeId Constant_primary = fC->Child(Constant_expression);
+          NodeId Primary_literal = fC->Child(Constant_primary);
+          NodeId ConstVal = fC->Child(Primary_literal);
+          std::string token;
+          if (fC->Type(ConstVal) == slIntConst) {
+            token = fC->SymName(ConstVal);
+          } else {
+            Value* constVal = evalExpr(fC, Primary_literal, instance, muteErrors);
+            token = std::to_string(constVal->getValueUL());
+          }
+          if (strstr(token.c_str(), "'")) {
+            unsigned int i = 0;
+            for (i = 0; i < token.size(); i++) {
+              if (token[i] == '\'') {
+                base = token[i + 1];
+                break;
+              }
+            }
+            std::string v = token.substr(i + 2);
+            v = StringUtils::replaceAll(v, "_", "");
+            std::string size = token.substr(0, i);
+            uint64_t isize = std::strtoul(size.c_str(), 0, 10);
+            unsigned int vsize = v.size();
+            for (unsigned int i = 0; i < isize - vsize; i++) 
+              v = "0" + v;
+            svalue += v;
+          } else {
+            std::string v = token;
+            svalue += v;
+            base = 'd';
+          }
+          Constant_expression = fC->Sibling(Constant_expression);
+        }
+
+        switch (base) {
+          case 'h':
+            hex_value = std::strtoul(svalue.c_str(), 0, 16);
+            break;
+          case 'b':
+            hex_value = std::strtoul(svalue.c_str(), 0, 2);
+            break;
+          case 'o':
+            hex_value = std::strtoul(svalue.c_str(), 0, 8);
+            break;
+          case 'd':
+            hex_value = std::strtoul(svalue.c_str(), 0, 10);
+            break;
+          default:
+            break;
+        }
+        value->set(hex_value);
+        value->setInvalid(); // We can't distinguish in between concatenation or array initialization in this context
+        // se we mark the value as invalid for most purposes. Enum value can still use it as concatenation
         break;
       }
       default:
