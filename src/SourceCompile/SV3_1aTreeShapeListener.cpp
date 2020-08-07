@@ -1216,6 +1216,16 @@ void SV3_1aTreeShapeListener::exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_o
     addVObject (ctx, VObjectType::slIncDec_MinusMinus);
 }
 
+void SV3_1aTreeShapeListener::exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * ctx) {
+  if (ctx->PULLUP()) {
+    addVObject (ctx, VObjectType::slPullup);
+  } else if (ctx->PULLDOWN()) {
+    addVObject (ctx, VObjectType::slPulldown);
+  }
+  addVObject (ctx, VObjectType::slGate_instantiation);
+}
+
+
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}
 

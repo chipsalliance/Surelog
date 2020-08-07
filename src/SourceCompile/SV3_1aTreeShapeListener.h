@@ -715,7 +715,7 @@ namespace SURELOG {
    void enterOpen_range_list(SV3_1aParser::Open_range_listContext * /*ctx*/) final { }
    void exitOpen_range_list(SV3_1aParser::Open_range_listContext * ctx) final { addVObject (ctx, VObjectType::slOpen_range_list); }
    void enterGate_instantiation(SV3_1aParser::Gate_instantiationContext * /*ctx*/) final { }
-   void exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slGate_instantiation); }
+   void exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * /*ctx*/) final ;
    void enterCmos_switch_instance(SV3_1aParser::Cmos_switch_instanceContext * /*ctx*/) final { }
    void exitCmos_switch_instance(SV3_1aParser::Cmos_switch_instanceContext * ctx) final { addVObject (ctx, VObjectType::slCmos_switch_instance); }
    void enterEnable_gate_instance(SV3_1aParser::Enable_gate_instanceContext * /*ctx*/) final { }

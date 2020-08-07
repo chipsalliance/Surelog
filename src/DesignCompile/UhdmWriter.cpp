@@ -73,6 +73,65 @@ typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
 typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
+unsigned int getBuiltinType(VObjectType type) {
+  switch (type) {
+  case VObjectType::slNInpGate_And:
+    return vpiAndPrim;
+  case VObjectType::slNInpGate_Or:
+    return vpiOrPrim;
+  case VObjectType::slNInpGate_Nor:
+    return vpiNorPrim;
+  case VObjectType::slNInpGate_Nand:
+    return vpiNandPrim;
+  case VObjectType::slNInpGate_Xor:
+    return vpiXorPrim;
+  case VObjectType::slNInpGate_Xnor:
+    return vpiXnorPrim;
+  case VObjectType::slNOutGate_Buf:
+    return vpiBufPrim;
+  case VObjectType::slNOutGate_Not:
+    return vpiNotPrim;
+  case VObjectType::slPassEnSwitch_Tranif0:
+    return vpiTranif0Prim;
+  case VObjectType::slPassEnSwitch_Tranif1:
+    return vpiTranif1Prim;
+  case VObjectType::slPassEnSwitch_RTranif1:
+    return vpiRtranif1Prim;
+  case VObjectType::slPassEnSwitch_RTranif0:
+    return vpiRtranif0Prim;
+  case VObjectType::slPassSwitch_Tran:
+    return vpiTranPrim;
+  case VObjectType::slPassSwitch_RTran:
+    return vpiRtranPrim;
+  case VObjectType::slCmosSwitchType_Cmos:
+    return vpiCmosPrim;
+  case VObjectType::slCmosSwitchType_RCmos:
+    return vpiRcmosPrim;
+  case VObjectType::slEnableGateType_Bufif0:
+    return vpiBufif0Prim;
+  case VObjectType::slEnableGateType_Bufif1:
+    return vpiBufif1Prim;
+  case VObjectType::slEnableGateType_Notif0:
+    return vpiNotif0Prim;
+  case VObjectType::slEnableGateType_Notif1:
+    return vpiNotif1Prim;
+  case VObjectType::slMosSwitchType_NMos:
+    return vpiNmosPrim;
+  case VObjectType::slMosSwitchType_PMos:
+    return vpiPmosPrim;
+  case VObjectType::slMosSwitchType_RNMos:
+    return vpiRnmosPrim;
+  case VObjectType::slMosSwitchType_RPMos:
+    return vpiRpmosPrim;
+  case VObjectType::slPullup:
+    return vpiPullupPrim;
+  case VObjectType::slPulldown:
+    return vpiPulldownPrim;    
+  default:
+    return 0;
+  }
+}
+
 unsigned int UhdmWriter::getStrengthType(VObjectType type) {
   switch (type) {
   case VObjectType::slSupply0:
@@ -953,6 +1012,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         if (subPrimitives == nullptr)
           subPrimitives = s.MakePrimitiveVec();
         UHDM::gate* gate = s.MakeGate();
+        const FileContent* fC = instance->getFileContent();
+        NodeId gatenode = fC->Child(child->getNodeId());
+        VObjectType gatetype = fC->Type(gatenode);
+        //TODO: NodeId delayNode = fC->Sibling(gatenode);
+        gate->VpiPrimType(getBuiltinType(gatetype));
         gate->VpiName(child->getInstanceName());
         gate->VpiDefName(child->getModuleName());
         gate->VpiFullName(child->getFullPathName());
