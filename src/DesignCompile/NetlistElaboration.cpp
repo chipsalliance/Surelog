@@ -154,7 +154,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   */
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
-    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
+    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment ||
+        fC->Type(Udp_instance) == VObjectType::slDelay2 ||
+        fC->Type(Udp_instance) == VObjectType::slDelay3) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
@@ -196,12 +198,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
               p->High_conn(exp);
             }
-
-            //ref_obj* ref = s.MakeRef_obj();
-            //ref->VpiName(sigName);
-            //p->High_conn(ref);
-            //any* net = bind_net_(parent, sigName);
-            //ref->Actual_group(net);
           }
         }
         if (inst_type == VObjectType::slGate_instantiation) {
