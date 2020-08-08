@@ -1218,9 +1218,9 @@ void SV3_1aTreeShapeListener::exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_o
 
 void SV3_1aTreeShapeListener::exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * ctx) {
   if (ctx->PULLUP()) {
-    addVObject (ctx, VObjectType::slPullup);
+    addVObject ((ParserRuleContext*)ctx->PULLUP(), VObjectType::slPullup);
   } else if (ctx->PULLDOWN()) {
-    addVObject (ctx, VObjectType::slPulldown);
+    addVObject ((ParserRuleContext*)ctx->PULLDOWN(), VObjectType::slPulldown);
   }
   addVObject (ctx, VObjectType::slGate_instantiation);
 }

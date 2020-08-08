@@ -394,7 +394,8 @@ bool DesignElaboration::createBuiltinPrimitives_() {
         "notif1",   "nmos",     "pmos",   "rnmos",   "rpmos",
         "and",      "or",       "nand",   "nor",     "xor",
         "xnor",     "buf",      "not",    "tranif0", "tranif1",
-        "rtranif0", "rtranif1", "tran",   "rtran",   "UnsupportedPrimitive"}) {
+        "rtranif0", "rtranif1", "tran",   "rtran"  , "pullup",  
+        "pulldown", "UnsupportedPrimitive"}) {
     std::string name = std::string("work@") + type;
     design->addModuleDefinition(name,
                                 m_moduleDefFactory->newModuleDefinition(
@@ -1077,7 +1078,9 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         std::vector<VObjectType> insttypes = {
             VObjectType::slHierarchical_instance,
             VObjectType::slN_input_gate_instance,
-            VObjectType::slN_output_gate_instance, VObjectType::slUdp_instance};
+            VObjectType::slN_output_gate_instance, 
+            VObjectType::slPull_gate_instance, 
+            VObjectType::slUdp_instance};
 
         std::vector<NodeId> hierInstIds =
             fC->sl_collect_all(subInstanceId, insttypes, true);

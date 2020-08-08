@@ -15,6 +15,6 @@ module LogicGates(a,b,y1,y2,y3,y4,y5,y6,y7, y8, y9, y10);
   nand #(2:3:4, 3:4:5)  a3 (nn, a, b);
   bufif0 #(5, 6, 7) a4 (out2, a, b);
   bufif0 #(5:6:7, 6:7:8, 7:8:9) a5 (out3, a, b);
- 
-endmodule // LogicGates
-
+  pmos a6 (p1,p2,p3);
+  pullup a7 (p1);
+endmodule
