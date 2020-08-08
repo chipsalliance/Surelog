@@ -100,9 +100,9 @@ there are 1 more instances of this message.
 
 [NTE:EL0511] Nb leaf instances: 10.
 
-[WRN:EL0512] Nb undefined modules: 2.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WRN:EL0513] Nb undefined instances: 2.
+[WRN:EL0513] Nb undefined instances: 1.
 
 UHDM HTML COVERAGE REPORT: ../../../build/tests/SimpleParserTest/slpp_unit//surelog.uhdm.chk
 ====== UHDM =======
@@ -8424,6 +8424,46 @@ design: (work@dff_async_reset)
   |vpiDefName:work@mux21_switch
   |vpiName:work@mux21_switch
   |vpiPrimitive:
+  \_gate: work@pmos (N1), line:16, parent:work@mux21_switch
+    |vpiDefName:work@pmos
+    |vpiName:N1
+    |vpiFullName:work@mux21_switch.N1
+    |vpiPrimType:14
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (e), line:16
+        |vpiName:e
+        |vpiActual:
+        \_logic_net: (e), line:11, parent:work@mux21_switch
+          |vpiName:e
+          |vpiFullName:work@mux21_switch.e
+          |vpiNetType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (power), line:16
+        |vpiName:power
+        |vpiActual:
+        \_logic_net: (power), line:13, parent:work@mux21_switch
+          |vpiName:power
+          |vpiFullName:work@mux21_switch.power
+          |vpiNetType:10
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (ctrl), line:16
+        |vpiName:ctrl
+        |vpiActual:
+        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
+          |vpiName:ctrl
+          |vpiFullName:work@mux21_switch.ctrl
+  |vpiPrimitive:
   \_gate: work@nmos (N2), line:17, parent:work@mux21_switch
     |vpiDefName:work@nmos
     |vpiName:N2
@@ -8437,9 +8477,6 @@ design: (work@dff_async_reset)
         |vpiName:e
         |vpiActual:
         \_logic_net: (e), line:11, parent:work@mux21_switch
-          |vpiName:e
-          |vpiFullName:work@mux21_switch.e
-          |vpiNetType:1
     |vpiPrimTerm:
     \_prim_term: , line:17, parent:N2
       |vpiDirection:1
@@ -8461,8 +8498,6 @@ design: (work@dff_async_reset)
         |vpiName:ctrl
         |vpiActual:
         \_logic_net: (ctrl), line:7, parent:work@mux21_switch
-          |vpiName:ctrl
-          |vpiFullName:work@mux21_switch.ctrl
   |vpiPrimitive:
   \_gate: work@cmos (C1), line:19, parent:work@mux21_switch
     |vpiDefName:work@cmos
@@ -8579,40 +8614,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (in2), line:7, parent:work@mux21_switch
-  |vpiModule:
-  \_module: work@bmos (N1), file:mux21.v, line:16, parent:work@mux21_switch
-    |vpiDefName:work@bmos
-    |vpiName:N1
-    |vpiFullName:work@mux21_switch.N1
-    |vpiPort:
-    \_port: , line:16, parent:N1
-      |vpiDirection:2
-      |vpiHighConn:
-      \_ref_obj: (e), line:16
-        |vpiName:e
-        |vpiActual:
-        \_logic_net: (e), line:11, parent:work@mux21_switch
-    |vpiPort:
-    \_port: , line:16, parent:N1
-      |vpiDirection:1
-      |vpiHighConn:
-      \_ref_obj: (power), line:16
-        |vpiName:power
-        |vpiActual:
-        \_logic_net: (power), line:13, parent:work@mux21_switch
-          |vpiName:power
-          |vpiFullName:work@mux21_switch.power
-          |vpiNetType:10
-    |vpiPort:
-    \_port: , line:16, parent:N1
-      |vpiDirection:1
-      |vpiHighConn:
-      \_ref_obj: (ctrl), line:16
-        |vpiName:ctrl
-        |vpiActual:
-        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
-    |vpiInstance:
-    \_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7
   |vpiNet:
   \_logic_net: (e), line:11, parent:work@mux21_switch
   |vpiNet:
