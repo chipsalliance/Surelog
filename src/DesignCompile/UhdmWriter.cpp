@@ -862,13 +862,14 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   return true;
 }
 
-void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
+void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   VectorOfprim_term* terms = s.MakePrim_termVec();
   prim->Prim_terms(terms);
   if (netlist->ports()) {
-    int index = 0;
-    for (auto port : *netlist->ports()) {
+    unsigned int index = 0;
+    VectorOfport* ports = netlist->ports();
+    for (auto port : *ports) {
       prim_term* term = s.MakePrim_term();
       terms->push_back(term);
       const any* hconn = port->High_conn();
@@ -878,6 +879,31 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
       term->VpiDirection(port->VpiDirection());
       term->VpiParent(prim);
       term->VpiTermIndex(index);
+      if (vpiGateType == vpiBufPrim ||
+          vpiGateType == vpiNotPrim) {
+        if (index < ports->size() -1) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      } else if (vpiGateType == vpiTranif1Prim ||
+                 vpiGateType == vpiTranif0Prim ||
+                 vpiGateType == vpiRtranif1Prim ||
+                 vpiGateType == vpiRtranif0Prim || 
+                 vpiGateType == vpiTranPrim ||
+                 vpiGateType == vpiRtranPrim) {
+        if (index < ports->size() -1) {
+          term->VpiDirection(vpiInout);
+        } else {
+          term->VpiDirection(vpiInput);
+        }           
+      } else {
+        if (index == 0) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      }
       index++;
     }
   }
@@ -1011,12 +1037,27 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else if (insttype == VObjectType::slGate_instantiation) {
         if (subPrimitives == nullptr)
           subPrimitives = s.MakePrimitiveVec();
-        UHDM::gate* gate = s.MakeGate();
+        UHDM::primitive* gate = nullptr;
         const FileContent* fC = instance->getFileContent();
         NodeId gatenode = fC->Child(child->getNodeId());
         VObjectType gatetype = fC->Type(gatenode);
-        //TODO: NodeId delayNode = fC->Sibling(gatenode);
-        gate->VpiPrimType(getBuiltinType(gatetype));
+        int vpiGateType = getBuiltinType(gatetype);
+        if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
+            vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
+            vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
+            vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
+            vpiGateType == vpiRtranif1Prim || vpiGateType == vpiRtranif0Prim ||
+            vpiGateType == vpiTranPrim || vpiGateType == vpiRtranPrim) {
+          gate = s.MakeSwitch_tran();
+        } else {
+          gate = s.MakeGate();
+        }
+        if (UHDM::VectorOfexpr* delays = child->getNetlist()->delays()) {
+          if (delays->size() == 1) {
+            gate->Delay((*delays)[0]);
+          }
+        }
+        gate->VpiPrimType(vpiGateType);
         gate->VpiName(child->getInstanceName());
         gate->VpiDefName(child->getModuleName());
         gate->VpiFullName(child->getFullPathName());
@@ -1031,7 +1072,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((gen_scope*) m)->Primitives(subPrimitives);
           gate->VpiParent(m);
         }
-        writePrimTerms(child, gate, s);
+        writePrimTerms(child, gate, vpiGateType, s);
       } else {
         // Unknown object type
       }

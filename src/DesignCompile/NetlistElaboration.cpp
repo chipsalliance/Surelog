@@ -154,9 +154,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   */
     NodeId modId = fC->Child(Udp_instantiation);
     NodeId Udp_instance = fC->Sibling(modId);
-    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment ||
-        fC->Type(Udp_instance) == VObjectType::slDelay2 ||
-        fC->Type(Udp_instance) == VObjectType::slDelay3) {
+    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
+      Udp_instance = fC->Sibling(Udp_instance);
+    } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
+               fC->Type(Udp_instance) == VObjectType::slDelay3) {
+      expr* delay_expr = (expr*) m_helper.compileExpression(comp, fC, Udp_instance, m_compileDesign);
+      VectorOfexpr* delays = s.MakeExprVec();
+      netlist->delays(delays);
+      delays->push_back(delay_expr);     
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
@@ -201,16 +206,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
         }
         if (inst_type == VObjectType::slGate_instantiation) {
-          // N input gate: 1 output, n-1 inputs
-          port* p = nullptr;
+          port* p = s.MakePort();
           if (ports == nullptr) {
             ports = s.MakePortVec();
             netlist->ports(ports);
-            p = s.MakePort();
-            p->VpiDirection(vpiOutput);
-          } else {
-            p = s.MakePort();
-            p->VpiDirection(vpiInput);
           }
           p->VpiFile(fC->getFileName());
           p->VpiLineNo(fC->Line(Net_lvalue));
