@@ -168,6 +168,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     NodeId Net_lvalue = 0;
     if (fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
+      NodeId Name = fC->Child(Name_of_instance);
+      NodeId Unpacked_dimension = fC->Sibling(Name);
+      if (Unpacked_dimension) {
+        int size;
+        VectorOfrange* ranges = m_helper.compileRanges(comp, fC, Unpacked_dimension, m_compileDesign, nullptr, instance, true, size);
+        netlist->ranges(ranges);
+      }
     } else {
       Net_lvalue = Name_of_instance;
       Name_of_instance = 0;
