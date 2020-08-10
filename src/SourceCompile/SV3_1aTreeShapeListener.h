@@ -931,11 +931,11 @@ namespace SURELOG {
    void enterNext_state(SV3_1aParser::Next_stateContext * /*ctx*/) final { }
    void exitNext_state(SV3_1aParser::Next_stateContext * ctx) final { addVObject (ctx, VObjectType::slNext_state); }
    void enterOutput_symbol(SV3_1aParser::Output_symbolContext * /*ctx*/) final { }
-   void exitOutput_symbol(SV3_1aParser::Output_symbolContext * ctx) final { addVObject (ctx, VObjectType::slOutput_symbol); }
+   void exitOutput_symbol(SV3_1aParser::Output_symbolContext * /*ctx*/) final ;
    void enterLevel_symbol(SV3_1aParser::Level_symbolContext * /*ctx*/) final { }
-   void exitLevel_symbol(SV3_1aParser::Level_symbolContext * ctx) final { addVObject (ctx, VObjectType::slLevel_symbol); }
+   void exitLevel_symbol(SV3_1aParser::Level_symbolContext * /*ctx*/) final ;
    void enterEdge_symbol(SV3_1aParser::Edge_symbolContext * /*ctx*/) final { }
-   void exitEdge_symbol(SV3_1aParser::Edge_symbolContext * ctx) final { addVObject (ctx, VObjectType::slEdge_symbol); }
+   void exitEdge_symbol(SV3_1aParser::Edge_symbolContext * /*ctx*/) final ;
    void enterUdp_instantiation(SV3_1aParser::Udp_instantiationContext * /*ctx*/) final { }
    void exitUdp_instantiation(SV3_1aParser::Udp_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slUdp_instantiation); }
    void enterUdp_instance(SV3_1aParser::Udp_instanceContext * /*ctx*/) final { }

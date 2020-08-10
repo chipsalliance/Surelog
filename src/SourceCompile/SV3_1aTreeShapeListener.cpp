@@ -1225,6 +1225,40 @@ void SV3_1aTreeShapeListener::exitGate_instantiation(SV3_1aParser::Gate_instanti
   addVObject (ctx, VObjectType::slGate_instantiation);
 }
 
+void SV3_1aTreeShapeListener::exitOutput_symbol(SV3_1aParser::Output_symbolContext * ctx) {
+  if (ctx->Integral_number()) {
+    auto number = ctx->Integral_number();
+    addVObject((ParserRuleContext*)ctx->Integral_number(), number->getText(), VObjectType::slIntConst);
+  } else if (ctx->Simple_identifier()) {
+    std::string ident = ctx->Simple_identifier()->getText();
+    addVObject((ParserRuleContext*)ctx->Simple_identifier(), ident, VObjectType::slStringConst);
+  }
+  addVObject (ctx, VObjectType::slOutput_symbol);
+}
+
+
+void SV3_1aTreeShapeListener::exitLevel_symbol(SV3_1aParser::Level_symbolContext * ctx) {
+  if (ctx->Integral_number()) {
+    auto number = ctx->Integral_number();
+    addVObject((ParserRuleContext*)ctx->Integral_number(), number->getText(), VObjectType::slIntConst);
+  } else if (ctx->Simple_identifier()) {
+    std::string ident = ctx->Simple_identifier()->getText();
+    addVObject((ParserRuleContext*)ctx->Simple_identifier(), ident, VObjectType::slStringConst);
+  } else if (ctx->QMARK()) {
+    addVObject ((ParserRuleContext*)ctx->QMARK(), VObjectType::slQmark);
+  }
+  addVObject (ctx, VObjectType::slLevel_symbol);
+}
+
+void SV3_1aTreeShapeListener::exitEdge_symbol(SV3_1aParser::Edge_symbolContext * ctx) {
+  if (ctx->Simple_identifier()) {
+    std::string ident = ctx->Simple_identifier()->getText();
+    addVObject((ParserRuleContext*)ctx->Simple_identifier(), ident, VObjectType::slStringConst);
+  } else if (ctx->STAR()) {
+    addVObject ((ParserRuleContext*)ctx->STAR(), VObjectType::slBinOp_Mult);
+  }
+  addVObject (ctx, VObjectType::slEdge_symbol);
+}
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}

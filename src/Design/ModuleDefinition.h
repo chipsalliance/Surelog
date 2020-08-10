@@ -34,7 +34,9 @@
 #include "Design/DataType.h"
 #include "Common/ClockingBlockHolder.h"
 #include "ModPort.h"
-
+namespace UHDM {
+  class udp_defn;
+}
 namespace SURELOG {
 class CompileModule;
 
@@ -81,6 +83,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
 
   void setGenBlockId(NodeId id) { m_gen_block_id = id; }
   NodeId getGenBlockId() const { return m_gen_block_id; }
+  UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
 
  private:
   const std::string m_name;
@@ -88,6 +91,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
   NodeId m_gen_block_id;
+  UHDM::udp_defn*  m_udpDefn;
 };
 
 class ModuleDefinitionFactory {
