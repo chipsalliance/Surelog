@@ -1260,6 +1260,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
 
     // Modules
     VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    // Udps
+    VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().size() == 0) {
@@ -1274,9 +1276,20 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m);
         writeModule(mod, m, s, componentMap, modPortMap);
+      } else if (mod->getType() == VObjectType::slUdp_declaration) {
+        const FileContent* fC = mod->getFileContents()[0];
+        UHDM::udp_defn* defn = mod->getUdpDefn();
+        if (defn) {
+          defn->VpiParent(d);
+          defn->VpiDefName(mod->getName());
+          defn->VpiFile(fC->getFileName());
+          defn->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+          uhdm_udps->push_back(defn);
+        }
       }
     }
     d->AllModules(uhdm_modules);
+    d->AllUdps(uhdm_udps);
 
     // Repair parent relationship
     for (auto classNamePair : classes) {

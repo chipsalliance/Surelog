@@ -119,16 +119,138 @@ bool CompileModule::compile() {
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
+      if (!collectUdpObjects_()) return false;
       break;
     case VObjectType::slChecker_declaration:
       break;
     default:
       break;
   }
-
   return true;
 }
 
+bool CompileModule::collectUdpObjects_() {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  const FileContent* const fC = m_module->m_fileContents[0];
+  NodeId id = m_module->m_nodeIds[0];
+  VObject current = fC->Object(id);
+  std::stack<NodeId> stack;
+  stack.push(id);
+  m_module->m_udpDefn = s.MakeUdp_defn();
+  UHDM::udp_defn* defn = m_module->m_udpDefn;
+  while (stack.size()) {
+    id = stack.top();
+    stack.pop();
+    current = fC->Object(id);
+    VObjectType type = fC->Type(id);
+    switch (type) {
+      case slUdp_nonansi_declaration: {
+        break;
+      }
+      case slUdp_port_list: {
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        if (ios == nullptr) {
+          defn->Io_decls(s.MakeIo_declVec());
+          ios = defn->Io_decls();
+        }
+        NodeId port = fC->Child(id);
+        while (port) {
+          UHDM::io_decl* io = s.MakeIo_decl();
+          const std::string& name = fC->SymName(port);
+          io->VpiName(name);
+          ios->push_back(io);
+          port = fC->Sibling(port); 
+        }
+      }
+      case slUdp_output_declaration: {
+        NodeId Output = fC->Child(id);
+        const std::string& outputname = fC->SymName(Output);
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        if (ios) {
+          for (auto io : *ios) {
+            if (io->VpiName() == outputname) {
+              io->VpiDirection(vpiOutput);
+              break;
+            }
+          }
+        }
+        break;
+      }
+      case slUdp_input_declaration: {
+        NodeId Indentifier_list = fC->Child(id);
+        NodeId Identifier = fC->Child(Indentifier_list);
+        while (Identifier) {
+          const std::string& inputname = fC->SymName(Identifier);
+          std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+          if (ios) {
+            for (auto io : *ios) {
+              if (io->VpiName() == inputname) {
+                io->VpiDirection(vpiInput);
+                break;
+              }
+            }
+          }
+          Identifier = fC->Sibling(Identifier);
+        }
+        break;
+      }
+      case slCombinational_entry: {
+        NodeId Level_input_list = fC->Child(id);
+        NodeId Output_symbol = fC->Sibling(Level_input_list);
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        while (Level_symbol) {
+          NodeId Symbol = fC->Child(Level_symbol);
+          unsigned int nbSymb = 0;
+          if (fC->Type(Symbol) == slQmark) {
+             ventry += "? ";
+             nbSymb = 1;
+          } else {
+            const std::string& symb = fC->SymName(Symbol);
+            nbSymb = symb.size();
+            std::string symbols;
+            for (unsigned int i =0; i < nbSymb; i++) {
+              char s = symb[i];
+              symbols += s + std::string(" ");
+            }
+            ventry += symbols;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+          nb = nb + nbSymb;
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Output_symbol);
+        ventry += fC->SymName(Symbol);
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entries->push_back(entry);
+        break;
+      }
+      case slSequential_entry: {
+        NodeId Seq_input_list = fC->Child(id);
+        NodeId Level_symbol = fC->Sibling(Seq_input_list);
+        NodeId Next_state = fC->Sibling(Level_symbol);
+        
+        break;
+      }
+      default:
+        break;
+    }
+    if (current.m_sibling) 
+      stack.push(current.m_sibling);
+    if (current.m_child) 
+      stack.push(current.m_child);
+  }
+
+  return true;
+}
 
 bool CompileModule::collectModuleObjects_() {
   std::vector<VObjectType> stopPoints = {

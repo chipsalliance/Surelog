@@ -152,6 +152,9 @@ public:
   UHDM::VectorOfany* compileStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
+  UHDM::udp_defn* compileUdpDefn(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+        CompileDesign* compileDesign);      
+
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce);
 

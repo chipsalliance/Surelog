@@ -73,6 +73,7 @@ private:
   bool checkModule_();
   bool collectInterfaceObjects_();
   bool checkInterface_();
+  bool collectUdpObjects_();
   void compileClockingBlock_(const FileContent* fC, NodeId id);
 
   CompileDesign* const m_compileDesign;
