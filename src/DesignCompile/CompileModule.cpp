@@ -206,6 +206,9 @@ bool CompileModule::collectUdpObjects_() {
           if (fC->Type(Symbol) == slQmark) {
              ventry += "? ";
              nbSymb = 1;
+          } else if (fC->Type(Symbol) == slBinOp_Mult) {
+            ventry += "* ";
+            nbSymb = 1;
           } else {
             const std::string& symb = fC->SymName(Symbol);
             nbSymb = symb.size();
@@ -235,18 +238,120 @@ bool CompileModule::collectUdpObjects_() {
       }
       case slSequential_entry: {
         NodeId Seq_input_list = fC->Child(id);
-        NodeId Level_symbol = fC->Sibling(Seq_input_list);
-        NodeId Next_state = fC->Sibling(Level_symbol);
-        
+        NodeId Level_input_list = fC->Child(Seq_input_list);
+        NodeId Current_state = fC->Sibling(Seq_input_list);
+        NodeId Next_state = fC->Sibling(Current_state);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        while (Level_symbol) {
+          if (fC->Type(Level_symbol) == slEdge_indicator) {
+            NodeId Level_Symbol = fC->Child(Level_symbol);
+            while (Level_Symbol) {
+              NodeId Symbol = fC->Child(Level_Symbol);
+              if (fC->Type(Symbol) == slQmark) {
+                ventry += "?";
+              } else if (fC->Type(Symbol) == slBinOp_Mult) {
+                ventry += "* ";
+              } else {
+                const std::string& symb = fC->SymName(Symbol);
+                ventry += symb;
+              }
+              Level_Symbol = fC->Sibling(Level_Symbol);
+            }
+            ventry += " ";
+            nb++;
+          } else {
+            NodeId Symbol = fC->Child(Level_symbol);
+
+            unsigned int nbSymb = 0;
+            if (fC->Type(Symbol) == slQmark) {
+              ventry += "? ";
+              nbSymb = 1;
+            } else if (fC->Type(Symbol) == slBinOp_Mult) {
+              ventry += "* ";
+              nbSymb = 1;  
+            } else {
+              const std::string& symb = fC->SymName(Symbol);
+              nbSymb = symb.size();
+              std::string symbols;
+              for (unsigned int i = 0; i < nbSymb; i++) {
+                char s = symb[i];
+                symbols += s + std::string(" ");
+              }
+              ventry += symbols;
+            }
+            nb = nb + nbSymb;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Current_state);
+
+        if (fC->Type(Symbol) == slQmark) {
+          ventry += "? ";
+        } else if (fC->Type(Symbol) == slBinOp_Mult) {
+          ventry += "* ";
+        } else {
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        }
+
+        ventry += ": ";
+        Symbol = fC->Child(Next_state);
+       
+        if (fC->Type(Symbol) == slOutput_symbol) {
+          Symbol = fC->Child(Symbol);
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        } else {
+          ventry += "-";
+        }
+
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entries->push_back(entry);
+        break;
+      }
+      case slUdp_initial_statement: {
+        NodeId Identifier = fC->Child(id);
+        NodeId Value = fC->Sibling(Identifier);
+        UHDM::initial* init = s.MakeInitial();
+        defn->Initial(init);
+        UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        init->Stmt(assign_stmt);
+        UHDM::ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(fC->SymName(Identifier));
+        assign_stmt->Lhs(ref);
+        UHDM::constant* c = s.MakeConstant();
+        assign_stmt->Rhs(c);
+        std::string val = "INT:" + fC->SymName(Value);
+        c->VpiValue(val);
         break;
       }
       default:
         break;
     }
-    if (current.m_sibling) 
-      stack.push(current.m_sibling);
-    if (current.m_child) 
-      stack.push(current.m_child);
+    if (current.m_sibling) stack.push(current.m_sibling);
+    if (current.m_child) stack.push(current.m_child);
   }
 
   return true;
