@@ -2271,8 +2271,14 @@ std::string VObject::getTypeName(unsigned short type) {
     case slPull_gate_instance:
       text = "slPull_gate_instance";
       break;
+    case slPulldown:
+      text = "slPulldown";
+      break;
     case slPulldown_strength:
       text = "slPulldown_strength";
+      break;
+    case slPullup:
+      text = "slPullup";
       break;
     case slPullup_strength:
       text = "slPullup_strength";

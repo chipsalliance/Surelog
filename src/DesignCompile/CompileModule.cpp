@@ -119,16 +119,243 @@ bool CompileModule::compile() {
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
+      if (!collectUdpObjects_()) return false;
       break;
     case VObjectType::slChecker_declaration:
       break;
     default:
       break;
   }
-
   return true;
 }
 
+bool CompileModule::collectUdpObjects_() {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  const FileContent* const fC = m_module->m_fileContents[0];
+  NodeId id = m_module->m_nodeIds[0];
+  VObject current = fC->Object(id);
+  std::stack<NodeId> stack;
+  stack.push(id);
+  m_module->m_udpDefn = s.MakeUdp_defn();
+  UHDM::udp_defn* defn = m_module->m_udpDefn;
+  while (stack.size()) {
+    id = stack.top();
+    stack.pop();
+    current = fC->Object(id);
+    VObjectType type = fC->Type(id);
+    switch (type) {
+      case slUdp_nonansi_declaration: {
+        break;
+      }
+      case slUdp_port_list: {
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        if (ios == nullptr) {
+          defn->Io_decls(s.MakeIo_declVec());
+          ios = defn->Io_decls();
+        }
+        NodeId port = fC->Child(id);
+        while (port) {
+          UHDM::io_decl* io = s.MakeIo_decl();
+          const std::string& name = fC->SymName(port);
+          io->VpiName(name);
+          ios->push_back(io);
+          port = fC->Sibling(port); 
+        }
+      }
+      case slUdp_output_declaration: {
+        NodeId Output = fC->Child(id);
+        const std::string& outputname = fC->SymName(Output);
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        if (ios) {
+          for (auto io : *ios) {
+            if (io->VpiName() == outputname) {
+              io->VpiDirection(vpiOutput);
+              break;
+            }
+          }
+        }
+        break;
+      }
+      case slUdp_input_declaration: {
+        NodeId Indentifier_list = fC->Child(id);
+        NodeId Identifier = fC->Child(Indentifier_list);
+        while (Identifier) {
+          const std::string& inputname = fC->SymName(Identifier);
+          std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+          if (ios) {
+            for (auto io : *ios) {
+              if (io->VpiName() == inputname) {
+                io->VpiDirection(vpiInput);
+                break;
+              }
+            }
+          }
+          Identifier = fC->Sibling(Identifier);
+        }
+        break;
+      }
+      case slCombinational_entry: {
+        NodeId Level_input_list = fC->Child(id);
+        NodeId Output_symbol = fC->Sibling(Level_input_list);
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        while (Level_symbol) {
+          NodeId Symbol = fC->Child(Level_symbol);
+          unsigned int nbSymb = 0;
+          if (fC->Type(Symbol) == slQmark) {
+             ventry += "? ";
+             nbSymb = 1;
+          } else if (fC->Type(Symbol) == slBinOp_Mult) {
+            ventry += "* ";
+            nbSymb = 1;
+          } else {
+            const std::string& symb = fC->SymName(Symbol);
+            nbSymb = symb.size();
+            std::string symbols;
+            for (unsigned int i =0; i < nbSymb; i++) {
+              char s = symb[i];
+              symbols += s + std::string(" ");
+            }
+            ventry += symbols;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+          nb = nb + nbSymb;
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Output_symbol);
+        ventry += fC->SymName(Symbol);
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entries->push_back(entry);
+        break;
+      }
+      case slSequential_entry: {
+        NodeId Seq_input_list = fC->Child(id);
+        NodeId Level_input_list = fC->Child(Seq_input_list);
+        NodeId Current_state = fC->Sibling(Seq_input_list);
+        NodeId Next_state = fC->Sibling(Current_state);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        while (Level_symbol) {
+          if (fC->Type(Level_symbol) == slEdge_indicator) {
+            NodeId Level_Symbol = fC->Child(Level_symbol);
+            while (Level_Symbol) {
+              NodeId Symbol = fC->Child(Level_Symbol);
+              if (fC->Type(Symbol) == slQmark) {
+                ventry += "?";
+              } else if (fC->Type(Symbol) == slBinOp_Mult) {
+                ventry += "* ";
+              } else {
+                const std::string& symb = fC->SymName(Symbol);
+                ventry += symb;
+              }
+              Level_Symbol = fC->Sibling(Level_Symbol);
+            }
+            ventry += " ";
+            nb++;
+          } else {
+            NodeId Symbol = fC->Child(Level_symbol);
+
+            unsigned int nbSymb = 0;
+            if (fC->Type(Symbol) == slQmark) {
+              ventry += "? ";
+              nbSymb = 1;
+            } else if (fC->Type(Symbol) == slBinOp_Mult) {
+              ventry += "* ";
+              nbSymb = 1;  
+            } else {
+              const std::string& symb = fC->SymName(Symbol);
+              nbSymb = symb.size();
+              std::string symbols;
+              for (unsigned int i = 0; i < nbSymb; i++) {
+                char s = symb[i];
+                symbols += s + std::string(" ");
+              }
+              ventry += symbols;
+            }
+            nb = nb + nbSymb;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Current_state);
+
+        if (fC->Type(Symbol) == slQmark) {
+          ventry += "? ";
+        } else if (fC->Type(Symbol) == slBinOp_Mult) {
+          ventry += "* ";
+        } else {
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        }
+
+        ventry += ": ";
+        Symbol = fC->Child(Next_state);
+       
+        if (fC->Type(Symbol) == slOutput_symbol) {
+          Symbol = fC->Child(Symbol);
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        } else {
+          ventry += "-";
+        }
+
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entries->push_back(entry);
+        break;
+      }
+      case slUdp_initial_statement: {
+        NodeId Identifier = fC->Child(id);
+        NodeId Value = fC->Sibling(Identifier);
+        UHDM::initial* init = s.MakeInitial();
+        defn->Initial(init);
+        UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        init->Stmt(assign_stmt);
+        UHDM::ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(fC->SymName(Identifier));
+        assign_stmt->Lhs(ref);
+        UHDM::constant* c = s.MakeConstant();
+        assign_stmt->Rhs(c);
+        std::string val = "INT:" + fC->SymName(Value);
+        c->VpiValue(val);
+        break;
+      }
+      default:
+        break;
+    }
+    if (current.m_sibling) stack.push(current.m_sibling);
+    if (current.m_child) stack.push(current.m_child);
+  }
+
+  return true;
+}
 
 bool CompileModule::collectModuleObjects_() {
   std::vector<VObjectType> stopPoints = {

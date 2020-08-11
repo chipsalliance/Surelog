@@ -1568,7 +1568,6 @@ gate_instantiation
          
     ; 
 
-
 cmos_switch_instance : ( name_of_instance )? OPEN_PARENS net_lvalue COMMA expression COMMA 
         expression COMMA expression CLOSE_PARENS ; 
 

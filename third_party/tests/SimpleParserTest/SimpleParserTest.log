@@ -137,6 +137,108 @@ design: (work@dff_async_reset)
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dff_async_reset
   |vpiName:work@semaphore
+|uhdmallUdps:
+\_udp_defn: work@jkff_udp, line:7, parent:work@dff_async_reset
+  |vpiDefName:work@jkff_udp
+  |vpiIODecl:
+  \_io_decl: (q)
+    |vpiName:q
+    |vpiDirection:2
+  |vpiIODecl:
+  \_io_decl: (clk)
+    |vpiName:clk
+    |vpiDirection:1
+  |vpiIODecl:
+  \_io_decl: (j)
+    |vpiName:j
+    |vpiDirection:1
+  |vpiIODecl:
+  \_io_decl: (k)
+    |vpiName:k
+    |vpiDirection:1
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:r 0 0 : ? : -
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:r 0 1 : ? : 0 
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:r 1 0 : ? : 1 
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:r 1 1 : 0 : 1 
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:r 1 1 : 1 : 0 
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:f ? ? : ? : -
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:? *  ? : ? : -
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:3
+    |STRING:? ? *  : ? : -
+|uhdmallUdps:
+\_udp_defn: work@xor2_input, line:24, parent:work@dff_async_reset
+  |vpiDefName:work@xor2_input
+  |vpiIODecl:
+  \_io_decl: (c)
+    |vpiName:c
+    |vpiDirection:2
+  |vpiIODecl:
+  \_io_decl: (a)
+    |vpiName:a
+    |vpiDirection:1
+  |vpiIODecl:
+  \_io_decl: (b)
+    |vpiName:b
+    |vpiDirection:1
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:0 0 : 0
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:0 1 : 1
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:1 0 : 1
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:1 1 : 0
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:x 1 : x
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:1 x : x
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:x 0 : x
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:0 x : x
+  |vpiTableEntry:
+  \_table_entry: 
+    |vpiSize:2
+    |STRING:x x : x
 |uhdmallModules:
 \_module: work@LFSR_TASK, file:lfsr_task.v, line:2, parent:work@dff_async_reset
   |vpiDefName:work@LFSR_TASK
@@ -8102,6 +8204,7 @@ design: (work@dff_async_reset)
     |vpiDefName:work@and
     |vpiName:U_and1
     |vpiFullName:work@full_adder_gates.U_and1
+    |vpiPrimType:1
     |vpiPrimTerm:
     \_prim_term: , line:12, parent:U_and1
       |vpiDirection:2
@@ -8140,6 +8243,7 @@ design: (work@dff_async_reset)
     |vpiDefName:work@or
     |vpiName:U_or
     |vpiFullName:work@full_adder_gates.U_or
+    |vpiPrimType:4
     |vpiPrimTerm:
     \_prim_term: , line:15, parent:U_or
       |vpiDirection:2
@@ -8188,6 +8292,7 @@ design: (work@dff_async_reset)
     |vpiDefName:work@xor
     |vpiName:U_sum
     |vpiFullName:work@full_adder_gates.U_sum
+    |vpiPrimType:5
     |vpiPrimTerm:
     \_prim_term: , line:16, parent:U_sum
       |vpiDirection:2
@@ -8421,10 +8526,11 @@ design: (work@dff_async_reset)
   |vpiDefName:work@mux21_switch
   |vpiName:work@mux21_switch
   |vpiPrimitive:
-  \_gate: work@UnsupportedPrimitive (N1), line:16, parent:work@mux21_switch
-    |vpiDefName:work@UnsupportedPrimitive
+  \_switch_tran: work@pmos (N1), line:16, parent:work@mux21_switch
+    |vpiDefName:work@pmos
     |vpiName:N1
     |vpiFullName:work@mux21_switch.N1
+    |vpiPrimType:14
     |vpiPrimTerm:
     \_prim_term: , line:16, parent:N1
       |vpiDirection:2
@@ -8460,10 +8566,11 @@ design: (work@dff_async_reset)
           |vpiName:ctrl
           |vpiFullName:work@mux21_switch.ctrl
   |vpiPrimitive:
-  \_gate: work@UnsupportedPrimitive (N2), line:17, parent:work@mux21_switch
-    |vpiDefName:work@UnsupportedPrimitive
+  \_switch_tran: work@nmos (N2), line:17, parent:work@mux21_switch
+    |vpiDefName:work@nmos
     |vpiName:N2
     |vpiFullName:work@mux21_switch.N2
+    |vpiPrimType:13
     |vpiPrimTerm:
     \_prim_term: , line:17, parent:N2
       |vpiDirection:2
@@ -8494,10 +8601,11 @@ design: (work@dff_async_reset)
         |vpiActual:
         \_logic_net: (ctrl), line:7, parent:work@mux21_switch
   |vpiPrimitive:
-  \_gate: work@UnsupportedPrimitive (C1), line:19, parent:work@mux21_switch
-    |vpiDefName:work@UnsupportedPrimitive
+  \_switch_tran: work@cmos (C1), line:19, parent:work@mux21_switch
+    |vpiDefName:work@cmos
     |vpiName:C1
     |vpiFullName:work@mux21_switch.C1
+    |vpiPrimType:15
     |vpiPrimTerm:
     \_prim_term: , line:19, parent:C1
       |vpiDirection:2
@@ -8536,10 +8644,11 @@ design: (work@dff_async_reset)
         |vpiActual:
         \_logic_net: (ctrl), line:7, parent:work@mux21_switch
   |vpiPrimitive:
-  \_gate: work@UnsupportedPrimitive (C2), line:20, parent:work@mux21_switch
-    |vpiDefName:work@UnsupportedPrimitive
+  \_switch_tran: work@cmos (C2), line:20, parent:work@mux21_switch
+    |vpiDefName:work@cmos
     |vpiName:C2
     |vpiFullName:work@mux21_switch.C2
+    |vpiPrimType:15
     |vpiPrimTerm:
     \_prim_term: , line:20, parent:C2
       |vpiDirection:2

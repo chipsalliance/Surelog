@@ -31,7 +31,7 @@ using namespace SURELOG;
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
                                    NodeId nodeId,
                                    const std::string_view name)
-    : DesignComponent(fileContent, NULL), m_name(name), m_gen_block_id(0) {
+    : DesignComponent(fileContent, NULL), m_name(name), m_gen_block_id(0), m_udpDefn(nullptr) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }

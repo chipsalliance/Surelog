@@ -715,7 +715,7 @@ namespace SURELOG {
    void enterOpen_range_list(SV3_1aParser::Open_range_listContext * /*ctx*/) final { }
    void exitOpen_range_list(SV3_1aParser::Open_range_listContext * ctx) final { addVObject (ctx, VObjectType::slOpen_range_list); }
    void enterGate_instantiation(SV3_1aParser::Gate_instantiationContext * /*ctx*/) final { }
-   void exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slGate_instantiation); }
+   void exitGate_instantiation(SV3_1aParser::Gate_instantiationContext * /*ctx*/) final ;
    void enterCmos_switch_instance(SV3_1aParser::Cmos_switch_instanceContext * /*ctx*/) final { }
    void exitCmos_switch_instance(SV3_1aParser::Cmos_switch_instanceContext * ctx) final { addVObject (ctx, VObjectType::slCmos_switch_instance); }
    void enterEnable_gate_instance(SV3_1aParser::Enable_gate_instanceContext * /*ctx*/) final { }
@@ -917,7 +917,7 @@ namespace SURELOG {
    void enterInitVal_1TickBX(SV3_1aParser::InitVal_1TickBXContext * /*ctx*/) final { }
    void exitInitVal_1TickBX(SV3_1aParser::InitVal_1TickBXContext * ctx) final { addVObject (ctx, VObjectType::slInitVal_1TickBX); }
    void enterInitVal_Integral(SV3_1aParser::InitVal_IntegralContext * /*ctx*/) final { }
-   void exitInitVal_Integral(SV3_1aParser::InitVal_IntegralContext * ctx) final { addVObject (ctx, VObjectType::slInitVal_Integral); }
+   void exitInitVal_Integral(SV3_1aParser::InitVal_IntegralContext * /*ctx*/) final ;
    void enterSequential_entry(SV3_1aParser::Sequential_entryContext * /*ctx*/) final { }
    void exitSequential_entry(SV3_1aParser::Sequential_entryContext * ctx) final { addVObject (ctx, VObjectType::slSequential_entry); }
    void enterSeq_input_list(SV3_1aParser::Seq_input_listContext * /*ctx*/) final { }
@@ -931,11 +931,11 @@ namespace SURELOG {
    void enterNext_state(SV3_1aParser::Next_stateContext * /*ctx*/) final { }
    void exitNext_state(SV3_1aParser::Next_stateContext * ctx) final { addVObject (ctx, VObjectType::slNext_state); }
    void enterOutput_symbol(SV3_1aParser::Output_symbolContext * /*ctx*/) final { }
-   void exitOutput_symbol(SV3_1aParser::Output_symbolContext * ctx) final { addVObject (ctx, VObjectType::slOutput_symbol); }
+   void exitOutput_symbol(SV3_1aParser::Output_symbolContext * /*ctx*/) final ;
    void enterLevel_symbol(SV3_1aParser::Level_symbolContext * /*ctx*/) final { }
-   void exitLevel_symbol(SV3_1aParser::Level_symbolContext * ctx) final { addVObject (ctx, VObjectType::slLevel_symbol); }
+   void exitLevel_symbol(SV3_1aParser::Level_symbolContext * /*ctx*/) final ;
    void enterEdge_symbol(SV3_1aParser::Edge_symbolContext * /*ctx*/) final { }
-   void exitEdge_symbol(SV3_1aParser::Edge_symbolContext * ctx) final { addVObject (ctx, VObjectType::slEdge_symbol); }
+   void exitEdge_symbol(SV3_1aParser::Edge_symbolContext * /*ctx*/) final ;
    void enterUdp_instantiation(SV3_1aParser::Udp_instantiationContext * /*ctx*/) final { }
    void exitUdp_instantiation(SV3_1aParser::Udp_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slUdp_instantiation); }
    void enterUdp_instance(SV3_1aParser::Udp_instanceContext * /*ctx*/) final { }
@@ -1319,7 +1319,7 @@ namespace SURELOG {
    void enterScalar_TickB1(SV3_1aParser::Scalar_TickB1Context * /*ctx*/) final { }
    void exitScalar_TickB1(SV3_1aParser::Scalar_TickB1Context * ctx) final { addVObject (ctx, VObjectType::slScalar_TickB1); }
    void enterScalar_Integral(SV3_1aParser::Scalar_IntegralContext * /*ctx*/) final { }
-   void exitScalar_Integral(SV3_1aParser::Scalar_IntegralContext * ctx) final { addVObject (ctx, VObjectType::slScalar_Integral); }
+   void exitScalar_Integral(SV3_1aParser::Scalar_IntegralContext * /*ctx*/) final ;
    void enterConcatenation(SV3_1aParser::ConcatenationContext * /*ctx*/) final { }
    void exitConcatenation(SV3_1aParser::ConcatenationContext * ctx) final { addVObject (ctx, VObjectType::slConcatenation); }
    void enterConstant_concatenation(SV3_1aParser::Constant_concatenationContext * /*ctx*/) final { }

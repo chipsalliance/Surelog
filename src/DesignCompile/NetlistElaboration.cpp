@@ -156,11 +156,25 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     NodeId Udp_instance = fC->Sibling(modId);
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
+    } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
+               fC->Type(Udp_instance) == VObjectType::slDelay3) {
+      expr* delay_expr = (expr*) m_helper.compileExpression(comp, fC, Udp_instance, m_compileDesign);
+      VectorOfexpr* delays = s.MakeExprVec();
+      netlist->delays(delays);
+      delays->push_back(delay_expr);     
+      Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
     NodeId Net_lvalue = 0;
     if (fC->Type(Name_of_instance) == slName_of_instance) {
       Net_lvalue = fC->Sibling(Name_of_instance);
+      NodeId Name = fC->Child(Name_of_instance);
+      NodeId Unpacked_dimension = fC->Sibling(Name);
+      if (Unpacked_dimension) {
+        int size;
+        VectorOfrange* ranges = m_helper.compileRanges(comp, fC, Unpacked_dimension, m_compileDesign, nullptr, instance, true, size);
+        netlist->ranges(ranges);
+      }
     } else {
       Net_lvalue = Name_of_instance;
       Name_of_instance = 0;
@@ -196,25 +210,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
               p->High_conn(exp);
             }
-
-            //ref_obj* ref = s.MakeRef_obj();
-            //ref->VpiName(sigName);
-            //p->High_conn(ref);
-            //any* net = bind_net_(parent, sigName);
-            //ref->Actual_group(net);
           }
         }
         if (inst_type == VObjectType::slGate_instantiation) {
-          // N input gate: 1 output, n-1 inputs
-          port* p = nullptr;
+          port* p = s.MakePort();
           if (ports == nullptr) {
             ports = s.MakePortVec();
             netlist->ports(ports);
-            p = s.MakePort();
-            p->VpiDirection(vpiOutput);
-          } else {
-            p = s.MakePort();
-            p->VpiDirection(vpiInput);
           }
           p->VpiFile(fC->getFileName());
           p->VpiLineNo(fC->Line(Net_lvalue));

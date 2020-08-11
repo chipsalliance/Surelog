@@ -357,6 +357,9 @@ set TYPES(slNetType_Uwire) 1
 set TYPES(slNetType_Wire) 1
 set TYPES(slNetType_Wand) 1 
 set TYPES(slNetType_Wor) 1 
+set TYPES(slPulldown) 1 
+set TYPES(slPullup) 1 
+
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]
 puts $oid ""
