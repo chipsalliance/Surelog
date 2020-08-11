@@ -542,6 +542,20 @@ void SV3_1aTreeShapeListener::exitNumber_Integral(
              VObjectType::slIntConst);  // TODO: Octal, Hexa...
 }
 
+void SV3_1aTreeShapeListener::exitInitVal_Integral(
+    SV3_1aParser::InitVal_IntegralContext *ctx) {
+  auto number = ctx->Integral_number();
+  addVObject(ctx, number->getText(),
+             VObjectType::slIntConst);  // TODO: Octal, Hexa...
+}
+
+void SV3_1aTreeShapeListener::exitScalar_Integral(
+    SV3_1aParser::Scalar_IntegralContext *ctx) {
+  auto number = ctx->Integral_number();
+  addVObject(ctx, number->getText(),
+             VObjectType::slIntConst);  // TODO: Octal, Hexa...
+}
+
 void SV3_1aTreeShapeListener::exitNumber_Real(
     SV3_1aParser::Number_RealContext *ctx) {
   addVObject(ctx, ctx->Real_number()->getText(), VObjectType::slRealConst);
