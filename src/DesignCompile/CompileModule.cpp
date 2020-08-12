@@ -157,12 +157,16 @@ bool CompileModule::collectUdpObjects_() {
         while (port) {
           UHDM::io_decl* io = s.MakeIo_decl();
           const std::string& name = fC->SymName(port);
+          io->VpiFile(fC->getFileName());
+          io->VpiLineNo(fC->Line(port));
           io->VpiName(name);
+          io->VpiParent(defn);
           ios->push_back(io);
           port = fC->Sibling(port); 
         }
       }
-      case slUdp_output_declaration: {
+      case slUdp_output_declaration: 
+      case slUdp_reg_declaration: {
         NodeId Output = fC->Child(id);
         const std::string& outputname = fC->SymName(Output);
         std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
@@ -231,8 +235,11 @@ bool CompileModule::collectUdpObjects_() {
           entries = defn->Table_entrys();
         }
         UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiParent(defn);
         entry->VpiValue(ventry);
         entry->VpiSize(nb);
+        entry->VpiFile(fC->getFileName());
+        entry->VpiLineNo(fC->Line(Level_input_list));
         entries->push_back(entry);
         break;
       }
@@ -326,8 +333,11 @@ bool CompileModule::collectUdpObjects_() {
           entries = defn->Table_entrys();
         }
         UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiParent(defn);
         entry->VpiValue(ventry);
         entry->VpiSize(nb);
+        entry->VpiFile(fC->getFileName());
+        entry->VpiLineNo(fC->Line(Level_input_list));
         entries->push_back(entry);
         break;
       }
@@ -335,16 +345,26 @@ bool CompileModule::collectUdpObjects_() {
         NodeId Identifier = fC->Child(id);
         NodeId Value = fC->Sibling(Identifier);
         UHDM::initial* init = s.MakeInitial();
+        init->VpiFile(fC->getFileName());
+        init->VpiLineNo(fC->Line(id));
+        init->VpiParent(defn);
         defn->Initial(init);
         UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
         init->Stmt(assign_stmt);
         UHDM::ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(fC->SymName(Identifier));
+        ref->VpiParent(assign_stmt);
         assign_stmt->Lhs(ref);
+        assign_stmt->VpiFile(fC->getFileName());
+        assign_stmt->VpiLineNo(fC->Line(Identifier));
+        assign_stmt->VpiParent(init);
         UHDM::constant* c = s.MakeConstant();
         assign_stmt->Rhs(c);
         std::string val = "INT:" + fC->SymName(Value);
         c->VpiValue(val);
+        c->VpiParent(assign_stmt);
+        c->VpiFile(fC->getFileName());
+        c->VpiLineNo(fC->Line(Value));
         break;
       }
       default:
