@@ -144,7 +144,15 @@ bool CompileModule::collectUdpObjects_() {
     current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
-      case slUdp_nonansi_declaration: {
+      case slUdp_declaration:
+      case slUdp_nonansi_declaration:
+      case slUdp_ansi_declaration: {
+        UHDM::VectorOfattribute* attributes = nullptr;
+        NodeId Attributes = fC->Child(id);
+        if (fC->Type(Attributes) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Attributes, m_compileDesign);
+          defn->Attributes(attributes);
+        }
         break;
       }
       case slUdp_port_list: {
@@ -164,15 +172,31 @@ bool CompileModule::collectUdpObjects_() {
           ios->push_back(io);
           port = fC->Sibling(port); 
         }
+        break;
       }
       case slUdp_output_declaration: 
       case slUdp_reg_declaration: {
         NodeId Output = fC->Child(id);
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Output) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Output, m_compileDesign);
+          while (fC->Type(Output) == VObjectType::slAttribute_instance)
+            Output = fC->Sibling(Output);
+        }
+
         const std::string& outputname = fC->SymName(Output);
         std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        UHDM::logic_net* net = s.MakeLogic_net();
+        net->VpiFile(fC->getFileName());
+        net->VpiLineNo(fC->Line(id));
+        net->Attributes(attributes);
+        net->VpiParent(defn);
         if (ios) {
           for (auto io : *ios) {
             if (io->VpiName() == outputname) {
+              if (io->Expr() == nullptr) 
+                io->Expr(net); //reg def do not override output def
+              net->VpiName(io->VpiName());
               io->VpiDirection(vpiOutput);
               break;
             }
@@ -182,13 +206,26 @@ bool CompileModule::collectUdpObjects_() {
       }
       case slUdp_input_declaration: {
         NodeId Indentifier_list = fC->Child(id);
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Indentifier_list, m_compileDesign);
+          while (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance)
+            Indentifier_list = fC->Sibling(Indentifier_list);
+        }
         NodeId Identifier = fC->Child(Indentifier_list);
         while (Identifier) {
           const std::string& inputname = fC->SymName(Identifier);
           std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
           if (ios) {
+            UHDM::logic_net* net = s.MakeLogic_net();
+            net->VpiFile(fC->getFileName());
+            net->VpiLineNo(fC->Line(id));
+            net->Attributes(attributes);
+            net->VpiParent(defn);
             for (auto io : *ios) {
               if (io->VpiName() == inputname) {
+                io->Expr(net);
+                net->VpiName(io->VpiName());
                 io->VpiDirection(vpiInput);
                 break;
               }
