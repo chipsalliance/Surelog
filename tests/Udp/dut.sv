@@ -56,9 +56,10 @@ table
 endprimitive // udp_sequential
 
 
+(* my_udp *)
 primitive udp_sequential_initial(q, clk, d);
-output q; 
-input clk, d;
+(* q = "blah" *)  output q; 
+(* clk = "foo" *) input clk, d;
 
 reg q;
 
