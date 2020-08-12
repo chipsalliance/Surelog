@@ -1033,16 +1033,35 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           sm->VpiParent(m);
         }
         writeElabInterface(child, sm, s);
-      } else if (insttype == VObjectType::slUdp_instantiation) {
-        // TODO
-      } else if (insttype == VObjectType::slGate_instantiation) {
+      } else if ((insttype == VObjectType::slUdp_instantiation) ||
+                 (insttype == VObjectType::slGate_instantiation)) {
         UHDM::primitive* gate = nullptr;
         UHDM::primitive_array* gate_array = nullptr;
         const FileContent* fC = instance->getFileContent();
         NodeId gatenode = fC->Child(child->getNodeId());
         VObjectType gatetype = fC->Type(gatenode);
         int vpiGateType = getBuiltinType(gatetype);
-        if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
+        if (insttype == VObjectType::slUdp_instantiation) {
+          UHDM::udp* udp = s.MakeUdp();
+          gate = udp;
+          if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
+            udp->Udp_defn(mm->getUdpDefn());
+          }
+          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
+            gate_array = s.MakeUdp_array();
+            VectorOfprimitive* prims = s.MakePrimitiveVec();
+            gate_array->Primitives(prims);
+            gate_array->Ranges(ranges);
+            prims->push_back(gate);
+            if (subPrimitiveArrays == nullptr)
+              subPrimitiveArrays = s.MakePrimitive_arrayVec();
+            subPrimitiveArrays->push_back(gate_array);  
+          } else {
+            if (subPrimitives == nullptr)
+              subPrimitives = s.MakePrimitiveVec();
+            subPrimitives->push_back(gate);  
+          }
+        } else if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
             vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
             vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
             vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
@@ -1063,6 +1082,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
               subPrimitives = s.MakePrimitiveVec();
             subPrimitives->push_back(gate);  
           }
+          gate->VpiPrimType(vpiGateType);
         } else {
           gate = s.MakeGate();
           if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
@@ -1079,13 +1099,14 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
               subPrimitives = s.MakePrimitiveVec();
             subPrimitives->push_back(gate);  
           }
+          gate->VpiPrimType(vpiGateType);
         }
         if (UHDM::VectorOfexpr* delays = child->getNetlist()->delays()) {
           if (delays->size() == 1) {
             gate->Delay((*delays)[0]);
           }
         }
-        gate->VpiPrimType(vpiGateType);
+        
         gate->VpiName(child->getInstanceName());
         gate->VpiDefName(child->getModuleName());
         gate->VpiFullName(child->getFullPathName());
