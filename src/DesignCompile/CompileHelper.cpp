@@ -1892,7 +1892,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
 
 UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* component, const FileContent* fC,
         NodeId Operator_assignment, bool blocking,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
   UHDM::expr* lhs_rf = nullptr;
@@ -1923,7 +1923,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Hierarchical_identifier = Variable_lvalue;
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
        Hierarchical_identifier = fC->Child(Hierarchical_identifier);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt));
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -1935,7 +1935,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     } else {
       Expression = fC->Sibling(AssignOp_Assign);
     }
-    rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
     //  = new ...
     NodeId Hierarchical_identifier = Operator_assignment;

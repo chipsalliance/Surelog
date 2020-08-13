@@ -672,6 +672,7 @@ design: (work@top)
                 |vpiOperand:
                 \_ref_obj: (k), line:12
                   |vpiName:k
+                  |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
                 |vpiOperand:
                 \_constant: , line:12
                   |vpiConstType:7
@@ -698,6 +699,7 @@ design: (work@top)
                   |vpiOperand:
                   \_ref_obj: (k), line:12
                     |vpiName:k
+                    |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
                   |vpiOperand:
                   \_constant: , line:12
                     |vpiConstType:7
@@ -947,11 +949,11 @@ design: (work@top)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (data_o), line:32
+        \_ref_obj: (data_o), line:32, parent:p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
         |vpiRhs:
-        \_operation: , line:32
+        \_operation: , line:32, parent:p_post_round_xor
           |vpiOpType:30
           |vpiOperand:
           \_bit_select: (data_state), line:32
@@ -961,7 +963,7 @@ design: (work@top)
             \_operation: , line:32, parent:data_state
               |vpiOpType:24
               |vpiOperand:
-              \_operation: , line:32
+              \_operation: , line:32, parent:p_post_round_xor
                 |vpiOpType:25
                 |vpiOperand:
                 \_constant: , line:32
@@ -972,7 +974,7 @@ design: (work@top)
                 |vpiOperand:
                 \_ref_obj: (NumRoundsHalf), line:32
                   |vpiName:NumRoundsHalf
-                  |vpiFullName:work@top.p_post_round_xor.data_state.NumRoundsHalf
+                  |vpiFullName:work@top.p_post_round_xor.NumRoundsHalf
               |vpiOperand:
               \_constant: , line:32
                 |vpiConstType:7
@@ -1017,11 +1019,11 @@ design: (work@top)
         |vpiOpType:30
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (data_o), line:36
+        \_ref_obj: (data_o), line:36, parent:p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
         |vpiRhs:
-        \_ref_obj: (k1), line:36
+        \_ref_obj: (k1), line:36, parent:p_post_round_xor
           |vpiName:k1
           |vpiFullName:work@top.p_post_round_xor.k1
       |vpiStmt:
@@ -1029,11 +1031,11 @@ design: (work@top)
         |vpiOpType:30
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (data_o), line:37
+        \_ref_obj: (data_o), line:37, parent:p_post_round_xor
           |vpiName:data_o
           |vpiFullName:work@top.p_post_round_xor.data_o
         |vpiRhs:
-        \_ref_obj: (k0_prime), line:37
+        \_ref_obj: (k0_prime), line:37, parent:p_post_round_xor
           |vpiName:k0_prime
           |vpiFullName:work@top.p_post_round_xor.k0_prime
   |vpiContAssign:
@@ -1187,6 +1189,7 @@ design: (work@top)
                     |vpiOperand:
                     \_ref_obj: (k), line:12
                       |vpiName:k
+                      |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
                     |vpiOperand:
                     \_constant: , line:12
                       |vpiConstType:7
@@ -1213,6 +1216,7 @@ design: (work@top)
                       |vpiOperand:
                       \_ref_obj: (k), line:12
                         |vpiName:k
+                        |vpiFullName:prim_cipher_pkg::sbox4_64bit::k
                       |vpiOperand:
                       \_constant: , line:12
                         |vpiConstType:7

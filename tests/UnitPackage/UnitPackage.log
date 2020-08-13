@@ -845,6 +845,8 @@ design: (work@simple_package)
         \_ref_obj: (term), line:13
           |vpiName:term
           |vpiFullName:msgPkg::initMsgPkg::term
+          |vpiActual:
+          \_io_decl: (term)
       |vpiStmt:
       \_assignment: , line:14
         |vpiOpType:82
@@ -857,6 +859,8 @@ design: (work@simple_package)
         \_ref_obj: (mName), line:14
           |vpiName:mName
           |vpiFullName:msgPkg::initMsgPkg::mName
+          |vpiActual:
+          \_io_decl: (mName)
   |vpiTaskFunc:
   \_task: (msg_info), line:19
     |vpiName:msg_info
@@ -1019,11 +1023,11 @@ design: (work@simple_package)
       |vpiOpType:82
       |vpiBlocking:1
       |vpiLhs:
-      \_ref_obj: (getErrCnt), line:48
+      \_ref_obj: (getErrCnt), line:48, parent:getErrCnt
         |vpiName:getErrCnt
         |vpiFullName:msgPkg::getErrCnt::getErrCnt
       |vpiRhs:
-      \_ref_obj: (errCnt), line:48
+      \_ref_obj: (errCnt), line:48, parent:getErrCnt
         |vpiName:errCnt
         |vpiFullName:msgPkg::getErrCnt::errCnt
   |vpiTaskFunc:
@@ -1037,11 +1041,11 @@ design: (work@simple_package)
       |vpiOpType:82
       |vpiBlocking:1
       |vpiLhs:
-      \_ref_obj: (getWarnCnt), line:54
+      \_ref_obj: (getWarnCnt), line:54, parent:getWarnCnt
         |vpiName:getWarnCnt
         |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
       |vpiRhs:
-      \_ref_obj: (warnCnt), line:54
+      \_ref_obj: (warnCnt), line:54, parent:getWarnCnt
         |vpiName:warnCnt
         |vpiFullName:msgPkg::getWarnCnt::warnCnt
 |uhdmallClasses:
@@ -1115,6 +1119,8 @@ design: (work@simple_package)
               \_ref_obj: (term), line:13
                 |vpiName:term
                 |vpiFullName:msgPkg::initMsgPkg::term
+                |vpiActual:
+                \_io_decl: (term)
             |vpiStmt:
             \_assignment: , line:14
               |vpiOpType:82
@@ -1127,6 +1133,8 @@ design: (work@simple_package)
               \_ref_obj: (mName), line:14
                 |vpiName:mName
                 |vpiFullName:msgPkg::initMsgPkg::mName
+                |vpiActual:
+                \_io_decl: (mName)
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:6
@@ -1316,11 +1324,11 @@ design: (work@simple_package)
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (getWarnCnt), line:54
+                \_ref_obj: (getWarnCnt), line:54, parent:getWarnCnt
                   |vpiName:getWarnCnt
                   |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
                 |vpiRhs:
-                \_ref_obj: (warnCnt), line:54
+                \_ref_obj: (warnCnt), line:54, parent:getWarnCnt
                   |vpiName:warnCnt
                   |vpiFullName:msgPkg::getWarnCnt::warnCnt
           |vpiArgument:
@@ -1337,11 +1345,11 @@ design: (work@simple_package)
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (getErrCnt), line:48
+                \_ref_obj: (getErrCnt), line:48, parent:getErrCnt
                   |vpiName:getErrCnt
                   |vpiFullName:msgPkg::getErrCnt::getErrCnt
                 |vpiRhs:
-                \_ref_obj: (errCnt), line:48
+                \_ref_obj: (errCnt), line:48, parent:getErrCnt
                   |vpiName:errCnt
                   |vpiFullName:msgPkg::getErrCnt::errCnt
       |vpiStmt:
@@ -1486,6 +1494,14 @@ design: (work@simple_package)
               \_ref_obj: (term), line:13
                 |vpiName:term
                 |vpiFullName:work@simple_package.msgPkg::initMsgPkg.initMsgPkg.term
+                |vpiActual:
+                \_io_decl: (term), parent:term
+                  |vpiName:term
+                  |vpiDirection:5
+                  |vpiExpr:
+                  \_chandle_var: (bit), line:12, parent:term
+                    |vpiName:bit
+                    |vpiFullName:work@simple_package.msgPkg::initMsgPkg.initMsgPkg.term.term.bit
             |vpiStmt:
             \_assignment: , line:14
               |vpiOpType:82
@@ -1498,6 +1514,13 @@ design: (work@simple_package)
               \_ref_obj: (mName), line:14
                 |vpiName:mName
                 |vpiFullName:work@simple_package.msgPkg::initMsgPkg.initMsgPkg.mName
+                |vpiActual:
+                \_io_decl: (mName), parent:mName
+                  |vpiName:mName
+                  |vpiDirection:5
+                  |vpiExpr:
+                  \_string_var: , line:12, parent:mName
+                    |vpiFullName:work@simple_package.msgPkg::initMsgPkg.initMsgPkg.mName.mName
         |vpiArgument:
         \_constant: , line:20, parent:msgPkg::initMsgPkg
           |vpiConstType:6

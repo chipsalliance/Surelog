@@ -875,6 +875,9 @@ UHDM::any* CompileHelper::compileExpression(
             UHDM::ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(name);
             ref->VpiParent(pexpr);
+            if (pexpr) {
+              ref->Actual_group(bindVariable(component, pexpr, name, compileDesign));
+            }
             result = ref;
           }
         } else {

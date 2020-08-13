@@ -7835,6 +7835,8 @@ design: (work@top)
         \_ref_obj: (trans), line:584
           |vpiName:trans
           |vpiFullName:work@test_program.create_command.trans
+          |vpiActual:
+          \_io_decl: (trans)
       |vpiStmt:
       \_assignment: , line:585
         |vpiOpType:82
@@ -7953,6 +7955,7 @@ design: (work@top)
                   |vpiOperand:
                   \_ref_obj: (NUM_SYMBOLS), line:591
                     |vpiName:NUM_SYMBOLS
+                    |vpiFullName:work@test_program.create_command.NUM_SYMBOLS
                   |vpiOperand:
                   \_operation: 
                     |vpiOpType:33
@@ -8168,6 +8171,8 @@ design: (work@top)
           \_ref_obj: (slave_id), line:614
             |vpiName:slave_id
             |vpiFullName:work@test_program.generate_random_aligned_address.slave_id
+            |vpiActual:
+            \_io_decl: (slave_id)
           |vpiOperand:
           \_ref_obj: (SLAVE_SPAN), line:614
             |vpiName:SLAVE_SPAN
@@ -8395,6 +8400,8 @@ design: (work@top)
           \_ref_obj: (addr), line:665
             |vpiName:addr
             |vpiFullName:work@test_program.translate_master_to_slave_address.addr
+            |vpiActual:
+            \_io_decl: (addr)
           |vpiOperand:
           \_ref_obj: (base_addr), line:665
             |vpiName:base_addr
@@ -8579,6 +8586,7 @@ design: (work@top)
                   |vpiIndex:
                   \_ref_obj: (slave_id), line:700
                     |vpiName:slave_id
+                    |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
         |vpiElseStmt:
         \_begin: , line:702
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -8683,6 +8691,7 @@ design: (work@top)
                   |vpiIndex:
                   \_ref_obj: (slave_id), line:712
                     |vpiName:slave_id
+                    |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
       |vpiStmt:
       \_return_stmt: , line:716
         |vpiCondition:
@@ -8738,6 +8747,8 @@ design: (work@top)
         \_ref_obj: (burstcount), line:765
           |vpiName:burstcount
           |vpiFullName:work@test_program.create_response.burstcount
+          |vpiActual:
+          \_io_decl: (burstcount)
       |vpiStmt:
       \_for_stmt: , line:766
         |vpiFullName:work@test_program.create_response
@@ -8875,6 +8886,7 @@ design: (work@top)
           |vpiIndex:
           \_ref_obj: (slave_id), line:781
             |vpiName:slave_id
+            |vpiFullName:work@test_program.get_expected_read_response.slave_id
       |vpiStmt:
       \_return_stmt: , line:783
         |vpiCondition:
@@ -10871,6 +10883,14 @@ design: (work@top)
         \_ref_obj: (trans), line:584
           |vpiName:trans
           |vpiFullName:work@test_program.create_command.trans
+          |vpiActual:
+          \_io_decl: (trans), parent:trans
+            |vpiName:trans
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (Transaction), line:571, parent:trans
+              |vpiName:Transaction
+              |vpiFullName:work@test_program.create_command.trans.trans.Transaction
       |vpiStmt:
       \_assignment: , line:585
         |vpiOpType:82
@@ -11246,6 +11266,13 @@ design: (work@top)
           \_ref_obj: (slave_id), line:614
             |vpiName:slave_id
             |vpiFullName:work@test_program.generate_random_aligned_address.slave_id
+            |vpiActual:
+            \_io_decl: (slave_id), parent:slave_id
+              |vpiName:slave_id
+              |vpiDirection:5
+              |vpiExpr:
+              \_int_var: , line:610, parent:slave_id
+                |vpiFullName:work@test_program.generate_random_aligned_address.slave_id.slave_id
           |vpiOperand:
           \_ref_obj: (SLAVE_SPAN), line:614
             |vpiName:SLAVE_SPAN
@@ -11501,6 +11528,36 @@ design: (work@top)
           \_ref_obj: (addr), line:665
             |vpiName:addr
             |vpiFullName:work@test_program.translate_master_to_slave_address.addr
+            |vpiActual:
+            \_io_decl: (addr), parent:addr
+              |vpiName:addr
+              |vpiDirection:5
+              |vpiExpr:
+              \_logic_var: , line:659, parent:addr
+                |vpiFullName:work@test_program.translate_master_to_slave_address.addr.addr
+                |vpiRange:
+                \_range: , line:659
+                  |vpiLeftRange:
+                  \_operation: , line:659
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (ADDR_W), line:659
+                      |vpiName:ADDR_W
+                      |vpiFullName:work@test_program.translate_master_to_slave_address.addr.addr.ADDR_W
+                      |vpiActual:
+                      \_parameter: (ADDR_W), line:13
+                    |vpiOperand:
+                    \_constant: , line:659
+                      |vpiConstType:7
+                      |vpiDecompile:1
+                      |vpiSize:32
+                      |INT:1
+                  |vpiRightRange:
+                  \_constant: , line:659
+                    |vpiConstType:7
+                    |vpiDecompile:0
+                    |vpiSize:32
+                    |INT:0
           |vpiOperand:
           \_ref_obj: (base_addr), line:665
             |vpiName:base_addr
@@ -11854,6 +11911,14 @@ design: (work@top)
         \_ref_obj: (burstcount), line:765
           |vpiName:burstcount
           |vpiFullName:work@test_program.create_response.burstcount
+          |vpiActual:
+          \_io_decl: (burstcount), parent:burstcount
+            |vpiName:burstcount
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (Burstcount), line:760, parent:burstcount
+              |vpiName:Burstcount
+              |vpiFullName:work@test_program.create_response.burstcount.burstcount.Burstcount
       |vpiStmt:
       \_for_stmt: , line:766
         |vpiFullName:work@test_program.create_response
