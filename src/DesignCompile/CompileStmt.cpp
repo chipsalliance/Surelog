@@ -93,14 +93,14 @@ VectorOfany* CompileHelper::compileStmt(
   case VObjectType::slOperator_assignment: {
     NodeId Operator_assignment  = the_stmt;
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
-                Operator_assignment, false, compileDesign);
+                Operator_assignment, false, compileDesign, pstmt);
     stmt = assign;
     break;
   }
   case VObjectType::slBlocking_assignment: {
     NodeId Operator_assignment = fC->Child(the_stmt);
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
-                Operator_assignment, true, compileDesign);
+                Operator_assignment, true, compileDesign, pstmt);
     stmt = assign;
     break;
   }
@@ -1621,4 +1621,59 @@ n<> u<83> t<For> p<84> s<44> l<5>
 */
 
   return for_stmt;
+}
+
+
+UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign) {
+  UHDM_OBJECT_TYPE scope_type = scope->UhdmType();
+  switch (scope_type) {
+    case uhdmfunction: {
+      function* lscope = (function*) scope;
+      if (lscope->Variables()) {
+        for (auto var: *lscope->Variables()) {
+          if (var->VpiName() == name)
+            return var;
+        }
+      }
+      if (lscope->Io_decls()) {
+        for (auto var: *lscope->Io_decls()) {
+          if (var->VpiName() == name)
+            return var;
+        }
+      }
+      break;
+    }
+    case uhdmtask: {
+      task* lscope = (task*) scope;
+      if (lscope->Variables()) {
+        for (auto var: *lscope->Variables()) {
+          if (var->VpiName() == name)
+            return var;
+        }
+      }
+      if (lscope->Io_decls()) {
+        for (auto var: *lscope->Io_decls()) {
+          if (var->VpiName() == name)
+            return var;
+        }
+      }
+      break;
+    }
+    case uhdmbegin: {
+      begin* lscope = (begin*) scope;
+      if (lscope->Variables()) {
+        for (auto var: *lscope->Variables()) {
+          if (var->VpiName() == name)
+            return var;
+        }
+      }
+      break;
+    }
+    default:
+      break;
+  }
+  if (scope->VpiParent()) {
+    return bindVariable(component, scope->VpiParent(), name, compileDesign);
+  }
+  return nullptr;
 }
