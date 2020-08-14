@@ -1394,8 +1394,44 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     compileTypeDef(component, fC, id, compileDesign);
     break;
   }
-  case VObjectType::slPackage_import_declaration: // Do nothing here
+  case VObjectType::slPackage_import_declaration: {
+    /*
+    Verilog:
+      import my_pkg::opcode_e, my_pkg::OPCODE_LOAD;
+    Expected tree:
+      n<my_pkg> u<27> t<StringConst> p<29> s<28> l<3>
+      n<opcode_e> u<28> t<StringConst> p<29> l<3>
+      n<> u<29> t<Package_import_item> p<33> c<27> s<32> l<3>
+      n<my_pkg> u<30> t<StringConst> p<32> s<31> l<3>
+      n<OPCODE_LOAD> u<31> t<StringConst> p<32> l<3>
+      n<> u<32> t<Package_import_item> p<33> c<30> l<3>
+      n<> u<33> t<Package_import_declaration> p<34> c<29> l<3>
+    */
+    Serializer& s = compileDesign->getSerializer();
+    NodeId package_import_item_id = fC->Child(subNode);
+    while (package_import_item_id != 0) {
+      import* import_stmt = s.MakeImport();
+      NodeId package_name_id = fC->Child(package_import_item_id);
+
+      NodeId item_name_id = fC->Sibling(package_name_id);
+      StValue* item_name;
+      if (item_name_id != 0) {
+        item_name = new StValue(fC->SymName(item_name_id));
+      } else {
+        item_name = new StValue("*");
+      }
+      UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
+      free(item_name);
+      import_stmt->Item(imported_item);
+
+      std::string package_name(fC->SymName(package_name_id));
+      import_stmt->VpiName(package_name);
+
+      package_import_item_id = fC->Sibling(package_import_item_id);
+      component->addImportedSymbol(import_stmt);
+    }
     break;
+  }
   default:
     /*
      n<> u<29> t<IntVec_TypeReg> p<30> l<29>

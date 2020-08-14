@@ -97,6 +97,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const VariableMap& getVariables() const { return m_variables; }
   Variable* getVariable(const std::string& name);
 
+  void addImportedSymbol(UHDM::import* i) { m_imported_symbols.push_back(i); }
+  const std::vector<UHDM::import*>& getImportedSymbols() const { return m_imported_symbols; }
+
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
@@ -114,6 +117,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;
   VariableMap m_variables;
+  std::vector<UHDM::import*> m_imported_symbols;
 };
 
 };  // namespace SURELOG
