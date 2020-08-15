@@ -520,6 +520,9 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  for (auto item : mod->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
