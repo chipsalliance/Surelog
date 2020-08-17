@@ -2032,6 +2032,7 @@ UHDM::any* CompileHelper::compileClog2(
   return result;
 }
 
+
 UHDM::any* CompileHelper::compileComplexFuncCall(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
     CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance,
