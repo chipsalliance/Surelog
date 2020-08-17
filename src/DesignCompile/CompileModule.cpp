@@ -99,7 +99,8 @@ bool CompileModule::compile() {
 
   switch (moduleType) {
     case VObjectType::slModule_declaration:
-      if (!collectModuleObjects_()) return false;
+      if (!collectModuleObjects_(true)) return false;
+      if (!collectModuleObjects_(false)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slLoop_generate_construct:
@@ -111,11 +112,13 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_module_block:
     case VObjectType::slGenerate_module_item:
     case VObjectType::slGenerate_module_named_block:
-      if (!collectModuleObjects_()) return false;
+      if (!collectModuleObjects_(true)) return false;
+      if (!collectModuleObjects_(false)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slInterface_declaration:
-      if (!collectInterfaceObjects_()) return false;
+      if (!collectInterfaceObjects_(true)) return false;
+      if (!collectInterfaceObjects_(false)) return false;
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
@@ -414,7 +417,7 @@ bool CompileModule::collectUdpObjects_() {
   return true;
 }
 
-bool CompileModule::collectModuleObjects_() {
+bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
@@ -479,61 +482,76 @@ bool CompileModule::collectModuleObjects_() {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
+          if (!collectDefinitions) break;
           m_helper.importPackage(m_module, m_design, fC, id);
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slPort: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
-        case VObjectType::slClocking_declaration:
+        case VObjectType::slClocking_declaration: {
+          if (!collectDefinitions) break;
           compileClockingBlock_(fC, id);
           break;
+        }
         case VObjectType::slNet_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileNetDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileDataDeclaration(m_module, fC,id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slContinuous_assign:
         {
+          if (collectDefinitions) break;
           m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
           break;
         }
         case VObjectType::slAlways_construct:
         {
+          if (collectDefinitions) break;
           m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance);
           break;
         }
         case VObjectType::slTask_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slFunction_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
@@ -553,14 +571,17 @@ bool CompileModule::collectModuleObjects_() {
         case VObjectType::slPar_block:
         case VObjectType::slSeq_block:
         case VObjectType::slDefparam_assignment: {
+          if (collectDefinitions) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;
         }
         case VObjectType::slInitial_construct:
+          if (collectDefinitions) break;
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
         case VObjectType::slFinal_construct:
+          if (collectDefinitions) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
           break; 
         default:
@@ -585,24 +606,25 @@ bool CompileModule::collectModuleObjects_() {
       }
     }
   }
-
-  for (Signal* port : m_module->getPorts()) {
-    bool found = false;
-    for (Signal* sig : m_module->getSignals()) {
-      if (sig->getName() == port->getName()) {
-        found = true;
-        break;
+  if (collectDefinitions) {
+    for (Signal* port : m_module->getPorts()) {
+      bool found = false;
+      for (Signal* sig : m_module->getSignals()) {
+        if (sig->getName() == port->getName()) {
+          found = true;
+          break;
+        }
       }
-    }
-    if (found == false) {
-      m_module->getSignals().push_back(port);
+      if (found == false) {
+        m_module->getSignals().push_back(port);
+      }
     }
   }
 
   return true;
 }
 
-bool CompileModule::collectInterfaceObjects_() {
+bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
@@ -635,42 +657,51 @@ bool CompileModule::collectInterfaceObjects_() {
       switch (type) {
       case VObjectType::slPackage_import_item:
       {
+        if (!collectDefinitions) break;
         m_helper.importPackage(m_module, m_design, fC, id);
         break;
       }
       case VObjectType::slAnsi_port_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
         break;
       }
       case VObjectType::slNet_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileNetDeclaration(m_module, fC, id, true, m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileDataDeclaration(m_module, fC,id, true, m_compileDesign);
         break;
       }
       case VObjectType::slContinuous_assign:
       {
+        if (collectDefinitions) break;
         m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
         break;
       }
       case VObjectType::slTask_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileTask(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slFunction_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileFunction(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClocking_declaration:
+        if (!collectDefinitions) break;
         compileClockingBlock_(fC, id);
         break;
       case VObjectType::slGenerate_interface_item:
       {
+        if (collectDefinitions) break;
         // TODO: rewrite this rough implementation
         std::vector<VObjectType> types = {VObjectType::slModport_item};
         std::vector<NodeId> items = fC->sl_collect_all(id, types);
@@ -683,6 +714,7 @@ bool CompileModule::collectInterfaceObjects_() {
         break;
       }
       case VObjectType::slModport_item:
+        if (!collectDefinitions) break;
         /*
          n<tb> u<45> t<StringConst> p<56> s<50> l<43>
          n<> u<46> t<PortDir_Inp> p<49> s<48> l<43>
@@ -764,23 +796,28 @@ bool CompileModule::collectInterfaceObjects_() {
         }
         break;
       case VObjectType::slInitial_construct:
+        if (collectDefinitions) break;
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
       case VObjectType::slFinal_construct:
+        if (collectDefinitions) break;
         m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
         break;  
       case VObjectType::slParameter_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
         break;
       }
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
+        if (!collectDefinitions) break;
         FileCNodeId fnid(fC, id);
-       m_module->addObject(type, fnid);
+        m_module->addObject(type, fnid);
         break;
       }
       default:
@@ -792,16 +829,18 @@ bool CompileModule::collectInterfaceObjects_() {
     }
   }
 
-  for (Signal* port : m_module->getPorts()) {
-    bool found = false;
-    for (Signal* sig : m_module->getSignals()) {
-      if (sig->getName() == port->getName()) {
-        found = true;
-        break;
+  if (collectDefinitions) {
+    for (Signal* port : m_module->getPorts()) {
+      bool found = false;
+      for (Signal* sig : m_module->getSignals()) {
+        if (sig->getName() == port->getName()) {
+          found = true;
+          break;
+        }
       }
-    }
-    if (found == false) {
-      m_module->getSignals().push_back(port);
+      if (found == false) {
+        m_module->getSignals().push_back(port);
+      }
     }
   }
   return true;
