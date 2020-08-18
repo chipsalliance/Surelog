@@ -1304,8 +1304,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
 
         NodeId ident = packageFile->Child(param);
         const std::string& name = packageFile->SymName(ident);
-        //Value* value = m_exprBuilder.clone(def->getValue(name));
-        Value* value = m_exprBuilder.clone(def->getValues()[i]);
+        Value* value = m_exprBuilder.clone(def->getValue(name));
         instance->setValue(name,  m_exprBuilder.clone(value), m_exprBuilder, packageFile->Line(param));
         params.push_back(name);
       }
