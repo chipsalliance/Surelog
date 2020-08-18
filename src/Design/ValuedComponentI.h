@@ -41,12 +41,10 @@ class ValuedComponentI {
   std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
   void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
-  const std::vector<Value*>& getValues() const { return m_paramValues; }
 
  private:
   const ValuedComponentI* m_parentScope;
   ValuedComponentI* m_definition; // Module def for an instance
-  std::vector<Value*> m_paramValues;
   std::map<std::string, std::pair<Value*, int>> m_paramMap;
 };
 
