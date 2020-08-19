@@ -40,6 +40,7 @@
 #include "expr.h"
 #include "UhdmWriter.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "ElaboratorListener.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -1147,6 +1148,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
    n<> u<52> t<Tf_port_item> p<53> c<49> l<18>
   */
   // Compile arguments
+  variables* previous_var = nullptr;
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
     while (tf_port_item) {
@@ -1166,7 +1168,15 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
         tf_param_name = fC->Sibling(tf_data_type);
       }
       NodeId type = fC->Child(tf_data_type);
-      any* var = compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true);
+
+      variables* var = nullptr;
+      if (previous_var && (tf_data_type == 0)) {
+        ElaboratorListener listener(&s);
+        var = (variables*) UHDM::clone_tree((any*) previous_var, s, &listener);
+      } else {
+        var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true);
+        previous_var = var;
+      }
       decl->Expr(var);
       if (var)
         var->VpiParent(decl);
