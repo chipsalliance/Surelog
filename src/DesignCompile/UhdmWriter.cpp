@@ -62,6 +62,7 @@
 #include "DesignCompile/UhdmChecker.h"
 #include "headers/vpi_listener.h"
 #include "headers/ElaboratorListener.h"
+#include "headers/vpi_uhdm.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -1370,6 +1371,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     if (restoredDesigns.size()) {
       designHandle = restoredDesigns[0];
     }
+    vpi_show_ids(m_compileDesign->getCompiler()->getCommandLineParser()->showVpiIds());
     std::string restored = visit_designs(restoredDesigns);
     std::cout << restored;
     std::cout << "===================\n";

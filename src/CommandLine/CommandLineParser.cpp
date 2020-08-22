@@ -134,7 +134,7 @@ const std::vector<std::string> helpText = {
     "  -timescale=<timescale> Specifies the overall timescale",
     "  -nobuiltin            Do not parse SV builtin classes (array...)", "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
@@ -295,7 +295,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_sverilog(false),
       m_dumpUhdm(false),
       m_elabUhdm(false),
-      m_coverUhdm(false) {
+      m_coverUhdm(false),
+      m_showVpiIDs(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -569,6 +570,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_dumpUhdm = true;
       } else if (all_arguments[i] == "coveruhdm") {
         m_coverUhdm = true;
+      } else if (all_arguments[i] == "vpi_ids") {
+        m_showVpiIDs = true;
       } else {
         int debugLevel = atoi(all_arguments[i].c_str());
         if (debugLevel < 0 || debugLevel > 4) {
