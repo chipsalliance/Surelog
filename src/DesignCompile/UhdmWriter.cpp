@@ -73,6 +73,65 @@ typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
 typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
+unsigned int getBuiltinType(VObjectType type) {
+  switch (type) {
+  case VObjectType::slNInpGate_And:
+    return vpiAndPrim;
+  case VObjectType::slNInpGate_Or:
+    return vpiOrPrim;
+  case VObjectType::slNInpGate_Nor:
+    return vpiNorPrim;
+  case VObjectType::slNInpGate_Nand:
+    return vpiNandPrim;
+  case VObjectType::slNInpGate_Xor:
+    return vpiXorPrim;
+  case VObjectType::slNInpGate_Xnor:
+    return vpiXnorPrim;
+  case VObjectType::slNOutGate_Buf:
+    return vpiBufPrim;
+  case VObjectType::slNOutGate_Not:
+    return vpiNotPrim;
+  case VObjectType::slPassEnSwitch_Tranif0:
+    return vpiTranif0Prim;
+  case VObjectType::slPassEnSwitch_Tranif1:
+    return vpiTranif1Prim;
+  case VObjectType::slPassEnSwitch_RTranif1:
+    return vpiRtranif1Prim;
+  case VObjectType::slPassEnSwitch_RTranif0:
+    return vpiRtranif0Prim;
+  case VObjectType::slPassSwitch_Tran:
+    return vpiTranPrim;
+  case VObjectType::slPassSwitch_RTran:
+    return vpiRtranPrim;
+  case VObjectType::slCmosSwitchType_Cmos:
+    return vpiCmosPrim;
+  case VObjectType::slCmosSwitchType_RCmos:
+    return vpiRcmosPrim;
+  case VObjectType::slEnableGateType_Bufif0:
+    return vpiBufif0Prim;
+  case VObjectType::slEnableGateType_Bufif1:
+    return vpiBufif1Prim;
+  case VObjectType::slEnableGateType_Notif0:
+    return vpiNotif0Prim;
+  case VObjectType::slEnableGateType_Notif1:
+    return vpiNotif1Prim;
+  case VObjectType::slMosSwitchType_NMos:
+    return vpiNmosPrim;
+  case VObjectType::slMosSwitchType_PMos:
+    return vpiPmosPrim;
+  case VObjectType::slMosSwitchType_RNMos:
+    return vpiRnmosPrim;
+  case VObjectType::slMosSwitchType_RPMos:
+    return vpiRpmosPrim;
+  case VObjectType::slPullup:
+    return vpiPullupPrim;
+  case VObjectType::slPulldown:
+    return vpiPulldownPrim;    
+  default:
+    return 0;
+  }
+}
+
 unsigned int UhdmWriter::getStrengthType(VObjectType type) {
   switch (type) {
   case VObjectType::slSupply0:
@@ -461,6 +520,9 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  for (auto item : mod->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -803,13 +865,14 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   return true;
 }
 
-void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
+void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   VectorOfprim_term* terms = s.MakePrim_termVec();
   prim->Prim_terms(terms);
   if (netlist->ports()) {
-    int index = 0;
-    for (auto port : *netlist->ports()) {
+    unsigned int index = 0;
+    VectorOfport* ports = netlist->ports();
+    for (auto port : *ports) {
       prim_term* term = s.MakePrim_term();
       terms->push_back(term);
       const any* hconn = port->High_conn();
@@ -819,6 +882,31 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
       term->VpiDirection(port->VpiDirection());
       term->VpiParent(prim);
       term->VpiTermIndex(index);
+      if (vpiGateType == vpiBufPrim ||
+          vpiGateType == vpiNotPrim) {
+        if (index < ports->size() -1) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      } else if (vpiGateType == vpiTranif1Prim ||
+                 vpiGateType == vpiTranif0Prim ||
+                 vpiGateType == vpiRtranif1Prim ||
+                 vpiGateType == vpiRtranif0Prim || 
+                 vpiGateType == vpiTranPrim ||
+                 vpiGateType == vpiRtranPrim) {
+        if (index < ports->size() -1) {
+          term->VpiDirection(vpiInout);
+        } else {
+          term->VpiDirection(vpiInput);
+        }           
+      } else {
+        if (index == 0) {
+          term->VpiDirection(vpiOutput);
+        } else {
+          term->VpiDirection(vpiInput);
+        }
+      }
       index++;
     }
   }
@@ -833,6 +921,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
   VectorOfprimitive* subPrimitives = nullptr;
+  VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   if (m->UhdmType() == uhdmmodule) {
     writeElabModule(s, instance, (module*) m);
@@ -947,27 +1036,96 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           sm->VpiParent(m);
         }
         writeElabInterface(child, sm, s);
-      } else if (insttype == VObjectType::slUdp_instantiation) {
-        // TODO
-      } else if (insttype == VObjectType::slGate_instantiation) {
-        if (subPrimitives == nullptr)
-          subPrimitives = s.MakePrimitiveVec();
-        UHDM::gate* gate = s.MakeGate();
+      } else if ((insttype == VObjectType::slUdp_instantiation) ||
+                 (insttype == VObjectType::slGate_instantiation)) {
+        UHDM::primitive* gate = nullptr;
+        UHDM::primitive_array* gate_array = nullptr;
+        const FileContent* fC = instance->getFileContent();
+        NodeId gatenode = fC->Child(child->getNodeId());
+        VObjectType gatetype = fC->Type(gatenode);
+        int vpiGateType = getBuiltinType(gatetype);
+        if (insttype == VObjectType::slUdp_instantiation) {
+          UHDM::udp* udp = s.MakeUdp();
+          gate = udp;
+          if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
+            udp->Udp_defn(mm->getUdpDefn());
+          }
+          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
+            gate_array = s.MakeUdp_array();
+            VectorOfprimitive* prims = s.MakePrimitiveVec();
+            gate_array->Primitives(prims);
+            gate_array->Ranges(ranges);
+            prims->push_back(gate);
+            if (subPrimitiveArrays == nullptr)
+              subPrimitiveArrays = s.MakePrimitive_arrayVec();
+            subPrimitiveArrays->push_back(gate_array);  
+          } else {
+            if (subPrimitives == nullptr)
+              subPrimitives = s.MakePrimitiveVec();
+            subPrimitives->push_back(gate);  
+          }
+        } else if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
+            vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
+            vpiGateType == vpiCmosPrim || vpiGateType == vpiRcmosPrim ||
+            vpiGateType == vpiTranif1Prim || vpiGateType == vpiTranif0Prim ||
+            vpiGateType == vpiRtranif1Prim || vpiGateType == vpiRtranif0Prim ||
+            vpiGateType == vpiTranPrim || vpiGateType == vpiRtranPrim) {
+          gate = s.MakeSwitch_tran();
+          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
+            gate_array = s.MakeSwitch_array();
+            VectorOfprimitive* prims = s.MakePrimitiveVec();
+            gate_array->Primitives(prims);
+            gate_array->Ranges(ranges);
+            prims->push_back(gate);
+            if (subPrimitiveArrays == nullptr)
+              subPrimitiveArrays = s.MakePrimitive_arrayVec();
+            subPrimitiveArrays->push_back(gate_array);  
+          } else {
+            if (subPrimitives == nullptr)
+              subPrimitives = s.MakePrimitiveVec();
+            subPrimitives->push_back(gate);  
+          }
+          gate->VpiPrimType(vpiGateType);
+        } else {
+          gate = s.MakeGate();
+          if (UHDM::VectorOfrange* ranges = child->getNetlist()->ranges()) {
+            gate_array = s.MakeGate_array();
+            VectorOfprimitive* prims = s.MakePrimitiveVec();
+            gate_array->Primitives(prims);
+            gate_array->Ranges(ranges);
+            prims->push_back(gate);
+            if (subPrimitiveArrays == nullptr)
+              subPrimitiveArrays = s.MakePrimitive_arrayVec();
+            subPrimitiveArrays->push_back(gate_array);    
+          } else {
+            if (subPrimitives == nullptr)
+              subPrimitives = s.MakePrimitiveVec();
+            subPrimitives->push_back(gate);  
+          }
+          gate->VpiPrimType(vpiGateType);
+        }
+        if (UHDM::VectorOfexpr* delays = child->getNetlist()->delays()) {
+          if (delays->size() == 1) {
+            gate->Delay((*delays)[0]);
+          }
+        }
+        
         gate->VpiName(child->getInstanceName());
         gate->VpiDefName(child->getModuleName());
         gate->VpiFullName(child->getFullPathName());
         gate->VpiFile(child->getFileName());
         gate->VpiLineNo(child->getLineNb());
-        subPrimitives->push_back(gate);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
         if (utype == uhdmmodule) {
           ((module*) m)->Primitives(subPrimitives);
+          ((module*) m)->Primitive_arrays(subPrimitiveArrays);
           gate->VpiParent(m);
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*) m)->Primitives(subPrimitives);
+          ((gen_scope*) m)->Primitive_arrays(subPrimitiveArrays);
           gate->VpiParent(m);
         }
-        writePrimTerms(child, gate, s);
+        writePrimTerms(child, gate, vpiGateType, s);
       } else {
         // Unknown object type
       }
@@ -1126,6 +1284,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
 
     // Modules
     VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    // Udps
+    VectorOfudp_defn* uhdm_udps = s.MakeUdp_defnVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().size() == 0) {
@@ -1140,9 +1300,20 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m);
         writeModule(mod, m, s, componentMap, modPortMap);
+      } else if (mod->getType() == VObjectType::slUdp_declaration) {
+        const FileContent* fC = mod->getFileContents()[0];
+        UHDM::udp_defn* defn = mod->getUdpDefn();
+        if (defn) {
+          defn->VpiParent(d);
+          defn->VpiDefName(mod->getName());
+          defn->VpiFile(fC->getFileName());
+          defn->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+          uhdm_udps->push_back(defn);
+        }
       }
     }
     d->AllModules(uhdm_modules);
+    d->AllUdps(uhdm_udps);
 
     // Repair parent relationship
     for (auto classNamePair : classes) {

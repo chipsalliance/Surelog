@@ -119,7 +119,7 @@ public:
         CompileDesign* compileDesign, UHDM::any* call);
 
   UHDM::assignment* compileBlockingAssignment(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        bool blocking, CompileDesign* compileDesign);
+        bool blocking, CompileDesign* compileDesign, UHDM::any* pstmt);
 
   UHDM::atomic_stmt* compileProceduralTimingControlStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);
@@ -242,6 +242,8 @@ public:
   std::vector<UHDM::attribute*>* compileAttributes(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
+
+  UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign);
 
 private:
   CompileHelper(const CompileHelper&) = delete;

@@ -69,10 +69,11 @@ public:
 private:
   CompileModule(const CompileModule&) = delete;
 
-  bool collectModuleObjects_();
+  bool collectModuleObjects_(bool collectDefinitions);
   bool checkModule_();
-  bool collectInterfaceObjects_();
+  bool collectInterfaceObjects_(bool collectDefinitions);
   bool checkInterface_();
+  bool collectUdpObjects_();
   void compileClockingBlock_(const FileContent* fC, NodeId id);
 
   CompileDesign* const m_compileDesign;

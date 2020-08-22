@@ -1394,8 +1394,44 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     compileTypeDef(component, fC, id, compileDesign);
     break;
   }
-  case VObjectType::slPackage_import_declaration: // Do nothing here
+  case VObjectType::slPackage_import_declaration: {
+    /*
+    Verilog:
+      import my_pkg::opcode_e, my_pkg::OPCODE_LOAD;
+    Expected tree:
+      n<my_pkg> u<27> t<StringConst> p<29> s<28> l<3>
+      n<opcode_e> u<28> t<StringConst> p<29> l<3>
+      n<> u<29> t<Package_import_item> p<33> c<27> s<32> l<3>
+      n<my_pkg> u<30> t<StringConst> p<32> s<31> l<3>
+      n<OPCODE_LOAD> u<31> t<StringConst> p<32> l<3>
+      n<> u<32> t<Package_import_item> p<33> c<30> l<3>
+      n<> u<33> t<Package_import_declaration> p<34> c<29> l<3>
+    */
+    Serializer& s = compileDesign->getSerializer();
+    NodeId package_import_item_id = fC->Child(subNode);
+    while (package_import_item_id != 0) {
+      import* import_stmt = s.MakeImport();
+      NodeId package_name_id = fC->Child(package_import_item_id);
+
+      NodeId item_name_id = fC->Sibling(package_name_id);
+      StValue* item_name;
+      if (item_name_id != 0) {
+        item_name = new StValue(fC->SymName(item_name_id));
+      } else {
+        item_name = new StValue("*");
+      }
+      UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
+      free(item_name);
+      import_stmt->Item(imported_item);
+
+      std::string package_name(fC->SymName(package_name_id));
+      import_stmt->VpiName(package_name);
+
+      package_import_item_id = fC->Sibling(package_import_item_id);
+      component->addImportedSymbol(import_stmt);
+    }
     break;
+  }
   default:
     /*
      n<> u<29> t<IntVec_TypeReg> p<30> l<29>
@@ -1892,7 +1928,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
 
 UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* component, const FileContent* fC,
         NodeId Operator_assignment, bool blocking,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
   UHDM::expr* lhs_rf = nullptr;
@@ -1923,7 +1959,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Hierarchical_identifier = Variable_lvalue;
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
        Hierarchical_identifier = fC->Child(Hierarchical_identifier);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt));
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -1935,7 +1971,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     } else {
       Expression = fC->Sibling(AssignOp_Assign);
     }
-    rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
     //  = new ...
     NodeId Hierarchical_identifier = Operator_assignment;

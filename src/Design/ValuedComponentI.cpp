@@ -56,7 +56,10 @@ void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBui
 
 void ValuedComponentI::setValue(const std::string& name, Value* val,
                                 ExprBuilder& exprBuilder, int lineNb) {
-  m_paramValues.push_back(val);
+  auto itr = m_paramMap.find(name);
+  if (itr != m_paramMap.end()) {
+    m_paramMap.erase(itr);
+  }                                
   deleteValue(name, exprBuilder);
   m_paramMap.insert(std::make_pair(name, std::make_pair(val, lineNb)));
 }

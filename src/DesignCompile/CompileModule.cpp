@@ -99,7 +99,8 @@ bool CompileModule::compile() {
 
   switch (moduleType) {
     case VObjectType::slModule_declaration:
-      if (!collectModuleObjects_()) return false;
+      if (!collectModuleObjects_(true)) return false;
+      if (!collectModuleObjects_(false)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slLoop_generate_construct:
@@ -111,26 +112,312 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_module_block:
     case VObjectType::slGenerate_module_item:
     case VObjectType::slGenerate_module_named_block:
-      if (!collectModuleObjects_()) return false;
+      if (!collectModuleObjects_(true)) return false;
+      if (!collectModuleObjects_(false)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slInterface_declaration:
-      if (!collectInterfaceObjects_()) return false;
+      if (!collectInterfaceObjects_(true)) return false;
+      if (!collectInterfaceObjects_(false)) return false;
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
+      if (!collectUdpObjects_()) return false;
       break;
     case VObjectType::slChecker_declaration:
       break;
     default:
       break;
   }
+  return true;
+}
+
+bool CompileModule::collectUdpObjects_() {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  const FileContent* const fC = m_module->m_fileContents[0];
+  NodeId id = m_module->m_nodeIds[0];
+  VObject current = fC->Object(id);
+  std::stack<NodeId> stack;
+  stack.push(id);
+  m_module->m_udpDefn = s.MakeUdp_defn();
+  UHDM::udp_defn* defn = m_module->m_udpDefn;
+  while (stack.size()) {
+    id = stack.top();
+    stack.pop();
+    current = fC->Object(id);
+    VObjectType type = fC->Type(id);
+    switch (type) {
+      case slUdp_declaration:
+      case slUdp_nonansi_declaration:
+      case slUdp_ansi_declaration: {
+        UHDM::VectorOfattribute* attributes = nullptr;
+        NodeId Attributes = fC->Child(id);
+        if (fC->Type(Attributes) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Attributes, m_compileDesign);
+          defn->Attributes(attributes);
+        }
+        break;
+      }
+      case slUdp_port_list: {
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        if (ios == nullptr) {
+          defn->Io_decls(s.MakeIo_declVec());
+          ios = defn->Io_decls();
+        }
+        NodeId port = fC->Child(id);
+        while (port) {
+          UHDM::io_decl* io = s.MakeIo_decl();
+          const std::string& name = fC->SymName(port);
+          io->VpiFile(fC->getFileName());
+          io->VpiLineNo(fC->Line(port));
+          io->VpiName(name);
+          io->VpiParent(defn);
+          ios->push_back(io);
+          port = fC->Sibling(port); 
+        }
+        break;
+      }
+      case slUdp_output_declaration: 
+      case slUdp_reg_declaration: {
+        NodeId Output = fC->Child(id);
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Output) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Output, m_compileDesign);
+          while (fC->Type(Output) == VObjectType::slAttribute_instance)
+            Output = fC->Sibling(Output);
+        }
+
+        const std::string& outputname = fC->SymName(Output);
+        std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+        UHDM::logic_net* net = s.MakeLogic_net();
+        net->VpiFile(fC->getFileName());
+        net->VpiLineNo(fC->Line(id));
+        net->Attributes(attributes);
+        net->VpiParent(defn);
+        if (ios) {
+          for (auto io : *ios) {
+            if (io->VpiName() == outputname) {
+              if (io->Expr() == nullptr) 
+                io->Expr(net); //reg def do not override output def
+              net->VpiName(io->VpiName());
+              io->VpiDirection(vpiOutput);
+              break;
+            }
+          }
+        }
+        break;
+      }
+      case slUdp_input_declaration: {
+        NodeId Indentifier_list = fC->Child(id);
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance) {
+          attributes = m_helper.compileAttributes(m_module, fC, Indentifier_list, m_compileDesign);
+          while (fC->Type(Indentifier_list) == VObjectType::slAttribute_instance)
+            Indentifier_list = fC->Sibling(Indentifier_list);
+        }
+        NodeId Identifier = fC->Child(Indentifier_list);
+        while (Identifier) {
+          const std::string& inputname = fC->SymName(Identifier);
+          std::vector<UHDM::io_decl*>* ios = defn->Io_decls();
+          if (ios) {
+            UHDM::logic_net* net = s.MakeLogic_net();
+            net->VpiFile(fC->getFileName());
+            net->VpiLineNo(fC->Line(id));
+            net->Attributes(attributes);
+            net->VpiParent(defn);
+            for (auto io : *ios) {
+              if (io->VpiName() == inputname) {
+                io->Expr(net);
+                net->VpiName(io->VpiName());
+                io->VpiDirection(vpiInput);
+                break;
+              }
+            }
+          }
+          Identifier = fC->Sibling(Identifier);
+        }
+        break;
+      }
+      case slCombinational_entry: {
+        NodeId Level_input_list = fC->Child(id);
+        NodeId Output_symbol = fC->Sibling(Level_input_list);
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        while (Level_symbol) {
+          NodeId Symbol = fC->Child(Level_symbol);
+          unsigned int nbSymb = 0;
+          if (fC->Type(Symbol) == slQmark) {
+             ventry += "? ";
+             nbSymb = 1;
+          } else if (fC->Type(Symbol) == slBinOp_Mult) {
+            ventry += "* ";
+            nbSymb = 1;
+          } else {
+            const std::string& symb = fC->SymName(Symbol);
+            nbSymb = symb.size();
+            std::string symbols;
+            for (unsigned int i =0; i < nbSymb; i++) {
+              char s = symb[i];
+              symbols += s + std::string(" ");
+            }
+            ventry += symbols;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+          nb = nb + nbSymb;
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Output_symbol);
+        ventry += fC->SymName(Symbol);
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiParent(defn);
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entry->VpiFile(fC->getFileName());
+        entry->VpiLineNo(fC->Line(Level_input_list));
+        entries->push_back(entry);
+        break;
+      }
+      case slSequential_entry: {
+        NodeId Seq_input_list = fC->Child(id);
+        NodeId Level_input_list = fC->Child(Seq_input_list);
+        NodeId Current_state = fC->Sibling(Seq_input_list);
+        NodeId Next_state = fC->Sibling(Current_state);
+        std::string ventry = "STRING:";
+        unsigned int nb = 0;
+        NodeId Level_symbol = fC->Child(Level_input_list);
+        while (Level_symbol) {
+          if (fC->Type(Level_symbol) == slEdge_indicator) {
+            NodeId Level_Symbol = fC->Child(Level_symbol);
+            while (Level_Symbol) {
+              NodeId Symbol = fC->Child(Level_Symbol);
+              if (fC->Type(Symbol) == slQmark) {
+                ventry += "?";
+              } else if (fC->Type(Symbol) == slBinOp_Mult) {
+                ventry += "* ";
+              } else {
+                const std::string& symb = fC->SymName(Symbol);
+                ventry += symb;
+              }
+              Level_Symbol = fC->Sibling(Level_Symbol);
+            }
+            ventry += " ";
+            nb++;
+          } else {
+            NodeId Symbol = fC->Child(Level_symbol);
+
+            unsigned int nbSymb = 0;
+            if (fC->Type(Symbol) == slQmark) {
+              ventry += "? ";
+              nbSymb = 1;
+            } else if (fC->Type(Symbol) == slBinOp_Mult) {
+              ventry += "* ";
+              nbSymb = 1;  
+            } else {
+              const std::string& symb = fC->SymName(Symbol);
+              nbSymb = symb.size();
+              std::string symbols;
+              for (unsigned int i = 0; i < nbSymb; i++) {
+                char s = symb[i];
+                symbols += s + std::string(" ");
+              }
+              ventry += symbols;
+            }
+            nb = nb + nbSymb;
+          }
+          Level_symbol = fC->Sibling(Level_symbol);
+        }
+        ventry += ": ";
+        NodeId Symbol = fC->Child(Current_state);
+
+        if (fC->Type(Symbol) == slQmark) {
+          ventry += "? ";
+        } else if (fC->Type(Symbol) == slBinOp_Mult) {
+          ventry += "* ";
+        } else {
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        }
+
+        ventry += ": ";
+        Symbol = fC->Child(Next_state);
+       
+        if (fC->Type(Symbol) == slOutput_symbol) {
+          Symbol = fC->Child(Symbol);
+          const std::string& symb = fC->SymName(Symbol);
+          unsigned int nbSymb = symb.size();
+          std::string symbols;
+          for (unsigned int i = 0; i < nbSymb; i++) {
+            char s = symb[i];
+            symbols += s + std::string(" ");
+          }
+          ventry += symbols;
+        } else {
+          ventry += "-";
+        }
+
+        UHDM::VectorOftable_entry* entries = defn->Table_entrys();
+        if (entries == nullptr) {
+          defn->Table_entrys(s.MakeTable_entryVec());
+          entries = defn->Table_entrys();
+        }
+        UHDM::table_entry* entry = s.MakeTable_entry();
+        entry->VpiParent(defn);
+        entry->VpiValue(ventry);
+        entry->VpiSize(nb);
+        entry->VpiFile(fC->getFileName());
+        entry->VpiLineNo(fC->Line(Level_input_list));
+        entries->push_back(entry);
+        break;
+      }
+      case slUdp_initial_statement: {
+        NodeId Identifier = fC->Child(id);
+        NodeId Value = fC->Sibling(Identifier);
+        UHDM::initial* init = s.MakeInitial();
+        init->VpiFile(fC->getFileName());
+        init->VpiLineNo(fC->Line(id));
+        init->VpiParent(defn);
+        defn->Initial(init);
+        UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        init->Stmt(assign_stmt);
+        UHDM::ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(fC->SymName(Identifier));
+        ref->VpiParent(assign_stmt);
+        assign_stmt->Lhs(ref);
+        assign_stmt->VpiFile(fC->getFileName());
+        assign_stmt->VpiLineNo(fC->Line(Identifier));
+        assign_stmt->VpiParent(init);
+        UHDM::constant* c = s.MakeConstant();
+        assign_stmt->Rhs(c);
+        std::string val = "INT:" + fC->SymName(Value);
+        c->VpiValue(val);
+        c->VpiParent(assign_stmt);
+        c->VpiFile(fC->getFileName());
+        c->VpiLineNo(fC->Line(Value));
+        break;
+      }
+      default:
+        break;
+    }
+    if (current.m_sibling) stack.push(current.m_sibling);
+    if (current.m_child) stack.push(current.m_child);
+  }
 
   return true;
 }
 
-
-bool CompileModule::collectModuleObjects_() {
+bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
@@ -195,61 +482,76 @@ bool CompileModule::collectModuleObjects_() {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
+          if (!collectDefinitions) break;
           m_helper.importPackage(m_module, m_design, fC, id);
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slPort: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
-        case VObjectType::slClocking_declaration:
+        case VObjectType::slClocking_declaration: {
+          if (!collectDefinitions) break;
           compileClockingBlock_(fC, id);
           break;
+        }
         case VObjectType::slNet_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileNetDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileDataDeclaration(m_module, fC,id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slContinuous_assign:
         {
+          if (collectDefinitions) break;
           m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
           break;
         }
         case VObjectType::slAlways_construct:
         {
+          if (collectDefinitions) break;
           m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance);
           break;
         }
         case VObjectType::slTask_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slFunction_declaration: {
+          if (!collectDefinitions) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
@@ -269,14 +571,17 @@ bool CompileModule::collectModuleObjects_() {
         case VObjectType::slPar_block:
         case VObjectType::slSeq_block:
         case VObjectType::slDefparam_assignment: {
+          if (collectDefinitions) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;
         }
         case VObjectType::slInitial_construct:
+          if (collectDefinitions) break;
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
         case VObjectType::slFinal_construct:
+          if (collectDefinitions) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
           break; 
         default:
@@ -301,24 +606,25 @@ bool CompileModule::collectModuleObjects_() {
       }
     }
   }
-
-  for (Signal* port : m_module->getPorts()) {
-    bool found = false;
-    for (Signal* sig : m_module->getSignals()) {
-      if (sig->getName() == port->getName()) {
-        found = true;
-        break;
+  if (collectDefinitions) {
+    for (Signal* port : m_module->getPorts()) {
+      bool found = false;
+      for (Signal* sig : m_module->getSignals()) {
+        if (sig->getName() == port->getName()) {
+          found = true;
+          break;
+        }
       }
-    }
-    if (found == false) {
-      m_module->getSignals().push_back(port);
+      if (found == false) {
+        m_module->getSignals().push_back(port);
+      }
     }
   }
 
   return true;
 }
 
-bool CompileModule::collectInterfaceObjects_() {
+bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
@@ -351,42 +657,51 @@ bool CompileModule::collectInterfaceObjects_() {
       switch (type) {
       case VObjectType::slPackage_import_item:
       {
+        if (!collectDefinitions) break;
         m_helper.importPackage(m_module, m_design, fC, id);
         break;
       }
       case VObjectType::slAnsi_port_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
         break;
       }
       case VObjectType::slNet_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileNetDeclaration(m_module, fC, id, true, m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration:
       {
+        if (!collectDefinitions) break;
         m_helper.compileDataDeclaration(m_module, fC,id, true, m_compileDesign);
         break;
       }
       case VObjectType::slContinuous_assign:
       {
+        if (collectDefinitions) break;
         m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
         break;
       }
       case VObjectType::slTask_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileTask(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slFunction_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileFunction(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClocking_declaration:
+        if (!collectDefinitions) break;
         compileClockingBlock_(fC, id);
         break;
       case VObjectType::slGenerate_interface_item:
       {
+        if (collectDefinitions) break;
         // TODO: rewrite this rough implementation
         std::vector<VObjectType> types = {VObjectType::slModport_item};
         std::vector<NodeId> items = fC->sl_collect_all(id, types);
@@ -399,6 +714,7 @@ bool CompileModule::collectInterfaceObjects_() {
         break;
       }
       case VObjectType::slModport_item:
+        if (!collectDefinitions) break;
         /*
          n<tb> u<45> t<StringConst> p<56> s<50> l<43>
          n<> u<46> t<PortDir_Inp> p<49> s<48> l<43>
@@ -480,23 +796,28 @@ bool CompileModule::collectInterfaceObjects_() {
         }
         break;
       case VObjectType::slInitial_construct:
+        if (collectDefinitions) break;
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
       case VObjectType::slFinal_construct:
+        if (collectDefinitions) break;
         m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
         break;  
       case VObjectType::slParameter_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {
+        if (!collectDefinitions) break;
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
         break;
       }
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
+        if (!collectDefinitions) break;
         FileCNodeId fnid(fC, id);
-       m_module->addObject(type, fnid);
+        m_module->addObject(type, fnid);
         break;
       }
       default:
@@ -508,16 +829,18 @@ bool CompileModule::collectInterfaceObjects_() {
     }
   }
 
-  for (Signal* port : m_module->getPorts()) {
-    bool found = false;
-    for (Signal* sig : m_module->getSignals()) {
-      if (sig->getName() == port->getName()) {
-        found = true;
-        break;
+  if (collectDefinitions) {
+    for (Signal* port : m_module->getPorts()) {
+      bool found = false;
+      for (Signal* sig : m_module->getSignals()) {
+        if (sig->getName() == port->getName()) {
+          found = true;
+          break;
+        }
       }
-    }
-    if (found == false) {
-      m_module->getSignals().push_back(port);
+      if (found == false) {
+        m_module->getSignals().push_back(port);
+      }
     }
   }
   return true;

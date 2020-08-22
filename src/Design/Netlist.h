@@ -39,7 +39,7 @@ class Netlist {
  public:
   Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(nullptr), m_nets(nullptr), 
                                     m_ports(nullptr), m_gen_scope_arrays(nullptr), m_variables(nullptr), 
-                                    m_array_vars(nullptr), m_array_nets(nullptr) {}
+                                    m_array_vars(nullptr), m_array_nets(nullptr), m_delays(nullptr), m_ranges(nullptr) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -53,6 +53,8 @@ class Netlist {
   std::vector<UHDM::variables*>*        variables() { return m_variables;}
   std::vector<UHDM::array_var*>*        array_vars() { return m_array_vars;}
   std::vector<UHDM::array_net*>*        array_nets() { return m_array_nets;}
+  std::vector<UHDM::expr*>*             delays() { return m_delays; }
+  std::vector<UHDM::range*>*            ranges() { return m_ranges; }
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
@@ -61,6 +63,8 @@ class Netlist {
   void variables(std::vector<UHDM::variables*>* variables) {m_variables = variables; } 
   void array_vars(std::vector<UHDM::array_var*>* array_vars) {m_array_vars = array_vars; } 
   void array_nets(std::vector<UHDM::array_net*>* array_nets) {m_array_nets = array_nets; } 
+  void delays(std::vector<UHDM::expr*>* delay) { m_delays = delay; }
+  void ranges(std::vector<UHDM::range*>* range) { m_ranges = range; }
 
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
@@ -69,6 +73,7 @@ class Netlist {
   ModuleInstance* getParent() { return m_parent; }
  private:
   ModuleInstance*                  m_parent;
+  // members of the netlist
   std::vector<UHDM::interface*>*   m_interfaces;
   std::vector<UHDM::net*>*         m_nets;
   std::vector<UHDM::port*>*        m_ports;
@@ -76,7 +81,9 @@ class Netlist {
   std::vector<UHDM::variables*>* m_variables;
   std::vector<UHDM::array_var*>* m_array_vars;
   std::vector<UHDM::array_net*>* m_array_nets;
-
+  // properties of the netlist itself (gate)
+  std::vector<UHDM::expr*>*      m_delays;
+  std::vector<UHDM::range*>*     m_ranges;
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

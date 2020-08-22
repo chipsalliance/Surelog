@@ -279,6 +279,40 @@ UHDM::any* CompileHelper::compileExpression(
       Expression = fC->Sibling(Expression);
     }
     return result;
+  } else if (parentType == VObjectType::slDelay2 ||
+             parentType == VObjectType::slDelay3) {
+    NodeId MinTypMax = child;
+    if (fC->Sibling(MinTypMax)) {
+      UHDM::operation* operation = s.MakeOperation();
+      UHDM::VectorOfany* operands = s.MakeAnyVec();
+      operation->Operands(operands);
+      operation->VpiOpType(vpiListOp);
+      result = operation;
+      NodeId Expression = MinTypMax;
+      while (Expression) {
+        UHDM::any* exp = compileExpression(
+          component, fC, Expression, compileDesign, pexpr, instance, reduce);
+        if (exp) operands->push_back(exp);
+        Expression = fC->Sibling(Expression);
+      }
+      return result;
+    }
+  } else if (parentType == VObjectType::slConstant_mintypmax_expression ||
+             parentType == VObjectType::slMintypmax_expression) {
+    NodeId Expression = child;
+    operation* op = s.MakeOperation();
+    op->VpiOpType(vpiMinTypMaxOp);
+    op->VpiParent(pexpr);
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    op->Operands(operands);
+    result = op;
+    while (Expression) {
+      expr* sExpr = (expr*)compileExpression(
+          component, fC, Expression, compileDesign, op, instance, reduce);
+      if (sExpr) operands->push_back(sExpr);
+      Expression = fC->Sibling(Expression);
+    }
+    return result;
   }
 
   if (child) {
@@ -394,8 +428,6 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slConstant_primary:
       case VObjectType::slPrimary_literal:
       case VObjectType::slPrimary:
-      case VObjectType::slConstant_mintypmax_expression:
-      case VObjectType::slMintypmax_expression:
       case VObjectType::slSystem_task:
       case VObjectType::slParam_expression:
       case VObjectType::slExpression_or_cond_pattern:
@@ -415,11 +447,36 @@ UHDM::any* CompileHelper::compileExpression(
         result = ref;
         break;
       }
+      case VObjectType::slConstant_mintypmax_expression:
+      case VObjectType::slMintypmax_expression: {
+        NodeId Expression = fC->Child(child);
+        NodeId Sibling = fC->Sibling(Expression);
+        if (Sibling) {
+          operation* op = s.MakeOperation();
+          op->VpiOpType(vpiMinTypMaxOp);  
+          op->VpiParent(pexpr);
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          op->Operands(operands);
+          result = op;
+          expr* cExpr = (expr*) compileExpression(component, fC, Expression, compileDesign, op, instance, reduce);
+          if (cExpr)
+            operands->push_back(cExpr);
+          while (Sibling) {
+            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce);
+            if (sExpr)
+              operands->push_back(sExpr);
+            Sibling = fC->Sibling(Sibling);  
+          }  
+        } else {
+          result = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+        }
+        break;
+      }
       case VObjectType::slPattern: {
         NodeId Sibling = fC->Sibling(child);
         if (Sibling) {
           operation* op = s.MakeOperation();
-          op->VpiOpType(vpiListOp);
+          op->VpiOpType(vpiListOp);  
           op->VpiParent(pexpr);
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           op->Operands(operands);
@@ -818,6 +875,9 @@ UHDM::any* CompileHelper::compileExpression(
             UHDM::ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(name);
             ref->VpiParent(pexpr);
+            if (pexpr) {
+              ref->Actual_group(bindVariable(component, pexpr, name, compileDesign));
+            }
             result = ref;
           }
         } else {
@@ -1971,6 +2031,7 @@ UHDM::any* CompileHelper::compileClog2(
   }
   return result;
 }
+
 
 UHDM::any* CompileHelper::compileComplexFuncCall(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
