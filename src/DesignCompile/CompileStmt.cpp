@@ -1679,6 +1679,11 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::a
       }
       break;
     }
+    case uhdmmodule: {
+      // We never get here, as modules are built as DesignComponent, not as UHDM::module.
+      // Need late binding.
+      break;
+    }
     default:
       break;
   }

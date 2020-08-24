@@ -465,6 +465,11 @@ design: (work@debug_rom)
         \_ref_obj: (clk_i), line:36
           |vpiName:clk_i
           |vpiFullName:work@debug_rom.clk_i
+          |vpiActual:
+          \_logic_net: (clk_i), line:4, parent:clk_i
+            |vpiName:clk_i
+            |vpiFullName:work@debug_rom.clk_i
+            |vpiNetType:36
       |vpiStmt:
       \_begin: , line:36
         |vpiFullName:work@debug_rom
@@ -484,6 +489,25 @@ design: (work@debug_rom)
               \_ref_obj: (addr_q), line:38
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.addr_q
+                |vpiActual:
+                \_logic_net: (addr_q), line:34, parent:addr_q
+                  |vpiName:addr_q
+                  |vpiFullName:work@debug_rom.p_outmux.mem.addr_q
+                  |vpiNetType:36
+                  |vpiRange:
+                  \_range: , line:34, parent:addr_q
+                    |vpiLeftRange:
+                    \_constant: , line:34
+                      |vpiConstType:7
+                      |vpiDecompile:4
+                      |vpiSize:32
+                      |INT:4
+                    |vpiRightRange:
+                    \_constant: , line:34
+                      |vpiConstType:7
+                      |vpiDecompile:0
+                      |vpiSize:32
+                      |INT:0
               |vpiRhs:
               \_part_select: , line:38, parent:addr_i
                 |vpiConstantSelect:1
@@ -534,6 +558,25 @@ design: (work@debug_rom)
         \_ref_obj: (rdata_o), line:45, parent:p_outmux
           |vpiName:rdata_o
           |vpiFullName:work@debug_rom.p_outmux.rdata_o
+          |vpiActual:
+          \_logic_net: (rdata_o), line:7, parent:rdata_o
+            |vpiName:rdata_o
+            |vpiFullName:work@debug_rom.p_outmux.rdata_o
+            |vpiNetType:36
+            |vpiRange:
+            \_range: , line:7, parent:rdata_o
+              |vpiLeftRange:
+              \_constant: , line:7
+                |vpiConstType:7
+                |vpiDecompile:63
+                |vpiSize:32
+                |INT:63
+              |vpiRightRange:
+              \_constant: , line:7
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
         |vpiRhs:
         \_constant: , line:45
           |vpiConstType:3
@@ -570,6 +613,8 @@ design: (work@debug_rom)
             \_ref_obj: (rdata_o), line:47
               |vpiName:rdata_o
               |vpiFullName:work@debug_rom.p_outmux.rdata_o
+              |vpiActual:
+              \_logic_net: (rdata_o), line:7, parent:rdata_o
             |vpiRhs:
             \_bit_select: (mem), line:47
               |vpiName:mem
@@ -578,6 +623,8 @@ design: (work@debug_rom)
               \_ref_obj: (addr_q), line:47, parent:mem
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.p_outmux.mem.addr_q
+                |vpiActual:
+                \_logic_net: (addr_q), line:34, parent:addr_q
   |vpiPort:
   \_port: (clk_i), line:4
     |vpiName:clk_i
@@ -673,7 +720,7 @@ design: (work@debug_rom)
           |vpiName:clk_i
           |vpiFullName:work@debug_rom.clk_i
           |vpiActual:
-          \_logic_net: (clk_i), line:4, parent:work@debug_rom
+          \_logic_net: (clk_i), line:4, parent:clk_i
             |vpiName:clk_i
             |vpiFullName:work@debug_rom.clk_i
             |vpiNetType:36
@@ -702,12 +749,12 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.addr_q
                 |vpiActual:
-                \_logic_net: (addr_q), line:34, parent:work@debug_rom
+                \_logic_net: (addr_q), line:34, parent:addr_q
                   |vpiName:addr_q
-                  |vpiFullName:work@debug_rom.addr_q
+                  |vpiFullName:work@debug_rom.p_outmux.mem.addr_q
                   |vpiNetType:36
                   |vpiRange:
-                  \_range: , line:34
+                  \_range: , line:34, parent:addr_q
                     |vpiLeftRange:
                     \_constant: , line:34
                       |vpiConstType:7
@@ -779,12 +826,12 @@ design: (work@debug_rom)
           |vpiName:rdata_o
           |vpiFullName:work@debug_rom.p_outmux.rdata_o
           |vpiActual:
-          \_logic_net: (rdata_o), line:7, parent:work@debug_rom
+          \_logic_net: (rdata_o), line:7, parent:rdata_o
             |vpiName:rdata_o
-            |vpiFullName:work@debug_rom.rdata_o
+            |vpiFullName:work@debug_rom.p_outmux.rdata_o
             |vpiNetType:36
             |vpiRange:
-            \_range: , line:7
+            \_range: , line:7, parent:rdata_o
               |vpiLeftRange:
               \_constant: , line:7
                 |vpiConstType:7
@@ -813,7 +860,7 @@ design: (work@debug_rom)
             |vpiName:addr_q
             |vpiFullName:work@debug_rom.p_outmux.addr_q
             |vpiActual:
-            \_logic_net: (addr_q), line:34, parent:work@debug_rom
+            \_logic_net: (addr_q), line:34, parent:addr_q
           |vpiOperand:
           \_operation: , line:46
             |vpiOpType:67
@@ -838,7 +885,7 @@ design: (work@debug_rom)
               |vpiName:rdata_o
               |vpiFullName:work@debug_rom.p_outmux.rdata_o
               |vpiActual:
-              \_logic_net: (rdata_o), line:7, parent:work@debug_rom
+              \_logic_net: (rdata_o), line:7, parent:rdata_o
             |vpiRhs:
             \_bit_select: (mem), line:47
               |vpiName:mem
@@ -848,7 +895,7 @@ design: (work@debug_rom)
                 |vpiName:addr_q
                 |vpiFullName:work@debug_rom.p_outmux.mem.addr_q
                 |vpiActual:
-                \_logic_net: (addr_q), line:34, parent:work@debug_rom
+                \_logic_net: (addr_q), line:34, parent:addr_q
   |vpiPort:
   \_port: (clk_i), line:4, parent:work@debug_rom
     |vpiName:clk_i
@@ -856,7 +903,7 @@ design: (work@debug_rom)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk_i), line:4, parent:work@debug_rom
+      \_logic_net: (clk_i), line:4, parent:clk_i
   |vpiPort:
   \_port: (req_i), line:5, parent:work@debug_rom
     |vpiName:req_i
@@ -897,17 +944,17 @@ design: (work@debug_rom)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (rdata_o), line:7, parent:work@debug_rom
+      \_logic_net: (rdata_o), line:7, parent:rdata_o
   |vpiNet:
-  \_logic_net: (clk_i), line:4, parent:work@debug_rom
+  \_logic_net: (clk_i), line:4, parent:clk_i
   |vpiNet:
   \_logic_net: (req_i), line:5, parent:work@debug_rom
   |vpiNet:
   \_logic_net: (addr_i), line:6, parent:work@debug_rom
   |vpiNet:
-  \_logic_net: (rdata_o), line:7, parent:work@debug_rom
+  \_logic_net: (rdata_o), line:7, parent:rdata_o
   |vpiNet:
-  \_logic_net: (addr_q), line:34, parent:work@debug_rom
+  \_logic_net: (addr_q), line:34, parent:addr_q
   |vpiVariables:
   \_logic_var: (mem), line:12, parent:work@debug_rom
     |vpiName:mem

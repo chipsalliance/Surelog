@@ -392,6 +392,10 @@ design: (work@dut)
         \_ref_obj: (clk), line:14
           |vpiName:clk
           |vpiFullName:work@dut.clk
+          |vpiActual:
+          \_logic_net: (clk), line:1, parent:clk
+            |vpiName:clk
+            |vpiFullName:work@dut.clk
       |vpiStmt:
       \_begin: , line:14
         |vpiFullName:work@dut
@@ -428,6 +432,10 @@ design: (work@dut)
           \_ref_obj: (o), line:16
             |vpiName:o
             |vpiFullName:work@dut.o
+            |vpiActual:
+            \_logic_net: (o), line:1, parent:o
+              |vpiName:o
+              |vpiFullName:work@dut.o
           |vpiRhs:
           \_constant: , line:16
             |vpiConstType:7
@@ -671,7 +679,7 @@ design: (work@dut)
           |vpiName:clk
           |vpiFullName:work@dut.clk
           |vpiActual:
-          \_logic_net: (clk), line:1, parent:work@dut
+          \_logic_net: (clk), line:1, parent:clk
             |vpiName:clk
             |vpiFullName:work@dut.clk
       |vpiStmt:
@@ -711,7 +719,7 @@ design: (work@dut)
             |vpiName:o
             |vpiFullName:work@dut.o
             |vpiActual:
-            \_logic_net: (o), line:1, parent:work@dut
+            \_logic_net: (o), line:1, parent:o
               |vpiName:o
               |vpiFullName:work@dut.o
           |vpiRhs:
@@ -767,7 +775,7 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:1, parent:work@dut
+      \_logic_net: (clk), line:1, parent:clk
   |vpiPort:
   \_port: (o), line:1, parent:work@dut
     |vpiName:o
@@ -775,7 +783,7 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (o), line:1, parent:work@dut
+      \_logic_net: (o), line:1, parent:o
   |vpiTaskFunc:
   \_function: (uvm_packer::get_packed_bits), line:5
     |vpiName:uvm_packer::get_packed_bits
@@ -933,9 +941,9 @@ design: (work@dut)
               |vpiName:i
               |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_bits.i
   |vpiNet:
-  \_logic_net: (clk), line:1, parent:work@dut
+  \_logic_net: (clk), line:1, parent:clk
   |vpiNet:
-  \_logic_net: (o), line:1, parent:work@dut
+  \_logic_net: (o), line:1, parent:o
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
