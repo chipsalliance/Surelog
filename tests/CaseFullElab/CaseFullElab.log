@@ -454,12 +454,22 @@ design: (work@FSM)
           |vpiOperand:
           \_ref_obj: (clock), line:17
             |vpiName:clock
+            |vpiActual:
+            \_logic_net: (clock), line:3, parent:clock
+              |vpiName:clock
+              |vpiFullName:work@FSM.clock
+              |vpiNetType:1
         |vpiOperand:
         \_operation: , line:17
           |vpiOpType:40
           |vpiOperand:
           \_ref_obj: (keys), line:17
             |vpiName:keys
+            |vpiActual:
+            \_logic_net: (keys), line:3, parent:keys
+              |vpiName:keys
+              |vpiFullName:work@FSM.keys
+              |vpiNetType:1
       |vpiStmt:
       \_named_begin: (FSM3), line:17
         |vpiName:FSM3
@@ -499,6 +509,25 @@ design: (work@FSM)
                     \_ref_obj: (Speed), line:23
                       |vpiName:Speed
                       |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (Speed), line:5, parent:Speed
+                        |vpiName:Speed
+                        |vpiFullName:work@FSM.FSM3.Speed
+                        |vpiNetType:48
+                        |vpiRange:
+                        \_range: , line:5, parent:Speed
+                          |vpiLeftRange:
+                          \_constant: , line:5
+                            |vpiConstType:7
+                            |vpiDecompile:3
+                            |vpiSize:32
+                            |INT:3
+                          |vpiRightRange:
+                          \_constant: , line:5
+                            |vpiConstType:7
+                            |vpiDecompile:0
+                            |vpiSize:32
+                            |INT:0
                     |vpiRhs:
                     \_ref_obj: (Slow), line:23
                       |vpiName:Slow
@@ -516,6 +545,8 @@ design: (work@FSM)
                     \_ref_obj: (Speed), line:24
                       |vpiName:Speed
                       |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (Speed), line:5, parent:Speed
                     |vpiRhs:
                     \_ref_obj: (Faster), line:24
                       |vpiName:Faster
@@ -551,6 +582,8 @@ design: (work@FSM)
                   \_ref_obj: (Speed), line:31
                     |vpiName:Speed
                     |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (Speed), line:5, parent:Speed
                   |vpiRhs:
                   \_ref_obj: (Faster), line:31
                     |vpiName:Faster
@@ -568,6 +601,8 @@ design: (work@FSM)
                   \_ref_obj: (Speed), line:32
                     |vpiName:Speed
                     |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (Speed), line:5, parent:Speed
                   |vpiRhs:
                   \_ref_obj: (Faster), line:32
                     |vpiName:Faster
@@ -587,10 +622,14 @@ design: (work@FSM)
                 \_ref_obj: (Speed), line:37
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (Speed), line:5, parent:Speed
                 |vpiRhs:
                 \_ref_obj: (Speed), line:37
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (Speed), line:5, parent:Speed
   |vpiPort:
   \_port: (clock), line:1
     |vpiName:clock
@@ -782,7 +821,7 @@ design: (work@FSM)
             |vpiName:clock
             |vpiFullName:work@FSM.clock
             |vpiActual:
-            \_logic_net: (clock), line:3, parent:work@FSM
+            \_logic_net: (clock), line:3, parent:clock
               |vpiName:clock
               |vpiFullName:work@FSM.clock
               |vpiNetType:1
@@ -794,7 +833,7 @@ design: (work@FSM)
             |vpiName:keys
             |vpiFullName:work@FSM.keys
             |vpiActual:
-            \_logic_net: (keys), line:3, parent:work@FSM
+            \_logic_net: (keys), line:3, parent:keys
               |vpiName:keys
               |vpiFullName:work@FSM.keys
               |vpiNetType:1
@@ -809,7 +848,7 @@ design: (work@FSM)
             |vpiName:keys
             |vpiFullName:work@FSM.FSM3.keys
             |vpiActual:
-            \_logic_net: (keys), line:3, parent:work@FSM
+            \_logic_net: (keys), line:3, parent:keys
           |vpiStmt:
           \_begin: , line:19
             |vpiFullName:work@FSM.FSM3
@@ -832,12 +871,12 @@ design: (work@FSM)
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
-                  \_logic_net: (Speed), line:5, parent:work@FSM
+                  \_logic_net: (Speed), line:5, parent:Speed
                     |vpiName:Speed
-                    |vpiFullName:work@FSM.Speed
+                    |vpiFullName:work@FSM.FSM3.Speed
                     |vpiNetType:48
                     |vpiRange:
-                    \_range: , line:5
+                    \_range: , line:5, parent:Speed
                       |vpiLeftRange:
                       \_constant: , line:5
                         |vpiConstType:7
@@ -868,7 +907,7 @@ design: (work@FSM)
                       |vpiName:Speed
                       |vpiFullName:work@FSM.FSM3.Speed
                       |vpiActual:
-                      \_logic_net: (Speed), line:5, parent:work@FSM
+                      \_logic_net: (Speed), line:5, parent:Speed
                     |vpiRhs:
                     \_ref_obj: (Slow), line:23
                       |vpiName:Slow
@@ -895,7 +934,7 @@ design: (work@FSM)
                       |vpiName:Speed
                       |vpiFullName:work@FSM.FSM3.Speed
                       |vpiActual:
-                      \_logic_net: (Speed), line:5, parent:work@FSM
+                      \_logic_net: (Speed), line:5, parent:Speed
                     |vpiRhs:
                     \_ref_obj: (Faster), line:24
                       |vpiName:Faster
@@ -928,7 +967,7 @@ design: (work@FSM)
                 |vpiName:Speed
                 |vpiFullName:work@FSM.FSM3.Speed
                 |vpiActual:
-                \_logic_net: (Speed), line:5, parent:work@FSM
+                \_logic_net: (Speed), line:5, parent:Speed
               |vpiCaseItem:
               \_case_item: , line:31
                 |vpiExpr:
@@ -945,7 +984,7 @@ design: (work@FSM)
                     |vpiName:Speed
                     |vpiFullName:work@FSM.FSM3.Speed
                     |vpiActual:
-                    \_logic_net: (Speed), line:5, parent:work@FSM
+                    \_logic_net: (Speed), line:5, parent:Speed
                   |vpiRhs:
                   \_ref_obj: (Faster), line:31
                     |vpiName:Faster
@@ -968,7 +1007,7 @@ design: (work@FSM)
                     |vpiName:Speed
                     |vpiFullName:work@FSM.FSM3.Speed
                     |vpiActual:
-                    \_logic_net: (Speed), line:5, parent:work@FSM
+                    \_logic_net: (Speed), line:5, parent:Speed
                   |vpiRhs:
                   \_ref_obj: (Faster), line:32
                     |vpiName:Faster
@@ -991,13 +1030,13 @@ design: (work@FSM)
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
-                  \_logic_net: (Speed), line:5, parent:work@FSM
+                  \_logic_net: (Speed), line:5, parent:Speed
                 |vpiRhs:
                 \_ref_obj: (Speed), line:37
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
-                  \_logic_net: (Speed), line:5, parent:work@FSM
+                  \_logic_net: (Speed), line:5, parent:Speed
   |vpiPort:
   \_port: (clock), line:1, parent:work@FSM
     |vpiName:clock
@@ -1005,7 +1044,7 @@ design: (work@FSM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clock), line:3, parent:work@FSM
+      \_logic_net: (clock), line:3, parent:clock
   |vpiPort:
   \_port: (keys), line:1, parent:work@FSM
     |vpiName:keys
@@ -1013,7 +1052,7 @@ design: (work@FSM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (keys), line:3, parent:work@FSM
+      \_logic_net: (keys), line:3, parent:keys
   |vpiPort:
   \_port: (brake), line:1, parent:work@FSM
     |vpiName:brake
@@ -1037,17 +1076,17 @@ design: (work@FSM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Speed), line:5, parent:work@FSM
+      \_logic_net: (Speed), line:5, parent:Speed
   |vpiNet:
-  \_logic_net: (clock), line:3, parent:work@FSM
+  \_logic_net: (clock), line:3, parent:clock
   |vpiNet:
-  \_logic_net: (keys), line:3, parent:work@FSM
+  \_logic_net: (keys), line:3, parent:keys
   |vpiNet:
   \_logic_net: (brake), line:3, parent:work@FSM
   |vpiNet:
   \_logic_net: (accelerate), line:3, parent:work@FSM
   |vpiNet:
-  \_logic_net: (Speed), line:5, parent:work@FSM
+  \_logic_net: (Speed), line:5, parent:Speed
   |vpiNet:
   \_logic_net: (Ctrl1), line:7, parent:work@FSM
     |vpiName:Ctrl1

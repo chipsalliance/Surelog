@@ -100,6 +100,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void addImportedSymbol(UHDM::import* i) { m_imported_symbols.push_back(i); }
   const std::vector<UHDM::import*>& getImportedSymbols() const { return m_imported_symbols; }
 
+  void needLateBinding(UHDM::ref_obj* obj) { m_needLateBinding.push_back(obj); }
+  const std::vector<UHDM::ref_obj*>& getLateBinding() const { return m_needLateBinding; }
+
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
@@ -118,6 +121,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<Package*> m_packages;
   VariableMap m_variables;
   std::vector<UHDM::import*> m_imported_symbols;
+  std::vector<UHDM::ref_obj*> m_needLateBinding;
 };
 
 };  // namespace SURELOG

@@ -876,7 +876,11 @@ UHDM::any* CompileHelper::compileExpression(
             ref->VpiName(name);
             ref->VpiParent(pexpr);
             if (pexpr) {
-              ref->Actual_group(bindVariable(component, pexpr, name, compileDesign));
+              UHDM::any* var = bindVariable(component, pexpr, name, compileDesign);
+              if (var)
+                ref->Actual_group(var);
+              else if (component)
+                component->needLateBinding(ref); 
             }
             result = ref;
           }

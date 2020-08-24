@@ -707,6 +707,33 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
       obj->VpiParent(m);
     }
   }
+
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+      if (ref->Actual_group()) continue;
+      const std::string& name = ref->VpiName();
+      if (m->Nets()) {
+        for (auto n : *m->Nets()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Variables()) {
+        for (auto n : *m->Variables()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+    }
+  }
+
   return true;
 }
 
@@ -761,6 +788,33 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
       obj->VpiParent(m);
     }
   }
+
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+      if (ref->Actual_group()) continue;
+      const std::string& name = ref->VpiName();
+      if (m->Nets()) {
+        for (auto n : *m->Nets()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Variables()) {
+        for (auto n : *m->Variables()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+    }
+  }
+
   return true;
 }
 
@@ -801,6 +855,32 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
       obj->VpiParent(m);
+    }
+  }
+
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+      if (ref->Actual_group()) continue;
+      const std::string& name = ref->VpiName();
+      if (m->Nets()) {
+        for (auto n : *m->Nets()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Variables()) {
+        for (auto n : *m->Variables()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
     }
   }
 
@@ -863,6 +943,32 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   }
   m->Modports(dest_modports);
   m->Gen_scope_arrays(netlist->gen_scopes());
+
+  if (mod) {
+    for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+      if (ref->Actual_group()) continue;
+      const std::string& name = ref->VpiName();
+      if (m->Nets()) {
+        for (auto n : *m->Nets()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Variables()) {
+        for (auto n : *m->Variables()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+    }
+  }
+
   return true;
 }
 
