@@ -769,7 +769,8 @@ UHDM::any* CompileHelper::compileExpression(
               compileTypespec(component, fC, Simple_type, compileDesign,
                               operation, instance, reduce);
           if (operand) {
-            operand->VpiParent(operation);
+            if (operand->VpiParent() == nullptr)
+              operand->VpiParent(operation);
             operands->push_back(operand);
           }
           operation->Typespec(tps);
