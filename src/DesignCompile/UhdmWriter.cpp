@@ -674,8 +674,17 @@ void writeProgram(Program* mod, program* m, Serializer& s,
 }
 
 
-bool writeElabProgram(ModuleInstance* instance, program* m) {
+bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
   Netlist* netlist = instance->getNetlist();
+
+  // Typepecs
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    m->Typespecs(typespecs);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  }
+
   m->Ports(netlist->ports());
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
@@ -708,7 +717,6 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
     }
   }
 
-  DesignComponent* mod = instance->getDefinition();
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
@@ -747,8 +755,17 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
 }
 
 
-bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
+bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m) {
   Netlist* netlist = instance->getNetlist();
+
+  // Typepecs
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    m->Typespecs(typespecs);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  }
+
   m->Nets(netlist->nets());
   if (netlist->nets()) {
     for (auto obj : *netlist->nets()) {
@@ -805,7 +822,6 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
     }
   }
 
-  DesignComponent* mod = instance->getDefinition();
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
@@ -847,6 +863,15 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
 bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+
+  // Typepecs
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    m->Typespecs(typespecs);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  }
+
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
       obj->VpiParent(m);
@@ -883,7 +908,6 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
     }
   }
 
-  DesignComponent* mod = instance->getDefinition();
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
@@ -942,6 +966,15 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
 
 bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
+
+  // Typepecs
+  DesignComponent* mod = instance->getDefinition();
+  if (mod) {
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    m->Typespecs(typespecs);
+    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  }
+
   m->Ports(netlist->ports());
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
@@ -972,9 +1005,10 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
       obj->VpiParent(m);
     }
   }
-  ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
+ 
   // Modports
-  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
+  ModuleDefinition* module = (ModuleDefinition*) mod;
+  ModuleDefinition::ModPortSignalMap& orig_modports = module->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
@@ -1018,20 +1052,6 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
         }
         if (ref->Actual_group()) continue;
       }
-      /*
-      TODO: This binding needs to happen post UHDM elab, since parameters
-            are copied over to module instance during elab
-
-      if (m->Parameters()) {
-        for (auto n : *m->Parameters()) {
-          if (n->VpiName() == name) {
-            ref->Actual_group(n);
-            break;
-          }
-        }
-        if (ref->Actual_group()) continue;
-      }
-      */
     }
   }
 
@@ -1128,7 +1148,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   if (m->UhdmType() == uhdmmodule) {
     writeElabModule(s, instance, (module*) m);
   } else if (m->UhdmType() == uhdmgen_scope) {
-    writeElabGenScope(instance, (gen_scope*) m);
+    writeElabGenScope(s, instance, (gen_scope*) m);
   }
 
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -1322,7 +1342,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         ((gen_scope*) m)->Programs(subPrograms);
         sm->VpiParent(m);
       }
-      writeElabProgram(child, sm);
+      writeElabProgram(s, child, sm);
     } else {
       // Undefined module
       if (subModules == nullptr)
