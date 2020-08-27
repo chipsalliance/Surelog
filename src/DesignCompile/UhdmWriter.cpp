@@ -731,6 +731,15 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
         }
         if (ref->Actual_group()) continue;
       }
+      if (m->Parameters()) {
+        for (auto n : *m->Parameters()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
     }
   }
 
@@ -763,8 +772,15 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
             ps->VpiParent(m);
           }
         }
-        if (scope->Parameters())
-          m->Parameters(scope->Parameters());
+        if (scope->Parameters()) {
+          if (m->Parameters()) {
+            for (auto p : *scope->Parameters()) {
+              m->Parameters()->push_back(p);
+            }
+          } else {
+            m->Parameters(scope->Parameters());
+          }
+        }
         m->Param_assigns(scope->Param_assigns());
       }
     }
@@ -805,6 +821,15 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
       }
       if (m->Variables()) {
         for (auto n : *m->Variables()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Parameters()) {
+        for (auto n : *m->Parameters()) {
           if (n->VpiName() == name) {
             ref->Actual_group(n);
             break;
@@ -878,6 +903,33 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
             ref->Actual_group(n);
             break;
           }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Parameters()) {
+        for (auto n : *m->Parameters()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      if (m->Typespecs()) {
+        for (auto n : *m->Typespecs()) {
+          if (n->UhdmType() == uhdmenum_typespec) {
+            enum_typespec* tps = (enum_typespec*) n;
+            if (tps->Enum_consts()) {
+              for (auto c : *tps->Enum_consts()) {
+                if (c->VpiName() == name) {
+                  ref->Actual_group(c);
+                  break;
+                }
+              }
+            }
+          }
+          if (ref->Actual_group()) 
+            break;
         }
         if (ref->Actual_group()) continue;
       }
@@ -966,6 +1018,20 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
         }
         if (ref->Actual_group()) continue;
       }
+      /*
+      TODO: This binding needs to happen post UHDM elab, since parameters
+            are copied over to module instance during elab
+
+      if (m->Parameters()) {
+        for (auto n : *m->Parameters()) {
+          if (n->VpiName() == name) {
+            ref->Actual_group(n);
+            break;
+          }
+        }
+        if (ref->Actual_group()) continue;
+      }
+      */
     }
   }
 
@@ -1030,12 +1096,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfprimitive* subPrimitives = nullptr;
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
-  if (m->UhdmType() == uhdmmodule) {
-    writeElabModule(s, instance, (module*) m);
-  } else if (m->UhdmType() == uhdmgen_scope) {
-    writeElabGenScope(instance, (gen_scope*) m);
-  }
-
+  
   // Parameters
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
@@ -1062,6 +1123,12 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       ((gen_scope*)m)->Parameters(params);
     else if (m->UhdmType() == uhdminterface)
       ((interface*)m)->Parameters(params);
+  }
+
+  if (m->UhdmType() == uhdmmodule) {
+    writeElabModule(s, instance, (module*) m);
+  } else if (m->UhdmType() == uhdmgen_scope) {
+    writeElabGenScope(instance, (gen_scope*) m);
   }
 
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
