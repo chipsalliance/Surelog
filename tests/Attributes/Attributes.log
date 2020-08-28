@@ -466,9 +466,9 @@ design: (work@foo)
           |vpiName:clk
           |vpiFullName:work@bar.clk
           |vpiActual:
-          \_logic_net: (clk), line:1, parent:clk
+          \_logic_net: (clk), line:1, parent:bar_instance
             |vpiName:clk
-            |vpiFullName:work@bar.clk
+            |vpiFullName:work@foo.bar_instance.clk
             |vpiNetType:1
       |vpiStmt:
       \_if_else: , line:8
@@ -484,9 +484,9 @@ design: (work@foo)
             |vpiName:out
             |vpiFullName:work@bar.out
             |vpiActual:
-            \_logic_net: (out), line:1, parent:out
+            \_logic_net: (out), line:1, parent:bar_instance
               |vpiName:out
-              |vpiFullName:work@bar.out
+              |vpiFullName:work@foo.bar_instance.out
               |vpiNetType:48
           |vpiRhs:
           \_constant: , line:8
@@ -501,7 +501,7 @@ design: (work@foo)
             |vpiName:out
             |vpiFullName:work@bar.out
             |vpiActual:
-            \_logic_net: (out), line:1, parent:out
+            \_logic_net: (out), line:1, parent:bar_instance
           |vpiRhs:
           \_operation: , line:9
             |vpiOpType:4
@@ -510,9 +510,9 @@ design: (work@foo)
               |vpiName:inp
               |vpiFullName:work@bar.inp
               |vpiActual:
-              \_logic_net: (inp), line:1, parent:inp
+              \_logic_net: (inp), line:1, parent:bar_instance
                 |vpiName:inp
-                |vpiFullName:work@bar.inp
+                |vpiFullName:work@foo.bar_instance.inp
                 |vpiNetType:1
   |vpiPort:
   \_port: (clk), line:1
@@ -948,9 +948,9 @@ design: (work@foo)
             |vpiName:clk
             |vpiFullName:work@bar.clk
             |vpiActual:
-            \_logic_net: (clk), line:1, parent:clk
+            \_logic_net: (clk), line:1, parent:bar_instance
               |vpiName:clk
-              |vpiFullName:work@bar.clk
+              |vpiFullName:work@foo.bar_instance.clk
               |vpiNetType:1
         |vpiStmt:
         \_if_else: , line:8
@@ -971,9 +971,9 @@ design: (work@foo)
               |vpiName:out
               |vpiFullName:work@bar.out
               |vpiActual:
-              \_logic_net: (out), line:1, parent:out
+              \_logic_net: (out), line:1, parent:bar_instance
                 |vpiName:out
-                |vpiFullName:work@bar.out
+                |vpiFullName:work@foo.bar_instance.out
                 |vpiNetType:48
             |vpiRhs:
             \_constant: , line:8
@@ -988,7 +988,7 @@ design: (work@foo)
               |vpiName:out
               |vpiFullName:work@bar.out
               |vpiActual:
-              \_logic_net: (out), line:1, parent:out
+              \_logic_net: (out), line:1, parent:bar_instance
             |vpiRhs:
             \_operation: , line:9
               |vpiOpType:4
@@ -997,9 +997,9 @@ design: (work@foo)
                 |vpiName:inp
                 |vpiFullName:work@bar.inp
                 |vpiActual:
-                \_logic_net: (inp), line:1, parent:inp
+                \_logic_net: (inp), line:1, parent:bar_instance
                   |vpiName:inp
-                  |vpiFullName:work@bar.inp
+                  |vpiFullName:work@foo.bar_instance.inp
                   |vpiNetType:1
     |vpiPort:
     \_port: (clk), line:1, parent:bar_instance
@@ -1017,7 +1017,7 @@ design: (work@foo)
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (clk), line:1, parent:clk
+        \_logic_net: (clk), line:1, parent:bar_instance
     |vpiPort:
     \_port: (rst), line:1, parent:bar_instance
       |vpiName:rst
@@ -1047,7 +1047,7 @@ design: (work@foo)
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (inp), line:1, parent:inp
+        \_logic_net: (inp), line:1, parent:bar_instance
     |vpiPort:
     \_port: (out), line:1, parent:bar_instance
       |vpiName:out
@@ -1060,15 +1060,15 @@ design: (work@foo)
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (out), line:1, parent:out
+        \_logic_net: (out), line:1, parent:bar_instance
     |vpiNet:
-    \_logic_net: (clk), line:1, parent:clk
+    \_logic_net: (clk), line:1, parent:bar_instance
     |vpiNet:
     \_logic_net: (rst), line:1, parent:bar_instance
     |vpiNet:
-    \_logic_net: (inp), line:1, parent:inp
+    \_logic_net: (inp), line:1, parent:bar_instance
     |vpiNet:
-    \_logic_net: (out), line:1, parent:out
+    \_logic_net: (out), line:1, parent:bar_instance
     |vpiInstance:
     \_module: work@foo (work@foo), file:dut.sv, line:13
   |vpiNet:
