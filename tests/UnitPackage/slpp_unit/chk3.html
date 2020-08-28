@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>simple_pkg.sv Cov: 91.7% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="margin:0; padding:0 ">   2: //=================================================</pre>
+<pre style="margin:0; padding:0 ">   3: // Import the Packages</pre>
+<pre style="margin:0; padding:0 ">   4: //=================================================</pre>
+<pre style="margin:0; padding:0 ">   5: import msgPkg::*;</pre>
+<pre style="margin:0; padding:0 ">   6: import definesPkg::bool;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: //+++++++++++++++++++++++++++++++++++++++++++++++++</pre>
+<pre style="margin:0; padding:0 ">   9: // DUT Using the package</pre>
+<pre style="margin:0; padding:0 ">  10: //+++++++++++++++++++++++++++++++++++++++++++++++++</pre>
+<pre style="margin:0; padding:0 ">  11: module simple_package();</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: bool   value = definesPkg::FALSE;</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: if (SIZE > 1) begin : inst</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    M1 u1();</pre>
+<pre style="margin:0; padding:0 ">  17:   end</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   msgPkg::initMsgPkg("PACKAGES",0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   msgPkg::msg_info("Testing Packages");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   #10 msgPkg::msg_warn("Testing Packages");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   #10 msgPkg::msg_error("Testing Packages");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   msgPkg::msg_info($psprintf("Warning Count %0d, Error Count %0d",</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:    msgPkg::getWarnCnt(), msgPkg::getErrCnt()));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   if (value != definesPkg::TRUE)  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     #10 msgPkg::msg_fatal("Value is FALSE");</pre>
+<pre style="margin:0; padding:0 ">  28: end</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30: endmodule</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+</body>
+</html>
