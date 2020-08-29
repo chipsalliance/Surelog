@@ -1151,13 +1151,16 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   variables* previous_var = nullptr;
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
+    int previousDirection = vpiNoDirection;
     while (tf_port_item) {
       io_decl* decl = s.MakeIo_decl();
       ios->push_back(decl);
       NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
       NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
       VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
-      decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));
+      if (tf_port_direction_type != slData_type_or_implicit)
+        previousDirection = UhdmWriter::getVpiDirection(tf_port_direction_type);
+      decl->VpiDirection(previousDirection);
       NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
       if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
           tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
