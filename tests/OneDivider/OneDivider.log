@@ -315,6 +315,44 @@ design: (work@tb)
     |vpiName:rstn
     |vpiFullName:work@tb.rstn
     |vpiNetType:36
+  |vpiAssertion:
+  \_assert_stmt: (ap_div2), line:28
+    |vpiName:ap_div2
+    |vpiFullName:work@tb.ap_div2
+    |vpiElseStmt:
+    \_sys_func_call: ($fatal), line:28
+      |vpiName:$fatal
+      |vpiArgument:
+      \_constant: , line:28
+        |vpiConstType:7
+        |vpiDecompile:1
+        |vpiSize:32
+        |INT:1
+      |vpiArgument:
+      \_constant: , line:28
+        |vpiConstType:6
+        |vpiDecompile:"FAILED ASSERTION"
+        |vpiSize:18
+        |STRING:"FAILED ASSERTION"
+    |vpiStmt:
+    \_sys_func_call: ($display), line:28
+      |vpiName:$display
+      |vpiArgument:
+      \_constant: , line:28
+        |vpiConstType:6
+        |vpiDecompile:"OK!"
+        |vpiSize:5
+        |STRING:"OK!"
+    |vpiProperty:
+    \_property_spec: 
+      |vpiPropertyExpr:
+      \_operation: , line:28
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (clk), line:28
+          |vpiName:clk
+          |vpiActual:
+          \_logic_net: (clk), line:2, parent:work@tb
 |uhdmtopModules:
 \_module: work@tb (work@tb), file:tb.v, line:1
   |vpiDefName:work@tb

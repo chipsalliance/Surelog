@@ -434,6 +434,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slConstant_param_expression:
       case VObjectType::slAssignment_pattern_expression:
       case VObjectType::slConstant_assignment_pattern_expression:
+      case VObjectType::slExpression_or_dist:
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
         break;
       case VObjectType::slComplex_func_call: {
@@ -731,6 +732,15 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slAssignment_pattern: {
         result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
+        break;
+      }
+      case VObjectType::slSequence_expr: {
+        if (fC->Sibling(parent) == 0) {
+          result = compileExpression(component, fC, child, compileDesign,
+                                nullptr, instance, reduce);
+        } else {
+          
+        }
         break;
       }
       case VObjectType::slConstant_cast:
