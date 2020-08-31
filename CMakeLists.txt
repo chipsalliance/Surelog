@@ -263,6 +263,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Design/VObject.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/Builtin.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileAssertion.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileClass.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp

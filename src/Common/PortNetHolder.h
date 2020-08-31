@@ -51,6 +51,11 @@ public:
     m_parameters = parameters;
   }
 
+  std::vector<UHDM::any*>* getAssertions() { return m_assertions; }
+  void setAssertions(std::vector<UHDM::any*>* assertions) {
+    m_assertions = assertions;
+  }
+
   std::vector<UHDM::param_assign*>* getParam_assigns() {
     return m_param_assigns;
   }
@@ -74,6 +79,7 @@ protected:
   std::vector<UHDM::any*>* m_parameters = nullptr;
   std::vector<UHDM::param_assign*>* m_param_assigns = nullptr;
   std::vector<UHDM::task_func*>* m_task_funcs = nullptr;
+  std::vector<UHDM::any*>* m_assertions = nullptr;
 };
 
 }  // namespace SURELOG

@@ -1871,9 +1871,24 @@ Processing: -cd sva sva_not.sv -writepp -parse -nocache -nobuiltin -nonote -noin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva counter.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l counter.sv.log
+[ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!
+.
+
+[ERR:UH0700] counter.sv:16: Unsupported expression "<n<> u<261> t<Sequence_expr> p<272> c<260> s<265> l<16>> 	assert property (up ##1 up |=> cnt == $past(cnt, 2) + 8'd 2);
+".
+
+[ERR:UH0703] Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!
+.
+
+[ERR:UH0700] counter.sv:21: Unsupported expression "<n<> u<344> t<Sequence_expr> p<355> c<343> s<348> l<21>> 	assert property (up ##1 down |=> cnt == $past(cnt, 2));
+".
+
+[ERR:UH0703] Internal Error: adding wrong object type (func_call) in a property_expr_group group!
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva basic05.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l basic05.sv.log
@@ -1889,9 +1904,12 @@ Processing: -cd sva basic05.sv -writepp -parse -nocache -nobuiltin -nonote -noin
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd sva sva_throughout.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l sva_throughout.sv.log
+[ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva basic02.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l basic02.sv.log
@@ -1901,9 +1919,18 @@ Processing: -cd sva basic02.sv -writepp -parse -nocache -nobuiltin -nonote -noin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva sva_range.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l sva_range.sv.log
+[ERR:UH0700] sva_range.sv:8: Unsupported expression "<n<> u<66> t<Property_expr> p<74> c<58> s<73> l<8>> 		a ##[*] b |=> c until d
+".
+
+[ERR:UH0703] Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!
+.
+
+[ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva basic03.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l basic03.sv.log
@@ -2017,7 +2044,7 @@ Processing: -cd simple defvalue.sv -writepp -parse -nocache -nobuiltin -nonote -
 Processed 281 tests.
 [  FATAL] : 0
 [ SYNTAX] : 36
-[  ERROR] : 9
+[  ERROR] : 18
 [WARNING] : 83
 [   NOTE] : 0
 

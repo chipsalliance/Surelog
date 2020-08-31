@@ -555,6 +555,11 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
+        case VObjectType::slAssertion_item: {
+          if (!collectDefinitions) break;
+          m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:

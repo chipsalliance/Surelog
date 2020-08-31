@@ -573,6 +573,13 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
       tf->VpiParent(m);
     }
   }
+  // Assertions
+  if (mod->getAssertions()) {
+    m->Assertions(mod->getAssertions());
+    for (auto ps : *m->Assertions()) {
+      ps->VpiParent(m);
+    }
+  }
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,

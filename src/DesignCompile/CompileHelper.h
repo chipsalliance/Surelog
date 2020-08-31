@@ -140,6 +140,9 @@ public:
   bool compileFunction(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);
 
+  bool compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+        CompileDesign* compileDesign);
+
   std::vector<UHDM::io_decl*>* compileTfPortList(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
