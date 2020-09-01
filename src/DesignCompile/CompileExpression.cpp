@@ -361,6 +361,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slUnary_Plus:
       case VObjectType::slUnary_Tilda:
       case VObjectType::slUnary_Not:
+      case VObjectType::slNOT:
       case VObjectType::slUnary_BitwOr:
       case VObjectType::slUnary_BitwAnd:
       case VObjectType::slUnary_BitwXor:
