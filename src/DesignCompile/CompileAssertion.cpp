@@ -108,7 +108,6 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
   case VObjectType::slAssert_property_statement: {
-    NodeId Property_spec = fC->Child(the_stmt);
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
@@ -121,11 +120,16 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     break;
   }
   case VObjectType::slAssume_property_statement: {
-    NodeId Property_spec = fC->Child(the_stmt);
     NodeId Property_expr = fC->Child(Property_spec);
+    UHDM::expr* clocking_event = nullptr;
+    if (fC->Type(Property_expr) == slClocking_event) {
+      clocking_event = (UHDM::expr*) compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+      Property_expr = fC->Sibling(Property_expr);
+    }
     UHDM::assume* assume_stmt = s.MakeAssume();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
     UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    prop_spec->VpiClockingEvent(clocking_event);
     prop_spec->VpiPropertyExpr(property_expr);
     assume_stmt->VpiProperty(prop_spec);
     assume_stmt->Stmt(if_stmt);
@@ -133,7 +137,6 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     break;
   }
   case VObjectType::slCover_property_statement: {
-    NodeId Property_spec = fC->Child(the_stmt);
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::cover* cover_stmt = s.MakeCover();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
@@ -145,7 +148,6 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     break;
   }
   case VObjectType::slCover_sequence_statement: {
-    NodeId Property_spec = fC->Child(the_stmt);
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::cover* cover_stmt = s.MakeCover();
     cover_stmt->VpiIsCoverSequence();
@@ -158,6 +160,14 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     break;
   }
   case VObjectType::slRestrict_property_statement: {
+    NodeId Property_expr = fC->Child(Property_spec);
+    UHDM::restrict* restrict_stmt = s.MakeRestrict();
+    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    prop_spec->VpiPropertyExpr(property_expr);
+    restrict_stmt->VpiProperty(prop_spec);
+    restrict_stmt->Stmt(if_stmt);
+    stmt = restrict_stmt;
     break;
   }
   default:

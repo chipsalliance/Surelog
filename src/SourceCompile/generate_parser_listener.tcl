@@ -360,6 +360,30 @@ set TYPES(slNetType_Wor) 1
 set TYPES(slPulldown) 1 
 set TYPES(slPullup) 1 
 
+# Properties
+set TYPES(slOR) 1
+set TYPES(slAND) 1
+set TYPES(slIF) 1
+set TYPES(slSTRONG) 1 
+set TYPES(slWEAK) 1   
+set TYPES(slNOT) 1
+set TYPES(slOVERLAP_IMPLY) 1
+set TYPES(slNON_OVERLAP_IMPLY) 1   
+set TYPES(slOVERLAPPED) 1
+set TYPES(slNONOVERLAPPED) 1
+set TYPES(slS_NEXTTIME) 1
+set TYPES(slALWAYS) 1   
+set TYPES(slS_ALWAYS) 1
+set TYPES(slS_EVENTUALLY) 1
+set TYPES(slEVENTUALLY) 1  
+set TYPES(slUNTIL) 1
+set TYPES(slS_UNTIL) 1
+set TYPES(slIMPLIES) 1
+set TYPES(slIFF) 1
+set TYPES(slACCEPT_ON) 1
+set TYPES(slREJECT_ON) 1
+set TYPES(slSYNC_ACCEPT_ON) 1
+set TYPES(slSYNC_REJECT_ON) 1    
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]
 puts $oid ""

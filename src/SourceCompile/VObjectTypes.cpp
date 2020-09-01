@@ -18,6 +18,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slAccelerate_directive:
       text = "slAccelerate_directive";
       break;
+    case slACCEPT_ON:
+      text = "slACCEPT_ON";
+      break;
     case slAction_block:
       text = "slAction_block";
       break;
@@ -26,6 +29,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slActual_arg_list:
       text = "slActual_arg_list";
+      break;
+    case slALWAYS:
+      text = "slALWAYS";
       break;
     case slAlways_construct:
       text = "slAlways_construct";
@@ -41,6 +47,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slAlwaysKeywd_Latch:
       text = "slAlwaysKeywd_Latch";
+      break;
+    case slAND:
+      text = "slAND";
       break;
     case slAnd_call:
       text = "slAnd_call";
@@ -1059,6 +1068,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slEvent_type:
       text = "slEvent_type";
       break;
+    case slEVENTUALLY:
+      text = "slEVENTUALLY";
+      break;
     case slEveryRule:
       text = "slEveryRule";
       break;
@@ -1248,6 +1260,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slIdentifier_list:
       text = "slIdentifier_list";
       break;
+    case slIF:
+      text = "slIF";
+      break;
     case slIf_generate_construct:
       text = "slIf_generate_construct";
       break;
@@ -1256,6 +1271,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slIfdef_directive_in_macro_body:
       text = "slIfdef_directive_in_macro_body";
+      break;
+    case slIFF:
+      text = "slIFF";
       break;
     case slIff:
       text = "slIff";
@@ -1274,6 +1292,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slImplicit_data_type:
       text = "slImplicit_data_type";
+      break;
+    case slIMPLIES:
+      text = "slIMPLIES";
       break;
     case slInc_or_dec_expression:
       text = "slInc_or_dec_expression";
@@ -1809,6 +1830,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNon_consecutive_repetition:
       text = "slNon_consecutive_repetition";
       break;
+    case slNON_OVERLAP_IMPLY:
+      text = "slNON_OVERLAP_IMPLY";
+      break;
     case slNon_port_interface_item:
       text = "slNon_port_interface_item";
       break;
@@ -1833,6 +1857,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNonIntType_ShortReal:
       text = "slNonIntType_ShortReal";
       break;
+    case slNONOVERLAPPED:
+      text = "slNONOVERLAPPED";
+      break;
     case slNonrange_select:
       text = "slNonrange_select";
       break;
@@ -1847,6 +1874,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slNosuppress_faults_directive:
       text = "slNosuppress_faults_directive";
+      break;
+    case slNOT:
+      text = "slNOT";
       break;
     case slNotifier:
       text = "slNotifier";
@@ -1926,6 +1956,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slOperator_assignment:
       text = "slOperator_assignment";
       break;
+    case slOR:
+      text = "slOR";
+      break;
     case slOr_call:
       text = "slOr_call";
       break;
@@ -1946,6 +1979,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slOutput_symbol:
       text = "slOutput_symbol";
+      break;
+    case slOVERLAP_IMPLY:
+      text = "slOVERLAP_IMPLY";
+      break;
+    case slOVERLAPPED:
+      text = "slOVERLAPPED";
       break;
     case slOverload_declaration:
       text = "slOverload_declaration";
@@ -2334,6 +2373,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slReference_event:
       text = "slReference_event";
       break;
+    case slREJECT_ON:
+      text = "slREJECT_ON";
+      break;
     case slRelease:
       text = "slRelease";
       break;
@@ -2384,6 +2426,18 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slRs_rule:
       text = "slRs_rule";
+      break;
+    case slS_ALWAYS:
+      text = "slS_ALWAYS";
+      break;
+    case slS_EVENTUALLY:
+      text = "slS_EVENTUALLY";
+      break;
+    case slS_NEXTTIME:
+      text = "slS_NEXTTIME";
+      break;
+    case slS_UNTIL:
+      text = "slS_UNTIL";
       break;
     case slScalar_1TickB0:
       text = "slScalar_1TickB0";
@@ -2622,6 +2676,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slStringLiteral:
       text = "slStringLiteral";
       break;
+    case slSTRONG:
+      text = "slSTRONG";
+      break;
     case slStrong0:
       text = "slStrong0";
       break;
@@ -2675,6 +2732,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slSv_package:
       text = "slSv_package";
+      break;
+    case slSYNC_ACCEPT_ON:
+      text = "slSYNC_ACCEPT_ON";
+      break;
+    case slSYNC_REJECT_ON:
+      text = "slSYNC_REJECT_ON";
       break;
     case slSystem_task:
       text = "slSystem_task";
@@ -3000,6 +3063,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slUnterminated_string:
       text = "slUnterminated_string";
       break;
+    case slUNTIL:
+      text = "slUNTIL";
+      break;
     case slUse_clause:
       text = "slUse_clause";
       break;
@@ -3044,6 +3110,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slWait_statement:
       text = "slWait_statement";
+      break;
+    case slWEAK:
+      text = "slWEAK";
       break;
     case slWeak0:
       text = "slWeak0";

@@ -187,6 +187,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_Equiv:
     return vpiEqOp;
   case VObjectType::slBinOp_Not:
+  case VObjectType::slNOT:
     return vpiNeqOp;
   case VObjectType::slBinOp_Percent:
     return vpiModOp;
