@@ -161,6 +161,7 @@ class CommandLineParser final {
                      std::map<SymbolId, std::string>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);
+  bool setupCache_();
 
   std::vector<SymbolId> m_libraryPaths;          // -y
   std::vector<SymbolId> m_sourceFiles;           // .v .sv
