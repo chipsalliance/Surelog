@@ -923,6 +923,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
     }
   }
+  status = setupCache_();
+  if (!status) return status;
 
   status = checkCommandLine_();
   return status;
@@ -987,16 +989,6 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   if (!m_logFileSpecified)
     m_logFileId = m_symbolTable->registerSymbol(odir + defaultLogFileName);
 
-  std::string cachedir;
-  if (m_cacheAllowed) {
-    if (m_cacheDirId == 0) {
-      cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
-      m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
-    } else {
-      cachedir = m_symbolTable->getSymbol(m_cacheDirId);
-    }
-  }
-
   int status = FileUtils::mkDir(odir.c_str());
   if (status != 0) {
     Location loc(m_fullCompileDir);
@@ -1011,18 +1003,40 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   Error err(ErrorDefinition::CMD_CREATING_LOG_FILE, loc);
   m_errors->addError(err);
 
+  if (m_errors->hasFatalErrors()) {
+    noError = false;
+  }
+
+  return noError;
+}
+
+bool CommandLineParser::setupCache_() {
+  bool noError = true;
+  std::string odir;
+  std::string cachedir;
   if (m_cacheAllowed) {
-    status = FileUtils::mkDir(cachedir.c_str());
+    odir = m_symbolTable->getSymbol(m_outputDir);
+    if (odir.size()) {
+      if (odir[odir.size() - 1] != '/') {
+        odir += '/';
+      }
+    }
+
+    odir += m_symbolTable->getSymbol(
+      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+    if (m_cacheDirId == 0) {
+      cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+      m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
+    } else {
+      cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+    }
+    int status = FileUtils::mkDir(cachedir.c_str());
     if (status != 0) {
       Location loc(m_cacheDirId);
       Error err(ErrorDefinition::CMD_PP_CANNOT_CREATE_CACHE_DIR, loc);
       m_errors->addError(err);
       noError = false;
     }
-  }
-
-  if (m_errors->hasFatalErrors()) {
-    noError = false;
   }
 
   return noError;
