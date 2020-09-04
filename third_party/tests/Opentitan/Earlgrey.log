@@ -716,6 +716,36 @@
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
+[ERR:UH0700] hw/ip/flash_ctrl/rtl/flash_erase_ctrl.sv:41: Unsupported expression "<n<> u<292> t<Unary_Tilda> p<293> s<291> l<41>>   localparam logic[AddrW-1:0] PageAddrMask = ~(('h1 << WordsBitWidth) - 1'b1);
+".
+
+[ERR:UH0700] hw/ip/flash_ctrl/rtl/flash_erase_ctrl.sv:41: Unsupported expression "<n<> u<294> t<Constant_mintypmax_expression> p<295> c<293> l<41>>   localparam logic[AddrW-1:0] PageAddrMask = ~(('h1 << WordsBitWidth) - 1'b1);
+".
+
+[ERR:UH0700] hw/ip/flash_ctrl/rtl/flash_erase_ctrl.sv:42: Unsupported expression "<n<> u<351> t<Unary_Tilda> p<352> s<350> l<42>>   localparam logic[AddrW-1:0] BankAddrMask = ~(('h1 << (PagesBitWidth + WordsBitWidth)) - 1'b1);
+".
+
+[ERR:UH0700] hw/ip/flash_ctrl/rtl/flash_erase_ctrl.sv:42: Unsupported expression "<n<> u<353> t<Constant_mintypmax_expression> p<354> c<352> l<42>>   localparam logic[AddrW-1:0] BankAddrMask = ~(('h1 << (PagesBitWidth + WordsBitWidth)) - 1'b1);
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_adv.sv:58: Unsupported expression "<n<> u<400> t<Unary_Not> p<401> s<399> l<58>>                              (!EnableECC)   ? 0 :
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_adv.sv:58: Unsupported expression "<n<> u<401> t<Constant_expression> p<402> c<400> l<58>>                              (!EnableECC)   ? 0 :
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_adv.sv:58: Unsupported expression "<n<> u<402> t<Constant_primary> p<403> c<401> l<58>>                              (!EnableECC)   ? 0 :
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_async_adv.sv:60: Unsupported expression "<n<> u<412> t<Unary_Not> p<413> s<411> l<60>>                              (!EnableECC)   ? 0 :
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_async_adv.sv:60: Unsupported expression "<n<> u<413> t<Constant_expression> p<414> c<412> l<60>>                              (!EnableECC)   ? 0 :
+".
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_ram_2p_async_adv.sv:60: Unsupported expression "<n<> u<414> t<Constant_primary> p<415> c<413> l<60>>                              (!EnableECC)   ? 0 :
+".
+
 [ERR:EL0514] hw/ip/alert_handler/rtl/alert_pkg.sv:9: Undefined variable: alert_handler_reg_pkg::NAlerts.
 
 [ERR:EL0514] hw/ip/alert_handler/rtl/alert_pkg.sv:10: Undefined variable: alert_handler_reg_pkg::EscCntDw.
@@ -17690,6 +17720,9 @@ Instance tree:
 [ERR:EL0514] hw/ip/tlul/rtl/tlul_adapter_sram.sv:62: Undefined variable: req_t.
 
 [ERR:EL0514] hw/ip/tlul/rtl/tlul_adapter_sram.sv:63: Undefined variable: rsp_t.
+
+[ERR:UH0700] hw/ip/prim/rtl/prim_fifo_sync.sv:52: Unsupported expression "<n<> u<343> t<Unary_ReductNor> p<344> s<342> l<52>>     localparam int unsigned PTRV_W    = $clog2(Depth) + ~|$clog2(Depth);
+".
 
 [ERR:EL0514] hw/ip/spi_device/rtl/spi_device.sv:41: Undefined variable: spi_byte_t.
 
@@ -40862,7 +40895,7 @@ UHDM HTML COVERAGE REPORT: ../../../build/tests/Earlgrey/slpp_all//surelog.uhdm.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 23
+[  ERROR] : 34
 [WARNING] : 184
 [   NOTE] : 11649
 
