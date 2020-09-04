@@ -99,6 +99,7 @@ class Value {
   virtual void minus(const Value* a, const Value* b) = 0;
   virtual void mult(const Value* a, const Value* b) = 0;
   virtual void div(const Value* a, const Value* b) = 0;
+  virtual void power(const Value* a, const Value* b) = 0;
   virtual void mod(const Value* a, const Value* b) = 0;
 
   virtual void greater(const Value* a, const Value* b) = 0;
@@ -179,6 +180,7 @@ class SValue : public Value {
   void minus(const Value* a, const Value* b) final;
   void mult(const Value* a, const Value* b) final;
   void div(const Value* a, const Value* b) final;
+  void power(const Value* a, const Value* b) final;
   void mod(const Value* a, const Value* b) final;
   void greater(const Value* a, const Value* b) final;
   void greater_equal(const Value* a, const Value* b) final;
@@ -269,6 +271,7 @@ class LValue : public Value {
   void minus(const Value* a, const Value* b) final;
   void mult(const Value* a, const Value* b) final;
   void div(const Value* a, const Value* b) final;
+  void power(const Value* a, const Value* b) final;
   void mod(const Value* a, const Value* b) final;
   void greater(const Value* a, const Value* b) final;
   void greater_equal(const Value* a, const Value* b) final;
@@ -360,6 +363,7 @@ class StValue : public Value {
   void minus(const Value* a, const Value* b) final {}
   void mult(const Value* a, const Value* b) final {}
   void div(const Value* a, const Value* b) final {}
+  void power(const Value* a, const Value* b) final {}
   void mod(const Value* a, const Value* b) final {}
   void greater(const Value* a, const Value* b) final {}
   void greater_equal(const Value* a, const Value* b) final {}

@@ -1399,6 +1399,26 @@ UHDM::any* CompileHelper::compileExpression(
               }
               break;
             }
+            case vpiConditionOp: {
+              if (operands.size() == 3) {
+                int val = get_value((constant*)(operands[0])) ? get_value((constant*)(operands[1])) : get_value((constant*)(operands[2]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiPowerOp: {
+              if (operands.size() == 2) {
+                int val = pow(get_value((constant*)(operands[0])), get_value((constant*)(operands[1])));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
             default:
               break;
           }
