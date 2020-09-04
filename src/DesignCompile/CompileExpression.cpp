@@ -1269,13 +1269,13 @@ UHDM::any* CompileHelper::compileExpression(
     }
   }
 
+  NodeId the_node = 0;
+  if (child) {
+    the_node = child;
+  } else {
+    the_node = parent;
+  }
   if (result == nullptr) {
-    NodeId the_node;
-    if (child) {
-      the_node = child;
-    } else {
-      the_node = parent;
-    }
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
       ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
@@ -1324,10 +1324,74 @@ UHDM::any* CompileHelper::compileExpression(
               }
               break;
             }
+            case vpiEqOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) == get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiNeqOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) != get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiGtOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) > get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiGeOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) >=
+                          get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiLtOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) <
+                          get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiLeOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) <=
+                          get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
             case vpiArithLShiftOp:
             case vpiLShiftOp: {
               if (operands.size() == 2) {
-                int val = get_value((constant*)(operands[0])) << get_value((constant*)(operands[1]));
+                int val = get_value((constant*)(operands[0]))
+                          << get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1339,6 +1403,46 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiPlusOp: {
               if (operands.size() == 2) {
                 int val = get_value((constant*)(operands[0])) + get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiBitOrOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) | get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiBitAndOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) & get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiLogOrOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) || get_value((constant*)(operands[1]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiLogAndOp: {
+              if (operands.size() == 2) {
+                int val = get_value((constant*)(operands[0])) && get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1419,8 +1523,32 @@ UHDM::any* CompileHelper::compileExpression(
               }
               break;
             }
-            default:
+            case vpiCastOp:
+            case vpiConcatOp:
+            case vpiMultiConcatOp:
+            case vpiAssignmentPatternOp:  
+            case vpiMultiAssignmentPatternOp: 
+              // Don't reduce these ops
               break;
+            default: {
+              // Can't reduce an expression
+              ErrorContainer* errors =
+                  compileDesign->getCompiler()->getErrorContainer();
+              SymbolTable* symbols =
+                  compileDesign->getCompiler()->getSymbolTable();
+              std::string fileContent =
+                  FileUtils::getFileContent(fC->getFileName());
+              std::string lineText =
+                  StringUtils::getLineInString(fileContent, fC->Line(the_node));
+              Location loc(symbols->registerSymbol(fC->getFileName(the_node)),
+                           fC->Line(the_node), 0,
+                           symbols->registerSymbol(
+                               std::string("<") + fC->printObject(the_node) +
+                               std::string("> ") + lineText));
+              Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
+              errors->addError(err);
+              break;
+            }
           }
         }
       }

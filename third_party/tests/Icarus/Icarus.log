@@ -275,9 +275,18 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr860.v -l pr860.v.log
+[ERR:UH0700] pr860.v:8: Unsupported expression "<n<> u<45> t<Unary_Not> p<46> s<44> l<8>>    parameter M = (!ABS) ? 7 : WIDTH_IN;
+".
+
+[ERR:UH0700] pr860.v:8: Unsupported expression "<n<> u<46> t<Constant_expression> p<47> c<45> l<8>>    parameter M = (!ABS) ? 7 : WIDTH_IN;
+".
+
+[ERR:UH0700] pr860.v:8: Unsupported expression "<n<> u<47> t<Constant_primary> p<48> c<46> l<8>>    parameter M = (!ABS) ? 7 : WIDTH_IN;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr678.v -l pr678.v.log
@@ -1141,9 +1150,15 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns param_bor.v -l param_bor.v.log
+[ERR:UH0700] param_bor.v:25: Unsupported expression "<n<> u<9> t<Unary_BitwOr> p<10> s<8> l<25>> parameter A0 =  | 4'b0001;
+".
+
+[ERR:UH0700] param_bor.v:25: Unsupported expression "<n<> u<11> t<Constant_mintypmax_expression> p<12> c<10> l<25>> parameter A0 =  | 4'b0001;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns vector.v -l vector.v.log
@@ -2639,9 +2654,21 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns param_eq3.v -l param_eq3.v.log
+[ERR:UH0700] param_eq3.v:25: Unsupported expression "<n<> u<9> t<Constant_expression> p<15> c<8> s<14> l<25>> parameter A0 = (3'b1zx === 3'b1zx);
+".
+
+[ERR:UH0700] param_eq3.v:25: Unsupported expression "<n<> u<15> t<Constant_expression> p<16> c<9> l<25>> parameter A0 = (3'b1zx === 3'b1zx);
+".
+
+[ERR:UH0700] param_eq3.v:25: Unsupported expression "<n<> u<16> t<Constant_primary> p<17> c<15> l<25>> parameter A0 = (3'b1zx === 3'b1zx);
+".
+
+[ERR:UH0700] param_eq3.v:25: Unsupported expression "<n<> u<18> t<Constant_mintypmax_expression> p<19> c<17> l<25>> parameter A0 = (3'b1zx === 3'b1zx);
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns sdw_function3.v -l sdw_function3.v.log
@@ -3269,9 +3296,15 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns param_binv.v -l param_binv.v.log
+[ERR:UH0700] param_binv.v:25: Unsupported expression "<n<> u<11> t<Unary_Tilda> p<12> s<10> l<25>> parameter A0 = ~(4'b1010);
+".
+
+[ERR:UH0700] param_binv.v:25: Unsupported expression "<n<> u<13> t<Constant_mintypmax_expression> p<14> c<12> l<25>> parameter A0 = ~(4'b1010);
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns function2.v -l function2.v.log
@@ -4181,9 +4214,15 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns param_band.v -l param_band.v.log
+[ERR:UH0700] param_band.v:25: Unsupported expression "<n<> u<9> t<Unary_BitwAnd> p<10> s<8> l<25>> parameter A0 =  & 4'b1111;
+".
+
+[ERR:UH0700] param_band.v:25: Unsupported expression "<n<> u<11> t<Constant_mintypmax_expression> p<12> c<10> l<25>> parameter A0 =  & 4'b1111;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns drive_strength.v -l drive_strength.v.log
@@ -4237,7 +4276,7 @@ Processing: -cd contrib +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 Processed 697 tests.
 [  FATAL] : 0
 [ SYNTAX] : 3
-[  ERROR] : 14
+[  ERROR] : 27
 [WARNING] : 6
 [   NOTE] : 0
 
