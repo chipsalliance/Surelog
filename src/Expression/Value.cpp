@@ -238,6 +238,14 @@ void SValue::mod(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
 }
 
+void SValue::power(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
+  m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_value = pow(aval->m_value , bval->m_value);
+  m_valid = a->isValid() && b->isValid();
+}
+
 void SValue::greater(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
@@ -570,6 +578,17 @@ void LValue::mod(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) % b->getValueL(0);
 }
+
+
+void LValue::power(const Value* a, const Value* b) {
+  adjust(a);
+  adjust(b);
+  m_valid = a->isValid() && b->isValid();
+  if (!m_valid)
+    return;
+  m_valueArray[0].m_value = pow(a->getValueL(0), b->getValueL(0));
+}
+
 
 void LValue::greater(const Value* a, const Value* b) {
   adjust(a);

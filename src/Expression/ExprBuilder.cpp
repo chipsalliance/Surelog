@@ -176,6 +176,27 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             m_valueFactory.deleteValue(valueR);
             break;
           }
+          case VObjectType::slBinOp_MultMult: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->power(valueL, valueR);
+            m_valueFactory.deleteValue(valueL);
+            m_valueFactory.deleteValue(valueR);
+            break;
+          }
+          case VObjectType::slQmark:
+          case VObjectType::slConditional_operator: {
+            long long v = valueL->getValueL();
+            m_valueFactory.deleteValue(valueL);
+            NodeId Expression = fC->Sibling(op);
+            NodeId ConstantExpr = fC->Sibling(Expression);
+            if (v) {
+              value = evalExpr(fC, Expression, instance, muteErrors);
+            } else {
+              value = evalExpr(fC, ConstantExpr, instance, muteErrors);
+            }
+            break;
+          }
           case VObjectType::slBinOp_Div: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
