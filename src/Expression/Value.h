@@ -54,7 +54,7 @@ class Value {
   virtual ~Value() {}
 
   virtual unsigned short getSize() const = 0;  // size in bits
-
+  virtual unsigned short getSize(unsigned int wordIndex) const = 0;  // size in bits of a multi-word value
   // nb of 64 bits words necessary to encode the size
   virtual unsigned short getNbWords() const = 0;
 
@@ -93,6 +93,12 @@ class Value {
   virtual void u_minus(const Value* a) = 0;
   virtual void u_not(const Value* a) = 0;
   virtual void u_tilda(const Value* a) = 0;
+  virtual void u_bitwAnd(const Value* a) = 0;
+  virtual void u_bitwNand(const Value* a) = 0;
+  virtual void u_bitwOr(const Value* a) = 0;
+  virtual void u_bitwNor(const Value* a) = 0;
+  virtual void u_bitwXor(const Value* a) = 0;
+  virtual void u_bitwXnor(const Value* a) = 0;
   virtual void incr() = 0;
   virtual void decr() = 0;
   virtual void plus(const Value* a, const Value* b) = 0;
@@ -132,6 +138,7 @@ class SValue : public Value {
   ~SValue() final;
 
   unsigned short getSize() const final { return m_size; }
+  unsigned short getSize(unsigned int wordIndex) const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return Type::None; }
@@ -174,6 +181,12 @@ class SValue : public Value {
   void u_minus(const Value* a) final;
   void u_not(const Value* a) final;
   void u_tilda(const Value* a) final;
+  void u_bitwAnd(const Value* a) final;
+  void u_bitwNand(const Value* a) final;
+  void u_bitwOr(const Value* a) final;
+  void u_bitwNor(const Value* a) final;
+  void u_bitwXor(const Value* a) final;
+  void u_bitwXnor(const Value* a) final;
   void incr() final;
   void decr() final;
   void plus(const Value* a, const Value* b) final;
@@ -233,6 +246,7 @@ class LValue : public Value {
   ~LValue() final;
 
   unsigned short getSize() const final;
+  unsigned short getSize(unsigned int wordIndex) const final { if (m_valueArray) return m_valueArray[wordIndex].m_size; else return 0; }
   unsigned short getNbWords() const final { return m_nbWords; }
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
@@ -265,6 +279,12 @@ class LValue : public Value {
   void u_minus(const Value* a) final;
   void u_not(const Value* a) final;
   void u_tilda(const Value* a) final;
+  void u_bitwAnd(const Value* a) final;
+  void u_bitwNand(const Value* a) final;
+  void u_bitwOr(const Value* a) final;
+  void u_bitwNor(const Value* a) final;
+  void u_bitwXor(const Value* a) final;
+  void u_bitwXnor(const Value* a) final;
   void incr() final;
   void decr() final;
   void plus(const Value* a, const Value* b) final;
@@ -307,6 +327,7 @@ class StValue : public Value {
   ~StValue() final;
 
   unsigned short getSize() const final { return m_size; }
+  unsigned short getSize(unsigned int wordIndex) const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
@@ -357,6 +378,12 @@ class StValue : public Value {
   void u_minus(const Value* a) final {}
   void u_not(const Value* a) final {}
   void u_tilda(const Value* a) final {}
+  void u_bitwAnd(const Value* a) final {}
+  void u_bitwNand(const Value* a) final {}
+  void u_bitwOr(const Value* a) final {}
+  void u_bitwNor(const Value* a) final {}
+  void u_bitwXor(const Value* a) final {}
+  void u_bitwXnor(const Value* a) final {}
   void incr() final {}
   void decr() final {}
   void plus(const Value* a, const Value* b) final {}
