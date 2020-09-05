@@ -56,9 +56,21 @@ static unsigned int get_value(const UHDM::expr* expr) {
   if (hs) {
     s_vpi_value* sval = String2VpiValue(hs->VpiValue());
     if (sval) {
-      unsigned int result = sval->value.integer;
-      delete sval;
-      return result;
+      if (sval->format == vpiIntVal) {
+        unsigned int result = sval->value.integer;
+        delete sval;
+        return result;
+      } else if (sval->format == vpiBinStrVal) {
+        std::string val = sval->value.str;
+        unsigned int result = 0;
+        StringUtils::ltrim(val, '\'');
+        StringUtils::ltrim(val, 'b');
+        for (unsigned int i = 0; i < val.size(); i++) {
+          result = result + (val[i] == '1' ? (pow(2,i)) : 0);
+        }
+        delete sval;
+        return result;
+      }  
     }
   }
   return 0;
@@ -1476,6 +1488,114 @@ UHDM::any* CompileHelper::compileExpression(
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiBitNegOp: {
+              if (operands.size() == 1) {
+                int val = ~ get_value((constant*)(operands[0]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiNotOp: {
+              if (operands.size() == 1) {
+                int val = ! get_value((constant*)(operands[0]));
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryAndOp: {
+              if (operands.size() == 1) {
+                constant* cst = (constant*)(operands[0]);
+                int val = get_value(cst);
+                int res = val & 1;
+                for (int i = 1; i < cst->VpiSize(); i++) {
+                  res = res & ((val & (1 << i)) >> i);
+                }
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryNandOp: {
+              if (operands.size() == 1) {
+                int val = get_value((constant*)(operands[0]));
+                int res = val & 1;
+                for (unsigned int i = 1; i < 32; i++) {
+                  res = res & ((val & (1 << i)) >> i);
+                }
+                res = ~res;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryOrOp: {
+              if (operands.size() == 1) {
+                int val = get_value((constant*)(operands[0]));
+                int res = val & 1;
+                for (unsigned int i = 1; i < 32; i++) {
+                  res = res | ((val & (1 << i)) >> i);
+                }
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryNorOp: {
+              if (operands.size() == 1) {
+                int val = get_value((constant*)(operands[0]));
+                int res = val & 1;
+                for (unsigned int i = 1; i < 32; i++) {
+                  res = res | ((val & (1 << i)) >> i);
+                }
+                res = ~res;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryXorOp: {
+              if (operands.size() == 1) {
+                int val = get_value((constant*)(operands[0]));
+                int res = val & 1;
+                for (unsigned int i = 1; i < 32; i++) {
+                  res = res ^ ((val & (1 << i)) >> i);
+                }
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+                result = c;
+              }
+              break;
+            }
+            case vpiUnaryXNorOp: {
+              if (operands.size() == 1) {
+                int val = get_value((constant*)(operands[0]));
+                int res = val & 1;
+                for (unsigned int i = 1; i < 32; i++) {
+                  res = res ^ ((val & (1 << i)) >> i);
+                }
+                res = ~res;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
                 result = c;
               }
               break;

@@ -100,6 +100,27 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(tmp);
         break;
       }
+      case VObjectType::slUnary_BitwAnd: {
+        NodeId sibling = fC->Sibling(child);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
+        value->u_bitwAnd(tmp);
+        m_valueFactory.deleteValue(tmp);
+        break;
+      }
+      case VObjectType::slUnary_BitwOr: {
+        NodeId sibling = fC->Sibling(child);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
+        value->u_bitwOr(tmp);
+        m_valueFactory.deleteValue(tmp);
+        break;
+      }
+      case VObjectType::slUnary_BitwXor: {
+        NodeId sibling = fC->Sibling(child);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
+        value->u_bitwXor(tmp);
+        m_valueFactory.deleteValue(tmp);
+        break;
+      }
       case VObjectType::slConstant_primary:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
@@ -333,6 +354,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       } break;
       case VObjectType::slIntConst: {
         std::string val = fC->SymName(child);
+        std::string size = val;
+        StringUtils::rtrim(size, '\'');
         if (strstr(val.c_str(), "'")) {
           uint64_t hex_value = 0;
           char base = 'h';
@@ -361,7 +384,10 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             default:
               break;
           }
-          value->set(hex_value);
+          if (size == "")
+            value->set(hex_value);
+          else 
+            value->set(hex_value, Value::Type::Integer, std::strtoul(size.c_str(), 0, 10)); 
         } else {
           value->set((int64_t)atol(val.c_str()));
         }
