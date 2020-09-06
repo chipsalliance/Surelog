@@ -371,9 +371,21 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr810.v -l pr810.v.log
+[ERR:UH0700] pr810.v:12: Unsupported expression "<n<> u<48> t<Constant_expression> p<54> c<47> s<53> l<12>> parameter taaa_d1      =       ( I_AADR_01_DOA_01_T2 > I_AADR_10_DOA_01_T2 )
+".
+
+[ERR:UH0700] pr810.v:12: Unsupported expression "<n<> u<56> t<Constant_expression> p<66> c<55> s<57> l<12>> parameter taaa_d1      =       ( I_AADR_01_DOA_01_T2 > I_AADR_10_DOA_01_T2 )
+".
+
+[ERR:UH0700] pr810.v:16: Unsupported expression "<n<> u<117> t<Constant_expression> p<123> c<116> s<122> l<16>> parameter taaa_d0      =       ( I_AADR_01_DOA_10_T2 > I_AADR_10_DOA_10_T2 )
+".
+
+[ERR:UH0700] pr810.v:16: Unsupported expression "<n<> u<125> t<Constant_expression> p<135> c<124> s<126> l<16>> parameter taaa_d0      =       ( I_AADR_01_DOA_10_T2 > I_AADR_10_DOA_10_T2 )
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns vcd1.v -l vcd1.v.log
@@ -3257,9 +3269,12 @@ Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -t
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns pr729.v -l pr729.v.log
+[ERR:UH0700] pr729.v:3: Unsupported expression "<n<> u<25> t<Constant_expression> p<31> c<24> s<30> l<3>>   parameter p_real_x2   = p_real * 2 ; // <-- here
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd ivltests +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns shift1.v -l shift1.v.log
@@ -4249,7 +4264,7 @@ Processing: -cd contrib +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 Processed 697 tests.
 [  FATAL] : 0
 [ SYNTAX] : 3
-[  ERROR] : 18
+[  ERROR] : 23
 [WARNING] : 6
 [   NOTE] : 0
 
