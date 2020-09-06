@@ -423,9 +423,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_package_dimport.v -l t_package_dimport.v.log
+[ERR:UH0700] t_package_dimport.v:34: Unsupported expression "<n<> u<315> t<Constant_expression> p<321> c<314> s<320> l<34>>    localparam DATA_RANGE           = RAND_NUM_MAX + 1;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_gen.v -l t_interface_gen.v.log
@@ -1888,9 +1891,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_width.v -l t_math_width.v.log
+[ERR:UH0700] t_math_width.v:33: Unsupported expression "<n<> u<335> t<Constant_expression> p<341> c<334> s<340> l<33>>    localparam [5:0] D_SUB = D_TT - D_SIX;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_trace_string.v -l t_trace_string.v.log
@@ -3946,9 +3952,24 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_param_first.v -l t_param_first.v.log
+[ERR:UH0700] t_param_first.v:67: Unsupported expression "<n<> u<576> t<Constant_expression> p<582> c<575> s<581> l<67>>    parameter THREEPP_3_WIDE = 3'd4*3'd4*3'd2+3'd3;  // Yes folks VCS says 3 bits wide
+".
+
+[ERR:UH0700] t_param_first.v:67: Unsupported expression "<n<> u<582> t<Constant_expression> p<588> c<576> s<587> l<67>>    parameter THREEPP_3_WIDE = 3'd4*3'd4*3'd2+3'd3;  // Yes folks VCS says 3 bits wide
+".
+
+[ERR:UH0700] t_param_first.v:67: Unsupported expression "<n<> u<588> t<Constant_expression> p<594> c<582> s<593> l<67>>    parameter THREEPP_3_WIDE = 3'd4*3'd4*3'd2+3'd3;  // Yes folks VCS says 3 bits wide
+".
+
+[ERR:UH0700] t_param_first.v:84: Unsupported expression "<n<> u<848> t<Constant_expression> p<854> c<847> s<853> l<84>>    parameter THREEPP_32P_WIDE = 3'd4*3'd4*2+3'd3;
+".
+
+[ERR:UH0700] t_param_first.v:84: Unsupported expression "<n<> u<860> t<Constant_expression> p<866> c<854> s<865> l<84>>    parameter THREEPP_32P_WIDE = 3'd4*3'd4*2+3'd3;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc.v -l t_preproc.v.log
@@ -4849,9 +4870,15 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_gen_div0.v -l t_gen_div0.v.log
+[ERR:UH0700] t_gen_div0.v:27: Unsupported expression "<n<> u<111> t<Constant_expression> p<117> c<110> s<116> l<27>>    localparam BYTES = BIT_WIDTH / BYTE_WIDTH;
+".
+
+[ERR:UH0700] t_gen_div0.v:27: Unsupported expression "<n<> u<118> t<Constant_mintypmax_expression> p<119> c<117> l<27>>    localparam BYTES = BIT_WIDTH / BYTE_WIDTH;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_wrong_bad.v -l t_interface_wrong_bad.v.log
@@ -5102,9 +5129,27 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_pow4.v -l t_math_pow4.v.log
+[ERR:UH0700] t_math_pow4.v:56: Unsupported expression "<n<> u<494> t<Unary_Minus> p<495> s<493> l<56>>   localparam [7:0] v0 = +8'sd1 ** -8'sd2; //'h01
+".
+
+[ERR:UH0700] t_math_pow4.v:57: Unsupported expression "<n<> u<529> t<Unary_Minus> p<530> s<528> l<57>>   localparam [7:0] v1 = +8'sd2 ** -8'sd2; //'h00
+".
+
+[ERR:UH0700] t_math_pow4.v:58: Unsupported expression "<n<> u<559> t<Unary_Minus> p<560> s<558> l<58>>   localparam [7:0] v2 = -8'sd2 ** -8'sd3; //'h00
+".
+
+[ERR:UH0700] t_math_pow4.v:58: Unsupported expression "<n<> u<564> t<Unary_Minus> p<565> s<563> l<58>>   localparam [7:0] v2 = -8'sd2 ** -8'sd3; //'h00
+".
+
+[ERR:UH0700] t_math_pow4.v:59: Unsupported expression "<n<> u<594> t<Unary_Minus> p<595> s<593> l<59>>   localparam [7:0] v3 = -8'sd1 ** -8'sd3; //'hff
+".
+
+[ERR:UH0700] t_math_pow4.v:59: Unsupported expression "<n<> u<599> t<Unary_Minus> p<600> s<598> l<59>>   localparam [7:0] v3 = -8'sd1 ** -8'sd3; //'hff
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_trace_complex.v -l t_trace_complex.v.log
@@ -5626,7 +5671,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 55
-[  ERROR] : 151
+[  ERROR] : 166
 [WARNING] : 36
 [   NOTE] : 0
 
