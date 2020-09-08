@@ -96,6 +96,8 @@ static unsigned long get_value(bool& invalidValue, const UHDM::expr* expr) {
         }
         delete sval;
         return result;  
+      } else if (sval->format == vpiStringVal) {
+        // Don't error out, return 0  
       } else {
         invalidValue = true;
       }
