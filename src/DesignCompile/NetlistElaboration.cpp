@@ -774,6 +774,56 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               struct_net* stv = s.MakeStruct_net();
               stv->Typespec(st->getTypespec());
               obj = stv;
+            } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
+              UHDM::typespec* spec = sit->getTypespec();
+              variables* var = nullptr; 
+              if (spec->UhdmType() == uhdmint_typespec) {
+                UHDM::int_var* int_var = s.MakeInt_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmlong_int_typespec) {
+                UHDM::long_int_var* int_var = s.MakeLong_int_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmstring_typespec) {
+                UHDM::string_var* int_var = s.MakeString_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmshort_int_typespec) {
+                UHDM::short_int_var* int_var = s.MakeShort_int_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmbyte_typespec) {
+                UHDM::byte_var* int_var = s.MakeByte_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmreal_typespec) {
+                UHDM::real_var* int_var = s.MakeReal_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmshort_real_typespec) {
+                UHDM::short_real_var* int_var = s.MakeShort_real_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmtime_typespec) {
+                UHDM::time_var* int_var = s.MakeTime_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmbit_typespec) {
+                UHDM::bit_var* int_var = s.MakeBit_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmstring_typespec) {
+                UHDM::string_var* int_var = s.MakeString_var();
+                var = int_var;
+              } else if (spec->UhdmType() == uhdmlogic_typespec) {             
+                logic_var* logicv = s.MakeLogic_var();
+                logicv->Ranges(packedDimensions);
+                var = logicv;
+              }
+              var->Expr(exp);
+              var->VpiConstantVariable(sig->isConst());
+              var->VpiSigned(sig->isSigned());
+              var->VpiName(signame);
+              obj = var;
+            } else {
+              logic_net* logicn = s.MakeLogic_net();
+              logicn->VpiSigned(sig->isSigned());
+              logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+              logicn->Ranges(packedDimensions);
+              logicn->VpiName(signame);
+              obj = logicn;
             }
 
             if (unpackedDimensions) {
