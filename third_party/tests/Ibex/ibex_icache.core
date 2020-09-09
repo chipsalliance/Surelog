@@ -1,0 +1,22 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ibex:ibex_icache:0.1"
+description: "Ibex instruction cache"
+filesets:
+  files_rtl:
+    depend:
+      - lowrisc:prim:secded
+      - lowrisc:prim:ram_1p
+      - lowrisc:prim:assert
+    files:
+      - rtl/ibex_icache.sv
+    file_type: systemVerilogSource
+
+targets:
+  default: &default_target
+    filesets:
+      - files_rtl
+    toplevel: ibex_icache
+    default_tool: vcs
