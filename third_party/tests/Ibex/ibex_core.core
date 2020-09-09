@@ -1,0 +1,180 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ibex:ibex_core:0.1"
+description: "Ibex, a small RV32 CPU core"
+
+filesets:
+  files_rtl:
+    depend:
+      - lowrisc:prim:assert
+      - lowrisc:prim:clock_gating
+      - lowrisc:prim:lfsr
+      - lowrisc:ibex:ibex_pkg
+      - lowrisc:ibex:ibex_icache
+    files:
+      - rtl/ibex_alu.sv
+      - rtl/ibex_branch_predict.sv
+      - rtl/ibex_compressed_decoder.sv
+      - rtl/ibex_controller.sv
+      - rtl/ibex_cs_registers.sv
+      - rtl/ibex_counter.sv
+      - rtl/ibex_decoder.sv
+      - rtl/ibex_ex_block.sv
+      - rtl/ibex_fetch_fifo.sv
+      - rtl/ibex_id_stage.sv
+      - rtl/ibex_if_stage.sv
+      - rtl/ibex_load_store_unit.sv
+      - rtl/ibex_multdiv_fast.sv
+      - rtl/ibex_multdiv_slow.sv
+      - rtl/ibex_prefetch_buffer.sv
+      - rtl/ibex_pmp.sv
+      - rtl/ibex_wb_stage.sv
+      - rtl/ibex_dummy_instr.sv
+      - rtl/ibex_register_file_ff.sv # generic FF-based
+      - rtl/ibex_register_file_fpga.sv # FPGA
+      - rtl/ibex_register_file_latch.sv # ASIC
+      - rtl/ibex_core.sv
+    file_type: systemVerilogSource
+
+  files_lint_verilator:
+    files:
+      - lint/verilator_waiver.vlt: {file_type: vlt}
+
+  files_lint_verible:
+    files:
+      - lint/verible_waiver.vbw: {file_type: veribleLintWaiver}
+
+  files_check_tool_requirements:
+    depend:
+     - lowrisc:tool:check_tool_requirements
+
+parameters:
+  RVFI:
+    datatype: bool
+    paramtype: vlogdefine
+
+  SYNTHESIS:
+    datatype: bool
+    paramtype: vlogdefine
+
+  FPGA_XILINX:
+    datatype: bool
+    description: Identifies Xilinx FPGA targets to set DSP pragmas for performance counters.
+    default: false
+    paramtype: vlogdefine
+
+  RV32E:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+
+  RV32M:
+    datatype: str
+    default: ibex_pkg::RV32MFast
+    paramtype: vlogdefine
+    description: "RV32M implementation parameter enum. See the ibex_pkg::rv32m_e enum in ibex_pkg.sv for permitted values."
+
+  RV32B:
+    datatype: str
+    default: ibex_pkg::RV32BNone
+    paramtype: vlogdefine
+    description: "Bitmanip implementation parameter enum. See the ibex_pkg::rv32b_e enum in ibex_pkg.sv for permitted values."
+
+  RegFile:
+    datatype: str
+    default: ibex_pkg::RegFileFF
+    paramtype: vlogdefine
+    description: "Register file implementation parameter enum. See the ibex_pkg::regfile_e enum in ibex_pkg.sv for permitted values."
+
+  ICache:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable instruction cache"
+
+  ICacheECC:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable ECC protection in instruction cache"
+
+  BranchTargetALU:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables separate branch target ALU (increasing branch performance EXPERIMENTAL) [0/1]"
+
+  WritebackStage:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables third pipeline stage (EXPERIMENTAL) [0/1]"
+
+  BranchPredictor:
+    datatype: int
+    paramtype: vlogparam
+    default: 0
+    description: "Enables static branch prediction (EXPERIMENTAL)"
+
+  SecureIbex:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables security hardening features (EXPERIMENTAL) [0/1]"
+
+  PMPEnable:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable PMP"
+
+  PMPGranularity:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Granularity of NAPOT range, 0 = 4 byte, 1 = byte, 2 = 16 byte, 3 = 32 byte etc"
+
+  PMPNumRegions:
+    datatype: int
+    default: 4
+    paramtype: vlogparam
+    description: "Number of PMP regions"
+
+targets:
+  default: &default_target
+    filesets:
+      - tool_verilator ? (files_lint_verilator)
+      - tool_veriblelint ? (files_lint_verible)
+      - files_rtl
+      - files_check_tool_requirements
+    toplevel: ibex_core
+    parameters:
+      - tool_vivado ? (FPGA_XILINX=true)
+  lint:
+    <<: *default_target
+    parameters:
+      - SYNTHESIS=true
+      - RVFI=true
+    default_tool: verilator
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "-Wall"
+          # RAM primitives wider than 64bit (required for ECC) fail to build in
+          # Verilator without increasing the unroll count (see Verilator#1266)
+          - "--unroll-count 72"
+  format:
+    filesets:
+      - files_rtl
+    parameters:
+      - SYNTHESIS=true
+      - RVFI=true
+    default_tool: veribleformat
+    toplevel: ibex_core
+    tools:
+      veribleformat:
+        verible_format_args:
+          - "--inplace"
