@@ -115,6 +115,9 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
                                                   ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
+  if ((fC->Type(Bit_select) == slConstant_bit_select) && (!fC->Sibling(Bit_select))) {
+    Bit_select = fC->Child(Bit_select);
+  } 
   if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
     // More than one
     UHDM::var_select* var_select = s.MakeVar_select();
@@ -126,7 +129,8 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
   while (Bit_select) {
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
-        fC->Type(Bit_select) == VObjectType::slConstant_primary) {
+        fC->Type(Bit_select) == VObjectType::slConstant_primary ||
+        fC->Type(Bit_select) == VObjectType::slConstant_expression) {
       if (NodeId bitexp = fC->Child(Bit_select)) {
         expr* sel = (expr*) compileExpression(component, fC, bitexp, compileDesign, pexpr, instance);
 
