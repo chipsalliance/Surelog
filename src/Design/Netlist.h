@@ -39,7 +39,7 @@ class Netlist {
  public:
   Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(nullptr), m_nets(nullptr), 
                                     m_ports(nullptr), m_gen_scope_arrays(nullptr), m_variables(nullptr), 
-                                    m_array_vars(nullptr), m_array_nets(nullptr), m_delays(nullptr), m_ranges(nullptr) {}
+                                    m_array_vars(nullptr), m_array_nets(nullptr), m_delays(nullptr), m_ranges(nullptr), m_assign_stmts(nullptr) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -55,6 +55,7 @@ class Netlist {
   std::vector<UHDM::array_net*>*        array_nets() { return m_array_nets;}
   std::vector<UHDM::expr*>*             delays() { return m_delays; }
   std::vector<UHDM::range*>*            ranges() { return m_ranges; }
+  std::vector<UHDM::cont_assign*>*      cont_assigns() { return m_assign_stmts; }
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
@@ -65,6 +66,7 @@ class Netlist {
   void array_nets(std::vector<UHDM::array_net*>* array_nets) {m_array_nets = array_nets; } 
   void delays(std::vector<UHDM::expr*>* delay) { m_delays = delay; }
   void ranges(std::vector<UHDM::range*>* range) { m_ranges = range; }
+  void cont_assigns(std::vector<UHDM::cont_assign*>* assigns) { m_assign_stmts = assigns; }
 
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
@@ -84,6 +86,7 @@ class Netlist {
   // properties of the netlist itself (gate)
   std::vector<UHDM::expr*>*      m_delays;
   std::vector<UHDM::range*>*     m_ranges;
+  std::vector<UHDM::cont_assign*>* m_assign_stmts;
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;
