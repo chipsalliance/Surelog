@@ -725,6 +725,18 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
     }
   }
 
+  if (netlist->cont_assigns()) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto obj : *netlist->cont_assigns()) {
+      obj->VpiParent(m);
+      assigns->push_back(obj);
+    }
+  }
+
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
@@ -830,6 +842,18 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m) {
     }
   }
 
+  if (netlist->cont_assigns()) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto obj : *netlist->cont_assigns()) {
+      obj->VpiParent(m);
+      assigns->push_back(obj);
+    }
+  }
+
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
       if (ref->Actual_group()) continue;
@@ -913,6 +937,18 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
       obj->VpiParent(m);
+    }
+  }
+
+  if (netlist->cont_assigns()) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto obj : *netlist->cont_assigns()) {
+      obj->VpiParent(m);
+      assigns->push_back(obj);
     }
   }
 
@@ -1011,6 +1047,18 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   if (netlist->array_nets()) {
     for (auto obj : *netlist->array_nets()) {
       obj->VpiParent(m);
+    }
+  }
+
+  if (netlist->cont_assigns()) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto obj : *netlist->cont_assigns()) {
+      obj->VpiParent(m);
+      assigns->push_back(obj);
     }
   }
  
