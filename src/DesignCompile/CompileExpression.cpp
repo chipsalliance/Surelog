@@ -1793,7 +1793,9 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
   // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand iteration shall return the expressions as if the
   // assignment pattern were written with the positional notation. Nesting of assignment patterns shall be preserved.
 
-  // WARNING TODO: In this first implementation we do not do the data type binding so we can't order the terms with keys correctly.
+  // We forward the structure without reordering the bits or interpreting, 
+  // we deviate from the Standard by forwarding the complete spec to the client
+  // and letting them do the reordering if need be.
   NodeId Structure_pattern_key = fC->Child(Assignment_pattern);
   bool with_key = true;
   if (fC->Type(Structure_pattern_key) == VObjectType::slExpression) {
@@ -1803,15 +1805,42 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
     NodeId Expression;
     if (!with_key) {
       Expression = Structure_pattern_key; // No key '{1,2,...}
-    } else {
-      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
-      Expression = Structure_pattern_key; // With key '{a: 1, b: 2,...}
-    }
-    if (Expression) {
-      if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
-        operands->push_back(exp);
+      if (Expression) {
+        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+          operands->push_back(exp);
+        }
       }
+    } else {
+      Expression = fC->Sibling(Structure_pattern_key); // With key '{a: 1, b: 2,...}
+
+      if (Expression) {
+        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+          tagged_pattern* pattern = s.MakeTagged_pattern();
+          pattern->Pattern(exp);
+          NodeId Constant_expression = fC->Child(Structure_pattern_key);
+          NodeId Constant_primary = fC->Child(Constant_expression);
+          if (Constant_primary == 0) {
+            UHDM::string_typespec* tps = s.MakeString_typespec();
+            if (fC->Type(Constant_expression) == slStringConst) {
+              tps->VpiName(fC->SymName(Constant_expression));
+            } else {
+              tps->VpiName("default");
+            }
+            tps->VpiFile(fC->getFileName());
+            tps->VpiLineNo(fC->Line(Constant_expression));
+            pattern->Typespec(tps);
+          } else {
+            NodeId Primary_literal = Constant_primary;
+            if (fC->Type(Primary_literal) != slPrimary_literal)
+              Primary_literal = fC->Child(Constant_primary);
+            pattern->Typespec(compileTypespec(component, fC, Primary_literal, compileDesign, nullptr, instance, true, ""));
+          }
+          operands->push_back(pattern);
+        }
+      }
+      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
     }
+ 
     if (Structure_pattern_key)
       Structure_pattern_key = fC->Sibling(Structure_pattern_key);
   }
