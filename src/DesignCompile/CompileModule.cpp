@@ -965,6 +965,8 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   SymbolId clocking_block_symbol =
       m_symbols->registerSymbol(fC->SymName(clocking_block_name));
   NodeId clocking_event = fC->Sibling(clocking_block_name);
-  ClockingBlock cb(fC, clocking_block_name, clocking_event);
+  ClockingBlock::Type type = ClockingBlock::Regular;
+  UHDM::clocking_block* cblock = m_helper.compileClockingBlock(m_module, fC, id, m_compileDesign);
+  ClockingBlock cb(fC, clocking_block_name, clocking_event, type, cblock);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
