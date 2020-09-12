@@ -2050,3 +2050,12 @@ UHDM::array_var* CompileHelper::compileArrayVar(DesignComponent* component, cons
   }
   return results;
 }
+
+UHDM::clocking_block* CompileHelper::compileClockingBlock(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::clocking_block* cblock = s.MakeClocking_block();
+
+
+  return cblock;
+}
