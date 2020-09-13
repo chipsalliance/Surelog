@@ -248,6 +248,9 @@ public:
 
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign);
 
+  UHDM::event_control* compileClocking_event(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign);
+
   UHDM::clocking_block* compileClockingBlock(DesignComponent* component, const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 

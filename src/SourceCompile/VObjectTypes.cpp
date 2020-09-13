@@ -720,6 +720,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slDecPartSelectOp:
       text = "slDecPartSelectOp";
       break;
+    case slDefault:
+      text = "slDefault";
+      break;
     case slDefault_clause:
       text = "slDefault_clause";
       break;
@@ -1232,6 +1235,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slGenvar_module_case_item:
       text = "slGenvar_module_case_item";
+      break;
+    case slGlobal:
+      text = "slGlobal";
       break;
     case slGoto_repetition:
       text = "slGoto_repetition";
