@@ -33,7 +33,7 @@ namespace SURELOG {
 
 class ClockingBlockHolder {
  public:
-  typedef std::map<SymbolId, ClockingBlock> ClockingBlockMap;
+  typedef std::multimap<SymbolId, ClockingBlock> ClockingBlockMap;
 
   virtual ~ClockingBlockHolder() {}  // virtual as used as interface
 

@@ -729,6 +729,29 @@ void writeProgram(Program* mod, program* m, Serializer& s,
       tf->VpiParent(m);
     }
   }
+
+  // ClockingBlocks
+  for (auto ctupple : mod->getClockingBlockMap()) {
+    ClockingBlock& cblock = ctupple.second;
+    switch (cblock.getType()) {
+      case ClockingBlock::Type::Default: {
+         m->Default_clocking(cblock.getActual());
+         break;
+      }
+      case ClockingBlock::Type::Regular: {
+         VectorOfclocking_block* cblocks = m->Clocking_blocks();
+         if (cblocks == nullptr) {
+           m->Clocking_blocks(s.MakeClocking_blockVec());
+           cblocks = m->Clocking_blocks();
+         }
+         cblocks->push_back(cblock.getActual());
+         break;
+      }
+      default:
+        break;
+    }  
+  }
+
 }
 
 

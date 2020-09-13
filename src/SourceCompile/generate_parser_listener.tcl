@@ -360,6 +360,9 @@ set TYPES(slNetType_Wor) 1
 set TYPES(slPulldown) 1 
 set TYPES(slPullup) 1 
 
+set TYPES(slDefault) 1
+set TYPES(slGlobal) 1
+
 # Properties
 set TYPES(slOR) 1
 set TYPES(slAND) 1

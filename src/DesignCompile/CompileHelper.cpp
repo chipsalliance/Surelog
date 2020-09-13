@@ -2056,6 +2056,39 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(DesignComponent* compo
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::clocking_block* cblock = s.MakeClocking_block();
 
-
+  NodeId clocking_block_type = fC->Child(nodeId);
+  NodeId clocking_block_name = 0;
+  std::string name;
+  if(fC->Type(clocking_block_type) == slDefault) {
+  } else if(fC->Type(clocking_block_type) == slGlobal) {
+  } else if(fC->Type(clocking_block_type) == slStringConst) {
+    clocking_block_name = clocking_block_type; 
+  }
+  NodeId clocking_event = fC->Sibling(clocking_block_type);
+  if(fC->Type(clocking_event) == slStringConst) {
+    clocking_block_name = clocking_event; 
+    clocking_event = fC->Sibling(clocking_block_name);
+  }
+  if (clocking_block_name)  
+    name = fC->SymName(clocking_block_name);
+  else
+    name = "unnamed_clocking_block";  
+  cblock->VpiName(name);
+  cblock->VpiFile(fC->getFileName());
+  cblock->VpiLineNo(fC->Line(nodeId));
+  event_control* ctrl = compileClocking_event(component, fC, clocking_event, compileDesign);
+  cblock->Clocking_event(ctrl);
   return cblock;
+}
+
+UHDM::event_control* CompileHelper::compileClocking_event(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  event_control* ctrl = s.MakeEvent_control();
+  NodeId identifier = fC->Child(nodeId);
+  UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign);
+  ctrl->VpiCondition(exp);
+  if (exp)
+     exp->VpiParent(ctrl);
+  return ctrl;
 }

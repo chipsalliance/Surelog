@@ -424,6 +424,10 @@ void SV3_1aTreeShapeListener::exitSequential_body(SV3_1aParser::Sequential_bodyC
 }
 
 void SV3_1aTreeShapeListener::exitClocking_declaration(SV3_1aParser::Clocking_declarationContext * ctx) {
+  if (ctx->DEFAULT())
+    addVObject ((ParserRuleContext*) ctx->DEFAULT(), VObjectType::slDefault);
+  if (ctx->GLOBAL())
+    addVObject ((ParserRuleContext*) ctx->GLOBAL(), VObjectType::slGlobal);
   if (ctx->ENDCLOCKING())
     addVObject ((ParserRuleContext*) ctx->ENDCLOCKING(), VObjectType::slEndclocking);
   addVObject (ctx, VObjectType::slClocking_declaration);
