@@ -85,8 +85,8 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = compileExpression(component, fC, the_stmt, compileDesign, pstmt, nullptr, false);
     break;
   }
-  case VObjectType::slProcedural_timing_control_statement:{
-    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, the_stmt, compileDesign);
+  case VObjectType::slProcedural_timing_control_statement: {
+    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, fC->Child(the_stmt), compileDesign);
     stmt = dc;
     break;
   }
@@ -730,7 +730,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
 
 UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
   DesignComponent* component, const FileContent* fC,
-  NodeId Procedural_timing_control_statement,
+  NodeId Procedural_timing_control,
   CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   /*
@@ -738,7 +738,6 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
   n<> u<71> t<Delay_control> p<72> c<70> l<7>
   n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
   */
-  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
   NodeId Event_control = fC->Child(Procedural_timing_control);
 
   NodeId Event_expression = fC->Child(Event_control);
