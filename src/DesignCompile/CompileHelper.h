@@ -254,6 +254,10 @@ public:
   UHDM::clocking_block* compileClockingBlock(DesignComponent* component, const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 
+  UHDM::atomic_stmt* compileDelayControl(DesignComponent* component, const FileContent* fC,
+        NodeId Procedural_timing_control,
+        CompileDesign* compileDesign);                                  
+
 private:
   CompileHelper(const CompileHelper&) = delete;
 

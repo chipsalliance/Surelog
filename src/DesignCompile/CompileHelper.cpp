@@ -1614,7 +1614,7 @@ bool CompileHelper::compileFinalBlock(DesignComponent* component,
 }
 
 UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignComponent* component, const FileContent* fC,
-        NodeId Procedural_timing_control_statement,
+        NodeId Procedural_timing_control,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   /*
@@ -1622,25 +1622,42 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignCompo
   n<> u<71> t<Delay_control> p<72> c<70> l<7>
   n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
   */
-  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
+
   NodeId Delay_control = fC->Child(Procedural_timing_control);
   if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
-    return compileEventControlStmt(component, fC, Procedural_timing_control_statement, compileDesign);
+    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign);
   }
   NodeId IntConst = fC->Child(Delay_control);
   std::string value = fC->SymName(IntConst);
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  VectorOfany* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
-  if (st) {
-    any* stmt = (*st)[0];
-    dc->Stmt(stmt);
-    stmt->VpiParent(dc);
+  if (Statement_or_null) {
+    VectorOfany* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
+    if (st) {
+      any* stmt = (*st)[0];
+      dc->Stmt(stmt);
+      stmt->VpiParent(dc);
+    }
   }
   return dc;
 }
 
+UHDM::atomic_stmt* CompileHelper::compileDelayControl(DesignComponent* component, const FileContent* fC,
+        NodeId Procedural_timing_control,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+ 
+  NodeId Delay_control = fC->Child(Procedural_timing_control);
+  if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
+    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign);
+  }
+  NodeId IntConst = fC->Child(Delay_control);
+  std::string value = fC->SymName(IntConst);
+  UHDM::delay_control* dc = s.MakeDelay_control();
+  dc->VpiDelay(value);
+  return dc;
+}
 
 bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign) {
@@ -2078,6 +2095,227 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(DesignComponent* compo
   cblock->VpiLineNo(fC->Line(nodeId));
   event_control* ctrl = compileClocking_event(component, fC, clocking_event, compileDesign);
   cblock->Clocking_event(ctrl);
+  NodeId clocking_item = fC->Sibling(clocking_event);
+  while (clocking_item) {
+    if (fC->Type(clocking_item) == slClocking_item) {
+      NodeId item = fC->Child(clocking_item);
+      VObjectType direction = fC->Type(item);
+      UHDM::delay_control* dcInp = nullptr;
+      UHDM::delay_control* dcOut = nullptr;
+      int inputEdge = 0;
+      int outputEdge = 0;
+      if (direction == slDefaultSkew_IntputOutput) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            cblock->VpiInputEdge(vpiNegedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            cblock->VpiInputEdge(vpiPosedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            cblock->VpiInputEdge(vpiAnyEdge);
+            Skew = fC->Sibling(Edge);
+          } 
+          if (Skew) {
+            UHDM::delay_control* dc = (delay_control*) compileDelayControl(component, fC, Skew, compileDesign);
+            cblock->Input_skew(dc);
+          }
+          Clocking_skew = fC->Sibling(Clocking_skew);
+          if (Clocking_skew) {
+            NodeId Edge = fC->Child(Clocking_skew);
+            NodeId Skew = Clocking_skew;
+            if (fC->Type(Edge) == slEdge_Negedge) {
+              cblock->VpiOutputEdge(vpiNegedge);
+              Skew = fC->Sibling(Edge);
+            } else if (fC->Type(Edge) == slEdge_Posedge) {
+              cblock->VpiOutputEdge(vpiPosedge);
+              Skew = fC->Sibling(Edge);
+            } else if (fC->Type(Edge) == slEdge_Edge) {
+              cblock->VpiOutputEdge(vpiAnyEdge);
+              Skew = fC->Sibling(Edge);
+            }
+            if (Skew) {
+              UHDM::delay_control* dc =
+                  (delay_control*)compileDelayControl(
+                      component, fC, Clocking_skew, compileDesign);
+              cblock->Output_skew(dc);
+            }
+          }
+        }
+      } if (direction == slDefaultSkew_Intput) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            cblock->VpiInputEdge(vpiNegedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            cblock->VpiInputEdge(vpiPosedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            cblock->VpiInputEdge(vpiAnyEdge);
+            Skew = fC->Sibling(Edge);
+          }
+          if (Skew) {
+            UHDM::delay_control* dc =
+                (delay_control*)compileDelayControl(
+                    component, fC, Skew, compileDesign);
+            cblock->Input_skew(dc);
+          }
+        }
+      } if (direction == slDefaultSkew_Output) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            cblock->VpiOutputEdge(vpiNegedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            cblock->VpiOutputEdge(vpiPosedge);
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            cblock->VpiOutputEdge(vpiAnyEdge);
+            Skew = fC->Sibling(Edge);
+          }
+          if (Skew) {
+            UHDM::delay_control* dc =
+                (delay_control*)compileDelayControl(
+                    component, fC, Skew, compileDesign);
+            cblock->Output_skew(dc);
+          }
+        }
+      } else if (direction == slClockingDir_Input) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            inputEdge = vpiNegedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            inputEdge = vpiPosedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            inputEdge = vpiAnyEdge;
+            Skew = fC->Sibling(Edge);
+          } 
+          if (Skew) {
+            dcInp = (delay_control*)compileDelayControl(
+                component, fC, Skew, compileDesign);
+          }
+        }
+      } else if (direction == slClockingDir_Output) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            outputEdge = vpiNegedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            outputEdge = vpiPosedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            outputEdge = vpiAnyEdge;
+            Skew = fC->Sibling(Edge);
+          }
+          if (Skew) {
+            dcOut = (delay_control*)compileDelayControl(
+                component, fC, Skew, compileDesign);
+          }
+        }
+      } else if (direction == slClockingDir_InputOutput) {
+        NodeId Clocking_skew = fC->Child(item);
+        if (Clocking_skew) {
+          NodeId Edge = fC->Child(Clocking_skew);
+          NodeId Skew = Clocking_skew;
+          if (fC->Type(Edge) == slEdge_Negedge) {
+            inputEdge = vpiNegedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Posedge) {
+            inputEdge = vpiPosedge;
+            Skew = fC->Sibling(Edge);
+          } else if (fC->Type(Edge) == slEdge_Edge) {
+            inputEdge = vpiAnyEdge;
+            Skew = fC->Sibling(Edge);
+          } 
+          if (Skew) {
+            dcInp = (delay_control*)compileDelayControl(
+              component, fC, Skew, compileDesign);
+          }
+
+          Clocking_skew = fC->Sibling(Clocking_skew);
+          if (Clocking_skew) {
+            NodeId Edge = fC->Child(Clocking_skew);
+            NodeId Skew = Clocking_skew;
+            if (fC->Type(Edge) == slEdge_Negedge) {
+              outputEdge = vpiNegedge;
+              Skew = fC->Sibling(Edge);
+            } else if (fC->Type(Edge) == slEdge_Posedge) {
+              outputEdge = vpiPosedge;
+              Skew = fC->Sibling(Edge);
+            } else if (fC->Type(Edge) == slEdge_Edge) {
+              outputEdge = vpiAnyEdge;
+              Skew = fC->Sibling(Edge);
+            }
+            if (Skew) {
+              dcOut = (delay_control*)compileDelayControl(
+                  component, fC, Skew, compileDesign);
+            }
+          }
+        }
+      } else if (direction == slClockingDir_Inout) {
+        // No skew value
+      }
+
+      NodeId List_of_clocking_decl_assign = fC->Sibling(item);
+      if (List_of_clocking_decl_assign) {
+        NodeId Clocking_decl_assign = fC->Child(List_of_clocking_decl_assign);
+        VectorOfclocking_io_decl* ios = cblock->Clocking_io_decls();
+        if (ios == nullptr) {
+          cblock->Clocking_io_decls(s.MakeClocking_io_declVec());
+          ios = cblock->Clocking_io_decls();
+        }
+
+        while (Clocking_decl_assign) {
+          NodeId Identifier = fC->Child(Clocking_decl_assign);
+          NodeId Expr = fC->Sibling(Identifier);
+          UHDM::clocking_io_decl* io = s.MakeClocking_io_decl();
+          io->VpiInputEdge(inputEdge);
+          io->VpiOutputEdge(outputEdge);
+          if (Expr) {
+            UHDM::expr* exp =
+                (expr*)compileExpression(component, fC, Expr, compileDesign);
+            io->Expr(exp);
+            if (exp) exp->VpiParent(ctrl);
+          }
+          ios->push_back(io);
+          const std::string& sigName = fC->SymName(Identifier);
+          io->VpiName(sigName);
+          if (direction == slClockingDir_Input) {
+            io->Input_skew(dcInp);
+            io->VpiDirection(vpiInput);
+          } else if (direction == slClockingDir_Output) {
+            io->Output_skew(dcOut);
+            io->VpiDirection(vpiOutput);
+          } else if (direction == slClockingDir_InputOutput) {
+            io->Input_skew(dcInp);
+            io->Output_skew(dcOut);
+            io->VpiDirection(vpiOutput);
+          } else if (direction == slClockingDir_Inout) {
+            io->VpiDirection(vpiInout);
+          }
+          Clocking_decl_assign = fC->Sibling(Clocking_decl_assign);
+        }
+      }
+    }
+    clocking_item = fC->Sibling(clocking_item);
+  }
   return cblock;
 }
 
