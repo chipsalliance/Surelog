@@ -2679,18 +2679,26 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         fcall->VpiName(method_name);
 
         NodeId list_of_arguments = fC->Sibling(fC->Child(fC->Child(method_child)));
-        VectorOfany* arguments = compileTfCallArguments(
-            component, fC, list_of_arguments, compileDesign, fcall);
-        fcall->Tf_call_args(arguments);
+        NodeId with_conditions_node;
+        if (fC->Type(list_of_arguments) == slList_of_arguments) {
+          VectorOfany* arguments = compileTfCallArguments(
+              component, fC, list_of_arguments, compileDesign, fcall);
+          fcall->Tf_call_args(arguments);
+          with_conditions_node = fC->Sibling(list_of_arguments);
+        } else {
+          with_conditions_node = list_of_arguments;
+        }
         // vpiWith: with conditions (expression in node u<62> above)
-        NodeId with_conditions_node = fC->Sibling(list_of_arguments);
-        expr* with_conditions = (expr*)compileExpression(component,
-                                                         fC,
-                                                         with_conditions_node,
-                                                         compileDesign,
-                                                         pexpr,
-                                                         instance);
-        fcall->With(with_conditions);
+        // (not in every method, node id is 0 if missing)
+        if (with_conditions_node != 0) {
+          expr* with_conditions = (expr*)compileExpression(component,
+                                                           fC,
+                                                           with_conditions_node,
+                                                           compileDesign,
+                                                           pexpr,
+                                                           instance);
+          fcall->With(with_conditions);
+        }
 
         // vpiPrefix: object to which the method is being applied (sval here)
         ref_obj* ref = s.MakeRef_obj();
