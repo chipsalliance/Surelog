@@ -1815,18 +1815,22 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, const Fi
     name = fC->SymName(fC->Child(dollar_or_string));
   } else if (leaf_type == slImplicit_class_handle) {
     NodeId handle = fC->Child(dollar_or_string);
-    if (fC->Type(handle) == slSuper_keyword) {
-      name = "super.";
-    } else if (fC->Type(handle) == slThis_keyword) {
-      name = "this.";
+    if (fC->Type(handle) == slSuper_keyword ||
+        fC->Type(handle) == slThis_keyword ||
+        fC->Type(handle) == slThis_dot_super) {
+      return (tf_call*) compileComplexFuncCall(component,
+                                               fC,
+                                               Tf_call_stmt,
+                                               compileDesign,
+                                               nullptr,
+                                               nullptr,
+                                               false);
     } else if (fC->Type(handle) == slDollar_root_keyword) {
       name = "$root.";
-    } else if (fC->Type(handle) == slThis_dot_super) {
-      name = "this.super.";
+      tfNameNode = fC->Sibling(dollar_or_string);
+      call = s.MakeSys_func_call();
+      name += fC->SymName(tfNameNode);
     }
-    tfNameNode = fC->Sibling(dollar_or_string);
-    call = s.MakeSys_func_call();
-    name += fC->SymName(tfNameNode);
   } else if (leaf_type == slClass_scope) {
     return (tf_call*) compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign, nullptr, nullptr, false);
   } else {
