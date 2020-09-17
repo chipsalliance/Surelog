@@ -252,7 +252,9 @@ VectorOfany* CompileHelper::compileStmt(
     if (loop_var)
       loop_var->VpiParent(foreach);
     foreach->Variable((variables*) var);
-    foreach->VpiLoopVars(loop_var);
+    VectorOfany* loop_vars = s.MakeAnyVec();
+    loop_vars->push_back(loop_var);
+    foreach->VpiLoopVars(loop_vars);
     stmt = foreach;
     break;
   }
