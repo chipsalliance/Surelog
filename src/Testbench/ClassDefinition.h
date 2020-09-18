@@ -34,6 +34,7 @@
 #include "TypeDef.h"
 #include "CoverGroupDefinition.h"
 #include "Design/Parameter.h"
+#include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
 class CompileClass;
@@ -45,7 +46,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   ClassDefinition(std::string name, Library* library,
                   DesignComponent* container, const FileContent* fC,
                   NodeId nodeId,
-                  ClassDefinition* parent);
+                  ClassDefinition* parent, UHDM::class_defn* uhdm_definition);
 
   ~ClassDefinition() override;
 
@@ -60,6 +61,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
+  UHDM::class_defn* getUhdmDefinition() { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
   typedef std::map<std::string, Property*> PropertyMap;
@@ -119,6 +121,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   CoverGroupMap m_covergroups;
   BaseClassMap m_baseclasses;
   ParameterMap m_parameters;
+  UHDM::class_defn* m_uhdm_definition;
 };
 
 }  // namespace SURELOG

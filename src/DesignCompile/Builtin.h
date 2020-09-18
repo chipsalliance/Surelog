@@ -33,11 +33,12 @@ class Design;
 // SURELOG::addBuiltinsTo(Design *design);
 class Builtin final {
 public:
-  Builtin(Design* design) : m_design(design) {}
+  Builtin(CompileDesign* compiler, Design* design) : m_compiler(compiler), m_design(design) {}
 
   void addBuiltins();
 
 private:
+  CompileDesign* m_compiler;
   Design* m_design;
 };
 
