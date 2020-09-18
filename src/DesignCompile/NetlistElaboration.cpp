@@ -184,13 +184,18 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       while (Net_lvalue) {
         std::string sigName;
         NodeId sigId = 0; 
+        bool bit_or_part_select = false;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+          if (m_helper.isSelected(fC, Ps_or_hierarchical_identifier))
+            bit_or_part_select = true;
           sigId = fC->Child(Ps_or_hierarchical_identifier);
           sigName = fC->SymName(sigId);
         } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
           NodeId Primary_literal = fC->Child(Primary);
+          if (fC->Type(Primary_literal) == slComplex_func_call)
+            bit_or_part_select = true;
           sigId = fC->Child(Primary_literal);
           sigName = fC->SymName(sigId);
         }
@@ -198,7 +203,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           if (index < ports->size()) {
             port* p = (*ports)[index];
 
-            if (fC->Type(sigId) == slStringConst) {
+            if ((!bit_or_part_select) && (fC->Type(sigId) == slStringConst)) {
               ref_obj* ref = s.MakeRef_obj();
               ref->VpiFile(fC->getFileName());
               ref->VpiLineNo(fC->Line(sigId));
@@ -206,8 +211,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiName(sigName);
               any* net = bind_net_(parent, sigName);
               ref->Actual_group(net);
-            } else { 
-              any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+            } else {
+              any* exp = nullptr; 
+              if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+                NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+                exp = m_helper.compileExpression(comp, fC, Ps_or_hierarchical_identifier, m_compileDesign, nullptr, instance);
+              } else {
+                exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+              }
               p->High_conn(exp);
             }
           }
