@@ -39,6 +39,7 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/ResolveSymbols.h"
+#include "headers/uhdm.h"
 
 using namespace SURELOG;
 
@@ -65,6 +66,7 @@ std::string ResolveSymbols::SymName(NodeId index) {
 }
 
 void ResolveSymbols::createFastLookup() {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
   Library* lib = m_fileData->getLibrary();
   std::string libName = lib->getName();
 
@@ -115,7 +117,7 @@ void ResolveSymbols::createFastLookup() {
                                              m_errorContainer);
 
               ClassDefinition* def = new ClassDefinition(
-                  fullSubName, lib, pdef, m_fileData, subobject, NULL);
+                  fullSubName, lib, pdef, m_fileData, subobject, NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
               pdef->addClassDefinition(fullSubName, def);
             }
@@ -140,7 +142,7 @@ void ResolveSymbols::createFastLookup() {
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
               ClassDefinition* def = new ClassDefinition(
-                  fullSubName, lib, mdef, m_fileData, subobject, NULL);
+                  fullSubName, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
               mdef->addClassDefinition(fullSubName, def);
             }
@@ -149,7 +151,7 @@ void ResolveSymbols::createFastLookup() {
         }
         case VObjectType::slClass_declaration: {
           ClassDefinition* def = new ClassDefinition(fullName, lib, NULL,
-                                                     m_fileData, object, NULL);
+                                                     m_fileData, object, NULL, s.MakeClass_defn());
           m_fileData->addClassDefinition(fullName, def);
           break;
         }
@@ -176,7 +178,7 @@ void ResolveSymbols::createFastLookup() {
               if (m_fileData->Type(subobject) ==
                   VObjectType::slClass_declaration) {
                 ClassDefinition* def = new ClassDefinition(
-                    fullSubName, lib, mdef, m_fileData, subobject, NULL);
+                    fullSubName, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
                 m_fileData->addClassDefinition(fullSubName, def);
                 mdef->addClassDefinition(fullSubName, def);
               } else {

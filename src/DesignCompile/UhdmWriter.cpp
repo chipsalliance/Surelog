@@ -1570,7 +1570,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       if (classDef->getFileContents().size() &&
           classDef->getType() == VObjectType::slClass_declaration) {
         const FileContent* fC = classDef->getFileContents()[0];
-        class_defn* c = s.MakeClass_defn();
+        class_defn* c = classDef->getUhdmDefinition();
         componentMap.insert(std::make_pair(classDef, c));
         c->VpiParent(d);
         c->VpiName(classDef->getName());
