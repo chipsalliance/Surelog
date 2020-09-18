@@ -2330,3 +2330,12 @@ UHDM::event_control* CompileHelper::compileClocking_event(DesignComponent* compo
      exp->VpiParent(ctrl);
   return ctrl;
 }
+
+bool CompileHelper::isSelected(const FileContent* fC, NodeId ps_or_hierarchical_identifier) {
+  NodeId Constant_select = fC->Sibling(ps_or_hierarchical_identifier);
+  NodeId Constant_bit_select = fC->Child(Constant_select);
+  NodeId Constant_expression = fC->Child(Constant_bit_select);
+  if (Constant_expression)
+    return true;
+  return false;
+}
