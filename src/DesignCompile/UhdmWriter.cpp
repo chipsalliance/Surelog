@@ -448,12 +448,23 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
 
 void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
         VectorOfclass_defn* dest_classes, Serializer& s,
-        ComponentMap& componentMap) {
+        ComponentMap& componentMap, BaseClass* parent) {
   for (auto& orig_class : orig_classes ) {
-    ClassDefinition* orig_def = orig_class.second;
-    const auto &found = componentMap.find(orig_def);
-    if (found != componentMap.end()) {
-      dest_classes->push_back((class_defn*) found->second);
+    ClassDefinition* classDef = orig_class.second;
+    if (classDef->getFileContents().size() &&
+        classDef->getType() == VObjectType::slClass_declaration) {
+      const FileContent* fC = classDef->getFileContents()[0];
+      class_defn* c = classDef->getUhdmDefinition();
+      componentMap.insert(std::make_pair(classDef, c));
+      c->VpiParent(parent);
+      const std::string& name = classDef->getName();
+      c->VpiName(name);
+      if (fC) {
+        // Builtin classes have no file
+        c->VpiFile(fC->getFileName());
+        c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+      }
+      dest_classes->push_back(c);
     }
   }
 }
@@ -491,7 +502,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
-  writeClasses(orig_classes, dest_classes, s, componentMap);
+  writeClasses(orig_classes, dest_classes, s, componentMap, p);
   p->Class_defns(dest_classes);
   // Parameters
   if (pack->getParameters()) {
@@ -540,7 +551,7 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
-  writeClasses(orig_classes, dest_classes, s, componentMap);
+  writeClasses(orig_classes, dest_classes, s, componentMap, m);
   m->Class_defns(dest_classes);
   // Variables
   //DesignComponent::VariableMap& orig_vars = mod->getVariables();
@@ -709,7 +720,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
-  writeClasses(orig_classes, dest_classes, s, componentMap);
+  writeClasses(orig_classes, dest_classes, s, componentMap, m);
   m->Class_defns(dest_classes);
   // Variables
   const DesignComponent::VariableMap& orig_vars = mod->getVariables();
@@ -1572,14 +1583,17 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         const FileContent* fC = classDef->getFileContents()[0];
         class_defn* c = classDef->getUhdmDefinition();
         componentMap.insert(std::make_pair(classDef, c));
-        c->VpiParent(d);
-        c->VpiName(classDef->getName());
-        if (fC) {
-          // Builtin classes have no file
-          c->VpiFile(fC->getFileName());
-          c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+        if (!c->VpiParent()) {
+          c->VpiParent(d);
+          const std::string& name = classDef->getName();
+          c->VpiName(name);
+          if (fC) {
+            // Builtin classes have no file
+            c->VpiFile(fC->getFileName());
+            c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+          }
+          v4->push_back(c);
         }
-        v4->push_back(c);
       }
     }
     d->AllClasses(v4);
