@@ -326,146 +326,146 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ModPortTest/slpp_unit//surelog.uhdm
 design: (work@dff0_test)
 |vpiName:work@dff0_test
 |uhdmallPackages:
-\_package: builtin, parent:work@dff0_test
+\_package: builtin (builtin), parent:work@dff0_test
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallInterfaces:
-\_interface: work@AXI_BUS, file:top.v, line:8, parent:work@dff0_test
+\_interface: work@AXI_BUS (work@AXI_BUS), file:top.v, line:8, parent:work@dff0_test
   |vpiDefName:work@AXI_BUS
   |vpiFullName:work@AXI_BUS
   |vpiModport:
-  \_modport: (Master)
+  \_modport: (Master), parent:work@AXI_BUS
     |vpiName:Master
     |vpiIODecl:
     \_io_decl: (aw_id)
       |vpiName:aw_id
       |vpiDirection:2
   |vpiModport:
-  \_modport: (Slave)
+  \_modport: (Slave), parent:work@AXI_BUS
     |vpiName:Slave
     |vpiIODecl:
     \_io_decl: (ww_id)
       |vpiName:ww_id
       |vpiDirection:2
   |vpiNet:
-  \_logic_net: (aw_id), line:14
+  \_logic_net: (work@AXI_BUS.aw_id), line:14, parent:work@AXI_BUS
     |vpiName:aw_id
     |vpiFullName:work@AXI_BUS.aw_id
   |vpiNet:
-  \_logic_net: (rw_id), line:20
+  \_logic_net: (work@AXI_BUS.rw_id), line:20, parent:work@AXI_BUS
     |vpiName:rw_id
     |vpiFullName:work@AXI_BUS.rw_id
 |uhdmallInterfaces:
-\_interface: work@mem_if, file:top.v, line:29, parent:work@dff0_test
+\_interface: work@mem_if (work@mem_if), file:top.v, line:29, parent:work@dff0_test
   |vpiDefName:work@mem_if
   |vpiFullName:work@mem_if
   |vpiModport:
-  \_modport: (memory)
+  \_modport: (memory), parent:work@mem_if
     |vpiName:memory
     |vpiIODecl:
     \_io_decl: (clk)
       |vpiName:clk
       |vpiDirection:2
   |vpiModport:
-  \_modport: (system)
+  \_modport: (system), parent:work@mem_if
     |vpiName:system
     |vpiIODecl:
     \_io_decl: (clk)
       |vpiName:clk
       |vpiDirection:1
   |vpiPort:
-  \_port: (clk), line:29
+  \_port: (clk), line:29, parent:work@mem_if
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:29
+      \_logic_net: (work@mem_if.clk), line:29, parent:work@mem_if
         |vpiName:clk
         |vpiFullName:work@mem_if.clk
         |vpiNetType:1
   |vpiNet:
-  \_logic_net: (clk), line:29
+  \_logic_net: (work@mem_if.clk), line:29, parent:work@mem_if
 |uhdmallModules:
-\_module: work@dff0_test, file:top.v, line:1, parent:work@dff0_test
+\_module: work@dff0_test (work@dff0_test), file:top.v, line:1, parent:work@dff0_test
   |vpiDefName:work@dff0_test
   |vpiFullName:work@dff0_test
   |vpiPort:
-  \_port: (n1), line:1
+  \_port: (n1), line:1, parent:work@dff0_test
     |vpiName:n1
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (n1), line:4
+      \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
         |vpiName:n1
         |vpiFullName:work@dff0_test.n1
         |vpiNetType:48
   |vpiNet:
-  \_logic_net: (n1), line:4
+  \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
 |uhdmallModules:
-\_module: work@memory_ctrl1, file:top.v, line:36, parent:work@dff0_test
+\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36, parent:work@dff0_test
   |vpiDefName:work@memory_ctrl1
   |vpiFullName:work@memory_ctrl1
   |vpiPort:
-  \_port: (sif), line:36
+  \_port: (sif), line:36, parent:work@memory_ctrl1
     |vpiName:sif
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@mem_if, file:top.v, line:29, parent:work@dff0_test
+      \_interface: work@mem_if (work@mem_if), file:top.v, line:29, parent:work@dff0_test
         |vpiDefName:work@mem_if
         |vpiFullName:work@mem_if
         |vpiModport:
-        \_modport: (memory)
+        \_modport: (memory), parent:work@mem_if
           |vpiName:memory
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:2
         |vpiModport:
-        \_modport: (system)
+        \_modport: (system), parent:work@mem_if
           |vpiName:system
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:1
         |vpiPort:
-        \_port: (clk), line:29
+        \_port: (clk), line:29, parent:work@mem_if
           |vpiName:clk
           |vpiDirection:1
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:
-            \_logic_net: (clk), line:29
+            \_logic_net: (work@mem_if.clk), line:29, parent:work@mem_if
               |vpiName:clk
               |vpiFullName:work@mem_if.clk
               |vpiNetType:1
         |vpiNet:
-        \_logic_net: (clk), line:29
+        \_logic_net: (work@mem_if.clk), line:29, parent:work@mem_if
   |vpiNet:
-  \_logic_net: (state), line:40
+  \_logic_net: (work@memory_ctrl1.state), line:40, parent:work@memory_ctrl1
     |vpiName:state
     |vpiFullName:work@memory_ctrl1.state
   |vpiNet:
-  \_logic_net: (sif), line:36
+  \_logic_net: (work@memory_ctrl1.sif), line:36, parent:work@memory_ctrl1
     |vpiName:sif
     |vpiFullName:work@memory_ctrl1.sif
   |vpiTypedef:
@@ -488,27 +488,27 @@ design: (work@dff0_test)
       |vpiName:WRITE
       |INT:1
 |uhdmallModules:
-\_module: work@memory_ctrl2, file:top.v, line:45, parent:work@dff0_test
+\_module: work@memory_ctrl2 (work@memory_ctrl2), file:top.v, line:45, parent:work@dff0_test
   |vpiDefName:work@memory_ctrl2
   |vpiFullName:work@memory_ctrl2
   |vpiPort:
-  \_port: (sif), line:45
+  \_port: (sif), line:45, parent:work@memory_ctrl2
     |vpiName:sif
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:work@mem_if
   |vpiNet:
-  \_logic_net: (state), line:49
+  \_logic_net: (work@memory_ctrl2.state), line:49, parent:work@memory_ctrl2
     |vpiName:state
     |vpiFullName:work@memory_ctrl2.state
   |vpiNet:
-  \_logic_net: (t), line:51
+  \_logic_net: (work@memory_ctrl2.t), line:51, parent:work@memory_ctrl2
     |vpiName:t
     |vpiFullName:work@memory_ctrl2.t
   |vpiNet:
-  \_logic_net: (sif), line:45
+  \_logic_net: (work@memory_ctrl2.sif), line:45, parent:work@memory_ctrl2
     |vpiName:sif
     |vpiFullName:work@memory_ctrl2.sif
   |vpiTypedef:
@@ -541,7 +541,7 @@ design: (work@dff0_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (n1), line:4, parent:work@dff0_test
+      \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
         |vpiName:n1
         |vpiFullName:work@dff0_test.n1
         |vpiNetType:48
@@ -553,9 +553,9 @@ design: (work@dff0_test)
       |vpiDecompile:32'd0
       |BIN:32'd0
     |vpiLhs:
-    \_logic_net: (n1), line:4, parent:work@dff0_test
+    \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
   |vpiNet:
-  \_logic_net: (n1), line:4, parent:work@dff0_test
+  \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
 |uhdmtopModules:
 \_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36
   |vpiDefName:work@memory_ctrl1
@@ -585,11 +585,11 @@ design: (work@dff0_test)
             |vpiName:clk
             |vpiDirection:1
   |vpiNet:
-  \_logic_net: (sif), line:36, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.sif), line:36, parent:work@memory_ctrl1
     |vpiName:sif
     |vpiFullName:work@memory_ctrl1.sif
   |vpiVariables:
-  \_enum_var: (state), line:40, parent:work@memory_ctrl1
+  \_enum_var: (work@memory_ctrl1.state), line:40, parent:work@memory_ctrl1
     |vpiName:state
     |vpiFullName:work@memory_ctrl1.state
     |vpiTypespec:
@@ -639,15 +639,15 @@ design: (work@dff0_test)
     |vpiName:clk
     |vpiDirection:1
   |vpiNet:
-  \_logic_net: (t), line:51, parent:work@memory_ctrl2
+  \_logic_net: (work@memory_ctrl2.t), line:51, parent:work@memory_ctrl2
     |vpiName:t
     |vpiFullName:work@memory_ctrl2.t
   |vpiNet:
-  \_logic_net: (sif), line:45, parent:work@memory_ctrl2
+  \_logic_net: (work@memory_ctrl2.sif), line:45, parent:work@memory_ctrl2
     |vpiName:sif
     |vpiFullName:work@memory_ctrl2.sif
   |vpiVariables:
-  \_enum_var: (state), line:49, parent:work@memory_ctrl2
+  \_enum_var: (work@memory_ctrl2.state), line:49, parent:work@memory_ctrl2
     |vpiName:state
     |vpiFullName:work@memory_ctrl2.state
     |vpiTypespec:

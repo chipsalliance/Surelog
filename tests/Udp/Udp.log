@@ -689,23 +689,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/Udp/slpp_all//surelog.uhdm.chk
 design: (work@udp_body_tb)
 |vpiName:work@udp_body_tb
 |uhdmallPackages:
-\_package: builtin, parent:work@udp_body_tb
+\_package: builtin (builtin), parent:work@udp_body_tb
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -725,7 +725,7 @@ design: (work@udp_body_tb)
     |vpiName:a
     |vpiDirection:2
     |vpiExpr:
-    \_logic_net: (a), line:6
+    \_logic_net: (work@udp_body.a), line:6
       |vpiName:a
       |vpiFullName:work@udp_body.a
   |vpiIODecl:
@@ -733,7 +733,7 @@ design: (work@udp_body_tb)
     |vpiName:b
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (b), line:7
+    \_logic_net: (work@udp_body.b), line:7
       |vpiName:b
       |vpiFullName:work@udp_body.b
   |vpiIODecl:
@@ -741,7 +741,7 @@ design: (work@udp_body_tb)
     |vpiName:c
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (c), line:7
+    \_logic_net: (work@udp_body.c), line:7
       |vpiName:c
       |vpiFullName:work@udp_body.c
   |vpiTableEntry:
@@ -764,7 +764,7 @@ design: (work@udp_body_tb)
     |vpiName:q
     |vpiDirection:2
     |vpiExpr:
-    \_logic_net: (q), line:22
+    \_logic_net: (work@udp_latch.q), line:22
       |vpiName:q
       |vpiFullName:work@udp_latch.q
   |vpiIODecl:
@@ -772,7 +772,7 @@ design: (work@udp_body_tb)
     |vpiName:clk
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (clk), line:23
+    \_logic_net: (work@udp_latch.clk), line:23
       |vpiName:clk
       |vpiFullName:work@udp_latch.clk
   |vpiIODecl:
@@ -780,7 +780,7 @@ design: (work@udp_body_tb)
     |vpiName:d
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (d), line:23
+    \_logic_net: (work@udp_latch.d), line:23
       |vpiName:d
       |vpiFullName:work@udp_latch.d
   |vpiTableEntry:
@@ -803,7 +803,7 @@ design: (work@udp_body_tb)
     |vpiName:q
     |vpiDirection:2
     |vpiExpr:
-    \_logic_net: (q), line:38
+    \_logic_net: (work@udp_sequential.q), line:38
       |vpiName:q
       |vpiFullName:work@udp_sequential.q
   |vpiIODecl:
@@ -811,7 +811,7 @@ design: (work@udp_body_tb)
     |vpiName:clk
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (clk), line:39
+    \_logic_net: (work@udp_sequential.clk), line:39
       |vpiName:clk
       |vpiFullName:work@udp_sequential.clk
   |vpiIODecl:
@@ -819,7 +819,7 @@ design: (work@udp_body_tb)
     |vpiName:d
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (d), line:39
+    \_logic_net: (work@udp_sequential.d), line:39
       |vpiName:d
       |vpiFullName:work@udp_sequential.d
   |vpiTableEntry:
@@ -857,7 +857,7 @@ design: (work@udp_body_tb)
     |vpiName:q
     |vpiDirection:2
     |vpiExpr:
-    \_logic_net: (q), line:61
+    \_logic_net: (work@udp_sequential_initial.q), line:61
       |vpiName:q
       |vpiFullName:work@udp_sequential_initial.q
       |vpiAttribute:
@@ -869,7 +869,7 @@ design: (work@udp_body_tb)
     |vpiName:clk
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (clk), line:62
+    \_logic_net: (work@udp_sequential_initial.clk), line:62
       |vpiName:clk
       |vpiFullName:work@udp_sequential_initial.clk
       |vpiAttribute:
@@ -881,7 +881,7 @@ design: (work@udp_body_tb)
     |vpiName:d
     |vpiDirection:1
     |vpiExpr:
-    \_logic_net: (d), line:62
+    \_logic_net: (work@udp_sequential_initial.d), line:62
       |vpiName:d
       |vpiFullName:work@udp_sequential_initial.d
       |vpiAttribute:
@@ -918,20 +918,20 @@ design: (work@udp_body_tb)
       \_constant: , line:67
         |INT:0
       |vpiLhs:
-      \_ref_obj: (q)
+      \_ref_obj: (work@udp_sequential_initial.q)
         |vpiName:q
         |vpiFullName:work@udp_sequential_initial.q
 |uhdmallModules:
-\_module: work@udp_body_tb, file:dut.sv, line:84, parent:work@udp_body_tb
+\_module: work@udp_body_tb (work@udp_body_tb), file:dut.sv, line:84, parent:work@udp_body_tb
   |vpiDefName:work@udp_body_tb
   |vpiFullName:work@udp_body_tb
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@udp_body_tb
     |vpiStmt:
-    \_begin: , line:91
+    \_begin: (work@udp_body_tb), line:91
       |vpiFullName:work@udp_body_tb
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:92
+      \_sys_func_call: ($monitor), line:92, parent:work@udp_body_tb
         |vpiName:$monitor
         |vpiArgument:
         \_constant: , line:92
@@ -949,15 +949,15 @@ design: (work@udp_body_tb)
         \_ref_obj: (a), line:92
           |vpiName:a
       |vpiStmt:
-      \_assignment: , line:93
+      \_assignment: , line:93, parent:work@udp_body_tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b), line:93
+        \_ref_obj: (work@udp_body_tb.b), line:93, parent:work@udp_body_tb
           |vpiName:b
           |vpiFullName:work@udp_body_tb.b
           |vpiActual:
-          \_logic_net: (b), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiNetType:48
@@ -968,15 +968,15 @@ design: (work@udp_body_tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_assignment: , line:94
+      \_assignment: , line:94, parent:work@udp_body_tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (c), line:94
+        \_ref_obj: (work@udp_body_tb.c), line:94, parent:work@udp_body_tb
           |vpiName:c
           |vpiFullName:work@udp_body_tb.c
           |vpiActual:
-          \_logic_net: (c), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiNetType:48
@@ -987,18 +987,18 @@ design: (work@udp_body_tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_delay_control: , line:95
+      \_delay_control: , line:95, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:95
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:95
+          \_ref_obj: (work@udp_body_tb.b), line:95
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:95
             |vpiConstType:7
@@ -1006,18 +1006,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:96
+      \_delay_control: , line:96, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:96
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:96
+          \_ref_obj: (work@udp_body_tb.b), line:96
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:96
             |vpiConstType:7
@@ -1025,18 +1025,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:97
+      \_delay_control: , line:97, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:97
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:97
+          \_ref_obj: (work@udp_body_tb.c), line:97
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:97
             |vpiConstType:7
@@ -1044,18 +1044,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:98
+      \_delay_control: , line:98, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:98
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:98
+          \_ref_obj: (work@udp_body_tb.b), line:98
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:98
             |vpiConstType:3
@@ -1063,18 +1063,18 @@ design: (work@udp_body_tb)
             |vpiSize:1
             |BIN:X
       |vpiStmt:
-      \_delay_control: , line:99
+      \_delay_control: , line:99, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:99
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:99
+          \_ref_obj: (work@udp_body_tb.c), line:99
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:99
             |vpiConstType:7
@@ -1082,18 +1082,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:100
+      \_delay_control: , line:100, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:100
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:100
+          \_ref_obj: (work@udp_body_tb.b), line:100
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:100
             |vpiConstType:7
@@ -1101,18 +1101,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:101
+      \_delay_control: , line:101, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:101
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:101
+          \_ref_obj: (work@udp_body_tb.c), line:101
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:101
             |vpiConstType:3
@@ -1120,18 +1120,18 @@ design: (work@udp_body_tb)
             |vpiSize:1
             |BIN:X
       |vpiStmt:
-      \_delay_control: , line:102
+      \_delay_control: , line:102, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:102
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:102
+          \_ref_obj: (work@udp_body_tb.b), line:102
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:102
             |vpiConstType:7
@@ -1139,23 +1139,23 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:103
+      \_delay_control: , line:103, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_sys_func_call: ($finish), line:103
           |vpiName:$finish
   |vpiNet:
-  \_logic_net: (b), line:86
+  \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
     |vpiName:b
     |vpiFullName:work@udp_body_tb.b
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (c), line:86
+  \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
     |vpiName:c
     |vpiFullName:work@udp_body_tb.c
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (a), line:87
+  \_logic_net: (work@udp_body_tb.a), line:87, parent:work@udp_body_tb
     |vpiName:a
     |vpiFullName:work@udp_body_tb.a
     |vpiNetType:1
@@ -1164,12 +1164,12 @@ design: (work@udp_body_tb)
   |vpiDefName:work@udp_body_tb
   |vpiName:work@udp_body_tb
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@udp_body_tb
     |vpiStmt:
-    \_begin: , line:91
+    \_begin: (work@udp_body_tb), line:91
       |vpiFullName:work@udp_body_tb
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:92
+      \_sys_func_call: ($monitor), line:92, parent:work@udp_body_tb
         |vpiName:$monitor
         |vpiArgument:
         \_constant: , line:92, parent:$monitor
@@ -1178,42 +1178,42 @@ design: (work@udp_body_tb)
           |vpiSize:24
           |STRING:" B = %b C = %b  A = %b"
         |vpiArgument:
-        \_ref_obj: (b), line:92, parent:$monitor
+        \_ref_obj: (work@udp_body_tb.$monitor.b), line:92, parent:$monitor
           |vpiName:b
           |vpiFullName:work@udp_body_tb.$monitor.b
           |vpiActual:
-          \_logic_net: (b), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (c), line:92, parent:$monitor
+        \_ref_obj: (work@udp_body_tb.$monitor.c), line:92, parent:$monitor
           |vpiName:c
           |vpiFullName:work@udp_body_tb.$monitor.c
           |vpiActual:
-          \_logic_net: (c), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (a), line:92, parent:$monitor
+        \_ref_obj: (work@udp_body_tb.$monitor.a), line:92, parent:$monitor
           |vpiName:a
           |vpiFullName:work@udp_body_tb.$monitor.a
           |vpiActual:
-          \_logic_net: (a), line:87, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.a), line:87, parent:work@udp_body_tb
             |vpiName:a
             |vpiFullName:work@udp_body_tb.a
             |vpiNetType:1
       |vpiStmt:
-      \_assignment: , line:93
+      \_assignment: , line:93, parent:work@udp_body_tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b), line:93
+        \_ref_obj: (work@udp_body_tb.b), line:93
           |vpiName:b
           |vpiFullName:work@udp_body_tb.b
           |vpiActual:
-          \_logic_net: (b), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
         |vpiRhs:
         \_constant: , line:93
           |vpiConstType:7
@@ -1221,15 +1221,15 @@ design: (work@udp_body_tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_assignment: , line:94
+      \_assignment: , line:94, parent:work@udp_body_tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (c), line:94
+        \_ref_obj: (work@udp_body_tb.c), line:94
           |vpiName:c
           |vpiFullName:work@udp_body_tb.c
           |vpiActual:
-          \_logic_net: (c), line:86, parent:work@udp_body_tb
+          \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
         |vpiRhs:
         \_constant: , line:94
           |vpiConstType:7
@@ -1237,18 +1237,18 @@ design: (work@udp_body_tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_delay_control: , line:95
+      \_delay_control: , line:95, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:95
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:95
+          \_ref_obj: (work@udp_body_tb.b), line:95
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:95
             |vpiConstType:7
@@ -1256,18 +1256,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:96
+      \_delay_control: , line:96, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:96
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:96
+          \_ref_obj: (work@udp_body_tb.b), line:96
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:96
             |vpiConstType:7
@@ -1275,18 +1275,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:97
+      \_delay_control: , line:97, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:97
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:97
+          \_ref_obj: (work@udp_body_tb.c), line:97
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:97
             |vpiConstType:7
@@ -1294,18 +1294,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:98
+      \_delay_control: , line:98, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:98
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:98
+          \_ref_obj: (work@udp_body_tb.b), line:98
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:98
             |vpiConstType:3
@@ -1313,18 +1313,18 @@ design: (work@udp_body_tb)
             |vpiSize:1
             |BIN:X
       |vpiStmt:
-      \_delay_control: , line:99
+      \_delay_control: , line:99, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:99
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:99
+          \_ref_obj: (work@udp_body_tb.c), line:99
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:99
             |vpiConstType:7
@@ -1332,18 +1332,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:100
+      \_delay_control: , line:100, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:100
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:100
+          \_ref_obj: (work@udp_body_tb.b), line:100
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:100
             |vpiConstType:7
@@ -1351,18 +1351,18 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:101
+      \_delay_control: , line:101, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:101
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (c), line:101
+          \_ref_obj: (work@udp_body_tb.c), line:101
             |vpiName:c
             |vpiFullName:work@udp_body_tb.c
             |vpiActual:
-            \_logic_net: (c), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:101
             |vpiConstType:3
@@ -1370,18 +1370,18 @@ design: (work@udp_body_tb)
             |vpiSize:1
             |BIN:X
       |vpiStmt:
-      \_delay_control: , line:102
+      \_delay_control: , line:102, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_assignment: , line:102
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (b), line:102
+          \_ref_obj: (work@udp_body_tb.b), line:102
             |vpiName:b
             |vpiFullName:work@udp_body_tb.b
             |vpiActual:
-            \_logic_net: (b), line:86, parent:work@udp_body_tb
+            \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
           |vpiRhs:
           \_constant: , line:102
             |vpiConstType:7
@@ -1389,13 +1389,13 @@ design: (work@udp_body_tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:103
+      \_delay_control: , line:103, parent:work@udp_body_tb
         |#1
         |vpiStmt:
         \_sys_func_call: ($finish), line:103
           |vpiName:$finish
   |vpiPrimitive:
-  \_udp: work@udp_body (udp), file:dut.sv, line:89, parent:work@udp_body_tb
+  \_udp: work@udp_body (work@udp_body_tb.udp), file:dut.sv, line:89, parent:work@udp_body_tb
     |vpiDefName:work@udp_body
     |vpiName:udp
     |vpiFullName:work@udp_body_tb.udp
@@ -1407,7 +1407,7 @@ design: (work@udp_body_tb)
         |vpiName:a
         |vpiDirection:2
         |vpiExpr:
-        \_logic_net: (a), line:6
+        \_logic_net: (work@udp_body.a), line:6
           |vpiName:a
           |vpiFullName:work@udp_body.a
       |vpiIODecl:
@@ -1415,7 +1415,7 @@ design: (work@udp_body_tb)
         |vpiName:b
         |vpiDirection:1
         |vpiExpr:
-        \_logic_net: (b), line:7
+        \_logic_net: (work@udp_body.b), line:7
           |vpiName:b
           |vpiFullName:work@udp_body.b
       |vpiIODecl:
@@ -1423,7 +1423,7 @@ design: (work@udp_body_tb)
         |vpiName:c
         |vpiDirection:1
         |vpiExpr:
-        \_logic_net: (c), line:7
+        \_logic_net: (work@udp_body.c), line:7
           |vpiName:c
           |vpiFullName:work@udp_body.c
       |vpiTableEntry:
@@ -1439,11 +1439,11 @@ design: (work@udp_body_tb)
         |vpiSize:2
         |STRING:0 0 : 0
   |vpiNet:
-  \_logic_net: (b), line:86, parent:work@udp_body_tb
+  \_logic_net: (work@udp_body_tb.b), line:86, parent:work@udp_body_tb
   |vpiNet:
-  \_logic_net: (c), line:86, parent:work@udp_body_tb
+  \_logic_net: (work@udp_body_tb.c), line:86, parent:work@udp_body_tb
   |vpiNet:
-  \_logic_net: (a), line:87, parent:work@udp_body_tb
+  \_logic_net: (work@udp_body_tb.a), line:87, parent:work@udp_body_tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

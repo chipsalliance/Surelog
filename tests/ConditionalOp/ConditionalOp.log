@@ -406,23 +406,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ConditionalOp/slpp_all//surelog.uhd
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -435,21 +435,21 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@ibex_register_file, file:dut.sv, line:13, parent:work@top
+\_module: work@ibex_register_file (work@ibex_register_file), file:dut.sv, line:13, parent:work@top
   |vpiDefName:work@ibex_register_file
   |vpiFullName:work@ibex_register_file
   |vpiNet:
-  \_logic_net: (rf_reg), line:20
+  \_logic_net: (work@ibex_register_file.rf_reg), line:20, parent:work@ibex_register_file
     |vpiName:rf_reg
     |vpiFullName:work@ibex_register_file.rf_reg
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (rf_reg_q), line:21
+  \_logic_net: (work@ibex_register_file.rf_reg_q), line:21, parent:work@ibex_register_file
     |vpiName:rf_reg_q
     |vpiFullName:work@ibex_register_file.rf_reg_q
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (we_a_dec), line:22
+  \_logic_net: (work@ibex_register_file.we_a_dec), line:22, parent:work@ibex_register_file
     |vpiName:we_a_dec
     |vpiFullName:work@ibex_register_file.we_a_dec
     |vpiNetType:36
@@ -512,7 +512,7 @@ design: (work@top)
   |vpiParameter:
   \_parameter: (NUM_WORDS), line:18
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParamAssign:
@@ -645,7 +645,7 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@top
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:7
@@ -653,14 +653,14 @@ design: (work@top)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (NrHarts2), line:3
+    \_parameter: (work@top.NrHarts2), line:3, parent:work@top
       |vpiName:NrHarts2
       |vpiFullName:work@top.NrHarts2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:3, parent:NrHarts2
+      \_int_typespec: , line:3, parent:work@top.NrHarts2
   |vpiParamAssign:
-  \_param_assign: , line:5
+  \_param_assign: , line:5, parent:work@top
     |vpiRhs:
     \_operation: , line:5
       |vpiOpType:32
@@ -668,7 +668,7 @@ design: (work@top)
       \_operation: , line:5
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (NrHarts), line:5
+        \_ref_obj: (work@top.NrHarts), line:5
           |vpiName:NrHarts
           |vpiFullName:work@top.NrHarts
         |vpiOperand:
@@ -687,18 +687,18 @@ design: (work@top)
       \_sys_func_call: ($clog2), line:5
         |vpiName:$clog2
         |vpiArgument:
-        \_ref_obj: (NrHarts), line:5, parent:$clog2
+        \_ref_obj: (work@top.$clog2.NrHarts), line:5, parent:$clog2
           |vpiName:NrHarts
           |vpiFullName:work@top.$clog2.NrHarts
     |vpiLhs:
-    \_parameter: (HartSelLen1), line:5
+    \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
       |vpiName:HartSelLen1
       |vpiFullName:work@top.HartSelLen1
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:5, parent:HartSelLen1
+      \_int_typespec: , line:5, parent:work@top.HartSelLen1
   |vpiParamAssign:
-  \_param_assign: , line:7
+  \_param_assign: , line:7, parent:work@top
     |vpiRhs:
     \_operation: , line:7
       |vpiOpType:32
@@ -706,7 +706,7 @@ design: (work@top)
       \_operation: , line:7
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (NrHarts), line:7
+        \_ref_obj: (work@top.NrHarts), line:7
           |vpiName:NrHarts
           |vpiFullName:work@top.NrHarts
         |vpiOperand:
@@ -728,14 +728,14 @@ design: (work@top)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_parameter: (HartSelLen2), line:7
+    \_parameter: (work@top.HartSelLen2), line:7, parent:work@top
       |vpiName:HartSelLen2
       |vpiFullName:work@top.HartSelLen2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:7, parent:HartSelLen2
+      \_int_typespec: , line:7, parent:work@top.HartSelLen2
   |vpiParamAssign:
-  \_param_assign: , line:9
+  \_param_assign: , line:9, parent:work@top
     |vpiRhs:
     \_operation: , line:9
       |vpiOpType:32
@@ -743,7 +743,7 @@ design: (work@top)
       \_operation: , line:9
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (NrHarts), line:9
+        \_ref_obj: (work@top.NrHarts), line:9
           |vpiName:NrHarts
           |vpiFullName:work@top.NrHarts
         |vpiOperand:
@@ -763,26 +763,26 @@ design: (work@top)
         |vpiDecompile:3
         |INT:3
     |vpiLhs:
-    \_parameter: (HartSelLen3), line:9
+    \_parameter: (work@top.HartSelLen3), line:9, parent:work@top
       |vpiName:HartSelLen3
       |vpiFullName:work@top.HartSelLen3
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:9, parent:HartSelLen3
+      \_int_typespec: , line:9, parent:work@top.HartSelLen3
   |vpiParameter:
-  \_parameter: (NrHarts2), line:3
+  \_parameter: (work@top.NrHarts2), line:3, parent:work@top
   |vpiParameter:
-  \_parameter: (HartSelLen1), line:5
+  \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
   |vpiParameter:
-  \_parameter: (HartSelLen2), line:7
+  \_parameter: (work@top.HartSelLen2), line:7, parent:work@top
   |vpiParameter:
-  \_parameter: (HartSelLen3), line:9
+  \_parameter: (work@top.HartSelLen3), line:9, parent:work@top
 |uhdmtopModules:
 \_module: work@ibex_register_file (work@ibex_register_file), file:dut.sv, line:13
   |vpiDefName:work@ibex_register_file
   |vpiName:work@ibex_register_file
   |vpiNet:
-  \_logic_net: (rf_reg), line:20, parent:work@ibex_register_file
+  \_logic_net: (work@ibex_register_file.rf_reg), line:20, parent:work@ibex_register_file
     |vpiName:rf_reg
     |vpiFullName:work@ibex_register_file.rf_reg
     |vpiNetType:36
@@ -815,7 +815,7 @@ design: (work@top)
         |vpiSize:64
         |INT:0
   |vpiNet:
-  \_logic_net: (rf_reg_q), line:21, parent:work@ibex_register_file
+  \_logic_net: (work@ibex_register_file.rf_reg_q), line:21, parent:work@ibex_register_file
     |vpiName:rf_reg_q
     |vpiFullName:work@ibex_register_file.rf_reg_q
     |vpiNetType:36
@@ -848,7 +848,7 @@ design: (work@top)
         |vpiSize:64
         |INT:0
   |vpiNet:
-  \_logic_net: (we_a_dec), line:22, parent:work@ibex_register_file
+  \_logic_net: (work@ibex_register_file.we_a_dec), line:22, parent:work@ibex_register_file
     |vpiName:we_a_dec
     |vpiFullName:work@ibex_register_file.we_a_dec
     |vpiNetType:36
@@ -867,7 +867,7 @@ design: (work@top)
         |vpiSize:64
         |INT:1
   |vpiParamAssign:
-  \_param_assign: , line:14
+  \_param_assign: , line:14, parent:work@ibex_register_file
     |vpiRhs:
     \_constant: , line:14
       |vpiConstType:7
@@ -875,13 +875,13 @@ design: (work@top)
       |vpiSize:32
       |INT:0
     |vpiLhs:
-    \_parameter: (RV32E), line:14
+    \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
       |vpiName:RV32E
       |vpiFullName:work@ibex_register_file.RV32E
       |vpiTypespec:
-      \_bit_typespec: , line:14, parent:RV32E
+      \_bit_typespec: , line:14, parent:work@ibex_register_file.RV32E
   |vpiParamAssign:
-  \_param_assign: , line:15
+  \_param_assign: , line:15, parent:work@ibex_register_file
     |vpiRhs:
     \_constant: , line:15
       |vpiConstType:7
@@ -889,45 +889,45 @@ design: (work@top)
       |vpiSize:32
       |INT:32
     |vpiLhs:
-    \_parameter: (DataWidth), line:15
+    \_parameter: (work@ibex_register_file.DataWidth), line:15, parent:work@ibex_register_file
       |vpiName:DataWidth
       |vpiFullName:work@ibex_register_file.DataWidth
       |vpiTypespec:
-      \_int_typespec: , line:15, parent:DataWidth
+      \_int_typespec: , line:15, parent:work@ibex_register_file.DataWidth
   |vpiParamAssign:
-  \_param_assign: , line:17
+  \_param_assign: , line:17, parent:work@ibex_register_file
     |vpiRhs:
     \_constant: , line:17
       |vpiDecompile:5
       |INT:5
     |vpiLhs:
-    \_parameter: (ADDR_WIDTH), line:17
+    \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
       |vpiName:ADDR_WIDTH
       |vpiFullName:work@ibex_register_file.ADDR_WIDTH
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:17, parent:ADDR_WIDTH
+      \_int_typespec: , line:17, parent:work@ibex_register_file.ADDR_WIDTH
   |vpiParamAssign:
-  \_param_assign: , line:18
+  \_param_assign: , line:18, parent:work@ibex_register_file
     |vpiRhs:
     \_constant: , line:18
       |vpiDecompile:32
       |INT:32
     |vpiLhs:
-    \_parameter: (NUM_WORDS), line:18
+    \_parameter: (work@ibex_register_file.NUM_WORDS), line:18, parent:work@ibex_register_file
       |vpiName:NUM_WORDS
       |vpiFullName:work@ibex_register_file.NUM_WORDS
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:18, parent:NUM_WORDS
+      \_int_typespec: , line:18, parent:work@ibex_register_file.NUM_WORDS
   |vpiParameter:
-  \_parameter: (RV32E), line:14
+  \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
   |vpiParameter:
-  \_parameter: (DataWidth), line:15
+  \_parameter: (work@ibex_register_file.DataWidth), line:15, parent:work@ibex_register_file
   |vpiParameter:
-  \_parameter: (ADDR_WIDTH), line:17
+  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
   |vpiParameter:
-  \_parameter: (NUM_WORDS), line:18
+  \_parameter: (work@ibex_register_file.NUM_WORDS), line:18, parent:work@ibex_register_file
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

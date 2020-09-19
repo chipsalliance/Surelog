@@ -715,23 +715,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/DelayAssign/slpp_all//surelog.uhdm.
 design: (work@SimDTM)
 |vpiName:work@SimDTM
 |uhdmallPackages:
-\_package: builtin, parent:work@SimDTM
+\_package: builtin (builtin), parent:work@SimDTM
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -744,11 +744,11 @@ design: (work@SimDTM)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@SimDTM
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@SimDTM, file:dut.sv, line:16, parent:work@SimDTM
+\_module: work@SimDTM (work@SimDTM), file:dut.sv, line:16, parent:work@SimDTM
   |vpiDefName:work@SimDTM
   |vpiFullName:work@SimDTM
   |vpiProcess:
-  \_always: , line:55
+  \_always: , line:55, parent:work@SimDTM
     |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:55
@@ -756,63 +756,63 @@ design: (work@SimDTM)
       \_operation: , line:55
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (clk), line:55
+        \_ref_obj: (work@SimDTM.clk), line:55
           |vpiName:clk
           |vpiFullName:work@SimDTM.clk
           |vpiActual:
-          \_logic_net: (clk), line:17, parent:work@SimDTM
+          \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
             |vpiName:clk
             |vpiFullName:work@SimDTM.clk
       |vpiStmt:
-      \_begin: , line:56
+      \_begin: (work@SimDTM), line:56
         |vpiFullName:work@SimDTM
         |vpiStmt:
-        \_assignment: , line:57
+        \_assignment: , line:57, parent:work@SimDTM
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (r_reset), line:57
+          \_ref_obj: (work@SimDTM.r_reset), line:57, parent:work@SimDTM
             |vpiName:r_reset
             |vpiFullName:work@SimDTM.r_reset
             |vpiActual:
-            \_bit_var: (r_reset), line:34, parent:work@SimDTM
+            \_bit_var: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
               |vpiName:r_reset
               |vpiFullName:work@SimDTM.r_reset
           |vpiRhs:
-          \_ref_obj: (reset), line:57
+          \_ref_obj: (work@SimDTM.reset), line:57, parent:work@SimDTM
             |vpiName:reset
             |vpiFullName:work@SimDTM.reset
             |vpiActual:
-            \_logic_net: (reset), line:18, parent:work@SimDTM
+            \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
               |vpiName:reset
               |vpiFullName:work@SimDTM.reset
         |vpiStmt:
-        \_if_else: , line:58
+        \_if_else: , line:58, parent:work@SimDTM
           |vpiCondition:
           \_operation: , line:58
             |vpiOpType:27
             |vpiOperand:
-            \_ref_obj: (reset), line:58
+            \_ref_obj: (work@SimDTM.reset), line:58
               |vpiName:reset
               |vpiFullName:work@SimDTM.reset
             |vpiOperand:
-            \_ref_obj: (r_reset), line:58
+            \_ref_obj: (work@SimDTM.r_reset), line:58
               |vpiName:r_reset
               |vpiFullName:work@SimDTM.r_reset
               |vpiActual:
-              \_bit_var: (r_reset), line:34, parent:work@SimDTM
+              \_bit_var: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
           |vpiStmt:
-          \_begin: , line:59
+          \_begin: (work@SimDTM), line:59
             |vpiFullName:work@SimDTM
             |vpiStmt:
-            \_assignment: , line:60
+            \_assignment: , line:60, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__debug_req_valid), line:60
+              \_ref_obj: (work@SimDTM.__debug_req_valid), line:60, parent:work@SimDTM
                 |vpiName:__debug_req_valid
                 |vpiFullName:work@SimDTM.__debug_req_valid
                 |vpiActual:
-                \_bit_var: (__debug_req_valid), line:41, parent:work@SimDTM
+                \_bit_var: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
                   |vpiName:__debug_req_valid
                   |vpiFullName:work@SimDTM.__debug_req_valid
               |vpiRhs:
@@ -822,15 +822,15 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
             |vpiStmt:
-            \_assignment: , line:61
+            \_assignment: , line:61, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__debug_resp_ready), line:61
+              \_ref_obj: (work@SimDTM.__debug_resp_ready), line:61, parent:work@SimDTM
                 |vpiName:__debug_resp_ready
                 |vpiFullName:work@SimDTM.__debug_resp_ready
                 |vpiActual:
-                \_bit_var: (__debug_resp_ready), line:45, parent:work@SimDTM
+                \_bit_var: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
                   |vpiName:__debug_resp_ready
                   |vpiFullName:work@SimDTM.__debug_resp_ready
               |vpiRhs:
@@ -840,15 +840,15 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
             |vpiStmt:
-            \_assignment: , line:62
+            \_assignment: , line:62, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__exit), line:62
+              \_ref_obj: (work@SimDTM.__exit), line:62, parent:work@SimDTM
                 |vpiName:__exit
                 |vpiFullName:work@SimDTM.__exit
                 |vpiActual:
-                \_int_var: (__exit), line:46, parent:work@SimDTM
+                \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
                   |vpiName:__exit
                   |vpiFullName:work@SimDTM.__exit
               |vpiRhs:
@@ -858,18 +858,18 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
           |vpiElseStmt:
-          \_begin: , line:65
+          \_begin: (work@SimDTM), line:65
             |vpiFullName:work@SimDTM
             |vpiStmt:
-            \_assignment: , line:66
+            \_assignment: , line:66, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__exit), line:66
+              \_ref_obj: (work@SimDTM.__exit), line:66, parent:work@SimDTM
                 |vpiName:__exit
                 |vpiFullName:work@SimDTM.__exit
                 |vpiActual:
-                \_int_var: (__exit), line:46, parent:work@SimDTM
+                \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
               |vpiRhs:
               \_func_call: (debug_tick), line:66
                 |vpiName:debug_tick
@@ -901,127 +901,127 @@ design: (work@SimDTM)
                 \_ref_obj: (__debug_resp_bits_data), line:75
                   |vpiName:__debug_resp_bits_data
   |vpiPort:
-  \_port: (clk), line:17
+  \_port: (clk), line:17, parent:work@SimDTM
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:17
+      \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
         |vpiName:clk
         |vpiFullName:work@SimDTM.clk
   |vpiPort:
-  \_port: (reset), line:18
+  \_port: (reset), line:18, parent:work@SimDTM
     |vpiName:reset
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (reset), line:18
+      \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
         |vpiName:reset
         |vpiFullName:work@SimDTM.reset
   |vpiPort:
-  \_port: (debug_req_valid), line:20
+  \_port: (debug_req_valid), line:20, parent:work@SimDTM
     |vpiName:debug_req_valid
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_valid), line:20
+      \_logic_net: (work@SimDTM.debug_req_valid), line:20, parent:work@SimDTM
         |vpiName:debug_req_valid
         |vpiFullName:work@SimDTM.debug_req_valid
   |vpiPort:
-  \_port: (debug_req_ready), line:21
+  \_port: (debug_req_ready), line:21, parent:work@SimDTM
     |vpiName:debug_req_ready
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_ready), line:21
+      \_logic_net: (work@SimDTM.debug_req_ready), line:21, parent:work@SimDTM
         |vpiName:debug_req_ready
         |vpiFullName:work@SimDTM.debug_req_ready
   |vpiPort:
-  \_port: (debug_req_bits_addr), line:22
+  \_port: (debug_req_bits_addr), line:22, parent:work@SimDTM
     |vpiName:debug_req_bits_addr
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_addr), line:22
+      \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22, parent:work@SimDTM
         |vpiName:debug_req_bits_addr
         |vpiFullName:work@SimDTM.debug_req_bits_addr
   |vpiPort:
-  \_port: (debug_req_bits_op), line:23
+  \_port: (debug_req_bits_op), line:23, parent:work@SimDTM
     |vpiName:debug_req_bits_op
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_op), line:23
+      \_logic_net: (work@SimDTM.debug_req_bits_op), line:23, parent:work@SimDTM
         |vpiName:debug_req_bits_op
         |vpiFullName:work@SimDTM.debug_req_bits_op
   |vpiPort:
-  \_port: (debug_req_bits_data), line:24
+  \_port: (debug_req_bits_data), line:24, parent:work@SimDTM
     |vpiName:debug_req_bits_data
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_data), line:24
+      \_logic_net: (work@SimDTM.debug_req_bits_data), line:24, parent:work@SimDTM
         |vpiName:debug_req_bits_data
         |vpiFullName:work@SimDTM.debug_req_bits_data
   |vpiPort:
-  \_port: (debug_resp_valid), line:26
+  \_port: (debug_resp_valid), line:26, parent:work@SimDTM
     |vpiName:debug_resp_valid
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_valid), line:26
+      \_logic_net: (work@SimDTM.debug_resp_valid), line:26, parent:work@SimDTM
         |vpiName:debug_resp_valid
         |vpiFullName:work@SimDTM.debug_resp_valid
   |vpiPort:
-  \_port: (debug_resp_ready), line:27
+  \_port: (debug_resp_ready), line:27, parent:work@SimDTM
     |vpiName:debug_resp_ready
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_ready), line:27
+      \_logic_net: (work@SimDTM.debug_resp_ready), line:27, parent:work@SimDTM
         |vpiName:debug_resp_ready
         |vpiFullName:work@SimDTM.debug_resp_ready
   |vpiPort:
-  \_port: (debug_resp_bits_resp), line:28
+  \_port: (debug_resp_bits_resp), line:28, parent:work@SimDTM
     |vpiName:debug_resp_bits_resp
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_bits_resp), line:28
+      \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28, parent:work@SimDTM
         |vpiName:debug_resp_bits_resp
         |vpiFullName:work@SimDTM.debug_resp_bits_resp
   |vpiPort:
-  \_port: (debug_resp_bits_data), line:29
+  \_port: (debug_resp_bits_data), line:29, parent:work@SimDTM
     |vpiName:debug_resp_bits_data
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_bits_data), line:29
+      \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29, parent:work@SimDTM
         |vpiName:debug_resp_bits_data
         |vpiFullName:work@SimDTM.debug_resp_bits_data
   |vpiPort:
-  \_port: (exit), line:31
+  \_port: (exit), line:31, parent:work@SimDTM
     |vpiName:exit
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (exit), line:31
+      \_logic_net: (work@SimDTM.exit), line:31, parent:work@SimDTM
         |vpiName:exit
         |vpiFullName:work@SimDTM.exit
   |vpiContAssign:
-  \_cont_assign: , line:36
+  \_cont_assign: , line:36, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:36
       |vpiConstType:7
@@ -1029,15 +1029,15 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_req_ready), line:36
+    \_ref_obj: (work@SimDTM.debug_req_ready), line:36
       |vpiName:debug_req_ready
       |vpiFullName:work@SimDTM.debug_req_ready
     |vpiLhs:
-    \_ref_obj: (__debug_req_ready), line:36
+    \_ref_obj: (work@SimDTM.__debug_req_ready), line:36
       |vpiName:__debug_req_ready
       |vpiFullName:work@SimDTM.__debug_req_ready
   |vpiContAssign:
-  \_cont_assign: , line:37
+  \_cont_assign: , line:37, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:37
       |vpiConstType:7
@@ -1045,15 +1045,15 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_resp_valid), line:37
+    \_ref_obj: (work@SimDTM.debug_resp_valid), line:37
       |vpiName:debug_resp_valid
       |vpiFullName:work@SimDTM.debug_resp_valid
     |vpiLhs:
-    \_ref_obj: (__debug_resp_valid), line:37
+    \_ref_obj: (work@SimDTM.__debug_resp_valid), line:37
       |vpiName:__debug_resp_valid
       |vpiFullName:work@SimDTM.__debug_resp_valid
   |vpiContAssign:
-  \_cont_assign: , line:38
+  \_cont_assign: , line:38, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:38
       |vpiConstType:7
@@ -1073,11 +1073,11 @@ design: (work@SimDTM)
       \_ref_obj: (debug_resp_bits_resp), line:38
         |vpiName:debug_resp_bits_resp
     |vpiLhs:
-    \_ref_obj: (__debug_resp_bits_resp), line:38
+    \_ref_obj: (work@SimDTM.__debug_resp_bits_resp), line:38
       |vpiName:__debug_resp_bits_resp
       |vpiFullName:work@SimDTM.__debug_resp_bits_resp
   |vpiContAssign:
-  \_cont_assign: , line:39
+  \_cont_assign: , line:39, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:39
       |vpiConstType:7
@@ -1085,15 +1085,15 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_resp_bits_data), line:39
+    \_ref_obj: (work@SimDTM.debug_resp_bits_data), line:39
       |vpiName:debug_resp_bits_data
       |vpiFullName:work@SimDTM.debug_resp_bits_data
     |vpiLhs:
-    \_ref_obj: (__debug_resp_bits_data), line:39
+    \_ref_obj: (work@SimDTM.__debug_resp_bits_data), line:39
       |vpiName:__debug_resp_bits_data
       |vpiFullName:work@SimDTM.__debug_resp_bits_data
   |vpiContAssign:
-  \_cont_assign: , line:48
+  \_cont_assign: , line:48, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:48
       |vpiConstType:7
@@ -1101,15 +1101,15 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__debug_req_valid), line:48
+    \_ref_obj: (work@SimDTM.__debug_req_valid), line:48
       |vpiName:__debug_req_valid
       |vpiFullName:work@SimDTM.__debug_req_valid
     |vpiLhs:
-    \_ref_obj: (debug_req_valid), line:48
+    \_ref_obj: (work@SimDTM.debug_req_valid), line:48
       |vpiName:debug_req_valid
       |vpiFullName:work@SimDTM.debug_req_valid
   |vpiContAssign:
-  \_cont_assign: , line:49
+  \_cont_assign: , line:49, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:49
       |vpiConstType:7
@@ -1117,10 +1117,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:49, parent:__debug_req_bits_addr
+    \_part_select: , line:49, parent:work@SimDTM.__debug_req_bits_addr
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_addr)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_addr)
       |vpiLeftRange:
       \_constant: , line:49
         |vpiConstType:7
@@ -1134,11 +1134,11 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_addr), line:49
+    \_ref_obj: (work@SimDTM.debug_req_bits_addr), line:49
       |vpiName:debug_req_bits_addr
       |vpiFullName:work@SimDTM.debug_req_bits_addr
   |vpiContAssign:
-  \_cont_assign: , line:50
+  \_cont_assign: , line:50, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:50
       |vpiConstType:7
@@ -1146,10 +1146,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:50, parent:__debug_req_bits_op
+    \_part_select: , line:50, parent:work@SimDTM.__debug_req_bits_op
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_op)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_op)
       |vpiLeftRange:
       \_constant: , line:50
         |vpiConstType:7
@@ -1163,11 +1163,11 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_op), line:50
+    \_ref_obj: (work@SimDTM.debug_req_bits_op), line:50
       |vpiName:debug_req_bits_op
       |vpiFullName:work@SimDTM.debug_req_bits_op
   |vpiContAssign:
-  \_cont_assign: , line:51
+  \_cont_assign: , line:51, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:51
       |vpiConstType:7
@@ -1175,10 +1175,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:51, parent:__debug_req_bits_data
+    \_part_select: , line:51, parent:work@SimDTM.__debug_req_bits_data
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_data)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_data)
       |vpiLeftRange:
       \_constant: , line:51
         |vpiConstType:7
@@ -1192,11 +1192,11 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_data), line:51
+    \_ref_obj: (work@SimDTM.debug_req_bits_data), line:51
       |vpiName:debug_req_bits_data
       |vpiFullName:work@SimDTM.debug_req_bits_data
   |vpiContAssign:
-  \_cont_assign: , line:52
+  \_cont_assign: , line:52, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:52
       |vpiConstType:7
@@ -1204,15 +1204,15 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__debug_resp_ready), line:52
+    \_ref_obj: (work@SimDTM.__debug_resp_ready), line:52
       |vpiName:__debug_resp_ready
       |vpiFullName:work@SimDTM.__debug_resp_ready
     |vpiLhs:
-    \_ref_obj: (debug_resp_ready), line:52
+    \_ref_obj: (work@SimDTM.debug_resp_ready), line:52
       |vpiName:debug_resp_ready
       |vpiFullName:work@SimDTM.debug_resp_ready
   |vpiContAssign:
-  \_cont_assign: , line:53
+  \_cont_assign: , line:53, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:53
       |vpiConstType:7
@@ -1220,83 +1220,83 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__exit), line:53
+    \_ref_obj: (work@SimDTM.__exit), line:53
       |vpiName:__exit
       |vpiFullName:work@SimDTM.__exit
     |vpiLhs:
-    \_ref_obj: (exit), line:53
+    \_ref_obj: (work@SimDTM.exit), line:53
       |vpiName:exit
       |vpiFullName:work@SimDTM.exit
   |vpiNet:
-  \_logic_net: (clk), line:17
+  \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (reset), line:18
+  \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_valid), line:20
+  \_logic_net: (work@SimDTM.debug_req_valid), line:20, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_ready), line:21
+  \_logic_net: (work@SimDTM.debug_req_ready), line:21, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_addr), line:22
+  \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_op), line:23
+  \_logic_net: (work@SimDTM.debug_req_bits_op), line:23, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_data), line:24
+  \_logic_net: (work@SimDTM.debug_req_bits_data), line:24, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_valid), line:26
+  \_logic_net: (work@SimDTM.debug_resp_valid), line:26, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_ready), line:27
+  \_logic_net: (work@SimDTM.debug_resp_ready), line:27, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_bits_resp), line:28
+  \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_bits_data), line:29
+  \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (exit), line:31
+  \_logic_net: (work@SimDTM.exit), line:31, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (r_reset), line:34
+  \_logic_net: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
     |vpiName:r_reset
     |vpiFullName:work@SimDTM.r_reset
   |vpiNet:
-  \_logic_net: (__debug_req_ready), line:36
+  \_logic_net: (work@SimDTM.__debug_req_ready), line:36, parent:work@SimDTM
     |vpiName:__debug_req_ready
     |vpiFullName:work@SimDTM.__debug_req_ready
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (__debug_resp_valid), line:37
+  \_logic_net: (work@SimDTM.__debug_resp_valid), line:37, parent:work@SimDTM
     |vpiName:__debug_resp_valid
     |vpiFullName:work@SimDTM.__debug_resp_valid
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (__debug_resp_bits_resp), line:38
+  \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38, parent:work@SimDTM
     |vpiName:__debug_resp_bits_resp
     |vpiFullName:work@SimDTM.__debug_resp_bits_resp
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (__debug_resp_bits_data), line:39
+  \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39, parent:work@SimDTM
     |vpiName:__debug_resp_bits_data
     |vpiFullName:work@SimDTM.__debug_resp_bits_data
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (__debug_req_valid), line:41
+  \_logic_net: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
     |vpiName:__debug_req_valid
     |vpiFullName:work@SimDTM.__debug_req_valid
   |vpiNet:
-  \_logic_net: (__debug_req_bits_addr), line:42
+  \_logic_net: (work@SimDTM.__debug_req_bits_addr), line:42, parent:work@SimDTM
     |vpiName:__debug_req_bits_addr
     |vpiFullName:work@SimDTM.__debug_req_bits_addr
   |vpiNet:
-  \_logic_net: (__debug_req_bits_op), line:43
+  \_logic_net: (work@SimDTM.__debug_req_bits_op), line:43, parent:work@SimDTM
     |vpiName:__debug_req_bits_op
     |vpiFullName:work@SimDTM.__debug_req_bits_op
   |vpiNet:
-  \_logic_net: (__debug_req_bits_data), line:44
+  \_logic_net: (work@SimDTM.__debug_req_bits_data), line:44, parent:work@SimDTM
     |vpiName:__debug_req_bits_data
     |vpiFullName:work@SimDTM.__debug_req_bits_data
   |vpiNet:
-  \_logic_net: (__debug_resp_ready), line:45
+  \_logic_net: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
     |vpiName:__debug_resp_ready
     |vpiFullName:work@SimDTM.__debug_resp_ready
   |vpiNet:
-  \_logic_net: (__exit), line:46
+  \_logic_net: (work@SimDTM.__exit), line:46, parent:work@SimDTM
     |vpiName:__exit
     |vpiFullName:work@SimDTM.__exit
 |uhdmtopModules:
@@ -1304,7 +1304,7 @@ design: (work@SimDTM)
   |vpiDefName:work@SimDTM
   |vpiName:work@SimDTM
   |vpiProcess:
-  \_always: , line:55
+  \_always: , line:55, parent:work@SimDTM
     |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:55
@@ -1312,65 +1312,65 @@ design: (work@SimDTM)
       \_operation: , line:55
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (clk), line:55
+        \_ref_obj: (work@SimDTM.clk), line:55
           |vpiName:clk
           |vpiFullName:work@SimDTM.clk
           |vpiActual:
-          \_logic_net: (clk), line:17, parent:work@SimDTM
+          \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
             |vpiName:clk
             |vpiFullName:work@SimDTM.clk
       |vpiStmt:
-      \_begin: , line:56
+      \_begin: (work@SimDTM), line:56
         |vpiFullName:work@SimDTM
         |vpiStmt:
-        \_assignment: , line:57
+        \_assignment: , line:57, parent:work@SimDTM
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (r_reset), line:57
+          \_ref_obj: (work@SimDTM.r_reset), line:57
             |vpiName:r_reset
             |vpiFullName:work@SimDTM.r_reset
             |vpiActual:
-            \_bit_var: (r_reset), line:34, parent:work@SimDTM
+            \_bit_var: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
               |vpiName:r_reset
               |vpiFullName:work@SimDTM.r_reset
           |vpiRhs:
-          \_ref_obj: (reset), line:57
+          \_ref_obj: (work@SimDTM.reset), line:57
             |vpiName:reset
             |vpiFullName:work@SimDTM.reset
             |vpiActual:
-            \_logic_net: (reset), line:18, parent:work@SimDTM
+            \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
               |vpiName:reset
               |vpiFullName:work@SimDTM.reset
         |vpiStmt:
-        \_if_else: , line:58
+        \_if_else: , line:58, parent:work@SimDTM
           |vpiCondition:
           \_operation: , line:58
             |vpiOpType:27
             |vpiOperand:
-            \_ref_obj: (reset), line:58
+            \_ref_obj: (work@SimDTM.reset), line:58
               |vpiName:reset
               |vpiFullName:work@SimDTM.reset
               |vpiActual:
-              \_logic_net: (reset), line:18, parent:work@SimDTM
+              \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
             |vpiOperand:
-            \_ref_obj: (r_reset), line:58
+            \_ref_obj: (work@SimDTM.r_reset), line:58
               |vpiName:r_reset
               |vpiFullName:work@SimDTM.r_reset
               |vpiActual:
-              \_bit_var: (r_reset), line:34, parent:work@SimDTM
+              \_bit_var: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
           |vpiStmt:
-          \_begin: , line:59
+          \_begin: (work@SimDTM), line:59
             |vpiFullName:work@SimDTM
             |vpiStmt:
-            \_assignment: , line:60
+            \_assignment: , line:60, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__debug_req_valid), line:60
+              \_ref_obj: (work@SimDTM.__debug_req_valid), line:60
                 |vpiName:__debug_req_valid
                 |vpiFullName:work@SimDTM.__debug_req_valid
                 |vpiActual:
-                \_bit_var: (__debug_req_valid), line:41, parent:work@SimDTM
+                \_bit_var: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
                   |vpiName:__debug_req_valid
                   |vpiFullName:work@SimDTM.__debug_req_valid
               |vpiRhs:
@@ -1380,15 +1380,15 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
             |vpiStmt:
-            \_assignment: , line:61
+            \_assignment: , line:61, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__debug_resp_ready), line:61
+              \_ref_obj: (work@SimDTM.__debug_resp_ready), line:61
                 |vpiName:__debug_resp_ready
                 |vpiFullName:work@SimDTM.__debug_resp_ready
                 |vpiActual:
-                \_bit_var: (__debug_resp_ready), line:45, parent:work@SimDTM
+                \_bit_var: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
                   |vpiName:__debug_resp_ready
                   |vpiFullName:work@SimDTM.__debug_resp_ready
               |vpiRhs:
@@ -1398,15 +1398,15 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
             |vpiStmt:
-            \_assignment: , line:62
+            \_assignment: , line:62, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__exit), line:62
+              \_ref_obj: (work@SimDTM.__exit), line:62
                 |vpiName:__exit
                 |vpiFullName:work@SimDTM.__exit
                 |vpiActual:
-                \_int_var: (__exit), line:46, parent:work@SimDTM
+                \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
                   |vpiName:__exit
                   |vpiFullName:work@SimDTM.__exit
               |vpiRhs:
@@ -1416,81 +1416,81 @@ design: (work@SimDTM)
                 |vpiSize:32
                 |INT:0
           |vpiElseStmt:
-          \_begin: , line:65
+          \_begin: (work@SimDTM), line:65
             |vpiFullName:work@SimDTM
             |vpiStmt:
-            \_assignment: , line:66
+            \_assignment: , line:66, parent:work@SimDTM
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (__exit), line:66
+              \_ref_obj: (work@SimDTM.__exit), line:66
                 |vpiName:__exit
                 |vpiFullName:work@SimDTM.__exit
                 |vpiActual:
-                \_int_var: (__exit), line:46, parent:work@SimDTM
+                \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
               |vpiRhs:
               \_func_call: (debug_tick), line:66
                 |vpiName:debug_tick
                 |vpiArgument:
-                \_ref_obj: (__debug_req_valid), line:67, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_req_valid), line:67, parent:debug_tick
                   |vpiName:__debug_req_valid
                   |vpiFullName:work@SimDTM.debug_tick.__debug_req_valid
                   |vpiActual:
-                  \_bit_var: (__debug_req_valid), line:41, parent:work@SimDTM
+                  \_bit_var: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
                 |vpiArgument:
-                \_ref_obj: (__debug_req_ready), line:68, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_req_ready), line:68, parent:debug_tick
                   |vpiName:__debug_req_ready
                   |vpiFullName:work@SimDTM.debug_tick.__debug_req_ready
                   |vpiActual:
-                  \_logic_net: (__debug_req_ready), line:36, parent:work@SimDTM
+                  \_logic_net: (work@SimDTM.__debug_req_ready), line:36, parent:work@SimDTM
                     |vpiName:__debug_req_ready
                     |vpiFullName:work@SimDTM.__debug_req_ready
                     |vpiNetType:1
                 |vpiArgument:
-                \_ref_obj: (__debug_req_bits_addr), line:69, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_req_bits_addr), line:69, parent:debug_tick
                   |vpiName:__debug_req_bits_addr
                   |vpiFullName:work@SimDTM.debug_tick.__debug_req_bits_addr
                   |vpiActual:
-                  \_int_var: (__debug_req_bits_addr), line:42, parent:work@SimDTM
+                  \_int_var: (work@SimDTM.__debug_req_bits_addr), line:42, parent:work@SimDTM
                     |vpiName:__debug_req_bits_addr
                     |vpiFullName:work@SimDTM.__debug_req_bits_addr
                 |vpiArgument:
-                \_ref_obj: (__debug_req_bits_op), line:70, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_req_bits_op), line:70, parent:debug_tick
                   |vpiName:__debug_req_bits_op
                   |vpiFullName:work@SimDTM.debug_tick.__debug_req_bits_op
                   |vpiActual:
-                  \_int_var: (__debug_req_bits_op), line:43, parent:work@SimDTM
+                  \_int_var: (work@SimDTM.__debug_req_bits_op), line:43, parent:work@SimDTM
                     |vpiName:__debug_req_bits_op
                     |vpiFullName:work@SimDTM.__debug_req_bits_op
                 |vpiArgument:
-                \_ref_obj: (__debug_req_bits_data), line:71, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_req_bits_data), line:71, parent:debug_tick
                   |vpiName:__debug_req_bits_data
                   |vpiFullName:work@SimDTM.debug_tick.__debug_req_bits_data
                   |vpiActual:
-                  \_int_var: (__debug_req_bits_data), line:44, parent:work@SimDTM
+                  \_int_var: (work@SimDTM.__debug_req_bits_data), line:44, parent:work@SimDTM
                     |vpiName:__debug_req_bits_data
                     |vpiFullName:work@SimDTM.__debug_req_bits_data
                 |vpiArgument:
-                \_ref_obj: (__debug_resp_valid), line:72, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_resp_valid), line:72, parent:debug_tick
                   |vpiName:__debug_resp_valid
                   |vpiFullName:work@SimDTM.debug_tick.__debug_resp_valid
                   |vpiActual:
-                  \_logic_net: (__debug_resp_valid), line:37, parent:work@SimDTM
+                  \_logic_net: (work@SimDTM.__debug_resp_valid), line:37, parent:work@SimDTM
                     |vpiName:__debug_resp_valid
                     |vpiFullName:work@SimDTM.__debug_resp_valid
                     |vpiNetType:1
                 |vpiArgument:
-                \_ref_obj: (__debug_resp_ready), line:73, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_resp_ready), line:73, parent:debug_tick
                   |vpiName:__debug_resp_ready
                   |vpiFullName:work@SimDTM.debug_tick.__debug_resp_ready
                   |vpiActual:
-                  \_bit_var: (__debug_resp_ready), line:45, parent:work@SimDTM
+                  \_bit_var: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
                 |vpiArgument:
-                \_ref_obj: (__debug_resp_bits_resp), line:74, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_resp_bits_resp), line:74, parent:debug_tick
                   |vpiName:__debug_resp_bits_resp
                   |vpiFullName:work@SimDTM.debug_tick.__debug_resp_bits_resp
                   |vpiActual:
-                  \_logic_net: (__debug_resp_bits_resp), line:38, parent:work@SimDTM
+                  \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38, parent:work@SimDTM
                     |vpiName:__debug_resp_bits_resp
                     |vpiFullName:work@SimDTM.__debug_resp_bits_resp
                     |vpiNetType:1
@@ -1509,11 +1509,11 @@ design: (work@SimDTM)
                         |vpiSize:64
                         |INT:0
                 |vpiArgument:
-                \_ref_obj: (__debug_resp_bits_data), line:75, parent:debug_tick
+                \_ref_obj: (work@SimDTM.debug_tick.__debug_resp_bits_data), line:75, parent:debug_tick
                   |vpiName:__debug_resp_bits_data
                   |vpiFullName:work@SimDTM.debug_tick.__debug_resp_bits_data
                   |vpiActual:
-                  \_logic_net: (__debug_resp_bits_data), line:39, parent:work@SimDTM
+                  \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39, parent:work@SimDTM
                     |vpiName:__debug_resp_bits_data
                     |vpiFullName:work@SimDTM.__debug_resp_bits_data
                     |vpiNetType:1
@@ -1538,7 +1538,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:17, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
   |vpiPort:
   \_port: (reset), line:18, parent:work@SimDTM
     |vpiName:reset
@@ -1546,7 +1546,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (reset), line:18, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
   |vpiPort:
   \_port: (debug_req_valid), line:20, parent:work@SimDTM
     |vpiName:debug_req_valid
@@ -1554,7 +1554,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_valid), line:20, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_valid), line:20, parent:work@SimDTM
         |vpiName:debug_req_valid
         |vpiFullName:work@SimDTM.debug_req_valid
   |vpiPort:
@@ -1564,7 +1564,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_ready), line:21, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_ready), line:21, parent:work@SimDTM
         |vpiName:debug_req_ready
         |vpiFullName:work@SimDTM.debug_req_ready
   |vpiPort:
@@ -1574,7 +1574,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_addr), line:22, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22, parent:work@SimDTM
         |vpiName:debug_req_bits_addr
         |vpiFullName:work@SimDTM.debug_req_bits_addr
         |vpiRange:
@@ -1598,7 +1598,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_op), line:23, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_op), line:23, parent:work@SimDTM
         |vpiName:debug_req_bits_op
         |vpiFullName:work@SimDTM.debug_req_bits_op
         |vpiRange:
@@ -1622,7 +1622,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_req_bits_data), line:24, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_data), line:24, parent:work@SimDTM
         |vpiName:debug_req_bits_data
         |vpiFullName:work@SimDTM.debug_req_bits_data
         |vpiRange:
@@ -1646,7 +1646,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_valid), line:26, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_valid), line:26, parent:work@SimDTM
         |vpiName:debug_resp_valid
         |vpiFullName:work@SimDTM.debug_resp_valid
   |vpiPort:
@@ -1656,7 +1656,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_ready), line:27, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_ready), line:27, parent:work@SimDTM
         |vpiName:debug_resp_ready
         |vpiFullName:work@SimDTM.debug_resp_ready
   |vpiPort:
@@ -1666,7 +1666,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_bits_resp), line:28, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28, parent:work@SimDTM
         |vpiName:debug_resp_bits_resp
         |vpiFullName:work@SimDTM.debug_resp_bits_resp
         |vpiRange:
@@ -1690,7 +1690,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (debug_resp_bits_data), line:29, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29, parent:work@SimDTM
         |vpiName:debug_resp_bits_data
         |vpiFullName:work@SimDTM.debug_resp_bits_data
         |vpiRange:
@@ -1714,7 +1714,7 @@ design: (work@SimDTM)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (exit), line:31, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.exit), line:31, parent:work@SimDTM
         |vpiName:exit
         |vpiFullName:work@SimDTM.exit
         |vpiRange:
@@ -1732,7 +1732,7 @@ design: (work@SimDTM)
             |vpiSize:64
             |INT:0
   |vpiContAssign:
-  \_cont_assign: , line:36
+  \_cont_assign: , line:36, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:36
       |vpiConstType:7
@@ -1740,19 +1740,19 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_req_ready), line:36
+    \_ref_obj: (work@SimDTM.debug_req_ready), line:36
       |vpiName:debug_req_ready
       |vpiFullName:work@SimDTM.debug_req_ready
       |vpiActual:
-      \_logic_net: (debug_req_ready), line:21, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_ready), line:21, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (__debug_req_ready), line:36
+    \_ref_obj: (work@SimDTM.__debug_req_ready), line:36
       |vpiName:__debug_req_ready
       |vpiFullName:work@SimDTM.__debug_req_ready
       |vpiActual:
-      \_logic_net: (__debug_req_ready), line:36, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.__debug_req_ready), line:36, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:37
+  \_cont_assign: , line:37, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:37
       |vpiConstType:7
@@ -1760,19 +1760,19 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_resp_valid), line:37
+    \_ref_obj: (work@SimDTM.debug_resp_valid), line:37
       |vpiName:debug_resp_valid
       |vpiFullName:work@SimDTM.debug_resp_valid
       |vpiActual:
-      \_logic_net: (debug_resp_valid), line:26, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_valid), line:26, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (__debug_resp_valid), line:37
+    \_ref_obj: (work@SimDTM.__debug_resp_valid), line:37
       |vpiName:__debug_resp_valid
       |vpiFullName:work@SimDTM.__debug_resp_valid
       |vpiActual:
-      \_logic_net: (__debug_resp_valid), line:37, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.__debug_resp_valid), line:37, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:38
+  \_cont_assign: , line:38, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:38
       |vpiConstType:7
@@ -1789,19 +1789,19 @@ design: (work@SimDTM)
         |vpiSize:30
         |BIN:30'b0
       |vpiOperand:
-      \_ref_obj: (debug_resp_bits_resp), line:38
+      \_ref_obj: (work@SimDTM.debug_resp_bits_resp), line:38
         |vpiName:debug_resp_bits_resp
         |vpiFullName:work@SimDTM.debug_resp_bits_resp
         |vpiActual:
-        \_logic_net: (debug_resp_bits_resp), line:28, parent:work@SimDTM
+        \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (__debug_resp_bits_resp), line:38
+    \_ref_obj: (work@SimDTM.__debug_resp_bits_resp), line:38
       |vpiName:__debug_resp_bits_resp
       |vpiFullName:work@SimDTM.__debug_resp_bits_resp
       |vpiActual:
-      \_logic_net: (__debug_resp_bits_resp), line:38, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:39
+  \_cont_assign: , line:39, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:39
       |vpiConstType:7
@@ -1809,19 +1809,19 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_resp_bits_data), line:39
+    \_ref_obj: (work@SimDTM.debug_resp_bits_data), line:39
       |vpiName:debug_resp_bits_data
       |vpiFullName:work@SimDTM.debug_resp_bits_data
       |vpiActual:
-      \_logic_net: (debug_resp_bits_data), line:29, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (__debug_resp_bits_data), line:39
+    \_ref_obj: (work@SimDTM.__debug_resp_bits_data), line:39
       |vpiName:__debug_resp_bits_data
       |vpiFullName:work@SimDTM.__debug_resp_bits_data
       |vpiActual:
-      \_logic_net: (__debug_resp_bits_data), line:39, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:48
+  \_cont_assign: , line:48, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:48
       |vpiConstType:7
@@ -1829,19 +1829,19 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__debug_req_valid), line:48
+    \_ref_obj: (work@SimDTM.__debug_req_valid), line:48
       |vpiName:__debug_req_valid
       |vpiFullName:work@SimDTM.__debug_req_valid
       |vpiActual:
-      \_bit_var: (__debug_req_valid), line:41, parent:work@SimDTM
+      \_bit_var: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (debug_req_valid), line:48
+    \_ref_obj: (work@SimDTM.debug_req_valid), line:48
       |vpiName:debug_req_valid
       |vpiFullName:work@SimDTM.debug_req_valid
       |vpiActual:
-      \_logic_net: (debug_req_valid), line:20, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_valid), line:20, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:49
+  \_cont_assign: , line:49, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:49
       |vpiConstType:7
@@ -1849,10 +1849,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:49, parent:__debug_req_bits_addr
+    \_part_select: , line:49, parent:work@SimDTM.__debug_req_bits_addr
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_addr)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_addr)
       |vpiLeftRange:
       \_constant: , line:49
         |vpiConstType:7
@@ -1866,13 +1866,13 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_addr), line:49
+    \_ref_obj: (work@SimDTM.debug_req_bits_addr), line:49
       |vpiName:debug_req_bits_addr
       |vpiFullName:work@SimDTM.debug_req_bits_addr
       |vpiActual:
-      \_logic_net: (debug_req_bits_addr), line:22, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:50
+  \_cont_assign: , line:50, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:50
       |vpiConstType:7
@@ -1880,10 +1880,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:50, parent:__debug_req_bits_op
+    \_part_select: , line:50, parent:work@SimDTM.__debug_req_bits_op
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_op)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_op)
       |vpiLeftRange:
       \_constant: , line:50
         |vpiConstType:7
@@ -1897,13 +1897,13 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_op), line:50
+    \_ref_obj: (work@SimDTM.debug_req_bits_op), line:50
       |vpiName:debug_req_bits_op
       |vpiFullName:work@SimDTM.debug_req_bits_op
       |vpiActual:
-      \_logic_net: (debug_req_bits_op), line:23, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_op), line:23, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:51
+  \_cont_assign: , line:51, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:51
       |vpiConstType:7
@@ -1911,10 +1911,10 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_part_select: , line:51, parent:__debug_req_bits_data
+    \_part_select: , line:51, parent:work@SimDTM.__debug_req_bits_data
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (__debug_req_bits_data)
+      \_ref_obj: (work@SimDTM.__debug_req_bits_data)
       |vpiLeftRange:
       \_constant: , line:51
         |vpiConstType:7
@@ -1928,13 +1928,13 @@ design: (work@SimDTM)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (debug_req_bits_data), line:51
+    \_ref_obj: (work@SimDTM.debug_req_bits_data), line:51
       |vpiName:debug_req_bits_data
       |vpiFullName:work@SimDTM.debug_req_bits_data
       |vpiActual:
-      \_logic_net: (debug_req_bits_data), line:24, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_req_bits_data), line:24, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:52
+  \_cont_assign: , line:52, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:52
       |vpiConstType:7
@@ -1942,19 +1942,19 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__debug_resp_ready), line:52
+    \_ref_obj: (work@SimDTM.__debug_resp_ready), line:52
       |vpiName:__debug_resp_ready
       |vpiFullName:work@SimDTM.__debug_resp_ready
       |vpiActual:
-      \_bit_var: (__debug_resp_ready), line:45, parent:work@SimDTM
+      \_bit_var: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (debug_resp_ready), line:52
+    \_ref_obj: (work@SimDTM.debug_resp_ready), line:52
       |vpiName:debug_resp_ready
       |vpiFullName:work@SimDTM.debug_resp_ready
       |vpiActual:
-      \_logic_net: (debug_resp_ready), line:27, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.debug_resp_ready), line:27, parent:work@SimDTM
   |vpiContAssign:
-  \_cont_assign: , line:53
+  \_cont_assign: , line:53, parent:work@SimDTM
     |vpiDelay:
     \_constant: , line:53
       |vpiConstType:7
@@ -1962,63 +1962,63 @@ design: (work@SimDTM)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (__exit), line:53
+    \_ref_obj: (work@SimDTM.__exit), line:53
       |vpiName:__exit
       |vpiFullName:work@SimDTM.__exit
       |vpiActual:
-      \_int_var: (__exit), line:46, parent:work@SimDTM
+      \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
     |vpiLhs:
-    \_ref_obj: (exit), line:53
+    \_ref_obj: (work@SimDTM.exit), line:53
       |vpiName:exit
       |vpiFullName:work@SimDTM.exit
       |vpiActual:
-      \_logic_net: (exit), line:31, parent:work@SimDTM
+      \_logic_net: (work@SimDTM.exit), line:31, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (clk), line:17, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.clk), line:17, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (reset), line:18, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.reset), line:18, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_valid), line:20, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_req_valid), line:20, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_ready), line:21, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_req_ready), line:21, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_addr), line:22, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_req_bits_addr), line:22, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_op), line:23, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_req_bits_op), line:23, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_req_bits_data), line:24, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_req_bits_data), line:24, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_valid), line:26, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_resp_valid), line:26, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_ready), line:27, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_resp_ready), line:27, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_bits_resp), line:28, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_resp_bits_resp), line:28, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (debug_resp_bits_data), line:29, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.debug_resp_bits_data), line:29, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (exit), line:31, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.exit), line:31, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (__debug_req_ready), line:36, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.__debug_req_ready), line:36, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (__debug_resp_valid), line:37, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.__debug_resp_valid), line:37, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (__debug_resp_bits_resp), line:38, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.__debug_resp_bits_resp), line:38, parent:work@SimDTM
   |vpiNet:
-  \_logic_net: (__debug_resp_bits_data), line:39, parent:work@SimDTM
+  \_logic_net: (work@SimDTM.__debug_resp_bits_data), line:39, parent:work@SimDTM
   |vpiVariables:
-  \_bit_var: (r_reset), line:34, parent:work@SimDTM
+  \_bit_var: (work@SimDTM.r_reset), line:34, parent:work@SimDTM
   |vpiVariables:
-  \_bit_var: (__debug_req_valid), line:41, parent:work@SimDTM
+  \_bit_var: (work@SimDTM.__debug_req_valid), line:41, parent:work@SimDTM
   |vpiVariables:
-  \_int_var: (__debug_req_bits_addr), line:42, parent:work@SimDTM
+  \_int_var: (work@SimDTM.__debug_req_bits_addr), line:42, parent:work@SimDTM
   |vpiVariables:
-  \_int_var: (__debug_req_bits_op), line:43, parent:work@SimDTM
+  \_int_var: (work@SimDTM.__debug_req_bits_op), line:43, parent:work@SimDTM
   |vpiVariables:
-  \_int_var: (__debug_req_bits_data), line:44, parent:work@SimDTM
+  \_int_var: (work@SimDTM.__debug_req_bits_data), line:44, parent:work@SimDTM
   |vpiVariables:
-  \_bit_var: (__debug_resp_ready), line:45, parent:work@SimDTM
+  \_bit_var: (work@SimDTM.__debug_resp_ready), line:45, parent:work@SimDTM
   |vpiVariables:
-  \_int_var: (__exit), line:46, parent:work@SimDTM
+  \_int_var: (work@SimDTM.__exit), line:46, parent:work@SimDTM
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

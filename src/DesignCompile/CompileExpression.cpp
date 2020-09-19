@@ -603,8 +603,7 @@ UHDM::any* CompileHelper::compileExpression(
         operation->VpiParent(pexpr);
         operation->Attributes(attributes);
         if (opL) {
-          if (opL->VpiParent() == nullptr)
-            opL->VpiParent(operation);
+          setParentNoOverride(opL, operation);
           operands->push_back(opL);
         }
         VObjectType opType = fC->Type(op);
@@ -671,8 +670,7 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::any* opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance, reduce);
         if (opR) {
-          if (opR->VpiParent() == nullptr)
-            opR->VpiParent(operation);
+          setParentNoOverride(opR, operation);
           operands->push_back(opR);
         }
         if (opType == VObjectType::slQmark ||
@@ -681,8 +679,7 @@ UHDM::any* CompileHelper::compileExpression(
           opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance, reduce);
           if (opR) {
-            if (opR->VpiParent() == nullptr)
-              opR->VpiParent(operation);
+            setParentNoOverride(opR, operation);  
             operands->push_back(opR);
           }
         }
@@ -826,8 +823,7 @@ UHDM::any* CompileHelper::compileExpression(
               compileTypespec(component, fC, Simple_type, compileDesign,
                               operation, instance, reduce);
           if (operand) {
-            if (operand->VpiParent() == nullptr)
-              operand->VpiParent(operation);
+            setParentNoOverride(operand, operation);
             operands->push_back(operand);
           }
           operation->Typespec(tps);

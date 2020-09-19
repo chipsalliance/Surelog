@@ -101,23 +101,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ImplicitPort/slpp_all//surelog.uhdm
 design: (work@add)
 |vpiName:work@add
 |uhdmallPackages:
-\_package: builtin, parent:work@add
+\_package: builtin (builtin), parent:work@add
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -130,54 +130,54 @@ design: (work@add)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@add
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@add, file:dut.sv, line:1, parent:work@add
+\_module: work@add (work@add), file:dut.sv, line:1, parent:work@add
   |vpiDefName:work@add
   |vpiFullName:work@add
   |vpiPort:
-  \_port: (a), line:2
+  \_port: (a), line:2, parent:work@add
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:2
+      \_logic_net: (work@add.a), line:2, parent:work@add
         |vpiName:a
         |vpiFullName:work@add.a
   |vpiPort:
-  \_port: (b), line:2
+  \_port: (b), line:2, parent:work@add
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:2
+      \_logic_net: (work@add.b), line:2, parent:work@add
         |vpiName:b
         |vpiFullName:work@add.b
   |vpiPort:
-  \_port: (sum), line:3
+  \_port: (sum), line:3, parent:work@add
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (sum), line:3
+      \_logic_net: (work@add.sum), line:3, parent:work@add
         |vpiName:sum
         |vpiFullName:work@add.sum
   |vpiContAssign:
-  \_cont_assign: , line:5
+  \_cont_assign: , line:5, parent:work@add
     |vpiRhs:
     \_operation: , line:5
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (a), line:5
+      \_ref_obj: (work@add.a), line:5
         |vpiName:a
         |vpiFullName:work@add.a
       |vpiOperand:
-      \_ref_obj: (b), line:5
+      \_ref_obj: (work@add.b), line:5
         |vpiName:b
         |vpiFullName:work@add.b
         |vpiActual:
-        \_logic_net: (b), line:2, parent:work@add
+        \_logic_net: (work@add.b), line:2, parent:work@add
           |vpiName:b
           |vpiFullName:work@add.b
           |vpiRange:
@@ -195,15 +195,15 @@ design: (work@add)
               |vpiSize:64
               |INT:0
     |vpiLhs:
-    \_ref_obj: (sum), line:5
+    \_ref_obj: (work@add.sum), line:5
       |vpiName:sum
       |vpiFullName:work@add.sum
   |vpiNet:
-  \_logic_net: (a), line:2
+  \_logic_net: (work@add.a), line:2, parent:work@add
   |vpiNet:
-  \_logic_net: (b), line:2
+  \_logic_net: (work@add.b), line:2, parent:work@add
   |vpiNet:
-  \_logic_net: (sum), line:3
+  \_logic_net: (work@add.sum), line:3, parent:work@add
 |uhdmtopModules:
 \_module: work@add (work@add), file:dut.sv, line:1
   |vpiDefName:work@add
@@ -215,7 +215,7 @@ design: (work@add)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:2, parent:work@add
+      \_logic_net: (work@add.a), line:2, parent:work@add
         |vpiName:a
         |vpiFullName:work@add.a
         |vpiRange:
@@ -239,7 +239,7 @@ design: (work@add)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:2, parent:work@add
+      \_logic_net: (work@add.b), line:2, parent:work@add
         |vpiName:b
         |vpiFullName:work@add.b
         |vpiRange:
@@ -263,7 +263,7 @@ design: (work@add)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (sum), line:3, parent:work@add
+      \_logic_net: (work@add.sum), line:3, parent:work@add
         |vpiName:sum
         |vpiFullName:work@add.sum
         |vpiSigned:1
@@ -282,34 +282,34 @@ design: (work@add)
             |vpiSize:64
             |INT:0
   |vpiContAssign:
-  \_cont_assign: , line:5
+  \_cont_assign: , line:5, parent:work@add
     |vpiRhs:
     \_operation: , line:5
       |vpiOpType:24
       |vpiOperand:
-      \_ref_obj: (a), line:5
+      \_ref_obj: (work@add.a), line:5
         |vpiName:a
         |vpiFullName:work@add.a
         |vpiActual:
-        \_logic_net: (a), line:2, parent:work@add
+        \_logic_net: (work@add.a), line:2, parent:work@add
       |vpiOperand:
-      \_ref_obj: (b), line:5
+      \_ref_obj: (work@add.b), line:5
         |vpiName:b
         |vpiFullName:work@add.b
         |vpiActual:
-        \_logic_net: (b), line:2, parent:work@add
+        \_logic_net: (work@add.b), line:2, parent:work@add
     |vpiLhs:
-    \_ref_obj: (sum), line:5
+    \_ref_obj: (work@add.sum), line:5
       |vpiName:sum
       |vpiFullName:work@add.sum
       |vpiActual:
-      \_logic_net: (sum), line:3, parent:work@add
+      \_logic_net: (work@add.sum), line:3, parent:work@add
   |vpiNet:
-  \_logic_net: (a), line:2, parent:work@add
+  \_logic_net: (work@add.a), line:2, parent:work@add
   |vpiNet:
-  \_logic_net: (b), line:2, parent:work@add
+  \_logic_net: (work@add.b), line:2, parent:work@add
   |vpiNet:
-  \_logic_net: (sum), line:3, parent:work@add
+  \_logic_net: (work@add.sum), line:3, parent:work@add
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

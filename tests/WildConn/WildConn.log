@@ -86,23 +86,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/WildConn/slpp_all//surelog.uhdm.chk
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -115,65 +115,65 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@MOD, file:dut.sv, line:1, parent:work@top
+\_module: work@MOD (work@MOD), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@MOD
   |vpiFullName:work@MOD
   |vpiPort:
-  \_port: (a), line:2
+  \_port: (a), line:2, parent:work@MOD
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:2
+      \_logic_net: (work@MOD.a), line:2, parent:work@MOD
         |vpiName:a
         |vpiFullName:work@MOD.a
         |vpiNetType:36
   |vpiPort:
-  \_port: (b), line:3
+  \_port: (b), line:3, parent:work@MOD
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:3
+      \_logic_net: (work@MOD.b), line:3, parent:work@MOD
         |vpiName:b
         |vpiFullName:work@MOD.b
         |vpiNetType:36
   |vpiNet:
-  \_logic_net: (a), line:2
+  \_logic_net: (work@MOD.a), line:2, parent:work@MOD
   |vpiNet:
-  \_logic_net: (b), line:3
+  \_logic_net: (work@MOD.b), line:3, parent:work@MOD
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:7, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:7, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiPort:
-  \_port: (a), line:8
+  \_port: (a), line:8, parent:work@top
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:8
+      \_logic_net: (work@top.a), line:8, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiNetType:36
   |vpiPort:
-  \_port: (b), line:9
+  \_port: (b), line:9, parent:work@top
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:9
+      \_logic_net: (work@top.b), line:9, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiNetType:36
   |vpiNet:
-  \_logic_net: (a), line:8
+  \_logic_net: (work@top.a), line:8, parent:work@top
   |vpiNet:
-  \_logic_net: (b), line:9
+  \_logic_net: (work@top.b), line:9, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top), file:dut.sv, line:7
   |vpiDefName:work@top
@@ -185,7 +185,7 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:8, parent:work@top
+      \_logic_net: (work@top.a), line:8, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiNetType:36
@@ -196,57 +196,57 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:9, parent:work@top
+      \_logic_net: (work@top.b), line:9, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiNetType:36
   |vpiModule:
-  \_module: work@MOD (u1), file:dut.sv, line:12, parent:work@top
+  \_module: work@MOD (work@top.u1), file:dut.sv, line:12, parent:work@top
     |vpiDefName:work@MOD
     |vpiName:u1
     |vpiFullName:work@top.u1
     |vpiPort:
-    \_port: (a), line:2, parent:u1
+    \_port: (a), line:2, parent:work@top.u1
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (a), line:14
         |vpiName:a
         |vpiActual:
-        \_logic_net: (a), line:8, parent:work@top
+        \_logic_net: (work@top.a), line:8, parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (a), line:2, parent:u1
+        \_logic_net: (work@top.u1.a), line:2, parent:work@top.u1
           |vpiName:a
           |vpiFullName:work@top.u1.a
           |vpiNetType:36
     |vpiPort:
-    \_port: (b), line:3, parent:u1
+    \_port: (b), line:3, parent:work@top.u1
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (b), line:14
         |vpiName:b
         |vpiActual:
-        \_logic_net: (b), line:9, parent:work@top
+        \_logic_net: (work@top.b), line:9, parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (b), line:3, parent:u1
+        \_logic_net: (work@top.u1.b), line:3, parent:work@top.u1
           |vpiName:b
           |vpiFullName:work@top.u1.b
           |vpiNetType:36
     |vpiNet:
-    \_logic_net: (a), line:2, parent:u1
+    \_logic_net: (work@top.u1.a), line:2, parent:work@top.u1
     |vpiNet:
-    \_logic_net: (b), line:3, parent:u1
+    \_logic_net: (work@top.u1.b), line:3, parent:work@top.u1
     |vpiInstance:
     \_module: work@top (work@top), file:dut.sv, line:7
   |vpiNet:
-  \_logic_net: (a), line:8, parent:work@top
+  \_logic_net: (work@top.a), line:8, parent:work@top
   |vpiNet:
-  \_logic_net: (b), line:9, parent:work@top
+  \_logic_net: (work@top.b), line:9, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

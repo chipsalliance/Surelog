@@ -86,23 +86,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ImplFuncArg/slpp_all//surelog.uhdm.
 design: (work@fsm_2_always_block)
 |vpiName:work@fsm_2_always_block
 |uhdmallPackages:
-\_package: builtin, parent:work@fsm_2_always_block
+\_package: builtin (builtin), parent:work@fsm_2_always_block
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -115,11 +115,11 @@ design: (work@fsm_2_always_block)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@fsm_2_always_block
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@fsm_2_always_block, file:dut.sv, line:1, parent:work@fsm_2_always_block
+\_module: work@fsm_2_always_block (work@fsm_2_always_block), file:dut.sv, line:1, parent:work@fsm_2_always_block
   |vpiDefName:work@fsm_2_always_block
   |vpiFullName:work@fsm_2_always_block
   |vpiTaskFunc:
-  \_function: (stateAsmt), line:4
+  \_function: (work@fsm_2_always_block.stateAsmt), line:4, parent:work@fsm_2_always_block
     |vpiName:stateAsmt
     |vpiFullName:work@fsm_2_always_block.stateAsmt
     |vpiIODecl:
@@ -127,7 +127,7 @@ design: (work@fsm_2_always_block)
       |vpiName:curr_state
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:4, parent:curr_state
+      \_logic_var: (curr_state), line:4, parent:curr_state
         |vpiFullName:curr_state
         |vpiRange:
         \_range: , line:4
@@ -148,10 +148,10 @@ design: (work@fsm_2_always_block)
       |vpiName:next_state
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:4, parent:next_state
+      \_logic_var: (next_state), line:4, parent:next_state
         |vpiFullName:next_state
         |vpiRange:
-        \_range: , line:4
+        \_range: , line:4, parent:next_state
           |vpiLeftRange:
           \_constant: , line:4
             |vpiConstType:7
@@ -165,17 +165,17 @@ design: (work@fsm_2_always_block)
             |vpiSize:32
             |INT:0
     |vpiStmt:
-    \_assignment: , line:5, parent:stateAsmt
+    \_assignment: , line:5, parent:work@fsm_2_always_block.stateAsmt
       |vpiOpType:82
       |vpiBlocking:1
       |vpiLhs:
-      \_ref_obj: (curr_state), line:5, parent:stateAsmt
+      \_ref_obj: (work@fsm_2_always_block.stateAsmt.curr_state), line:5, parent:work@fsm_2_always_block.stateAsmt
         |vpiName:curr_state
         |vpiFullName:work@fsm_2_always_block.stateAsmt.curr_state
         |vpiActual:
         \_io_decl: (curr_state)
       |vpiRhs:
-      \_ref_obj: (next_state), line:5, parent:stateAsmt
+      \_ref_obj: (work@fsm_2_always_block.stateAsmt.next_state), line:5, parent:work@fsm_2_always_block.stateAsmt
         |vpiName:next_state
         |vpiFullName:work@fsm_2_always_block.stateAsmt.next_state
         |vpiActual:
@@ -185,7 +185,7 @@ design: (work@fsm_2_always_block)
   |vpiDefName:work@fsm_2_always_block
   |vpiName:work@fsm_2_always_block
   |vpiTaskFunc:
-  \_function: (stateAsmt), line:4
+  \_function: (work@fsm_2_always_block.stateAsmt), line:4, parent:work@fsm_2_always_block
     |vpiName:stateAsmt
     |vpiFullName:work@fsm_2_always_block.stateAsmt
     |vpiIODecl:
@@ -193,7 +193,7 @@ design: (work@fsm_2_always_block)
       |vpiName:curr_state
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:4, parent:curr_state
+      \_logic_var: (curr_state), line:4, parent:curr_state
         |vpiFullName:curr_state
         |vpiRange:
         \_range: , line:4
@@ -214,10 +214,10 @@ design: (work@fsm_2_always_block)
       |vpiName:next_state
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:4, parent:next_state
+      \_logic_var: (next_state), line:4, parent:next_state
         |vpiFullName:next_state
         |vpiRange:
-        \_range: , line:4
+        \_range: , line:4, parent:next_state
           |vpiLeftRange:
           \_constant: , line:4
             |vpiConstType:7
@@ -231,17 +231,17 @@ design: (work@fsm_2_always_block)
             |vpiSize:32
             |INT:0
     |vpiStmt:
-    \_assignment: , line:5, parent:stateAsmt
+    \_assignment: , line:5, parent:work@fsm_2_always_block.stateAsmt
       |vpiOpType:82
       |vpiBlocking:1
       |vpiLhs:
-      \_ref_obj: (curr_state), line:5, parent:stateAsmt
+      \_ref_obj: (work@fsm_2_always_block.stateAsmt.curr_state), line:5, parent:work@fsm_2_always_block.stateAsmt
         |vpiName:curr_state
         |vpiFullName:work@fsm_2_always_block.stateAsmt.curr_state
         |vpiActual:
         \_io_decl: (curr_state)
       |vpiRhs:
-      \_ref_obj: (next_state), line:5, parent:stateAsmt
+      \_ref_obj: (work@fsm_2_always_block.stateAsmt.next_state), line:5, parent:work@fsm_2_always_block.stateAsmt
         |vpiName:next_state
         |vpiFullName:work@fsm_2_always_block.stateAsmt.next_state
         |vpiActual:

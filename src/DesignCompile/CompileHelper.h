@@ -261,6 +261,8 @@ public:
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);
 
+  void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
+
 private:
   CompileHelper(const CompileHelper&) = delete;
 

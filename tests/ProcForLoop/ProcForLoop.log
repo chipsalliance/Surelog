@@ -168,23 +168,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ProcForLoop/slpp_all//surelog.uhdm.
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -197,24 +197,24 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiTaskFunc:
-  \_function: (foo), line:2
+  \_function: (work@top.foo), line:2, parent:work@top
     |vpiName:foo
     |vpiFullName:work@top.foo
     |vpiStmt:
-    \_begin: , parent:foo
+    \_begin: (work@top.foo), parent:work@top.foo
       |vpiFullName:work@top.foo
       |vpiStmt:
-      \_for_stmt: , line:3
+      \_for_stmt: (work@top.foo), line:3, parent:work@top.foo
         |vpiFullName:work@top.foo
         |vpiCondition:
-        \_operation: , line:3
+        \_operation: , line:3, parent:work@top.foo
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (i), line:3
+          \_ref_obj: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiOperand:
@@ -224,7 +224,7 @@ design: (work@top)
             |vpiSize:32
             |INT:4
         |vpiForInitStmt:
-        \_assign_stmt: 
+        \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:3
             |vpiConstType:7
@@ -232,21 +232,21 @@ design: (work@top)
             |vpiSize:32
             |INT:0
           |vpiLhs:
-          \_int_var: (i), line:3
+          \_int_var: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
         |vpiForIncStmt:
-        \_assignment: , line:3
+        \_assignment: , line:3, parent:work@top.foo
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (i), line:3
+          \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiRhs:
-          \_operation: , line:3
+          \_operation: , line:3, parent:work@top.foo
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (i), line:3
+            \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
               |vpiName:i
               |vpiFullName:work@top.foo.i
             |vpiOperand:
@@ -256,10 +256,10 @@ design: (work@top)
               |vpiSize:32
               |INT:1
         |vpiStmt:
-        \_begin: , line:3
+        \_begin: (work@top.foo), line:3, parent:work@top.foo
           |vpiFullName:work@top.foo
           |vpiStmt:
-          \_func_call: (f2), line:4
+          \_func_call: (f2), line:4, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
             \_ref_obj: (i), line:4
@@ -271,13 +271,13 @@ design: (work@top)
               |vpiSize:32
               |INT:0
       |vpiStmt:
-      \_for_stmt: , line:6
+      \_for_stmt: (work@top.foo), line:6, parent:work@top.foo
         |vpiFullName:work@top.foo
         |vpiCondition:
-        \_operation: , line:6
+        \_operation: , line:6, parent:work@top.foo
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (j), line:6
+          \_ref_obj: (work@top.foo.j), line:6
             |vpiName:j
             |vpiFullName:work@top.foo.j
           |vpiOperand:
@@ -287,7 +287,7 @@ design: (work@top)
             |vpiSize:32
             |INT:4
         |vpiForInitStmt:
-        \_assign_stmt: 
+        \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:6
             |vpiConstType:7
@@ -295,20 +295,20 @@ design: (work@top)
             |vpiSize:32
             |INT:0
           |vpiLhs:
-          \_int_var: (j), line:6
+          \_int_var: (work@top.foo.j), line:6
             |vpiName:j
             |vpiFullName:work@top.foo.j
         |vpiForIncStmt:
-        \_operation: , line:6
+        \_operation: , line:6, parent:work@top.foo
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (j), line:6
             |vpiName:j
         |vpiStmt:
-        \_begin: , line:6
+        \_begin: (work@top.foo), line:6, parent:work@top.foo
           |vpiFullName:work@top.foo
           |vpiStmt:
-          \_func_call: (f2), line:7
+          \_func_call: (f2), line:7, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
             \_ref_obj: (j), line:7
@@ -324,20 +324,20 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiTaskFunc:
-  \_function: (foo), line:2
+  \_function: (work@top.foo), line:2, parent:work@top
     |vpiName:foo
     |vpiFullName:work@top.foo
     |vpiStmt:
-    \_begin: , parent:foo
+    \_begin: (work@top.foo), parent:work@top.foo
       |vpiFullName:work@top.foo
       |vpiStmt:
-      \_for_stmt: , line:3
+      \_for_stmt: (work@top.foo), line:3, parent:work@top.foo
         |vpiFullName:work@top.foo
         |vpiCondition:
-        \_operation: , line:3
+        \_operation: , line:3, parent:work@top.foo
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (i), line:3
+          \_ref_obj: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiOperand:
@@ -347,7 +347,7 @@ design: (work@top)
             |vpiSize:32
             |INT:4
         |vpiForInitStmt:
-        \_assign_stmt: 
+        \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:3
             |vpiConstType:7
@@ -355,21 +355,21 @@ design: (work@top)
             |vpiSize:32
             |INT:0
           |vpiLhs:
-          \_int_var: (i), line:3
+          \_int_var: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
         |vpiForIncStmt:
-        \_assignment: , line:3
+        \_assignment: , line:3, parent:work@top.foo
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (i), line:3
+          \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiRhs:
-          \_operation: , line:3
+          \_operation: , line:3, parent:work@top.foo
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (i), line:3
+            \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
               |vpiName:i
               |vpiFullName:work@top.foo.i
             |vpiOperand:
@@ -379,10 +379,10 @@ design: (work@top)
               |vpiSize:32
               |INT:1
         |vpiStmt:
-        \_begin: , line:3
+        \_begin: (work@top.foo), line:3, parent:work@top.foo
           |vpiFullName:work@top.foo
           |vpiStmt:
-          \_func_call: (f2), line:4
+          \_func_call: (f2), line:4, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
             \_ref_obj: (i), line:4
@@ -394,13 +394,13 @@ design: (work@top)
               |vpiSize:32
               |INT:0
       |vpiStmt:
-      \_for_stmt: , line:6
+      \_for_stmt: (work@top.foo), line:6, parent:work@top.foo
         |vpiFullName:work@top.foo
         |vpiCondition:
-        \_operation: , line:6
+        \_operation: , line:6, parent:work@top.foo
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (j), line:6
+          \_ref_obj: (work@top.foo.j), line:6
             |vpiName:j
             |vpiFullName:work@top.foo.j
           |vpiOperand:
@@ -410,7 +410,7 @@ design: (work@top)
             |vpiSize:32
             |INT:4
         |vpiForInitStmt:
-        \_assign_stmt: 
+        \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:6
             |vpiConstType:7
@@ -418,20 +418,20 @@ design: (work@top)
             |vpiSize:32
             |INT:0
           |vpiLhs:
-          \_int_var: (j), line:6
+          \_int_var: (work@top.foo.j), line:6
             |vpiName:j
             |vpiFullName:work@top.foo.j
         |vpiForIncStmt:
-        \_operation: , line:6
+        \_operation: , line:6, parent:work@top.foo
           |vpiOpType:62
           |vpiOperand:
           \_ref_obj: (j), line:6
             |vpiName:j
         |vpiStmt:
-        \_begin: , line:6
+        \_begin: (work@top.foo), line:6, parent:work@top.foo
           |vpiFullName:work@top.foo
           |vpiStmt:
-          \_func_call: (f2), line:7
+          \_func_call: (f2), line:7, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
             \_ref_obj: (j), line:7

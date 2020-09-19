@@ -130,23 +130,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/TypeDefScope/slpp_all//surelog.uhdm
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin, parent:work@dut
+\_package: builtin (builtin), parent:work@dut
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -159,31 +159,31 @@ design: (work@dut)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dut
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@dut, file:dut.sv, line:1, parent:work@dut
+\_module: work@dut (work@dut), file:dut.sv, line:1, parent:work@dut
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiPort:
-  \_port: (a), line:1
+  \_port: (a), line:1, parent:work@dut
     |vpiName:a
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1
+      \_logic_net: (work@dut.a), line:1, parent:work@dut
         |vpiName:a
         |vpiFullName:work@dut.a
   |vpiPort:
-  \_port: (b), line:1
+  \_port: (b), line:1, parent:work@dut
     |vpiName:b
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1
+      \_logic_net: (work@dut.b), line:1, parent:work@dut
         |vpiName:b
         |vpiFullName:work@dut.b
   |vpiTaskFunc:
-  \_function: (UVMC_set_config_object), line:3
+  \_function: (work@dut.UVMC_set_config_object), line:3, parent:work@dut
     |vpiName:UVMC_set_config_object
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiIODecl:
@@ -191,50 +191,50 @@ design: (work@dut)
       |vpiName:type_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:3, parent:type_name
+      \_string_var: (type_name), line:3, parent:type_name
         |vpiFullName:type_name
     |vpiIODecl:
     \_io_decl: (contxt)
       |vpiName:contxt
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:4, parent:contxt
+      \_string_var: (contxt), line:4, parent:contxt
         |vpiFullName:contxt
     |vpiIODecl:
     \_io_decl: (inst_name)
       |vpiName:inst_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:5, parent:inst_name
+      \_string_var: (inst_name), line:5, parent:inst_name
         |vpiFullName:inst_name
     |vpiIODecl:
     \_io_decl: (field_name)
       |vpiName:field_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:6, parent:field_name
+      \_string_var: (field_name), line:6, parent:field_name
         |vpiFullName:field_name
     |vpiIODecl:
     \_io_decl: (value)
       |vpiName:value
       |vpiDirection:5
       |vpiExpr:
-      \_chandle_var: (bits_t), line:7, parent:value
+      \_chandle_var: (value.bits_t), line:7, parent:value
         |vpiName:bits_t
         |vpiFullName:value.bits_t
     |vpiStmt:
-    \_begin: , parent:UVMC_set_config_object
+    \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@dut.UVMC_set_config_object
         |vpiLhs:
-        \_chandle_var: (obj), line:11
+        \_chandle_var: (work@dut.UVMC_set_config_object.obj), line:11
           |vpiName:obj
           |vpiFullName:work@dut.UVMC_set_config_object.obj
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@dut.UVMC_set_config_object
         |vpiLhs:
-        \_chandle_var: (comp), line:12
+        \_chandle_var: (work@dut.UVMC_set_config_object.comp), line:12
           |vpiName:comp
           |vpiFullName:work@dut.UVMC_set_config_object.comp
       |vpiTypedef:
@@ -244,9 +244,9 @@ design: (work@dut)
       \_logic_typespec: (converter2), line:9
         |vpiName:converter2
   |vpiNet:
-  \_logic_net: (a), line:1
+  \_logic_net: (work@dut.a), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (b), line:1
+  \_logic_net: (work@dut.b), line:1, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut), file:dut.sv, line:1
   |vpiDefName:work@dut
@@ -258,7 +258,7 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1, parent:work@dut
+      \_logic_net: (work@dut.a), line:1, parent:work@dut
         |vpiName:a
         |vpiFullName:work@dut.a
   |vpiPort:
@@ -268,11 +268,11 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1, parent:work@dut
+      \_logic_net: (work@dut.b), line:1, parent:work@dut
         |vpiName:b
         |vpiFullName:work@dut.b
   |vpiTaskFunc:
-  \_function: (UVMC_set_config_object), line:3
+  \_function: (work@dut.UVMC_set_config_object), line:3, parent:work@dut
     |vpiName:UVMC_set_config_object
     |vpiFullName:work@dut.UVMC_set_config_object
     |vpiIODecl:
@@ -280,50 +280,50 @@ design: (work@dut)
       |vpiName:type_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:3, parent:type_name
+      \_string_var: (type_name), line:3, parent:type_name
         |vpiFullName:type_name
     |vpiIODecl:
     \_io_decl: (contxt)
       |vpiName:contxt
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:4, parent:contxt
+      \_string_var: (contxt), line:4, parent:contxt
         |vpiFullName:contxt
     |vpiIODecl:
     \_io_decl: (inst_name)
       |vpiName:inst_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:5, parent:inst_name
+      \_string_var: (inst_name), line:5, parent:inst_name
         |vpiFullName:inst_name
     |vpiIODecl:
     \_io_decl: (field_name)
       |vpiName:field_name
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:6, parent:field_name
+      \_string_var: (field_name), line:6, parent:field_name
         |vpiFullName:field_name
     |vpiIODecl:
     \_io_decl: (value)
       |vpiName:value
       |vpiDirection:5
       |vpiExpr:
-      \_chandle_var: (bits_t), line:7, parent:value
+      \_chandle_var: (value.bits_t), line:7, parent:value
         |vpiName:bits_t
         |vpiFullName:value.bits_t
     |vpiStmt:
-    \_begin: , parent:UVMC_set_config_object
+    \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@dut.UVMC_set_config_object
         |vpiLhs:
-        \_chandle_var: (obj), line:11
+        \_chandle_var: (work@dut.UVMC_set_config_object.obj), line:11
           |vpiName:obj
           |vpiFullName:work@dut.UVMC_set_config_object.obj
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@dut.UVMC_set_config_object
         |vpiLhs:
-        \_chandle_var: (comp), line:12
+        \_chandle_var: (work@dut.UVMC_set_config_object.comp), line:12
           |vpiName:comp
           |vpiFullName:work@dut.UVMC_set_config_object.comp
       |vpiTypedef:
@@ -333,9 +333,9 @@ design: (work@dut)
       \_logic_typespec: (converter2), line:9
         |vpiName:converter2
   |vpiNet:
-  \_logic_net: (a), line:1, parent:work@dut
+  \_logic_net: (work@dut.a), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (b), line:1, parent:work@dut
+  \_logic_net: (work@dut.b), line:1, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

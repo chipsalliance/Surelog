@@ -252,23 +252,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/PreprocUhdmCov/slpp_all//surelog.uh
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -281,73 +281,73 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:4, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:4, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiPort:
-  \_port: (b), line:4
+  \_port: (b), line:4, parent:work@top
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:4
+      \_logic_net: (work@top.b), line:4, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiNetType:36
   |vpiPort:
-  \_port: (a), line:4
+  \_port: (a), line:4, parent:work@top
     |vpiName:a
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:4
+      \_logic_net: (work@top.a), line:4, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiNetType:36
   |vpiContAssign:
-  \_cont_assign: , line:9
+  \_cont_assign: , line:9, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:9
+    \_ref_obj: (work@top.b), line:9
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:9
+    \_ref_obj: (work@top.a), line:9
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiContAssign:
-  \_cont_assign: , line:15
+  \_cont_assign: , line:15, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:15
+    \_ref_obj: (work@top.b), line:15
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:15
+    \_ref_obj: (work@top.a), line:15
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiContAssign:
-  \_cont_assign: , line:20
+  \_cont_assign: , line:20, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:20
+    \_ref_obj: (work@top.b), line:20
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:20
+    \_ref_obj: (work@top.a), line:20
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiContAssign:
-  \_cont_assign: , line:26
+  \_cont_assign: , line:26, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:26
+    \_ref_obj: (work@top.b), line:26
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:26
+    \_ref_obj: (work@top.a), line:26
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiTaskFunc:
-  \_function: (prince_shiftrows_32bit), line:45
+  \_function: (work@top.prince_shiftrows_32bit), line:45, parent:work@top
     |vpiAutomatic:1
     |vpiName:prince_shiftrows_32bit
     |vpiFullName:work@top.prince_shiftrows_32bit
@@ -372,7 +372,7 @@ design: (work@top)
       |vpiName:state_in
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:45, parent:state_in
+      \_logic_var: (state_in), line:45, parent:state_in
         |vpiFullName:state_in
         |vpiRange:
         \_range: , line:45
@@ -393,7 +393,7 @@ design: (work@top)
       |vpiName:shifts
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:46, parent:shifts
+      \_logic_var: (shifts), line:46, parent:shifts
         |vpiFullName:shifts
         |vpiRange:
         \_range: , line:46
@@ -410,12 +410,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiStmt:
-    \_begin: , parent:prince_shiftrows_32bit
+    \_begin: (work@top.prince_shiftrows_32bit), parent:work@top.prince_shiftrows_32bit
       |vpiFullName:work@top.prince_shiftrows_32bit
   |vpiNet:
-  \_logic_net: (b), line:4
+  \_logic_net: (work@top.b), line:4, parent:work@top
   |vpiNet:
-  \_logic_net: (a), line:4
+  \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiTypedef:
   \_struct_typespec: (spi_device_reg2hw_intr_enable_reg_t), line:38
     |vpiPacked:1
@@ -442,7 +442,7 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:4, parent:work@top
+      \_logic_net: (work@top.b), line:4, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiNetType:36
@@ -453,73 +453,73 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:4, parent:work@top
+      \_logic_net: (work@top.a), line:4, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiNetType:36
   |vpiContAssign:
-  \_cont_assign: , line:9
+  \_cont_assign: , line:9, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:9
+    \_ref_obj: (work@top.b), line:9
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b), line:4, parent:work@top
+      \_logic_net: (work@top.b), line:4, parent:work@top
     |vpiLhs:
-    \_ref_obj: (a), line:9
+    \_ref_obj: (work@top.a), line:9
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a), line:4, parent:work@top
+      \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiContAssign:
-  \_cont_assign: , line:15
+  \_cont_assign: , line:15, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:15
+    \_ref_obj: (work@top.b), line:15
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b), line:4, parent:work@top
+      \_logic_net: (work@top.b), line:4, parent:work@top
     |vpiLhs:
-    \_ref_obj: (a), line:15
+    \_ref_obj: (work@top.a), line:15
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a), line:4, parent:work@top
+      \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiContAssign:
-  \_cont_assign: , line:20
+  \_cont_assign: , line:20, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:20
+    \_ref_obj: (work@top.b), line:20
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b), line:4, parent:work@top
+      \_logic_net: (work@top.b), line:4, parent:work@top
     |vpiLhs:
-    \_ref_obj: (a), line:20
+    \_ref_obj: (work@top.a), line:20
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a), line:4, parent:work@top
+      \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiContAssign:
-  \_cont_assign: , line:26
+  \_cont_assign: , line:26, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:26
+    \_ref_obj: (work@top.b), line:26
       |vpiName:b
       |vpiFullName:work@top.b
       |vpiActual:
-      \_logic_net: (b), line:4, parent:work@top
+      \_logic_net: (work@top.b), line:4, parent:work@top
     |vpiLhs:
-    \_ref_obj: (a), line:26
+    \_ref_obj: (work@top.a), line:26
       |vpiName:a
       |vpiFullName:work@top.a
       |vpiActual:
-      \_logic_net: (a), line:4, parent:work@top
+      \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiModule:
-  \_module: work@top::prim_subreg (u_ip0_p7), file:dut.sv, line:30, parent:work@top
+  \_module: work@top::prim_subreg (work@top.u_ip0_p7), file:dut.sv, line:30, parent:work@top
     |vpiDefName:work@top::prim_subreg
     |vpiName:u_ip0_p7
     |vpiFullName:work@top.u_ip0_p7
     |vpiPort:
-    \_port: (clk_i), parent:u_ip0_p7
+    \_port: (clk_i), parent:work@top.u_ip0_p7
       |vpiName:clk_i
       |vpiHighConn:
       \_ref_obj: (clk_i), line:33
@@ -527,7 +527,7 @@ design: (work@top)
     |vpiInstance:
     \_module: work@top (work@top), file:dut.sv, line:4
   |vpiTaskFunc:
-  \_function: (prince_shiftrows_32bit), line:45
+  \_function: (work@top.prince_shiftrows_32bit), line:45, parent:work@top
     |vpiAutomatic:1
     |vpiName:prince_shiftrows_32bit
     |vpiFullName:work@top.prince_shiftrows_32bit
@@ -552,7 +552,7 @@ design: (work@top)
       |vpiName:state_in
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:45, parent:state_in
+      \_logic_var: (state_in), line:45, parent:state_in
         |vpiFullName:state_in
         |vpiRange:
         \_range: , line:45
@@ -573,7 +573,7 @@ design: (work@top)
       |vpiName:shifts
       |vpiDirection:5
       |vpiExpr:
-      \_logic_var: , line:46, parent:shifts
+      \_logic_var: (shifts), line:46, parent:shifts
         |vpiFullName:shifts
         |vpiRange:
         \_range: , line:46
@@ -590,14 +590,14 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiStmt:
-    \_begin: , parent:prince_shiftrows_32bit
+    \_begin: (work@top.prince_shiftrows_32bit), parent:work@top.prince_shiftrows_32bit
       |vpiFullName:work@top.prince_shiftrows_32bit
   |vpiNet:
-  \_logic_net: (b), line:4, parent:work@top
+  \_logic_net: (work@top.b), line:4, parent:work@top
   |vpiNet:
-  \_logic_net: (a), line:4, parent:work@top
+  \_logic_net: (work@top.a), line:4, parent:work@top
   |vpiTypedef:
-  \_struct_typespec: (spi_device_reg2hw_intr_enable_reg_t), line:38
+  \_struct_typespec: (spi_device_reg2hw_intr_enable_reg_t), line:38, parent:work@top
     |vpiPacked:1
     |vpiName:spi_device_reg2hw_intr_enable_reg_t
     |vpiTypespecMember:
