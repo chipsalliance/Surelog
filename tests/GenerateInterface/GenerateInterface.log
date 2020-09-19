@@ -210,23 +210,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/GenerateInterface/slpp_unit//surelo
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -239,7 +239,7 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallInterfaces:
-\_interface: work@abc_if, file:top.sv, line:1, parent:work@top
+\_interface: work@abc_if (work@abc_if), file:top.sv, line:1, parent:work@top
   |vpiDefName:work@abc_if
   |vpiFullName:work@abc_if
   |vpiClockingBlock:
@@ -254,21 +254,21 @@ design: (work@top)
         \_bit_select: (clk_i), line:7
           |vpiName:clk_i
           |vpiIndex:
-          \_ref_obj: (i), line:7, parent:clk_i
+          \_ref_obj: (clk_i.i), line:7, parent:clk_i
             |vpiName:i
             |vpiFullName:clk_i.i
   |vpiNet:
-  \_logic_net: (xyz_o), line:3
+  \_logic_net: (work@abc_if.xyz_o), line:3, parent:work@abc_if
     |vpiName:xyz_o
     |vpiFullName:work@abc_if.xyz_o
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (clk_i), line:4
+  \_logic_net: (work@abc_if.clk_i), line:4, parent:work@abc_if
     |vpiName:clk_i
     |vpiFullName:work@abc_if.clk_i
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@top, file:top.sv, line:16, parent:work@top
+\_module: work@top (work@top), file:top.sv, line:16, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
 |uhdmtopModules:
@@ -276,12 +276,12 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiInterface:
-  \_interface: work@abc_if (intf), file:top.sv, line:17, parent:work@top
+  \_interface: work@abc_if (work@top.intf), file:top.sv, line:17, parent:work@top
     |vpiDefName:work@abc_if
     |vpiName:intf
     |vpiFullName:work@top.intf
     |vpiNet:
-    \_logic_net: (xyz_o), line:3, parent:intf
+    \_logic_net: (work@top.intf.xyz_o), line:3, parent:work@top.intf
       |vpiName:xyz_o
       |vpiFullName:work@top.intf.xyz_o
       |vpiNetType:36
@@ -300,7 +300,7 @@ design: (work@top)
           |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (clk_i), line:4, parent:intf
+    \_logic_net: (work@top.intf.clk_i), line:4, parent:work@top.intf
       |vpiName:clk_i
       |vpiFullName:work@top.intf.clk_i
       |vpiNetType:36

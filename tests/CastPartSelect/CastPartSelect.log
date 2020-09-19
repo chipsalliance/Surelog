@@ -123,23 +123,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/CastPartSelect/slpp_all//surelog.uh
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -152,18 +152,18 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
-  \_always: , line:3
+  \_always: , line:3, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (csr_pipeline_flushes), line:3
+    \_named_begin: (work@top.csr_pipeline_flushes), line:3
       |vpiName:csr_pipeline_flushes
       |vpiFullName:work@top.csr_pipeline_flushes
       |vpiStmt:
-      \_if_stmt: , line:5, parent:csr_pipeline_flushes
+      \_if_stmt: , line:5, parent:work@top.csr_pipeline_flushes
         |vpiCondition:
         \_operation: , line:5
           |vpiOpType:14
@@ -171,10 +171,10 @@ design: (work@top)
           \_operation: , line:5
             |vpiOpType:67
             |vpiOperand:
-            \_part_select: , line:5, parent:instr_rdata_i
+            \_part_select: , line:5, parent:work@top.csr_pipeline_flushes.instr_rdata_i
               |vpiConstantSelect:1
               |vpiParent:
-              \_ref_obj: (instr_rdata_i)
+              \_ref_obj: (work@top.csr_pipeline_flushes.instr_rdata_i)
               |vpiLeftRange:
               \_constant: , line:5
                 |vpiConstType:7
@@ -190,90 +190,18 @@ design: (work@top)
             |vpiTypespec:
             \_int_typespec: , line:5
           |vpiOperand:
-          \_ref_obj: (CSR_MSTATUS), line:5
+          \_ref_obj: (work@top.csr_pipeline_flushes.CSR_MSTATUS), line:5
             |vpiName:CSR_MSTATUS
             |vpiFullName:work@top.csr_pipeline_flushes.CSR_MSTATUS
         |vpiStmt:
-        \_begin: , line:5
+        \_begin: (work@top.csr_pipeline_flushes), line:5
           |vpiFullName:work@top.csr_pipeline_flushes
           |vpiStmt:
-          \_assignment: , line:6
+          \_assignment: , line:6, parent:work@top.csr_pipeline_flushes
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (csr_pipe_flush), line:6
-              |vpiName:csr_pipe_flush
-              |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
-            |vpiRhs:
-            \_constant: , line:6
-              |vpiConstType:3
-              |vpiDecompile:'b1
-              |vpiSize:1
-              |BIN:1
-  |vpiPort:
-  \_port: (instr_rdata_i), line:1
-    |vpiName:instr_rdata_i
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (instr_rdata_i), line:1
-        |vpiName:instr_rdata_i
-        |vpiFullName:work@top.instr_rdata_i
-        |vpiNetType:36
-  |vpiNet:
-  \_logic_net: (instr_rdata_i), line:1
-|uhdmtopModules:
-\_module: work@top (work@top), file:dut.sv, line:1
-  |vpiDefName:work@top
-  |vpiName:work@top
-  |vpiProcess:
-  \_always: , line:3
-    |vpiAlwaysType:2
-    |vpiStmt:
-    \_named_begin: (csr_pipeline_flushes), line:3
-      |vpiName:csr_pipeline_flushes
-      |vpiFullName:work@top.csr_pipeline_flushes
-      |vpiStmt:
-      \_if_stmt: , line:5, parent:csr_pipeline_flushes
-        |vpiCondition:
-        \_operation: , line:5
-          |vpiOpType:14
-          |vpiOperand:
-          \_operation: , line:5
-            |vpiOpType:67
-            |vpiOperand:
-            \_part_select: , line:5, parent:instr_rdata_i
-              |vpiConstantSelect:1
-              |vpiParent:
-              \_ref_obj: (instr_rdata_i)
-              |vpiLeftRange:
-              \_constant: , line:5
-                |vpiConstType:7
-                |vpiDecompile:31
-                |vpiSize:32
-                |INT:31
-              |vpiRightRange:
-              \_constant: , line:5
-                |vpiConstType:7
-                |vpiDecompile:20
-                |vpiSize:32
-                |INT:20
-            |vpiTypespec:
-            \_int_typespec: , line:5
-          |vpiOperand:
-          \_ref_obj: (CSR_MSTATUS), line:5
-            |vpiName:CSR_MSTATUS
-            |vpiFullName:work@top.csr_pipeline_flushes.CSR_MSTATUS
-        |vpiStmt:
-        \_begin: , line:5
-          |vpiFullName:work@top.csr_pipeline_flushes
-          |vpiStmt:
-          \_assignment: , line:6
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (csr_pipe_flush), line:6
+            \_ref_obj: (work@top.csr_pipeline_flushes.csr_pipe_flush), line:6, parent:work@top.csr_pipeline_flushes
               |vpiName:csr_pipe_flush
               |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
             |vpiRhs:
@@ -289,7 +217,79 @@ design: (work@top)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (instr_rdata_i), line:1, parent:work@top
+      \_logic_net: (work@top.instr_rdata_i), line:1, parent:work@top
+        |vpiName:instr_rdata_i
+        |vpiFullName:work@top.instr_rdata_i
+        |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.instr_rdata_i), line:1, parent:work@top
+|uhdmtopModules:
+\_module: work@top (work@top), file:dut.sv, line:1
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiProcess:
+  \_always: , line:3, parent:work@top
+    |vpiAlwaysType:2
+    |vpiStmt:
+    \_named_begin: (work@top.csr_pipeline_flushes), line:3
+      |vpiName:csr_pipeline_flushes
+      |vpiFullName:work@top.csr_pipeline_flushes
+      |vpiStmt:
+      \_if_stmt: , line:5, parent:work@top.csr_pipeline_flushes
+        |vpiCondition:
+        \_operation: , line:5
+          |vpiOpType:14
+          |vpiOperand:
+          \_operation: , line:5
+            |vpiOpType:67
+            |vpiOperand:
+            \_part_select: , line:5, parent:work@top.csr_pipeline_flushes.instr_rdata_i
+              |vpiConstantSelect:1
+              |vpiParent:
+              \_ref_obj: (work@top.csr_pipeline_flushes.instr_rdata_i)
+              |vpiLeftRange:
+              \_constant: , line:5
+                |vpiConstType:7
+                |vpiDecompile:31
+                |vpiSize:32
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:5
+                |vpiConstType:7
+                |vpiDecompile:20
+                |vpiSize:32
+                |INT:20
+            |vpiTypespec:
+            \_int_typespec: , line:5
+          |vpiOperand:
+          \_ref_obj: (work@top.csr_pipeline_flushes.CSR_MSTATUS), line:5
+            |vpiName:CSR_MSTATUS
+            |vpiFullName:work@top.csr_pipeline_flushes.CSR_MSTATUS
+        |vpiStmt:
+        \_begin: (work@top.csr_pipeline_flushes), line:5
+          |vpiFullName:work@top.csr_pipeline_flushes
+          |vpiStmt:
+          \_assignment: , line:6, parent:work@top.csr_pipeline_flushes
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiLhs:
+            \_ref_obj: (work@top.csr_pipeline_flushes.csr_pipe_flush), line:6
+              |vpiName:csr_pipe_flush
+              |vpiFullName:work@top.csr_pipeline_flushes.csr_pipe_flush
+            |vpiRhs:
+            \_constant: , line:6
+              |vpiConstType:3
+              |vpiDecompile:'b1
+              |vpiSize:1
+              |BIN:1
+  |vpiPort:
+  \_port: (instr_rdata_i), line:1, parent:work@top
+    |vpiName:instr_rdata_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@top.instr_rdata_i), line:1, parent:work@top
         |vpiName:instr_rdata_i
         |vpiFullName:work@top.instr_rdata_i
         |vpiNetType:36
@@ -308,7 +308,7 @@ design: (work@top)
             |vpiSize:64
             |INT:0
   |vpiNet:
-  \_logic_net: (instr_rdata_i), line:1, parent:work@top
+  \_logic_net: (work@top.instr_rdata_i), line:1, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

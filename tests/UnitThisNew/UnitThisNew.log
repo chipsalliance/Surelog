@@ -322,15 +322,15 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/UnitThisNew/slpp_all//surelog.uhdm.
 design: (unnamed)
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: builtin, parent:unnamed
+\_package: builtin (builtin), parent:unnamed
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: toto, file:dut.sv, line:1, parent:unnamed
+\_package: toto (toto), file:dut.sv, line:1, parent:unnamed
   |vpiDefName:toto
   |vpiFullName:toto
   |vpiTaskFunc:
-  \_function: (uvm_string_to_action), line:3
+  \_function: (toto::uvm_string_to_action), line:3, parent:toto
     |vpiAutomatic:1
     |vpiName:uvm_string_to_action
     |vpiFullName:toto::uvm_string_to_action
@@ -341,20 +341,20 @@ design: (unnamed)
       |vpiName:action_str
       |vpiDirection:5
       |vpiExpr:
-      \_string_var: , line:3, parent:action_str
+      \_string_var: (action_str), line:3, parent:action_str
         |vpiFullName:action_str
     |vpiIODecl:
     \_io_decl: (action)
       |vpiName:action
       |vpiDirection:2
       |vpiExpr:
-      \_chandle_var: (uvm_action), line:3, parent:action
+      \_chandle_var: (action.uvm_action), line:3, parent:action
         |vpiName:uvm_action
         |vpiFullName:action.uvm_action
     |vpiStmt:
-    \_assign_stmt: , parent:uvm_string_to_action
+    \_assign_stmt: , parent:toto::uvm_string_to_action
       |vpiLhs:
-      \_array_var: 
+      \_array_var: (toto::uvm_string_to_action)
         |vpiFullName:toto::uvm_string_to_action
         |vpiReg:
         \_string_var: (actions), line:4
@@ -373,21 +373,21 @@ design: (unnamed)
             |vpiDecompile:$
             |STRING:$
   |vpiTaskFunc:
-  \_function: (uvm_object::clone), line:7
+  \_function: (toto::uvm_object::clone), line:7, parent:toto
     |vpiName:uvm_object::clone
     |vpiFullName:toto::uvm_object::clone
     |vpiReturn:
     \_chandle_var: (uvm_object), line:7
       |vpiName:uvm_object
     |vpiStmt:
-    \_begin: , parent:uvm_object::clone
+    \_begin: (toto::uvm_object::clone), parent:toto::uvm_object::clone
       |vpiFullName:toto::uvm_object::clone
       |vpiStmt:
-      \_assignment: , line:9
+      \_assignment: , line:9, parent:toto::uvm_object::clone
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (tmp), line:9
+        \_ref_obj: (toto::uvm_object::clone::tmp), line:9, parent:toto::uvm_object::clone
           |vpiName:tmp
           |vpiFullName:toto::uvm_object::clone::tmp
         |vpiRhs:
@@ -401,28 +401,28 @@ design: (unnamed)
           \_func_call: (get_name), line:9
             |vpiName:get_name
       |vpiStmt:
-      \_func_call: (tmp.copy), line:11
+      \_func_call: (tmp.copy), line:11, parent:toto::uvm_object::clone
         |vpiName:tmp.copy
         |vpiArgument:
         \_ref_obj: (this), line:11
           |vpiName:this
   |vpiTaskFunc:
-  \_function: (m_initialize), line:16
+  \_function: (toto::m_initialize), line:16, parent:toto
     |vpiName:m_initialize
     |vpiFullName:toto::m_initialize
     |vpiReturn:
     \_chandle_var: (this_type), line:16
       |vpiName:this_type
     |vpiStmt:
-    \_begin: , parent:m_initialize
+    \_begin: (toto::m_initialize), parent:toto::m_initialize
       |vpiFullName:toto::m_initialize
       |vpiStmt:
-      \_if_stmt: , line:17
+      \_if_stmt: , line:17, parent:toto::m_initialize
         |vpiCondition:
         \_operation: , line:17
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (m_b_inst), line:17
+          \_ref_obj: (toto::m_initialize::m_b_inst), line:17
             |vpiName:m_b_inst
             |vpiFullName:toto::m_initialize::m_b_inst
           |vpiOperand:
@@ -432,25 +432,25 @@ design: (unnamed)
             |vpiSize:32
             |INT:0
         |vpiStmt:
-        \_begin: , line:17
+        \_begin: (toto::m_initialize), line:17
           |vpiFullName:toto::m_initialize
           |vpiStmt:
-          \_assignment: , line:18
+          \_assignment: , line:18, parent:toto::m_initialize
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (m_b_inst), line:18
+            \_ref_obj: (toto::m_initialize::m_b_inst), line:18
               |vpiName:m_b_inst
               |vpiFullName:toto::m_initialize::m_b_inst
             |vpiRhs:
             \_func_call: (new)
               |vpiName:new
           |vpiStmt:
-          \_assignment: , line:19
+          \_assignment: , line:19, parent:toto::m_initialize
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (m_pool), line:19
+            \_ref_obj: (toto::m_initialize::m_pool), line:19
               |vpiName:m_pool
               |vpiFullName:toto::m_initialize::m_pool
             |vpiRhs:
@@ -463,13 +463,13 @@ design: (unnamed)
                 |vpiSize:32
                 |INT:2
       |vpiStmt:
-      \_return_stmt: , line:21
+      \_return_stmt: , line:21, parent:toto::m_initialize
         |vpiCondition:
-        \_ref_obj: (m_b_inst), line:21
+        \_ref_obj: (toto::m_initialize::m_b_inst), line:21
           |vpiName:m_b_inst
           |vpiFullName:toto::m_initialize::m_b_inst
   |vpiTaskFunc:
-  \_function: (uvm_reg::add_field), line:25
+  \_function: (toto::uvm_reg::add_field), line:25, parent:toto
     |vpiName:uvm_reg::add_field
     |vpiFullName:toto::uvm_reg::add_field
     |vpiIODecl:
@@ -477,26 +477,26 @@ design: (unnamed)
       |vpiName:field
       |vpiDirection:5
       |vpiExpr:
-      \_chandle_var: (uvm_reg_field), line:25, parent:field
+      \_chandle_var: (field.uvm_reg_field), line:25, parent:field
         |vpiName:uvm_reg_field
         |vpiFullName:field.uvm_reg_field
     |vpiStmt:
-    \_if_stmt: , line:27, parent:uvm_reg::add_field
+    \_if_stmt: , line:27, parent:toto::uvm_reg::add_field
       |vpiCondition:
-      \_ref_obj: (fields.get_lsb_pos_in_register), line:27
+      \_ref_obj: (toto::uvm_reg::add_field::fields.get_lsb_pos_in_register), line:27
         |vpiName:fields.get_lsb_pos_in_register
         |vpiFullName:toto::uvm_reg::add_field::fields.get_lsb_pos_in_register
       |vpiStmt:
-      \_begin: , line:27
+      \_begin: (toto::uvm_reg::add_field), line:27
         |vpiFullName:toto::uvm_reg::add_field
   |vpiTaskFunc:
-  \_function: (uvm_transaction::is_recording_enabled), line:32
+  \_function: (toto::uvm_transaction::is_recording_enabled), line:32, parent:toto
     |vpiName:uvm_transaction::is_recording_enabled
     |vpiFullName:toto::uvm_transaction::is_recording_enabled
     |vpiReturn:
     \_bit_var: , line:32
     |vpiStmt:
-    \_return_stmt: , line:33, parent:uvm_transaction::is_recording_enabled
+    \_return_stmt: , line:33, parent:toto::uvm_transaction::is_recording_enabled
       |vpiCondition:
       \_operation: , line:33
         |vpiOpType:15
@@ -510,7 +510,7 @@ design: (unnamed)
           |vpiSize:32
           |INT:0
   |vpiTaskFunc:
-  \_function: (uvm_reg_backdoor::start_update_thread), line:36
+  \_function: (toto::uvm_reg_backdoor::start_update_thread), line:36, parent:toto
     |vpiName:uvm_reg_backdoor::start_update_thread
     |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
     |vpiIODecl:
@@ -518,46 +518,46 @@ design: (unnamed)
       |vpiName:element
       |vpiDirection:5
       |vpiExpr:
-      \_chandle_var: (uvm_object), line:36, parent:element
+      \_chandle_var: (element.uvm_object), line:36, parent:element
         |vpiName:uvm_object
         |vpiFullName:element.uvm_object
     |vpiStmt:
-    \_begin: , parent:uvm_reg_backdoor::start_update_thread
+    \_begin: (toto::uvm_reg_backdoor::start_update_thread), parent:toto::uvm_reg_backdoor::start_update_thread
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:toto::uvm_reg_backdoor::start_update_thread
         |vpiLhs:
-        \_chandle_var: (rg), line:37
+        \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37
           |vpiName:rg
           |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
       |vpiStmt:
-      \_if_stmt: , line:38
+      \_if_stmt: , line:38, parent:toto::uvm_reg_backdoor::start_update_thread
         |vpiCondition:
         \_constant: , line:38
           |vpiDecompile:this
         |vpiStmt:
-        \_begin: , line:38
+        \_begin: (toto::uvm_reg_backdoor::start_update_thread), line:38
           |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
           |vpiStmt:
-          \_sys_func_call: (this.kill_update_thread), line:39
+          \_sys_func_call: (this.kill_update_thread), line:39, parent:toto::uvm_reg_backdoor::start_update_thread
             |vpiName:this.kill_update_thread
             |vpiArgument:
             \_ref_obj: (element), line:39
               |vpiName:element
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:

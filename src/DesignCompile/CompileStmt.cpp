@@ -780,8 +780,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
   case_stmt->Case_items(case_items);
   result = case_stmt;
   case_stmt->VpiCondition((UHDM::expr*) cond_exp);
-  if (cond_exp && !cond_exp->VpiParent())
-    cond_exp->VpiParent(case_stmt);
+  setParentNoOverride(cond_exp, case_stmt);
   VObjectType CaseType = fC->Type(Case_type);
   switch (CaseType) {
     case VObjectType::slCase_inside_item:
@@ -834,8 +833,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
             UHDM::any* item_exp = compileExpression(component, fC, Expression, compileDesign);
-            if (item_exp && !item_exp->VpiParent()) {
-              item_exp->VpiParent(case_item);
+            setParentNoOverride(item_exp, case_item);
+            if (item_exp) {
               exprs->push_back(item_exp);
             } else {
              // std::cout << "HERE\n";
@@ -865,8 +864,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
         while (Value_range) {
           UHDM::expr* item_exp = (expr*)compileExpression(
               component, fC, Value_range, compileDesign);
-          if (item_exp && !item_exp->VpiParent()) {
-            item_exp->VpiParent(case_item);
+          setParentNoOverride(item_exp, case_item);
+          if (item_exp) {
             exprs->push_back(item_exp);
           }
           Value_range = fC->Sibling(Value_range);

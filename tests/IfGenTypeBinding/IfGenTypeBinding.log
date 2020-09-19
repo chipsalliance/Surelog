@@ -173,11 +173,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/IfGenTypeBinding/slpp_all//surelog.
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: ibex_pkg, file:dut.sv, line:1, parent:work@top
+\_package: ibex_pkg (ibex_pkg), file:dut.sv, line:1, parent:work@top
   |vpiDefName:ibex_pkg
   |vpiFullName:ibex_pkg
   |vpiTypedef:
@@ -205,19 +205,19 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:7
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -230,11 +230,11 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:13, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:13, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiNet:
-  \_logic_net: (pmp_cfg1), line:18
+  \_logic_net: (work@top.pmp_cfg1), line:18, parent:work@top
     |vpiName:pmp_cfg1
     |vpiFullName:work@top.pmp_cfg1
   |vpiTypedef:
@@ -299,14 +299,14 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiGenScopeArray:
-  \_gen_scope_array: (g_pmp_registers), line:20, parent:work@top
+  \_gen_scope_array: (work@top.g_pmp_registers), line:20, parent:work@top
     |vpiName:g_pmp_registers
     |vpiFullName:work@top.g_pmp_registers
     |vpiGenScope:
-    \_gen_scope: , parent:g_pmp_registers
+    \_gen_scope: (work@top.g_pmp_registers), parent:work@top.g_pmp_registers
       |vpiFullName:work@top.g_pmp_registers
       |vpiVariables:
-      \_array_var: (pmp_cfg2)
+      \_array_var: (work@top.g_pmp_registers.pmp_cfg2), parent:work@top.g_pmp_registers
         |vpiArrayType:1
         |vpiName:pmp_cfg2
         |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
@@ -314,7 +314,7 @@ design: (work@top)
         |vpiVisibility:1
         |vpiSize:2
         |vpiReg:
-        \_struct_var: , line:21, parent:pmp_cfg2
+        \_struct_var: (work@top.g_pmp_registers.pmp_cfg2), line:21, parent:work@top.g_pmp_registers.pmp_cfg2
           |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
           |vpiTypespec:
           \_struct_typespec: (pmp_cfg_t), line:3
@@ -355,7 +355,7 @@ design: (work@top)
             |vpiSize:64
             |INT:1
   |vpiVariables:
-  \_array_var: (pmp_cfg1), parent:work@top
+  \_array_var: (work@top.pmp_cfg1), parent:work@top
     |vpiArrayType:1
     |vpiName:pmp_cfg1
     |vpiFullName:work@top.pmp_cfg1
@@ -363,7 +363,7 @@ design: (work@top)
     |vpiVisibility:1
     |vpiSize:2
     |vpiReg:
-    \_struct_var: , line:18, parent:pmp_cfg1
+    \_struct_var: (work@top.pmp_cfg1), line:18, parent:work@top.pmp_cfg1
       |vpiFullName:work@top.pmp_cfg1
       |vpiTypespec:
       \_struct_typespec: (pmp_cfg_t), line:3
@@ -382,7 +382,7 @@ design: (work@top)
         |vpiSize:64
         |INT:1
   |vpiTypedef:
-  \_struct_typespec: (pmp_cfg_t), line:3
+  \_struct_typespec: (pmp_cfg_t), line:3, parent:work@top
     |vpiPacked:1
     |vpiName:pmp_cfg_t
     |vpiTypespecMember:
@@ -406,9 +406,9 @@ design: (work@top)
       |vpiTypespec:
       \_logic_typespec: , line:7, parent:read
   |vpiTypedef:
-  \_import: (ibex_pkg)
+  \_import: (ibex_pkg), parent:work@top
   |vpiParamAssign:
-  \_param_assign: , line:13
+  \_param_assign: , line:13, parent:work@top
     |vpiRhs:
     \_constant: , line:13
       |vpiConstType:7
@@ -416,13 +416,13 @@ design: (work@top)
       |vpiSize:32
       |INT:1
     |vpiLhs:
-    \_parameter: (PMPEnable), line:13
+    \_parameter: (work@top.PMPEnable), line:13, parent:work@top
       |vpiName:PMPEnable
       |vpiFullName:work@top.PMPEnable
       |vpiTypespec:
-      \_bit_typespec: , line:13, parent:PMPEnable
+      \_bit_typespec: , line:13, parent:work@top.PMPEnable
   |vpiParamAssign:
-  \_param_assign: , line:15
+  \_param_assign: , line:15, parent:work@top
     |vpiRhs:
     \_constant: , line:15
       |vpiConstType:7
@@ -430,16 +430,16 @@ design: (work@top)
       |vpiSize:32
       |INT:2
     |vpiLhs:
-    \_parameter: (PMPNumRegions), line:15
+    \_parameter: (work@top.PMPNumRegions), line:15, parent:work@top
       |vpiName:PMPNumRegions
       |vpiFullName:work@top.PMPNumRegions
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:15, parent:PMPNumRegions
+      \_int_typespec: , line:15, parent:work@top.PMPNumRegions
   |vpiParameter:
-  \_parameter: (PMPEnable), line:13
+  \_parameter: (work@top.PMPEnable), line:13, parent:work@top
   |vpiParameter:
-  \_parameter: (PMPNumRegions), line:15
+  \_parameter: (work@top.PMPNumRegions), line:15, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

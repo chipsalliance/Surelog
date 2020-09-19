@@ -93,23 +93,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/GenBlockVar/slpp_all//surelog.uhdm.
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -122,7 +122,7 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiParamAssign:
@@ -145,24 +145,24 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiGenScopeArray:
-  \_gen_scope_array: (gen_no_async), line:7, parent:work@top
+  \_gen_scope_array: (work@top.gen_no_async), line:7, parent:work@top
     |vpiName:gen_no_async
     |vpiFullName:work@top.gen_no_async
     |vpiGenScope:
-    \_gen_scope: , parent:gen_no_async
+    \_gen_scope: (work@top.gen_no_async), parent:work@top.gen_no_async
       |vpiFullName:work@top.gen_no_async
       |vpiNet:
-      \_logic_net: (diff_pq), line:8
+      \_logic_net: (work@top.gen_no_async.diff_pq), line:8, parent:work@top.gen_no_async
         |vpiName:diff_pq
         |vpiFullName:work@top.gen_no_async.diff_pq
         |vpiNetType:36
       |vpiNet:
-      \_logic_net: (diff_pd), line:8
+      \_logic_net: (work@top.gen_no_async.diff_pd), line:8, parent:work@top.gen_no_async
         |vpiName:diff_pd
         |vpiFullName:work@top.gen_no_async.diff_pd
         |vpiNetType:36
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@top
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:3
@@ -170,13 +170,13 @@ design: (work@top)
       |vpiSize:1
       |BIN:0
     |vpiLhs:
-    \_parameter: (AsyncOn), line:3
+    \_parameter: (work@top.AsyncOn), line:3, parent:work@top
       |vpiName:AsyncOn
       |vpiFullName:work@top.AsyncOn
       |vpiTypespec:
-      \_bit_typespec: , line:3, parent:AsyncOn
+      \_bit_typespec: , line:3, parent:work@top.AsyncOn
   |vpiParameter:
-  \_parameter: (AsyncOn), line:3
+  \_parameter: (work@top.AsyncOn), line:3, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
