@@ -1,0 +1,148 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ibex:ibex_core_tracing:0.1"
+description: "Ibex, a small RV32 CPU core with tracing enabled"
+filesets:
+  files_rtl:
+    depend:
+      - lowrisc:ibex:ibex_core
+      - lowrisc:ibex:ibex_tracer
+    files:
+      - rtl/ibex_core_tracing.sv
+    file_type: systemVerilogSource
+
+parameters:
+  # The tracer uses the RISC-V Formal Interface (RVFI) to collect trace signals.
+  RVFI:
+    datatype: bool
+    paramtype: vlogdefine
+    default: true
+
+  SYNTHESIS:
+    datatype: bool
+    paramtype: vlogdefine
+
+  RV32E:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+
+  RV32M:
+    datatype: str
+    default: ibex_pkg::RV32MFast
+    paramtype: vlogdefine
+    description: "RV32M implementation parameter enum. See the ibex_pkg::rv32m_e enum in ibex_pkg.sv for permitted values."
+
+  RV32B:
+    datatype: str
+    default: ibex_pkg::RV32BNone
+    paramtype: vlogdefine
+    description: "Bitmanip implementation parameter enum. See the ibex_pkg::rv32b_e enum in ibex_pkg.sv for permitted values."
+
+  RegFile:
+    datatype: str
+    default: ibex_pkg::RegFileFF
+    paramtype: vlogdefine
+    description: "Register file implementation parameter enum. See the ibex_pkg::regfile_e enum in ibex_pkg.sv for permitted values."
+
+  ICache:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable instruction cache"
+
+  ICacheECC:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable ECC protection in instruction cache"
+
+  BranchTargetALU:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables separate branch target ALU (increasing branch performance EXPERIMENTAL) [0/1]"
+
+  WritebackStage:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables third pipeline stage (EXPERIMENTAL) [0/1]"
+
+  BranchPredictor:
+    datatype: int
+    paramtype: vlogparam
+    default: 0
+    description: "Enables static branch prediction (EXPERIMENTAL)"
+
+  SecureIbex:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enables security hardening features (EXPERIMENTAL) [0/1]"
+
+  PMPEnable:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Enable PMP"
+
+  PMPGranularity:
+    datatype: int
+    default: 0
+    paramtype: vlogparam
+    description: "Granularity of NAPOT range, 0 = 4 byte, 1 = byte, 2 = 16 byte, 3 = 32 byte etc"
+
+  PMPNumRegions:
+    datatype: int
+    default: 4
+    paramtype: vlogparam
+    description: "Number of PMP regions"
+
+targets:
+  default: &default_target
+    filesets:
+      - files_rtl
+    parameters:
+      - RVFI=true
+    toplevel: ibex_core_tracing
+
+  lint:
+    <<: *default_target
+    parameters:
+      - RVFI=true
+      - SYNTHESIS=true
+      - RV32E
+      - RV32M
+      - RV32B
+      - RegFile
+      - BranchTargetALU
+      - WritebackStage
+      - BranchPredictor
+      - SecureIbex
+      - PMPEnable
+      - PMPGranularity
+      - PMPNumRegions
+    default_tool: verilator
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "-Wall"
+          # RAM primitives wider than 64bit (required for ECC) fail to build in
+          # Verilator without increasing the unroll count (see Verilator#1266)
+          - "--unroll-count 72"
+  format:
+    filesets:
+      - files_rtl
+    parameters:
+      - SYNTHESIS=true
+      - RVFI=true
+    default_tool: veribleformat
+    toplevel: ibex_core
+    tools:
+      veribleformat:
+        verible_format_args:
+          - "--inplace"

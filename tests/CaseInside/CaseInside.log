@@ -195,11 +195,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/CaseInside/slpp_unit//surelog.uhdm.
 design: (work@dm_csrs)
 |vpiName:work@dm_csrs
 |uhdmallPackages:
-\_package: builtin, parent:work@dm_csrs
+\_package: builtin (builtin), parent:work@dm_csrs
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: dm, file:top.sv, line:1, parent:work@dm_csrs
+\_package: dm (dm), file:top.sv, line:1, parent:work@dm_csrs
   |vpiDefName:dm
   |vpiFullName:dm
   |vpiTypedef:
@@ -213,13 +213,13 @@ design: (work@dm_csrs)
         \_constant: , line:4
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:4
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiEnumConst:
     \_enum_const: (DMControl), line:5
@@ -234,19 +234,19 @@ design: (work@dm_csrs)
       |vpiName:Data1
       |INT:18
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -259,18 +259,18 @@ design: (work@dm_csrs)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dm_csrs
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@dm_csrs, file:top.sv, line:12, parent:work@dm_csrs
+\_module: work@dm_csrs (work@dm_csrs), file:top.sv, line:12, parent:work@dm_csrs
   |vpiDefName:work@dm_csrs
   |vpiFullName:work@dm_csrs
   |vpiProcess:
-  \_always: , line:13
+  \_always: , line:13, parent:work@dm_csrs
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (csr_read_write), line:13
+    \_named_begin: (work@dm_csrs.csr_read_write), line:13
       |vpiName:csr_read_write
       |vpiFullName:work@dm_csrs.csr_read_write
       |vpiStmt:
-      \_case_stmt: , line:15, parent:csr_read_write
+      \_case_stmt: , line:15, parent:work@dm_csrs.csr_read_write
         |vpiCaseType:1
         |vpiQualifier:1
         |vpiCondition:
@@ -299,14 +299,14 @@ design: (work@dm_csrs)
               |vpiDecompile:18
               |INT:18
           |vpiStmt:
-          \_begin: , line:17
+          \_begin: (work@dm_csrs.csr_read_write), line:17
             |vpiFullName:work@dm_csrs.csr_read_write
             |vpiStmt:
-            \_assignment: , line:19
+            \_assignment: , line:19, parent:work@dm_csrs.csr_read_write
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (resp_queue_data), line:19
+              \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19, parent:work@dm_csrs.csr_read_write
                 |vpiName:resp_queue_data
                 |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
               |vpiRhs:
@@ -329,11 +329,11 @@ design: (work@dm_csrs)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (resp_queue_data), line:23
+            \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:23
               |vpiName:resp_queue_data
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
             |vpiRhs:
-            \_ref_obj: (dmcontrol_q), line:23
+            \_ref_obj: (work@dm_csrs.csr_read_write.dmcontrol_q), line:23
               |vpiName:dmcontrol_q
               |vpiFullName:work@dm_csrs.csr_read_write.dmcontrol_q
         |vpiCaseItem:
@@ -343,14 +343,14 @@ design: (work@dm_csrs)
   |vpiDefName:work@dm_csrs
   |vpiName:work@dm_csrs
   |vpiProcess:
-  \_always: , line:13
+  \_always: , line:13, parent:work@dm_csrs
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (csr_read_write), line:13
+    \_named_begin: (work@dm_csrs.csr_read_write), line:13
       |vpiName:csr_read_write
       |vpiFullName:work@dm_csrs.csr_read_write
       |vpiStmt:
-      \_case_stmt: , line:15, parent:csr_read_write
+      \_case_stmt: , line:15, parent:work@dm_csrs.csr_read_write
         |vpiCaseType:1
         |vpiQualifier:1
         |vpiCondition:
@@ -363,7 +363,7 @@ design: (work@dm_csrs)
             |vpiSize:1
             |BIN:0
           |vpiOperand:
-          \_ref_obj: (dmi_req_i.addr), line:15
+          \_ref_obj: (work@dm_csrs.csr_read_write.dmi_req_i.addr), line:15
             |vpiName:dmi_req_i.addr
             |vpiFullName:work@dm_csrs.csr_read_write.dmi_req_i.addr
         |vpiCaseItem:
@@ -380,14 +380,14 @@ design: (work@dm_csrs)
               |vpiDecompile:18
               |INT:18
           |vpiStmt:
-          \_begin: , line:17
+          \_begin: (work@dm_csrs.csr_read_write), line:17
             |vpiFullName:work@dm_csrs.csr_read_write
             |vpiStmt:
-            \_assignment: , line:19
+            \_assignment: , line:19, parent:work@dm_csrs.csr_read_write
               |vpiOpType:82
               |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (resp_queue_data), line:19
+              \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:19
                 |vpiName:resp_queue_data
                 |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
               |vpiRhs:
@@ -410,11 +410,11 @@ design: (work@dm_csrs)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (resp_queue_data), line:23
+            \_ref_obj: (work@dm_csrs.csr_read_write.resp_queue_data), line:23
               |vpiName:resp_queue_data
               |vpiFullName:work@dm_csrs.csr_read_write.resp_queue_data
             |vpiRhs:
-            \_ref_obj: (dmcontrol_q), line:23
+            \_ref_obj: (work@dm_csrs.csr_read_write.dmcontrol_q), line:23
               |vpiName:dmcontrol_q
               |vpiFullName:work@dm_csrs.csr_read_write.dmcontrol_q
         |vpiCaseItem:

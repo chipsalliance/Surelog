@@ -93,23 +93,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/LogicCast/slpp_all//surelog.uhdm.ch
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -122,22 +122,22 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
-  \_always: , line:2
+  \_always: , line:2, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (csr_read_write), line:2
+    \_named_begin: (work@top.csr_read_write), line:2
       |vpiName:csr_read_write
       |vpiFullName:work@top.csr_read_write
       |vpiStmt:
-      \_assignment: , line:3, parent:csr_read_write
+      \_assignment: , line:3, parent:work@top.csr_read_write
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (dmstatus.allnonexistent), line:3, parent:csr_read_write
+        \_ref_obj: (work@top.csr_read_write.dmstatus.allnonexistent), line:3, parent:work@top.csr_read_write
           |vpiName:dmstatus.allnonexistent
           |vpiFullName:work@top.csr_read_write.dmstatus.allnonexistent
         |vpiRhs:
@@ -150,7 +150,7 @@ design: (work@top)
             \_operation: , line:3
               |vpiOpType:67
               |vpiOperand:
-              \_ref_obj: (hartsel_o), line:3
+              \_ref_obj: (work@top.csr_read_write.hartsel_o), line:3
                 |vpiName:hartsel_o
                 |vpiFullName:work@top.csr_read_write.hartsel_o
               |vpiTypespec:
@@ -160,7 +160,7 @@ design: (work@top)
             \_operation: , line:3
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (NrHarts), line:3
+              \_ref_obj: (work@top.csr_read_write.NrHarts), line:3
                 |vpiName:NrHarts
                 |vpiFullName:work@top.csr_read_write.NrHarts
               |vpiOperand:
@@ -176,18 +176,18 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiProcess:
-  \_always: , line:2
+  \_always: , line:2, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (csr_read_write), line:2
+    \_named_begin: (work@top.csr_read_write), line:2
       |vpiName:csr_read_write
       |vpiFullName:work@top.csr_read_write
       |vpiStmt:
-      \_assignment: , line:3, parent:csr_read_write
+      \_assignment: , line:3, parent:work@top.csr_read_write
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (dmstatus.allnonexistent), line:3
+        \_ref_obj: (work@top.csr_read_write.dmstatus.allnonexistent), line:3
           |vpiName:dmstatus.allnonexistent
           |vpiFullName:work@top.csr_read_write.dmstatus.allnonexistent
         |vpiRhs:
@@ -200,7 +200,7 @@ design: (work@top)
             \_operation: , line:3
               |vpiOpType:67
               |vpiOperand:
-              \_ref_obj: (hartsel_o), line:3
+              \_ref_obj: (work@top.csr_read_write.hartsel_o), line:3
                 |vpiName:hartsel_o
                 |vpiFullName:work@top.csr_read_write.hartsel_o
               |vpiTypespec:
@@ -210,7 +210,7 @@ design: (work@top)
             \_operation: , line:3
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (NrHarts), line:3
+              \_ref_obj: (work@top.csr_read_write.NrHarts), line:3
                 |vpiName:NrHarts
                 |vpiFullName:work@top.csr_read_write.NrHarts
               |vpiOperand:

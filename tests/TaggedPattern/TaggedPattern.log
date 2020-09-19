@@ -155,23 +155,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/TaggedPattern/slpp_all//surelog.uhd
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -184,22 +184,26 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@top
     |vpiStmt:
-    \_begin: , line:8
+    \_begin: (work@top), line:8
       |vpiFullName:work@top
       |vpiStmt:
-      \_assignment: , line:9
+      \_assignment: , line:9, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (un), line:9
+        \_ref_obj: (work@top.un), line:9, parent:work@top
           |vpiName:un
           |vpiFullName:work@top.un
+          |vpiActual:
+          \_logic_net: (work@top.un), line:6, parent:work@top
+            |vpiName:un
+            |vpiFullName:work@top.un
         |vpiRhs:
         \_tagged_pattern: (v2), line:9
           |vpiName:v2
@@ -210,13 +214,15 @@ design: (work@top)
             |vpiSize:32
             |INT:10
       |vpiStmt:
-      \_assignment: , line:10
+      \_assignment: , line:10, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (un), line:10
+        \_ref_obj: (work@top.un), line:10, parent:work@top
           |vpiName:un
           |vpiFullName:work@top.un
+          |vpiActual:
+          \_logic_net: (work@top.un), line:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10
           |vpiName:v1
@@ -227,7 +233,7 @@ design: (work@top)
             |vpiSize:32
             |INT:85
       |vpiStmt:
-      \_sys_func_call: ($display), line:11
+      \_sys_func_call: ($display), line:11, parent:work@top
         |vpiName:$display
         |vpiArgument:
         \_constant: , line:11
@@ -239,7 +245,7 @@ design: (work@top)
         \_ref_obj: (un), line:11
           |vpiName:un
   |vpiNet:
-  \_logic_net: (un), line:6
+  \_logic_net: (work@top.un), line:6, parent:work@top
     |vpiName:un
     |vpiFullName:work@top.un
 |uhdmtopModules:
@@ -247,20 +253,20 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@top
     |vpiStmt:
-    \_begin: , line:8
+    \_begin: (work@top), line:8
       |vpiFullName:work@top
       |vpiStmt:
-      \_assignment: , line:9
+      \_assignment: , line:9, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (un), line:9
+        \_ref_obj: (work@top.un), line:9
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (un), line:6, parent:work@top
+          \_logic_net: (work@top.un), line:6, parent:work@top
             |vpiName:un
             |vpiFullName:work@top.un
         |vpiRhs:
@@ -273,15 +279,15 @@ design: (work@top)
             |vpiSize:32
             |INT:10
       |vpiStmt:
-      \_assignment: , line:10
+      \_assignment: , line:10, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (un), line:10
+        \_ref_obj: (work@top.un), line:10
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (un), line:6, parent:work@top
+          \_logic_net: (work@top.un), line:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10
           |vpiName:v1
@@ -292,7 +298,7 @@ design: (work@top)
             |vpiSize:32
             |INT:85
       |vpiStmt:
-      \_sys_func_call: ($display), line:11
+      \_sys_func_call: ($display), line:11, parent:work@top
         |vpiName:$display
         |vpiArgument:
         \_constant: , line:11, parent:$display
@@ -301,13 +307,13 @@ design: (work@top)
           |vpiSize:32
           |STRING:":assert: ('%b' == 'v1:1010101'"
         |vpiArgument:
-        \_ref_obj: (un), line:11, parent:$display
+        \_ref_obj: (work@top.$display.un), line:11, parent:$display
           |vpiName:un
           |vpiFullName:work@top.$display.un
           |vpiActual:
-          \_logic_net: (un), line:6, parent:work@top
+          \_logic_net: (work@top.un), line:6, parent:work@top
   |vpiNet:
-  \_logic_net: (un), line:6, parent:work@top
+  \_logic_net: (work@top.un), line:6, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

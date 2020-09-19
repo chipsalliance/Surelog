@@ -485,11 +485,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/CastTypespec/slpp_all//surelog.uhdm
 design: (work@tlul_adapter_host)
 |vpiName:work@tlul_adapter_host
 |uhdmallPackages:
-\_package: builtin, parent:work@tlul_adapter_host
+\_package: builtin (builtin), parent:work@tlul_adapter_host
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: top_pkg, file:dut.sv, line:2, parent:work@tlul_adapter_host
+\_package: top_pkg (top_pkg), file:dut.sv, line:2, parent:work@tlul_adapter_host
   |vpiDefName:top_pkg
   |vpiFullName:top_pkg
   |vpiParamAssign:
@@ -501,7 +501,7 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:32
     |vpiLhs:
-    \_parameter: (TL_AW), line:4
+    \_parameter: (top_pkg::TL_AW), line:4, parent:top_pkg
       |vpiName:TL_AW
       |vpiFullName:top_pkg::TL_AW
       |vpiLocalParam:1
@@ -516,7 +516,7 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:32
     |vpiLhs:
-    \_parameter: (TL_DW), line:5
+    \_parameter: (top_pkg::TL_DW), line:5, parent:top_pkg
       |vpiName:TL_DW
       |vpiFullName:top_pkg::TL_DW
       |vpiLocalParam:1
@@ -531,7 +531,7 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (TL_AIW), line:6
+    \_parameter: (top_pkg::TL_AIW), line:6, parent:top_pkg
       |vpiName:TL_AIW
       |vpiFullName:top_pkg::TL_AIW
       |vpiLocalParam:1
@@ -546,7 +546,7 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:1
     |vpiLhs:
-    \_parameter: (TL_DIW), line:7
+    \_parameter: (top_pkg::TL_DIW), line:7, parent:top_pkg
       |vpiName:TL_DIW
       |vpiFullName:top_pkg::TL_DIW
       |vpiLocalParam:1
@@ -561,7 +561,7 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:16
     |vpiLhs:
-    \_parameter: (TL_DUW), line:8
+    \_parameter: (top_pkg::TL_DUW), line:8, parent:top_pkg
       |vpiName:TL_DUW
       |vpiFullName:top_pkg::TL_DUW
       |vpiLocalParam:1
@@ -574,7 +574,7 @@ design: (work@tlul_adapter_host)
       |vpiDecompile:4
       |INT:4
     |vpiLhs:
-    \_parameter: (TL_DBW), line:9
+    \_parameter: (top_pkg::TL_DBW), line:9, parent:top_pkg
       |vpiName:TL_DBW
       |vpiFullName:top_pkg::TL_DBW
       |vpiLocalParam:1
@@ -587,40 +587,40 @@ design: (work@tlul_adapter_host)
       |vpiDecompile:2
       |INT:2
     |vpiLhs:
-    \_parameter: (TL_SZW), line:10
+    \_parameter: (top_pkg::TL_SZW), line:10, parent:top_pkg
       |vpiName:TL_SZW
       |vpiFullName:top_pkg::TL_SZW
       |vpiLocalParam:1
       |vpiTypespec:
       \_int_typespec: , line:10
   |vpiParameter:
-  \_parameter: (TL_AW), line:4
+  \_parameter: (top_pkg::TL_AW), line:4, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_DW), line:5
+  \_parameter: (top_pkg::TL_DW), line:5, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_AIW), line:6
+  \_parameter: (top_pkg::TL_AIW), line:6, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_DIW), line:7
+  \_parameter: (top_pkg::TL_DIW), line:7, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_DUW), line:8
+  \_parameter: (top_pkg::TL_DUW), line:8, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_DBW), line:9
+  \_parameter: (top_pkg::TL_DBW), line:9, parent:top_pkg
   |vpiParameter:
-  \_parameter: (TL_SZW), line:10
+  \_parameter: (top_pkg::TL_SZW), line:10, parent:top_pkg
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -633,46 +633,56 @@ design: (work@tlul_adapter_host)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@tlul_adapter_host
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@tlul_adapter_host, file:dut.sv, line:14, parent:work@tlul_adapter_host
+\_module: work@tlul_adapter_host (work@tlul_adapter_host), file:dut.sv, line:14, parent:work@tlul_adapter_host
   |vpiDefName:work@tlul_adapter_host
   |vpiFullName:work@tlul_adapter_host
   |vpiContAssign:
-  \_cont_assign: , line:16
+  \_cont_assign: , line:16, parent:work@tlul_adapter_host
     |vpiRhs:
     \_operation: , line:16
       |vpiOpType:75
       |vpiOperand:
-      \_constant: , line:17
-        |vpiConstType:5
-        |vpiDecompile:3'h0
-        |vpiSize:3
-        |HEX:3'h0
-      |vpiOperand:
-      \_operation: , line:18
-        |vpiOpType:67
-        |vpiOperand:
-        \_ref_obj: (WordSize), line:18
-          |vpiName:WordSize
+      \_tagged_pattern: 
         |vpiTypespec:
-        \_int_typespec: 
-          |INT:2
+        \_string_typespec: (a_param), line:17
+          |vpiName:a_param
+        |vpiPattern:
+        \_constant: , line:17
+          |vpiConstType:5
+          |vpiDecompile:3'h0
+          |vpiSize:3
+          |HEX:3'h0
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiTypespec:
+        \_string_typespec: (a_size), line:18
+          |vpiName:a_size
+        |vpiPattern:
+        \_operation: , line:18
+          |vpiOpType:67
+          |vpiOperand:
+          \_ref_obj: (WordSize), line:18
+            |vpiName:WordSize
+          |vpiTypespec:
+          \_int_typespec: 
+            |INT:2
     |vpiLhs:
-    \_ref_obj: (tl_o), line:16
+    \_ref_obj: (work@tlul_adapter_host.tl_o), line:16
       |vpiName:tl_o
       |vpiFullName:work@tlul_adapter_host.tl_o
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:25, parent:work@tlul_adapter_host
+\_module: work@top (work@top), file:dut.sv, line:25, parent:work@tlul_adapter_host
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@top
     |vpiStmt:
-    \_begin: , line:30
+    \_begin: (work@top), line:30
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@top
         |vpiLhs:
-        \_array_var: 
+        \_array_var: (work@top)
           |vpiFullName:work@top
           |vpiReg:
           \_chandle_var: (v1), line:31
@@ -706,88 +716,111 @@ design: (work@tlul_adapter_host)
               |vpiSize:32
               |INT:0
       |vpiStmt:
-      \_assignment: , line:32
+      \_assignment: , line:32, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (v1), line:32
+        \_ref_obj: (work@top.v1), line:32, parent:work@top
           |vpiName:v1
           |vpiFullName:work@top.v1
         |vpiRhs:
-        \_operation: , line:32
+        \_operation: , line:32, parent:work@top
           |vpiOpType:75
           |vpiOperand:
-          \_operation: , line:32
-            |vpiOpType:75
-            |vpiOperand:
+          \_tagged_pattern: 
+            |vpiTypespec:
+            \_integer_typespec: , line:32
+              |INT:2
+            |vpiPattern:
             \_operation: , line:32
               |vpiOpType:75
               |vpiOperand:
-              \_ref_obj: (a), line:32
-                |vpiName:a
-                |vpiFullName:work@top.a
-              |vpiOperand:
-              \_operation: , line:32
-                |vpiOpType:75
-                |vpiOperand:
-                \_ref_obj: (b), line:32
-                  |vpiName:b
-                  |vpiFullName:work@top.b
+              \_tagged_pattern: 
+                |vpiTypespec:
+                \_integer_typespec: , line:32
+                  |INT:3
+                |vpiPattern:
+                \_operation: , line:32
+                  |vpiOpType:75
+                  |vpiOperand:
+                  \_ref_obj: (work@top.a), line:32
+                    |vpiName:a
+                    |vpiFullName:work@top.a
+                    |vpiActual:
+                    \_int_var: (work@top.a), line:28, parent:work@top
+                      |vpiName:a
+                      |vpiFullName:work@top.a
+                  |vpiOperand:
+                  \_operation: , line:32
+                    |vpiOpType:75
+                    |vpiOperand:
+                    \_tagged_pattern: 
+                      |vpiTypespec:
+                      \_integer_typespec: , line:32
+                        |INT:2
+                      |vpiPattern:
+                      \_ref_obj: (work@top.b), line:32
+                        |vpiName:b
+                        |vpiFullName:work@top.b
+                        |vpiActual:
+                        \_int_var: (work@top.b), line:28, parent:work@top
+                          |vpiName:b
+                          |vpiFullName:work@top.b
   |vpiProcess:
-  \_always: , line:36
+  \_always: , line:36, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (p_outmux), line:36
+    \_named_begin: (work@top.p_outmux), line:36
       |vpiName:p_outmux
       |vpiFullName:work@top.p_outmux
       |vpiStmt:
-      \_if_stmt: , line:37, parent:p_outmux
+      \_if_stmt: , line:37, parent:work@top.p_outmux
         |vpiCondition:
         \_operation: , line:37
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (selected_hart), line:37
+          \_ref_obj: (work@top.p_outmux.selected_hart), line:37
             |vpiName:selected_hart
             |vpiFullName:work@top.p_outmux.selected_hart
           |vpiOperand:
           \_operation: , line:37
             |vpiOpType:67
             |vpiOperand:
-            \_ref_obj: (NrHarts), line:37
+            \_ref_obj: (work@top.p_outmux.NrHarts), line:37
               |vpiName:NrHarts
               |vpiFullName:work@top.p_outmux.NrHarts
             |vpiTypespec:
             \_integer_typespec: , line:37
               |INT:3
         |vpiStmt:
-        \_begin: , line:37
+        \_begin: (work@top.p_outmux), line:37
           |vpiFullName:work@top.p_outmux
           |vpiStmt:
-          \_assignment: , line:38
+          \_assignment: , line:38, parent:work@top.p_outmux
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (resumereq_o), line:38
+            \_ref_obj: (work@top.p_outmux.resumereq_o), line:38, parent:work@top.p_outmux
               |vpiName:resumereq_o
               |vpiFullName:work@top.p_outmux.resumereq_o
             |vpiRhs:
-            \_ref_obj: (dmcontrol_q.resumereq), line:38
+            \_ref_obj: (work@top.p_outmux.dmcontrol_q.resumereq), line:38, parent:work@top.p_outmux
               |vpiName:dmcontrol_q.resumereq
               |vpiFullName:work@top.p_outmux.dmcontrol_q.resumereq
   |vpiNet:
-  \_logic_net: (XYZ), line:26
+  \_logic_net: (work@top.XYZ), line:26, parent:work@top
     |vpiName:XYZ
     |vpiFullName:work@top.XYZ
   |vpiNet:
-  \_logic_net: (a), line:28
+  \_logic_net: (work@top.a), line:28, parent:work@top
     |vpiName:a
     |vpiFullName:work@top.a
   |vpiNet:
-  \_logic_net: (b), line:28
+  \_logic_net: (work@top.b), line:28, parent:work@top
     |vpiName:b
     |vpiFullName:work@top.b
   |vpiNet:
-  \_logic_net: (c), line:28
+  \_logic_net: (work@top.c), line:28, parent:work@top
     |vpiName:c
     |vpiFullName:work@top.c
   |vpiTypedef:
@@ -822,28 +855,38 @@ design: (work@tlul_adapter_host)
   |vpiDefName:work@tlul_adapter_host
   |vpiName:work@tlul_adapter_host
   |vpiContAssign:
-  \_cont_assign: , line:16
+  \_cont_assign: , line:16, parent:work@tlul_adapter_host
     |vpiRhs:
     \_operation: , line:16
       |vpiOpType:75
       |vpiOperand:
-      \_constant: , line:17
-        |vpiConstType:5
-        |vpiDecompile:3'h0
-        |vpiSize:3
-        |HEX:3'h0
-      |vpiOperand:
-      \_operation: , line:18
-        |vpiOpType:67
-        |vpiOperand:
-        \_ref_obj: (WordSize), line:18
-          |vpiName:WordSize
-          |vpiFullName:work@tlul_adapter_host.WordSize
+      \_tagged_pattern: 
         |vpiTypespec:
-        \_int_typespec: 
-          |INT:2
+        \_string_typespec: (a_param), line:17
+          |vpiName:a_param
+        |vpiPattern:
+        \_constant: , line:17
+          |vpiConstType:5
+          |vpiDecompile:3'h0
+          |vpiSize:3
+          |HEX:3'h0
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiTypespec:
+        \_string_typespec: (a_size), line:18
+          |vpiName:a_size
+        |vpiPattern:
+        \_operation: , line:18
+          |vpiOpType:67
+          |vpiOperand:
+          \_ref_obj: (work@tlul_adapter_host.WordSize), line:18
+            |vpiName:WordSize
+            |vpiFullName:work@tlul_adapter_host.WordSize
+          |vpiTypespec:
+          \_int_typespec: 
+            |INT:2
     |vpiLhs:
-    \_ref_obj: (tl_o), line:16
+    \_ref_obj: (work@tlul_adapter_host.tl_o), line:16
       |vpiName:tl_o
       |vpiFullName:work@tlul_adapter_host.tl_o
 |uhdmtopModules:
@@ -851,21 +894,21 @@ design: (work@tlul_adapter_host)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@top
     |vpiStmt:
-    \_begin: , line:30
+    \_begin: (work@top), line:30
       |vpiFullName:work@top
       |vpiStmt:
-      \_assign_stmt: 
+      \_assign_stmt: , parent:work@top
         |vpiLhs:
-        \_array_var: 
+        \_array_var: (work@top)
           |vpiFullName:work@top
           |vpiReg:
-          \_chandle_var: (v1), line:31
+          \_chandle_var: (work@top.v1), line:31, parent:work@top
             |vpiName:v1
             |vpiFullName:work@top.v1
           |vpiRange:
-          \_range: , line:31
+          \_range: , line:31, parent:work@top
             |vpiLeftRange:
             \_constant: , line:31
               |vpiConstType:7
@@ -879,7 +922,7 @@ design: (work@tlul_adapter_host)
               |vpiSize:32
               |INT:0
           |vpiRange:
-          \_range: , line:31
+          \_range: , line:31, parent:work@top
             |vpiLeftRange:
             \_constant: , line:31
               |vpiConstType:7
@@ -893,96 +936,129 @@ design: (work@tlul_adapter_host)
               |vpiSize:32
               |INT:0
       |vpiStmt:
-      \_assignment: , line:32
+      \_assignment: , line:32, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (v1), line:32
+        \_ref_obj: (work@top.v1), line:32
           |vpiName:v1
           |vpiFullName:work@top.v1
         |vpiRhs:
         \_operation: , line:32
           |vpiOpType:75
           |vpiOperand:
-          \_operation: , line:32
-            |vpiOpType:75
-            |vpiOperand:
+          \_tagged_pattern: 
+            |vpiTypespec:
+            \_integer_typespec: , line:32
+              |INT:2
+            |vpiPattern:
             \_operation: , line:32
               |vpiOpType:75
               |vpiOperand:
-              \_ref_obj: (a), line:32
-                |vpiName:a
-                |vpiFullName:work@top.a
-                |vpiActual:
-                \_int_var: (a), line:28, parent:work@top
-                  |vpiName:a
-                  |vpiFullName:work@top.a
-              |vpiOperand:
-              \_operation: , line:32
-                |vpiOpType:75
-                |vpiOperand:
-                \_ref_obj: (b), line:32
-                  |vpiName:b
-                  |vpiFullName:work@top.b
-                  |vpiActual:
-                  \_int_var: (b), line:28, parent:work@top
-                    |vpiName:b
-                    |vpiFullName:work@top.b
+              \_tagged_pattern: 
+                |vpiTypespec:
+                \_integer_typespec: , line:32
+                  |INT:3
+                |vpiPattern:
+                \_operation: , line:32
+                  |vpiOpType:75
+                  |vpiOperand:
+                  \_ref_obj: (work@top.a), line:32
+                    |vpiName:a
+                    |vpiFullName:work@top.a
+                    |vpiActual:
+                    \_int_var: (work@top.a), line:28, parent:work@top
+                      |vpiName:a
+                      |vpiFullName:work@top.a
+                  |vpiOperand:
+                  \_operation: , line:32
+                    |vpiOpType:75
+                    |vpiOperand:
+                    \_tagged_pattern: 
+                      |vpiTypespec:
+                      \_integer_typespec: , line:32
+                        |INT:2
+                      |vpiPattern:
+                      \_ref_obj: (work@top.b), line:32
+                        |vpiName:b
+                        |vpiFullName:work@top.b
+                        |vpiActual:
+                        \_int_var: (work@top.b), line:28, parent:work@top
+                          |vpiName:b
+                          |vpiFullName:work@top.b
   |vpiProcess:
-  \_always: , line:36
+  \_always: , line:36, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (p_outmux), line:36
+    \_named_begin: (work@top.p_outmux), line:36
       |vpiName:p_outmux
       |vpiFullName:work@top.p_outmux
       |vpiStmt:
-      \_if_stmt: , line:37, parent:p_outmux
+      \_if_stmt: , line:37, parent:work@top.p_outmux
         |vpiCondition:
         \_operation: , line:37
           |vpiOpType:20
           |vpiOperand:
-          \_ref_obj: (selected_hart), line:37
+          \_ref_obj: (work@top.p_outmux.selected_hart), line:37
             |vpiName:selected_hart
             |vpiFullName:work@top.p_outmux.selected_hart
           |vpiOperand:
           \_operation: , line:37
             |vpiOpType:67
             |vpiOperand:
-            \_ref_obj: (NrHarts), line:37
+            \_ref_obj: (work@top.p_outmux.NrHarts), line:37
               |vpiName:NrHarts
               |vpiFullName:work@top.p_outmux.NrHarts
             |vpiTypespec:
             \_integer_typespec: , line:37
               |INT:3
         |vpiStmt:
-        \_begin: , line:37
+        \_begin: (work@top.p_outmux), line:37
           |vpiFullName:work@top.p_outmux
           |vpiStmt:
-          \_assignment: , line:38
+          \_assignment: , line:38, parent:work@top.p_outmux
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (resumereq_o), line:38
+            \_ref_obj: (work@top.p_outmux.resumereq_o), line:38
               |vpiName:resumereq_o
               |vpiFullName:work@top.p_outmux.resumereq_o
             |vpiRhs:
-            \_ref_obj: (dmcontrol_q.resumereq), line:38
+            \_ref_obj: (work@top.p_outmux.dmcontrol_q.resumereq), line:38
               |vpiName:dmcontrol_q.resumereq
               |vpiFullName:work@top.p_outmux.dmcontrol_q.resumereq
+  |vpiContAssign:
+  \_cont_assign: , line:26, parent:work@top
+    |vpiRhs:
+    \_operation: , line:26
+      |vpiOpType:75
+      |vpiOperand:
+      \_tagged_pattern: 
+        |vpiTypespec:
+        \_integer_typespec: , line:26
+          |INT:3
+        |vpiPattern:
+        \_constant: , line:26
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+    |vpiLhs:
+    \_logic_net: (work@top.XYZ), line:26, parent:work@top
+      |vpiName:XYZ
+      |vpiFullName:work@top.XYZ
   |vpiNet:
-  \_logic_net: (XYZ), line:26, parent:work@top
-    |vpiName:XYZ
-    |vpiFullName:work@top.XYZ
+  \_logic_net: (work@top.XYZ), line:26, parent:work@top
   |vpiVariables:
-  \_int_var: (a), line:28, parent:work@top
+  \_int_var: (work@top.a), line:28, parent:work@top
   |vpiVariables:
-  \_int_var: (b), line:28, parent:work@top
+  \_int_var: (work@top.b), line:28, parent:work@top
   |vpiVariables:
-  \_int_var: (c), line:28, parent:work@top
+  \_int_var: (work@top.c), line:28, parent:work@top
     |vpiName:c
     |vpiFullName:work@top.c
   |vpiTypedef:
-  \_struct_typespec: (ab_t), line:27
+  \_struct_typespec: (ab_t), line:27, parent:work@top
     |vpiName:ab_t
     |vpiTypespecMember:
     \_typespec_member: (a), line:27, parent:ab_t
@@ -995,7 +1071,7 @@ design: (work@tlul_adapter_host)
       |vpiTypespec:
       \_int_typespec: , line:27, parent:b
   |vpiParamAssign:
-  \_param_assign: , line:35
+  \_param_assign: , line:35, parent:work@top
     |vpiRhs:
     \_constant: , line:35
       |vpiConstType:7
@@ -1003,12 +1079,12 @@ design: (work@tlul_adapter_host)
       |vpiSize:32
       |INT:2
     |vpiLhs:
-    \_parameter: (HartSelLen), line:35
+    \_parameter: (work@top.HartSelLen), line:35, parent:work@top
       |vpiName:HartSelLen
       |vpiFullName:work@top.HartSelLen
       |vpiLocalParam:1
   |vpiParameter:
-  \_parameter: (HartSelLen), line:35
+  \_parameter: (work@top.HartSelLen), line:35, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

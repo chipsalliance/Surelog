@@ -29,14 +29,16 @@ using namespace SURELOG;
 ClassDefinition::ClassDefinition(std::string name, Library* library,
                                  DesignComponent* container,
                                  const FileContent* fC,
-                                 NodeId nodeId, ClassDefinition* parent)
+                                 NodeId nodeId, ClassDefinition* parent, 
+                                 UHDM::class_defn* uhdm_definition)
     : DesignComponent(container ? container : fC, NULL),
       DataType(fC, nodeId, name,
                fC ? fC->Type(nodeId) : VObjectType::slClass_declaration),
       m_name(name),
       m_library(library),
       m_container(container),
-      m_parent(parent) {
+      m_parent(parent), 
+      m_uhdm_definition(uhdm_definition) {
   addFileContent(fC, nodeId);
 }
 

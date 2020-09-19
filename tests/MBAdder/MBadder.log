@@ -34,23 +34,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/MBadder/slpp_all//surelog.uhdm.chk
 design: (work@MultibitAdder)
 |vpiName:work@MultibitAdder
 |uhdmallPackages:
-\_package: builtin, parent:work@MultibitAdder
+\_package: builtin (builtin), parent:work@MultibitAdder
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -63,61 +63,61 @@ design: (work@MultibitAdder)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@MultibitAdder
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@MultibitAdder, file:dut.sv, line:1, parent:work@MultibitAdder
+\_module: work@MultibitAdder (work@MultibitAdder), file:dut.sv, line:1, parent:work@MultibitAdder
   |vpiDefName:work@MultibitAdder
   |vpiFullName:work@MultibitAdder
   |vpiPort:
-  \_port: (a), line:1
+  \_port: (a), line:1, parent:work@MultibitAdder
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1
+      \_logic_net: (work@MultibitAdder.a), line:1, parent:work@MultibitAdder
         |vpiName:a
         |vpiFullName:work@MultibitAdder.a
   |vpiPort:
-  \_port: (b), line:1
+  \_port: (b), line:1, parent:work@MultibitAdder
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1
+      \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
         |vpiName:b
         |vpiFullName:work@MultibitAdder.b
   |vpiPort:
-  \_port: (cin), line:1
+  \_port: (cin), line:1, parent:work@MultibitAdder
     |vpiName:cin
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (cin), line:1
+      \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
         |vpiName:cin
         |vpiFullName:work@MultibitAdder.cin
   |vpiPort:
-  \_port: (sum), line:1
+  \_port: (sum), line:1, parent:work@MultibitAdder
     |vpiName:sum
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (sum), line:1
+      \_logic_net: (work@MultibitAdder.sum), line:1, parent:work@MultibitAdder
         |vpiName:sum
         |vpiFullName:work@MultibitAdder.sum
   |vpiPort:
-  \_port: (cout), line:1
+  \_port: (cout), line:1, parent:work@MultibitAdder
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (cout), line:1
+      \_logic_net: (work@MultibitAdder.cout), line:1, parent:work@MultibitAdder
         |vpiName:cout
         |vpiFullName:work@MultibitAdder.cout
   |vpiContAssign:
-  \_cont_assign: , line:6
+  \_cont_assign: , line:6, parent:work@MultibitAdder
     |vpiRhs:
     \_operation: , line:6
       |vpiOpType:24
@@ -125,38 +125,60 @@ design: (work@MultibitAdder)
       \_operation: , line:6
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (a), line:6
+        \_ref_obj: (work@MultibitAdder.a), line:6
           |vpiName:a
           |vpiFullName:work@MultibitAdder.a
         |vpiOperand:
-        \_ref_obj: (b), line:6
+        \_ref_obj: (work@MultibitAdder.b), line:6
           |vpiName:b
           |vpiFullName:work@MultibitAdder.b
+          |vpiActual:
+          \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
+            |vpiName:b
+            |vpiFullName:work@MultibitAdder.b
+            |vpiRange:
+            \_range: , line:2
+              |vpiLeftRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:3
+                |vpiSize:64
+                |INT:3
+              |vpiRightRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
       |vpiOperand:
-      \_ref_obj: (cin), line:6
+      \_ref_obj: (work@MultibitAdder.cin), line:6
         |vpiName:cin
         |vpiFullName:work@MultibitAdder.cin
+        |vpiActual:
+        \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
+          |vpiName:cin
+          |vpiFullName:work@MultibitAdder.cin
     |vpiLhs:
     \_operation: , line:6
       |vpiOpType:33
       |vpiOperand:
-      \_ref_obj: (cout), line:6
+      \_ref_obj: (work@MultibitAdder.cout), line:6
         |vpiName:cout
         |vpiFullName:work@MultibitAdder.cout
       |vpiOperand:
-      \_ref_obj: (sum), line:6
+      \_ref_obj: (work@MultibitAdder.sum), line:6
         |vpiName:sum
         |vpiFullName:work@MultibitAdder.sum
   |vpiNet:
-  \_logic_net: (a), line:1
+  \_logic_net: (work@MultibitAdder.a), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (b), line:1
+  \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (cin), line:1
+  \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (sum), line:1
+  \_logic_net: (work@MultibitAdder.sum), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (cout), line:1
+  \_logic_net: (work@MultibitAdder.cout), line:1, parent:work@MultibitAdder
 |uhdmtopModules:
 \_module: work@MultibitAdder (work@MultibitAdder), file:dut.sv, line:1
   |vpiDefName:work@MultibitAdder
@@ -168,7 +190,7 @@ design: (work@MultibitAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1, parent:work@MultibitAdder
+      \_logic_net: (work@MultibitAdder.a), line:1, parent:work@MultibitAdder
         |vpiName:a
         |vpiFullName:work@MultibitAdder.a
         |vpiRange:
@@ -177,13 +199,13 @@ design: (work@MultibitAdder)
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (b), line:1, parent:work@MultibitAdder
@@ -192,7 +214,7 @@ design: (work@MultibitAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1, parent:work@MultibitAdder
+      \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
         |vpiName:b
         |vpiFullName:work@MultibitAdder.b
         |vpiRange:
@@ -201,13 +223,13 @@ design: (work@MultibitAdder)
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (cin), line:1, parent:work@MultibitAdder
@@ -216,7 +238,7 @@ design: (work@MultibitAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (cin), line:1, parent:work@MultibitAdder
+      \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
         |vpiName:cin
         |vpiFullName:work@MultibitAdder.cin
   |vpiPort:
@@ -226,7 +248,7 @@ design: (work@MultibitAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (sum), line:1, parent:work@MultibitAdder
+      \_logic_net: (work@MultibitAdder.sum), line:1, parent:work@MultibitAdder
         |vpiName:sum
         |vpiFullName:work@MultibitAdder.sum
         |vpiRange:
@@ -235,13 +257,13 @@ design: (work@MultibitAdder)
           \_constant: , line:4
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:4
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (cout), line:1, parent:work@MultibitAdder
@@ -250,11 +272,11 @@ design: (work@MultibitAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (cout), line:1, parent:work@MultibitAdder
+      \_logic_net: (work@MultibitAdder.cout), line:1, parent:work@MultibitAdder
         |vpiName:cout
         |vpiFullName:work@MultibitAdder.cout
   |vpiContAssign:
-  \_cont_assign: , line:6
+  \_cont_assign: , line:6, parent:work@MultibitAdder
     |vpiRhs:
     \_operation: , line:6
       |vpiOpType:24
@@ -262,48 +284,48 @@ design: (work@MultibitAdder)
       \_operation: , line:6
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (a), line:6
+        \_ref_obj: (work@MultibitAdder.a), line:6
           |vpiName:a
           |vpiFullName:work@MultibitAdder.a
           |vpiActual:
-          \_logic_net: (a), line:1, parent:work@MultibitAdder
+          \_logic_net: (work@MultibitAdder.a), line:1, parent:work@MultibitAdder
         |vpiOperand:
-        \_ref_obj: (b), line:6
+        \_ref_obj: (work@MultibitAdder.b), line:6
           |vpiName:b
           |vpiFullName:work@MultibitAdder.b
           |vpiActual:
-          \_logic_net: (b), line:1, parent:work@MultibitAdder
+          \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
       |vpiOperand:
-      \_ref_obj: (cin), line:6
+      \_ref_obj: (work@MultibitAdder.cin), line:6
         |vpiName:cin
         |vpiFullName:work@MultibitAdder.cin
         |vpiActual:
-        \_logic_net: (cin), line:1, parent:work@MultibitAdder
+        \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
     |vpiLhs:
     \_operation: , line:6
       |vpiOpType:33
       |vpiOperand:
-      \_ref_obj: (cout), line:6
+      \_ref_obj: (work@MultibitAdder.cout), line:6
         |vpiName:cout
         |vpiFullName:work@MultibitAdder.cout
         |vpiActual:
-        \_logic_net: (cout), line:1, parent:work@MultibitAdder
+        \_logic_net: (work@MultibitAdder.cout), line:1, parent:work@MultibitAdder
       |vpiOperand:
-      \_ref_obj: (sum), line:6
+      \_ref_obj: (work@MultibitAdder.sum), line:6
         |vpiName:sum
         |vpiFullName:work@MultibitAdder.sum
         |vpiActual:
-        \_logic_net: (sum), line:1, parent:work@MultibitAdder
+        \_logic_net: (work@MultibitAdder.sum), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (a), line:1, parent:work@MultibitAdder
+  \_logic_net: (work@MultibitAdder.a), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (b), line:1, parent:work@MultibitAdder
+  \_logic_net: (work@MultibitAdder.b), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (cin), line:1, parent:work@MultibitAdder
+  \_logic_net: (work@MultibitAdder.cin), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (sum), line:1, parent:work@MultibitAdder
+  \_logic_net: (work@MultibitAdder.sum), line:1, parent:work@MultibitAdder
   |vpiNet:
-  \_logic_net: (cout), line:1, parent:work@MultibitAdder
+  \_logic_net: (work@MultibitAdder.cout), line:1, parent:work@MultibitAdder
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

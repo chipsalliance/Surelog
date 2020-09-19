@@ -41,6 +41,7 @@
 #include "DesignCompile/CompileDesign.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileClass.h"
+#include "headers/uhdm.h"
 
 using namespace SURELOG;
 
@@ -515,6 +516,7 @@ bool CompileClass::compile_type_declaration_(const FileContent* fC, NodeId id) {
 
 bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
   NodeId class_name_id = fC->Child(id);
   std::string class_name =
       m_class->getName() + "::" + fC->SymName(class_name_id);
@@ -534,7 +536,7 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
 
   ClassDefinition* the_class =
       new ClassDefinition(class_name, m_class->getLibrary(),
-                          m_class->getContainer(), fC, class_name_id, m_class);
+                          m_class->getContainer(), fC, class_name_id, m_class, s.MakeClass_defn());
   m_class->insertClass(the_class);
 
   CompileClass* instance = new CompileClass(m_compileDesign, the_class,
@@ -648,6 +650,7 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
 }
 
 bool CompileClass::compile_class_type_(const FileContent* fC, NodeId id) {
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
   NodeId parent = fC->Parent(id);
   VObjectType ptype = fC->Type(parent);
   if (ptype != VObjectType::slClass_declaration) return true;
@@ -662,7 +665,7 @@ bool CompileClass::compile_class_type_(const FileContent* fC, NodeId id) {
   // Will be bound in UVMElaboration step
   ClassDefinition* base_class =
       new ClassDefinition(base_class_name, m_class->getLibrary(),
-                          m_class->getContainer(), fC, base_class_id, NULL);
+                          m_class->getContainer(), fC, base_class_id, NULL, s.MakeClass_defn());
   m_class->insertBaseClass(base_class);
 
   return true;

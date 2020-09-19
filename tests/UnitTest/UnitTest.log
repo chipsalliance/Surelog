@@ -639,141 +639,141 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/UnitTest/slpp_unit//surelog.uhdm.ch
 design: (work@tb_operators)
 |vpiName:work@tb_operators
 |uhdmallPackages:
-\_package: builtin, parent:work@tb_operators
+\_package: builtin (builtin), parent:work@tb_operators
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
 \_class_defn: (work@DD2), file:top.v, line:54, parent:work@tb_operators
   |vpiName:work@DD2
 |uhdmallInterfaces:
-\_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
+\_interface: work@mem_if (work@mem_if), file:top.v, line:47, parent:work@tb_operators
   |vpiDefName:work@mem_if
   |vpiFullName:work@mem_if
   |vpiModport:
-  \_modport: (memory)
+  \_modport: (memory), parent:work@mem_if
     |vpiName:memory
     |vpiIODecl:
     \_io_decl: (clk)
       |vpiName:clk
       |vpiDirection:2
   |vpiModport:
-  \_modport: (system)
+  \_modport: (system), parent:work@mem_if
     |vpiName:system
     |vpiIODecl:
     \_io_decl: (clk)
       |vpiName:clk
       |vpiDirection:1
   |vpiPort:
-  \_port: (clk), line:47
+  \_port: (clk), line:47, parent:work@mem_if
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:47
+      \_logic_net: (work@mem_if.clk), line:47, parent:work@mem_if
         |vpiName:clk
         |vpiFullName:work@mem_if.clk
         |vpiNetType:1
   |vpiNet:
-  \_logic_net: (clk), line:47
+  \_logic_net: (work@mem_if.clk), line:47, parent:work@mem_if
 |uhdmallModules:
-\_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
+\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:57, parent:work@tb_operators
   |vpiDefName:work@memory_ctrl1
   |vpiFullName:work@memory_ctrl1
   |vpiPort:
-  \_port: (sif1), line:57
+  \_port: (sif1), line:57, parent:work@memory_ctrl1
     |vpiName:sif1
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
+      \_interface: work@mem_if (work@mem_if), file:top.v, line:47, parent:work@tb_operators
         |vpiDefName:work@mem_if
         |vpiFullName:work@mem_if
         |vpiModport:
-        \_modport: (memory)
+        \_modport: (memory), parent:work@mem_if
           |vpiName:memory
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:2
         |vpiModport:
-        \_modport: (system)
+        \_modport: (system), parent:work@mem_if
           |vpiName:system
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:1
         |vpiPort:
-        \_port: (clk), line:47
+        \_port: (clk), line:47, parent:work@mem_if
           |vpiName:clk
           |vpiDirection:1
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:
-            \_logic_net: (clk), line:47
+            \_logic_net: (work@mem_if.clk), line:47, parent:work@mem_if
               |vpiName:clk
               |vpiFullName:work@mem_if.clk
               |vpiNetType:1
         |vpiNet:
-        \_logic_net: (clk), line:47
+        \_logic_net: (work@mem_if.clk), line:47, parent:work@mem_if
   |vpiPort:
-  \_port: (sif2), line:57
+  \_port: (sif2), line:57, parent:work@memory_ctrl1
     |vpiName:sif2
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:work@mem_if
   |vpiNet:
-  \_logic_net: (toto1), line:59
+  \_logic_net: (work@memory_ctrl1.toto1), line:59, parent:work@memory_ctrl1
     |vpiName:toto1
     |vpiFullName:work@memory_ctrl1.toto1
   |vpiNet:
-  \_logic_net: (i1), line:63
+  \_logic_net: (work@memory_ctrl1.i1), line:63, parent:work@memory_ctrl1
     |vpiName:i1
     |vpiFullName:work@memory_ctrl1.i1
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (o1), line:65
+  \_logic_net: (work@memory_ctrl1.o1), line:65, parent:work@memory_ctrl1
     |vpiName:o1
     |vpiFullName:work@memory_ctrl1.o1
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (sif1), line:57
+  \_logic_net: (work@memory_ctrl1.sif1), line:57, parent:work@memory_ctrl1
     |vpiName:sif1
     |vpiFullName:work@memory_ctrl1.sif1
   |vpiNet:
-  \_logic_net: (sif2), line:57
+  \_logic_net: (work@memory_ctrl1.sif2), line:57, parent:work@memory_ctrl1
     |vpiName:sif2
     |vpiFullName:work@memory_ctrl1.sif2
 |uhdmallModules:
-\_module: work@tb_operators, file:top.v, line:3, parent:work@tb_operators
+\_module: work@tb_operators (work@tb_operators), file:top.v, line:3, parent:work@tb_operators
   |vpiDefName:work@tb_operators
   |vpiFullName:work@tb_operators
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@tb_operators
     |vpiStmt:
-    \_begin: , line:8
+    \_begin: (work@tb_operators), line:8
       |vpiFullName:work@tb_operators
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:10
+      \_sys_func_call: ($monitor), line:10, parent:work@tb_operators
         |vpiName:$monitor
         |vpiArgument:
         \_ref_obj: (shifter), line:10
@@ -782,13 +782,32 @@ design: (work@tb_operators)
         \_ref_obj: (result), line:10
           |vpiName:result
       |vpiStmt:
-      \_assignment: , line:11
+      \_assignment: , line:11, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (shifter), line:11
+        \_ref_obj: (work@tb_operators.shifter), line:11, parent:work@tb_operators
           |vpiName:shifter
           |vpiFullName:work@tb_operators.shifter
+          |vpiActual:
+          \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
+            |vpiName:shifter
+            |vpiFullName:work@tb_operators.shifter
+            |vpiNetType:1
+            |vpiRange:
+            \_range: , line:5
+              |vpiLeftRange:
+              \_constant: , line:5
+                |vpiConstType:7
+                |vpiDecompile:31
+                |vpiSize:64
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:5
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
         |vpiRhs:
         \_constant: , line:11
           |vpiConstType:3
@@ -796,20 +815,41 @@ design: (work@tb_operators)
           |vpiSize:32
           |BIN:32'b1
       |vpiStmt:
-      \_assignment: , line:13
+      \_assignment: , line:13, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:13
+        \_ref_obj: (work@tb_operators.result), line:13, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
+            |vpiName:result
+            |vpiFullName:work@tb_operators.result
+            |vpiNetType:1
+            |vpiRange:
+            \_range: , line:6
+              |vpiLeftRange:
+              \_constant: , line:6
+                |vpiConstType:7
+                |vpiDecompile:31
+                |vpiSize:64
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:6
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
         |vpiRhs:
-        \_operation: , line:13
+        \_operation: , line:13, parent:work@tb_operators
           |vpiOpType:22
           |vpiOperand:
-          \_ref_obj: (shifter), line:13
+          \_ref_obj: (work@tb_operators.shifter), line:13, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
           \_constant: , line:13
             |vpiConstType:7
@@ -817,20 +857,24 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:4
       |vpiStmt:
-      \_assignment: , line:14
+      \_assignment: , line:14, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:14
+        \_ref_obj: (work@tb_operators.result), line:14, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:14
+        \_operation: , line:14, parent:work@tb_operators
           |vpiOpType:23
           |vpiOperand:
-          \_ref_obj: (shifter), line:14
+          \_ref_obj: (work@tb_operators.shifter), line:14, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
           \_constant: , line:14
             |vpiConstType:7
@@ -838,20 +882,24 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:4
       |vpiStmt:
-      \_assignment: , line:15
+      \_assignment: , line:15, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:15
+        \_ref_obj: (work@tb_operators.result), line:15, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:15
+        \_operation: , line:15, parent:work@tb_operators
           |vpiOpType:22
           |vpiOperand:
-          \_ref_obj: (shifter), line:15
+          \_ref_obj: (work@tb_operators.shifter), line:15, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
           \_constant: , line:15
             |vpiConstType:7
@@ -859,18 +907,20 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:4
       |vpiStmt:
-      \_assignment: , line:16
+      \_assignment: , line:16, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:16
+        \_ref_obj: (work@tb_operators.result), line:16, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:16
+        \_operation: , line:16, parent:work@tb_operators
           |vpiOpType:42
           |vpiOperand:
-          \_operation: , line:16
+          \_operation: , line:16, parent:work@tb_operators
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:16
@@ -891,18 +941,20 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:31
       |vpiStmt:
-      \_assignment: , line:17
+      \_assignment: , line:17, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:17
+        \_ref_obj: (work@tb_operators.result), line:17, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:17
+        \_operation: , line:17, parent:work@tb_operators
           |vpiOpType:41
           |vpiOperand:
-          \_operation: , line:17
+          \_operation: , line:17, parent:work@tb_operators
             |vpiOpType:33
             |vpiOperand:
             \_constant: , line:17
@@ -923,20 +975,24 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:31
       |vpiStmt:
-      \_assignment: , line:19
+      \_assignment: , line:19, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:19
+        \_ref_obj: (work@tb_operators.result), line:19, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:19
+        \_operation: , line:19, parent:work@tb_operators
           |vpiOpType:43
           |vpiOperand:
-          \_ref_obj: (shifter), line:19
+          \_ref_obj: (work@tb_operators.shifter), line:19, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
           \_constant: , line:19
             |vpiConstType:7
@@ -944,20 +1000,24 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:2
       |vpiStmt:
-      \_assignment: , line:20
+      \_assignment: , line:20, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:20
+        \_ref_obj: (work@tb_operators.result), line:20, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:20
+        \_operation: , line:20, parent:work@tb_operators
           |vpiOpType:13
           |vpiOperand:
-          \_ref_obj: (result), line:20
+          \_ref_obj: (work@tb_operators.result), line:20, parent:work@tb_operators
             |vpiName:result
             |vpiFullName:work@tb_operators.result
+            |vpiActual:
+            \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
           |vpiOperand:
           \_constant: , line:20
             |vpiConstType:7
@@ -965,23 +1025,25 @@ design: (work@tb_operators)
             |vpiSize:32
             |INT:4
       |vpiStmt:
-      \_if_else: , line:22
+      \_if_else: , line:22, parent:work@tb_operators
         |vpiCondition:
         \_operation: , line:22
           |vpiOpType:19
           |vpiOperand:
-          \_ref_obj: (shifter), line:22
+          \_ref_obj: (work@tb_operators.shifter), line:22
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
           |vpiOperand:
-          \_ref_obj: (result), line:22
+          \_ref_obj: (work@tb_operators.result), line:22
             |vpiName:result
             |vpiFullName:work@tb_operators.result
+            |vpiActual:
+            \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiStmt:
-        \_begin: , line:22
+        \_begin: (work@tb_operators), line:22
           |vpiFullName:work@tb_operators
           |vpiStmt:
-          \_sys_func_call: ($display), line:23
+          \_sys_func_call: ($display), line:23, parent:work@tb_operators
             |vpiName:$display
             |vpiArgument:
             \_constant: , line:23
@@ -995,18 +1057,20 @@ design: (work@tb_operators)
           \_operation: , line:24
             |vpiOpType:15
             |vpiOperand:
-            \_ref_obj: (shifter), line:24
+            \_ref_obj: (work@tb_operators.shifter), line:24
               |vpiName:shifter
               |vpiFullName:work@tb_operators.shifter
             |vpiOperand:
-            \_ref_obj: (result), line:24
+            \_ref_obj: (work@tb_operators.result), line:24
               |vpiName:result
               |vpiFullName:work@tb_operators.result
+              |vpiActual:
+              \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
           |vpiStmt:
-          \_begin: , line:24
+          \_begin: (work@tb_operators), line:24
             |vpiFullName:work@tb_operators
             |vpiStmt:
-            \_sys_func_call: ($display), line:25
+            \_sys_func_call: ($display), line:25, parent:work@tb_operators
               |vpiName:$display
               |vpiArgument:
               \_constant: , line:25
@@ -1020,18 +1084,20 @@ design: (work@tb_operators)
             \_operation: , line:26
               |vpiOpType:16
               |vpiOperand:
-              \_ref_obj: (shifter), line:26
+              \_ref_obj: (work@tb_operators.shifter), line:26
                 |vpiName:shifter
                 |vpiFullName:work@tb_operators.shifter
               |vpiOperand:
-              \_ref_obj: (result), line:26
+              \_ref_obj: (work@tb_operators.result), line:26
                 |vpiName:result
                 |vpiFullName:work@tb_operators.result
+                |vpiActual:
+                \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
             |vpiStmt:
-            \_begin: , line:26
+            \_begin: (work@tb_operators), line:26
               |vpiFullName:work@tb_operators
               |vpiStmt:
-              \_sys_func_call: ($display), line:27
+              \_sys_func_call: ($display), line:27, parent:work@tb_operators
                 |vpiName:$display
                 |vpiArgument:
                 \_constant: , line:27
@@ -1045,18 +1111,20 @@ design: (work@tb_operators)
               \_operation: , line:28
                 |vpiOpType:17
                 |vpiOperand:
-                \_ref_obj: (shifter), line:28
+                \_ref_obj: (work@tb_operators.shifter), line:28
                   |vpiName:shifter
                   |vpiFullName:work@tb_operators.shifter
                 |vpiOperand:
-                \_ref_obj: (result), line:28
+                \_ref_obj: (work@tb_operators.result), line:28
                   |vpiName:result
                   |vpiFullName:work@tb_operators.result
+                  |vpiActual:
+                  \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
               |vpiStmt:
-              \_begin: , line:28
+              \_begin: (work@tb_operators), line:28
                 |vpiFullName:work@tb_operators
                 |vpiStmt:
-                \_sys_func_call: ($display), line:29
+                \_sys_func_call: ($display), line:29, parent:work@tb_operators
                   |vpiName:$display
                   |vpiArgument:
                   \_constant: , line:29
@@ -1065,126 +1133,144 @@ design: (work@tb_operators)
                     |vpiSize:12
                     |STRING:"GTE TEST 3"
       |vpiStmt:
-      \_assignment: , line:32
+      \_assignment: , line:32, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (result), line:32
+        \_ref_obj: (work@tb_operators.result), line:32, parent:work@tb_operators
           |vpiName:result
           |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:32
+        \_operation: , line:32, parent:work@tb_operators
           |vpiOpType:17
           |vpiOperand:
-          \_ref_obj: (shifter), line:32
+          \_ref_obj: (work@tb_operators.shifter), line:32, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
-          \_ref_obj: (shifter), line:32
+          \_ref_obj: (work@tb_operators.shifter), line:32
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
       |vpiStmt:
-      \_assignment: , line:34
+      \_assignment: , line:34, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (shifter), line:34
+        \_ref_obj: (work@tb_operators.shifter), line:34, parent:work@tb_operators
           |vpiName:shifter
           |vpiFullName:work@tb_operators.shifter
+          |vpiActual:
+          \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:34
+        \_operation: , line:34, parent:work@tb_operators
           |vpiOpType:6
           |vpiOperand:
-          \_ref_obj: (shifter), line:34
+          \_ref_obj: (work@tb_operators.shifter), line:34, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
-          \_ref_obj: (result), line:34
+          \_ref_obj: (work@tb_operators.result), line:34
             |vpiName:result
             |vpiFullName:work@tb_operators.result
+            |vpiActual:
+            \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
       |vpiStmt:
-      \_assignment: , line:35
+      \_assignment: , line:35, parent:work@tb_operators
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (shifter), line:35
+        \_ref_obj: (work@tb_operators.shifter), line:35, parent:work@tb_operators
           |vpiName:shifter
           |vpiFullName:work@tb_operators.shifter
+          |vpiActual:
+          \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
         |vpiRhs:
-        \_operation: , line:35
+        \_operation: , line:35, parent:work@tb_operators
           |vpiOpType:8
           |vpiOperand:
-          \_ref_obj: (shifter), line:35
+          \_ref_obj: (work@tb_operators.shifter), line:35, parent:work@tb_operators
             |vpiName:shifter
             |vpiFullName:work@tb_operators.shifter
+            |vpiActual:
+            \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
           |vpiOperand:
-          \_ref_obj: (result), line:35
+          \_ref_obj: (work@tb_operators.result), line:35
             |vpiName:result
             |vpiFullName:work@tb_operators.result
+            |vpiActual:
+            \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
   |vpiNet:
-  \_logic_net: (shifter), line:5
+  \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
     |vpiName:shifter
     |vpiFullName:work@tb_operators.shifter
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (result), line:6
+  \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
     |vpiName:result
     |vpiFullName:work@tb_operators.result
     |vpiNetType:1
 |uhdmallModules:
-\_module: work@top, file:top.v, line:40, parent:work@tb_operators
+\_module: work@top (work@top), file:top.v, line:40, parent:work@tb_operators
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiPort:
-  \_port: (i), line:40
+  \_port: (i), line:40, parent:work@top
     |vpiName:i
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (i), line:41
+      \_logic_net: (work@top.i), line:41, parent:work@top
         |vpiName:i
         |vpiFullName:work@top.i
         |vpiNetType:1
   |vpiPort:
-  \_port: (o), line:40
+  \_port: (o), line:40, parent:work@top
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (o), line:42
+      \_logic_net: (work@top.o), line:42, parent:work@top
         |vpiName:o
         |vpiFullName:work@top.o
         |vpiNetType:48
   |vpiContAssign:
-  \_cont_assign: , line:43
+  \_cont_assign: , line:43, parent:work@top
     |vpiRhs:
-    \_ref_obj: (i), line:43
+    \_ref_obj: (work@top.i), line:43
       |vpiName:i
       |vpiFullName:work@top.i
     |vpiLhs:
-    \_ref_obj: (o), line:43
+    \_ref_obj: (work@top.o), line:43
       |vpiName:o
       |vpiFullName:work@top.o
   |vpiNet:
-  \_logic_net: (i), line:40
+  \_logic_net: (work@top.i), line:40, parent:work@top
     |vpiName:i
     |vpiFullName:work@top.i
   |vpiNet:
-  \_logic_net: (o), line:40
+  \_logic_net: (work@top.o), line:40, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
   |vpiNet:
-  \_logic_net: (i), line:41
+  \_logic_net: (work@top.i), line:41, parent:work@top
   |vpiNet:
-  \_logic_net: (o), line:42
+  \_logic_net: (work@top.o), line:42, parent:work@top
 |uhdmtopModules:
 \_module: work@tb_operators (work@tb_operators), file:top.v, line:3
   |vpiDefName:work@tb_operators
   |vpiName:work@tb_operators
   |vpiNet:
-  \_logic_net: (shifter), line:5, parent:work@tb_operators
+  \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
     |vpiName:shifter
     |vpiFullName:work@tb_operators.shifter
     |vpiNetType:1
@@ -1194,16 +1280,16 @@ design: (work@tb_operators)
       \_constant: , line:5
         |vpiConstType:7
         |vpiDecompile:31
-        |vpiSize:32
+        |vpiSize:64
         |INT:31
       |vpiRightRange:
       \_constant: , line:5
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:32
+        |vpiSize:64
         |INT:0
   |vpiNet:
-  \_logic_net: (result), line:6, parent:work@tb_operators
+  \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
     |vpiName:result
     |vpiFullName:work@tb_operators.result
     |vpiNetType:1
@@ -1213,13 +1299,13 @@ design: (work@tb_operators)
       \_constant: , line:6
         |vpiConstType:7
         |vpiDecompile:31
-        |vpiSize:32
+        |vpiSize:64
         |INT:31
       |vpiRightRange:
       \_constant: , line:6
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:32
+        |vpiSize:64
         |INT:0
 |uhdmtopModules:
 \_module: work@top (work@top), file:top.v, line:40
@@ -1232,7 +1318,7 @@ design: (work@tb_operators)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (i), line:40, parent:work@top
+      \_logic_net: (work@top.i), line:40, parent:work@top
         |vpiName:i
         |vpiFullName:work@top.i
   |vpiPort:
@@ -1242,20 +1328,20 @@ design: (work@tb_operators)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (o), line:40, parent:work@top
+      \_logic_net: (work@top.o), line:40, parent:work@top
         |vpiName:o
         |vpiFullName:work@top.o
   |vpiNet:
-  \_logic_net: (i), line:40, parent:work@top
+  \_logic_net: (work@top.i), line:40, parent:work@top
   |vpiNet:
-  \_logic_net: (o), line:40, parent:work@top
+  \_logic_net: (work@top.o), line:40, parent:work@top
   |vpiNet:
-  \_logic_net: (i), line:41, parent:work@top
+  \_logic_net: (work@top.i), line:41, parent:work@top
     |vpiName:i
     |vpiFullName:work@top.i
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (o), line:42, parent:work@top
+  \_logic_net: (work@top.o), line:42, parent:work@top
     |vpiName:o
     |vpiFullName:work@top.o
     |vpiNetType:48
@@ -1309,25 +1395,25 @@ design: (work@tb_operators)
     |vpiName:clk
     |vpiDirection:1
   |vpiNet:
-  \_logic_net: (toto1), line:59, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.toto1), line:59, parent:work@memory_ctrl1
     |vpiName:toto1
     |vpiFullName:work@memory_ctrl1.toto1
   |vpiNet:
-  \_logic_net: (i1), line:63, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.i1), line:63, parent:work@memory_ctrl1
     |vpiName:i1
     |vpiFullName:work@memory_ctrl1.i1
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (o1), line:65, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.o1), line:65, parent:work@memory_ctrl1
     |vpiName:o1
     |vpiFullName:work@memory_ctrl1.o1
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (sif1), line:57, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.sif1), line:57, parent:work@memory_ctrl1
     |vpiName:sif1
     |vpiFullName:work@memory_ctrl1.sif1
   |vpiNet:
-  \_logic_net: (sif2), line:57, parent:work@memory_ctrl1
+  \_logic_net: (work@memory_ctrl1.sif2), line:57, parent:work@memory_ctrl1
     |vpiName:sif2
     |vpiFullName:work@memory_ctrl1.sif2
 ===================

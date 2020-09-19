@@ -158,11 +158,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/UnitEnum/slpp_unit//surelog.uhdm.ch
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: pkg, file:top.v, line:2, parent:work@top
+\_package: pkg (pkg), file:top.v, line:2, parent:work@top
   |vpiDefName:pkg
   |vpiFullName:pkg
   |vpiTypedef:
@@ -185,23 +185,23 @@ design: (work@top)
       |vpiName:WRITE
       |INT:1
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
-\_class_defn: (pkg::Configuration1), file:top.v, line:3
+\_class_defn: (pkg::pkg::Configuration1), file:top.v, line:3, parent:pkg
   |vpiName:pkg::Configuration1
   |vpiFullName:pkg::pkg::Configuration1
 |uhdmallClasses:
@@ -217,23 +217,23 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:top.v, line:14, parent:work@top
+\_module: work@top (work@top), file:top.v, line:14, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiNet:
-  \_logic_net: (state), line:18
+  \_logic_net: (work@top.state), line:18, parent:work@top
     |vpiName:state
     |vpiFullName:work@top.state
   |vpiNet:
-  \_logic_net: (state2), line:19
+  \_logic_net: (work@top.state2), line:19, parent:work@top
     |vpiName:state2
     |vpiFullName:work@top.state2
   |vpiNet:
-  \_logic_net: (env), line:21
+  \_logic_net: (work@top.env), line:21, parent:work@top
     |vpiName:env
     |vpiFullName:work@top.env
   |vpiNet:
-  \_logic_net: (cfg), line:22
+  \_logic_net: (work@top.cfg), line:22, parent:work@top
     |vpiName:cfg
     |vpiFullName:work@top.cfg
   |vpiTypedef:
@@ -281,15 +281,15 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiNet:
-  \_logic_net: (env), line:21, parent:work@top
+  \_logic_net: (work@top.env), line:21, parent:work@top
     |vpiName:env
     |vpiFullName:work@top.env
   |vpiNet:
-  \_logic_net: (cfg), line:22, parent:work@top
+  \_logic_net: (work@top.cfg), line:22, parent:work@top
     |vpiName:cfg
     |vpiFullName:work@top.cfg
   |vpiVariables:
-  \_enum_var: (state), line:18, parent:work@top
+  \_enum_var: (work@top.state), line:18, parent:work@top
     |vpiName:state
     |vpiFullName:work@top.state
     |vpiTypespec:
@@ -312,7 +312,7 @@ design: (work@top)
         |vpiName:WRITE
         |INT:1
   |vpiVariables:
-  \_enum_var: (state2), line:19, parent:work@top
+  \_enum_var: (work@top.state2), line:19, parent:work@top
     |vpiName:state2
     |vpiFullName:work@top.state2
     |vpiTypespec:
@@ -334,6 +334,10 @@ design: (work@top)
       \_enum_const: (WRITE), line:6
         |vpiName:WRITE
         |INT:1
+  |vpiTypedef:
+  \_enum_typespec: (fsm_t), line:16
+  |vpiTypedef:
+  \_enum_typespec: (fsm_t_pkg), line:6
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

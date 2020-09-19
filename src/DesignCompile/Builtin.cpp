@@ -42,6 +42,8 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
+#include "headers/Serializer.h"
+#include "headers/class_defn.h"
 
 #include <string_view>
 
@@ -199,6 +201,7 @@ void Builtin::addBuiltins() {
 
   };
 
+  UHDM::Serializer& s = m_compiler->getSerializer();
   for (const auto& function : functionDef) {
     const std::string& packageName = function[0];
     const std::string& className = function[1];
@@ -213,7 +216,7 @@ void Builtin::addBuiltins() {
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == NULL) {
       classDef =
-          new ClassDefinition(fullClassName, NULL, package, NULL, 0, NULL);
+          new ClassDefinition(fullClassName, NULL, package, NULL, 0, NULL, s.MakeClass_defn());
       m_design->addClassDefinition(fullClassName, classDef);
       package->addClassDefinition(fullClassName, classDef);
     }

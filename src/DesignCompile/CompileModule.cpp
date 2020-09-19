@@ -555,6 +555,11 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
+        case VObjectType::slAssertion_item: {
+          if (!collectDefinitions) break;
+          m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
@@ -956,10 +961,26 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
     n<> u<21> t<Clocking_declaration> p<22> c<12> l<39>
    */
 
-  NodeId clocking_block_name = fC->Child(id);
-  SymbolId clocking_block_symbol =
-      m_symbols->registerSymbol(fC->SymName(clocking_block_name));
-  NodeId clocking_event = fC->Sibling(clocking_block_name);
-  ClockingBlock cb(fC, clocking_block_name, clocking_event);
+  NodeId clocking_block_type = fC->Child(id);
+  NodeId clocking_block_name = 0;
+  SymbolId clocking_block_symbol = 0;
+  ClockingBlock::Type type = ClockingBlock::Regular;
+  if(fC->Type(clocking_block_type) == slDefault)
+    type =  ClockingBlock::Default;
+  else if(fC->Type(clocking_block_type) == slGlobal)
+    type =  ClockingBlock::Global;
+  else if(fC->Type(clocking_block_type) == slStringConst)
+    clocking_block_name = clocking_block_type; 
+  NodeId clocking_event = fC->Sibling(clocking_block_type);
+  if(fC->Type(clocking_event) == slStringConst) {
+    clocking_block_name = clocking_event; 
+    clocking_event = fC->Sibling(clocking_block_name);
+  }
+  if (clocking_block_name)  
+    clocking_block_symbol = m_symbols->registerSymbol(fC->SymName(clocking_block_name));
+  else
+    clocking_block_symbol = m_symbols->registerSymbol("unnamed_clocking_block");  
+  UHDM::clocking_block* cblock = m_helper.compileClockingBlock(m_module, fC, id, m_compileDesign);
+  ClockingBlock cb(fC, clocking_block_type, clocking_event, type, cblock);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }

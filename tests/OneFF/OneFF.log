@@ -29,31 +29,31 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/OneFF/slpp_unit//surelog.uhdm.chk
 design: (work@tb)
 |vpiName:work@tb
 |uhdmallPackages:
-\_package: builtin, parent:work@tb
+\_package: builtin (builtin), parent:work@tb
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallModules:
-\_module: work@dut, file:dut.v, line:2, parent:work@tb
+\_module: work@dut (work@dut), file:dut.v, line:2, parent:work@tb
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiProcess:
-  \_always: , line:7
+  \_always: , line:7, parent:work@dut
     |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:7
@@ -66,31 +66,46 @@ design: (work@tb)
           |vpiOperand:
           \_ref_obj: (clk), line:7
             |vpiName:clk
+            |vpiActual:
+            \_logic_net: (work@tb.dut1.clk), line:4, parent:work@tb.dut1
+              |vpiName:clk
+              |vpiFullName:work@tb.dut1.clk
         |vpiOperand:
         \_operation: , line:7
           |vpiOpType:40
           |vpiOperand:
           \_ref_obj: (rstn), line:7
             |vpiName:rstn
+            |vpiActual:
+            \_logic_net: (work@tb.dut1.rstn), line:3, parent:work@tb.dut1
+              |vpiName:rstn
+              |vpiFullName:work@tb.dut1.rstn
       |vpiStmt:
-      \_begin: , line:8
+      \_begin: (work@dut), line:8
         |vpiFullName:work@dut
         |vpiStmt:
-        \_if_else: , line:9
+        \_if_else: , line:9, parent:work@dut
           |vpiCondition:
           \_operation: , line:9
             |vpiOpType:3
             |vpiOperand:
-            \_ref_obj: (rstn), line:9
+            \_ref_obj: (work@dut.rstn), line:9
               |vpiName:rstn
               |vpiFullName:work@dut.rstn
+              |vpiActual:
+              \_logic_net: (work@tb.dut1.rstn), line:3, parent:work@tb.dut1
           |vpiStmt:
           \_assignment: , line:10
             |vpiOpType:82
             |vpiLhs:
-            \_ref_obj: (q), line:10
+            \_ref_obj: (work@dut.q), line:10
               |vpiName:q
               |vpiFullName:work@dut.q
+              |vpiActual:
+              \_logic_net: (work@tb.dut1.q), line:5, parent:work@tb.dut1
+                |vpiName:q
+                |vpiFullName:work@tb.dut1.q
+                |vpiNetType:48
             |vpiRhs:
             \_constant: , line:10
               |vpiConstType:7
@@ -101,73 +116,79 @@ design: (work@tb)
           \_assignment: , line:12
             |vpiOpType:82
             |vpiLhs:
-            \_ref_obj: (q), line:12
+            \_ref_obj: (work@dut.q), line:12
               |vpiName:q
               |vpiFullName:work@dut.q
+              |vpiActual:
+              \_logic_net: (work@tb.dut1.q), line:5, parent:work@tb.dut1
             |vpiRhs:
-            \_ref_obj: (d), line:12
+            \_ref_obj: (work@dut.d), line:12
               |vpiName:d
               |vpiFullName:work@dut.d
+              |vpiActual:
+              \_logic_net: (work@tb.dut1.d), line:2, parent:work@tb.dut1
+                |vpiName:d
+                |vpiFullName:work@tb.dut1.d
   |vpiPort:
-  \_port: (d), line:2
+  \_port: (d), line:2, parent:work@dut
     |vpiName:d
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (d), line:2
+      \_logic_net: (work@dut.d), line:2, parent:work@dut
         |vpiName:d
         |vpiFullName:work@dut.d
   |vpiPort:
-  \_port: (rstn), line:3
+  \_port: (rstn), line:3, parent:work@dut
     |vpiName:rstn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (rstn), line:3
+      \_logic_net: (work@dut.rstn), line:3, parent:work@dut
         |vpiName:rstn
         |vpiFullName:work@dut.rstn
   |vpiPort:
-  \_port: (clk), line:4
+  \_port: (clk), line:4, parent:work@dut
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:4
+      \_logic_net: (work@dut.clk), line:4, parent:work@dut
         |vpiName:clk
         |vpiFullName:work@dut.clk
   |vpiPort:
-  \_port: (q), line:5
+  \_port: (q), line:5, parent:work@dut
     |vpiName:q
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (q), line:5
+      \_logic_net: (work@dut.q), line:5, parent:work@dut
         |vpiName:q
         |vpiFullName:work@dut.q
         |vpiNetType:48
   |vpiNet:
-  \_logic_net: (d), line:2
+  \_logic_net: (work@dut.d), line:2, parent:work@dut
   |vpiNet:
-  \_logic_net: (rstn), line:3
+  \_logic_net: (work@dut.rstn), line:3, parent:work@dut
   |vpiNet:
-  \_logic_net: (clk), line:4
+  \_logic_net: (work@dut.clk), line:4, parent:work@dut
   |vpiNet:
-  \_logic_net: (q), line:5
+  \_logic_net: (work@dut.q), line:5, parent:work@dut
 |uhdmallModules:
-\_module: work@tb, file:tb.v, line:2, parent:work@tb
+\_module: work@tb (work@tb), file:tb.v, line:2, parent:work@tb
   |vpiDefName:work@tb
   |vpiFullName:work@tb
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@tb
     |vpiStmt:
-    \_begin: , line:8
+    \_begin: (work@tb), line:8
       |vpiFullName:work@tb
       |vpiStmt:
-      \_sys_func_call: ($dumpfile), line:9
+      \_sys_func_call: ($dumpfile), line:9, parent:work@tb
         |vpiName:$dumpfile
         |vpiArgument:
         \_constant: , line:9
@@ -176,10 +197,10 @@ design: (work@tb)
           |vpiSize:10
           |STRING:"test.vcd"
       |vpiStmt:
-      \_sys_func_call: ($dumpvars), line:10
+      \_sys_func_call: ($dumpvars), line:10, parent:work@tb
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:11
+      \_sys_func_call: ($monitor), line:11, parent:work@tb
         |vpiName:$monitor
         |vpiArgument:
         \_constant: , line:11
@@ -197,24 +218,29 @@ design: (work@tb)
         \_ref_obj: (o), line:11
           |vpiName:o
       |vpiStmt:
-      \_delay_control: , line:12
+      \_delay_control: , line:12, parent:work@tb
         |#100
         |vpiStmt:
         \_sys_func_call: ($finish), line:12
           |vpiName:$finish
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@tb
     |vpiStmt:
-    \_begin: , line:16
+    \_begin: (work@tb), line:16
       |vpiFullName:work@tb
       |vpiStmt:
-      \_assignment: , line:17
+      \_assignment: , line:17, parent:work@tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (rstn), line:17
+        \_ref_obj: (work@tb.rstn), line:17, parent:work@tb
           |vpiName:rstn
           |vpiFullName:work@tb.rstn
+          |vpiActual:
+          \_logic_net: (work@tb.rstn), line:4, parent:work@tb
+            |vpiName:rstn
+            |vpiFullName:work@tb.rstn
+            |vpiNetType:36
         |vpiRhs:
         \_constant: , line:17
           |vpiConstType:7
@@ -222,13 +248,18 @@ design: (work@tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_assignment: , line:18
+      \_assignment: , line:18, parent:work@tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (clk), line:18
+        \_ref_obj: (work@tb.clk), line:18, parent:work@tb
           |vpiName:clk
           |vpiFullName:work@tb.clk
+          |vpiActual:
+          \_logic_net: (work@tb.clk), line:3, parent:work@tb
+            |vpiName:clk
+            |vpiFullName:work@tb.clk
+            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:18
           |vpiConstType:7
@@ -236,13 +267,18 @@ design: (work@tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_assignment: , line:19
+      \_assignment: , line:19, parent:work@tb
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (d), line:19
+        \_ref_obj: (work@tb.d), line:19, parent:work@tb
           |vpiName:d
           |vpiFullName:work@tb.d
+          |vpiActual:
+          \_logic_net: (work@tb.d), line:5, parent:work@tb
+            |vpiName:d
+            |vpiFullName:work@tb.d
+            |vpiNetType:36
         |vpiRhs:
         \_constant: , line:19
           |vpiConstType:7
@@ -250,16 +286,18 @@ design: (work@tb)
           |vpiSize:32
           |INT:0
       |vpiStmt:
-      \_delay_control: , line:20
+      \_delay_control: , line:20, parent:work@tb
         |#2
         |vpiStmt:
         \_assignment: , line:20
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (rstn), line:20
+          \_ref_obj: (work@tb.rstn), line:20
             |vpiName:rstn
             |vpiFullName:work@tb.rstn
+            |vpiActual:
+            \_logic_net: (work@tb.rstn), line:4, parent:work@tb
           |vpiRhs:
           \_constant: , line:20
             |vpiConstType:7
@@ -267,14 +305,19 @@ design: (work@tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_immediate_assert: , line:21
+      \_immediate_assert: , line:21, parent:work@tb
         |vpiExpr:
         \_operation: , line:21
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (o), line:21
+          \_ref_obj: (work@tb.o), line:21, parent:work@tb
             |vpiName:o
             |vpiFullName:work@tb.o
+            |vpiActual:
+            \_logic_net: (work@tb.o), line:6, parent:work@tb
+              |vpiName:o
+              |vpiFullName:work@tb.o
+              |vpiNetType:48
           |vpiOperand:
           \_constant: , line:21
             |vpiConstType:7
@@ -306,16 +349,18 @@ design: (work@tb)
             |vpiSize:18
             |STRING:"FAILED ASSERTION"
       |vpiStmt:
-      \_delay_control: , line:22
+      \_delay_control: , line:22, parent:work@tb
         |#10
         |vpiStmt:
         \_assignment: , line:22
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (d), line:22
+          \_ref_obj: (work@tb.d), line:22
             |vpiName:d
             |vpiFullName:work@tb.d
+            |vpiActual:
+            \_logic_net: (work@tb.d), line:5, parent:work@tb
           |vpiRhs:
           \_constant: , line:22
             |vpiConstType:7
@@ -323,7 +368,7 @@ design: (work@tb)
             |vpiSize:32
             |INT:1
       |vpiStmt:
-      \_delay_control: , line:23
+      \_delay_control: , line:23, parent:work@tb
         |#5
         |vpiStmt:
         \_immediate_assert: , line:23
@@ -331,9 +376,11 @@ design: (work@tb)
           \_operation: , line:23
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o), line:23
+            \_ref_obj: (work@tb.o), line:23
               |vpiName:o
               |vpiFullName:work@tb.o
+              |vpiActual:
+              \_logic_net: (work@tb.o), line:6, parent:work@tb
             |vpiOperand:
             \_constant: , line:23
               |vpiConstType:7
@@ -365,16 +412,18 @@ design: (work@tb)
               |vpiSize:18
               |STRING:"FAILED ASSERTION"
       |vpiStmt:
-      \_delay_control: , line:24
+      \_delay_control: , line:24, parent:work@tb
         |#20
         |vpiStmt:
         \_assignment: , line:24
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (d), line:24
+          \_ref_obj: (work@tb.d), line:24
             |vpiName:d
             |vpiFullName:work@tb.d
+            |vpiActual:
+            \_logic_net: (work@tb.d), line:5, parent:work@tb
           |vpiRhs:
           \_constant: , line:24
             |vpiConstType:7
@@ -382,7 +431,7 @@ design: (work@tb)
             |vpiSize:32
             |INT:0
       |vpiStmt:
-      \_delay_control: , line:25
+      \_delay_control: , line:25, parent:work@tb
         |#10
         |vpiStmt:
         \_immediate_assert: , line:25
@@ -390,9 +439,11 @@ design: (work@tb)
           \_operation: , line:25
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o), line:25
+            \_ref_obj: (work@tb.o), line:25
               |vpiName:o
               |vpiFullName:work@tb.o
+              |vpiActual:
+              \_logic_net: (work@tb.o), line:6, parent:work@tb
             |vpiOperand:
             \_constant: , line:25
               |vpiConstType:7
@@ -424,7 +475,7 @@ design: (work@tb)
               |vpiSize:18
               |STRING:"FAILED ASSERTION"
   |vpiProcess:
-  \_always: , line:28
+  \_always: , line:28, parent:work@tb
     |vpiAlwaysType:1
     |vpiStmt:
     \_delay_control: , line:29
@@ -434,33 +485,37 @@ design: (work@tb)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (clk), line:29
+        \_ref_obj: (work@tb.clk), line:29
           |vpiName:clk
           |vpiFullName:work@tb.clk
+          |vpiActual:
+          \_logic_net: (work@tb.clk), line:3, parent:work@tb
         |vpiRhs:
         \_operation: , line:29
           |vpiOpType:3
           |vpiOperand:
-          \_ref_obj: (clk), line:29
+          \_ref_obj: (work@tb.clk), line:29
             |vpiName:clk
             |vpiFullName:work@tb.clk
+            |vpiActual:
+            \_logic_net: (work@tb.clk), line:3, parent:work@tb
   |vpiNet:
-  \_logic_net: (clk), line:3
+  \_logic_net: (work@tb.clk), line:3, parent:work@tb
     |vpiName:clk
     |vpiFullName:work@tb.clk
     |vpiNetType:48
   |vpiNet:
-  \_logic_net: (rstn), line:4
+  \_logic_net: (work@tb.rstn), line:4, parent:work@tb
     |vpiName:rstn
     |vpiFullName:work@tb.rstn
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (d), line:5
+  \_logic_net: (work@tb.d), line:5, parent:work@tb
     |vpiName:d
     |vpiFullName:work@tb.d
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (o), line:6
+  \_logic_net: (work@tb.o), line:6, parent:work@tb
     |vpiName:o
     |vpiFullName:work@tb.o
     |vpiNetType:48
@@ -469,101 +524,101 @@ design: (work@tb)
   |vpiDefName:work@tb
   |vpiName:work@tb
   |vpiModule:
-  \_module: work@dut (dut1), file:tb.v, line:31, parent:work@tb
+  \_module: work@dut (work@tb.dut1), file:tb.v, line:31, parent:work@tb
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@tb.dut1
     |vpiPort:
-    \_port: (d), line:2, parent:dut1
+    \_port: (d), line:2, parent:work@tb.dut1
       |vpiName:d
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (d), line:31
         |vpiName:d
         |vpiActual:
-        \_logic_net: (d), line:5, parent:work@tb
+        \_logic_net: (work@tb.d), line:5, parent:work@tb
           |vpiName:d
           |vpiFullName:work@tb.d
           |vpiNetType:36
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (d), line:2, parent:dut1
+        \_logic_net: (work@tb.dut1.d), line:2, parent:work@tb.dut1
           |vpiName:d
           |vpiFullName:work@tb.dut1.d
     |vpiPort:
-    \_port: (rstn), line:3, parent:dut1
+    \_port: (rstn), line:3, parent:work@tb.dut1
       |vpiName:rstn
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (rstn), line:31
         |vpiName:rstn
         |vpiActual:
-        \_logic_net: (rstn), line:4, parent:work@tb
+        \_logic_net: (work@tb.rstn), line:4, parent:work@tb
           |vpiName:rstn
           |vpiFullName:work@tb.rstn
           |vpiNetType:36
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (rstn), line:3, parent:dut1
+        \_logic_net: (work@tb.dut1.rstn), line:3, parent:work@tb.dut1
           |vpiName:rstn
           |vpiFullName:work@tb.dut1.rstn
     |vpiPort:
-    \_port: (clk), line:4, parent:dut1
+    \_port: (clk), line:4, parent:work@tb.dut1
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (clk), line:31
         |vpiName:clk
         |vpiActual:
-        \_logic_net: (clk), line:3, parent:work@tb
+        \_logic_net: (work@tb.clk), line:3, parent:work@tb
           |vpiName:clk
           |vpiFullName:work@tb.clk
           |vpiNetType:48
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (clk), line:4, parent:dut1
+        \_logic_net: (work@tb.dut1.clk), line:4, parent:work@tb.dut1
           |vpiName:clk
           |vpiFullName:work@tb.dut1.clk
     |vpiPort:
-    \_port: (q), line:5, parent:dut1
+    \_port: (q), line:5, parent:work@tb.dut1
       |vpiName:q
       |vpiDirection:2
       |vpiHighConn:
       \_ref_obj: (o), line:31
         |vpiName:o
         |vpiActual:
-        \_logic_net: (o), line:6, parent:work@tb
+        \_logic_net: (work@tb.o), line:6, parent:work@tb
           |vpiName:o
           |vpiFullName:work@tb.o
           |vpiNetType:48
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (q), line:5, parent:dut1
+        \_logic_net: (work@tb.dut1.q), line:5, parent:work@tb.dut1
           |vpiName:q
           |vpiFullName:work@tb.dut1.q
           |vpiNetType:48
     |vpiNet:
-    \_logic_net: (d), line:2, parent:dut1
+    \_logic_net: (work@tb.dut1.d), line:2, parent:work@tb.dut1
     |vpiNet:
-    \_logic_net: (rstn), line:3, parent:dut1
+    \_logic_net: (work@tb.dut1.rstn), line:3, parent:work@tb.dut1
     |vpiNet:
-    \_logic_net: (clk), line:4, parent:dut1
+    \_logic_net: (work@tb.dut1.clk), line:4, parent:work@tb.dut1
     |vpiNet:
-    \_logic_net: (q), line:5, parent:dut1
+    \_logic_net: (work@tb.dut1.q), line:5, parent:work@tb.dut1
     |vpiInstance:
     \_module: work@tb (work@tb), file:tb.v, line:2
   |vpiNet:
-  \_logic_net: (clk), line:3, parent:work@tb
+  \_logic_net: (work@tb.clk), line:3, parent:work@tb
   |vpiNet:
-  \_logic_net: (rstn), line:4, parent:work@tb
+  \_logic_net: (work@tb.rstn), line:4, parent:work@tb
   |vpiNet:
-  \_logic_net: (d), line:5, parent:work@tb
+  \_logic_net: (work@tb.d), line:5, parent:work@tb
   |vpiNet:
-  \_logic_net: (o), line:6, parent:work@tb
+  \_logic_net: (work@tb.o), line:6, parent:work@tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

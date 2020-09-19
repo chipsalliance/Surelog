@@ -99,6 +99,7 @@ class CommandLineParser final {
   bool getDebugUhdm() { return m_dumpUhdm; }
   bool getElabUhdm() { return m_elabUhdm; }
   bool getCoverUhdm() { return m_coverUhdm; }
+  bool showVpiIds() { return m_showVpiIDs; }
   bool getDebugInstanceTree() { return m_debugInstanceTree; }
   bool getDebugLibraryDef() { return m_debugLibraryDef; }
   bool getDebugIncludeFileInfo() { return m_debugIncludeFileInfo; }
@@ -161,6 +162,7 @@ class CommandLineParser final {
                      std::map<SymbolId, std::string>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);
+  bool setupCache_();
 
   std::vector<SymbolId> m_libraryPaths;          // -y
   std::vector<SymbolId> m_sourceFiles;           // .v .sv
@@ -239,6 +241,7 @@ class CommandLineParser final {
   bool m_dumpUhdm;
   bool m_elabUhdm;
   bool m_coverUhdm;
+  bool m_showVpiIDs;
 };
 
 }  // namespace SURELOG

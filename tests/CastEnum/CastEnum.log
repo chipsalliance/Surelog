@@ -129,11 +129,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/CastEnum/slpp_all//surelog.uhdm.chk
 design: (work@dm_csrs)
 |vpiName:work@dm_csrs
 |uhdmallPackages:
-\_package: builtin, parent:work@dm_csrs
+\_package: builtin (builtin), parent:work@dm_csrs
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: dm, file:dut.sv, line:1, parent:work@dm_csrs
+\_package: dm (dm), file:dut.sv, line:1, parent:work@dm_csrs
   |vpiDefName:dm
   |vpiFullName:dm
   |vpiTypedef:
@@ -147,13 +147,13 @@ design: (work@dm_csrs)
         \_constant: , line:3
           |vpiConstType:7
           |vpiDecompile:1
-          |vpiSize:32
+          |vpiSize:64
           |INT:1
         |vpiRightRange:
         \_constant: , line:3
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiEnumConst:
     \_enum_const: (DTM_NOP), line:4
@@ -168,19 +168,19 @@ design: (work@dm_csrs)
       |vpiName:DTM_WRITE
       |INT:2
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -193,16 +193,16 @@ design: (work@dm_csrs)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dm_csrs
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@dm_csrs, file:dut.sv, line:12, parent:work@dm_csrs
+\_module: work@dm_csrs (work@dm_csrs), file:dut.sv, line:12, parent:work@dm_csrs
   |vpiDefName:work@dm_csrs
   |vpiFullName:work@dm_csrs
   |vpiContAssign:
-  \_cont_assign: , line:15
+  \_cont_assign: , line:15, parent:work@dm_csrs
     |vpiRhs:
     \_operation: , line:15
       |vpiOpType:67
       |vpiOperand:
-      \_ref_obj: (dmi_req_i.op), line:15
+      \_ref_obj: (work@dm_csrs.dmi_req_i.op), line:15
         |vpiName:dmi_req_i.op
         |vpiFullName:work@dm_csrs.dmi_req_i.op
       |vpiTypespec:
@@ -216,13 +216,13 @@ design: (work@dm_csrs)
             \_constant: , line:3
               |vpiConstType:7
               |vpiDecompile:1
-              |vpiSize:32
+              |vpiSize:64
               |INT:1
             |vpiRightRange:
             \_constant: , line:3
               |vpiConstType:7
               |vpiDecompile:0
-              |vpiSize:32
+              |vpiSize:64
               |INT:0
         |vpiEnumConst:
         \_enum_const: (DTM_NOP), line:4
@@ -237,11 +237,11 @@ design: (work@dm_csrs)
           |vpiName:DTM_WRITE
           |INT:2
     |vpiLhs:
-    \_ref_obj: (dtm_op), line:15
+    \_ref_obj: (work@dm_csrs.dtm_op), line:15
       |vpiName:dtm_op
       |vpiFullName:work@dm_csrs.dtm_op
   |vpiNet:
-  \_logic_net: (dtm_op), line:14
+  \_logic_net: (work@dm_csrs.dtm_op), line:14, parent:work@dm_csrs
     |vpiName:dtm_op
     |vpiFullName:work@dm_csrs.dtm_op
 |uhdmtopModules:
@@ -249,12 +249,12 @@ design: (work@dm_csrs)
   |vpiDefName:work@dm_csrs
   |vpiName:work@dm_csrs
   |vpiContAssign:
-  \_cont_assign: , line:15
+  \_cont_assign: , line:15, parent:work@dm_csrs
     |vpiRhs:
     \_operation: , line:15
       |vpiOpType:67
       |vpiOperand:
-      \_ref_obj: (dmi_req_i.op), line:15
+      \_ref_obj: (work@dm_csrs.dmi_req_i.op), line:15
         |vpiName:dmi_req_i.op
         |vpiFullName:work@dm_csrs.dmi_req_i.op
       |vpiTypespec:
@@ -268,13 +268,13 @@ design: (work@dm_csrs)
             \_constant: , line:3
               |vpiConstType:7
               |vpiDecompile:1
-              |vpiSize:32
+              |vpiSize:64
               |INT:1
             |vpiRightRange:
             \_constant: , line:3
               |vpiConstType:7
               |vpiDecompile:0
-              |vpiSize:32
+              |vpiSize:64
               |INT:0
         |vpiEnumConst:
         \_enum_const: (DTM_NOP), line:4, parent:dtm_op_e
@@ -289,11 +289,11 @@ design: (work@dm_csrs)
           |vpiName:DTM_WRITE
           |INT:2
     |vpiLhs:
-    \_ref_obj: (dtm_op), line:15
+    \_ref_obj: (work@dm_csrs.dtm_op), line:15
       |vpiName:dtm_op
       |vpiFullName:work@dm_csrs.dtm_op
       |vpiActual:
-      \_enum_var: (dtm_op), line:14, parent:work@dm_csrs
+      \_enum_var: (work@dm_csrs.dtm_op), line:14, parent:work@dm_csrs
         |vpiName:dtm_op
         |vpiFullName:work@dm_csrs.dtm_op
         |vpiTypespec:
@@ -307,13 +307,13 @@ design: (work@dm_csrs)
               \_constant: , line:3
                 |vpiConstType:7
                 |vpiDecompile:1
-                |vpiSize:32
+                |vpiSize:64
                 |INT:1
               |vpiRightRange:
               \_constant: , line:3
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
           |vpiEnumConst:
           \_enum_const: (DTM_NOP), line:4
@@ -328,7 +328,7 @@ design: (work@dm_csrs)
             |vpiName:DTM_WRITE
             |INT:2
   |vpiVariables:
-  \_enum_var: (dtm_op), line:14, parent:work@dm_csrs
+  \_enum_var: (work@dm_csrs.dtm_op), line:14, parent:work@dm_csrs
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

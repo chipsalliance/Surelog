@@ -470,15 +470,15 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/UnitForeach/slpp_all//surelog.uhdm.
 design: (unnamed)
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: builtin, parent:unnamed
+\_package: builtin (builtin), parent:unnamed
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: uvm_pkg, file:top2.v, line:3, parent:unnamed
+\_package: uvm_pkg (uvm_pkg), file:top2.v, line:3, parent:unnamed
   |vpiDefName:uvm_pkg
   |vpiFullName:uvm_pkg
   |vpiTaskFunc:
-  \_function: (uvm_sequencer_base::do_print), line:5
+  \_function: (uvm_pkg::uvm_sequencer_base::do_print), line:5, parent:uvm_pkg
     |vpiName:uvm_sequencer_base::do_print
     |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print
     |vpiIODecl:
@@ -486,20 +486,20 @@ design: (unnamed)
       |vpiName:printer
       |vpiDirection:5
       |vpiExpr:
-      \_chandle_var: (uvm_printer), line:5, parent:printer
+      \_chandle_var: (printer.uvm_printer), line:5, parent:printer
         |vpiName:uvm_printer
         |vpiFullName:printer.uvm_printer
     |vpiStmt:
-    \_begin: , parent:uvm_sequencer_base::do_print
+    \_begin: (uvm_pkg::uvm_sequencer_base::do_print), parent:uvm_pkg::uvm_sequencer_base::do_print
       |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print
       |vpiStmt:
-      \_sys_func_call: (super.do_print), line:6
+      \_sys_func_call: (super.do_print), line:6, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiName:super.do_print
         |vpiArgument:
         \_ref_obj: (printer), line:6
           |vpiName:printer
       |vpiStmt:
-      \_func_call: (printer.print_array_header), line:7
+      \_func_call: (printer.print_array_header), line:7, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiName:printer.print_array_header
         |vpiArgument:
         \_constant: , line:7
@@ -511,18 +511,18 @@ design: (unnamed)
         \_ref_obj: (arb_sequence_q.size), line:7
           |vpiName:arb_sequence_q.size
       |vpiStmt:
-      \_foreach_stmt: , line:8
+      \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print
         |vpiVariables:
-        \_chandle_var: (arb_sequence_q), line:8
+        \_chandle_var: (uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q), line:8, parent:uvm_pkg::uvm_sequencer_base::do_print
           |vpiName:arb_sequence_q
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::arb_sequence_q
         |vpiLoopVars:
-        \_chandle_var: (i), line:8
+        \_chandle_var: (uvm_pkg::uvm_sequencer_base::do_print::i), line:8, parent:uvm_pkg::uvm_sequencer_base::do_print
           |vpiName:i
           |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::i
         |vpiStmt:
-        \_func_call: (printer.print_string), line:9
+        \_func_call: (printer.print_string), line:9, parent:uvm_pkg::uvm_sequencer_base::do_print
           |vpiName:printer.print_string
           |vpiArgument:
           \_sys_func_call: ($sformatf), line:9
@@ -564,19 +564,19 @@ design: (unnamed)
             |vpiSize:3
             |STRING:"["
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:

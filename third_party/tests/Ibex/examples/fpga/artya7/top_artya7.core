@@ -1,0 +1,52 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ibex:top_artya7:0.1"
+description: "Ibex example toplevel for Arty A7 boards (both, -35 and -100)"
+filesets:
+  files_rtl_artya7:
+    depend:
+      - lowrisc:ibex:ibex_core
+      - lowrisc:ibex:fpga_xilinx_shared
+    files:
+      - rtl/top_artya7.sv
+    file_type: systemVerilogSource
+
+  files_constraints:
+    files:
+      - data/pins_artya7.xdc
+    file_type: xdc
+
+parameters:
+  # XXX: This parameter needs to be absolute, or relative to the *.runs/synth_1
+  # directory. It's best to pass it as absolute path when invoking fusesoc, e.g.
+  # --SRAMInitFile=$PWD/sw/led/led.vmem
+  # XXX: The VMEM file should be added to the sources of the Vivado project to
+  # make the Vivado dependency tracking work. However this requires changes to
+  # fusesoc first.
+  SRAMInitFile:
+    datatype: str
+    description: SRAM initialization file in vmem hex format
+    default: "../../../../../examples/sw/led/led.vmem"
+    paramtype: vlogparam
+
+  # For value definition, please see ip/prim/rtl/prim_pkg.sv
+  PRIM_DEFAULT_IMPL:
+    datatype: str
+    paramtype: vlogdefine
+    description: Primitives implementation to use, e.g. "prim_pkg::ImplGeneric".
+
+targets:
+  synth:
+    default_tool: vivado
+    filesets:
+      - files_rtl_artya7
+      - files_constraints
+    toplevel: top_artya7
+    parameters:
+      - SRAMInitFile
+      - PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
+    tools:
+      vivado:
+        part: "xc7a100tcsg324-1"  # Default to Arty A7-100

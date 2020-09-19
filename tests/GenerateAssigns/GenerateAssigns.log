@@ -303,23 +303,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/GenerateAssigns/slpp_unit//surelog.
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin, parent:work@dut
+\_package: builtin (builtin), parent:work@dut
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -332,45 +332,45 @@ design: (work@dut)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dut
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@dut, file:top.v, line:1, parent:work@dut
+\_module: work@dut (work@dut), file:top.v, line:1, parent:work@dut
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiPort:
-  \_port: (a), line:1
+  \_port: (a), line:1, parent:work@dut
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1
+      \_logic_net: (work@dut.a), line:1, parent:work@dut
         |vpiName:a
         |vpiFullName:work@dut.a
   |vpiPort:
-  \_port: (b), line:1
+  \_port: (b), line:1, parent:work@dut
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1
+      \_logic_net: (work@dut.b), line:1, parent:work@dut
         |vpiName:b
         |vpiFullName:work@dut.b
   |vpiPort:
-  \_port: (y), line:1
+  \_port: (y), line:1, parent:work@dut
     |vpiName:y
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (y), line:1
+      \_logic_net: (work@dut.y), line:1, parent:work@dut
         |vpiName:y
         |vpiFullName:work@dut.y
   |vpiNet:
-  \_logic_net: (a), line:1
+  \_logic_net: (work@dut.a), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (b), line:1
+  \_logic_net: (work@dut.b), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (y), line:1
+  \_logic_net: (work@dut.y), line:1, parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:2
     |vpiRhs:
@@ -408,7 +408,7 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:1, parent:work@dut
+      \_logic_net: (work@dut.a), line:1, parent:work@dut
         |vpiName:a
         |vpiFullName:work@dut.a
   |vpiPort:
@@ -418,7 +418,7 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:1, parent:work@dut
+      \_logic_net: (work@dut.b), line:1, parent:work@dut
         |vpiName:b
         |vpiFullName:work@dut.b
   |vpiPort:
@@ -428,46 +428,46 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (y), line:1, parent:work@dut
+      \_logic_net: (work@dut.y), line:1, parent:work@dut
         |vpiName:y
         |vpiFullName:work@dut.y
   |vpiGenScopeArray:
-  \_gen_scope_array: (u2), line:28, parent:work@dut
+  \_gen_scope_array: (work@dut.u2), line:28, parent:work@dut
     |vpiName:u2
     |vpiFullName:work@dut.u2
     |vpiGenScope:
-    \_gen_scope: , parent:u2
+    \_gen_scope: (work@dut.u2), parent:work@dut.u2
       |vpiFullName:work@dut.u2
       |vpiGenScopeArray:
-      \_gen_scope_array: (u1), line:29
+      \_gen_scope_array: (work@dut.u2.u1), line:29, parent:work@dut.u2
         |vpiName:u1
         |vpiFullName:work@dut.u2.u1
         |vpiGenScope:
-        \_gen_scope: , parent:u1
+        \_gen_scope: (work@dut.u2.u1), parent:work@dut.u2.u1
           |vpiFullName:work@dut.u2.u1
           |vpiContAssign:
-          \_cont_assign: , line:38
+          \_cont_assign: , line:38, parent:work@dut.u2.u1
             |vpiRhs:
             \_operation: , line:38
               |vpiOpType:31
               |vpiOperand:
-              \_ref_obj: (a), line:38
+              \_ref_obj: (work@dut.u2.u1.a), line:38
                 |vpiName:a
                 |vpiFullName:work@dut.u2.u1.a
               |vpiOperand:
-              \_ref_obj: (b), line:38
+              \_ref_obj: (work@dut.u2.u1.b), line:38
                 |vpiName:b
                 |vpiFullName:work@dut.u2.u1.b
             |vpiLhs:
-            \_ref_obj: (y), line:38
+            \_ref_obj: (work@dut.u2.u1.y), line:38
               |vpiName:y
               |vpiFullName:work@dut.u2.u1.y
   |vpiNet:
-  \_logic_net: (a), line:1, parent:work@dut
+  \_logic_net: (work@dut.a), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (b), line:1, parent:work@dut
+  \_logic_net: (work@dut.b), line:1, parent:work@dut
   |vpiNet:
-  \_logic_net: (y), line:1, parent:work@dut
+  \_logic_net: (work@dut.y), line:1, parent:work@dut
   |vpiParameter:
   \_parameter: (p), line:2
     |vpiName:p

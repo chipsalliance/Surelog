@@ -134,7 +134,7 @@ const std::vector<std::string> helpText = {
     "  -timescale=<timescale> Specifies the overall timescale",
     "  -nobuiltin            Do not parse SV builtin classes (array...)", "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
@@ -295,7 +295,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_sverilog(false),
       m_dumpUhdm(false),
       m_elabUhdm(false),
-      m_coverUhdm(false) {
+      m_coverUhdm(false),
+      m_showVpiIDs(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -483,6 +484,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string tmp = argv[i];
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
+        def = tmp.substr(2);
         StringUtils::registerEnvVar(def, "");
 	      SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, std::string()));
@@ -569,6 +571,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_dumpUhdm = true;
       } else if (all_arguments[i] == "coveruhdm") {
         m_coverUhdm = true;
+      } else if (all_arguments[i] == "vpi_ids") {
+        m_showVpiIDs = true;
       } else {
         int debugLevel = atoi(all_arguments[i].c_str());
         if (debugLevel < 0 || debugLevel > 4) {
@@ -919,6 +923,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
     }
   }
+  status = setupCache_();
+  if (!status) return status;
 
   status = checkCommandLine_();
   return status;
@@ -983,16 +989,6 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   if (!m_logFileSpecified)
     m_logFileId = m_symbolTable->registerSymbol(odir + defaultLogFileName);
 
-  std::string cachedir;
-  if (m_cacheAllowed) {
-    if (m_cacheDirId == 0) {
-      cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
-      m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
-    } else {
-      cachedir = m_symbolTable->getSymbol(m_cacheDirId);
-    }
-  }
-
   int status = FileUtils::mkDir(odir.c_str());
   if (status != 0) {
     Location loc(m_fullCompileDir);
@@ -1007,18 +1003,40 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   Error err(ErrorDefinition::CMD_CREATING_LOG_FILE, loc);
   m_errors->addError(err);
 
+  if (m_errors->hasFatalErrors()) {
+    noError = false;
+  }
+
+  return noError;
+}
+
+bool CommandLineParser::setupCache_() {
+  bool noError = true;
+  std::string odir;
+  std::string cachedir;
   if (m_cacheAllowed) {
-    status = FileUtils::mkDir(cachedir.c_str());
+    odir = m_symbolTable->getSymbol(m_outputDir);
+    if (odir.size()) {
+      if (odir[odir.size() - 1] != '/') {
+        odir += '/';
+      }
+    }
+
+    odir += m_symbolTable->getSymbol(
+      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+    if (m_cacheDirId == 0) {
+      cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+      m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
+    } else {
+      cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+    }
+    int status = FileUtils::mkDir(cachedir.c_str());
     if (status != 0) {
       Location loc(m_cacheDirId);
       Error err(ErrorDefinition::CMD_PP_CANNOT_CREATE_CACHE_DIR, loc);
       m_errors->addError(err);
       noError = false;
     }
-  }
-
-  if (m_errors->hasFatalErrors()) {
-    noError = false;
   }
 
   return noError;

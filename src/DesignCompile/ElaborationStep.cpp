@@ -599,7 +599,24 @@ bool ElaborationStep::bindPortType_(Signal* signal,
   }
   case slStringConst:
   {
-    std::string interfName = signal->getInterfaceTypeName();
+    std::string interfName;
+    if (signal->getInterfaceTypeNameId()) {
+      interfName = signal->getInterfaceTypeName();
+    } else {
+      if (NodeId typespecId = signal->getTypeSpecId()) {
+        if (fC->Type(typespecId) == slClass_scope) {
+          NodeId Class_type = fC->Child(typespecId);
+          NodeId Class_type_name = fC->Child(Class_type);
+          NodeId Class_scope_name = fC->Sibling(typespecId);
+          Package* p = design->getPackage(fC->SymName(Class_type_name));
+          if (p) {
+            const DataType* dtype = p->getDataType(fC->SymName(Class_scope_name));
+            signal->setDataType(dtype);
+            return true;
+          }
+        }
+      }
+    }  
     std::string baseName = interfName;
     std::string modPort;
     if (strstr(interfName.c_str(),".")) {

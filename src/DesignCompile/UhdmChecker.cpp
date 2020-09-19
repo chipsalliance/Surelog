@@ -62,13 +62,7 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-typedef std::map<const FileContent*, std::map<unsigned int, int>> FileNodeCoverMap;
-static FileNodeCoverMap fileNodeCoverMap;
-static std::map<std::string, const FileContent*> fileMap;
-static std::multimap<float, std::pair<std::string, float>> coverageMap;
-static std::map<std::string, float> fileCoverageMap;
-
-static bool registerFile(const FileContent* fC) {
+bool UhdmChecker::registerFile(const FileContent* fC) {
   VObject current = fC->Object(fC->getSize() - 2);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
@@ -157,7 +151,7 @@ static bool registerFile(const FileContent* fC) {
   return true;
 }
 
-static bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage) {
+bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage) {
   ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
   std::ofstream report;
@@ -268,7 +262,7 @@ static bool reportHtml(CompileDesign* compileDesign, const std::string& reportFi
   return true;
 }
 
-static float reportCoverage(const std::string& reportFile) {
+float UhdmChecker::reportCoverage(const std::string& reportFile) {
   std::ofstream report;
   report.open(reportFile);
   if (report.bad())
@@ -321,7 +315,7 @@ static float reportCoverage(const std::string& reportFile) {
   return overallCoverage;
 }
 
-void annotate(CompileDesign* m_compileDesign) {
+void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
   Serializer& s = m_compileDesign->getSerializer();
   std::unordered_map<const BaseClass*, unsigned long>& objects = s.AllObjects();
   for (auto& obj : objects) {

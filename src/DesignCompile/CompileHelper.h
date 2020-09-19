@@ -140,6 +140,9 @@ public:
   bool compileFunction(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);
 
+  bool compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+        CompileDesign* compileDesign);
+
   std::vector<UHDM::io_decl*>* compileTfPortList(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
@@ -244,6 +247,21 @@ public:
                                     CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign);
+
+  UHDM::event_control* compileClocking_event(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign);
+
+  UHDM::clocking_block* compileClockingBlock(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign);
+
+  UHDM::atomic_stmt* compileDelayControl(DesignComponent* component, const FileContent* fC,
+        NodeId Procedural_timing_control,
+        CompileDesign* compileDesign);                                  
+
+  /** Variable is either a bit select or a range */
+  bool isSelected(const FileContent* fC, NodeId id);
+
+  void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
 private:
   CompileHelper(const CompileHelper&) = delete;

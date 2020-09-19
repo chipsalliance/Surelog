@@ -206,9 +206,58 @@ void SV3_1aTreeShapeListener::exitInterface_declaration(
 }
 
 void SV3_1aTreeShapeListener::exitProperty_expr(SV3_1aParser::Property_exprContext * ctx) {
+  if (ctx->CASE()) {
+    addVObject ((ParserRuleContext*) ctx->CASE(), VObjectType::slCase);
+  }
   if (ctx->ENDCASE()) {
     addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase);
-  }
+  } else if (ctx->OR()) {
+    addVObject ((ParserRuleContext*) ctx->OR(), VObjectType::slOR);
+  } else if (ctx->AND()) {
+    addVObject ((ParserRuleContext*) ctx->AND(), VObjectType::slAND);
+  } else if (ctx->IF()) {
+    addVObject ((ParserRuleContext*) ctx->IF(), VObjectType::slIF);
+  } else if (ctx->STRONG()) {
+    addVObject ((ParserRuleContext*) ctx->STRONG(), VObjectType::slSTRONG);
+  } else if (ctx->WEAK()) {
+    addVObject ((ParserRuleContext*) ctx->WEAK(), VObjectType::slWEAK);
+  } else if (ctx->NOT()) {
+    addVObject ((ParserRuleContext*) ctx->NOT(), VObjectType::slNOT);
+  } else if (ctx->OVERLAP_IMPLY()) {
+    addVObject ((ParserRuleContext*) ctx->OVERLAP_IMPLY(), VObjectType::slOVERLAP_IMPLY);
+  } else if (ctx->NON_OVERLAP_IMPLY()) {
+    addVObject ((ParserRuleContext*) ctx->NON_OVERLAP_IMPLY(), VObjectType::slNON_OVERLAP_IMPLY);
+  } else if (ctx->OVERLAPPED()) {
+    addVObject ((ParserRuleContext*) ctx->OVERLAPPED(), VObjectType::slOVERLAPPED);
+  } else if (ctx->NONOVERLAPPED()) {
+    addVObject ((ParserRuleContext*) ctx->NONOVERLAPPED(), VObjectType::slNONOVERLAPPED);
+  } else if (ctx->S_NEXTTIME()) {
+    addVObject ((ParserRuleContext*) ctx->S_NEXTTIME(), VObjectType::slS_NEXTTIME);
+  } else if (ctx->ALWAYS()) {
+    addVObject ((ParserRuleContext*) ctx->ALWAYS(), VObjectType::slALWAYS);
+  } else if (ctx->S_ALWAYS()) {
+    addVObject ((ParserRuleContext*) ctx->S_ALWAYS(), VObjectType::slS_ALWAYS);
+  } else if (ctx->S_EVENTUALLY()) {
+    addVObject ((ParserRuleContext*) ctx->S_EVENTUALLY(), VObjectType::slS_EVENTUALLY);
+  } else if (ctx->EVENTUALLY()) {
+    addVObject ((ParserRuleContext*) ctx->EVENTUALLY(), VObjectType::slEVENTUALLY);
+  } else if (ctx->UNTIL()) {
+    addVObject ((ParserRuleContext*) ctx->UNTIL(), VObjectType::slUNTIL);
+  } else if (ctx->S_UNTIL()) {
+    addVObject ((ParserRuleContext*) ctx->S_UNTIL(), VObjectType::slS_UNTIL);
+  } else if (ctx->IMPLIES()) {
+    addVObject ((ParserRuleContext*) ctx->IMPLIES(), VObjectType::slIMPLIES);
+  } else if (ctx->IFF()) {
+    addVObject ((ParserRuleContext*) ctx->IFF(), VObjectType::slIFF);
+  } else if (ctx->ACCEPT_ON()) {
+    addVObject ((ParserRuleContext*) ctx->ACCEPT_ON(), VObjectType::slACCEPT_ON);
+  } else if (ctx->REJECT_ON()) {
+    addVObject ((ParserRuleContext*) ctx->REJECT_ON(), VObjectType::slREJECT_ON);
+  } else if (ctx->SYNC_ACCEPT_ON()) {
+    addVObject ((ParserRuleContext*) ctx->SYNC_ACCEPT_ON(), VObjectType::slSYNC_ACCEPT_ON);
+  } else if (ctx->SYNC_REJECT_ON()) {
+    addVObject ((ParserRuleContext*) ctx->SYNC_REJECT_ON(), VObjectType::slSYNC_REJECT_ON);
+  }       
   addVObject (ctx, VObjectType::slProperty_expr);
 }
 
@@ -375,6 +424,10 @@ void SV3_1aTreeShapeListener::exitSequential_body(SV3_1aParser::Sequential_bodyC
 }
 
 void SV3_1aTreeShapeListener::exitClocking_declaration(SV3_1aParser::Clocking_declarationContext * ctx) {
+  if (ctx->DEFAULT())
+    addVObject ((ParserRuleContext*) ctx->DEFAULT(), VObjectType::slDefault);
+  if (ctx->GLOBAL())
+    addVObject ((ParserRuleContext*) ctx->GLOBAL(), VObjectType::slGlobal);
   if (ctx->ENDCLOCKING())
     addVObject ((ParserRuleContext*) ctx->ENDCLOCKING(), VObjectType::slEndclocking);
   addVObject (ctx, VObjectType::slClocking_declaration);

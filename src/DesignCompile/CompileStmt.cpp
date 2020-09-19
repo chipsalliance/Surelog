@@ -85,8 +85,8 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = compileExpression(component, fC, the_stmt, compileDesign, pstmt, nullptr, false);
     break;
   }
-  case VObjectType::slProcedural_timing_control_statement:{
-    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, the_stmt, compileDesign);
+  case VObjectType::slProcedural_timing_control_statement: {
+    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, fC->Child(the_stmt), compileDesign);
     stmt = dc;
     break;
   }
@@ -252,7 +252,9 @@ VectorOfany* CompileHelper::compileStmt(
     if (loop_var)
       loop_var->VpiParent(foreach);
     foreach->Variable((variables*) var);
-    foreach->VpiLoopVars(loop_var);
+    VectorOfany* loop_vars = s.MakeAnyVec();
+    loop_vars->push_back(loop_var);
+    foreach->VpiLoopVars(loop_vars);
     stmt = foreach;
     break;
   }
@@ -667,167 +669,6 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   return results;
 }
 
-UHDM::any* CompileHelper::compileConcurrentAssertion(
-  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
-  CompileDesign* compileDesign, UHDM::any* pstmt,
-  SURELOG::ValuedComponentI *instance) {
-  UHDM::Serializer& s = compileDesign->getSerializer();
-  NodeId Property_spec = fC->Child(the_stmt);
-
-  NodeId Action_block = fC->Sibling(Property_spec);
-  UHDM::any* if_stmt = nullptr;
-  UHDM::any* else_stmt = nullptr;
-  if (fC->Type(Action_block) == slAction_block) {
-    NodeId if_stmt_id = fC->Child(Action_block);
-    NodeId else_stmt_id = 0;
-    if (fC->Type(if_stmt_id) == slElse) {
-      else_stmt_id = fC->Sibling(if_stmt_id);
-      if_stmt_id = 0;
-    } else {
-      NodeId else_keyword = fC->Sibling(if_stmt_id);
-      if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
-    }
-    VectorOfany* if_stmts = nullptr;
-    if (if_stmt_id)
-      if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-    if (if_stmts) 
-      if_stmt = (*if_stmts)[0];
-    VectorOfany* else_stmts = nullptr;
-    if (else_stmt_id)
-      else_stmts =
-          compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
-    if (else_stmts) 
-      else_stmt = (*else_stmts)[0];
-  }
-
-  UHDM::any* stmt = nullptr;
-  switch (fC->Type(the_stmt)) {
-  case VObjectType::slAssert_property_statement: {
-    UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    // TODO: Compile property
-    assert_stmt->VpiProperty(prop_spec);
-    assert_stmt->Stmt(if_stmt);
-    assert_stmt->Else_stmt(else_stmt);
-    stmt = assert_stmt;
-    break;
-  }
-  case VObjectType::slAssume_property_statement: {
-    break;
-  }
-  case VObjectType::slCover_property_statement: {
-    break;
-  }
-  case VObjectType::slCover_sequence_statement: {
-    break;
-  }
-  case VObjectType::slRestrict_property_statement: {
-    break;
-  }
-  default:
-    break;
-  }
-
-  return stmt;
-}
-
-
-UHDM::any* CompileHelper::compileImmediateAssertion(
-  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
-  CompileDesign* compileDesign, UHDM::any* pstmt,
-  SURELOG::ValuedComponentI *instance) {
-  UHDM::Serializer& s = compileDesign->getSerializer();
-  NodeId Expression = fC->Child(the_stmt);
-  NodeId Action_block = fC->Sibling(Expression);
-  NodeId if_stmt_id = fC->Child(Action_block);
-  NodeId else_stmt_id = 0;
-  if (fC->Type(if_stmt_id) == slElse) {
-    else_stmt_id =  fC->Sibling(if_stmt_id);
-    if_stmt_id = 0;
-  } else {
-    NodeId else_keyword = fC->Sibling(if_stmt_id);
-    if (else_keyword)
-      else_stmt_id = fC->Sibling(else_keyword);
-  }
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
-  VectorOfany* if_stmts = nullptr;
-  if (if_stmt_id)
-    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-  UHDM::any* if_stmt  = nullptr;
-  if (if_stmts)
-    if_stmt = (*if_stmts)[0];
-  VectorOfany* else_stmts = nullptr;
-  if (else_stmt_id)
-    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
-  UHDM::any* else_stmt = nullptr;
-  if (else_stmts)
-    else_stmt = (*else_stmts)[0];
-  UHDM::any* stmt = nullptr;
-  switch (fC->Type(the_stmt)) {
-  case VObjectType::slSimple_immediate_assert_statement: {
-    UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slSimple_immediate_assume_statement: {
-    UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slSimple_immediate_cover_statement: {
-    UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  default:
-    break;
-  }
-
-  /*
-n<o> u<277> t<StringConst> p<278> l<25>
-n<> u<278> t<Primary_literal> p<279> c<277> l<25>
-n<> u<279> t<Primary> p<280> c<278> l<25>
-n<> u<280> t<Expression> p<286> c<279> s<281> l<25>
-n<> u<281> t<BinOp_Equiv> p<286> s<285> l<25>
-n<0> u<282> t<IntConst> p<283> l<25>
-n<> u<283> t<Primary_literal> p<284> c<282> l<25>
-n<> u<284> t<Primary> p<285> c<283> l<25>
-n<> u<285> t<Expression> p<286> c<284> l<25>
-n<> u<286> t<Expression> p<289> c<280> s<288> l<25>
-n<> u<287> t<Statement_or_null> p<288> l<25>
-n<> u<288> t<Action_block> p<289> c<287> l<25>
-n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
-*/
-  return stmt;
-}
-
 UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
   DesignComponent* component, const FileContent* fC,
   NodeId Cond_predicate,
@@ -891,7 +732,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
 
 UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
   DesignComponent* component, const FileContent* fC,
-  NodeId Procedural_timing_control_statement,
+  NodeId Procedural_timing_control,
   CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   /*
@@ -899,7 +740,6 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(
   n<> u<71> t<Delay_control> p<72> c<70> l<7>
   n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
   */
-  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
   NodeId Event_control = fC->Child(Procedural_timing_control);
 
   NodeId Event_expression = fC->Child(Event_control);
@@ -940,8 +780,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
   case_stmt->Case_items(case_items);
   result = case_stmt;
   case_stmt->VpiCondition((UHDM::expr*) cond_exp);
-  if (cond_exp && !cond_exp->VpiParent())
-    cond_exp->VpiParent(case_stmt);
+  setParentNoOverride(cond_exp, case_stmt);
   VObjectType CaseType = fC->Type(Case_type);
   switch (CaseType) {
     case VObjectType::slCase_inside_item:
@@ -994,8 +833,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
             UHDM::any* item_exp = compileExpression(component, fC, Expression, compileDesign);
-            if (item_exp && !item_exp->VpiParent()) {
-              item_exp->VpiParent(case_item);
+            setParentNoOverride(item_exp, case_item);
+            if (item_exp) {
               exprs->push_back(item_exp);
             } else {
              // std::cout << "HERE\n";
@@ -1025,8 +864,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
         while (Value_range) {
           UHDM::expr* item_exp = (expr*)compileExpression(
               component, fC, Value_range, compileDesign);
-          if (item_exp && !item_exp->VpiParent()) {
-            item_exp->VpiParent(case_item);
+          setParentNoOverride(item_exp, case_item);
+          if (item_exp) {
             exprs->push_back(item_exp);
           }
           Value_range = fC->Sibling(Value_range);
@@ -1151,13 +990,16 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   variables* previous_var = nullptr;
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
+    int previousDirection = vpiNoDirection;
     while (tf_port_item) {
       io_decl* decl = s.MakeIo_decl();
       ios->push_back(decl);
       NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
       NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
       VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
-      decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));
+      if (tf_port_direction_type != slData_type_or_implicit)
+        previousDirection = UhdmWriter::getVpiDirection(tf_port_direction_type);
+      decl->VpiDirection(previousDirection);
       NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
       if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
           tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
@@ -1677,6 +1519,11 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::a
             return var;
         }
       }
+      break;
+    }
+    case uhdmmodule: {
+      // We never get here, as modules are built as DesignComponent, not as UHDM::module.
+      // Need late binding.
       break;
     }
     default:

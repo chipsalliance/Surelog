@@ -914,23 +914,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/InterfaceModPort/slpp_all//surelog.
 design: (work@interface_modports)
 |vpiName:work@interface_modports
 |uhdmallPackages:
-\_package: builtin, parent:work@interface_modports
+\_package: builtin (builtin), parent:work@interface_modports
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -943,11 +943,11 @@ design: (work@interface_modports)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@interface_modports
   |vpiName:work@semaphore
 |uhdmallInterfaces:
-\_interface: work@mem_if, file:top.v, line:26, parent:work@interface_modports
+\_interface: work@mem_if (work@mem_if), file:top.v, line:26, parent:work@interface_modports
   |vpiDefName:work@mem_if
   |vpiFullName:work@mem_if
   |vpiModport:
-  \_modport: (memory)
+  \_modport: (memory), parent:work@mem_if
     |vpiName:memory
     |vpiIODecl:
     \_io_decl: (clk)
@@ -978,7 +978,7 @@ design: (work@interface_modports)
       |vpiName:datao_mem
       |vpiDirection:2
   |vpiModport:
-  \_modport: (system)
+  \_modport: (system), parent:work@mem_if
     |vpiName:system
     |vpiIODecl:
     \_io_decl: (clk)
@@ -1029,7 +1029,7 @@ design: (work@interface_modports)
       |vpiName:data_sys
       |vpiDirection:5
   |vpiModport:
-  \_modport: (tb)
+  \_modport: (tb), parent:work@mem_if
     |vpiName:tb
     |vpiIODecl:
     \_io_decl: (clk)
@@ -1060,130 +1060,161 @@ design: (work@interface_modports)
       |vpiName:data_sys
       |vpiDirection:5
   |vpiPort:
-  \_port: (clk), line:26
+  \_port: (clk), line:26, parent:work@mem_if
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clk), line:26
+      \_logic_net: (work@mem_if.clk), line:26, parent:work@mem_if
         |vpiName:clk
         |vpiFullName:work@mem_if.clk
         |vpiNetType:1
   |vpiNet:
-  \_logic_net: (clk), line:26
+  \_logic_net: (work@mem_if.clk), line:26, parent:work@mem_if
   |vpiNet:
-  \_logic_net: (reset), line:27
+  \_logic_net: (work@mem_if.reset), line:27, parent:work@mem_if
     |vpiName:reset
     |vpiFullName:work@mem_if.reset
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (we_sys), line:28
+  \_logic_net: (work@mem_if.we_sys), line:28, parent:work@mem_if
     |vpiName:we_sys
     |vpiFullName:work@mem_if.we_sys
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (cmd_valid_sys), line:29
+  \_logic_net: (work@mem_if.cmd_valid_sys), line:29, parent:work@mem_if
     |vpiName:cmd_valid_sys
     |vpiFullName:work@mem_if.cmd_valid_sys
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (ready_sys), line:30
+  \_logic_net: (work@mem_if.ready_sys), line:30, parent:work@mem_if
     |vpiName:ready_sys
     |vpiFullName:work@mem_if.ready_sys
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (data_sys), line:31
+  \_logic_net: (work@mem_if.data_sys), line:31, parent:work@mem_if
     |vpiName:data_sys
     |vpiFullName:work@mem_if.data_sys
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (addr_sys), line:32
+  \_logic_net: (work@mem_if.addr_sys), line:32, parent:work@mem_if
     |vpiName:addr_sys
     |vpiFullName:work@mem_if.addr_sys
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (we_mem), line:33
+  \_logic_net: (work@mem_if.we_mem), line:33, parent:work@mem_if
     |vpiName:we_mem
     |vpiFullName:work@mem_if.we_mem
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (ce_mem), line:34
+  \_logic_net: (work@mem_if.ce_mem), line:34, parent:work@mem_if
     |vpiName:ce_mem
     |vpiFullName:work@mem_if.ce_mem
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (datao_mem), line:35
+  \_logic_net: (work@mem_if.datao_mem), line:35, parent:work@mem_if
     |vpiName:datao_mem
     |vpiFullName:work@mem_if.datao_mem
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (datai_mem), line:36
+  \_logic_net: (work@mem_if.datai_mem), line:36, parent:work@mem_if
     |vpiName:datai_mem
     |vpiFullName:work@mem_if.datai_mem
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (addr_mem), line:37
+  \_logic_net: (work@mem_if.addr_mem), line:37, parent:work@mem_if
     |vpiName:addr_mem
     |vpiFullName:work@mem_if.addr_mem
     |vpiNetType:36
 |uhdmallInterfaces:
-\_interface: work@mem_interface, file:top.v, line:1, parent:work@interface_modports
+\_interface: work@mem_interface (work@mem_interface), file:top.v, line:1, parent:work@interface_modports
   |vpiDefName:work@mem_interface
   |vpiFullName:work@mem_interface
   |vpiModport:
-  \_modport: (MEM)
+  \_modport: (MEM), parent:work@mem_interface
     |vpiName:MEM
     |vpiIODecl:
     \_io_decl: (clock)
       |vpiName:clock
       |vpiDirection:1
+  |vpiClockingBlock:
+  \_clocking_block: (cb), line:11
+    |vpiName:cb
+    |vpiInputSkew:
+    \_delay_control: 
+    |vpiOutputSkew:
+    \_delay_control: 
+    |vpiClockingEvent:
+    \_event_control: 
+      |vpiCondition:
+      \_operation: , line:11
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (clock), line:11
+          |vpiName:clock
+    |vpiClockingIODecl:
+    \_clocking_io_decl: (mem_data)
+      |vpiName:mem_data
+      |vpiDirection:2
+    |vpiClockingIODecl:
+    \_clocking_io_decl: (mem_add)
+      |vpiName:mem_add
+      |vpiDirection:2
+    |vpiClockingIODecl:
+    \_clocking_io_decl: (mem_en)
+      |vpiName:mem_en
+      |vpiDirection:2
+    |vpiClockingIODecl:
+    \_clocking_io_decl: (mem_rd_wr)
+      |vpiName:mem_rd_wr
+      |vpiDirection:2
   |vpiPort:
-  \_port: (clock), line:1
+  \_port: (clock), line:1, parent:work@mem_interface
     |vpiName:clock
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (clock), line:1
+      \_logic_net: (work@mem_interface.clock), line:1, parent:work@mem_interface
         |vpiName:clock
         |vpiFullName:work@mem_interface.clock
   |vpiNet:
-  \_logic_net: (clock), line:1
+  \_logic_net: (work@mem_interface.clock), line:1, parent:work@mem_interface
   |vpiNet:
-  \_logic_net: (mem_data), line:6
+  \_logic_net: (work@mem_interface.mem_data), line:6, parent:work@mem_interface
     |vpiName:mem_data
     |vpiFullName:work@mem_interface.mem_data
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (mem_add), line:7
+  \_logic_net: (work@mem_interface.mem_add), line:7, parent:work@mem_interface
     |vpiName:mem_add
     |vpiFullName:work@mem_interface.mem_add
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (mem_en), line:8
+  \_logic_net: (work@mem_interface.mem_en), line:8, parent:work@mem_interface
     |vpiName:mem_en
     |vpiFullName:work@mem_interface.mem_en
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (mem_rd_wr), line:9
+  \_logic_net: (work@mem_interface.mem_rd_wr), line:9, parent:work@mem_interface
     |vpiName:mem_rd_wr
     |vpiFullName:work@mem_interface.mem_rd_wr
     |vpiNetType:1
 |uhdmallPrograms:
-\_program: work@test, file:top.v, line:99, parent:work@interface_modports
+\_program: work@test (work@test), file:top.v, line:99, parent:work@interface_modports
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiProcess:
-  \_initial: 
+  \_initial: , parent:work@test
     |vpiStmt:
-    \_begin: , line:101
+    \_begin: (work@test), line:101
       |vpiFullName:work@test
       |vpiStmt:
-      \_assignment: , line:102
+      \_assignment: , line:102, parent:work@test
         |vpiOpType:82
         |vpiLhs:
-        \_ref_obj: (tif.reset), line:102
+        \_ref_obj: (work@test.tif.reset), line:102, parent:work@test
           |vpiName:tif.reset
           |vpiFullName:work@test.tif.reset
         |vpiRhs:
@@ -1193,23 +1224,23 @@ design: (work@interface_modports)
           |vpiSize:32
           |INT:1
       |vpiStmt:
-      \_delay_control: , line:104
+      \_delay_control: , line:104, parent:work@test
         |#10
         |vpiStmt:
         \_sys_func_call: ($finish), line:104
           |vpiName:$finish
   |vpiPort:
-  \_port: (tif), line:99
+  \_port: (tif), line:99, parent:work@test
     |vpiName:tif
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
 |uhdmallModules:
-\_module: work@interface_modports, file:top.v, line:112, parent:work@interface_modports
+\_module: work@interface_modports (work@interface_modports), file:top.v, line:112, parent:work@interface_modports
   |vpiDefName:work@interface_modports
   |vpiFullName:work@interface_modports
   |vpiProcess:
-  \_always: , line:115
+  \_always: , line:115, parent:work@interface_modports
     |vpiAlwaysType:1
     |vpiStmt:
     \_delay_control: , line:115
@@ -1218,26 +1249,31 @@ design: (work@interface_modports)
       \_operation: , line:115
         |vpiOpType:62
         |vpiOperand:
-        \_ref_obj: (clk), line:115
+        \_ref_obj: (work@interface_modports.clk), line:115
           |vpiName:clk
           |vpiFullName:work@interface_modports.clk
+          |vpiActual:
+          \_logic_net: (work@interface_modports.clk), line:114, parent:work@interface_modports
+            |vpiName:clk
+            |vpiFullName:work@interface_modports.clk
+            |vpiNetType:36
   |vpiNet:
-  \_logic_net: (clk), line:114
+  \_logic_net: (work@interface_modports.clk), line:114, parent:work@interface_modports
     |vpiName:clk
     |vpiFullName:work@interface_modports.clk
     |vpiNetType:36
 |uhdmallModules:
-\_module: work@memory_ctrl, file:top.v, line:87, parent:work@interface_modports
+\_module: work@memory_ctrl (work@memory_ctrl), file:top.v, line:87, parent:work@interface_modports
   |vpiDefName:work@memory_ctrl
   |vpiFullName:work@memory_ctrl
   |vpiPort:
-  \_port: (sif), line:87
+  \_port: (sif), line:87, parent:work@memory_ctrl
     |vpiName:sif
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:work@mem_if
         |vpiName:system
         |vpiIODecl:
         \_io_decl: (clk)
@@ -1288,11 +1324,11 @@ design: (work@interface_modports)
           |vpiName:data_sys
           |vpiDirection:5
   |vpiNet:
-  \_logic_net: (state), line:91
+  \_logic_net: (work@memory_ctrl.state), line:91, parent:work@memory_ctrl
     |vpiName:state
     |vpiFullName:work@memory_ctrl.state
   |vpiNet:
-  \_logic_net: (sif), line:87
+  \_logic_net: (work@memory_ctrl.sif), line:87, parent:work@memory_ctrl
     |vpiName:sif
     |vpiFullName:work@memory_ctrl.sif
   |vpiTypedef:
@@ -1315,11 +1351,11 @@ design: (work@interface_modports)
       |vpiName:WRITE
       |INT:1
 |uhdmallModules:
-\_module: work@memory_model, file:top.v, line:62, parent:work@interface_modports
+\_module: work@memory_model (work@memory_model), file:top.v, line:62, parent:work@interface_modports
   |vpiDefName:work@memory_model
   |vpiFullName:work@memory_model
   |vpiProcess:
-  \_always: , line:69
+  \_always: , line:69, parent:work@memory_model
     |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:69
@@ -1327,7 +1363,7 @@ design: (work@interface_modports)
       \_operation: , line:69
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (mif.clk), line:69
+        \_ref_obj: (work@memory_model.mif.clk), line:69
           |vpiName:mif.clk
           |vpiFullName:work@memory_model.mif.clk
       |vpiStmt:
@@ -1336,33 +1372,33 @@ design: (work@interface_modports)
         \_operation: , line:70
           |vpiOpType:26
           |vpiOperand:
-          \_ref_obj: (mif.ce_mem), line:70
+          \_ref_obj: (work@memory_model.mif.ce_mem), line:70
             |vpiName:mif.ce_mem
             |vpiFullName:work@memory_model.mif.ce_mem
           |vpiOperand:
-          \_ref_obj: (mif.we_mem), line:70
+          \_ref_obj: (work@memory_model.mif.we_mem), line:70
             |vpiName:mif.we_mem
             |vpiFullName:work@memory_model.mif.we_mem
         |vpiStmt:
-        \_begin: , line:70
+        \_begin: (work@memory_model), line:70
           |vpiFullName:work@memory_model
           |vpiStmt:
-          \_assignment: , line:71
+          \_assignment: , line:71, parent:work@memory_model
             |vpiOpType:82
             |vpiLhs:
-            \_bit_select: (mem), line:71
+            \_bit_select: (work@memory_model.mem), line:71
               |vpiName:mem
               |vpiFullName:work@memory_model.mem
               |vpiIndex:
-              \_ref_obj: (mif.addr_mem), line:71, parent:mem
+              \_ref_obj: (work@memory_model.mem.mif.addr_mem), line:71, parent:work@memory_model.mem
                 |vpiName:mif.addr_mem
                 |vpiFullName:work@memory_model.mem.mif.addr_mem
             |vpiRhs:
-            \_ref_obj: (mif.datai_mem), line:71
+            \_ref_obj: (work@memory_model.mif.datai_mem), line:71, parent:work@memory_model
               |vpiName:mif.datai_mem
               |vpiFullName:work@memory_model.mif.datai_mem
   |vpiProcess:
-  \_always: , line:77
+  \_always: , line:77, parent:work@memory_model
     |vpiAlwaysType:1
     |vpiStmt:
     \_event_control: , line:77
@@ -1370,7 +1406,7 @@ design: (work@interface_modports)
       \_operation: , line:77
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (mif.clk), line:77
+        \_ref_obj: (work@memory_model.mif.clk), line:77
           |vpiName:mif.clk
           |vpiFullName:work@memory_model.mif.clk
       |vpiStmt:
@@ -1379,42 +1415,42 @@ design: (work@interface_modports)
         \_operation: , line:78
           |vpiOpType:26
           |vpiOperand:
-          \_ref_obj: (mif.ce_mem), line:78
+          \_ref_obj: (work@memory_model.mif.ce_mem), line:78
             |vpiName:mif.ce_mem
             |vpiFullName:work@memory_model.mif.ce_mem
           |vpiOperand:
           \_operation: , line:78
             |vpiOpType:4
             |vpiOperand:
-            \_ref_obj: (mif.we_mem), line:78
+            \_ref_obj: (work@memory_model.mif.we_mem), line:78
               |vpiName:mif.we_mem
               |vpiFullName:work@memory_model.mif.we_mem
         |vpiStmt:
-        \_begin: , line:78
+        \_begin: (work@memory_model), line:78
           |vpiFullName:work@memory_model
           |vpiStmt:
-          \_assignment: , line:79
+          \_assignment: , line:79, parent:work@memory_model
             |vpiOpType:82
             |vpiLhs:
-            \_ref_obj: (mif.datao_mem), line:79
+            \_ref_obj: (work@memory_model.mif.datao_mem), line:79, parent:work@memory_model
               |vpiName:mif.datao_mem
               |vpiFullName:work@memory_model.mif.datao_mem
             |vpiRhs:
-            \_bit_select: (mem), line:79
+            \_bit_select: (work@memory_model.mem), line:79
               |vpiName:mem
               |vpiFullName:work@memory_model.mem
               |vpiIndex:
-              \_ref_obj: (mif.addr_mem), line:79, parent:mem
+              \_ref_obj: (work@memory_model.mem.mif.addr_mem), line:79, parent:work@memory_model.mem
                 |vpiName:mif.addr_mem
                 |vpiFullName:work@memory_model.mem.mif.addr_mem
   |vpiPort:
-  \_port: (mif), line:62
+  \_port: (mif), line:62, parent:work@memory_model
     |vpiName:mif
     |vpiDirection:5
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (memory)
+      \_modport: (memory), parent:work@mem_if
         |vpiName:memory
         |vpiIODecl:
         \_io_decl: (clk)
@@ -1445,12 +1481,12 @@ design: (work@interface_modports)
           |vpiName:datao_mem
           |vpiDirection:2
   |vpiNet:
-  \_logic_net: (mem), line:64
+  \_logic_net: (work@memory_model.mem), line:64, parent:work@memory_model
     |vpiName:mem
     |vpiFullName:work@memory_model.mem
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (mif), line:62
+  \_logic_net: (work@memory_model.mif), line:62, parent:work@memory_model
     |vpiName:mif
     |vpiFullName:work@memory_model.mif
 |uhdmtopModules:
@@ -1458,12 +1494,12 @@ design: (work@interface_modports)
   |vpiDefName:work@interface_modports
   |vpiName:work@interface_modports
   |vpiInterface:
-  \_interface: work@mem_if (miff), file:top.v, line:119, parent:work@interface_modports
+  \_interface: work@mem_if (work@interface_modports.miff), file:top.v, line:119, parent:work@interface_modports
     |vpiDefName:work@mem_if
     |vpiName:miff
     |vpiFullName:work@interface_modports.miff
     |vpiModport:
-    \_modport: (memory), parent:miff
+    \_modport: (memory), parent:work@interface_modports.miff
       |vpiName:memory
       |vpiIODecl:
       \_io_decl: (clk), parent:memory
@@ -1494,7 +1530,7 @@ design: (work@interface_modports)
         |vpiName:datao_mem
         |vpiDirection:2
     |vpiModport:
-    \_modport: (system), parent:miff
+    \_modport: (system), parent:work@interface_modports.miff
       |vpiName:system
       |vpiIODecl:
       \_io_decl: (clk), parent:system
@@ -1545,7 +1581,7 @@ design: (work@interface_modports)
         |vpiName:data_sys
         |vpiDirection:5
     |vpiModport:
-    \_modport: (tb), parent:miff
+    \_modport: (tb), parent:work@interface_modports.miff
       |vpiName:tb
       |vpiIODecl:
       \_io_decl: (clk), parent:tb
@@ -1576,48 +1612,48 @@ design: (work@interface_modports)
         |vpiName:data_sys
         |vpiDirection:5
     |vpiPort:
-    \_port: (clk), line:26, parent:miff
+    \_port: (clk), line:26, parent:work@interface_modports.miff
       |vpiName:clk
       |vpiDirection:1
       |vpiHighConn:
       \_ref_obj: (clk), line:119
         |vpiName:clk
         |vpiActual:
-        \_logic_net: (clk), line:114, parent:work@interface_modports
+        \_logic_net: (work@interface_modports.clk), line:114, parent:work@interface_modports
           |vpiName:clk
           |vpiFullName:work@interface_modports.clk
           |vpiNetType:36
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (clk), line:26, parent:miff
+        \_logic_net: (work@interface_modports.miff.clk), line:26, parent:work@interface_modports.miff
           |vpiName:clk
           |vpiFullName:work@interface_modports.miff.clk
           |vpiNetType:1
     |vpiNet:
-    \_logic_net: (clk), line:26, parent:miff
+    \_logic_net: (work@interface_modports.miff.clk), line:26, parent:work@interface_modports.miff
     |vpiNet:
-    \_logic_net: (reset), line:27, parent:miff
+    \_logic_net: (work@interface_modports.miff.reset), line:27, parent:work@interface_modports.miff
       |vpiName:reset
       |vpiFullName:work@interface_modports.miff.reset
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (we_sys), line:28, parent:miff
+    \_logic_net: (work@interface_modports.miff.we_sys), line:28, parent:work@interface_modports.miff
       |vpiName:we_sys
       |vpiFullName:work@interface_modports.miff.we_sys
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (cmd_valid_sys), line:29, parent:miff
+    \_logic_net: (work@interface_modports.miff.cmd_valid_sys), line:29, parent:work@interface_modports.miff
       |vpiName:cmd_valid_sys
       |vpiFullName:work@interface_modports.miff.cmd_valid_sys
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (ready_sys), line:30, parent:miff
+    \_logic_net: (work@interface_modports.miff.ready_sys), line:30, parent:work@interface_modports.miff
       |vpiName:ready_sys
       |vpiFullName:work@interface_modports.miff.ready_sys
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (data_sys), line:31, parent:miff
+    \_logic_net: (work@interface_modports.miff.data_sys), line:31, parent:work@interface_modports.miff
       |vpiName:data_sys
       |vpiFullName:work@interface_modports.miff.data_sys
       |vpiNetType:36
@@ -1627,16 +1663,16 @@ design: (work@interface_modports)
         \_constant: , line:31
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:31
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (addr_sys), line:32, parent:miff
+    \_logic_net: (work@interface_modports.miff.addr_sys), line:32, parent:work@interface_modports.miff
       |vpiName:addr_sys
       |vpiFullName:work@interface_modports.miff.addr_sys
       |vpiNetType:36
@@ -1646,26 +1682,26 @@ design: (work@interface_modports)
         \_constant: , line:32
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:32
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (we_mem), line:33, parent:miff
+    \_logic_net: (work@interface_modports.miff.we_mem), line:33, parent:work@interface_modports.miff
       |vpiName:we_mem
       |vpiFullName:work@interface_modports.miff.we_mem
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (ce_mem), line:34, parent:miff
+    \_logic_net: (work@interface_modports.miff.ce_mem), line:34, parent:work@interface_modports.miff
       |vpiName:ce_mem
       |vpiFullName:work@interface_modports.miff.ce_mem
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (datao_mem), line:35, parent:miff
+    \_logic_net: (work@interface_modports.miff.datao_mem), line:35, parent:work@interface_modports.miff
       |vpiName:datao_mem
       |vpiFullName:work@interface_modports.miff.datao_mem
       |vpiNetType:36
@@ -1675,16 +1711,16 @@ design: (work@interface_modports)
         \_constant: , line:35
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:35
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (datai_mem), line:36, parent:miff
+    \_logic_net: (work@interface_modports.miff.datai_mem), line:36, parent:work@interface_modports.miff
       |vpiName:datai_mem
       |vpiFullName:work@interface_modports.miff.datai_mem
       |vpiNetType:36
@@ -1694,16 +1730,16 @@ design: (work@interface_modports)
         \_constant: , line:36
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:36
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (addr_mem), line:37, parent:miff
+    \_logic_net: (work@interface_modports.miff.addr_mem), line:37, parent:work@interface_modports.miff
       |vpiName:addr_mem
       |vpiFullName:work@interface_modports.miff.addr_mem
       |vpiNetType:36
@@ -1713,23 +1749,33 @@ design: (work@interface_modports)
         \_constant: , line:37
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:37
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:112
+  |vpiContAssign:
+  \_cont_assign: , line:114, parent:work@interface_modports
+    |vpiRhs:
+    \_constant: , line:114
+      |vpiConstType:7
+      |vpiDecompile:0
+      |vpiSize:32
+      |INT:0
+    |vpiLhs:
+    \_logic_net: (work@interface_modports.clk), line:114, parent:work@interface_modports
   |vpiModule:
-  \_module: work@memory_ctrl (U_ctrl), file:top.v, line:120, parent:work@interface_modports
+  \_module: work@memory_ctrl (work@interface_modports.U_ctrl), file:top.v, line:120, parent:work@interface_modports
     |vpiDefName:work@memory_ctrl
     |vpiName:U_ctrl
     |vpiFullName:work@interface_modports.U_ctrl
     |vpiPort:
-    \_port: (sif), line:87, parent:U_ctrl
+    \_port: (sif), line:87, parent:work@interface_modports.U_ctrl
       |vpiName:sif
       |vpiDirection:5
       |vpiHighConn:
@@ -1903,13 +1949,13 @@ design: (work@interface_modports)
                 \_constant: , line:32
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:32
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (datao_mem)
@@ -1925,13 +1971,13 @@ design: (work@interface_modports)
                 \_constant: , line:35
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:35
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (we_mem)
@@ -1963,13 +2009,13 @@ design: (work@interface_modports)
                 \_constant: , line:37
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:37
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (datai_mem)
@@ -1985,13 +2031,13 @@ design: (work@interface_modports)
                 \_constant: , line:36
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:36
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (ready_sys)
@@ -2015,26 +2061,26 @@ design: (work@interface_modports)
                 \_constant: , line:31
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:31
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
     |vpiPort:
-    \_port: (clk), line:26, parent:U_ctrl
+    \_port: (clk), line:26, parent:work@interface_modports.U_ctrl
       |vpiName:clk
       |vpiDirection:1
     |vpiNet:
-    \_logic_net: (sif), line:87, parent:U_ctrl
+    \_logic_net: (work@interface_modports.U_ctrl.sif), line:87, parent:work@interface_modports.U_ctrl
       |vpiName:sif
       |vpiFullName:work@interface_modports.U_ctrl.sif
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:112
     |vpiVariables:
-    \_enum_var: (state), line:91, parent:U_ctrl
+    \_enum_var: (work@interface_modports.U_ctrl.state), line:91, parent:work@interface_modports.U_ctrl
       |vpiName:state
       |vpiFullName:work@interface_modports.U_ctrl.state
       |vpiTypespec:
@@ -2056,13 +2102,15 @@ design: (work@interface_modports)
         \_enum_const: (WRITE), line:89
           |vpiName:WRITE
           |INT:1
+    |vpiTypedef:
+    \_enum_typespec: (fsm_t), line:89
   |vpiModule:
-  \_module: work@memory_model (U_model), file:top.v, line:121, parent:work@interface_modports
+  \_module: work@memory_model (work@interface_modports.U_model), file:top.v, line:121, parent:work@interface_modports
     |vpiDefName:work@memory_model
     |vpiName:U_model
     |vpiFullName:work@interface_modports.U_model
     |vpiPort:
-    \_port: (mif), line:62, parent:U_model
+    \_port: (mif), line:62, parent:work@interface_modports.U_model
       |vpiName:mif
       |vpiDirection:5
       |vpiHighConn:
@@ -2121,13 +2169,13 @@ design: (work@interface_modports)
                 \_constant: , line:37
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:37
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (datai_mem)
@@ -2143,13 +2191,13 @@ design: (work@interface_modports)
                 \_constant: , line:36
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:36
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (datao_mem)
@@ -2165,31 +2213,31 @@ design: (work@interface_modports)
                 \_constant: , line:35
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:35
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
     |vpiPort:
-    \_port: (clk), line:26, parent:U_model
+    \_port: (clk), line:26, parent:work@interface_modports.U_model
       |vpiName:clk
       |vpiDirection:1
     |vpiNet:
-    \_logic_net: (mif), line:62, parent:U_model
+    \_logic_net: (work@interface_modports.U_model.mif), line:62, parent:work@interface_modports.U_model
       |vpiName:mif
       |vpiFullName:work@interface_modports.U_model.mif
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:112
     |vpiArrayNet:
-    \_array_net: (mem), line:64, parent:U_model
+    \_array_net: (work@interface_modports.U_model.mem), line:64, parent:work@interface_modports.U_model
       |vpiName:mem
       |vpiFullName:work@interface_modports.U_model.mem
       |vpiSize:256
       |vpiNet:
-      \_logic_net: , parent:mem
+      \_logic_net: (work@interface_modports.U_model.mem), parent:work@interface_modports.U_model.mem
         |vpiFullName:work@interface_modports.U_model.mem
         |vpiNetType:36
         |vpiRange:
@@ -2198,13 +2246,13 @@ design: (work@interface_modports)
           \_constant: , line:64
             |vpiConstType:7
             |vpiDecompile:7
-            |vpiSize:32
+            |vpiSize:64
             |INT:7
           |vpiRightRange:
           \_constant: , line:64
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
       |vpiRange:
       \_range: , line:64
@@ -2212,23 +2260,23 @@ design: (work@interface_modports)
         \_constant: , line:64
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
         |vpiRightRange:
         \_constant: , line:64
           |vpiConstType:7
           |vpiDecompile:255
-          |vpiSize:32
+          |vpiSize:64
           |INT:255
   |vpiNet:
-  \_logic_net: (clk), line:114, parent:work@interface_modports
+  \_logic_net: (work@interface_modports.clk), line:114, parent:work@interface_modports
   |vpiProgram:
-  \_program: work@test (U_test), file:top.v, line:122, parent:work@interface_modports
+  \_program: work@test (work@interface_modports.U_test), file:top.v, line:122, parent:work@interface_modports
     |vpiDefName:work@test
     |vpiName:U_test
     |vpiFullName:work@interface_modports.U_test
     |vpiPort:
-    \_port: (tif), line:99, parent:U_test
+    \_port: (tif), line:99, parent:work@interface_modports.U_test
       |vpiName:tif
       |vpiDirection:5
       |vpiHighConn:
@@ -2246,7 +2294,7 @@ design: (work@interface_modports)
             |vpiName:clk
             |vpiDirection:1
             |vpiExpr:
-            \_logic_net: (clk), line:26, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.clk), line:26, parent:work@interface_modports.U_test
               |vpiName:clk
               |vpiFullName:work@interface_modports.U_test.clk
               |vpiNetType:1
@@ -2255,7 +2303,7 @@ design: (work@interface_modports)
             |vpiName:ready_sys
             |vpiDirection:1
             |vpiExpr:
-            \_logic_net: (ready_sys), line:30, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.ready_sys), line:30, parent:work@interface_modports.U_test
               |vpiName:ready_sys
               |vpiFullName:work@interface_modports.U_test.ready_sys
               |vpiNetType:36
@@ -2264,7 +2312,7 @@ design: (work@interface_modports)
             |vpiName:reset
             |vpiDirection:2
             |vpiExpr:
-            \_logic_net: (reset), line:27, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.reset), line:27, parent:work@interface_modports.U_test
               |vpiName:reset
               |vpiFullName:work@interface_modports.U_test.reset
               |vpiNetType:36
@@ -2273,7 +2321,7 @@ design: (work@interface_modports)
             |vpiName:we_sys
             |vpiDirection:2
             |vpiExpr:
-            \_logic_net: (we_sys), line:28, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.we_sys), line:28, parent:work@interface_modports.U_test
               |vpiName:we_sys
               |vpiFullName:work@interface_modports.U_test.we_sys
               |vpiNetType:36
@@ -2282,7 +2330,7 @@ design: (work@interface_modports)
             |vpiName:cmd_valid_sys
             |vpiDirection:2
             |vpiExpr:
-            \_logic_net: (cmd_valid_sys), line:29, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.cmd_valid_sys), line:29, parent:work@interface_modports.U_test
               |vpiName:cmd_valid_sys
               |vpiFullName:work@interface_modports.U_test.cmd_valid_sys
               |vpiNetType:36
@@ -2291,7 +2339,7 @@ design: (work@interface_modports)
             |vpiName:addr_sys
             |vpiDirection:2
             |vpiExpr:
-            \_logic_net: (addr_sys), line:32, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.addr_sys), line:32, parent:work@interface_modports.U_test
               |vpiName:addr_sys
               |vpiFullName:work@interface_modports.U_test.addr_sys
               |vpiNetType:36
@@ -2301,20 +2349,20 @@ design: (work@interface_modports)
                 \_constant: , line:32
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:32
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
           |vpiIODecl:
           \_io_decl: (data_sys)
             |vpiName:data_sys
             |vpiDirection:5
             |vpiExpr:
-            \_logic_net: (data_sys), line:31, parent:U_test
+            \_logic_net: (work@interface_modports.U_test.data_sys), line:31, parent:work@interface_modports.U_test
               |vpiName:data_sys
               |vpiFullName:work@interface_modports.U_test.data_sys
               |vpiNetType:36
@@ -2324,44 +2372,44 @@ design: (work@interface_modports)
                 \_constant: , line:31
                   |vpiConstType:7
                   |vpiDecompile:7
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:7
                 |vpiRightRange:
                 \_constant: , line:31
                   |vpiConstType:7
                   |vpiDecompile:0
-                  |vpiSize:32
+                  |vpiSize:64
                   |INT:0
     |vpiPort:
-    \_port: (clk), line:26, parent:U_test
+    \_port: (clk), line:26, parent:work@interface_modports.U_test
       |vpiName:clk
       |vpiDirection:1
     |vpiNet:
-    \_logic_net: (clk), line:26, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.clk), line:26, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (reset), line:27, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.reset), line:27, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (we_sys), line:28, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.we_sys), line:28, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (cmd_valid_sys), line:29, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.cmd_valid_sys), line:29, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (ready_sys), line:30, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.ready_sys), line:30, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (data_sys), line:31, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.data_sys), line:31, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (addr_sys), line:32, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.addr_sys), line:32, parent:work@interface_modports.U_test
     |vpiNet:
-    \_logic_net: (we_mem), line:33, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.we_mem), line:33, parent:work@interface_modports.U_test
       |vpiName:we_mem
       |vpiFullName:work@interface_modports.U_test.we_mem
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (ce_mem), line:34, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.ce_mem), line:34, parent:work@interface_modports.U_test
       |vpiName:ce_mem
       |vpiFullName:work@interface_modports.U_test.ce_mem
       |vpiNetType:36
     |vpiNet:
-    \_logic_net: (datao_mem), line:35, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.datao_mem), line:35, parent:work@interface_modports.U_test
       |vpiName:datao_mem
       |vpiFullName:work@interface_modports.U_test.datao_mem
       |vpiNetType:36
@@ -2371,16 +2419,16 @@ design: (work@interface_modports)
         \_constant: , line:35
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:35
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (datai_mem), line:36, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.datai_mem), line:36, parent:work@interface_modports.U_test
       |vpiName:datai_mem
       |vpiFullName:work@interface_modports.U_test.datai_mem
       |vpiNetType:36
@@ -2390,16 +2438,16 @@ design: (work@interface_modports)
         \_constant: , line:36
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:36
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiNet:
-    \_logic_net: (addr_mem), line:37, parent:U_test
+    \_logic_net: (work@interface_modports.U_test.addr_mem), line:37, parent:work@interface_modports.U_test
       |vpiName:addr_mem
       |vpiFullName:work@interface_modports.U_test.addr_mem
       |vpiNetType:36
@@ -2409,13 +2457,13 @@ design: (work@interface_modports)
         \_constant: , line:37
           |vpiConstType:7
           |vpiDecompile:7
-          |vpiSize:32
+          |vpiSize:64
           |INT:7
         |vpiRightRange:
         \_constant: , line:37
           |vpiConstType:7
           |vpiDecompile:0
-          |vpiSize:32
+          |vpiSize:64
           |INT:0
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:112

@@ -221,23 +221,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/RangeInf/slpp_all//surelog.uhdm.chk
 design: (work@FullAdder)
 |vpiName:work@FullAdder
 |uhdmallPackages:
-\_package: builtin, parent:work@FullAdder
+\_package: builtin (builtin), parent:work@FullAdder
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -250,63 +250,63 @@ design: (work@FullAdder)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@FullAdder
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@FullAdder, file:dut.sv, line:1, parent:work@FullAdder
+\_module: work@FullAdder (work@FullAdder), file:dut.sv, line:1, parent:work@FullAdder
   |vpiDefName:work@FullAdder
   |vpiFullName:work@FullAdder
   |vpiPort:
-  \_port: (A), line:1
+  \_port: (A), line:1, parent:work@FullAdder
     |vpiName:A
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (A), line:1
+      \_logic_net: (work@FullAdder.A), line:1, parent:work@FullAdder
         |vpiName:A
         |vpiFullName:work@FullAdder.A
   |vpiPort:
-  \_port: (B), line:1
+  \_port: (B), line:1, parent:work@FullAdder
     |vpiName:B
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (B), line:1
+      \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
         |vpiName:B
         |vpiFullName:work@FullAdder.B
   |vpiPort:
-  \_port: (Cin), line:1
+  \_port: (Cin), line:1, parent:work@FullAdder
     |vpiName:Cin
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Cin), line:1
+      \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
         |vpiName:Cin
         |vpiFullName:work@FullAdder.Cin
   |vpiPort:
-  \_port: (Sum), line:1
+  \_port: (Sum), line:1, parent:work@FullAdder
     |vpiName:Sum
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Sum), line:1
+      \_logic_net: (work@FullAdder.Sum), line:1, parent:work@FullAdder
         |vpiName:Sum
         |vpiFullName:work@FullAdder.Sum
         |vpiNetType:1
   |vpiPort:
-  \_port: (Cout), line:1
+  \_port: (Cout), line:1, parent:work@FullAdder
     |vpiName:Cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Cout), line:1
+      \_logic_net: (work@FullAdder.Cout), line:1, parent:work@FullAdder
         |vpiName:Cout
         |vpiFullName:work@FullAdder.Cout
         |vpiNetType:1
   |vpiContAssign:
-  \_cont_assign: , line:7
+  \_cont_assign: , line:7, parent:work@FullAdder
     |vpiRhs:
     \_operation: , line:7
       |vpiOpType:24
@@ -314,28 +314,50 @@ design: (work@FullAdder)
       \_operation: , line:7
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (A), line:7
+        \_ref_obj: (work@FullAdder.A), line:7
           |vpiName:A
           |vpiFullName:work@FullAdder.A
         |vpiOperand:
-        \_ref_obj: (B), line:7
+        \_ref_obj: (work@FullAdder.B), line:7
           |vpiName:B
           |vpiFullName:work@FullAdder.B
+          |vpiActual:
+          \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
+            |vpiName:B
+            |vpiFullName:work@FullAdder.B
+            |vpiRange:
+            \_range: , line:2
+              |vpiLeftRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:3
+                |vpiSize:64
+                |INT:3
+              |vpiRightRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
       |vpiOperand:
-      \_ref_obj: (Cin), line:7
+      \_ref_obj: (work@FullAdder.Cin), line:7
         |vpiName:Cin
         |vpiFullName:work@FullAdder.Cin
+        |vpiActual:
+        \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
+          |vpiName:Cin
+          |vpiFullName:work@FullAdder.Cin
     |vpiLhs:
-    \_ref_obj: (temp), line:7
+    \_ref_obj: (work@FullAdder.temp), line:7
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
   |vpiContAssign:
-  \_cont_assign: , line:8
+  \_cont_assign: , line:8, parent:work@FullAdder
     |vpiRhs:
-    \_part_select: , line:8, parent:temp
+    \_part_select: , line:8, parent:work@FullAdder.temp
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (temp)
+      \_ref_obj: (work@FullAdder.temp)
       |vpiLeftRange:
       \_constant: , line:8
         |vpiConstType:7
@@ -349,40 +371,40 @@ design: (work@FullAdder)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (Sum), line:8
+    \_ref_obj: (work@FullAdder.Sum), line:8
       |vpiName:Sum
       |vpiFullName:work@FullAdder.Sum
   |vpiContAssign:
-  \_cont_assign: , line:9
+  \_cont_assign: , line:9, parent:work@FullAdder
     |vpiRhs:
-    \_bit_select: (temp), line:9
+    \_bit_select: (work@FullAdder.temp), line:9
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
       |vpiIndex:
-      \_constant: , line:9, parent:temp
+      \_constant: , line:9, parent:work@FullAdder.temp
         |vpiConstType:7
         |vpiDecompile:4
         |vpiSize:32
         |INT:4
     |vpiLhs:
-    \_ref_obj: (Cout), line:9
+    \_ref_obj: (work@FullAdder.Cout), line:9
       |vpiName:Cout
       |vpiFullName:work@FullAdder.Cout
   |vpiNet:
-  \_logic_net: (temp), line:6
+  \_logic_net: (work@FullAdder.temp), line:6, parent:work@FullAdder
     |vpiName:temp
     |vpiFullName:work@FullAdder.temp
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (A), line:1
+  \_logic_net: (work@FullAdder.A), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (B), line:1
+  \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Cin), line:1
+  \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Sum), line:1
+  \_logic_net: (work@FullAdder.Sum), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Cout), line:1
+  \_logic_net: (work@FullAdder.Cout), line:1, parent:work@FullAdder
 |uhdmtopModules:
 \_module: work@FullAdder (work@FullAdder), file:dut.sv, line:1
   |vpiDefName:work@FullAdder
@@ -394,7 +416,7 @@ design: (work@FullAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (A), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.A), line:1, parent:work@FullAdder
         |vpiName:A
         |vpiFullName:work@FullAdder.A
         |vpiRange:
@@ -403,13 +425,13 @@ design: (work@FullAdder)
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (B), line:1, parent:work@FullAdder
@@ -418,7 +440,7 @@ design: (work@FullAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (B), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
         |vpiName:B
         |vpiFullName:work@FullAdder.B
         |vpiRange:
@@ -427,13 +449,13 @@ design: (work@FullAdder)
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:2
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (Cin), line:1, parent:work@FullAdder
@@ -442,7 +464,7 @@ design: (work@FullAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Cin), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
         |vpiName:Cin
         |vpiFullName:work@FullAdder.Cin
   |vpiPort:
@@ -452,7 +474,7 @@ design: (work@FullAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Sum), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.Sum), line:1, parent:work@FullAdder
         |vpiName:Sum
         |vpiFullName:work@FullAdder.Sum
         |vpiNetType:1
@@ -462,13 +484,13 @@ design: (work@FullAdder)
           \_constant: , line:4
             |vpiConstType:7
             |vpiDecompile:3
-            |vpiSize:32
+            |vpiSize:64
             |INT:3
           |vpiRightRange:
           \_constant: , line:4
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (Cout), line:1, parent:work@FullAdder
@@ -477,12 +499,12 @@ design: (work@FullAdder)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (Cout), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.Cout), line:1, parent:work@FullAdder
         |vpiName:Cout
         |vpiFullName:work@FullAdder.Cout
         |vpiNetType:1
   |vpiContAssign:
-  \_cont_assign: , line:7
+  \_cont_assign: , line:7, parent:work@FullAdder
     |vpiRhs:
     \_operation: , line:7
       |vpiOpType:24
@@ -490,29 +512,29 @@ design: (work@FullAdder)
       \_operation: , line:7
         |vpiOpType:24
         |vpiOperand:
-        \_ref_obj: (A), line:7
+        \_ref_obj: (work@FullAdder.A), line:7
           |vpiName:A
           |vpiFullName:work@FullAdder.A
           |vpiActual:
-          \_logic_net: (A), line:1, parent:work@FullAdder
+          \_logic_net: (work@FullAdder.A), line:1, parent:work@FullAdder
         |vpiOperand:
-        \_ref_obj: (B), line:7
+        \_ref_obj: (work@FullAdder.B), line:7
           |vpiName:B
           |vpiFullName:work@FullAdder.B
           |vpiActual:
-          \_logic_net: (B), line:1, parent:work@FullAdder
+          \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
       |vpiOperand:
-      \_ref_obj: (Cin), line:7
+      \_ref_obj: (work@FullAdder.Cin), line:7
         |vpiName:Cin
         |vpiFullName:work@FullAdder.Cin
         |vpiActual:
-        \_logic_net: (Cin), line:1, parent:work@FullAdder
+        \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
     |vpiLhs:
-    \_ref_obj: (temp), line:7
+    \_ref_obj: (work@FullAdder.temp), line:7
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
       |vpiActual:
-      \_logic_net: (temp), line:6, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.temp), line:6, parent:work@FullAdder
         |vpiName:temp
         |vpiFullName:work@FullAdder.temp
         |vpiNetType:1
@@ -522,21 +544,21 @@ design: (work@FullAdder)
           \_constant: , line:6
             |vpiConstType:7
             |vpiDecompile:4
-            |vpiSize:32
+            |vpiSize:64
             |INT:4
           |vpiRightRange:
           \_constant: , line:6
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiContAssign:
-  \_cont_assign: , line:8
+  \_cont_assign: , line:8, parent:work@FullAdder
     |vpiRhs:
-    \_part_select: , line:8, parent:temp
+    \_part_select: , line:8, parent:work@FullAdder.temp
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (temp)
+      \_ref_obj: (work@FullAdder.temp)
       |vpiLeftRange:
       \_constant: , line:8
         |vpiConstType:7
@@ -550,41 +572,41 @@ design: (work@FullAdder)
         |vpiSize:32
         |INT:0
     |vpiLhs:
-    \_ref_obj: (Sum), line:8
+    \_ref_obj: (work@FullAdder.Sum), line:8
       |vpiName:Sum
       |vpiFullName:work@FullAdder.Sum
       |vpiActual:
-      \_logic_net: (Sum), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.Sum), line:1, parent:work@FullAdder
   |vpiContAssign:
-  \_cont_assign: , line:9
+  \_cont_assign: , line:9, parent:work@FullAdder
     |vpiRhs:
-    \_bit_select: (temp), line:9
+    \_bit_select: (work@FullAdder.temp), line:9
       |vpiName:temp
       |vpiFullName:work@FullAdder.temp
       |vpiIndex:
-      \_constant: , line:9, parent:temp
+      \_constant: , line:9, parent:work@FullAdder.temp
         |vpiConstType:7
         |vpiDecompile:4
         |vpiSize:32
         |INT:4
     |vpiLhs:
-    \_ref_obj: (Cout), line:9
+    \_ref_obj: (work@FullAdder.Cout), line:9
       |vpiName:Cout
       |vpiFullName:work@FullAdder.Cout
       |vpiActual:
-      \_logic_net: (Cout), line:1, parent:work@FullAdder
+      \_logic_net: (work@FullAdder.Cout), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (temp), line:6, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.temp), line:6, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (A), line:1, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.A), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (B), line:1, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.B), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Cin), line:1, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.Cin), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Sum), line:1, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.Sum), line:1, parent:work@FullAdder
   |vpiNet:
-  \_logic_net: (Cout), line:1, parent:work@FullAdder
+  \_logic_net: (work@FullAdder.Cout), line:1, parent:work@FullAdder
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

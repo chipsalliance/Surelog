@@ -237,11 +237,11 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/StructVarImp/slpp_all//surelog.uhdm
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallPackages:
-\_package: flash_ctrl_reg_pkg, file:dut.sv, line:1, parent:work@top
+\_package: flash_ctrl_reg_pkg (flash_ctrl_reg_pkg), file:dut.sv, line:1, parent:work@top
   |vpiDefName:flash_ctrl_reg_pkg
   |vpiFullName:flash_ctrl_reg_pkg
   |vpiTypedef:
@@ -309,13 +309,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25
@@ -334,13 +334,13 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
   |vpiParamAssign:
   \_param_assign: , line:4
@@ -351,7 +351,7 @@ design: (work@top)
       |vpiSize:32
       |INT:2
     |vpiLhs:
-    \_parameter: (NBanks), line:4
+    \_parameter: (flash_ctrl_reg_pkg::NBanks), line:4, parent:flash_ctrl_reg_pkg
       |vpiName:NBanks
       |vpiFullName:flash_ctrl_reg_pkg::NBanks
       |vpiTypespec:
@@ -365,29 +365,29 @@ design: (work@top)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (NumRegions), line:5
+    \_parameter: (flash_ctrl_reg_pkg::NumRegions), line:5, parent:flash_ctrl_reg_pkg
       |vpiName:NumRegions
       |vpiFullName:flash_ctrl_reg_pkg::NumRegions
       |vpiTypespec:
       \_int_typespec: , line:5
   |vpiParameter:
-  \_parameter: (NBanks), line:4
+  \_parameter: (flash_ctrl_reg_pkg::NBanks), line:4, parent:flash_ctrl_reg_pkg
   |vpiParameter:
-  \_parameter: (NumRegions), line:5
+  \_parameter: (flash_ctrl_reg_pkg::NumRegions), line:5, parent:flash_ctrl_reg_pkg
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -400,11 +400,11 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:33, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:33, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiNet:
-  \_logic_net: (region_cfgs), line:36
+  \_logic_net: (work@top.region_cfgs), line:36, parent:work@top
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
   |vpiTypedef:
@@ -472,13 +472,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25
@@ -497,13 +497,13 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_reg_pkg)
@@ -512,7 +512,7 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiVariables:
-  \_packed_array_var: (region_cfgs), line:36, parent:work@top
+  \_packed_array_var: (work@top.region_cfgs), line:36, parent:work@top
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
     |vpiRange:
@@ -524,10 +524,10 @@ design: (work@top)
       \_constant: , line:36
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:32
+        |vpiSize:64
         |INT:0
     |vpiElement:
-    \_struct_var: , parent:region_cfgs
+    \_struct_var: (work@top.region_cfgs), parent:work@top.region_cfgs
       |vpiFullName:work@top.region_cfgs
       |vpiTypespec:
       \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7
@@ -594,13 +594,13 @@ design: (work@top)
                   \_constant: , line:21
                     |vpiConstType:7
                     |vpiDecompile:8
-                    |vpiSize:32
+                    |vpiSize:64
                     |INT:8
                   |vpiRightRange:
                   \_constant: , line:21
                     |vpiConstType:7
                     |vpiDecompile:0
-                    |vpiSize:32
+                    |vpiSize:64
                     |INT:0
         |vpiTypespecMember:
         \_typespec_member: (size), line:25
@@ -619,16 +619,16 @@ design: (work@top)
                   \_constant: , line:24
                     |vpiConstType:7
                     |vpiDecompile:8
-                    |vpiSize:32
+                    |vpiSize:64
                     |INT:8
                   |vpiRightRange:
                   \_constant: , line:24
                     |vpiConstType:7
                     |vpiDecompile:0
-                    |vpiSize:32
+                    |vpiSize:64
                     |INT:0
   |vpiTypedef:
-  \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7
+  \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7, parent:work@top
     |vpiPacked:1
     |vpiName:flash_ctrl_reg2hw_mp_region_cfg_mreg_t
     |vpiTypespecMember:
@@ -692,13 +692,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25, parent:flash_ctrl_reg2hw_mp_region_cfg_mreg_t
@@ -717,16 +717,16 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:32
+                |vpiSize:64
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:32
+                |vpiSize:64
                 |INT:0
   |vpiTypedef:
-  \_import: (flash_ctrl_reg_pkg)
+  \_import: (flash_ctrl_reg_pkg), parent:work@top
   |vpiParameter:
   \_parameter: (NBanks), line:4
     |vpiName:NBanks

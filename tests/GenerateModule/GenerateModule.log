@@ -511,23 +511,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/GenerateModule/slpp_unit//surelog.u
 design: (work@small_test)
 |vpiName:work@small_test
 |uhdmallPackages:
-\_package: builtin, parent:work@small_test
+\_package: builtin (builtin), parent:work@small_test
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -540,7 +540,7 @@ design: (work@small_test)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@small_test
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@small_test, file:top.v, line:1, parent:work@small_test
+\_module: work@small_test (work@small_test), file:top.v, line:1, parent:work@small_test
   |vpiDefName:work@small_test
   |vpiFullName:work@small_test
   |vpiParamAssign:
@@ -557,33 +557,33 @@ design: (work@small_test)
   |vpiParameter:
   \_parameter: (SIZE), line:3
 |uhdmallModules:
-\_module: work@top, file:top.v, line:21, parent:work@small_test
+\_module: work@top (work@top), file:top.v, line:21, parent:work@small_test
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiPort:
-  \_port: (a), line:21
+  \_port: (a), line:21, parent:work@top
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:21
+      \_logic_net: (work@top.a), line:21, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
   |vpiPort:
-  \_port: (b), line:21
+  \_port: (b), line:21, parent:work@top
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:21
+      \_logic_net: (work@top.b), line:21, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
   |vpiNet:
-  \_logic_net: (a), line:21
+  \_logic_net: (work@top.a), line:21, parent:work@top
   |vpiNet:
-  \_logic_net: (b), line:21
+  \_logic_net: (work@top.b), line:21, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:22
     |vpiRhs:
@@ -602,14 +602,14 @@ design: (work@small_test)
   |vpiDefName:work@small_test
   |vpiName:work@small_test
   |vpiGenScopeArray:
-  \_gen_scope_array: (B1[0]), line:7, parent:work@small_test
+  \_gen_scope_array: (work@small_test.B1[0]), line:7, parent:work@small_test
     |vpiName:B1[0]
     |vpiFullName:work@small_test.B1[0]
     |vpiGenScope:
-    \_gen_scope: , parent:B1[0]
+    \_gen_scope: (work@small_test.B1[0]), parent:work@small_test.B1[0]
       |vpiFullName:work@small_test.B1[0]
       |vpiModule:
-      \_module: work@small_test.B1[0]::M1 (N1), file:top.v, line:9
+      \_module: work@small_test.B1[0]::M1 (work@small_test.B1[0].N1), file:top.v, line:9, parent:work@small_test.B1[0]
         |vpiDefName:work@small_test.B1[0]::M1
         |vpiName:N1
         |vpiFullName:work@small_test.B1[0].N1
@@ -618,33 +618,33 @@ design: (work@small_test)
         |vpiName:i
         |INT:0
   |vpiGenScopeArray:
-  \_gen_scope_array: (B1[1]), line:7, parent:work@small_test
+  \_gen_scope_array: (work@small_test.B1[1]), line:7, parent:work@small_test
     |vpiName:B1[1]
     |vpiFullName:work@small_test.B1[1]
     |vpiGenScope:
-    \_gen_scope: , parent:B1[1]
+    \_gen_scope: (work@small_test.B1[1]), parent:work@small_test.B1[1]
       |vpiFullName:work@small_test.B1[1]
       |vpiModule:
-      \_module: work@small_test.B1[1]::M1 (N1), file:top.v, line:9
+      \_module: work@small_test.B1[1]::M1 (work@small_test.B1[1].N1), file:top.v, line:9, parent:work@small_test.B1[1]
         |vpiDefName:work@small_test.B1[1]::M1
         |vpiName:N1
         |vpiFullName:work@small_test.B1[1].N1
       |vpiGenScopeArray:
-      \_gen_scope_array: (B4), line:11
+      \_gen_scope_array: (work@small_test.B1[1].B4), line:11, parent:work@small_test.B1[1]
         |vpiName:B4
         |vpiFullName:work@small_test.B1[1].B4
         |vpiGenScope:
-        \_gen_scope: , parent:B4
+        \_gen_scope: (work@small_test.B1[1].B4), parent:work@small_test.B1[1].B4
           |vpiFullName:work@small_test.B1[1].B4
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[1]), line:12
+          \_gen_scope_array: (work@small_test.B1[1].B4.B5[1]), line:12, parent:work@small_test.B1[1].B4
             |vpiName:B5[1]
             |vpiFullName:work@small_test.B1[1].B4.B5[1]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[1]
+            \_gen_scope: (work@small_test.B1[1].B4.B5[1]), parent:work@small_test.B1[1].B4.B5[1]
               |vpiFullName:work@small_test.B1[1].B4.B5[1]
               |vpiModule:
-              \_module: work@small_test.B1[1].B4.B5[1]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[1].B4.B5[1]::M4 (work@small_test.B1[1].B4.B5[1].N4), file:top.v, line:13, parent:work@small_test.B1[1].B4.B5[1]
                 |vpiDefName:work@small_test.B1[1].B4.B5[1]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[1].B4.B5[1].N4
@@ -653,14 +653,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:1
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[2]), line:12
+          \_gen_scope_array: (work@small_test.B1[1].B4.B5[2]), line:12, parent:work@small_test.B1[1].B4
             |vpiName:B5[2]
             |vpiFullName:work@small_test.B1[1].B4.B5[2]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[2]
+            \_gen_scope: (work@small_test.B1[1].B4.B5[2]), parent:work@small_test.B1[1].B4.B5[2]
               |vpiFullName:work@small_test.B1[1].B4.B5[2]
               |vpiModule:
-              \_module: work@small_test.B1[1].B4.B5[2]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[1].B4.B5[2]::M4 (work@small_test.B1[1].B4.B5[2].N4), file:top.v, line:13, parent:work@small_test.B1[1].B4.B5[2]
                 |vpiDefName:work@small_test.B1[1].B4.B5[2]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[1].B4.B5[2].N4
@@ -669,14 +669,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:2
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[3]), line:12
+          \_gen_scope_array: (work@small_test.B1[1].B4.B5[3]), line:12, parent:work@small_test.B1[1].B4
             |vpiName:B5[3]
             |vpiFullName:work@small_test.B1[1].B4.B5[3]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[3]
+            \_gen_scope: (work@small_test.B1[1].B4.B5[3]), parent:work@small_test.B1[1].B4.B5[3]
               |vpiFullName:work@small_test.B1[1].B4.B5[3]
               |vpiModule:
-              \_module: work@small_test.B1[1].B4.B5[3]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[1].B4.B5[3]::M4 (work@small_test.B1[1].B4.B5[3].N4), file:top.v, line:13, parent:work@small_test.B1[1].B4.B5[3]
                 |vpiDefName:work@small_test.B1[1].B4.B5[3]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[1].B4.B5[3].N4
@@ -685,14 +685,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:3
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[4]), line:12
+          \_gen_scope_array: (work@small_test.B1[1].B4.B5[4]), line:12, parent:work@small_test.B1[1].B4
             |vpiName:B5[4]
             |vpiFullName:work@small_test.B1[1].B4.B5[4]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[4]
+            \_gen_scope: (work@small_test.B1[1].B4.B5[4]), parent:work@small_test.B1[1].B4.B5[4]
               |vpiFullName:work@small_test.B1[1].B4.B5[4]
               |vpiModule:
-              \_module: work@small_test.B1[1].B4.B5[4]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[1].B4.B5[4]::M4 (work@small_test.B1[1].B4.B5[4].N4), file:top.v, line:13, parent:work@small_test.B1[1].B4.B5[4]
                 |vpiDefName:work@small_test.B1[1].B4.B5[4]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[1].B4.B5[4].N4
@@ -705,33 +705,33 @@ design: (work@small_test)
         |vpiName:i
         |INT:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (B1[2]), line:7, parent:work@small_test
+  \_gen_scope_array: (work@small_test.B1[2]), line:7, parent:work@small_test
     |vpiName:B1[2]
     |vpiFullName:work@small_test.B1[2]
     |vpiGenScope:
-    \_gen_scope: , parent:B1[2]
+    \_gen_scope: (work@small_test.B1[2]), parent:work@small_test.B1[2]
       |vpiFullName:work@small_test.B1[2]
       |vpiModule:
-      \_module: work@small_test.B1[2]::M1 (N1), file:top.v, line:9
+      \_module: work@small_test.B1[2]::M1 (work@small_test.B1[2].N1), file:top.v, line:9, parent:work@small_test.B1[2]
         |vpiDefName:work@small_test.B1[2]::M1
         |vpiName:N1
         |vpiFullName:work@small_test.B1[2].N1
       |vpiGenScopeArray:
-      \_gen_scope_array: (B4), line:11
+      \_gen_scope_array: (work@small_test.B1[2].B4), line:11, parent:work@small_test.B1[2]
         |vpiName:B4
         |vpiFullName:work@small_test.B1[2].B4
         |vpiGenScope:
-        \_gen_scope: , parent:B4
+        \_gen_scope: (work@small_test.B1[2].B4), parent:work@small_test.B1[2].B4
           |vpiFullName:work@small_test.B1[2].B4
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[2]), line:12
+          \_gen_scope_array: (work@small_test.B1[2].B4.B5[2]), line:12, parent:work@small_test.B1[2].B4
             |vpiName:B5[2]
             |vpiFullName:work@small_test.B1[2].B4.B5[2]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[2]
+            \_gen_scope: (work@small_test.B1[2].B4.B5[2]), parent:work@small_test.B1[2].B4.B5[2]
               |vpiFullName:work@small_test.B1[2].B4.B5[2]
               |vpiModule:
-              \_module: work@small_test.B1[2].B4.B5[2]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[2].B4.B5[2]::M4 (work@small_test.B1[2].B4.B5[2].N4), file:top.v, line:13, parent:work@small_test.B1[2].B4.B5[2]
                 |vpiDefName:work@small_test.B1[2].B4.B5[2]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[2].B4.B5[2].N4
@@ -740,14 +740,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:2
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[3]), line:12
+          \_gen_scope_array: (work@small_test.B1[2].B4.B5[3]), line:12, parent:work@small_test.B1[2].B4
             |vpiName:B5[3]
             |vpiFullName:work@small_test.B1[2].B4.B5[3]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[3]
+            \_gen_scope: (work@small_test.B1[2].B4.B5[3]), parent:work@small_test.B1[2].B4.B5[3]
               |vpiFullName:work@small_test.B1[2].B4.B5[3]
               |vpiModule:
-              \_module: work@small_test.B1[2].B4.B5[3]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[2].B4.B5[3]::M4 (work@small_test.B1[2].B4.B5[3].N4), file:top.v, line:13, parent:work@small_test.B1[2].B4.B5[3]
                 |vpiDefName:work@small_test.B1[2].B4.B5[3]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[2].B4.B5[3].N4
@@ -756,14 +756,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:3
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[4]), line:12
+          \_gen_scope_array: (work@small_test.B1[2].B4.B5[4]), line:12, parent:work@small_test.B1[2].B4
             |vpiName:B5[4]
             |vpiFullName:work@small_test.B1[2].B4.B5[4]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[4]
+            \_gen_scope: (work@small_test.B1[2].B4.B5[4]), parent:work@small_test.B1[2].B4.B5[4]
               |vpiFullName:work@small_test.B1[2].B4.B5[4]
               |vpiModule:
-              \_module: work@small_test.B1[2].B4.B5[4]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[2].B4.B5[4]::M4 (work@small_test.B1[2].B4.B5[4].N4), file:top.v, line:13, parent:work@small_test.B1[2].B4.B5[4]
                 |vpiDefName:work@small_test.B1[2].B4.B5[4]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[2].B4.B5[4].N4
@@ -776,33 +776,33 @@ design: (work@small_test)
         |vpiName:i
         |INT:2
   |vpiGenScopeArray:
-  \_gen_scope_array: (B1[3]), line:7, parent:work@small_test
+  \_gen_scope_array: (work@small_test.B1[3]), line:7, parent:work@small_test
     |vpiName:B1[3]
     |vpiFullName:work@small_test.B1[3]
     |vpiGenScope:
-    \_gen_scope: , parent:B1[3]
+    \_gen_scope: (work@small_test.B1[3]), parent:work@small_test.B1[3]
       |vpiFullName:work@small_test.B1[3]
       |vpiModule:
-      \_module: work@small_test.B1[3]::M1 (N1), file:top.v, line:9
+      \_module: work@small_test.B1[3]::M1 (work@small_test.B1[3].N1), file:top.v, line:9, parent:work@small_test.B1[3]
         |vpiDefName:work@small_test.B1[3]::M1
         |vpiName:N1
         |vpiFullName:work@small_test.B1[3].N1
       |vpiGenScopeArray:
-      \_gen_scope_array: (B4), line:11
+      \_gen_scope_array: (work@small_test.B1[3].B4), line:11, parent:work@small_test.B1[3]
         |vpiName:B4
         |vpiFullName:work@small_test.B1[3].B4
         |vpiGenScope:
-        \_gen_scope: , parent:B4
+        \_gen_scope: (work@small_test.B1[3].B4), parent:work@small_test.B1[3].B4
           |vpiFullName:work@small_test.B1[3].B4
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[3]), line:12
+          \_gen_scope_array: (work@small_test.B1[3].B4.B5[3]), line:12, parent:work@small_test.B1[3].B4
             |vpiName:B5[3]
             |vpiFullName:work@small_test.B1[3].B4.B5[3]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[3]
+            \_gen_scope: (work@small_test.B1[3].B4.B5[3]), parent:work@small_test.B1[3].B4.B5[3]
               |vpiFullName:work@small_test.B1[3].B4.B5[3]
               |vpiModule:
-              \_module: work@small_test.B1[3].B4.B5[3]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[3].B4.B5[3]::M4 (work@small_test.B1[3].B4.B5[3].N4), file:top.v, line:13, parent:work@small_test.B1[3].B4.B5[3]
                 |vpiDefName:work@small_test.B1[3].B4.B5[3]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[3].B4.B5[3].N4
@@ -811,14 +811,14 @@ design: (work@small_test)
                 |vpiName:m
                 |INT:3
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[4]), line:12
+          \_gen_scope_array: (work@small_test.B1[3].B4.B5[4]), line:12, parent:work@small_test.B1[3].B4
             |vpiName:B5[4]
             |vpiFullName:work@small_test.B1[3].B4.B5[4]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[4]
+            \_gen_scope: (work@small_test.B1[3].B4.B5[4]), parent:work@small_test.B1[3].B4.B5[4]
               |vpiFullName:work@small_test.B1[3].B4.B5[4]
               |vpiModule:
-              \_module: work@small_test.B1[3].B4.B5[4]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[3].B4.B5[4]::M4 (work@small_test.B1[3].B4.B5[4].N4), file:top.v, line:13, parent:work@small_test.B1[3].B4.B5[4]
                 |vpiDefName:work@small_test.B1[3].B4.B5[4]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[3].B4.B5[4].N4
@@ -831,33 +831,33 @@ design: (work@small_test)
         |vpiName:i
         |INT:3
   |vpiGenScopeArray:
-  \_gen_scope_array: (B1[4]), line:7, parent:work@small_test
+  \_gen_scope_array: (work@small_test.B1[4]), line:7, parent:work@small_test
     |vpiName:B1[4]
     |vpiFullName:work@small_test.B1[4]
     |vpiGenScope:
-    \_gen_scope: , parent:B1[4]
+    \_gen_scope: (work@small_test.B1[4]), parent:work@small_test.B1[4]
       |vpiFullName:work@small_test.B1[4]
       |vpiModule:
-      \_module: work@small_test.B1[4]::M1 (N1), file:top.v, line:9
+      \_module: work@small_test.B1[4]::M1 (work@small_test.B1[4].N1), file:top.v, line:9, parent:work@small_test.B1[4]
         |vpiDefName:work@small_test.B1[4]::M1
         |vpiName:N1
         |vpiFullName:work@small_test.B1[4].N1
       |vpiGenScopeArray:
-      \_gen_scope_array: (B4), line:11
+      \_gen_scope_array: (work@small_test.B1[4].B4), line:11, parent:work@small_test.B1[4]
         |vpiName:B4
         |vpiFullName:work@small_test.B1[4].B4
         |vpiGenScope:
-        \_gen_scope: , parent:B4
+        \_gen_scope: (work@small_test.B1[4].B4), parent:work@small_test.B1[4].B4
           |vpiFullName:work@small_test.B1[4].B4
           |vpiGenScopeArray:
-          \_gen_scope_array: (B5[4]), line:12
+          \_gen_scope_array: (work@small_test.B1[4].B4.B5[4]), line:12, parent:work@small_test.B1[4].B4
             |vpiName:B5[4]
             |vpiFullName:work@small_test.B1[4].B4.B5[4]
             |vpiGenScope:
-            \_gen_scope: , parent:B5[4]
+            \_gen_scope: (work@small_test.B1[4].B4.B5[4]), parent:work@small_test.B1[4].B4.B5[4]
               |vpiFullName:work@small_test.B1[4].B4.B5[4]
               |vpiModule:
-              \_module: work@small_test.B1[4].B4.B5[4]::M4 (N4), file:top.v, line:13
+              \_module: work@small_test.B1[4].B4.B5[4]::M4 (work@small_test.B1[4].B4.B5[4].N4), file:top.v, line:13, parent:work@small_test.B1[4].B4.B5[4]
                 |vpiDefName:work@small_test.B1[4].B4.B5[4]::M4
                 |vpiName:N4
                 |vpiFullName:work@small_test.B1[4].B4.B5[4].N4
@@ -884,7 +884,7 @@ design: (work@small_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (a), line:21, parent:work@top
+      \_logic_net: (work@top.a), line:21, parent:work@top
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiRange:
@@ -893,13 +893,13 @@ design: (work@small_test)
           \_constant: , line:21
             |vpiConstType:7
             |vpiDecompile:2
-            |vpiSize:32
+            |vpiSize:64
             |INT:2
           |vpiRightRange:
           \_constant: , line:21
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiPort:
   \_port: (b), line:21, parent:work@top
@@ -908,7 +908,7 @@ design: (work@small_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (b), line:21, parent:work@top
+      \_logic_net: (work@top.b), line:21, parent:work@top
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiRange:
@@ -917,29 +917,29 @@ design: (work@small_test)
           \_constant: , line:21
             |vpiConstType:7
             |vpiDecompile:2
-            |vpiSize:32
+            |vpiSize:64
             |INT:2
           |vpiRightRange:
           \_constant: , line:21
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:32
+            |vpiSize:64
             |INT:0
   |vpiGenScopeArray:
-  \_gen_scope_array: (genblk1[0]), line:23, parent:work@top
+  \_gen_scope_array: (work@top.genblk1[0]), line:23, parent:work@top
     |vpiName:genblk1[0]
     |vpiFullName:work@top.genblk1[0]
     |vpiGenScope:
-    \_gen_scope: , parent:genblk1[0]
+    \_gen_scope: (work@top.genblk1[0]), parent:work@top.genblk1[0]
       |vpiFullName:work@top.genblk1[0]
       |vpiContAssign:
-      \_cont_assign: , line:24
+      \_cont_assign: , line:24, parent:work@top.genblk1[0]
         |vpiRhs:
-        \_bit_select: (a), line:24
+        \_bit_select: (work@top.genblk1[0].a), line:24
           |vpiName:a
           |vpiFullName:work@top.genblk1[0].a
           |vpiIndex:
-          \_operation: , line:24, parent:a
+          \_operation: , line:24, parent:work@top.genblk1[0].a
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:24
@@ -948,36 +948,38 @@ design: (work@small_test)
               |vpiSize:32
               |INT:2
             |vpiOperand:
-            \_ref_obj: (i), line:24
+            \_ref_obj: (work@top.genblk1[0].a.i), line:24
               |vpiName:i
               |vpiFullName:work@top.genblk1[0].a.i
+              |vpiActual:
+              \_parameter: (i), line:23
+                |vpiName:i
+                |INT:0
         |vpiLhs:
-        \_bit_select: (b), line:24
+        \_bit_select: (work@top.genblk1[0].b), line:24
           |vpiName:b
           |vpiFullName:work@top.genblk1[0].b
           |vpiIndex:
-          \_ref_obj: (i), line:24, parent:b
+          \_ref_obj: (work@top.genblk1[0].b.i), line:24, parent:work@top.genblk1[0].b
             |vpiName:i
             |vpiFullName:work@top.genblk1[0].b.i
       |vpiParameter:
       \_parameter: (i), line:23
-        |vpiName:i
-        |INT:0
   |vpiGenScopeArray:
-  \_gen_scope_array: (genblk1[1]), line:23, parent:work@top
+  \_gen_scope_array: (work@top.genblk1[1]), line:23, parent:work@top
     |vpiName:genblk1[1]
     |vpiFullName:work@top.genblk1[1]
     |vpiGenScope:
-    \_gen_scope: , parent:genblk1[1]
+    \_gen_scope: (work@top.genblk1[1]), parent:work@top.genblk1[1]
       |vpiFullName:work@top.genblk1[1]
       |vpiContAssign:
-      \_cont_assign: , line:24
+      \_cont_assign: , line:24, parent:work@top.genblk1[1]
         |vpiRhs:
-        \_bit_select: (a), line:24
+        \_bit_select: (work@top.genblk1[1].a), line:24
           |vpiName:a
           |vpiFullName:work@top.genblk1[1].a
           |vpiIndex:
-          \_operation: , line:24, parent:a
+          \_operation: , line:24, parent:work@top.genblk1[1].a
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:24
@@ -986,36 +988,38 @@ design: (work@small_test)
               |vpiSize:32
               |INT:2
             |vpiOperand:
-            \_ref_obj: (i), line:24
+            \_ref_obj: (work@top.genblk1[1].a.i), line:24
               |vpiName:i
               |vpiFullName:work@top.genblk1[1].a.i
+              |vpiActual:
+              \_parameter: (i), line:23
+                |vpiName:i
+                |INT:1
         |vpiLhs:
-        \_bit_select: (b), line:24
+        \_bit_select: (work@top.genblk1[1].b), line:24
           |vpiName:b
           |vpiFullName:work@top.genblk1[1].b
           |vpiIndex:
-          \_ref_obj: (i), line:24, parent:b
+          \_ref_obj: (work@top.genblk1[1].b.i), line:24, parent:work@top.genblk1[1].b
             |vpiName:i
             |vpiFullName:work@top.genblk1[1].b.i
       |vpiParameter:
       \_parameter: (i), line:23
-        |vpiName:i
-        |INT:1
   |vpiGenScopeArray:
-  \_gen_scope_array: (genblk1[2]), line:23, parent:work@top
+  \_gen_scope_array: (work@top.genblk1[2]), line:23, parent:work@top
     |vpiName:genblk1[2]
     |vpiFullName:work@top.genblk1[2]
     |vpiGenScope:
-    \_gen_scope: , parent:genblk1[2]
+    \_gen_scope: (work@top.genblk1[2]), parent:work@top.genblk1[2]
       |vpiFullName:work@top.genblk1[2]
       |vpiContAssign:
-      \_cont_assign: , line:24
+      \_cont_assign: , line:24, parent:work@top.genblk1[2]
         |vpiRhs:
-        \_bit_select: (a), line:24
+        \_bit_select: (work@top.genblk1[2].a), line:24
           |vpiName:a
           |vpiFullName:work@top.genblk1[2].a
           |vpiIndex:
-          \_operation: , line:24, parent:a
+          \_operation: , line:24, parent:work@top.genblk1[2].a
             |vpiOpType:11
             |vpiOperand:
             \_constant: , line:24
@@ -1024,25 +1028,27 @@ design: (work@small_test)
               |vpiSize:32
               |INT:2
             |vpiOperand:
-            \_ref_obj: (i), line:24
+            \_ref_obj: (work@top.genblk1[2].a.i), line:24
               |vpiName:i
               |vpiFullName:work@top.genblk1[2].a.i
+              |vpiActual:
+              \_parameter: (i), line:23
+                |vpiName:i
+                |INT:2
         |vpiLhs:
-        \_bit_select: (b), line:24
+        \_bit_select: (work@top.genblk1[2].b), line:24
           |vpiName:b
           |vpiFullName:work@top.genblk1[2].b
           |vpiIndex:
-          \_ref_obj: (i), line:24, parent:b
+          \_ref_obj: (work@top.genblk1[2].b.i), line:24, parent:work@top.genblk1[2].b
             |vpiName:i
             |vpiFullName:work@top.genblk1[2].b.i
       |vpiParameter:
       \_parameter: (i), line:23
-        |vpiName:i
-        |INT:2
   |vpiNet:
-  \_logic_net: (a), line:21, parent:work@top
+  \_logic_net: (work@top.a), line:21, parent:work@top
   |vpiNet:
-  \_logic_net: (b), line:21, parent:work@top
+  \_logic_net: (work@top.b), line:21, parent:work@top
   |vpiParameter:
   \_parameter: (toto), line:22
     |vpiName:toto

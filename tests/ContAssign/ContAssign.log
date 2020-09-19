@@ -124,23 +124,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ContAssign/slpp_all//surelog.uhdm.c
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -153,24 +153,24 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:1, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:1, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiContAssign:
-  \_cont_assign: , line:5
+  \_cont_assign: , line:5, parent:work@top
     |vpiRhs:
     \_operation: , line:5
       |vpiOpType:8
       |vpiOperand:
-      \_ref_obj: (clkcnt), line:5
+      \_ref_obj: (work@top.clkcnt), line:5
         |vpiName:clkcnt
         |vpiFullName:work@top.clkcnt
     |vpiLhs:
-    \_ref_obj: (ena), line:5
+    \_ref_obj: (work@top.ena), line:5
       |vpiName:ena
       |vpiFullName:work@top.ena
   |vpiContAssign:
-  \_cont_assign: , line:7
+  \_cont_assign: , line:7, parent:work@top
     |vpiDelay:
     \_constant: , line:7
       |vpiConstType:7
@@ -178,40 +178,40 @@ design: (work@top)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_req_ready), line:7
+    \_ref_obj: (work@top.debug_req_ready), line:7
       |vpiName:debug_req_ready
       |vpiFullName:work@top.debug_req_ready
     |vpiLhs:
-    \_ref_obj: (__debug_req_ready), line:7
+    \_ref_obj: (work@top.__debug_req_ready), line:7
       |vpiName:__debug_req_ready
       |vpiFullName:work@top.__debug_req_ready
   |vpiContAssign:
-  \_cont_assign: , line:11
+  \_cont_assign: , line:11, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:11
+    \_ref_obj: (work@top.b), line:11
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:11
+    \_ref_obj: (work@top.a), line:11
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiNet:
-  \_logic_net: (intf2), line:3
+  \_logic_net: (work@top.intf2), line:3, parent:work@top
     |vpiName:intf2
     |vpiFullName:work@top.intf2
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (ena), line:5
+  \_logic_net: (work@top.ena), line:5, parent:work@top
     |vpiName:ena
     |vpiFullName:work@top.ena
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (__debug_req_ready), line:7
+  \_logic_net: (work@top.__debug_req_ready), line:7, parent:work@top
     |vpiName:__debug_req_ready
     |vpiFullName:work@top.__debug_req_ready
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (toto), line:9
+  \_logic_net: (work@top.toto), line:9, parent:work@top
     |vpiName:toto
     |vpiFullName:work@top.toto
     |vpiNetType:1
@@ -220,25 +220,25 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiContAssign:
-  \_cont_assign: , line:5
+  \_cont_assign: , line:5, parent:work@top
     |vpiRhs:
     \_operation: , line:5
       |vpiOpType:8
       |vpiOperand:
-      \_ref_obj: (clkcnt), line:5
+      \_ref_obj: (work@top.clkcnt), line:5
         |vpiName:clkcnt
         |vpiFullName:work@top.clkcnt
     |vpiLhs:
-    \_ref_obj: (ena), line:5
+    \_ref_obj: (work@top.ena), line:5
       |vpiName:ena
       |vpiFullName:work@top.ena
       |vpiActual:
-      \_logic_net: (ena), line:5, parent:work@top
+      \_logic_net: (work@top.ena), line:5, parent:work@top
         |vpiName:ena
         |vpiFullName:work@top.ena
         |vpiNetType:1
   |vpiContAssign:
-  \_cont_assign: , line:7
+  \_cont_assign: , line:7, parent:work@top
     |vpiDelay:
     \_constant: , line:7
       |vpiConstType:7
@@ -246,44 +246,44 @@ design: (work@top)
       |vpiSize:32
       |INT:0
     |vpiRhs:
-    \_ref_obj: (debug_req_ready), line:7
+    \_ref_obj: (work@top.debug_req_ready), line:7
       |vpiName:debug_req_ready
       |vpiFullName:work@top.debug_req_ready
     |vpiLhs:
-    \_ref_obj: (__debug_req_ready), line:7
+    \_ref_obj: (work@top.__debug_req_ready), line:7
       |vpiName:__debug_req_ready
       |vpiFullName:work@top.__debug_req_ready
       |vpiActual:
-      \_logic_net: (__debug_req_ready), line:7, parent:work@top
+      \_logic_net: (work@top.__debug_req_ready), line:7, parent:work@top
         |vpiName:__debug_req_ready
         |vpiFullName:work@top.__debug_req_ready
         |vpiNetType:1
   |vpiContAssign:
-  \_cont_assign: , line:11
+  \_cont_assign: , line:11, parent:work@top
     |vpiRhs:
-    \_ref_obj: (b), line:11
+    \_ref_obj: (work@top.b), line:11
       |vpiName:b
       |vpiFullName:work@top.b
     |vpiLhs:
-    \_ref_obj: (a), line:11
+    \_ref_obj: (work@top.a), line:11
       |vpiName:a
       |vpiFullName:work@top.a
   |vpiNet:
-  \_logic_net: (ena), line:5, parent:work@top
+  \_logic_net: (work@top.ena), line:5, parent:work@top
   |vpiNet:
-  \_logic_net: (__debug_req_ready), line:7, parent:work@top
+  \_logic_net: (work@top.__debug_req_ready), line:7, parent:work@top
   |vpiNet:
-  \_logic_net: (toto), line:9, parent:work@top
+  \_logic_net: (work@top.toto), line:9, parent:work@top
     |vpiName:toto
     |vpiFullName:work@top.toto
     |vpiNetType:1
   |vpiArrayNet:
-  \_array_net: (intf2), line:3, parent:work@top
+  \_array_net: (work@top.intf2), line:3, parent:work@top
     |vpiName:intf2
     |vpiFullName:work@top.intf2
     |vpiSize:2
     |vpiNet:
-    \_logic_net: , parent:intf2
+    \_logic_net: (work@top.intf2), parent:work@top.intf2
       |vpiFullName:work@top.intf2
       |vpiNetType:1
     |vpiRange:
@@ -292,13 +292,13 @@ design: (work@top)
       \_constant: , line:3
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:32
+        |vpiSize:1
         |INT:0
       |vpiRightRange:
       \_constant: , line:3
         |vpiConstType:7
         |vpiDecompile:1
-        |vpiSize:32
+        |vpiSize:64
         |INT:1
 ===================
 [  FATAL] : 0

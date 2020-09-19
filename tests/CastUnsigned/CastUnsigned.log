@@ -137,23 +137,23 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/CastUnsigned/slpp_all//surelog.uhdm
 design: (work@top)
 |vpiName:work@top
 |uhdmallPackages:
-\_package: builtin, parent:work@top
+\_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
   |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::builtin::array), parent:builtin
   |vpiName:builtin::array
   |vpiFullName:builtin::builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::builtin::queue), parent:builtin
   |vpiName:builtin::queue
   |vpiFullName:builtin::builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::builtin::string), parent:builtin
   |vpiName:builtin::string
   |vpiFullName:builtin::builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::builtin::system), parent:builtin
   |vpiName:builtin::system
   |vpiFullName:builtin::builtin::system
 |uhdmallClasses:
@@ -166,50 +166,50 @@ design: (work@top)
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@top
   |vpiName:work@semaphore
 |uhdmallModules:
-\_module: work@top, file:dut.sv, line:2, parent:work@top
+\_module: work@top (work@top), file:dut.sv, line:2, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
-  \_always: , line:7
+  \_always: , line:7, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (proc_stall_tieoff), line:7
+    \_named_begin: (work@top.proc_stall_tieoff), line:7
       |vpiName:proc_stall_tieoff
       |vpiFullName:work@top.proc_stall_tieoff
       |vpiStmt:
-      \_if_stmt: , line:8, parent:proc_stall_tieoff
+      \_if_stmt: , line:8, parent:work@top.proc_stall_tieoff
         |vpiCondition:
         \_operation: , line:8
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (setup_received), line:8
+          \_ref_obj: (work@top.proc_stall_tieoff.setup_received), line:8
             |vpiName:setup_received
             |vpiFullName:work@top.proc_stall_tieoff.setup_received
           |vpiOperand:
           \_operation: , line:8
             |vpiOpType:67
             |vpiOperand:
-            \_ref_obj: (i), line:8
+            \_ref_obj: (work@top.proc_stall_tieoff.i), line:8
               |vpiName:i
               |vpiFullName:work@top.proc_stall_tieoff.i
             |vpiTypespec:
             \_string_typespec: , line:8
         |vpiStmt:
-        \_begin: , line:8
+        \_begin: (work@top.proc_stall_tieoff), line:8
           |vpiFullName:work@top.proc_stall_tieoff
           |vpiStmt:
-          \_assignment: , line:9
+          \_assignment: , line:9, parent:work@top.proc_stall_tieoff
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (hw2reg.stall), line:9
+            \_ref_obj: (work@top.proc_stall_tieoff.hw2reg.stall), line:9, parent:work@top.proc_stall_tieoff
               |vpiName:hw2reg.stall
               |vpiFullName:work@top.proc_stall_tieoff.hw2reg.stall
             |vpiRhs:
-            \_sys_func_call: ($unsigned), line:9
+            \_sys_func_call: ($unsigned), line:9, parent:work@top.proc_stall_tieoff
               |vpiName:$unsigned
               |vpiArgument:
-              \_ref_obj: (i), line:9, parent:$unsigned
+              \_ref_obj: (work@top.proc_stall_tieoff.$unsigned.i), line:9, parent:$unsigned
                 |vpiName:i
                 |vpiFullName:work@top.proc_stall_tieoff.$unsigned.i
   |vpiTypedef:
@@ -233,53 +233,53 @@ design: (work@top)
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiProcess:
-  \_always: , line:7
+  \_always: , line:7, parent:work@top
     |vpiAlwaysType:2
     |vpiStmt:
-    \_named_begin: (proc_stall_tieoff), line:7
+    \_named_begin: (work@top.proc_stall_tieoff), line:7
       |vpiName:proc_stall_tieoff
       |vpiFullName:work@top.proc_stall_tieoff
       |vpiStmt:
-      \_if_stmt: , line:8, parent:proc_stall_tieoff
+      \_if_stmt: , line:8, parent:work@top.proc_stall_tieoff
         |vpiCondition:
         \_operation: , line:8
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (setup_received), line:8
+          \_ref_obj: (work@top.proc_stall_tieoff.setup_received), line:8
             |vpiName:setup_received
             |vpiFullName:work@top.proc_stall_tieoff.setup_received
           |vpiOperand:
           \_operation: , line:8
             |vpiOpType:67
             |vpiOperand:
-            \_ref_obj: (i), line:8
+            \_ref_obj: (work@top.proc_stall_tieoff.i), line:8
               |vpiName:i
               |vpiFullName:work@top.proc_stall_tieoff.i
             |vpiTypespec:
             \_string_typespec: , line:8
         |vpiStmt:
-        \_begin: , line:8
+        \_begin: (work@top.proc_stall_tieoff), line:8
           |vpiFullName:work@top.proc_stall_tieoff
           |vpiStmt:
-          \_assignment: , line:9
+          \_assignment: , line:9, parent:work@top.proc_stall_tieoff
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (hw2reg.stall), line:9
+            \_ref_obj: (work@top.proc_stall_tieoff.hw2reg.stall), line:9
               |vpiName:hw2reg.stall
               |vpiFullName:work@top.proc_stall_tieoff.hw2reg.stall
             |vpiRhs:
             \_sys_func_call: ($unsigned), line:9
               |vpiName:$unsigned
               |vpiArgument:
-              \_ref_obj: (i), line:9, parent:$unsigned
+              \_ref_obj: (work@top.proc_stall_tieoff.$unsigned.i), line:9, parent:$unsigned
                 |vpiName:i
                 |vpiFullName:work@top.proc_stall_tieoff.$unsigned.i
   |vpiTypedef:
-  \_interface_typespec: (foo_if), line:3
+  \_interface_typespec: (foo_if), line:3, parent:work@top
     |vpiName:foo_if
   |vpiParamAssign:
-  \_param_assign: , line:4
+  \_param_assign: , line:4, parent:work@top
     |vpiRhs:
     \_constant: , line:4
       |vpiConstType:3
@@ -287,11 +287,11 @@ design: (work@top)
       |vpiSize:1
       |BIN:0
     |vpiLhs:
-    \_parameter: (INIT), line:4
+    \_parameter: (work@top.INIT), line:4, parent:work@top
       |vpiName:INIT
       |vpiFullName:work@top.INIT
   |vpiParameter:
-  \_parameter: (INIT), line:4
+  \_parameter: (work@top.INIT), line:4, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

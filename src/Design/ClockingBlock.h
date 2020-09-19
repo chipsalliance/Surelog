@@ -25,26 +25,34 @@
 #define CLOCKINGBLOCK_H
 
 #include <vector>
+#include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
 
 class ClockingBlock final {
  public:
+  enum Type {Global, Default, Regular};
   ClockingBlock(const FileContent* fileContent, NodeId blockId,
-                NodeId clockingBlockId)
+                NodeId clockingBlockId, Type type, UHDM::clocking_block* actual)
     : m_fileContent(fileContent),
       m_blockId(blockId),
-      m_clockingBlockId(clockingBlockId) {}
+      m_clockingBlockId(clockingBlockId),
+      m_actual(actual),
+      m_type(type) {}
 
   void addSignal(Signal& signal) { m_signals.push_back(signal); }
   NodeId getNodeId() const { return m_blockId; }
   const std::vector<Signal>& getAllSignals() const { return m_signals; }
+  UHDM::clocking_block* getActual() { return m_actual; }
+  Type getType() { return m_type; }
 
  private:
   const FileContent* m_fileContent;
   NodeId m_blockId;
   NodeId m_clockingBlockId;
   std::vector<Signal> m_signals;
+  UHDM::clocking_block* m_actual;
+  Type m_type;
 };
 
 }  // namespace SURELOG

@@ -689,6 +689,10 @@ log "$date"
 log  "END SURELOG REGRESSION"
 log "************************"
 
+if {$DIFF_MODE == 1} {
+    log  "END DIFF_MODE SURELOG REGRESSION"
+}
+
 if {$result == "PASS"} {
     exit 0
 } else {
