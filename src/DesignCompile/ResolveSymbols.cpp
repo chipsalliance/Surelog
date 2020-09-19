@@ -117,9 +117,9 @@ void ResolveSymbols::createFastLookup() {
                                              m_errorContainer);
 
               ClassDefinition* def = new ClassDefinition(
-                  fullSubName, lib, pdef, m_fileData, subobject, NULL, s.MakeClass_defn());
+                  name, lib, pdef, m_fileData, subobject, NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
-              pdef->addClassDefinition(fullSubName, def);
+              pdef->addClassDefinition(name, def);
             }
           }
           break;
@@ -142,9 +142,9 @@ void ResolveSymbols::createFastLookup() {
               m_fileData->insertObjectLookup(fullSubName, subobject,
                                              m_errorContainer);
               ClassDefinition* def = new ClassDefinition(
-                  fullSubName, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
+                  name, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
               m_fileData->addClassDefinition(fullSubName, def);
-              mdef->addClassDefinition(fullSubName, def);
+              mdef->addClassDefinition(name, def);
             }
           }
           break;
@@ -178,9 +178,9 @@ void ResolveSymbols::createFastLookup() {
               if (m_fileData->Type(subobject) ==
                   VObjectType::slClass_declaration) {
                 ClassDefinition* def = new ClassDefinition(
-                    fullSubName, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
+                    name, lib, mdef, m_fileData, subobject, NULL, s.MakeClass_defn());
                 m_fileData->addClassDefinition(fullSubName, def);
-                mdef->addClassDefinition(fullSubName, def);
+                mdef->addClassDefinition(name, def);
               } else {
                 ModuleDefinition* def =
                     new ModuleDefinition(m_fileData, subobject, fullSubName);

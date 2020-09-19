@@ -113,6 +113,14 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
+    itr1 = classes.find(type_name);
+
+    if (itr1 != classes.end()) {
+      found = true;
+      classFound = true;
+    }
+  }
+  if (found == false) {
     std::string class_in_class = parent->getName() + "::" + type_name;
     itr1 = classes.find(class_in_class);
 

@@ -61,9 +61,16 @@ bool CompileClass::compile() {
   if (strstr(fileName.c_str(), "builtin.sv")) {
     fileName = "builtin.sv";
   }
+  std::string fullName;
+  if (m_class->getContainer()) {
+    std::string containerName = m_class->getContainer()->getName();
+    if (containerName != "")
+      fullName = containerName + "::";
+  }
+  fullName += m_class->getName();
   Location loc(m_symbols->registerSymbol(fileName),
                fC->Line(nodeId), 0,
-               m_symbols->registerSymbol(m_class->getName()));
+               m_symbols->registerSymbol(fullName));
 
   Error err1(ErrorDefinition::COMP_COMPILE_CLASS, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
