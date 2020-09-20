@@ -61,7 +61,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
-  UHDM::class_defn* getUhdmDefinition() { return m_uhdm_definition; }
+  UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
   typedef std::map<std::string, Property*> PropertyMap;
