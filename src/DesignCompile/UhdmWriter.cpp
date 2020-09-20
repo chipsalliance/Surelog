@@ -455,6 +455,7 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
         classDef->getType() == VObjectType::slClass_declaration) {
       const FileContent* fC = classDef->getFileContents()[0];
       class_defn* c = classDef->getUhdmDefinition();
+      c->Task_funcs(classDef->getTask_funcs());
       componentMap.insert(std::make_pair(classDef, c));
       c->VpiParent(parent);
       const std::string& name = classDef->getName();
@@ -1582,6 +1583,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
           classDef->getType() == VObjectType::slClass_declaration) {
         const FileContent* fC = classDef->getFileContents()[0];
         class_defn* c = classDef->getUhdmDefinition();
+        c->Task_funcs(classDef->getTask_funcs());
         componentMap.insert(std::make_pair(classDef, c));
         if (!c->VpiParent()) {
           c->VpiParent(d);

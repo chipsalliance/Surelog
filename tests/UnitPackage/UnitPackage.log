@@ -1067,12 +1067,143 @@ design: (work@simple_package)
 |uhdmallClasses:
 \_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@simple_package
   |vpiName:work@mailbox
+  |vpiTaskFunc:
+  \_function: , line:6
+    |vpiReturn:
+    \_int_var: , line:6
+    |vpiStmt:
+    \_begin: 
+  |vpiTaskFunc:
+  \_function: (num), line:9
+    |vpiName:num
+    |vpiReturn:
+    \_int_var: , line:9
+  |vpiTaskFunc:
+  \_task: (put), line:12
+    |vpiName:put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiTaskFunc:
+  \_function: (try_put), line:15
+    |vpiName:try_put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiTaskFunc:
+  \_task: (get), line:18
+    |vpiName:get
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiTaskFunc:
+  \_function: (try_get), line:21
+    |vpiName:try_get
+    |vpiReturn:
+    \_int_var: , line:21
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiTaskFunc:
+  \_task: (peek), line:24
+    |vpiName:peek
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiTaskFunc:
+  \_function: (try_peek), line:27
+    |vpiName:try_peek
+    |vpiReturn:
+    \_int_var: , line:27
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
 |uhdmallClasses:
 \_class_defn: (work@process), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:33, parent:work@simple_package
   |vpiName:work@process
+  |vpiTaskFunc:
+  \_function: (self), line:37
+    |vpiName:self
+    |vpiReturn:
+    \_chandle_var: (process), line:37
+      |vpiName:process
+  |vpiTaskFunc:
+  \_function: (status), line:40
+    |vpiName:status
+    |vpiReturn:
+    \_chandle_var: (state), line:40
+      |vpiName:state
+  |vpiTaskFunc:
+  \_task: (kill), line:43
+    |vpiName:kill
+    |vpiStmt:
+    \_begin: (kill), parent:kill
+      |vpiFullName:kill
+  |vpiTaskFunc:
+  \_task: (await), line:46
+    |vpiName:await
+    |vpiStmt:
+    \_begin: (await), parent:await
+      |vpiFullName:await
+  |vpiTaskFunc:
+  \_task: (suspend), line:49
+    |vpiName:suspend
+    |vpiStmt:
+    \_begin: (suspend), parent:suspend
+      |vpiFullName:suspend
+  |vpiTaskFunc:
+  \_task: (resume), line:52
+    |vpiName:resume
+    |vpiStmt:
+    \_begin: (resume), parent:resume
+      |vpiFullName:resume
 |uhdmallClasses:
 \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@simple_package
   |vpiName:work@semaphore
+  |vpiTaskFunc:
+  \_function: , line:60
+    |vpiReturn:
+    \_int_var: , line:60
+    |vpiStmt:
+    \_begin: 
+  |vpiTaskFunc:
+  \_task: (put), line:63
+    |vpiName:put
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:63, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiTaskFunc:
+  \_task: (get), line:66
+    |vpiName:get
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:66, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiTaskFunc:
+  \_function: (try_get), line:69
+    |vpiName:try_get
+    |vpiReturn:
+    \_int_var: , line:69
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:69, parent:keyCount
+        |vpiFullName:keyCount
 |uhdmallModules:
 \_module: work@simple_package (work@simple_package), file:simple_pkg.sv, line:11, parent:work@simple_package
   |vpiDefName:work@simple_package

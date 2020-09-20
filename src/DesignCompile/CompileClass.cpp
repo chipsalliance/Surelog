@@ -390,6 +390,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId function_name = fC->Sibling(function_data_type_or_implicit);
     funcName = fC->SymName(function_name);
 
+    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign);
+
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
      n<cfg_dut> u<143> t<StringConst> p<146> s<144> l<37>
@@ -402,6 +404,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId task_body_decl = fC->Child(func_decl);
     NodeId task_name = fC->Child(task_body_decl);
     taskName = fC->SymName(task_name);
+  
+    m_helper.compileTask(m_class, fC, func_decl, m_compileDesign);
+          
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
      n<> u<65> t<IntVec_TypeBit> p<66> l<37>
@@ -416,6 +421,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     if (fC->Type(func_prototype) == VObjectType::slTask_prototype) {
       NodeId task_name = fC->Child(func_prototype);
       taskName = fC->SymName(task_name);
+
+      m_helper.compileTask(m_class, fC, func_decl, m_compileDesign);
+
     } else {
       NodeId function_data_type = fC->Child(func_prototype);
       NodeId data_type = fC->Child(function_data_type);
@@ -430,13 +438,22 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       returnType->init(fC, type, typeName, fC->Type(type));
       NodeId function_name = fC->Sibling(function_data_type);
       funcName = fC->SymName(function_name);
+
+      m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign);
+
     }
     is_extern = true;
   } else if (func_type == VObjectType::slClass_constructor_declaration) {
     funcName = "new";
     returnType->init(fC, 0, "void", VObjectType::slNoType);
+
+    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign);
+
   } else if (func_type == VObjectType::slClass_constructor_prototype) {
     funcName = "new";
+
+    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign);
+    
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
   }
