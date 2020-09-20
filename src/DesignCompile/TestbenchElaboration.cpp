@@ -43,6 +43,7 @@
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/TestbenchElaboration.h"
+#include "headers/uhdm.h"
 
 using namespace SURELOG;
 
@@ -281,6 +282,8 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
 bool TestbenchElaboration::bindBaseClasses_() {
   Compiler* compiler = m_compileDesign->getCompiler();
   Design* design = compiler->getDesign();
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind base classes
@@ -293,7 +296,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
           bindDataType_(class_def.first, class_def.second->getFileContent(),
                         class_def.second->getNodeId(), classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_BASE_CLASS);
-      class_def.second = dynamic_cast<const ClassDefinition*>(the_def);
+      const ClassDefinition* bdef = dynamic_cast<const ClassDefinition*>(the_def);            
+      class_def.second = bdef;
       if (class_def.second) {
         // Super
         DataType* thisdt = new DataType(
@@ -304,6 +308,12 @@ bool TestbenchElaboration::bindBaseClasses_() {
                                       classDefinition->getNodeId(), 0, "super",
                                       false, false, false, false, false);
         classDefinition->insertProperty(prop);
+        UHDM::extends* extends = s.MakeExtends();
+        UHDM::class_typespec* tps = s.MakeClass_typespec();
+        extends->Class_typespec(tps);
+        tps->Class_defn(bdef->getUhdmDefinition());
+        classDefinition->getUhdmDefinition()->Extends(extends);
+        
       } else {
         class_def.second = dynamic_cast<const Parameter*>(the_def);
         if (class_def.second) {
