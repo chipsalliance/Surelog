@@ -2723,8 +2723,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                                        compileDesign, pexpr, instance);
     }
   } else {
-    tf_call* call = compileTfCall(component, fC, nodeId, compileDesign);
-    result = call;
+    result = compileTfCall(component, fC, nodeId, compileDesign);
   }
   return result;
 }
