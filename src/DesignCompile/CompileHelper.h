@@ -135,10 +135,10 @@ public:
         CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
 
   bool compileTask(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, bool isMethod = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, bool isMethod = false);
 
   bool compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);
