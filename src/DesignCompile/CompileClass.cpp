@@ -447,7 +447,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     funcName = "new";
     returnType->init(fC, 0, "void", VObjectType::slNoType);
 
-    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+    m_helper.compileClassConstructorDeclaration(m_class, fC, func_decl, m_compileDesign);
 
   } else if (func_type == VObjectType::slClass_constructor_prototype) {
     funcName = "new";
