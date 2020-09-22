@@ -110,7 +110,7 @@ public:
   bool compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);
 
-  UHDM::tf_call* compileTfCall(DesignComponent* component, const FileContent* fC,
+  UHDM::any* compileTfCall(DesignComponent* component, const FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
 

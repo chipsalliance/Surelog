@@ -108,13 +108,11 @@ VectorOfany* CompileHelper::compileStmt(
   }
   case VObjectType::slSubroutine_call_statement: {
 	  NodeId Subroutine_call = fC->Child(the_stmt);
-    UHDM::tf_call* call = compileTfCall(component, fC, Subroutine_call ,compileDesign);
-	  stmt = call;
+    stmt = compileTfCall(component, fC, Subroutine_call ,compileDesign);
   	break;
   }
   case VObjectType::slSystem_task: {
-    UHDM::tf_call* call = compileTfCall(component, fC, the_stmt, compileDesign);
-    stmt = call;
+    stmt = compileTfCall(component, fC, the_stmt, compileDesign);
     break;
   }
   case VObjectType::slConditional_statement: {

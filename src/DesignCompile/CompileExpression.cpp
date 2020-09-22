@@ -2520,6 +2520,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         cvar->VpiDecompile("this");
         result = cvar;
       }
+    } else if (fC->Type(List_of_arguments) == slConstant_bit_select) {
+      // TODO: Fill this
+      method_func_call* fcall = s.MakeMethod_func_call();
+      expr* object = (expr*)compileExpression(
+          component, fC, Handle, compileDesign, pexpr, instance, reduce);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall);
+      // TODO: make name part of the prefix, get vpiName from sibling
+      fcall->Prefix(object);
+      fcall->VpiName(name);
+      fcall->Tf_call_args(arguments);
+      result = fcall;
     } else if (fC->Type(List_of_arguments) == slStringConst) {
       // TODO: this is a mockup
       constant* cvar = s.MakeConstant();
@@ -2723,8 +2735,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                                        compileDesign, pexpr, instance);
     }
   } else {
-    tf_call* call = compileTfCall(component, fC, nodeId, compileDesign);
-    result = call;
+    result = compileTfCall(component, fC, nodeId, compileDesign);
   }
   return result;
 }
