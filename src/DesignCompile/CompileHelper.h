@@ -256,7 +256,11 @@ public:
 
   UHDM::atomic_stmt* compileDelayControl(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control,
-        CompileDesign* compileDesign);                                  
+        CompileDesign* compileDesign);
+
+  bool compileClassConstructorDeclaration(DesignComponent* component,
+                                          const FileContent* fC, NodeId nodeId,
+                                          CompileDesign* compileDesign);
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);

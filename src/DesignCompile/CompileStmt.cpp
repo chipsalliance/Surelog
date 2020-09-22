@@ -1122,6 +1122,117 @@ bool CompileHelper::compileTask(
   return true;
 }
 
+bool CompileHelper::compileClassConstructorDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
+  if (task_funcs == nullptr) {
+    component->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = component->getTask_funcs();
+  }
+  UHDM::function* func = s.MakeFunction();
+  func->VpiMethod(true);
+  task_funcs->push_back(func);
+  func->VpiFile(fC->getFileName());
+  func->VpiLineNo(fC->Line(nodeId));
+
+  const std::string name = "new";
+  NodeId Tf_port_list = 0;
+  Tf_port_list = fC->Child(nodeId);
+  UHDM::class_var* var = s.MakeClass_var();
+  func->Return(var);
+  UHDM::class_typespec* tps = s.MakeClass_typespec();
+  var->Typespec(tps);
+  ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
+  tps->Class_defn(cdef->getUhdmDefinition());
+
+  func->VpiName(name);
+  func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
+
+  NodeId Stmt = fC->Sibling(Tf_port_list);
+  int nbStmts = 0;
+  while (Stmt) {
+    if (fC->Type(Stmt) == slBlock_item_declaration) {
+      nbStmts++;
+    } else if (fC->Type(Stmt) == slSuper_dot_new) {
+      nbStmts++;
+      NodeId lookAhead = fC->Sibling(Stmt);
+      if (fC->Type(lookAhead) == slList_of_arguments) {
+        Stmt = fC->Sibling(Stmt);
+      }
+    } else if (fC->Type(Stmt) == slFunction_statement_or_null) {
+      nbStmts++;
+    }
+    Stmt = fC->Sibling(Stmt);
+  }
+
+  if (nbStmts == 1) {
+    Stmt = fC->Sibling(Tf_port_list);
+    if (fC->Type(Stmt) == slSuper_dot_new) {
+      UHDM::method_func_call* mcall = s.MakeMethod_func_call();
+      mcall->VpiParent(func);
+      mcall->VpiName("super.new");
+      NodeId Args = fC->Sibling(Stmt);
+      if (fC->Type(Args) == slList_of_arguments) {
+        VectorOfany* arguments = compileTfCallArguments(
+          component, fC, Args, compileDesign, mcall);
+        mcall->Tf_call_args(arguments);
+        Stmt = fC->Sibling(Stmt);
+      }
+      func->Stmt(mcall);
+    } else {
+      NodeId Statement = fC->Child(Stmt);
+      if (Statement) {
+        VectorOfany* sts =
+            compileStmt(component, fC, Statement, compileDesign, func);
+        if (sts) {
+          any* st = (*sts)[0];
+          st->VpiParent(func);
+          func->Stmt(st);
+        }
+      }
+    }
+  } else if (nbStmts > 1) {
+    begin* begin = s.MakeBegin();
+    func->Stmt(begin);
+    begin->VpiParent(func);
+    VectorOfany* stmts = s.MakeAnyVec();
+    begin->Stmts(stmts);
+    Stmt = fC->Sibling(Tf_port_list);
+    while (Stmt) {
+      if (fC->Type(Stmt) == slSuper_dot_new) {
+        UHDM::method_func_call* mcall = s.MakeMethod_func_call();
+        mcall->VpiParent(func);
+        mcall->VpiName("super.new");
+        NodeId Args = fC->Sibling(Stmt);
+        if (fC->Type(Args) == slList_of_arguments) {
+          VectorOfany* arguments =
+              compileTfCallArguments(component, fC, Args, compileDesign, mcall);
+          mcall->Tf_call_args(arguments);
+          Stmt = fC->Sibling(Stmt);
+        }
+        stmts->push_back(mcall);
+        mcall->VpiParent(begin);
+      } else {
+        NodeId Statement = fC->Child(Stmt);
+        if (Statement) {
+          if (VectorOfany* sts =
+                  compileStmt(component, fC, Statement, compileDesign, begin)) {
+            for (any* st : *sts) {
+              stmts->push_back(st);
+              st->VpiParent(begin);
+            }
+          }
+        }
+      }
+      Stmt = fC->Sibling(Stmt);
+    }
+  }
+
+  return true;
+}
+
 bool CompileHelper::compileFunction(
   DesignComponent* component, const FileContent* fC,
   NodeId nodeId,
