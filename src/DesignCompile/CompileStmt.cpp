@@ -573,7 +573,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
   bool automatic_status = false;
-  bool static_status = false;
+  bool const_status = false;
   if (type == slLifetime_Automatic) {
     nodeId = fC->Sibling(nodeId);
     automatic_status = true;
@@ -581,7 +581,12 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   }
   if (type == slLifetime_Static) {
     nodeId = fC->Sibling(nodeId);
-    static_status = true;
+    automatic_status = false;
+    type = fC->Type(nodeId);
+  }
+  if (type == slConst_type) {
+    nodeId = fC->Sibling(nodeId);
+    const_status = true;
     type = fC->Type(nodeId);
   }
   switch (type) {
@@ -614,7 +619,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
             component, fC, Data_type, compileDesign, nullptr, nullptr, true);
 
         if (var) {
-          var->VpiConstantVariable(static_status);
+          var->VpiConstantVariable(const_status);
           var->VpiAutomatic(automatic_status);
           var->VpiName(fC->SymName(Var));
 
