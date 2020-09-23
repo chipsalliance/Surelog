@@ -4,6 +4,7 @@ class C;
   int x;
 
   function new (int bound = 0);
+   super.new (name, parent, UVM_PORT, min_size, max_size);
   endfunction
    
   task set (int i);
