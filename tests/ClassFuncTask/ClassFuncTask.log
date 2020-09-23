@@ -20,6 +20,8 @@
 
 [NTE:EL0511] Nb leaf instances: 0.
 
+[ERR:EL0514] dut.sv:7: Undefined variable: super.
+
 UHDM HTML COVERAGE REPORT: ../../build/tests/ClassFuncTask/slpp_unit//surelog.uhdm.chk
 ====== UHDM =======
 design: (unnamed)
@@ -69,8 +71,26 @@ design: (unnamed)
         |vpiExpr:
         \_int_var: (bound), line:6, parent:bound
           |vpiFullName:bound
+      |vpiStmt:
+      \_method_func_call: (super.new), parent:new
+        |vpiName:super.new
+        |vpiArgument:
+        \_ref_obj: (name), line:7
+          |vpiName:name
+        |vpiArgument:
+        \_ref_obj: (parent), line:7
+          |vpiName:parent
+        |vpiArgument:
+        \_ref_obj: (UVM_PORT), line:7
+          |vpiName:UVM_PORT
+        |vpiArgument:
+        \_ref_obj: (min_size), line:7
+          |vpiName:min_size
+        |vpiArgument:
+        \_ref_obj: (max_size), line:7
+          |vpiName:max_size
     |vpiMethod:
-    \_task: (set), line:9
+    \_task: (set), line:10
       |vpiMethod:1
       |vpiName:set
       |vpiIODecl:
@@ -78,39 +98,39 @@ design: (unnamed)
         |vpiName:i
         |vpiDirection:5
         |vpiExpr:
-        \_int_var: (i), line:9, parent:i
+        \_int_var: (i), line:10, parent:i
           |vpiFullName:i
       |vpiStmt:
-      \_assignment: , line:10, parent:set
+      \_assignment: , line:11, parent:set
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (set.x), line:10, parent:set
+        \_ref_obj: (set.x), line:11, parent:set
           |vpiName:x
           |vpiFullName:set.x
         |vpiRhs:
-        \_ref_obj: (set.i), line:10, parent:set
+        \_ref_obj: (set.i), line:11, parent:set
           |vpiName:i
           |vpiFullName:set.i
           |vpiActual:
           \_io_decl: (i)
     |vpiMethod:
-    \_function: (get), line:12
+    \_function: (get), line:13
       |vpiMethod:1
       |vpiVisibility:1
       |vpiName:get
       |vpiReturn:
-      \_int_var: , line:12
+      \_int_var: , line:13
       |vpiStmt:
-      \_return_stmt: , line:13, parent:get
+      \_return_stmt: , line:14, parent:get
         |vpiCondition:
-        \_ref_obj: (get.x), line:13
+        \_ref_obj: (get.x), line:14
           |vpiName:x
           |vpiFullName:get.x
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 4
 
