@@ -327,6 +327,9 @@ set TYPES(slTagged) 1
 set TYPES(slQmark) 1
 set TYPES(slMatches) 1
 set TYPES(slIff) 1
+set TYPES(slNull) 1
+set TYPES(slWith) 1
+
 
 set TYPES(slAssignOp_Assign) 1
 set TYPES(slAssignOp_Add) 1

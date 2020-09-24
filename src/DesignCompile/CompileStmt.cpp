@@ -1724,3 +1724,40 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::a
   }
   return nullptr;
 }
+
+
+UHDM::method_func_call* CompileHelper::compileRandomizeCall(DesignComponent* component,
+                                  const FileContent* fC, NodeId Identifier_list,
+                                  CompileDesign* compileDesign, UHDM::any* pexpr) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  method_func_call* func_call = s.MakeMethod_func_call();  
+  method_func_call* result = func_call;
+  func_call->VpiName("randomize");
+  NodeId With = 0;
+  if (fC->Type(Identifier_list) == slIdentifier_list) {
+    With = fC->Sibling(Identifier_list);
+  } else if (fC->Type(Identifier_list) == slWith) {
+    With = Identifier_list;
+  }
+  NodeId Constraint_block = fC->Sibling(With);
+  if (fC->Type(Identifier_list) == slIdentifier_list) {
+    VectorOfany* arguments = compileTfCallArguments( component, fC, Identifier_list, compileDesign, func_call);
+    func_call->Tf_call_args(arguments);
+  }
+
+  if (Constraint_block) {
+    UHDM::any* cblock = compileConstraintBlock(component, fC, Constraint_block, compileDesign);
+    func_call->With(cblock);
+  }
+  return result;
+}
+
+UHDM::any* CompileHelper::compileConstraintBlock(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  UHDM::constraint* cons = s.MakeConstraint();
+  result = cons;
+  return result;
+}
