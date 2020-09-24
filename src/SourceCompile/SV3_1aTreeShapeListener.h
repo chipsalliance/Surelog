@@ -1361,7 +1361,7 @@ namespace SURELOG {
    void enterArray_manipulation_call(SV3_1aParser::Array_manipulation_callContext * /*ctx*/) final { }
    void exitArray_manipulation_call(SV3_1aParser::Array_manipulation_callContext * ctx) final { addVObject (ctx, VObjectType::slArray_manipulation_call); }
    void enterRandomize_call(SV3_1aParser::Randomize_callContext * /*ctx*/) final { }
-   void exitRandomize_call(SV3_1aParser::Randomize_callContext * ctx) final { addVObject (ctx, VObjectType::slRandomize_call); }
+   void exitRandomize_call(SV3_1aParser::Randomize_callContext * /*ctx*/) final ;
    void enterMethod_call_root(SV3_1aParser::Method_call_rootContext * /*ctx*/) final { }
    void exitMethod_call_root(SV3_1aParser::Method_call_rootContext * ctx) final { addVObject (ctx, VObjectType::slMethod_call_root); }
    void enterArray_method_name(SV3_1aParser::Array_method_nameContext * /*ctx*/) final { }

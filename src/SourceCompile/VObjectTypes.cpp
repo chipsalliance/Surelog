@@ -1899,6 +1899,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNOutGate_Not:
       text = "slNOutGate_Not";
       break;
+    case slNull:
+      text = "slNull";
+      break;
     case slNull_keyword:
       text = "slNull_keyword";
       break;
@@ -3128,6 +3131,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slWhile:
       text = "slWhile";
+      break;
+    case slWith:
+      text = "slWith";
       break;
     case slX:
       text = "slX";

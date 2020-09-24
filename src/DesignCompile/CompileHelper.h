@@ -262,6 +262,14 @@ public:
                                           const FileContent* fC, NodeId nodeId,
                                           CompileDesign* compileDesign);
 
+  UHDM::method_func_call* compileRandomizeCall(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign, UHDM::any* pexpr); 
+
+  UHDM::any* compileConstraintBlock(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign); 
+
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);
 

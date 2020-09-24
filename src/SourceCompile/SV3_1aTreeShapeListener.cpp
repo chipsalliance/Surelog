@@ -1345,3 +1345,13 @@ void SV3_1aTreeShapeListener::exitBegin_keywords_directive(
 void SV3_1aTreeShapeListener::exitEnd_keywords_directive(
     SV3_1aParser::End_keywords_directiveContext *ctx) {
 }
+
+void SV3_1aTreeShapeListener::exitRandomize_call(SV3_1aParser::Randomize_callContext * ctx) {
+  if (ctx->NULL_KEYWORD()) {
+    addVObject ((ParserRuleContext*)ctx->NULL_KEYWORD(), VObjectType::slNull);
+  }
+  if (ctx->WITH()) {
+    addVObject ((ParserRuleContext*)ctx->WITH(), VObjectType::slWith);
+  }
+  addVObject (ctx, VObjectType::slRandomize_call);
+}
