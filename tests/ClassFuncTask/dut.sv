@@ -1,6 +1,6 @@
 package pack;
 
-class C;
+class C #(type T=int);
   int x;
 
   function new (int bound = 0);

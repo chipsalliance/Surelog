@@ -723,7 +723,13 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   n<> u<11> t<Parameter_port_list> p<31> c<10> s<20> l<18>
 
   */
-
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  UHDM::class_defn* defn = m_class->getUhdmDefinition();
+  std::vector<UHDM::any*>* parameters = defn->Parameters();
+  if (parameters == nullptr) {
+    defn->Parameters(s.MakeAnyVec());
+    parameters= defn->Parameters();
+  }
   NodeId className = fC->Child(id);
   NodeId paramList = fC->Sibling(className);
   if (fC->Type(paramList) == VObjectType::slParameter_port_list) {
@@ -740,6 +746,12 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
         } else {
           ntype = 0;
         }
+        UHDM::type_parameter* p = s.MakeType_parameter();
+        p->VpiName(fC->SymName(typeNameId));
+        p->VpiFile(fC->getFileName());
+        p->VpiLineNo(fC->Line(typeNameId));
+        p->Typespec(m_helper.compileTypespec(m_class, fC, ntype, m_compileDesign, p, nullptr, false, ""));
+        parameters->push_back(p);
         Parameter* param =
             new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
         m_class->insertParameter(param);
