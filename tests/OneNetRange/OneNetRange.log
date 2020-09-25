@@ -365,7 +365,7 @@ design: (work@TOP)
   |vpiNet:
   \_logic_net: (work@SUB.out), line:15, parent:work@SUB
   |vpiParamAssign:
-  \_param_assign: , line:15
+  \_param_assign: , line:15, parent:work@SUB
     |vpiRhs:
     \_constant: , line:15
       |vpiConstType:7
@@ -373,10 +373,11 @@ design: (work@TOP)
       |vpiSize:32
       |INT:1
     |vpiLhs:
-    \_parameter: (width), line:15
+    \_parameter: (work@SUB.width), line:15, parent:work@SUB
       |vpiName:width
+      |vpiFullName:work@SUB.width
   |vpiParameter:
-  \_parameter: (width), line:15
+  \_parameter: (work@SUB.width), line:15, parent:work@SUB
 |uhdmallModules:
 \_module: work@TOP (work@TOP), file:tb.v, line:16, parent:work@TOP
   |vpiDefName:work@TOP
@@ -392,7 +393,7 @@ design: (work@TOP)
     |vpiFullName:work@TOP.o
     |vpiNetType:1
   |vpiParamAssign:
-  \_param_assign: , line:17
+  \_param_assign: , line:17, parent:work@TOP
     |vpiRhs:
     \_constant: , line:17
       |vpiConstType:7
@@ -400,10 +401,11 @@ design: (work@TOP)
       |vpiSize:32
       |INT:16
     |vpiLhs:
-    \_parameter: (width), line:17
+    \_parameter: (work@TOP.width), line:17, parent:work@TOP
       |vpiName:width
+      |vpiFullName:work@TOP.width
   |vpiParameter:
-  \_parameter: (width), line:17
+  \_parameter: (work@TOP.width), line:17, parent:work@TOP
 |uhdmallModules:
 \_module: work@dut (work@dut), file:dut.v, line:2, parent:work@TOP
   |vpiDefName:work@dut
@@ -435,7 +437,7 @@ design: (work@TOP)
   |vpiNet:
   \_logic_net: (work@dut.o), line:2, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:2
+  \_param_assign: , line:2, parent:work@dut
     |vpiRhs:
     \_constant: , line:2
       |vpiConstType:7
@@ -443,10 +445,11 @@ design: (work@TOP)
       |vpiSize:32
       |INT:1
     |vpiLhs:
-    \_parameter: (width), line:2
+    \_parameter: (work@dut.width), line:2, parent:work@dut
       |vpiName:width
+      |vpiFullName:work@dut.width
   |vpiParameter:
-  \_parameter: (width), line:2
+  \_parameter: (work@dut.width), line:2, parent:work@dut
 |uhdmallModules:
 \_module: work@middle (work@middle), file:dut.v, line:11, parent:work@TOP
   |vpiDefName:work@middle
@@ -492,7 +495,7 @@ design: (work@TOP)
     |vpiName:conn
     |vpiFullName:work@middle.conn
   |vpiParamAssign:
-  \_param_assign: , line:11
+  \_param_assign: , line:11, parent:work@middle
     |vpiRhs:
     \_constant: , line:11
       |vpiConstType:7
@@ -500,10 +503,11 @@ design: (work@TOP)
       |vpiSize:32
       |INT:1
     |vpiLhs:
-    \_parameter: (width), line:11
+    \_parameter: (work@middle.width), line:11, parent:work@middle
       |vpiName:width
+      |vpiFullName:work@middle.width
   |vpiParameter:
-  \_parameter: (width), line:11
+  \_parameter: (work@middle.width), line:11, parent:work@middle
 |uhdmtopModules:
 \_module: work@TOP (work@TOP), file:tb.v, line:16
   |vpiDefName:work@TOP

@@ -720,7 +720,7 @@ design: (work@small_test)
   |vpiDefName:work@small_test
   |vpiFullName:work@small_test
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@small_test
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:7
@@ -728,10 +728,11 @@ design: (work@small_test)
       |vpiSize:32
       |INT:5
     |vpiLhs:
-    \_parameter: (SIZE), line:3
+    \_parameter: (work@small_test.SIZE), line:3, parent:work@small_test
       |vpiName:SIZE
+      |vpiFullName:work@small_test.SIZE
   |vpiParameter:
-  \_parameter: (SIZE), line:3
+  \_parameter: (work@small_test.SIZE), line:3, parent:work@small_test
 |uhdmallModules:
 \_module: work@top (work@top), file:top.v, line:21, parent:work@small_test
   |vpiDefName:work@top
@@ -761,7 +762,7 @@ design: (work@small_test)
   |vpiNet:
   \_logic_net: (work@top.b), line:21, parent:work@top
   |vpiParamAssign:
-  \_param_assign: , line:22
+  \_param_assign: , line:22, parent:work@top
     |vpiRhs:
     \_constant: , line:22
       |vpiConstType:3
@@ -769,10 +770,11 @@ design: (work@small_test)
       |vpiSize:1
       |BIN:1
     |vpiLhs:
-    \_parameter: (toto), line:22
+    \_parameter: (work@top.toto), line:22, parent:work@top
       |vpiName:toto
+      |vpiFullName:work@top.toto
   |vpiParameter:
-  \_parameter: (toto), line:22
+  \_parameter: (work@top.toto), line:22, parent:work@top
 |uhdmtopModules:
 \_module: work@small_test (work@small_test), file:top.v, line:1
   |vpiDefName:work@small_test

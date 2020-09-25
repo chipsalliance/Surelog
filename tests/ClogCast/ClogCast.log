@@ -864,7 +864,7 @@ design: (work@debug_rom)
     |vpiFullName:work@debug_rom.addr_q
     |vpiNetType:36
   |vpiParamAssign:
-  \_param_assign: , line:10
+  \_param_assign: , line:10, parent:work@debug_rom
     |vpiRhs:
     \_constant: , line:10
       |vpiConstType:7
@@ -872,13 +872,14 @@ design: (work@debug_rom)
       |vpiSize:32
       |INT:19
     |vpiLhs:
-    \_parameter: (RomSize), line:10
+    \_parameter: (work@debug_rom.RomSize), line:10, parent:work@debug_rom
       |vpiName:RomSize
+      |vpiFullName:work@debug_rom.RomSize
       |vpiLocalParam:1
       |vpiTypespec:
       \_int_typespec: , line:10
   |vpiParameter:
-  \_parameter: (RomSize), line:10
+  \_parameter: (work@debug_rom.RomSize), line:10, parent:work@debug_rom
 |uhdmtopModules:
 \_module: work@debug_rom (work@debug_rom), file:dut.sv, line:3
   |vpiDefName:work@debug_rom

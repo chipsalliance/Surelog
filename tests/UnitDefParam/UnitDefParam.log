@@ -1121,7 +1121,7 @@ design: (work@top_def)
   |vpiDefName:work@def
   |vpiFullName:work@def
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@def
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:7
@@ -1129,10 +1129,11 @@ design: (work@top_def)
       |vpiSize:32
       |INT:2
     |vpiLhs:
-    \_parameter: (SIZE1), line:3
+    \_parameter: (work@def.SIZE1), line:3, parent:work@def
       |vpiName:SIZE1
+      |vpiFullName:work@def.SIZE1
   |vpiParameter:
-  \_parameter: (SIZE1), line:3
+  \_parameter: (work@def.SIZE1), line:3, parent:work@def
 |uhdmallModules:
 \_module: work@defparam_example (work@defparam_example), file:small.v, line:14, parent:work@top_def
   |vpiDefName:work@defparam_example
@@ -1142,7 +1143,7 @@ design: (work@top_def)
   |vpiDefName:work@secret_number
   |vpiFullName:work@secret_number
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@secret_number
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:7
@@ -1150,26 +1151,28 @@ design: (work@top_def)
       |vpiSize:32
       |INT:0
     |vpiLhs:
-    \_parameter: (SIZE), line:3
+    \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
       |vpiName:SIZE
+      |vpiFullName:work@secret_number.SIZE
   |vpiParameter:
-  \_parameter: (SIZE), line:3
+  \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
 |uhdmallModules:
 \_module: work@small_test (work@small_test), file:top.v, line:11, parent:work@top_def
   |vpiDefName:work@small_test
   |vpiFullName:work@small_test
   |vpiParamAssign:
-  \_param_assign: , line:14
+  \_param_assign: , line:14, parent:work@small_test
     |vpiRhs:
     \_constant: , line:14
       |vpiConstType:2
       |vpiDecompile:1e1
       |REAL:t.ttts
     |vpiLhs:
-    \_parameter: (SIZE), line:14
+    \_parameter: (work@small_test.SIZE), line:14, parent:work@small_test
       |vpiName:SIZE
+      |vpiFullName:work@small_test.SIZE
   |vpiParamAssign:
-  \_param_assign: , line:15
+  \_param_assign: , line:15, parent:work@small_test
     |vpiRhs:
     \_constant: , line:15
       |vpiConstType:7
@@ -1177,10 +1180,11 @@ design: (work@top_def)
       |vpiSize:32
       |INT:5
     |vpiLhs:
-    \_parameter: (dummy), line:15
+    \_parameter: (work@small_test.dummy), line:15, parent:work@small_test
       |vpiName:dummy
+      |vpiFullName:work@small_test.dummy
   |vpiParamAssign:
-  \_param_assign: , line:16
+  \_param_assign: , line:16, parent:work@small_test
     |vpiRhs:
     \_constant: , line:16
       |vpiConstType:3
@@ -1188,14 +1192,15 @@ design: (work@top_def)
       |vpiSize:13
       |BIN:13'b100
     |vpiLhs:
-    \_parameter: (p1), line:16
+    \_parameter: (work@small_test.p1), line:16, parent:work@small_test
       |vpiName:p1
+      |vpiFullName:work@small_test.p1
   |vpiParameter:
-  \_parameter: (SIZE), line:14
+  \_parameter: (work@small_test.SIZE), line:14, parent:work@small_test
   |vpiParameter:
-  \_parameter: (dummy), line:15
+  \_parameter: (work@small_test.dummy), line:15, parent:work@small_test
   |vpiParameter:
-  \_parameter: (p1), line:16
+  \_parameter: (work@small_test.p1), line:16, parent:work@small_test
 |uhdmallModules:
 \_module: work@small_top (work@small_top), file:top.v, line:7, parent:work@top_def
   |vpiDefName:work@small_top

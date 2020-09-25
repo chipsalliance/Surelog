@@ -732,31 +732,36 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   }
   NodeId className = fC->Child(id);
   NodeId paramList = fC->Sibling(className);
+
   if (fC->Type(paramList) == VObjectType::slParameter_port_list) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
-      NodeId typeNameId = fC->Child(list_of_type_assignments);
-      while (typeNameId) {
-        NodeId ntype = fC->Sibling(typeNameId);
-        bool skip = false;
-        if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
-          ntype = fC->Child(ntype);
-          skip = true;
-        } else {
-          ntype = 0;
+      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
+        // Type param
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+
+        NodeId typeNameId = fC->Child(list_of_type_assignments);
+        while (typeNameId) {
+          NodeId ntype = fC->Sibling(typeNameId);
+          bool skip = false;
+          if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
+            ntype = fC->Child(ntype);
+            skip = true;
+          } else {
+            ntype = 0;
+          }
+          Parameter* param =
+              new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
+          m_class->insertParameter(param);
+          typeNameId = fC->Sibling(typeNameId);
+          if (skip) typeNameId = fC->Sibling(typeNameId);
         }
-        UHDM::type_parameter* p = s.MakeType_parameter();
-        p->VpiName(fC->SymName(typeNameId));
-        p->VpiFile(fC->getFileName());
-        p->VpiLineNo(fC->Line(typeNameId));
-        p->Typespec(m_helper.compileTypespec(m_class, fC, ntype, m_compileDesign, p, nullptr, false, ""));
-        parameters->push_back(p);
-        Parameter* param =
-            new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
-        m_class->insertParameter(param);
-        typeNameId = fC->Sibling(typeNameId);
-        if (skip) typeNameId = fC->Sibling(typeNameId);
+
+      } else if (fC->Type(list_of_type_assignments) == slParameter_declaration) {
+        // Regular param
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);
     }

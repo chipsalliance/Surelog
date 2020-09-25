@@ -1,5 +1,14 @@
 package pack;
 
+
+
+class Vector #(parameter WIDTH=1);
+  bit [WIDTH-1:0] data;
+endclass
+
+class ovm_queue #(type T=int, type Q=short);
+endclass
+   
 class C #(type T=int);
   int x;
 

@@ -564,7 +564,7 @@ design: (work@dut)
       |vpiName:EXC_CAUSE_IRQ_TIMER_M
       |INT:100007
   |vpiParamAssign:
-  \_param_assign: , line:2
+  \_param_assign: , line:2, parent:work@dut
     |vpiRhs:
     \_operation: , line:2
       |vpiOpType:33
@@ -581,8 +581,9 @@ design: (work@dut)
         |vpiSize:4
         |HEX:4'h1
     |vpiLhs:
-    \_parameter: (PRESENT_SBOX4), line:2
+    \_parameter: (work@dut.PRESENT_SBOX4), line:2, parent:work@dut
       |vpiName:PRESENT_SBOX4
+      |vpiFullName:work@dut.PRESENT_SBOX4
       |vpiTypespec:
       \_logic_typespec: , line:2
         |vpiRange:
@@ -614,7 +615,7 @@ design: (work@dut)
             |vpiSize:64
             |INT:0
   |vpiParameter:
-  \_parameter: (PRESENT_SBOX4), line:2
+  \_parameter: (work@dut.PRESENT_SBOX4), line:2, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut), file:dut.sv, line:1
   |vpiDefName:work@dut

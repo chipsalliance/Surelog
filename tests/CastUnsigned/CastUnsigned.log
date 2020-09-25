@@ -392,7 +392,7 @@ design: (work@top)
   \_interface_typespec: (foo_if), line:3
     |vpiName:foo_if
   |vpiParamAssign:
-  \_param_assign: , line:4
+  \_param_assign: , line:4, parent:work@top
     |vpiRhs:
     \_constant: , line:4
       |vpiConstType:3
@@ -400,10 +400,11 @@ design: (work@top)
       |vpiSize:1
       |BIN:0
     |vpiLhs:
-    \_parameter: (INIT), line:4
+    \_parameter: (work@top.INIT), line:4, parent:work@top
       |vpiName:INIT
+      |vpiFullName:work@top.INIT
   |vpiParameter:
-  \_parameter: (INIT), line:4
+  \_parameter: (work@top.INIT), line:4, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top), file:dut.sv, line:2
   |vpiDefName:work@top
