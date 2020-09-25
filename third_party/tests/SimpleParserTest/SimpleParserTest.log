@@ -976,7 +976,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.seed2), line:2, parent:work@LFSR_TASK
   |vpiParamAssign:
-  \_param_assign: , line:7
+  \_param_assign: , line:7, parent:work@LFSR_TASK
     |vpiRhs:
     \_constant: , line:7
       |vpiConstType:3
@@ -984,12 +984,13 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:8'b10001110
     |vpiLhs:
-    \_parameter: (Chain1), line:7
+    \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
       |vpiName:Chain1
+      |vpiFullName:work@LFSR_TASK.Chain1
       |vpiTypespec:
       \_bit_typespec: , line:7
   |vpiParamAssign:
-  \_param_assign: , line:8
+  \_param_assign: , line:8, parent:work@LFSR_TASK
     |vpiRhs:
     \_constant: , line:8
       |vpiConstType:3
@@ -997,14 +998,15 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:8'b10101110
     |vpiLhs:
-    \_parameter: (Chain2), line:8
+    \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
       |vpiName:Chain2
+      |vpiFullName:work@LFSR_TASK.Chain2
       |vpiTypespec:
       \_bit_typespec: , line:8
   |vpiParameter:
-  \_parameter: (Chain1), line:7
+  \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
   |vpiParameter:
-  \_parameter: (Chain2), line:8
+  \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
 |uhdmallModules:
 \_module: work@arbiter (work@arbiter), file:another_arbiter.v, line:2, parent:work@dff_async_reset
   |vpiDefName:work@arbiter
@@ -3158,7 +3160,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@arbiter.tpriority), line:2, parent:work@arbiter
   |vpiParamAssign:
-  \_param_assign: , line:7
+  \_param_assign: , line:7, parent:work@arbiter
     |vpiRhs:
     \_constant: , line:7
       |vpiConstType:7
@@ -3166,10 +3168,11 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (NUMUNITS), line:7
+    \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
       |vpiName:NUMUNITS
+      |vpiFullName:work@arbiter.NUMUNITS
   |vpiParamAssign:
-  \_param_assign: , line:8
+  \_param_assign: , line:8, parent:work@arbiter
     |vpiRhs:
     \_constant: , line:8
       |vpiConstType:7
@@ -3177,12 +3180,13 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:3
     |vpiLhs:
-    \_parameter: (ADDRESSWIDTH), line:8
+    \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
       |vpiName:ADDRESSWIDTH
+      |vpiFullName:work@arbiter.ADDRESSWIDTH
   |vpiParameter:
-  \_parameter: (NUMUNITS), line:7
+  \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
   |vpiParameter:
-  \_parameter: (ADDRESSWIDTH), line:8
+  \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
 |uhdmallModules:
 \_module: work@case1 (work@case1), file:m_input_mult.v, line:2, parent:work@dff_async_reset
   |vpiDefName:work@case1
@@ -5847,7 +5851,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@syn_fifo.full), line:18, parent:work@syn_fifo
   |vpiParamAssign:
-  \_param_assign: , line:22
+  \_param_assign: , line:22, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:22
       |vpiConstType:7
@@ -5855,10 +5859,11 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (DATA_WIDTH), line:22
+    \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
       |vpiName:DATA_WIDTH
+      |vpiFullName:work@syn_fifo.DATA_WIDTH
   |vpiParamAssign:
-  \_param_assign: , line:23
+  \_param_assign: , line:23, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:23
       |vpiConstType:7
@@ -5866,23 +5871,25 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (ADDR_WIDTH), line:23
+    \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
       |vpiName:ADDR_WIDTH
+      |vpiFullName:work@syn_fifo.ADDR_WIDTH
   |vpiParamAssign:
-  \_param_assign: , line:24
+  \_param_assign: , line:24, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:24
       |vpiDecompile:256
       |INT:256
     |vpiLhs:
-    \_parameter: (RAM_DEPTH), line:24
+    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
       |vpiName:RAM_DEPTH
+      |vpiFullName:work@syn_fifo.RAM_DEPTH
   |vpiParameter:
-  \_parameter: (DATA_WIDTH), line:22
+  \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
   |vpiParameter:
-  \_parameter: (ADDR_WIDTH), line:23
+  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
   |vpiParameter:
-  \_parameter: (RAM_DEPTH), line:24
+  \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
 |uhdmallModules:
 \_module: work@top (work@top), file:arbiter_tb.v, line:3, parent:work@dff_async_reset
   |vpiDefName:work@top

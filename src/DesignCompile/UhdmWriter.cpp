@@ -455,7 +455,27 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
         classDef->getType() == VObjectType::slClass_declaration) {
       const FileContent* fC = classDef->getFileContents()[0];
       class_defn* c = classDef->getUhdmDefinition();
+      // Function and tasks
       c->Task_funcs(classDef->getTask_funcs());
+      if (c->Task_funcs()) {
+        for (auto tf : *c->Task_funcs()) {
+          tf->VpiParent(c);
+        }
+      }
+      // Parameters
+      if (classDef->getParameters()) {
+        c->Parameters(classDef->getParameters());
+        for (auto ps : *c->Parameters()) {
+          ps->VpiParent(c);
+        }
+      }
+      // Param_assigns
+      if (classDef->getParam_assigns()) {
+        c->Param_assigns(classDef->getParam_assigns());
+        for (auto ps : *c->Param_assigns()) {
+          ps->VpiParent(c);
+        }
+      }
       componentMap.insert(std::make_pair(classDef, c));
       c->VpiParent(parent);
       const std::string& name = classDef->getName();
@@ -513,7 +533,12 @@ void writePackage(Package* pack, package* p, Serializer& s,
     }
   }
   // Param_assigns
-  p->Param_assigns(pack->getParam_assigns());
+  if (pack->getParam_assigns()) {
+    p->Param_assigns(pack->getParam_assigns());
+    for (auto ps : *p->Param_assigns()) {
+      ps->VpiParent(p);
+    }
+  }
   // Function and tasks
   p->Task_funcs(pack->getTask_funcs());
   if (p->Task_funcs()) {
@@ -575,10 +600,19 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
     }
   }
   // Parameters
-  if (mod->getParameters())
+  if (mod->getParameters()) {
     m->Parameters(mod->getParameters());
+    for (auto ps : *m->Parameters()) {
+      ps->VpiParent(m);
+    }
+  }  
   // Param_assigns
-  m->Param_assigns(mod->getParam_assigns());
+  if (mod->getParam_assigns()) {
+    m->Param_assigns(mod->getParam_assigns());
+    for (auto ps : *m->Param_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
   // Function and tasks
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {

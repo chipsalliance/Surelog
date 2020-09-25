@@ -8,7 +8,11 @@
 
 [INF:CP0301] dut.sv:1: Compile package "pack".
 
-[INF:CP0302] dut.sv:3: Compile class "pack::C".
+[INF:CP0302] dut.sv:12: Compile class "pack::C".
+
+[INF:CP0302] dut.sv:5: Compile class "pack::Vector".
+
+[INF:CP0302] dut.sv:9: Compile class "pack::ovm_queue".
 
 [INF:EL0526] Design Elaboration...
 
@@ -20,7 +24,7 @@
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-[ERR:EL0514] dut.sv:7: Undefined variable: super.
+[ERR:EL0514] dut.sv:16: Undefined variable: super.
 
 UHDM HTML COVERAGE REPORT: ../../build/tests/ClassFuncTask/slpp_unit//surelog.uhdm.chk
 ====== UHDM =======
@@ -51,87 +55,126 @@ design: (unnamed)
   |vpiDefName:pack
   |vpiFullName:pack
   |vpiClassDefn:
-  \_class_defn: (pack::C), file:dut.sv, line:3, parent:pack
+  \_class_defn: (pack::C), file:dut.sv, line:12, parent:pack
     |vpiName:C
     |vpiFullName:pack::C
     |vpiMethod:
-    \_function: (new), line:6
+    \_function: (pack::C::new), line:15, parent:pack::C
       |vpiMethod:1
       |vpiName:new
+      |vpiFullName:pack::C::new
       |vpiReturn:
       \_class_var: 
         |vpiTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (pack::C), file:dut.sv, line:3, parent:pack
+          \_class_defn: (pack::C), file:dut.sv, line:12, parent:pack
       |vpiIODecl:
       \_io_decl: (bound)
         |vpiName:bound
         |vpiDirection:5
         |vpiExpr:
-        \_int_var: (bound), line:6, parent:bound
+        \_int_var: (bound), line:15, parent:bound
           |vpiFullName:bound
       |vpiStmt:
-      \_method_func_call: (super.new), parent:new
+      \_method_func_call: (super.new), parent:pack::C::new
         |vpiName:super.new
         |vpiArgument:
-        \_ref_obj: (name), line:7
+        \_ref_obj: (name), line:16
           |vpiName:name
         |vpiArgument:
-        \_ref_obj: (parent), line:7
+        \_ref_obj: (parent), line:16
           |vpiName:parent
         |vpiArgument:
-        \_ref_obj: (UVM_PORT), line:7
+        \_ref_obj: (UVM_PORT), line:16
           |vpiName:UVM_PORT
         |vpiArgument:
-        \_ref_obj: (min_size), line:7
+        \_ref_obj: (min_size), line:16
           |vpiName:min_size
         |vpiArgument:
-        \_ref_obj: (max_size), line:7
+        \_ref_obj: (max_size), line:16
           |vpiName:max_size
     |vpiMethod:
-    \_task: (set), line:10
+    \_task: (pack::C::set), line:19, parent:pack::C
       |vpiMethod:1
       |vpiName:set
+      |vpiFullName:pack::C::set
       |vpiIODecl:
       \_io_decl: (i)
         |vpiName:i
         |vpiDirection:5
         |vpiExpr:
-        \_int_var: (i), line:10, parent:i
+        \_int_var: (i), line:19, parent:i
           |vpiFullName:i
       |vpiStmt:
-      \_assignment: , line:11, parent:set
+      \_assignment: , line:20, parent:pack::C::set
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (set.x), line:11, parent:set
+        \_ref_obj: (pack::C::set::x), line:20, parent:pack::C::set
           |vpiName:x
-          |vpiFullName:set.x
+          |vpiFullName:pack::C::set::x
         |vpiRhs:
-        \_ref_obj: (set.i), line:11, parent:set
+        \_ref_obj: (pack::C::set::i), line:20, parent:pack::C::set
           |vpiName:i
-          |vpiFullName:set.i
+          |vpiFullName:pack::C::set::i
           |vpiActual:
           \_io_decl: (i)
     |vpiMethod:
-    \_function: (get), line:13
+    \_function: (pack::C::get), line:22, parent:pack::C
       |vpiMethod:1
       |vpiVisibility:1
       |vpiName:get
+      |vpiFullName:pack::C::get
       |vpiReturn:
-      \_int_var: , line:13
+      \_int_var: , line:22
       |vpiStmt:
-      \_return_stmt: , line:14, parent:get
+      \_return_stmt: , line:23, parent:pack::C::get
         |vpiCondition:
-        \_ref_obj: (get.x), line:14
+        \_ref_obj: (pack::C::get::x), line:23
           |vpiName:x
-          |vpiFullName:get.x
+          |vpiFullName:pack::C::get::x
     |vpiParameter:
-    \_type_parameter: (T), line:3
+    \_type_parameter: (pack::C::T), line:12, parent:pack::C
+      |vpiFullName:pack::C::T
       |vpiName:T
       |vpiTypespec:
-      \_int_typespec: , line:3
+      \_int_typespec: , line:12
+  |vpiClassDefn:
+  \_class_defn: (pack::Vector), file:dut.sv, line:5, parent:pack
+    |vpiName:Vector
+    |vpiFullName:pack::Vector
+    |vpiParamAssign:
+    \_param_assign: , line:5, parent:pack::Vector
+      |vpiRhs:
+      \_constant: , line:5
+        |vpiConstType:7
+        |vpiDecompile:1
+        |vpiSize:32
+        |INT:1
+      |vpiLhs:
+      \_parameter: (pack::Vector::WIDTH), line:5, parent:pack::Vector
+        |vpiName:WIDTH
+        |vpiFullName:pack::Vector::WIDTH
+    |vpiParameter:
+    \_parameter: (pack::Vector::WIDTH), line:5, parent:pack::Vector
+  |vpiClassDefn:
+  \_class_defn: (pack::ovm_queue), file:dut.sv, line:9, parent:pack
+    |vpiName:ovm_queue
+    |vpiFullName:pack::ovm_queue
+    |vpiParameter:
+    \_type_parameter: (pack::ovm_queue::T), line:9, parent:pack::ovm_queue
+      |vpiFullName:pack::ovm_queue::T
+      |vpiName:T
+      |vpiTypespec:
+      \_int_typespec: , line:9
+    |vpiParameter:
+    \_type_parameter: (pack::ovm_queue::Q), line:9, parent:pack::ovm_queue
+      |vpiFullName:pack::ovm_queue::Q
+      |vpiName:Q
+      |vpiTypespec:
+      \_void_typespec: (short), line:9
+        |vpiName:short
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
