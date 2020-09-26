@@ -1735,6 +1735,9 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       p->VpiLineNo(fC->Line(typeNameId));
       p->Typespec(compileTypespec(component, fC, ntype, compileDesign,
                                            p, nullptr, false, ""));
+      if (localParam) {
+        p->VpiLocalParam(true);
+      }
       parameters->push_back(p);
       typeNameId = fC->Sibling(typeNameId);
       if (skip) typeNameId = fC->Sibling(typeNameId);
