@@ -1496,9 +1496,15 @@ Processing: -cd generic/class class_test_40.sv -parse -nocache -nobuiltin -nonot
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/class class_test_53.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_test_53.sv.log
+[ERR:UH0705] class_test_53.sv:10: Unsupported data type "<n<> u<31> t<Param_assignment> p<34> c<21> s<33> l<10>>   localparam type GT = mypkg::GlueType, GT2;
+".
+
+[ERR:UH0705] class_test_53.sv:11: Unsupported data type "<n<> u<38> t<Param_assignment> p<62> c<37> s<61> l<11>>   localparam type HT1, HT2 = mypkg::ModuleType#(N+M);
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/class class_test_54.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_test_54.sv.log
@@ -5590,7 +5596,7 @@ Processing: -cd chapter-10 10.3.3--cont-assignment-delay.sv -parse -nocache -nob
 Processed 859 tests.
 [  FATAL] : 0
 [ SYNTAX] : 37
-[  ERROR] : 131
+[  ERROR] : 133
 [WARNING] : 8
 [   NOTE] : 0
 
