@@ -569,6 +569,13 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
       new ClassDefinition(class_name, m_class->getLibrary(),
                           m_class->getContainer(), fC, class_name_id, m_class, defn);
   m_class->insertClass(the_class);
+  UHDM::class_defn* parent = m_class->getUhdmDefinition();
+  UHDM::VectorOfscope* scopes = parent->Scopes();
+  if (scopes == nullptr) {
+    parent->Scopes(s.MakeScopeVec());
+    scopes = parent->Scopes();
+  }
+  scopes->push_back(defn);
 
   CompileClass* instance = new CompileClass(m_compileDesign, the_class,
                                             m_design, m_symbols, m_errors);
