@@ -571,6 +571,10 @@ design: (work@toto)
             \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
               |vpiName:c2
               |vpiFullName:work@toto.c2
+              |vpiDerivedClasses:
+              \_class_defn: (work@toto.c3), file:top.v, line:15, parent:work@toto
+        |vpiDerivedClasses:
+        \_class_defn: (work@toto.c1), file:top.v, line:18, parent:work@toto
 |uhdmallClasses:
 \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
 |uhdmallClasses:
@@ -700,6 +704,10 @@ design: (work@toto)
               \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
                 |vpiName:c2
                 |vpiFullName:work@toto.c2
+                |vpiDerivedClasses:
+                \_class_defn: (work@toto.c3), file:top.v, line:15, parent:work@toto
+          |vpiDerivedClasses:
+          \_class_defn: (work@toto.c1), file:top.v, line:18, parent:work@toto
   |vpiClassDefn:
   \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
   |vpiClassDefn:
@@ -817,37 +825,354 @@ design: (work@toto)
         \_int_var: (work@toto.c1.wait_for_total_count.count), line:44, parent:count
           |vpiFullName:work@toto.c1.wait_for_total_count.count
     |vpiExtends:
-    \_extends: , parent:work@toto.c1
+    \_extends: 
       |vpiClassTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@toto.c1.c3), file:top.v, line:15
+        \_class_defn: (work@toto.c3), file:top.v, line:15, parent:work@toto
           |vpiName:c3
-          |vpiFullName:work@toto.c1.c3
+          |vpiFullName:work@toto.c3
           |vpiExtends:
-          \_extends: , parent:work@toto.c1.c3
+          \_extends: 
             |vpiClassTypespec:
             \_class_typespec: 
               |vpiClassDefn:
-              \_class_defn: (work@toto.c1.c3.c2), file:top.v, line:8
+              \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
                 |vpiName:c2
-                |vpiFullName:work@toto.c1.c3.c2
+                |vpiFullName:work@toto.c2
+                |vpiDerivedClasses:
+                \_class_defn: (work@toto.c3), file:top.v, line:15, parent:work@toto
+          |vpiDerivedClasses:
+          \_class_defn: (work@toto.c1), file:top.v, line:18, parent:work@toto
+            |vpiName:c1
+            |vpiFullName:work@toto.c1
+            |vpiMethod:
+            \_function: (work@toto.c1.get_current_item), line:30, parent:work@toto.c1
+              |vpiMethod:1
+              |vpiVisibility:1
+              |vpiName:get_current_item
+              |vpiFullName:work@toto.c1.get_current_item
+              |vpiReturn:
+              \_chandle_var: (REQ), line:30
+                |vpiName:REQ
+              |vpiStmt:
+              \_assign_stmt: , parent:work@toto.c1.get_current_item
+                |vpiLhs:
+                \_chandle_var: (work@toto.c1.get_current_item.t), line:31
+                  |vpiName:t
+                  |vpiFullName:work@toto.c1.get_current_item.t
+            |vpiMethod:
+            \_function: (work@toto.c1.connect), line:35, parent:work@toto.c1
+              |vpiMethod:1
+              |vpiVisibility:1
+              |vpiName:connect
+              |vpiFullName:work@toto.c1.connect
+              |vpiIODecl:
+              \_io_decl: (provider)
+                |vpiName:provider
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (provider.this_type), line:35, parent:provider
+                  |vpiName:this_type
+                  |vpiFullName:provider.this_type
+            |vpiMethod:
+            \_function: (work@toto.c1.get_verbosity_level), line:38, parent:work@toto.c1
+              |vpiMethod:1
+              |vpiVisibility:1
+              |vpiName:get_verbosity_level
+              |vpiFullName:work@toto.c1.get_verbosity_level
+              |vpiReturn:
+              \_int_var: , line:38
+              |vpiIODecl:
+              \_io_decl: (severity)
+                |vpiName:severity
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (severity.uvm_severity), line:38, parent:severity
+                  |vpiName:uvm_severity
+                  |vpiFullName:severity.uvm_severity
+              |vpiIODecl:
+              \_io_decl: (reg_a)
+                |vpiName:reg_a
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (reg_a.uvm_reg), line:38, parent:reg_a
+                  |vpiName:uvm_reg
+                  |vpiFullName:reg_a.uvm_reg
+            |vpiMethod:
+            \_function: (work@toto.c1.set_verbosity_level), line:41, parent:work@toto.c1
+              |vpiMethod:1
+              |vpiVisibility:1
+              |vpiName:set_verbosity_level
+              |vpiFullName:work@toto.c1.set_verbosity_level
+              |vpiReturn:
+              \_int_var: , line:41
+              |vpiIODecl:
+              \_io_decl: (severity)
+                |vpiName:severity
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (severity.uvm_severity), line:41, parent:severity
+                  |vpiName:uvm_severity
+                  |vpiFullName:severity.uvm_severity
+              |vpiIODecl:
+              \_io_decl: (reg_a)
+                |vpiName:reg_a
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (reg_a.uvm_reg), line:41, parent:reg_a
+                  |vpiName:uvm_reg
+                  |vpiFullName:reg_a.uvm_reg
+            |vpiMethod:
+            \_task: (work@toto.c1.wait_for_total_count), line:44, parent:work@toto.c1
+              |vpiMethod:1
+              |vpiName:wait_for_total_count
+              |vpiFullName:work@toto.c1.wait_for_total_count
+              |vpiIODecl:
+              \_io_decl: (obj)
+                |vpiName:obj
+                |vpiDirection:5
+                |vpiExpr:
+                \_chandle_var: (obj.c2), line:44, parent:obj
+                  |vpiName:c2
+                  |vpiFullName:obj.c2
+              |vpiIODecl:
+              \_io_decl: (count)
+                |vpiName:count
+                |vpiDirection:5
+                |vpiExpr:
+                \_int_var: (count), line:44, parent:count
+                  |vpiFullName:count
+            |vpiExtends:
+            \_extends: 
   |vpiClassDefn:
   \_class_defn: (work@toto.c2), file:top.v, line:8, parent:work@toto
     |vpiName:c2
     |vpiFullName:work@toto.c2
+    |vpiDerivedClasses:
+    \_class_defn: (work@toto.c2.c3), file:top.v, line:15, parent:work@toto.c2
+      |vpiName:c3
+      |vpiFullName:work@toto.c2.c3
+      |vpiExtends:
+      \_extends: 
+      |vpiDerivedClasses:
+      \_class_defn: (work@toto.c2.c3.c1), file:top.v, line:18, parent:work@toto.c2.c3
+        |vpiName:c1
+        |vpiFullName:work@toto.c2.c3.c1
+        |vpiMethod:
+        \_function: (work@toto.c2.c3.c1.get_current_item), line:30, parent:work@toto.c2.c3.c1
+          |vpiMethod:1
+          |vpiVisibility:1
+          |vpiName:get_current_item
+          |vpiFullName:work@toto.c2.c3.c1.get_current_item
+          |vpiReturn:
+          \_chandle_var: (work@toto.c2.c3.c1.get_current_item.REQ), line:30, parent:work@toto.c2.c3.c1.get_current_item
+            |vpiName:REQ
+            |vpiFullName:work@toto.c2.c3.c1.get_current_item.REQ
+          |vpiStmt:
+          \_assign_stmt: , parent:work@toto.c2.c3.c1.get_current_item
+            |vpiLhs:
+            \_chandle_var: (work@toto.c2.c3.c1.get_current_item.t), line:31
+              |vpiName:t
+              |vpiFullName:work@toto.c2.c3.c1.get_current_item.t
+        |vpiMethod:
+        \_function: (work@toto.c2.c3.c1.connect), line:35, parent:work@toto.c2.c3.c1
+          |vpiMethod:1
+          |vpiVisibility:1
+          |vpiName:connect
+          |vpiFullName:work@toto.c2.c3.c1.connect
+          |vpiIODecl:
+          \_io_decl: (provider), parent:work@toto.c2.c3.c1.connect
+            |vpiName:provider
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.connect.provider.this_type), line:35, parent:provider
+              |vpiName:this_type
+              |vpiFullName:work@toto.c2.c3.c1.connect.provider.this_type
+        |vpiMethod:
+        \_function: (work@toto.c2.c3.c1.get_verbosity_level), line:38, parent:work@toto.c2.c3.c1
+          |vpiMethod:1
+          |vpiVisibility:1
+          |vpiName:get_verbosity_level
+          |vpiFullName:work@toto.c2.c3.c1.get_verbosity_level
+          |vpiReturn:
+          \_int_var: (work@toto.c2.c3.c1.get_verbosity_level), line:38, parent:work@toto.c2.c3.c1.get_verbosity_level
+            |vpiFullName:work@toto.c2.c3.c1.get_verbosity_level
+          |vpiIODecl:
+          \_io_decl: (severity), parent:work@toto.c2.c3.c1.get_verbosity_level
+            |vpiName:severity
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.get_verbosity_level.severity.uvm_severity), line:38, parent:severity
+              |vpiName:uvm_severity
+              |vpiFullName:work@toto.c2.c3.c1.get_verbosity_level.severity.uvm_severity
+          |vpiIODecl:
+          \_io_decl: (reg_a), parent:work@toto.c2.c3.c1.get_verbosity_level
+            |vpiName:reg_a
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.get_verbosity_level.reg_a.uvm_reg), line:38, parent:reg_a
+              |vpiName:uvm_reg
+              |vpiFullName:work@toto.c2.c3.c1.get_verbosity_level.reg_a.uvm_reg
+        |vpiMethod:
+        \_function: (work@toto.c2.c3.c1.set_verbosity_level), line:41, parent:work@toto.c2.c3.c1
+          |vpiMethod:1
+          |vpiVisibility:1
+          |vpiName:set_verbosity_level
+          |vpiFullName:work@toto.c2.c3.c1.set_verbosity_level
+          |vpiReturn:
+          \_int_var: (work@toto.c2.c3.c1.set_verbosity_level), line:41, parent:work@toto.c2.c3.c1.set_verbosity_level
+            |vpiFullName:work@toto.c2.c3.c1.set_verbosity_level
+          |vpiIODecl:
+          \_io_decl: (severity), parent:work@toto.c2.c3.c1.set_verbosity_level
+            |vpiName:severity
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.set_verbosity_level.severity.uvm_severity), line:41, parent:severity
+              |vpiName:uvm_severity
+              |vpiFullName:work@toto.c2.c3.c1.set_verbosity_level.severity.uvm_severity
+          |vpiIODecl:
+          \_io_decl: (reg_a), parent:work@toto.c2.c3.c1.set_verbosity_level
+            |vpiName:reg_a
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.set_verbosity_level.reg_a.uvm_reg), line:41, parent:reg_a
+              |vpiName:uvm_reg
+              |vpiFullName:work@toto.c2.c3.c1.set_verbosity_level.reg_a.uvm_reg
+        |vpiMethod:
+        \_task: (work@toto.c2.c3.c1.wait_for_total_count), line:44, parent:work@toto.c2.c3.c1
+          |vpiMethod:1
+          |vpiName:wait_for_total_count
+          |vpiFullName:work@toto.c2.c3.c1.wait_for_total_count
+          |vpiIODecl:
+          \_io_decl: (obj), parent:work@toto.c2.c3.c1.wait_for_total_count
+            |vpiName:obj
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (work@toto.c2.c3.c1.wait_for_total_count.obj.c2), line:44, parent:obj
+              |vpiName:c2
+              |vpiFullName:work@toto.c2.c3.c1.wait_for_total_count.obj.c2
+          |vpiIODecl:
+          \_io_decl: (count), parent:work@toto.c2.c3.c1.wait_for_total_count
+            |vpiName:count
+            |vpiDirection:5
+            |vpiExpr:
+            \_int_var: (work@toto.c2.c3.c1.wait_for_total_count.count), line:44, parent:count
+              |vpiFullName:work@toto.c2.c3.c1.wait_for_total_count.count
+        |vpiExtends:
+        \_extends: 
   |vpiClassDefn:
   \_class_defn: (work@toto.c3), file:top.v, line:15, parent:work@toto
     |vpiName:c3
     |vpiFullName:work@toto.c3
     |vpiExtends:
-    \_extends: , parent:work@toto.c3
-      |vpiClassTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (work@toto.c3.c2), file:top.v, line:8
-          |vpiName:c2
-          |vpiFullName:work@toto.c3.c2
+    \_extends: 
+    |vpiDerivedClasses:
+    \_class_defn: (work@toto.c3.c1), file:top.v, line:18, parent:work@toto.c3
+      |vpiName:c1
+      |vpiFullName:work@toto.c3.c1
+      |vpiMethod:
+      \_function: (work@toto.c3.c1.get_current_item), line:30, parent:work@toto.c3.c1
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiName:get_current_item
+        |vpiFullName:work@toto.c3.c1.get_current_item
+        |vpiReturn:
+        \_chandle_var: (work@toto.c3.c1.get_current_item.REQ), line:30, parent:work@toto.c3.c1.get_current_item
+          |vpiName:REQ
+          |vpiFullName:work@toto.c3.c1.get_current_item.REQ
+        |vpiStmt:
+        \_assign_stmt: , parent:work@toto.c3.c1.get_current_item
+          |vpiLhs:
+          \_chandle_var: (work@toto.c3.c1.get_current_item.t), line:31
+            |vpiName:t
+            |vpiFullName:work@toto.c3.c1.get_current_item.t
+      |vpiMethod:
+      \_function: (work@toto.c3.c1.connect), line:35, parent:work@toto.c3.c1
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiName:connect
+        |vpiFullName:work@toto.c3.c1.connect
+        |vpiIODecl:
+        \_io_decl: (provider), parent:work@toto.c3.c1.connect
+          |vpiName:provider
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.connect.provider.this_type), line:35, parent:provider
+            |vpiName:this_type
+            |vpiFullName:work@toto.c3.c1.connect.provider.this_type
+      |vpiMethod:
+      \_function: (work@toto.c3.c1.get_verbosity_level), line:38, parent:work@toto.c3.c1
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiName:get_verbosity_level
+        |vpiFullName:work@toto.c3.c1.get_verbosity_level
+        |vpiReturn:
+        \_int_var: (work@toto.c3.c1.get_verbosity_level), line:38, parent:work@toto.c3.c1.get_verbosity_level
+          |vpiFullName:work@toto.c3.c1.get_verbosity_level
+        |vpiIODecl:
+        \_io_decl: (severity), parent:work@toto.c3.c1.get_verbosity_level
+          |vpiName:severity
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.get_verbosity_level.severity.uvm_severity), line:38, parent:severity
+            |vpiName:uvm_severity
+            |vpiFullName:work@toto.c3.c1.get_verbosity_level.severity.uvm_severity
+        |vpiIODecl:
+        \_io_decl: (reg_a), parent:work@toto.c3.c1.get_verbosity_level
+          |vpiName:reg_a
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.get_verbosity_level.reg_a.uvm_reg), line:38, parent:reg_a
+            |vpiName:uvm_reg
+            |vpiFullName:work@toto.c3.c1.get_verbosity_level.reg_a.uvm_reg
+      |vpiMethod:
+      \_function: (work@toto.c3.c1.set_verbosity_level), line:41, parent:work@toto.c3.c1
+        |vpiMethod:1
+        |vpiVisibility:1
+        |vpiName:set_verbosity_level
+        |vpiFullName:work@toto.c3.c1.set_verbosity_level
+        |vpiReturn:
+        \_int_var: (work@toto.c3.c1.set_verbosity_level), line:41, parent:work@toto.c3.c1.set_verbosity_level
+          |vpiFullName:work@toto.c3.c1.set_verbosity_level
+        |vpiIODecl:
+        \_io_decl: (severity), parent:work@toto.c3.c1.set_verbosity_level
+          |vpiName:severity
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.set_verbosity_level.severity.uvm_severity), line:41, parent:severity
+            |vpiName:uvm_severity
+            |vpiFullName:work@toto.c3.c1.set_verbosity_level.severity.uvm_severity
+        |vpiIODecl:
+        \_io_decl: (reg_a), parent:work@toto.c3.c1.set_verbosity_level
+          |vpiName:reg_a
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.set_verbosity_level.reg_a.uvm_reg), line:41, parent:reg_a
+            |vpiName:uvm_reg
+            |vpiFullName:work@toto.c3.c1.set_verbosity_level.reg_a.uvm_reg
+      |vpiMethod:
+      \_task: (work@toto.c3.c1.wait_for_total_count), line:44, parent:work@toto.c3.c1
+        |vpiMethod:1
+        |vpiName:wait_for_total_count
+        |vpiFullName:work@toto.c3.c1.wait_for_total_count
+        |vpiIODecl:
+        \_io_decl: (obj), parent:work@toto.c3.c1.wait_for_total_count
+          |vpiName:obj
+          |vpiDirection:5
+          |vpiExpr:
+          \_chandle_var: (work@toto.c3.c1.wait_for_total_count.obj.c2), line:44, parent:obj
+            |vpiName:c2
+            |vpiFullName:work@toto.c3.c1.wait_for_total_count.obj.c2
+        |vpiIODecl:
+        \_io_decl: (count), parent:work@toto.c3.c1.wait_for_total_count
+          |vpiName:count
+          |vpiDirection:5
+          |vpiExpr:
+          \_int_var: (work@toto.c3.c1.wait_for_total_count.count), line:44, parent:count
+            |vpiFullName:work@toto.c3.c1.wait_for_total_count.count
+      |vpiExtends:
+      \_extends: 
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

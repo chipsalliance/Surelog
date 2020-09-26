@@ -307,13 +307,20 @@ bool TestbenchElaboration::bindBaseClasses_() {
         Property* prop = new Property(thisdt, classDefinition->getFileContent(),
                                       classDefinition->getNodeId(), 0, "super",
                                       false, false, false, false, false);
+        UHDM::class_defn* derived = classDefinition->getUhdmDefinition();
+        UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
         UHDM::extends* extends = s.MakeExtends();
         UHDM::class_typespec* tps = s.MakeClass_typespec();
         extends->Class_typespec(tps);
-        tps->Class_defn(bdef->getUhdmDefinition());
-        classDefinition->getUhdmDefinition()->Extends(extends);
-        
+        tps->Class_defn(parent);
+        derived->Extends(extends);
+        UHDM::VectorOfclass_defn* all_derived = parent->Deriveds();
+        if (all_derived == nullptr) {
+          parent->Deriveds(s.MakeClass_defnVec());
+          all_derived = parent->Deriveds();
+        }
+        all_derived->push_back(derived);
       } else {
         class_def.second = dynamic_cast<const Parameter*>(the_def);
         if (class_def.second) {
