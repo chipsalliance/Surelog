@@ -164,7 +164,8 @@ bool CompileClass::compile() {
       case VObjectType::slClass_declaration:
         if (id != nodeId) {
           compile_class_declaration_(fC, id);
-          if (current.m_sibling) stack.push(current.m_sibling);
+          if (current.m_sibling) 
+            stack.push(current.m_sibling);
           continue;
         }
         break;
@@ -542,6 +543,11 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   NodeId class_name_id = fC->Child(id);
+  bool virtualClass = false;
+  if (fC->Type(class_name_id) == VObjectType::slVirtual) {
+    class_name_id = fC->Sibling(class_name_id);
+    virtualClass = true;
+  }
   std::string class_name =
       m_class->getName() + "::" + fC->SymName(class_name_id);
   ClassDefinition* prevDef = m_class->getClass(class_name);
@@ -557,10 +563,11 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_INNER_CLASS, loc1, loc2);
     m_errors->addError(err);
   }
-
+  UHDM::class_defn* defn = s.MakeClass_defn();
+  defn->VpiVirtual(virtualClass);
   ClassDefinition* the_class =
       new ClassDefinition(class_name, m_class->getLibrary(),
-                          m_class->getContainer(), fC, class_name_id, m_class, s.MakeClass_defn());
+                          m_class->getContainer(), fC, class_name_id, m_class, defn);
   m_class->insertClass(the_class);
 
   CompileClass* instance = new CompileClass(m_compileDesign, the_class,
@@ -731,6 +738,10 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
     parameters= defn->Parameters();
   }
   NodeId className = fC->Child(id);
+  if (fC->Type(className) == slVirtual) {
+    className = fC->Sibling(className);
+    defn->VpiVirtual(true);
+  }
   NodeId paramList = fC->Sibling(className);
 
   if (fC->Type(paramList) == VObjectType::slParameter_port_list) {

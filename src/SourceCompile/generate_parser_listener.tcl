@@ -216,6 +216,10 @@ set TYPES(slCR) 1
 set TYPES(slSpaces) 1
 set TYPES(slEscapedCR) 1
 
+set TYPES(slVirtual) 1
+set TYPES(slExtends) 1
+set TYPES(slImplements) 1
+
 set TYPES(slEndfunction) 1
 set TYPES(slEndmodule) 1
 set TYPES(slEndclass) 1

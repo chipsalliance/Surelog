@@ -327,6 +327,11 @@ bool TestbenchElaboration::bindBaseClasses_() {
                            classDefinition->getNodeId(), 0, "super", false,
                            false, false, false, false);
           classDefinition->insertProperty(prop);
+          UHDM::extends* extends = s.MakeExtends();
+          UHDM::class_typespec* tps = s.MakeClass_typespec();
+          tps->VpiName(class_def.second->getName());
+          extends->Class_typespec(tps);
+          classDefinition->getUhdmDefinition()->Extends(extends);
         }
       }
     }

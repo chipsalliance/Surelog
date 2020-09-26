@@ -1092,6 +1092,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slExpression_or_dist:
       text = "slExpression_or_dist";
       break;
+    case slExtends:
+      text = "slExtends";
+      break;
     case slExtern_constraint_declaration:
       text = "slExtern_constraint_declaration";
       break;
@@ -1292,6 +1295,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slImmediate_assertion_statement:
       text = "slImmediate_assertion_statement";
+      break;
+    case slImplements:
+      text = "slImplements";
       break;
     case slImplicit_class_handle:
       text = "slImplicit_class_handle";
@@ -3113,6 +3119,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slVariable_port_type:
       text = "slVariable_port_type";
+      break;
+    case slVirtual:
+      text = "slVirtual";
       break;
     case slVirtual_interface_declaration:
       text = "slVirtual_interface_declaration";
