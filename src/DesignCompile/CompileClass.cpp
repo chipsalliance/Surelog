@@ -619,7 +619,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
    n<> u<19> t<List_of_param_assignments> p<20> c<18> l<3>
    n<> u<20> t<Local_parameter_declaration> p<21> c<10> l<3>
   */
-
+  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, true);
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
@@ -651,6 +651,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
 
 bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
                                                   NodeId id) {
+  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, false);
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
