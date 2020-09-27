@@ -208,7 +208,10 @@ bool CompileClass::compile() {
 }
 
 bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
+
   NodeId data_declaration = fC->Child(id);
+  m_helper.compileDataDeclaration(m_class, fC, data_declaration, false, m_compileDesign);
+
   NodeId var_decl = fC->Child(data_declaration);
   VObjectType type = fC->Type(data_declaration);
   bool is_local = false;
@@ -301,9 +304,7 @@ bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
 
         variable_decl_assignment = fC->Sibling(variable_decl_assignment);
       }
-    } else if (var_type == VObjectType::slType_declaration) {
-      compile_type_declaration_(fC, data_declaration);
-    }
+    } 
   }
 
   return true;
@@ -521,20 +522,6 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
   }
   Constraint* constraint = new Constraint(fC, class_constraint, constName);
   m_class->insertConstraint(constraint);
-
-  return true;
-}
-
-bool CompileClass::compile_type_declaration_(const FileContent* fC, NodeId id) {
-  /*
-    n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
-    n<> u<9> t<Data_type> p<11> c<8> s<10> l<3>
-    n<my_int> u<10> t<StringConst> p<11> l<3>
-    n<> u<11> t<Type_declaration> p<12> c<9> l<3>
-    n<> u<12> t<Data_declaration> p<13> c<11> l<3>
-    n<> u<13> t<Class_property> p<14> c<12> l<3>
-  */
-  m_helper.compileTypeDef(m_class, fC, id, m_compileDesign);
 
   return true;
 }
