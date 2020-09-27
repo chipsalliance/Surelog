@@ -455,6 +455,12 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
         classDef->getType() == VObjectType::slClass_declaration) {
       const FileContent* fC = classDef->getFileContents()[0];
       class_defn* c = classDef->getUhdmDefinition();
+
+      // Typepecs
+      VectorOftypespec* typespecs = s.MakeTypespecVec();
+      c->Typespecs(typespecs);
+      writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
+
       // Function and tasks
       c->Task_funcs(classDef->getTask_funcs());
       if (c->Task_funcs()) {
