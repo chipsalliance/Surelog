@@ -1442,7 +1442,32 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
      n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
      n<> u<35> t<Data_declaration> p<36> c<34> l<29>
      */
-    NodeId variable_declaration = fC->Child(id);
+    NodeId data_decl = id;
+    NodeId var_decl = fC->Child(data_decl);
+    VObjectType type = fC->Type(data_decl);
+    bool is_local = false;
+    bool is_static = false;
+    bool is_protected = false;
+    bool is_rand = false;
+    bool is_randc = false;
+    while ((type == VObjectType::slPropQualifier_ClassItem) ||
+           (type == VObjectType::slPropQualifier_Rand) ||
+           (type == VObjectType::slPropQualifier_Randc)) {
+      NodeId qualifier = fC->Child(data_decl);
+      VObjectType qualType = fC->Type(qualifier);
+      if (qualType == VObjectType::slClassItemQualifier_Protected)
+        is_protected = true;
+      if (qualType == VObjectType::slClassItemQualifier_Static)
+        is_static = true;
+      if (qualType == VObjectType::slClassItemQualifier_Local) is_local = true;
+      if (type == VObjectType::slPropQualifier_Rand) is_rand = true;
+      if (type == VObjectType::slPropQualifier_Randc) is_randc = true;
+      data_decl = fC->Sibling(data_decl);
+      type = fC->Type(data_decl);
+      var_decl = fC->Child(data_decl);
+    }
+
+    NodeId variable_declaration = var_decl;
     bool const_type = false;
     bool var_type = false;
     if (fC->Type(variable_declaration) == VObjectType::slConst_type) {
@@ -1490,6 +1515,12 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       if (var_type) sig->setVar();
       if (portRef)
         portRef->setLowConn(sig);
+      if (is_local) sig->setLocal();
+      if (is_static) sig->setStatic();
+      if (is_protected) sig->setProtected();
+      if (is_rand) sig->setRand();
+      if (is_randc) sig->setRandc();
+
       component->getSignals().push_back(sig);
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);
     }

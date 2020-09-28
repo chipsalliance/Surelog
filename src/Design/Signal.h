@@ -73,9 +73,20 @@ class Signal final {
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   void setConst() { m_const = true; }
   void setVar() { m_var = true; }
+  void setLocal() { m_local = true; }
+  void setStatic() { m_static = true; }
+  void setProtected() { m_protected = true; }
+  void setRand() { m_rand = true; }
+  void setRandc() { m_randc = true; }
   bool isConst() { return m_const; }
   bool isVar() { return m_var; }
-  bool isSigned() { return m_signed; }
+  bool isSigned() { return m_signed; } 
+  bool isLocal() { return m_local; }
+  bool isStatic() { return m_static; }
+  bool isProtected() { return m_protected; }
+  bool isRand() { return m_rand; }
+  bool isRandc() { return m_randc; }
+
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
@@ -85,21 +96,26 @@ class Signal final {
   const DataType* getDataType() { return m_dataType; }
 
  private:
-  const FileContent* m_fileContent;
-  NodeId m_nodeId;
-  VObjectType m_type;
-  VObjectType m_direction;
-  ModuleDefinition* m_interfaceDef;
-  ModPort*          m_modPort;
-  const DataType*   m_dataType;
-  Signal*           m_lowConn; // for ports
-  NodeId m_interfaceTypeNameId;
-  NodeId m_packedDimension;
-  NodeId m_typeSpecId;
-  NodeId m_unpackedDimension;
-  bool   m_const;
-  bool   m_var;
-  bool   m_signed;
+  const FileContent* m_fileContent = nullptr;
+  NodeId m_nodeId = 0;
+  VObjectType m_type = VObjectType::slNoType;
+  VObjectType m_direction = VObjectType::slNoType;
+  ModuleDefinition* m_interfaceDef = nullptr;
+  ModPort*          m_modPort = nullptr;
+  const DataType*   m_dataType = nullptr;
+  Signal*           m_lowConn = nullptr; // for ports
+  NodeId m_interfaceTypeNameId = 0;
+  NodeId m_packedDimension = 0;
+  NodeId m_typeSpecId = 0;
+  NodeId m_unpackedDimension = 0;
+  bool m_const = false;
+  bool m_var = false;
+  bool m_signed = false;
+  bool m_local = false;
+  bool m_static = false;
+  bool m_protected = false;
+  bool m_rand = false;
+  bool m_randc = false;
 };
 
 }  // namespace SURELOG

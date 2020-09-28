@@ -43,6 +43,7 @@ class TestbenchElaboration : public ElaborationStep {
   bool checkForMultipleDefinition_();
   bool bindClasses_();
   bool bindBaseClasses_();
+  bool bindProperties_();
   virtual bool bindDataTypes_();
   bool bindFunctions_();
   bool bindTasks_();

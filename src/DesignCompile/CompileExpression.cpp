@@ -359,6 +359,16 @@ UHDM::any* CompileHelper::compileExpression(
       Expression = fC->Sibling(Expression);
     }
     return result;
+  } else if (parentType == VObjectType::slClass_new) {
+    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    sys->VpiName("new");
+    sys->VpiParent(pexpr);
+    NodeId argListNode = child;
+    VectorOfany* arguments =
+        compileTfCallArguments(component, fC, argListNode, compileDesign, sys);
+    sys->Tf_call_args(arguments);
+    result = sys;
+    return result;
   }
 
   if (child) {
