@@ -58,10 +58,6 @@ class NetlistElaboration : public TestbenchElaboration {
 
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
 
-   ExprBuilder m_exprBuilder;
-   SymbolTable* m_symbols;
-   ErrorContainer* m_errors;
-   CompileHelper m_helper;
 };
 
 };  // namespace SURELOG
