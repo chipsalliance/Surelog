@@ -461,6 +461,9 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
       c->Typespecs(typespecs);
       writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
 
+      // Variables
+      // Already bound in TestbenchElaboration
+
       // Function and tasks
       c->Task_funcs(classDef->getTask_funcs());
       if (c->Task_funcs()) {

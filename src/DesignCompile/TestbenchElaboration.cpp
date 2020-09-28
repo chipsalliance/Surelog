@@ -206,6 +206,7 @@ bool TestbenchElaboration::bindClasses_() {
   bindDataTypes_();
   bindFunctions_();
   bindTasks_();
+  bindProperties_();
   return true;
 }
 
@@ -743,6 +744,72 @@ bool TestbenchElaboration::bindTasks_() {
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
           if (the_def != dtype) dtype->setDefinition(the_def);
         }
+      }
+    }
+  }
+  return true;
+}
+
+bool TestbenchElaboration::bindProperties_() {
+  Compiler* compiler = m_compileDesign->getCompiler();
+  Design* design = compiler->getDesign();
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
+
+  // Bind properties
+  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
+       itr != classes.end(); itr++) {
+    std::string className = (*itr).first;
+    ClassDefinition* classDefinition = (*itr).second;
+    UHDM::class_defn* defn = classDefinition->getUhdmDefinition();
+    UHDM::VectorOfvariables* vars = defn->Variables();
+    for (Signal* sig : classDefinition->getSignals()) {
+      const FileContent* fC = sig->getFileContent();
+      NodeId id = sig->getNodeId();
+      NodeId packedDimension = sig->getPackedDimension();
+      NodeId unpackedDimension = sig->getUnpackedDimension();
+      if (vars == nullptr) {
+        vars = s.MakeVariablesVec();
+        defn->Variables(vars);
+      }
+
+      const std::string& signame = sig->getName();
+
+      // Packed and unpacked ranges
+      int packedSize;
+      int unpackedSize;
+      std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
+          classDefinition, fC, packedDimension, m_compileDesign, nullptr,
+          nullptr, true, packedSize);
+      std::vector<UHDM::range*>* unpackedDimensions = nullptr;
+      if (fC->Type(unpackedDimension) == slClass_new) {
+      } else {
+        unpackedDimensions = m_helper.compileRanges(
+          classDefinition, fC, unpackedDimension, m_compileDesign, nullptr,
+          nullptr, true, unpackedSize);
+      }
+
+      // Assignment to a default value
+      UHDM::expr* exp =
+          exprFromAssign_(classDefinition, fC, id, unpackedDimension, nullptr);
+
+      UHDM::any* obj = makeVar_(classDefinition, sig, packedDimensions, packedSize, 
+                unpackedDimensions, unpackedSize, nullptr, 
+                vars, exp);
+
+      if (obj) {
+        obj->VpiLineNo(fC->Line(id));
+        obj->VpiFile(fC->getFileName());
+        obj->VpiParent(defn);
+      } else {
+        // Unsupported type
+        ErrorContainer* errors =
+            m_compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+        Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id),
+                     0, symbols->registerSymbol(signame));
+        Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+        errors->addError(err);
       }
     }
   }

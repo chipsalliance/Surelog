@@ -722,8 +722,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           }
         }
 
-        std::string signame = sig->getName();
-        std::string parentSymbol = prefix + signame;
+        const std::string& signame = sig->getName();
+        const std::string parentSymbol = prefix + signame;
 
         // Packed and unpacked ranges
         int packedSize;

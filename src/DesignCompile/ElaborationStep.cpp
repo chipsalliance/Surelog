@@ -745,8 +745,12 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
 
   NodeId expression = 0;
   if (assignment) {
-    NodeId Primary = fC->Child(assignment);
-    expression = Primary;
+    if (fC->Type(assignment) == slClass_new) {
+      expression = assignment;
+    } else {
+      NodeId Primary = fC->Child(assignment);
+      expression = Primary;
+    }
   } else {
     expression = fC->Sibling(id);
     if (fC->Type(expression) != VObjectType::slExpression) expression = 0;
@@ -770,7 +774,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
 
   std::string signame = sig->getName();
   
-  any* obj = nullptr;
+  variables* obj = nullptr;
 
   NodeId typeSpecId = sig->getTypeSpecId();
   UHDM::typespec* tps = nullptr;
@@ -903,6 +907,28 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       ((union_var*)obj)->VpiName(signame);
     }
     vars->push_back((variables*)obj);
+  }
+
+  if (obj) {
+    obj->VpiSigned(sig->isSigned());
+    obj->VpiConstantVariable(sig->isConst());
+    obj->VpiIsRandomized(sig->isRand() || sig->isRandc());
+    if (sig->isRand())
+      obj->VpiRandType(vpiRand);
+    else if (sig->isRandc())
+      obj->VpiRandType(vpiRandC);
+    if (sig->isStatic()) {
+      obj->VpiAutomatic(false);
+    } else { 
+      obj->VpiAutomatic(true);
+    }
+    if (sig->isProtected()) {
+      obj->VpiVisibility(vpiProtectedVis);
+    } else if (sig->isLocal()) {
+      obj->VpiVisibility(vpiLocalVis);
+    } else {
+      obj->VpiVisibility(vpiPublicVis);
+    }      
   }
   return obj;
 }
