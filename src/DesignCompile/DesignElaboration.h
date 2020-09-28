@@ -77,7 +77,6 @@ class DesignElaboration : public TestbenchElaboration {
   Config* getCellConfig(std::string name);
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
   std::set<std::string> m_uniqueTopLevelModules;
-  ExprBuilder m_exprBuilder;
   ModuleDefinitionFactory* m_moduleDefFactory;
   ModuleInstanceFactory* m_moduleInstFactory;
   std::set<std::string> m_toplevelConfigModules;
