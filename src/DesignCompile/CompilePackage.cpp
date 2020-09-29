@@ -155,6 +155,11 @@ bool CompilePackage::collectObjects_() {
           m_package->addNamedObject(name, fnid, comp);
           break;
         }
+        case VObjectType::slClass_constructor_declaration: {
+          m_helper.compileClassConstructorDeclaration(m_package, fC, id,
+                                                      m_compileDesign);
+          break;
+        }
         case VObjectType::slData_declaration: {
           m_helper.compileDataDeclaration(m_package, fC,id, false, m_compileDesign);
           break;
