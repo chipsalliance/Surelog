@@ -1140,15 +1140,35 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
 
-  const std::string name = "new";
+  std::string name = "new";
+  std::string className;
   NodeId Tf_port_list = 0;
   Tf_port_list = fC->Child(nodeId);
+  if (fC->Type(Tf_port_list) == slClass_scope) {
+    NodeId Class_scope = Tf_port_list;
+    NodeId Class_type = fC->Child(Class_scope);
+    NodeId Class_name = fC->Child(Class_type);
+    name = fC->SymName(Class_name);
+    className = name;
+    name += "::new";
+    Tf_port_list = fC->Sibling(Tf_port_list);
+  }
   UHDM::class_var* var = s.MakeClass_var();
   func->Return(var);
   UHDM::class_typespec* tps = s.MakeClass_typespec();
   var->Typespec(tps);
   ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
-  tps->Class_defn(cdef->getUhdmDefinition());
+  if (cdef)
+    tps->Class_defn(cdef->getUhdmDefinition());
+  else {
+    Package* p = dynamic_cast<Package*>(component);
+    if (p) {
+      ClassDefinition* cdef = p->getClassDefinition(className);
+      if (cdef) {
+        tps->Class_defn(cdef->getUhdmDefinition());
+      }
+    }
+  }  
 
   func->VpiName(name);
   func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
