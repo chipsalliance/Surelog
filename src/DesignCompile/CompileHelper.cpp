@@ -1230,6 +1230,10 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     }
     VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed);
     NodeId unpackedDimension = 0;
+    NodeId tmp = fC->Sibling(identifier);
+    if (fC->Type(tmp) == slUnpacked_dimension) {
+      unpackedDimension = tmp;
+    }
     component->getPorts().push_back(new Signal(fC, identifier, signal_type, packedDimension, port_direction, specParamId, unpackedDimension, is_signed));
     component->getSignals().push_back(new Signal(fC, identifier, signal_type, packedDimension, port_direction, specParamId, unpackedDimension, is_signed));
   } else if (dir_type == VObjectType::slInterface_identifier) {

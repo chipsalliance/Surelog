@@ -346,16 +346,17 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
 
 bool UhdmChecker::check(const std::string& reportFile) {
   // Register all objects location in file content
-  SymbolTable* const symbols = m_compileDesign->getCompiler()
-      ->getSymbolTable();
+  SymbolTable* const symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  CommandLineParser* clp = m_compileDesign->getCompiler()->getCommandLineParser();
   for (const auto& [ fid, fC] : m_design->getAllFileContents()) {
     const std::string& fileName = symbols->getSymbol(fid);
-    if (strstr(fileName.c_str(), "builtin.sv")
-        || strstr(fileName.c_str(), "uvm_pkg.sv")
-        || strstr(fileName.c_str(), "ovm_pkg.sv")) {
-      continue;
+    if (!clp->createCache()) {
+      if (strstr(fileName.c_str(), "builtin.sv") ||
+          strstr(fileName.c_str(), "uvm_pkg.sv") ||
+          strstr(fileName.c_str(), "ovm_pkg.sv")) {
+        continue;
+      }
     }
-
     fileMap.insert(std::make_pair(fileName, fC));
     registerFile(fC);
   }
