@@ -441,7 +441,7 @@ design: (work@foo)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@foo
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@foo
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (new), line:6
@@ -452,7 +452,7 @@ design: (work@foo)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@foo
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@foo
     |vpiIODecl:
     \_io_decl: (bound)
       |vpiName:bound
@@ -523,7 +523,7 @@ design: (work@foo)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:33, parent:work@foo
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@foo
   |vpiName:work@process
   |vpiMethod:
   \_function: (self), line:37
@@ -570,7 +570,7 @@ design: (work@foo)
     \_begin: (resume), parent:resume
       |vpiFullName:resume
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@foo
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@foo
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (new), line:60
@@ -581,7 +581,7 @@ design: (work@foo)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@foo
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@foo
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -626,7 +626,7 @@ design: (work@foo)
       \_int_var: (keyCount), line:69, parent:keyCount
         |vpiFullName:keyCount
 |uhdmallModules:
-\_module: work@bar (work@bar), file:dut.sv, line:1, parent:work@foo
+\_module: work@bar (work@bar) dut.sv:1: , parent:work@foo
   |vpiDefName:work@bar
   |vpiFullName:work@bar
   |vpiProcess:
@@ -743,7 +743,7 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@bar.out), line:1, parent:work@bar
 |uhdmallModules:
-\_module: work@foo (work@foo), file:dut.sv, line:13, parent:work@foo
+\_module: work@foo (work@foo) dut.sv:13: , parent:work@foo
   |vpiDefName:work@foo
   |vpiFullName:work@foo
   |vpiProcess:
@@ -929,7 +929,7 @@ design: (work@foo)
   |vpiNet:
   \_logic_net: (work@foo.out), line:13, parent:work@foo
 |uhdmtopModules:
-\_module: work@foo (work@foo), file:dut.sv, line:13
+\_module: work@foo (work@foo) dut.sv:13: 
   |vpiDefName:work@foo
   |vpiName:work@foo
   |vpiProcess:
@@ -1107,7 +1107,7 @@ design: (work@foo)
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
   |vpiModule:
-  \_module: work@bar (work@foo.bar_instance), file:dut.sv, line:19, parent:work@foo
+  \_module: work@bar (work@foo.bar_instance) dut.sv:19: , parent:work@foo
     |vpiDefName:work@bar
     |vpiName:bar_instance
     |vpiFullName:work@foo.bar_instance
@@ -1246,7 +1246,7 @@ design: (work@foo)
     |vpiNet:
     \_logic_net: (work@foo.bar_instance.out), line:1, parent:work@foo.bar_instance
     |vpiInstance:
-    \_module: work@foo (work@foo), file:dut.sv, line:13
+    \_module: work@foo (work@foo) dut.sv:13: 
   |vpiNet:
   \_logic_net: (work@foo.clk), line:13, parent:work@foo
   |vpiNet:

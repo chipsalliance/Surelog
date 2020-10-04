@@ -67,7 +67,7 @@ design: (work@TOP)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallInterfaces:
-\_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:8, parent:work@TOP
+\_interface: work@ConnectTB (work@ConnectTB) dut.v:8: , parent:work@TOP
   |vpiDefName:work@ConnectTB
   |vpiFullName:work@ConnectTB
   |vpiPort:
@@ -97,7 +97,7 @@ design: (work@TOP)
   |vpiNet:
   \_logic_net: (work@ConnectTB.con_o), line:8, parent:work@ConnectTB
 |uhdmallPrograms:
-\_program: work@TESTBENCH (work@TESTBENCH), file:tb.v, line:1, parent:work@TOP
+\_program: work@TESTBENCH (work@TESTBENCH) tb.v:1: , parent:work@TOP
   |vpiDefName:work@TESTBENCH
   |vpiFullName:work@TESTBENCH
   |vpiProcess:
@@ -325,7 +325,7 @@ design: (work@TOP)
   |vpiNet:
   \_logic_net: (work@TESTBENCH.drive), line:1, parent:work@TESTBENCH
 |uhdmallModules:
-\_module: work@SUB (work@SUB), file:dut.v, line:15, parent:work@TOP
+\_module: work@SUB (work@SUB) dut.v:15: , parent:work@TOP
   |vpiDefName:work@SUB
   |vpiFullName:work@SUB
   |vpiPort:
@@ -379,7 +379,7 @@ design: (work@TOP)
   |vpiParameter:
   \_parameter: (work@SUB.width), line:15, parent:work@SUB
 |uhdmallModules:
-\_module: work@TOP (work@TOP), file:tb.v, line:16, parent:work@TOP
+\_module: work@TOP (work@TOP) tb.v:16: , parent:work@TOP
   |vpiDefName:work@TOP
   |vpiFullName:work@TOP
   |vpiNet:
@@ -407,7 +407,7 @@ design: (work@TOP)
   |vpiParameter:
   \_parameter: (work@TOP.width), line:17, parent:work@TOP
 |uhdmallModules:
-\_module: work@dut (work@dut), file:dut.v, line:2, parent:work@TOP
+\_module: work@dut (work@dut) dut.v:2: , parent:work@TOP
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiPort:
@@ -451,7 +451,7 @@ design: (work@TOP)
   |vpiParameter:
   \_parameter: (work@dut.width), line:2, parent:work@dut
 |uhdmallModules:
-\_module: work@middle (work@middle), file:dut.v, line:11, parent:work@TOP
+\_module: work@middle (work@middle) dut.v:11: , parent:work@TOP
   |vpiDefName:work@middle
   |vpiFullName:work@middle
   |vpiPort:
@@ -461,7 +461,7 @@ design: (work@TOP)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@ConnectTB (work@ConnectTB), file:dut.v, line:8, parent:work@TOP
+      \_interface: work@ConnectTB (work@ConnectTB) dut.v:8: , parent:work@TOP
         |vpiDefName:work@ConnectTB
         |vpiFullName:work@ConnectTB
         |vpiPort:
@@ -509,11 +509,11 @@ design: (work@TOP)
   |vpiParameter:
   \_parameter: (work@middle.width), line:11, parent:work@middle
 |uhdmtopModules:
-\_module: work@TOP (work@TOP), file:tb.v, line:16
+\_module: work@TOP (work@TOP) tb.v:16: 
   |vpiDefName:work@TOP
   |vpiName:work@TOP
   |vpiInterface:
-  \_interface: work@ConnectTB (work@TOP.conntb), file:tb.v, line:20, parent:work@TOP
+  \_interface: work@ConnectTB (work@TOP.conntb) tb.v:20: , parent:work@TOP
     |vpiDefName:work@ConnectTB
     |vpiName:conntb
     |vpiFullName:work@TOP.conntb
@@ -616,9 +616,9 @@ design: (work@TOP)
     |vpiNet:
     \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:tb.v, line:16
+    \_module: work@TOP (work@TOP) tb.v:16: 
   |vpiModule:
-  \_module: work@dut (work@TOP.dut1), file:tb.v, line:21, parent:work@TOP
+  \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@TOP.dut1
@@ -683,7 +683,7 @@ design: (work@TOP)
               |vpiSize:64
               |INT:0
     |vpiInterface:
-    \_interface: work@ConnectTB (work@TOP.dut1.conntb), file:dut.v, line:3, parent:work@TOP.dut1
+    \_interface: work@ConnectTB (work@TOP.dut1.conntb) dut.v:3: , parent:work@TOP.dut1
       |vpiDefName:work@ConnectTB
       |vpiName:conntb
       |vpiFullName:work@TOP.dut1.conntb
@@ -752,9 +752,9 @@ design: (work@TOP)
       |vpiNet:
       \_logic_net: (work@TOP.dut1.conntb.con_o), line:8, parent:work@TOP.dut1.conntb
       |vpiInstance:
-      \_module: work@dut (work@TOP.dut1), file:tb.v, line:21, parent:work@TOP
+      \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
     |vpiModule:
-    \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:4, parent:work@TOP.dut1
+    \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
       |vpiDefName:work@middle
       |vpiName:middle1
       |vpiFullName:work@TOP.dut1.middle1
@@ -766,17 +766,17 @@ design: (work@TOP)
         \_ref_obj: (conntb), line:4
           |vpiName:conntb
           |vpiActual:
-          \_interface: work@ConnectTB (conntb), file:dut.v, line:3
+          \_interface: work@ConnectTB (conntb) dut.v:3: 
             |vpiDefName:work@ConnectTB
             |vpiName:conntb
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
-          \_interface: work@ConnectTB (conn), file:dut.v, line:4
+          \_interface: work@ConnectTB (conn) dut.v:4: 
             |vpiDefName:work@ConnectTB
             |vpiName:conn
       |vpiModule:
-      \_module: work@SUB (work@TOP.dut1.middle1.sub1), file:dut.v, line:12, parent:work@TOP.dut1.middle1
+      \_module: work@SUB (work@TOP.dut1.middle1.sub1) dut.v:12: , parent:work@TOP.dut1.middle1
         |vpiDefName:work@SUB
         |vpiName:sub1
         |vpiFullName:work@TOP.dut1.middle1.sub1
@@ -877,7 +877,7 @@ design: (work@TOP)
         |vpiNet:
         \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:15, parent:work@TOP.dut1.middle1.sub1
         |vpiInstance:
-        \_module: work@middle (work@TOP.dut1.middle1), file:dut.v, line:4, parent:work@TOP.dut1
+        \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
         |vpiParameter:
         \_parameter: (width), line:12
           |vpiName:width
@@ -887,7 +887,7 @@ design: (work@TOP)
         |vpiName:conn
         |vpiFullName:work@TOP.dut1.middle1.conn
       |vpiInstance:
-      \_module: work@dut (work@TOP.dut1), file:tb.v, line:21, parent:work@TOP
+      \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
       |vpiParameter:
       \_parameter: (width), line:4
         |vpiName:width
@@ -897,7 +897,7 @@ design: (work@TOP)
     |vpiNet:
     \_logic_net: (work@TOP.dut1.o), line:2, parent:work@TOP.dut1
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:tb.v, line:16
+    \_module: work@TOP (work@TOP) tb.v:16: 
     |vpiParameter:
     \_parameter: (width), line:21
       |vpiName:width
@@ -907,7 +907,7 @@ design: (work@TOP)
   |vpiNet:
   \_logic_net: (work@TOP.o), line:19, parent:work@TOP
   |vpiProgram:
-  \_program: work@TESTBENCH (work@TOP.tb), file:tb.v, line:22, parent:work@TOP
+  \_program: work@TESTBENCH (work@TOP.tb) tb.v:22: , parent:work@TOP
     |vpiDefName:work@TESTBENCH
     |vpiName:tb
     |vpiFullName:work@TOP.tb
@@ -976,7 +976,7 @@ design: (work@TOP)
     |vpiNet:
     \_logic_net: (work@TOP.tb.drive), line:1, parent:work@TOP.tb
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:tb.v, line:16
+    \_module: work@TOP (work@TOP) tb.v:16: 
   |vpiParameter:
   \_parameter: (width), line:17
     |vpiName:width
