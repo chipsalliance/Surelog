@@ -26,6 +26,7 @@
 #include "Design/FileContent.h"
 #include "Design/DesignComponent.h"
 #include "Design/Function.h"
+#include "Design/Parameter.h"
 #include "Testbench/Variable.h"
 
 using namespace SURELOG;
@@ -167,4 +168,17 @@ Variable* DesignComponent::getVariable(const std::string& name) {
   } else {
     return (*itr).second;
   }
+}
+
+Parameter* DesignComponent::getParameter(const std::string& name) const {
+  ParameterMap::const_iterator itr = m_parameters.find(name);
+  if (itr == m_parameters.end()) {
+    return NULL;
+  } else {
+    return (*itr).second;
+  }
+}
+
+void DesignComponent::insertParameter(Parameter* p) {
+  m_parameters.insert(std::make_pair(p->getName(), p));
 }

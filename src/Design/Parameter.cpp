@@ -21,6 +21,7 @@
  * Created on April 15, 2019, 8:03 PM
  */
 
+#include "Design/FileContent.h"
 #include "Design/Parameter.h"
 
 using namespace SURELOG;
@@ -31,6 +32,10 @@ Parameter::Parameter(const FileContent* fC, NodeId nodeId,
   : DataType(fC, nodeId, name,
              fC ? fC->Type(node_type) : VObjectType::slParameter_declaration,
              true),
-    m_ntype(node_type) {}
+    m_ntype(node_type), m_typespec(nullptr) {}
 
 Parameter::~Parameter() {}
+
+VObjectType Parameter::getType() const { 
+  return getFileContent()->Type(m_ntype);
+}

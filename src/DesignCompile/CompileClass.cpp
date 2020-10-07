@@ -747,23 +747,6 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
         // Type param
         m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
 
-        NodeId typeNameId = fC->Child(list_of_type_assignments);
-        while (typeNameId) {
-          NodeId ntype = fC->Sibling(typeNameId);
-          bool skip = false;
-          if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
-            ntype = fC->Child(ntype);
-            skip = true;
-          } else {
-            ntype = 0;
-          }
-          Parameter* param =
-              new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
-          m_class->insertParameter(param);
-          typeNameId = fC->Sibling(typeNameId);
-          if (skip) typeNameId = fC->Sibling(typeNameId);
-        }
-
       } else if (fC->Type(list_of_type_assignments) == slParameter_declaration) {
         // Regular param
         m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
