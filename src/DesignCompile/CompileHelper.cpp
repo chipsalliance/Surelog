@@ -37,6 +37,7 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/SimpleType.h"
+#include "Design/Parameter.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -1768,15 +1769,21 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       p->VpiName(fC->SymName(typeNameId));
       p->VpiFile(fC->getFileName());
       p->VpiLineNo(fC->Line(typeNameId));
-      p->Typespec(compileTypespec(component, fC, ntype, compileDesign,
-                                           p, nullptr, false, ""));
+      typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
+                                           p, nullptr, false, "");
+      p->Typespec(tps);
       if (localParam) {
         p->VpiLocalParam(true);
       }
       parameters->push_back(p);
+      Parameter* param =
+          new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
+      param->setTypespec(tps);
+      component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
       if (skip) typeNameId = fC->Sibling(typeNameId);
     }
+
   } else {
     // Regular param
     NodeId Data_type_or_implicit = fC->Child(nodeId);

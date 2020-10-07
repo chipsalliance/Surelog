@@ -702,6 +702,20 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     if (signal->getType() != slNoType) {
       return true;
     }
+    if (def == NULL) {
+      if (parentComponent->getParameters()) {
+        for (auto param : *parentComponent->getParameters()) {
+          if (param->UhdmType() == uhdmtype_parameter) {
+            if (param->VpiName() == interfName) {
+              Parameter* p = parentComponent->getParameter(interfName);
+              type = p;
+              signal->setDataType(type);
+              break;
+            }
+          }
+        }
+      }
+    }
     if (def == NULL && type == NULL && (interfName != "logic") &&
             (interfName != "byte") && (interfName != "bit") &&
             (interfName != "new") && (interfName != "expect") &&
@@ -801,6 +815,14 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       obj = stv;
       stv->Expr(assignExp);
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
+      UHDM::typespec* spec = sit->getTypespec();
+      variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+      var->Expr(assignExp);
+      var->VpiConstantVariable(sig->isConst());
+      var->VpiSigned(sig->isSigned());
+      var->VpiName(signame);
+      obj = var;
+    } else if (const Parameter* sit = dynamic_cast<const Parameter*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
       variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
       var->Expr(assignExp);

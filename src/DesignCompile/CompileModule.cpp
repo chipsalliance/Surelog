@@ -537,7 +537,18 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
         }
         case VObjectType::slParameter_declaration: {
           if (!collectDefinitions) break;
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+              slList_of_type_assignments) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_module, fC, list_of_type_assignments, m_compileDesign);
+
+          } else {
+            m_helper.compileParameterDeclaration(m_module, fC, id,
+                                                 m_compileDesign);
+          }
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
@@ -810,7 +821,17 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         break;  
       case VObjectType::slParameter_declaration: {
         if (!collectDefinitions) break;
-        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_module, fC, list_of_type_assignments, m_compileDesign);
+
+        } else {
+          m_helper.compileParameterDeclaration(m_module, fC, id,
+                                               m_compileDesign);
+        }
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {
