@@ -43,6 +43,7 @@ class Parameter : public DataType {
   virtual Category getCategory() { return Category::PARAMETER; }
 
   VObjectType getType() const override;
+  NodeId getNodeType() const { return m_ntype; }
 
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
   UHDM::typespec* getTypespec() const { return m_typespec; }

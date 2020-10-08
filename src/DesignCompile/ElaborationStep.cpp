@@ -824,6 +824,25 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       obj = var;
     } else if (const Parameter* sit = dynamic_cast<const Parameter*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
+      const std::string& pname = sit->getName();
+      for (Parameter* param : instance->getTypeParams()) {
+        // Param override
+        if (param->getName() == pname) {
+          if (param->getTypespec() == nullptr) {
+            UHDM::typespec* override_spec = m_helper.compileTypespec(component, param->getFileContent(), param->getNodeType(), m_compileDesign,
+                                   nullptr, instance, true);
+            if (override_spec) {                    
+              param->setTypespec(override_spec);
+              spec = override_spec;
+            }
+          }
+          if (param->getTypespec()) {
+            spec = param->getTypespec();
+          }
+          break;
+        }
+      }
+
       variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
@@ -992,6 +1011,10 @@ variables* ElaborationStep::getSimpleVarFromTypespec(UHDM::typespec* spec,
     var = int_var;
   } else if (spec->UhdmType() == uhdmlogic_typespec) {
     logic_var* logicv = s.MakeLogic_var();
+    logicv->Ranges(packedDimensions);
+    var = logicv;
+  } else if (spec->UhdmType() == uhdmvoid_typespec) {
+    UHDM::logic_var* logicv = s.MakeLogic_var();
     logicv->Ranges(packedDimensions);
     var = logicv;
   }
