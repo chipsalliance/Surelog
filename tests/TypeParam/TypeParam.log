@@ -1,0 +1,151 @@
+[INF:CM0023] Creating log file ../../build/tests/TypeParam/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "top".
+
+[WRN:PA0205] dut.sv:8: No timescale set for "mid".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:8: Compile module "work@mid".
+
+[INF:CP0303] dut.sv:1: Compile module "work@top".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:1: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 2.
+
+[NTE:EL0510] Nb instances: 3.
+
+[NTE:EL0511] Nb leaf instances: 2.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/TypeParam/slpp_unit//surelog.uhdm.chk
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallPackages:
+\_package: builtin (builtin), parent:work@top
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+  |vpiClassDefn:
+  \_class_defn: (builtin::array), parent:builtin
+    |vpiName:array
+    |vpiFullName:builtin::array
+  |vpiClassDefn:
+  \_class_defn: (builtin::queue), parent:builtin
+    |vpiName:queue
+    |vpiFullName:builtin::queue
+  |vpiClassDefn:
+  \_class_defn: (builtin::string), parent:builtin
+    |vpiName:string
+    |vpiFullName:builtin::string
+  |vpiClassDefn:
+  \_class_defn: (builtin::system), parent:builtin
+    |vpiName:system
+    |vpiFullName:builtin::system
+|uhdmallModules:
+\_module: work@mid (work@mid) dut.sv:8: , parent:work@top
+  |vpiDefName:work@mid
+  |vpiFullName:work@mid
+  |vpiNet:
+  \_logic_net: (work@mid.DATA1), line:9, parent:work@mid
+    |vpiName:DATA1
+    |vpiFullName:work@mid.DATA1
+  |vpiNet:
+  \_logic_net: (work@mid.DATA2), line:10, parent:work@mid
+    |vpiName:DATA2
+    |vpiFullName:work@mid.DATA2
+  |vpiParameter:
+  \_type_parameter: (work@mid.TP1), line:8, parent:work@mid
+    |vpiFullName:work@mid.TP1
+    |vpiName:TP1
+    |vpiTypespec:
+    \_logic_typespec: , line:8
+  |vpiParameter:
+  \_type_parameter: (work@mid.TP2), line:8, parent:work@mid
+    |vpiFullName:work@mid.TP2
+    |vpiName:TP2
+    |vpiTypespec:
+    \_int_typespec: , line:8
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:1: , parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1: 
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiModule:
+  \_module: work@mid (work@top.u1) dut.sv:3: , parent:work@top
+    |vpiDefName:work@mid
+    |vpiName:u1
+    |vpiFullName:work@top.u1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiVariables:
+    \_logic_var: (work@top.u1.DATA1), line:9, parent:work@top.u1
+      |vpiName:DATA1
+      |vpiFullName:work@top.u1.DATA1
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiVariables:
+    \_int_var: (work@top.u1.DATA2), line:10, parent:work@top.u1
+      |vpiName:DATA2
+      |vpiFullName:work@top.u1.DATA2
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_type_parameter: (work@top.u1.TP1), line:8, parent:work@top.u1
+      |vpiFullName:work@top.u1.TP1
+      |vpiName:TP1
+      |vpiTypespec:
+      \_logic_typespec: , line:8, parent:work@top.u1.TP1
+    |vpiParameter:
+    \_type_parameter: (work@top.u1.TP2), line:8, parent:work@top.u1
+      |vpiFullName:work@top.u1.TP2
+      |vpiName:TP2
+      |vpiTypespec:
+      \_int_typespec: , line:8, parent:work@top.u1.TP2
+  |vpiModule:
+  \_module: work@mid (work@top.u2) dut.sv:4: , parent:work@top
+    |vpiDefName:work@mid
+    |vpiName:u2
+    |vpiFullName:work@top.u2
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiVariables:
+    \_int_var: (work@top.u2.DATA1), line:9, parent:work@top.u2
+      |vpiName:DATA1
+      |vpiFullName:work@top.u2.DATA1
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiVariables:
+    \_int_var: (work@top.u2.DATA2), line:10, parent:work@top.u2
+      |vpiName:DATA2
+      |vpiFullName:work@top.u2.DATA2
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParameter:
+    \_type_parameter: (work@top.u2.TP1), line:8, parent:work@top.u2
+      |vpiFullName:work@top.u2.TP1
+      |vpiName:TP1
+      |vpiTypespec:
+      \_logic_typespec: , line:8, parent:work@top.u2.TP1
+    |vpiParameter:
+    \_type_parameter: (work@top.u2.TP2), line:8, parent:work@top.u2
+      |vpiFullName:work@top.u2.TP2
+      |vpiName:TP2
+      |vpiTypespec:
+      \_int_typespec: , line:8, parent:work@top.u2.TP2
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
+
