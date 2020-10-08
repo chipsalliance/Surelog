@@ -1032,6 +1032,28 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   }
 
+  // TODO: Parameters need to be overloaded properly
+  /*
+  if (instance->getTypeParams().size()) {
+    VectorOfany* params = s.MakeAnyVec();
+    if (mod) {
+      VectorOfany* orig_params = mod->getParameters();
+      for (auto orig : *orig_params) {
+        if (orig->UhdmType() == uhdmtype_parameter) {
+          for (auto p : instance->getTypeParams()) {
+            if (p->getName() == orig->VpiName()) {
+
+            }
+          }
+        } else {
+          params->push_back(orig);
+        }
+      }
+    }
+    m->Parameters(params);
+  }
+  */
+
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
       obj->VpiParent(m);

@@ -45,6 +45,7 @@
 #include "DesignCompile/CompileModule.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
+#include "Design/Parameter.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/DesignElaboration.h"
 
@@ -1346,7 +1347,16 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId expr = parentFile->Sibling(child);
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
-        instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+        if (value == nullptr || (value && !value->isValid())) {
+          const std::string& pname = parentFile->SymName(child);
+          NodeId param_expression = parentFile->Sibling(child);
+          NodeId data_type = parentFile->Child(param_expression);
+          NodeId type = parentFile->Child(data_type);
+          Parameter* param = new Parameter(parentFile, expr, pname, type);
+          instance->getTypeParams().push_back(param);
+        } else {   
+          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+        }
       } else {
         // Index param
         NodeId expr = child;
