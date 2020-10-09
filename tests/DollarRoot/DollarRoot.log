@@ -6812,7 +6812,7 @@ design: (work@top)
                       \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
                         |vpiName:SLAVE_SPAN
                         |vpiFullName:work@test_program.SLAVE_SPAN
-                        |vpiLocalParam:1
+                        |INT:4096
                   |vpiLhs:
                   \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779
                     |vpiName:slave_id
@@ -6921,7 +6921,7 @@ design: (work@top)
               \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
                 |vpiName:MAX_BURST
                 |vpiFullName:work@test_program.MAX_BURST
-                |vpiLocalParam:1
+                |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@test_program
             |vpiRhs:
@@ -8674,7 +8674,7 @@ design: (work@top)
                     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
                       |vpiName:NUM_SYMBOLS
                       |vpiFullName:work@test_program.NUM_SYMBOLS
-                      |vpiLocalParam:1
+                      |INT:4
                   |vpiOperand:
                   \_operation: , parent:work@test_program.create_command
                     |vpiOpType:33
@@ -9868,7 +9868,7 @@ design: (work@top)
                       \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
                         |vpiName:SLAVE_SPAN
                         |vpiFullName:work@test_program.SLAVE_SPAN
-                        |vpiLocalParam:1
+                        |INT:4096
                   |vpiLhs:
                   \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779
                     |vpiName:slave_id
@@ -9980,7 +9980,7 @@ design: (work@top)
               \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
                 |vpiName:MAX_BURST
                 |vpiFullName:work@test_program.MAX_BURST
-                |vpiLocalParam:1
+                |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@test_program
             |vpiRhs:
@@ -10028,7 +10028,7 @@ design: (work@top)
                   \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
                     |vpiName:MAX_COMMAND_BACKPRESSURE
                     |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
-                    |vpiLocalParam:1
+                    |INT:2
             |vpiStmt:
             \_func_call: ($root.tb.dut.slave_0.set_interface_wait_time), line:292, parent:work@test_program
               |vpiName:$root.tb.dut.slave_0.set_interface_wait_time
@@ -11796,7 +11796,7 @@ design: (work@top)
                     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
                       |vpiName:NUM_SYMBOLS
                       |vpiFullName:work@test_program.NUM_SYMBOLS
-                      |vpiLocalParam:1
+                      |INT:4
                   |vpiOperand:
                   \_operation: , parent:work@test_program.create_command
                     |vpiOpType:33
@@ -12963,6 +12963,9 @@ design: (work@top)
       |INT:4
     |vpiLhs:
     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
+      |vpiName:NUM_SYMBOLS
+      |vpiFullName:work@test_program.NUM_SYMBOLS
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:17, parent:work@test_program
     |vpiRhs:
@@ -12997,6 +13000,9 @@ design: (work@top)
       |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
+      |vpiName:MAX_BURST
+      |vpiFullName:work@test_program.MAX_BURST
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:22, parent:work@test_program
     |vpiRhs:
@@ -13007,6 +13013,9 @@ design: (work@top)
       |HEX:32'h1000
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
+      |vpiName:SLAVE_SPAN
+      |vpiFullName:work@test_program.SLAVE_SPAN
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:24, parent:work@test_program
     |vpiRhs:
@@ -13030,6 +13039,9 @@ design: (work@top)
       |INT:2
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
+      |vpiName:MAX_COMMAND_BACKPRESSURE
+      |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:26, parent:work@test_program
     |vpiRhs:
@@ -13045,24 +13057,42 @@ design: (work@top)
       |vpiLocalParam:1
   |vpiParameter:
   \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+    |vpiName:ADDR_W
+    |vpiFullName:work@test_program.ADDR_W
+    |INT:13
   |vpiParameter:
   \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+    |vpiName:BURST_W
+    |vpiFullName:work@test_program.BURST_W
+    |INT:4
+  |vpiParameter:
+  \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+    |vpiName:DATA_W
+    |vpiFullName:work@test_program.DATA_W
+    |INT:32
   |vpiParameter:
   \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
   |vpiParameter:
-  \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
-  |vpiParameter:
   \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
   |vpiParameter:
+  \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
+    |vpiName:MAX_COMMAND_IDLE
+    |vpiFullName:work@test_program.MAX_COMMAND_IDLE
+    |INT:5
+  |vpiParameter:
   \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
+    |vpiName:MAX_DATA_IDLE
+    |vpiFullName:work@test_program.MAX_DATA_IDLE
+    |INT:3
+  |vpiParameter:
+  \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
+    |vpiName:SYMBOL_W
+    |vpiFullName:work@test_program.SYMBOL_W
+    |INT:8
 |uhdmtopModules:
 \_module: work@test_program1 (work@test_program1) dut.sv:800: 
   |vpiDefName:work@test_program1

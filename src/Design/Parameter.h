@@ -45,12 +45,12 @@ class Parameter : public DataType {
   VObjectType getType() const override;
   NodeId getNodeType() const { return m_ntype; }
 
-  void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() const { return m_typespec; }
+  void setUhdmParam(UHDM::any* param) { m_param = param; }
+  UHDM::any* getUhdmParam() const { return m_param; }
 
  private:
   NodeId m_ntype;
-  UHDM::typespec* m_typespec;
+  UHDM::any* m_param;
 };
 
 }  // namespace SURELOG

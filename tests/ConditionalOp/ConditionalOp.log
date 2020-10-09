@@ -642,7 +642,7 @@ design: (work@top)
       |vpiName:RV32E
       |vpiFullName:work@ibex_register_file.RV32E
       |vpiTypespec:
-      \_bit_typespec: , line:14
+      \_bit_typespec: , line:14, parent:work@ibex_register_file.RV32E
   |vpiParamAssign:
   \_param_assign: , line:15, parent:work@ibex_register_file
     |vpiRhs:
@@ -656,7 +656,7 @@ design: (work@top)
       |vpiName:DataWidth
       |vpiFullName:work@ibex_register_file.DataWidth
       |vpiTypespec:
-      \_int_typespec: , line:15
+      \_int_typespec: , line:15, parent:work@ibex_register_file.DataWidth
   |vpiParamAssign:
   \_param_assign: , line:17, parent:work@ibex_register_file
     |vpiRhs:
@@ -669,7 +669,7 @@ design: (work@top)
       |vpiFullName:work@ibex_register_file.ADDR_WIDTH
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:17
+      \_int_typespec: , line:17, parent:work@ibex_register_file.ADDR_WIDTH
   |vpiParamAssign:
   \_param_assign: , line:18, parent:work@ibex_register_file
     |vpiRhs:
@@ -682,7 +682,7 @@ design: (work@top)
       |vpiFullName:work@ibex_register_file.NUM_WORDS
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:18
+      \_int_typespec: , line:18, parent:work@ibex_register_file.NUM_WORDS
   |vpiParameter:
   \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
   |vpiParameter:
@@ -709,7 +709,7 @@ design: (work@top)
       |vpiFullName:work@top.NrHarts2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:3
+      \_int_typespec: , line:3, parent:work@top.NrHarts2
   |vpiParamAssign:
   \_param_assign: , line:5, parent:work@top
     |vpiRhs:
@@ -745,7 +745,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen1
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:5
+      \_int_typespec: , line:5, parent:work@top.HartSelLen1
   |vpiParamAssign:
   \_param_assign: , line:7, parent:work@top
     |vpiRhs:
@@ -781,7 +781,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:7
+      \_int_typespec: , line:7, parent:work@top.HartSelLen2
   |vpiParamAssign:
   \_param_assign: , line:9, parent:work@top
     |vpiRhs:
@@ -815,7 +815,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen3
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:9
+      \_int_typespec: , line:9, parent:work@top.HartSelLen3
   |vpiParameter:
   \_parameter: (work@top.NrHarts2), line:3, parent:work@top
   |vpiParameter:
@@ -852,9 +852,8 @@ design: (work@top)
       \_operation: , line:5
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:5
+        \_ref_obj: (NrHarts), line:5
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:5
           |vpiConstType:7
@@ -871,9 +870,8 @@ design: (work@top)
       \_sys_func_call: ($clog2), line:5
         |vpiName:$clog2
         |vpiArgument:
-        \_ref_obj: (work@top.$clog2.NrHarts), line:5, parent:$clog2
+        \_ref_obj: (NrHarts), line:5
           |vpiName:NrHarts
-          |vpiFullName:work@top.$clog2.NrHarts
     |vpiLhs:
     \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
       |vpiName:HartSelLen1
@@ -890,9 +888,8 @@ design: (work@top)
       \_operation: , line:7
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:7
+        \_ref_obj: (NrHarts), line:7
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:7
           |vpiConstType:7
@@ -927,9 +924,8 @@ design: (work@top)
       \_operation: , line:9
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:9
+        \_ref_obj: (NrHarts), line:9
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:9
           |vpiConstType:7
@@ -954,13 +950,24 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:9, parent:work@top.HartSelLen3
   |vpiParameter:
-  \_parameter: (work@top.NrHarts2), line:3, parent:work@top
-  |vpiParameter:
   \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
+    |vpiName:HartSelLen1
+    |vpiFullName:work@top.HartSelLen1
   |vpiParameter:
   \_parameter: (work@top.HartSelLen2), line:7, parent:work@top
+    |vpiName:HartSelLen2
+    |vpiFullName:work@top.HartSelLen2
+    |INT:0
   |vpiParameter:
   \_parameter: (work@top.HartSelLen3), line:9, parent:work@top
+    |vpiName:HartSelLen3
+    |vpiFullName:work@top.HartSelLen3
+    |INT:3
+  |vpiParameter:
+  \_parameter: (work@top.NrHarts2), line:3, parent:work@top
+    |vpiName:NrHarts2
+    |vpiFullName:work@top.NrHarts2
+    |INT:8
 |uhdmtopModules:
 \_module: work@ibex_register_file (work@ibex_register_file) dut.sv:13: 
   |vpiDefName:work@ibex_register_file
@@ -1105,13 +1112,25 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:18, parent:work@ibex_register_file.NUM_WORDS
   |vpiParameter:
-  \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
+  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
+    |vpiName:ADDR_WIDTH
+    |vpiFullName:work@ibex_register_file.ADDR_WIDTH
+    |INT:5
   |vpiParameter:
   \_parameter: (work@ibex_register_file.DataWidth), line:15, parent:work@ibex_register_file
-  |vpiParameter:
-  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
+    |vpiName:DataWidth
+    |vpiFullName:work@ibex_register_file.DataWidth
+    |INT:32
   |vpiParameter:
   \_parameter: (work@ibex_register_file.NUM_WORDS), line:18, parent:work@ibex_register_file
+    |vpiName:NUM_WORDS
+    |vpiFullName:work@ibex_register_file.NUM_WORDS
+    |INT:32
+  |vpiParameter:
+  \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
+    |vpiName:RV32E
+    |vpiFullName:work@ibex_register_file.RV32E
+    |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

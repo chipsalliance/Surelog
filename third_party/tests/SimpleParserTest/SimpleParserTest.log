@@ -988,7 +988,7 @@ design: (work@dff_async_reset)
       |vpiName:Chain1
       |vpiFullName:work@LFSR_TASK.Chain1
       |vpiTypespec:
-      \_bit_typespec: , line:7
+      \_bit_typespec: , line:7, parent:work@LFSR_TASK.Chain1
   |vpiParamAssign:
   \_param_assign: , line:8, parent:work@LFSR_TASK
     |vpiRhs:
@@ -1002,7 +1002,7 @@ design: (work@dff_async_reset)
       |vpiName:Chain2
       |vpiFullName:work@LFSR_TASK.Chain2
       |vpiTypespec:
-      \_bit_typespec: , line:8
+      \_bit_typespec: , line:8, parent:work@LFSR_TASK.Chain2
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
   |vpiParameter:
@@ -1038,8 +1038,9 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
                 |vpiName:NUMUNITS
+                |vpiFullName:work@top.U.NUMUNITS
                 |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
@@ -1098,8 +1099,9 @@ design: (work@dff_async_reset)
                   |vpiName:ADDRESSWIDTH
                   |vpiFullName:work@arbiter.ADDRESSWIDTH
                   |vpiActual:
-                  \_parameter: (ADDRESSWIDTH), line:8
+                  \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
                     |vpiName:ADDRESSWIDTH
+                    |vpiFullName:work@top.U.ADDRESSWIDTH
                     |INT:3
               |vpiForInitStmt:
               \_assign_stmt: , parent:work@arbiter
@@ -1175,7 +1177,7 @@ design: (work@dff_async_reset)
                         |vpiName:ADDRESSWIDTH
                         |vpiFullName:work@arbiter.ADDRESSWIDTH
                         |vpiActual:
-                        \_parameter: (ADDRESSWIDTH), line:8
+                        \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
                     |vpiOperand:
                     \_ref_obj: (work@arbiter.tpriority.j), line:26
                       |vpiName:j
@@ -1529,7 +1531,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1614,7 +1616,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
                 |vpiOperand:
                 \_constant: , line:65
                   |vpiConstType:7
@@ -1659,7 +1661,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1897,7 +1899,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2104,7 +2106,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2219,7 +2221,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2299,7 +2301,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_operation: , line:97
                 |vpiOpType:24
@@ -2338,7 +2340,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
   |vpiProcess:
   \_always: , line:100, parent:work@arbiter
     |vpiAlwaysType:1
@@ -2492,7 +2494,7 @@ design: (work@dff_async_reset)
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
                 |vpiActual:
-                \_parameter: (NUMUNITS), line:7
+                \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_constant: , line:104
                 |vpiConstType:7
@@ -2748,7 +2750,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2890,7 +2892,7 @@ design: (work@dff_async_reset)
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
                 |vpiActual:
-                \_parameter: (NUMUNITS), line:7
+                \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_constant: , line:118
                 |vpiConstType:7
@@ -5652,8 +5654,9 @@ design: (work@dff_async_reset)
                     |vpiName:RAM_DEPTH
                     |vpiFullName:work@syn_fifo.STATUS_COUNTER.RAM_DEPTH
                     |vpiActual:
-                    \_parameter: (RAM_DEPTH), line:24
+                    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
                       |vpiName:RAM_DEPTH
+                      |vpiFullName:work@syn_fifo.RAM_DEPTH
                       |INT:256
               |vpiStmt:
               \_begin: (work@syn_fifo.STATUS_COUNTER), line:86
@@ -5800,7 +5803,7 @@ design: (work@dff_async_reset)
           |vpiName:RAM_DEPTH
           |vpiFullName:work@syn_fifo.RAM_DEPTH
           |vpiActual:
-          \_parameter: (RAM_DEPTH), line:24
+          \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
         |vpiOperand:
         \_constant: , line:45
           |vpiConstType:7
@@ -8628,17 +8631,54 @@ design: (work@dff_async_reset)
   \_logic_net: (work@syn_fifo.empty), line:17, parent:work@syn_fifo
   |vpiNet:
   \_logic_net: (work@syn_fifo.full), line:18, parent:work@syn_fifo
+  |vpiParamAssign:
+  \_param_assign: , line:22, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:22
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
+      |vpiName:DATA_WIDTH
+      |vpiFullName:work@syn_fifo.DATA_WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:23, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:23
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
+      |vpiName:ADDR_WIDTH
+      |vpiFullName:work@syn_fifo.ADDR_WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:24, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:24
+      |vpiDecompile:256
+      |INT:256
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
+      |vpiName:RAM_DEPTH
+      |vpiFullName:work@syn_fifo.RAM_DEPTH
   |vpiParameter:
-  \_parameter: (ADDR_WIDTH), line:23
+  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
     |vpiName:ADDR_WIDTH
+    |vpiFullName:work@syn_fifo.ADDR_WIDTH
     |INT:8
   |vpiParameter:
-  \_parameter: (DATA_WIDTH), line:22
+  \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
     |vpiName:DATA_WIDTH
+    |vpiFullName:work@syn_fifo.DATA_WIDTH
     |INT:8
   |vpiParameter:
-  \_parameter: (RAM_DEPTH), line:24
+  \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
     |vpiName:RAM_DEPTH
+    |vpiFullName:work@syn_fifo.RAM_DEPTH
     |INT:256
 |uhdmtopModules:
 \_module: work@uart (work@uart) uart.v:8: 
@@ -9473,13 +9513,39 @@ design: (work@dff_async_reset)
       |vpiFullName:work@top.U.v
       |vpiAutomatic:1
       |vpiVisibility:1
+    |vpiParamAssign:
+    \_param_assign: , line:7, parent:work@arbiter
+      |vpiRhs:
+      \_constant: , line:7
+        |vpiConstType:7
+        |vpiDecompile:8
+        |vpiSize:32
+        |INT:8
+      |vpiLhs:
+      \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
+        |vpiName:NUMUNITS
+        |vpiFullName:work@arbiter.NUMUNITS
+    |vpiParamAssign:
+    \_param_assign: , line:8, parent:work@arbiter
+      |vpiRhs:
+      \_constant: , line:8
+        |vpiConstType:7
+        |vpiDecompile:3
+        |vpiSize:32
+        |INT:3
+      |vpiLhs:
+      \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
+        |vpiName:ADDRESSWIDTH
+        |vpiFullName:work@arbiter.ADDRESSWIDTH
     |vpiParameter:
-    \_parameter: (ADDRESSWIDTH), line:8
+    \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
       |vpiName:ADDRESSWIDTH
+      |vpiFullName:work@top.U.ADDRESSWIDTH
       |INT:3
     |vpiParameter:
-    \_parameter: (NUMUNITS), line:7
+    \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
       |vpiName:NUMUNITS
+      |vpiFullName:work@top.U.NUMUNITS
       |INT:8
   |vpiNet:
   \_logic_net: (work@top.clk), line:5, parent:work@top
@@ -9831,13 +9897,43 @@ design: (work@dff_async_reset)
   \_logic_net: (work@LFSR_TASK.seed1), line:2, parent:work@LFSR_TASK
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.seed2), line:2, parent:work@LFSR_TASK
+  |vpiParamAssign:
+  \_param_assign: , line:7, parent:work@LFSR_TASK
+    |vpiRhs:
+    \_constant: , line:7
+      |vpiConstType:3
+      |vpiDecompile:8'b10001110
+      |vpiSize:8
+      |BIN:8'b10001110
+    |vpiLhs:
+    \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
+      |vpiName:Chain1
+      |vpiFullName:work@LFSR_TASK.Chain1
+      |vpiTypespec:
+      \_bit_typespec: , line:7, parent:work@LFSR_TASK.Chain1
+  |vpiParamAssign:
+  \_param_assign: , line:8, parent:work@LFSR_TASK
+    |vpiRhs:
+    \_constant: , line:8
+      |vpiConstType:3
+      |vpiDecompile:8'b10101110
+      |vpiSize:8
+      |BIN:8'b10101110
+    |vpiLhs:
+    \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
+      |vpiName:Chain2
+      |vpiFullName:work@LFSR_TASK.Chain2
+      |vpiTypespec:
+      \_bit_typespec: , line:8, parent:work@LFSR_TASK.Chain2
   |vpiParameter:
-  \_parameter: (Chain1), line:7
+  \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
     |vpiName:Chain1
+    |vpiFullName:work@LFSR_TASK.Chain1
     |INT:142
   |vpiParameter:
-  \_parameter: (Chain2), line:8
+  \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
     |vpiName:Chain2
+    |vpiFullName:work@LFSR_TASK.Chain2
     |INT:174
 |uhdmtopModules:
 \_module: work@mux21_switch (work@mux21_switch) mux21.v:7: 
