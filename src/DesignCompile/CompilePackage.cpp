@@ -55,7 +55,8 @@ int FunctorCompilePackage::operator()() const {
 bool CompilePackage::compile() {
   if (!m_package) return false;
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
-  m_package->m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
+  m_package->m_exprBuilder.setDesign(
+      m_compileDesign->getCompiler()->getDesign());
   const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
 
@@ -78,9 +79,10 @@ bool CompilePackage::compile() {
 }
 
 bool CompilePackage::collectObjects_() {
-  std::vector<VObjectType> stopPoints = {VObjectType::slClass_declaration,
-                                         VObjectType::slFunction_body_declaration,
-                                         VObjectType::slTask_body_declaration};
+  std::vector<VObjectType> stopPoints = {
+      VObjectType::slClass_declaration,
+      VObjectType::slFunction_body_declaration,
+      VObjectType::slTask_body_declaration};
 
   for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
     const FileContent* fC = m_package->m_fileContents[i];
@@ -117,11 +119,13 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slParameter_declaration: {
-          m_helper.compileParameterDeclaration(m_package, fC, id, m_compileDesign);
+          m_helper.compileParameterDeclaration(m_package, fC, id,
+                                               m_compileDesign);
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          m_helper.compileParameterDeclaration(m_package, fC, id, m_compileDesign, true);
+          m_helper.compileParameterDeclaration(m_package, fC, id,
+                                               m_compileDesign, true);
           break;
         }
         case VObjectType::slTask_declaration: {
@@ -161,7 +165,8 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slData_declaration: {
-          m_helper.compileDataDeclaration(m_package, fC,id, false, m_compileDesign);
+          m_helper.compileDataDeclaration(m_package, fC, id, false,
+                                          m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {
