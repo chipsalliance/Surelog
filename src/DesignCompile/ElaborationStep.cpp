@@ -822,22 +822,52 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       var->VpiSigned(sig->isSigned());
       var->VpiName(signame);
       obj = var;
-    } else if (const Parameter* sit = dynamic_cast<const Parameter*>(dtype)) {
-      UHDM::typespec* spec = sit->getTypespec();
+    } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
+      UHDM::any* uparam = sit->getUhdmParam();
+      UHDM::typespec* spec = nullptr;
+      bool type_param = false; 
+      if (uparam->UhdmType() == uhdmtype_parameter) {
+        spec = (typespec*) ((type_parameter*)uparam)->Typespec();
+        type_param = true;
+      } else { 
+        spec = (typespec*) ((parameter*)uparam)->Typespec();
+      }
       const std::string& pname = sit->getName();
       for (Parameter* param : instance->getTypeParams()) {
         // Param override
         if (param->getName() == pname) {
-          if (param->getTypespec() == nullptr) {
-            UHDM::typespec* override_spec = m_helper.compileTypespec(component, param->getFileContent(), param->getNodeType(), m_compileDesign,
-                                   nullptr, instance, true);
-            if (override_spec) {                    
-              param->setTypespec(override_spec);
-              spec = override_spec;
-            }
+          UHDM::any* uparam = param->getUhdmParam();
+          UHDM::typespec* override_spec = nullptr;
+          if (uparam == nullptr) {
+            if (type_param) {
+              type_parameter* tp = s.MakeType_parameter();
+              tp->VpiName(pname);
+              param->setUhdmParam(tp);
+            } else { 
+              parameter* tp = s.MakeParameter();
+              tp->VpiName(pname);
+              param->setUhdmParam(tp);
+            }  
+            uparam = param->getUhdmParam();               
           }
-          if (param->getTypespec()) {
-            spec = param->getTypespec();
+
+          if (type_param)
+            override_spec = (UHDM::typespec*) ((type_parameter*)uparam)->Typespec();
+          else 
+            override_spec = (UHDM::typespec*) ((parameter*)uparam)->Typespec();  
+          
+          if (override_spec == nullptr) {
+            override_spec = m_helper.compileTypespec(component, param->getFileContent(), param->getNodeType(), m_compileDesign,
+                                   nullptr, instance, true);
+          }
+
+          if (override_spec) {   
+            if (type_param)                 
+              ((type_parameter*)uparam)->Typespec(override_spec);
+            else 
+              ((parameter*)uparam)->Typespec(override_spec);
+            spec = override_spec;
+            spec->VpiParent(uparam);
           }
           break;
         }

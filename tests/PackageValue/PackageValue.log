@@ -213,7 +213,7 @@ design: (work@prim_diff_decode)
   |vpiDefName:prim_pkg
   |vpiFullName:prim_pkg
   |vpiTypedef:
-  \_enum_typespec: (impl_e), line:7
+  \_enum_typespec: (impl_e), line:7, parent:work@prim_diff_decode.Impl
     |vpiName:impl_e
     |vpiBaseTypespec:
     \_int_typespec: , line:4
@@ -415,7 +415,7 @@ design: (work@prim_diff_decode)
   |vpiDefName:work@prim_diff_decode
   |vpiFullName:work@prim_diff_decode
   |vpiTypedef:
-  \_enum_typespec: (impl_e), line:7
+  \_enum_typespec: (impl_e), line:7, parent:work@prim_diff_decode.Impl
     |vpiName:impl_e
     |vpiBaseTypespec:
     \_int_typespec: , line:4
@@ -440,7 +440,7 @@ design: (work@prim_diff_decode)
       |vpiName:Impl
       |vpiFullName:work@prim_diff_decode.Impl
       |vpiTypespec:
-      \_enum_typespec: (impl_e), line:7
+      \_enum_typespec: (impl_e), line:7, parent:work@prim_diff_decode.Impl
   |vpiParameter:
   \_parameter: (work@prim_diff_decode.Impl), line:12, parent:work@prim_diff_decode
 |uhdmtopModules:
@@ -493,7 +493,7 @@ design: (work@prim_diff_decode)
             |vpiCaseItem:
             \_case_item: , line:27
   |vpiTypedef:
-  \_enum_typespec: (impl_e), line:7
+  \_enum_typespec: (impl_e), line:7, parent:work@prim_diff_decode.Impl
     |vpiName:impl_e
     |vpiBaseTypespec:
     \_int_typespec: , line:4
@@ -505,9 +505,22 @@ design: (work@prim_diff_decode)
     \_enum_const: (ImplXilinx), line:6
       |vpiName:ImplXilinx
       |INT:0
+  |vpiParamAssign:
+  \_param_assign: , line:12, parent:work@prim_diff_decode
+    |vpiRhs:
+    \_constant: , line:12
+      |vpiDecompile:1
+      |INT:1
+    |vpiLhs:
+    \_parameter: (work@prim_diff_decode.Impl), line:12, parent:work@prim_diff_decode
+      |vpiName:Impl
+      |vpiFullName:work@prim_diff_decode.Impl
+      |vpiTypespec:
+      \_enum_typespec: (impl_e), line:7, parent:work@prim_diff_decode.Impl
   |vpiParameter:
-  \_parameter: (Impl), line:12
+  \_parameter: (work@prim_diff_decode.Impl), line:12, parent:work@prim_diff_decode
     |vpiName:Impl
+    |vpiFullName:work@prim_diff_decode.Impl
     |INT:1
 ===================
 [  FATAL] : 0

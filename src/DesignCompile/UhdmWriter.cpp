@@ -1032,27 +1032,35 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   }
 
-  // TODO: Parameters need to be overloaded properly
-  /*
-  if (instance->getTypeParams().size()) {
-    VectorOfany* params = s.MakeAnyVec();
-    if (mod) {
-      VectorOfany* orig_params = mod->getParameters();
+  if (mod) {
+    // Specifc handling of type parameters
+    VectorOfany* params = m->Parameters();
+    if (params == nullptr) params = s.MakeAnyVec();
+    m->Parameters(params);
+    VectorOfany* orig_params = mod->getParameters();
+    if (orig_params) {
       for (auto orig : *orig_params) {
+        bool pushed = false;
         if (orig->UhdmType() == uhdmtype_parameter) {
           for (auto p : instance->getTypeParams()) {
             if (p->getName() == orig->VpiName()) {
-
+              any* uparam = p->getUhdmParam();
+              if (uparam) {
+                uparam->VpiParent(m);
+                params->push_back(uparam);
+                pushed = true;
+              }
+              break;
             }
           }
-        } else {
-          params->push_back(orig);
+          if (!pushed) {
+            // These point to the sole copy (unelaborated)
+            params->push_back(orig);
+          }
         }
       }
     }
-    m->Parameters(params);
   }
-  */
 
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
@@ -1100,6 +1108,15 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
       obj->VpiParent(m);
       assigns->push_back(obj);
     }
+  }
+
+  // Param_assigns hold default values, parameters hold actual overriden values
+  if (mod && mod->getParam_assigns()) {
+    m->Param_assigns(mod->getParam_assigns());
+    // These point to the sole copy (unelaborated)
+    //for (auto ps : *m->Param_assigns()) {
+    //  ps->VpiParent(m);
+    //}
   }
 
   if (mod) {
@@ -1323,25 +1340,28 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   
-  // Parameters
+  // Parameters with values (No type params)
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
     Value* val = param.second.first;
     VectorOfany* params = nullptr;
-    if (m->UhdmType() == uhdmmodule)
+    if (m->UhdmType() == uhdmmodule) {
       params = ((module*)m)->Parameters();
-    else if (m->UhdmType() == uhdmgen_scope)
+    } else if (m->UhdmType() == uhdmgen_scope) {
       params = ((gen_scope*)m)->Parameters();
-    else if (m->UhdmType() == uhdminterface)
+    } else if (m->UhdmType() == uhdminterface) {
       params = ((interface*)m)->Parameters();
+    }
     if (params == nullptr) {
       params = s.MakeAnyVec();
     }
     parameter* p = s.MakeParameter();
     p->VpiName(name);
-    p->VpiValue(val->uhdmValue());
+    if (val->isValid())
+      p->VpiValue(val->uhdmValue());
     p->VpiFile(instance->getFileName());
     p->VpiLineNo(param.second.second);
+    p->VpiParent(m);
     params->push_back(p);
     if (m->UhdmType() == uhdmmodule)
       ((module*)m)->Parameters(params);

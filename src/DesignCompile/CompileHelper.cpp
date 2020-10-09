@@ -1772,13 +1772,15 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
                                            p, nullptr, false, "");
       p->Typespec(tps);
+      if (tps)
+        tps->VpiParent(p);
       if (localParam) {
         p->VpiLocalParam(true);
       }
       parameters->push_back(p);
       Parameter* param =
           new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
-      param->setTypespec(tps);
+      param->setUhdmParam(p);
       component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
       if (skip) typeNameId = fC->Sibling(typeNameId);
@@ -1822,6 +1824,8 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param_assigns->push_back(param_assign);
         param->VpiName(fC->SymName(name));
         param->Typespec(ts);
+        if (ts)
+          ts->VpiParent(param);
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
