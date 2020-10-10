@@ -1346,7 +1346,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         std::string name = parentFile->SymName(child);
         NodeId expr = parentFile->Sibling(child);
         Value* value =
-            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
+            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(), true);
         if (value == nullptr || (value && !value->isValid())) {
           const std::string& pname = parentFile->SymName(child);
           NodeId param_expression = parentFile->Sibling(child);

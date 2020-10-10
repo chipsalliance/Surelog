@@ -778,6 +778,62 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
   return exp;
 }
 
+UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, Parameter* sit, ModuleInstance* instance) {
+  Serializer& s = m_compileDesign->getSerializer();
+  UHDM::any* uparam = sit->getUhdmParam();
+  UHDM::typespec* spec = nullptr;
+  bool type_param = false;
+  if (uparam->UhdmType() == uhdmtype_parameter) {
+    spec = (typespec*)((type_parameter*)uparam)->Typespec();
+    type_param = true;
+  } else {
+    spec = (typespec*)((parameter*)uparam)->Typespec();
+  }
+
+  const std::string& pname = sit->getName();
+  for (Parameter* param : instance->getTypeParams()) {
+    // Param override
+    if (param->getName() == pname) {
+      UHDM::any* uparam = param->getUhdmParam();
+      UHDM::typespec* override_spec = nullptr;
+      if (uparam == nullptr) {
+        if (type_param) {
+          type_parameter* tp = s.MakeType_parameter();
+          tp->VpiName(pname);
+          param->setUhdmParam(tp);
+        } else {
+          parameter* tp = s.MakeParameter();
+          tp->VpiName(pname);
+          param->setUhdmParam(tp);
+        }
+        uparam = param->getUhdmParam();
+      }
+
+      if (type_param)
+        override_spec = (UHDM::typespec*)((type_parameter*)uparam)->Typespec();
+      else
+        override_spec = (UHDM::typespec*)((parameter*)uparam)->Typespec();
+
+      if (override_spec == nullptr) {
+        override_spec = m_helper.compileTypespec(
+            component, param->getFileContent(), param->getNodeType(),
+            m_compileDesign, nullptr, instance, true);
+      }
+
+      if (override_spec) {
+        if (type_param)
+          ((type_parameter*)uparam)->Typespec(override_spec);
+        else
+          ((parameter*)uparam)->Typespec(override_spec);
+        spec = override_spec;
+        spec->VpiParent(uparam);
+      }
+      break;
+    }
+  }
+  return spec;
+}
+
 any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
                 std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
                 UHDM::VectorOfvariables* vars, UHDM::expr* assignExp) {
@@ -823,56 +879,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       var->VpiName(signame);
       obj = var;
     } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
-      UHDM::any* uparam = sit->getUhdmParam();
-      UHDM::typespec* spec = nullptr;
-      bool type_param = false; 
-      if (uparam->UhdmType() == uhdmtype_parameter) {
-        spec = (typespec*) ((type_parameter*)uparam)->Typespec();
-        type_param = true;
-      } else { 
-        spec = (typespec*) ((parameter*)uparam)->Typespec();
-      }
-      const std::string& pname = sit->getName();
-      for (Parameter* param : instance->getTypeParams()) {
-        // Param override
-        if (param->getName() == pname) {
-          UHDM::any* uparam = param->getUhdmParam();
-          UHDM::typespec* override_spec = nullptr;
-          if (uparam == nullptr) {
-            if (type_param) {
-              type_parameter* tp = s.MakeType_parameter();
-              tp->VpiName(pname);
-              param->setUhdmParam(tp);
-            } else { 
-              parameter* tp = s.MakeParameter();
-              tp->VpiName(pname);
-              param->setUhdmParam(tp);
-            }  
-            uparam = param->getUhdmParam();               
-          }
-
-          if (type_param)
-            override_spec = (UHDM::typespec*) ((type_parameter*)uparam)->Typespec();
-          else 
-            override_spec = (UHDM::typespec*) ((parameter*)uparam)->Typespec();  
-          
-          if (override_spec == nullptr) {
-            override_spec = m_helper.compileTypespec(component, param->getFileContent(), param->getNodeType(), m_compileDesign,
-                                   nullptr, instance, true);
-          }
-
-          if (override_spec) {   
-            if (type_param)                 
-              ((type_parameter*)uparam)->Typespec(override_spec);
-            else 
-              ((parameter*)uparam)->Typespec(override_spec);
-            spec = override_spec;
-            spec->VpiParent(uparam);
-          }
-          break;
-        }
-      }
-
+      UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
+      
       variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
