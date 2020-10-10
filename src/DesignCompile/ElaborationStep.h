@@ -77,6 +77,8 @@ class ElaborationStep {
 
   UHDM::expr* exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id, NodeId unpackedDimension, ModuleInstance* instance);
 
+  UHDM::typespec* elabTypeParameter_(DesignComponent* component, Parameter* typeParam, ModuleInstance* instance);
+
   UHDM::any* makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
                 std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
                 UHDM::VectorOfvariables* vars, UHDM::expr* assignExp);
