@@ -273,9 +273,10 @@ design: (work@toto)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@toto
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (new), line:6
+  \_function: (work@mailbox.new), line:6, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@mailbox.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -290,42 +291,47 @@ design: (work@toto)
       \_int_var: (bound), line:6, parent:bound
         |vpiFullName:bound
   |vpiMethod:
-  \_function: (num), line:9
+  \_function: (work@mailbox.num), line:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
+    |vpiFullName:work@mailbox.num
     |vpiReturn:
     \_int_var: , line:9
   |vpiMethod:
-  \_task: (put), line:12
+  \_task: (work@mailbox.put), line:12, parent:work@mailbox
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@mailbox.put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_function: (try_put), line:15
+  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
+    |vpiFullName:work@mailbox.try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_task: (get), line:18
+  \_task: (work@mailbox.get), line:18, parent:work@mailbox
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@mailbox.get
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_get), line:21
+  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@mailbox.try_get
     |vpiReturn:
     \_int_var: , line:21
     |vpiIODecl:
@@ -333,18 +339,20 @@ design: (work@toto)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (peek), line:24
+  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
     |vpiMethod:1
     |vpiName:peek
+    |vpiFullName:work@mailbox.peek
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_peek), line:27
+  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
+    |vpiFullName:work@mailbox.try_peek
     |vpiReturn:
     \_int_var: , line:27
     |vpiIODecl:
@@ -355,56 +363,86 @@ design: (work@toto)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@toto
   |vpiName:work@process
   |vpiMethod:
-  \_function: (self), line:37
+  \_function: (work@process.self), line:37, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
+    |vpiFullName:work@process.self
     |vpiReturn:
     \_chandle_var: (process), line:37
       |vpiName:process
   |vpiMethod:
-  \_function: (status), line:40
+  \_function: (work@process.status), line:40, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
+    |vpiFullName:work@process.status
     |vpiReturn:
     \_chandle_var: (state), line:40
       |vpiName:state
   |vpiMethod:
-  \_task: (kill), line:43
+  \_task: (work@process.kill), line:43, parent:work@process
     |vpiMethod:1
     |vpiName:kill
+    |vpiFullName:work@process.kill
     |vpiStmt:
-    \_begin: (kill), parent:kill
-      |vpiFullName:kill
+    \_begin: (work@process.kill), parent:work@process.kill
+      |vpiFullName:work@process.kill
   |vpiMethod:
-  \_task: (await), line:46
+  \_task: (work@process.await), line:46, parent:work@process
     |vpiMethod:1
     |vpiName:await
+    |vpiFullName:work@process.await
     |vpiStmt:
-    \_begin: (await), parent:await
-      |vpiFullName:await
+    \_begin: (work@process.await), parent:work@process.await
+      |vpiFullName:work@process.await
   |vpiMethod:
-  \_task: (suspend), line:49
+  \_task: (work@process.suspend), line:49, parent:work@process
     |vpiMethod:1
     |vpiName:suspend
+    |vpiFullName:work@process.suspend
     |vpiStmt:
-    \_begin: (suspend), parent:suspend
-      |vpiFullName:suspend
+    \_begin: (work@process.suspend), parent:work@process.suspend
+      |vpiFullName:work@process.suspend
   |vpiMethod:
-  \_task: (resume), line:52
+  \_task: (work@process.resume), line:52, parent:work@process
     |vpiMethod:1
     |vpiName:resume
+    |vpiFullName:work@process.resume
     |vpiStmt:
-    \_begin: (resume), parent:resume
-      |vpiFullName:resume
+    \_begin: (work@process.resume), parent:work@process.resume
+      |vpiFullName:work@process.resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), line:35
+      |vpiName:FINISHED
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35
+      |vpiName:KILLED
+      |INT:4
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), line:35
+      |vpiName:RUNNING
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35
+      |vpiName:SUSPENDED
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (WAITING), line:35
+      |vpiName:WAITING
+      |INT:2
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@toto
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (new), line:60
+  \_function: (work@semaphore.new), line:60, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@semaphore.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -419,9 +457,10 @@ design: (work@toto)
       \_int_var: (keyCount), line:60, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (put), line:63
+  \_task: (work@semaphore.put), line:63, parent:work@semaphore
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@semaphore.put
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -430,9 +469,10 @@ design: (work@toto)
       \_int_var: (keyCount), line:63, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (get), line:66
+  \_task: (work@semaphore.get), line:66, parent:work@semaphore
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@semaphore.get
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -441,10 +481,11 @@ design: (work@toto)
       \_int_var: (keyCount), line:66, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_function: (try_get), line:69
+  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@semaphore.try_get
     |vpiReturn:
     \_int_var: , line:69
     |vpiIODecl:
@@ -454,156 +495,6 @@ design: (work@toto)
       |vpiExpr:
       \_int_var: (keyCount), line:69, parent:keyCount
         |vpiFullName:keyCount
-|uhdmallClasses:
-\_class_defn: (work@toto.c1) top.v:18: , parent:work@toto
-  |vpiName:c1
-  |vpiFullName:work@toto.c1
-  |vpiMethod:
-  \_function: (work@toto.c1.get_current_item), line:30, parent:work@toto.c1
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiName:get_current_item
-    |vpiFullName:work@toto.c1.get_current_item
-    |vpiReturn:
-    \_chandle_var: (REQ), line:30
-      |vpiName:REQ
-    |vpiStmt:
-    \_assign_stmt: , parent:work@toto.c1.get_current_item
-      |vpiLhs:
-      \_chandle_var: (work@toto.c1.get_current_item.t), line:31
-        |vpiName:t
-        |vpiFullName:work@toto.c1.get_current_item.t
-  |vpiMethod:
-  \_function: (work@toto.c1.connect), line:35, parent:work@toto.c1
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiName:connect
-    |vpiFullName:work@toto.c1.connect
-    |vpiIODecl:
-    \_io_decl: (provider)
-      |vpiName:provider
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (provider.this_type), line:35, parent:provider
-        |vpiName:this_type
-        |vpiFullName:provider.this_type
-  |vpiMethod:
-  \_function: (work@toto.c1.get_verbosity_level), line:38, parent:work@toto.c1
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiName:get_verbosity_level
-    |vpiFullName:work@toto.c1.get_verbosity_level
-    |vpiReturn:
-    \_int_var: , line:38
-    |vpiIODecl:
-    \_io_decl: (severity)
-      |vpiName:severity
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (severity.uvm_severity), line:38, parent:severity
-        |vpiName:uvm_severity
-        |vpiFullName:severity.uvm_severity
-    |vpiIODecl:
-    \_io_decl: (reg_a)
-      |vpiName:reg_a
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (reg_a.uvm_reg), line:38, parent:reg_a
-        |vpiName:uvm_reg
-        |vpiFullName:reg_a.uvm_reg
-  |vpiMethod:
-  \_function: (work@toto.c1.set_verbosity_level), line:41, parent:work@toto.c1
-    |vpiMethod:1
-    |vpiVisibility:1
-    |vpiName:set_verbosity_level
-    |vpiFullName:work@toto.c1.set_verbosity_level
-    |vpiReturn:
-    \_int_var: , line:41
-    |vpiIODecl:
-    \_io_decl: (severity)
-      |vpiName:severity
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (severity.uvm_severity), line:41, parent:severity
-        |vpiName:uvm_severity
-        |vpiFullName:severity.uvm_severity
-    |vpiIODecl:
-    \_io_decl: (reg_a)
-      |vpiName:reg_a
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (reg_a.uvm_reg), line:41, parent:reg_a
-        |vpiName:uvm_reg
-        |vpiFullName:reg_a.uvm_reg
-  |vpiMethod:
-  \_task: (work@toto.c1.wait_for_total_count), line:44, parent:work@toto.c1
-    |vpiMethod:1
-    |vpiName:wait_for_total_count
-    |vpiFullName:work@toto.c1.wait_for_total_count
-    |vpiIODecl:
-    \_io_decl: (obj)
-      |vpiName:obj
-      |vpiDirection:5
-      |vpiExpr:
-      \_chandle_var: (obj.c2), line:44, parent:obj
-        |vpiName:c2
-        |vpiFullName:obj.c2
-    |vpiIODecl:
-    \_io_decl: (count)
-      |vpiName:count
-      |vpiDirection:5
-      |vpiExpr:
-      \_int_var: (count), line:44, parent:count
-        |vpiFullName:count
-  |vpiExtends:
-  \_extends: 
-    |vpiClassTypespec:
-    \_class_typespec: 
-      |vpiClassDefn:
-      \_class_defn: (work@toto.c3) top.v:15: , parent:work@toto
-        |vpiName:c3
-        |vpiFullName:work@toto.c3
-        |vpiExtends:
-        \_extends: 
-          |vpiClassTypespec:
-          \_class_typespec: 
-            |vpiClassDefn:
-            \_class_defn: (work@toto.c2) top.v:8: , parent:work@toto
-              |vpiName:c2
-              |vpiFullName:work@toto.c2
-              |vpiDerivedClasses:
-              \_class_defn: (work@toto.c3) top.v:15: , parent:work@toto
-              |vpiTypedef:
-              \_int_typespec: (this_type), line:10
-                |vpiName:this_type
-        |vpiDerivedClasses:
-        \_class_defn: (work@toto.c1) top.v:18: , parent:work@toto
-  |vpiTypedef:
-  \_enum_typespec: (uvm_severity), line:27
-    |vpiName:uvm_severity
-    |vpiBaseTypespec:
-    \_void_typespec: (bit), line:21
-      |vpiName:bit
-    |vpiEnumConst:
-    \_enum_const: (UVM_ERROR), line:25
-      |vpiName:UVM_ERROR
-      |STRING:"toto"
-    |vpiEnumConst:
-    \_enum_const: (UVM_FATAL), line:26
-      |vpiName:UVM_FATAL
-      |INT:3
-    |vpiEnumConst:
-    \_enum_const: (UVM_INFO), line:23
-      |vpiName:UVM_INFO
-      |INT:0
-    |vpiEnumConst:
-    \_enum_const: (UVM_WARNING), line:24
-      |vpiName:UVM_WARNING
-      |INT:1
-|uhdmallClasses:
-\_class_defn: (work@toto.c2) top.v:8: , parent:work@toto
-|uhdmallClasses:
-\_class_defn: (work@toto.c3) top.v:15: , parent:work@toto
 |uhdmallModules:
 \_module: work@toto (work@toto) top.v:6: , parent:work@toto
   |vpiDefName:work@toto

@@ -725,13 +725,8 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   n<> u<11> t<Parameter_port_list> p<31> c<10> s<20> l<18>
 
   */
-  UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::class_defn* defn = m_class->getUhdmDefinition();
-  std::vector<UHDM::any*>* parameters = defn->Parameters();
-  if (parameters == nullptr) {
-    defn->Parameters(s.MakeAnyVec());
-    parameters= defn->Parameters();
-  }
+ 
   NodeId className = fC->Child(id);
   if (fC->Type(className) == slVirtual) {
     className = fC->Sibling(className);

@@ -446,56 +446,61 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
    }
 }
 
+void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Serializer& s,
+        ComponentMap& componentMap, BaseClass* parent) {
+  if (classDef->getFileContents().size() &&
+      classDef->getType() == VObjectType::slClass_declaration) {
+    const FileContent* fC = classDef->getFileContents()[0];
+    class_defn* c = classDef->getUhdmDefinition();
+
+    // Typepecs
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    c->Typespecs(typespecs);
+    writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
+
+    // Variables
+    // Already bound in TestbenchElaboration
+
+    // Function and tasks
+    c->Task_funcs(classDef->getTask_funcs());
+    if (c->Task_funcs()) {
+      for (auto tf : *c->Task_funcs()) {
+        tf->VpiParent(c);
+      }
+    }
+    // Parameters
+    if (classDef->getParameters()) {
+      c->Parameters(classDef->getParameters());
+      for (auto ps : *c->Parameters()) {
+        ps->VpiParent(c);
+      }
+    }
+    // Param_assigns
+    if (classDef->getParam_assigns()) {
+      c->Param_assigns(classDef->getParam_assigns());
+      for (auto ps : *c->Param_assigns()) {
+        ps->VpiParent(c);
+      }
+    }
+    componentMap.insert(std::make_pair(classDef, c));
+    c->VpiParent(parent);
+    dest_classes->push_back(c);
+    const std::string& name = classDef->getName();
+    c->VpiName(name);
+    if (fC) {
+      // Builtin classes have no file
+      c->VpiFile(fC->getFileName());
+      c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+    }
+  }
+}
+
 void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
         VectorOfclass_defn* dest_classes, Serializer& s,
         ComponentMap& componentMap, BaseClass* parent) {
   for (auto& orig_class : orig_classes ) {
     ClassDefinition* classDef = orig_class.second;
-    if (classDef->getFileContents().size() &&
-        classDef->getType() == VObjectType::slClass_declaration) {
-      const FileContent* fC = classDef->getFileContents()[0];
-      class_defn* c = classDef->getUhdmDefinition();
-
-      // Typepecs
-      VectorOftypespec* typespecs = s.MakeTypespecVec();
-      c->Typespecs(typespecs);
-      writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
-
-      // Variables
-      // Already bound in TestbenchElaboration
-
-      // Function and tasks
-      c->Task_funcs(classDef->getTask_funcs());
-      if (c->Task_funcs()) {
-        for (auto tf : *c->Task_funcs()) {
-          tf->VpiParent(c);
-        }
-      }
-      // Parameters
-      if (classDef->getParameters()) {
-        c->Parameters(classDef->getParameters());
-        for (auto ps : *c->Parameters()) {
-          ps->VpiParent(c);
-        }
-      }
-      // Param_assigns
-      if (classDef->getParam_assigns()) {
-        c->Param_assigns(classDef->getParam_assigns());
-        for (auto ps : *c->Param_assigns()) {
-          ps->VpiParent(c);
-        }
-      }
-      componentMap.insert(std::make_pair(classDef, c));
-      c->VpiParent(parent);
-      const std::string& name = classDef->getName();
-      c->VpiName(name);
-      if (fC) {
-        // Builtin classes have no file
-        c->VpiFile(fC->getFileName());
-        c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
-      }
-      dest_classes->push_back(c);
-    }
+    writeClass(classDef, dest_classes, s, componentMap, parent);
   }
 }
 
@@ -1659,32 +1664,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
     d->AllPrograms(uhdm_programs);
 
-    // Classes
-    auto classes = m_design->getClassDefinitions();
-    VectorOfclass_defn* v4 = s.MakeClass_defnVec();
-    for (auto classNamePair : classes) {
-      ClassDefinition* classDef = classNamePair.second;
-      if (classDef->getFileContents().size() &&
-          classDef->getType() == VObjectType::slClass_declaration) {
-        const FileContent* fC = classDef->getFileContents()[0];
-        class_defn* c = classDef->getUhdmDefinition();
-        c->Task_funcs(classDef->getTask_funcs());
-        componentMap.insert(std::make_pair(classDef, c));
-        if (!c->VpiParent()) {
-          c->VpiParent(d);
-          const std::string& name = classDef->getName();
-          c->VpiName(name);
-          if (fC) {
-            // Builtin classes have no file
-            c->VpiFile(fC->getFileName());
-            c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
-          }
-          v4->push_back(c);
-        }
-      }
-    }
-    d->AllClasses(v4);
-
     // Interfaces
     auto modules = m_design->getModuleDefinitions();
     VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
@@ -1738,6 +1717,21 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
     d->AllModules(uhdm_modules);
     d->AllUdps(uhdm_udps);
+
+    // Classes
+    auto classes = m_design->getClassDefinitions();
+    VectorOfclass_defn* v4 = s.MakeClass_defnVec();
+    for (auto classNamePair : classes) {
+      ClassDefinition* classDef = classNamePair.second;
+      if (classDef->getFileContents().size() &&
+          classDef->getType() == VObjectType::slClass_declaration) {
+        class_defn* c = classDef->getUhdmDefinition();
+        if (!c->VpiParent()) {
+          writeClass(classDef, v4, s, componentMap, d);
+        }
+      }
+    }
+    d->AllClasses(v4);
 
     // Repair parent relationship
     for (auto classNamePair : classes) {
