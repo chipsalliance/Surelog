@@ -1010,6 +1010,10 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   return noError;
 }
 
+bool CommandLineParser::parseBuiltIn () {
+  return m_parseBuiltIn;
+}
+
 bool CommandLineParser::setupCache_() {
   bool noError = true;
   std::string odir;
