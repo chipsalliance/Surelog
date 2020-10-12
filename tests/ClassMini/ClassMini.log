@@ -206,11 +206,132 @@ design: (work@door_mod)
           |vpiName:open
           |vpiFullName:work@door_mod.open
           |vpiActual:
-          \_logic_var: (work@door_mod.open), line:22, parent:work@door_mod
+          \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
             |vpiName:open
             |vpiFullName:work@door_mod.open
             |vpiAutomatic:1
             |vpiVisibility:1
+            |vpiTypespec:
+            \_class_typespec: (pack::doorOpen), line:22
+              |vpiName:pack::doorOpen
+              |vpiClassDefn:
+              \_class_defn: (pack::doorOpen) dut.sv:13: , parent:pack
+                |vpiName:doorOpen
+                |vpiFullName:pack::doorOpen
+                |vpiMethod:
+                \_task: (pack::doorOpen::door_fsm), line:14, parent:pack::doorOpen
+                  |vpiMethod:1
+                  |vpiName:door_fsm
+                  |vpiFullName:pack::doorOpen::door_fsm
+                  |vpiStmt:
+                  \_if_stmt: , line:15, parent:pack::doorOpen::door_fsm
+                    |vpiCondition:
+                    \_ref_obj: (pack::doorOpen::door_fsm::open), line:15
+                      |vpiName:open
+                      |vpiFullName:pack::doorOpen::door_fsm::open
+                    |vpiStmt:
+                    \_assignment: , line:15
+                      |vpiOpType:82
+                      |vpiBlocking:1
+                      |vpiLhs:
+                      \_ref_obj: (pack::doorOpen::door_fsm::state), line:15
+                        |vpiName:state
+                        |vpiFullName:pack::doorOpen::door_fsm::state
+                      |vpiRhs:
+                      \_ref_obj: (pack::doorOpen::door_fsm::OPENED), line:15
+                        |vpiName:OPENED
+                        |vpiFullName:pack::doorOpen::door_fsm::OPENED
+                |vpiExtends:
+                \_extends: 
+                  |vpiClassTypespec:
+                  \_class_typespec: 
+                    |vpiClassDefn:
+                    \_class_defn: (pack::door) dut.sv:3: , parent:pack
+                      |vpiVirtual:1
+                      |vpiName:door
+                      |vpiFullName:pack::door
+                      |vpiMethod:
+                      \_task: (pack::door::door_fsm), line:10, parent:pack::door
+                        |vpiMethod:1
+                        |vpiName:door_fsm
+                        |vpiFullName:pack::door::door_fsm
+                        |vpiStmt:
+                        \_begin: (pack::door::door_fsm), parent:pack::door::door_fsm
+                          |vpiFullName:pack::door::door_fsm
+                      |vpiDerivedClasses:
+                      \_class_defn: (pack::doorOpen) dut.sv:13: , parent:pack
+                      |vpiVariables:
+                      \_int_var: (pack::door::state), line:4, parent:pack::door
+                        |vpiName:state
+                        |vpiFullName:pack::door::state
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                      |vpiVariables:
+                      \_int_var: (pack::door::timer), line:5, parent:pack::door
+                        |vpiName:timer
+                        |vpiFullName:pack::door::timer
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                      |vpiVariables:
+                      \_logic_var: (pack::door::open), line:6, parent:pack::door
+                        |vpiName:open
+                        |vpiFullName:pack::door::open
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                      |vpiVariables:
+                      \_logic_var: (pack::door::lock), line:6, parent:pack::door
+                        |vpiName:lock
+                        |vpiFullName:pack::door::lock
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                      |vpiVariables:
+                      \_logic_var: (pack::door::clock), line:6, parent:pack::door
+                        |vpiName:clock
+                        |vpiFullName:pack::door::clock
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                      |vpiParamAssign:
+                      \_param_assign: , line:7, parent:pack::door
+                        |vpiRhs:
+                        \_constant: , line:7
+                          |vpiConstType:3
+                          |vpiDecompile:2'b00
+                          |vpiSize:2
+                          |BIN:2'b00
+                        |vpiLhs:
+                        \_parameter: (pack::door::OPENED), line:7, parent:pack::door
+                          |vpiName:OPENED
+                          |vpiFullName:pack::door::OPENED
+                      |vpiParamAssign:
+                      \_param_assign: , line:8, parent:pack::door
+                        |vpiRhs:
+                        \_constant: , line:8
+                          |vpiConstType:3
+                          |vpiDecompile:2'b01
+                          |vpiSize:2
+                          |BIN:2'b01
+                        |vpiLhs:
+                        \_parameter: (pack::door::CLOSED), line:8, parent:pack::door
+                          |vpiName:CLOSED
+                          |vpiFullName:pack::door::CLOSED
+                      |vpiParamAssign:
+                      \_param_assign: , line:9, parent:pack::door
+                        |vpiRhs:
+                        \_constant: , line:9
+                          |vpiConstType:3
+                          |vpiDecompile:2'b10
+                          |vpiSize:2
+                          |BIN:2'b10
+                        |vpiLhs:
+                        \_parameter: (pack::door::LOCKED), line:9, parent:pack::door
+                          |vpiName:LOCKED
+                          |vpiFullName:pack::door::LOCKED
+                      |vpiParameter:
+                      \_parameter: (pack::door::OPENED), line:7, parent:pack::door
+                      |vpiParameter:
+                      \_parameter: (pack::door::CLOSED), line:8, parent:pack::door
+                      |vpiParameter:
+                      \_parameter: (pack::door::LOCKED), line:9, parent:pack::door
         |vpiRhs:
         \_func_call: (new)
           |vpiName:new
@@ -218,7 +339,7 @@ design: (work@door_mod)
       \_func_call: (open.door_fsm), line:25, parent:work@door_mod
         |vpiName:open.door_fsm
   |vpiVariables:
-  \_logic_var: (work@door_mod.open), line:22, parent:work@door_mod
+  \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

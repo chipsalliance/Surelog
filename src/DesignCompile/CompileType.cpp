@@ -37,6 +37,7 @@
 #include "Design/Design.h"
 #include "Design/Parameter.h"
 #include "DesignCompile/CompileHelper.h"
+#include "Testbench/ClassDefinition.h"
 #include "CompileDesign.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
@@ -367,6 +368,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
       Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
       if (pack) {
         const DataType* dtype = pack->getDataType(name);
+        if (dtype == nullptr) {
+          ClassDefinition* classDefn = dynamic_cast<ClassDefinition*>(pack->getClassDefinition(name));
+          dtype = (const DataType*)classDefn;
+          if (dtype) {
+            class_typespec* ref = s.MakeClass_typespec();
+            ref->Class_defn(classDefn->getUhdmDefinition());
+            ref->VpiName(typeName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(type));
+            result = ref;
+            break;
+          }
+        }
         while (dtype) {
           const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
           if (typed) {
