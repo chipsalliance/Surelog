@@ -678,8 +678,12 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       def = design->getComponentDefinition(libName + "@" + baseName);
       if (def) {
         ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (def);
+        ClassDefinition* cl = dynamic_cast<ClassDefinition*>(def);
         if (module) {
-            signal->setInterfaceDef(module);
+          signal->setInterfaceDef(module);
+        } else if (cl) {
+          signal->setDataType(cl);
+          return true;
         } else {
           def = NULL;
         }
