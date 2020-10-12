@@ -1514,21 +1514,8 @@ void DesignElaboration::bind_ports_nets_(
     bindPortType_(port, fC, port->getNodeId(), NULL, mod,
       ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
-  std::vector<NodeId> notSignals;
   for (Signal* signal : signals ) {
-    bool isSignal = bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
-      ErrorDefinition::COMP_UNDEFINED_TYPE);
-    if (isSignal == 0) {
-       notSignals.push_back(signal->getNodeId());
-    }
-  }
-  for (NodeId sig : notSignals) {
-    for (std::vector<Signal*>::iterator itr = signals.begin(); itr != signals.end(); itr++) {
-       if ((*itr)->getNodeId() == sig) {
-        signals.erase(itr);
-        break;
-      }
-    }
+    bindPortType_(signal, fC, signal->getNodeId(), NULL, mod, ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
 }
 
