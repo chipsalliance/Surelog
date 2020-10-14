@@ -419,8 +419,11 @@ design: (unnamed)
           \_func_call: (get_name), line:9
             |vpiName:get_name
       |vpiStmt:
-      \_func_call: (tmp.copy), line:11, parent:toto::uvm_object::clone
-        |vpiName:tmp.copy
+      \_method_func_call: (copy), line:11, parent:toto::uvm_object::clone
+        |vpiName:copy
+        |vpiPrefix:
+        \_ref_obj: (tmp)
+          |vpiName:tmp
         |vpiArgument:
         \_ref_obj: (this), line:11
           |vpiName:this
@@ -462,7 +465,7 @@ design: (unnamed)
               |vpiName:m_b_inst
               |vpiFullName:toto::m_initialize::m_b_inst
             |vpiRhs:
-            \_func_call: (new)
+            \_method_func_call: (new), line:18
               |vpiName:new
           |vpiStmt:
           \_assignment: , line:19, parent:toto::m_initialize
@@ -473,7 +476,7 @@ design: (unnamed)
               |vpiName:m_pool
               |vpiFullName:toto::m_initialize::m_pool
             |vpiRhs:
-            \_func_call: (new)
+            \_method_func_call: (new), line:19
               |vpiName:new
               |vpiArgument:
               \_constant: , line:19
