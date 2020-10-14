@@ -311,8 +311,10 @@ bool CompileDesign::compilation_() {
   design->clearContainers();
   collectObjects_(all_files, design, true);
 
-  Builtin* builtin = new Builtin(this, design);
-  builtin->addBuiltins();
+  if (m_compiler->getCommandLineParser()->parseBuiltIn()) {
+    Builtin* builtin = new Builtin(this, design);
+    builtin->addBuiltins();
+  }
 
   m_compiler->getDesign()->orderPackages();
 

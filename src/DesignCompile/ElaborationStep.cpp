@@ -500,6 +500,22 @@ Variable* ElaborationStep::locateStaticVariable_(
   return result;
 }
 
+void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC, NodeId id, const DataType* type,
+                                  const std::string& interfName, ErrorContainer* errors, SymbolTable* symbols) {
+  if (def == NULL && type == NULL && (interfName != "logic") &&
+      (interfName != "byte") && (interfName != "bit") &&
+      (interfName != "new") && (interfName != "expect") &&
+      (interfName != "var") && (interfName != "signed") &&
+      (interfName != "unsigned") && (interfName != "do") &&
+      (interfName != "final") && (interfName != "global") &&
+      (interfName != "soft")) {
+    Location loc(symbols->registerSymbol(fC->getFileName(id)), fC->Line(id), 0,
+                 symbols->registerSymbol(interfName));
+    Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
+    errors->addError(err);
+  }
+}
+
 bool ElaborationStep::bindPortType_(Signal* signal,
         const FileContent* fC, NodeId id, Scope* scope,
         DesignComponent* parentComponent,
@@ -598,20 +614,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       if (def == NULL) {
         type = parentComponent->getDataType(interfName);
       }
-      if (def == NULL && type == NULL && (interfName != "logic") &&
-              (interfName != "byte") && (interfName != "bit") &&
-              (interfName != "new") && (interfName != "expect") &&
-              (interfName != "var") && (interfName != "signed") &&
-              (interfName != "unsigned") && (interfName != "do") &&
-              (interfName != "final") && (interfName != "global") &&
-              (interfName != "soft")) {
-        Location loc(symbols->registerSymbol(fC->getFileName(id)),
-                fC->Line(id), 0,
-                symbols->registerSymbol(interfName));
-        Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
-        errors->addError(err);
-      }
-
+      checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors, symbols);
       break;
     }
     case VObjectType::slInput_declaration:
@@ -639,7 +642,14 @@ bool ElaborationStep::bindPortType_(Signal* signal,
           Package* p = design->getPackage(fC->SymName(Class_type_name));
           if (p) {
             const DataType* dtype = p->getDataType(fC->SymName(Class_scope_name));
-            signal->setDataType(dtype);
+            if (dtype) {
+              signal->setDataType(dtype);
+            } else {
+              const DataType* dtype = p->getClassDefinition(fC->SymName(Class_scope_name));
+              if (dtype) {
+                signal->setDataType(dtype);
+              }
+            }
             return true;
           }
         }
@@ -668,8 +678,12 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       def = design->getComponentDefinition(libName + "@" + baseName);
       if (def) {
         ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (def);
+        ClassDefinition* cl = dynamic_cast<ClassDefinition*>(def);
         if (module) {
-            signal->setInterfaceDef(module);
+          signal->setInterfaceDef(module);
+        } else if (cl) {
+          signal->setDataType(cl);
+          return true;
         } else {
           def = NULL;
         }
@@ -702,19 +716,21 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     if (signal->getType() != slNoType) {
       return true;
     }
-    if (def == NULL && type == NULL && (interfName != "logic") &&
-            (interfName != "byte") && (interfName != "bit") &&
-            (interfName != "new") && (interfName != "expect") &&
-            (interfName != "var") && (interfName != "signed") &&
-            (interfName != "unsigned") && (interfName != "do") &&
-            (interfName != "final") && (interfName != "global") &&
-            (interfName != "soft")) {
-      Location loc(symbols->registerSymbol(fC->getFileName(id)),
-              fC->Line(id), 0,
-              symbols->registerSymbol(interfName));
-      Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
-      errors->addError(err);
+    if (def == NULL) {
+      if (parentComponent->getParameters()) {
+        for (auto param : *parentComponent->getParameters()) {
+          if (param->UhdmType() == uhdmtype_parameter) {
+            if (param->VpiName() == interfName) {
+              Parameter* p = parentComponent->getParameter(interfName);
+              type = p;
+              signal->setDataType(type);
+              break;
+            }
+          }
+        }
+      }
     }
+    checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors, symbols);
     break;
   }
   default:
@@ -764,6 +780,62 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
   return exp;
 }
 
+UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, Parameter* sit, ModuleInstance* instance) {
+  Serializer& s = m_compileDesign->getSerializer();
+  UHDM::any* uparam = sit->getUhdmParam();
+  UHDM::typespec* spec = nullptr;
+  bool type_param = false;
+  if (uparam->UhdmType() == uhdmtype_parameter) {
+    spec = (typespec*)((type_parameter*)uparam)->Typespec();
+    type_param = true;
+  } else {
+    spec = (typespec*)((parameter*)uparam)->Typespec();
+  }
+
+  const std::string& pname = sit->getName();
+  for (Parameter* param : instance->getTypeParams()) {
+    // Param override
+    if (param->getName() == pname) {
+      UHDM::any* uparam = param->getUhdmParam();
+      UHDM::typespec* override_spec = nullptr;
+      if (uparam == nullptr) {
+        if (type_param) {
+          type_parameter* tp = s.MakeType_parameter();
+          tp->VpiName(pname);
+          param->setUhdmParam(tp);
+        } else {
+          parameter* tp = s.MakeParameter();
+          tp->VpiName(pname);
+          param->setUhdmParam(tp);
+        }
+        uparam = param->getUhdmParam();
+      }
+
+      if (type_param)
+        override_spec = (UHDM::typespec*)((type_parameter*)uparam)->Typespec();
+      else
+        override_spec = (UHDM::typespec*)((parameter*)uparam)->Typespec();
+
+      if (override_spec == nullptr) {
+        override_spec = m_helper.compileTypespec(
+            component, param->getFileContent(), param->getNodeType(),
+            m_compileDesign, nullptr, instance, true);
+      }
+
+      if (override_spec) {
+        if (type_param)
+          ((type_parameter*)uparam)->Typespec(override_spec);
+        else
+          ((parameter*)uparam)->Typespec(override_spec);
+        spec = override_spec;
+        spec->VpiParent(uparam);
+      }
+      break;
+    }
+  }
+  return spec;
+}
+
 any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
                 std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
                 UHDM::VectorOfvariables* vars, UHDM::expr* assignExp) {
@@ -808,6 +880,20 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       var->VpiSigned(sig->isSigned());
       var->VpiName(signame);
       obj = var;
+    } else if (/*const ClassDefinition* cl = */dynamic_cast<const ClassDefinition*>(dtype)) {
+      class_var* stv = s.MakeClass_var();
+      stv->Typespec(tps);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
+      UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
+      
+      variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+      var->Expr(assignExp);
+      var->VpiConstantVariable(sig->isConst());
+      var->VpiSigned(sig->isSigned());
+      var->VpiName(signame);
+      obj = var;
     }
   } else if (tps) {
     UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
@@ -823,6 +909,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       stv->Expr(assignExp);
     } else if (tpstype == uhdmunion_typespec) {
       union_var* stv = s.MakeUnion_var();
+      stv->Typespec(tps);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmclass_typespec) {
+      class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
       obj = stv;
       stv->Expr(assignExp);
@@ -905,6 +996,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       ((struct_var*)obj)->VpiName(signame);
     } else if (obj->UhdmType() == uhdmunion_var) {
       ((union_var*)obj)->VpiName(signame);
+    } else if (obj->UhdmType() == uhdmclass_var) {
+      ((class_var*)obj)->VpiName(signame);
     }
     vars->push_back((variables*)obj);
   }
@@ -970,6 +1063,10 @@ variables* ElaborationStep::getSimpleVarFromTypespec(UHDM::typespec* spec,
     var = int_var;
   } else if (spec->UhdmType() == uhdmlogic_typespec) {
     logic_var* logicv = s.MakeLogic_var();
+    logicv->Ranges(packedDimensions);
+    var = logicv;
+  } else if (spec->UhdmType() == uhdmvoid_typespec) {
+    UHDM::logic_var* logicv = s.MakeLogic_var();
     logicv->Ranges(packedDimensions);
     var = logicv;
   }

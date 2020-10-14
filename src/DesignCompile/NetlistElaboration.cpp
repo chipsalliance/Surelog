@@ -84,12 +84,28 @@ bool NetlistElaboration::elaborate() {
   return true;
 }
 
+bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
+  if (!instance) 
+    return true;
+   ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (instance->getDefinition());
+   if (!mod)
+    return true;
+  if (mod->getParameters() == nullptr)
+    return true;  
+  for (auto nameParam : mod->getParameterMap()) {
+    Parameter* sit = nameParam.second;
+    elabTypeParameter_(mod, sit, instance);
+  }
+  return true;
+}
+
 bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
+  elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);
 

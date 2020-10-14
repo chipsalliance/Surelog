@@ -71,7 +71,6 @@ class ClassDefinition : public DesignComponent, public DataType {
   typedef std::map<std::string, const DataType*> BaseClassMap;
   typedef std::map<std::string, ClassDefinition*> ClassMap;
   typedef std::map<std::string, CoverGroupDefinition*> CoverGroupMap;
-  typedef std::map<std::string, Parameter*> ParameterMap;
 
   PropertyMap& getPropertyMap() { return m_properties; }
   Property* getProperty(const std::string& name) const;
@@ -102,10 +101,6 @@ class ClassDefinition : public DesignComponent, public DataType {
   const DataType* getBaseClass(const std::string& name) const;
   void insertBaseClass(DataType* p);
 
-  ParameterMap& getParameterMap() { return m_parameters; }
-  Parameter* getParameter(const std::string& name) const;
-  void insertParameter(Parameter* p);
-
   const DataType* getBaseDataType(const std::string& type) const;
 
   bool hasCompleteBaseSpecification() const;
@@ -128,7 +123,6 @@ class ClassDefinition : public DesignComponent, public DataType {
   ClassMap m_classes;
   CoverGroupMap m_covergroups;
   BaseClassMap m_baseclasses;
-  ParameterMap m_parameters;
   UHDM::class_defn* m_uhdm_definition;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;

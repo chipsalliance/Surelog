@@ -158,6 +158,9 @@ bool CompilePackage::collectObjects_() {
         }
         case VObjectType::slClass_declaration: {
           NodeId nameId = fC->Child(id);
+          if (fC->Type(nameId) == slVirtual) {
+             nameId = fC->Sibling(nameId);
+          }
           std::string name = fC->SymName(nameId);
           FileCNodeId fnid(fC, nameId);
           m_package->addObject(type, fnid);

@@ -925,9 +925,10 @@ design: (work@test)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@test
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (new), line:6
+  \_function: (work@mailbox.new), line:6, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@mailbox.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -942,42 +943,47 @@ design: (work@test)
       \_int_var: (bound), line:6, parent:bound
         |vpiFullName:bound
   |vpiMethod:
-  \_function: (num), line:9
+  \_function: (work@mailbox.num), line:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
+    |vpiFullName:work@mailbox.num
     |vpiReturn:
     \_int_var: , line:9
   |vpiMethod:
-  \_task: (put), line:12
+  \_task: (work@mailbox.put), line:12, parent:work@mailbox
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@mailbox.put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_function: (try_put), line:15
+  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
+    |vpiFullName:work@mailbox.try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_task: (get), line:18
+  \_task: (work@mailbox.get), line:18, parent:work@mailbox
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@mailbox.get
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_get), line:21
+  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@mailbox.try_get
     |vpiReturn:
     \_int_var: , line:21
     |vpiIODecl:
@@ -985,18 +991,20 @@ design: (work@test)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (peek), line:24
+  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
     |vpiMethod:1
     |vpiName:peek
+    |vpiFullName:work@mailbox.peek
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_peek), line:27
+  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
+    |vpiFullName:work@mailbox.try_peek
     |vpiReturn:
     \_int_var: , line:27
     |vpiIODecl:
@@ -1007,56 +1015,86 @@ design: (work@test)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@test
   |vpiName:work@process
   |vpiMethod:
-  \_function: (self), line:37
+  \_function: (work@process.self), line:37, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
+    |vpiFullName:work@process.self
     |vpiReturn:
     \_chandle_var: (process), line:37
       |vpiName:process
   |vpiMethod:
-  \_function: (status), line:40
+  \_function: (work@process.status), line:40, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
+    |vpiFullName:work@process.status
     |vpiReturn:
     \_chandle_var: (state), line:40
       |vpiName:state
   |vpiMethod:
-  \_task: (kill), line:43
+  \_task: (work@process.kill), line:43, parent:work@process
     |vpiMethod:1
     |vpiName:kill
+    |vpiFullName:work@process.kill
     |vpiStmt:
-    \_begin: (kill), parent:kill
-      |vpiFullName:kill
+    \_begin: (work@process.kill), parent:work@process.kill
+      |vpiFullName:work@process.kill
   |vpiMethod:
-  \_task: (await), line:46
+  \_task: (work@process.await), line:46, parent:work@process
     |vpiMethod:1
     |vpiName:await
+    |vpiFullName:work@process.await
     |vpiStmt:
-    \_begin: (await), parent:await
-      |vpiFullName:await
+    \_begin: (work@process.await), parent:work@process.await
+      |vpiFullName:work@process.await
   |vpiMethod:
-  \_task: (suspend), line:49
+  \_task: (work@process.suspend), line:49, parent:work@process
     |vpiMethod:1
     |vpiName:suspend
+    |vpiFullName:work@process.suspend
     |vpiStmt:
-    \_begin: (suspend), parent:suspend
-      |vpiFullName:suspend
+    \_begin: (work@process.suspend), parent:work@process.suspend
+      |vpiFullName:work@process.suspend
   |vpiMethod:
-  \_task: (resume), line:52
+  \_task: (work@process.resume), line:52, parent:work@process
     |vpiMethod:1
     |vpiName:resume
+    |vpiFullName:work@process.resume
     |vpiStmt:
-    \_begin: (resume), parent:resume
-      |vpiFullName:resume
+    \_begin: (work@process.resume), parent:work@process.resume
+      |vpiFullName:work@process.resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), line:35
+      |vpiName:FINISHED
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35
+      |vpiName:KILLED
+      |INT:4
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), line:35
+      |vpiName:RUNNING
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35
+      |vpiName:SUSPENDED
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (WAITING), line:35
+      |vpiName:WAITING
+      |INT:2
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@test
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (new), line:60
+  \_function: (work@semaphore.new), line:60, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@semaphore.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -1071,9 +1109,10 @@ design: (work@test)
       \_int_var: (keyCount), line:60, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (put), line:63
+  \_task: (work@semaphore.put), line:63, parent:work@semaphore
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@semaphore.put
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -1082,9 +1121,10 @@ design: (work@test)
       \_int_var: (keyCount), line:63, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (get), line:66
+  \_task: (work@semaphore.get), line:66, parent:work@semaphore
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@semaphore.get
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -1093,10 +1133,11 @@ design: (work@test)
       \_int_var: (keyCount), line:66, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_function: (try_get), line:69
+  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@semaphore.try_get
     |vpiReturn:
     \_int_var: , line:69
     |vpiIODecl:
@@ -1194,7 +1235,7 @@ design: (work@test)
                 \_parameter: (work@test.USER_DELAY_INIT), line:24, parent:work@test
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
-                  |vpiLocalParam:1
+                  |INT:1
             |vpiStmt:
             \_assignment: , line:40, parent:work@test
               |vpiOpType:82
@@ -1465,7 +1506,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_CHECK_STATE), line:30, parent:work@test
                             |vpiName:USER_CHECK_STATE
                             |vpiFullName:work@test.USER_CHECK_STATE
-                            |vpiLocalParam:1
+                            |INT:64
               |vpiCaseItem:
               \_case_item: , line:57
                 |vpiExpr:
@@ -1594,7 +1635,7 @@ design: (work@test)
                               \_parameter: (work@test.USER_CHECK_SPACE), line:31, parent:work@test
                                 |vpiName:USER_CHECK_SPACE
                                 |vpiFullName:work@test.USER_CHECK_SPACE
-                                |vpiLocalParam:1
+                                |INT:128
                         |vpiElseStmt:
                         \_begin: (work@test), line:65
                           |vpiFullName:work@test
@@ -1633,7 +1674,7 @@ design: (work@test)
                                 \_parameter: (work@test.USER_READ_LENGTH), line:33, parent:work@test
                                   |vpiName:USER_READ_LENGTH
                                   |vpiFullName:work@test.USER_READ_LENGTH
-                                  |vpiLocalParam:1
+                                  |INT:512
                               |vpiOperand:
                               \_ref_obj: (work@test.USER_READ_DATA), line:67
                                 |vpiName:USER_READ_DATA
@@ -1642,7 +1683,7 @@ design: (work@test)
                                 \_parameter: (work@test.USER_READ_DATA), line:34, parent:work@test
                                   |vpiName:USER_READ_DATA
                                   |vpiFullName:work@test.USER_READ_DATA
-                                  |vpiLocalParam:1
+                                  |INT:1024
               |vpiCaseItem:
               \_case_item: , line:72
                 |vpiExpr:
@@ -1682,7 +1723,7 @@ design: (work@test)
                         \_parameter: (work@test.ESTABLISHED), line:10, parent:work@test
                           |vpiName:ESTABLISHED
                           |vpiFullName:work@test.ESTABLISHED
-                          |vpiLocalParam:1
+                          |INT:3
                     |vpiStmt:
                     \_begin: (work@test), line:73
                       |vpiFullName:work@test
@@ -1703,7 +1744,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_IDLE), line:29, parent:work@test
                             |vpiName:USER_IDLE
                             |vpiFullName:work@test.USER_IDLE
-                            |vpiLocalParam:1
+                            |INT:32
                     |vpiElseStmt:
                     \_begin: (work@test), line:75
                       |vpiFullName:work@test
@@ -1724,7 +1765,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_WRITE_DATA), line:32, parent:work@test
                             |vpiName:USER_WRITE_DATA
                             |vpiFullName:work@test.USER_WRITE_DATA
-                            |vpiLocalParam:1
+                            |INT:256
   |vpiPort:
   \_port: (CLK), line:6, parent:work@test
     |vpiName:CLK
@@ -2074,7 +2115,7 @@ design: (work@test)
                 \_parameter: (work@test.USER_DELAY_INIT), line:24, parent:work@test
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
-                  |vpiLocalParam:1
+                  |INT:1
             |vpiStmt:
             \_assignment: , line:40, parent:work@test
               |vpiOpType:82
@@ -2351,7 +2392,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_CHECK_STATE), line:30, parent:work@test
                             |vpiName:USER_CHECK_STATE
                             |vpiFullName:work@test.USER_CHECK_STATE
-                            |vpiLocalParam:1
+                            |INT:64
               |vpiCaseItem:
               \_case_item: , line:57
                 |vpiExpr:
@@ -2489,7 +2530,7 @@ design: (work@test)
                               \_parameter: (work@test.USER_CHECK_SPACE), line:31, parent:work@test
                                 |vpiName:USER_CHECK_SPACE
                                 |vpiFullName:work@test.USER_CHECK_SPACE
-                                |vpiLocalParam:1
+                                |INT:128
                         |vpiElseStmt:
                         \_begin: (work@test), line:65
                           |vpiFullName:work@test
@@ -2528,7 +2569,7 @@ design: (work@test)
                                 \_parameter: (work@test.USER_READ_LENGTH), line:33, parent:work@test
                                   |vpiName:USER_READ_LENGTH
                                   |vpiFullName:work@test.USER_READ_LENGTH
-                                  |vpiLocalParam:1
+                                  |INT:512
                               |vpiOperand:
                               \_ref_obj: (work@test.USER_READ_DATA), line:67
                                 |vpiName:USER_READ_DATA
@@ -2537,7 +2578,7 @@ design: (work@test)
                                 \_parameter: (work@test.USER_READ_DATA), line:34, parent:work@test
                                   |vpiName:USER_READ_DATA
                                   |vpiFullName:work@test.USER_READ_DATA
-                                  |vpiLocalParam:1
+                                  |INT:1024
               |vpiCaseItem:
               \_case_item: , line:72
                 |vpiExpr:
@@ -2579,7 +2620,7 @@ design: (work@test)
                         \_parameter: (work@test.ESTABLISHED), line:10, parent:work@test
                           |vpiName:ESTABLISHED
                           |vpiFullName:work@test.ESTABLISHED
-                          |vpiLocalParam:1
+                          |INT:3
                     |vpiStmt:
                     \_begin: (work@test), line:73
                       |vpiFullName:work@test
@@ -2600,7 +2641,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_IDLE), line:29, parent:work@test
                             |vpiName:USER_IDLE
                             |vpiFullName:work@test.USER_IDLE
-                            |vpiLocalParam:1
+                            |INT:32
                     |vpiElseStmt:
                     \_begin: (work@test), line:75
                       |vpiFullName:work@test
@@ -2621,7 +2662,7 @@ design: (work@test)
                           \_parameter: (work@test.USER_WRITE_DATA), line:32, parent:work@test
                             |vpiName:USER_WRITE_DATA
                             |vpiFullName:work@test.USER_WRITE_DATA
-                            |vpiLocalParam:1
+                            |INT:256
   |vpiPort:
   \_port: (CLK), line:6, parent:work@test
     |vpiName:CLK
@@ -2692,6 +2733,9 @@ design: (work@test)
       |HEX:16'h0003
     |vpiLhs:
     \_parameter: (work@test.ESTABLISHED), line:10, parent:work@test
+      |vpiName:ESTABLISHED
+      |vpiFullName:work@test.ESTABLISHED
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:24, parent:work@test
     |vpiRhs:
@@ -2702,6 +2746,9 @@ design: (work@test)
       |HEX:11'h001
     |vpiLhs:
     \_parameter: (work@test.USER_DELAY_INIT), line:24, parent:work@test
+      |vpiName:USER_DELAY_INIT
+      |vpiFullName:work@test.USER_DELAY_INIT
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:25, parent:work@test
     |vpiRhs:
@@ -2764,6 +2811,9 @@ design: (work@test)
       |HEX:11'h020
     |vpiLhs:
     \_parameter: (work@test.USER_IDLE), line:29, parent:work@test
+      |vpiName:USER_IDLE
+      |vpiFullName:work@test.USER_IDLE
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:30, parent:work@test
     |vpiRhs:
@@ -2774,6 +2824,9 @@ design: (work@test)
       |HEX:11'h040
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_STATE), line:30, parent:work@test
+      |vpiName:USER_CHECK_STATE
+      |vpiFullName:work@test.USER_CHECK_STATE
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:31, parent:work@test
     |vpiRhs:
@@ -2784,6 +2837,9 @@ design: (work@test)
       |HEX:11'h080
     |vpiLhs:
     \_parameter: (work@test.USER_CHECK_SPACE), line:31, parent:work@test
+      |vpiName:USER_CHECK_SPACE
+      |vpiFullName:work@test.USER_CHECK_SPACE
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:32, parent:work@test
     |vpiRhs:
@@ -2794,6 +2850,9 @@ design: (work@test)
       |HEX:11'h100
     |vpiLhs:
     \_parameter: (work@test.USER_WRITE_DATA), line:32, parent:work@test
+      |vpiName:USER_WRITE_DATA
+      |vpiFullName:work@test.USER_WRITE_DATA
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:33, parent:work@test
     |vpiRhs:
@@ -2804,6 +2863,9 @@ design: (work@test)
       |HEX:11'h200
     |vpiLhs:
     \_parameter: (work@test.USER_READ_LENGTH), line:33, parent:work@test
+      |vpiName:USER_READ_LENGTH
+      |vpiFullName:work@test.USER_READ_LENGTH
+      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:34, parent:work@test
     |vpiRhs:
@@ -2814,32 +2876,50 @@ design: (work@test)
       |HEX:11'h400
     |vpiLhs:
     \_parameter: (work@test.USER_READ_DATA), line:34, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.FRAME_LENGTH), line:9, parent:work@test
+      |vpiName:USER_READ_DATA
+      |vpiFullName:work@test.USER_READ_DATA
+      |vpiLocalParam:1
   |vpiParameter:
   \_parameter: (work@test.ESTABLISHED), line:10, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_DELAY_INIT), line:24, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN), line:25, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN_CHECK), line:26, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_CLEAR_INTS), line:27, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_INIT), line:28, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_IDLE), line:29, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.USER_CHECK_STATE), line:30, parent:work@test
+  \_parameter: (work@test.FRAME_LENGTH), line:9, parent:work@test
+    |vpiName:FRAME_LENGTH
+    |vpiFullName:work@test.FRAME_LENGTH
+    |INT:15
   |vpiParameter:
   \_parameter: (work@test.USER_CHECK_SPACE), line:31, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_WRITE_DATA), line:32, parent:work@test
+  \_parameter: (work@test.USER_CHECK_STATE), line:30, parent:work@test
+  |vpiParameter:
+  \_parameter: (work@test.USER_CLEAN), line:25, parent:work@test
+    |vpiName:USER_CLEAN
+    |vpiFullName:work@test.USER_CLEAN
+    |INT:2
+  |vpiParameter:
+  \_parameter: (work@test.USER_CLEAN_CHECK), line:26, parent:work@test
+    |vpiName:USER_CLEAN_CHECK
+    |vpiFullName:work@test.USER_CLEAN_CHECK
+    |INT:4
+  |vpiParameter:
+  \_parameter: (work@test.USER_CLEAR_INTS), line:27, parent:work@test
+    |vpiName:USER_CLEAR_INTS
+    |vpiFullName:work@test.USER_CLEAR_INTS
+    |INT:8
+  |vpiParameter:
+  \_parameter: (work@test.USER_DELAY_INIT), line:24, parent:work@test
+  |vpiParameter:
+  \_parameter: (work@test.USER_IDLE), line:29, parent:work@test
+  |vpiParameter:
+  \_parameter: (work@test.USER_INIT), line:28, parent:work@test
+    |vpiName:USER_INIT
+    |vpiFullName:work@test.USER_INIT
+    |INT:16
+  |vpiParameter:
+  \_parameter: (work@test.USER_READ_DATA), line:34, parent:work@test
   |vpiParameter:
   \_parameter: (work@test.USER_READ_LENGTH), line:33, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_READ_DATA), line:34, parent:work@test
+  \_parameter: (work@test.USER_WRITE_DATA), line:32, parent:work@test
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -747,13 +747,8 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   n<> u<11> t<Parameter_port_list> p<31> c<10> s<20> l<18>
 
   */
-  UHDM::Serializer& s = m_compileDesign->getSerializer();
   UHDM::class_defn* defn = m_class->getUhdmDefinition();
-  std::vector<UHDM::any*>* parameters = defn->Parameters();
-  if (parameters == nullptr) {
-    defn->Parameters(s.MakeAnyVec());
-    parameters= defn->Parameters();
-  }
+ 
   NodeId className = fC->Child(id);
   if (fC->Type(className) == slVirtual) {
     className = fC->Sibling(className);
@@ -768,23 +763,6 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
       if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
         // Type param
         m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
-
-        NodeId typeNameId = fC->Child(list_of_type_assignments);
-        while (typeNameId) {
-          NodeId ntype = fC->Sibling(typeNameId);
-          bool skip = false;
-          if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
-            ntype = fC->Child(ntype);
-            skip = true;
-          } else {
-            ntype = 0;
-          }
-          Parameter* param =
-              new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
-          m_class->insertParameter(param);
-          typeNameId = fC->Sibling(typeNameId);
-          if (skip) typeNameId = fC->Sibling(typeNameId);
-        }
 
       } else if (fC->Type(list_of_type_assignments) == slParameter_declaration) {
         // Regular param

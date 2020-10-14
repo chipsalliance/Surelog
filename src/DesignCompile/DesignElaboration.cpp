@@ -45,6 +45,7 @@
 #include "DesignCompile/CompileModule.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
+#include "Design/Parameter.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/DesignElaboration.h"
 
@@ -1345,8 +1346,17 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         std::string name = parentFile->SymName(child);
         NodeId expr = parentFile->Sibling(child);
         Value* value =
-            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
-        instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(), true);
+        if (value == nullptr || (value && !value->isValid())) {
+          const std::string& pname = parentFile->SymName(child);
+          NodeId param_expression = parentFile->Sibling(child);
+          NodeId data_type = parentFile->Child(param_expression);
+          NodeId type = parentFile->Child(data_type);
+          Parameter* param = new Parameter(parentFile, expr, pname, type);
+          instance->getTypeParams().push_back(param);
+        } else {   
+          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+        }
       } else {
         // Index param
         NodeId expr = child;
@@ -1504,21 +1514,8 @@ void DesignElaboration::bind_ports_nets_(
     bindPortType_(port, fC, port->getNodeId(), NULL, mod,
       ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
-  std::vector<NodeId> notSignals;
   for (Signal* signal : signals ) {
-    bool isSignal = bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
-      ErrorDefinition::COMP_UNDEFINED_TYPE);
-    if (isSignal == 0) {
-       notSignals.push_back(signal->getNodeId());
-    }
-  }
-  for (NodeId sig : notSignals) {
-    for (std::vector<Signal*>::iterator itr = signals.begin(); itr != signals.end(); itr++) {
-       if ((*itr)->getNodeId() == sig) {
-        signals.erase(itr);
-        break;
-      }
-    }
+    bindPortType_(signal, fC, signal->getNodeId(), NULL, mod, ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
 }
 

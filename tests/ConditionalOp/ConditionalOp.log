@@ -429,9 +429,10 @@ design: (work@top)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (new), line:6
+  \_function: (work@mailbox.new), line:6, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@mailbox.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -446,42 +447,47 @@ design: (work@top)
       \_int_var: (bound), line:6, parent:bound
         |vpiFullName:bound
   |vpiMethod:
-  \_function: (num), line:9
+  \_function: (work@mailbox.num), line:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
+    |vpiFullName:work@mailbox.num
     |vpiReturn:
     \_int_var: , line:9
   |vpiMethod:
-  \_task: (put), line:12
+  \_task: (work@mailbox.put), line:12, parent:work@mailbox
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@mailbox.put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_function: (try_put), line:15
+  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
+    |vpiFullName:work@mailbox.try_put
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_task: (get), line:18
+  \_task: (work@mailbox.get), line:18, parent:work@mailbox
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@mailbox.get
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_get), line:21
+  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@mailbox.try_get
     |vpiReturn:
     \_int_var: , line:21
     |vpiIODecl:
@@ -489,18 +495,20 @@ design: (work@top)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (peek), line:24
+  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
     |vpiMethod:1
     |vpiName:peek
+    |vpiFullName:work@mailbox.peek
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (try_peek), line:27
+  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
+    |vpiFullName:work@mailbox.try_peek
     |vpiReturn:
     \_int_var: , line:27
     |vpiIODecl:
@@ -511,56 +519,86 @@ design: (work@top)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@top
   |vpiName:work@process
   |vpiMethod:
-  \_function: (self), line:37
+  \_function: (work@process.self), line:37, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
+    |vpiFullName:work@process.self
     |vpiReturn:
     \_chandle_var: (process), line:37
       |vpiName:process
   |vpiMethod:
-  \_function: (status), line:40
+  \_function: (work@process.status), line:40, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
+    |vpiFullName:work@process.status
     |vpiReturn:
     \_chandle_var: (state), line:40
       |vpiName:state
   |vpiMethod:
-  \_task: (kill), line:43
+  \_task: (work@process.kill), line:43, parent:work@process
     |vpiMethod:1
     |vpiName:kill
+    |vpiFullName:work@process.kill
     |vpiStmt:
-    \_begin: (kill), parent:kill
-      |vpiFullName:kill
+    \_begin: (work@process.kill), parent:work@process.kill
+      |vpiFullName:work@process.kill
   |vpiMethod:
-  \_task: (await), line:46
+  \_task: (work@process.await), line:46, parent:work@process
     |vpiMethod:1
     |vpiName:await
+    |vpiFullName:work@process.await
     |vpiStmt:
-    \_begin: (await), parent:await
-      |vpiFullName:await
+    \_begin: (work@process.await), parent:work@process.await
+      |vpiFullName:work@process.await
   |vpiMethod:
-  \_task: (suspend), line:49
+  \_task: (work@process.suspend), line:49, parent:work@process
     |vpiMethod:1
     |vpiName:suspend
+    |vpiFullName:work@process.suspend
     |vpiStmt:
-    \_begin: (suspend), parent:suspend
-      |vpiFullName:suspend
+    \_begin: (work@process.suspend), parent:work@process.suspend
+      |vpiFullName:work@process.suspend
   |vpiMethod:
-  \_task: (resume), line:52
+  \_task: (work@process.resume), line:52, parent:work@process
     |vpiMethod:1
     |vpiName:resume
+    |vpiFullName:work@process.resume
     |vpiStmt:
-    \_begin: (resume), parent:resume
-      |vpiFullName:resume
+    \_begin: (work@process.resume), parent:work@process.resume
+      |vpiFullName:work@process.resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), line:35
+      |vpiName:FINISHED
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35
+      |vpiName:KILLED
+      |INT:4
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), line:35
+      |vpiName:RUNNING
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35
+      |vpiName:SUSPENDED
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (WAITING), line:35
+      |vpiName:WAITING
+      |INT:2
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (new), line:60
+  \_function: (work@semaphore.new), line:60, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
+    |vpiFullName:work@semaphore.new
     |vpiReturn:
     \_class_var: 
       |vpiTypespec:
@@ -575,9 +613,10 @@ design: (work@top)
       \_int_var: (keyCount), line:60, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (put), line:63
+  \_task: (work@semaphore.put), line:63, parent:work@semaphore
     |vpiMethod:1
     |vpiName:put
+    |vpiFullName:work@semaphore.put
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -586,9 +625,10 @@ design: (work@top)
       \_int_var: (keyCount), line:63, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (get), line:66
+  \_task: (work@semaphore.get), line:66, parent:work@semaphore
     |vpiMethod:1
     |vpiName:get
+    |vpiFullName:work@semaphore.get
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
@@ -597,10 +637,11 @@ design: (work@top)
       \_int_var: (keyCount), line:66, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_function: (try_get), line:69
+  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
+    |vpiFullName:work@semaphore.try_get
     |vpiReturn:
     \_int_var: , line:69
     |vpiIODecl:
@@ -642,7 +683,7 @@ design: (work@top)
       |vpiName:RV32E
       |vpiFullName:work@ibex_register_file.RV32E
       |vpiTypespec:
-      \_bit_typespec: , line:14
+      \_bit_typespec: , line:14, parent:work@ibex_register_file.RV32E
   |vpiParamAssign:
   \_param_assign: , line:15, parent:work@ibex_register_file
     |vpiRhs:
@@ -656,7 +697,7 @@ design: (work@top)
       |vpiName:DataWidth
       |vpiFullName:work@ibex_register_file.DataWidth
       |vpiTypespec:
-      \_int_typespec: , line:15
+      \_int_typespec: , line:15, parent:work@ibex_register_file.DataWidth
   |vpiParamAssign:
   \_param_assign: , line:17, parent:work@ibex_register_file
     |vpiRhs:
@@ -669,7 +710,7 @@ design: (work@top)
       |vpiFullName:work@ibex_register_file.ADDR_WIDTH
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:17
+      \_int_typespec: , line:17, parent:work@ibex_register_file.ADDR_WIDTH
   |vpiParamAssign:
   \_param_assign: , line:18, parent:work@ibex_register_file
     |vpiRhs:
@@ -682,7 +723,7 @@ design: (work@top)
       |vpiFullName:work@ibex_register_file.NUM_WORDS
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:18
+      \_int_typespec: , line:18, parent:work@ibex_register_file.NUM_WORDS
   |vpiParameter:
   \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
   |vpiParameter:
@@ -709,7 +750,7 @@ design: (work@top)
       |vpiFullName:work@top.NrHarts2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:3
+      \_int_typespec: , line:3, parent:work@top.NrHarts2
   |vpiParamAssign:
   \_param_assign: , line:5, parent:work@top
     |vpiRhs:
@@ -745,7 +786,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen1
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:5
+      \_int_typespec: , line:5, parent:work@top.HartSelLen1
   |vpiParamAssign:
   \_param_assign: , line:7, parent:work@top
     |vpiRhs:
@@ -781,7 +822,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen2
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:7
+      \_int_typespec: , line:7, parent:work@top.HartSelLen2
   |vpiParamAssign:
   \_param_assign: , line:9, parent:work@top
     |vpiRhs:
@@ -815,7 +856,7 @@ design: (work@top)
       |vpiFullName:work@top.HartSelLen3
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:9
+      \_int_typespec: , line:9, parent:work@top.HartSelLen3
   |vpiParameter:
   \_parameter: (work@top.NrHarts2), line:3, parent:work@top
   |vpiParameter:
@@ -852,9 +893,8 @@ design: (work@top)
       \_operation: , line:5
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:5
+        \_ref_obj: (NrHarts), line:5
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:5
           |vpiConstType:7
@@ -871,9 +911,8 @@ design: (work@top)
       \_sys_func_call: ($clog2), line:5
         |vpiName:$clog2
         |vpiArgument:
-        \_ref_obj: (work@top.$clog2.NrHarts), line:5, parent:$clog2
+        \_ref_obj: (NrHarts), line:5
           |vpiName:NrHarts
-          |vpiFullName:work@top.$clog2.NrHarts
     |vpiLhs:
     \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
       |vpiName:HartSelLen1
@@ -890,9 +929,8 @@ design: (work@top)
       \_operation: , line:7
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:7
+        \_ref_obj: (NrHarts), line:7
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:7
           |vpiConstType:7
@@ -927,9 +965,8 @@ design: (work@top)
       \_operation: , line:9
         |vpiOpType:14
         |vpiOperand:
-        \_ref_obj: (work@top.NrHarts), line:9
+        \_ref_obj: (NrHarts), line:9
           |vpiName:NrHarts
-          |vpiFullName:work@top.NrHarts
         |vpiOperand:
         \_constant: , line:9
           |vpiConstType:7
@@ -954,13 +991,24 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:9, parent:work@top.HartSelLen3
   |vpiParameter:
-  \_parameter: (work@top.NrHarts2), line:3, parent:work@top
-  |vpiParameter:
   \_parameter: (work@top.HartSelLen1), line:5, parent:work@top
+    |vpiName:HartSelLen1
+    |vpiFullName:work@top.HartSelLen1
   |vpiParameter:
   \_parameter: (work@top.HartSelLen2), line:7, parent:work@top
+    |vpiName:HartSelLen2
+    |vpiFullName:work@top.HartSelLen2
+    |INT:0
   |vpiParameter:
   \_parameter: (work@top.HartSelLen3), line:9, parent:work@top
+    |vpiName:HartSelLen3
+    |vpiFullName:work@top.HartSelLen3
+    |INT:3
+  |vpiParameter:
+  \_parameter: (work@top.NrHarts2), line:3, parent:work@top
+    |vpiName:NrHarts2
+    |vpiFullName:work@top.NrHarts2
+    |INT:8
 |uhdmtopModules:
 \_module: work@ibex_register_file (work@ibex_register_file) dut.sv:13: 
   |vpiDefName:work@ibex_register_file
@@ -1105,13 +1153,25 @@ design: (work@top)
       |vpiTypespec:
       \_int_typespec: , line:18, parent:work@ibex_register_file.NUM_WORDS
   |vpiParameter:
-  \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
+  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
+    |vpiName:ADDR_WIDTH
+    |vpiFullName:work@ibex_register_file.ADDR_WIDTH
+    |INT:5
   |vpiParameter:
   \_parameter: (work@ibex_register_file.DataWidth), line:15, parent:work@ibex_register_file
-  |vpiParameter:
-  \_parameter: (work@ibex_register_file.ADDR_WIDTH), line:17, parent:work@ibex_register_file
+    |vpiName:DataWidth
+    |vpiFullName:work@ibex_register_file.DataWidth
+    |INT:32
   |vpiParameter:
   \_parameter: (work@ibex_register_file.NUM_WORDS), line:18, parent:work@ibex_register_file
+    |vpiName:NUM_WORDS
+    |vpiFullName:work@ibex_register_file.NUM_WORDS
+    |INT:32
+  |vpiParameter:
+  \_parameter: (work@ibex_register_file.RV32E), line:14, parent:work@ibex_register_file
+    |vpiName:RV32E
+    |vpiFullName:work@ibex_register_file.RV32E
+    |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

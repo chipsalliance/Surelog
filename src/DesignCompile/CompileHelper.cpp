@@ -37,6 +37,7 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/SimpleType.h"
+#include "Design/Parameter.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -1768,15 +1769,23 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       p->VpiName(fC->SymName(typeNameId));
       p->VpiFile(fC->getFileName());
       p->VpiLineNo(fC->Line(typeNameId));
-      p->Typespec(compileTypespec(component, fC, ntype, compileDesign,
-                                           p, nullptr, false, ""));
+      typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
+                                           p, nullptr, false, "");
+      p->Typespec(tps);
+      if (tps)
+        tps->VpiParent(p);
       if (localParam) {
         p->VpiLocalParam(true);
       }
       parameters->push_back(p);
+      Parameter* param =
+          new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
+      param->setUhdmParam(p);
+      component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
       if (skip) typeNameId = fC->Sibling(typeNameId);
     }
+
   } else {
     // Regular param
     NodeId Data_type_or_implicit = fC->Child(nodeId);
@@ -1815,6 +1824,8 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param_assigns->push_back(param_assign);
         param->VpiName(fC->SymName(name));
         param->Typespec(ts);
+        if (ts)
+          ts->VpiParent(param);
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
@@ -1918,8 +1929,15 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
     NodeId Constant_bit_select = fC->Sibling(tfNameNode);
     if (fC->Type(Constant_bit_select) == slConstant_bit_select) {
       tfNameNode = fC->Sibling(Constant_bit_select);
-      name += "." + fC->SymName(tfNameNode);
-      // TODO: method binding
+      method_func_call* fcall = s.MakeMethod_func_call();
+      const std::string& mname = fC->SymName(tfNameNode);
+      fcall->VpiFile(fC->getFileName());
+      fcall->VpiLineNo(fC->Line(Constant_bit_select));
+      fcall->VpiName(mname);
+      ref_obj* prefix = s.MakeRef_obj();
+      prefix->VpiName(name);
+      fcall->Prefix(prefix);
+      call = fcall;
     }
 
     if (component && component->getTask_funcs()) {
@@ -1942,7 +1960,8 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
     if (call == nullptr)
       call = s.MakeFunc_call();
   }
-  call->VpiName(name);
+  if (call->VpiName() == "")
+    call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);
   if (fC->Type(argListNode) == slAttribute_instance) {
@@ -2037,7 +2056,9 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Variable_lvalue, compileDesign));
     AssignOp_Assign = 0;
     if (fC->Type(Delay_or_event_control) == slDynamic_array_new) {
-      func_call* fcall = s.MakeFunc_call();
+      method_func_call* fcall = s.MakeMethod_func_call();
+      fcall->VpiFile(fC->getFileName());
+      fcall->VpiLineNo(fC->Line(Delay_or_event_control));
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
@@ -2074,8 +2095,10 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Class_new = fC->Sibling(Select);
     NodeId List_of_arguments = fC->Child(Class_new);
     lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
-    func_call* fcall = s.MakeFunc_call();
+    method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
+    fcall->VpiFile(fC->getFileName());
+    fcall->VpiLineNo(fC->Line(Hierarchical_identifier));
     if (List_of_arguments) {
       VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
       fcall->Tf_call_args(arguments);

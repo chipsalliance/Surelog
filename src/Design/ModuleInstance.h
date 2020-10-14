@@ -71,6 +71,8 @@ class ModuleInstance : public ValuedComponentI {
   Netlist* getNetlist() { return m_netlist; }
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
 
+  std::vector<Parameter*>& getTypeParams() { return m_typeParams; }   
+
  private:
   DesignComponent* m_definition;
   ModuleInstance** m_children;
@@ -80,7 +82,7 @@ class ModuleInstance : public ValuedComponentI {
   ModuleInstance* m_parent;
   std::string m_instName;  // Can carry the moduleName@instanceName if the
                            // module is undefined
-  std::map<std::string, Value*> m_paramMap;
+  std::vector<Parameter*> m_typeParams;                         
   Netlist* m_netlist;
 };
 

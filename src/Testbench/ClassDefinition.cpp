@@ -173,19 +173,6 @@ void ClassDefinition::insertBaseClass(DataType* p) {
   m_baseclasses.insert(std::make_pair(p->getName(), p));
 }
 
-Parameter* ClassDefinition::getParameter(const std::string& name) const {
-  ParameterMap::const_iterator itr = m_parameters.find(name);
-  if (itr == m_parameters.end()) {
-    return NULL;
-  } else {
-    return (*itr).second;
-  }
-}
-
-void ClassDefinition::insertParameter(Parameter* p) {
-  m_parameters.insert(std::make_pair(p->getName(), p));
-}
-
 const DataType* ClassDefinition::getBaseDataType(const std::string& name)
   const {
   const DataTypeMap& dataTypes = getDataTypeMap();

@@ -449,56 +449,62 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
   }
 }
 
-void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
-                  VectorOfclass_defn* dest_classes, Serializer& s,
-                  ComponentMap& componentMap, BaseClass* parent) {
-  for (auto& orig_class : orig_classes) {
-    ClassDefinition* classDef = orig_class.second;
-    if (classDef->getFileContents().size() &&
-        classDef->getType() == VObjectType::slClass_declaration) {
-      const FileContent* fC = classDef->getFileContents()[0];
-      class_defn* c = classDef->getUhdmDefinition();
+void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Serializer& s,
+        ComponentMap& componentMap, BaseClass* parent) {
+  if (classDef->getFileContents().size() &&
+      classDef->getType() == VObjectType::slClass_declaration) {
+    const FileContent* fC = classDef->getFileContents()[0];
+    class_defn* c = classDef->getUhdmDefinition();
 
-      // Typepecs
-      VectorOftypespec* typespecs = s.MakeTypespecVec();
-      c->Typespecs(typespecs);
-      writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
+    // Typepecs
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    c->Typespecs(typespecs);
+    writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s);
 
-      // Variables
-      // Already bound in TestbenchElaboration
+    // Variables
+    // Already bound in TestbenchElaboration
 
-      // Function and tasks
-      c->Task_funcs(classDef->getTask_funcs());
-      if (c->Task_funcs()) {
-        for (auto tf : *c->Task_funcs()) {
-          tf->VpiParent(c);
-        }
+    // Function and tasks
+    c->Task_funcs(classDef->getTask_funcs());
+    if (c->Task_funcs()) {
+      for (auto tf : *c->Task_funcs()) {
+        tf->VpiParent(c);
       }
-      // Parameters
-      if (classDef->getParameters()) {
-        c->Parameters(classDef->getParameters());
-        for (auto ps : *c->Parameters()) {
-          ps->VpiParent(c);
-        }
-      }
-      // Param_assigns
-      if (classDef->getParam_assigns()) {
-        c->Param_assigns(classDef->getParam_assigns());
-        for (auto ps : *c->Param_assigns()) {
-          ps->VpiParent(c);
-        }
-      }
-      componentMap.insert(std::make_pair(classDef, c));
-      c->VpiParent(parent);
-      const std::string& name = classDef->getName();
-      c->VpiName(name);
-      if (fC) {
-        // Builtin classes have no file
-        c->VpiFile(fC->getFileName());
-        c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
-      }
-      dest_classes->push_back(c);
     }
+    // Parameters
+    if (classDef->getParameters()) {
+      c->Parameters(classDef->getParameters());
+      for (auto ps : *c->Parameters()) {
+        ps->VpiParent(c);
+      }
+    }
+    // Param_assigns
+    if (classDef->getParam_assigns()) {
+      c->Param_assigns(classDef->getParam_assigns());
+      for (auto ps : *c->Param_assigns()) {
+        ps->VpiParent(c);
+      }
+    }
+    componentMap.insert(std::make_pair(classDef, c));
+    c->VpiParent(parent);
+    dest_classes->push_back(c);
+    const std::string& name = classDef->getName();
+    c->VpiName(name);
+    c->Attributes(classDef->Attributes());
+    if (fC) {
+      // Builtin classes have no file
+      c->VpiFile(fC->getFileName());
+      c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+    }
+  }
+}
+
+void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
+        VectorOfclass_defn* dest_classes, Serializer& s,
+        ComponentMap& componentMap, BaseClass* parent) {
+  for (auto& orig_class : orig_classes ) {
+    ClassDefinition* classDef = orig_class.second;
+    writeClass(classDef, dest_classes, s, componentMap, parent);
   }
 }
 
@@ -1032,6 +1038,36 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   }
 
+  if (mod) {
+    // Specifc handling of type parameters
+    VectorOfany* params = m->Parameters();
+    if (params == nullptr) params = s.MakeAnyVec();
+    m->Parameters(params);
+    VectorOfany* orig_params = mod->getParameters();
+    if (orig_params) {
+      for (auto orig : *orig_params) {
+        bool pushed = false;
+        if (orig->UhdmType() == uhdmtype_parameter) {
+          for (auto p : instance->getTypeParams()) {
+            if (p->getName() == orig->VpiName()) {
+              any* uparam = p->getUhdmParam();
+              if (uparam) {
+                uparam->VpiParent(m);
+                params->push_back(uparam);
+                pushed = true;
+              }
+              break;
+            }
+          }
+          if (!pushed) {
+            // These point to the sole copy (unelaborated)
+            params->push_back(orig);
+          }
+        }
+      }
+    }
+  }
+
   if (netlist->ports()) {
     for (auto obj : *netlist->ports()) {
       obj->VpiParent(m);
@@ -1078,6 +1114,15 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
       obj->VpiParent(m);
       assigns->push_back(obj);
     }
+  }
+
+  // Param_assigns hold default values, parameters hold actual overriden values
+  if (mod && mod->getParam_assigns()) {
+    m->Param_assigns(mod->getParam_assigns());
+    // These point to the sole copy (unelaborated)
+    //for (auto ps : *m->Param_assigns()) {
+    //  ps->VpiParent(m);
+    //}
   }
 
   if (mod) {
@@ -1296,26 +1341,29 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfprimitive* subPrimitives = nullptr;
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
-
-  // Parameters
+  
+  // Parameters with values (No type params)
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
     Value* val = param.second.first;
     VectorOfany* params = nullptr;
-    if (m->UhdmType() == uhdmmodule)
+    if (m->UhdmType() == uhdmmodule) {
       params = ((module*)m)->Parameters();
-    else if (m->UhdmType() == uhdmgen_scope)
+    } else if (m->UhdmType() == uhdmgen_scope) {
       params = ((gen_scope*)m)->Parameters();
-    else if (m->UhdmType() == uhdminterface)
+    } else if (m->UhdmType() == uhdminterface) {
       params = ((interface*)m)->Parameters();
+    }
     if (params == nullptr) {
       params = s.MakeAnyVec();
     }
     parameter* p = s.MakeParameter();
     p->VpiName(name);
-    p->VpiValue(val->uhdmValue());
+    if (val->isValid())
+      p->VpiValue(val->uhdmValue());
     p->VpiFile(instance->getFileName());
     p->VpiLineNo(param.second.second);
+    p->VpiParent(m);
     params->push_back(p);
     if (m->UhdmType() == uhdmmodule)
       ((module*)m)->Parameters(params);
@@ -1615,33 +1663,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
     d->AllPrograms(uhdm_programs);
 
-    // Classes
-    auto classes = m_design->getClassDefinitions();
-    VectorOfclass_defn* v4 = s.MakeClass_defnVec();
-    for (auto classNamePair : classes) {
-      ClassDefinition* classDef = classNamePair.second;
-      if (classDef->getFileContents().size() &&
-          classDef->getType() == VObjectType::slClass_declaration) {
-        const FileContent* fC = classDef->getFileContents()[0];
-        class_defn* c = classDef->getUhdmDefinition();
-        c->Task_funcs(classDef->getTask_funcs());
-        componentMap.insert(std::make_pair(classDef, c));
-        if (!c->VpiParent()) {
-          c->VpiParent(d);
-          const std::string& name = classDef->getName();
-          c->VpiName(name);
-          c->Attributes(classDef->Attributes());
-          if (fC) {
-            // Builtin classes have no file
-            c->VpiFile(fC->getFileName());
-            c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
-          }
-          v4->push_back(c);
-        }
-      }
-    }
-    d->AllClasses(v4);
-
     // Interfaces
     auto modules = m_design->getModuleDefinitions();
     VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
@@ -1698,6 +1719,21 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
     d->AllModules(uhdm_modules);
     d->AllUdps(uhdm_udps);
+
+    // Classes
+    auto classes = m_design->getClassDefinitions();
+    VectorOfclass_defn* v4 = s.MakeClass_defnVec();
+    for (auto classNamePair : classes) {
+      ClassDefinition* classDef = classNamePair.second;
+      if (classDef->getFileContents().size() &&
+          classDef->getType() == VObjectType::slClass_declaration) {
+        class_defn* c = classDef->getUhdmDefinition();
+        if (!c->VpiParent()) {
+          writeClass(classDef, v4, s, componentMap, d);
+        }
+      }
+    }
+    d->AllClasses(v4);
 
     // Repair parent relationship
     for (auto classNamePair : classes) {

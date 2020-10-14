@@ -55,26 +55,6 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/BitsOp/slpp_unit//surelog.uhdm.chk
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin (builtin), parent:work@dut
-  |vpiDefName:builtin
-  |vpiFullName:builtin
-  |vpiClassDefn:
-  \_class_defn: (builtin::array), parent:builtin
-    |vpiName:array
-    |vpiFullName:builtin::array
-  |vpiClassDefn:
-  \_class_defn: (builtin::queue), parent:builtin
-    |vpiName:queue
-    |vpiFullName:builtin::queue
-  |vpiClassDefn:
-  \_class_defn: (builtin::string), parent:builtin
-    |vpiName:string
-    |vpiFullName:builtin::string
-  |vpiClassDefn:
-  \_class_defn: (builtin::system), parent:builtin
-    |vpiName:system
-    |vpiFullName:builtin::system
-|uhdmallPackages:
 \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:61: , parent:work@dut
   |vpiDefName:flash_ctrl_pkg
   |vpiFullName:flash_ctrl_pkg
@@ -143,7 +123,7 @@ design: (work@dut)
       |vpiFullName:hmac_pkg::NumAlerts
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:48
+      \_int_typespec: , line:48, parent:hmac_pkg::NumAlerts
   |vpiParamAssign:
   \_param_assign: , line:49, parent:hmac_pkg
     |vpiRhs:
@@ -164,7 +144,7 @@ design: (work@dut)
       |vpiFullName:hmac_pkg::AlertAsyncOn
       |vpiLocalParam:1
       |vpiTypespec:
-      \_logic_typespec: , line:49
+      \_logic_typespec: , line:49, parent:hmac_pkg::AlertAsyncOn
         |vpiRange:
         \_range: , line:49
           |vpiLeftRange:
@@ -191,7 +171,7 @@ design: (work@dut)
       |vpiFullName:hmac_pkg::MsgFifoDepth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:51
+      \_int_typespec: , line:51, parent:hmac_pkg::MsgFifoDepth
   |vpiParamAssign:
   \_param_assign: , line:53, parent:hmac_pkg
     |vpiRhs:
@@ -206,7 +186,7 @@ design: (work@dut)
       |vpiFullName:hmac_pkg::NumRound
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:53
+      \_int_typespec: , line:53, parent:hmac_pkg::NumRound
   |vpiParamAssign:
   \_param_assign: , line:56, parent:hmac_pkg
     |vpiRhs:
@@ -219,7 +199,7 @@ design: (work@dut)
       |vpiFullName:hmac_pkg::WordByte
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:56
+      \_int_typespec: , line:56, parent:hmac_pkg::WordByte
   |vpiParameter:
   \_parameter: (hmac_pkg::NumAlerts), line:48, parent:hmac_pkg
   |vpiParameter:
@@ -893,7 +873,7 @@ design: (work@dut)
       |vpiFullName:work@dut.WordByte
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:74
+      \_int_typespec: , line:74, parent:work@dut.WordByte
   |vpiParamAssign:
   \_param_assign: , line:76, parent:work@dut
     |vpiRhs:
@@ -906,7 +886,7 @@ design: (work@dut)
       |vpiFullName:work@dut.DataWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:76
+      \_int_typespec: , line:76, parent:work@dut.DataWidth
   |vpiParamAssign:
   \_param_assign: , line:77, parent:work@dut
     |vpiRhs:
@@ -919,7 +899,7 @@ design: (work@dut)
       |vpiFullName:work@dut.DataBitWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:77
+      \_int_typespec: , line:77, parent:work@dut.DataBitWidth
   |vpiParamAssign:
   \_param_assign: , line:78, parent:work@dut
     |vpiRhs:
@@ -932,7 +912,7 @@ design: (work@dut)
       |vpiFullName:work@dut.EraseBitWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:78
+      \_int_typespec: , line:78, parent:work@dut.EraseBitWidth
   |vpiParamAssign:
   \_param_assign: , line:80, parent:work@dut
     |vpiRhs:
@@ -945,7 +925,7 @@ design: (work@dut)
       |vpiFullName:work@dut.HashWordBits
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:80
+      \_int_typespec: , line:80, parent:work@dut.HashWordBits
   |vpiParamAssign:
   \_param_assign: , line:82, parent:work@dut
     |vpiRhs:
@@ -958,7 +938,7 @@ design: (work@dut)
       |vpiFullName:work@dut.REQFIFO_WIDTH
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:82
+      \_int_typespec: , line:82, parent:work@dut.REQFIFO_WIDTH
   |vpiParameter:
   \_parameter: (work@dut.WordByte), line:74, parent:work@dut
   |vpiParameter:
@@ -1318,17 +1298,31 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: , line:82, parent:work@dut.REQFIFO_WIDTH
   |vpiParameter:
-  \_parameter: (work@dut.WordByte), line:74, parent:work@dut
+  \_parameter: (work@dut.DataBitWidth), line:77, parent:work@dut
+    |vpiName:DataBitWidth
+    |vpiFullName:work@dut.DataBitWidth
+    |INT:5
   |vpiParameter:
   \_parameter: (work@dut.DataWidth), line:76, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.DataBitWidth), line:77, parent:work@dut
+    |vpiName:DataWidth
+    |vpiFullName:work@dut.DataWidth
+    |INT:32
   |vpiParameter:
   \_parameter: (work@dut.EraseBitWidth), line:78, parent:work@dut
+    |vpiName:EraseBitWidth
+    |vpiFullName:work@dut.EraseBitWidth
   |vpiParameter:
   \_parameter: (work@dut.HashWordBits), line:80, parent:work@dut
+    |vpiName:HashWordBits
+    |vpiFullName:work@dut.HashWordBits
   |vpiParameter:
   \_parameter: (work@dut.REQFIFO_WIDTH), line:82, parent:work@dut
+    |vpiName:REQFIFO_WIDTH
+    |vpiFullName:work@dut.REQFIFO_WIDTH
+  |vpiParameter:
+  \_parameter: (work@dut.WordByte), line:74, parent:work@dut
+    |vpiName:WordByte
+    |vpiFullName:work@dut.WordByte
 |uhdmtopModules:
 \_module: work@dmi_jtag (work@dmi_jtag) dut.sv:100: 
   |vpiDefName:work@dmi_jtag

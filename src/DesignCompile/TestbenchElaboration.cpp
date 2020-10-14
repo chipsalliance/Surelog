@@ -162,6 +162,8 @@ bool checkValidBuiltinClass_(std::string classname, std::string function,
                              std::string& datatypeName) {
   bool validFunction = true;
   ClassDefinition* array = design->getClassDefinition("builtin::" + classname);
+  if (array == nullptr)
+    return false;
   Function* func = array->getFunction(function);
   if (func)
     stmt->setFunction(func);
