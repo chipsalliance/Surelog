@@ -12,6 +12,7 @@ Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They eit
 ## Contributing to this project
 
 This project is open to contributions from any users! From the commercial vendor to the Verilog enthousiast, all are welcome.
+We started maintaing a list of ideas for contribution under [Help Wanted](https://github.com/alainmarcel/Help_Wanted)
 
 ## Features
 
