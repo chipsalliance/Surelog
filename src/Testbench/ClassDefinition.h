@@ -35,6 +35,7 @@
 #include "CoverGroupDefinition.h"
 #include "Design/Parameter.h"
 #include "headers/uhdm_forward_decl.h"
+#include "uhdm.h"
 
 namespace SURELOG {
 class CompileClass;
@@ -109,6 +110,13 @@ class ClassDefinition : public DesignComponent, public DataType {
 
   bool hasCompleteBaseSpecification() const;
 
+  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+
+  bool Attributes(UHDM::VectorOfattribute* data) {
+    attributes_ = data;
+    return true;
+  }
+
  private:
   std::string m_name;
   Library* m_library;
@@ -122,6 +130,8 @@ class ClassDefinition : public DesignComponent, public DataType {
   BaseClassMap m_baseclasses;
   ParameterMap m_parameters;
   UHDM::class_defn* m_uhdm_definition;
+
+  UHDM::VectorOfattribute* attributes_ = nullptr;
 };
 
 }  // namespace SURELOG

@@ -75,6 +75,16 @@ bool CompilePackage::compile() {
 
   collectObjects_();
 
+  do {
+    VObject current = fC->Object(packId);
+    packId = current.m_child;
+  } while (packId && (fC->Type(packId) != VObjectType::slAttribute_instance));
+  if (packId) {
+    UHDM::VectorOfattribute* attributes =
+    m_helper.compileAttributes(m_package, fC, packId, m_compileDesign);
+    m_package->Attributes(attributes);
+  }
+
   return true;
 }
 

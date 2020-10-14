@@ -1582,6 +1582,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
         p->VpiDefName(pack->getName());
+        p->Attributes(pack->Attributes());
         writePackage(pack, p, s, componentMap);
         if (fC) {
           // Builtin package has no file
@@ -1607,6 +1608,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         p->VpiDefName(prog->getName());
         p->VpiFile(fC->getFileName());
         p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
+        p->Attributes(prog->Attributes());
         writeProgram(prog, p, s, componentMap,modPortMap);
         uhdm_programs->push_back(p);
       }
@@ -1628,6 +1630,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
           c->VpiParent(d);
           const std::string& name = classDef->getName();
           c->VpiName(name);
+          c->Attributes(classDef->Attributes());
           if (fC) {
             // Builtin classes have no file
             c->VpiFile(fC->getFileName());
@@ -1654,6 +1657,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m->VpiDefName(mod->getName());
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+        m->Attributes(mod->Attributes());
         uhdm_interfaces->push_back(m);
         writeInterface(mod, m, s, componentMap, modPortMap);
       }
@@ -1674,6 +1678,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
+        m->Attributes(mod->Attributes());
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m);
@@ -1686,6 +1691,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
           defn->VpiDefName(mod->getName());
           defn->VpiFile(fC->getFileName());
           defn->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+          defn->Attributes(mod->Attributes());
           uhdm_udps->push_back(defn);
         }
       }

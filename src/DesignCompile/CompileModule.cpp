@@ -129,6 +129,26 @@ bool CompileModule::compile() {
     default:
       break;
   }
+
+  switch (moduleType) {
+    case VObjectType::slModule_declaration:
+    case VObjectType::slInterface_declaration:
+    case VObjectType::slUdp_declaration:
+      do {
+        VObject current = fC->Object(nodeId);
+        nodeId = current.m_child;
+      } while (nodeId && (fC->Type(nodeId) != VObjectType::slAttribute_instance));
+      if (nodeId) {
+        UHDM::VectorOfattribute* attributes =
+        m_helper.compileAttributes(m_module, fC, nodeId, m_compileDesign);
+        m_module->Attributes(attributes);
+      }
+
+      break;
+    default:
+      break;
+  }
+
   return true;
 }
 
