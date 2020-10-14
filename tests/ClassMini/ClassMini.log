@@ -179,11 +179,14 @@ design: (work@door_mod)
           |vpiName:open
           |vpiFullName:work@door_mod.open
         |vpiRhs:
-        \_func_call: (new)
+        \_method_func_call: (new), line:24
           |vpiName:new
       |vpiStmt:
-      \_func_call: (open.door_fsm), line:25, parent:work@door_mod
-        |vpiName:open.door_fsm
+      \_method_func_call: (door_fsm), line:25, parent:work@door_mod
+        |vpiName:door_fsm
+        |vpiPrefix:
+        \_ref_obj: (open)
+          |vpiName:open
   |vpiNet:
   \_logic_net: (work@door_mod.open), line:22, parent:work@door_mod
     |vpiName:open
@@ -333,11 +336,17 @@ design: (work@door_mod)
                       |vpiParameter:
                       \_parameter: (pack::door::LOCKED), line:9, parent:pack::door
         |vpiRhs:
-        \_func_call: (new)
+        \_method_func_call: (new), line:24
           |vpiName:new
       |vpiStmt:
-      \_func_call: (open.door_fsm), line:25, parent:work@door_mod
-        |vpiName:open.door_fsm
+      \_method_func_call: (door_fsm), line:25, parent:work@door_mod
+        |vpiName:door_fsm
+        |vpiPrefix:
+        \_ref_obj: (work@door_mod.open), parent:door_fsm
+          |vpiName:open
+          |vpiFullName:work@door_mod.open
+          |vpiActual:
+          \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
   |vpiVariables:
   \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
 ===================

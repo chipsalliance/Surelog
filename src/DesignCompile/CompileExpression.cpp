@@ -360,7 +360,7 @@ UHDM::any* CompileHelper::compileExpression(
     }
     return result;
   } else if (parentType == VObjectType::slClass_new) {
-    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    UHDM::method_func_call* sys = s.MakeMethod_func_call();
     sys->VpiName("new");
     sys->VpiParent(pexpr);
     NodeId argListNode = child;
