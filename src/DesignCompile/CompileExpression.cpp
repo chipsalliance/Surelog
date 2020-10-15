@@ -359,6 +359,16 @@ UHDM::any* CompileHelper::compileExpression(
       Expression = fC->Sibling(Expression);
     }
     return result;
+  } else if (parentType == VObjectType::slClass_new) {
+    UHDM::method_func_call* sys = s.MakeMethod_func_call();
+    sys->VpiName("new");
+    sys->VpiParent(pexpr);
+    NodeId argListNode = child;
+    VectorOfany* arguments =
+        compileTfCallArguments(component, fC, argListNode, compileDesign, sys);
+    sys->Tf_call_args(arguments);
+    result = sys;
+    return result;
   }
 
   if (child) {
@@ -518,6 +528,10 @@ UHDM::any* CompileHelper::compileExpression(
         } else {
           result = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
         }
+        break;
+      }
+      case VObjectType::slRandomize_call: {
+        result = compileRandomizeCall(component, fC, fC->Child(child), compileDesign, pexpr);
         break;
       }
       case VObjectType::slPattern: {
@@ -1264,6 +1278,12 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiValue("STRING:this.super");
         c->VpiDecompile("this.super");
         result = c;
+        break;
+      }
+      case VObjectType::slConstraint_block: {
+        // Empty constraint block
+        UHDM::constraint* cons = s.MakeConstraint();
+        result = cons;
         break;
       }
       case VObjectType::slStringConst: {
@@ -2520,6 +2540,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         cvar->VpiDecompile("this");
         result = cvar;
       }
+    } else if (fC->Type(List_of_arguments) == slConstant_bit_select) {
+      // TODO: Fill this
+      method_func_call* fcall = s.MakeMethod_func_call();
+      expr* object = (expr*)compileExpression(
+          component, fC, Handle, compileDesign, pexpr, instance, reduce);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall);
+      // TODO: make name part of the prefix, get vpiName from sibling
+      fcall->Prefix(object);
+      fcall->VpiName(name);
+      fcall->Tf_call_args(arguments);
+      result = fcall;
     } else if (fC->Type(List_of_arguments) == slStringConst) {
       // TODO: this is a mockup
       constant* cvar = s.MakeConstant();
@@ -2666,14 +2698,27 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       //   n<> u<65> t<Method_call_body> p<66> c<64> l<4>
       //   n<> u<66> t<Complex_func_call> p<67> c<43> l<4>
 
-      method_func_call* fcall = s.MakeMethod_func_call();
       NodeId method_child = fC->Child(selectName);
+      method_func_call* fcall = nullptr;
       if (fC->Type(method_child) == slBuilt_in_method_call) {
         // vpiName: method name (Array_method_name above)
         NodeId method_name_node = fC->Child(fC->Child(fC->Child(method_child)));
         const std::string& method_name = fC->SymName(method_name_node);
-        fcall->VpiName(method_name);
+        NodeId randomize_call = fC->Child(method_child);
 
+        // vpiPrefix: object to which the method is being applied (sval here)
+        ref_obj* prefix = s.MakeRef_obj();
+        prefix->VpiName(sval);
+
+        if (fC->Type(randomize_call) == slRandomize_call) {
+          fcall = compileRandomizeCall(component, fC, fC->Child(randomize_call), compileDesign, pexpr);
+          fcall->Prefix(prefix);
+          result = fcall;
+          return result;
+        } 
+
+        fcall = s.MakeMethod_func_call();
+        fcall->VpiName(method_name);
         NodeId list_of_arguments = fC->Sibling(fC->Child(fC->Child(method_child)));
         NodeId with_conditions_node;
         if (fC->Type(list_of_arguments) == slList_of_arguments) {
@@ -2696,12 +2741,10 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
           fcall->With(with_conditions);
         }
 
-        // vpiPrefix: object to which the method is being applied (sval here)
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiName(sval);
-        fcall->Prefix(ref);
+        fcall->Prefix(prefix);
       } else {
         // TODO: non-builtin methods
+        fcall = s.MakeMethod_func_call();
         fcall->VpiName(sval);
       }
       result = fcall;
@@ -2723,8 +2766,8 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                                        compileDesign, pexpr, instance);
     }
   } else {
-    tf_call* call = compileTfCall(component, fC, nodeId, compileDesign);
-    result = call;
+    result = compileTfCall(component, fC, nodeId, compileDesign);
   }
   return result;
 }
+

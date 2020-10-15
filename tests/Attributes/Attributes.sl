@@ -1,1 +1,1 @@
--parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv
+-parse -d uhdm -d coveruhdm -elabuhdm -d ast dut.sv test_attributes.sv 

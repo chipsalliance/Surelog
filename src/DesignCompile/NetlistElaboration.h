@@ -44,6 +44,7 @@ class NetlistElaboration : public TestbenchElaboration {
  private:
    bool elaborate_(ModuleInstance* instance);
    bool high_conn_(ModuleInstance* instance);
+   bool elab_parameters_(ModuleInstance* instance);
    bool elab_interfaces_(ModuleInstance* instance);
    bool elab_generates_(ModuleInstance* instance);
   UHDM::interface* elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,
@@ -58,10 +59,6 @@ class NetlistElaboration : public TestbenchElaboration {
 
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
 
-   ExprBuilder m_exprBuilder;
-   SymbolTable* m_symbols;
-   ErrorContainer* m_errors;
-   CompileHelper m_helper;
 };
 
 };  // namespace SURELOG

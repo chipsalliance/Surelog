@@ -129,6 +129,26 @@ bool CompileModule::compile() {
     default:
       break;
   }
+
+  switch (moduleType) {
+    case VObjectType::slModule_declaration:
+    case VObjectType::slInterface_declaration:
+    case VObjectType::slUdp_declaration:
+      do {
+        VObject current = fC->Object(nodeId);
+        nodeId = current.m_child;
+      } while (nodeId && (fC->Type(nodeId) != VObjectType::slAttribute_instance));
+      if (nodeId) {
+        UHDM::VectorOfattribute* attributes =
+        m_helper.compileAttributes(m_module, fC, nodeId, m_compileDesign);
+        m_module->Attributes(attributes);
+      }
+
+      break;
+    default:
+      break;
+  }
+
   return true;
 }
 
@@ -537,7 +557,18 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
         }
         case VObjectType::slParameter_declaration: {
           if (!collectDefinitions) break;
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+              slList_of_type_assignments) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_module, fC, list_of_type_assignments, m_compileDesign);
+
+          } else {
+            m_helper.compileParameterDeclaration(m_module, fC, id,
+                                                 m_compileDesign);
+          }
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
@@ -810,7 +841,17 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         break;  
       case VObjectType::slParameter_declaration: {
         if (!collectDefinitions) break;
-        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_module, fC, list_of_type_assignments, m_compileDesign);
+
+        } else {
+          m_helper.compileParameterDeclaration(m_module, fC, id,
+                                               m_compileDesign);
+        }
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {

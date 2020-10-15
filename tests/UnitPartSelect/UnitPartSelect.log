@@ -577,33 +577,250 @@ design: (work@toto)
 \_package: builtin (builtin), parent:work@toto
   |vpiDefName:builtin
   |vpiFullName:builtin
+  |vpiClassDefn:
+  \_class_defn: (builtin::array), parent:builtin
+    |vpiName:array
+    |vpiFullName:builtin::array
+  |vpiClassDefn:
+  \_class_defn: (builtin::queue), parent:builtin
+    |vpiName:queue
+    |vpiFullName:builtin::queue
+  |vpiClassDefn:
+  \_class_defn: (builtin::string), parent:builtin
+    |vpiName:string
+    |vpiFullName:builtin::string
+  |vpiClassDefn:
+  \_class_defn: (builtin::system), parent:builtin
+    |vpiName:system
+    |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (builtin::builtin::array), parent:builtin
-  |vpiName:builtin::array
-  |vpiFullName:builtin::builtin::array
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::queue), parent:builtin
-  |vpiName:builtin::queue
-  |vpiFullName:builtin::builtin::queue
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::string), parent:builtin
-  |vpiName:builtin::string
-  |vpiFullName:builtin::builtin::string
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::system), parent:builtin
-  |vpiName:builtin::system
-  |vpiFullName:builtin::builtin::system
-|uhdmallClasses:
-\_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@toto
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@toto
   |vpiName:work@mailbox
+  |vpiMethod:
+  \_function: (work@mailbox.new), line:6, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@mailbox.new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@toto
+    |vpiIODecl:
+    \_io_decl: (bound)
+      |vpiName:bound
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (bound), line:6, parent:bound
+        |vpiFullName:bound
+  |vpiMethod:
+  \_function: (work@mailbox.num), line:9, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:num
+    |vpiFullName:work@mailbox.num
+    |vpiReturn:
+    \_int_var: , line:9
+  |vpiMethod:
+  \_task: (work@mailbox.put), line:12, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:put
+    |vpiFullName:work@mailbox.put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_put
+    |vpiFullName:work@mailbox.try_put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_task: (work@mailbox.get), line:18, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:get
+    |vpiFullName:work@mailbox.get
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@mailbox.try_get
+    |vpiReturn:
+    \_int_var: , line:21
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:peek
+    |vpiFullName:work@mailbox.peek
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_peek
+    |vpiFullName:work@mailbox.try_peek
+    |vpiReturn:
+    \_int_var: , line:27
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:33, parent:work@toto
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@toto
   |vpiName:work@process
+  |vpiMethod:
+  \_function: (work@process.self), line:37, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:self
+    |vpiFullName:work@process.self
+    |vpiReturn:
+    \_chandle_var: (process), line:37
+      |vpiName:process
+  |vpiMethod:
+  \_function: (work@process.status), line:40, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:status
+    |vpiFullName:work@process.status
+    |vpiReturn:
+    \_chandle_var: (state), line:40
+      |vpiName:state
+  |vpiMethod:
+  \_task: (work@process.kill), line:43, parent:work@process
+    |vpiMethod:1
+    |vpiName:kill
+    |vpiFullName:work@process.kill
+    |vpiStmt:
+    \_begin: (work@process.kill), parent:work@process.kill
+      |vpiFullName:work@process.kill
+  |vpiMethod:
+  \_task: (work@process.await), line:46, parent:work@process
+    |vpiMethod:1
+    |vpiName:await
+    |vpiFullName:work@process.await
+    |vpiStmt:
+    \_begin: (work@process.await), parent:work@process.await
+      |vpiFullName:work@process.await
+  |vpiMethod:
+  \_task: (work@process.suspend), line:49, parent:work@process
+    |vpiMethod:1
+    |vpiName:suspend
+    |vpiFullName:work@process.suspend
+    |vpiStmt:
+    \_begin: (work@process.suspend), parent:work@process.suspend
+      |vpiFullName:work@process.suspend
+  |vpiMethod:
+  \_task: (work@process.resume), line:52, parent:work@process
+    |vpiMethod:1
+    |vpiName:resume
+    |vpiFullName:work@process.resume
+    |vpiStmt:
+    \_begin: (work@process.resume), parent:work@process.resume
+      |vpiFullName:work@process.resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), line:35
+      |vpiName:FINISHED
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35
+      |vpiName:KILLED
+      |INT:4
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), line:35
+      |vpiName:RUNNING
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35
+      |vpiName:SUSPENDED
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (WAITING), line:35
+      |vpiName:WAITING
+      |INT:2
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@toto
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@toto
   |vpiName:work@semaphore
+  |vpiMethod:
+  \_function: (work@semaphore.new), line:60, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@semaphore.new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@toto
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:60, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore.put), line:63, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:put
+    |vpiFullName:work@semaphore.put
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:63, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore.get), line:66, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:get
+    |vpiFullName:work@semaphore.get
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:66, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@semaphore.try_get
+    |vpiReturn:
+    \_int_var: , line:69
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:69, parent:keyCount
+        |vpiFullName:keyCount
 |uhdmallModules:
-\_module: work@dut (work@dut), file:top.sv, line:21, parent:work@toto
+\_module: work@dut (work@dut) top.sv:21: , parent:work@toto
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiPort:
@@ -656,7 +873,7 @@ design: (work@toto)
   |vpiNet:
   \_logic_net: (work@dut.o), line:25, parent:work@dut
 |uhdmallModules:
-\_module: work@dut_no_decl (work@dut_no_decl), file:top.sv, line:38, parent:work@toto
+\_module: work@dut_no_decl (work@dut_no_decl) top.sv:38: , parent:work@toto
   |vpiDefName:work@dut_no_decl
   |vpiFullName:work@dut_no_decl
   |vpiPort:
@@ -742,7 +959,7 @@ design: (work@toto)
   |vpiNet:
   \_logic_net: (work@dut_no_decl.b), line:38, parent:work@dut_no_decl
 |uhdmallModules:
-\_module: work@dut_part_select (work@dut_part_select), file:top.sv, line:30, parent:work@toto
+\_module: work@dut_part_select (work@dut_part_select) top.sv:30: , parent:work@toto
   |vpiDefName:work@dut_part_select
   |vpiFullName:work@dut_part_select
   |vpiPort:
@@ -838,7 +1055,7 @@ design: (work@toto)
   |vpiNet:
   \_logic_net: (work@dut_part_select.b), line:32, parent:work@dut_part_select
 |uhdmallModules:
-\_module: work@toto (work@toto), file:top.sv, line:1, parent:work@toto
+\_module: work@toto (work@toto) top.sv:1: , parent:work@toto
   |vpiDefName:work@toto
   |vpiFullName:work@toto
   |vpiProcess:
@@ -871,6 +1088,7 @@ design: (work@toto)
               \_parameter: (work@toto.IDLE), line:3, parent:work@toto
                 |vpiName:IDLE
                 |vpiFullName:work@toto.IDLE
+                |INT:0
           |vpiRhs:
           \_constant: , line:9
             |vpiConstType:3
@@ -941,7 +1159,7 @@ design: (work@toto)
     |vpiFullName:work@toto.next
     |vpiNetType:48
   |vpiParamAssign:
-  \_param_assign: , line:3
+  \_param_assign: , line:3, parent:work@toto
     |vpiRhs:
     \_constant: , line:3
       |vpiConstType:7
@@ -949,12 +1167,13 @@ design: (work@toto)
       |vpiSize:32
       |INT:0
     |vpiLhs:
-    \_parameter: (IDLE), line:3
+    \_parameter: (work@toto.IDLE), line:3, parent:work@toto
       |vpiName:IDLE
+      |vpiFullName:work@toto.IDLE
   |vpiParameter:
-  \_parameter: (IDLE), line:3
+  \_parameter: (work@toto.IDLE), line:3, parent:work@toto
 |uhdmtopModules:
-\_module: work@toto (work@toto), file:top.sv, line:1
+\_module: work@toto (work@toto) top.sv:1: 
   |vpiDefName:work@toto
   |vpiName:work@toto
   |vpiProcess:
@@ -987,6 +1206,7 @@ design: (work@toto)
               \_parameter: (work@toto.IDLE), line:3, parent:work@toto
                 |vpiName:IDLE
                 |vpiFullName:work@toto.IDLE
+                |INT:0
           |vpiRhs:
           \_constant: , line:9
             |vpiConstType:3
@@ -1094,10 +1314,12 @@ design: (work@toto)
       |INT:0
     |vpiLhs:
     \_parameter: (work@toto.IDLE), line:3, parent:work@toto
+      |vpiName:IDLE
+      |vpiFullName:work@toto.IDLE
   |vpiParameter:
   \_parameter: (work@toto.IDLE), line:3, parent:work@toto
 |uhdmtopModules:
-\_module: work@dut (work@dut), file:top.sv, line:21
+\_module: work@dut (work@dut) top.sv:21: 
   |vpiDefName:work@dut
   |vpiName:work@dut
   |vpiPort:
@@ -1180,7 +1402,7 @@ design: (work@toto)
   |vpiNet:
   \_logic_net: (work@dut.o), line:25, parent:work@dut
 |uhdmtopModules:
-\_module: work@dut_part_select (work@dut_part_select), file:top.sv, line:30
+\_module: work@dut_part_select (work@dut_part_select) top.sv:30: 
   |vpiDefName:work@dut_part_select
   |vpiName:work@dut_part_select
   |vpiPort:
@@ -1332,7 +1554,7 @@ design: (work@toto)
         |vpiSize:64
         |INT:0
 |uhdmtopModules:
-\_module: work@dut_no_decl (work@dut_no_decl), file:top.sv, line:38
+\_module: work@dut_no_decl (work@dut_no_decl) top.sv:38: 
   |vpiDefName:work@dut_no_decl
   |vpiName:work@dut_no_decl
   |vpiPort:

@@ -80,6 +80,18 @@ bool CompileProgram::compile() {
       VObjectType::slClass_declaration,
   };
 
+  NodeId programId = m_program->m_nodeIds[0];
+  do {
+    VObject current = fC->Object(programId);
+    programId = current.m_child;
+  } while (programId && (fC->Type(programId) != VObjectType::slAttribute_instance));
+  if (programId) {
+    UHDM::VectorOfattribute* attributes =
+    m_helper.compileAttributes(m_program, fC, programId, m_compileDesign);
+    m_program->Attributes(attributes);
+  }
+
+
   if (fC->getSize() == 0) return true;
   VObject current = fC->Object(nodeId);
   NodeId id = current.m_child;
@@ -151,6 +163,9 @@ bool CompileProgram::compile() {
     case VObjectType::slClass_declaration:
     {
       NodeId nameId = fC->Child(id);
+      if (fC->Type(nameId) == slVirtual) {
+        nameId = fC->Sibling(nameId);
+      }
       std::string name = fC->SymName(nameId);
       FileCNodeId fnid(fC, nameId);
       m_program->addObject(type, fnid);

@@ -112,31 +112,248 @@ design: (work@dff_async_reset)
 \_package: builtin (builtin), parent:work@dff_async_reset
   |vpiDefName:builtin
   |vpiFullName:builtin
+  |vpiClassDefn:
+  \_class_defn: (builtin::array), parent:builtin
+    |vpiName:array
+    |vpiFullName:builtin::array
+  |vpiClassDefn:
+  \_class_defn: (builtin::queue), parent:builtin
+    |vpiName:queue
+    |vpiFullName:builtin::queue
+  |vpiClassDefn:
+  \_class_defn: (builtin::string), parent:builtin
+    |vpiName:string
+    |vpiFullName:builtin::string
+  |vpiClassDefn:
+  \_class_defn: (builtin::system), parent:builtin
+    |vpiName:system
+    |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (builtin::builtin::array), parent:builtin
-  |vpiName:builtin::array
-  |vpiFullName:builtin::builtin::array
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::queue), parent:builtin
-  |vpiName:builtin::queue
-  |vpiFullName:builtin::builtin::queue
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::string), parent:builtin
-  |vpiName:builtin::string
-  |vpiFullName:builtin::builtin::string
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::system), parent:builtin
-  |vpiName:builtin::system
-  |vpiFullName:builtin::builtin::system
-|uhdmallClasses:
-\_class_defn: (work@mailbox), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:4, parent:work@dff_async_reset
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dff_async_reset
   |vpiName:work@mailbox
+  |vpiMethod:
+  \_function: (work@mailbox.new), line:6, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@mailbox.new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dff_async_reset
+    |vpiIODecl:
+    \_io_decl: (bound)
+      |vpiName:bound
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (bound), line:6, parent:bound
+        |vpiFullName:bound
+  |vpiMethod:
+  \_function: (work@mailbox.num), line:9, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:num
+    |vpiFullName:work@mailbox.num
+    |vpiReturn:
+    \_int_var: , line:9
+  |vpiMethod:
+  \_task: (work@mailbox.put), line:12, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:put
+    |vpiFullName:work@mailbox.put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_put
+    |vpiFullName:work@mailbox.try_put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_task: (work@mailbox.get), line:18, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:get
+    |vpiFullName:work@mailbox.get
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@mailbox.try_get
+    |vpiReturn:
+    \_int_var: , line:21
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:peek
+    |vpiFullName:work@mailbox.peek
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_peek
+    |vpiFullName:work@mailbox.try_peek
+    |vpiReturn:
+    \_int_var: , line:27
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:33, parent:work@dff_async_reset
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@dff_async_reset
   |vpiName:work@process
+  |vpiMethod:
+  \_function: (work@process.self), line:37, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:self
+    |vpiFullName:work@process.self
+    |vpiReturn:
+    \_chandle_var: (process), line:37
+      |vpiName:process
+  |vpiMethod:
+  \_function: (work@process.status), line:40, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:status
+    |vpiFullName:work@process.status
+    |vpiReturn:
+    \_chandle_var: (state), line:40
+      |vpiName:state
+  |vpiMethod:
+  \_task: (work@process.kill), line:43, parent:work@process
+    |vpiMethod:1
+    |vpiName:kill
+    |vpiFullName:work@process.kill
+    |vpiStmt:
+    \_begin: (work@process.kill), parent:work@process.kill
+      |vpiFullName:work@process.kill
+  |vpiMethod:
+  \_task: (work@process.await), line:46, parent:work@process
+    |vpiMethod:1
+    |vpiName:await
+    |vpiFullName:work@process.await
+    |vpiStmt:
+    \_begin: (work@process.await), parent:work@process.await
+      |vpiFullName:work@process.await
+  |vpiMethod:
+  \_task: (work@process.suspend), line:49, parent:work@process
+    |vpiMethod:1
+    |vpiName:suspend
+    |vpiFullName:work@process.suspend
+    |vpiStmt:
+    \_begin: (work@process.suspend), parent:work@process.suspend
+      |vpiFullName:work@process.suspend
+  |vpiMethod:
+  \_task: (work@process.resume), line:52, parent:work@process
+    |vpiMethod:1
+    |vpiName:resume
+    |vpiFullName:work@process.resume
+    |vpiStmt:
+    \_begin: (work@process.resume), parent:work@process.resume
+      |vpiFullName:work@process.resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+    |vpiName:state
+    |vpiEnumConst:
+    \_enum_const: (FINISHED), line:35
+      |vpiName:FINISHED
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35
+      |vpiName:KILLED
+      |INT:4
+    |vpiEnumConst:
+    \_enum_const: (RUNNING), line:35
+      |vpiName:RUNNING
+      |INT:1
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35
+      |vpiName:SUSPENDED
+      |INT:3
+    |vpiEnumConst:
+    \_enum_const: (WAITING), line:35
+      |vpiName:WAITING
+      |INT:2
 |uhdmallClasses:
-\_class_defn: (work@semaphore), file:${SURELOG_DIR}/build/bin/sv/builtin.sv, line:58, parent:work@dff_async_reset
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dff_async_reset
   |vpiName:work@semaphore
+  |vpiMethod:
+  \_function: (work@semaphore.new), line:60, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@semaphore.new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dff_async_reset
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:60, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore.put), line:63, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:put
+    |vpiFullName:work@semaphore.put
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:63, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore.get), line:66, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:get
+    |vpiFullName:work@semaphore.get
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:66, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@semaphore.try_get
+    |vpiReturn:
+    \_int_var: , line:69
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:69, parent:keyCount
+        |vpiFullName:keyCount
 |uhdmallUdps:
 \_udp_defn: work@jkff_udp, line:7, parent:work@dff_async_reset
   |vpiDefName:work@jkff_udp
@@ -268,7 +485,7 @@ design: (work@dff_async_reset)
     |vpiSize:2
     |STRING:x x : x
 |uhdmallModules:
-\_module: work@LFSR_TASK (work@LFSR_TASK), file:lfsr_task.v, line:2, parent:work@dff_async_reset
+\_module: work@LFSR_TASK (work@LFSR_TASK) lfsr_task.v:2: , parent:work@dff_async_reset
   |vpiDefName:work@LFSR_TASK
   |vpiFullName:work@LFSR_TASK
   |vpiProcess:
@@ -800,7 +1017,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.seed2), line:2, parent:work@LFSR_TASK
   |vpiParamAssign:
-  \_param_assign: , line:7
+  \_param_assign: , line:7, parent:work@LFSR_TASK
     |vpiRhs:
     \_constant: , line:7
       |vpiConstType:3
@@ -808,12 +1025,13 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:8'b10001110
     |vpiLhs:
-    \_parameter: (Chain1), line:7
+    \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
       |vpiName:Chain1
+      |vpiFullName:work@LFSR_TASK.Chain1
       |vpiTypespec:
-      \_bit_typespec: , line:7
+      \_bit_typespec: , line:7, parent:work@LFSR_TASK.Chain1
   |vpiParamAssign:
-  \_param_assign: , line:8
+  \_param_assign: , line:8, parent:work@LFSR_TASK
     |vpiRhs:
     \_constant: , line:8
       |vpiConstType:3
@@ -821,16 +1039,17 @@ design: (work@dff_async_reset)
       |vpiSize:8
       |BIN:8'b10101110
     |vpiLhs:
-    \_parameter: (Chain2), line:8
+    \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
       |vpiName:Chain2
+      |vpiFullName:work@LFSR_TASK.Chain2
       |vpiTypespec:
-      \_bit_typespec: , line:8
+      \_bit_typespec: , line:8, parent:work@LFSR_TASK.Chain2
   |vpiParameter:
-  \_parameter: (Chain1), line:7
+  \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
   |vpiParameter:
-  \_parameter: (Chain2), line:8
+  \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
 |uhdmallModules:
-\_module: work@arbiter (work@arbiter), file:another_arbiter.v, line:2, parent:work@dff_async_reset
+\_module: work@arbiter (work@arbiter) another_arbiter.v:2: , parent:work@dff_async_reset
   |vpiDefName:work@arbiter
   |vpiFullName:work@arbiter
   |vpiProcess:
@@ -860,8 +1079,9 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
                 |vpiName:NUMUNITS
+                |vpiFullName:work@top.U.NUMUNITS
                 |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
@@ -885,6 +1105,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.i), line:3, parent:work@top.U
                 |vpiName:i
                 |vpiFullName:work@top.U.i
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:23, parent:work@arbiter
               |vpiOpType:24
@@ -918,8 +1140,9 @@ design: (work@dff_async_reset)
                   |vpiName:ADDRESSWIDTH
                   |vpiFullName:work@arbiter.ADDRESSWIDTH
                   |vpiActual:
-                  \_parameter: (ADDRESSWIDTH), line:8
+                  \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
                     |vpiName:ADDRESSWIDTH
+                    |vpiFullName:work@top.U.ADDRESSWIDTH
                     |INT:3
               |vpiForInitStmt:
               \_assign_stmt: , parent:work@arbiter
@@ -943,6 +1166,8 @@ design: (work@dff_async_reset)
                   \_int_var: (work@top.U.j), line:3, parent:work@top.U
                     |vpiName:j
                     |vpiFullName:work@top.U.j
+                    |vpiAutomatic:1
+                    |vpiVisibility:1
                 |vpiRhs:
                 \_operation: , line:25, parent:work@arbiter
                   |vpiOpType:24
@@ -993,7 +1218,7 @@ design: (work@dff_async_reset)
                         |vpiName:ADDRESSWIDTH
                         |vpiFullName:work@arbiter.ADDRESSWIDTH
                         |vpiActual:
-                        \_parameter: (ADDRESSWIDTH), line:8
+                        \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
                     |vpiOperand:
                     \_ref_obj: (work@arbiter.tpriority.j), line:26
                       |vpiName:j
@@ -1347,7 +1572,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1370,6 +1595,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.k), line:3, parent:work@top.U
                 |vpiName:k
                 |vpiFullName:work@top.U.k
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:64, parent:work@arbiter
               |vpiOpType:24
@@ -1430,7 +1657,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
                 |vpiOperand:
                 \_constant: , line:65
                   |vpiConstType:7
@@ -1475,7 +1702,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1498,6 +1725,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.r), line:3, parent:work@top.U
                 |vpiName:r
                 |vpiFullName:work@top.U.r
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:70, parent:work@arbiter
               |vpiOpType:24
@@ -1711,7 +1940,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1734,6 +1963,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.p), line:3, parent:work@top.U
                 |vpiName:p
                 |vpiFullName:work@top.U.p
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:81, parent:work@arbiter
               |vpiOpType:24
@@ -1916,7 +2147,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -1939,6 +2170,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.q), line:3, parent:work@top.U
                 |vpiName:q
                 |vpiFullName:work@top.U.q
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:88, parent:work@arbiter
               |vpiOpType:24
@@ -2029,7 +2262,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2052,6 +2285,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.s), line:3, parent:work@top.U
                 |vpiName:s
                 |vpiFullName:work@top.U.s
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:96, parent:work@arbiter
               |vpiOpType:24
@@ -2107,7 +2342,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_operation: , line:97
                 |vpiOpType:24
@@ -2146,7 +2381,7 @@ design: (work@dff_async_reset)
                   |vpiName:NUMUNITS
                   |vpiFullName:work@arbiter.NUMUNITS
                   |vpiActual:
-                  \_parameter: (NUMUNITS), line:7
+                  \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
   |vpiProcess:
   \_always: , line:100, parent:work@arbiter
     |vpiAlwaysType:1
@@ -2300,7 +2535,7 @@ design: (work@dff_async_reset)
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
                 |vpiActual:
-                \_parameter: (NUMUNITS), line:7
+                \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_constant: , line:104
                 |vpiConstType:7
@@ -2329,6 +2564,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.t), line:3, parent:work@top.U
                 |vpiName:t
                 |vpiFullName:work@top.U.t
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:104, parent:work@arbiter
               |vpiOpType:24
@@ -2554,7 +2791,7 @@ design: (work@dff_async_reset)
               |vpiName:NUMUNITS
               |vpiFullName:work@arbiter.NUMUNITS
               |vpiActual:
-              \_parameter: (NUMUNITS), line:7
+              \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@arbiter
             |vpiRhs:
@@ -2577,6 +2814,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.u), line:3, parent:work@top.U
                 |vpiName:u
                 |vpiFullName:work@top.U.u
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:112, parent:work@arbiter
               |vpiOpType:24
@@ -2694,7 +2933,7 @@ design: (work@dff_async_reset)
                 |vpiName:NUMUNITS
                 |vpiFullName:work@arbiter.NUMUNITS
                 |vpiActual:
-                \_parameter: (NUMUNITS), line:7
+                \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
               |vpiOperand:
               \_constant: , line:118
                 |vpiConstType:7
@@ -2723,6 +2962,8 @@ design: (work@dff_async_reset)
               \_int_var: (work@top.U.v), line:3, parent:work@top.U
                 |vpiName:v
                 |vpiFullName:work@top.U.v
+                |vpiAutomatic:1
+                |vpiVisibility:1
             |vpiRhs:
             \_operation: , line:118, parent:work@arbiter
               |vpiOpType:24
@@ -2982,7 +3223,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@arbiter.tpriority), line:2, parent:work@arbiter
   |vpiParamAssign:
-  \_param_assign: , line:7
+  \_param_assign: , line:7, parent:work@arbiter
     |vpiRhs:
     \_constant: , line:7
       |vpiConstType:7
@@ -2990,10 +3231,11 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (NUMUNITS), line:7
+    \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
       |vpiName:NUMUNITS
+      |vpiFullName:work@arbiter.NUMUNITS
   |vpiParamAssign:
-  \_param_assign: , line:8
+  \_param_assign: , line:8, parent:work@arbiter
     |vpiRhs:
     \_constant: , line:8
       |vpiConstType:7
@@ -3001,14 +3243,15 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:3
     |vpiLhs:
-    \_parameter: (ADDRESSWIDTH), line:8
+    \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
       |vpiName:ADDRESSWIDTH
+      |vpiFullName:work@arbiter.ADDRESSWIDTH
   |vpiParameter:
-  \_parameter: (NUMUNITS), line:7
+  \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
   |vpiParameter:
-  \_parameter: (ADDRESSWIDTH), line:8
+  \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
 |uhdmallModules:
-\_module: work@case1 (work@case1), file:m_input_mult.v, line:2, parent:work@dff_async_reset
+\_module: work@case1 (work@case1) m_input_mult.v:2: , parent:work@dff_async_reset
   |vpiDefName:work@case1
   |vpiFullName:work@case1
   |vpiProcess:
@@ -3295,7 +3538,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@case1.out2), line:2, parent:work@case1
 |uhdmallModules:
-\_module: work@case2 (work@case2), file:m_input_mult.v, line:21, parent:work@dff_async_reset
+\_module: work@case2 (work@case2) m_input_mult.v:21: , parent:work@dff_async_reset
   |vpiDefName:work@case2
   |vpiFullName:work@case2
   |vpiProcess:
@@ -3853,7 +4096,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@case2.out2), line:21, parent:work@case2
 |uhdmallModules:
-\_module: work@dff_async_reset (work@dff_async_reset), file:dff.v, line:8, parent:work@dff_async_reset
+\_module: work@dff_async_reset (work@dff_async_reset) dff.v:8: , parent:work@dff_async_reset
   |vpiDefName:work@dff_async_reset
   |vpiFullName:work@dff_async_reset
   |vpiProcess:
@@ -3986,7 +4229,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@dff_async_reset.reset), line:11, parent:work@dff_async_reset
 |uhdmallModules:
-\_module: work@encoder_using_case (work@encoder_using_case), file:encoder.v, line:7, parent:work@dff_async_reset
+\_module: work@encoder_using_case (work@encoder_using_case) encoder.v:7: , parent:work@dff_async_reset
   |vpiDefName:work@encoder_using_case
   |vpiFullName:work@encoder_using_case
   |vpiProcess:
@@ -4453,7 +4696,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@encoder_using_case.enable), line:10, parent:work@encoder_using_case
 |uhdmallModules:
-\_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7, parent:work@dff_async_reset
+\_module: work@full_adder_gates (work@full_adder_gates) full_adder.v:7: , parent:work@dff_async_reset
   |vpiDefName:work@full_adder_gates
   |vpiFullName:work@full_adder_gates
   |vpiPort:
@@ -4537,7 +4780,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@full_adder_gates.carry), line:7, parent:work@full_adder_gates
 |uhdmallModules:
-\_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7, parent:work@dff_async_reset
+\_module: work@mux21_switch (work@mux21_switch) mux21.v:7: , parent:work@dff_async_reset
   |vpiDefName:work@mux21_switch
   |vpiFullName:work@mux21_switch
   |vpiPort:
@@ -4604,7 +4847,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@mux21_switch.in2), line:7, parent:work@mux21_switch
 |uhdmallModules:
-\_module: work@pri_encooder (work@pri_encooder), file:m_input_mult.v, line:49, parent:work@dff_async_reset
+\_module: work@pri_encooder (work@pri_encooder) m_input_mult.v:49: , parent:work@dff_async_reset
   |vpiDefName:work@pri_encooder
   |vpiFullName:work@pri_encooder
   |vpiProcess:
@@ -4893,7 +5136,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@pri_encooder.B), line:49, parent:work@pri_encooder
 |uhdmallModules:
-\_module: work@syn_fifo (work@syn_fifo), file:synfifo.v, line:8, parent:work@dff_async_reset
+\_module: work@syn_fifo (work@syn_fifo) synfifo.v:8: , parent:work@dff_async_reset
   |vpiDefName:work@syn_fifo
   |vpiFullName:work@syn_fifo
   |vpiProcess:
@@ -5452,8 +5695,9 @@ design: (work@dff_async_reset)
                     |vpiName:RAM_DEPTH
                     |vpiFullName:work@syn_fifo.STATUS_COUNTER.RAM_DEPTH
                     |vpiActual:
-                    \_parameter: (RAM_DEPTH), line:24
+                    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
                       |vpiName:RAM_DEPTH
+                      |vpiFullName:work@syn_fifo.RAM_DEPTH
                       |INT:256
               |vpiStmt:
               \_begin: (work@syn_fifo.STATUS_COUNTER), line:86
@@ -5600,7 +5844,7 @@ design: (work@dff_async_reset)
           |vpiName:RAM_DEPTH
           |vpiFullName:work@syn_fifo.RAM_DEPTH
           |vpiActual:
-          \_parameter: (RAM_DEPTH), line:24
+          \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
         |vpiOperand:
         \_constant: , line:45
           |vpiConstType:7
@@ -5671,7 +5915,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@syn_fifo.full), line:18, parent:work@syn_fifo
   |vpiParamAssign:
-  \_param_assign: , line:22
+  \_param_assign: , line:22, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:22
       |vpiConstType:7
@@ -5679,10 +5923,11 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (DATA_WIDTH), line:22
+    \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
       |vpiName:DATA_WIDTH
+      |vpiFullName:work@syn_fifo.DATA_WIDTH
   |vpiParamAssign:
-  \_param_assign: , line:23
+  \_param_assign: , line:23, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:23
       |vpiConstType:7
@@ -5690,25 +5935,27 @@ design: (work@dff_async_reset)
       |vpiSize:32
       |INT:8
     |vpiLhs:
-    \_parameter: (ADDR_WIDTH), line:23
+    \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
       |vpiName:ADDR_WIDTH
+      |vpiFullName:work@syn_fifo.ADDR_WIDTH
   |vpiParamAssign:
-  \_param_assign: , line:24
+  \_param_assign: , line:24, parent:work@syn_fifo
     |vpiRhs:
     \_constant: , line:24
       |vpiDecompile:256
       |INT:256
     |vpiLhs:
-    \_parameter: (RAM_DEPTH), line:24
+    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
       |vpiName:RAM_DEPTH
+      |vpiFullName:work@syn_fifo.RAM_DEPTH
   |vpiParameter:
-  \_parameter: (DATA_WIDTH), line:22
+  \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
   |vpiParameter:
-  \_parameter: (ADDR_WIDTH), line:23
+  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
   |vpiParameter:
-  \_parameter: (RAM_DEPTH), line:24
+  \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
 |uhdmallModules:
-\_module: work@top (work@top), file:arbiter_tb.v, line:3, parent:work@dff_async_reset
+\_module: work@top (work@top) arbiter_tb.v:3: , parent:work@dff_async_reset
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiProcess:
@@ -6245,7 +6492,7 @@ design: (work@dff_async_reset)
     |vpiFullName:work@top.gnt0
     |vpiNetType:1
 |uhdmallModules:
-\_module: work@uart (work@uart), file:uart.v, line:8, parent:work@dff_async_reset
+\_module: work@uart (work@uart) uart.v:8: , parent:work@dff_async_reset
   |vpiDefName:work@uart
   |vpiFullName:work@uart
   |vpiProcess:
@@ -7723,7 +7970,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@uart.rx_in), line:20, parent:work@uart
 |uhdmtopModules:
-\_module: work@dff_async_reset (work@dff_async_reset), file:dff.v, line:8
+\_module: work@dff_async_reset (work@dff_async_reset) dff.v:8: 
   |vpiDefName:work@dff_async_reset
   |vpiName:work@dff_async_reset
   |vpiPort:
@@ -7776,7 +8023,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@dff_async_reset.reset), line:11, parent:work@dff_async_reset
 |uhdmtopModules:
-\_module: work@encoder_using_case (work@encoder_using_case), file:encoder.v, line:7
+\_module: work@encoder_using_case (work@encoder_using_case) encoder.v:7: 
   |vpiDefName:work@encoder_using_case
   |vpiName:work@encoder_using_case
   |vpiPort:
@@ -7845,7 +8092,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@encoder_using_case.enable), line:10, parent:work@encoder_using_case
 |uhdmtopModules:
-\_module: work@case1 (work@case1), file:m_input_mult.v, line:2
+\_module: work@case1 (work@case1) m_input_mult.v:2: 
   |vpiDefName:work@case1
   |vpiName:work@case1
   |vpiPort:
@@ -7913,7 +8160,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@case1.out2), line:2, parent:work@case1
 |uhdmtopModules:
-\_module: work@case2 (work@case2), file:m_input_mult.v, line:21
+\_module: work@case2 (work@case2) m_input_mult.v:21: 
   |vpiDefName:work@case2
   |vpiName:work@case2
   |vpiPort:
@@ -8014,7 +8261,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@case2.out2), line:21, parent:work@case2
 |uhdmtopModules:
-\_module: work@pri_encooder (work@pri_encooder), file:m_input_mult.v, line:49
+\_module: work@pri_encooder (work@pri_encooder) m_input_mult.v:49: 
   |vpiDefName:work@pri_encooder
   |vpiName:work@pri_encooder
   |vpiPort:
@@ -8108,7 +8355,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@pri_encooder.B), line:49, parent:work@pri_encooder
 |uhdmtopModules:
-\_module: work@syn_fifo (work@syn_fifo), file:synfifo.v, line:8
+\_module: work@syn_fifo (work@syn_fifo) synfifo.v:8: 
   |vpiDefName:work@syn_fifo
   |vpiName:work@syn_fifo
   |vpiPort:
@@ -8241,7 +8488,7 @@ design: (work@dff_async_reset)
         |vpiName:full
         |vpiFullName:work@syn_fifo.full
   |vpiModule:
-  \_module: work@syn_fifo::ram_dp_ar_aw (work@syn_fifo.DP_RAM), file:synfifo.v, line:91, parent:work@syn_fifo
+  \_module: work@syn_fifo::ram_dp_ar_aw (work@syn_fifo.DP_RAM) synfifo.v:91: , parent:work@syn_fifo
     |vpiDefName:work@syn_fifo::ram_dp_ar_aw
     |vpiName:DP_RAM
     |vpiFullName:work@syn_fifo.DP_RAM
@@ -8379,7 +8626,7 @@ design: (work@dff_async_reset)
         |vpiActual:
         \_logic_net: (work@syn_fifo.rd_en), line:14, parent:work@syn_fifo
     |vpiInstance:
-    \_module: work@syn_fifo (work@syn_fifo), file:synfifo.v, line:8
+    \_module: work@syn_fifo (work@syn_fifo) synfifo.v:8: 
   |vpiNet:
   \_logic_net: (work@syn_fifo.wr_pointer), line:38, parent:work@syn_fifo
   |vpiNet:
@@ -8425,20 +8672,57 @@ design: (work@dff_async_reset)
   \_logic_net: (work@syn_fifo.empty), line:17, parent:work@syn_fifo
   |vpiNet:
   \_logic_net: (work@syn_fifo.full), line:18, parent:work@syn_fifo
+  |vpiParamAssign:
+  \_param_assign: , line:22, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:22
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
+      |vpiName:DATA_WIDTH
+      |vpiFullName:work@syn_fifo.DATA_WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:23, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:23
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
+      |vpiName:ADDR_WIDTH
+      |vpiFullName:work@syn_fifo.ADDR_WIDTH
+  |vpiParamAssign:
+  \_param_assign: , line:24, parent:work@syn_fifo
+    |vpiRhs:
+    \_constant: , line:24
+      |vpiDecompile:256
+      |INT:256
+    |vpiLhs:
+    \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
+      |vpiName:RAM_DEPTH
+      |vpiFullName:work@syn_fifo.RAM_DEPTH
   |vpiParameter:
-  \_parameter: (ADDR_WIDTH), line:23
+  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
     |vpiName:ADDR_WIDTH
+    |vpiFullName:work@syn_fifo.ADDR_WIDTH
     |INT:8
   |vpiParameter:
-  \_parameter: (DATA_WIDTH), line:22
+  \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
     |vpiName:DATA_WIDTH
+    |vpiFullName:work@syn_fifo.DATA_WIDTH
     |INT:8
   |vpiParameter:
-  \_parameter: (RAM_DEPTH), line:24
+  \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
     |vpiName:RAM_DEPTH
+    |vpiFullName:work@syn_fifo.RAM_DEPTH
     |INT:256
 |uhdmtopModules:
-\_module: work@uart (work@uart), file:uart.v, line:8
+\_module: work@uart (work@uart) uart.v:8: 
   |vpiDefName:work@uart
   |vpiName:work@uart
   |vpiPort:
@@ -8755,11 +9039,11 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@uart.rx_in), line:20, parent:work@uart
 |uhdmtopModules:
-\_module: work@top (work@top), file:arbiter_tb.v, line:3
+\_module: work@top (work@top) arbiter_tb.v:3: 
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiModule:
-  \_module: work@arbiter (work@top.U), file:arbiter_tb.v, line:51, parent:work@top
+  \_module: work@arbiter (work@top.U) arbiter_tb.v:51: , parent:work@top
     |vpiDefName:work@arbiter
     |vpiName:U
     |vpiFullName:work@top.U
@@ -9098,7 +9382,7 @@ design: (work@dff_async_reset)
     |vpiNet:
     \_logic_net: (work@top.U.tpriority), line:2, parent:work@top.U
     |vpiInstance:
-    \_module: work@top (work@top), file:arbiter_tb.v, line:3
+    \_module: work@top (work@top) arbiter_tb.v:3: 
     |vpiArrayNet:
     \_array_net: (work@top.U.prio), line:19, parent:work@top.U
       |vpiName:prio
@@ -9214,49 +9498,95 @@ design: (work@dff_async_reset)
     \_int_var: (work@top.U.i), line:3, parent:work@top.U
       |vpiName:i
       |vpiFullName:work@top.U.i
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.j), line:3, parent:work@top.U
       |vpiName:j
       |vpiFullName:work@top.U.j
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.k), line:3, parent:work@top.U
       |vpiName:k
       |vpiFullName:work@top.U.k
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.p), line:3, parent:work@top.U
       |vpiName:p
       |vpiFullName:work@top.U.p
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.q), line:3, parent:work@top.U
       |vpiName:q
       |vpiFullName:work@top.U.q
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.r), line:3, parent:work@top.U
       |vpiName:r
       |vpiFullName:work@top.U.r
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.s), line:3, parent:work@top.U
       |vpiName:s
       |vpiFullName:work@top.U.s
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.t), line:3, parent:work@top.U
       |vpiName:t
       |vpiFullName:work@top.U.t
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.u), line:3, parent:work@top.U
       |vpiName:u
       |vpiFullName:work@top.U.u
+      |vpiAutomatic:1
+      |vpiVisibility:1
     |vpiVariables:
     \_int_var: (work@top.U.v), line:3, parent:work@top.U
       |vpiName:v
       |vpiFullName:work@top.U.v
+      |vpiAutomatic:1
+      |vpiVisibility:1
+    |vpiParamAssign:
+    \_param_assign: , line:7, parent:work@arbiter
+      |vpiRhs:
+      \_constant: , line:7
+        |vpiConstType:7
+        |vpiDecompile:8
+        |vpiSize:32
+        |INT:8
+      |vpiLhs:
+      \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
+        |vpiName:NUMUNITS
+        |vpiFullName:work@arbiter.NUMUNITS
+    |vpiParamAssign:
+    \_param_assign: , line:8, parent:work@arbiter
+      |vpiRhs:
+      \_constant: , line:8
+        |vpiConstType:7
+        |vpiDecompile:3
+        |vpiSize:32
+        |INT:3
+      |vpiLhs:
+      \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
+        |vpiName:ADDRESSWIDTH
+        |vpiFullName:work@arbiter.ADDRESSWIDTH
     |vpiParameter:
-    \_parameter: (ADDRESSWIDTH), line:8
+    \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
       |vpiName:ADDRESSWIDTH
+      |vpiFullName:work@top.U.ADDRESSWIDTH
       |INT:3
     |vpiParameter:
-    \_parameter: (NUMUNITS), line:7
+    \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
       |vpiName:NUMUNITS
+      |vpiFullName:work@top.U.NUMUNITS
       |INT:8
   |vpiNet:
   \_logic_net: (work@top.clk), line:5, parent:work@top
@@ -9291,7 +9621,7 @@ design: (work@dff_async_reset)
     |vpiFullName:work@top.gnt0
     |vpiNetType:1
 |uhdmtopModules:
-\_module: work@full_adder_gates (work@full_adder_gates), file:full_adder.v, line:7
+\_module: work@full_adder_gates (work@full_adder_gates) full_adder.v:7: 
   |vpiDefName:work@full_adder_gates
   |vpiName:work@full_adder_gates
   |vpiPrimitive:
@@ -9489,7 +9819,7 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (work@full_adder_gates.carry), line:7, parent:work@full_adder_gates
 |uhdmtopModules:
-\_module: work@LFSR_TASK (work@LFSR_TASK), file:lfsr_task.v, line:2
+\_module: work@LFSR_TASK (work@LFSR_TASK) lfsr_task.v:2: 
   |vpiDefName:work@LFSR_TASK
   |vpiName:work@LFSR_TASK
   |vpiPort:
@@ -9608,16 +9938,46 @@ design: (work@dff_async_reset)
   \_logic_net: (work@LFSR_TASK.seed1), line:2, parent:work@LFSR_TASK
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.seed2), line:2, parent:work@LFSR_TASK
+  |vpiParamAssign:
+  \_param_assign: , line:7, parent:work@LFSR_TASK
+    |vpiRhs:
+    \_constant: , line:7
+      |vpiConstType:3
+      |vpiDecompile:8'b10001110
+      |vpiSize:8
+      |BIN:8'b10001110
+    |vpiLhs:
+    \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
+      |vpiName:Chain1
+      |vpiFullName:work@LFSR_TASK.Chain1
+      |vpiTypespec:
+      \_bit_typespec: , line:7, parent:work@LFSR_TASK.Chain1
+  |vpiParamAssign:
+  \_param_assign: , line:8, parent:work@LFSR_TASK
+    |vpiRhs:
+    \_constant: , line:8
+      |vpiConstType:3
+      |vpiDecompile:8'b10101110
+      |vpiSize:8
+      |BIN:8'b10101110
+    |vpiLhs:
+    \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
+      |vpiName:Chain2
+      |vpiFullName:work@LFSR_TASK.Chain2
+      |vpiTypespec:
+      \_bit_typespec: , line:8, parent:work@LFSR_TASK.Chain2
   |vpiParameter:
-  \_parameter: (Chain1), line:7
+  \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
     |vpiName:Chain1
+    |vpiFullName:work@LFSR_TASK.Chain1
     |INT:142
   |vpiParameter:
-  \_parameter: (Chain2), line:8
+  \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
     |vpiName:Chain2
+    |vpiFullName:work@LFSR_TASK.Chain2
     |INT:174
 |uhdmtopModules:
-\_module: work@mux21_switch (work@mux21_switch), file:mux21.v, line:7
+\_module: work@mux21_switch (work@mux21_switch) mux21.v:7: 
   |vpiDefName:work@mux21_switch
   |vpiName:work@mux21_switch
   |vpiPrimitive:

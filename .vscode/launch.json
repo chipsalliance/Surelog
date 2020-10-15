@@ -255,11 +255,30 @@
             ]
         },
         {
+            "name": "ScratchPadUVM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["+incdir+.+third_party/UVM/1800.2-2017-1.0/src/", "third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv", "-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "ScratchPad",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst", "-I./", "-d", "uhdm", "+define+SYNTHESIS", "-d", "vpi_ids", "-nocache", "-nobuiltin", "-elabuhdm", "-Itests"],
+            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nocache", "-nobuiltin", "-d", "vpi_ids", "-elabuhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

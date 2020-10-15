@@ -35,6 +35,7 @@
 #include "CoverGroupDefinition.h"
 #include "Design/Parameter.h"
 #include "headers/uhdm_forward_decl.h"
+#include "uhdm.h"
 
 namespace SURELOG {
 class CompileClass;
@@ -61,7 +62,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() const { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
-  UHDM::class_defn* getUhdmDefinition() { return m_uhdm_definition; }
+  UHDM::class_defn* getUhdmDefinition() const { return m_uhdm_definition; }
 
   // Parameter definitions are stored DesignComponent maps
   typedef std::map<std::string, Property*> PropertyMap;
@@ -70,7 +71,6 @@ class ClassDefinition : public DesignComponent, public DataType {
   typedef std::map<std::string, const DataType*> BaseClassMap;
   typedef std::map<std::string, ClassDefinition*> ClassMap;
   typedef std::map<std::string, CoverGroupDefinition*> CoverGroupMap;
-  typedef std::map<std::string, Parameter*> ParameterMap;
 
   PropertyMap& getPropertyMap() { return m_properties; }
   Property* getProperty(const std::string& name) const;
@@ -101,13 +101,16 @@ class ClassDefinition : public DesignComponent, public DataType {
   const DataType* getBaseClass(const std::string& name) const;
   void insertBaseClass(DataType* p);
 
-  ParameterMap& getParameterMap() { return m_parameters; }
-  Parameter* getParameter(const std::string& name) const;
-  void insertParameter(Parameter* p);
-
   const DataType* getBaseDataType(const std::string& type) const;
 
   bool hasCompleteBaseSpecification() const;
+
+  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+
+  bool Attributes(UHDM::VectorOfattribute* data) {
+    attributes_ = data;
+    return true;
+  }
 
  private:
   std::string m_name;
@@ -120,8 +123,9 @@ class ClassDefinition : public DesignComponent, public DataType {
   ClassMap m_classes;
   CoverGroupMap m_covergroups;
   BaseClassMap m_baseclasses;
-  ParameterMap m_parameters;
   UHDM::class_defn* m_uhdm_definition;
+
+  UHDM::VectorOfattribute* attributes_ = nullptr;
 };
 
 }  // namespace SURELOG

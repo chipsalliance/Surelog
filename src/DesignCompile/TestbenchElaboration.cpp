@@ -43,6 +43,7 @@
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/TestbenchElaboration.h"
+#include "headers/uhdm.h"
 
 using namespace SURELOG;
 
@@ -161,6 +162,8 @@ bool checkValidBuiltinClass_(std::string classname, std::string function,
                              std::string& datatypeName) {
   bool validFunction = true;
   ClassDefinition* array = design->getClassDefinition("builtin::" + classname);
+  if (array == nullptr)
+    return false;
   Function* func = array->getFunction(function);
   if (func)
     stmt->setFunction(func);
@@ -205,6 +208,7 @@ bool TestbenchElaboration::bindClasses_() {
   bindDataTypes_();
   bindFunctions_();
   bindTasks_();
+  bindProperties_();
   return true;
 }
 
@@ -281,6 +285,8 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
 bool TestbenchElaboration::bindBaseClasses_() {
   Compiler* compiler = m_compileDesign->getCompiler();
   Design* design = compiler->getDesign();
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+
   ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
 
   // Bind base classes
@@ -293,7 +299,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
           bindDataType_(class_def.first, class_def.second->getFileContent(),
                         class_def.second->getNodeId(), classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_BASE_CLASS);
-      class_def.second = dynamic_cast<const ClassDefinition*>(the_def);
+      const ClassDefinition* bdef = dynamic_cast<const ClassDefinition*>(the_def);            
+      class_def.second = bdef;
       if (class_def.second) {
         // Super
         DataType* thisdt = new DataType(
@@ -303,7 +310,20 @@ bool TestbenchElaboration::bindBaseClasses_() {
         Property* prop = new Property(thisdt, classDefinition->getFileContent(),
                                       classDefinition->getNodeId(), 0, "super",
                                       false, false, false, false, false);
+        UHDM::class_defn* derived = classDefinition->getUhdmDefinition();
+        UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
+        UHDM::extends* extends = s.MakeExtends();
+        UHDM::class_typespec* tps = s.MakeClass_typespec();
+        extends->Class_typespec(tps);
+        tps->Class_defn(parent);
+        derived->Extends(extends);
+        UHDM::VectorOfclass_defn* all_derived = parent->Deriveds();
+        if (all_derived == nullptr) {
+          parent->Deriveds(s.MakeClass_defnVec());
+          all_derived = parent->Deriveds();
+        }
+        all_derived->push_back(derived);
       } else {
         class_def.second = dynamic_cast<const Parameter*>(the_def);
         if (class_def.second) {
@@ -317,6 +337,11 @@ bool TestbenchElaboration::bindBaseClasses_() {
                            classDefinition->getNodeId(), 0, "super", false,
                            false, false, false, false);
           classDefinition->insertProperty(prop);
+          UHDM::extends* extends = s.MakeExtends();
+          UHDM::class_typespec* tps = s.MakeClass_typespec();
+          tps->VpiName(class_def.second->getName());
+          extends->Class_typespec(tps);
+          classDefinition->getUhdmDefinition()->Extends(extends);
         }
       }
     }
@@ -721,6 +746,72 @@ bool TestbenchElaboration::bindTasks_() {
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
           if (the_def != dtype) dtype->setDefinition(the_def);
         }
+      }
+    }
+  }
+  return true;
+}
+
+bool TestbenchElaboration::bindProperties_() {
+  Compiler* compiler = m_compileDesign->getCompiler();
+  Design* design = compiler->getDesign();
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  ClassNameClassDefinitionMultiMap classes = design->getClassDefinitions();
+
+  // Bind properties
+  for (ClassNameClassDefinitionMultiMap::iterator itr = classes.begin();
+       itr != classes.end(); itr++) {
+    std::string className = (*itr).first;
+    ClassDefinition* classDefinition = (*itr).second;
+    UHDM::class_defn* defn = classDefinition->getUhdmDefinition();
+    UHDM::VectorOfvariables* vars = defn->Variables();
+    for (Signal* sig : classDefinition->getSignals()) {
+      const FileContent* fC = sig->getFileContent();
+      NodeId id = sig->getNodeId();
+      NodeId packedDimension = sig->getPackedDimension();
+      NodeId unpackedDimension = sig->getUnpackedDimension();
+      if (vars == nullptr) {
+        vars = s.MakeVariablesVec();
+        defn->Variables(vars);
+      }
+
+      const std::string& signame = sig->getName();
+
+      // Packed and unpacked ranges
+      int packedSize;
+      int unpackedSize;
+      std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
+          classDefinition, fC, packedDimension, m_compileDesign, nullptr,
+          nullptr, true, packedSize);
+      std::vector<UHDM::range*>* unpackedDimensions = nullptr;
+      if (fC->Type(unpackedDimension) == slClass_new) {
+      } else {
+        unpackedDimensions = m_helper.compileRanges(
+          classDefinition, fC, unpackedDimension, m_compileDesign, nullptr,
+          nullptr, true, unpackedSize);
+      }
+
+      // Assignment to a default value
+      UHDM::expr* exp =
+          exprFromAssign_(classDefinition, fC, id, unpackedDimension, nullptr);
+
+      UHDM::any* obj = makeVar_(classDefinition, sig, packedDimensions, packedSize, 
+                unpackedDimensions, unpackedSize, nullptr, 
+                vars, exp);
+
+      if (obj) {
+        obj->VpiLineNo(fC->Line(id));
+        obj->VpiFile(fC->getFileName());
+        obj->VpiParent(defn);
+      } else {
+        // Unsupported type
+        ErrorContainer* errors =
+            m_compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+        Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id),
+                     0, symbols->registerSymbol(signame));
+        Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+        errors->addError(err);
       }
     }
   }

@@ -110,7 +110,7 @@ public:
   bool compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);
 
-  UHDM::tf_call* compileTfCall(DesignComponent* component, const FileContent* fC,
+  UHDM::any* compileTfCall(DesignComponent* component, const FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
 
@@ -135,10 +135,10 @@ public:
         CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
 
   bool compileTask(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, bool isMethod = false);
 
   bool compileFunction(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, bool isMethod = false);
 
   bool compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);
@@ -256,7 +256,19 @@ public:
 
   UHDM::atomic_stmt* compileDelayControl(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control,
-        CompileDesign* compileDesign);                                  
+        CompileDesign* compileDesign);
+
+  bool compileClassConstructorDeclaration(DesignComponent* component,
+                                          const FileContent* fC, NodeId nodeId,
+                                          CompileDesign* compileDesign);
+
+  UHDM::method_func_call* compileRandomizeCall(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign, UHDM::any* pexpr); 
+
+  UHDM::any* compileConstraintBlock(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign); 
 
   /** Variable is either a bit select or a range */
   bool isSelected(const FileContent* fC, NodeId id);

@@ -25,13 +25,13 @@
 #define ELABORATIONSTEP_H
 
 #include "DesignCompile/CompileDesign.h"
+#include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
 
 class ElaborationStep {
  public:
-  ElaborationStep(CompileDesign* compileDesign)
-      : m_compileDesign(compileDesign) {}
+  ElaborationStep(CompileDesign* compileDesign);
   ElaborationStep(const ElaborationStep& orig) = delete;
 
   virtual bool elaborate() = 0;
@@ -70,7 +70,24 @@ class ElaborationStep {
                      DesignComponent* parentComponent,
                      ErrorDefinition::ErrorType errtype);
 
+
+  UHDM::variables* getSimpleVarFromTypespec(UHDM::typespec* spec,
+                                    std::vector<UHDM::range*>* packedDimensions,
+                                    UHDM::Serializer& s);
+
+  UHDM::expr* exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id, NodeId unpackedDimension, ModuleInstance* instance);
+
+  UHDM::typespec* elabTypeParameter_(DesignComponent* component, Parameter* typeParam, ModuleInstance* instance);
+
+  UHDM::any* makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
+                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
+                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp);
+
   CompileDesign* m_compileDesign;
+  ExprBuilder m_exprBuilder;
+  SymbolTable* m_symbols;
+  ErrorContainer* m_errors;
+  CompileHelper m_helper;
 
   std::map<std::string, Variable*> m_staticVariables;
 };

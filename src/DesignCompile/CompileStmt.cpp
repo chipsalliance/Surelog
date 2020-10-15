@@ -34,6 +34,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
+#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -107,13 +108,11 @@ VectorOfany* CompileHelper::compileStmt(
   }
   case VObjectType::slSubroutine_call_statement: {
 	  NodeId Subroutine_call = fC->Child(the_stmt);
-    UHDM::tf_call* call = compileTfCall(component, fC, Subroutine_call ,compileDesign);
-	  stmt = call;
+    stmt = compileTfCall(component, fC, Subroutine_call ,compileDesign);
   	break;
   }
   case VObjectType::slSystem_task: {
-    UHDM::tf_call* call = compileTfCall(component, fC, the_stmt, compileDesign);
-    stmt = call;
+    stmt = compileTfCall(component, fC, the_stmt, compileDesign);
     break;
   }
   case VObjectType::slConditional_statement: {
@@ -574,7 +573,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
   bool automatic_status = false;
-  bool static_status = false;
+  bool const_status = false;
   if (type == slLifetime_Automatic) {
     nodeId = fC->Sibling(nodeId);
     automatic_status = true;
@@ -582,7 +581,12 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   }
   if (type == slLifetime_Static) {
     nodeId = fC->Sibling(nodeId);
-    static_status = true;
+    automatic_status = false;
+    type = fC->Type(nodeId);
+  }
+  if (type == slConst_type) {
+    nodeId = fC->Sibling(nodeId);
+    const_status = true;
     type = fC->Type(nodeId);
   }
   switch (type) {
@@ -615,7 +619,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
             component, fC, Data_type, compileDesign, nullptr, nullptr, true);
 
         if (var) {
-          var->VpiConstantVariable(static_status);
+          var->VpiConstantVariable(const_status);
           var->VpiAutomatic(automatic_status);
           var->VpiName(fC->SymName(Var));
 
@@ -1041,7 +1045,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
 
 bool CompileHelper::compileTask(
   DesignComponent* component, const FileContent* fC, NodeId nodeId,
-  CompileDesign* compileDesign) {
+  CompileDesign* compileDesign, bool isMethod) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1049,6 +1053,7 @@ bool CompileHelper::compileTask(
     task_funcs = component->getTask_funcs();
   }
   UHDM::task* task = s.MakeTask();
+  task->VpiMethod(isMethod);
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(nodeId));
   task_funcs->push_back(task);
@@ -1120,10 +1125,9 @@ bool CompileHelper::compileTask(
   return true;
 }
 
-bool CompileHelper::compileFunction(
-  DesignComponent* component, const FileContent* fC,
-  NodeId nodeId,
-  CompileDesign* compileDesign) {
+bool CompileHelper::compileClassConstructorDeclaration(
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1131,34 +1135,240 @@ bool CompileHelper::compileFunction(
     task_funcs = component->getTask_funcs();
   }
   UHDM::function* func = s.MakeFunction();
+  func->VpiMethod(true);
   task_funcs->push_back(func);
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
-  NodeId Function_body_declaration = fC->Child(nodeId);
-  if (fC->Type(Function_body_declaration) == VObjectType::slLifetime_Automatic) {
-    Function_body_declaration = fC->Sibling(Function_body_declaration);
-    func->VpiAutomatic(true);
-  } else if (fC->Type(Function_body_declaration) == VObjectType::slMethodQualifier_Virtual) {
-    Function_body_declaration = fC->Sibling(Function_body_declaration);
-    func->VpiVirtual(true);
+
+  std::string name = "new";
+  std::string className;
+  NodeId Tf_port_list = 0;
+  Tf_port_list = fC->Child(nodeId);
+  if (fC->Type(Tf_port_list) == slClass_scope) {
+    NodeId Class_scope = Tf_port_list;
+    NodeId Class_type = fC->Child(Class_scope);
+    NodeId Class_name = fC->Child(Class_type);
+    name = fC->SymName(Class_name);
+    className = name;
+    name += "::new";
+    Tf_port_list = fC->Sibling(Tf_port_list);
   }
-  NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
-  NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
-  NodeId Return_data_type = fC->Child(Function_data_type);
-  func->Return(dynamic_cast<variables*>(
-      compileVariable(component, fC, Return_data_type, compileDesign, nullptr, nullptr, true)));
-  NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
+  UHDM::class_var* var = s.MakeClass_var();
+  func->Return(var);
+  UHDM::class_typespec* tps = s.MakeClass_typespec();
+  var->Typespec(tps);
+  ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
+  if (cdef)
+    tps->Class_defn(cdef->getUhdmDefinition());
+  else {
+    Package* p = dynamic_cast<Package*>(component);
+    if (p) {
+      ClassDefinition* cdef = p->getClassDefinition(className);
+      if (cdef) {
+        tps->Class_defn(cdef->getUhdmDefinition());
+      }
+    }
+  }  
+
+  func->VpiName(name);
+  func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
+
+  NodeId Stmt = fC->Sibling(Tf_port_list);
+  int nbStmts = 0;
+  while (Stmt) {
+    if (fC->Type(Stmt) == slBlock_item_declaration) {
+      nbStmts++;
+    } else if (fC->Type(Stmt) == slSuper_dot_new) {
+      nbStmts++;
+      NodeId lookAhead = fC->Sibling(Stmt);
+      if (fC->Type(lookAhead) == slList_of_arguments) {
+        Stmt = fC->Sibling(Stmt);
+      }
+    } else if (fC->Type(Stmt) == slFunction_statement_or_null) {
+      nbStmts++;
+    }
+    Stmt = fC->Sibling(Stmt);
+  }
+
+  if (nbStmts == 1) {
+    Stmt = fC->Sibling(Tf_port_list);
+    if (fC->Type(Stmt) == slSuper_dot_new) {
+      UHDM::method_func_call* mcall = s.MakeMethod_func_call();
+      mcall->VpiParent(func);
+      mcall->VpiName("super.new");
+      NodeId Args = fC->Sibling(Stmt);
+      if (fC->Type(Args) == slList_of_arguments) {
+        VectorOfany* arguments = compileTfCallArguments(
+          component, fC, Args, compileDesign, mcall);
+        mcall->Tf_call_args(arguments);
+        Stmt = fC->Sibling(Stmt);
+      }
+      func->Stmt(mcall);
+    } else {
+      NodeId Statement = fC->Child(Stmt);
+      if (Statement) {
+        VectorOfany* sts =
+            compileStmt(component, fC, Statement, compileDesign, func);
+        if (sts) {
+          any* st = (*sts)[0];
+          st->VpiParent(func);
+          func->Stmt(st);
+        }
+      }
+    }
+  } else if (nbStmts > 1) {
+    begin* begin = s.MakeBegin();
+    func->Stmt(begin);
+    begin->VpiParent(func);
+    VectorOfany* stmts = s.MakeAnyVec();
+    begin->Stmts(stmts);
+    Stmt = fC->Sibling(Tf_port_list);
+    while (Stmt) {
+      if (fC->Type(Stmt) == slSuper_dot_new) {
+        UHDM::method_func_call* mcall = s.MakeMethod_func_call();
+        mcall->VpiParent(func);
+        mcall->VpiName("super.new");
+        NodeId Args = fC->Sibling(Stmt);
+        if (fC->Type(Args) == slList_of_arguments) {
+          VectorOfany* arguments =
+              compileTfCallArguments(component, fC, Args, compileDesign, mcall);
+          mcall->Tf_call_args(arguments);
+          Stmt = fC->Sibling(Stmt);
+        }
+        stmts->push_back(mcall);
+        mcall->VpiParent(begin);
+      } else {
+        NodeId Statement = fC->Child(Stmt);
+        if (Statement) {
+          if (VectorOfany* sts =
+                  compileStmt(component, fC, Statement, compileDesign, begin)) {
+            for (any* st : *sts) {
+              stmts->push_back(st);
+              st->VpiParent(begin);
+            }
+          }
+        }
+      }
+      Stmt = fC->Sibling(Stmt);
+    }
+  }
+
+  return true;
+}
+
+bool CompileHelper::compileFunction(
+  DesignComponent* component, const FileContent* fC,
+  NodeId nodeId,
+  CompileDesign* compileDesign, bool isMethod) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
+  if (task_funcs == nullptr) {
+    component->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = component->getTask_funcs();
+  }
+  UHDM::function* func = s.MakeFunction();
+  func->VpiMethod(isMethod);
+  task_funcs->push_back(func);
+  func->VpiFile(fC->getFileName());
+  func->VpiLineNo(fC->Line(nodeId));
+  NodeId func_decl = 0;
+  VObjectType func_type = slNoType;
+  VObjectType func_decl_type = fC->Type(nodeId);
+  bool constructor = false;
+  if (func_decl_type == slClass_constructor_declaration) {
+    constructor = true;
+    func_decl = nodeId;
+    func_type = fC->Type(func_decl);
+  } else {
+    func_decl = fC->Child(nodeId);
+    func_type = fC->Type(func_decl);
+  }
+  bool is_local = false;
+  bool is_protected = false;
+  while ((func_type == VObjectType::slMethodQualifier_Virtual) ||
+         (func_type == VObjectType::slMethodQualifier_ClassItem) ||
+         (func_type == VObjectType::slPure_virtual_qualifier) ||
+         (func_type == VObjectType::slExtern_qualifier) ||
+         (func_type == VObjectType::slClassItemQualifier_Protected) ||
+         (func_type == VObjectType::slLifetime_Automatic)) {
+    if (func_type == VObjectType::slMethodQualifier_Virtual) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiVirtual(true);
+    }
+    if (func_type == VObjectType::slLifetime_Automatic) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAutomatic(true);
+    }
+    if (func_type == VObjectType::slClassItemQualifier_Protected) {
+      is_protected = true;
+      func->VpiVisibility(vpiProtectedVis);
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slPure_virtual_qualifier) {
+      func->VpiDPIPure(true);
+      func->VpiVirtual(true);
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slExtern_qualifier) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAccessType(vpiExternAcc);
+    }
+    if (func_type == VObjectType::slMethodQualifier_ClassItem) {
+      NodeId qualifier = fC->Child(func_decl);
+      VObjectType type = fC->Type(qualifier);
+      if (type == VObjectType::slClassItemQualifier_Static) {
+        // TODO: No VPI attribute for static!
+      }
+      if (type == VObjectType::slClassItemQualifier_Local) {
+        func->VpiVisibility(vpiLocalVis);
+        is_local = true;
+      }
+      if (type == VObjectType::slClassItemQualifier_Protected) {
+        is_protected = true;
+        func->VpiVisibility(vpiProtectedVis);
+      }
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+
+  }
+  if ((!is_local) && (!is_protected)) {
+    func->VpiVisibility(vpiPublicVis);
+  }
   std::string name;
-   NodeId Tf_port_list = 0;
-  if (fC->Type(Function_name) == VObjectType::slStringConst) {
-    name = fC->SymName(Function_name);
-    Tf_port_list = fC->Sibling(Function_name);
-  } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
-    NodeId Class_type = fC->Child(Function_name);
-    name = fC->SymName(fC->Child(Class_type));
-    NodeId suffixname = fC->Sibling(Function_name);
-    name += "::" + fC->SymName(suffixname);
-    Tf_port_list = fC->Sibling(suffixname);
+  NodeId Tf_port_list = 0;
+  if (constructor) {
+    name = "new";
+    Tf_port_list = fC->Child(func_decl);
+    UHDM::class_var* var = s.MakeClass_var();
+    func->Return(var);
+    UHDM::class_typespec* tps = s.MakeClass_typespec();
+    var->Typespec(tps);
+    ClassDefinition* cdef = dynamic_cast<ClassDefinition*> (component);
+    tps->Class_defn(cdef->getUhdmDefinition());
+  } else {
+    NodeId Function_data_type_or_implicit = fC->Child(func_decl);
+    NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
+    NodeId Return_data_type = fC->Child(Function_data_type);
+    func->Return(dynamic_cast<variables*>(
+        compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
+                        nullptr, true)));
+    NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
+    if (fC->Type(Function_name) == VObjectType::slStringConst) {
+      name = fC->SymName(Function_name);
+      Tf_port_list = fC->Sibling(Function_name);
+    } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
+      NodeId Class_type = fC->Child(Function_name);
+      name = fC->SymName(fC->Child(Class_type));
+      NodeId suffixname = fC->Sibling(Function_name);
+      name += "::" + fC->SymName(suffixname);
+      Tf_port_list = fC->Sibling(suffixname);
+    }
   }
   func->VpiName(name);
 
@@ -1533,4 +1743,41 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::a
     return bindVariable(component, scope->VpiParent(), name, compileDesign);
   }
   return nullptr;
+}
+
+
+UHDM::method_func_call* CompileHelper::compileRandomizeCall(DesignComponent* component,
+                                  const FileContent* fC, NodeId Identifier_list,
+                                  CompileDesign* compileDesign, UHDM::any* pexpr) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  method_func_call* func_call = s.MakeMethod_func_call();  
+  method_func_call* result = func_call;
+  func_call->VpiName("randomize");
+  NodeId With = 0;
+  if (fC->Type(Identifier_list) == slIdentifier_list) {
+    With = fC->Sibling(Identifier_list);
+  } else if (fC->Type(Identifier_list) == slWith) {
+    With = Identifier_list;
+  }
+  NodeId Constraint_block = fC->Sibling(With);
+  if (fC->Type(Identifier_list) == slIdentifier_list) {
+    VectorOfany* arguments = compileTfCallArguments( component, fC, Identifier_list, compileDesign, func_call);
+    func_call->Tf_call_args(arguments);
+  }
+
+  if (Constraint_block) {
+    UHDM::any* cblock = compileConstraintBlock(component, fC, Constraint_block, compileDesign);
+    func_call->With(cblock);
+  }
+  return result;
+}
+
+UHDM::any* CompileHelper::compileConstraintBlock(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  UHDM::constraint* cons = s.MakeConstraint();
+  result = cons;
+  return result;
 }

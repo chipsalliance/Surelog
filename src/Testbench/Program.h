@@ -25,6 +25,7 @@
 #define PROGRAM_H
 #include "Design/DesignComponent.h"
 #include "Common/ClockingBlockHolder.h"
+#include "uhdm.h"
 
 namespace SURELOG {
 
@@ -56,10 +57,20 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
+  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+
+  bool Attributes(UHDM::VectorOfattribute* data) {
+    attributes_ = data;
+    return true;
+  }
+
  private:
   std::string m_name;
   Library* m_library;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
+
+  UHDM::VectorOfattribute* attributes_ = nullptr;
+
 };
 
 };  // namespace SURELOG

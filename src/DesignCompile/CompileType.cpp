@@ -35,7 +35,9 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
+#include "Design/Parameter.h"
 #include "DesignCompile/CompileHelper.h"
+#include "Testbench/ClassDefinition.h"
 #include "CompileDesign.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
@@ -166,6 +168,42 @@ UHDM::any* CompileHelper::compileVariable(
   return result;
 }
 
+const UHDM::typespec* bindTypespec(const std::string& name, SURELOG::ValuedComponentI* instance) {
+  const typespec* result = nullptr;
+  ModuleInstance* modInst = dynamic_cast<ModuleInstance*> (instance);
+  modInst = modInst->getParent();
+  if (modInst) {
+    for (Parameter* param : modInst->getTypeParams()) {
+      const std::string& pname = param->getName();
+      if (pname == name) {
+        any* uparam = param->getUhdmParam();
+        if (uparam) {
+          type_parameter* tparam = dynamic_cast<type_parameter*> (uparam);
+          if (tparam) {
+            result = tparam->Typespec();
+          }
+        }
+        break;
+      }
+    }
+    if (result == nullptr) {
+      ModuleDefinition* mod = (ModuleDefinition* )modInst->getDefinition();
+      if (mod) {
+        Parameter* param = mod->getParameter(name);
+        if (param) {
+          any* uparam =  param->getUhdmParam();
+          if (uparam) {
+            type_parameter* tparam = dynamic_cast<type_parameter*> (uparam);
+            if (tparam) {
+              result = tparam->Typespec();
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
 
 UHDM::typespec* CompileHelper::compileTypespec(
   DesignComponent* component,
@@ -217,6 +255,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
       tps->VpiLineNo(fC->Line(type));
       tps->Ranges(ranges);
       result = tps;
+      break;
+    }
+    case VObjectType::slExpression: {
+      NodeId Primary = fC->Child(type);
+      NodeId Primary_literal =  fC->Child(Primary);
+      NodeId Name = fC->Child(Primary_literal);
+      const std::string& name = fC->SymName(Name);
+      if (instance) {
+        result = (typespec*) bindTypespec(name, instance);
+      }
       break;
     }
     case VObjectType::slPrimary_literal: {
@@ -320,6 +368,19 @@ UHDM::typespec* CompileHelper::compileTypespec(
       Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
       if (pack) {
         const DataType* dtype = pack->getDataType(name);
+        if (dtype == nullptr) {
+          ClassDefinition* classDefn = dynamic_cast<ClassDefinition*>(pack->getClassDefinition(name));
+          dtype = (const DataType*)classDefn;
+          if (dtype) {
+            class_typespec* ref = s.MakeClass_typespec();
+            ref->Class_defn(classDefn->getUhdmDefinition());
+            ref->VpiName(typeName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(type));
+            result = ref;
+            break;
+          }
+        }
         while (dtype) {
           const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
           if (typed) {

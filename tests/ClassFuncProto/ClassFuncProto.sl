@@ -1,1 +1,1 @@
- +incdir+.+../../../UVM/uvm-1.2/src/        -writepp -parse  -d inst  -mt max   top.v -d ast -nobuiltin
+ +incdir+.+../../../UVM/uvm-1.2/src/ -parse -d inst top.v -d ast -d uhdm -elabuhdm

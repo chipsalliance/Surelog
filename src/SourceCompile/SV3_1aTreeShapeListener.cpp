@@ -131,12 +131,20 @@ void SV3_1aTreeShapeListener::exitJump_statement(SV3_1aParser::Jump_statementCon
 }
 
 void SV3_1aTreeShapeListener::exitClass_declaration(SV3_1aParser::Class_declarationContext * ctx) {
+  if (ctx->VIRTUAL())
+    addVObject ((ParserRuleContext*) ctx->VIRTUAL(), VObjectType::slVirtual);
+  if (ctx->IMPLEMENTS())
+    addVObject ((ParserRuleContext*) ctx->IMPLEMENTS(), VObjectType::slImplements);
+  if (ctx->EXTENDS())
+    addVObject ((ParserRuleContext*) ctx->EXTENDS(), VObjectType::slExtends);
   if (ctx->ENDCLASS())
     addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass);
   addVObject (ctx, VObjectType::slClass_declaration);
 }
 
 void SV3_1aTreeShapeListener::exitInterface_class_declaration(SV3_1aParser::Interface_class_declarationContext * ctx)  {
+  if (ctx->EXTENDS())
+    addVObject ((ParserRuleContext*) ctx->EXTENDS(), VObjectType::slExtends);
   if (ctx->ENDCLASS())
     addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass);
   addVObject (ctx, VObjectType::slInterface_class_declaration);
@@ -1344,4 +1352,14 @@ void SV3_1aTreeShapeListener::exitBegin_keywords_directive(
 
 void SV3_1aTreeShapeListener::exitEnd_keywords_directive(
     SV3_1aParser::End_keywords_directiveContext *ctx) {
+}
+
+void SV3_1aTreeShapeListener::exitRandomize_call(SV3_1aParser::Randomize_callContext * ctx) {
+  if (ctx->NULL_KEYWORD()) {
+    addVObject ((ParserRuleContext*)ctx->NULL_KEYWORD(), VObjectType::slNull);
+  }
+  if (ctx->WITH()) {
+    addVObject ((ParserRuleContext*)ctx->WITH(), VObjectType::slWith);
+  }
+  addVObject (ctx, VObjectType::slRandomize_call);
 }

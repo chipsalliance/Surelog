@@ -27,6 +27,10 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 
+namespace UHDM {
+  class typespec;
+};
+
 namespace SURELOG {
 
 class Parameter : public DataType {
@@ -34,15 +38,19 @@ class Parameter : public DataType {
   Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
             NodeId node_type);
 
+ ~Parameter() override;
+
   virtual Category getCategory() { return Category::PARAMETER; }
 
-  VObjectType getType() const override {
-    return getFileContent()->Type(m_ntype);
-  }
-  ~Parameter() override;
+  VObjectType getType() const override;
+  NodeId getNodeType() const { return m_ntype; }
+
+  void setUhdmParam(UHDM::any* param) { m_param = param; }
+  UHDM::any* getUhdmParam() const { return m_param; }
 
  private:
   NodeId m_ntype;
+  UHDM::any* m_param;
 };
 
 }  // namespace SURELOG

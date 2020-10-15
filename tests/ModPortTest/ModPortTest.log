@@ -325,28 +325,8 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ModPortTest/slpp_unit//surelog.uhdm
 ====== UHDM =======
 design: (work@dff0_test)
 |vpiName:work@dff0_test
-|uhdmallPackages:
-\_package: builtin (builtin), parent:work@dff0_test
-  |vpiDefName:builtin
-  |vpiFullName:builtin
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::array), parent:builtin
-  |vpiName:builtin::array
-  |vpiFullName:builtin::builtin::array
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::queue), parent:builtin
-  |vpiName:builtin::queue
-  |vpiFullName:builtin::builtin::queue
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::string), parent:builtin
-  |vpiName:builtin::string
-  |vpiFullName:builtin::builtin::string
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::system), parent:builtin
-  |vpiName:builtin::system
-  |vpiFullName:builtin::builtin::system
 |uhdmallInterfaces:
-\_interface: work@AXI_BUS (work@AXI_BUS), file:top.v, line:8, parent:work@dff0_test
+\_interface: work@AXI_BUS (work@AXI_BUS) top.v:8: , parent:work@dff0_test
   |vpiDefName:work@AXI_BUS
   |vpiFullName:work@AXI_BUS
   |vpiModport:
@@ -372,7 +352,7 @@ design: (work@dff0_test)
     |vpiName:rw_id
     |vpiFullName:work@AXI_BUS.rw_id
 |uhdmallInterfaces:
-\_interface: work@mem_if (work@mem_if), file:top.v, line:29, parent:work@dff0_test
+\_interface: work@mem_if (work@mem_if) top.v:29: , parent:work@dff0_test
   |vpiDefName:work@mem_if
   |vpiFullName:work@mem_if
   |vpiModport:
@@ -403,7 +383,7 @@ design: (work@dff0_test)
   |vpiNet:
   \_logic_net: (work@mem_if.clk), line:29, parent:work@mem_if
 |uhdmallModules:
-\_module: work@dff0_test (work@dff0_test), file:top.v, line:1, parent:work@dff0_test
+\_module: work@dff0_test (work@dff0_test) top.v:1: , parent:work@dff0_test
   |vpiDefName:work@dff0_test
   |vpiFullName:work@dff0_test
   |vpiPort:
@@ -420,7 +400,7 @@ design: (work@dff0_test)
   |vpiNet:
   \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
 |uhdmallModules:
-\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36, parent:work@dff0_test
+\_module: work@memory_ctrl1 (work@memory_ctrl1) top.v:36: , parent:work@dff0_test
   |vpiDefName:work@memory_ctrl1
   |vpiFullName:work@memory_ctrl1
   |vpiPort:
@@ -430,7 +410,7 @@ design: (work@dff0_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@mem_if (work@mem_if), file:top.v, line:29, parent:work@dff0_test
+      \_interface: work@mem_if (work@mem_if) top.v:29: , parent:work@dff0_test
         |vpiDefName:work@mem_if
         |vpiFullName:work@mem_if
         |vpiModport:
@@ -488,7 +468,7 @@ design: (work@dff0_test)
       |vpiName:WRITE
       |INT:1
 |uhdmallModules:
-\_module: work@memory_ctrl2 (work@memory_ctrl2), file:top.v, line:45, parent:work@dff0_test
+\_module: work@memory_ctrl2 (work@memory_ctrl2) top.v:45: , parent:work@dff0_test
   |vpiDefName:work@memory_ctrl2
   |vpiFullName:work@memory_ctrl2
   |vpiPort:
@@ -531,7 +511,7 @@ design: (work@dff0_test)
       |vpiName:WRITE
       |INT:1
 |uhdmtopModules:
-\_module: work@dff0_test (work@dff0_test), file:top.v, line:1
+\_module: work@dff0_test (work@dff0_test) top.v:1: 
   |vpiDefName:work@dff0_test
   |vpiName:work@dff0_test
   |vpiPort:
@@ -557,7 +537,7 @@ design: (work@dff0_test)
   |vpiNet:
   \_logic_net: (work@dff0_test.n1), line:4, parent:work@dff0_test
 |uhdmtopModules:
-\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36
+\_module: work@memory_ctrl1 (work@memory_ctrl1) top.v:36: 
   |vpiDefName:work@memory_ctrl1
   |vpiName:work@memory_ctrl1
   |vpiPort:
@@ -567,7 +547,7 @@ design: (work@dff0_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_interface: work@mem_if (sif), file:top.v, line:36
+      \_interface: work@mem_if (sif) top.v:36: 
         |vpiDefName:work@mem_if
         |vpiName:sif
         |vpiModport:
@@ -592,6 +572,8 @@ design: (work@dff0_test)
   \_enum_var: (work@memory_ctrl1.state), line:40, parent:work@memory_ctrl1
     |vpiName:state
     |vpiFullName:work@memory_ctrl1.state
+    |vpiAutomatic:1
+    |vpiVisibility:1
     |vpiTypespec:
     \_enum_typespec: (fsm_t), line:38
       |vpiName:fsm_t
@@ -614,7 +596,7 @@ design: (work@dff0_test)
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:38
 |uhdmtopModules:
-\_module: work@memory_ctrl2 (work@memory_ctrl2), file:top.v, line:45
+\_module: work@memory_ctrl2 (work@memory_ctrl2) top.v:45: 
   |vpiDefName:work@memory_ctrl2
   |vpiName:work@memory_ctrl2
   |vpiPort:
@@ -650,6 +632,8 @@ design: (work@dff0_test)
   \_enum_var: (work@memory_ctrl2.state), line:49, parent:work@memory_ctrl2
     |vpiName:state
     |vpiFullName:work@memory_ctrl2.state
+    |vpiAutomatic:1
+    |vpiVisibility:1
     |vpiTypespec:
     \_enum_typespec: (fsm_t), line:47
       |vpiName:fsm_t

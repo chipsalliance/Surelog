@@ -61,9 +61,16 @@ bool CompileClass::compile() {
   if (strstr(fileName.c_str(), "builtin.sv")) {
     fileName = "builtin.sv";
   }
+  std::string fullName;
+  if (m_class->getContainer()) {
+    std::string containerName = m_class->getContainer()->getName();
+    if (containerName != "")
+      fullName = containerName + "::";
+  }
+  fullName += m_class->getName();
   Location loc(m_symbols->registerSymbol(fileName),
                fC->Line(nodeId), 0,
-               m_symbols->registerSymbol(m_class->getName()));
+               m_symbols->registerSymbol(fullName));
 
   Error err1(ErrorDefinition::COMP_COMPILE_CLASS, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
@@ -75,6 +82,28 @@ bool CompileClass::compile() {
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   delete errors;
   if (fC->getSize() == 0) return true;
+
+  
+  NodeId classId = m_class->m_nodeIds[0];
+
+  do {
+    VObject current = fC->Object(classId);
+    classId = current.m_parent;
+  } while (classId && !(
+    (fC->Type(classId) == VObjectType::slDescription) ||
+    (fC->Type(classId) == VObjectType::slClass_item)
+                      )
+    );
+  if (classId) {
+    VObject current = fC->Object(classId);
+    classId = current.m_child;
+    if (fC->Type(classId) == VObjectType::slAttribute_instance){
+      UHDM::VectorOfattribute* attributes =
+        m_helper.compileAttributes(m_class, fC, classId, m_compileDesign);
+      m_class->Attributes(attributes);
+    }
+  }
+  
 
   // Package imports
   std::vector<FileCNodeId> pack_imports;
@@ -157,7 +186,8 @@ bool CompileClass::compile() {
       case VObjectType::slClass_declaration:
         if (id != nodeId) {
           compile_class_declaration_(fC, id);
-          if (current.m_sibling) stack.push(current.m_sibling);
+          if (current.m_sibling) 
+            stack.push(current.m_sibling);
           continue;
         }
         break;
@@ -200,7 +230,10 @@ bool CompileClass::compile() {
 }
 
 bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
+
   NodeId data_declaration = fC->Child(id);
+  m_helper.compileDataDeclaration(m_class, fC, data_declaration, false, m_compileDesign);
+
   NodeId var_decl = fC->Child(data_declaration);
   VObjectType type = fC->Type(data_declaration);
   bool is_local = false;
@@ -293,9 +326,7 @@ bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
 
         variable_decl_assignment = fC->Sibling(variable_decl_assignment);
       }
-    } else if (var_type == VObjectType::slType_declaration) {
-      compile_type_declaration_(fC, data_declaration);
-    }
+    } 
   }
 
   return true;
@@ -383,6 +414,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId function_name = fC->Sibling(function_data_type_or_implicit);
     funcName = fC->SymName(function_name);
 
+    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
      n<cfg_dut> u<143> t<StringConst> p<146> s<144> l<37>
@@ -395,6 +428,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId task_body_decl = fC->Child(func_decl);
     NodeId task_name = fC->Child(task_body_decl);
     taskName = fC->SymName(task_name);
+  
+    m_helper.compileTask(m_class, fC, func_decl, m_compileDesign, true);
+          
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
      n<> u<65> t<IntVec_TypeBit> p<66> l<37>
@@ -409,6 +445,9 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     if (fC->Type(func_prototype) == VObjectType::slTask_prototype) {
       NodeId task_name = fC->Child(func_prototype);
       taskName = fC->SymName(task_name);
+
+      m_helper.compileTask(m_class, fC, func_decl, m_compileDesign, true);
+
     } else {
       NodeId function_data_type = fC->Child(func_prototype);
       NodeId data_type = fC->Child(function_data_type);
@@ -423,13 +462,22 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       returnType->init(fC, type, typeName, fC->Type(type));
       NodeId function_name = fC->Sibling(function_data_type);
       funcName = fC->SymName(function_name);
+
+      m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+
     }
     is_extern = true;
   } else if (func_type == VObjectType::slClass_constructor_declaration) {
     funcName = "new";
     returnType->init(fC, 0, "void", VObjectType::slNoType);
+
+    m_helper.compileClassConstructorDeclaration(m_class, fC, func_decl, m_compileDesign);
+
   } else if (func_type == VObjectType::slClass_constructor_prototype) {
     funcName = "new";
+
+    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
   }
@@ -500,24 +548,15 @@ bool CompileClass::compile_class_constraint_(const FileContent* fC,
   return true;
 }
 
-bool CompileClass::compile_type_declaration_(const FileContent* fC, NodeId id) {
-  /*
-    n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
-    n<> u<9> t<Data_type> p<11> c<8> s<10> l<3>
-    n<my_int> u<10> t<StringConst> p<11> l<3>
-    n<> u<11> t<Type_declaration> p<12> c<9> l<3>
-    n<> u<12> t<Data_declaration> p<13> c<11> l<3>
-    n<> u<13> t<Class_property> p<14> c<12> l<3>
-  */
-  m_helper.compileTypeDef(m_class, fC, id, m_compileDesign);
-
-  return true;
-}
-
 bool CompileClass::compile_class_declaration_(const FileContent* fC,
                                               NodeId id) {
   UHDM::Serializer& s = m_compileDesign->getSerializer();
   NodeId class_name_id = fC->Child(id);
+  bool virtualClass = false;
+  if (fC->Type(class_name_id) == VObjectType::slVirtual) {
+    class_name_id = fC->Sibling(class_name_id);
+    virtualClass = true;
+  }
   std::string class_name =
       m_class->getName() + "::" + fC->SymName(class_name_id);
   ClassDefinition* prevDef = m_class->getClass(class_name);
@@ -533,11 +572,19 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
     Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_INNER_CLASS, loc1, loc2);
     m_errors->addError(err);
   }
-
+  UHDM::class_defn* defn = s.MakeClass_defn();
+  defn->VpiVirtual(virtualClass);
   ClassDefinition* the_class =
       new ClassDefinition(class_name, m_class->getLibrary(),
-                          m_class->getContainer(), fC, class_name_id, m_class, s.MakeClass_defn());
+                          m_class->getContainer(), fC, class_name_id, m_class, defn);
   m_class->insertClass(the_class);
+  UHDM::class_defn* parent = m_class->getUhdmDefinition();
+  UHDM::VectorOfscope* scopes = parent->Scopes();
+  if (scopes == nullptr) {
+    parent->Scopes(s.MakeScopeVec());
+    scopes = parent->Scopes();
+  }
+  scopes->push_back(defn);
 
   CompileClass* instance = new CompileClass(m_compileDesign, the_class,
                                             m_design, m_symbols, m_errors);
@@ -588,7 +635,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
    n<> u<19> t<List_of_param_assignments> p<20> c<18> l<3>
    n<> u<20> t<Local_parameter_declaration> p<21> c<10> l<3>
   */
-
+  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, true);
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
@@ -620,6 +667,7 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
 
 bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
                                                   NodeId id) {
+  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, false);
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
@@ -699,28 +747,27 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   n<> u<11> t<Parameter_port_list> p<31> c<10> s<20> l<18>
 
   */
-
+  UHDM::class_defn* defn = m_class->getUhdmDefinition();
+ 
   NodeId className = fC->Child(id);
+  if (fC->Type(className) == slVirtual) {
+    className = fC->Sibling(className);
+    defn->VpiVirtual(true);
+  }
   NodeId paramList = fC->Sibling(className);
+
   if (fC->Type(paramList) == VObjectType::slParameter_port_list) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
-      NodeId typeNameId = fC->Child(list_of_type_assignments);
-      while (typeNameId) {
-        NodeId ntype = fC->Sibling(typeNameId);
-        bool skip = false;
-        if (ntype && fC->Type(ntype) == VObjectType::slData_type) {
-          ntype = fC->Child(ntype);
-          skip = true;
-        } else {
-          ntype = 0;
-        }
-        Parameter* param =
-            new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
-        m_class->insertParameter(param);
-        typeNameId = fC->Sibling(typeNameId);
-        if (skip) typeNameId = fC->Sibling(typeNameId);
+      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
+        // Type param
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+
+      } else if (fC->Type(list_of_type_assignments) == slParameter_declaration) {
+        // Regular param
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);
     }

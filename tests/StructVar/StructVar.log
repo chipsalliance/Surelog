@@ -40,28 +40,8 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/StructVar/slpp_unit//surelog.uhdm.c
 ====== UHDM =======
 design: (work@test)
 |vpiName:work@test
-|uhdmallPackages:
-\_package: builtin (builtin), parent:work@test
-  |vpiDefName:builtin
-  |vpiFullName:builtin
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::array), parent:builtin
-  |vpiName:builtin::array
-  |vpiFullName:builtin::builtin::array
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::queue), parent:builtin
-  |vpiName:builtin::queue
-  |vpiFullName:builtin::builtin::queue
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::string), parent:builtin
-  |vpiName:builtin::string
-  |vpiFullName:builtin::builtin::string
-|uhdmallClasses:
-\_class_defn: (builtin::builtin::system), parent:builtin
-  |vpiName:builtin::system
-  |vpiFullName:builtin::builtin::system
 |uhdmallModules:
-\_module: work@dut1 (work@dut1), file:dut.sv, line:1, parent:work@test
+\_module: work@dut1 (work@dut1) dut.sv:1: , parent:work@test
   |vpiDefName:work@dut1
   |vpiFullName:work@dut1
   |vpiNet:
@@ -196,7 +176,7 @@ design: (work@test)
       |vpiTypespec:
       \_bit_typespec: , line:6
 |uhdmallModules:
-\_module: work@dut2 (work@dut2), file:dut.sv, line:34, parent:work@test
+\_module: work@dut2 (work@dut2) dut.sv:34: , parent:work@test
   |vpiDefName:work@dut2
   |vpiFullName:work@dut2
   |vpiNet:
@@ -254,7 +234,7 @@ design: (work@test)
             |vpiSize:64
             |INT:0
 |uhdmallModules:
-\_module: work@prim_generic_ram_1 (work@prim_generic_ram_1), file:dut.sv, line:47, parent:work@test
+\_module: work@prim_generic_ram_1 (work@prim_generic_ram_1) dut.sv:47: , parent:work@test
   |vpiDefName:work@prim_generic_ram_1
   |vpiFullName:work@prim_generic_ram_1
   |vpiNet:
@@ -299,7 +279,7 @@ design: (work@test)
       |vpiTypespec:
       \_enum_typespec: (pmp_cfg_mode_e), line:51
 |uhdmallModules:
-\_module: work@test (work@test), file:dut.sv, line:69, parent:work@test
+\_module: work@test (work@test) dut.sv:69: , parent:work@test
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiProcess:
@@ -311,7 +291,7 @@ design: (work@test)
       \_ref_obj: (test), line:75
         |vpiName:test
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:69
+\_module: work@test (work@test) dut.sv:69: 
   |vpiDefName:work@test
   |vpiName:work@test
   |vpiProcess:
@@ -320,11 +300,11 @@ design: (work@test)
     \_sys_func_call: ($vpi_decompiler), line:75
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (work@test.$vpi_decompiler.test), line:75, parent:$vpi_decompiler
+      \_ref_obj: (work@test.test), line:75, parent:$vpi_decompiler
         |vpiName:test
-        |vpiFullName:work@test.$vpi_decompiler.test
+        |vpiFullName:work@test.test
   |vpiModule:
-  \_module: work@dut1 (work@test.u1), file:dut.sv, line:70, parent:work@test
+  \_module: work@dut1 (work@test.u1) dut.sv:70: , parent:work@test
     |vpiDefName:work@dut1
     |vpiName:u1
     |vpiFullName:work@test.u1
@@ -379,7 +359,7 @@ design: (work@test)
           |vpiTypespec:
           \_logic_typespec: , line:16
     |vpiInstance:
-    \_module: work@test (work@test), file:dut.sv, line:69
+    \_module: work@test (work@test) dut.sv:69: 
     |vpiArrayNet:
     \_array_net: (work@test.u1.intf2), parent:work@test.u1
       |vpiName:intf2
@@ -543,6 +523,8 @@ design: (work@test)
     \_struct_var: (work@test.u1.mem1), line:9, parent:work@test.u1
       |vpiName:mem1
       |vpiFullName:work@test.u1.mem1
+      |vpiAutomatic:1
+      |vpiVisibility:1
       |vpiTypespec:
       \_struct_typespec: (mem_s), line:3
         |vpiPacked:1
@@ -601,6 +583,8 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u1.mem2), line:11, parent:work@test.u1.mem2
         |vpiFullName:work@test.u1.mem2
+        |vpiAutomatic:1
+        |vpiVisibility:1
         |vpiTypespec:
         \_struct_typespec: (mem_s), line:3
       |vpiRange:
@@ -711,16 +695,18 @@ design: (work@test)
         |vpiTypespec:
         \_bit_typespec: , line:6, parent:wr
   |vpiModule:
-  \_module: work@dut2 (work@test.u2), file:dut.sv, line:71, parent:work@test
+  \_module: work@dut2 (work@test.u2) dut.sv:71: , parent:work@test
     |vpiDefName:work@dut2
     |vpiName:u2
     |vpiFullName:work@test.u2
     |vpiInstance:
-    \_module: work@test (work@test), file:dut.sv, line:69
+    \_module: work@test (work@test) dut.sv:69: 
     |vpiVariables:
     \_struct_var: (work@test.u2.mem), line:41, parent:work@test.u2
       |vpiName:mem
       |vpiFullName:work@test.u2.mem
+      |vpiAutomatic:1
+      |vpiVisibility:1
       |vpiTypespec:
       \_struct_typespec: (mem_s), line:36
         |vpiPacked:1
@@ -774,6 +760,8 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u2.memArr), line:42, parent:work@test.u2.memArr
         |vpiFullName:work@test.u2.memArr
+        |vpiAutomatic:1
+        |vpiVisibility:1
         |vpiTypespec:
         \_struct_typespec: (mem_s), line:36
       |vpiRange:
@@ -801,6 +789,8 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u2.memMulti), line:43, parent:work@test.u2.memMulti
         |vpiFullName:work@test.u2.memMulti
+        |vpiAutomatic:1
+        |vpiVisibility:1
         |vpiTypespec:
         \_struct_typespec: (mem_s), line:36
       |vpiRange:
@@ -874,7 +864,7 @@ design: (work@test)
               |vpiSize:64
               |INT:0
   |vpiModule:
-  \_module: work@prim_generic_ram_1 (work@test.u3), file:dut.sv, line:72, parent:work@test
+  \_module: work@prim_generic_ram_1 (work@test.u3) dut.sv:72: , parent:work@test
     |vpiDefName:work@prim_generic_ram_1
     |vpiName:u3
     |vpiFullName:work@test.u3
@@ -902,8 +892,9 @@ design: (work@test)
                   |vpiName:i
                   |vpiFullName:work@test.u3.g_pmp_csrs[0].i
                   |vpiActual:
-                  \_parameter: (i), line:59
+                  \_parameter: (work@test.u3.g_pmp_csrs[0].i), line:59, parent:work@test.u3.g_pmp_csrs[0]
                     |vpiName:i
+                    |vpiFullName:work@test.u3.g_pmp_csrs[0].i
                     |INT:0
             |vpiOperand:
             \_operation: , line:62
@@ -920,7 +911,7 @@ design: (work@test)
                     |vpiName:i
                     |vpiFullName:work@test.u3.g_pmp_csrs[0].i
                     |vpiActual:
-                    \_parameter: (i), line:59
+                    \_parameter: (work@test.u3.g_pmp_csrs[0].i), line:59, parent:work@test.u3.g_pmp_csrs[0]
                   |vpiOperand:
                   \_constant: , line:62
                     |vpiConstType:7
@@ -936,7 +927,7 @@ design: (work@test)
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_addr_we
         |vpiParameter:
-        \_parameter: (i), line:59
+        \_parameter: (work@test.u3.g_pmp_csrs[0].i), line:59, parent:work@test.u3.g_pmp_csrs[0]
     |vpiGenScopeArray:
     \_gen_scope_array: (work@test.u3.g_pmp_csrs[1]), line:59, parent:work@test.u3
       |vpiName:g_pmp_csrs[1]
@@ -961,8 +952,9 @@ design: (work@test)
                   |vpiName:i
                   |vpiFullName:work@test.u3.g_pmp_csrs[1].i
                   |vpiActual:
-                  \_parameter: (i), line:59
+                  \_parameter: (work@test.u3.g_pmp_csrs[1].i), line:59, parent:work@test.u3.g_pmp_csrs[1]
                     |vpiName:i
+                    |vpiFullName:work@test.u3.g_pmp_csrs[1].i
                     |INT:1
             |vpiOperand:
             \_operation: , line:62
@@ -979,7 +971,7 @@ design: (work@test)
                     |vpiName:i
                     |vpiFullName:work@test.u3.g_pmp_csrs[1].i
                     |vpiActual:
-                    \_parameter: (i), line:59
+                    \_parameter: (work@test.u3.g_pmp_csrs[1].i), line:59, parent:work@test.u3.g_pmp_csrs[1]
                   |vpiOperand:
                   \_constant: , line:62
                     |vpiConstType:7
@@ -995,9 +987,9 @@ design: (work@test)
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_addr_we
         |vpiParameter:
-        \_parameter: (i), line:59
+        \_parameter: (work@test.u3.g_pmp_csrs[1].i), line:59, parent:work@test.u3.g_pmp_csrs[1]
     |vpiInstance:
-    \_module: work@test (work@test), file:dut.sv, line:69
+    \_module: work@test (work@test) dut.sv:69: 
     |vpiVariables:
     \_array_var: (work@test.u3.pmp_cfg), parent:work@test.u3
       |vpiArrayType:1
@@ -1009,6 +1001,8 @@ design: (work@test)
       |vpiReg:
       \_struct_var: (work@test.u3.pmp_cfg), line:57, parent:work@test.u3.pmp_cfg
         |vpiFullName:work@test.u3.pmp_cfg
+        |vpiAutomatic:1
+        |vpiVisibility:1
         |vpiTypespec:
         \_struct_typespec: (pmp_cfg_t), line:52
           |vpiPacked:1
