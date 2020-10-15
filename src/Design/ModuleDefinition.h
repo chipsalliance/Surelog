@@ -34,6 +34,7 @@
 #include "Design/DataType.h"
 #include "Common/ClockingBlockHolder.h"
 #include "ModPort.h"
+#include "uhdm.h"
 namespace UHDM {
   class udp_defn;
 }
@@ -85,6 +86,13 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   NodeId getGenBlockId() const { return m_gen_block_id; }
   UHDM::udp_defn* getUdpDefn() { return m_udpDefn; }
 
+  UHDM::VectorOfattribute* Attributes() const { return attributes_; }
+
+  bool Attributes(UHDM::VectorOfattribute* data) {
+    attributes_ = data;
+    return true;
+  }
+
  private:
   const std::string m_name;
   ModPortSignalMap m_modportSignalMap;
@@ -92,6 +100,8 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap m_classDefinitions;
   NodeId m_gen_block_id;
   UHDM::udp_defn*  m_udpDefn;
+
+  UHDM::VectorOfattribute* attributes_ = nullptr;
 };
 
 class ModuleDefinitionFactory {

@@ -83,6 +83,28 @@ bool CompileClass::compile() {
   delete errors;
   if (fC->getSize() == 0) return true;
 
+  
+  NodeId classId = m_class->m_nodeIds[0];
+
+  do {
+    VObject current = fC->Object(classId);
+    classId = current.m_parent;
+  } while (classId && !(
+    (fC->Type(classId) == VObjectType::slDescription) ||
+    (fC->Type(classId) == VObjectType::slClass_item)
+                      )
+    );
+  if (classId) {
+    VObject current = fC->Object(classId);
+    classId = current.m_child;
+    if (fC->Type(classId) == VObjectType::slAttribute_instance){
+      UHDM::VectorOfattribute* attributes =
+        m_helper.compileAttributes(m_class, fC, classId, m_compileDesign);
+      m_class->Attributes(attributes);
+    }
+  }
+  
+
   // Package imports
   std::vector<FileCNodeId> pack_imports;
   // - Local file imports
