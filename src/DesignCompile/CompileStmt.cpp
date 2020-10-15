@@ -485,7 +485,11 @@ VectorOfany* CompileHelper::compileStmt(
     break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
-    stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
+    stmt = compileSimpleImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
+    break;
+  }
+  case VObjectType::slDeferred_immediate_assertion_statement: {
+    stmt = compileDeferredImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
     break;
   }
   case VObjectType::slConcurrent_assertion_statement: {
