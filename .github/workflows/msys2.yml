@@ -1,0 +1,48 @@
+name: 'msys2'
+
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  windows-msys2:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+
+    - run: git config --global core.autocrlf input
+      shell: bash
+
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        update: true
+        install: base-devel git mingw-w64-x86_64-toolchain mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja mingw-w64-x86_64-openssl mingw-w64-x86_64-zlib mingw-w64-x86_64-tcl
+
+    - name: Build and install Swig
+      run: |
+        cd .github/mingw-w64-swig
+        makepkg-mingw --noconfirm --noprogressbar -sCLf
+        pacman --noconfirm -U mingw-w64-*-any.pkg.tar.zst
+
+    - run: echo 'export PATH='"$(cd "$JAVA_HOME"; pwd)"'/bin:$PATH' >> ~/.bashrc
+      env:
+        MSYS2_PATH_TYPE: inherit
+
+    - name: Build and install Surelog
+      run: |
+        cd .github/mingw-w64-surelog
+        makepkg-mingw --noconfirm --noprogressbar -sCLf
+        pacman --noconfirm -U mingw-w64-*-any.pkg.tar.zst

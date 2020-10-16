@@ -1,0 +1,39 @@
+_realname=surelog
+pkgbase=mingw-w64-${_realname}
+pkgname="${MINGW_PACKAGE_PREFIX}-${_realname}"
+pkgver=ci
+pkgrel=1
+pkgdesc="DESCRIPTION (mingw-w64)"
+arch=('any')
+url="URL"
+license=('license')
+depends=("${MINGW_PACKAGE_PREFIX}-gcc-libs")
+makedepends=("${MINGW_PACKAGE_PREFIX}-gcc"
+             "${MINGW_PACKAGE_PREFIX}-cmake"
+             "${MINGW_PACKAGE_PREFIX}-ninja"
+             "${MINGW_PACKAGE_PREFIX}-openssl"
+             "${MINGW_PACKAGE_PREFIX}-zlib"
+             "${MINGW_PACKAGE_PREFIX}-tcl")
+
+build() {
+  export CMAKE_GENERATOR=Ninja
+  export CC=gcc
+  export CXX=g++
+  export NO_TCMALLOC=On
+
+  cd ${srcdir}/../../../
+
+  make release
+}
+
+package() {
+  cd ${srcdir}/../../../
+  make DESTDIR="${pkgdir}" install
+  make DESTDIR="${pkgdir}" test_install
+}
+
+test() {
+  cd ${srcdir}/../../../
+  make test/unittest
+  time make CPU_CORES=2 regression
+}
