@@ -65,9 +65,18 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileC
         assertions->push_back(stmt);
       }
     }
-  } else {
-    // TODO
-  }
+  } /*else if (fC->Type(item) == slDeferred_immediate_assertion_item) {
+    //16.4.3 Deferred assertions outside procedural code (IEEE_Std1800-2017)
+    // TODO :
+    //    module m (input a, b);
+    //      a1: assert #0 (a == b);
+    //    endmodule
+    //  This is equivalent to the following:
+    //    module m (input a, b);
+    //      always_comb begina1: assert #0 (a == b);
+    //      end
+    //    endmodule
+  }*/
   return true;
 }
 
@@ -178,7 +187,7 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
 }
 
 
-UHDM::any* CompileHelper::compileImmediateAssertion(
+UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
   DesignComponent* component, const FileContent* fC, NodeId the_stmt,
   CompileDesign* compileDesign, UHDM::any* pstmt,
   SURELOG::ValuedComponentI *instance) {
@@ -271,5 +280,93 @@ n<> u<287> t<Statement_or_null> p<288> l<25>
 n<> u<288> t<Action_block> p<289> c<287> l<25>
 n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
 */
+  return stmt;
+}
+
+UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
+  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
+  CompileDesign* compileDesign, UHDM::any* pstmt,
+  SURELOG::ValuedComponentI *instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId the_stmt_child = fC->Child(the_stmt);
+  int isFinal = fC->Type(the_stmt_child) == slPound_delay ? 0 : 1;
+  NodeId Expression = isFinal ? the_stmt_child : fC->Sibling(the_stmt_child);
+  NodeId Action_block = fC->Sibling(Expression);
+  NodeId if_stmt_id = fC->Child(Action_block);
+  NodeId else_stmt_id = 0;
+  if (fC->Type(if_stmt_id) == slElse) {
+    else_stmt_id =  fC->Sibling(if_stmt_id);
+    if_stmt_id = 0;
+  } else {
+    NodeId else_keyword = fC->Sibling(if_stmt_id);
+    if (else_keyword)
+      else_stmt_id = fC->Sibling(else_keyword);
+  }
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
+  VectorOfany* if_stmts = nullptr;
+  if (if_stmt_id)
+    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+  UHDM::any* if_stmt  = nullptr;
+  if (if_stmts)
+    if_stmt = (*if_stmts)[0];
+  VectorOfany* else_stmts = nullptr;
+  if (else_stmt_id)
+    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+  UHDM::any* else_stmt = nullptr;
+  if (else_stmts)
+    else_stmt = (*else_stmts)[0];
+  UHDM::any* stmt = nullptr;
+  switch (fC->Type(the_stmt)) {
+  case VObjectType::slDeferred_immediate_assert_statement: {
+    UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+    astmt->VpiParent(pstmt);
+    astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
+    astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
+    astmt->Else_stmt(else_stmt);
+    if (else_stmt)
+      else_stmt->VpiParent(astmt);
+    astmt->VpiIsDeferred(1);
+    astmt->VpiIsFinal(isFinal);
+    stmt = astmt;
+    break;
+  }
+  case VObjectType::slDeferred_immediate_assume_statement: {
+    UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+    astmt->VpiParent(pstmt);
+    astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
+    astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
+    astmt->Else_stmt(else_stmt);
+    if (else_stmt)
+      else_stmt->VpiParent(astmt);
+    astmt->VpiIsDeferred(1);
+    astmt->VpiIsFinal(isFinal);
+    stmt = astmt;
+    break;
+  }
+  case VObjectType::slDeferred_immediate_cover_statement: {
+    UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+    astmt->VpiParent(pstmt);
+    astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
+    astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
+    astmt->VpiIsDeferred(1);
+    astmt->VpiIsFinal(isFinal);
+    stmt = astmt;
+    break;
+  }
+  default:
+    break;
+  }
   return stmt;
 }

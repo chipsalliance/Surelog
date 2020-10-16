@@ -161,7 +161,10 @@ public:
   UHDM::typespec* compileTypespec(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, const std::string& suffixname = "");
 
-  UHDM::any* compileImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+  UHDM::any* compileSimpleImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
+
+  UHDM::any* compileDeferredImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
 
   UHDM::any* compileConcurrentAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,

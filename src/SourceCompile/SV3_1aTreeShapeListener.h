@@ -1097,11 +1097,11 @@ namespace SURELOG {
    void enterDeferred_immediate_assertion_statement(SV3_1aParser::Deferred_immediate_assertion_statementContext * /*ctx*/) final { }
    void exitDeferred_immediate_assertion_statement(SV3_1aParser::Deferred_immediate_assertion_statementContext * ctx) final { addVObject (ctx, VObjectType::slDeferred_immediate_assertion_statement); }
    void enterDeferred_immediate_assert_statement(SV3_1aParser::Deferred_immediate_assert_statementContext * /*ctx*/) final { }
-   void exitDeferred_immediate_assert_statement(SV3_1aParser::Deferred_immediate_assert_statementContext * ctx) final { addVObject (ctx, VObjectType::slDeferred_immediate_assert_statement); }
+   void exitDeferred_immediate_assert_statement(SV3_1aParser::Deferred_immediate_assert_statementContext * /*ctx*/) final ;
    void enterDeferred_immediate_assume_statement(SV3_1aParser::Deferred_immediate_assume_statementContext * /*ctx*/) final { }
-   void exitDeferred_immediate_assume_statement(SV3_1aParser::Deferred_immediate_assume_statementContext * ctx) final { addVObject (ctx, VObjectType::slDeferred_immediate_assume_statement); }
+   void exitDeferred_immediate_assume_statement(SV3_1aParser::Deferred_immediate_assume_statementContext * /*ctx*/) final ;
    void enterDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * /*ctx*/) final { }
-   void exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * ctx) final { addVObject (ctx, VObjectType::slDeferred_immediate_cover_statement); }
+   void exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * /*ctx*/) final ;
    void enterClocking_declaration(SV3_1aParser::Clocking_declarationContext * /*ctx*/) final { }
    void exitClocking_declaration(SV3_1aParser::Clocking_declarationContext * /*ctx*/) final ;
    void enterClocking_event(SV3_1aParser::Clocking_eventContext * /*ctx*/) final { }

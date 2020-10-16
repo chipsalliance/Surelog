@@ -1363,3 +1363,24 @@ void SV3_1aTreeShapeListener::exitRandomize_call(SV3_1aParser::Randomize_callCon
   }
   addVObject (ctx, VObjectType::slRandomize_call);
 }
+
+void SV3_1aTreeShapeListener::exitDeferred_immediate_assert_statement(SV3_1aParser::Deferred_immediate_assert_statementContext * ctx) {
+  if (ctx->Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
+  }
+  addVObject (ctx, VObjectType::slDeferred_immediate_assert_statement);
+}
+
+void SV3_1aTreeShapeListener::exitDeferred_immediate_assume_statement(SV3_1aParser::Deferred_immediate_assume_statementContext * ctx) {
+  if (ctx->Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
+  }
+  addVObject (ctx, VObjectType::slDeferred_immediate_assume_statement);
+}
+
+void SV3_1aTreeShapeListener::exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * ctx) {
+  if (ctx->Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
+  }
+  addVObject (ctx, VObjectType::slDeferred_immediate_cover_statement);
+}
