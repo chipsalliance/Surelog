@@ -380,7 +380,9 @@ add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
 target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
-target_link_libraries(surelog PRIVATE ${TCMALLOC_LIBRARY})
+if($<BOOL:${TCMALLOC_LIBRARY}>)
+  target_link_libraries(surelog PRIVATE tcmalloc)
+endif()
 
 if (UNIX)
   target_link_libraries(surelog PRIVATE stdc++fs)
@@ -453,7 +455,7 @@ if (WIN32)
   add_custom_command(
     TARGET surelog-bin
     POST_BUILD
-    COMMAND echo "       Creating platform depdendent staging for precompiled packages"
+    COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
@@ -466,7 +468,7 @@ else()
   add_custom_command(
     TARGET surelog-bin
     POST_BUILD
-    COMMAND echo "       Creating platform depdendent staging for precompiled packages"
+    COMMAND echo "       Creating platform depdendent 'non-WIN32' staging for precompiled packages"
     COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2
     COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0
     COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a
@@ -595,7 +597,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
 
-if (WIN32)
+if (WIN32 AND $<CONFIG:Debug>)
   install(
     FILES $<TARGET_PDB_FILE:surelog-bin>
           ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
