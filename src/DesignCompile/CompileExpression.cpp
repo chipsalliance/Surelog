@@ -1873,11 +1873,15 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
   size = 0;
   if (Packed_dimension && ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) ||
                            (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension) ||
-                           (fC->Type(Packed_dimension) == VObjectType::slVariable_dimension))) {
+                           (fC->Type(Packed_dimension) == VObjectType::slVariable_dimension) ||
+                           (fC->Type(Packed_dimension) == VObjectType::slConstant_range))) {
     ranges = s.MakeRangeVec();
     size = 1;
     while (Packed_dimension) {
       NodeId Constant_range = fC->Child(Packed_dimension);
+      if (fC->Type(Packed_dimension) == VObjectType::slConstant_range) {
+        Constant_range = Packed_dimension;
+      }
       if (fC->Type(Constant_range) == VObjectType::slUnpacked_dimension ||
           fC->Type(Constant_range) == VObjectType::slPacked_dimension) {
         Constant_range = fC->Child(Constant_range);
