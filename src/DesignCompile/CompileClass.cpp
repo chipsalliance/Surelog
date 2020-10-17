@@ -414,7 +414,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId function_name = fC->Sibling(function_data_type_or_implicit);
     funcName = fC->SymName(function_name);
 
-    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
@@ -429,7 +429,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId task_name = fC->Child(task_body_decl);
     taskName = fC->SymName(task_name);
   
-    m_helper.compileTask(m_class, fC, func_decl, m_compileDesign, true);
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
           
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
@@ -446,7 +446,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       NodeId task_name = fC->Child(func_prototype);
       taskName = fC->SymName(task_name);
 
-      m_helper.compileTask(m_class, fC, func_decl, m_compileDesign, true);
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
 
     } else {
       NodeId function_data_type = fC->Child(func_prototype);
@@ -463,7 +463,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       NodeId function_name = fC->Sibling(function_data_type);
       funcName = fC->SymName(function_name);
 
-      m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+      m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
     }
     is_extern = true;
@@ -471,12 +471,12 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     funcName = "new";
     returnType->init(fC, 0, "void", VObjectType::slNoType);
 
-    m_helper.compileClassConstructorDeclaration(m_class, fC, func_decl, m_compileDesign);
+    m_helper.compileClassConstructorDeclaration(m_class, fC, fC->Child(id), m_compileDesign);
 
   } else if (func_type == VObjectType::slClass_constructor_prototype) {
     funcName = "new";
 
-    m_helper.compileFunction(m_class, fC, func_decl, m_compileDesign, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
