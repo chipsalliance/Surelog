@@ -44,12 +44,7 @@ test-parallel: release test/unittest
 	pushd build; tclsh ../tests/regression.tcl diff_mode show_diff; popd
 
 regression: release
-	mkdir -p build/tests
-	rm -rf build/test; mkdir build/test
-	tclsh tests/cmake_gen.tcl `pwd` `pwd`/build/test
-	cmake -S build/test -B build/test/build
-	pushd build; cmake --build test/build; popd
-	pushd build; tclsh ../tests/regression.tcl diff_mode show_diff; popd
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; time make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
 
 clean:
 	rm -rf build dist

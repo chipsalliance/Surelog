@@ -1,0 +1,51 @@
+sudo: required
+
+# Enable C++ support
+language: cpp
+# Compiler selection
+compiler:
+  - gcc
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: "ppa:ubuntu-toolchain-r/test"
+            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
+              key_url: 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+
+          packages:
+            - g++-7
+            - ant
+            - tclsh
+            - default-jre
+            - cmake
+            - build-essential
+            - swig
+            - google-perftools
+            - libgoogle-perftools-dev
+            - python3
+            - python3-dev
+
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+before_install:
+    - eval "${MATRIX_EVAL}"
+    - git submodule update --init --recursive
+
+install:
+  - export PATH=/usr/bin:$PATH
+
+# Build steps
+script:
+  - cmake --version
+  - make -j2 release
+  - sudo make install
+  - make test_install
+  - make test/unittest
+  - time make CPU_CORES=2 regression
