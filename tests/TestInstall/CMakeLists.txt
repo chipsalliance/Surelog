@@ -29,21 +29,23 @@ message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
 message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
 
-# Directories
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
-set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
-set(CMAKE_BUILD_DIRECTORY ${dir})
-
-# C++ Compilation line
 if(NOT NO_TCMALLOC)
-  set (TCMALLOC_COMPILE_OPTIONS "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
-endif(NOT NO_TCMALLOC)
+  find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
+endif()
+
+# Directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
 if(MSVC)
   set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W0 /bigobj ${MY_CXX_WARNING_FLAGS}")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} /Zc:__cplusplus /W0 /bigobj ${MY_CXX_WARNING_FLAGS}")
 else()
+  # C++ Compilation line
+  if($<BOOL:${TCMALLOC_LIBRARY}>)
+    set (TCMALLOC_COMPILE_OPTIONS "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+  endif(TCMALLOC_LIBRARY)
+
   set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MY_CXX_WARNING_FLAGS}")
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
 endif()
@@ -55,10 +57,6 @@ include_directories("${INSTALL_DIR}/include/uhdm/")
 include_directories("${INSTALL_DIR}/include/uhdm/include/")
 
 set (LIB_DIR "${INSTALL_DIR}/lib/")
-
-if(NOT NO_TCMALLOC)
-  set (TCMALLOC_LIBRARY tcmalloc)
-endif(NOT NO_TCMALLOC)
 
 add_executable(test_hellosureworld ${PROJECT_SOURCE_DIR}/../../src/hellosureworld.cpp)
 
@@ -75,7 +73,7 @@ target_link_libraries(test_hellosureworld
     capnp
     kj
     ${Python3_LIBRARIES}
-    ${TCMALLOC_LIBRARY}
+    $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>
 )
 
 if (UNIX)
@@ -88,3 +86,8 @@ if (UNIX)
       pthread
   )
 endif()
+
+add_custom_target(RunInstallTest ALL
+    DEPENDS test_hellosureworld
+    COMMAND $<TARGET_FILE:test_hellosureworld> --version
+    WORKING_DIRECTORY $<TARGET_FILE_DIR:test_hellosureworld>)
