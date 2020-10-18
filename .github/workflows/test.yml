@@ -5,11 +5,13 @@ on:
   pull_request:
 
 jobs:
-
   linux:
     runs-on: ubuntu-latest
-    steps:
+    defaults:
+      run:
+        shell: bash
 
+    steps:
     - uses: actions/checkout@v2
       with:
         submodules: recursive
