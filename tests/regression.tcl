@@ -59,7 +59,7 @@ proc log_nonewline { text } {
 }
 
 set UPDATE 0
-set TIME "/usr/bin/time"
+set TIME "time"
 set DEBUG_TOOL ""
 set PRIOR_USER 0
 set PRIOR_ELAPSED 0
@@ -148,20 +148,39 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 
 set EXE_PATH "[pwd]/bin"
 
-if [regexp {path=([A-Za-z0-9_/\.-]+)} $argv tmp EXE_PATH] {
+if [regexp {path=([A-Za-z0-9_/\.\-\:]+)} $argv tmp EXE_PATH] {
 }
 
 set SURELOG_VERSION "$EXE_PATH/surelog"
 set UHDM_DUMP_COMMAND "[pwd]/third_party/UHDM/bin/uhdm-dump"
-
-if ![file exist $SURELOG_VERSION] {
-    puts "ERROR: Cannot find executable $SURELOG_VERSION!"
-    exit 1
-}
+#This condition is not compatible across platforms. 
+#if ![file exist $SURELOG_VERSION] {
+#    puts "ERROR: Cannot find executable $SURELOG_VERSION!"
+#    exit 1
+#}
 
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
+
+set WINDOWS_BLACK_LIST [dict create]
+dict set WINDOWS_BLACK_LIST Ariane 1
+dict set WINDOWS_BLACK_LIST BlackParrot 1
+dict set WINDOWS_BLACK_LIST CoresSweRV 1
+dict set WINDOWS_BLACK_LIST SimpleIncludeAndMacros 1
+dict set WINDOWS_BLACK_LIST TestFileSplit 1
+dict set WINDOWS_BLACK_LIST UnitElabExternNested 1
+dict set WINDOWS_BLACK_LIST UnitPython 1
+dict set WINDOWS_BLACK_LIST UnitSimpleIncludeAndMacros 1
+dict set WINDOWS_BLACK_LIST Verilator 1
+
+set UNIX_BLACK_LIST [dict create]
+
+if { $tcl_platform(platform) == "windows" } {
+    set BLACK_LIST $WINDOWS_BLACK_LIST
+} else {
+    set BLACK_LIST $UNIX_BLACK_LIST
+}
 
 proc findFiles { basedir pattern } {
 
@@ -192,7 +211,7 @@ proc findFiles { basedir pattern } {
 }
 
 proc load_tests { } {
-    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX
+    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX BLACK_LIST
     set dirs "../tests/ ../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
@@ -202,7 +221,7 @@ proc load_tests { } {
     set LONGESTTESTNAME 1
     set totaltest 0
     foreach file $fileList {
-        regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+        regexp {([a-zA-Z0-9_/:-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
         regsub [pwd]/ $testdir "" testdir
         incr totaltest
         if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
@@ -216,6 +235,10 @@ proc load_tests { } {
                 continue
             }
         }
+        if {[dict exists $BLACK_LIST $testname]} {
+            # Ignore black listed ones
+            continue
+        }
 
         if {$LONGESTTESTNAME < [string length $testname]} {
             set LONGESTTESTNAME [string length $testname]
@@ -227,7 +250,6 @@ proc load_tests { } {
 
         set TESTS($testname) $testcommand
         set TESTS_DIR($testname) $testdir
-
     }
     log "Run with mt=$MT_MAX, mp=$MP_MAX"
     log "THERE ARE $totaltest tests"
@@ -287,13 +309,17 @@ proc count_messages { result } {
         }
     }
 
-    # Diff UHDM Dump lines
     foreach line $lines {
+        # Diff UHDM Dump lines
         if [regexp {^[ ]*[|\\]} $line] {
             incr notes
         }
-    }
 
+        # A few that can be safely ignored
+        if {[string first ": Cannot open include file \"/dev/null\"." $line] != -1} {
+            incr errors -1
+        }
+    }
 
     set details ""
     foreach name [lsort -dictionary [array names CODES]] {
@@ -309,7 +335,7 @@ proc count_split { string } {
 
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -660,11 +686,11 @@ cd $REGRESSION_PATH
 foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
     set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
-        log " tkdiff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
+        log " tkdiff $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"
     } else {
         log "============================== DIFF ======================================================"
-        log "diff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
-        catch {exec sh -c "diff -d $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
+        log "diff $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"
+        catch {exec sh -c "diff -d $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
         puts $dummy
     }
 }
