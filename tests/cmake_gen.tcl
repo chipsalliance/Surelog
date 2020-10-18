@@ -14,13 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#set mem [exec sh -c "free -m"]
-#set cpu [exec lscpu]
-#puts "MEMORY ON HOST:\n$mem"
-#puts "CPUs on HOST:\n$cpu"
-
-set workspace_root [lindex $argv 0]
-set output_dir [lindex $argv 1]
+set mem [exec sh -c "free -m"]
+set cpu [exec lscpu]
+puts "MEMORY ON HOST:\n$mem"
+puts "CPUs on HOST:\n$cpu"
 
 proc findFiles { basedir pattern } {
 
@@ -51,44 +48,44 @@ proc findFiles { basedir pattern } {
 }
 
 proc load_tests { } {
-    global TESTS TESTS_DIR workspace_root
-    set dirs "$workspace_root/tests/ $workspace_root/third_party/tests/"
+    global TESTS TESTS_DIR  
+    set dirs "../../tests/ ../../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
-        append fileList "[findFiles $dir *.sl] "
+	append fileList "[findFiles $dir *.sl] "
     }
     set testcommand ""
     set LONGESTTESTNAME 1
     set totaltest 0
     foreach file $fileList {
-        regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
-        regsub [pwd]/ $testdir "" testdir
-        incr totaltest
+	regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+	regsub [pwd]/ $testdir "" testdir
+	incr totaltest
 
-        set fid [open $testdir/$testname.sl]
-        set testcommand [read $fid]
-        close $fid
+	set fid [open $testdir/$testname.sl]
+	set testcommand [read $fid]
+	close $fid
 
-        set TESTS($testname) $testcommand
-        set TESTS_DIR($testname) $testdir
+	set TESTS($testname) $testcommand
+	set TESTS_DIR($testname) $testdir
     }
 }
 
 proc run_regression { } {
-    global TESTS output_dir workspace_root
-    set fid [open "$output_dir/CMakeLists.txt" "w"]
+    global TESTS
+    set fid [open "CMakeLists.txt" "w"]
     puts $fid "cmake_minimum_required (VERSION 3.0)"
     puts $fid "project(SurelogRegression)"
     foreach testname [lsort -dictionary [array names TESTS]] {
-        puts $fid "add_custom_command(OUTPUT $testname"
-        puts $fid "  COMMAND tclsh $workspace_root/tests/regression.tcl path=$workspace_root/build/bin mute test=$testname"
-        puts $fid "  WORKING_DIRECTORY $workspace_root/build"
-        puts $fid ")"
+	puts $fid "add_custom_command(OUTPUT $testname"
+	puts $fid "  COMMAND ../tests/regression.tcl path=[file dirname [pwd]]/bin mute test=$testname"
+	puts $fid "  WORKING_DIRECTORY ../"
+	puts $fid ")"
     }
 
     puts $fid "add_custom_target(Regression ALL DEPENDS"
     foreach testname [lsort -dictionary [array names TESTS]] {
-        puts $fid "  $testname"
+	puts $fid "  $testname"
     }
     puts $fid ")"
 
@@ -97,3 +94,4 @@ proc run_regression { } {
 
 load_tests
 run_regression
+
