@@ -317,6 +317,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
         UHDM::class_typespec* tps = s.MakeClass_typespec();
         extends->Class_typespec(tps);
         tps->Class_defn(parent);
+        tps->VpiName(parent->VpiName());
         derived->Extends(extends);
         UHDM::VectorOfclass_defn* all_derived = parent->Deriveds();
         if (all_derived == nullptr) {
