@@ -452,7 +452,7 @@ void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Se
       classDef->getType() == VObjectType::slClass_declaration) {
     const FileContent* fC = classDef->getFileContents()[0];
     class_defn* c = classDef->getUhdmDefinition();
-
+    c->VpiParent(parent);
     // Typepecs
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     c->Typespecs(typespecs);
@@ -486,13 +486,23 @@ void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Se
     c->VpiParent(parent);
     dest_classes->push_back(c);
     const std::string& name = classDef->getName();
-    c->VpiName(name);
+    if (c->VpiName() == "")
+      c->VpiName(name);
+    if (c->VpiFullName() == "")
+      c->VpiFullName(name);  
     c->Attributes(classDef->Attributes());
     if (fC) {
       // Builtin classes have no file
       c->VpiFile(fC->getFileName());
       c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
     }
+
+    for (auto& nested : classDef->getClassMap()) {
+      ClassDefinition* c_nested = nested.second;
+      VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+      writeClass(c_nested, dest_classes, s, componentMap, c);
+    }
+
   }
 }
 
@@ -1738,17 +1748,6 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       }
     }
     d->AllClasses(v4);
-
-    // Repair parent relationship
-    for (auto classNamePair : classes) {
-      ClassDefinition* classDef = classNamePair.second;
-      DesignComponent* parent = classDef->getContainer();
-      const auto& itr = componentMap.find(parent);
-      if (itr != componentMap.end()) {
-        const auto &itr2 = componentMap.find(classDef);
-        itr2->second->VpiParent(itr->second);
-      }
-    }
 
     // -------------------------------
     // Elaborated Model (Folded)

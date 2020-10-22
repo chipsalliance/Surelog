@@ -62,12 +62,30 @@ bool CompileClass::compile() {
     fileName = "builtin.sv";
   }
   std::string fullName;
-  if (m_class->getContainer()) {
-    std::string containerName = m_class->getContainer()->getName();
-    if (containerName != "")
-      fullName = containerName + "::";
+  
+  std::vector<std::string> names;
+  ClassDefinition* parent = m_class;
+  DesignComponent* tmp_container = nullptr;
+  while (parent) {
+    tmp_container = parent->getContainer();
+    names.push_back(parent->getName());
+    parent = parent->m_parent;
   }
-  fullName += m_class->getName();
+  if (tmp_container) {
+    fullName = tmp_container->getName() + "::";
+  }
+  if (names.size()) {
+    unsigned int index = names.size() -1;
+    while(1) {
+      fullName += names[index];
+      if (index > 0) fullName += "::";
+      if (index == 0) break;
+      index--;
+    }
+  }
+
+  if (m_class->m_uhdm_definition->VpiFullName().empty())
+    m_class->m_uhdm_definition->VpiFullName(fullName);
   Location loc(m_symbols->registerSymbol(fileName),
                fC->Line(nodeId), 0,
                m_symbols->registerSymbol(fullName));
@@ -557,8 +575,8 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
     class_name_id = fC->Sibling(class_name_id);
     virtualClass = true;
   }
-  std::string class_name =
-      m_class->getName() + "::" + fC->SymName(class_name_id);
+  std::string class_name = fC->SymName(class_name_id);
+  std::string full_class_name = m_class->m_uhdm_definition->VpiFullName() + "::" + class_name;
   ClassDefinition* prevDef = m_class->getClass(class_name);
   if (prevDef) {
     Location loc1(m_symbols->registerSymbol(fC->getFileName(class_name_id)),
@@ -574,11 +592,14 @@ bool CompileClass::compile_class_declaration_(const FileContent* fC,
   }
   UHDM::class_defn* defn = s.MakeClass_defn();
   defn->VpiVirtual(virtualClass);
+  defn->VpiName(class_name);
+  defn->VpiFullName(full_class_name);
   ClassDefinition* the_class =
       new ClassDefinition(class_name, m_class->getLibrary(),
                           m_class->getContainer(), fC, class_name_id, m_class, defn);
   m_class->insertClass(the_class);
   UHDM::class_defn* parent = m_class->getUhdmDefinition();
+  defn->VpiParent(parent);
   UHDM::VectorOfscope* scopes = parent->Scopes();
   if (scopes == nullptr) {
     parent->Scopes(s.MakeScopeVec());

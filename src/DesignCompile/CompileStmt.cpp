@@ -1232,14 +1232,18 @@ bool CompileHelper::compileClassConstructorDeclaration(
   UHDM::class_typespec* tps = s.MakeClass_typespec();
   var->Typespec(tps);
   ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
-  if (cdef)
+  if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
-  else {
+    const std::string& name = cdef->getUhdmDefinition()->VpiName();
+    tps->VpiName(name);
+  } else {
     Package* p = dynamic_cast<Package*>(component);
     if (p) {
       ClassDefinition* cdef = p->getClassDefinition(className);
       if (cdef) {
+        const std::string& name = cdef->getUhdmDefinition()->VpiName();
         tps->Class_defn(cdef->getUhdmDefinition());
+        tps->VpiName(name);
       }
     }
   }  
@@ -1363,6 +1367,7 @@ bool CompileHelper::compileFunction(
     var->Typespec(tps);
     ClassDefinition* cdef = dynamic_cast<ClassDefinition*> (component);
     tps->Class_defn(cdef->getUhdmDefinition());
+    tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
     NodeId Function_body_declaration = 0;
     if (fC->Type(func_decl) == slFunction_body_declaration) 
