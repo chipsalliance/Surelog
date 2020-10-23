@@ -208,7 +208,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
-  NodeId Packed_dimension = fC->Sibling(type);
+  NodeId Packed_dimension;
+  if(the_type == VObjectType::slPacked_dimension) {
+    Packed_dimension = type;
+  } else {
+    Packed_dimension = fC->Sibling(type);
+  }
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
