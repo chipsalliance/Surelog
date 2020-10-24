@@ -514,10 +514,6 @@ design: (work@top)
   \_logic_net: (work@top.env), line:21, parent:work@top
     |vpiName:env
     |vpiFullName:work@top.env
-  |vpiNet:
-  \_logic_net: (work@top.cfg), line:22, parent:work@top
-    |vpiName:cfg
-    |vpiFullName:work@top.cfg
   |vpiVariables:
   \_enum_var: (work@top.state), line:18, parent:work@top
     |vpiName:state
@@ -569,11 +565,26 @@ design: (work@top)
         |vpiName:WRITE
         |INT:1
   |vpiVariables:
+  \_class_var: (work@top.cfg), line:22, parent:work@top
+    |vpiName:cfg
+    |vpiFullName:work@top.cfg
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiTypespec:
+    \_void_typespec: (Configuration1), line:22
+      |vpiName:Configuration1
+  |vpiVariables:
   \_class_var: (work@top.cfg), line:23, parent:work@top
     |vpiName:cfg
     |vpiFullName:work@top.cfg
     |vpiAutomatic:1
     |vpiVisibility:1
+    |vpiTypespec:
+    \_class_typespec: (Configuration2), line:23
+      |vpiName:Configuration2
+      |vpiClassDefn:
+      \_class_defn: (work@Configuration2) top.v:10: , parent:work@top
+        |vpiName:work@Configuration2
   |vpiTypedef:
   \_enum_typespec: (fsm_t), line:16
   |vpiTypedef:

@@ -670,9 +670,17 @@ bool ElaborationStep::bindPortType_(Signal* signal,
             parentComponent->getNamedObject(interfName);
     if (datatype) {
       def = datatype->second;
+      DataType* dt = dynamic_cast<DataType*> (def);
+      if (dt) {
+        signal->setDataType(dt);
+      }
     } else {
       std::string name = parentComponent->getName() + "::" + interfName;
       def = design->getClassDefinition(name);
+      DataType* dt = dynamic_cast<DataType*> (def);
+      if (dt) {
+        signal->setDataType(dt);
+      }
     }
     if (def == NULL) {
       def = design->getComponentDefinition(libName + "@" + baseName);
@@ -853,6 +861,12 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
   if (typeSpecId) {
     tps = m_helper.compileTypespec(component, fC, typeSpecId, m_compileDesign,
                                    nullptr, instance, true);
+  }
+  if (tps == nullptr) {
+    if (sig->getInterfaceTypeNameId()) {
+      tps = m_helper.compileTypespec(component, fC, sig->getInterfaceTypeNameId(), m_compileDesign,
+                                   nullptr, instance, true);
+    }
   }
 
   if (dtype) {
