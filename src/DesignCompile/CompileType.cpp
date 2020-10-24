@@ -495,6 +495,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       const std::string& typeName = fC->SymName(type);
       if (component) {
         const DataType* dt = component->getDataType(typeName);
+        if (dt == nullptr) {
+          std::string libName = fC->getLibrary()->getName();
+          dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(libName + "@" + typeName);
+          if (dt == nullptr) {
+             dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(component->getName() + "::" + typeName);
+          }
+        }
         while (dt) {
           const Struct* st = dynamic_cast<const Struct*>(dt);
           if (st) {
@@ -525,6 +532,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
             result = sit->getTypespec();
             break;
           }
+
+          const ClassDefinition* classDefn = dynamic_cast<const ClassDefinition*>(dt);
+          if (classDefn) {
+            class_typespec* ref = s.MakeClass_typespec();
+            ref->Class_defn(classDefn->getUhdmDefinition());
+            ref->VpiName(typeName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(type));
+            result = ref;
+            break;
+          }
+
           dt = dt->getDefinition();
         }
         if (result == nullptr) {
