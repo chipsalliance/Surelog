@@ -485,7 +485,11 @@ VectorOfany* CompileHelper::compileStmt(
     break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
-    stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
+    stmt = compileSimpleImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
+    break;
+  }
+  case VObjectType::slDeferred_immediate_assertion_statement: {
+    stmt = compileDeferredImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
     break;
   }
   case VObjectType::slConcurrent_assertion_statement: {
@@ -1043,6 +1047,75 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   return ios;
 }
 
+NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* func) {
+  NodeId func_decl = nodeId;
+  VObjectType func_type = fC->Type(nodeId);
+
+  if (func_type == slFunction_declaration) {
+    func_decl = fC->Child(nodeId);
+    func_type = fC->Type(func_decl);
+  } 
+
+  bool is_local = false;
+  bool is_protected = false;
+  while ((func_type == VObjectType::slMethodQualifier_Virtual) ||
+         (func_type == VObjectType::slMethodQualifier_ClassItem) ||
+         (func_type == VObjectType::slPure_virtual_qualifier) ||
+         (func_type == VObjectType::slExtern_qualifier) ||
+         (func_type == VObjectType::slClassItemQualifier_Protected) ||
+         (func_type == VObjectType::slLifetime_Automatic)) {
+    if (func_type == VObjectType::slMethodQualifier_Virtual) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiVirtual(true);
+    }
+    if (func_type == VObjectType::slLifetime_Automatic) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAutomatic(true);
+    }
+    if (func_type == VObjectType::slClassItemQualifier_Protected) {
+      is_protected = true;
+      func->VpiVisibility(vpiProtectedVis);
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slPure_virtual_qualifier) {
+      func->VpiDPIPure(true);
+      func->VpiVirtual(true);
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slExtern_qualifier) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAccessType(vpiExternAcc);
+    }
+    if (func_type == VObjectType::slMethodQualifier_ClassItem) {
+      NodeId qualifier = fC->Child(func_decl);
+      VObjectType type = fC->Type(qualifier);
+      if (type == VObjectType::slClassItemQualifier_Static) {
+        // TODO: No VPI attribute for static!
+      }
+      if (type == VObjectType::slClassItemQualifier_Local) {
+        func->VpiVisibility(vpiLocalVis);
+        is_local = true;
+      }
+      if (type == VObjectType::slClassItemQualifier_Protected) {
+        is_protected = true;
+        func->VpiVisibility(vpiProtectedVis);
+      }
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+
+  }
+  if ((!is_local) && (!is_protected)) {
+    func->VpiVisibility(vpiPublicVis);
+  }
+  return func_decl;
+}
+
 bool CompileHelper::compileTask(
   DesignComponent* component, const FileContent* fC, NodeId nodeId,
   CompileDesign* compileDesign, bool isMethod) {
@@ -1053,11 +1126,12 @@ bool CompileHelper::compileTask(
     task_funcs = component->getTask_funcs();
   }
   UHDM::task* task = s.MakeTask();
+  NodeId task_decl = setFuncTaskQualifiers(fC, nodeId, task);
   task->VpiMethod(isMethod);
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(nodeId));
   task_funcs->push_back(task);
-  NodeId Task_body_declaration = fC->Child(nodeId);
+  NodeId Task_body_declaration = fC->Child(task_decl);
   NodeId task_name = fC->Child(Task_body_declaration);
   std::string name;
   if (fC->Type(task_name) == VObjectType::slStringConst)
@@ -1158,14 +1232,18 @@ bool CompileHelper::compileClassConstructorDeclaration(
   UHDM::class_typespec* tps = s.MakeClass_typespec();
   var->Typespec(tps);
   ClassDefinition* cdef = dynamic_cast<ClassDefinition*>(component);
-  if (cdef)
+  if (cdef) {
     tps->Class_defn(cdef->getUhdmDefinition());
-  else {
+    const std::string& name = cdef->getUhdmDefinition()->VpiName();
+    tps->VpiName(name);
+  } else {
     Package* p = dynamic_cast<Package*>(component);
     if (p) {
       ClassDefinition* cdef = p->getClassDefinition(className);
       if (cdef) {
+        const std::string& name = cdef->getUhdmDefinition()->VpiName();
         tps->Class_defn(cdef->getUhdmDefinition());
+        tps->VpiName(name);
       }
     }
   }  
@@ -1271,74 +1349,12 @@ bool CompileHelper::compileFunction(
   task_funcs->push_back(func);
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
-  NodeId func_decl = 0;
-  VObjectType func_type = slNoType;
-  VObjectType func_decl_type = fC->Type(nodeId);
+  NodeId func_decl = setFuncTaskQualifiers(fC, nodeId, func);
+  VObjectType func_decl_type = fC->Type(func_decl);
   bool constructor = false;
-  if (func_decl_type == slClass_constructor_declaration) {
+  if (func_decl_type == slClass_constructor_declaration ||
+      func_decl_type == slClass_constructor_prototype) {
     constructor = true;
-    func_decl = nodeId;
-    func_type = fC->Type(func_decl);
-  } else {
-    func_decl = fC->Child(nodeId);
-    func_type = fC->Type(func_decl);
-  }
-  bool is_local = false;
-  bool is_protected = false;
-  while ((func_type == VObjectType::slMethodQualifier_Virtual) ||
-         (func_type == VObjectType::slMethodQualifier_ClassItem) ||
-         (func_type == VObjectType::slPure_virtual_qualifier) ||
-         (func_type == VObjectType::slExtern_qualifier) ||
-         (func_type == VObjectType::slClassItemQualifier_Protected) ||
-         (func_type == VObjectType::slLifetime_Automatic)) {
-    if (func_type == VObjectType::slMethodQualifier_Virtual) {
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-      func->VpiVirtual(true);
-    }
-    if (func_type == VObjectType::slLifetime_Automatic) {
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-      func->VpiAutomatic(true);
-    }
-    if (func_type == VObjectType::slClassItemQualifier_Protected) {
-      is_protected = true;
-      func->VpiVisibility(vpiProtectedVis);
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-    }
-    if (func_type == VObjectType::slPure_virtual_qualifier) {
-      func->VpiDPIPure(true);
-      func->VpiVirtual(true);
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-    }
-    if (func_type == VObjectType::slExtern_qualifier) {
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-      func->VpiAccessType(vpiExternAcc);
-    }
-    if (func_type == VObjectType::slMethodQualifier_ClassItem) {
-      NodeId qualifier = fC->Child(func_decl);
-      VObjectType type = fC->Type(qualifier);
-      if (type == VObjectType::slClassItemQualifier_Static) {
-        // TODO: No VPI attribute for static!
-      }
-      if (type == VObjectType::slClassItemQualifier_Local) {
-        func->VpiVisibility(vpiLocalVis);
-        is_local = true;
-      }
-      if (type == VObjectType::slClassItemQualifier_Protected) {
-        is_protected = true;
-        func->VpiVisibility(vpiProtectedVis);
-      }
-      func_decl = fC->Sibling(func_decl);
-      func_type = fC->Type(func_decl);
-    }
-
-  }
-  if ((!is_local) && (!is_protected)) {
-    func->VpiVisibility(vpiPublicVis);
   }
   std::string name;
   NodeId Tf_port_list = 0;
@@ -1351,8 +1367,14 @@ bool CompileHelper::compileFunction(
     var->Typespec(tps);
     ClassDefinition* cdef = dynamic_cast<ClassDefinition*> (component);
     tps->Class_defn(cdef->getUhdmDefinition());
+    tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
-    NodeId Function_data_type_or_implicit = fC->Child(func_decl);
+    NodeId Function_body_declaration = 0;
+    if (fC->Type(func_decl) == slFunction_body_declaration) 
+      Function_body_declaration = func_decl;
+    else 
+      Function_body_declaration = fC->Child(func_decl);
+    NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
     func->Return(dynamic_cast<variables*>(

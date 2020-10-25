@@ -279,17 +279,18 @@ std::string StringUtils::replaceAll(std::string_view str,
 // but first we need a unit test.
 std::string StringUtils::getLineInString(std::string_view bulk,
                                          unsigned int line) {
+  if (line < 1) return "";
+
+  std::stringstream strm;
+  strm << bulk;
+
   std::string lineText;
-  const unsigned int size = bulk.size();
-  unsigned int count = 1;
-  for (unsigned int i = 0; i < size; i++) {
-    if (line == count) {
-      lineText += bulk[i];
-    }
-    if (bulk[i] == '\n') count++;
-    if (count > line) break;
+  while ((line > 0) && std::getline(strm, lineText, '\n')) {
+    --line;
   }
 
+  if ((line == 0) && strm.good()) lineText += '\n';
+  if (line > 0) lineText.clear();
   return lineText;
 }
 

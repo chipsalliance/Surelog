@@ -44,62 +44,73 @@ design: (unnamed)
       |vpiName:new
       |vpiFullName:pack::C::new
       |vpiReturn:
-      \_class_var: 
+      \_class_var: (pack::C::new), parent:pack::C::new
+        |vpiFullName:pack::C::new
         |vpiTypespec:
         \_class_typespec: 
           |vpiClassDefn:
           \_class_defn: (pack::C) dut.sv:12: , parent:pack
       |vpiIODecl:
-      \_io_decl: (bound)
+      \_io_decl: (bound), parent:pack::C::new
         |vpiName:bound
         |vpiDirection:5
         |vpiExpr:
-        \_int_var: (bound), line:15, parent:bound
-          |vpiFullName:bound
+        \_int_var: (pack::C::new::bound), line:15, parent:bound
+          |vpiFullName:pack::C::new::bound
       |vpiStmt:
       \_method_func_call: (super.new), parent:pack::C::new
         |vpiName:super.new
         |vpiArgument:
-        \_ref_obj: (name), line:16
+        \_ref_obj: (pack::C::new::name), line:16, parent:super.new
           |vpiName:name
+          |vpiFullName:pack::C::new::name
         |vpiArgument:
-        \_ref_obj: (parent), line:16
+        \_ref_obj: (pack::C::new::parent), line:16, parent:super.new
           |vpiName:parent
+          |vpiFullName:pack::C::new::parent
         |vpiArgument:
-        \_ref_obj: (UVM_PORT), line:16
+        \_ref_obj: (pack::C::new::UVM_PORT), line:16, parent:super.new
           |vpiName:UVM_PORT
+          |vpiFullName:pack::C::new::UVM_PORT
         |vpiArgument:
-        \_ref_obj: (min_size), line:16
+        \_ref_obj: (pack::C::new::min_size), line:16, parent:super.new
           |vpiName:min_size
+          |vpiFullName:pack::C::new::min_size
         |vpiArgument:
-        \_ref_obj: (max_size), line:16
+        \_ref_obj: (pack::C::new::max_size), line:16, parent:super.new
           |vpiName:max_size
+          |vpiFullName:pack::C::new::max_size
     |vpiMethod:
     \_task: (pack::C::set), line:19, parent:pack::C
       |vpiMethod:1
+      |vpiVisibility:1
       |vpiName:set
       |vpiFullName:pack::C::set
       |vpiIODecl:
-      \_io_decl: (i)
+      \_io_decl: (i), parent:pack::C::set
         |vpiName:i
         |vpiDirection:5
         |vpiExpr:
-        \_int_var: (i), line:19, parent:i
-          |vpiFullName:i
+        \_int_var: (pack::C::set::i), line:19, parent:i
+          |vpiFullName:pack::C::set::i
       |vpiStmt:
       \_assignment: , line:20, parent:pack::C::set
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (pack::C::set::x), line:20, parent:pack::C::set
+        \_ref_obj: (pack::C::set::x), line:20
           |vpiName:x
           |vpiFullName:pack::C::set::x
+          |vpiActual:
+          \_int_var: (pack::C::x), line:13, parent:pack::C
+            |vpiName:x
+            |vpiFullName:pack::C::x
+            |vpiAutomatic:1
+            |vpiVisibility:1
         |vpiRhs:
-        \_ref_obj: (pack::C::set::i), line:20, parent:pack::C::set
+        \_ref_obj: (pack::C::set::i), line:20
           |vpiName:i
           |vpiFullName:pack::C::set::i
-          |vpiActual:
-          \_io_decl: (i)
     |vpiMethod:
     \_function: (pack::C::get), line:22, parent:pack::C
       |vpiMethod:1
@@ -107,13 +118,16 @@ design: (unnamed)
       |vpiName:get
       |vpiFullName:pack::C::get
       |vpiReturn:
-      \_int_var: , line:22
+      \_int_var: (pack::C::get), line:22, parent:pack::C::get
+        |vpiFullName:pack::C::get
       |vpiStmt:
       \_return_stmt: , line:23, parent:pack::C::get
         |vpiCondition:
         \_ref_obj: (pack::C::get::x), line:23
           |vpiName:x
           |vpiFullName:pack::C::get::x
+          |vpiActual:
+          \_int_var: (pack::C::x), line:13, parent:pack::C
     |vpiVariables:
     \_int_var: (pack::C::x), line:13, parent:pack::C
       |vpiName:x
@@ -158,8 +172,6 @@ design: (unnamed)
         |INT:1
       |vpiLhs:
       \_parameter: (pack::Vector::WIDTH), line:5, parent:pack::Vector
-        |vpiName:WIDTH
-        |vpiFullName:pack::Vector::WIDTH
     |vpiParameter:
     \_parameter: (pack::Vector::WIDTH), line:5, parent:pack::Vector
     |vpiParameter:

@@ -46,6 +46,9 @@ design: (work@door_mod)
     |vpiMethod:
     \_task: (pack::door::door_fsm), line:10, parent:pack::door
       |vpiMethod:1
+      |vpiVisibility:1
+      |vpiVirtual:1
+      |vpiDPIPure:1
       |vpiName:door_fsm
       |vpiFullName:pack::door::door_fsm
       |vpiStmt:
@@ -58,6 +61,8 @@ design: (work@door_mod)
       |vpiMethod:
       \_task: (pack::doorOpen::door_fsm), line:14, parent:pack::doorOpen
         |vpiMethod:1
+        |vpiVisibility:1
+        |vpiVirtual:1
         |vpiName:door_fsm
         |vpiFullName:pack::doorOpen::door_fsm
         |vpiStmt:
@@ -224,6 +229,8 @@ design: (work@door_mod)
                 |vpiMethod:
                 \_task: (pack::doorOpen::door_fsm), line:14, parent:pack::doorOpen
                   |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiVirtual:1
                   |vpiName:door_fsm
                   |vpiFullName:pack::doorOpen::door_fsm
                   |vpiStmt:
@@ -256,6 +263,9 @@ design: (work@door_mod)
                       |vpiMethod:
                       \_task: (pack::door::door_fsm), line:10, parent:pack::door
                         |vpiMethod:1
+                        |vpiVisibility:1
+                        |vpiVirtual:1
+                        |vpiDPIPure:1
                         |vpiName:door_fsm
                         |vpiFullName:pack::door::door_fsm
                         |vpiStmt:
@@ -339,7 +349,7 @@ design: (work@door_mod)
         \_method_func_call: (new), line:24
           |vpiName:new
       |vpiStmt:
-      \_method_func_call: (door_fsm), line:25, parent:work@door_mod
+      \_method_task_call: (door_fsm), parent:work@door_mod
         |vpiName:door_fsm
         |vpiPrefix:
         \_ref_obj: (work@door_mod.open), parent:door_fsm
@@ -347,6 +357,8 @@ design: (work@door_mod)
           |vpiFullName:work@door_mod.open
           |vpiActual:
           \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
+        |vpiTask:
+        \_task: (pack::doorOpen::door_fsm), line:14, parent:pack::doorOpen
   |vpiVariables:
   \_class_var: (work@door_mod.open), line:22, parent:work@door_mod
 ===================

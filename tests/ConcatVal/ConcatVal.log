@@ -263,228 +263,245 @@ design: (work@dut)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox.new), line:6, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
-    |vpiFullName:work@mailbox.new
+    |vpiFullName:work@mailbox::new
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@mailbox::new), parent:work@mailbox::new
+      |vpiFullName:work@mailbox::new
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
     |vpiIODecl:
-    \_io_decl: (bound)
+    \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:5
       |vpiExpr:
-      \_int_var: (bound), line:6, parent:bound
-        |vpiFullName:bound
+      \_int_var: (work@mailbox::new::bound), line:6, parent:bound
+        |vpiFullName:work@mailbox::new::bound
   |vpiMethod:
-  \_function: (work@mailbox.num), line:9, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
-    |vpiFullName:work@mailbox.num
+    |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9
+    \_int_var: (work@mailbox::num), line:9, parent:work@mailbox::num
+      |vpiFullName:work@mailbox::num
   |vpiMethod:
-  \_task: (work@mailbox.put), line:12, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12, parent:work@mailbox
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:put
-    |vpiFullName:work@mailbox.put
+    |vpiFullName:work@mailbox::put
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::put
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_function: (work@mailbox.try_put), line:15, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
-    |vpiFullName:work@mailbox.try_put
+    |vpiFullName:work@mailbox::try_put
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_put
       |vpiName:message
       |vpiDirection:5
   |vpiMethod:
-  \_task: (work@mailbox.get), line:18, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18, parent:work@mailbox
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:get
-    |vpiFullName:work@mailbox.get
+    |vpiFullName:work@mailbox::get
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox.try_get), line:21, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
-    |vpiFullName:work@mailbox.try_get
+    |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21
+    \_int_var: (work@mailbox::try_get), line:21, parent:work@mailbox::try_get
+      |vpiFullName:work@mailbox::try_get
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox.peek), line:24, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24, parent:work@mailbox
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:peek
-    |vpiFullName:work@mailbox.peek
+    |vpiFullName:work@mailbox::peek
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::peek
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox.try_peek), line:27, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
-    |vpiFullName:work@mailbox.try_peek
+    |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27
+    \_int_var: (work@mailbox::try_peek), line:27, parent:work@mailbox::try_peek
+      |vpiFullName:work@mailbox::try_peek
     |vpiIODecl:
-    \_io_decl: (message)
+    \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@dut
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process.self), line:37, parent:work@process
+  \_function: (work@process::self), line:37, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
-    |vpiFullName:work@process.self
+    |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
+    \_chandle_var: (work@process::self::process), line:37, parent:work@process::self
       |vpiName:process
+      |vpiFullName:work@process::self::process
   |vpiMethod:
-  \_function: (work@process.status), line:40, parent:work@process
+  \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
-    |vpiFullName:work@process.status
+    |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
+    \_chandle_var: (work@process::status::state), line:40, parent:work@process::status
       |vpiName:state
+      |vpiFullName:work@process::status::state
   |vpiMethod:
-  \_task: (work@process.kill), line:43, parent:work@process
+  \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:kill
-    |vpiFullName:work@process.kill
+    |vpiFullName:work@process::kill
     |vpiStmt:
-    \_begin: (work@process.kill), parent:work@process.kill
-      |vpiFullName:work@process.kill
+    \_begin: (work@process::kill), parent:work@process::kill
+      |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process.await), line:46, parent:work@process
+  \_task: (work@process::await), line:46, parent:work@process
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:await
-    |vpiFullName:work@process.await
+    |vpiFullName:work@process::await
     |vpiStmt:
-    \_begin: (work@process.await), parent:work@process.await
-      |vpiFullName:work@process.await
+    \_begin: (work@process::await), parent:work@process::await
+      |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process.suspend), line:49, parent:work@process
+  \_task: (work@process::suspend), line:49, parent:work@process
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:suspend
-    |vpiFullName:work@process.suspend
+    |vpiFullName:work@process::suspend
     |vpiStmt:
-    \_begin: (work@process.suspend), parent:work@process.suspend
-      |vpiFullName:work@process.suspend
+    \_begin: (work@process::suspend), parent:work@process::suspend
+      |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process.resume), line:52, parent:work@process
+  \_task: (work@process::resume), line:52, parent:work@process
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:resume
-    |vpiFullName:work@process.resume
+    |vpiFullName:work@process::resume
     |vpiStmt:
-    \_begin: (work@process.resume), parent:work@process.resume
-      |vpiFullName:work@process.resume
+    \_begin: (work@process::resume), parent:work@process::resume
+      |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35
+  \_enum_typespec: (state), line:35, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35
+    \_enum_const: (FINISHED), line:35, parent:state
       |vpiName:FINISHED
       |INT:0
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35
+    \_enum_const: (KILLED), line:35, parent:state
       |vpiName:KILLED
       |INT:4
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35
+    \_enum_const: (RUNNING), line:35, parent:state
       |vpiName:RUNNING
       |INT:1
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35
+    \_enum_const: (SUSPENDED), line:35, parent:state
       |vpiName:SUSPENDED
       |INT:3
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35
+    \_enum_const: (WAITING), line:35, parent:state
       |vpiName:WAITING
       |INT:2
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore.new), line:60, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
-    |vpiFullName:work@semaphore.new
+    |vpiFullName:work@semaphore::new
     |vpiReturn:
-    \_class_var: 
+    \_class_var: (work@semaphore::new), parent:work@semaphore::new
+      |vpiFullName:work@semaphore::new
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:5
       |vpiExpr:
-      \_int_var: (keyCount), line:60, parent:keyCount
-        |vpiFullName:keyCount
+      \_int_var: (work@semaphore::new::keyCount), line:60, parent:keyCount
+        |vpiFullName:work@semaphore::new::keyCount
   |vpiMethod:
-  \_task: (work@semaphore.put), line:63, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63, parent:work@semaphore
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:put
-    |vpiFullName:work@semaphore.put
+    |vpiFullName:work@semaphore::put
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:5
       |vpiExpr:
-      \_int_var: (keyCount), line:63, parent:keyCount
-        |vpiFullName:keyCount
+      \_int_var: (work@semaphore::put::keyCount), line:63, parent:keyCount
+        |vpiFullName:work@semaphore::put::keyCount
   |vpiMethod:
-  \_task: (work@semaphore.get), line:66, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66, parent:work@semaphore
     |vpiMethod:1
+    |vpiVisibility:1
     |vpiName:get
-    |vpiFullName:work@semaphore.get
+    |vpiFullName:work@semaphore::get
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:5
       |vpiExpr:
-      \_int_var: (keyCount), line:66, parent:keyCount
-        |vpiFullName:keyCount
+      \_int_var: (work@semaphore::get::keyCount), line:66, parent:keyCount
+        |vpiFullName:work@semaphore::get::keyCount
   |vpiMethod:
-  \_function: (work@semaphore.try_get), line:69, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
-    |vpiFullName:work@semaphore.try_get
+    |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69
+    \_int_var: (work@semaphore::try_get), line:69, parent:work@semaphore::try_get
+      |vpiFullName:work@semaphore::try_get
     |vpiIODecl:
-    \_io_decl: (keyCount)
+    \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:5
       |vpiExpr:
-      \_int_var: (keyCount), line:69, parent:keyCount
-        |vpiFullName:keyCount
+      \_int_var: (work@semaphore::try_get::keyCount), line:69, parent:keyCount
+        |vpiFullName:work@semaphore::try_get::keyCount
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1: , parent:work@dut
   |vpiDefName:work@dut
@@ -494,6 +511,8 @@ design: (work@dut)
     |vpiRhs:
     \_func_call: (sbox4_64bit), line:14
       |vpiName:sbox4_64bit
+      |vpiFunction:
+      \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
       |vpiArgument:
       \_ref_obj: (data_state_xor), line:14
         |vpiName:data_state_xor
@@ -506,71 +525,6 @@ design: (work@dut)
       |vpiFullName:work@dut.data_state_sbox
   |vpiTaskFunc:
   \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:sbox4_64bit
-    |vpiFullName:work@dut.sbox4_64bit
-    |vpiReturn:
-    \_logic_var: , line:4
-      |vpiRange:
-      \_range: , line:4
-        |vpiLeftRange:
-        \_constant: , line:4
-          |vpiConstType:7
-          |vpiDecompile:63
-          |vpiSize:32
-          |INT:63
-        |vpiRightRange:
-        \_constant: , line:4
-          |vpiConstType:7
-          |vpiDecompile:0
-          |vpiSize:32
-          |INT:0
-    |vpiIODecl:
-    \_io_decl: (state_in)
-      |vpiName:state_in
-      |vpiDirection:5
-      |vpiExpr:
-      \_logic_var: (state_in), line:4, parent:state_in
-        |vpiFullName:state_in
-        |vpiRange:
-        \_range: , line:4
-          |vpiLeftRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:63
-            |vpiSize:32
-            |INT:63
-          |vpiRightRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiIODecl:
-    \_io_decl: (sbox4)
-      |vpiName:sbox4
-      |vpiDirection:5
-      |vpiExpr:
-      \_logic_var: (sbox4), line:4, parent:sbox4
-        |vpiFullName:sbox4
-        |vpiRange:
-        \_range: , line:4
-          |vpiLeftRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:15
-            |vpiSize:32
-            |INT:15
-          |vpiRightRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiStmt:
-    \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
-      |vpiFullName:work@dut.sbox4_64bit
   |vpiTypedef:
   \_enum_typespec: (exc_cause_e), line:11
     |vpiName:exc_cause_e
@@ -664,6 +618,8 @@ design: (work@dut)
     |vpiRhs:
     \_func_call: (sbox4_64bit), line:14
       |vpiName:sbox4_64bit
+      |vpiFunction:
+      \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
       |vpiArgument:
       \_ref_obj: (work@dut.data_state_xor), line:14, parent:sbox4_64bit
         |vpiName:data_state_xor
@@ -682,71 +638,6 @@ design: (work@dut)
       |vpiFullName:work@dut.data_state_sbox
   |vpiTaskFunc:
   \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:sbox4_64bit
-    |vpiFullName:work@dut.sbox4_64bit
-    |vpiReturn:
-    \_logic_var: , line:4
-      |vpiRange:
-      \_range: , line:4
-        |vpiLeftRange:
-        \_constant: , line:4
-          |vpiConstType:7
-          |vpiDecompile:63
-          |vpiSize:32
-          |INT:63
-        |vpiRightRange:
-        \_constant: , line:4
-          |vpiConstType:7
-          |vpiDecompile:0
-          |vpiSize:32
-          |INT:0
-    |vpiIODecl:
-    \_io_decl: (state_in)
-      |vpiName:state_in
-      |vpiDirection:5
-      |vpiExpr:
-      \_logic_var: (state_in), line:4, parent:state_in
-        |vpiFullName:state_in
-        |vpiRange:
-        \_range: , line:4
-          |vpiLeftRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:63
-            |vpiSize:32
-            |INT:63
-          |vpiRightRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiIODecl:
-    \_io_decl: (sbox4)
-      |vpiName:sbox4
-      |vpiDirection:5
-      |vpiExpr:
-      \_logic_var: (sbox4), line:4, parent:sbox4
-        |vpiFullName:sbox4
-        |vpiRange:
-        \_range: , line:4
-          |vpiLeftRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:15
-            |vpiSize:32
-            |INT:15
-          |vpiRightRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiStmt:
-    \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
-      |vpiFullName:work@dut.sbox4_64bit
   |vpiTypedef:
   \_enum_typespec: (exc_cause_e), line:11, parent:work@dut
     |vpiName:exc_cause_e

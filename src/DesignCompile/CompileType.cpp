@@ -57,34 +57,23 @@ UHDM::any* CompileHelper::compileVariable(
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
-  NodeId Constant_range = 0;
   if (the_type == VObjectType::slData_type) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
-  } else if (the_type == VObjectType::slConstant_range) {
-    Constant_range = variable;
   } else if (the_type == VObjectType::slNull_rule) {
     return nullptr;
   }
   NodeId Packed_dimension = fC->Sibling(variable);
-  VectorOfrange* ranges = nullptr;
-  if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
-    Constant_range = fC->Child(Packed_dimension);
-  }
-  if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
-    ranges = s.MakeRangeVec();
-    while (Constant_range) {
-      NodeId lexpr = fC->Child(Constant_range);
-      NodeId rexpr = fC->Sibling(lexpr);
-      range* range = s.MakeRange();
-      range->Left_expr(dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign)));
-      range->Right_expr(dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign)));
-      range->VpiFile(fC->getFileName());
-      range->VpiLineNo(fC->Line(Constant_range));
-      ranges->push_back(range);
-      Constant_range = fC->Sibling(Constant_range);
+  if (Packed_dimension == 0) {
+    // Implicit return value:
+    // function [1:0] fct();
+    if (fC->Type(variable) == slConstant_range) {
+      Packed_dimension = variable;
     }
   }
+  int size;
+  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
+  
   if (the_type == VObjectType::slStringConst) {
     chandle_var* ref = s.MakeChandle_var();
     ref->VpiName(fC->SymName(variable));
@@ -219,7 +208,12 @@ UHDM::typespec* CompileHelper::compileTypespec(
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
-  NodeId Packed_dimension = fC->Sibling(type);
+  NodeId Packed_dimension;
+  if(the_type == VObjectType::slPacked_dimension) {
+    Packed_dimension = type;
+  } else {
+    Packed_dimension = fC->Sibling(type);
+  }
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
@@ -501,6 +495,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       const std::string& typeName = fC->SymName(type);
       if (component) {
         const DataType* dt = component->getDataType(typeName);
+        if (dt == nullptr) {
+          std::string libName = fC->getLibrary()->getName();
+          dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(libName + "@" + typeName);
+          if (dt == nullptr) {
+             dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(component->getName() + "::" + typeName);
+          }
+        }
         while (dt) {
           const Struct* st = dynamic_cast<const Struct*>(dt);
           if (st) {
@@ -531,6 +532,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
             result = sit->getTypespec();
             break;
           }
+
+          const ClassDefinition* classDefn = dynamic_cast<const ClassDefinition*>(dt);
+          if (classDefn) {
+            class_typespec* ref = s.MakeClass_typespec();
+            ref->Class_defn(classDefn->getUhdmDefinition());
+            ref->VpiName(typeName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(type));
+            result = ref;
+            break;
+          }
+
           dt = dt->getDefinition();
         }
         if (result == nullptr) {

@@ -201,6 +201,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
     std::string redCoverage;
     for (unsigned int line = 1; line <=count; line++) {
       std::string lineText = StringUtils::getLineInString(fileContent, line);
+      lineText = StringUtils::replaceAll(lineText, "\r\n", "");
       lineText = StringUtils::replaceAll(lineText, "\n", "");
       std::map<unsigned int, int>::iterator cItr = uhdmCover.find(line);
 

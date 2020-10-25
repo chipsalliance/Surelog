@@ -35,8 +35,8 @@ design: (unnamed)
     |vpiName:uvm_port_base
     |vpiFullName:pack::uvm_port_base
     |vpiInternalScope:
-    \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack
-      |vpiName:uvm_port_base::embedded
+    \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack::uvm_port_base
+      |vpiName:embedded
       |vpiFullName:pack::uvm_port_base::embedded
       |vpiMethod:
       \_function: (pack::uvm_port_base::embedded::new), line:8, parent:pack::uvm_port_base::embedded
@@ -44,18 +44,38 @@ design: (unnamed)
         |vpiName:new
         |vpiFullName:pack::uvm_port_base::embedded::new
         |vpiReturn:
-        \_class_var: 
+        \_class_var: (pack::uvm_port_base::embedded::new), parent:pack::uvm_port_base::embedded::new
+          |vpiFullName:pack::uvm_port_base::embedded::new
           |vpiTypespec:
-          \_class_typespec: 
+          \_class_typespec: (embedded)
+            |vpiName:embedded
             |vpiClassDefn:
-            \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack
+            \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack::uvm_port_base
+              |vpiName:embedded
+              |vpiFullName:pack::uvm_port_base::embedded
+              |vpiMethod:
+              \_function: (pack::uvm_port_base::embedded::new), line:8, parent:pack::uvm_port_base::embedded
+                |vpiMethod:1
+                |vpiName:new
+                |vpiFullName:pack::uvm_port_base::embedded::new
+                |vpiReturn:
+                \_class_var: 
+                  |vpiTypespec:
+                  \_class_typespec: (embedded)
+                |vpiIODecl:
+                \_io_decl: (bound)
+                  |vpiName:bound
+                  |vpiDirection:5
+                  |vpiExpr:
+                  \_int_var: (bound), line:8, parent:bound
+                    |vpiFullName:bound
         |vpiIODecl:
-        \_io_decl: (bound)
+        \_io_decl: (bound), parent:pack::uvm_port_base::embedded::new
           |vpiName:bound
           |vpiDirection:5
           |vpiExpr:
-          \_int_var: (bound), line:8, parent:bound
-            |vpiFullName:bound
+          \_int_var: (pack::uvm_port_base::embedded::new::bound), line:8, parent:bound
+            |vpiFullName:pack::uvm_port_base::embedded::new::bound
     |vpiParamAssign:
     \_param_assign: , line:4, parent:pack::uvm_port_base
       |vpiRhs:
@@ -83,28 +103,6 @@ design: (unnamed)
     \_parameter: (pack::uvm_port_base::p1), line:4, parent:pack::uvm_port_base
     |vpiParameter:
     \_parameter: (pack::uvm_port_base::p2), line:5, parent:pack::uvm_port_base
-|uhdmallClasses:
-\_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack
-  |vpiName:uvm_port_base::embedded
-  |vpiFullName:pack::uvm_port_base::embedded
-  |vpiMethod:
-  \_function: (pack::uvm_port_base::embedded::new), line:8, parent:pack::uvm_port_base::embedded
-    |vpiMethod:1
-    |vpiName:new
-    |vpiFullName:pack::uvm_port_base::embedded::new
-    |vpiReturn:
-    \_class_var: 
-      |vpiTypespec:
-      \_class_typespec: 
-        |vpiClassDefn:
-        \_class_defn: (pack::uvm_port_base::embedded) dut.sv:7: , parent:pack
-    |vpiIODecl:
-    \_io_decl: (bound)
-      |vpiName:bound
-      |vpiDirection:5
-      |vpiExpr:
-      \_int_var: (bound), line:8, parent:bound
-        |vpiFullName:bound
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

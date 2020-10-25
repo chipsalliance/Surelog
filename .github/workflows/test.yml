@@ -1,0 +1,51 @@
+name: 'test'
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-7 \
+          ant \
+          tclsh \
+          default-jre \
+          cmake \
+          build-essential \
+          swig \
+          google-perftools \
+          libgoogle-perftools-dev \
+          uuid-dev
+        echo 'CC=gcc-7' >> $GITHUB_ENV
+        echo 'CXX=g++-7' >> $GITHUB_ENV
+
+    - name: Build
+      run: |
+        cmake --version
+        make -j2 release
+        sudo make install
+        make test_install
+
+    - name: Test
+      run: |
+        make test/unittest
+        time make CPU_CORES=2 regression
