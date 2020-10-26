@@ -29,7 +29,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#if defined(_MSC_VER)
   #include <direct.h>
   #define PATH_MAX _MAX_PATH
 #else

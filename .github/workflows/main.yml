@@ -1,0 +1,211 @@
+name: 'main'
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-7 \
+          tclsh \
+          default-jre \
+          cmake \
+          build-essential \
+          swig \
+          google-perftools \
+          libgoogle-perftools-dev \
+          uuid-dev
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-7' >> $GITHUB_ENV
+        echo 'CXX=g++-7' >> $GITHUB_ENV
+        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which make && make --version
+        which swig && swig -version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        make release
+        sudo make install
+
+    - name: Test
+      run: |
+        make test_install
+        make test/unittest
+        make regression
+
+  msys2-gcc:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+    - name: Install core dependencies
+      run: choco install -y swig --version=3.0.12
+      shell: powershell
+
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        java-package: jre
+        architecture: x64
+
+    - name: Setup Msys2
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: MSYS
+        update: true
+        install: make cmake ninja python python-devel gcc
+      env:
+        MSYS2_PATH_TYPE: inherit
+
+    - name: Configure Git
+      run: git config --global core.autocrlf input
+      shell: bash
+
+    - name: Git pull
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Configure shell environment variables
+      run: |
+        export SWIG_DIR=/c/ProgramData/chocolatey/lib/swig/tools/install/swigwin-3.0.12
+        export JAVA_HOME=/c/hostedtoolcache/windows/jre/8.0.272/x64
+        export CWD=`pwd`
+
+        echo "SWIG_DIR=$SWIG_DIR" >> $GITHUB_ENV
+        echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+        echo 'CMAKE_GENERATOR=Ninja' >> $GITHUB_ENV
+        echo 'CC=gcc' >> $GITHUB_ENV
+        echo 'CXX=g++' >> $GITHUB_ENV
+        echo 'NO_TCMALLOC=On' >> $GITHUB_ENV
+        echo "PREFIX=$CWD/install" >> $GITHUB_ENV
+
+        echo "$SWIG_DIR" >> $GITHUB_PATH
+        echo "$JAVA_HOME/bin" >> $GITHUB_PATH
+
+    - name: Show shell configuration
+      run: |
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        env
+        where cmake && cmake --version
+        where make && make --version
+        where swig && swig -version
+        where java && java -version
+        where python && python --version
+        where ninja && ninja --version
+        where tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        where $CC && $CC --version
+        where $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        make release
+        make install
+
+    - name: Test
+      run: |
+        export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        make test_install
+        make test/unittest
+        make regression
+
+  windows-msvc:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - name: Install Core Dependencies
+      run: |
+        choco install -y make
+        choco install -y swig --version=3.0.12
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        java-package: jre
+        architecture: x64
+
+    - run: git config --global core.autocrlf input
+      shell: bash
+
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Build & Test
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+
+        set CMAKE_GENERATOR=Ninja
+        set CC=cl
+        set CXX=cl
+        set NO_TCMALLOC=On
+        set PREFIX=%GITHUB_WORKSPACE%\install
+        set CPU_CORES=%NUMBER_OF_PROCESSORS%
+
+        set MAKE_DIR=C:\make\bin
+        set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
+        set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
+        set PATH=%pythonLocation%;%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
+
+        set
+        where cmake && cmake --version
+        where make && make --version
+        where swig && swig -version
+        where java && java -version
+        where python && python --version
+        where ninja && ninja --version
+
+        make release
+        make install
+        make test_install
+        make test/unittest
+        make regression

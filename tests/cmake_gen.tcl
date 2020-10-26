@@ -19,8 +19,8 @@
 #puts "MEMORY ON HOST:\n$mem"
 #puts "CPUs on HOST:\n$cpu"
 
-set workspace_root [lindex $argv 0]
-set output_dir [lindex $argv 1]
+set workspace_root [file normalize [lindex $argv 0]]
+set output_dir [file normalize [lindex $argv 1]]
 
 proc findFiles { basedir pattern } {
 
