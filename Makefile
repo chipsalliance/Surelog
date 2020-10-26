@@ -4,10 +4,10 @@
 SHELL := /bin/bash
 
 ifeq ($(CPU_CORES),)
-CPU_CORES := $(shell nproc)
-ifeq ($(CPU_CORES),)
-CPU_CORES := 1
-endif
+	CPU_CORES := $(shell nproc)
+	ifeq ($(CPU_CORES),)
+		CPU_CORES := 1
+	endif
 endif
 
 PREFIX ?= /usr/local
@@ -19,49 +19,49 @@ debug: run-cmake-debug
 	cmake --build dbuild -j $(CPU_CORES)
 
 run-cmake-release:
-	mkdir -p build/tests dist
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B build
 
 run-cmake-debug:
-	mkdir -p dbuild/tests dist
 	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B dbuild
 
 test/unittest: run-cmake-release
 	cmake --build build --target UnitTests -j $(CPU_CORES)
-	pushd build; ctest --output-on-failure; popd
+	pushd build && ctest --output-on-failure && popd
 
 test/regression: run-cmake-release
-	cd build; ../tests/regression.tcl mt=0 show_diff
+	cd build && ../tests/regression.tcl mt=0 show_diff
 
 test: test/unittest test/regression
 
 test-parallel: release test/unittest
-	mkdir -p build/tests
-	rm -rf build/test; mkdir build/test
-	tclsh tests/cmake_gen.tcl `pwd` `pwd`/build/test
+	cmake -E make_directory build/tests
+	cmake -E remove_directory build/test
+	cmake -E make_directory build/test
+	tclsh tests/cmake_gen.tcl . build/test
 	cmake -S build/test -B build/test/build
-	pushd build; cmake --build test/build -j $(CPU_CORES); popd
-	pushd build; tclsh ../tests/regression.tcl diff_mode show_diff; popd
+	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
+	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
 regression: release
-	mkdir -p build/tests
-	rm -rf build/test; mkdir build/test
-	tclsh tests/cmake_gen.tcl `pwd` `pwd`/build/test
+	cmake -E make_directory build/tests
+	cmake -E remove_directory build/test
+	cmake -E make_directory build/test
+	tclsh tests/cmake_gen.tcl . build/test
 	cmake -S build/test -B build/test/build
-	pushd build; cmake --build test/build -j $(CPU_CORES); popd
-	pushd build; tclsh ../tests/regression.tcl diff_mode show_diff; popd
+	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
+	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
 clean:
-	rm -rf build dist
+	$(RM) -r build dist
 
 install: release
 	cmake --install build
 
 test_install: release
-	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=`readlink -f ${PREFIX}` -S tests/TestInstall -B tests/TestInstall/build
+	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
 	cmake --build tests/TestInstall/build -j $(CPU_CORES)
 
 uninstall:
-	rm -f  $(PREFIX)/bin/surelog
-	rm -rf $(PREFIX)/lib/surelog
-	rm -rf $(PREFIX)/include/surelog
+	$(RM) -r $(PREFIX)/bin/surelog
+	$(RM) -r $(PREFIX)/lib/surelog
+	$(RM) -r $(PREFIX)/include/surelog
