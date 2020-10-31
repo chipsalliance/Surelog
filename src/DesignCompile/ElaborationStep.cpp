@@ -929,6 +929,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
     } else if (tpstype == uhdmclass_typespec) {
       class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
+      tps->VpiParent(stv);
       obj = stv;
       stv->Expr(assignExp);
     }

@@ -181,4 +181,5 @@ Parameter* DesignComponent::getParameter(const std::string& name) const {
 
 void DesignComponent::insertParameter(Parameter* p) {
   m_parameters.insert(std::make_pair(p->getName(), p));
+  m_orderedParameters.push_back(p);
 }
