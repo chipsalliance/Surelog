@@ -269,13 +269,21 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             while (Ordered_parameter_assignment) {
               NodeId Param_expression = fC->Child(Ordered_parameter_assignment);
               NodeId Data_type = fC->Child(Param_expression);
+              std::string fName;
+              const DesignComponent::ParameterVec& formal = classDefn->getOrderedParameters();
+              if (index < formal.size()) {
+                fName = formal.at(index)->getName();
+              }
               if (fC->Type(Data_type) == slData_type) {
                 typespec* tps =
                     compileTypespec(component, fC, Data_type, compileDesign,
                                     result, instance, reduce);
-                std::string fName;  // TODO: formal name
+               
+
                 type_parameter* tp = s.MakeType_parameter();
-                //tp->VpiName(fName);
+                tp->VpiName(fName);
+                tp->VpiParent(ref);
+                tps->VpiParent(tp);
                 tp->Typespec(tps);
                 params->push_back(tp);
               } else {
@@ -285,14 +293,15 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 if (exp) {
                   if (exp->UhdmType() == uhdmref_obj) {
                     const std::string& name = ((ref_obj*)exp)->VpiName();
-                    typespec* p = compileDatastructureTypespec(
+                    typespec* tps = compileDatastructureTypespec(
                         component, fC, param, compileDesign, instance, reduce,
                         "", name);
-                    if (p) {
-                      std::string fName;  // TODO: formal name
+                    if (tps) {
                       type_parameter* tp = s.MakeType_parameter();
-                      //tp->VpiName(fName);
-                      tp->Typespec(p);
+                      tp->VpiName(fName);
+                      tp->Typespec(tps);
+                      tps->VpiParent(tp);
+                      tp->VpiParent(ref);
                       params->push_back(tp);
                     }
                   }

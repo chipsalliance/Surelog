@@ -113,7 +113,7 @@ design: (work@top)
     \_method_func_call: (new)
       |vpiName:new
     |vpiTypespec:
-    \_class_typespec: (uvm_config_db), line:25
+    \_class_typespec: (uvm_config_db), line:25, parent:work@top.misc
       |vpiName:uvm_config_db
       |vpiClassDefn:
       \_class_defn: (work@uvm_config_db) dut.sv:16: , parent:work@top
@@ -160,18 +160,22 @@ design: (work@top)
           |vpiTypespec:
           \_int_typespec: , line:16, parent:work@uvm_config_db::T2
       |vpiParameter:
-      \_type_parameter: 
+      \_type_parameter: (work@top.misc.uvm_config_db.T), parent:uvm_config_db
+        |vpiFullName:work@top.misc.uvm_config_db.T
+        |vpiName:T
         |vpiTypespec:
-        \_class_typespec: (uvm_object), line:25
+        \_class_typespec: (uvm_object), line:25, parent:work@top.misc.uvm_config_db.T
           |vpiName:uvm_object
           |vpiClassDefn:
           \_class_defn: (work@uvm_object) dut.sv:1: , parent:work@top
             |vpiVirtual:1
             |vpiName:work@uvm_object
       |vpiParameter:
-      \_type_parameter: 
+      \_type_parameter: (work@top.misc.uvm_config_db.T2), parent:uvm_config_db
+        |vpiFullName:work@top.misc.uvm_config_db.T2
+        |vpiName:T2
         |vpiTypespec:
-        \_string_typespec: , line:25
+        \_string_typespec: , line:25, parent:work@top.misc.uvm_config_db.T2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

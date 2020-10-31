@@ -57,6 +57,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   typedef std::map<std::string, Function*> FunctionMap;
   typedef std::map<std::string, Variable*> VariableMap;
   typedef std::map<std::string, Parameter*> ParameterMap;
+  typedef std::vector<Parameter*> ParameterVec;
 
   void addFileContent(const FileContent* fileContent, NodeId nodeId);
   const std::vector<const FileContent*>& getFileContents() const {
@@ -99,9 +100,10 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   const VariableMap& getVariables() const { return m_variables; }
   Variable* getVariable(const std::string& name);
 
-  ParameterMap& getParameterMap() { return m_parameters; }
+  const ParameterMap& getParameterMap() const { return m_parameters; }
   Parameter* getParameter(const std::string& name) const;
   void insertParameter(Parameter* p);
+  const ParameterVec& getOrderedParameters() const { return m_orderedParameters; }
 
   void addImportedSymbol(UHDM::import* i) { m_imported_symbols.push_back(i); }
   const std::vector<UHDM::import*>& getImportedSymbols() const { return m_imported_symbols; }
@@ -129,6 +131,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<UHDM::import*> m_imported_symbols;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
   ParameterMap m_parameters;
+  ParameterVec m_orderedParameters;
 };
 
 };  // namespace SURELOG
