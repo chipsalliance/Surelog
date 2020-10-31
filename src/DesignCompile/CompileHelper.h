@@ -161,6 +161,11 @@ public:
   UHDM::typespec* compileTypespec(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, const std::string& suffixname = "");
 
+  UHDM::typespec* compileDatastructureTypespec(
+      DesignComponent* component, const FileContent* fC, NodeId type,
+      CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
+      bool reduce, const std::string& suffixname = "", const std::string& typeName = "");
+
   UHDM::any* compileSimpleImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
 
