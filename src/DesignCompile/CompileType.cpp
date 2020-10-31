@@ -194,6 +194,138 @@ const UHDM::typespec* bindTypespec(const std::string& name, SURELOG::ValuedCompo
   return result;
 }
 
+typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component,
+  const FileContent* fC,
+  NodeId type,
+  CompileDesign* compileDesign,
+  SURELOG::ValuedComponentI* instance, bool reduce,
+  const std::string& suffixname,
+  const std::string& typeName) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  typespec* result = nullptr;  
+  if (component) {
+    const DataType* dt = component->getDataType(typeName);
+    if (dt == nullptr) {
+      std::string libName = fC->getLibrary()->getName();
+      dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
+          libName + "@" + typeName);
+      if (dt == nullptr) {
+        dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
+            component->getName() + "::" + typeName);
+      }
+    }
+    while (dt) {
+      const Struct* st = dynamic_cast<const Struct*>(dt);
+      if (st) {
+        result = st->getTypespec();
+        if (!suffixname.empty()) {
+          struct_typespec* tpss = (struct_typespec*)result;
+          for (typespec_member* memb : *tpss->Members()) {
+            if (memb->VpiName() == suffixname) {
+              result = (UHDM::typespec*)memb->Typespec();
+              break;
+            }
+          }
+        }
+        break;
+      }
+      const Enum* en = dynamic_cast<const Enum*>(dt);
+      if (en) {
+        result = en->getTypespec();
+        break;
+      }
+      const Union* un = dynamic_cast<const Union*>(dt);
+      if (un) {
+        result = un->getTypespec();
+        break;
+      }
+      const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
+      if (sit) {
+        result = sit->getTypespec();
+        break;
+      }
+
+      const ClassDefinition* classDefn =
+          dynamic_cast<const ClassDefinition*>(dt);
+      if (classDefn) {
+        class_typespec* ref = s.MakeClass_typespec();
+        ref->Class_defn(classDefn->getUhdmDefinition());
+        ref->VpiName(typeName);
+        ref->VpiFile(fC->getFileName());
+        ref->VpiLineNo(fC->Line(type));
+        result = ref;
+
+        NodeId param = fC->Sibling(type);
+        if (param && (fC->Type(param) != slList_of_net_decl_assignments)) {
+          VectorOfany* params = s.MakeAnyVec();
+          ref->Parameters(params);
+          unsigned int index = 0;
+          NodeId Parameter_value_assignment = param;
+          NodeId List_of_parameter_assignments =
+              fC->Child(Parameter_value_assignment);
+          NodeId Ordered_parameter_assignment =
+              fC->Child(List_of_parameter_assignments);
+          if (Ordered_parameter_assignment && (fC->Type(Ordered_parameter_assignment) == slOrdered_parameter_assignment)) {
+            while (Ordered_parameter_assignment) {
+              NodeId Param_expression = fC->Child(Ordered_parameter_assignment);
+              NodeId Data_type = fC->Child(Param_expression);
+              if (fC->Type(Data_type) == slData_type) {
+                typespec* tps =
+                    compileTypespec(component, fC, Data_type, compileDesign,
+                                    result, instance, reduce);
+                std::string fName;  // TODO: formal name
+                type_parameter* tp = s.MakeType_parameter();
+                //tp->VpiName(fName);
+                tp->Typespec(tps);
+                params->push_back(tp);
+              } else {
+                any* exp =
+                    compileExpression(component, fC, Param_expression,
+                                      compileDesign, nullptr, instance, reduce);
+                if (exp) {
+                  if (exp->UhdmType() == uhdmref_obj) {
+                    const std::string& name = ((ref_obj*)exp)->VpiName();
+                    typespec* p = compileDatastructureTypespec(
+                        component, fC, param, compileDesign, instance, reduce,
+                        "", name);
+                    if (p) {
+                      std::string fName;  // TODO: formal name
+                      type_parameter* tp = s.MakeType_parameter();
+                      //tp->VpiName(fName);
+                      tp->Typespec(p);
+                      params->push_back(tp);
+                    }
+                  }
+                }
+              }
+              Ordered_parameter_assignment =
+                  fC->Sibling(Ordered_parameter_assignment);
+              index++;
+            }
+          }
+        }
+        break;
+      }
+
+      dt = dt->getDefinition();
+    }
+    if (result == nullptr) {
+      void_typespec* tps = s.MakeVoid_typespec();
+      tps->VpiName(typeName);
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      result = tps;
+    }
+  } else {
+    void_typespec* tps = s.MakeVoid_typespec();
+    tps->VpiName(typeName);
+    tps->VpiFile(fC->getFileName());
+    tps->VpiLineNo(fC->Line(type));
+    result = tps;
+  }
+  return result;
+}
+
 UHDM::typespec* CompileHelper::compileTypespec(
   DesignComponent* component,
   const FileContent* fC, NodeId type,
@@ -208,9 +340,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
-  NodeId Packed_dimension;
+  NodeId Packed_dimension = 0;
   if(the_type == VObjectType::slPacked_dimension) {
     Packed_dimension = type;
+  } else if (the_type == VObjectType::slStringConst) {
+    // Class parameter
   } else {
     Packed_dimension = fC->Sibling(type);
   }
@@ -493,73 +627,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
-      if (component) {
-        const DataType* dt = component->getDataType(typeName);
-        if (dt == nullptr) {
-          std::string libName = fC->getLibrary()->getName();
-          dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(libName + "@" + typeName);
-          if (dt == nullptr) {
-             dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(component->getName() + "::" + typeName);
-          }
-        }
-        while (dt) {
-          const Struct* st = dynamic_cast<const Struct*>(dt);
-          if (st) {
-            result = st->getTypespec();
-            if (!suffixname.empty()) {
-              struct_typespec* tpss = (struct_typespec*)result;
-              for (typespec_member* memb : *tpss->Members()) {
-                if (memb->VpiName() == suffixname) {
-                  result = (UHDM::typespec*) memb->Typespec();
-                  break;
-                }
-              }
-            }
-            break;
-          }
-          const Enum* en = dynamic_cast<const Enum*>(dt);
-          if (en) {
-            result = en->getTypespec();
-            break;
-          }
-          const Union* un = dynamic_cast<const Union*>(dt);
-          if (un) {
-            result = un->getTypespec();
-            break;
-          }
-          const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
-          if (sit) {
-            result = sit->getTypespec();
-            break;
-          }
-
-          const ClassDefinition* classDefn = dynamic_cast<const ClassDefinition*>(dt);
-          if (classDefn) {
-            class_typespec* ref = s.MakeClass_typespec();
-            ref->Class_defn(classDefn->getUhdmDefinition());
-            ref->VpiName(typeName);
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(type));
-            result = ref;
-            break;
-          }
-
-          dt = dt->getDefinition();
-        }
-        if (result == nullptr) {
-          void_typespec* tps = s.MakeVoid_typespec();
-          tps->VpiName(typeName);
-          tps->VpiFile(fC->getFileName());
-          tps->VpiLineNo(fC->Line(type));
-          result = tps;
-        }
-      } else {
-        void_typespec* tps = s.MakeVoid_typespec();
-        tps->VpiName(typeName);
-        tps->VpiFile(fC->getFileName());
-        tps->VpiLineNo(fC->Line(type));
-        result = tps;
-      }
+      result = compileDatastructureTypespec(component, fC, type, compileDesign,
+                                             instance, reduce, "", typeName);
       break;
     }
     case VObjectType::slConstant_expression: {
