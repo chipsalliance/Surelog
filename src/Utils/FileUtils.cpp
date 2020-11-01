@@ -104,8 +104,6 @@ int FileUtils::mkDir(const char* path) {
 
 int FileUtils::rmDir(const char* path) {
   const std::string dirpath(path);
-  if (!fs::is_directory(dirpath))
-    return -1;
   return fs::remove_all(dirpath);
 }
 

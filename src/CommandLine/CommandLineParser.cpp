@@ -1072,7 +1072,7 @@ bool CommandLineParser::cleanCache() {
   if (!m_cacheAllowed) {
     int status = FileUtils::rmDir(cachedir.c_str());
     if (status != 0) {
-      std::cout << "ERROR: Cannot delete " << cachedir << std::endl;
+      std::cout << "ERROR: Cannot delete " << cachedir << " status: " << status << std::endl;
     }
   }
 
