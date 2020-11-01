@@ -214,6 +214,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             component->getName() + "::" + typeName);
       }
     }
+    TypeDef* parent_tpd = nullptr;
     while (dt) {
       const Struct* st = dynamic_cast<const Struct*>(dt);
       if (st) {
@@ -244,7 +245,10 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         result = sit->getTypespec();
         break;
       }
-
+      const TypeDef* tpd = dynamic_cast<const TypeDef*>(dt);
+      if (tpd) {
+        parent_tpd = (TypeDef*) tpd;
+      }
       const ClassDefinition* classDefn =
           dynamic_cast<const ClassDefinition*>(dt);
       if (classDefn) {
@@ -256,6 +260,10 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         result = ref;
 
         NodeId param = fC->Sibling(type);
+        if (parent_tpd) {
+          NodeId n = parent_tpd->getDefinitionNode();
+          param = fC->Sibling(n);
+        }
         if (param && (fC->Type(param) != slList_of_net_decl_assignments)) {
           VectorOfany* params = s.MakeAnyVec();
           ref->Parameters(params);
