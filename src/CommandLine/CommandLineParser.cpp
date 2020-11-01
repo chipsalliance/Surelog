@@ -1018,22 +1018,23 @@ bool CommandLineParser::setupCache_() {
   bool noError = true;
   std::string odir;
   std::string cachedir;
-  if (m_cacheAllowed) {
-    odir = m_symbolTable->getSymbol(m_outputDir);
-    if (odir.size()) {
-      if (odir[odir.size() - 1] != '/') {
-        odir += '/';
-      }
+  odir = m_symbolTable->getSymbol(m_outputDir);
+  if (odir.size()) {
+    if (odir[odir.size() - 1] != '/') {
+      odir += '/';
     }
+  }
 
-    odir += m_symbolTable->getSymbol(
+  odir += m_symbolTable->getSymbol(
       (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
-    if (m_cacheDirId == 0) {
-      cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
-      m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
-    } else {
-      cachedir = m_symbolTable->getSymbol(m_cacheDirId);
-    }
+  if (m_cacheDirId == 0) {
+    cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+    m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
+  } else {
+    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+  }
+
+  if (m_cacheAllowed) {
     int status = FileUtils::mkDir(cachedir.c_str());
     if (status != 0) {
       Location loc(m_cacheDirId);
@@ -1041,7 +1042,40 @@ bool CommandLineParser::setupCache_() {
       m_errors->addError(err);
       noError = false;
     }
+  } else {
+    FileUtils::rmDir(cachedir.c_str());
   }
 
   return noError;
 }
+
+bool CommandLineParser::cleanCache() {
+  bool noError = true;
+  std::string odir;
+  std::string cachedir;
+  odir = m_symbolTable->getSymbol(m_outputDir);
+  if (odir.size()) {
+    if (odir[odir.size() - 1] != '/') {
+      odir += '/';
+    }
+  }
+
+  odir += m_symbolTable->getSymbol(
+      (fileunit() ? m_compileUnitDirectory : m_compileAllDirectory));
+  if (m_cacheDirId == 0) {
+    cachedir = odir + m_symbolTable->getSymbol(m_defaultCacheDirId);
+    m_cacheDirId = m_symbolTable->registerSymbol(cachedir);
+  } else {
+    cachedir = m_symbolTable->getSymbol(m_cacheDirId);
+  }
+
+  if (!m_cacheAllowed) {
+    int status = FileUtils::rmDir(cachedir.c_str());
+    if (status != 0) {
+      std::cout << "ERROR: Cannot delete " << cachedir << std::endl;
+    }
+  }
+
+  return noError;
+}
+

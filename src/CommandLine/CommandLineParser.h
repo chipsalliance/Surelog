@@ -149,7 +149,7 @@ class CommandLineParser final {
   std::vector<std::string>& getTopLevelModules() { return m_topLevelModules; }
   bool fullSVMode() const { return m_sverilog; }
   bool isSVFile(const std::string& fileName) const;
-
+  bool cleanCache();
  private:
   CommandLineParser(const CommandLineParser& orig) = delete;
 

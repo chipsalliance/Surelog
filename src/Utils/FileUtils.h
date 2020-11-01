@@ -40,6 +40,7 @@ class FileUtils final {
   static SymbolId locateFile(SymbolId file, SymbolTable* symbols,
                              const std::vector<SymbolId>& paths);
   static int mkDir(const char* path);
+  static int rmDir(const char* path);
   static std::string getFullPath(const std::string& path);
   static bool getFullPath(const std::string& path, std::string *result);
   static std::string getPathName(const std::string& path);
