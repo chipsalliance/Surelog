@@ -422,6 +422,7 @@ proc run_regression { } {
 
         cd $testdir
         if {$DIFF_MODE == 0} {
+            file delete -force slpp_all slpp_unit
             file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit
         }
         set passstatus "PASS"
@@ -488,6 +489,7 @@ proc run_regression { } {
         if {$DIFF_MODE == 0} {
             if [regexp {Segmentation fault} $result] {
                 set segfault 1
+		file delete -force slpp_all slpp_unit
                 file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit
                 if [regexp {\.sh} $command] {
                     catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
@@ -662,6 +664,11 @@ proc run_regression { } {
             close $fid
         }
 
+	if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
+            file delete -force slpp_all slpp_unit
+            file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit
+        }
+	
         cd $REGRESSION_PATH/tests
     }
     log $sep

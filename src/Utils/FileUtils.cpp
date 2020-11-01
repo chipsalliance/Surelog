@@ -102,6 +102,11 @@ int FileUtils::mkDir(const char* path) {
   return fs::is_directory(dirpath) ? 0 : -1;
 }
 
+int FileUtils::rmDir(const char* path) {
+  const std::string dirpath(path);
+  return fs::remove_all(dirpath);
+}
+
 std::string FileUtils::getFullPath(const std::string& path) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
