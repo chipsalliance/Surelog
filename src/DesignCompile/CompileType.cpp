@@ -213,11 +213,17 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
             component->getName() + "::" + typeName);
       }
+      if (dt == nullptr) {
+        Parameter* p = component->getParameter(typeName);
+        if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter)) 
+          dt = p;
+      }
     }
     TypeDef* parent_tpd = nullptr;
     while (dt) {
-      const Struct* st = dynamic_cast<const Struct*>(dt);
-      if (st) {
+      if (const TypeDef* tpd = dynamic_cast<const TypeDef*>(dt)) {
+        parent_tpd = (TypeDef*) tpd;
+      } else if (const Struct* st = dynamic_cast<const Struct*>(dt)) {
         result = st->getTypespec();
         if (!suffixname.empty()) {
           struct_typespec* tpss = (struct_typespec*)result;
@@ -229,29 +235,20 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
           }
         }
         break;
-      }
-      const Enum* en = dynamic_cast<const Enum*>(dt);
-      if (en) {
+      } else if (const Enum* en = dynamic_cast<const Enum*>(dt)) {
         result = en->getTypespec();
         break;
-      }
-      const Union* un = dynamic_cast<const Union*>(dt);
-      if (un) {
+      } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
         result = un->getTypespec();
         break;
-      }
-      const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
-      if (sit) {
+      } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
         break;
-      }
-      const TypeDef* tpd = dynamic_cast<const TypeDef*>(dt);
-      if (tpd) {
-        parent_tpd = (TypeDef*) tpd;
-      }
-      const ClassDefinition* classDefn =
-          dynamic_cast<const ClassDefinition*>(dt);
-      if (classDefn) {
+      } else if (/*const Parameter* par = */dynamic_cast<const Parameter*>(dt)) {
+        // Prevent circular definition
+        return nullptr;
+      } else if (const ClassDefinition* classDefn =
+          dynamic_cast<const ClassDefinition*>(dt)) {
         class_typespec* ref = s.MakeClass_typespec();
         ref->Class_defn(classDefn->getUhdmDefinition());
         ref->VpiName(typeName);
@@ -267,6 +264,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         if (param && (fC->Type(param) != slList_of_net_decl_assignments)) {
           VectorOfany* params = s.MakeAnyVec();
           ref->Parameters(params);
+          VectorOfparam_assign* assigns = s.MakeParam_assignVec();
+          ref->Param_assigns(assigns);
           unsigned int index = 0;
           NodeId Parameter_value_assignment = param;
           NodeId List_of_parameter_assignments =
@@ -279,8 +278,11 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
               NodeId Data_type = fC->Child(Param_expression);
               std::string fName;
               const DesignComponent::ParameterVec& formal = classDefn->getOrderedParameters();
+              any* fparam = nullptr;
               if (index < formal.size()) {
-                fName = formal.at(index)->getName();
+                Parameter* p = formal.at(index);
+                fName = p->getName();
+                fparam = p->getUhdmParam();
               }
               if (fC->Type(Data_type) == slData_type) {
                 typespec* tps =
@@ -294,6 +296,10 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 tps->VpiParent(tp);
                 tp->Typespec(tps);
                 params->push_back(tp);
+                param_assign* pass = s.MakeParam_assign();
+                pass->Rhs(tp);
+                pass->Lhs(fparam);
+                assigns->push_back(pass);
               } else {
                 any* exp =
                     compileExpression(component, fC, Param_expression,
@@ -311,6 +317,10 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                       tps->VpiParent(tp);
                       tp->VpiParent(ref);
                       params->push_back(tp);
+                      param_assign* pass = s.MakeParam_assign();
+                      pass->Rhs(tp);
+                      pass->Lhs(fparam);
+                      assigns->push_back(pass);
                     }
                   }
                 }

@@ -6,8 +6,8 @@ endclass
 
 class uvm_resource_db #(type T=int);
 
-  //typedef uvm_resource #(T) rsrc_t;
- // rsrc_t rsrc;
+ typedef uvm_resource #(T) rsrc_t;
+ rsrc_t rsrc;
  virtual function void check_all_sva_passed(string a_error_msg);
  endfunction
  
