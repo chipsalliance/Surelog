@@ -951,9 +951,10 @@ design: (work@top)
     \_class_var: (work@mailbox::new), parent:work@mailbox::new
       |vpiFullName:work@mailbox::new
       |vpiTypespec:
-      \_class_typespec: 
+      \_class_typespec: , parent:work@mailbox::new
         |vpiClassDefn:
-        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: 
+          |vpiName:work@mailbox
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
@@ -1130,9 +1131,10 @@ design: (work@top)
     \_class_var: (work@semaphore::new), parent:work@semaphore::new
       |vpiFullName:work@semaphore::new
       |vpiTypespec:
-      \_class_typespec: 
+      \_class_typespec: , parent:work@semaphore::new
         |vpiClassDefn:
-        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: 
+          |vpiName:work@semaphore
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
