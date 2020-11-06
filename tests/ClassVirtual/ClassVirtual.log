@@ -41,11 +41,15 @@ design: (unnamed)
       |vpiName:uvm_port_base2
       |vpiFullName:pack::uvm_port_base2
       |vpiExtends:
-      \_extends: 
+      \_extends: , parent:pack::uvm_port_base2
         |vpiClassTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (pack::Base) dut.sv:3: , parent:pack
+          \_class_defn: (pack::Base) dut.sv:3: 
+            |vpiName:Base
+            |vpiFullName:pack::Base
+            |vpiDerivedClasses:
+            \_class_defn: (pack::uvm_port_base2) dut.sv:9: , parent:pack
       |vpiParameter:
       \_type_parameter: (pack::uvm_port_base2::IF), line:9, parent:pack::uvm_port_base2
         |vpiFullName:pack::uvm_port_base2::IF
@@ -59,7 +63,7 @@ design: (unnamed)
     |vpiName:uvm_port_base1
     |vpiFullName:pack::uvm_port_base1
     |vpiExtends:
-    \_extends: 
+    \_extends: , parent:pack::uvm_port_base1
       |vpiClassTypespec:
       \_class_typespec: (IF)
         |vpiName:IF
