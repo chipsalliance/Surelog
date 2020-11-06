@@ -1242,6 +1242,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId interface_identifier = fC->Child(interface_port_header);
     NodeId interface_name = fC->Child(interface_identifier);
     NodeId port_name = fC->Sibling(interface_port_header);
+    NodeId unpacked_dimension = fC->Sibling(port_name);
     /*
     n<mem_if> u<10> t<StringConst> p<12> s<11> l<11>
     n<system> u<11> t<StringConst> p<12> l<11>
@@ -1250,7 +1251,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     n<sif2> u<14> t<StringConst> p<15> l<11>
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
-    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, 0, false));
+    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, unpacked_dimension, false));
     //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
