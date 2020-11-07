@@ -1,0 +1,321 @@
+[INF:CM0023] Creating log file ../../build/tests/ClassParamAsParam/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[WRN:PA0205] dut.sv:17: No timescale set for "top".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:17: Compile module "work@top".
+
+[INF:CP0302] dut.sv:14: Compile class "work@config_db".
+
+[INF:CP0302] dut.sv:1: Compile class "work@object".
+
+[INF:CP0302] dut.sv:4: Compile class "work@resource".
+
+[INF:CP0302] dut.sv:7: Compile class "work@resource_db".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:17: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/ClassParamAsParam/slpp_unit//surelog.uhdm.chk
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallClasses:
+\_class_defn: (work@config_db) dut.sv:14: , parent:work@top
+  |vpiName:work@config_db
+  |vpiExtends:
+  \_extends: , parent:work@config_db
+    |vpiClassTypespec:
+    \_class_typespec: 
+      |vpiClassDefn:
+      \_class_defn: (work@resource_db) dut.sv:7: 
+        |vpiName:work@resource_db
+        |vpiDerivedClasses:
+        \_class_defn: (work@config_db) dut.sv:14: , parent:work@top
+        |vpiVariables:
+        \_class_var: (work@config_db::work@resource_db::rsrc), line:10, parent:work@resource_db
+          |vpiName:rsrc
+          |vpiFullName:work@config_db::work@resource_db::rsrc
+          |vpiAutomatic:1
+          |vpiVisibility:1
+          |vpiTypespec:
+          \_class_typespec: (rsrc_t), line:10, parent:work@config_db::work@resource_db::rsrc
+            |vpiName:rsrc_t
+            |vpiClassDefn:
+            \_class_defn: (work@resource) dut.sv:4: , parent:rsrc_t
+              |vpiName:work@resource
+              |vpiParameter:
+              \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+                |vpiFullName:work@config_db::T
+                |vpiName:T
+                |vpiTypespec:
+                \_int_typespec: , line:7, parent:work@config_db::T
+        |vpiParameter:
+        \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+  |vpiParameter:
+  \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+|uhdmallClasses:
+\_class_defn: (work@object) dut.sv:1: , parent:work@top
+  |vpiVirtual:1
+  |vpiName:work@object
+  |vpiParameter:
+  \_type_parameter: (work@object::T), line:1, parent:work@object
+    |vpiFullName:work@object::T
+    |vpiName:T
+    |vpiTypespec:
+    \_int_typespec: , line:1, parent:work@object::T
+|uhdmallClasses:
+\_class_defn: (work@resource) dut.sv:4: , parent:work@top
+  |vpiName:work@resource
+  |vpiParameter:
+  \_type_parameter: (work@resource::T), line:4, parent:work@resource
+    |vpiFullName:work@resource::T
+    |vpiName:T
+    |vpiTypespec:
+    \_int_typespec: , line:4, parent:work@resource::T
+|uhdmallClasses:
+\_class_defn: (work@resource_db) dut.sv:7: , parent:work@top
+  |vpiName:work@resource_db
+  |vpiDerivedClasses:
+  \_class_defn: (work@config_db) dut.sv:14: , parent:work@top
+  |vpiVariables:
+  \_class_var: (work@resource_db::rsrc), line:10, parent:work@resource_db
+    |vpiName:rsrc
+    |vpiFullName:work@resource_db::rsrc
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiTypespec:
+    \_class_typespec: (rsrc_t), line:10, parent:work@resource_db::rsrc
+      |vpiName:rsrc_t
+      |vpiClassDefn:
+      \_class_defn: (work@resource) dut.sv:4: , parent:rsrc_t
+        |vpiName:work@resource
+        |vpiParameter:
+        \_type_parameter: (work@resource_db::T), line:4, parent:work@resource_db
+          |vpiFullName:work@resource_db::T
+          |vpiName:T
+          |vpiTypespec:
+          \_int_typespec: , line:4, parent:work@resource_db::T
+  |vpiParameter:
+  \_type_parameter: (work@resource_db::T), line:4, parent:work@resource_db
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:17: , parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.misc2), line:18, parent:work@top
+    |vpiName:misc2
+    |vpiFullName:work@top.misc2
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:17: 
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiVariables:
+  \_class_var: (work@top.misc2), line:18, parent:work@top
+    |vpiName:misc2
+    |vpiFullName:work@top.misc2
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_method_func_call: (new)
+      |vpiName:new
+    |vpiTypespec:
+    \_class_typespec: (config_db), line:18, parent:work@top.misc2
+      |vpiName:config_db
+      |vpiParamAssign:
+      \_param_assign: , parent:config_db
+        |vpiRhs:
+        \_type_parameter: (work@top.misc2.config_db.T)
+          |vpiFullName:work@top.misc2.config_db.T
+          |vpiName:T
+          |vpiTypespec:
+          \_class_typespec: (object), line:18, parent:work@top.misc2.config_db.T
+            |vpiName:object
+            |vpiParamAssign:
+            \_param_assign: , parent:object
+              |vpiRhs:
+              \_type_parameter: (work@top.misc2.config_db.T.object.T)
+                |vpiFullName:work@top.misc2.config_db.T.object.T
+                |vpiName:T
+                |vpiTypespec:
+                \_void_typespec: (long), line:18, parent:work@top.misc2.config_db.T.object.T
+                  |vpiName:long
+              |vpiLhs:
+              \_type_parameter: (work@top.misc2.config_db.T.object.T), line:1
+                |vpiFullName:work@top.misc2.config_db.T.object.T
+                |vpiName:T
+                |vpiTypespec:
+                \_int_typespec: , line:1, parent:work@top.misc2.config_db.T.object.T
+            |vpiClassDefn:
+            \_class_defn: (work@object) dut.sv:1: , parent:object
+              |vpiVirtual:1
+              |vpiName:work@object
+              |vpiParameter:
+              \_type_parameter: (work@top::misc2::config_db::T::object::work@object::T), line:1, parent:work@object
+                |vpiFullName:work@top::misc2::config_db::T::object::work@object::T
+                |vpiName:T
+                |vpiTypespec:
+                \_int_typespec: , line:1, parent:work@top::misc2::config_db::T::object::work@object::T
+            |vpiParameter:
+            \_type_parameter: (work@top.misc2.config_db.T.object.T), parent:object
+              |vpiFullName:work@top.misc2.config_db.T.object.T
+              |vpiName:T
+              |vpiTypespec:
+              \_void_typespec: (long), line:18, parent:work@top.misc2.config_db.T.object.T
+                |vpiName:long
+        |vpiLhs:
+        \_type_parameter: (work@top.misc2.config_db.T), line:7
+          |vpiFullName:work@top.misc2.config_db.T
+          |vpiName:T
+          |vpiTypespec:
+          \_int_typespec: , line:7, parent:work@top.misc2.config_db.T
+      |vpiClassDefn:
+      \_class_defn: (work@config_db) dut.sv:14: , parent:config_db
+        |vpiName:work@config_db
+        |vpiExtends:
+        \_extends: , parent:work@config_db
+          |vpiClassTypespec:
+          \_class_typespec: 
+            |vpiClassDefn:
+            \_class_defn: (work@resource_db) dut.sv:7: 
+              |vpiName:work@resource_db
+              |vpiDerivedClasses:
+              \_class_defn: (work@config_db) dut.sv:14: , parent:work@top
+                |vpiName:work@config_db
+                |vpiExtends:
+                \_extends: , parent:work@config_db
+                  |vpiClassTypespec:
+                  \_class_typespec: 
+                    |vpiClassDefn:
+                    \_class_defn: (work@resource_db) dut.sv:7: 
+                      |vpiName:work@resource_db
+                      |vpiDerivedClasses:
+                      \_class_defn: (work@config_db) dut.sv:14: , parent:work@top
+                      |vpiVariables:
+                      \_class_var: (work@config_db::work@resource_db::rsrc), line:10, parent:work@resource_db
+                        |vpiName:rsrc
+                        |vpiFullName:work@config_db::work@resource_db::rsrc
+                        |vpiAutomatic:1
+                        |vpiVisibility:1
+                        |vpiTypespec:
+                        \_class_typespec: (rsrc_t), line:10, parent:work@config_db::work@resource_db::rsrc
+                          |vpiName:rsrc_t
+                          |vpiClassDefn:
+                          \_class_defn: (work@resource) dut.sv:4: , parent:rsrc_t
+                            |vpiName:work@resource
+                            |vpiParameter:
+                            \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+                              |vpiFullName:work@config_db::T
+                              |vpiName:T
+                              |vpiTypespec:
+                              \_int_typespec: , line:7, parent:work@config_db::T
+                      |vpiParameter:
+                      \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+                |vpiParameter:
+                \_type_parameter: (work@config_db::T), line:7, parent:work@config_db
+              |vpiVariables:
+              \_class_var: (work@top::misc2::config_db::work@config_db::work@resource_db::rsrc), line:10, parent:work@resource_db
+                |vpiName:rsrc
+                |vpiFullName:work@top::misc2::config_db::work@config_db::work@resource_db::rsrc
+                |vpiAutomatic:1
+                |vpiVisibility:1
+                |vpiTypespec:
+                \_class_typespec: (rsrc_t), line:10, parent:work@top::misc2::config_db::work@config_db::work@resource_db::rsrc
+                  |vpiName:rsrc_t
+                  |vpiClassDefn:
+                  \_class_defn: (work@resource) dut.sv:4: , parent:rsrc_t
+                    |vpiName:work@resource
+                    |vpiParamAssign:
+                    \_param_assign: 
+                      |vpiRhs:
+                      \_type_parameter: (work@top.misc2.config_db.T)
+                      |vpiLhs:
+                      \_type_parameter: (work@top::misc2::config_db::work@config_db::work@resource_db::rsrc::rsrc_t::work@resource::T), line:7, parent:work@resource
+                        |vpiFullName:work@top::misc2::config_db::work@config_db::work@resource_db::rsrc::rsrc_t::work@resource::T
+                        |vpiName:T
+                        |vpiTypespec:
+                        \_int_typespec: , line:7, parent:work@top::misc2::config_db::work@config_db::work@resource_db::rsrc::rsrc_t::work@resource::T
+                    |vpiParameter:
+                    \_type_parameter: (work@top::misc2::config_db::work@config_db::work@resource_db::rsrc::rsrc_t::work@resource::T), line:7, parent:work@resource
+              |vpiParamAssign:
+              \_param_assign: 
+                |vpiRhs:
+                \_type_parameter: (work@top.misc2.config_db.T)
+                |vpiLhs:
+                \_type_parameter: (work@top::misc2::config_db::work@config_db::work@resource_db::T), line:7, parent:work@resource_db
+                  |vpiFullName:work@top::misc2::config_db::work@config_db::work@resource_db::T
+                  |vpiName:T
+                  |vpiTypespec:
+                  \_int_typespec: , line:7, parent:work@top::misc2::config_db::work@config_db::work@resource_db::T
+              |vpiParameter:
+              \_type_parameter: (work@top::misc2::config_db::work@config_db::work@resource_db::T), line:7, parent:work@resource_db
+        |vpiParamAssign:
+        \_param_assign: 
+          |vpiRhs:
+          \_type_parameter: (work@top.misc2.config_db.T)
+          |vpiLhs:
+          \_type_parameter: (work@top::misc2::config_db::work@config_db::T), line:7, parent:work@config_db
+            |vpiFullName:work@top::misc2::config_db::work@config_db::T
+            |vpiName:T
+            |vpiTypespec:
+            \_int_typespec: , line:7, parent:work@top::misc2::config_db::work@config_db::T
+        |vpiParameter:
+        \_type_parameter: (work@top::misc2::config_db::work@config_db::T), line:7, parent:work@config_db
+      |vpiParameter:
+      \_type_parameter: (work@top.misc2.config_db.T), parent:config_db
+        |vpiFullName:work@top.misc2.config_db.T
+        |vpiName:T
+        |vpiTypespec:
+        \_class_typespec: (object), line:18, parent:work@top.misc2.config_db.T
+          |vpiName:object
+          |vpiParamAssign:
+          \_param_assign: , parent:object
+            |vpiRhs:
+            \_type_parameter: (work@top.misc2.config_db.T.object.T)
+              |vpiFullName:work@top.misc2.config_db.T.object.T
+              |vpiName:T
+              |vpiTypespec:
+              \_void_typespec: (long), line:18, parent:work@top.misc2.config_db.T.object.T
+                |vpiName:long
+            |vpiLhs:
+            \_type_parameter: (work@top.misc2.config_db.T.object.T), line:1
+              |vpiFullName:work@top.misc2.config_db.T.object.T
+              |vpiName:T
+              |vpiTypespec:
+              \_int_typespec: , line:1, parent:work@top.misc2.config_db.T.object.T
+          |vpiClassDefn:
+          \_class_defn: (work@object) dut.sv:1: , parent:object
+            |vpiVirtual:1
+            |vpiName:work@object
+            |vpiParameter:
+            \_type_parameter: (work@top::misc2::config_db::T::object::work@object::T), line:1, parent:work@object
+              |vpiFullName:work@top::misc2::config_db::T::object::work@object::T
+              |vpiName:T
+              |vpiTypespec:
+              \_int_typespec: , line:1, parent:work@top::misc2::config_db::T::object::work@object::T
+          |vpiParameter:
+          \_type_parameter: (work@top.misc2.config_db.T.object.T), parent:object
+            |vpiFullName:work@top.misc2.config_db.T.object.T
+            |vpiName:T
+            |vpiTypespec:
+            \_void_typespec: (long), line:18, parent:work@top.misc2.config_db.T.object.T
+              |vpiName:long
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
+
