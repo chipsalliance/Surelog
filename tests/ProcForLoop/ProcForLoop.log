@@ -590,14 +590,14 @@ design: (work@top)
         \_assignment: , line:3, parent:work@top.foo
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
+          \_ref_obj: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiRhs:
-          \_operation: , line:3, parent:work@top.foo
+          \_operation: , line:3
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
+            \_ref_obj: (work@top.foo.i), line:3
               |vpiName:i
               |vpiFullName:work@top.foo.i
             |vpiOperand:
@@ -613,10 +613,11 @@ design: (work@top)
           \_func_call: (f2), line:4, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (i), line:4
+            \_ref_obj: (work@top.foo.i), line:4, parent:f2
               |vpiName:i
+              |vpiFullName:work@top.foo.i
             |vpiArgument:
-            \_constant: , line:4
+            \_constant: , line:4, parent:f2
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -653,8 +654,9 @@ design: (work@top)
         \_operation: , line:6, parent:work@top.foo
           |vpiOpType:62
           |vpiOperand:
-          \_ref_obj: (j), line:6
+          \_ref_obj: (work@top.foo.j), line:6
             |vpiName:j
+            |vpiFullName:work@top.foo.j
         |vpiStmt:
         \_begin: (work@top.foo), line:6, parent:work@top.foo
           |vpiFullName:work@top.foo
@@ -662,10 +664,11 @@ design: (work@top)
           \_func_call: (f2), line:7, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (j), line:7
+            \_ref_obj: (work@top.foo.j), line:7, parent:f2
               |vpiName:j
+              |vpiFullName:work@top.foo.j
             |vpiArgument:
-            \_constant: , line:7
+            \_constant: , line:7, parent:f2
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
