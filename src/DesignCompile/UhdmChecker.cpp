@@ -128,6 +128,7 @@ bool UhdmChecker::registerFile(const FileContent* fC) {
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slPackage_declaration)) || // endpackage : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slFunction_body_declaration)) || // endfunction  : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slTask_declaration)) || // endtask : name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slClass_declaration)) || // endclass : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slName_of_instance)) || // instance name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slType_declaration)) // struct name
         ) {
@@ -155,7 +156,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
   ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
   std::ofstream report;
-  std::cout << "UHDM HTML COVERAGE REPORT: " << reportFile << std::endl;
+  std::cout << "UHDM HTML COVERAGE REPORT: " << std::string(reportFile + ".html") << std::endl;
   report.open(reportFile + ".html");
   if (report.bad())
     return false;
