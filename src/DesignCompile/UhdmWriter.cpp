@@ -571,21 +571,17 @@ void writePackage(Package* pack, package* p, Serializer& s,
       tf->VpiParent(p);
     }
   }
+
   // Variables
-  const DesignComponent::VariableMap& orig_vars = pack->getVariables();
-  VectorOfvariables* dest_vars = s.MakeVariablesVec();
-  writeVariables(orig_vars, p, dest_vars, s, componentMap);
-  p->Variables(dest_vars);
-
-  // Nets (really variables)
-  std::vector<Signal*> orig_nets = pack->getSignals();
-  VectorOfnet* dest_nets = s.MakeNetVec();
-  SignalBaseClassMap signalBaseMap;
-  SignalMap portMap;
-  SignalMap netMap;
-  writeNets(orig_nets, p, dest_nets, s, signalBaseMap, netMap, portMap, nullptr);
-  p->Nets(dest_nets);
-
+  Netlist* netlist = pack->getNetlist();
+  if (netlist) {
+    p->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(p);
+      }
+    }
+  }
 }
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
