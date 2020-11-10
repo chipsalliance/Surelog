@@ -535,7 +535,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
         }
         case VObjectType::slData_declaration: {
           if (!collectDefinitions) break;
-          m_helper.compileDataDeclaration(m_module, fC,id, false, m_compileDesign);
+          m_helper.compileDataDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {

@@ -10,6 +10,8 @@
 
 [INF:EL0526] Design Elaboration...
 
+[ERR:CP0317] dut.sv:17: Undefined type "uvm_object_wrapper".
+
 [NTE:EL0508] Nb Top level modules: 0.
 
 [NTE:EL0509] Max instance depth: 0.
@@ -48,10 +50,32 @@ design: (unnamed)
     |vpiFullName:pack::uvm_aa_string_key
     |vpiAutomatic:1
     |vpiVisibility:1
+  |vpiVariables:
+  \_enum_var: (pack::m_uvm_core_state), line:14, parent:pack
+    |vpiName:m_uvm_core_state
+    |vpiFullName:pack::m_uvm_core_state
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_ref_obj: (UVM_CORE_UNINITIALIZED), line:14
+      |vpiName:UVM_CORE_UNINITIALIZED
+    |vpiTypespec:
+    \_enum_typespec: (uvm_core_state), line:12
+      |vpiName:uvm_core_state
+      |vpiEnumConst:
+      \_enum_const: (UVM_CORE_PRE_INIT), line:10
+        |vpiName:UVM_CORE_PRE_INIT
+        |INT:1
+      |vpiEnumConst:
+      \_enum_const: (UVM_CORE_UNINITIALIZED), line:9
+        |vpiName:UVM_CORE_UNINITIALIZED
+        |INT:0
+  |vpiTypedef:
+  \_enum_typespec: (uvm_core_state), line:12
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 4
 

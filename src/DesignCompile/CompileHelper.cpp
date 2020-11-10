@@ -1388,9 +1388,11 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     bool is_protected = false;
     bool is_rand = false;
     bool is_randc = false;
+    bool is_const = false;
     while ((type == VObjectType::slPropQualifier_ClassItem) ||
            (type == VObjectType::slPropQualifier_Rand) ||
-           (type == VObjectType::slPropQualifier_Randc)) {
+           (type == VObjectType::slPropQualifier_Randc) /*||
+           (type == VObjectType::slConst_type)*/) {
       NodeId qualifier = fC->Child(data_decl);
       VObjectType qualType = fC->Type(qualifier);
       if (qualType == VObjectType::slClassItemQualifier_Protected)
@@ -1400,17 +1402,17 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       if (qualType == VObjectType::slClassItemQualifier_Local) is_local = true;
       if (type == VObjectType::slPropQualifier_Rand) is_rand = true;
       if (type == VObjectType::slPropQualifier_Randc) is_randc = true;
+      if (type == VObjectType::slConst_type) is_const = true;
       data_decl = fC->Sibling(data_decl);
       type = fC->Type(data_decl);
       var_decl = fC->Child(data_decl);
     }
 
     NodeId variable_declaration = var_decl;
-    bool const_type = false;
     bool var_type = false;
     if (fC->Type(variable_declaration) == VObjectType::slConst_type) {
       variable_declaration = fC->Sibling(variable_declaration);
-      const_type = true;
+      is_const = true;
     }
     if (fC->Type(variable_declaration) == VObjectType::slVar_type) {
       variable_declaration = fC->Sibling(variable_declaration);
@@ -1449,7 +1451,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
               packedDimension, VObjectType::slNoType, unpackedDimension, false);
       }
-      if (const_type) sig->setConst();
+      if (is_const) sig->setConst();
       if (var_type) sig->setVar();
       if (portRef)
         portRef->setLowConn(sig);
