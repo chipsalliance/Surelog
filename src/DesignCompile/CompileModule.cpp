@@ -586,6 +586,11 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
+        case VObjectType::slDpi_import_export: {
+          Function* func = m_helper.compileFunctionPrototype(m_module, fC, id, m_compileDesign);
+          m_module->insertFunction(func);
+          break;
+        }
         case VObjectType::slAssertion_item: {
           if (!collectDefinitions) break;
           m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
@@ -729,6 +734,11 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
       case VObjectType::slFunction_declaration: {
         if (!collectDefinitions) break;
         m_helper.compileFunction(m_module, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slDpi_import_export: {
+        Function* func = m_helper.compileFunctionPrototype(m_module, fC, id, m_compileDesign);
+        m_module->insertFunction(func);
         break;
       }
       case VObjectType::slClocking_declaration:

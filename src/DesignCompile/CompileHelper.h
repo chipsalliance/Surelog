@@ -84,7 +84,7 @@ public:
                                const FileContent* fC, NodeId id);
 
   Function* compileFunctionPrototype(DesignComponent* scope, const FileContent* fC,
-                                     NodeId id);
+                                     NodeId id, CompileDesign* compileDesign);
 
   bool compilePortDeclaration(DesignComponent* scope, const FileContent* fC,
                               NodeId id, VObjectType& port_direction);
