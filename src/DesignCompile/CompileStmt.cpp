@@ -1063,7 +1063,47 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
          (func_type == VObjectType::slPure_virtual_qualifier) ||
          (func_type == VObjectType::slExtern_qualifier) ||
          (func_type == VObjectType::slClassItemQualifier_Protected) ||
-         (func_type == VObjectType::slLifetime_Automatic)) {
+         (func_type == VObjectType::slLifetime_Automatic) ||
+         (func_type == VObjectType::slDpi_import_export) ||
+         (func_type == VObjectType::slPure_keyword) ||
+         (func_type == VObjectType::slImport) ||
+         (func_type == VObjectType::slExport) ||
+         (func_type == VObjectType::slContext_keyword) ||
+         (func_type == VObjectType::slStringConst)
+         ) {
+    if (func_type == VObjectType::slDpi_import_export) {
+      func_decl = fC->Child(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slPure_keyword) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiDPIPure(true);
+    }
+    if (func_type == VObjectType::slExport) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAccessType(vpiDPIExportAcc);
+    }
+    if (func_type == VObjectType::slImport) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiAccessType(vpiDPIImportAcc);
+    }
+    if (func_type == VObjectType::slStringLiteral) {
+      const std::string& ctype = fC->SymName(func_decl);
+      if (ctype == "DPI-C")
+        func->VpiDPICStr(vpiDPIC);
+      else if (ctype == "DPI")
+        func->VpiDPICStr(vpiDPI);        
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+    }
+    if (func_type == VObjectType::slContext_keyword) {
+      func_decl = fC->Sibling(func_decl);
+      func_type = fC->Type(func_decl);
+      func->VpiDPIContext(true);
+    }
     if (func_type == VObjectType::slMethodQualifier_Virtual) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
@@ -1444,6 +1484,89 @@ bool CompileHelper::compileFunction(
   return true;
 }
 
+Function* CompileHelper::compileFunctionPrototype(
+    DesignComponent* scope, const FileContent* fC,
+    NodeId id, CompileDesign* compileDesign) {   
+  std::string funcName;
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
+  if (task_funcs == nullptr) {
+    scope->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = scope->getTask_funcs();
+  }
+  UHDM::function* func = s.MakeFunction();
+  task_funcs->push_back(func);
+  /*
+  n<"DPI-C"> u<2> t<StringLiteral> p<15> s<3> l<3>
+  n<> u<3> t<Context_keyword> p<15> s<14> l<3>
+  n<> u<4> t<IntVec_TypeBit> p<5> l<3>
+  n<> u<5> t<Data_type> p<6> c<4> l<3>
+  n<> u<6> t<Function_data_type> p<14> c<5> s<7> l<3>
+  n<SV2C_peek> u<7> t<StringConst> p<14> s<13> l<3>
+  n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
+  n<> u<9> t<Data_type> p<10> c<8> l<3>
+  n<> u<10> t<Data_type_or_implicit> p<12> c<9> s<11> l<3>
+  n<x_id> u<11> t<StringConst> p<12> l<3>
+  n<> u<12> t<Tf_port_item> p<13> c<10> l<3>
+  n<> u<13> t<Tf_port_list> p<14> c<12> l<3>
+  n<> u<14> t<Function_prototype> p<15> c<6> l<3>
+  n<> u<15> t<Dpi_import_export> p<16> c<2> l<3>
+   */
+  NodeId prop = setFuncTaskQualifiers(fC, id, func);
+  NodeId func_prototype = prop;
+  NodeId function_data_type = fC->Child(func_prototype);
+  NodeId data_type = fC->Child(function_data_type);
+  NodeId type = fC->Child(data_type);
+  VObjectType the_type = fC->Type(type);
+  std::string typeName;
+  if (the_type == VObjectType::slStringConst) {
+    typeName = fC->SymName(type);
+  } else if (the_type == VObjectType::slClass_scope) {
+    NodeId class_type = fC->Child(type);
+    NodeId class_name = fC->Child(class_type);
+    typeName = fC->SymName(class_name);
+    typeName += "::";
+    NodeId symb_id = fC->Sibling(type);
+    typeName += fC->SymName(symb_id);
+  } else {
+    typeName = VObject::getTypeName(the_type);
+  }
+  NodeId function_name = fC->Sibling(function_data_type);
+  funcName = fC->SymName(function_name);
+
+  func->VpiFile(fC->getFileName());
+  func->VpiLineNo(fC->Line(id));
+
+  func->Return(dynamic_cast<variables*>(
+        compileVariable(scope, fC, type, compileDesign, nullptr,
+                        nullptr, true)));
+  NodeId Tf_port_list = 0;
+  if (fC->Type(function_name) == VObjectType::slStringConst) {
+    Tf_port_list = fC->Sibling(function_name);
+  } else if (fC->Type(function_name) == VObjectType::slClass_scope) {
+    NodeId Class_type = fC->Child(function_name);
+    funcName = fC->SymName(fC->Child(Class_type));
+    NodeId suffixname = fC->Sibling(function_name);
+    funcName += "::" + fC->SymName(suffixname);
+    Tf_port_list = fC->Sibling(suffixname);
+  }
+
+  func->VpiName(funcName);
+
+  if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
+    func->Io_decls(compileTfPortList(scope, func, fC, Tf_port_list, compileDesign));
+  } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+    func->Io_decls(compileTfPortDecl(scope, func, fC, Tf_port_list, compileDesign));
+  }
+
+  DataType* returnType = new DataType(); 
+  returnType->init(fC, type, typeName, fC->Type(type));
+  Function* result = new Function(scope, fC, id, funcName, returnType);
+  Variable* variable = new Variable(returnType, fC, id, 0, funcName);
+  result->addVariable(variable);
+  result->compile(*this);
+  return result;
+}
 
 UHDM::any* CompileHelper::compileProceduralContinuousAssign(
   DesignComponent* component, const FileContent* fC, NodeId nodeId,

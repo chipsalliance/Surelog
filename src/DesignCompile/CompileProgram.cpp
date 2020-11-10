@@ -196,6 +196,11 @@ bool CompileProgram::compile() {
       m_program->addObject(type, fnid);
       break;
     }
+    case VObjectType::slDpi_import_export: {
+      Function* func = m_helper.compileFunctionPrototype(m_program, fC, id, m_compileDesign);
+     m_program->insertFunction(func);
+      break;
+    }
     default:
       break;
     }

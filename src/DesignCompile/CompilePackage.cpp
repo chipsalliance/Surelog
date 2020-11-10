@@ -183,7 +183,7 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slDpi_import_export: {
-          Function* func = m_helper.compileFunctionPrototype(m_package, fC, id);
+          Function* func = m_helper.compileFunctionPrototype(m_package, fC, id, m_compileDesign);
           m_package->insertFunction(func);
           break;
         }
