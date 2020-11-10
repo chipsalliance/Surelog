@@ -1522,6 +1522,15 @@ void DesignElaboration::bind_ports_nets_(
 bool DesignElaboration::bindDataTypes_()
 {
   Design* design = m_compileDesign->getCompiler()->getDesign();
+  auto packages = design->getPackageDefinitions();
+  for (auto packNamePair : packages) {
+    Package* package = packNamePair.second;
+    const FileContent* fC = package->getFileContents()[0];
+    std::vector<Signal*>& ports = package->getPorts(); // Always empty
+    std::vector<Signal*>& signals = package->getSignals(); // Variables actually
+    bind_ports_nets_(ports, signals, fC, package);
+  }
+
   auto modules = design->getModuleDefinitions();
   for (auto modNamePair : modules) {
     ModuleDefinition* mod = modNamePair.second;

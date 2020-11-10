@@ -177,6 +177,11 @@ bool CompilePackage::collectObjects_() {
                                                       m_compileDesign);
           break;
         }
+         case VObjectType::slNet_declaration: {
+          // In a package this is certainly a var that the parser mis-interpreted 
+          m_helper.compileNetDeclaration(m_package, fC, id, false, m_compileDesign);
+          break;
+        }
         case VObjectType::slData_declaration: {
           m_helper.compileDataDeclaration(m_package, fC, id, false,
                                           m_compileDesign);
