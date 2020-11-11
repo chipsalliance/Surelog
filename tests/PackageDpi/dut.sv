@@ -17,5 +17,12 @@ uvm_core_state m_uvm_core_state = UVM_CORE_UNINITIALIZED;
 uvm_object_wrapper uvm_deferred_init[$];
 
 
+class toto;
+const static int DO_NOT_CATCH      = 1; 
+endclass
+
+const static int DO_NOT_CATCH_2     = 1; 
+
+
 endpackage
 

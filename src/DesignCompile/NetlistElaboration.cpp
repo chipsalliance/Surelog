@@ -658,7 +658,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
 
   // Determine if the "signal" is a net or a var
   bool isNet = true;
-  if ((dtype && (subnettype == slNoType)) || sig->isConst() || sig->isVar() ||
+  if ((dtype && (subnettype == slNoType)) || sig->isConst() || sig->isVar() || sig->isStatic() ||
       (subnettype == slClass_scope) || (subnettype == slStringConst) ||
       (subnettype == slIntegerAtomType_Int) ||
       (subnettype == slIntegerAtomType_Byte) ||
