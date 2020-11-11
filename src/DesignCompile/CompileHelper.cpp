@@ -1383,6 +1383,11 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_decl = id;
     NodeId var_decl = fC->Child(data_decl);
     VObjectType type = fC->Type(data_decl);
+    if (type == VObjectType::slData_declaration) {
+      data_decl = fC->Child(data_decl);
+      type = fC->Type(data_decl);
+      var_decl = data_decl;
+    }
     bool is_local = false;
     bool is_static = false;
     bool is_protected = false;
@@ -1391,24 +1396,26 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     bool is_const = false;
     while ((type == VObjectType::slPropQualifier_ClassItem) ||
            (type == VObjectType::slPropQualifier_Rand) ||
-           (type == VObjectType::slPropQualifier_Randc) /*||
-           (type == VObjectType::slConst_type)*/) {
+           (type == VObjectType::slPropQualifier_Randc) ||
+           (type == VObjectType::slConst_type) ||
+           (type == VObjectType::slLifetime_Static)) {
       NodeId qualifier = fC->Child(data_decl);
       VObjectType qualType = fC->Type(qualifier);
-      if (qualType == VObjectType::slClassItemQualifier_Protected)
-        is_protected = true;
-      if (qualType == VObjectType::slClassItemQualifier_Static)
-        is_static = true;
+      if (qualType == VObjectType::slClassItemQualifier_Protected) is_protected = true;
+      if (qualType == VObjectType::slClassItemQualifier_Static) is_static = true;
       if (qualType == VObjectType::slClassItemQualifier_Local) is_local = true;
       if (type == VObjectType::slPropQualifier_Rand) is_rand = true;
       if (type == VObjectType::slPropQualifier_Randc) is_randc = true;
       if (type == VObjectType::slConst_type) is_const = true;
+      if (type ==  VObjectType::slLifetime_Static) is_static = true;
       data_decl = fC->Sibling(data_decl);
       type = fC->Type(data_decl);
-      var_decl = fC->Child(data_decl);
+      var_decl = data_decl;
     }
 
     NodeId variable_declaration = var_decl;
+    if (fC->Type(variable_declaration) == VObjectType::slData_declaration)
+      variable_declaration = fC->Child(variable_declaration);
     bool var_type = false;
     if (fC->Type(variable_declaration) == VObjectType::slConst_type) {
       variable_declaration = fC->Sibling(variable_declaration);

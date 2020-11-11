@@ -8,6 +8,8 @@
 
 [INF:CP0301] dut.sv:1: Compile package "pack".
 
+[INF:CP0302] dut.sv:20: Compile class "pack::toto".
+
 [INF:EL0526] Design Elaboration...
 
 [ERR:CP0317] dut.sv:17: Undefined type "uvm_object_wrapper".
@@ -44,6 +46,22 @@ design: (unnamed)
       |vpiExpr:
       \_string_var: (path), line:3, parent:path
         |vpiFullName:path
+  |vpiClassDefn:
+  \_class_defn: (pack::toto) dut.sv:20: , parent:pack
+    |vpiName:toto
+    |vpiFullName:pack::toto
+    |vpiVariables:
+    \_int_var: (pack::toto::DO_NOT_CATCH), line:21, parent:pack::toto
+      |vpiName:DO_NOT_CATCH
+      |vpiFullName:pack::toto::DO_NOT_CATCH
+      |vpiConstantVariable:1
+      |vpiVisibility:1
+      |vpiExpr:
+      \_constant: , line:21, parent:pack::toto::DO_NOT_CATCH
+        |vpiConstType:7
+        |vpiDecompile:1
+        |vpiSize:32
+        |INT:1
   |vpiVariables:
   \_string_var: (pack::uvm_aa_string_key), line:5, parent:pack
     |vpiName:uvm_aa_string_key
@@ -70,6 +88,18 @@ design: (unnamed)
       \_enum_const: (UVM_CORE_UNINITIALIZED), line:9
         |vpiName:UVM_CORE_UNINITIALIZED
         |INT:0
+  |vpiVariables:
+  \_int_var: (pack::DO_NOT_CATCH_2), line:24, parent:pack
+    |vpiName:DO_NOT_CATCH_2
+    |vpiFullName:pack::DO_NOT_CATCH_2
+    |vpiConstantVariable:1
+    |vpiVisibility:1
+    |vpiExpr:
+    \_constant: , line:24
+      |vpiConstType:7
+      |vpiDecompile:1
+      |vpiSize:32
+      |INT:1
   |vpiTypedef:
   \_enum_typespec: (uvm_core_state), line:12
 ===================
