@@ -654,3 +654,55 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   }
   return value;
 }
+
+Value* ExprBuilder::fromVpiValue(const std::string& s) {
+  Value* val = nullptr;
+  size_t pos;
+  if ((pos = s.find("INT:")) != std::string::npos) {
+    val = m_valueFactory.newLValue();
+    uint64_t v = atoi(s.c_str() + pos + strlen("INT:"));
+    val->set(v);
+  } else if ((pos = s.find("SCAL:")) != std::string::npos) {
+    const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
+    switch (parse_pos[0]) {
+      case 'Z':
+       
+        break;
+      case 'X':
+       
+        break;
+      case 'H':
+        
+        break;
+      case 'L':
+       
+        break;
+        // Not really clear what the difference between X and DontCare is.
+        // Let's parse 'W'eak don't care as this one.
+      case 'W':
+        
+        break;
+      default:
+        if (strcasecmp(parse_pos, "DontCare") == 0) {
+        
+        } else if (strcasecmp(parse_pos, "NoChange") == 0) {
+         
+        } else {
+          uint64_t v = atoi(parse_pos);
+          val->set(v);
+        }
+        break;
+    }
+  } else if ((pos = s.find("BIN:")) != std::string::npos) {
+  //  strdup(s.c_str() + pos + strlen("BIN:"));
+  } else if ((pos = s.find("HEX:")) != std::string::npos) {
+  //  strdup(s.c_str() + pos + strlen("HEX:"));
+  } else if ((pos = s.find("OCT:")) != std::string::npos) {
+   // strdup(s.c_str() + pos + strlen("OCT:"));
+  } else if ((pos = s.find("STRING:")) != std::string::npos) {
+  // strdup(s.c_str() + pos + strlen("STRING:"));
+  } else if ((pos = s.find("REAL:")) != std::string::npos) {
+   // atof(s.c_str() + pos + strlen("REAL:"));
+  }
+  return val;
+}
