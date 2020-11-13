@@ -41,6 +41,7 @@ class ExprBuilder final {
   Value* evalExpr(const FileContent*, NodeId id,
                   ValuedComponentI* instance = nullptr,
                   bool muteErrors = false);
+  Value* fromVpiValue(const std::string& value);
   Value* clone(Value* val);
   void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
     m_errors = errors;
