@@ -389,8 +389,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           if (index < ports->size()) {
             if (orderedConnection) {
               formalName = ((*signals)[index])->getName();
+              p = (*ports)[index];
+            } else {
+              for (port* pItr : *ports) {
+                if (pItr->VpiName() == formalName) {
+                  p = pItr;
+                  break;
+                }
+              }
+              if (p == nullptr)
+                p = (*ports)[index];
             }
-            p = (*ports)[index];
           } else {
             p = s.MakePort();
             ports->push_back(p);
