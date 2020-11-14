@@ -20,11 +20,17 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
-#include <stdint.h>
+#include <string.h>
+#if defined(_MSC_VER)
+  #define strcasecmp _stricmp
+  #define strdup _strdup
+#else
+  #include <strings.h>
+#endif
 
+#include <stdint.h>
 #include <iostream>
 #include <sstream>
-#include <string.h>
 #include <math.h>
 #include "Utils/StringUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
