@@ -717,12 +717,29 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
       } else if (const SimpleType* sit =
                      dynamic_cast<const SimpleType*>(dtype)) {
         UHDM::typespec* spec = sit->getTypespec();
-        variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
-        var->Expr(exp);
-        var->VpiConstantVariable(sig->isConst());
-        var->VpiSigned(sig->isSigned());
-        var->VpiName(signame);
-        obj = var;
+        if (spec->UhdmType() == uhdmlogic_typespec) {
+          logic_net* logicn = s.MakeLogic_net();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);
+        } else if (spec->UhdmType() == uhdmbit_typespec) {
+          bit_var* logicn = s.MakeBit_var();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);  
+        } else {
+          variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+          var->Expr(exp);
+          var->VpiConstantVariable(sig->isConst());
+          var->VpiSigned(sig->isSigned());
+          var->VpiName(signame);
+          obj = var;
+        }
       } else {
         logic_net* logicn = s.MakeLogic_net();
         logicn->VpiSigned(sig->isSigned());
