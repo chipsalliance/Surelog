@@ -266,6 +266,10 @@ bool CompileDesign::compilation_() {
   auto& all_files = design->getAllFileContents();
 
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
+
+  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation 
+  maxThreadCount = 0;
+
   int index = 0;
   do {
     SymbolTable* symbols = new SymbolTable(
@@ -276,9 +280,6 @@ bool CompileDesign::compilation_() {
     m_errorContainers.push_back(errors);
     index++;
   } while (index < maxThreadCount);
-
-  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation 
-  maxThreadCount = 0;
 
   compileMT_<FileContent, Design::FileIdDesignContentMap, FunctorCreateLookup>(
       all_files, maxThreadCount);
