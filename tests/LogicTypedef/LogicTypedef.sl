@@ -1,2 +1,2 @@
-  -fileunit -writepp -parse  -d uhdm -sv dut.sv -nobuiltin -nocache 
+  -fileunit -writepp -parse  -d uhdm -sv dut.sv -nobuiltin -nocache -elabuhdm
   
