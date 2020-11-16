@@ -256,12 +256,14 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         ref->VpiLineNo(fC->Line(type));
         result = ref;
 
+        const FileContent* actualFC = fC;
         NodeId param = fC->Sibling(type);
         if (parent_tpd) {
+          actualFC = parent_tpd->getFileContent();
           NodeId n = parent_tpd->getDefinitionNode();
-          param = fC->Sibling(n);
+          param = actualFC->Sibling(n);
         }
-        if (param && (fC->Type(param) != slList_of_net_decl_assignments)) {
+        if (param && (actualFC->Type(param) != slList_of_net_decl_assignments)) {
           VectorOfany* params = s.MakeAnyVec();
           ref->Parameters(params);
           VectorOfparam_assign* assigns = s.MakeParam_assignVec();
@@ -269,13 +271,13 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
           unsigned int index = 0;
           NodeId Parameter_value_assignment = param;
           NodeId List_of_parameter_assignments =
-              fC->Child(Parameter_value_assignment);
+              actualFC->Child(Parameter_value_assignment);
           NodeId Ordered_parameter_assignment =
-              fC->Child(List_of_parameter_assignments);
-          if (Ordered_parameter_assignment && (fC->Type(Ordered_parameter_assignment) == slOrdered_parameter_assignment)) {
+              actualFC->Child(List_of_parameter_assignments);
+          if (Ordered_parameter_assignment && (actualFC->Type(Ordered_parameter_assignment) == slOrdered_parameter_assignment)) {
             while (Ordered_parameter_assignment) {
-              NodeId Param_expression = fC->Child(Ordered_parameter_assignment);
-              NodeId Data_type = fC->Child(Param_expression);
+              NodeId Param_expression = actualFC->Child(Ordered_parameter_assignment);
+              NodeId Data_type = actualFC->Child(Param_expression);
               std::string fName;
               const DesignComponent::ParameterVec& formal = classDefn->getOrderedParameters();
               any* fparam = nullptr;
@@ -284,9 +286,9 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 fName = p->getName();
                 fparam = p->getUhdmParam();
               }
-              if (fC->Type(Data_type) == slData_type) {
+              if (actualFC->Type(Data_type) == slData_type) {
                 typespec* tps =
-                    compileTypespec(component, fC, Data_type, compileDesign,
+                    compileTypespec(component, actualFC, Data_type, compileDesign,
                                     result, instance, reduce);
                
 
@@ -302,13 +304,13 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 assigns->push_back(pass);
               } else {
                 any* exp =
-                    compileExpression(component, fC, Param_expression,
+                    compileExpression(component, actualFC, Param_expression,
                                       compileDesign, nullptr, instance, reduce);
                 if (exp) {
                   if (exp->UhdmType() == uhdmref_obj) {
                     const std::string& name = ((ref_obj*)exp)->VpiName();
                     typespec* tps = compileDatastructureTypespec(
-                        component, fC, param, compileDesign, instance, reduce,
+                        component, actualFC, param, compileDesign, instance, reduce,
                         "", name);
                     if (tps) {
                       type_parameter* tp = s.MakeType_parameter();
@@ -326,7 +328,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 }
               }
               Ordered_parameter_assignment =
-                  fC->Sibling(Ordered_parameter_assignment);
+                  actualFC->Sibling(Ordered_parameter_assignment);
               index++;
             }
           }
