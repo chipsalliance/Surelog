@@ -105,7 +105,7 @@ jobs:
     - name: Configure shell environment variables
       run: |
         export SWIG_DIR=/c/ProgramData/chocolatey/lib/swig/tools/install/swigwin-3.0.12
-        export JAVA_HOME=/c/hostedtoolcache/windows/jre/8.0.272/x64
+        export JAVA_HOME=`cygpath -u $JAVA_HOME_8_0_275_X64`
         export CWD=`pwd`
 
         echo "SWIG_DIR=$SWIG_DIR" >> $GITHUB_ENV
@@ -122,6 +122,7 @@ jobs:
     - name: Show shell configuration
       run: |
         export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
+        export PATH=$SWIG_DIR:$PATH
         env
         where cmake && cmake --version
         where make && make --version
