@@ -93,7 +93,7 @@ bool CompileDesign::compile() {
 }
 
 template <class ObjectType, class ObjectMapType, typename FunctorType>
-void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
+void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) { 
   if (maxThreadCount == 0) {
     for (auto itr : objects) {
       FunctorType funct(this, itr.second, m_compiler->getDesign(),
@@ -266,6 +266,10 @@ bool CompileDesign::compilation_() {
   auto& all_files = design->getAllFileContents();
 
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
+
+  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation 
+  maxThreadCount = 0;
+
   int index = 0;
   do {
     SymbolTable* symbols = new SymbolTable(

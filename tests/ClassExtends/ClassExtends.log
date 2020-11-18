@@ -32,7 +32,7 @@
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-UHDM HTML COVERAGE REPORT: ../../build/tests/ClassExtends/slpp_unit//surelog.uhdm.chk
+UHDM HTML COVERAGE REPORT: ../../build/tests/ClassExtends/slpp_unit//surelog.uhdm.chk.html
 ====== UHDM =======
 design: (unnamed)
 |vpiName:unnamed
@@ -49,11 +49,15 @@ design: (unnamed)
       |vpiName:c2
       |vpiFullName:p2::c2
       |vpiExtends:
-      \_extends: 
+      \_extends: , line:21, parent:p2::c2
         |vpiClassTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (p1::c1) dut.sv:3: , parent:p1
+          \_class_defn: (p1::c1) dut.sv:3: 
+            |vpiName:c1
+            |vpiFullName:p1::c1
+            |vpiDerivedClasses:
+            \_class_defn: (p2::c2) dut.sv:21: , parent:p2
       |vpiVariables:
       \_class_var: (p2::c2::inst1), line:23, parent:p2::c2
         |vpiName:inst1
@@ -61,10 +65,10 @@ design: (unnamed)
         |vpiAutomatic:1
         |vpiVisibility:1
         |vpiTypespec:
-        \_class_typespec: (p3::c33), line:23
+        \_class_typespec: (p3::c33), line:23, parent:p2::c2::inst1
           |vpiName:p3::c33
           |vpiClassDefn:
-          \_class_defn: (p3::c33) dut.sv:13: , parent:p3
+          \_class_defn: (p3::c33) dut.sv:13: , parent:p3::c33
             |vpiName:c33
             |vpiFullName:p3::c33
 |uhdmallPackages:
@@ -79,6 +83,8 @@ design: (unnamed)
   |vpiFullName:p3
   |vpiClassDefn:
   \_class_defn: (p3::c33) dut.sv:13: , parent:p3
+    |vpiName:c33
+    |vpiFullName:p3::c33
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -294,7 +294,9 @@ bool TestbenchElaboration::bindBaseClasses_() {
        itr != classes.end(); itr++) {
     std::string className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
+    const FileContent* fCDef = classDefinition->getFileContent();
     for (auto& class_def : classDefinition->getMutableBaseClassMap()) {
+      const DataType* placeHolder = class_def.second;
       const DataType* the_def =
           bindDataType_(class_def.first, class_def.second->getFileContent(),
                         class_def.second->getNodeId(), classDefinition,
@@ -314,6 +316,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
         UHDM::class_defn* parent = bdef->getUhdmDefinition();
         classDefinition->insertProperty(prop);
         UHDM::extends* extends = s.MakeExtends();
+        extends->VpiFile(fCDef->getFileName());
+        extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
         UHDM::class_typespec* tps = s.MakeClass_typespec();
         extends->Class_typespec(tps);
         tps->Class_defn(parent);
@@ -339,6 +343,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
                            false, false, false, false);
           classDefinition->insertProperty(prop);
           UHDM::extends* extends = s.MakeExtends();
+          extends->VpiFile(fCDef->getFileName());
+          extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
           UHDM::class_typespec* tps = s.MakeClass_typespec();
           tps->VpiName(class_def.second->getName());
           extends->Class_typespec(tps);

@@ -37,7 +37,7 @@
 #include <fstream>
 #include <sstream>
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#if defined(_MSC_VER)
   #include <direct.h>
   #define PATH_MAX _MAX_PATH
 #else
@@ -100,6 +100,11 @@ int FileUtils::mkDir(const char* path) {
   const std::string dirpath(path);
   fs::create_directories(dirpath);
   return fs::is_directory(dirpath) ? 0 : -1;
+}
+
+int FileUtils::rmDir(const char* path) {
+  const std::string dirpath(path);
+  return fs::remove_all(dirpath);
 }
 
 std::string FileUtils::getFullPath(const std::string& path) {

@@ -383,6 +383,15 @@ void SV3_1aTreeShapeListener::exitConfig_declaration(SV3_1aParser::Config_declar
   addVObject (ctx, VObjectType::slConfig_declaration);
 }
 
+
+void SV3_1aTreeShapeListener::exitDpi_import_export(SV3_1aParser::Dpi_import_exportContext * ctx) {
+  if (ctx->IMPORT())
+    addVObject ((ParserRuleContext*) ctx->IMPORT(), VObjectType::slImport);
+  if (ctx->EXPORT())
+    addVObject ((ParserRuleContext*) ctx->EXPORT(), VObjectType::slExport);
+  addVObject (ctx, VObjectType::slDpi_import_export);
+}
+
 void SV3_1aTreeShapeListener::exitProperty_declaration(SV3_1aParser::Property_declarationContext * ctx) {
   if (ctx->ENDPROPERTY())
     addVObject ((ParserRuleContext*) ctx->ENDPROPERTY(), VObjectType::slEndproperty);

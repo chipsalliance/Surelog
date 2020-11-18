@@ -1083,6 +1083,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slExpect_property_statement:
       text = "slExpect_property_statement";
       break;
+    case slExport:
+      text = "slExport";
+      break;
     case slExpression:
       text = "slExpression";
       break;
@@ -1307,6 +1310,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slIMPLIES:
       text = "slIMPLIES";
+      break;
+    case slImport:
+      text = "slImport";
       break;
     case slInc_or_dec_expression:
       text = "slInc_or_dec_expression";
@@ -2342,6 +2348,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slPulsestyle_declaration:
       text = "slPulsestyle_declaration";
+      break;
+    case slPure:
+      text = "slPure";
       break;
     case slPure_keyword:
       text = "slPure_keyword";

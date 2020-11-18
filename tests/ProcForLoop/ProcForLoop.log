@@ -163,7 +163,7 @@ n<> u<136> t<Top_level_rule> l<1>
 
 [NTE:EL0511] Nb leaf instances: 0.
 
-UHDM HTML COVERAGE REPORT: ../../build/tests/ProcForLoop/slpp_all//surelog.uhdm.chk
+UHDM HTML COVERAGE REPORT: ../../build/tests/ProcForLoop/slpp_all//surelog.uhdm.chk.html
 ====== UHDM =======
 design: (work@top)
 |vpiName:work@top
@@ -196,8 +196,7 @@ design: (work@top)
     |vpiName:new
     |vpiFullName:work@mailbox::new
     |vpiReturn:
-    \_class_var: (work@mailbox::new), parent:work@mailbox::new
-      |vpiFullName:work@mailbox::new
+    \_class_var: 
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
@@ -216,8 +215,7 @@ design: (work@top)
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: (work@mailbox::num), line:9, parent:work@mailbox::num
-      |vpiFullName:work@mailbox::num
+    \_int_var: , line:9
   |vpiMethod:
   \_task: (work@mailbox::put), line:12, parent:work@mailbox
     |vpiMethod:1
@@ -255,8 +253,7 @@ design: (work@top)
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: (work@mailbox::try_get), line:21, parent:work@mailbox::try_get
-      |vpiFullName:work@mailbox::try_get
+    \_int_var: , line:21
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
@@ -278,8 +275,7 @@ design: (work@top)
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: (work@mailbox::try_peek), line:27, parent:work@mailbox::try_peek
-      |vpiFullName:work@mailbox::try_peek
+    \_int_var: , line:27
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -294,9 +290,8 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (work@process::self::process), line:37, parent:work@process::self
+    \_chandle_var: (process), line:37
       |vpiName:process
-      |vpiFullName:work@process::self::process
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -304,9 +299,8 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (work@process::status::state), line:40, parent:work@process::status
+    \_chandle_var: (state), line:40
       |vpiName:state
-      |vpiFullName:work@process::status::state
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -375,8 +369,7 @@ design: (work@top)
     |vpiName:new
     |vpiFullName:work@semaphore::new
     |vpiReturn:
-    \_class_var: (work@semaphore::new), parent:work@semaphore::new
-      |vpiFullName:work@semaphore::new
+    \_class_var: 
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
@@ -421,8 +414,7 @@ design: (work@top)
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: (work@semaphore::try_get), line:69, parent:work@semaphore::try_get
-      |vpiFullName:work@semaphore::try_get
+    \_int_var: , line:69
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
@@ -598,14 +590,14 @@ design: (work@top)
         \_assignment: , line:3, parent:work@top.foo
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
+          \_ref_obj: (work@top.foo.i), line:3
             |vpiName:i
             |vpiFullName:work@top.foo.i
           |vpiRhs:
-          \_operation: , line:3, parent:work@top.foo
+          \_operation: , line:3
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (work@top.foo.i), line:3, parent:work@top.foo
+            \_ref_obj: (work@top.foo.i), line:3
               |vpiName:i
               |vpiFullName:work@top.foo.i
             |vpiOperand:
@@ -621,10 +613,11 @@ design: (work@top)
           \_func_call: (f2), line:4, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (i), line:4
+            \_ref_obj: (work@top.foo.i), line:4, parent:f2
               |vpiName:i
+              |vpiFullName:work@top.foo.i
             |vpiArgument:
-            \_constant: , line:4
+            \_constant: , line:4, parent:f2
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -661,8 +654,9 @@ design: (work@top)
         \_operation: , line:6, parent:work@top.foo
           |vpiOpType:62
           |vpiOperand:
-          \_ref_obj: (j), line:6
+          \_ref_obj: (work@top.foo.j), line:6
             |vpiName:j
+            |vpiFullName:work@top.foo.j
         |vpiStmt:
         \_begin: (work@top.foo), line:6, parent:work@top.foo
           |vpiFullName:work@top.foo
@@ -670,10 +664,11 @@ design: (work@top)
           \_func_call: (f2), line:7, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (j), line:7
+            \_ref_obj: (work@top.foo.j), line:7, parent:f2
               |vpiName:j
+              |vpiFullName:work@top.foo.j
             |vpiArgument:
-            \_constant: , line:7
+            \_constant: , line:7, parent:f2
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32

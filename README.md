@@ -9,6 +9,9 @@ This project aims at providing a complete System Verilog 2017 front-end: a prepr
 
 Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models (UHDM).
 
+## Presentation
+* [WOSET 2020 UHDM (& Surelog) Paper and Presentation](https://woset-workshop.github.io/WOSET2020.html#article-10)
+
 ## Contributing to this project
 
 This project is open to contributions from any users! From the commercial vendor to the Verilog enthousiast, all are welcome.

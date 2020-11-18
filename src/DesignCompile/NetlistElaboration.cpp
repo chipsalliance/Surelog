@@ -76,6 +76,19 @@ NetlistElaboration::~NetlistElaboration() {
 
 bool NetlistElaboration::elaborate() {
   Design* design = m_compileDesign->getCompiler()->getDesign();
+  // Packages
+  auto& packageDefs = design->getPackageDefinitions();
+  for (auto& packageDef : packageDefs) {
+    Package* pack = packageDef.second;
+    Netlist* netlist = new Netlist(nullptr);
+    pack->setNetlist(netlist);
+    // Variables in Packages
+    for (Signal* sig : pack->getSignals()) {
+      elabSignal(sig, nullptr, nullptr, nullptr, netlist, pack, "");
+    }
+  }
+
+  // Top level modules
   const std::vector<ModuleInstance*>& topModules = design->getTopLevelModuleInstances();
   for (ModuleInstance* inst : topModules) {
     if (!elaborate_(inst))
@@ -376,8 +389,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           if (index < ports->size()) {
             if (orderedConnection) {
               formalName = ((*signals)[index])->getName();
+              p = (*ports)[index];
+            } else {
+              for (port* pItr : *ports) {
+                if (pItr->VpiName() == formalName) {
+                  p = pItr;
+                  break;
+                }
+              }
+              if (p == nullptr)
+                p = (*ports)[index];
             }
-            p = (*ports)[index];
           } else {
             p = s.MakePort();
             ports->push_back(p);
@@ -628,13 +650,211 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   return elab_ports_nets_(instance, instance, netlist, netlist, comp, "");
 }
 
+void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child, 
+                                    Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, 
+                                    const std::string& prefix) {
+  Serializer& s = m_compileDesign->getSerializer();
+  std::vector<net*>* nets = netlist->nets();
+  std::vector<variables*>* vars = netlist->variables();
+  std::vector<array_net*>* array_nets = netlist->array_nets();
+  const FileContent* fC = sig->getFileContent();
+  NodeId id = sig->getNodeId();
+  NodeId packedDimension = sig->getPackedDimension();
+  NodeId unpackedDimension = sig->getUnpackedDimension();
+  // Nets pass
+  const DataType* dtype = sig->getDataType();
+  VObjectType subnettype = sig->getType();
+
+  // Determine if the "signal" is a net or a var
+  bool isNet = true;
+  if ((dtype && (subnettype == slNoType)) || sig->isConst() || sig->isVar() || sig->isStatic() ||
+      (subnettype == slClass_scope) || (subnettype == slStringConst) ||
+      (subnettype == slIntegerAtomType_Int) ||
+      (subnettype == slIntegerAtomType_Byte) ||
+      (subnettype == slIntegerAtomType_LongInt) ||
+      (subnettype == slIntegerAtomType_Shortint) ||
+      (subnettype == slString_type) || (subnettype == slNonIntType_Real) ||
+      (subnettype == slNonIntType_RealTime) ||
+      (subnettype == slNonIntType_ShortReal) ||
+      (subnettype == slIntVec_TypeBit)) {
+    isNet = false;
+    if (vars == nullptr) {
+      vars = s.MakeVariablesVec();
+      netlist->variables(vars);
+    }
+  }
+
+  const std::string& signame = sig->getName();
+  const std::string parentSymbol = prefix + signame;
+
+  // Packed and unpacked ranges
+  int packedSize;
+  int unpackedSize;
+  std::vector<UHDM::range*>* packedDimensions =
+      m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
+                             nullptr, child, true, packedSize);
+  std::vector<UHDM::range*>* unpackedDimensions =
+      m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
+                             nullptr, child, true, unpackedSize);
+
+  any* obj = nullptr;
+
+  // Assignment to a default value
+  expr* exp = exprFromAssign_(comp, fC, id, unpackedDimension, child);
+
+  if (isNet) {
+    // Nets
+    if (dtype) {
+      dtype = dtype->getActual();
+      if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+        enum_net* stv = s.MakeEnum_net();
+        stv->Typespec(en->getTypespec());
+        obj = stv;
+      } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
+        struct_net* stv = s.MakeStruct_net();
+        stv->Typespec(st->getTypespec());
+        obj = stv;
+      } else if (const SimpleType* sit =
+                     dynamic_cast<const SimpleType*>(dtype)) {
+        UHDM::typespec* spec = sit->getTypespec();
+        if (spec->UhdmType() == uhdmlogic_typespec) {
+          logic_net* logicn = s.MakeLogic_net();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);
+        } else if (spec->UhdmType() == uhdmbit_typespec) {
+          bit_var* logicn = s.MakeBit_var();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);  
+        } else {
+          variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+          var->Expr(exp);
+          var->VpiConstantVariable(sig->isConst());
+          var->VpiSigned(sig->isSigned());
+          var->VpiName(signame);
+          obj = var;
+        }
+      } else {
+        logic_net* logicn = s.MakeLogic_net();
+        logicn->VpiSigned(sig->isSigned());
+        logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        logicn->Ranges(packedDimensions);
+        logicn->VpiName(signame);
+        obj = logicn;
+      }
+
+      if (unpackedDimensions) {
+        array_net* array_net = s.MakeArray_net();
+        array_net->Nets(s.MakeNetVec());
+        array_net->Ranges(unpackedDimensions);
+        array_net->VpiName(signame);
+        array_net->VpiSize(unpackedSize);
+        if (array_nets == nullptr) {
+          array_nets = s.MakeArray_netVec();
+          netlist->array_nets(array_nets);
+        }
+
+        array_nets->push_back(array_net);
+        obj->VpiParent(array_net);
+        UHDM::VectorOfnet* array_n = array_net->Nets();
+        array_n->push_back((net*)obj);
+
+      } else {
+        if (nets == nullptr) {
+          nets = s.MakeNetVec();
+          netlist->nets(nets);
+        }
+        if (obj->UhdmType() == uhdmenum_net) {
+          ((enum_net*)obj)->VpiName(signame);
+        } else {
+          ((struct_net*)obj)->VpiName(signame);
+        }
+        nets->push_back((net*)obj);
+      }
+
+    } else {
+      logic_net* logicn = s.MakeLogic_net();
+      logicn->VpiSigned(sig->isSigned());
+      logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+      logicn->Ranges(packedDimensions);
+      if (unpackedDimensions) {
+        array_net* array_net = s.MakeArray_net();
+        array_net->Nets(s.MakeNetVec());
+        array_net->Ranges(unpackedDimensions);
+        array_net->VpiName(signame);
+        array_net->VpiSize(unpackedSize);
+        if (array_nets == nullptr) {
+          array_nets = s.MakeArray_netVec();
+          netlist->array_nets(array_nets);
+        }
+        array_nets->push_back(array_net);
+        logicn->VpiParent(array_net);
+        UHDM::VectorOfnet* array_n = array_net->Nets();
+        array_n->push_back(logicn);
+        obj = array_net;
+      } else {
+        logicn->VpiName(signame);
+        logicn->VpiSigned(sig->isSigned());
+        obj = logicn;
+        if (nets == nullptr) {
+          nets = s.MakeNetVec();
+          netlist->nets(nets);
+        }
+        nets->push_back(logicn);
+      }
+    }
+    if (parentNetlist)
+      parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
+    if (netlist)  
+      netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+
+    if (exp) {
+      cont_assign* assign = s.MakeCont_assign();
+      assign->VpiFile(fC->getFileName());
+      assign->VpiLineNo(fC->Line(id));
+      assign->Lhs((expr*)obj);
+      assign->Rhs(exp);
+      std::vector<cont_assign*>* assigns = netlist->cont_assigns();
+      if (assigns == nullptr) {
+        netlist->cont_assigns(s.MakeCont_assignVec());
+        assigns = netlist->cont_assigns();
+      }
+      assigns->push_back(assign);
+    }
+  } else {
+    // Vars
+    obj = makeVar_(comp, sig, packedDimensions, packedSize, unpackedDimensions,
+                   unpackedSize, instance, vars, exp);
+  }
+
+  if (obj) {
+    obj->VpiLineNo(fC->Line(id));
+    obj->VpiFile(fC->getFileName());
+    if (parentNetlist)
+      parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
+    netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+  } else {
+    // Unsupported type
+    ErrorContainer* errors =
+        m_compileDesign->getCompiler()->getErrorContainer();
+    SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+    Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0,
+                 symbols->registerSymbol(signame));
+    Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+    errors->addError(err);
+  }
+}
+
 bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
-  std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
-  std::vector<variables*>* vars = netlist->variables();
-  std::vector<array_net*>* array_nets = netlist->array_nets();
   for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
@@ -660,8 +880,6 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
     for (Signal* sig : *signals) {
       const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
-      NodeId packedDimension = sig->getPackedDimension();
-      NodeId unpackedDimension = sig->getUnpackedDimension();
       if (pass == 0) {
         // Ports pass
         port* dest_port = s.MakePort();
@@ -714,175 +932,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
       } else if (pass == 1) {
         // Nets pass
-        const DataType* dtype = sig->getDataType();
-        VObjectType subnettype = sig->getType();
-
-        // Determine if the "signal" is a net or a var
-        bool isNet = true;
-        if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
-            sig->isVar() || (subnettype == slClass_scope) ||
-            (subnettype == slStringConst) ||
-            (subnettype == slIntegerAtomType_Int) ||
-            (subnettype == slIntegerAtomType_Byte) ||
-            (subnettype == slIntegerAtomType_LongInt) ||
-            (subnettype == slIntegerAtomType_Shortint) ||
-            (subnettype == slString_type) ||
-            (subnettype == slNonIntType_Real) ||
-            (subnettype == slNonIntType_RealTime) ||
-            (subnettype == slNonIntType_ShortReal) ||
-            (subnettype == slIntVec_TypeBit)) {
-          isNet = false;
-          if (vars == nullptr) {
-            vars = s.MakeVariablesVec();
-            netlist->variables(vars);
-          }
-        }
-
-        const std::string& signame = sig->getName();
-        const std::string parentSymbol = prefix + signame;
-
-        // Packed and unpacked ranges
-        int packedSize;
-        int unpackedSize;
-        std::vector<UHDM::range*>* packedDimensions =
-            m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
-                                   nullptr, child, true, packedSize);
-        std::vector<UHDM::range*>* unpackedDimensions =
-            m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
-                                   nullptr, child, true, unpackedSize);
-
-        any* obj = nullptr;
-
-        //Assignment to a default value
-        expr* exp = exprFromAssign_(comp, fC, id, unpackedDimension, child);
-        
-        if (isNet) {
-          // Nets
-          if (dtype) {
-            dtype = dtype->getActual();
-            if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
-              enum_net* stv = s.MakeEnum_net();
-              stv->Typespec(en->getTypespec());
-              obj = stv;
-            } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
-              struct_net* stv = s.MakeStruct_net();
-              stv->Typespec(st->getTypespec());
-              obj = stv;
-            } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
-              UHDM::typespec* spec = sit->getTypespec();
-              variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
-              var->Expr(exp);
-              var->VpiConstantVariable(sig->isConst());
-              var->VpiSigned(sig->isSigned());
-              var->VpiName(signame);
-              obj = var;
-            } else {
-              logic_net* logicn = s.MakeLogic_net();
-              logicn->VpiSigned(sig->isSigned());
-              logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-              logicn->Ranges(packedDimensions);
-              logicn->VpiName(signame);
-              obj = logicn;
-            }
-
-            if (unpackedDimensions) {
-              array_net* array_net = s.MakeArray_net();
-              array_net->Nets(s.MakeNetVec());
-              array_net->Ranges(unpackedDimensions);
-              array_net->VpiName(signame);
-              array_net->VpiSize(unpackedSize);
-              if (array_nets == nullptr) {
-                array_nets = s.MakeArray_netVec();
-                netlist->array_nets(array_nets);
-              }
-
-              array_nets->push_back(array_net);
-              obj->VpiParent(array_net);
-              UHDM::VectorOfnet* array_n = array_net->Nets();
-              array_n->push_back((net*)obj);
-
-            } else {
-              if (nets == nullptr) {
-                nets = s.MakeNetVec();
-                netlist->nets(nets);
-              }
-              if (obj->UhdmType() == uhdmenum_net) {
-                ((enum_net*)obj)->VpiName(signame);
-              } else {
-                ((struct_net*)obj)->VpiName(signame);
-              }
-              nets->push_back((net*) obj);
-            }
-
-          } else {
-            logic_net* logicn = s.MakeLogic_net();
-            logicn->VpiSigned(sig->isSigned());
-            logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-            logicn->Ranges(packedDimensions);
-            if (unpackedDimensions) {
-              array_net* array_net = s.MakeArray_net();
-              array_net->Nets(s.MakeNetVec());
-              array_net->Ranges(unpackedDimensions);
-              array_net->VpiName(signame);
-              array_net->VpiSize(unpackedSize);
-              if (array_nets == nullptr) {
-                array_nets = s.MakeArray_netVec();
-                netlist->array_nets(array_nets);
-              }
-              array_nets->push_back(array_net);
-              logicn->VpiParent(array_net);
-              UHDM::VectorOfnet* array_n = array_net->Nets();
-              array_n->push_back(logicn);
-              obj = array_net;
-            } else {
-              logicn->VpiName(signame);
-              logicn->VpiSigned(sig->isSigned());
-              obj = logicn;
-              if (nets == nullptr) {
-                nets = s.MakeNetVec();
-                netlist->nets(nets);
-              }
-              nets->push_back(logicn);
-            }
-
-          }
-          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
-          netlist->getSymbolTable().insert(std::make_pair(signame, obj));
-
-          if (exp) {
-            cont_assign* assign = s.MakeCont_assign();
-            assign->VpiFile(fC->getFileName());
-            assign->VpiLineNo(fC->Line(id));
-            assign->Lhs((expr*) obj);
-            assign->Rhs(exp);
-            std::vector<cont_assign*>* assigns = netlist->cont_assigns();
-            if (assigns == nullptr) {
-              netlist->cont_assigns(s.MakeCont_assignVec());
-              assigns = netlist->cont_assigns();
-            }
-            assigns->push_back(assign);
-          }
-        } else {
-          // Vars
-          obj = makeVar_(comp, sig, packedDimensions, packedSize, 
-                unpackedDimensions, unpackedSize, instance, 
-                vars, exp);
-        }
-
-        if (obj) {
-          obj->VpiLineNo(fC->Line(id));
-          obj->VpiFile(fC->getFileName());
-          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
-          netlist->getSymbolTable().insert(std::make_pair(signame, obj));
-        } else {
-          // Unsupported type
-          ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
-          SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-          Location loc (symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0 , symbols->registerSymbol(signame));
-          Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
-          errors->addError(err);
-
-        }
+        elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);      
       } else if (pass == 2) {
         // Port low conn pass
         std::string signame = sig->getName();

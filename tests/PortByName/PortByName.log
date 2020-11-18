@@ -1,0 +1,397 @@
+[INF:CM0023] Creating log file ../../build/tests/PortByName/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "top".
+
+[WRN:PA0205] dut.sv:12: No timescale set for "ibex_id_stage".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:12: Compile module "work@ibex_id_stage".
+
+[INF:CP0303] dut.sv:1: Compile module "work@top".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:1: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 2.
+
+[NTE:EL0510] Nb instances: 2.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/PortByName/slpp_unit//surelog.uhdm.chk.html
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallModules:
+\_module: work@ibex_id_stage (work@ibex_id_stage) dut.sv:12: , parent:work@top
+  |vpiDefName:work@ibex_id_stage
+  |vpiFullName:work@ibex_id_stage
+  |vpiPort:
+  \_port: (first), line:13, parent:work@ibex_id_stage
+    |vpiName:first
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@ibex_id_stage.first), line:13, parent:work@ibex_id_stage
+        |vpiName:first
+        |vpiFullName:work@ibex_id_stage.first
+        |vpiNetType:36
+  |vpiPort:
+  \_port: (second), line:14, parent:work@ibex_id_stage
+    |vpiName:second
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@ibex_id_stage.second), line:14, parent:work@ibex_id_stage
+        |vpiName:second
+        |vpiFullName:work@ibex_id_stage.second
+        |vpiNetType:36
+  |vpiPort:
+  \_port: (third), line:15, parent:work@ibex_id_stage
+    |vpiName:third
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@ibex_id_stage.third), line:15, parent:work@ibex_id_stage
+        |vpiName:third
+        |vpiFullName:work@ibex_id_stage.third
+        |vpiNetType:36
+  |vpiContAssign:
+  \_cont_assign: , line:18, parent:work@ibex_id_stage
+    |vpiRhs:
+    \_ref_obj: (work@ibex_id_stage.fourth), line:18
+      |vpiName:fourth
+      |vpiFullName:work@ibex_id_stage.fourth
+    |vpiLhs:
+    \_ref_obj: (work@ibex_id_stage.third), line:18
+      |vpiName:third
+      |vpiFullName:work@ibex_id_stage.third
+  |vpiNet:
+  \_logic_net: (work@ibex_id_stage.first), line:13, parent:work@ibex_id_stage
+  |vpiNet:
+  \_logic_net: (work@ibex_id_stage.second), line:14, parent:work@ibex_id_stage
+  |vpiNet:
+  \_logic_net: (work@ibex_id_stage.third), line:15, parent:work@ibex_id_stage
+  |vpiNet:
+  \_logic_net: (work@ibex_id_stage.fourth), line:17, parent:work@ibex_id_stage
+    |vpiName:fourth
+    |vpiFullName:work@ibex_id_stage.fourth
+    |vpiNetType:36
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:1: , parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+  |vpiNet:
+  \_logic_net: (work@top.top_second), line:2, parent:work@top
+    |vpiName:top_second
+    |vpiFullName:work@top.top_second
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.top_third), line:3, parent:work@top
+    |vpiName:top_third
+    |vpiFullName:work@top.top_third
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (work@top.top_first), line:4, parent:work@top
+    |vpiName:top_first
+    |vpiFullName:work@top.top_first
+    |vpiNetType:36
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1: 
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiModule:
+  \_module: work@ibex_id_stage (work@top.id_stage_i) dut.sv:5: , parent:work@top
+    |vpiDefName:work@ibex_id_stage
+    |vpiName:id_stage_i
+    |vpiFullName:work@top.id_stage_i
+    |vpiPort:
+    \_port: (first), line:13, parent:work@top.id_stage_i
+      |vpiName:first
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (top_first), line:7
+        |vpiName:top_first
+        |vpiActual:
+        \_logic_net: (work@top.top_first), line:4, parent:work@top
+          |vpiName:top_first
+          |vpiFullName:work@top.top_first
+          |vpiNetType:36
+          |vpiRange:
+          \_range: , line:4
+            |vpiLeftRange:
+            \_constant: , line:4
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+            |vpiRightRange:
+            \_constant: , line:4
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (work@top.id_stage_i.first), line:13, parent:work@top.id_stage_i
+          |vpiName:first
+          |vpiFullName:work@top.id_stage_i.first
+          |vpiNetType:36
+          |vpiRange:
+          \_range: , line:13
+            |vpiLeftRange:
+            \_constant: , line:13
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+            |vpiRightRange:
+            \_constant: , line:13
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+    |vpiPort:
+    \_port: (second), line:14, parent:work@top.id_stage_i
+      |vpiName:second
+      |vpiDirection:1
+      |vpiHighConn:
+      \_ref_obj: (top_second), line:8
+        |vpiName:top_second
+        |vpiActual:
+        \_array_net: (work@top.top_second), line:2, parent:work@top
+          |vpiName:top_second
+          |vpiFullName:work@top.top_second
+          |vpiSize:2
+          |vpiNet:
+          \_logic_net: (work@top.top_second), parent:work@top.top_second
+            |vpiFullName:work@top.top_second
+            |vpiNetType:36
+            |vpiRange:
+            \_range: , line:2
+              |vpiLeftRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:33
+                |vpiSize:64
+                |INT:33
+              |vpiRightRange:
+              \_constant: , line:2
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+          |vpiRange:
+          \_range: , line:2
+            |vpiLeftRange:
+            \_constant: , line:2
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:1
+              |INT:0
+            |vpiRightRange:
+            \_constant: , line:2
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_array_net: (work@top.id_stage_i.second), line:14, parent:work@top.id_stage_i
+          |vpiName:second
+          |vpiFullName:work@top.id_stage_i.second
+          |vpiSize:2
+          |vpiNet:
+          \_logic_net: (work@top.id_stage_i.second), parent:work@top.id_stage_i.second
+            |vpiFullName:work@top.id_stage_i.second
+            |vpiNetType:36
+            |vpiRange:
+            \_range: , line:14
+              |vpiLeftRange:
+              \_constant: , line:14
+                |vpiConstType:7
+                |vpiDecompile:33
+                |vpiSize:64
+                |INT:33
+              |vpiRightRange:
+              \_constant: , line:14
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+          |vpiRange:
+          \_range: , line:14
+            |vpiLeftRange:
+            \_constant: , line:14
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:1
+              |INT:0
+            |vpiRightRange:
+            \_constant: , line:14
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+    |vpiPort:
+    \_port: (third), line:15, parent:work@top.id_stage_i
+      |vpiName:third
+      |vpiDirection:2
+      |vpiHighConn:
+      \_ref_obj: (top_third), line:6
+        |vpiName:top_third
+        |vpiActual:
+        \_array_net: (work@top.top_third), line:3, parent:work@top
+          |vpiName:top_third
+          |vpiFullName:work@top.top_third
+          |vpiSize:2
+          |vpiNet:
+          \_logic_net: (work@top.top_third), parent:work@top.top_third
+            |vpiFullName:work@top.top_third
+            |vpiNetType:36
+            |vpiRange:
+            \_range: , line:3
+              |vpiLeftRange:
+              \_constant: , line:3
+                |vpiConstType:7
+                |vpiDecompile:33
+                |vpiSize:64
+                |INT:33
+              |vpiRightRange:
+              \_constant: , line:3
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+          |vpiRange:
+          \_range: , line:3
+            |vpiLeftRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:1
+              |INT:0
+            |vpiRightRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_array_net: (work@top.id_stage_i.third), line:15, parent:work@top.id_stage_i
+          |vpiName:third
+          |vpiFullName:work@top.id_stage_i.third
+          |vpiSize:2
+          |vpiNet:
+          \_logic_net: (work@top.id_stage_i.third), parent:work@top.id_stage_i.third
+            |vpiFullName:work@top.id_stage_i.third
+            |vpiNetType:36
+            |vpiRange:
+            \_range: , line:15
+              |vpiLeftRange:
+              \_constant: , line:15
+                |vpiConstType:7
+                |vpiDecompile:33
+                |vpiSize:64
+                |INT:33
+              |vpiRightRange:
+              \_constant: , line:15
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+          |vpiRange:
+          \_range: , line:15
+            |vpiLeftRange:
+            \_constant: , line:15
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:1
+              |INT:0
+            |vpiRightRange:
+            \_constant: , line:15
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+    |vpiContAssign:
+    \_cont_assign: , line:18, parent:work@top.id_stage_i
+      |vpiRhs:
+      \_ref_obj: (work@top.id_stage_i.fourth), line:18
+        |vpiName:fourth
+        |vpiFullName:work@top.id_stage_i.fourth
+      |vpiLhs:
+      \_ref_obj: (work@top.id_stage_i.third), line:18
+        |vpiName:third
+        |vpiFullName:work@top.id_stage_i.third
+    |vpiNet:
+    \_logic_net: (work@top.id_stage_i.first), line:13, parent:work@top.id_stage_i
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiArrayNet:
+    \_array_net: (work@top.id_stage_i.second), line:14, parent:work@top.id_stage_i
+    |vpiArrayNet:
+    \_array_net: (work@top.id_stage_i.third), line:15, parent:work@top.id_stage_i
+    |vpiArrayNet:
+    \_array_net: (work@top.id_stage_i.fourth), line:17, parent:work@top.id_stage_i
+      |vpiName:fourth
+      |vpiFullName:work@top.id_stage_i.fourth
+      |vpiSize:2
+      |vpiNet:
+      \_logic_net: (work@top.id_stage_i.fourth), parent:work@top.id_stage_i.fourth
+        |vpiFullName:work@top.id_stage_i.fourth
+        |vpiNetType:36
+        |vpiRange:
+        \_range: , line:17
+          |vpiLeftRange:
+          \_constant: , line:17
+            |vpiConstType:7
+            |vpiDecompile:33
+            |vpiSize:64
+            |INT:33
+          |vpiRightRange:
+          \_constant: , line:17
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+      |vpiRange:
+      \_range: , line:17
+        |vpiLeftRange:
+        \_constant: , line:17
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:1
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:17
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:64
+          |INT:1
+  |vpiNet:
+  \_logic_net: (work@top.top_first), line:4, parent:work@top
+  |vpiArrayNet:
+  \_array_net: (work@top.top_second), line:2, parent:work@top
+  |vpiArrayNet:
+  \_array_net: (work@top.top_third), line:3, parent:work@top
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
+

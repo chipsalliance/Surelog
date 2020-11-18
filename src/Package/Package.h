@@ -29,6 +29,7 @@
 #include "Design/DesignComponent.h"
 #include "Design/ValuedComponentI.h"
 #include "Design/DataType.h"
+#include "Design/Netlist.h"
 #include "uhdm.h"
 
 namespace SURELOG {
@@ -71,6 +72,10 @@ class Package : public DesignComponent {
     return true;
   }
 
+  // To hold variables
+  Netlist* getNetlist() { return m_netlist; }
+  void setNetlist(Netlist* netlist) { m_netlist = netlist; }
+
  private:
   std::string m_name;
   Library* m_library;
@@ -78,6 +83,7 @@ class Package : public DesignComponent {
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
+  Netlist* m_netlist = nullptr;
 };
 
 };  // namespace SURELOG

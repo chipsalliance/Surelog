@@ -27,7 +27,7 @@
 #include <sys/stat.h>
 #include <fstream>
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#if defined(_MSC_VER)
   #include <direct.h>
   #include <process.h>
 #else
@@ -110,6 +110,7 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
        noFatalErrors = results.second;
        delete report;
     }
+  clp->cleanCache(); // only if -nocache
   delete clp;
   delete symbolTable;
   delete errors;

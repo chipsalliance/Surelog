@@ -471,7 +471,7 @@ namespace SURELOG {
    void enterFunction_prototype(SV3_1aParser::Function_prototypeContext * /*ctx*/) final { }
    void exitFunction_prototype(SV3_1aParser::Function_prototypeContext * ctx) final { addVObject (ctx, VObjectType::slFunction_prototype); }
    void enterDpi_import_export(SV3_1aParser::Dpi_import_exportContext * /*ctx*/) final { }
-   void exitDpi_import_export(SV3_1aParser::Dpi_import_exportContext * ctx) final { addVObject (ctx, VObjectType::slDpi_import_export); }
+   void exitDpi_import_export(SV3_1aParser::Dpi_import_exportContext * /*ctx*/) final ;
    void enterContext_keyword(SV3_1aParser::Context_keywordContext * /*ctx*/) final { }
    void exitContext_keyword(SV3_1aParser::Context_keywordContext * ctx) final { addVObject (ctx, VObjectType::slContext_keyword); }
    void enterFunction_name_decl(SV3_1aParser::Function_name_declContext * /*ctx*/) final { }

@@ -333,7 +333,9 @@ set TYPES(slMatches) 1
 set TYPES(slIff) 1
 set TYPES(slNull) 1
 set TYPES(slWith) 1
-
+set TYPES(slImport) 1
+set TYPES(slExport) 1
+set TYPES(slPure) 1
 
 set TYPES(slAssignOp_Assign) 1
 set TYPES(slAssignOp_Add) 1

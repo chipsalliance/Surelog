@@ -719,7 +719,21 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     }
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
-      signal->setDataType(type);
+      if (type) {
+        const DataType* def = type->getActual();
+        DataType::Category cat = def->getCategory();
+        if (cat == DataType::Category::SIMPLE_TYPEDEF) {
+          VObjectType t = def->getType();
+          if (t == slIntVec_TypeLogic) { // Make "net types" explicit (vs variable types) for elab.
+            signal->setType(slIntVec_TypeLogic);
+          } else if (t == slIntVec_TypeReg) {
+            signal->setType(slIntVec_TypeReg);
+          } else if (t == slNetType_Wire) {
+            signal->setType(slNetType_Wire);
+          } 
+        }
+        signal->setDataType(type);
+      }
     }
     if (signal->getType() != slNoType) {
       return true;
@@ -893,6 +907,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       var->VpiConstantVariable(sig->isConst());
       var->VpiSigned(sig->isSigned());
       var->VpiName(signame);
+      var->Typespec(spec);
       obj = var;
     } else if (/*const ClassDefinition* cl = */dynamic_cast<const ClassDefinition*>(dtype)) {
       class_var* stv = s.MakeClass_var();
@@ -929,6 +944,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
     } else if (tpstype == uhdmclass_typespec) {
       class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
+      tps->VpiParent(stv);
       obj = stv;
       stv->Expr(assignExp);
     }

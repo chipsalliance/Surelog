@@ -120,6 +120,15 @@ if {$argv == "help"} {
     exit
 }
 
+set SHELL sh
+set SHELL_ARGS -c
+if { ($tcl_platform(platform) == "windows") && (![info exists ::env(MSYSTEM)]) } {
+    set SHELL cmd
+    set SHELL_ARGS /c
+    set TIME ""
+    set DEBUG_TOOL ""
+}
+
 set TESTTARGET ""
 set ONETEST ""
 if [regexp {tests=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
@@ -337,8 +346,8 @@ proc count_split { string } {
 }
 
 proc run_regression { } {
-    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE
+    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE TIME
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS DIFF_MODE SHELL SHELL_ARGS
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -413,7 +422,8 @@ proc run_regression { } {
 
         cd $testdir
         if {$DIFF_MODE == 0} {
-            exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+            catch {file delete -force slpp_all slpp_unit} dummy
+            catch {file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit} dummy
         }
         set passstatus "PASS"
         if {$DIFF_MODE == 0} {
@@ -426,7 +436,7 @@ proc run_regression { } {
             }
             set output_path "-o ${root}build/tests/$test/"
             if [regexp {\.sh} $command] {
-                catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
             } else {
                 if [regexp {\*/\*\.v} $command] {
                     regsub -all {[\*/]+\*\.v} $command "" command
@@ -448,14 +458,14 @@ proc run_regression { } {
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
                     continue
                 }
-                catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                catch {set time_result [exec $SHELL $SHELL_ARGS "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
-                    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+                    if [catch {exec $SHELL $SHELL_ARGS "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
                         set passstatus "FAILDUMP"
                         set overrallpass "FAIL"
                     }
                 } elseif [file exist $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm] {
-                    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+                    if [catch {exec $SHELL $SHELL_ARGS "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
                         set passstatus "FAILDUMP"
                         set overrallpass "FAIL"
                     }
@@ -479,11 +489,12 @@ proc run_regression { } {
         if {$DIFF_MODE == 0} {
             if [regexp {Segmentation fault} $result] {
                 set segfault 1
-                exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+		catch {file delete -force slpp_all slpp_unit} dummy
+                catch {file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit} dummy
                 if [regexp {\.sh} $command] {
-                    catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                    catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 } else {
-                    catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                    catch {set time_result [exec $SHELL $SHELL_ARGS "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 }
                 if [regexp {Segmentation fault} $result] {
                     set passstatus "FAIL"
@@ -653,6 +664,11 @@ proc run_regression { } {
             close $fid
         }
 
+	if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
+            file delete -force slpp_all slpp_unit
+            file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit
+        }
+	
         cd $REGRESSION_PATH/tests
     }
     log $sep
@@ -693,7 +709,7 @@ foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
     } else {
         log "============================== DIFF ======================================================"
         log "diff $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"
-        catch {exec sh -c "diff -d $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
+        catch {exec $SHELL $SHELL_ARGS "diff -d $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
         puts $dummy
     }
 }

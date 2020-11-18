@@ -880,74 +880,6 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
   return true;
 }
 
-Function* CompileHelper::compileFunctionPrototype(DesignComponent* scope,
-                                                  const FileContent* fC, NodeId id) {
-  DataType* returnType = new DataType();
-  std::string funcName;
-  /*
-  n<"DPI-C"> u<2> t<StringLiteral> p<15> s<3> l<3>
-  n<> u<3> t<Context_keyword> p<15> s<14> l<3>
-  n<> u<4> t<IntVec_TypeBit> p<5> l<3>
-  n<> u<5> t<Data_type> p<6> c<4> l<3>
-  n<> u<6> t<Function_data_type> p<14> c<5> s<7> l<3>
-  n<SV2C_peek> u<7> t<StringConst> p<14> s<13> l<3>
-  n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
-  n<> u<9> t<Data_type> p<10> c<8> l<3>
-  n<> u<10> t<Data_type_or_implicit> p<12> c<9> s<11> l<3>
-  n<x_id> u<11> t<StringConst> p<12> l<3>
-  n<> u<12> t<Tf_port_item> p<13> c<10> l<3>
-  n<> u<13> t<Tf_port_list> p<14> c<12> l<3>
-  n<> u<14> t<Function_prototype> p<15> c<6> l<3>
-  n<> u<15> t<Dpi_import_export> p<16> c<2> l<3>
-   */
-  VObjectType type = fC->Type(id);
-
-  if (type == VObjectType::slDpi_import_export) {
-    NodeId dpiType = fC->Child(id);
-    std::string stringtype;
-    //      bool context = false;
-    //      bool pure = false;
-    if (fC->Type(dpiType) == VObjectType::slStringLiteral) {
-      stringtype = fC->SymName(dpiType);
-    }
-    NodeId prop = fC->Sibling(dpiType);
-    if (fC->Type(prop) == VObjectType::slContext_keyword) {
-      // context = true;
-      prop = fC->Sibling(prop);
-    }
-    if (fC->Type(prop) == VObjectType::slPure_keyword) {
-      // pure = true;
-      prop = fC->Sibling(prop);
-    }
-    NodeId func_prototype = prop;
-    NodeId function_data_type = fC->Child(func_prototype);
-    NodeId data_type = fC->Child(function_data_type);
-    NodeId type = fC->Child(data_type);
-    VObjectType the_type = fC->Type(type);
-    std::string typeName;
-    if (the_type == VObjectType::slStringConst) {
-      typeName = fC->SymName(type);
-    } else if (the_type == VObjectType::slClass_scope) {
-      NodeId class_type = fC->Child(type);
-      NodeId class_name = fC->Child(class_type);
-      typeName = fC->SymName(class_name);
-      typeName += "::";
-      NodeId symb_id = fC->Sibling(type);
-      typeName += fC->SymName(symb_id);
-    } else {
-      typeName = VObject::getTypeName(the_type);
-    }
-    returnType->init(fC, type, typeName, fC->Type(type));
-    NodeId function_name = fC->Sibling(function_data_type);
-    funcName = fC->SymName(function_name);
-  }
-
-  Function* result = new Function(scope, fC, id, funcName, returnType);
-  Variable* variable = new Variable(returnType, fC, id, 0, funcName);
-  result->addVariable(variable);
-  result->compile(*this);
-  return result;
-}
 
 VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed) {
   Packed_dimension = 0;
@@ -1242,6 +1174,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId interface_identifier = fC->Child(interface_port_header);
     NodeId interface_name = fC->Child(interface_identifier);
     NodeId port_name = fC->Sibling(interface_port_header);
+    NodeId unpacked_dimension = fC->Sibling(port_name);
     /*
     n<mem_if> u<10> t<StringConst> p<12> s<11> l<11>
     n<system> u<11> t<StringConst> p<12> l<11>
@@ -1250,7 +1183,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     n<sif2> u<14> t<StringConst> p<15> l<11>
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
-    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, 0, false));
+    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, unpacked_dimension, false));
     //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
@@ -1450,34 +1383,43 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_decl = id;
     NodeId var_decl = fC->Child(data_decl);
     VObjectType type = fC->Type(data_decl);
+    if (type == VObjectType::slData_declaration) {
+      data_decl = fC->Child(data_decl);
+      type = fC->Type(data_decl);
+      var_decl = data_decl;
+    }
     bool is_local = false;
     bool is_static = false;
     bool is_protected = false;
     bool is_rand = false;
     bool is_randc = false;
+    bool is_const = false;
     while ((type == VObjectType::slPropQualifier_ClassItem) ||
            (type == VObjectType::slPropQualifier_Rand) ||
-           (type == VObjectType::slPropQualifier_Randc)) {
+           (type == VObjectType::slPropQualifier_Randc) ||
+           (type == VObjectType::slConst_type) ||
+           (type == VObjectType::slLifetime_Static)) {
       NodeId qualifier = fC->Child(data_decl);
       VObjectType qualType = fC->Type(qualifier);
-      if (qualType == VObjectType::slClassItemQualifier_Protected)
-        is_protected = true;
-      if (qualType == VObjectType::slClassItemQualifier_Static)
-        is_static = true;
+      if (qualType == VObjectType::slClassItemQualifier_Protected) is_protected = true;
+      if (qualType == VObjectType::slClassItemQualifier_Static) is_static = true;
       if (qualType == VObjectType::slClassItemQualifier_Local) is_local = true;
       if (type == VObjectType::slPropQualifier_Rand) is_rand = true;
       if (type == VObjectType::slPropQualifier_Randc) is_randc = true;
+      if (type == VObjectType::slConst_type) is_const = true;
+      if (type ==  VObjectType::slLifetime_Static) is_static = true;
       data_decl = fC->Sibling(data_decl);
       type = fC->Type(data_decl);
-      var_decl = fC->Child(data_decl);
+      var_decl = data_decl;
     }
 
     NodeId variable_declaration = var_decl;
-    bool const_type = false;
+    if (fC->Type(variable_declaration) == VObjectType::slData_declaration)
+      variable_declaration = fC->Child(variable_declaration);
     bool var_type = false;
     if (fC->Type(variable_declaration) == VObjectType::slConst_type) {
       variable_declaration = fC->Sibling(variable_declaration);
-      const_type = true;
+      is_const = true;
     }
     if (fC->Type(variable_declaration) == VObjectType::slVar_type) {
       variable_declaration = fC->Sibling(variable_declaration);
@@ -1516,7 +1458,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
               packedDimension, VObjectType::slNoType, unpackedDimension, false);
       }
-      if (const_type) sig->setConst();
+      if (is_const) sig->setConst();
       if (var_type) sig->setVar();
       if (portRef)
         portRef->setLowConn(sig);

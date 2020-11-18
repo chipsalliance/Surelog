@@ -571,6 +571,17 @@ void writePackage(Package* pack, package* p, Serializer& s,
       tf->VpiParent(p);
     }
   }
+
+  // Variables
+  Netlist* netlist = pack->getNetlist();
+  if (netlist) {
+    p->Variables(netlist->variables());
+    if (netlist->variables()) {
+      for (auto obj : *netlist->variables()) {
+        obj->VpiParent(p);
+      }
+    }
+  }
 }
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s,

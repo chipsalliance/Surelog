@@ -84,7 +84,7 @@ public:
                                const FileContent* fC, NodeId id);
 
   Function* compileFunctionPrototype(DesignComponent* scope, const FileContent* fC,
-                                     NodeId id);
+                                     NodeId id, CompileDesign* compileDesign);
 
   bool compilePortDeclaration(DesignComponent* scope, const FileContent* fC,
                               NodeId id, VObjectType& port_direction);
@@ -160,6 +160,11 @@ public:
 
   UHDM::typespec* compileTypespec(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, const std::string& suffixname = "");
+
+  UHDM::typespec* compileDatastructureTypespec(
+      DesignComponent* component, const FileContent* fC, NodeId type,
+      CompileDesign* compileDesign, SURELOG::ValuedComponentI* instance,
+      bool reduce, const std::string& suffixname = "", const std::string& typeName = "");
 
   UHDM::any* compileSimpleImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
