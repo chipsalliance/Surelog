@@ -139,8 +139,7 @@ add_custom_command(
           ${FLATBUFFERS_FLATC_EXECUTABLE})
 
 # Java
-find_package(Java)
-find_package(Java COMPONENTS Runtime)
+find_package(Java REQUIRED COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION
     ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-complete.jar)
 
