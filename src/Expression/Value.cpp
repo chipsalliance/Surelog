@@ -948,7 +948,10 @@ std::string StValue::uhdmValue() {
   else if (m_type == Type::Octal)
     result = "OCT:";
   else if (m_type == Type::Scalar)
-    result = "SCAL:";  
+    result = "SCAL:";
+  //Remove '"' from the string
+  if (result == "STRING:" && m_value.front() == '"' && m_value.back() == '"')
+    m_value = m_value.substr(1, m_value.length() - 2);
   result += m_value;
   return result;
 }

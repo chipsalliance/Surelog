@@ -1089,6 +1089,8 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slStringLiteral: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
+        if (value.front() == '"' && value.back() == '"')
+          value = value.substr(1, value.length() - 2);
         c->VpiDecompile(value);
         c->VpiSize(strlen(value.c_str()));
         value = "STRING:" + value;
