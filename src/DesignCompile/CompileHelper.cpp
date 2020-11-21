@@ -37,6 +37,7 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/SimpleType.h"
+#include "Design/DummyType.h"
 #include "Design/Parameter.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
@@ -455,9 +456,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       type->setDefinition(newTypeDef);
       if (scope)
         scope->insertTypeDef(newTypeDef);
-      SimpleType* simple = new SimpleType(fC, type_name, stype);
-      newTypeDef->setDataType(simple);
-      newTypeDef->setDefinition(simple);
+      DummyType* dummy = new DummyType(fC, type_name, stype);
+      newTypeDef->setDataType(dummy);
+      newTypeDef->setDefinition(dummy);
       /*
        Don't create the typespec here, as it is most likely going to be incomplete at compilation time
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);

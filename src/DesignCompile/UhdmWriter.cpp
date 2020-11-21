@@ -368,10 +368,23 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
 void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
                     BaseClass* parent, VectorOftypespec* dest_typespecs,
                     Serializer& s) {
+  std::set<uint64_t> ids;
   for (const auto& entry : datatypeMap) {
-    const DataType* dtype = entry.second->getActual();
-    if (dtype->getTypespec())
-      dest_typespecs->push_back(dtype->getTypespec());
+    const DataType* dtype = entry.second;
+    if (dtype->getCategory() == DataType::Category::REF) {
+      dtype = dtype->getDefinition();
+    }
+    if (dtype->getCategory() == DataType::Category::TYPEDEF) {
+      if (dtype->getTypespec() == nullptr)
+        dtype = dtype->getDefinition();
+    }
+    typespec* tps = dtype->getTypespec();
+    if (tps) {
+      if (ids.find(tps->UhdmId()) == ids.end()) {
+        dest_typespecs->push_back(tps);
+        ids.insert(tps->UhdmId());
+      }
+    }
   }
 }
 

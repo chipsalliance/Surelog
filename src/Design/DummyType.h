@@ -15,14 +15,14 @@
  */
 
 /*
- * File:   Union.h
+ * File:   DummyType.h
  * Author: alain
  *
  * Created on May 19, 2020, 11:55 AM
  */
 
-#ifndef UNION_H
-#define UNION_H
+#ifndef DUMMY_TYPE_H
+#define DUMMY_TYPE_H
 #include <string>
 #include <map>
 #include "Design/DataType.h"
@@ -31,17 +31,17 @@ namespace SURELOG {
 
 class FileContent;
 
-class Union : public DataType {
+class DummyType : public DataType {
  public:
-  Union(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~Union() override;
+  DummyType(const FileContent* fC, NodeId nameId, NodeId structId);
+  ~DummyType() override;
 
-  NodeId getNameId() const { return m_nameId; }
+  NodeId getNameId() { return m_nameId; }
 
  private:
   NodeId m_nameId;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
-#endif /* UNION_H */
+#endif /* DUMMY_TYPE_H */

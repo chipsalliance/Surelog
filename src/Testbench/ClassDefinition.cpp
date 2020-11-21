@@ -39,6 +39,7 @@ ClassDefinition::ClassDefinition(std::string name, Library* library,
       m_container(container),
       m_parent(parent), 
       m_uhdm_definition(uhdm_definition) {
+  m_category = DataType::Category::CLASS;
   addFileContent(fC, nodeId);
 }
 

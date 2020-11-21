@@ -36,8 +36,6 @@ class Struct : public DataType {
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;
 
-  Category getCategory() const final { return Category::STRUCT; }
-
   NodeId getNameId() { return m_nameId; }
  private:
   NodeId m_nameId;

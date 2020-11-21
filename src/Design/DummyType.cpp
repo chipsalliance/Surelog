@@ -15,33 +15,21 @@
  */
 
 /*
- * File:   Union.h
+ * File:   SimpleType.cpp
  * Author: alain
  *
  * Created on May 19, 2020, 11:55 AM
  */
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "Design/DummyType.h"
+#include "uhdm.h"
+using namespace SURELOG;
 
-#ifndef UNION_H
-#define UNION_H
-#include <string>
-#include <map>
-#include "Design/DataType.h"
+DummyType::DummyType(const FileContent* fC, NodeId nameId, NodeId structId)
+    : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)),
+      m_nameId(nameId) {
+  m_category = DataType::Category::DUMMY;
+}
 
-namespace SURELOG {
-
-class FileContent;
-
-class Union : public DataType {
- public:
-  Union(const FileContent* fC, NodeId nameId, NodeId structId);
-  ~Union() override;
-
-  NodeId getNameId() const { return m_nameId; }
-
- private:
-  NodeId m_nameId;
-};
-
-};  // namespace SURELOG
-
-#endif /* UNION_H */
+DummyType::~DummyType() {}

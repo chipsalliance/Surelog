@@ -125,24 +125,31 @@ bool ElaborationStep::bindTypedefs_() {
     }
 
     if (noTypespec == true) {
-        UHDM::typespec* ts = m_helper.compileTypespec(defTuple.second, typd->getFileContent(), 
-                                        typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr, true);
-        if (ts) 
-          ts->VpiName(typd->getName());
-      
-        DataType* mut_def = (DataType*) prevDef;
-        mut_def->setTypespec(ts);
+      if (prevDef && prevDef->getCategory() == DataType::Category::DUMMY) {
+        const DataType* def =
+            bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
+        if (def && (typd != def)) {  
+          typd->setDefinition(def);
+          typd->setDataType((DataType*)def);
+        }
+      } 
+      UHDM::typespec* ts = m_helper.compileTypespec(
+          defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
+          m_compileDesign, nullptr, nullptr, true);
+      if (ts) ts->VpiName(typd->getName());
+      typd->setTypespec(ts);
     } else if (prevDef == NULL) {
       const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
       if (def && (typd != def)) {
         typd->setDefinition(def);
+        typd->setDataType((DataType*)def);
         typd->setTypespec(nullptr);
-        UHDM::typespec* ts = m_helper.compileTypespec(defTuple.second, typd->getFileContent(), 
-                                        typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr, true);
-        DataType* mut_def = (DataType*) def;
-        mut_def->setTypespec(ts);
-
+        UHDM::typespec* ts = m_helper.compileTypespec(
+            defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
+            m_compileDesign, nullptr, nullptr, true);
+        if (ts) ts->VpiName(typd->getName());
+        typd->setTypespec(ts);
       } else {
         if (prevDef == NULL) {
           const FileContent* fC = typd->getFileContent();

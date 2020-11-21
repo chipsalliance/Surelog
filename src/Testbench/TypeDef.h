@@ -38,8 +38,6 @@ class TypeDef : public DataType {
           const std::string& name);
   ~TypeDef() override;
 
-  virtual Category getCategory() { return Category::TYPEDEF; }
-
   void setDataType(DataType* the_type) { m_datatype = the_type; }
   NodeId getDefinitionNode() { return m_the_def; }
   const DataType* getDataType() const { return m_datatype; }
