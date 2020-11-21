@@ -460,7 +460,6 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       newTypeDef->setDefinition(simple);
       /*
        Don't create the typespec here, as it is most likely going to be incomplete at compilation time
-       
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts) {
         ts->VpiName(name);
