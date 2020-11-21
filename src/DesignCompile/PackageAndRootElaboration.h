@@ -38,7 +38,7 @@ class PackageAndRootElaboration : public ElaborationStep {
   bool elaborate() override;
 
  private:
-  bool bindTypedefs_();
+ 
 };
 
 };  // namespace SURELOG

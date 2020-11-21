@@ -1125,11 +1125,9 @@ Processing: -cd generic/typedef typedef_test_6.sv -parse -nocache -nobuiltin -no
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/typedef typedef_test_8__bad.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l typedef_test_8__bad.sv.log
-[ERR:CP0317] typedef_test_8__bad.sv:8: Undefined type "some_other_type".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/typedef typedef_test_12.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l typedef_test_12.sv.log
@@ -2734,11 +2732,9 @@ Processing: -cd generic/member class_member_test_8.sv -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/member class_member_test_52.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_member_test_52.sv.log
-[ERR:EL0514] class_member_test_52.sv:8: Undefined variable: foo.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/member class_member_test_29.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_member_test_29.sv.log
@@ -2778,11 +2774,9 @@ Processing: -cd generic/member class_member_test_41.sv -parse -nocache -nobuilti
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/member class_member_test_51.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_member_test_51.sv.log
-[ERR:EL0514] class_member_test_51.sv:8: Undefined variable: foo.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/member class_member_test_1.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_member_test_1.sv.log
@@ -5194,9 +5188,11 @@ Processing: -cd chapter-8 8.26.7--partial_implementation.sv -parse -nocache -nob
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-8 8.26.4--illegal_forward_def_implements.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 8.26.4--illegal_forward_def_implements.sv.log
+[ERR:CP0317] 8.26.4--illegal_forward_def_implements.sv:9: Undefined type "ihello".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-8 8.19--instance_constant.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 8.19--instance_constant.sv.log
@@ -5278,11 +5274,9 @@ Processing: -cd chapter-8 8.13--inheritance.sv -parse -nocache -nobuiltin -nonot
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-8 8.26.2--implements_extends.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 8.26.2--implements_extends.sv.log
-[ERR:CP0333] 8.26.2--implements_extends.sv:17: Undefined system task/function "$display".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-8 8.22--dynamic_method_lookup.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 8.22--dynamic_method_lookup.sv.log
@@ -5598,7 +5592,7 @@ Processing: -cd chapter-10 10.3.3--cont-assignment-delay.sv -parse -nocache -nob
 Processed 859 tests.
 [  FATAL] : 0
 [ SYNTAX] : 37
-[  ERROR] : 134
+[  ERROR] : 131
 [WARNING] : 8
 [   NOTE] : 0
 

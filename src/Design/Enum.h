@@ -51,16 +51,12 @@ class Enum : public DataType {
   NodeId getDefinitionId() const { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
 
-  UHDM::typespec* getTypespec() const { return m_typespec; }
-  void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
-
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:
   const NodeId m_nameId;
   NameValueMap m_values;
-  UHDM::typespec* m_typespec;
   UHDM::typespec* m_baseTypespec;
 };
 
