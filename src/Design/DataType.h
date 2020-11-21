@@ -47,7 +47,8 @@ public:
     CLASS,
     REF, // points to actual definition
     PARAMETER,
-    TYPEDEF
+    TYPEDEF,
+    DUMMY, // placeholder for later bnding
   };
 
   DataType(){}
@@ -85,7 +86,7 @@ public:
 
   const DataType* getActual() const;
 
-  virtual Category getCategory() const { return Category::REF; }
+  Category getCategory() const { return m_category; }
 
   virtual VObjectType getType() const { return m_type; }
 
@@ -103,7 +104,7 @@ public:
 
   UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
-
+  
 protected:
   const FileContent* m_fileContent = nullptr;
   NodeId m_id = 0;
@@ -112,6 +113,7 @@ protected:
   VObjectType m_type;
   bool m_is_parameter = false;
   UHDM::typespec* m_typespec = nullptr;
+  Category m_category = Category::REF;
 };
 
 }  // namespace SURELOG

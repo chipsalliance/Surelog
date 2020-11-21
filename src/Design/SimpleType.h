@@ -36,8 +36,6 @@ class SimpleType : public DataType {
   SimpleType(const FileContent* fC, NodeId nameId, NodeId structId);
   ~SimpleType() override;
 
-  Category getCategory() const final { return Category::SIMPLE_TYPEDEF; }
-
   NodeId getNameId() { return m_nameId; }
 
  private:

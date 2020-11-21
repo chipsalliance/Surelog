@@ -51,8 +51,6 @@ class ClassDefinition : public DesignComponent, public DataType {
 
   ~ClassDefinition() override;
 
-  virtual Category getCategory() { return Category::CLASS; }
-
   unsigned int getSize() const override;
   VObjectType getType() const override {
     return VObjectType::slClass_declaration;

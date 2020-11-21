@@ -260,6 +260,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Design/Scope.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Signal.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/DummyType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Statement.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Struct.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Task.cpp

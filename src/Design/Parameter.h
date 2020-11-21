@@ -36,8 +36,6 @@ class Parameter : public DataType {
 
  ~Parameter() override;
 
-  virtual Category getCategory() { return Category::PARAMETER; }
-
   VObjectType getType() const override;
   NodeId getNodeType() const { return m_ntype; }
 

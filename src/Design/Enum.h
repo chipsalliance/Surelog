@@ -40,8 +40,6 @@ class Enum : public DataType {
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
 
-  Category getCategory() const final { return Category::ENUM; }
-
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
   void addValue(const std::string& name, unsigned int lineNb, Value* value) {
