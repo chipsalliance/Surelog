@@ -140,8 +140,7 @@ bool TestbenchElaboration::bindClasses_() {
   checkForMultipleDefinition_();
   bindBaseClasses_();
   bindDataTypes_();
-  // This needs to be rewritten using UHDM
-  //bindFunctions_();
+  bindFunctions_();
   bindTasks_();
   bindProperties_();
   return true;
