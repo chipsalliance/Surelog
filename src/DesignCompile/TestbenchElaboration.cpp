@@ -41,6 +41,7 @@
 #include "DesignCompile/CompileDesign.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
+#include "Design/SimpleType.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/TestbenchElaboration.h"
 #include "headers/uhdm.h"
@@ -48,76 +49,6 @@
 using namespace SURELOG;
 
 TestbenchElaboration::~TestbenchElaboration() {}
-
-bool TestbenchElaboration::bindTypedefs_() {
-  Compiler* compiler = m_compileDesign->getCompiler();
-  ErrorContainer* errors = compiler->getErrorContainer();
-  SymbolTable* symbols = compiler->getSymbolTable();
-  Design* design = compiler->getDesign();
-
-  std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
-
-  for (auto file : design->getAllFileContents()) {
-    FileContent* fC = file.second;
-    for (auto typed : fC->getTypeDefMap()) {
-      TypeDef* typd = typed.second;
-      defs.emplace_back(typd, fC);
-    }
-  }
-
-  for (auto package : design->getPackageDefinitions()) {
-    Package* pack = package.second;
-    for (auto typed : pack->getTypeDefMap()) {
-      TypeDef* typd = typed.second;
-      defs.emplace_back(typd, pack);
-    }
-  }
-
-  for (auto program_def : design->getProgramDefinitions()) {
-    Program* program = program_def.second;
-    for (auto typed : program->getTypeDefMap()) {
-      TypeDef* typd = typed.second;
-      defs.emplace_back(typd, program);
-    }
-  }
-
-  for (auto class_def : design->getClassDefinitions()) {
-    ClassDefinition* classp = class_def.second;
-    for (auto typed : classp->getTypeDefMap()) {
-      TypeDef* typd = typed.second;
-      defs.emplace_back(typd, classp);
-    }
-  }
-
-  for (auto def : defs) {
-    TypeDef* typd = def.first;
-    DesignComponent* comp = def.second;
-    if (typd->getDefinition() == NULL) {
-      const DataType* def =
-          bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
-      if (def && (typd != def)) {
-        typd->setDefinition(def);
-      } else {
-        const FileContent* fC = typd->getFileContent();
-        NodeId id = typd->getNodeId();
-        std::string fileName = fC->getFileName(id);
-        unsigned int line = fC->Line(id);
-        std::string definition_string;
-        NodeId defNode = typd->getDefinitionNode();
-        VObjectType defType = fC->Type(defNode);
-        if (defType == VObjectType::slStringConst) {
-          definition_string = fC->SymName(defNode);
-        }
-        Location loc1(symbols->registerSymbol(fileName), line, 0,
-                      symbols->registerSymbol(definition_string));
-        Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
-        errors->addError(err1);
-      }
-    }
-  }
-
-  return true;
-}
 
 bool checkValidFunction(const DataType* dtype, const std::string& function,
                         Statement* stmt,
@@ -145,13 +76,16 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
     }
   } else if (dtype->isString_type(type)) {
     ClassDefinition* array = design->getClassDefinition("builtin::string");
-    Function* func = array->getFunction(function);
-    if (func)
-      stmt->setFunction(func);
-    else {
-      datatypeName = "string";
-      validFunction = false;
-    }
+    if (array) {
+      Function* func = array->getFunction(function);
+      if (func)
+        stmt->setFunction(func);
+      else {
+        datatypeName = "string";
+        validFunction = false;
+      }
+    } else 
+     validFunction = false;   
   } else
     validFunction = false;
   return validFunction;
@@ -206,7 +140,8 @@ bool TestbenchElaboration::bindClasses_() {
   checkForMultipleDefinition_();
   bindBaseClasses_();
   bindDataTypes_();
-  bindFunctions_();
+  // This needs to be rewritten using UHDM
+  //bindFunctions_();
   bindTasks_();
   bindProperties_();
   return true;

@@ -39,7 +39,6 @@ class TestbenchElaboration : public ElaborationStep {
   ~TestbenchElaboration() override;
 
  protected:
-  bool bindTypedefs_();
   bool checkForMultipleDefinition_();
   bool bindClasses_();
   bool bindBaseClasses_();

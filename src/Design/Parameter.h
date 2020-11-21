@@ -27,10 +27,6 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 
-namespace UHDM {
-  class typespec;
-};
-
 namespace SURELOG {
 
 class Parameter : public DataType {

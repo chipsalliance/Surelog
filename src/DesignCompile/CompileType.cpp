@@ -214,6 +214,9 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             component->getName() + "::" + typeName);
       }
       if (dt == nullptr) {
+        dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(typeName);
+      }
+      if (dt == nullptr) {
         Parameter* p = component->getParameter(typeName);
         if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter)) 
           dt = p;
@@ -243,6 +246,14 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         break;
       } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
+        if (parent_tpd && result) {
+          ElaboratorListener listener(&s);
+          typespec* new_result = dynamic_cast<typespec*>(UHDM::clone_tree((any*) result, s, &listener));
+          if (new_result) {
+            new_result->Typedef_alias(result);
+            result = new_result;
+          }
+        }
         break;
       } else if (/*const Parameter* par = */dynamic_cast<const Parameter*>(dt)) {
         // Prevent circular definition

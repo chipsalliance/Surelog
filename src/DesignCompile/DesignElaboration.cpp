@@ -67,7 +67,6 @@ bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();
   setupConfigurations_();
   identifyTopModules_();
-  bindTypedefs_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
   bindDataTypes_();

@@ -370,15 +370,8 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
                     Serializer& s) {
   for (const auto& entry : datatypeMap) {
     const DataType* dtype = entry.second->getActual();
-    if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
-      dest_typespecs->push_back(en->getTypespec());
-    } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
-      dest_typespecs->push_back(st->getTypespec());
-    } else if (const Union* un = dynamic_cast<const Union*>(dtype)) {
-      dest_typespecs->push_back(un->getTypespec());
-    } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
-      dest_typespecs->push_back(sit->getTypespec());
-    }
+    if (dtype->getTypespec())
+      dest_typespecs->push_back(dtype->getTypespec());
   }
 }
 
@@ -1180,8 +1173,8 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
       if (m->Typespecs()) {
         for (auto n : *m->Typespecs()) {
           if (n->UhdmType() == uhdmenum_typespec) {
-            enum_typespec* tps = (enum_typespec*) n;
-            if (tps->Enum_consts()) {
+            enum_typespec* tps = dynamic_cast<enum_typespec*>(n);
+            if (tps && tps->Enum_consts()) {
               for (auto c : *tps->Enum_consts()) {
                 if (c->VpiName() == name) {
                   ref->Actual_group(c);
@@ -1642,6 +1635,14 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     designs.push_back(designHandle);
     // -------------------------------
     // Non-Elaborated Model
+
+    // FileContent
+    // Typepecs
+    VectorOftypespec* typespecs = s.MakeTypespecVec();
+    d->Typespecs(typespecs);
+    for (auto& fileIdContent : m_design->getAllFileContents()) {
+      writeDataTypes(fileIdContent.second->getDataTypeMap(), d, typespecs, s);
+    }
 
     // Packages
     auto packages = m_design->getPackageDefinitions();

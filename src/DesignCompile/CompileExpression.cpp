@@ -2093,8 +2093,9 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
         break;
       }
       case UHDM::uhdmenum_typespec: {
-        UHDM::enum_typespec* sts = (UHDM::enum_typespec*) typespec;
-        bits = Bits(sts->Base_typespec());
+        const UHDM::enum_typespec* sts = dynamic_cast<const UHDM::enum_typespec*> (typespec);
+        if (sts)
+          bits = Bits(sts->Base_typespec());
         break;
       }
       case UHDM::uhdmunion_typespec: {

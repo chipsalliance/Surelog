@@ -65,6 +65,110 @@ ElaborationStep::ElaborationStep(CompileDesign* compileDesign)
 
 ElaborationStep::~ElaborationStep() {}
 
+bool ElaborationStep::bindTypedefs_() {
+  Compiler* compiler = m_compileDesign->getCompiler();
+  ErrorContainer* errors = compiler->getErrorContainer();
+  SymbolTable* symbols = compiler->getSymbolTable();
+  Design* design = compiler->getDesign();
+
+  std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
+
+  for (auto file : design->getAllFileContents()) {
+    FileContent* fC = file.second;
+    for (auto typed : fC->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, fC);
+    }
+  }
+
+  for (auto package : design->getPackageDefinitions()) {
+    Package* pack = package.second;
+    for (auto typed : pack->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, pack);
+    }
+  }
+
+  for (auto module : design->getModuleDefinitions()) {
+    ModuleDefinition* mod = module.second;
+    for (auto typed : mod->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, mod);
+    }
+  }
+
+  for (auto program_def : design->getProgramDefinitions()) {
+    Program* program = program_def.second;
+    for (auto typed : program->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, program);
+    }
+  }
+
+  for (auto class_def : design->getClassDefinitions()) {
+    ClassDefinition* classp = class_def.second;
+    for (auto typed : classp->getTypeDefMap()) {
+      TypeDef* typd = typed.second;
+      defs.emplace_back(typd, classp);
+    }
+  }
+
+  for (auto& defTuple : defs) {
+    TypeDef* typd = defTuple.first;
+    DesignComponent* comp = defTuple.second;
+    const DataType* prevDef = typd->getDefinition();
+    bool noTypespec = false;
+    if (prevDef) {
+      prevDef = prevDef->getActual();
+      if (prevDef->getTypespec() == nullptr)
+        noTypespec = true;
+    }
+
+    if (noTypespec == true) {
+        UHDM::typespec* ts = m_helper.compileTypespec(defTuple.second, typd->getFileContent(), 
+                                        typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr, true);
+        if (ts) 
+          ts->VpiName(typd->getName());
+      
+        DataType* mut_def = (DataType*) prevDef;
+        mut_def->setTypespec(ts);
+    } else if (prevDef == NULL) {
+      const DataType* def =
+          bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
+      if (def && (typd != def)) {
+        typd->setDefinition(def);
+        typd->setTypespec(nullptr);
+        UHDM::typespec* ts = m_helper.compileTypespec(defTuple.second, typd->getFileContent(), 
+                                        typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr, true);
+        DataType* mut_def = (DataType*) def;
+        mut_def->setTypespec(ts);
+
+      } else {
+        if (prevDef == NULL) {
+          const FileContent* fC = typd->getFileContent();
+          NodeId id = typd->getNodeId();
+          std::string fileName = fC->getFileName(id);
+          unsigned int line = fC->Line(id);
+          std::string definition_string;
+          NodeId defNode = typd->getDefinitionNode();
+          VObjectType defType = fC->Type(defNode);
+          if (defType == VObjectType::slStringConst) {
+            definition_string = fC->SymName(defNode);
+          }
+          Location loc1(symbols->registerSymbol(fileName), line, 0,
+                        symbols->registerSymbol(definition_string));
+          Error err1(ErrorDefinition::COMP_UNDEFINED_TYPE, loc1);
+          errors->addError(err1);
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+
+
 const DataType* ElaborationStep::bindTypeDef_(
   TypeDef* typd,
   const DesignComponent* parent,
@@ -731,6 +835,8 @@ bool ElaborationStep::bindPortType_(Signal* signal,
           } else if (t == slNetType_Wire) {
             signal->setType(slNetType_Wire);
           } 
+        } else if (cat == DataType::Category::REF) {
+          // Should not arrive here, there should always be an actual definition
         }
         signal->setDataType(type);
       }

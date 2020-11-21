@@ -28,6 +28,10 @@
 #include "SourceCompile/VObjectTypes.h"
 #include "SourceCompile/SymbolTable.h"
 
+namespace UHDM {
+  class typespec;
+};
+
 namespace SURELOG {
 class FileContent;
 class Value;
@@ -97,6 +101,9 @@ public:
   static bool isString_type(VObjectType type);
   static bool isNumber(VObjectType type);
 
+  UHDM::typespec* getTypespec() const { return m_typespec; }
+  void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
+
 protected:
   const FileContent* m_fileContent = nullptr;
   NodeId m_id = 0;
@@ -104,6 +111,7 @@ protected:
   mutable const DataType* m_definition = nullptr;
   VObjectType m_type;
   bool m_is_parameter = false;
+  UHDM::typespec* m_typespec = nullptr;
 };
 
 }  // namespace SURELOG

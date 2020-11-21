@@ -27,9 +27,6 @@
 #include <map>
 #include "Design/DataType.h"
 
-namespace UHDM {
-  class typespec;
-};
 namespace SURELOG {
 
 class FileContent;
@@ -41,13 +38,10 @@ class SimpleType : public DataType {
 
   Category getCategory() const final { return Category::SIMPLE_TYPEDEF; }
 
-  void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() const { return m_typespec; }
   NodeId getNameId() { return m_nameId; }
 
  private:
   NodeId m_nameId;
-  UHDM::typespec* m_typespec;
 };
 
 }  // namespace SURELOG

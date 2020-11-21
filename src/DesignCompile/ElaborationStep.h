@@ -39,6 +39,8 @@ class ElaborationStep {
   virtual ~ElaborationStep();
 
  protected:
+  bool bindTypedefs_();
+  
   const DataType* bindTypeDef_(TypeDef* typd,
                                const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);

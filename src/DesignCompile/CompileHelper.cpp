@@ -456,8 +456,11 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       if (scope)
         scope->insertTypeDef(newTypeDef);
       SimpleType* simple = new SimpleType(fC, type_name, stype);
-      //newTypeDef->setDataType(simple);
-      //newTypeDef->setDefinition(simple);
+      newTypeDef->setDataType(simple);
+      newTypeDef->setDefinition(simple);
+      /*
+       Don't create the typespec here, as it is most likely going to be incomplete at compilation time
+       
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts) {
         ts->VpiName(name);
@@ -465,6 +468,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
           typespecs->push_back(ts);
       }
       simple->setTypespec(ts);
+      */
+      if (scope)
+        scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
     } else {
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
