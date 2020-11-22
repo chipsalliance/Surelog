@@ -932,7 +932,14 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
       } else if (pass == 1) {
         // Nets pass
-        elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);      
+        // No need for signals for interface artefacts 
+        if (sig->getModPort())
+          continue;
+        else if (sig->getInterfaceDef())
+          continue;
+
+        elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);   
+
       } else if (pass == 2) {
         // Port low conn pass
         std::string signame = sig->getName();
