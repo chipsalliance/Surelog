@@ -896,9 +896,9 @@ design: (work@simple_package)
       |vpiArgument:
       \_constant: , line:20
         |vpiConstType:6
-        |vpiDecompile:@%0dns %s INFO : %s
-        |vpiSize:19
-        |STRING:@%0dns %s INFO : %s
+        |vpiDecompile:"@%0dns %s INFO : %s"
+        |vpiSize:21
+        |STRING:"@%0dns %s INFO : %s"
       |vpiArgument:
       \_sys_func_call: ($time), line:20
         |vpiName:$time
@@ -929,9 +929,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:26
           |vpiConstType:6
-          |vpiDecompile:@%0dns %s WARN : %s
-          |vpiSize:19
-          |STRING:@%0dns %s WARN : %s
+          |vpiDecompile:"@%0dns %s WARN : %s"
+          |vpiSize:21
+          |STRING:"@%0dns %s WARN : %s"
         |vpiArgument:
         \_sys_func_call: ($time), line:26
           |vpiName:$time
@@ -969,9 +969,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:33
           |vpiConstType:6
-          |vpiDecompile:@%0dns %s ERROR : %s
-          |vpiSize:20
-          |STRING:@%0dns %s ERROR : %s
+          |vpiDecompile:"@%0dns %s ERROR : %s"
+          |vpiSize:22
+          |STRING:"@%0dns %s ERROR : %s"
         |vpiArgument:
         \_sys_func_call: ($time), line:33
           |vpiName:$time
@@ -1018,9 +1018,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:41
           |vpiConstType:6
-          |vpiDecompile:@%0dns %s FATAL : %s
-          |vpiSize:20
-          |STRING:@%0dns %s FATAL : %s
+          |vpiDecompile:"@%0dns %s FATAL : %s"
+          |vpiSize:22
+          |STRING:"@%0dns %s FATAL : %s"
         |vpiArgument:
         \_sys_func_call: ($time), line:41
           |vpiName:$time
@@ -1104,9 +1104,9 @@ design: (work@simple_package)
     |vpiExpr:
     \_constant: , line:8
       |vpiConstType:6
-      |vpiDecompile:NULL
-      |vpiSize:4
-      |STRING:NULL
+      |vpiDecompile:"NULL"
+      |vpiSize:6
+      |STRING:"NULL"
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@simple_package
   |vpiName:work@mailbox
@@ -1210,7 +1210,8 @@ design: (work@simple_package)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37
+    \_chandle_var: (process), line:37
+      |vpiName:process
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -1218,7 +1219,8 @@ design: (work@simple_package)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_chandle_var: (state), line:40
+      |vpiName:state
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -1357,9 +1359,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:6
-          |vpiDecompile:PACKAGES
-          |vpiSize:8
-          |STRING:PACKAGES
+          |vpiDecompile:"PACKAGES"
+          |vpiSize:10
+          |STRING:"PACKAGES"
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:7
@@ -1374,9 +1376,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:21
           |vpiConstType:6
-          |vpiDecompile:Testing Packages
-          |vpiSize:16
-          |STRING:Testing Packages
+          |vpiDecompile:"Testing Packages"
+          |vpiSize:18
+          |STRING:"Testing Packages"
       |vpiStmt:
       \_delay_control: , line:22, parent:work@simple_package
         |#10
@@ -1388,9 +1390,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:22
             |vpiConstType:6
-            |vpiDecompile:Testing Packages
-            |vpiSize:16
-            |STRING:Testing Packages
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
       |vpiStmt:
       \_delay_control: , line:23, parent:work@simple_package
         |#10
@@ -1402,9 +1404,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:23
             |vpiConstType:6
-            |vpiDecompile:Testing Packages
-            |vpiSize:16
-            |STRING:Testing Packages
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
       |vpiStmt:
       \_task_call: (msgPkg::msg_info), line:24, parent:work@simple_package
         |vpiName:msgPkg::msg_info
@@ -1416,9 +1418,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:24
             |vpiConstType:6
-            |vpiDecompile:Warning Count %0d, Error Count %0d
-            |vpiSize:34
-            |STRING:Warning Count %0d, Error Count %0d
+            |vpiDecompile:"Warning Count %0d, Error Count %0d"
+            |vpiSize:36
+            |STRING:"Warning Count %0d, Error Count %0d"
           |vpiArgument:
           \_func_call: (msgPkg::getWarnCnt), line:25
             |vpiName:msgPkg::getWarnCnt
@@ -1453,9 +1455,9 @@ design: (work@simple_package)
             |vpiArgument:
             \_constant: , line:27
               |vpiConstType:6
-              |vpiDecompile:Value is FALSE
-              |vpiSize:14
-              |STRING:Value is FALSE
+              |vpiDecompile:"Value is FALSE"
+              |vpiSize:16
+              |STRING:"Value is FALSE"
   |vpiNet:
   \_logic_net: (work@simple_package.value), line:13, parent:work@simple_package
     |vpiName:value
@@ -1509,9 +1511,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:20, parent:msgPkg::initMsgPkg
           |vpiConstType:6
-          |vpiDecompile:PACKAGES
-          |vpiSize:8
-          |STRING:PACKAGES
+          |vpiDecompile:"PACKAGES"
+          |vpiSize:10
+          |STRING:"PACKAGES"
         |vpiArgument:
         \_constant: , line:20, parent:msgPkg::initMsgPkg
           |vpiConstType:7
@@ -1526,9 +1528,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:21, parent:msgPkg::msg_info
           |vpiConstType:6
-          |vpiDecompile:Testing Packages
-          |vpiSize:16
-          |STRING:Testing Packages
+          |vpiDecompile:"Testing Packages"
+          |vpiSize:18
+          |STRING:"Testing Packages"
       |vpiStmt:
       \_delay_control: , line:22, parent:work@simple_package
         |#10
@@ -1540,9 +1542,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:22, parent:msgPkg::msg_warn
             |vpiConstType:6
-            |vpiDecompile:Testing Packages
-            |vpiSize:16
-            |STRING:Testing Packages
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
       |vpiStmt:
       \_delay_control: , line:23, parent:work@simple_package
         |#10
@@ -1554,9 +1556,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:23, parent:msgPkg::msg_error
             |vpiConstType:6
-            |vpiDecompile:Testing Packages
-            |vpiSize:16
-            |STRING:Testing Packages
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
       |vpiStmt:
       \_task_call: (msgPkg::msg_info), line:24, parent:work@simple_package
         |vpiName:msgPkg::msg_info
@@ -1568,9 +1570,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:24, parent:$psprintf
             |vpiConstType:6
-            |vpiDecompile:Warning Count %0d, Error Count %0d
-            |vpiSize:34
-            |STRING:Warning Count %0d, Error Count %0d
+            |vpiDecompile:"Warning Count %0d, Error Count %0d"
+            |vpiSize:36
+            |STRING:"Warning Count %0d, Error Count %0d"
           |vpiArgument:
           \_func_call: (msgPkg::getWarnCnt), line:25, parent:$psprintf
             |vpiName:msgPkg::getWarnCnt
@@ -1626,9 +1628,9 @@ design: (work@simple_package)
             |vpiArgument:
             \_constant: , line:27, parent:msgPkg::msg_fatal
               |vpiConstType:6
-              |vpiDecompile:Value is FALSE
-              |vpiSize:14
-              |STRING:Value is FALSE
+              |vpiDecompile:"Value is FALSE"
+              |vpiSize:16
+              |STRING:"Value is FALSE"
   |vpiGenScopeArray:
   \_gen_scope_array: (work@simple_package.inst), line:15, parent:work@simple_package
     |vpiName:inst

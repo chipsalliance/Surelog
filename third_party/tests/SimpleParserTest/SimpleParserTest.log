@@ -231,7 +231,8 @@ design: (work@dff_async_reset)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37
+    \_chandle_var: (process), line:37
+      |vpiName:process
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -239,7 +240,8 @@ design: (work@dff_async_reset)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_chandle_var: (state), line:40
+      |vpiName:state
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -784,22 +786,6 @@ design: (work@dff_async_reset)
     \_io_decl: (Next_LFSR_Reg), line:12, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
       |vpiName:Next_LFSR_Reg
       |vpiDirection:2
-      |vpiTypedef:
-      \_logic_typespec: , line:15
-        |vpiRange:
-        \_range: , line:15, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
-          |vpiLeftRange:
-          \_constant: , line:15
-            |vpiConstType:7
-            |vpiDecompile:7
-            |vpiSize:64
-            |INT:7
-          |vpiRightRange:
-          \_constant: , line:15
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:64
-            |INT:0
       |vpiRange:
       \_range: , line:12
         |vpiLeftRange:
@@ -814,6 +800,18 @@ design: (work@dff_async_reset)
           |vpiDecompile:0
           |vpiSize:64
           |INT:0
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
     |vpiStmt:
     \_begin: (work@LFSR_TASK.LFSR_TAPS8_TASK), line:16, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
       |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
@@ -1016,16 +1014,6 @@ design: (work@dff_async_reset)
         \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:23, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
           |vpiName:XorNor
           |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
-    |vpiVariables:
-    \_int_var: (i), line:13
-      |vpiName:i
-      |vpiTypespec:
-      \_int_typespec: , line:13
-    |vpiVariables:
-    \_logic_var: (XorNor), line:14
-      |vpiName:XorNor
-      |vpiTypespec:
-      \_logic_typespec: , line:14
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.random1), line:6, parent:work@LFSR_TASK
   |vpiNet:
@@ -6047,9 +6035,9 @@ design: (work@dff_async_reset)
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:6
-          |vpiDecompile:arbiter.vcd
-          |vpiSize:11
-          |STRING:arbiter.vcd
+          |vpiDecompile:"arbiter.vcd"
+          |vpiSize:13
+          |STRING:"arbiter.vcd"
       |vpiStmt:
       \_sys_func_call: ($dumpvars), line:21, parent:work@top
         |vpiName:$dumpvars
