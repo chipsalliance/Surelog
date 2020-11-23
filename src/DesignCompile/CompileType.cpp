@@ -74,7 +74,8 @@ UHDM::any* CompileHelper::compileVariable(
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   
-  if (the_type == VObjectType::slStringConst) {
+  if (the_type == VObjectType::slStringConst ||
+      the_type == VObjectType::slChandle_type) {
     chandle_var* ref = s.MakeChandle_var();
     ref->VpiName(fC->SymName(variable));
     ref->VpiFile(fC->getFileName());
@@ -680,6 +681,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       result = var;
+      break;
+    }
+    case VObjectType::slChandle_type: {
+      result = nullptr;
       break;
     }
     case VObjectType::slSigning_Signed:

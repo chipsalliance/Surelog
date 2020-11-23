@@ -146,7 +146,8 @@ public:
   std::vector<UHDM::io_decl*>* compileTfPortList(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
-  std::vector<UHDM::io_decl*>* compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
+  std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*> 
+      compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
   UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
