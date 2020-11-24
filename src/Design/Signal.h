@@ -42,21 +42,7 @@ class Signal final {
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
   std::string getName() const { return m_fileContent->SymName(m_nodeId); }
-
-  std::string getInterfaceTypeName() const {
-    std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
-    NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
-    if (constant_select) {
-      if (m_fileContent->Type(constant_select) == slStringConst) {
-        type_name += "." + m_fileContent->SymName(constant_select);
-      } else {
-        NodeId selector = m_fileContent->Child(constant_select);
-        if (m_fileContent->Type(selector) == slStringConst)
-          type_name += "." + m_fileContent->SymName(selector);
-      }
-    }
-    return type_name;
-  }
+  std::string getInterfaceTypeName() const;
 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
   void setInterfaceDef(ModuleDefinition* interfaceDef) {

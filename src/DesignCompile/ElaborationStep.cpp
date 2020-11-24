@@ -627,6 +627,33 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC, N
   }
 }
 
+bool bindStructInPackage(Design* design, Signal* signal, 
+                      const std::string& packageName, const std::string& structName) {
+  Package* p = design->getPackage(packageName);
+  if (p) {
+    const DataType* dtype = p->getDataType(structName);
+    if (dtype) {
+      signal->setDataType(dtype);
+      const DataType* actual = dtype->getActual();
+      if (actual->getCategory() == DataType::Category::STRUCT) {
+        Struct* st = (Struct*) actual;
+        if (st->isNet()) {
+          signal->setType(slNetType_Wire);
+        }
+      }
+      return true;
+    } else {
+      const DataType* dtype =
+          p->getClassDefinition(structName);
+      if (dtype) {
+        signal->setDataType(dtype);
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 bool ElaborationStep::bindPortType_(Signal* signal,
         const FileContent* fC, NodeId id, Scope* scope,
         DesignComponent* parentComponent,
@@ -750,19 +777,8 @@ bool ElaborationStep::bindPortType_(Signal* signal,
           NodeId Class_type = fC->Child(typespecId);
           NodeId Class_type_name = fC->Child(Class_type);
           NodeId Class_scope_name = fC->Sibling(typespecId);
-          Package* p = design->getPackage(fC->SymName(Class_type_name));
-          if (p) {
-            const DataType* dtype = p->getDataType(fC->SymName(Class_scope_name));
-            if (dtype) {
-              signal->setDataType(dtype);
-            } else {
-              const DataType* dtype = p->getClassDefinition(fC->SymName(Class_scope_name));
-              if (dtype) {
-                signal->setDataType(dtype);
-              }
-            }
+          if (bindStructInPackage(design, signal, fC->SymName(Class_type_name), fC->SymName(Class_scope_name)))
             return true;
-          }
         }
       }
     }  
@@ -772,6 +788,15 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       modPort = interfName;
       StringUtils::ltrim(modPort,'.');
       StringUtils::rtrim(baseName,'.');
+    } else if (strstr(interfName.c_str(),"::")) {
+      std::vector<std::string> result;
+      StringUtils::tokenizeMulti(interfName, "::", result);
+      if (result.size() > 1) {
+        const std::string& packName = result[0];
+        const std::string& structName = result[1];
+        if (bindStructInPackage(design, signal, packName, structName))
+          return true;
+      }
     }
 
     DesignComponent* def = nullptr;
