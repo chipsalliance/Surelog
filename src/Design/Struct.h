@@ -37,6 +37,8 @@ class Struct : public DataType {
   ~Struct() override;
 
   NodeId getNameId() { return m_nameId; }
+
+  bool isNet();
  private:
   NodeId m_nameId;
 };
