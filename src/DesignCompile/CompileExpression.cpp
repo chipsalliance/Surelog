@@ -51,22 +51,22 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-static unsigned long get_value(bool& invalidValue, const UHDM::expr* expr) {
+static unsigned long long get_value(bool& invalidValue, const UHDM::expr* expr) {
   const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
   if (hs) {
     s_vpi_value* sval = String2VpiValue(hs->VpiValue());
     if (sval) {
       if (sval->format == vpiIntVal) {
-        unsigned long result = sval->value.integer;
+        unsigned long long result = sval->value.integer;
         delete sval;
         return result;
       } else if (sval->format == vpiBinStrVal) {
         std::string val = sval->value.str;
-        unsigned long result = 0;
+        unsigned long long result = 0;
         StringUtils::ltrim(val, '\'');
         StringUtils::ltrim(val, 'b');
         try {
-          result = std::stol (val,nullptr,2);
+          result = std::stoull (val,nullptr,2);
         } catch (...) {
           invalidValue = true;
         }
@@ -74,11 +74,11 @@ static unsigned long get_value(bool& invalidValue, const UHDM::expr* expr) {
         return result;
       } else if (sval->format == vpiHexStrVal) {
         std::string val = sval->value.str;
-        unsigned long result = 0;
+        unsigned long long result = 0;
         StringUtils::ltrim(val, '\'');
         StringUtils::ltrim(val, 'h');
         try {
-          result = std::stol (val,nullptr,16);
+          result = std::stoull (val,nullptr,16);
         } catch (...) {
           invalidValue = true;
         }
@@ -86,11 +86,11 @@ static unsigned long get_value(bool& invalidValue, const UHDM::expr* expr) {
         return result;
       } else if (sval->format == vpiOctStrVal) {
         std::string val = sval->value.str;
-        unsigned long result = 0;
+        unsigned long long result = 0;
         StringUtils::ltrim(val, '\'');
         StringUtils::ltrim(val, 'h');
         try {
-          result = std::stol (val,nullptr,8);
+          result = std::stoull (val,nullptr,8);
         } catch (...) {
           invalidValue = true;
         }
@@ -1381,7 +1381,7 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiArithRShiftOp:
             case vpiRShiftOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) >> get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) >> get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1412,7 +1412,7 @@ UHDM::any* CompileHelper::compileExpression(
                   }
                 }
 
-                unsigned long val = 0;
+                unsigned long long val = 0;
                 if (hs0 && hs1) {
                   val = (s0 == s1);
                 } else {
@@ -1448,7 +1448,7 @@ UHDM::any* CompileHelper::compileExpression(
                   }
                 }
 
-                unsigned long val = 0;
+                unsigned long long val = 0;
                 if (hs0 && hs1) {
                   val = (s0 != s1);
                 } else {
@@ -1463,7 +1463,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiGtOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) > get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) > get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1473,7 +1473,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiGeOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) >=
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) >=
                           get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
@@ -1484,7 +1484,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiLtOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) <
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) <
                           get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
@@ -1495,7 +1495,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiLeOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) <=
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) <=
                           get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
@@ -1507,7 +1507,7 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiArithLShiftOp:
             case vpiLShiftOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]))
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]))
                           << get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
@@ -1519,7 +1519,7 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiAddOp:
             case vpiPlusOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) + get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) + get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1529,7 +1529,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiBitOrOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) | get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) | get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1539,7 +1539,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiBitAndOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) & get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) & get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1549,7 +1549,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiLogOrOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) || get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) || get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1559,7 +1559,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiLogAndOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) && get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) && get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1569,7 +1569,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiMinusOp: {
               if (operands.size() == 1) {
-                unsigned long val = - get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = - get_value(invalidValue, (constant*)(operands[0]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1579,7 +1579,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiSubOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) - get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) - get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1589,7 +1589,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiMultOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) * get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) * get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1599,7 +1599,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiBitNegOp: {
               if (operands.size() == 1) {
-                unsigned long val = ~ get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = ~ get_value(invalidValue, (constant*)(operands[0]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1609,7 +1609,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiNotOp: {
               if (operands.size() == 1) {
-                unsigned long val = ! get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = ! get_value(invalidValue, (constant*)(operands[0]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1620,7 +1620,7 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiUnaryAndOp: {
               if (operands.size() == 1) {
                 constant* cst = (constant*)(operands[0]);
-                unsigned long val = get_value(invalidValue, cst);
+                unsigned long long val = get_value(invalidValue, cst);
                 int res = val & 1;
                 for (int i = 1; i < cst->VpiSize(); i++) {
                   res = res & ((val & (1 << i)) >> i);
@@ -1634,7 +1634,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiUnaryNandOp: {
               if (operands.size() == 1) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
                 int res = val & 1;
                 for (unsigned int i = 1; i < 32; i++) {
                   res = res & ((val & (1 << i)) >> i);
@@ -1649,7 +1649,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiUnaryOrOp: {
               if (operands.size() == 1) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
                 int res = val & 1;
                 for (unsigned int i = 1; i < 32; i++) {
                   res = res | ((val & (1 << i)) >> i);
@@ -1663,7 +1663,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiUnaryNorOp: {
               if (operands.size() == 1) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
                 int res = val & 1;
                 for (unsigned int i = 1; i < 32; i++) {
                   res = res | ((val & (1 << i)) >> i);
@@ -1678,7 +1678,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiUnaryXorOp: {
               if (operands.size() == 1) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
                 int res = val & 1;
                 for (unsigned int i = 1; i < 32; i++) {
                   res = res ^ ((val & (1 << i)) >> i);
@@ -1692,7 +1692,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiUnaryXNorOp: {
               if (operands.size() == 1) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
                 int res = val & 1;
                 for (unsigned int i = 1; i < 32; i++) {
                   res = res ^ ((val & (1 << i)) >> i);
@@ -1707,7 +1707,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiModOp: {
               if (operands.size() == 2) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) % get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) % get_value(invalidValue, (constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1717,7 +1717,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiDivOp: {
               if (operands.size() == 2) {
-                unsigned long divisor = get_value(invalidValue, (constant*)operands[1]);
+                unsigned long long divisor = get_value(invalidValue, (constant*)operands[1]);
                 if (divisor) {
                   int val = get_value(invalidValue, (constant*)(operands[0])) / divisor;
                   UHDM::constant* c = s.MakeConstant();
@@ -1730,7 +1730,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiConditionOp: {
               if (operands.size() == 3) {
-                unsigned long val = get_value(invalidValue, (constant*)(operands[0])) ? get_value(invalidValue, (constant*)(operands[1])) : get_value(invalidValue, (constant*)(operands[2]));
+                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) ? get_value(invalidValue, (constant*)(operands[1])) : get_value(invalidValue, (constant*)(operands[2]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -1740,7 +1740,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiPowerOp: {
               if (operands.size() == 2) {
-                unsigned long val = pow(get_value(invalidValue, (constant*)(operands[0])), get_value(invalidValue, (constant*)(operands[1])));
+                unsigned long long val = pow(get_value(invalidValue, (constant*)(operands[0])), get_value(invalidValue, (constant*)(operands[1])));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -2119,8 +2119,8 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
   if (ranges) {
     for (UHDM::range* ran : *ranges) {
       bool invalidValue = false;
-      unsigned long lv = get_value(invalidValue, ran->Left_expr());
-      unsigned long rv = get_value(invalidValue, ran->Right_expr());
+      unsigned long long lv = get_value(invalidValue, ran->Left_expr());
+      unsigned long long rv = get_value(invalidValue, ran->Right_expr());
       if (lv > rv)
         bits = bits * (lv - rv + 1);
       else
@@ -2438,7 +2438,7 @@ UHDM::any* CompileHelper::compileClog2(
   }
   expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
   bool invalidValue = false;
-  unsigned long val = get_value(invalidValue, operand);
+  unsigned long long val = get_value(invalidValue, operand);
   if (val) {
     val = val - 1;
     int clog2 = 0;
