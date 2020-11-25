@@ -2979,8 +2979,8 @@ expression
     | expression BITW_OR ( attribute_instance )* expression 
     | expression LOGICAL_AND ( attribute_instance )* expression 
     | expression LOGICAL_OR ( attribute_instance )* expression 
-    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
-    | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
+    | <assoc=right> expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
+    | <assoc=right> expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
     | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
     ; 
