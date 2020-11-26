@@ -55,6 +55,7 @@ For more build/test options and system requirements for building see
    * /usr/local/bin/surelog (After install)
 
  * STANDARD VERILOG COMMAND LINE:
+ ```
    * -f <file>             Accepts a file containing command line arguments
    * -v <file>             Library file
    * -sv <file>            Forces this file to be parsed as a SystemVerilog file
@@ -75,6 +76,7 @@ For more build/test options and system requirements for building see
    * -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile options supported)
    * -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
    * -Dvar=value           Same as env var definition for -f files var substitution
+```   
  * FLOWS OPTIONS:
    * -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
    * -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
