@@ -1,9 +1,9 @@
 # Surelog
 
-System Verilog 2017 Pre-processor, Parser, UHDM Compiler. Provides IEEE Design/TB VPI and Python AST API. 
+SystemVerilog 2017 Pre-processor, Parser, UHDM Compiler. Provides IEEE Design/TB VPI and Python AST API. 
 
 ## Goal
-This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench.
+This project aims at providing a complete SystemVerilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench.
 
 ## Applications
 
@@ -65,7 +65,7 @@ For more build/test options and system requirements for building see
    -Idir                 Specifies include paths
    +libext+<extname>+... Specifies the library extensions
    <file>.v              Verilog File
-   <file>.sv             System Verilog File
+   <file>.sv             SystemVerilog File
    +liborder             Lib Order option (ignored)
    +librescan            Lib Rescan option (ignored)
    +libverbose           Lib Verbose option (ignored)
@@ -171,8 +171,8 @@ For more build/test options and system requirements for building see
 
 ## Similar projects:
 
-* [UHDM](https://github.com/alainmarcel/UHDM/) - Full System Verilog (VHDL later) VPI API for interfacing with 3rd party tools
-* [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
+* [UHDM](https://github.com/alainmarcel/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
+* [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - SystemVerilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
 * [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions
 * [HDL_ANTLR4](https://github.com/denisgav/HDL_ANTLR4) - C# projects that use ANTLR4 library to analyse VHDL and Verilog code
 * [hdlparse](https://github.com/kevinpt/hdlparse/) - vhdl/verilog parser in python
