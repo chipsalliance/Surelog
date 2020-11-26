@@ -56,83 +56,88 @@ For more build/test options and system requirements for building see
 
  * STANDARD VERILOG COMMAND LINE:
  ```
-   * -f <file>             Accepts a file containing command line arguments
-   * -v <file>             Library file
-   * -sv <file>            Forces this file to be parsed as a SystemVerilog file
-   * -sverilog             Forces all files to be parsed as SystemVerilog files
-   * -y <path>             Library directory
-   * +incdir+<dir>[+<dir>...]  Specifies include paths
-   * -Idir                 Specifies include paths
-   * +libext+<extname>+... Specifies the library extensions
-   * <file>.v              Verilog File
-   * <file>.sv             System Verilog File
-   * +liborder             Lib Order option (ignored)
-   * +librescan            Lib Rescan option (ignored)
-   * +libverbose           Lib Verbose option (ignored)
-   * +nolibcell            No Lib Cell option (ignored)
-   * +define+name=value[+name=value...] Defines a macro and optionally its value
-   * -L <libName>          Defines library compilation order
-   * -map <mapFile>        Specifies a library mapping file (multiple -map options supported)
-   * -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile options supported)
-   * -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
-   * -Dvar=value           Same as env var definition for -f files var substitution
+   -f <file>             Accepts a file containing command line arguments
+   -v <file>             Library file
+   -sv <file>            Forces this file to be parsed as a SystemVerilog file
+   -sverilog             Forces all files to be parsed as SystemVerilog files
+   -y <path>             Library directory
+   +incdir+<dir>[+<dir>...]  Specifies include paths
+   -Idir                 Specifies include paths
+   +libext+<extname>+... Specifies the library extensions
+   <file>.v              Verilog File
+   <file>.sv             System Verilog File
+   +liborder             Lib Order option (ignored)
+   +librescan            Lib Rescan option (ignored)
+   +libverbose           Lib Verbose option (ignored)
+   +nolibcell            No Lib Cell option (ignored)
+   +define+name=value[+name=value...] Defines a macro and optionally its value
+   -L <libName>          Defines library compilation order
+   -map <mapFile>        Specifies a library mapping file (multiple -map options supported)
+   -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile options supported)
+   -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
+   -Dvar=value           Same as env var definition for -f files var substitution
 ```   
  * FLOWS OPTIONS:
-   * -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
-   * -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
-   * -parse                Parse/Compile/Elaborate the files after pre-processing step
-   * -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
-   * -nocomp               Turns off Compilation & Elaboration
-   * -noelab               Turns off Elaboration
-   * -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
-   * -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
-   * -pythonlistener       Enables the Parser Python Listener
-   * -pythonlistenerfile <script.py> Specifies the AST python listener file
-   * -pythonevalscriptperfile <script.py>  Eval the Python script on each source file (Multithreaded)
-   * -pythonevalscript <script.py> Eval the Python script at the design level
-   * -nopython             Turns off all Python features, including waivers
-   * -strictpythoncheck    Turns on strict Python checks
-   * -mt/--threads <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
-   * -mp <nb_max_processes> 0 up to 512 max processes, 0 or 1 being single process
-   * -split <line number>  Split files or modules larger than specified line number for multi thread compilation
-   * -timescale=<timescale> Specifies the overall timescale
-   * -nobuiltin            Do not parse SV builtin classes (array...)
-
+ ```
+   -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
+   -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
+   -parse                Parse/Compile/Elaborate the files after pre-processing step
+   -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
+   -nocomp               Turns off Compilation & Elaboration
+   -noelab               Turns off Elaboration
+   -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
+   -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
+   -pythonlistener       Enables the Parser Python Listener
+   -pythonlistenerfile <script.py> Specifies the AST python listener file
+   -pythonevalscriptperfile <script.py>  Eval the Python script on each source file (Multithreaded)
+   -pythonevalscript <script.py> Eval the Python script at the design level
+   -nopython             Turns off all Python features, including waivers
+   -strictpythoncheck    Turns on strict Python checks
+   -mt/--threads <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
+   -mp <nb_max_processes> 0 up to 512 max processes, 0 or 1 being single process
+   -split <line number>  Split files or modules larger than specified line number for multi thread compilation
+   -timescale=<timescale> Specifies the overall timescale
+   -nobuiltin            Do not parse SV builtin classes (array...)
+```
  * TRACES OPTIONS:
-   * -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm
-   * -nostdout             Mutes Standard output
-   * -verbose              Gives verbose processing information
-   * -profile              Gives Profiling information
-   * -l <file>             Specifies log file, default is surelog.log under output dir
-
+ ```
+   -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm
+   -nostdout             Mutes Standard output
+   -verbose              Gives verbose processing information
+   -profile              Gives Profiling information
+```
  * OUTPUT OPTIONS:
-   * -odir/--Mdir <dir>    Specifies the output directory, default is ./
-   * -writeppfile <file>   Writes out Preprocessor output in file (all compilation units will override this file)
-   * -writepp              Writes out Preprocessor output (all compilation units will generate files under slpp_all/ or slpp_unit/)
-   * -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
-   * -nocache              Default allows to create a cache for include files, this option prevents it
-   * -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
-   * -createcache          Create cache for precompiled packages
-   * -filterdirectives     Filters out simple directives like default_nettype in pre-processor's output
-   * -filterprotected      Filters out protected regions in pre-processor's output
-   * -filtercomments       Filters out comments in pre-processor's output
-   * -outputlineinfo       Outputs SLline directives in pre-processor's output
-   * -pploc                Output message location in terms of post preprocessor location
-   * -noinfo               Filters out INFO messages
-   * -nonote               Filters out NOTE messages
-   * -nowarning            Filters out WARNING messages
-   * -o <path>             Turns on all compilation stages, produces all outputs under that path
-   * -cd <dir>             Internally change directory to <dir>
-   * -exe <command>        Post execute a system call <command>, passes it the preprocessor file list.
-   * --help                This help
-   * --version             Surelog version and build date
+``` 
+  -l <file>             Specifies log file, default is surelog.log under output dir
+   -odir/--Mdir <dir>    Specifies the output directory, default is ./
+   -writeppfile <file>   Writes out Preprocessor output in file (all compilation units will override this file)
+   -writepp              Writes out Preprocessor output (all compilation units will generate files under slpp_all/ or slpp_unit/)
+   -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
+   -nocache              Default allows to create a cache for include files, this option prevents it
+   -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
+   -createcache          Create cache for precompiled packages
+   -filterdirectives     Filters out simple directives like default_nettype in pre-processor's output
+   -filterprotected      Filters out protected regions in pre-processor's output
+   -filtercomments       Filters out comments in pre-processor's output
+   -outputlineinfo       Outputs SLline directives in pre-processor's output
+   -pploc                Output message location in terms of post preprocessor location
+   -noinfo               Filters out INFO messages
+   -nonote               Filters out NOTE messages
+   -nowarning            Filters out WARNING messages
+   -o <path>             Turns on all compilation stages, produces all outputs under that path
+   -cd <dir>             Internally change directory to <dir>
+   -exe <command>        Post execute a system call <command>, passes it the preprocessor file list.
+   --help                This help
+   --version             Surelog version and build date
+```   
  * RETURN CODE
-   * Bit mask the return code, more than 1 bit can be on.
-   * 0   - No issues
-   * 0x1 - Fatal error(s)
-   * 0x2 - Syntax error(s)
-   * 0x4 - Error(s)
-
+``` 
+   Bit mask the return code, more than 1 bit can be on.
+     0   - No issues
+     0x1 - Fatal error(s)
+     0x2 - Syntax error(s)
+     0x4 - Error(s)
+```
 ### C++ API
 
  * Surelog comes in the form of a library libsurelog.a and can be linked to an executalble.
