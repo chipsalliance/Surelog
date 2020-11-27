@@ -171,8 +171,8 @@ Variable* DesignComponent::getVariable(const std::string& name) {
 }
 
 Parameter* DesignComponent::getParameter(const std::string& name) const {
-  ParameterMap::const_iterator itr = m_parameters.find(name);
-  if (itr == m_parameters.end()) {
+  ParameterMap::const_iterator itr = m_parameterMap.find(name);
+  if (itr == m_parameterMap.end()) {
     return NULL;
   } else {
     return (*itr).second;
@@ -180,6 +180,6 @@ Parameter* DesignComponent::getParameter(const std::string& name) const {
 }
 
 void DesignComponent::insertParameter(Parameter* p) {
-  m_parameters.insert(std::make_pair(p->getName(), p));
+  m_parameterMap.insert(std::make_pair(p->getName(), p));
   m_orderedParameters.push_back(p);
 }

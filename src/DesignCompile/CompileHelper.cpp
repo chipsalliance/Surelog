@@ -39,6 +39,7 @@
 #include "Design/SimpleType.h"
 #include "Design/DummyType.h"
 #include "Design/Parameter.h"
+#include "Design/ParamAssign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -363,7 +364,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
       ts->VpiName(name);
       st->setTypespec(ts);
       if (typespecs)
@@ -372,7 +373,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
       ts->VpiName(name);
       st->setTypespec(ts);
       if (typespecs)
@@ -398,7 +399,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
-    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, true));
+    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, false));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -480,7 +481,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       SimpleType* simple = new SimpleType(fC, type_name, stype);
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
-      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, false);
       if (ts) {
         ts->VpiName(name);
         if (typespecs)
@@ -1687,7 +1688,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
 }
 
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   std::vector<UHDM::any*>* parameters= component->getParameters();
@@ -1739,7 +1740,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
     NodeId Data_type_or_implicit = fC->Child(nodeId);
     UHDM::typespec* ts =
         compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
-                        compileDesign, nullptr, instance, true);
+                        compileDesign, nullptr, instance, reduce);
     NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
     NodeId Param_assignment = fC->Child(List_of_param_assignments);
     while (Param_assignment) {
@@ -1754,7 +1755,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         int unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             compileRanges(component, fC, value, compileDesign, param, instance,
-                          true, unpackedSize);
+                          reduce, unpackedSize);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
@@ -1766,7 +1767,10 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(param);
       if (value) {
+        ParamAssign* assign = new ParamAssign(fC, name, value);
         UHDM::param_assign* param_assign = s.MakeParam_assign();
+        assign->setUhdmParamAssign(param_assign);
+        component->addParamAssign(assign);
         param_assign->VpiFile(fC->getFileName());
         param_assign->VpiLineNo(fC->Line(Param_assignment));
         param_assigns->push_back(param_assign);
@@ -1777,7 +1781,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
-            component, fC, value, compileDesign, nullptr, instance, true));
+            component, fC, value, compileDesign, nullptr, instance, reduce));
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

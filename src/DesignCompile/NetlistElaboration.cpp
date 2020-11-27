@@ -49,6 +49,7 @@
 #include "Design/Struct.h"
 #include "Design/Union.h"
 #include "Design/SimpleType.h"
+#include "Design/ParamAssign.h"
 #include <queue>
 
 #include "uhdm.h"
@@ -98,16 +99,61 @@ bool NetlistElaboration::elaborate() {
 }
 
 bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
-  if (!instance) 
-    return true;
-   ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (instance->getDefinition());
-   if (!mod)
-    return true;
-  if (mod->getParameters() == nullptr)
-    return true;  
-  for (auto nameParam : mod->getParameterMap()) {
-    Parameter* sit = nameParam.second;
-    elabTypeParameter_(mod, sit, instance);
+  Serializer& s =  m_compileDesign->getSerializer();
+  if (!instance) return true;
+  ModuleDefinition* mod =
+      dynamic_cast<ModuleDefinition*>(instance->getDefinition());
+  if (!mod) return true;
+  if (mod->getParameters() != nullptr) {
+    // Type params
+    for (auto nameParam : mod->getParameterMap()) {
+      Parameter* sit = nameParam.second;
+      elabTypeParameter_(mod, sit, instance);
+    }
+  }
+  // Regular 
+  Netlist* netlist = instance->getNetlist();
+  if (netlist == nullptr) return true;
+  VectorOfparam_assign* assigns = netlist->param_assigns();
+  for (ParamAssign* assign : mod->getParamAssignVec()) {
+    if (assigns == nullptr) {
+      netlist->param_assigns(s.MakeParam_assignVec());
+      assigns = netlist->param_assigns();
+    }
+    param_assign* mod_assign = assign->getUhdmParamAssign();
+    const any* rhs = mod_assign->Rhs();
+    if (rhs && rhs->UhdmType() == uhdmoperation) {
+      // Don't reduce these operations
+      operation* op = (operation*) rhs;
+      int opType = op->VpiOpType();
+      if (opType == vpiAssignmentPatternOp || opType == vpiCastOp ||
+          opType == vpiConcatOp || opType == vpiMultiConcatOp ||
+          opType == vpiMultiAssignmentPatternOp) {
+        assigns->push_back(mod_assign);
+        continue;
+      }
+    }
+
+    param_assign* inst_assign = s.MakeParam_assign();
+    inst_assign->VpiFile(mod_assign->VpiFile());
+    inst_assign->VpiLineNo(mod_assign->VpiLineNo());
+    inst_assign->Lhs((any*) mod_assign->Lhs());
+    const std::string& paramName = assign->getFileContent()->SymName(assign->getParamId());
+    Value* value = instance->getValue(paramName);
+    if (value && value->isValid()) {
+      constant* c = s.MakeConstant();
+      c->VpiValue(value->uhdmValue());
+      c->VpiDecompile(value->decompiledValue());
+      c->VpiFile(assign->getFileContent()->getFileName());
+      c->VpiSize(value->getSize());
+      c->VpiConstType(vpiIntConst);
+      c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
+      inst_assign->Rhs(c);
+    } else {
+      expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
+      inst_assign->Rhs(rhs);
+    }
+    assigns->push_back(inst_assign);
   }
   return true;
 }

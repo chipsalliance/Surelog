@@ -139,10 +139,6 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slExpression:
-        m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance, muteErrors);
-        break;
       case VObjectType::slUnpacked_dimension:
         // Only works for the case of constant_expression, not range
         m_valueFactory.deleteValue(value);
@@ -169,6 +165,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         value = evalExpr(fC, child, instance, muteErrors);
         break;
       }
+      case VObjectType::slExpression:
       case VObjectType::slConstant_expression: {
         Value* valueL = evalExpr(fC, child, instance, muteErrors);
         NodeId op = fC->Sibling(child);
@@ -376,24 +373,26 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           v = StringUtils::replaceAll(v, "_", "");
           switch (base) {
             case 'h':
-              hex_value = std::strtoul(v.c_str(), 0, 16);
+              hex_value = std::strtoull(v.c_str(), 0, 16);
               break;
             case 'b':
-              hex_value = std::strtoul(v.c_str(), 0, 2);
+              hex_value = std::strtoull(v.c_str(), 0, 2);
               break;
             case 'o':
-              hex_value = std::strtoul(v.c_str(), 0, 8);
+              hex_value = std::strtoull(v.c_str(), 0, 8);
               break;
             case 'd':
-              hex_value = std::strtoul(v.c_str(), 0, 10);
+              hex_value = std::strtoull(v.c_str(), 0, 10);
               break;
             default:
+              // '1
+              hex_value = std::strtoull(v.c_str(), 0, 2);
               break;
           }
           if (size == "")
             value->set(hex_value);
           else 
-            value->set(hex_value, Value::Type::Integer, std::strtoul(size.c_str(), 0, 10)); 
+            value->set(hex_value, Value::Type::Integer, std::strtoull(size.c_str(), 0, 10)); 
         } else {
           value->set((int64_t)atol(val.c_str()));
         }
@@ -573,7 +572,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             std::string v = token.substr(i + 2);
             v = StringUtils::replaceAll(v, "_", "");
             std::string size = token.substr(0, i);
-            uint64_t isize = std::strtoul(size.c_str(), 0, 10);
+            uint64_t isize = std::strtoull(size.c_str(), 0, 10);
             unsigned int vsize = v.size();
             for (unsigned int i = 0; i < isize - vsize; i++) 
               v = "0" + v;
@@ -588,16 +587,16 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 
         switch (base) {
           case 'h':
-            hex_value = std::strtoul(svalue.c_str(), 0, 16);
+            hex_value = std::strtoull(svalue.c_str(), 0, 16);
             break;
           case 'b':
-            hex_value = std::strtoul(svalue.c_str(), 0, 2);
+            hex_value = std::strtoull(svalue.c_str(), 0, 2);
             break;
           case 'o':
-            hex_value = std::strtoul(svalue.c_str(), 0, 8);
+            hex_value = std::strtoull(svalue.c_str(), 0, 8);
             break;
           case 'd':
-            hex_value = std::strtoul(svalue.c_str(), 0, 10);
+            hex_value = std::strtoull(svalue.c_str(), 0, 10);
             break;
           default:
             break;
