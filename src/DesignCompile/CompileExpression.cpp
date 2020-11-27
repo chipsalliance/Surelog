@@ -963,35 +963,67 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slIntConst: {
         // Do not evaluate the constant, keep it as in the source text:
         UHDM::constant* c = s.MakeConstant();
-        std::string value = fC->SymName(child);
+        const std::string& value = fC->SymName(child);
+        std::string v;
         c->VpiDecompile(value);
-        if (strstr(value.c_str(), "'h")) {
-          std::string size = value;
-          StringUtils::rtrim(size, '\'');
-          c->VpiSize(atoi(size.c_str()));
-          value = "HEX:" + value;
-          c->VpiConstType(vpiHexConst);
-        } else if (strstr(value.c_str(), "'b")) {
-          std::string size = value;
-          StringUtils::rtrim(size, '\'');
-          c->VpiSize(atoi(size.c_str()));
-          value = "BIN:" + value;
-          c->VpiConstType(vpiBinaryConst);
-        } else if (strstr(value.c_str(), "'o")) {
-          std::string size = value;
-          StringUtils::rtrim(size, '\'');
-          c->VpiSize(atoi(size.c_str()));
-          value = "OCT:" + value;
-          c->VpiConstType(vpiOctConst);
-        } else if (strstr(value.c_str(), "'")) {
-          value = "BIN:" + value;
-          c->VpiConstType(vpiBinaryConst);
+        if (strstr(value.c_str(), "'")) {
+          char base = 'h';
+          unsigned int i = 0;
+          for (i = 0; i < value.size(); i++) {
+            if (value[i] == '\'') {
+              base = value[i + 1];
+              break;
+            }
+          }
+          v = value.substr(i + 2);
+          v = StringUtils::replaceAll(v, "_", "");
+          switch (base) {
+          case 'h': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "HEX:" + v;
+            c->VpiConstType(vpiHexConst);
+            break;
+          }
+          case 'b': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "BIN:" + v;
+            c->VpiConstType(vpiBinaryConst);
+            break;
+          }
+          case 'o': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "OCT:" + v;
+            c->VpiConstType(vpiOctConst);
+            break;
+          }
+          case 'd': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "INT:" + v;
+            c->VpiConstType(vpiIntConst);
+            break;
+          }  
+          default: {
+            v = "BIN:" + v;
+            c->VpiConstType(vpiBinaryConst);
+            break;
+          }
+          }
+
         } else {
-          value = "INT:" + value;
+          v = "INT:" + value;
           c->VpiSize(32);
           c->VpiConstType(vpiIntConst);
         }
-        c->VpiValue(value);
+        
+        c->VpiValue(v);
         result = c;
         break;
       }
@@ -1963,7 +1995,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
             rexpc->VpiConstType(vpiIntConst);
             uint64_t rint = rightV->getValueL();
             size = size * rint;
-            rightV->decr();
+            rightV->decr(); // Decr by 1
             rexpc->VpiValue(rightV->uhdmValue());
             rexpc->VpiDecompile(rightV->decompiledValue());
             rexpc->VpiFile(fC->getFileName());
@@ -1973,8 +2005,25 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         }
         range->Left_expr(lexp);
         lexp->VpiParent(range);
-        if (rexp == nullptr)
+        if (rexp == nullptr) {
           rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+          bool associativeArray = false;
+          if (rexp && rexp->UhdmType() == uhdmconstant) {
+            constant* c = (constant*) rexp;
+            if (c->VpiConstType() == vpiUnboundedConst)
+              associativeArray = true;
+          }
+          if (!associativeArray) {
+            operation* op = s.MakeOperation();  // Decr by 1
+            op->VpiOpType(vpiMinusOp);
+            op->Operands(s.MakeAnyVec());
+            op->Operands()->push_back(rexp);
+            constant* one = s.MakeConstant();
+            one->VpiValue("INT:1");
+            op->Operands()->push_back(one);
+            rexp = op;
+          }
+        }
         if (rexp)
           rexp->VpiParent(range);
         range->Right_expr(rexp);

@@ -9234,14 +9234,22 @@ design: (work@top)
     |vpiRange:
     \_range: , line:31
       |vpiLeftRange:
-      \_constant: , line:31
-        |vpiDecompile:3
-        |INT:3
+      \_operation: , line:31
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (BURST_W), line:31
+          |vpiName:BURST_W
+        |vpiOperand:
+        \_constant: , line:31
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
       |vpiRightRange:
       \_constant: , line:31
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:64
+        |vpiSize:32
         |INT:0
   |vpiTypedef:
   \_enum_typespec: (Burstmode), line:43
@@ -9278,14 +9286,23 @@ design: (work@top)
         |vpiRange:
         \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
-          \_constant: , line:31
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:31
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Burstcount.BURST_W), line:31
+              |vpiName:BURST_W
+              |vpiFullName:Burstcount.BURST_W
+            |vpiOperand:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:31
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31
@@ -9297,14 +9314,28 @@ design: (work@top)
         |vpiRange:
         \_range: , line:49, parent:Command
           |vpiLeftRange:
-          \_constant: , line:49
-            |vpiDecompile:12
-            |INT:12
+          \_operation: , line:49
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Command.ADDR_W), line:49, parent:Command
+              |vpiName:ADDR_W
+              |vpiFullName:Command.ADDR_W
+              |vpiActual:
+              \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
+                |vpiName:ADDR_W
+                |vpiFullName:work@test_program.ADDR_W
+                |INT:13
+            |vpiOperand:
+            \_constant: , line:49
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:49
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:50
@@ -9314,14 +9345,28 @@ design: (work@top)
         |vpiRange:
         \_range: , line:50, parent:Command
           |vpiLeftRange:
-          \_constant: , line:50
-            |vpiDecompile:31
-            |INT:31
+          \_operation: , line:50
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Command.DATA_W), line:50, parent:Command
+              |vpiName:DATA_W
+              |vpiFullName:Command.DATA_W
+              |vpiActual:
+              \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+                |vpiName:DATA_W
+                |vpiFullName:work@test_program.DATA_W
+                |INT:32
+            |vpiOperand:
+            \_constant: , line:50
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:50
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (byteenable), line:51
@@ -9331,14 +9376,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:51, parent:Command
           |vpiLeftRange:
-          \_constant: , line:51
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:51
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Command.NUM_SYMBOLS), line:51, parent:Command
+              |vpiName:NUM_SYMBOLS
+              |vpiFullName:Command.NUM_SYMBOLS
+              |vpiActual:
+              \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:51
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:51
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (cmd_delay), line:52
@@ -9351,13 +9407,13 @@ design: (work@top)
           \_constant: , line:52
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:52
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data_idles), line:53
@@ -9370,13 +9426,13 @@ design: (work@top)
           \_constant: , line:53
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:53
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
   |vpiTypedef:
   \_struct_typespec: (Response), line:56
@@ -9390,14 +9446,23 @@ design: (work@top)
         |vpiRange:
         \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
-          \_constant: , line:31
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:31
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Burstcount.BURST_W), line:31
+              |vpiName:BURST_W
+              |vpiFullName:Burstcount.BURST_W
+            |vpiOperand:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:31
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31
@@ -9409,14 +9474,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:59, parent:Response
           |vpiLeftRange:
-          \_constant: , line:59
-            |vpiDecompile:31
-            |INT:31
+          \_operation: , line:59
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (Response.DATA_W), line:59, parent:Response
+              |vpiName:DATA_W
+              |vpiFullName:Response.DATA_W
+              |vpiActual:
+              \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:59
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:59
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (latency), line:60
@@ -9429,13 +9505,13 @@ design: (work@top)
           \_constant: , line:60
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:60
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
   |vpiTypedef:
   \_enum_typespec: (Transaction), line:37
@@ -9485,9 +9561,19 @@ design: (work@top)
   |vpiParamAssign:
   \_param_assign: , line:17, parent:work@test_program
     |vpiRhs:
-    \_constant: , line:17
-      |vpiDecompile:32
-      |INT:32
+    \_operation: , line:17
+      |vpiOpType:25
+      |vpiOperand:
+      \_ref_obj: (NUM_SYMBOLS), line:17
+        |vpiName:NUM_SYMBOLS
+      |vpiOperand:
+      \_ref_obj: (SYMBOL_W), line:17
+        |vpiName:SYMBOL_W
+        |vpiActual:
+        \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
+          |vpiName:SYMBOL_W
+          |vpiFullName:work@test_program.SYMBOL_W
+          |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
       |vpiName:DATA_W
@@ -9526,7 +9612,7 @@ design: (work@top)
       |vpiConstType:5
       |vpiDecompile:32'h1000
       |vpiSize:32
-      |HEX:32'h1000
+      |HEX:1000
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
       |vpiName:SLAVE_SPAN
@@ -10044,14 +10130,23 @@ design: (work@top)
                           |vpiRange:
                           \_range: , line:31, parent:Burstcount
                             |vpiLeftRange:
-                            \_constant: , line:31
-                              |vpiDecompile:3
-                              |INT:3
+                            \_operation: , line:31
+                              |vpiOpType:11
+                              |vpiOperand:
+                              \_ref_obj: (Burstcount.BURST_W), line:31
+                                |vpiName:BURST_W
+                                |vpiFullName:Burstcount.BURST_W
+                              |vpiOperand:
+                              \_constant: , line:31
+                                |vpiConstType:7
+                                |vpiDecompile:1
+                                |vpiSize:32
+                                |INT:1
                             |vpiRightRange:
                             \_constant: , line:31
                               |vpiConstType:7
                               |vpiDecompile:0
-                              |vpiSize:64
+                              |vpiSize:32
                               |INT:0
                           |vpiTypedefAlias:
                           \_logic_typespec: (Burstcount), line:31
@@ -10059,14 +10154,22 @@ design: (work@top)
                             |vpiRange:
                             \_range: , line:31
                               |vpiLeftRange:
-                              \_constant: , line:31
-                                |vpiDecompile:3
-                                |INT:3
+                              \_operation: , line:31
+                                |vpiOpType:11
+                                |vpiOperand:
+                                \_ref_obj: (BURST_W), line:31
+                                  |vpiName:BURST_W
+                                |vpiOperand:
+                                \_constant: , line:31
+                                  |vpiConstType:7
+                                  |vpiDecompile:1
+                                  |vpiSize:32
+                                  |INT:1
                               |vpiRightRange:
                               \_constant: , line:31
                                 |vpiConstType:7
                                 |vpiDecompile:0
-                                |vpiSize:64
+                                |vpiSize:32
                                 |INT:0
                       |vpiTypespecMember:
                       \_typespec_member: (data), line:59
@@ -10076,14 +10179,28 @@ design: (work@top)
                           |vpiRange:
                           \_range: , line:59, parent:Response
                             |vpiLeftRange:
-                            \_constant: , line:59
-                              |vpiDecompile:31
-                              |INT:31
+                            \_operation: , line:59
+                              |vpiOpType:11
+                              |vpiOperand:
+                              \_ref_obj: (Response.DATA_W), line:59, parent:Response
+                                |vpiName:DATA_W
+                                |vpiFullName:Response.DATA_W
+                                |vpiActual:
+                                \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+                                  |vpiName:DATA_W
+                                  |vpiFullName:work@test_program.DATA_W
+                                  |INT:32
+                              |vpiOperand:
+                              \_constant: , line:59
+                                |vpiConstType:7
+                                |vpiDecompile:1
+                                |vpiSize:32
+                                |INT:1
                             |vpiRightRange:
                             \_constant: , line:59
                               |vpiConstType:7
                               |vpiDecompile:0
-                              |vpiSize:64
+                              |vpiSize:32
                               |INT:0
                       |vpiTypespecMember:
                       \_typespec_member: (latency), line:60
@@ -10096,13 +10213,13 @@ design: (work@top)
                             \_constant: , line:60
                               |vpiConstType:7
                               |vpiDecompile:31
-                              |vpiSize:64
+                              |vpiSize:32
                               |INT:31
                             |vpiRightRange:
                             \_constant: , line:60
                               |vpiConstType:7
                               |vpiDecompile:0
-                              |vpiSize:64
+                              |vpiSize:32
                               |INT:0
                   |vpiRange:
                   \_range: , line:75
@@ -12138,14 +12255,23 @@ design: (work@top)
                                 |vpiRange:
                                 \_range: , line:31, parent:Burstcount
                                   |vpiLeftRange:
-                                  \_constant: , line:31
-                                    |vpiDecompile:3
-                                    |INT:3
+                                  \_operation: , line:31
+                                    |vpiOpType:11
+                                    |vpiOperand:
+                                    \_ref_obj: (Burstcount.BURST_W), line:31
+                                      |vpiName:BURST_W
+                                      |vpiFullName:Burstcount.BURST_W
+                                    |vpiOperand:
+                                    \_constant: , line:31
+                                      |vpiConstType:7
+                                      |vpiDecompile:1
+                                      |vpiSize:32
+                                      |INT:1
                                   |vpiRightRange:
                                   \_constant: , line:31
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                                 |vpiTypedefAlias:
                                 \_logic_typespec: (Burstcount), line:31
@@ -12157,14 +12283,28 @@ design: (work@top)
                                 |vpiRange:
                                 \_range: , line:49, parent:Command
                                   |vpiLeftRange:
-                                  \_constant: , line:49
-                                    |vpiDecompile:12
-                                    |INT:12
+                                  \_operation: , line:49
+                                    |vpiOpType:11
+                                    |vpiOperand:
+                                    \_ref_obj: (Command.ADDR_W), line:49, parent:Command
+                                      |vpiName:ADDR_W
+                                      |vpiFullName:Command.ADDR_W
+                                      |vpiActual:
+                                      \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
+                                        |vpiName:ADDR_W
+                                        |vpiFullName:work@test_program.ADDR_W
+                                        |INT:13
+                                    |vpiOperand:
+                                    \_constant: , line:49
+                                      |vpiConstType:7
+                                      |vpiDecompile:1
+                                      |vpiSize:32
+                                      |INT:1
                                   |vpiRightRange:
                                   \_constant: , line:49
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                             |vpiTypespecMember:
                             \_typespec_member: (data), line:50
@@ -12174,14 +12314,25 @@ design: (work@top)
                                 |vpiRange:
                                 \_range: , line:50, parent:Command
                                   |vpiLeftRange:
-                                  \_constant: , line:50
-                                    |vpiDecompile:31
-                                    |INT:31
+                                  \_operation: , line:50
+                                    |vpiOpType:11
+                                    |vpiOperand:
+                                    \_ref_obj: (Command.DATA_W), line:50, parent:Command
+                                      |vpiName:DATA_W
+                                      |vpiFullName:Command.DATA_W
+                                      |vpiActual:
+                                      \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+                                    |vpiOperand:
+                                    \_constant: , line:50
+                                      |vpiConstType:7
+                                      |vpiDecompile:1
+                                      |vpiSize:32
+                                      |INT:1
                                   |vpiRightRange:
                                   \_constant: , line:50
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                             |vpiTypespecMember:
                             \_typespec_member: (byteenable), line:51
@@ -12191,14 +12342,25 @@ design: (work@top)
                                 |vpiRange:
                                 \_range: , line:51, parent:Command
                                   |vpiLeftRange:
-                                  \_constant: , line:51
-                                    |vpiDecompile:3
-                                    |INT:3
+                                  \_operation: , line:51
+                                    |vpiOpType:11
+                                    |vpiOperand:
+                                    \_ref_obj: (Command.NUM_SYMBOLS), line:51, parent:Command
+                                      |vpiName:NUM_SYMBOLS
+                                      |vpiFullName:Command.NUM_SYMBOLS
+                                      |vpiActual:
+                                      \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
+                                    |vpiOperand:
+                                    \_constant: , line:51
+                                      |vpiConstType:7
+                                      |vpiDecompile:1
+                                      |vpiSize:32
+                                      |INT:1
                                   |vpiRightRange:
                                   \_constant: , line:51
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                             |vpiTypespecMember:
                             \_typespec_member: (cmd_delay), line:52
@@ -12211,13 +12373,13 @@ design: (work@top)
                                   \_constant: , line:52
                                     |vpiConstType:7
                                     |vpiDecompile:31
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:31
                                   |vpiRightRange:
                                   \_constant: , line:52
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                             |vpiTypespecMember:
                             \_typespec_member: (data_idles), line:53
@@ -12230,13 +12392,13 @@ design: (work@top)
                                   \_constant: , line:53
                                     |vpiConstType:7
                                     |vpiDecompile:31
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:31
                                   |vpiRightRange:
                                   \_constant: , line:53
                                     |vpiConstType:7
                                     |vpiDecompile:0
-                                    |vpiSize:64
+                                    |vpiSize:32
                                     |INT:0
                         |vpiRange:
                         \_range: , line:71
@@ -12813,14 +12975,28 @@ design: (work@top)
     |vpiRange:
     \_range: , line:31, parent:Burstcount
       |vpiLeftRange:
-      \_constant: , line:31
-        |vpiDecompile:3
-        |INT:3
+      \_operation: , line:31
+        |vpiOpType:11
+        |vpiOperand:
+        \_ref_obj: (work@test_program.Burstcount.BURST_W), line:31
+          |vpiName:BURST_W
+          |vpiFullName:work@test_program.Burstcount.BURST_W
+          |vpiActual:
+          \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+            |vpiName:BURST_W
+            |vpiFullName:work@test_program.BURST_W
+            |INT:4
+        |vpiOperand:
+        \_constant: , line:31
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
       |vpiRightRange:
       \_constant: , line:31
         |vpiConstType:7
         |vpiDecompile:0
-        |vpiSize:64
+        |vpiSize:32
         |INT:0
   |vpiTypedef:
   \_enum_typespec: (Burstmode), line:43, parent:work@test_program
@@ -12863,14 +13039,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
-          \_constant: , line:31
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:31
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Command.burstcount.Burstcount.BURST_W), line:31
+              |vpiName:BURST_W
+              |vpiFullName:work@test_program.Command.burstcount.Burstcount.BURST_W
+              |vpiActual:
+              \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:31
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31, parent:Burstcount
@@ -12878,14 +13065,25 @@ design: (work@top)
           |vpiRange:
           \_range: , line:31, parent:Burstcount
             |vpiLeftRange:
-            \_constant: , line:31
-              |vpiDecompile:3
-              |INT:3
+            \_operation: , line:31
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@test_program.Command.burstcount.Burstcount.Burstcount.BURST_W), line:31
+                |vpiName:BURST_W
+                |vpiFullName:work@test_program.Command.burstcount.Burstcount.Burstcount.BURST_W
+                |vpiActual:
+                \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+              |vpiOperand:
+              \_constant: , line:31
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
             |vpiRightRange:
             \_constant: , line:31
               |vpiConstType:7
               |vpiDecompile:0
-              |vpiSize:64
+              |vpiSize:32
               |INT:0
     |vpiTypespecMember:
     \_typespec_member: (addr), line:49, parent:Command
@@ -12895,14 +13093,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:49
           |vpiLeftRange:
-          \_constant: , line:49
-            |vpiDecompile:12
-            |INT:12
+          \_operation: , line:49
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Command.addr.ADDR_W), line:49
+              |vpiName:ADDR_W
+              |vpiFullName:work@test_program.Command.addr.ADDR_W
+              |vpiActual:
+              \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:49
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:49
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:50, parent:Command
@@ -12912,14 +13121,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:50
           |vpiLeftRange:
-          \_constant: , line:50
-            |vpiDecompile:31
-            |INT:31
+          \_operation: , line:50
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Command.data.DATA_W), line:50
+              |vpiName:DATA_W
+              |vpiFullName:work@test_program.Command.data.DATA_W
+              |vpiActual:
+              \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:50
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:50
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (byteenable), line:51, parent:Command
@@ -12929,14 +13149,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:51
           |vpiLeftRange:
-          \_constant: , line:51
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:51
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Command.byteenable.NUM_SYMBOLS), line:51
+              |vpiName:NUM_SYMBOLS
+              |vpiFullName:work@test_program.Command.byteenable.NUM_SYMBOLS
+              |vpiActual:
+              \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:51
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:51
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (cmd_delay), line:52, parent:Command
@@ -12949,13 +13180,13 @@ design: (work@top)
           \_constant: , line:52
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:52
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data_idles), line:53, parent:Command
@@ -12968,13 +13199,13 @@ design: (work@top)
           \_constant: , line:53
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:53
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
   |vpiTypedef:
   \_struct_typespec: (Response), line:56, parent:work@test_program
@@ -12988,14 +13219,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
-          \_constant: , line:31
-            |vpiDecompile:3
-            |INT:3
+          \_operation: , line:31
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Response.burstcount.Burstcount.BURST_W), line:31
+              |vpiName:BURST_W
+              |vpiFullName:work@test_program.Response.burstcount.Burstcount.BURST_W
+              |vpiActual:
+              \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:31
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:31
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
         |vpiTypedefAlias:
         \_logic_typespec: (Burstcount), line:31, parent:Burstcount
@@ -13003,14 +13245,25 @@ design: (work@top)
           |vpiRange:
           \_range: , line:31, parent:Burstcount
             |vpiLeftRange:
-            \_constant: , line:31
-              |vpiDecompile:3
-              |INT:3
+            \_operation: , line:31
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@test_program.Response.burstcount.Burstcount.Burstcount.BURST_W), line:31
+                |vpiName:BURST_W
+                |vpiFullName:work@test_program.Response.burstcount.Burstcount.Burstcount.BURST_W
+                |vpiActual:
+                \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+              |vpiOperand:
+              \_constant: , line:31
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
             |vpiRightRange:
             \_constant: , line:31
               |vpiConstType:7
               |vpiDecompile:0
-              |vpiSize:64
+              |vpiSize:32
               |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:59, parent:Response
@@ -13020,14 +13273,25 @@ design: (work@top)
         |vpiRange:
         \_range: , line:59
           |vpiLeftRange:
-          \_constant: , line:59
-            |vpiDecompile:31
-            |INT:31
+          \_operation: , line:59
+            |vpiOpType:11
+            |vpiOperand:
+            \_ref_obj: (work@test_program.Response.data.DATA_W), line:59
+              |vpiName:DATA_W
+              |vpiFullName:work@test_program.Response.data.DATA_W
+              |vpiActual:
+              \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+            |vpiOperand:
+            \_constant: , line:59
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
           |vpiRightRange:
           \_constant: , line:59
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
     |vpiTypespecMember:
     \_typespec_member: (latency), line:60, parent:Response
@@ -13040,13 +13304,13 @@ design: (work@top)
           \_constant: , line:60
             |vpiConstType:7
             |vpiDecompile:31
-            |vpiSize:64
+            |vpiSize:32
             |INT:31
           |vpiRightRange:
           \_constant: , line:60
             |vpiConstType:7
             |vpiDecompile:0
-            |vpiSize:64
+            |vpiSize:32
             |INT:0
   |vpiTypedef:
   \_enum_typespec: (Transaction), line:37, parent:work@test_program
@@ -13071,7 +13335,7 @@ design: (work@top)
     \_constant: , line:13
       |vpiConstType:7
       |vpiDecompile:13
-      |vpiSize:32
+      |vpiSize:64
       |INT:13
     |vpiLhs:
     \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
@@ -13084,7 +13348,7 @@ design: (work@top)
     \_constant: , line:15
       |vpiConstType:7
       |vpiDecompile:8
-      |vpiSize:32
+      |vpiSize:64
       |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
@@ -13097,7 +13361,7 @@ design: (work@top)
     \_constant: , line:16
       |vpiConstType:7
       |vpiDecompile:4
-      |vpiSize:32
+      |vpiSize:64
       |INT:4
     |vpiLhs:
     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
@@ -13108,7 +13372,9 @@ design: (work@top)
   \_param_assign: , line:17, parent:work@test_program
     |vpiRhs:
     \_constant: , line:17
+      |vpiConstType:7
       |vpiDecompile:32
+      |vpiSize:64
       |INT:32
     |vpiLhs:
     \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
@@ -13121,7 +13387,7 @@ design: (work@top)
     \_constant: , line:19
       |vpiConstType:7
       |vpiDecompile:4
-      |vpiSize:32
+      |vpiSize:64
       |INT:4
     |vpiLhs:
     \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
@@ -13134,7 +13400,7 @@ design: (work@top)
     \_constant: , line:20
       |vpiConstType:7
       |vpiDecompile:8
-      |vpiSize:32
+      |vpiSize:64
       |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
@@ -13145,10 +13411,10 @@ design: (work@top)
   \_param_assign: , line:22, parent:work@test_program
     |vpiRhs:
     \_constant: , line:22
-      |vpiConstType:5
-      |vpiDecompile:32'h1000
+      |vpiConstType:7
+      |vpiDecompile:4096
       |vpiSize:32
-      |HEX:32'h1000
+      |INT:4096
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
       |vpiName:SLAVE_SPAN
@@ -13160,7 +13426,7 @@ design: (work@top)
     \_constant: , line:24
       |vpiConstType:7
       |vpiDecompile:5
-      |vpiSize:32
+      |vpiSize:64
       |INT:5
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
@@ -13173,7 +13439,7 @@ design: (work@top)
     \_constant: , line:25
       |vpiConstType:7
       |vpiDecompile:2
-      |vpiSize:32
+      |vpiSize:64
       |INT:2
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
@@ -13186,7 +13452,7 @@ design: (work@top)
     \_constant: , line:26
       |vpiConstType:7
       |vpiDecompile:3
-      |vpiSize:32
+      |vpiSize:64
       |INT:3
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
@@ -13195,19 +13461,10 @@ design: (work@top)
       |vpiLocalParam:1
   |vpiParameter:
   \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
-    |vpiName:ADDR_W
-    |vpiFullName:work@test_program.ADDR_W
-    |INT:13
   |vpiParameter:
   \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
-    |vpiName:BURST_W
-    |vpiFullName:work@test_program.BURST_W
-    |INT:4
   |vpiParameter:
   \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
-    |vpiName:DATA_W
-    |vpiFullName:work@test_program.DATA_W
-    |INT:32
   |vpiParameter:
   \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
   |vpiParameter:

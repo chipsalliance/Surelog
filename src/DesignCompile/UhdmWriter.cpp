@@ -1143,13 +1143,11 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
     }
   }
 
-  // Param_assigns hold default values, parameters hold actual overriden values
-  if (mod && mod->getParam_assigns()) {
-    m->Param_assigns(mod->getParam_assigns());
-    // These point to the sole copy (unelaborated)
-    //for (auto ps : *m->Param_assigns()) {
-    //  ps->VpiParent(m);
-    //}
+  if (netlist->param_assigns()) {
+    m->Param_assigns(netlist->param_assigns());
+    for (auto ps : *m->Param_assigns()) {
+      ps->VpiParent(m);
+    }
   }
 
   if (mod) {

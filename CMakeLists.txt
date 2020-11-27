@@ -257,6 +257,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Netlist.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Parameter.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/ParamAssign.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Scope.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Signal.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.cpp
@@ -569,6 +570,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.h
         ${PROJECT_SOURCE_DIR}/src/Design/FileContent.h
         ${PROJECT_SOURCE_DIR}/src/Design/Parameter.h
+        ${PROJECT_SOURCE_DIR}/src/Design/ParamAssign.h
         ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.h
         ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.h
         ${PROJECT_SOURCE_DIR}/src/Design/Netlist.h
@@ -578,6 +580,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/ModPort.h
         ${PROJECT_SOURCE_DIR}/src/Design/Union.h
         ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.h
+	${PROJECT_SOURCE_DIR}/src/Design/DummyType.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.h

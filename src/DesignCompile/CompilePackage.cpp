@@ -130,12 +130,12 @@ bool CompilePackage::collectObjects_() {
         }
         case VObjectType::slParameter_declaration: {
           m_helper.compileParameterDeclaration(m_package, fC, id,
-                                               m_compileDesign);
+                                               m_compileDesign, false, nullptr, true);
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
           m_helper.compileParameterDeclaration(m_package, fC, id,
-                                               m_compileDesign, true);
+                                               m_compileDesign, true, nullptr, true);
           break;
         }
         case VObjectType::slTask_declaration: {

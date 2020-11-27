@@ -563,17 +563,17 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
               slList_of_type_assignments) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign);
+                m_module, fC, list_of_type_assignments, m_compileDesign, false, m_instance, m_instance != nullptr);
 
           } else {
             m_helper.compileParameterDeclaration(m_module, fC, id,
-                                                 m_compileDesign);
+                                                 m_compileDesign, false, m_instance, m_instance != nullptr);
           }
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
           if (!collectDefinitions) break;
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance);
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance, m_instance != nullptr);
           break;
         }
         case VObjectType::slTask_declaration: {
@@ -856,17 +856,17 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
           // Type param
           m_helper.compileParameterDeclaration(
-              m_module, fC, list_of_type_assignments, m_compileDesign);
+              m_module, fC, list_of_type_assignments, m_compileDesign, false, m_instance, m_instance != nullptr);
 
         } else {
           m_helper.compileParameterDeclaration(m_module, fC, id,
-                                               m_compileDesign);
+                                               m_compileDesign, false, m_instance, m_instance != nullptr);
         }
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {
         if (!collectDefinitions) break;
-        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
+        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance, m_instance != nullptr);
         break;
       }
       case VObjectType::slParam_assignment:

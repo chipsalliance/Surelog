@@ -1,1 +1,2 @@
-  -writepp -parse  -d inst  top.sv -d ast -d uhdm
+  -writepp -parse  -d inst  top.sv -d ast -d uhdm -elabuhdm
+  
