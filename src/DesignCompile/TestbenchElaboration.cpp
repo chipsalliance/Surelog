@@ -731,6 +731,19 @@ bool TestbenchElaboration::bindProperties_() {
           classDefinition, fC, unpackedDimension, m_compileDesign, nullptr,
           nullptr, true, unpackedSize);
       }
+      UHDM::typespec* tps = nullptr;
+      NodeId typeSpecId = sig->getTypeSpecId();
+      if (typeSpecId) {
+        tps = m_helper.compileTypespec(classDefinition, fC, typeSpecId, m_compileDesign,
+                                       nullptr, nullptr, true);
+      }
+      if (tps == nullptr) {
+        if (sig->getInterfaceTypeNameId()) {
+          tps = m_helper.compileTypespec(
+              classDefinition, fC, sig->getInterfaceTypeNameId(), m_compileDesign, nullptr,
+              nullptr, true);
+        }
+      }
 
       // Assignment to a default value
       UHDM::expr* exp =
@@ -738,7 +751,7 @@ bool TestbenchElaboration::bindProperties_() {
 
       UHDM::any* obj = makeVar_(classDefinition, sig, packedDimensions, packedSize, 
                 unpackedDimensions, unpackedSize, nullptr, 
-                vars, exp);
+                vars, exp, tps);
 
       if (obj) {
         obj->VpiLineNo(fC->Line(id));

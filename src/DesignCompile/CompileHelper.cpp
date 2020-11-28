@@ -1458,7 +1458,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = nullptr;
-      if (fC->Type(intVec_TypeReg) == slClass_scope || fC->Type(intVec_TypeReg) == slStringConst) {
+      VObjectType sigType = fC->Type(intVec_TypeReg);
+      if (sigType == slClass_scope || sigType == slStringConst || sigType == slStruct_union) {
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension, VObjectType::slNoType, intVec_TypeReg,
                unpackedDimension, false); 
       } else {

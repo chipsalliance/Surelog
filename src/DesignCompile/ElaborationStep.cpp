@@ -998,28 +998,14 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
 
 any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
                 std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
-                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp) {
+                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp, UHDM::typespec* tps) {
   Serializer& s = m_compileDesign->getSerializer();
-  const FileContent* fC = sig->getFileContent();
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
 
   std::string signame = sig->getName();
   
   variables* obj = nullptr;
-
-  NodeId typeSpecId = sig->getTypeSpecId();
-  UHDM::typespec* tps = nullptr;
-  if (typeSpecId) {
-    tps = m_helper.compileTypespec(component, fC, typeSpecId, m_compileDesign,
-                                   nullptr, instance, true);
-  }
-  if (tps == nullptr) {
-    if (sig->getInterfaceTypeNameId()) {
-      tps = m_helper.compileTypespec(component, fC, sig->getInterfaceTypeNameId(), m_compileDesign,
-                                   nullptr, instance, true);
-    }
-  }
 
   if (dtype) {
     dtype = dtype->getActual();

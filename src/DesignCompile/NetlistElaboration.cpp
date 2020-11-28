@@ -710,7 +710,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   // Nets pass
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
-
+  UHDM::typespec* tps = nullptr;
   // Determine if the "signal" is a net or a var
   bool isNet = true;
   if ((dtype && (subnettype == slNoType)) || sig->isConst() || sig->isVar() || sig->isStatic() ||
@@ -724,6 +724,38 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
       (subnettype == slNonIntType_ShortReal) ||
       (subnettype == slIntVec_TypeBit)) {
     isNet = false;
+  }
+
+  NodeId typeSpecId = sig->getTypeSpecId();
+  if (typeSpecId) {
+    tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign,
+                                   nullptr, instance, true);
+  }
+  if (tps == nullptr) {
+    if (sig->getInterfaceTypeNameId()) {
+      tps = m_helper.compileTypespec(comp, fC, sig->getInterfaceTypeNameId(),
+                                     m_compileDesign, nullptr, instance, true);
+    }
+  }
+  if (tps) {
+    if (tps->UhdmType() == uhdmstruct_typespec) {
+      struct_typespec* the_tps = (struct_typespec*)tps;
+      if (the_tps->Members()) {
+        for (typespec_member* member : *the_tps->Members()) {
+          const typespec* mtps = member->Typespec();
+          if (mtps) {
+            UHDM_OBJECT_TYPE mtype = mtps->UhdmType();
+            if (mtype != uhdmlogic_typespec && mtype != uhdmstruct_typespec) {
+              isNet = false;
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if (!isNet) {
     if (vars == nullptr) {
       vars = s.MakeVariablesVec();
       netlist->variables(vars);
@@ -823,7 +855,17 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
         }
         nets->push_back((net*)obj);
       }
-
+    } else if (subnettype == slStruct_union) {
+      // Implicit type
+      struct_net* stv = s.MakeStruct_net();
+      stv->Typespec(tps);
+      obj = stv;
+      stv->VpiName(signame);
+      if (nets == nullptr) {
+        nets = s.MakeNetVec();
+        netlist->nets(nets);
+      }
+      nets->push_back(stv);
     } else {
       logic_net* logicn = s.MakeLogic_net();
       logicn->VpiSigned(sig->isSigned());
@@ -876,7 +918,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   } else {
     // Vars
     obj = makeVar_(comp, sig, packedDimensions, packedSize, unpackedDimensions,
-                   unpackedSize, instance, vars, exp);
+                   unpackedSize, instance, vars, exp, tps);
   }
 
   if (obj) {
