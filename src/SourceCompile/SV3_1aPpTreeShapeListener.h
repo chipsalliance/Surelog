@@ -69,6 +69,8 @@ namespace SURELOG {
    void exitNumber(SV3_1aPpParser::NumberContext * /*ctx*/) final ;
    void enterPound_delay(SV3_1aPpParser::Pound_delayContext * /*ctx*/) final { }
    void exitPound_delay(SV3_1aPpParser::Pound_delayContext * ctx) final { addVObject (ctx, VObjectType::slPound_delay); }
+   void enterPound_pound_delay(SV3_1aPpParser::Pound_pound_delayContext * /*ctx*/) final { }
+   void exitPound_pound_delay(SV3_1aPpParser::Pound_pound_delayContext * ctx) final { addVObject (ctx, VObjectType::slPound_pound_delay); }
    void enterMacro_definition(SV3_1aPpParser::Macro_definitionContext * /*ctx*/) final { }
    void exitMacro_definition(SV3_1aPpParser::Macro_definitionContext * ctx) final { addVObject (ctx, VObjectType::slMacro_definition); }
    void enterInclude_directive(SV3_1aPpParser::Include_directiveContext * /*ctx*/) final ;

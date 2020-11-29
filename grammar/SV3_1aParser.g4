@@ -895,7 +895,8 @@ delay2
 
 
 pound_delay_value
-   : Pound_delay (time_unit)?
+   : Pound_Pound_delay (time_unit)?
+   | Pound_delay (time_unit)?
    | POUND delay_value ;
 
 delay_value 
@@ -1300,7 +1301,8 @@ sequence_expr
 
 
 cycle_delay_range  
-    : POUNDPOUND constant_primary    
+    : POUNDPOUND constant_primary
+    | Pound_Pound_delay
     | POUNDPOUND OPEN_BRACKET cycle_delay_const_range_expression  
       CLOSE_BRACKET                  
     | POUNDPOUND ASSOCIATIVE_UNSPECIFIED 
@@ -2335,17 +2337,17 @@ deferred_immediate_assertion_statement
     ; 
 
 deferred_immediate_assert_statement  
-      : ASSERT Pound_delay OPEN_PARENS expression CLOSE_PARENS action_block 
+      : ASSERT (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS action_block 
       | ASSERT FINAL ( expression ) action_block 
       ; 
 
 deferred_immediate_assume_statement  
-      : ASSUME Pound_delay OPEN_PARENS expression CLOSE_PARENS action_block 
+      : ASSUME (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS action_block 
       | ASSUME FINAL OPEN_PARENS expression CLOSE_PARENS  action_block 
       ; 
 
 deferred_immediate_cover_statement  
-      : COVER Pound_delay OPEN_PARENS expression CLOSE_PARENS statement_or_null 
+      : COVER (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS statement_or_null 
       | COVER FINAL OPEN_PARENS expression CLOSE_PARENS  statement_or_null 
       ; 
 
@@ -2400,8 +2402,9 @@ clocking_drive
 
 cycle_delay  
     : POUNDPOUND Integral_number                     
+    | Pound_Pound_delay
     | POUNDPOUND identifier                          
-    | POUNDPOUND OPEN_PARENS expression CLOSE_PARENS 
+    | POUNDPOUND OPEN_PARENS expression CLOSE_PARENS
     ; 
 
 clockvar :  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 

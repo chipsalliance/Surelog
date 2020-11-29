@@ -96,6 +96,7 @@ description :
 	    | text_blob
 	    | escaped_identifier
 	    | pound_delay
+	    | pound_pound_delay
 	    ;
 
 macro_instance : (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
@@ -113,6 +114,8 @@ comments :    One_line_comment
 number : Number ;
 
 pound_delay : Pound_delay ;
+
+pound_pound_delay : Pound_Pound_delay ;
 
 macro_definition :
               define_directive
@@ -336,6 +339,7 @@ directive_in_macro :
 	    | simple_args_macro_definition_in_macro_body //(ESCAPED_CR | CR) Adds long runtime on Verilator t_preproc.v case but fixes Syntax Error 
 	    | simple_no_args_macro_definition_in_macro_body //(ESCAPED_CR | CR)
 	    | pound_delay
+	    | pound_pound_delay
 	    ;
 
 macro_arguments : PARENS_OPEN ((Simple_identifier Spaces* (EQUAL_OP default_value*)*)
@@ -346,7 +350,7 @@ escaped_macro_definition_body : escaped_macro_definition_body_alt1
 
 escaped_macro_definition_body_alt1 : (  unterminated_string | Macro_identifier | Macro_Escaped_identifier |
                                         escaped_identifier | Simple_identifier |
-                                        number | TEXT_CR | pound_delay | ESCAPED_CR | PARENS_OPEN | PARENS_CLOSE | COMMA |
+                                        number | TEXT_CR | pound_delay | pound_pound_delay | ESCAPED_CR | PARENS_OPEN | PARENS_CLOSE | COMMA |
 					EQUAL_OP | DOUBLE_QUOTE | TICK_VARIABLE | directive_in_macro | Spaces |
 					Fixed_point_number | String | comments | TICK_QUOTE | TICK_BACKSLASH_TICK_QUOTE |
 					TICK_TICK | Special | CURLY_OPEN | CURLY_CLOSE | SQUARE_OPEN |
@@ -354,7 +358,7 @@ escaped_macro_definition_body_alt1 : (  unterminated_string | Macro_identifier |
 
 escaped_macro_definition_body_alt2 : (  unterminated_string | Macro_identifier | Macro_Escaped_identifier |
                                         escaped_identifier |
-                                        Simple_identifier | number | TEXT_CR | pound_delay | ESCAPED_CR | PARENS_OPEN |
+                                        Simple_identifier | number | TEXT_CR | pound_delay | pound_pound_delay | ESCAPED_CR | PARENS_OPEN |
 					PARENS_CLOSE | COMMA | EQUAL_OP | DOUBLE_QUOTE | TICK_VARIABLE |
 			                directive_in_macro | Spaces | Fixed_point_number | String | comments |
 					TICK_QUOTE | TICK_BACKSLASH_TICK_QUOTE | TICK_TICK | Special | CURLY_OPEN |
@@ -362,7 +366,7 @@ escaped_macro_definition_body_alt2 : (  unterminated_string | Macro_identifier |
 
 simple_macro_definition_body : (  unterminated_string | Macro_identifier | Macro_Escaped_identifier |
                                   escaped_identifier |
-                                  Simple_identifier | number | pound_delay | TEXT_CR | PARENS_OPEN |
+                                  Simple_identifier | number | pound_delay | pound_pound_delay | TEXT_CR | PARENS_OPEN |
 				  PARENS_CLOSE | COMMA | EQUAL_OP | DOUBLE_QUOTE | TICK_VARIABLE |
 				  Spaces | Fixed_point_number | String | comments |
 				  TICK_QUOTE | TICK_BACKSLASH_TICK_QUOTE | TICK_TICK | Special |
@@ -370,7 +374,7 @@ simple_macro_definition_body : (  unterminated_string | Macro_identifier | Macro
 
 simple_macro_definition_body_in_macro_body : (  unterminated_string | Macro_identifier | Macro_Escaped_identifier |
                                   escaped_identifier |
-                                  Simple_identifier | number | pound_delay | TEXT_CR | 
+                                  Simple_identifier | number | pound_delay | pound_pound_delay | TEXT_CR | 
                                   PARENS_OPEN | PARENS_CLOSE | COMMA | EQUAL_OP | DOUBLE_QUOTE | TICK_VARIABLE |
 				  Spaces | Fixed_point_number | String | comments |
 				  TICK_QUOTE | TICK_BACKSLASH_TICK_QUOTE | TICK_TICK | Special | CURLY_OPEN |
@@ -395,7 +399,8 @@ pragma_expression : Simple_identifier
 	         | ANY
 		 | escaped_identifier
 		 | pound_delay 
-	         ;
+		 | pound_pound_delay
+;
 
 macro_arg : Simple_identifier
 	         | number
@@ -414,6 +419,8 @@ macro_arg : Simple_identifier
                  | simple_args_macro_definition_in_macro_body
 	         | simple_no_args_macro_definition_in_macro_body
 		 | comments
+		 | pound_delay
+	         | pound_pound_delay
 	         ;
 
 paired_parens : ( PARENS_OPEN ( Simple_identifier | number
@@ -448,6 +455,7 @@ text_blob :   Simple_identifier
 	    | TIMESCALE
 	    | ANY
 	    | pound_delay
+	    | pound_pound_delay
 	    | TICK_QUOTE
 	    | TICK_BACKSLASH_TICK_QUOTE
 	    | TEXT_CR
@@ -491,5 +499,6 @@ string_blob : Simple_identifier
 	    | escaped_identifier
 	    | TIMESCALE
 	    | pound_delay
+	    | pound_pound_delay
 	    | TEXT_CR
 	    ;

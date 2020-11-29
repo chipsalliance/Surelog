@@ -172,6 +172,8 @@ Simple_identifier : [a-zA-Z_] [a-zA-Z0-9_$]* ;
 
 Spaces : (WS | TAB)+;
 
+Pound_Pound_delay : '##' WS* [0-9] [0-9_.]*;
+
 Pound_delay : '#' WS* [0-9] [0-9_.]*;
 
 TIMESCALE : (WS | TAB)* [0-9]+ (WS | TAB)* ('ms' | 'us' | 'ns' | 'ps'  | 'fs' | 's' ) (WS | TAB)* '/' (WS | TAB)* [0-9]+ (WS | TAB)* ('ms' | 'us' | 'ns' | 'ps'  | 'fs' | 's')  ;
