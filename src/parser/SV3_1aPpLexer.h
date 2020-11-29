@@ -31,11 +31,12 @@ public:
     PROGRAM = 57, ENDPROGRAM = 58, PRIMITIVE = 59, ENDPRIMITIVE = 60, PACKAGE = 61, 
     ENDPACKAGE = 62, CHECKER = 63, ENDCHECKER = 64, CONFIG = 65, ENDCONFIG = 66, 
     Macro_identifier = 67, Macro_Escaped_identifier = 68, String = 69, Simple_identifier = 70, 
-    Spaces = 71, Pound_delay = 72, TIMESCALE = 73, Number = 74, Fixed_point_number = 75, 
-    TEXT_CR = 76, ESCAPED_CR = 77, CR = 78, TICK_QUOTE = 79, TICK_BACKSLASH_TICK_QUOTE = 80, 
-    TICK_TICK = 81, PARENS_OPEN = 82, PARENS_CLOSE = 83, COMMA = 84, EQUAL_OP = 85, 
-    DOUBLE_QUOTE = 86, Escaped_identifier = 87, CURLY_OPEN = 88, CURLY_CLOSE = 89, 
-    SQUARE_OPEN = 90, SQUARE_CLOSE = 91, Special = 92, ANY = 93
+    Spaces = 71, Pound_Pound_delay = 72, Pound_delay = 73, TIMESCALE = 74, 
+    Number = 75, Fixed_point_number = 76, TEXT_CR = 77, ESCAPED_CR = 78, 
+    CR = 79, TICK_QUOTE = 80, TICK_BACKSLASH_TICK_QUOTE = 81, TICK_TICK = 82, 
+    PARENS_OPEN = 83, PARENS_CLOSE = 84, COMMA = 85, EQUAL_OP = 86, DOUBLE_QUOTE = 87, 
+    Escaped_identifier = 88, CURLY_OPEN = 89, CURLY_CLOSE = 90, SQUARE_OPEN = 91, 
+    SQUARE_CLOSE = 92, Special = 93, ANY = 94
   };
 
   SV3_1aPpLexer(antlr4::CharStream *input);

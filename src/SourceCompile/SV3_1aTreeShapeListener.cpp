@@ -671,6 +671,9 @@ void SV3_1aTreeShapeListener::exitPound_delay_value(
   if (ctx->Pound_delay()) {
      addVObject(ctx, ctx->Pound_delay()->getText(),
              VObjectType::slIntConst);
+  } else if (ctx->Pound_Pound_delay()) {
+     addVObject(ctx, ctx->Pound_Pound_delay()->getText(),
+             VObjectType::slPound_Pound_delay);
   } else if (ctx->delay_value()) {
      addVObject(ctx, ctx->delay_value()->getText(),
              VObjectType::slIntConst);
@@ -1320,6 +1323,27 @@ void SV3_1aTreeShapeListener::exitOutput_symbol(SV3_1aParser::Output_symbolConte
   addVObject (ctx, VObjectType::slOutput_symbol);
 }
 
+void SV3_1aTreeShapeListener::exitCycle_delay(SV3_1aParser::Cycle_delayContext * ctx) {
+  if (ctx->Integral_number()) {
+    auto number = ctx->Integral_number();
+    addVObject((ParserRuleContext*)ctx->Integral_number(), number->getText(), VObjectType::slIntConst);
+  }
+  if (ctx->Pound_Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_Pound_delay(), ctx->Pound_Pound_delay()->getText(), VObjectType::slPound_Pound_delay);
+  }
+  addVObject (ctx, VObjectType::slCycle_delay);
+}
+
+void SV3_1aTreeShapeListener::exitCycle_delay_range(SV3_1aParser::Cycle_delay_rangeContext * ctx) {
+  if (ctx->Pound_Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_Pound_delay(), ctx->Pound_Pound_delay()->getText(), VObjectType::slPound_Pound_delay);
+  }
+  if (ctx->PLUS()) {
+    addVObject ((ParserRuleContext*)ctx->PLUS(), VObjectType::slUnary_Plus);
+  }
+  addVObject (ctx, VObjectType::slCycle_delay_range);
+}
+ 
 
 void SV3_1aTreeShapeListener::exitLevel_symbol(SV3_1aParser::Level_symbolContext * ctx) {
   if (ctx->Integral_number()) {
@@ -1375,21 +1399,27 @@ void SV3_1aTreeShapeListener::exitRandomize_call(SV3_1aParser::Randomize_callCon
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_assert_statement(SV3_1aParser::Deferred_immediate_assert_statementContext * ctx) {
   if (ctx->Pound_delay()) {
-    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
-  }
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+  } else if (ctx->Pound_Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_Pound_delay(), ctx->Pound_Pound_delay()->getText(), VObjectType::slPound_Pound_delay);
+  } 
   addVObject (ctx, VObjectType::slDeferred_immediate_assert_statement);
 }
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_assume_statement(SV3_1aParser::Deferred_immediate_assume_statementContext * ctx) {
   if (ctx->Pound_delay()) {
-    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
-  }
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+  } else if (ctx->Pound_Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_Pound_delay(), ctx->Pound_Pound_delay()->getText(), VObjectType::slPound_Pound_delay);
+  } 
   addVObject (ctx, VObjectType::slDeferred_immediate_assume_statement);
 }
 
 void SV3_1aTreeShapeListener::exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * ctx) {
   if (ctx->Pound_delay()) {
-    addVObject ((ParserRuleContext*)ctx->Pound_delay(), VObjectType::slPound_delay);
-  }
+    addVObject ((ParserRuleContext*)ctx->Pound_delay(), ctx->Pound_delay()->getText(), VObjectType::slPound_delay);
+  } else if (ctx->Pound_Pound_delay()) {
+    addVObject ((ParserRuleContext*)ctx->Pound_Pound_delay(), ctx->Pound_Pound_delay()->getText(), VObjectType::slPound_Pound_delay);
+  } 
   addVObject (ctx, VObjectType::slDeferred_immediate_cover_statement);
 }

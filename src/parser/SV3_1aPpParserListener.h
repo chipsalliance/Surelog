@@ -47,6 +47,9 @@ public:
   virtual void enterPound_delay(SV3_1aPpParser::Pound_delayContext *ctx) = 0;
   virtual void exitPound_delay(SV3_1aPpParser::Pound_delayContext *ctx) = 0;
 
+  virtual void enterPound_pound_delay(SV3_1aPpParser::Pound_pound_delayContext *ctx) = 0;
+  virtual void exitPound_pound_delay(SV3_1aPpParser::Pound_pound_delayContext *ctx) = 0;
+
   virtual void enterMacro_definition(SV3_1aPpParser::Macro_definitionContext *ctx) = 0;
   virtual void exitMacro_definition(SV3_1aPpParser::Macro_definitionContext *ctx) = 0;
 

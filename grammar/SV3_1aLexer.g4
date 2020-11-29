@@ -60,6 +60,8 @@ ONE_TICK_Bx : '1\'Bx' ;
 
 ONE_TICK_BX : '1\'BX' ;
 
+Pound_Pound_delay : '##' (' ')* [0-9] [0-9_.]* ;
+
 Pound_delay : '#' (' ')* [0-9] [0-9_.]* ;
 
 fragment

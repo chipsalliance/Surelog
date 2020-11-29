@@ -601,7 +601,7 @@ namespace SURELOG {
    void enterSequence_expr(SV3_1aParser::Sequence_exprContext * /*ctx*/) final { }
    void exitSequence_expr(SV3_1aParser::Sequence_exprContext * ctx) final { addVObject (ctx, VObjectType::slSequence_expr); }
    void enterCycle_delay_range(SV3_1aParser::Cycle_delay_rangeContext * /*ctx*/) final { }
-   void exitCycle_delay_range(SV3_1aParser::Cycle_delay_rangeContext * ctx) final { addVObject (ctx, VObjectType::slCycle_delay_range); }
+   void exitCycle_delay_range(SV3_1aParser::Cycle_delay_rangeContext * /*ctx*/) final ;
    void enterSequence_method_call(SV3_1aParser::Sequence_method_callContext * /*ctx*/) final { }
    void exitSequence_method_call(SV3_1aParser::Sequence_method_callContext * ctx) final { addVObject (ctx, VObjectType::slSequence_method_call); }
    void enterSequence_match_item(SV3_1aParser::Sequence_match_itemContext * /*ctx*/) final { }
@@ -1137,7 +1137,7 @@ namespace SURELOG {
    void enterClocking_drive(SV3_1aParser::Clocking_driveContext * /*ctx*/) final { }
    void exitClocking_drive(SV3_1aParser::Clocking_driveContext * ctx) final { addVObject (ctx, VObjectType::slClocking_drive); }
    void enterCycle_delay(SV3_1aParser::Cycle_delayContext * /*ctx*/) final { }
-   void exitCycle_delay(SV3_1aParser::Cycle_delayContext * ctx) final { addVObject (ctx, VObjectType::slCycle_delay); }
+   void exitCycle_delay(SV3_1aParser::Cycle_delayContext * /*ctx*/) final ;
    void enterClockvar(SV3_1aParser::ClockvarContext * /*ctx*/) final { }
    void exitClockvar(SV3_1aParser::ClockvarContext * ctx) final { addVObject (ctx, VObjectType::slClockvar); }
    void enterClockvar_expression(SV3_1aParser::Clockvar_expressionContext * /*ctx*/) final { }

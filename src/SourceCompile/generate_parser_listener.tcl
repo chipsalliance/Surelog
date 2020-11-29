@@ -279,6 +279,7 @@ set TYPES(slLarge) 1
 set TYPES(slDot) 1
 set TYPES(slDotStar) 1
 set TYPES(slNonBlockingTriggerEvent) 1
+set TYPES(slPound_Pound_delay) 1
 
 set TYPES(slUnary_Plus) 1
 set TYPES(slUnary_Minus) 1
