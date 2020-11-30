@@ -1953,7 +1953,6 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -1963,10 +1962,11 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Pound_delayContext *pound_delay();
     Pound_pound_delayContext *pound_pound_delay();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1984,20 +1984,20 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     Paired_parensContext *paired_parens();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
     Macro_instanceContext *macro_instance();
     antlr4::tree::TerminalNode *CR();
     antlr4::tree::TerminalNode *TEXT_CR();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Simple_args_macro_definition_in_macro_bodyContext *simple_args_macro_definition_in_macro_body();
     Simple_no_args_macro_definition_in_macro_bodyContext *simple_no_args_macro_definition_in_macro_body();
     CommentsContext *comments();
     Pound_delayContext *pound_delay();
     Pound_pound_delayContext *pound_pound_delay();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2022,8 +2022,6 @@ public:
     antlr4::tree::TerminalNode* Fixed_point_number(size_t i);
     std::vector<antlr4::tree::TerminalNode *> String();
     antlr4::tree::TerminalNode* String(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> Special();
-    antlr4::tree::TerminalNode* Special(size_t i);
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
     std::vector<antlr4::tree::TerminalNode *> EQUAL_OP();
@@ -2036,14 +2034,16 @@ public:
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<antlr4::tree::TerminalNode *> CR();
     antlr4::tree::TerminalNode* CR(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> ANY();
-    antlr4::tree::TerminalNode* ANY(size_t i);
     std::vector<Paired_parensContext *> paired_parens();
     Paired_parensContext* paired_parens(size_t i);
     std::vector<Escaped_identifierContext *> escaped_identifier();
     Escaped_identifierContext* escaped_identifier(size_t i);
     std::vector<CommentsContext *> comments();
     CommentsContext* comments(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> Special();
+    antlr4::tree::TerminalNode* Special(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> ANY();
+    antlr4::tree::TerminalNode* ANY(size_t i);
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -2072,7 +2072,6 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -2080,12 +2079,13 @@ public:
     antlr4::tree::TerminalNode *TICK_TICK();
     antlr4::tree::TerminalNode *TICK_VARIABLE();
     antlr4::tree::TerminalNode *TIMESCALE();
-    antlr4::tree::TerminalNode *ANY();
     Pound_delayContext *pound_delay();
     Pound_pound_delayContext *pound_pound_delay();
     antlr4::tree::TerminalNode *TICK_QUOTE();
     antlr4::tree::TerminalNode *TICK_BACKSLASH_TICK_QUOTE();
     antlr4::tree::TerminalNode *TEXT_CR();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2129,14 +2129,14 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Macro_instanceContext *macro_instance();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2159,17 +2159,17 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     antlr4::tree::TerminalNode *TIMESCALE();
     Pound_delayContext *pound_delay();
     Pound_pound_delayContext *pound_pound_delay();
     antlr4::tree::TerminalNode *TEXT_CR();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

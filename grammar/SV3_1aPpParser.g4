@@ -386,7 +386,6 @@ pragma_expression : Simple_identifier
 		 | Spaces
 	         | Fixed_point_number
 	         | String
-	         | Special
 		 | CURLY_OPEN
 		 | CURLY_CLOSE
 		 | SQUARE_OPEN
@@ -396,42 +395,43 @@ pragma_expression : Simple_identifier
 	         | COMMA
 	         | EQUAL_OP
 	         | DOUBLE_QUOTE 
-	         | ANY
 		 | escaped_identifier
 		 | pound_delay 
 		 | pound_pound_delay
-;
+	         | Special
+	         | ANY
+                 ;
 
 macro_arg : Simple_identifier
 	         | number
 	         | Spaces
 	         | Fixed_point_number
 	         | String
-	         | Special
 		 | paired_parens
 	         | EQUAL_OP
 	         | DOUBLE_QUOTE 
 		 | macro_instance
 		 | CR
 		 | TEXT_CR
-	         | ANY
 		 | escaped_identifier
                  | simple_args_macro_definition_in_macro_body
 	         | simple_no_args_macro_definition_in_macro_body
 		 | comments
 		 | pound_delay
 	         | pound_pound_delay
+	         | Special
+	         | ANY
 	         ;
 
 paired_parens : ( PARENS_OPEN ( Simple_identifier | number
-	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | TEXT_CR | CR | ANY | paired_parens | escaped_identifier | comments )* PARENS_CLOSE )
+	         | Spaces | Fixed_point_number | String | COMMA | EQUAL_OP
+	         | DOUBLE_QUOTE | macro_instance | TEXT_CR | CR | paired_parens | escaped_identifier | comments | Special | ANY )* PARENS_CLOSE )
               | ( CURLY_OPEN ( Simple_identifier | number
-	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier | comments )* CURLY_CLOSE )
+	         | Spaces | Fixed_point_number | String | COMMA | EQUAL_OP
+	         | DOUBLE_QUOTE | macro_instance | CR | paired_parens | escaped_identifier | comments | Special | ANY )* CURLY_CLOSE )
 	      | ( SQUARE_OPEN ( Simple_identifier | number
-	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier | comments )* SQUARE_CLOSE ) ;
+	         | Spaces | Fixed_point_number | String | COMMA | EQUAL_OP
+	         | DOUBLE_QUOTE | macro_instance | CR | paired_parens | escaped_identifier | comments | Special | ANY )* SQUARE_CLOSE ) ;
 
 text_blob :   Simple_identifier
 	    | number
@@ -445,7 +445,6 @@ text_blob :   Simple_identifier
 	    | COMMA
 	    | EQUAL_OP
 	    | DOUBLE_QUOTE 
-	    | Special
 	    | CURLY_OPEN
 	    | CURLY_CLOSE
 	    | SQUARE_OPEN
@@ -453,12 +452,13 @@ text_blob :   Simple_identifier
 	    | TICK_TICK
 	    | TICK_VARIABLE
 	    | TIMESCALE
-	    | ANY
 	    | pound_delay
 	    | pound_pound_delay
 	    | TICK_QUOTE
 	    | TICK_BACKSLASH_TICK_QUOTE
 	    | TEXT_CR
+	    | Special
+	    | ANY
 	    ;
 
 string : String ;
@@ -470,14 +470,14 @@ default_value : Simple_identifier
 	    | Spaces
 	    | Fixed_point_number
 	    | String
-	    | Special
 	    | CURLY_OPEN
 	    | CURLY_CLOSE
 	    | SQUARE_OPEN
 	    | SQUARE_CLOSE
-	    | ANY
 	    | escaped_identifier
 	    | macro_instance
+	    | Special
+	    | ANY
 	    ;
 
 string_blob : Simple_identifier
@@ -490,15 +490,15 @@ string_blob : Simple_identifier
 	    | COMMA
 	    | EQUAL_OP
 	    | DOUBLE_QUOTE 
-	    | Special
 	    | CURLY_OPEN
 	    | CURLY_CLOSE
 	    | SQUARE_OPEN
 	    | SQUARE_CLOSE
-	    | ANY
 	    | escaped_identifier
 	    | TIMESCALE
 	    | pound_delay
 	    | pound_pound_delay
 	    | TEXT_CR
+	    | Special
+	    | ANY
 	    ;
