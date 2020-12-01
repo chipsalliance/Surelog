@@ -1702,7 +1702,6 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
     component->setParam_assigns(s.MakeParam_assignVec());
     param_assigns= component->getParam_assigns();
   }
-
   if (fC->Type(nodeId) == slList_of_type_assignments) {
     // Type param
     NodeId typeNameId = fC->Child(nodeId);
@@ -1736,6 +1735,32 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       if (skip) typeNameId = fC->Sibling(typeNameId);
     }
 
+  } else if (fC->Type(nodeId) == slList_of_param_assignments) {
+    // Type param
+    NodeId Param_assignment = fC->Child(nodeId);
+    while (Param_assignment) {
+      NodeId Identifier = fC->Child(Param_assignment);
+      NodeId Constant_param_expression = fC->Sibling(Identifier);
+      UHDM::type_parameter* p = s.MakeType_parameter();
+      p->VpiName(fC->SymName(Identifier));
+      p->VpiFile(fC->getFileName());
+      p->VpiLineNo(fC->Line(Identifier));
+      NodeId Data_type = fC->Child(Constant_param_expression);
+      typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
+                                           p, nullptr, false, "");
+      p->Typespec(tps);
+      if (tps)
+        tps->VpiParent(p);
+      if (localParam) {
+        p->VpiLocalParam(true);
+      }
+      parameters->push_back(p);
+      Parameter* param =
+          new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression);
+      param->setUhdmParam(p);
+      component->insertParameter(param);
+      Param_assignment = fC->Sibling(Param_assignment);
+    }
   } else {
     // Regular param
     NodeId Data_type_or_implicit = fC->Child(nodeId);

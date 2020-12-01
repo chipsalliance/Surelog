@@ -392,6 +392,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
+    case VObjectType::slConstant_mintypmax_expression: 
+    case VObjectType::slConstant_primary: {
+      return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
+    }
     case VObjectType::slSystem_task: {
       UHDM::constant* constant = dynamic_cast<UHDM::constant*> (compileExpression(component, fC, type, compileDesign, nullptr, instance, true));
       if (constant) {
@@ -674,13 +678,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slConstant_expression: {
       expr* exp = (expr*) compileExpression(component, fC, type, compileDesign, nullptr, instance, true);
-      integer_typespec* var = s.MakeInteger_typespec();
-      if (exp) {
-        var->VpiValue(exp->VpiValue());
+      if (exp && exp->UhdmType() == uhdmref_obj) {
+        return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
+      } else {
+        integer_typespec* var = s.MakeInteger_typespec();
+        if (exp) {
+          var->VpiValue(exp->VpiValue());
+        }
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
       }
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      result = var;
       break;
     }
     case VObjectType::slChandle_type: {

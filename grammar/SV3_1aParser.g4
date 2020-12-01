@@ -570,14 +570,12 @@ anonymous_program_item
     ; 
 
 local_parameter_declaration 
-   : LOCALPARAM ( data_type_or_implicit list_of_param_assignments 
-   | TYPE list_of_param_assignments )                
+   : LOCALPARAM ( data_type_or_implicit | TYPE ) list_of_param_assignments 
    ; 
 
 
 parameter_declaration  
-    : PARAMETER ( data_type_or_implicit list_of_param_assignments 
-    | TYPE list_of_type_assignments )                   
+    : PARAMETER ( data_type_or_implicit | TYPE ) list_of_param_assignments 
     ; 
      
 
@@ -852,7 +850,7 @@ struct_union
 tagged_keyword : TAGGED;
 
 type_reference : 
-      TYPE OPEN_PARENS expression CLOSE_PARENS | TYPE OPEN_PARENS data_type CLOSE_PARENS ; 
+      TYPE OPEN_PARENS ( expression | data_type ) CLOSE_PARENS; 
 
 drive_strength  
     : OPEN_PARENS ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) CLOSE_PARENS 

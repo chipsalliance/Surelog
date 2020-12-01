@@ -3051,8 +3051,8 @@ public:
     Local_parameter_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *LOCALPARAM();
-    Data_type_or_implicitContext *data_type_or_implicit();
     List_of_param_assignmentsContext *list_of_param_assignments();
+    Data_type_or_implicitContext *data_type_or_implicit();
     antlr4::tree::TerminalNode *TYPE();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -3067,10 +3067,9 @@ public:
     Parameter_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *PARAMETER();
-    Data_type_or_implicitContext *data_type_or_implicit();
     List_of_param_assignmentsContext *list_of_param_assignments();
+    Data_type_or_implicitContext *data_type_or_implicit();
     antlr4::tree::TerminalNode *TYPE();
-    List_of_type_assignmentsContext *list_of_type_assignments();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -4097,8 +4096,8 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TYPE();
     antlr4::tree::TerminalNode *OPEN_PARENS();
-    ExpressionContext *expression();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
+    ExpressionContext *expression();
     Data_typeContext *data_type();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
