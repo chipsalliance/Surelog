@@ -1494,15 +1494,24 @@ Processing: -cd generic/class class_test_40.sv -parse -nocache -nobuiltin -nonot
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/class class_test_53.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_test_53.sv.log
-[ERR:UH0705] class_test_53.sv:10: Unsupported data type "<n<> u<31> t<Param_assignment> p<34> c<21> s<33> l<10>>   localparam type GT = mypkg::GlueType, GT2;
+[ERR:UH0705] class_test_53.sv:7: Unsupported data type "<n<> u<3> t<Param_assignment> p<4> c<2> l<7>>   parameter type AT;
 ".
 
-[ERR:UH0705] class_test_53.sv:11: Unsupported data type "<n<> u<38> t<Param_assignment> p<62> c<37> s<61> l<11>>   localparam type HT1, HT2 = mypkg::ModuleType#(N+M);
+[ERR:UH0705] class_test_53.sv:8: Unsupported data type "<n<> u<14> t<Param_assignment> p<15> c<7> l<8>>   parameter type BT = BrickType;
+".
+
+[ERR:UH0705] class_test_53.sv:9: Unsupported data type "<n<> u<25> t<Param_assignment> p<34> c<18> s<33> l<9>>   parameter type CT1 = Ctype1, CT2 = Ctype2;
+".
+
+[ERR:UH0705] class_test_53.sv:10: Unsupported data type "<n<> u<47> t<Param_assignment> p<50> c<37> s<49> l<10>>   localparam type GT = mypkg::GlueType, GT2;
+".
+
+[ERR:UH0705] class_test_53.sv:11: Unsupported data type "<n<> u<54> t<Param_assignment> p<78> c<53> s<77> l<11>>   localparam type HT1, HT2 = mypkg::ModuleType#(N+M);
 ".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd generic/class class_test_54.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l class_test_54.sv.log
@@ -4918,11 +4927,9 @@ Processing: -cd chapter-6 6.20.6--const.sv -parse -nocache -nobuiltin -nonote -n
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-6 6.20.5--specparam_inv.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 6.20.5--specparam_inv.sv.log
-[ERR:EL0514] 6.20.5--specparam_inv.sv:10: Undefined variable: delay.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-6 6.19.5.4--enum_prev.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 6.19.5.4--enum_prev.sv.log
@@ -5598,7 +5605,7 @@ Processing: -cd chapter-10 10.3.3--cont-assignment-delay.sv -parse -nocache -nob
 Processed 859 tests.
 [  FATAL] : 0
 [ SYNTAX] : 37
-[  ERROR] : 134
+[  ERROR] : 136
 [WARNING] : 8
 [   NOTE] : 0
 

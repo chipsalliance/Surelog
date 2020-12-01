@@ -129,13 +129,33 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slParameter_declaration: {
-          m_helper.compileParameterDeclaration(m_package, fC, id,
-                                               m_compileDesign, false, nullptr, true);
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+              slList_of_type_assignments) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_package, fC, list_of_type_assignments, m_compileDesign, false,
+                nullptr, true);
+
+          } else {
+            m_helper.compileParameterDeclaration(
+                m_package, fC, id, m_compileDesign, false, nullptr, true);
+          }
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          m_helper.compileParameterDeclaration(m_package, fC, id,
-                                               m_compileDesign, true, nullptr, true);
+          NodeId list_of_type_assignments = fC->Child(id);
+          if (fC->Type(list_of_type_assignments) ==
+              slList_of_type_assignments) {
+            // Type param
+            m_helper.compileParameterDeclaration(
+                m_package, fC, list_of_type_assignments, m_compileDesign, true,
+                nullptr, true);
+
+          } else {
+            m_helper.compileParameterDeclaration(
+                m_package, fC, id, m_compileDesign, true, nullptr, true);
+          }
           break;
         }
         case VObjectType::slTask_declaration: {

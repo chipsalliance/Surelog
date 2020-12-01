@@ -1322,7 +1322,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     NodeId ident = param.fC->Child(param.nodeId);
     std::string name = param.fC->SymName(ident);
     Value* value =
-        m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident), instance);
+        m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident), instance, true);
     instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
     params.push_back(name);
   }

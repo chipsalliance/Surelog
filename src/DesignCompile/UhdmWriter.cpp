@@ -1080,6 +1080,13 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
               any* uparam = p->getUhdmParam();
               if (uparam) {
                 uparam->VpiParent(m);
+                for (VectorOfany::iterator itr = params->begin();
+                     itr != params->end(); itr++) {
+                  if ((*itr)->VpiName() == p->getName()) {
+                    params->erase(itr);
+                    break;
+                  }
+                }
                 params->push_back(uparam);
                 pushed = true;
               }
@@ -1088,6 +1095,13 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
           }
           if (!pushed) {
             // These point to the sole copy (unelaborated)
+            for (VectorOfany::iterator itr = params->begin();
+                 itr != params->end(); itr++) {
+              if ((*itr)->VpiName() == orig->VpiName()) {
+                params->erase(itr);
+                break;
+              }
+            }
             params->push_back(orig);
           }
         }
