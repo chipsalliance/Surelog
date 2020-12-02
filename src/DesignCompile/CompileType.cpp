@@ -350,6 +350,23 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
 
       dt = dt->getDefinition();
     }
+/*
+    if (result == nullptr) {
+      std::string libName = fC->getLibrary()->getName();
+      Design* design = compileDesign->getCompiler()->getDesign();
+      ModuleDefinition* def = design->getModuleDefinition(libName + "@" + typeName);
+      if (def) {
+        if (def->getType() == slInterface_declaration) {
+          interface_typespec* tps = s.MakeInterface_typespec();
+          tps->VpiParent(def->getUdpDefn());
+          tps->VpiName(typeName);
+          tps->VpiFile(fC->getFileName());
+          tps->VpiLineNo(fC->Line(type));
+          result = tps;
+        }
+      }
+    }
+*/
     if (result == nullptr) {
       void_typespec* tps = s.MakeVoid_typespec();
       tps->VpiName(typeName);

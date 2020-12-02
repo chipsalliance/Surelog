@@ -131,7 +131,11 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_primary ||
         fC->Type(Bit_select) == VObjectType::slConstant_expression) {
-      if (NodeId bitexp = fC->Child(Bit_select)) {
+      NodeId bitexp = fC->Child(Bit_select);
+      if (fC->Type(Bit_select) == VObjectType::slConstant_expression) {
+         bitexp = Bit_select;
+      }
+      if (bitexp) {
         expr* sel = (expr*) compileExpression(component, fC, bitexp, compileDesign, pexpr, instance);
 
         if (result) {
