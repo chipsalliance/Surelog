@@ -866,6 +866,12 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
         netlist->nets(nets);
       }
       nets->push_back(stv);
+      /*
+    } else if (tps) {
+      if (tps->UhdmType() == uhdminterface_typespec) {
+
+      } 
+      */ 
     } else {
       logic_net* logicn = s.MakeLogic_net();
       logicn->VpiSigned(sig->isSigned());
