@@ -1054,7 +1054,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slScalar_TickB1:
       case VObjectType::sl1: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1'b1";
+        std::string value = "BIN:1";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
@@ -1075,7 +1075,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slScalar_TickB0:
       case VObjectType::sl0: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1'b0";
+        std::string value = "BIN:0";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
@@ -1093,7 +1093,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slInitVal_1TickBX:
       case VObjectType::slX: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1'bX";
+        std::string value = "BIN:X";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
@@ -1103,7 +1103,7 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slZ: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1'bz";
+        std::string value = "BIN:z";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
@@ -1114,7 +1114,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slTime_literal: {
         // TODO:
         UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1'b0";
+        std::string value = "BIN:0";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
