@@ -1197,15 +1197,18 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(data_type_or_implicit);
     if (data_type) {
       NodeId if_type_name_s = fC->Child(data_type);
+      NodeId unpackedDimension = fC->Sibling(identifier);
+      if (fC->Type(unpackedDimension) != slUnpacked_dimension)
+         unpackedDimension = 0;
       if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
               fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
         Signal* signal = new Signal(fC, identifier, fC->Type(if_type_name_s),
-                VObjectType::slNoType, 0, false);
+                VObjectType::slNoType, unpackedDimension, false);
         component->getPorts().push_back(signal);
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       } else {
-        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, 0, false));
+        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, unpackedDimension, false));
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       }

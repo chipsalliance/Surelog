@@ -6,28 +6,73 @@
 
 [WRN:PA0205] dut.sv:9: No timescale set for "range_itf_port".
 
+[WRN:PA0205] dut.sv:17: No timescale set for "mem_if".
+
+[WRN:PA0205] dut.sv:25: No timescale set for "memory_ctrl1".
+
+[WRN:PA0205] dut.sv:32: No timescale set for "ConnectTB".
+
+[WRN:PA0205] dut.sv:35: No timescale set for "middle".
+
+[WRN:PA0205] dut.sv:39: No timescale set for "range_itf_port2".
+
 [INF:CP0300] Compilation...
+
+[INF:CP0304] dut.sv:32: Compile interface "work@ConnectTB".
 
 [INF:CP0304] dut.sv:1: Compile interface "work@MyInterface".
 
+[INF:CP0304] dut.sv:17: Compile interface "work@mem_if".
+
+[INF:CP0303] dut.sv:25: Compile module "work@memory_ctrl1".
+
+[INF:CP0303] dut.sv:35: Compile module "work@middle".
+
 [INF:CP0303] dut.sv:9: Compile module "work@range_itf_port".
+
+[INF:CP0303] dut.sv:39: Compile module "work@range_itf_port2".
 
 [INF:EL0526] Design Elaboration...
 
 [NTE:EL0503] dut.sv:9: Top level module "work@range_itf_port".
 
-[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0503] dut.sv:25: Top level module "work@memory_ctrl1".
+
+[NTE:EL0503] dut.sv:35: Top level module "work@middle".
+
+[NTE:EL0503] dut.sv:39: Top level module "work@range_itf_port2".
+
+[NTE:EL0504] Multiple top level modules in design.
+
+[NTE:EL0508] Nb Top level modules: 4.
 
 [NTE:EL0509] Max instance depth: 1.
 
-[NTE:EL0510] Nb instances: 1.
+[NTE:EL0510] Nb instances: 4.
 
-[NTE:EL0511] Nb leaf instances: 1.
+[NTE:EL0511] Nb leaf instances: 4.
 
 UHDM HTML COVERAGE REPORT: ../../build/tests/ModPortRange/slpp_unit//surelog.uhdm.chk.html
 ====== UHDM =======
 design: (work@range_itf_port)
 |vpiName:work@range_itf_port
+|uhdmallInterfaces:
+\_interface: work@ConnectTB (work@ConnectTB) dut.sv:32: , parent:work@range_itf_port
+  |vpiDefName:work@ConnectTB
+  |vpiFullName:work@ConnectTB
+  |vpiPort:
+  \_port: (con_i), line:32, parent:work@ConnectTB
+    |vpiName:con_i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@ConnectTB.con_i), line:32, parent:work@ConnectTB
+        |vpiName:con_i
+        |vpiFullName:work@ConnectTB.con_i
+        |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@ConnectTB.con_i), line:32, parent:work@ConnectTB
 |uhdmallInterfaces:
 \_interface: work@MyInterface (work@MyInterface) dut.sv:1: , parent:work@range_itf_port
   |vpiDefName:work@MyInterface
@@ -44,6 +89,125 @@ design: (work@range_itf_port)
     |vpiName:my_logic
     |vpiFullName:work@MyInterface.my_logic
     |vpiNetType:36
+|uhdmallInterfaces:
+\_interface: work@mem_if (work@mem_if) dut.sv:17: , parent:work@range_itf_port
+  |vpiDefName:work@mem_if
+  |vpiFullName:work@mem_if
+  |vpiModport:
+  \_modport: (memory), parent:work@mem_if
+    |vpiName:memory
+    |vpiIODecl:
+    \_io_decl: (clk)
+      |vpiName:clk
+      |vpiDirection:2
+  |vpiModport:
+  \_modport: (system), parent:work@mem_if
+    |vpiName:system
+    |vpiIODecl:
+    \_io_decl: (clk)
+      |vpiName:clk
+      |vpiDirection:1
+  |vpiPort:
+  \_port: (clk), line:17, parent:work@mem_if
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@mem_if.clk), line:17, parent:work@mem_if
+        |vpiName:clk
+        |vpiFullName:work@mem_if.clk
+        |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (work@mem_if.clk), line:17, parent:work@mem_if
+|uhdmallModules:
+\_module: work@memory_ctrl1 (work@memory_ctrl1) dut.sv:25: , parent:work@range_itf_port
+  |vpiDefName:work@memory_ctrl1
+  |vpiFullName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif1), line:25, parent:work@memory_ctrl1
+    |vpiName:sif1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@mem_if (work@mem_if) dut.sv:17: , parent:work@range_itf_port
+        |vpiDefName:work@mem_if
+        |vpiFullName:work@mem_if
+        |vpiModport:
+        \_modport: (memory), parent:work@mem_if
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:2
+        |vpiModport:
+        \_modport: (system), parent:work@mem_if
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:1
+        |vpiPort:
+        \_port: (clk), line:17, parent:work@mem_if
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (work@mem_if.clk), line:17, parent:work@mem_if
+              |vpiName:clk
+              |vpiFullName:work@mem_if.clk
+              |vpiNetType:1
+        |vpiNet:
+        \_logic_net: (work@mem_if.clk), line:17, parent:work@mem_if
+  |vpiPort:
+  \_port: (sif2), line:25, parent:work@memory_ctrl1
+    |vpiName:sif2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (system), parent:work@mem_if
+  |vpiNet:
+  \_logic_net: (work@memory_ctrl1.sif1), line:25, parent:work@memory_ctrl1
+    |vpiName:sif1
+    |vpiFullName:work@memory_ctrl1.sif1
+  |vpiNet:
+  \_logic_net: (work@memory_ctrl1.sif2), line:25, parent:work@memory_ctrl1
+    |vpiName:sif2
+    |vpiFullName:work@memory_ctrl1.sif2
+|uhdmallModules:
+\_module: work@middle (work@middle) dut.sv:35: , parent:work@range_itf_port
+  |vpiDefName:work@middle
+  |vpiFullName:work@middle
+  |vpiPort:
+  \_port: (conn1), line:35, parent:work@middle
+    |vpiName:conn1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@ConnectTB (work@ConnectTB) dut.sv:32: , parent:work@range_itf_port
+        |vpiDefName:work@ConnectTB
+        |vpiFullName:work@ConnectTB
+        |vpiPort:
+        \_port: (con_i), line:32, parent:work@ConnectTB
+          |vpiName:con_i
+          |vpiDirection:1
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (work@ConnectTB.con_i), line:32, parent:work@ConnectTB
+              |vpiName:con_i
+              |vpiFullName:work@ConnectTB.con_i
+              |vpiNetType:1
+        |vpiNet:
+        \_logic_net: (work@ConnectTB.con_i), line:32, parent:work@ConnectTB
+  |vpiNet:
+  \_logic_net: (work@middle.conn1), line:35, parent:work@middle
+    |vpiName:conn1
+    |vpiFullName:work@middle.conn1
 |uhdmallModules:
 \_module: work@range_itf_port (work@range_itf_port) dut.sv:9: , parent:work@range_itf_port
   |vpiDefName:work@range_itf_port
@@ -78,6 +242,67 @@ design: (work@range_itf_port)
   \_logic_net: (work@range_itf_port.my_port1), line:10, parent:work@range_itf_port
     |vpiName:my_port1
     |vpiFullName:work@range_itf_port.my_port1
+|uhdmallModules:
+\_module: work@range_itf_port2 (work@range_itf_port2) dut.sv:39: , parent:work@range_itf_port
+  |vpiDefName:work@range_itf_port2
+  |vpiFullName:work@range_itf_port2
+  |vpiPort:
+  \_port: (my_port1), line:40, parent:work@range_itf_port2
+    |vpiName:my_port1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (MyModPort), parent:work@MyInterface
+  |vpiPort:
+  \_port: (my_port2), line:41, parent:work@range_itf_port2
+    |vpiName:my_port2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (MyModPort), parent:work@MyInterface
+  |vpiPort:
+  \_port: (my_port3), line:42, parent:work@range_itf_port2
+    |vpiName:my_port3
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@MyInterface (work@MyInterface) dut.sv:1: , parent:work@range_itf_port
+        |vpiDefName:work@MyInterface
+        |vpiFullName:work@MyInterface
+        |vpiModport:
+        \_modport: (MyModPort), parent:work@MyInterface
+        |vpiNet:
+        \_logic_net: (work@MyInterface.my_logic), line:2, parent:work@MyInterface
+          |vpiName:my_logic
+          |vpiFullName:work@MyInterface.my_logic
+          |vpiNetType:36
+  |vpiPort:
+  \_port: (my_port4), line:43, parent:work@range_itf_port2
+    |vpiName:my_port4
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@MyInterface (work@MyInterface) dut.sv:1: , parent:work@range_itf_port
+  |vpiNet:
+  \_logic_net: (work@range_itf_port2.my_port1), line:40, parent:work@range_itf_port2
+    |vpiName:my_port1
+    |vpiFullName:work@range_itf_port2.my_port1
+  |vpiNet:
+  \_logic_net: (work@range_itf_port2.my_port2), line:41, parent:work@range_itf_port2
+    |vpiName:my_port2
+    |vpiFullName:work@range_itf_port2.my_port2
+  |vpiNet:
+  \_logic_net: (work@range_itf_port2.my_port3), line:42, parent:work@range_itf_port2
+    |vpiName:my_port3
+    |vpiFullName:work@range_itf_port2.my_port3
+  |vpiNet:
+  \_logic_net: (work@range_itf_port2.my_port4), line:43, parent:work@range_itf_port2
+    |vpiName:my_port4
+    |vpiFullName:work@range_itf_port2.my_port4
 |uhdmtopModules:
 \_module: work@range_itf_port (work@range_itf_port) dut.sv:9: 
   |vpiDefName:work@range_itf_port
@@ -89,17 +314,34 @@ design: (work@range_itf_port)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (MyModPort)
-        |vpiName:MyModPort
-        |vpiIODecl:
-        \_io_decl: (my_logic)
-          |vpiName:my_logic
-          |vpiDirection:2
-          |vpiExpr:
-          \_logic_net: (work@range_itf_port.my_logic), line:2, parent:work@range_itf_port
-            |vpiName:my_logic
-            |vpiFullName:work@range_itf_port.my_logic
-            |vpiNetType:36
+      \_interface_array: (my_port1)
+        |vpiName:my_port1
+        |vpiSize:2
+        |vpiInstance:
+        \_interface: work@MyInterface (my_port1) dut.sv:9: 
+          |vpiDefName:work@MyInterface
+          |vpiName:my_port1
+          |vpiModport:
+          \_modport: (MyModPort), parent:my_port1
+            |vpiName:MyModPort
+            |vpiIODecl:
+            \_io_decl: (my_logic)
+              |vpiName:my_logic
+              |vpiDirection:2
+        |vpiRange:
+        \_range: , line:10
+          |vpiLeftRange:
+          \_constant: , line:10
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:10
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
   |vpiPort:
   \_port: (my_port2), line:11, parent:work@range_itf_port
     |vpiName:my_port2
@@ -129,14 +371,189 @@ design: (work@range_itf_port)
             |vpiDecompile:0
             |vpiSize:64
             |INT:0
-  |vpiNet:
-  \_logic_net: (work@range_itf_port.my_logic), line:2, parent:work@range_itf_port
   |vpiArrayNet:
   \_array_net: (work@range_itf_port.my_port2), line:11, parent:work@range_itf_port
+|uhdmtopModules:
+\_module: work@memory_ctrl1 (work@memory_ctrl1) dut.sv:25: 
+  |vpiDefName:work@memory_ctrl1
+  |vpiName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif1), line:25, parent:work@memory_ctrl1
+    |vpiName:sif1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@mem_if (sif1) dut.sv:25: 
+        |vpiDefName:work@mem_if
+        |vpiName:sif1
+        |vpiModport:
+        \_modport: (memory), parent:sif1
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:2
+        |vpiModport:
+        \_modport: (system), parent:sif1
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk)
+            |vpiName:clk
+            |vpiDirection:1
+  |vpiPort:
+  \_port: (sif2), line:25, parent:work@memory_ctrl1
+    |vpiName:sif2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (system), parent:sif2
+        |vpiName:system
+        |vpiIODecl:
+        \_io_decl: (clk)
+          |vpiName:clk
+          |vpiDirection:1
+|uhdmtopModules:
+\_module: work@middle (work@middle) dut.sv:35: 
+  |vpiDefName:work@middle
+  |vpiName:work@middle
+  |vpiPort:
+  \_port: (conn1), line:35, parent:work@middle
+    |vpiName:conn1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface_array: (conn1)
+        |vpiName:conn1
+        |vpiSize:2
+        |vpiInstance:
+        \_interface: work@ConnectTB (conn1) dut.sv:35: 
+          |vpiDefName:work@ConnectTB
+          |vpiName:conn1
+        |vpiRange:
+        \_range: , line:35
+          |vpiLeftRange:
+          \_constant: , line:35
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:35
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+|uhdmtopModules:
+\_module: work@range_itf_port2 (work@range_itf_port2) dut.sv:39: 
+  |vpiDefName:work@range_itf_port2
+  |vpiName:work@range_itf_port2
+  |vpiPort:
+  \_port: (my_port1), line:40, parent:work@range_itf_port2
+    |vpiName:my_port1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_modport: (MyModPort), parent:my_port1
+        |vpiName:MyModPort
+        |vpiIODecl:
+        \_io_decl: (my_logic)
+          |vpiName:my_logic
+          |vpiDirection:2
+  |vpiPort:
+  \_port: (my_port2), line:41, parent:work@range_itf_port2
+    |vpiName:my_port2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface_array: (my_port2)
+        |vpiName:my_port2
+        |vpiSize:2
+        |vpiInstance:
+        \_interface: work@MyInterface (my_port2) dut.sv:39: 
+          |vpiDefName:work@MyInterface
+          |vpiName:my_port2
+          |vpiModport:
+          \_modport: (MyModPort), parent:my_port2
+            |vpiName:MyModPort
+            |vpiIODecl:
+            \_io_decl: (my_logic)
+              |vpiName:my_logic
+              |vpiDirection:2
+        |vpiRange:
+        \_range: , line:41
+          |vpiLeftRange:
+          \_constant: , line:41
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:41
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
+  |vpiPort:
+  \_port: (my_port3), line:42, parent:work@range_itf_port2
+    |vpiName:my_port3
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@MyInterface (my_port3) dut.sv:39: 
+        |vpiDefName:work@MyInterface
+        |vpiName:my_port3
+        |vpiModport:
+        \_modport: (MyModPort), parent:my_port3
+          |vpiName:MyModPort
+          |vpiIODecl:
+          \_io_decl: (my_logic)
+            |vpiName:my_logic
+            |vpiDirection:2
+  |vpiPort:
+  \_port: (my_port4), line:43, parent:work@range_itf_port2
+    |vpiName:my_port4
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface_array: (my_port4)
+        |vpiName:my_port4
+        |vpiSize:2
+        |vpiInstance:
+        \_interface: work@MyInterface (my_port4) dut.sv:39: 
+          |vpiDefName:work@MyInterface
+          |vpiName:my_port4
+          |vpiModport:
+          \_modport: (MyModPort), parent:my_port4
+            |vpiName:MyModPort
+            |vpiIODecl:
+            \_io_decl: (my_logic)
+              |vpiName:my_logic
+              |vpiDirection:2
+        |vpiRange:
+        \_range: , line:43
+          |vpiLeftRange:
+          \_constant: , line:43
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:64
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:43
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:64
+            |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 2
-[   NOTE] : 5
+[WARNING] : 7
+[   NOTE] : 9
 

@@ -350,7 +350,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
 
       dt = dt->getDefinition();
     }
-/*
+
     if (result == nullptr) {
       std::string libName = fC->getLibrary()->getName();
       Design* design = compileDesign->getCompiler()->getDesign();
@@ -358,15 +358,26 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
       if (def) {
         if (def->getType() == slInterface_declaration) {
           interface_typespec* tps = s.MakeInterface_typespec();
-          tps->VpiParent(def->getUdpDefn());
           tps->VpiName(typeName);
           tps->VpiFile(fC->getFileName());
           tps->VpiLineNo(fC->Line(type));
           result = tps;
+          if (NodeId sub = fC->Sibling(type)) {
+            const std::string& name = fC->SymName(sub);
+            if (def->getModPort(name)) {
+              interface_typespec* mptps = s.MakeInterface_typespec();
+              mptps->VpiName(name);
+              mptps->VpiFile(fC->getFileName());
+              mptps->VpiLineNo(fC->Line(type));
+              mptps->VpiParent(tps);
+              mptps->VpiIsModPort(true);
+              result = mptps;
+            }
+          }
         }
       }
     }
-*/
+
     if (result == nullptr) {
       void_typespec* tps = s.MakeVoid_typespec();
       tps->VpiName(typeName);
