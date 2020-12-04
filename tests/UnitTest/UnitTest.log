@@ -911,7 +911,7 @@ design: (work@tb_operators)
               |vpiConstType:3
               |vpiDecompile:'b1
               |vpiSize:1
-              |BIN:1'b1
+              |BIN:1
             |vpiOperand:
             \_constant: , line:16
               |vpiConstType:3
@@ -945,7 +945,7 @@ design: (work@tb_operators)
               |vpiConstType:3
               |vpiDecompile:'b0
               |vpiSize:1
-              |BIN:1'b0
+              |BIN:0
             |vpiOperand:
             \_constant: , line:17
               |vpiConstType:3
@@ -1344,14 +1344,14 @@ design: (work@tb_operators)
         |vpiDefName:work@mem_if
         |vpiName:sif1
         |vpiModport:
-        \_modport: (memory)
+        \_modport: (memory), parent:sif1
           |vpiName:memory
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:2
         |vpiModport:
-        \_modport: (system)
+        \_modport: (system), parent:sif1
           |vpiName:system
           |vpiIODecl:
           \_io_decl: (clk)
@@ -1364,23 +1364,12 @@ design: (work@tb_operators)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:sif2
         |vpiName:system
         |vpiIODecl:
         \_io_decl: (clk)
           |vpiName:clk
           |vpiDirection:1
-          |vpiExpr:
-          \_logic_net: (work@memory_ctrl1.clk), line:47, parent:work@memory_ctrl1
-            |vpiName:clk
-            |vpiFullName:work@memory_ctrl1.clk
-            |vpiNetType:1
-  |vpiPort:
-  \_port: (clk), line:47, parent:work@memory_ctrl1
-    |vpiName:clk
-    |vpiDirection:1
-  |vpiNet:
-  \_logic_net: (work@memory_ctrl1.clk), line:47, parent:work@memory_ctrl1
   |vpiNet:
   \_logic_net: (work@memory_ctrl1.toto1), line:59, parent:work@memory_ctrl1
     |vpiName:toto1

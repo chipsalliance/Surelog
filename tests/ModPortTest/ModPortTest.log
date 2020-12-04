@@ -1092,14 +1092,14 @@ design: (work@dff0_test)
         |vpiDefName:work@mem_if
         |vpiName:sif
         |vpiModport:
-        \_modport: (memory)
+        \_modport: (memory), parent:sif
           |vpiName:memory
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:2
         |vpiModport:
-        \_modport: (system)
+        \_modport: (system), parent:sif
           |vpiName:system
           |vpiIODecl:
           \_io_decl: (clk)
@@ -1143,23 +1143,12 @@ design: (work@dff0_test)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:sif
         |vpiName:system
         |vpiIODecl:
         \_io_decl: (clk)
           |vpiName:clk
           |vpiDirection:1
-          |vpiExpr:
-          \_logic_net: (work@memory_ctrl2.clk), line:29, parent:work@memory_ctrl2
-            |vpiName:clk
-            |vpiFullName:work@memory_ctrl2.clk
-            |vpiNetType:1
-  |vpiPort:
-  \_port: (clk), line:29, parent:work@memory_ctrl2
-    |vpiName:clk
-    |vpiDirection:1
-  |vpiNet:
-  \_logic_net: (work@memory_ctrl2.clk), line:29, parent:work@memory_ctrl2
   |vpiNet:
   \_logic_net: (work@memory_ctrl2.t), line:51, parent:work@memory_ctrl2
     |vpiName:t
