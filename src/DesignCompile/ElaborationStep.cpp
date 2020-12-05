@@ -779,6 +779,8 @@ bool ElaborationStep::bindPortType_(Signal* signal,
           NodeId Class_scope_name = fC->Sibling(typespecId);
           if (bindStructInPackage(design, signal, fC->SymName(Class_type_name), fC->SymName(Class_scope_name)))
             return true;
+        } else if (fC->Type(typespecId) == slStringConst) {
+          interfName = fC->SymName(typespecId);
         }
       }
     }  

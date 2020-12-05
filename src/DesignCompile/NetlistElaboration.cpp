@@ -757,6 +757,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
     if (tps->UhdmType() == uhdmstruct_typespec) {
       struct_typespec* the_tps = (struct_typespec*)tps;
       if (the_tps->Members()) {
+        isNet = true; 
         for (typespec_member* member : *the_tps->Members()) {
           const typespec* mtps = member->Typespec();
           if (mtps) {
@@ -804,10 +805,24 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
         enum_net* stv = s.MakeEnum_net();
         stv->Typespec(en->getTypespec());
         obj = stv;
+        if (packedDimensions) {
+          packed_array_net* pnets = s.MakePacked_array_net();
+          pnets->Ranges(packedDimensions);
+          pnets->Elements(s.MakeAnyVec());
+          pnets->Elements()->push_back(stv);
+          obj = pnets;
+        }
       } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
         struct_net* stv = s.MakeStruct_net();
         stv->Typespec(st->getTypespec());
         obj = stv;
+        if (packedDimensions) {
+          packed_array_net* pnets = s.MakePacked_array_net();
+          pnets->Ranges(packedDimensions);
+          pnets->Elements(s.MakeAnyVec());
+          pnets->Elements()->push_back(stv);
+          obj = pnets;
+        }
       } else if (const SimpleType* sit =
                      dynamic_cast<const SimpleType*>(dtype)) {
         UHDM::typespec* spec = sit->getTypespec();
