@@ -888,7 +888,7 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
 }
 
 
-VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed) {
+VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed, NodeId& nodeType) {
   Packed_dimension = 0;
   is_signed = false;
   VObjectType signal_type = VObjectType::slData_type_or_implicit;
@@ -907,10 +907,25 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
           the_type = fC->Type(integer_vector_type);
           if (the_type == VObjectType::slIntVec_TypeBit ||
               the_type == VObjectType::slIntVec_TypeLogic ||
-              the_type == VObjectType::slIntVec_TypeReg) {
+              the_type == VObjectType::slIntVec_TypeReg ||
+              the_type == VObjectType::slStringConst ||
+              the_type == VObjectType::slClass_scope) {
+            if (the_type == VObjectType::slStringConst) {
+              const std::string& tname = fC->SymName(integer_vector_type);
+              if (tname == "logic") {
+                the_type =  VObjectType::slIntVec_TypeLogic;
+              } else if (tname == "bit") {
+                the_type =  VObjectType::slIntVec_TypeBit;
+              } else if (tname == "byte") {
+                the_type =  VObjectType::slIntegerAtomType_Byte;
+              } 
+            }   
             signal_type = the_type;
-            Packed_dimension = fC->Sibling(integer_vector_type);
+            nodeType = integer_vector_type;
+            if (the_type != VObjectType::slClass_scope)
+              Packed_dimension = fC->Sibling(integer_vector_type);
           }
+
         } else if (the_type == VObjectType::slPacked_dimension) {
           Packed_dimension = data_type;
         } else if (the_type == VObjectType::slSigning_Signed) {
@@ -927,7 +942,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
 
 void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         NodeId signal, VObjectType type,
-        VObjectType signal_type, NodeId packed_dimension, bool is_signed)
+        VObjectType signal_type, NodeId packed_dimension, bool is_signed,  NodeId nodeType)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
   VObjectType dir_type = slNoType;
@@ -946,8 +961,12 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           found = true;
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
-          if (signal_type != VObjectType::slData_type_or_implicit)
+          if (signal_type != VObjectType::slData_type_or_implicit) {
             port->setType(signal_type);
+            if (nodeType) {
+              port->setTypespecId(nodeType);
+            }
+          }
           break;
         }
       }
@@ -1094,7 +1113,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
       NodeId net_port_type = fC->Child(subNode);
       NodeId Packed_dimension = 0;
       bool is_signed = false;
-      VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ Packed_dimension,  /*ref*/ is_signed);
+      NodeId nodeType = 0;
+      VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ Packed_dimension,  /*ref*/ is_signed, /*ref*/ nodeType);
       NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
       if (fC->Type(list_of_port_identifiers) ==
               VObjectType::slPacked_dimension) {
@@ -1102,7 +1122,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                 fC->Sibling(list_of_port_identifiers);
       }
       NodeId signal = fC->Child(list_of_port_identifiers);
-      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension, is_signed);
+      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension, is_signed, nodeType);
       break;
     }
     default:
@@ -1168,7 +1188,8 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         specParamId = packedDimension;
       }
     }
-    VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed);
+    NodeId nodeType = 0;
+    VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed, nodeType);
     NodeId unpackedDimension = 0;
     NodeId tmp = fC->Sibling(identifier);
     if (fC->Type(tmp) == slUnpacked_dimension) {

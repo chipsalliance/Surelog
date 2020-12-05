@@ -477,6 +477,8 @@ proc run_regression { } {
             set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
             set result [read $fid]
             close $fid
+	    regsub -all {[a-zA-Z_/-]*/Surelog/} $result {${SURELOG_DIR}/} result
+	    regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $result {t.ttts} result
         } else {
             if [file exists "${testname}.log"] {
                 set fid [open "${testname}.log" "r"]
