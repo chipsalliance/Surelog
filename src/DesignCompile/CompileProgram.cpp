@@ -160,6 +160,36 @@ bool CompileProgram::compile() {
       m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id), m_compileDesign);
       break;
     }
+    case VObjectType::slParameter_declaration: {
+      NodeId list_of_type_assignments = fC->Child(id);
+      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+          fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+        // Type param
+        m_helper.compileParameterDeclaration(
+            m_program, fC, list_of_type_assignments, m_compileDesign, false,
+            nullptr, false);
+
+      } else {
+        m_helper.compileParameterDeclaration(m_program, fC, id, m_compileDesign,
+                                             false, nullptr, false);
+      }
+      break;
+    }
+    case VObjectType::slLocal_parameter_declaration: {
+      NodeId list_of_type_assignments = fC->Child(id);
+      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+          fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+        // Type param
+        m_helper.compileParameterDeclaration(
+            m_program, fC, list_of_type_assignments, m_compileDesign, true,
+            nullptr, false);
+
+      } else {
+        m_helper.compileParameterDeclaration(m_program, fC, id, m_compileDesign,
+                                             true, nullptr, false);
+      }
+      break;
+    }
     case VObjectType::slClass_declaration:
     {
       NodeId nameId = fC->Child(id);
