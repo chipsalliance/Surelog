@@ -183,6 +183,9 @@ dict set WINDOWS_BLACK_LIST UnitElabExternNested 1
 dict set WINDOWS_BLACK_LIST UnitPython 1
 dict set WINDOWS_BLACK_LIST UnitSimpleIncludeAndMacros 1
 dict set WINDOWS_BLACK_LIST Verilator 1
+dict set WINDOWS_BLACK_LIST BuildUVMPkg 1
+dict set WINDOWS_BLACK_LIST Compl1001 1
+dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 
 set UNIX_BLACK_LIST [dict create]
 # 2 message diff:
