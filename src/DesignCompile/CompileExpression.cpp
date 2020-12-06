@@ -51,55 +51,70 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-static unsigned long long get_value(bool& invalidValue, const UHDM::expr* expr) {
-  const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
+static unsigned long long get_value(bool& invalidValue,
+                                    const UHDM::expr* expr) {
+  const UHDM::constant* hs = dynamic_cast<const UHDM::constant*>(expr);
   if (hs) {
     s_vpi_value* sval = String2VpiValue(hs->VpiValue());
     if (sval) {
-      if (sval->format == vpiIntVal) {
-        unsigned long long result = sval->value.integer;
-        delete sval;
-        return result;
-      } else if (sval->format == vpiBinStrVal) {
-        std::string val = sval->value.str;
-        unsigned long long result = 0;
-        StringUtils::ltrim(val, '\'');
-        StringUtils::ltrim(val, 'b');
-        try {
-          result = std::stoull (val,nullptr,2);
-        } catch (...) {
-          invalidValue = true;
+      switch (sval->format) {
+        case vpiIntVal: {
+          unsigned long long result = sval->value.integer;
+          delete sval;
+          return result;
         }
-        delete sval;
-        return result;
-      } else if (sval->format == vpiHexStrVal) {
-        std::string val = sval->value.str;
-        unsigned long long result = 0;
-        StringUtils::ltrim(val, '\'');
-        StringUtils::ltrim(val, 'h');
-        try {
-          result = std::stoull (val,nullptr,16);
-        } catch (...) {
-          invalidValue = true;
+        case vpiBinStrVal: {
+          std::string val = sval->value.str;
+          unsigned long long result = 0;
+          StringUtils::ltrim(val, '\'');
+          StringUtils::ltrim(val, 'b');
+          try {
+            result = std::stoull(val, nullptr, 2);
+          } catch (...) {
+            invalidValue = true;
+          }
+          delete sval;
+          return result;
         }
-        delete sval;
-        return result;
-      } else if (sval->format == vpiOctStrVal) {
-        std::string val = sval->value.str;
-        unsigned long long result = 0;
-        StringUtils::ltrim(val, '\'');
-        StringUtils::ltrim(val, 'h');
-        try {
-          result = std::stoull (val,nullptr,8);
-        } catch (...) {
-          invalidValue = true;
+        case vpiHexStrVal: {
+          std::string val = sval->value.str;
+          unsigned long long result = 0;
+          StringUtils::ltrim(val, '\'');
+          StringUtils::ltrim(val, 'h');
+          try {
+            result = std::stoull(val, nullptr, 16);
+          } catch (...) {
+            invalidValue = true;
+          }
+          delete sval;
+          return result;
         }
-        delete sval;
-        return result;  
-      } else if (sval->format == vpiStringVal) {
-        // Don't error out, return 0  
-      } else {
-        invalidValue = true;
+        case vpiOctStrVal: {
+          std::string val = sval->value.str;
+          unsigned long long result = 0;
+          StringUtils::ltrim(val, '\'');
+          StringUtils::ltrim(val, 'h');
+          try {
+            result = std::stoull(val, nullptr, 8);
+          } catch (...) {
+            invalidValue = true;
+          }
+          delete sval;
+          return result;
+        }
+        case vpiStringVal: {
+          // Don't error out, return 0
+          break;
+        }
+        case vpiScalarVal: {
+          unsigned long long result = sval->value.scalar;
+          delete sval;
+          return result;
+        }
+        default: {
+          invalidValue = true;
+          break;
+        }
       }
     }
   }

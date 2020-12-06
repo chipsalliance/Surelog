@@ -27,6 +27,25 @@
             ]
         },
         {
+            "name": "Ibex",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": [ "-DPRJ_DIR=.", "-f", "Ibex.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Ibex",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Icarus",
             "type": "cppdbg",
             "request": "launch",

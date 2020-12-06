@@ -169,7 +169,16 @@ void SValue::u_minus(const Value* a) {
 }
 
 std::string SValue::uhdmValue() {
-  std::string result = "INT:";
+  Value::Type valueType = getType();
+  std::string result;
+  switch (valueType) {
+    case (Value::Type::Scalar):
+      result = "SCAL:";
+      break;
+    default:
+      result = "INT:";
+      break;
+  }
   result += std::to_string(m_value);
   return result;
 }
