@@ -470,12 +470,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
-      integer_typespec* var = s.MakeInteger_typespec();
-      std::string value = "INT:" + fC->SymName(literal);
-      var->VpiValue(value);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      result = var;
+      if (fC->Type(literal) == slStringConst) {
+        const std::string& typeName = fC->SymName(literal);
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
+      } else {
+        integer_typespec* var = s.MakeInteger_typespec();
+        std::string value = "INT:" + fC->SymName(literal);
+        var->VpiValue(value);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      }
       break;
     }
     case VObjectType::slIntVec_TypeLogic:
