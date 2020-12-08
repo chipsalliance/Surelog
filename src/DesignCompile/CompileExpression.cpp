@@ -1058,9 +1058,6 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slNumber_1Tickb1:
       case VObjectType::slNumber_1TickB1:
-      case VObjectType::slNumber_Tickb1:
-      case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:
       case VObjectType::slInitVal_1Tickb1:
       case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
@@ -1077,11 +1074,21 @@ UHDM::any* CompileHelper::compileExpression(
         result = c;
         break;
       }
+      case VObjectType::slNumber_Tickb1:
+      case VObjectType::slNumber_TickB1:
+      case VObjectType::slNumber_Tick1:
+      {
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = "BIN:1";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(0);
+        c->VpiDecompile("'b1");
+        result = c;
+        break;
+      }
       case VObjectType::slNumber_1Tickb0:
       case VObjectType::slNumber_1TickB0:
-      case VObjectType::slNumber_Tickb0:
-      case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0:
       case VObjectType::slInitVal_1Tickb0:
       case VObjectType::slInitVal_1TickB0:
       case VObjectType::slScalar_1Tickb0:
@@ -1094,6 +1101,19 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
+        c->VpiDecompile("'b0");
+        result = c;
+        break;
+      }
+      case VObjectType::slNumber_Tickb0:
+      case VObjectType::slNumber_TickB0:
+      case VObjectType::slNumber_Tick0:
+      {
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = "BIN:0";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(0);
         c->VpiDecompile("'b0");
         result = c;
         break;
