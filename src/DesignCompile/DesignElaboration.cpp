@@ -1317,16 +1317,19 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
+  std::vector<std::string> moduleParams;
   for (FileCNodeId param :
        module->getObjects(VObjectType::slParam_assignment)) {
     NodeId ident = param.fC->Child(param.nodeId);
     std::string name = param.fC->SymName(ident);
-    Value* value =
-        m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident), instance, true);
-    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
     params.push_back(name);
+    moduleParams.push_back(name);
+    Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
+                                          instance, true);
+    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
   }
 
+  std::set<std::string> overridenParams;
   std::vector<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
@@ -1343,6 +1346,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
         std::string name = parentFile->SymName(child);
+        overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(), true);
@@ -1362,8 +1366,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
         std::string name = "OUT_OF_RANGE_PARAM_INDEX";
-        if (index < params.size()) {
-          name = params[index];
+        if (index < moduleParams.size()) {
+          name = moduleParams[index];
+          overridenParams.insert(name);
         } else {
           Location loc(st->registerSymbol(parentFile->getFileName(paramAssign)),
                        parentFile->Line(paramAssign), 0,
@@ -1420,6 +1425,18 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     Value* val = m_exprBuilder.evalExpr(fC, value, instance);
     design->addDefParam(path, fC, hIdent, val);
   }
+
+  for (FileCNodeId param :
+       module->getObjects(VObjectType::slParam_assignment)) {
+    NodeId ident = param.fC->Child(param.nodeId);
+    std::string name = param.fC->SymName(ident);
+    if (overridenParams.find(name) == overridenParams.end()) {
+      Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
+                                            instance, true);
+      instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+    }
+  }
+
 }
 
 void DesignElaboration::checkElaboration_() {
