@@ -100,6 +100,7 @@ const std::vector<std::string> helpText = {
     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
     "options supported)",
     "  -Dvar=value           Same as env var definition for -f files var substitution",
+    "  -Pparameter=value     Top level parameter override",
     "  -sverilog             Forces all files to be parsed as SystemVerilog files",
     "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
     "FLOWS OPTIONS:",
@@ -609,6 +610,20 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 	      SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, value));
       }
+    } else if (strstr (all_arguments[i].c_str(), "-P")) {
+      std::string def;
+      std::string value;
+      std::string tmp = all_arguments[i];
+      const size_t loc = tmp.find("=");
+      if (loc == std::string::npos) {
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_paramList.insert(std::make_pair(id, std::string()));
+      } else {
+        def = tmp.substr(2, loc - 2);
+        value = tmp.substr(loc + 1);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_paramList.insert(std::make_pair(id, value));
+      }
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
@@ -693,7 +708,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_useTbb = true;
     } else if ((all_arguments[i] == "--top-module") || (all_arguments[i] == "-top")) {
       i++;
-      m_topLevelModules.push_back(all_arguments[i]);
+      m_topLevelModules.insert(all_arguments[i]);
     } else if (all_arguments[i] == "-createcache") {
       m_createCache = true;
     } else if (all_arguments[i] == "-lineoffsetascomments") {

@@ -711,3 +711,26 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
   }
   return val;
 }
+
+
+Value* ExprBuilder::fromString(const std::string& value) {
+  Value* val = nullptr;
+  uint64_t v = 0;
+  if ((v = std::strtoull(value.c_str(), 0, 10))) {
+    val = m_valueFactory.newLValue();
+    val->set(v);
+  } else if ((v = std::strtoull(value.c_str(), 0, 16))) {
+    val = m_valueFactory.newLValue();
+    val->set(v);
+  } else if ((v = std::strtoull(value.c_str(), 0, 8))) {
+    val = m_valueFactory.newLValue();
+    val->set(v);
+  } else if ((v = std::strtoull(value.c_str(), 0, 2))) {
+    val = m_valueFactory.newLValue();
+    val->set(v);
+  } else {
+    val = m_valueFactory.newStValue();
+    val->set(value);
+  }
+  return val;
+}

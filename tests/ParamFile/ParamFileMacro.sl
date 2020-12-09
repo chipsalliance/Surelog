@@ -1,0 +1,1 @@
+-fileunit -writepp -parse -d ast -d uhdm  dut.sv -nobuiltin -nocache -DPARAM_FILE=/toto/blah -o slpp_macro

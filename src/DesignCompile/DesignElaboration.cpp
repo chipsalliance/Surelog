@@ -240,6 +240,7 @@ bool DesignElaboration::identifyTopModules_() {
   bool modulePresent = false;
   bool toplevelModuleFound = false;
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
+  std::set<std::string>& userTopList = m_compileDesign->getCompiler()->getCommandLineParser()->getTopLevelModules();
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
   typedef std::multimap<std::string, std::pair<DesignElement*,
@@ -249,13 +250,14 @@ bool DesignElaboration::identifyTopModules_() {
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
     for (DesignElement& element : file.second->getDesignElements()) {
-      std::string elemName = st->getSymbol(element.m_name);
+      const std::string& elemName = st->getSymbol(element.m_name);
       if (element.m_type == DesignElement::Module) {
         if (element.m_parent) {
           // This is a nested element
           continue;
         }
-        std::string topname = file.second->getLibrary()->getName();
+        const std::string& libName = file.second->getLibrary()->getName();
+        std::string topname = libName;
         topname += "@" + elemName;
 
         if (!file.second->getParent()) {
@@ -293,12 +295,19 @@ bool DesignElaboration::identifyTopModules_() {
                 st->registerSymbol(file.second->getFileName(element.m_node)),
                 element.m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
-              m_uniqueTopLevelModules.insert(topname);
-              m_topLevelModules.emplace_back(topname, file.second);
-              toplevelModuleFound = true;
-              Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
-              m_compileDesign->getCompiler()->getErrorContainer()->addError(
-                  err);
+              bool okModule = true;
+              if (userTopList.size()) {
+                if (userTopList.find(elemName) == userTopList.end())
+                  okModule = false;
+              }
+              if (okModule) {
+                m_uniqueTopLevelModules.insert(topname);
+                m_topLevelModules.emplace_back(topname, file.second);
+                toplevelModuleFound = true;
+                Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
+                m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                    err);
+              }
             }
           }
         }
@@ -1380,6 +1389,21 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         index++;
       }
     }
+  }
+
+  // Command line override
+  if (instance->getParent() == nullptr) { // Top level only
+    CommandLineParser* cmdLine = m_compileDesign->getCompiler()->getCommandLineParser();
+    const std::map<SymbolId, std::string>& useroverrides = cmdLine->getParamList();
+    for (std::map<SymbolId, std::string>::const_iterator itr = useroverrides.begin(); itr !=useroverrides.end(); itr++) {
+      const std::string& name = cmdLine->getSymbolTable().getSymbol((*itr).first);
+      const std::string& value = (*itr).second;
+      Value* val = m_exprBuilder.fromString(value);
+      if (val) {
+        instance->setValue(name, val, m_exprBuilder, 0);
+        overridenParams.insert(name);
+      }
+    } 
   }
 
   // Defparams
