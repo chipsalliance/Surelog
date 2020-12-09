@@ -56,6 +56,9 @@ class CommandLineParser final {
   const std::map<SymbolId, std::string>& getDefineList() {
     return m_defineList;
   }
+  const std::map<SymbolId, std::string>& getParamList() {
+    return m_paramList;
+  }
   bool fileunit() { return m_fileunit; }  // File or all compilation semantic
   void setFileUnit() { m_fileunit = true; }
   /* PP Output file/dir options */
@@ -146,7 +149,7 @@ class CommandLineParser final {
   std::string getBuiltInPath() { return m_builtinPath; }
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
-  std::vector<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  std::set<std::string>& getTopLevelModules() { return m_topLevelModules; }
   bool fullSVMode() const { return m_sverilog; }
   bool isSVFile(const std::string& fileName) const;
   bool cleanCache();
@@ -175,6 +178,7 @@ class CommandLineParser final {
   std::vector<SymbolId> m_configFiles;           // -cfgFile <config file>
   std::vector<SymbolId> m_useConfigs;            // -cfg <configName>
   std::map<SymbolId, std::string> m_defineList;  // +define+
+  std::map<SymbolId, std::string> m_paramList;  // -Pparameter=value
   SymbolId m_writePpOutputFileId;
   bool m_writePpOutput;
   bool m_filterFileLine;
@@ -236,7 +240,7 @@ class CommandLineParser final {
   std::string m_builtinPath;
   std::string m_exePath;
   std::string m_exeCommand;
-  std::vector<std::string> m_topLevelModules;
+  std::set<std::string> m_topLevelModules;
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;

@@ -76,6 +76,7 @@ For more build/test options and system requirements for building see
    -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile options supported)
    -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
    -Dvar=value           Same as env var definition for -f files var substitution
+   -Pparameter=value     Overrides a toplevel module parameter
 ```   
  * FLOWS OPTIONS:
  ```
