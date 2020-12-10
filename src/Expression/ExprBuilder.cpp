@@ -53,6 +53,16 @@ Value* ExprBuilder::clone(Value* val) {
   return clone;
 }
 
+static std::string toBinary(int n)
+{
+    std::string r;
+    while (n != 0){
+        r += ( n % 2 == 0 ? "0" : "1" );
+        n /= 2;
+    }
+    return r;
+}
+
 Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
@@ -549,7 +559,6 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         NodeId Constant_expression = fC->Child(child);
         char base = 'h';
         std::string svalue;
-        uint64_t hex_value = 0;
         while (Constant_expression) {
           NodeId Constant_primary = fC->Child(Constant_expression);
           NodeId Primary_literal = fC->Child(Constant_primary);
@@ -559,7 +568,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             token = fC->SymName(ConstVal);
           } else {
             Value* constVal = evalExpr(fC, Primary_literal, instance, muteErrors);
-            token = std::to_string(constVal->getValueUL());
+            token = toBinary(constVal->getValueUL());
           }
           if (strstr(token.c_str(), "'")) {
             unsigned int i = 0;
@@ -573,6 +582,16 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             v = StringUtils::replaceAll(v, "_", "");
             std::string size = token.substr(0, i);
             uint64_t isize = std::strtoull(size.c_str(), 0, 10);
+            if (base == 'd') {
+              long long iv = std::strtoll(v.c_str(), 0, 10);
+              v = toBinary(iv);
+            } else if (base == 'h') {
+              long long iv = std::strtoll(v.c_str(), 0, 16);
+              v = toBinary(iv);
+            } else if (base == 'o') {
+              long long iv = std::strtoll(v.c_str(), 0, 8);
+              v = toBinary(iv);
+            }
             unsigned int vsize = v.size();
             for (unsigned int i = 0; i < isize - vsize; i++) 
               v = "0" + v;
@@ -580,30 +599,20 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           } else {
             std::string v = token;
             svalue += v;
-            base = 'd';
+            base = 'b';
           }
           Constant_expression = fC->Sibling(Constant_expression);
         }
-
-        switch (base) {
-          case 'h':
-            hex_value = std::strtoull(svalue.c_str(), 0, 16);
-            break;
-          case 'b':
-            hex_value = std::strtoull(svalue.c_str(), 0, 2);
-            break;
-          case 'o':
-            hex_value = std::strtoull(svalue.c_str(), 0, 8);
-            break;
-          case 'd':
-            hex_value = std::strtoull(svalue.c_str(), 0, 10);
-            break;
-          default:
-            break;
+        base = 'b';
+        if (svalue == "") {
+          value->set((int64_t) 0);
+        } else {
+          m_valueFactory.deleteValue(value);
+          value = m_valueFactory.newStValue();
+          value->set(svalue, Value::Type::Binary);
         }
-        value->set(hex_value);
         value->setInvalid(); // We can't distinguish in between concatenation or array initialization in this context
-        // se we mark the value as invalid for most purposes. Enum value can still use it as concatenation
+        // so we mark the value as invalid for most purposes. Enum value can still use it as concatenation
         break;
       }
       default:
