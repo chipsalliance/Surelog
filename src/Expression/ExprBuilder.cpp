@@ -42,13 +42,12 @@ using namespace SURELOG;
 
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = NULL;
-  bool isLValue = val->isLValue();
-  if (val->getType() == Value::Type::String) {
-    clone = m_valueFactory.newValue(*(StValue*)val);
-  } else if (isLValue) {
-    clone = m_valueFactory.newValue(*(LValue*)val);
-  } else {
-    clone = m_valueFactory.newValue(*(SValue*)val);
+  if (StValue* v = dynamic_cast<StValue*>(val)) {
+    clone = m_valueFactory.newValue(*v);
+  } else if (LValue* v = dynamic_cast<LValue*>(val)) {
+    clone = m_valueFactory.newValue(*v);
+  } else if (SValue* v = dynamic_cast<SValue*>(val)) {
+    clone = m_valueFactory.newValue(*v);
   }
   return clone;
 }
