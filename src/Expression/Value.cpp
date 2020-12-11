@@ -561,8 +561,15 @@ void LValue::adjust(const Value* a) {
 void LValue::u_plus(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
-    m_valueArray[i].m_value = a->getValueL(i);
+    long long tmp = a->getValueL(i);
     m_valueArray[i].m_size = a->getSize(i);
+    if (tmp >= 0)
+      m_valueArray[i].m_value = tmp;
+    else {
+      m_valueArray[i].m_value = 0;
+      m_valid = false;
+      return;
+    }
   }
   m_valid = a->isValid();
 }

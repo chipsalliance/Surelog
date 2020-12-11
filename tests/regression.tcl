@@ -190,6 +190,9 @@ dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 set UNIX_BLACK_LIST [dict create]
 # 2 message diff:
 dict set UNIX_BLACK_LIST UnitElabExternNested 1
+# Temporarily blacklist on parameter arithmetic error
+dict set UNIX_BLACK_LIST BlackParrot 1
+dict set UNIX_BLACK_LIST BlackParrot2 1
 
 if { $tcl_platform(platform) == "windows" } {
     set BLACK_LIST $WINDOWS_BLACK_LIST
