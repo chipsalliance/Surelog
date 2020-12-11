@@ -1457,7 +1457,14 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
                  insttype == VObjectType::slGenerate_module_item ||
                  insttype == VObjectType::slGenerate_module_named_block ||
                  insttype == VObjectType::slGenerate_module_block ||
-                 insttype == VObjectType::slGenerate_module_item) {
+                 insttype == VObjectType::slGenerate_module_item ||
+                 insttype == VObjectType::slGenerate_interface_loop_statement ||
+                 insttype == VObjectType::slGenerate_interface_conditional_statement ||
+                 insttype == VObjectType::slGenerate_interface_block ||
+                 insttype == VObjectType::slGenerate_interface_item ||
+                 insttype == VObjectType::slGenerate_interface_named_block ||
+                 insttype == VObjectType::slGenerate_interface_block ||
+                 insttype == VObjectType::slGenerate_interface_item) {
 
         if (subGenScopeArrays == nullptr)
           subGenScopeArrays = s.MakeGen_scope_arrayVec();

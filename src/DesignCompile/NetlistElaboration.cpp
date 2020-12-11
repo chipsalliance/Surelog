@@ -174,11 +174,16 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
       (insttype != VObjectType::slLoop_generate_construct) &&
       (insttype != VObjectType::slGenerate_item) &&
       (insttype != VObjectType::slGenerate_module_conditional_statement) &&
+      (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
       (insttype != VObjectType::slGenerate_module_loop_statement) &&
+      (insttype != VObjectType::slGenerate_interface_loop_statement) &&
       (insttype != VObjectType::slGenerate_module_named_block) &&
+      (insttype != VObjectType::slGenerate_interface_named_block) &&
       (insttype != VObjectType::slGenerate_module_block) &&
-      (insttype != VObjectType::slGenerate_module_item &&
-      (insttype != VObjectType::slGenerate_block))
+      (insttype != VObjectType::slGenerate_interface_block) &&
+      (insttype != VObjectType::slGenerate_module_item) &&
+      (insttype != VObjectType::slGenerate_interface_item) &&
+      (insttype != VObjectType::slGenerate_block)
       ) {
     elab_ports_nets_(instance);
   }
@@ -640,10 +645,15 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
         insttype == VObjectType::slGenerate_block ||
         insttype == VObjectType::slGenerate_item ||
         insttype == VObjectType::slGenerate_module_conditional_statement ||
+        insttype == VObjectType::slGenerate_interface_conditional_statement ||
         insttype == VObjectType::slGenerate_module_loop_statement ||
+        insttype == VObjectType::slGenerate_interface_loop_statement ||
         insttype == VObjectType::slGenerate_module_named_block ||
+        insttype == VObjectType::slGenerate_interface_named_block ||
         insttype == VObjectType::slGenerate_module_block ||
-        insttype == VObjectType::slGenerate_module_item) {
+        insttype == VObjectType::slGenerate_interface_block ||
+        insttype == VObjectType::slGenerate_module_item ||
+        insttype == VObjectType::slGenerate_interface_item) {
       std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
       if (gen_scopes == nullptr) {
         gen_scopes = s.MakeGen_scope_arrayVec();
@@ -985,10 +995,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         compType == VObjectType::slLoop_generate_construct ||
         compType == VObjectType::slGenerate_item ||
         compType == VObjectType::slGenerate_module_conditional_statement ||
+        compType == VObjectType::slGenerate_interface_conditional_statement ||
         compType == VObjectType::slGenerate_module_loop_statement ||
+        compType == VObjectType::slGenerate_interface_loop_statement ||
         compType == VObjectType::slGenerate_module_named_block ||
+        compType == VObjectType::slGenerate_interface_named_block ||
         compType == VObjectType::slGenerate_module_block ||
+        compType == VObjectType::slGenerate_interface_block ||
         compType == VObjectType::slGenerate_module_item ||
+        compType == VObjectType::slGenerate_interface_item ||
         compType == VObjectType::slGenerate_block ||
         compType == VObjectType::slInterface_declaration ||
         compType == VObjectType::slProgram_declaration) {

@@ -72,6 +72,11 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_module_block:
     case VObjectType::slGenerate_module_item:
     case VObjectType::slGenerate_module_named_block:
+    case VObjectType::slGenerate_interface_conditional_statement:
+    case VObjectType::slGenerate_interface_loop_statement:
+    case VObjectType::slGenerate_interface_block:
+    case VObjectType::slGenerate_interface_item:
+    case VObjectType::slGenerate_interface_named_block:
       errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
       break;
     case VObjectType::slInterface_declaration:
@@ -118,6 +123,15 @@ bool CompileModule::compile() {
       break;
     case VObjectType::slInterface_declaration:
       if (!collectInterfaceObjects_(true)) return false;
+      if (!collectInterfaceObjects_(false)) return false;
+      if (!checkInterface_()) return false;
+      break;
+    case VObjectType::slGenerate_interface_conditional_statement:
+    case VObjectType::slGenerate_interface_loop_statement:
+    case VObjectType::slGenerate_interface_block:
+    case VObjectType::slGenerate_interface_item:
+    case VObjectType::slGenerate_interface_named_block:
+     if (!collectInterfaceObjects_(true)) return false;
       if (!collectInterfaceObjects_(false)) return false;
       if (!checkInterface_()) return false;
       break;
@@ -896,6 +910,10 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         }
         break;
       }
+      case VObjectType::slConditional_generate_construct:
+      case VObjectType::slGenerate_interface_conditional_statement:
+      case VObjectType::slLoop_generate_construct:
+      case VObjectType::slGenerate_interface_loop_statement:
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
         if (!collectDefinitions) break;

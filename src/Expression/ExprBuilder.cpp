@@ -27,7 +27,7 @@
 #else
   #include <strings.h>
 #endif
-
+#include <bitset> 
 #include <stdint.h>
 #include <iostream>
 #include <sstream>
@@ -53,14 +53,21 @@ Value* ExprBuilder::clone(Value* val) {
   return clone;
 }
 
-static std::string toBinary(int n)
-{
-    std::string r;
-    while (n != 0){
-        r += ( n % 2 == 0 ? "0" : "1" );
-        n /= 2;
+static std::string toBinary(unsigned int size, int val) {
+  int constexpr bitFieldSize = 100;
+  std::string tmp = std::bitset<bitFieldSize>(val).to_string();
+  if (size == 0) {
+    for (unsigned int i = 0; i < bitFieldSize ; i++) {
+      if (tmp[i] == '1') {
+        size = bitFieldSize - i;
+        break;
+      }
     }
-    return r;
+  }
+  std::string result;
+  for (unsigned int i = bitFieldSize - size; i < bitFieldSize; i++)
+    result += tmp[i];
+  return result;
 }
 
 Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
@@ -400,7 +407,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               break;
           }
           if (size == "")
-            value->set(hex_value);
+            value->set(hex_value, Value::Type::Integer, 0);
           else 
             value->set(hex_value, Value::Type::Integer, std::strtoull(size.c_str(), 0, 10)); 
         } else {
@@ -470,32 +477,38 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       }
       case VObjectType::slNumber_1Tickb0:
       case VObjectType::slNumber_1TickB0:
-      case VObjectType::slNumber_Tickb0:
-      case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0:
       case VObjectType::slInitVal_1Tickb0:
       case VObjectType::slInitVal_1TickB0:
       case VObjectType::slScalar_1Tickb0:
-      case VObjectType::slScalar_1TickB0:
+      case VObjectType::slScalar_1TickB0: {
+        value->set(0,Value::Type::Scalar, 1);
+        break;
+      }
+      case VObjectType::slNumber_Tickb0:
+      case VObjectType::slNumber_TickB0:
+      case VObjectType::slNumber_Tick0:
       case VObjectType::slScalar_Tickb0:
       case VObjectType::slScalar_TickB0:
       case VObjectType::sl0: {
-        value->set(0,Value::Type::Scalar, 1);
+        value->set(0,Value::Type::Scalar, 0);
         break;
       }
       case VObjectType::slNumber_1Tickb1:
       case VObjectType::slNumber_1TickB1:
-      case VObjectType::slNumber_Tickb1:
-      case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:
       case VObjectType::slInitVal_1Tickb1:
       case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
-      case VObjectType::slScalar_1TickB1:
+      case VObjectType::slScalar_1TickB1: {
+        value->set(1,Value::Type::Scalar, 1);
+        break;
+      }
+      case VObjectType::slNumber_Tickb1:
+      case VObjectType::slNumber_TickB1:
+      case VObjectType::slNumber_Tick1:
       case VObjectType::slScalar_Tickb1:
       case VObjectType::slScalar_TickB1:
       case VObjectType::sl1: {
-        value->set(1,Value::Type::Scalar, 1);
+        value->set(1,Value::Type::Scalar, 0);
         break;
       }
       case VObjectType::slVariable_lvalue: {
@@ -568,7 +581,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             token = fC->SymName(ConstVal);
           } else {
             Value* constVal = evalExpr(fC, Primary_literal, instance, muteErrors);
-            token = toBinary(constVal->getValueUL());
+            unsigned long long v = constVal->getValueUL();
+            token = toBinary(constVal->getSize(), v);
           }
           if (strstr(token.c_str(), "'")) {
             unsigned int i = 0;
@@ -584,17 +598,19 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             uint64_t isize = std::strtoull(size.c_str(), 0, 10);
             if (base == 'd') {
               long long iv = std::strtoll(v.c_str(), 0, 10);
-              v = toBinary(iv);
+              v = toBinary(isize, iv);
             } else if (base == 'h') {
               long long iv = std::strtoll(v.c_str(), 0, 16);
-              v = toBinary(iv);
+              v = toBinary(isize, iv);
             } else if (base == 'o') {
               long long iv = std::strtoll(v.c_str(), 0, 8);
-              v = toBinary(iv);
+              v = toBinary(isize, iv);
             }
             unsigned int vsize = v.size();
-            for (unsigned int i = 0; i < isize - vsize; i++) 
-              v = "0" + v;
+            if (isize) {
+              for (unsigned int i = 0; i < isize - vsize; i++) 
+                v = "0" + v;
+            }
             svalue += v;
           } else {
             std::string v = token;

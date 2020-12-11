@@ -547,16 +547,20 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       VObjectType::slConditional_generate_construct,  // Generate construct are
                                                       // a kind of instantiation
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block};
 
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration};
@@ -694,8 +698,10 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
     // Special module binding for generate statements
     else if (type == VObjectType::slConditional_generate_construct ||
              type == VObjectType::slGenerate_module_conditional_statement ||
+             type == VObjectType::slGenerate_interface_conditional_statement ||
              type == VObjectType::slLoop_generate_construct ||
-             type == VObjectType::slGenerate_module_loop_statement) {
+             type == VObjectType::slGenerate_module_loop_statement ||
+             type == VObjectType::slGenerate_interface_loop_statement) {
       modName = genBlkBaseName + std::to_string(genBlkIndex);
 
       std::vector<VObjectType> btypes = {
@@ -1411,8 +1417,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration};
@@ -1523,11 +1531,14 @@ void DesignElaboration::reduceUnnamedBlocks_() {
       if ((type == VObjectType::slConditional_generate_construct ||
            type == VObjectType::slGenerate_module_conditional_statement ||
            type == VObjectType::slLoop_generate_construct ||
-           type == VObjectType::slGenerate_module_loop_statement) &&
+           type == VObjectType::slGenerate_module_loop_statement ||
+           type == VObjectType::slGenerate_interface_loop_statement ) &&
           (typeP == VObjectType::slConditional_generate_construct ||
            typeP == VObjectType::slGenerate_module_conditional_statement ||
+           typeP == VObjectType::slGenerate_interface_conditional_statement ||
            typeP == VObjectType::slLoop_generate_construct ||
-           typeP == VObjectType::slGenerate_module_loop_statement)) {
+           typeP == VObjectType::slGenerate_module_loop_statement ||
+           typeP == VObjectType::slGenerate_interface_loop_statement)) {
         std::string fullModName = current->getModuleName();
         fullModName = StringUtils::leaf(fullModName);
         std::string fullModNameP = parent->getModuleName();
@@ -1584,10 +1595,15 @@ bool DesignElaboration::bindDataTypes_()
              compType == VObjectType::slLoop_generate_construct ||
              compType == VObjectType::slGenerate_item ||
              compType == VObjectType::slGenerate_module_conditional_statement ||
+             compType == VObjectType::slGenerate_interface_conditional_statement ||
              compType == VObjectType::slGenerate_module_loop_statement ||
+             compType == VObjectType::slGenerate_interface_loop_statement ||
              compType == VObjectType::slGenerate_module_named_block ||
+             compType == VObjectType::slGenerate_interface_named_block ||
              compType == VObjectType::slGenerate_module_block ||
+             compType == VObjectType::slGenerate_interface_block ||
              compType == VObjectType::slGenerate_module_item ||
+             compType == VObjectType::slGenerate_interface_item ||
              compType == VObjectType::slGenerate_block) {
       const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
