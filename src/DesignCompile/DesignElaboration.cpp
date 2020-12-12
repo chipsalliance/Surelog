@@ -705,8 +705,11 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       modName = genBlkBaseName + std::to_string(genBlkIndex);
 
       std::vector<VObjectType> btypes = {
-          VObjectType::slGenerate_module_block, VObjectType::slGenerate_block,
-          VObjectType::slGenerate_module_named_block};
+          VObjectType::slGenerate_module_block, 
+          VObjectType::slGenerate_interface_block, 
+          VObjectType::slGenerate_block,
+          VObjectType::slGenerate_module_named_block,
+          VObjectType::slGenerate_interface_named_block};
 
       std::vector<NodeId> blockIds =
           fC->sl_collect_all(subInstanceId, btypes, true);

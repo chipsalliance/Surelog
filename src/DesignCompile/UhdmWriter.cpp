@@ -1220,7 +1220,7 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
 }
 
 
-bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
+bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m) {
   Netlist* netlist = instance->getNetlist();
 
   // Typepecs
@@ -1240,6 +1240,12 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   m->Nets(netlist->nets());
   if (netlist->nets()) {
     for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Gen_scope_arrays(netlist->gen_scopes());
+  if (netlist->gen_scopes()) {
+    for (auto obj : *netlist->gen_scopes()) {
       obj->VpiParent(m);
     }
   }
@@ -1296,7 +1302,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
-  m->Gen_scope_arrays(netlist->gen_scopes());
+ 
 
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
@@ -1420,6 +1426,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
     writeElabModule(s, instance, (module*) m);
   } else if (m->UhdmType() == uhdmgen_scope) {
     writeElabGenScope(s, instance, (gen_scope*) m);
+  } else if (m->UhdmType() == uhdminterface) {
+    writeElabInterface(s, instance, (interface*) m);
   }
 
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -1485,6 +1493,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays);
           sm->VpiParent(m);
+        } else if (utype == uhdminterface) {
+          ((interface*)m)->Gen_scope_arrays(subGenScopeArrays);
+          sm->VpiParent(m);
         }
         writeInstance(mm, child, a_gen_scope, s, componentMap, modPortMap,instanceMap);
 
@@ -1506,8 +1517,12 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         } else if (utype == uhdmgen_scope) {
           ((gen_scope*) m)->Interfaces(subInterfaces);
           sm->VpiParent(m);
+        } else if (utype == uhdminterface) {
+          ((interface*) m)->Interfaces(subInterfaces);
+          sm->VpiParent(m);
         }
-        writeElabInterface(child, sm, s);
+        writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
+        
       } else if ((insttype == VObjectType::slUdp_instantiation) ||
                  (insttype == VObjectType::slGate_instantiation)) {
         UHDM::primitive* gate = nullptr;
