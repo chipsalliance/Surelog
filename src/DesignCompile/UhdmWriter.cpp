@@ -940,7 +940,7 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m) {
   Netlist* netlist = instance->getNetlist();
 
   // Typepecs
-  DesignComponent* mod = instance->getDefinition();
+  ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (instance->getDefinition());
   if (mod) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
@@ -1014,6 +1014,30 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m) {
       assigns->push_back(obj);
     }
   }
+
+  // ClockingBlocks
+  for (auto ctupple : mod->getClockingBlockMap()) {
+    ClockingBlock& cblock = ctupple.second;
+    switch (cblock.getType()) {
+      case ClockingBlock::Type::Default: {
+         // No default clocking
+         //m->Default_clocking(cblock.getActual());
+         break;
+      }
+      case ClockingBlock::Type::Regular: {
+         VectorOfclocking_block* cblocks = m->Clocking_blocks();
+         if (cblocks == nullptr) {
+           m->Clocking_blocks(s.MakeClocking_blockVec());
+           cblocks = m->Clocking_blocks();
+         }
+         cblocks->push_back(cblock.getActual());
+         break;
+      }
+      default:
+        break;
+    }  
+  }
+
 
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
@@ -1522,7 +1546,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           sm->VpiParent(m);
         }
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
-        
+
       } else if ((insttype == VObjectType::slUdp_instantiation) ||
                  (insttype == VObjectType::slGate_instantiation)) {
         UHDM::primitive* gate = nullptr;
