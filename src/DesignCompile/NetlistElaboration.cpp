@@ -764,8 +764,12 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
     }
   }
   if (tps) {
-    if (tps->UhdmType() == uhdmstruct_typespec) {
-      struct_typespec* the_tps = (struct_typespec*)tps;
+    typespec* tmp = tps;
+    if (tmp->UhdmType() == uhdmpacked_array_typespec) {
+      tmp = (typespec*) ((packed_array_typespec*) tmp)->Elem_typespec();
+    }
+    if (tmp->UhdmType() == uhdmstruct_typespec) {
+      struct_typespec* the_tps = (struct_typespec*)tmp;
       if (the_tps->Members()) {
         isNet = true; 
         for (typespec_member* member : *the_tps->Members()) {

@@ -203,7 +203,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
   const std::string& suffixname,
   const std::string& typeName) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  typespec* result = nullptr;  
+  typespec* result = nullptr;
   if (component) {
     const DataType* dt = component->getDataType(typeName);
     if (dt == nullptr) {
@@ -413,7 +413,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
   if(the_type == VObjectType::slPacked_dimension) {
     Packed_dimension = type;
   } else if (the_type == VObjectType::slStringConst) {
-    // Class parameter
+    // Class parameter or struct reference
+    Packed_dimension = fC->Sibling(type);
+    if (fC->Type(Packed_dimension) != slPacked_dimension)
+      Packed_dimension = 0;
   } else {
     Packed_dimension = fC->Sibling(type);
   }
@@ -706,8 +709,37 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
-      result = compileDatastructureTypespec(component, fC, type, compileDesign,
-                                             instance, reduce, "", typeName);
+      if (typeName == "logic") {
+        logic_typespec* var = s.MakeLogic_typespec();
+        var->Ranges(ranges);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else if (typeName == "bit") {
+        bit_typespec* var = s.MakeBit_typespec();
+        var->Ranges(ranges);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else if (typeName == "byte") {
+        byte_typespec* var = s.MakeByte_typespec();
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else {
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
+        if (ranges && result) {
+          if (result->UhdmType() == uhdmstruct_typespec) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(result);
+            pats->Ranges(ranges);
+            result = pats;
+          } else if (result->UhdmType() == uhdmlogic_typespec) {
+            ((logic_typespec*) result)->Ranges(ranges);
+          } 
+        }
+      }
       break;
     }
     case VObjectType::slConstant_expression: {
