@@ -216,6 +216,11 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             component->getName() + "::" + typeName);
       }
       if (dt == nullptr) {
+        if (component->getParentScope())
+          dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
+              ((DesignComponent*) component->getParentScope())->getName() + "::" + typeName);
+      }
+      if (dt == nullptr) {
         dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(typeName);
       }
       if (dt == nullptr) {
@@ -735,11 +740,6 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = var;
       } else if (typeName == "byte") {
         byte_typespec* var = s.MakeByte_typespec();
-        var->VpiFile(fC->getFileName());
-        var->VpiLineNo(fC->Line(type));
-        result = var;
-      } else if (typeName == "short") {
-        short_int_typespec* var = s.MakeShort_int_typespec();
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         result = var;
