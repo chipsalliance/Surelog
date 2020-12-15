@@ -36,6 +36,7 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/Parameter.h"
+#include "Design/ParamAssign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "Testbench/ClassDefinition.h"
 #include "CompileDesign.h"
@@ -221,6 +222,17 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         Parameter* p = component->getParameter(typeName);
         if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter)) 
           dt = p;
+      }
+      if (dt == nullptr) {
+        for (ParamAssign* passign : component->getParamAssignVec()) {
+          const FileContent* fCP = passign->getFileContent(); 
+          if (fCP->SymName(passign->getParamId()) == typeName) {
+            UHDM::param_assign* param_assign = passign->getUhdmParamAssign();
+            UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
+            result = (typespec*) lhs->Typespec();
+            return result;
+          }
+        }
       }
     }
     TypeDef* parent_tpd = nullptr;
@@ -723,6 +735,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = var;
       } else if (typeName == "byte") {
         byte_typespec* var = s.MakeByte_typespec();
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else if (typeName == "short") {
+        short_int_typespec* var = s.MakeShort_int_typespec();
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         result = var;

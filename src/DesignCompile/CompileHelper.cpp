@@ -1788,16 +1788,25 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
   } else {
     // Regular param
     NodeId Data_type_or_implicit = fC->Child(nodeId);
-    UHDM::typespec* ts =
-        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
-                        compileDesign, nullptr, instance, reduce);
+ 
     NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
     NodeId Param_assignment = fC->Child(List_of_param_assignments);
     while (Param_assignment) {
+
+      UHDM::typespec* ts =
+        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
+                        compileDesign, nullptr, instance, reduce);
+
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
       expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
+      param->Typespec(ts);
+      if (ts) {
+        ts->VpiParent(param);
+        if (ts->VpiName() == "")
+          ts->VpiName(fC->SymName(name));
+      }
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
       // Unpacked dimensions
@@ -1825,9 +1834,6 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param_assign->VpiLineNo(fC->Line(Param_assignment));
         param_assigns->push_back(param_assign);
         param->VpiName(fC->SymName(name));
-        param->Typespec(ts);
-        if (ts)
-          ts->VpiParent(param);
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
