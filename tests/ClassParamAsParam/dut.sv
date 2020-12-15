@@ -15,5 +15,5 @@ class config_db#(type T=int) extends resource_db#(T);
 endclass
 
 module top ();
-  config_db#(object#(long)) misc2 = new;
+  config_db#(object#(longint)) misc2 = new;
 endmodule
