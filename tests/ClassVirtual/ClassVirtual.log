@@ -8,11 +8,13 @@
 
 [INF:CP0301] dut.sv:1: Compile package "pack".
 
-[INF:CP0302] dut.sv:3: Compile class "pack::Base".
+[INF:CP0302] dut.sv:6: Compile class "pack::Base".
 
-[INF:CP0302] dut.sv:6: Compile class "pack::uvm_port_base1".
+[INF:CP0302] dut.sv:9: Compile class "pack::uvm_port_base1".
 
-[INF:CP0302] dut.sv:9: Compile class "pack::uvm_port_base2".
+[INF:CP0302] dut.sv:12: Compile class "pack::uvm_port_base2".
+
+[INF:CP0302] dut.sv:3: Compile class "pack::uvm_void".
 
 [INF:EL0526] Design Elaboration...
 
@@ -33,45 +35,53 @@ design: (unnamed)
   |vpiDefName:pack
   |vpiFullName:pack
   |vpiClassDefn:
-  \_class_defn: (pack::Base) dut.sv:3: , parent:pack
+  \_class_defn: (pack::Base) dut.sv:6: , parent:pack
     |vpiName:Base
     |vpiFullName:pack::Base
     |vpiDerivedClasses:
-    \_class_defn: (pack::uvm_port_base2) dut.sv:9: , parent:pack
+    \_class_defn: (pack::uvm_port_base2) dut.sv:12: , parent:pack
       |vpiName:uvm_port_base2
       |vpiFullName:pack::uvm_port_base2
       |vpiExtends:
-      \_extends: , line:9, parent:pack::uvm_port_base2
+      \_extends: , line:12, parent:pack::uvm_port_base2
         |vpiClassTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (pack::Base) dut.sv:3: , parent:pack
+          \_class_defn: (pack::Base) dut.sv:6: , parent:pack
       |vpiParameter:
-      \_type_parameter: (pack::uvm_port_base2::IF), line:9, parent:pack::uvm_port_base2
+      \_type_parameter: (pack::uvm_port_base2::IF), line:12, parent:pack::uvm_port_base2
         |vpiFullName:pack::uvm_port_base2::IF
         |vpiName:IF
         |vpiTypespec:
-        \_void_typespec: (uvm_void), line:9, parent:pack::uvm_port_base2::IF
+        \_class_typespec: (uvm_void), line:12, parent:pack::uvm_port_base2::IF
           |vpiName:uvm_void
+          |vpiClassDefn:
+          \_class_defn: (pack::uvm_void) dut.sv:3: , parent:pack
+            |vpiName:uvm_void
+            |vpiFullName:pack::uvm_void
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_port_base1) dut.sv:6: , parent:pack
+  \_class_defn: (pack::uvm_port_base1) dut.sv:9: , parent:pack
     |vpiVirtual:1
     |vpiName:uvm_port_base1
     |vpiFullName:pack::uvm_port_base1
     |vpiExtends:
-    \_extends: , line:6, parent:pack::uvm_port_base1
+    \_extends: , line:9, parent:pack::uvm_port_base1
       |vpiClassTypespec:
       \_class_typespec: (IF)
         |vpiName:IF
     |vpiParameter:
-    \_type_parameter: (pack::uvm_port_base1::IF), line:6, parent:pack::uvm_port_base1
+    \_type_parameter: (pack::uvm_port_base1::IF), line:9, parent:pack::uvm_port_base1
       |vpiFullName:pack::uvm_port_base1::IF
       |vpiName:IF
       |vpiTypespec:
-      \_void_typespec: (uvm_void), line:6, parent:pack::uvm_port_base1::IF
+      \_class_typespec: (uvm_void), line:9, parent:pack::uvm_port_base1::IF
         |vpiName:uvm_void
+        |vpiClassDefn:
+        \_class_defn: (pack::uvm_void) dut.sv:3: , parent:pack
   |vpiClassDefn:
-  \_class_defn: (pack::uvm_port_base2) dut.sv:9: , parent:pack
+  \_class_defn: (pack::uvm_port_base2) dut.sv:12: , parent:pack
+  |vpiClassDefn:
+  \_class_defn: (pack::uvm_void) dut.sv:3: , parent:pack
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
