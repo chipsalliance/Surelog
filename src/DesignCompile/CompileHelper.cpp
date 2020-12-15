@@ -40,6 +40,7 @@
 #include "Design/DummyType.h"
 #include "Design/Parameter.h"
 #include "Design/ParamAssign.h"
+#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -68,6 +69,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
       FileCNodeId fnid(packageFile, classDef);
       scope->addNamedObject(name, fnid, comp);
+      scope->insertDataType(name, (ClassDefinition*) comp);
     }
 
     auto& typeSet = def->getDataTypeMap();
