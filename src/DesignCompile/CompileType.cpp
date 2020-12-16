@@ -396,14 +396,14 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
     }
 
     if (result == nullptr) {
-      void_typespec* tps = s.MakeVoid_typespec();
+      unsupported_typespec* tps = s.MakeUnsupported_typespec();
       tps->VpiName(typeName);
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       result = tps;
     }
   } else {
-    void_typespec* tps = s.MakeVoid_typespec();
+    unsupported_typespec* tps = s.MakeUnsupported_typespec();
     tps->VpiName(typeName);
     tps->VpiFile(fC->getFileName());
     tps->VpiLineNo(fC->Line(type));
@@ -453,7 +453,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiLineNo(fC->Line(type));
         result = var;
       } else {
-        void_typespec* tps = s.MakeVoid_typespec();
+        unsupported_typespec* tps = s.MakeUnsupported_typespec();
         tps->VpiFile(fC->getFileName());
         tps->VpiLineNo(fC->Line(type));
         result = tps;
