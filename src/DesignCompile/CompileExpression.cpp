@@ -132,6 +132,9 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
   UHDM::any* result = nullptr;
   if ((fC->Type(Bit_select) == slConstant_bit_select) && (!fC->Sibling(Bit_select))) {
     Bit_select = fC->Child(Bit_select);
+  }
+  if ((fC->Type(Bit_select) == slBit_select) && (!fC->Sibling(Bit_select))) {
+    Bit_select = fC->Child(Bit_select);
   } 
   if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
     // More than one
@@ -145,9 +148,13 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_primary ||
-        fC->Type(Bit_select) == VObjectType::slConstant_expression) {
+        fC->Type(Bit_select) == VObjectType::slConstant_expression||
+        fC->Type(Bit_select) == VObjectType::slExpression) {
       NodeId bitexp = fC->Child(Bit_select);
       if (fC->Type(Bit_select) == VObjectType::slConstant_expression) {
+         bitexp = Bit_select;
+      }
+      if (fC->Type(Bit_select) == VObjectType::slExpression) {
          bitexp = Bit_select;
       }
       if (bitexp) {
