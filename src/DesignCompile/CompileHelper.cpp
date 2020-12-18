@@ -927,14 +927,21 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
             if (the_type != VObjectType::slClass_scope)
               Packed_dimension = fC->Sibling(integer_vector_type);
           }
-
-        } else if (the_type == VObjectType::slPacked_dimension) {
-          Packed_dimension = data_type;
         } else if (the_type == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(data_type);
           is_signed = true;
         } else if (the_type == VObjectType::slSigning_Unsigned) {
           Packed_dimension = fC->Sibling(data_type);
+          is_signed = false;
+        } else if (the_type == VObjectType::slPacked_dimension) {
+          Packed_dimension = data_type;
+        }
+        
+        if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
+          Packed_dimension = fC->Sibling(Packed_dimension);
+          is_signed = true;
+        } else if (fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
+          Packed_dimension = fC->Sibling(Packed_dimension);
         }
       }
     }
@@ -1170,26 +1177,37 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     port_direction = dir_type;
     net_port_type = fC->Sibling(net_port_type);
     NodeId NetType = fC->Child(net_port_type);
-    // n<> u<33> t<Packed_dimension> p<34> c<32> l<11>
-    // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
+    if (fC->Type(NetType) == VObjectType::slData_type_or_implicit) {
+      NodeId Data_type = fC->Child(NetType);
+      if (fC->Type(Data_type) == VObjectType::slData_type){
+        NetType = fC->Child(Data_type);
+      }
+    }
+
     NodeId packedDimension = fC->Sibling(NetType);
     NodeId specParamId = 0;
     bool is_signed = false;
     if (packedDimension == 0) {
       packedDimension = fC->Child(NetType);
-      if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
-        packedDimension = fC->Sibling(packedDimension);
-      } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
-        packedDimension = fC->Sibling(packedDimension);
-      } else {
-        packedDimension = fC->Child(packedDimension);
-      }
-      if (fC->Type(packedDimension) == VObjectType::slClass_scope) {
-        specParamId = packedDimension;
-      } else if (fC->Type(packedDimension) == VObjectType::slStringConst) {
-        specParamId = packedDimension;
-      }
     }
+
+    if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
+      packedDimension = fC->Sibling(packedDimension);
+    } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
+      packedDimension = fC->Sibling(packedDimension);
+    }
+    // else {
+    //  packedDimension = fC->Child(packedDimension);
+    // }
+    if (fC->Type(NetType) == VObjectType::slClass_scope) {
+      specParamId = NetType;
+    } else if (fC->Type(NetType) == VObjectType::slStringConst) {
+      specParamId = NetType;
+    }
+    if (fC->Type(packedDimension) != VObjectType::slPacked_dimension) {
+      packedDimension = 0;
+    }
+
     NodeId nodeType = 0;
     VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed, nodeType);
     NodeId unpackedDimension = 0;
