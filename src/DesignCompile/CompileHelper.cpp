@@ -1445,6 +1445,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     bool is_rand = false;
     bool is_randc = false;
     bool is_const = false;
+    bool is_signed = false;
     while ((type == VObjectType::slPropQualifier_ClassItem) ||
            (type == VObjectType::slPropQualifier_Rand) ||
            (type == VObjectType::slPropQualifier_Randc) ||
@@ -1479,8 +1480,14 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId packedDimension = fC->Sibling(intVec_TypeReg);
-    if (fC->Type(packedDimension) == slStringConst)
+    if (fC->Type(packedDimension) == slStringConst) {
       packedDimension = 0; // class or package name;
+    } else if (fC->Type(packedDimension) == slSigning_Signed) {
+      is_signed = true;
+      packedDimension = fC->Sibling(packedDimension);
+    } else if (fC->Type(packedDimension) == slSigning_Unsigned) {
+      packedDimension = fC->Sibling(packedDimension);
+    }  
     NodeId unpackedDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
@@ -1519,6 +1526,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       if (is_protected) sig->setProtected();
       if (is_rand) sig->setRand();
       if (is_randc) sig->setRandc();
+      if (is_signed) sig->setSigned();
 
       component->getSignals().push_back(sig);
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);

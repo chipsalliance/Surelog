@@ -65,6 +65,7 @@ class Signal final {
   void setProtected() { m_protected = true; }
   void setRand() { m_rand = true; }
   void setRandc() { m_randc = true; }
+  void setSigned() { m_signed = true; }
   bool isConst() { return m_const; }
   bool isVar() { return m_var; }
   bool isSigned() { return m_signed; } 
