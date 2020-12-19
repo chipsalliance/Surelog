@@ -1032,8 +1032,8 @@ UHDM::any* CompileHelper::compileExpression(
             std::string size = value;
             StringUtils::rtrim(size, '\'');
             c->VpiSize(atoi(size.c_str()));
-            v = "INT:" + v;
-            c->VpiConstType(vpiIntConst);
+            v = "DEC:" + v;
+            c->VpiConstType(vpiDecConst);
             break;
           }  
           default: {

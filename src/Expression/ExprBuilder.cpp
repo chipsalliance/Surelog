@@ -691,6 +691,10 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     val = m_valueFactory.newLValue();
     uint64_t v = atoi(s.c_str() + pos + strlen("INT:"));
     val->set(v);
+  } else if ((pos = s.find("DEC:")) != std::string::npos) {
+    val = m_valueFactory.newLValue();
+    uint64_t v = atoi(s.c_str() + pos + strlen("DEC:"));
+    val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
     switch (parse_pos[0]) {
