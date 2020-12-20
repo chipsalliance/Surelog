@@ -1268,13 +1268,27 @@ bool CompileHelper::compileTask(
         break;
       if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null, compileDesign, begin)) {
         for (any* st : *sts) {
-          if (st->UhdmType() == uhdmparam_assign) {
+          UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+          if (stmt_type == uhdmparam_assign) {
             UHDM::VectorOfparam_assign* param_assigns= task->Param_assigns();
             if (param_assigns == nullptr) {
               task->Param_assigns(s.MakeParam_assignVec());
               param_assigns= task->Param_assigns();
             }
             param_assigns->push_back((param_assign*) st);
+          } else if (stmt_type == uhdmassign_stmt) {
+            assign_stmt* stmt = (assign_stmt*)st;
+            if (stmt->Rhs() == nullptr) {
+              // Declaration
+              VectorOfvariables* vars = task->Variables();
+              if (vars == nullptr) {
+                task->Variables(s.MakeVariablesVec());
+                vars = task->Variables();
+              }
+              vars->push_back((variables*)stmt->Lhs());
+            } else {
+              stmts->push_back(st);
+            }
           } else {
             stmts->push_back(st);
           }
@@ -1289,13 +1303,27 @@ bool CompileHelper::compileTask(
       VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, task);
       if (stmts) {
         for (any* st : *stmts) {
-          if (st->UhdmType() == uhdmparam_assign) {
+          UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+          if (stmt_type == uhdmparam_assign) {
             UHDM::VectorOfparam_assign* param_assigns= task->Param_assigns();
             if (param_assigns == nullptr) {
               task->Param_assigns(s.MakeParam_assignVec());
               param_assigns= task->Param_assigns();
             }
             param_assigns->push_back((param_assign*) st);
+          } else if (stmt_type == uhdmassign_stmt) {
+            assign_stmt* stmt = (assign_stmt*)st;
+            if (stmt->Rhs() == nullptr) {
+              // Declaration
+              VectorOfvariables* vars = task->Variables();
+              if (vars == nullptr) {
+                task->Variables(s.MakeVariablesVec());
+                vars = task->Variables();
+              }
+              vars->push_back((variables*)stmt->Lhs());
+            } else {
+              task->Stmt(st);
+            }  
           } else {
             task->Stmt(st);
           }
@@ -1536,13 +1564,27 @@ bool CompileHelper::compileFunction(
       if (Statement) {
         if (VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, begin)) {
           for (any* st : *sts) {
-            if (st->UhdmType() == uhdmparam_assign) {
+            UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+            if (stmt_type == uhdmparam_assign) {
               UHDM::VectorOfparam_assign* param_assigns = func->Param_assigns();
               if (param_assigns == nullptr) {
                 func->Param_assigns(s.MakeParam_assignVec());
                 param_assigns = func->Param_assigns();
               }
               param_assigns->push_back((param_assign*)st);
+            } else if (stmt_type == uhdmassign_stmt) {
+              assign_stmt* stmt = (assign_stmt*) st;
+              if (stmt->Rhs() == nullptr) {
+                // Declaration
+                VectorOfvariables* vars = func->Variables();
+                if (vars == nullptr) {
+                  func->Variables(s.MakeVariablesVec());
+                  vars = func->Variables(); 
+                }
+                vars->push_back((variables*) stmt->Lhs());
+              } else {
+               stmts->push_back(st);
+              }
             } else {
               stmts->push_back(st);
             }
@@ -1559,13 +1601,27 @@ bool CompileHelper::compileFunction(
       VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, func);
       if (sts) {
         any* st = (*sts)[0];
-        if (st->UhdmType() == uhdmparam_assign) {
+        UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+        if (stmt_type == uhdmparam_assign) {
           UHDM::VectorOfparam_assign* param_assigns = func->Param_assigns();
           if (param_assigns == nullptr) {
             func->Param_assigns(s.MakeParam_assignVec());
             param_assigns = func->Param_assigns();
           }
           param_assigns->push_back((param_assign*)st);
+        } else if (stmt_type == uhdmassign_stmt) {
+          assign_stmt* stmt = (assign_stmt*)st;
+          if (stmt->Rhs() == nullptr) {
+            // Declaration
+            VectorOfvariables* vars = func->Variables();
+            if (vars == nullptr) {
+              func->Variables(s.MakeVariablesVec());
+              vars = func->Variables();
+            }
+            vars->push_back((variables*)stmt->Lhs());
+          } else {
+            func->Stmt(st);
+          }
         } else {
           func->Stmt(st);
         }
