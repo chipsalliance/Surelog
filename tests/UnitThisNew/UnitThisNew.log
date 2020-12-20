@@ -368,27 +368,25 @@ design: (unnamed)
       \_chandle_var: (action.uvm_action), line:3, parent:action
         |vpiName:uvm_action
         |vpiFullName:action.uvm_action
-    |vpiStmt:
-    \_assign_stmt: , parent:toto::uvm_string_to_action
-      |vpiLhs:
-      \_array_var: (toto::uvm_string_to_action)
-        |vpiFullName:toto::uvm_string_to_action
-        |vpiReg:
-        \_string_var: (actions), line:4
-          |vpiName:actions
-        |vpiRange:
-        \_range: , line:4
-          |vpiLeftRange:
-          \_constant: , line:4
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:1
-            |INT:0
-          |vpiRightRange:
-          \_constant: , line:4
-            |vpiConstType:10
-            |vpiDecompile:$
-            |STRING:$
+    |vpiVariables:
+    \_array_var: (toto::uvm_string_to_action)
+      |vpiFullName:toto::uvm_string_to_action
+      |vpiReg:
+      \_string_var: (actions), line:4
+        |vpiName:actions
+      |vpiRange:
+      \_range: , line:4
+        |vpiLeftRange:
+        \_constant: , line:4
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:1
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:4
+          |vpiConstType:10
+          |vpiDecompile:$
+          |STRING:$
   |vpiTaskFunc:
   \_function: (toto::uvm_object::clone), line:7, parent:toto
     |vpiVisibility:1
@@ -548,12 +546,6 @@ design: (unnamed)
     \_begin: (toto::uvm_reg_backdoor::start_update_thread), parent:toto::uvm_reg_backdoor::start_update_thread
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
       |vpiStmt:
-      \_assign_stmt: , parent:toto::uvm_reg_backdoor::start_update_thread
-        |vpiLhs:
-        \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37
-          |vpiName:rg
-          |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
-      |vpiStmt:
       \_if_stmt: , line:38, parent:toto::uvm_reg_backdoor::start_update_thread
         |vpiCondition:
         \_constant: , line:38
@@ -571,6 +563,10 @@ design: (unnamed)
             |vpiArgument:
             \_ref_obj: (element), line:39
               |vpiName:element
+    |vpiVariables:
+    \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37
+      |vpiName:rg
+      |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:unnamed
   |vpiName:work@mailbox
