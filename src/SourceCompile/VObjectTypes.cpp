@@ -2199,6 +2199,12 @@ std::string VObject::getTypeName(unsigned short type) {
     case slPound_delay_value:
       text = "slPound_delay_value";
       break;
+    case slPound_Pound_delay:
+      text = "slPound_Pound_delay";
+      break;
+    case slPound_pound_delay:
+      text = "slPound_pound_delay";
+      break;
     case slPragma_directive:
       text = "slPragma_directive";
       break;

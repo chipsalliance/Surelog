@@ -42,21 +42,7 @@ class Signal final {
   const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
   std::string getName() const { return m_fileContent->SymName(m_nodeId); }
-
-  std::string getInterfaceTypeName() const {
-    std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
-    NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
-    if (constant_select) {
-      if (m_fileContent->Type(constant_select) == slStringConst) {
-        type_name += "." + m_fileContent->SymName(constant_select);
-      } else {
-        NodeId selector = m_fileContent->Child(constant_select);
-        if (m_fileContent->Type(selector) == slStringConst)
-          type_name += "." + m_fileContent->SymName(selector);
-      }
-    }
-    return type_name;
-  }
+  std::string getInterfaceTypeName() const;
 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
   void setInterfaceDef(ModuleDefinition* interfaceDef) {
@@ -69,6 +55,7 @@ class Signal final {
   void setDataType(const DataType* dtype) { m_dataType = dtype; }
   void setPackedDimension(NodeId id) { m_packedDimension = id; }
   void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
+  void setTypespecId(NodeId id) { m_typeSpecId = id; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   void setConst() { m_const = true; }
@@ -78,6 +65,7 @@ class Signal final {
   void setProtected() { m_protected = true; }
   void setRand() { m_rand = true; }
   void setRandc() { m_randc = true; }
+  void setSigned() { m_signed = true; }
   bool isConst() { return m_const; }
   bool isVar() { return m_var; }
   bool isSigned() { return m_signed; } 

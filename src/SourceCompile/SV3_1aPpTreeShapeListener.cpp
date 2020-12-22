@@ -1411,6 +1411,8 @@ void SV3_1aPpTreeShapeListener::exitText_blob(SV3_1aPpParser::Text_blobContext *
       addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
     } else if (ctx->pound_delay()) {
       addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->pound_pound_delay()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
     } else if (ctx->TICK_QUOTE()) {
       addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
     } else if (ctx->TICK_BACKSLASH_TICK_QUOTE()) {

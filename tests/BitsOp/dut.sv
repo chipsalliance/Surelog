@@ -26,6 +26,10 @@ package tlul_pkg;
   } tl_a_op_e;
 
   typedef struct packed {
+    logic                         b_valid;
+  } tl_a_user_t;
+   
+  typedef struct packed {
     logic                         a_valid;
     tl_a_op_e                     a_opcode;
     logic                  [2:0]  a_param;

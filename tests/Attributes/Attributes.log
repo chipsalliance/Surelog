@@ -785,8 +785,7 @@ design: (work@foo)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -794,8 +793,7 @@ design: (work@foo)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -1079,9 +1077,10 @@ design: (work@foo)
               |vpiNetType:48
           |vpiRhs:
           \_constant: , line:8
-            |vpiConstType:3
+            |vpiConstType:1
             |vpiDecompile:1'd0
-            |BIN:1'd0
+            |vpiSize:1
+            |DEC:0
         |vpiElseStmt:
         \_assignment: , line:9
           |vpiOpType:82
@@ -1178,7 +1177,7 @@ design: (work@foo)
             |vpiConstType:3
             |vpiDecompile:2'b00
             |vpiSize:2
-            |BIN:2'b00
+            |BIN:00
           |vpiStmt:
           \_assignment: , line:31
             |vpiOpType:82
@@ -1200,13 +1199,13 @@ design: (work@foo)
             |vpiConstType:3
             |vpiDecompile:2'b01
             |vpiSize:2
-            |BIN:2'b01
+            |BIN:01
           |vpiExpr:
           \_constant: , line:32
             |vpiConstType:3
             |vpiDecompile:2'b10
             |vpiSize:2
-            |BIN:2'b10
+            |BIN:10
           |vpiStmt:
           \_assignment: , line:33
             |vpiOpType:82
@@ -1297,7 +1296,7 @@ design: (work@foo)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
-        |STRING:"attacks-qbb.py:34"
+        |STRING:attacks-qbb.py:34
       |vpiOperand:
       \_ref_obj: (work@foo.pieces0), line:22
         |vpiName:pieces0
@@ -1318,7 +1317,7 @@ design: (work@foo)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
-        |STRING:"attacks-qbb.py:38"
+        |STRING:attacks-qbb.py:38
       |vpiOperand:
       \_ref_obj: (work@foo.empty2), line:24
         |vpiName:empty2
@@ -1328,7 +1327,7 @@ design: (work@foo)
         |vpiConstType:5
         |vpiDecompile:4'h9
         |vpiSize:4
-        |HEX:4'h9
+        |HEX:9
     |vpiLhs:
     \_ref_obj: (work@foo.$37 ), line:24
       |vpiName:$37 
@@ -1378,7 +1377,7 @@ design: (work@foo)
             |vpiConstType:3
             |vpiDecompile:2'b00
             |vpiSize:2
-            |BIN:2'b00
+            |BIN:00
           |vpiStmt:
           \_assignment: , line:31
             |vpiOpType:82
@@ -1400,13 +1399,13 @@ design: (work@foo)
             |vpiConstType:3
             |vpiDecompile:2'b01
             |vpiSize:2
-            |BIN:2'b01
+            |BIN:01
           |vpiExpr:
           \_constant: , line:32
             |vpiConstType:3
             |vpiDecompile:2'b10
             |vpiSize:2
-            |BIN:2'b10
+            |BIN:10
           |vpiStmt:
           \_assignment: , line:33
             |vpiOpType:82
@@ -1497,7 +1496,7 @@ design: (work@foo)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
-        |STRING:"attacks-qbb.py:34"
+        |STRING:attacks-qbb.py:34
       |vpiOperand:
       \_ref_obj: (work@foo.pieces0), line:22
         |vpiName:pieces0
@@ -1518,7 +1517,7 @@ design: (work@foo)
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
-        |STRING:"attacks-qbb.py:38"
+        |STRING:attacks-qbb.py:38
       |vpiOperand:
       \_ref_obj: (work@foo.empty2), line:24
         |vpiName:empty2
@@ -1528,7 +1527,7 @@ design: (work@foo)
         |vpiConstType:5
         |vpiDecompile:4'h9
         |vpiSize:4
-        |HEX:4'h9
+        |HEX:9
     |vpiLhs:
     \_ref_obj: (work@foo.$37 ), line:24
       |vpiName:$37 
@@ -1580,9 +1579,10 @@ design: (work@foo)
                 |vpiNetType:48
             |vpiRhs:
             \_constant: , line:8
-              |vpiConstType:3
+              |vpiConstType:1
               |vpiDecompile:1'd0
-              |BIN:1'd0
+              |vpiSize:1
+              |DEC:0
           |vpiElseStmt:
           \_assignment: , line:9
             |vpiOpType:82
@@ -1641,7 +1641,7 @@ design: (work@foo)
       |vpiAttribute:
       \_attribute: (this_is_the_input)
         |vpiName:this_is_the_input
-        |STRING:"foo"
+        |STRING:foo
       |vpiHighConn:
       \_ref_obj: (inp), line:19
         |vpiName:inp
@@ -1655,6 +1655,8 @@ design: (work@foo)
     \_port: (out), line:1, parent:work@foo.bar_instance
       |vpiName:out
       |vpiDirection:2
+      |vpiTypedef:
+      \_logic_typespec: , line:5
       |vpiHighConn:
       \_ref_obj: (out), line:19
         |vpiName:out

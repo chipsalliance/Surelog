@@ -132,7 +132,7 @@ public:
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool reduce);
 
   bool compileTask(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool isMethod = false);
@@ -146,7 +146,8 @@ public:
   std::vector<UHDM::io_decl*>* compileTfPortList(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
-  std::vector<UHDM::io_decl*>* compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
+  std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*> 
+      compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent, const FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
   UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,

@@ -27,9 +27,6 @@
 #include <map>
 #include "Design/DataType.h"
 
-namespace UHDM {
-  class typespec;
-};
 namespace SURELOG {
 
 class FileContent;
@@ -39,14 +36,11 @@ class Struct : public DataType {
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;
 
-  Category getCategory() const final { return Category::STRUCT; }
-
-  void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() const { return m_typespec; }
   NodeId getNameId() { return m_nameId; }
+
+  bool isNet();
  private:
   NodeId m_nameId;
-  UHDM::typespec* m_typespec;
 };
 
 };  // namespace SURELOG

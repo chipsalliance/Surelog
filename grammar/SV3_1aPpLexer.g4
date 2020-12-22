@@ -22,7 +22,7 @@ One_line_comment : '//' Comment_text '\r'? '\n' ;
 
 Block_comment : '/*' Comment_text '*/' ;
 
-fragment Comment_text : (WS | CR | TAB)* | .*? ;
+fragment Comment_text : .*? ;
 
 TICK_VARIABLE : '``' [a-zA-Z0-9_]+ '``' ;
 
@@ -171,6 +171,8 @@ String
 Simple_identifier : [a-zA-Z_] [a-zA-Z0-9_$]* ;
 
 Spaces : (WS | TAB)+;
+
+Pound_Pound_delay : '##' WS* [0-9] [0-9_.]*;
 
 Pound_delay : '#' WS* [0-9] [0-9_.]*;
 
@@ -329,6 +331,6 @@ CURLY_CLOSE : '}' ;
 SQUARE_OPEN : '[' ;
 SQUARE_CLOSE : ']' ;
 
-Special : [~!@#$%^&*+|:;'<>.?/-]+ ;
+Special : [~!@#$%^&*+|:;'<>.?/-]+? ;
 
 ANY : .;

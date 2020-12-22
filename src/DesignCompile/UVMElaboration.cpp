@@ -50,7 +50,6 @@ UVMElaboration::UVMElaboration(CompileDesign* compileDesign)
 UVMElaboration::~UVMElaboration() {}
 
 bool UVMElaboration::elaborate() {
-  bindTypedefs_();
   bindClasses_();
   return true;
 }

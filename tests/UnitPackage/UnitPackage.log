@@ -795,20 +795,45 @@ design: (work@simple_package)
     \_typespec_member: (addr), line:12
       |vpiName:addr
       |vpiTypespec:
-      \_void_typespec: (bit), line:12
-        |vpiName:bit
+      \_bit_typespec: , line:12
+        |vpiRange:
+        \_range: , line:12, parent:mem_s
+          |vpiLeftRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:13
       |vpiName:data
       |vpiTypespec:
-      \_void_typespec: (bit), line:13
-        |vpiName:bit
+      \_bit_typespec: , line:13
+        |vpiRange:
+        \_range: , line:13, parent:mem_s
+          |vpiLeftRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14
       |vpiName:wr
       |vpiTypespec:
-      \_void_typespec: (bit), line:14
-        |vpiName:bit
+      \_bit_typespec: , line:14
   |vpiParamAssign:
   \_param_assign: , line:8, parent:definesPkg
     |vpiRhs:
@@ -896,9 +921,9 @@ design: (work@simple_package)
       |vpiArgument:
       \_constant: , line:20
         |vpiConstType:6
-        |vpiDecompile:"@%0dns %s INFO : %s"
-        |vpiSize:21
-        |STRING:"@%0dns %s INFO : %s"
+        |vpiDecompile:@%0dns %s INFO : %s
+        |vpiSize:19
+        |STRING:@%0dns %s INFO : %s
       |vpiArgument:
       \_sys_func_call: ($time), line:20
         |vpiName:$time
@@ -929,9 +954,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:26
           |vpiConstType:6
-          |vpiDecompile:"@%0dns %s WARN : %s"
-          |vpiSize:21
-          |STRING:"@%0dns %s WARN : %s"
+          |vpiDecompile:@%0dns %s WARN : %s
+          |vpiSize:19
+          |STRING:@%0dns %s WARN : %s
         |vpiArgument:
         \_sys_func_call: ($time), line:26
           |vpiName:$time
@@ -969,9 +994,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:33
           |vpiConstType:6
-          |vpiDecompile:"@%0dns %s ERROR : %s"
-          |vpiSize:22
-          |STRING:"@%0dns %s ERROR : %s"
+          |vpiDecompile:@%0dns %s ERROR : %s
+          |vpiSize:20
+          |STRING:@%0dns %s ERROR : %s
         |vpiArgument:
         \_sys_func_call: ($time), line:33
           |vpiName:$time
@@ -1018,9 +1043,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:41
           |vpiConstType:6
-          |vpiDecompile:"@%0dns %s FATAL : %s"
-          |vpiSize:22
-          |STRING:"@%0dns %s FATAL : %s"
+          |vpiDecompile:@%0dns %s FATAL : %s
+          |vpiSize:20
+          |STRING:@%0dns %s FATAL : %s
         |vpiArgument:
         \_sys_func_call: ($time), line:41
           |vpiName:$time
@@ -1104,9 +1129,9 @@ design: (work@simple_package)
     |vpiExpr:
     \_constant: , line:8
       |vpiConstType:6
-      |vpiDecompile:"NULL"
-      |vpiSize:6
-      |STRING:"NULL"
+      |vpiDecompile:NULL
+      |vpiSize:4
+      |STRING:NULL
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@simple_package
   |vpiName:work@mailbox
@@ -1210,8 +1235,7 @@ design: (work@simple_package)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -1219,8 +1243,7 @@ design: (work@simple_package)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -1359,9 +1382,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:6
-          |vpiDecompile:"PACKAGES"
-          |vpiSize:10
-          |STRING:"PACKAGES"
+          |vpiDecompile:PACKAGES
+          |vpiSize:8
+          |STRING:PACKAGES
         |vpiArgument:
         \_constant: , line:20
           |vpiConstType:7
@@ -1376,9 +1399,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:21
           |vpiConstType:6
-          |vpiDecompile:"Testing Packages"
-          |vpiSize:18
-          |STRING:"Testing Packages"
+          |vpiDecompile:Testing Packages
+          |vpiSize:16
+          |STRING:Testing Packages
       |vpiStmt:
       \_delay_control: , line:22, parent:work@simple_package
         |#10
@@ -1390,9 +1413,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:22
             |vpiConstType:6
-            |vpiDecompile:"Testing Packages"
-            |vpiSize:18
-            |STRING:"Testing Packages"
+            |vpiDecompile:Testing Packages
+            |vpiSize:16
+            |STRING:Testing Packages
       |vpiStmt:
       \_delay_control: , line:23, parent:work@simple_package
         |#10
@@ -1404,9 +1427,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:23
             |vpiConstType:6
-            |vpiDecompile:"Testing Packages"
-            |vpiSize:18
-            |STRING:"Testing Packages"
+            |vpiDecompile:Testing Packages
+            |vpiSize:16
+            |STRING:Testing Packages
       |vpiStmt:
       \_task_call: (msgPkg::msg_info), line:24, parent:work@simple_package
         |vpiName:msgPkg::msg_info
@@ -1418,9 +1441,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:24
             |vpiConstType:6
-            |vpiDecompile:"Warning Count %0d, Error Count %0d"
-            |vpiSize:36
-            |STRING:"Warning Count %0d, Error Count %0d"
+            |vpiDecompile:Warning Count %0d, Error Count %0d
+            |vpiSize:34
+            |STRING:Warning Count %0d, Error Count %0d
           |vpiArgument:
           \_func_call: (msgPkg::getWarnCnt), line:25
             |vpiName:msgPkg::getWarnCnt
@@ -1455,9 +1478,9 @@ design: (work@simple_package)
             |vpiArgument:
             \_constant: , line:27
               |vpiConstType:6
-              |vpiDecompile:"Value is FALSE"
-              |vpiSize:16
-              |STRING:"Value is FALSE"
+              |vpiDecompile:Value is FALSE
+              |vpiSize:14
+              |STRING:Value is FALSE
   |vpiNet:
   \_logic_net: (work@simple_package.value), line:13, parent:work@simple_package
     |vpiName:value
@@ -1480,20 +1503,45 @@ design: (work@simple_package)
     \_typespec_member: (addr), line:12
       |vpiName:addr
       |vpiTypespec:
-      \_void_typespec: (bit), line:12
-        |vpiName:bit
+      \_bit_typespec: , line:12
+        |vpiRange:
+        \_range: , line:12, parent:mem_s
+          |vpiLeftRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:13
       |vpiName:data
       |vpiTypespec:
-      \_void_typespec: (bit), line:13
-        |vpiName:bit
+      \_bit_typespec: , line:13
+        |vpiRange:
+        \_range: , line:13, parent:mem_s
+          |vpiLeftRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14
       |vpiName:wr
       |vpiTypespec:
-      \_void_typespec: (bit), line:14
-        |vpiName:bit
+      \_bit_typespec: , line:14
 |uhdmtopModules:
 \_module: work@simple_package (work@simple_package) simple_pkg.sv:11: 
   |vpiDefName:work@simple_package
@@ -1511,9 +1559,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:20, parent:msgPkg::initMsgPkg
           |vpiConstType:6
-          |vpiDecompile:"PACKAGES"
-          |vpiSize:10
-          |STRING:"PACKAGES"
+          |vpiDecompile:PACKAGES
+          |vpiSize:8
+          |STRING:PACKAGES
         |vpiArgument:
         \_constant: , line:20, parent:msgPkg::initMsgPkg
           |vpiConstType:7
@@ -1528,9 +1576,9 @@ design: (work@simple_package)
         |vpiArgument:
         \_constant: , line:21, parent:msgPkg::msg_info
           |vpiConstType:6
-          |vpiDecompile:"Testing Packages"
-          |vpiSize:18
-          |STRING:"Testing Packages"
+          |vpiDecompile:Testing Packages
+          |vpiSize:16
+          |STRING:Testing Packages
       |vpiStmt:
       \_delay_control: , line:22, parent:work@simple_package
         |#10
@@ -1542,9 +1590,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:22, parent:msgPkg::msg_warn
             |vpiConstType:6
-            |vpiDecompile:"Testing Packages"
-            |vpiSize:18
-            |STRING:"Testing Packages"
+            |vpiDecompile:Testing Packages
+            |vpiSize:16
+            |STRING:Testing Packages
       |vpiStmt:
       \_delay_control: , line:23, parent:work@simple_package
         |#10
@@ -1556,9 +1604,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:23, parent:msgPkg::msg_error
             |vpiConstType:6
-            |vpiDecompile:"Testing Packages"
-            |vpiSize:18
-            |STRING:"Testing Packages"
+            |vpiDecompile:Testing Packages
+            |vpiSize:16
+            |STRING:Testing Packages
       |vpiStmt:
       \_task_call: (msgPkg::msg_info), line:24, parent:work@simple_package
         |vpiName:msgPkg::msg_info
@@ -1570,9 +1618,9 @@ design: (work@simple_package)
           |vpiArgument:
           \_constant: , line:24, parent:$psprintf
             |vpiConstType:6
-            |vpiDecompile:"Warning Count %0d, Error Count %0d"
-            |vpiSize:36
-            |STRING:"Warning Count %0d, Error Count %0d"
+            |vpiDecompile:Warning Count %0d, Error Count %0d
+            |vpiSize:34
+            |STRING:Warning Count %0d, Error Count %0d
           |vpiArgument:
           \_func_call: (msgPkg::getWarnCnt), line:25, parent:$psprintf
             |vpiName:msgPkg::getWarnCnt
@@ -1628,9 +1676,9 @@ design: (work@simple_package)
             |vpiArgument:
             \_constant: , line:27, parent:msgPkg::msg_fatal
               |vpiConstType:6
-              |vpiDecompile:"Value is FALSE"
-              |vpiSize:16
-              |STRING:"Value is FALSE"
+              |vpiDecompile:Value is FALSE
+              |vpiSize:14
+              |STRING:Value is FALSE
   |vpiGenScopeArray:
   \_gen_scope_array: (work@simple_package.inst), line:15, parent:work@simple_package
     |vpiName:inst
@@ -1652,20 +1700,45 @@ design: (work@simple_package)
         \_typespec_member: (addr), line:12
           |vpiName:addr
           |vpiTypespec:
-          \_void_typespec: (bit), line:12
-            |vpiName:bit
+          \_bit_typespec: , line:12
+            |vpiRange:
+            \_range: , line:12, parent:mem_s
+              |vpiLeftRange:
+              \_constant: , line:12
+                |vpiConstType:7
+                |vpiDecompile:7
+                |vpiSize:32
+                |INT:7
+              |vpiRightRange:
+              \_constant: , line:12
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
         |vpiTypespecMember:
         \_typespec_member: (data), line:13
           |vpiName:data
           |vpiTypespec:
-          \_void_typespec: (bit), line:13
-            |vpiName:bit
+          \_bit_typespec: , line:13
+            |vpiRange:
+            \_range: , line:13, parent:mem_s
+              |vpiLeftRange:
+              \_constant: , line:13
+                |vpiConstType:7
+                |vpiDecompile:7
+                |vpiSize:32
+                |INT:7
+              |vpiRightRange:
+              \_constant: , line:13
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
         |vpiTypespecMember:
         \_typespec_member: (wr), line:14
           |vpiName:wr
           |vpiTypespec:
-          \_void_typespec: (bit), line:14
-            |vpiName:bit
+          \_bit_typespec: , line:14
       |vpiParameter:
       \_parameter: (work@simple_package.inst.SIZE), line:8, parent:work@simple_package.inst
         |vpiName:SIZE
@@ -1691,20 +1764,45 @@ design: (work@simple_package)
     \_typespec_member: (addr), line:12, parent:mem_s
       |vpiName:addr
       |vpiTypespec:
-      \_void_typespec: (bit), line:12, parent:addr
-        |vpiName:bit
+      \_bit_typespec: , line:12, parent:addr
+        |vpiRange:
+        \_range: , line:12
+          |vpiLeftRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:12
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (data), line:13, parent:mem_s
       |vpiName:data
       |vpiTypespec:
-      \_void_typespec: (bit), line:13, parent:data
-        |vpiName:bit
+      \_bit_typespec: , line:13, parent:data
+        |vpiRange:
+        \_range: , line:13
+          |vpiLeftRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:13
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14, parent:mem_s
       |vpiName:wr
       |vpiTypespec:
-      \_void_typespec: (bit), line:14, parent:wr
-        |vpiName:bit
+      \_bit_typespec: , line:14, parent:wr
   |vpiParameter:
   \_parameter: (work@simple_package.SIZE), line:8, parent:work@simple_package
     |vpiName:SIZE

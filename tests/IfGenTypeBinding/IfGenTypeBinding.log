@@ -323,8 +323,7 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -332,8 +331,7 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -502,7 +500,8 @@ design: (work@top)
       |vpiName:PMPEnable
       |vpiFullName:work@top.PMPEnable
       |vpiTypespec:
-      \_bit_typespec: , line:13, parent:work@top.PMPEnable
+      \_bit_typespec: (PMPEnable), line:13, parent:work@top.PMPEnable
+        |vpiName:PMPEnable
   |vpiParamAssign:
   \_param_assign: , line:15, parent:work@top
     |vpiRhs:
@@ -517,7 +516,8 @@ design: (work@top)
       |vpiFullName:work@top.PMPNumRegions
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:15, parent:work@top.PMPNumRegions
+      \_int_typespec: (PMPNumRegions), line:15, parent:work@top.PMPNumRegions
+        |vpiName:PMPNumRegions
   |vpiParameter:
   \_parameter: (work@top.PMPEnable), line:13, parent:work@top
   |vpiParameter:
@@ -533,19 +533,14 @@ design: (work@top)
     |vpiGenScope:
     \_gen_scope: (work@top.g_pmp_registers), parent:work@top.g_pmp_registers
       |vpiFullName:work@top.g_pmp_registers
-      |vpiVariables:
-      \_array_var: (work@top.g_pmp_registers.pmp_cfg2), parent:work@top.g_pmp_registers
-        |vpiArrayType:1
+      |vpiArrayNet:
+      \_array_net: (work@top.g_pmp_registers.pmp_cfg2), parent:work@top.g_pmp_registers
         |vpiName:pmp_cfg2
         |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
-        |vpiRandType:1
-        |vpiVisibility:1
         |vpiSize:2
-        |vpiReg:
-        \_struct_var: (work@top.g_pmp_registers.pmp_cfg2), line:21, parent:work@top.g_pmp_registers.pmp_cfg2
+        |vpiNet:
+        \_struct_net: (work@top.g_pmp_registers.pmp_cfg2), line:21, parent:work@top.g_pmp_registers.pmp_cfg2
           |vpiFullName:work@top.g_pmp_registers.pmp_cfg2
-          |vpiAutomatic:1
-          |vpiVisibility:1
           |vpiTypespec:
           \_struct_typespec: (pmp_cfg_t), line:3
             |vpiPacked:1
@@ -584,19 +579,14 @@ design: (work@top)
             |vpiDecompile:1
             |vpiSize:64
             |INT:1
-  |vpiVariables:
-  \_array_var: (work@top.pmp_cfg1), parent:work@top
-    |vpiArrayType:1
+  |vpiArrayNet:
+  \_array_net: (work@top.pmp_cfg1), parent:work@top
     |vpiName:pmp_cfg1
     |vpiFullName:work@top.pmp_cfg1
-    |vpiRandType:1
-    |vpiVisibility:1
     |vpiSize:2
-    |vpiReg:
-    \_struct_var: (work@top.pmp_cfg1), line:18, parent:work@top.pmp_cfg1
+    |vpiNet:
+    \_struct_net: (work@top.pmp_cfg1), line:18, parent:work@top.pmp_cfg1
       |vpiFullName:work@top.pmp_cfg1
-      |vpiAutomatic:1
-      |vpiVisibility:1
       |vpiTypespec:
       \_struct_typespec: (pmp_cfg_t), line:3
     |vpiRange:
@@ -645,21 +635,22 @@ design: (work@top)
     \_constant: , line:13
       |vpiConstType:7
       |vpiDecompile:1
-      |vpiSize:32
+      |vpiSize:64
       |INT:1
     |vpiLhs:
     \_parameter: (work@top.PMPEnable), line:13, parent:work@top
       |vpiName:PMPEnable
       |vpiFullName:work@top.PMPEnable
       |vpiTypespec:
-      \_bit_typespec: , line:13, parent:work@top.PMPEnable
+      \_bit_typespec: (PMPEnable), line:13, parent:work@top.PMPEnable
+        |vpiName:PMPEnable
   |vpiParamAssign:
   \_param_assign: , line:15, parent:work@top
     |vpiRhs:
     \_constant: , line:15
       |vpiConstType:7
       |vpiDecompile:2
-      |vpiSize:32
+      |vpiSize:64
       |INT:2
     |vpiLhs:
     \_parameter: (work@top.PMPNumRegions), line:15, parent:work@top
@@ -667,7 +658,8 @@ design: (work@top)
       |vpiFullName:work@top.PMPNumRegions
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:15, parent:work@top.PMPNumRegions
+      \_int_typespec: (PMPNumRegions), line:15, parent:work@top.PMPNumRegions
+        |vpiName:PMPNumRegions
   |vpiParameter:
   \_parameter: (work@top.PMPEnable), line:13, parent:work@top
     |vpiName:PMPEnable

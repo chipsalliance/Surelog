@@ -183,6 +183,9 @@ dict set WINDOWS_BLACK_LIST UnitElabExternNested 1
 dict set WINDOWS_BLACK_LIST UnitPython 1
 dict set WINDOWS_BLACK_LIST UnitSimpleIncludeAndMacros 1
 dict set WINDOWS_BLACK_LIST Verilator 1
+dict set WINDOWS_BLACK_LIST BuildUVMPkg 1
+dict set WINDOWS_BLACK_LIST Compl1001 1
+dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 
 set UNIX_BLACK_LIST [dict create]
 # 2 message diff:
@@ -477,6 +480,8 @@ proc run_regression { } {
             set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
             set result [read $fid]
             close $fid
+	    regsub -all {[a-zA-Z_/-]*/Surelog/} $result {${SURELOG_DIR}/} result
+	    regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $result {t.ttts} result
         } else {
             if [file exists "${testname}.log"] {
                 set fid [open "${testname}.log" "r"]

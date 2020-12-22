@@ -534,9 +534,9 @@ design: (unnamed)
         |vpiArgument:
         \_constant: , line:7
           |vpiConstType:6
-          |vpiDecompile:"arbitration_queue"
-          |vpiSize:19
-          |STRING:"arbitration_queue"
+          |vpiDecompile:arbitration_queue
+          |vpiSize:17
+          |STRING:arbitration_queue
         |vpiArgument:
         \_ref_obj: (arb_sequence_q.size), line:7
           |vpiName:arb_sequence_q.size
@@ -563,9 +563,9 @@ design: (unnamed)
             |vpiArgument:
             \_constant: , line:9
               |vpiConstType:6
-              |vpiDecompile:"[%0d]"
-              |vpiSize:7
-              |STRING:"[%0d]"
+              |vpiDecompile:[%0d]
+              |vpiSize:5
+              |STRING:[%0d]
             |vpiArgument:
             \_ref_obj: (i), line:9
               |vpiName:i
@@ -575,9 +575,9 @@ design: (unnamed)
             |vpiArgument:
             \_constant: , line:10
               |vpiConstType:6
-              |vpiDecompile:"%s@seqid%0d"
-              |vpiSize:13
-              |STRING:"%s@seqid%0d"
+              |vpiDecompile:%s@seqid%0d
+              |vpiSize:11
+              |STRING:%s@seqid%0d
             |vpiArgument:
             \_bit_select: (arb_sequence_q.request), line:10
               |vpiName:arb_sequence_q.request
@@ -593,9 +593,9 @@ design: (unnamed)
           |vpiArgument:
           \_constant: , line:10
             |vpiConstType:6
-            |vpiDecompile:"["
-            |vpiSize:3
-            |STRING:"["
+            |vpiDecompile:[
+            |vpiSize:1
+            |STRING:[
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:unnamed
   |vpiName:work@mailbox
@@ -708,8 +708,7 @@ design: (unnamed)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -717,8 +716,7 @@ design: (unnamed)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -852,34 +850,6 @@ design: (unnamed)
     |vpiStmt:
     \_begin: (work@uvm_reg_map::set_check_on_read), parent:work@uvm_reg_map::set_check_on_read
       |vpiFullName:work@uvm_reg_map::set_check_on_read
-      |vpiStmt:
-      \_assign_stmt: , parent:work@uvm_reg_map::set_check_on_read
-        |vpiLhs:
-        \_array_var: (work@uvm_reg_map::set_check_on_read)
-          |vpiFullName:work@uvm_reg_map::set_check_on_read
-          |vpiReg:
-          \_string_var: (sarray), line:50
-            |vpiName:sarray
-          |vpiRange:
-          \_range: , line:50
-            |vpiLeftRange:
-            \_constant: , line:50
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:1
-              |INT:0
-            |vpiRightRange:
-            \_constant: , line:50
-              |vpiConstType:7
-              |vpiDecompile:10
-              |vpiSize:32
-              |INT:10
-      |vpiStmt:
-      \_assign_stmt: , parent:work@uvm_reg_map::set_check_on_read
-        |vpiLhs:
-        \_chandle_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51
-          |vpiName:an_obj
-          |vpiFullName:work@uvm_reg_map::set_check_on_read::an_obj
       |vpiStmt:
       \_method_func_call: (push_back), line:52, parent:work@uvm_reg_map::set_check_on_read
         |vpiName:push_back
@@ -1017,6 +987,36 @@ design: (unnamed)
             |vpiPrefix:
             \_ref_obj: (submap)
               |vpiName:submap
+    |vpiVariables:
+    \_array_var: (work@uvm_reg_map::set_check_on_read)
+      |vpiFullName:work@uvm_reg_map::set_check_on_read
+      |vpiReg:
+      \_string_var: (sarray), line:50
+        |vpiName:sarray
+      |vpiRange:
+      \_range: , line:50
+        |vpiLeftRange:
+        \_constant: , line:50
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:1
+          |INT:0
+        |vpiRightRange:
+        \_operation: 
+          |vpiOpType:1
+          |vpiOperand:
+          \_constant: , line:50
+            |vpiConstType:7
+            |vpiDecompile:10
+            |vpiSize:32
+            |INT:10
+          |vpiOperand:
+          \_constant: 
+            |INT:1
+    |vpiVariables:
+    \_chandle_var: (work@uvm_reg_map::set_check_on_read::an_obj), line:51
+      |vpiName:an_obj
+      |vpiFullName:work@uvm_reg_map::set_check_on_read::an_obj
   |vpiVariables:
   \_array_var: (m_submaps)
     |vpiArrayType:1
@@ -1043,8 +1043,14 @@ design: (unnamed)
         |vpiSize:1
         |INT:0
       |vpiRightRange:
-      \_ref_obj: (uvm_reg_map), line:46
-        |vpiName:uvm_reg_map
+      \_operation: 
+        |vpiOpType:1
+        |vpiOperand:
+        \_ref_obj: (uvm_reg_map), line:46
+          |vpiName:uvm_reg_map
+        |vpiOperand:
+        \_constant: 
+          |INT:1
   |vpiVariables:
   \_array_var: (m_submaps2)
     |vpiArrayType:1

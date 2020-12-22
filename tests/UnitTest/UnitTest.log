@@ -797,7 +797,7 @@ design: (work@tb_operators)
           |vpiConstType:3
           |vpiDecompile:32'b1
           |vpiSize:32
-          |BIN:32'b1
+          |BIN:1
       |vpiStmt:
       \_assignment: , line:13, parent:work@tb_operators
         |vpiOpType:82
@@ -917,7 +917,7 @@ design: (work@tb_operators)
               |vpiConstType:3
               |vpiDecompile:31'b0
               |vpiSize:31
-              |BIN:31'b0
+              |BIN:0
           |vpiOperand:
           \_constant: , line:16
             |vpiConstType:7
@@ -951,7 +951,7 @@ design: (work@tb_operators)
               |vpiConstType:3
               |vpiDecompile:31'b1
               |vpiSize:31
-              |BIN:31'b1
+              |BIN:1
           |vpiOperand:
           \_constant: , line:17
             |vpiConstType:7
@@ -1032,9 +1032,9 @@ design: (work@tb_operators)
             |vpiArgument:
             \_constant: , line:23
               |vpiConstType:6
-              |vpiDecompile:"GTE TEST 1"
-              |vpiSize:12
-              |STRING:"GTE TEST 1"
+              |vpiDecompile:GTE TEST 1
+              |vpiSize:10
+              |STRING:GTE TEST 1
         |vpiElseStmt:
         \_if_else: , line:24
           |vpiCondition:
@@ -1059,9 +1059,9 @@ design: (work@tb_operators)
               |vpiArgument:
               \_constant: , line:25
                 |vpiConstType:6
-                |vpiDecompile:"GTE TEST 2"
-                |vpiSize:12
-                |STRING:"GTE TEST 2"
+                |vpiDecompile:GTE TEST 2
+                |vpiSize:10
+                |STRING:GTE TEST 2
           |vpiElseStmt:
           \_if_else: , line:26
             |vpiCondition:
@@ -1086,9 +1086,9 @@ design: (work@tb_operators)
                 |vpiArgument:
                 \_constant: , line:27
                   |vpiConstType:6
-                  |vpiDecompile:"GTE TEST 3"
-                  |vpiSize:12
-                  |STRING:"GTE TEST 3"
+                  |vpiDecompile:GTE TEST 3
+                  |vpiSize:10
+                  |STRING:GTE TEST 3
             |vpiElseStmt:
             \_if_stmt: , line:28
               |vpiCondition:
@@ -1113,9 +1113,9 @@ design: (work@tb_operators)
                   |vpiArgument:
                   \_constant: , line:29
                     |vpiConstType:6
-                    |vpiDecompile:"GTE TEST 3"
-                    |vpiSize:12
-                    |STRING:"GTE TEST 3"
+                    |vpiDecompile:GTE TEST 3
+                    |vpiSize:10
+                    |STRING:GTE TEST 3
       |vpiStmt:
       \_assignment: , line:32, parent:work@tb_operators
         |vpiOpType:82
@@ -1344,14 +1344,14 @@ design: (work@tb_operators)
         |vpiDefName:work@mem_if
         |vpiName:sif1
         |vpiModport:
-        \_modport: (memory)
+        \_modport: (memory), parent:sif1
           |vpiName:memory
           |vpiIODecl:
           \_io_decl: (clk)
             |vpiName:clk
             |vpiDirection:2
         |vpiModport:
-        \_modport: (system)
+        \_modport: (system), parent:sif1
           |vpiName:system
           |vpiIODecl:
           \_io_decl: (clk)
@@ -1364,23 +1364,12 @@ design: (work@tb_operators)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_modport: (system)
+      \_modport: (system), parent:sif2
         |vpiName:system
         |vpiIODecl:
         \_io_decl: (clk)
           |vpiName:clk
           |vpiDirection:1
-          |vpiExpr:
-          \_logic_net: (work@memory_ctrl1.clk), line:47, parent:work@memory_ctrl1
-            |vpiName:clk
-            |vpiFullName:work@memory_ctrl1.clk
-            |vpiNetType:1
-  |vpiPort:
-  \_port: (clk), line:47, parent:work@memory_ctrl1
-    |vpiName:clk
-    |vpiDirection:1
-  |vpiNet:
-  \_logic_net: (work@memory_ctrl1.clk), line:47, parent:work@memory_ctrl1
   |vpiNet:
   \_logic_net: (work@memory_ctrl1.toto1), line:59, parent:work@memory_ctrl1
     |vpiName:toto1
@@ -1395,14 +1384,6 @@ design: (work@tb_operators)
     |vpiName:o1
     |vpiFullName:work@memory_ctrl1.o1
     |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (work@memory_ctrl1.sif1), line:57, parent:work@memory_ctrl1
-    |vpiName:sif1
-    |vpiFullName:work@memory_ctrl1.sif1
-  |vpiNet:
-  \_logic_net: (work@memory_ctrl1.sif2), line:57, parent:work@memory_ctrl1
-    |vpiName:sif2
-    |vpiFullName:work@memory_ctrl1.sif2
   |vpiVariables:
   \_class_var: (work@memory_ctrl1.toto2), line:61, parent:work@memory_ctrl1
     |vpiName:toto2

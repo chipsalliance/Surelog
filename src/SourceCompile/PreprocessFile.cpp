@@ -34,6 +34,7 @@
 #include <iostream>
 #include <regex>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 using namespace SURELOG;

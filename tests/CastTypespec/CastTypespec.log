@@ -522,7 +522,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_AW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:4, parent:top_pkg::TL_AW
+      \_int_typespec: (TL_AW), line:4, parent:top_pkg::TL_AW
+        |vpiName:TL_AW
   |vpiParamAssign:
   \_param_assign: , line:5, parent:top_pkg
     |vpiRhs:
@@ -537,7 +538,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_DW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:5, parent:top_pkg::TL_DW
+      \_int_typespec: (TL_DW), line:5, parent:top_pkg::TL_DW
+        |vpiName:TL_DW
   |vpiParamAssign:
   \_param_assign: , line:6, parent:top_pkg
     |vpiRhs:
@@ -552,7 +554,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_AIW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:6, parent:top_pkg::TL_AIW
+      \_int_typespec: (TL_AIW), line:6, parent:top_pkg::TL_AIW
+        |vpiName:TL_AIW
   |vpiParamAssign:
   \_param_assign: , line:7, parent:top_pkg
     |vpiRhs:
@@ -567,7 +570,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_DIW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:7, parent:top_pkg::TL_DIW
+      \_int_typespec: (TL_DIW), line:7, parent:top_pkg::TL_DIW
+        |vpiName:TL_DIW
   |vpiParamAssign:
   \_param_assign: , line:8, parent:top_pkg
     |vpiRhs:
@@ -582,7 +586,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_DUW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:8, parent:top_pkg::TL_DUW
+      \_int_typespec: (TL_DUW), line:8, parent:top_pkg::TL_DUW
+        |vpiName:TL_DUW
   |vpiParamAssign:
   \_param_assign: , line:9, parent:top_pkg
     |vpiRhs:
@@ -595,7 +600,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_DBW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:9, parent:top_pkg::TL_DBW
+      \_int_typespec: (TL_DBW), line:9, parent:top_pkg::TL_DBW
+        |vpiName:TL_DBW
   |vpiParamAssign:
   \_param_assign: , line:10, parent:top_pkg
     |vpiRhs:
@@ -608,7 +614,8 @@ design: (work@tlul_adapter_host)
       |vpiFullName:top_pkg::TL_SZW
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:10, parent:top_pkg::TL_SZW
+      \_int_typespec: (TL_SZW), line:10, parent:top_pkg::TL_SZW
+        |vpiName:TL_SZW
   |vpiParameter:
   \_parameter: (top_pkg::TL_AW), line:4, parent:top_pkg
   |vpiParameter:
@@ -726,8 +733,7 @@ design: (work@tlul_adapter_host)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -735,8 +741,7 @@ design: (work@tlul_adapter_host)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -877,7 +882,7 @@ design: (work@tlul_adapter_host)
           |vpiConstType:5
           |vpiDecompile:3'h0
           |vpiSize:3
-          |HEX:3'h0
+          |HEX:0
       |vpiOperand:
       \_tagged_pattern: 
         |vpiTypespec:
@@ -1100,7 +1105,7 @@ design: (work@tlul_adapter_host)
           |vpiConstType:5
           |vpiDecompile:3'h0
           |vpiSize:3
-          |HEX:3'h0
+          |HEX:0
       |vpiOperand:
       \_tagged_pattern: 
         |vpiTypespec:
@@ -1262,9 +1267,13 @@ design: (work@tlul_adapter_host)
             \_ref_obj: (work@top.p_outmux.dmcontrol_q.resumereq), line:38
               |vpiName:dmcontrol_q.resumereq
               |vpiFullName:work@top.p_outmux.dmcontrol_q.resumereq
-  |vpiContAssign:
-  \_cont_assign: , line:26, parent:work@top
-    |vpiRhs:
+  |vpiVariables:
+  \_struct_var: (work@top.XYZ), line:26, parent:work@top
+    |vpiName:XYZ
+    |vpiFullName:work@top.XYZ
+    |vpiAutomatic:1
+    |vpiVisibility:1
+    |vpiExpr:
     \_operation: , line:26
       |vpiOpType:75
       |vpiOperand:
@@ -1278,12 +1287,23 @@ design: (work@tlul_adapter_host)
           |vpiDecompile:1
           |vpiSize:32
           |INT:1
-    |vpiLhs:
-    \_logic_net: (work@top.XYZ), line:26, parent:work@top
-      |vpiName:XYZ
-      |vpiFullName:work@top.XYZ
-  |vpiNet:
-  \_logic_net: (work@top.XYZ), line:26, parent:work@top
+    |vpiTypespec:
+    \_struct_typespec: , line:26
+      |vpiTypespecMember:
+      \_typespec_member: (X), line:26
+        |vpiName:X
+        |vpiTypespec:
+        \_int_typespec: , line:26
+      |vpiTypespecMember:
+      \_typespec_member: (Y), line:26
+        |vpiName:Y
+        |vpiTypespec:
+        \_int_typespec: , line:26
+      |vpiTypespecMember:
+      \_typespec_member: (Z), line:26
+        |vpiName:Z
+        |vpiTypespec:
+        \_int_typespec: , line:26
   |vpiVariables:
   \_int_var: (work@top.a), line:28, parent:work@top
   |vpiVariables:
@@ -1313,7 +1333,7 @@ design: (work@tlul_adapter_host)
     \_constant: , line:35
       |vpiConstType:7
       |vpiDecompile:2
-      |vpiSize:32
+      |vpiSize:64
       |INT:2
     |vpiLhs:
     \_parameter: (work@top.HartSelLen), line:35, parent:work@top

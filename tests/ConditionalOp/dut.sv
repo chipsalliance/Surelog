@@ -1,4 +1,5 @@
 module top();
+        localparam int unsigned NrHarts = 1;
 
 	localparam int unsigned NrHarts2 = 8;
  

@@ -28,6 +28,25 @@
 using namespace SURELOG;
 
 Struct::Struct(const FileContent* fC, NodeId nameId, NodeId structId)
-    : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {}
+    : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {
+    m_category = DataType::Category::STRUCT;
+}
 
 Struct::~Struct() {}
+
+bool Struct::isNet() {
+  if (!m_typespec) {
+    return false;
+  }
+  if (m_typespec->UhdmType() != UHDM::uhdmstruct_typespec) return false;
+  const UHDM::struct_typespec* tps = (const UHDM::struct_typespec*)m_typespec;
+  if (tps->Members()) {
+    for (UHDM::typespec_member* member : *tps->Members()) {
+      const UHDM::typespec* tm = member->Typespec();
+      if (!tm) return false;
+      UHDM::UHDM_OBJECT_TYPE type = tm->UhdmType();
+      if (type != UHDM::uhdmlogic_typespec) return false;
+    }
+  }
+  return true;
+}

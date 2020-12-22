@@ -40,8 +40,6 @@ class Enum : public DataType {
   Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
 
-  Category getCategory() const final { return Category::ENUM; }
-
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
   void addValue(const std::string& name, unsigned int lineNb, Value* value) {
@@ -51,16 +49,12 @@ class Enum : public DataType {
   NodeId getDefinitionId() const { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
 
-  UHDM::typespec* getTypespec() const { return m_typespec; }
-  void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
-
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:
   const NodeId m_nameId;
   NameValueMap m_values;
-  UHDM::typespec* m_typespec;
   UHDM::typespec* m_baseTypespec;
 };
 

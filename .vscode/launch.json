@@ -27,6 +27,44 @@
             ]
         },
         {
+            "name": "Ibex",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": [ "-DPRJ_DIR=.", "-f", "Ibex.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Ibex",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "IbexGoogle",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": [ "-f", "IbexGoogle.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/IbexGoogle",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Icarus",
             "type": "cppdbg",
             "request": "launch",
@@ -278,7 +316,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nocache", "-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm"],
+            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -408,11 +446,30 @@
             ]
         },
         {
+            "name": "OneAnd",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "OneAnd.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/OneAnd",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "SimpleClass1",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["+incdir+.+../../third_party/UVM/uvm-1.2/src/", "../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv", "-sverilog", "-parse", "top.v", "-d", "0", "-d", "uhdm"],
+            "args": ["+incdir+.+../../third_party/UVM/uvm-1.2/src/", "../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv", "-sverilog", "-parse", "top.v", "-d", "0"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/tests/SimpleClass1",
             "environment": [],

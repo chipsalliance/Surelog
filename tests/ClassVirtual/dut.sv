@@ -1,5 +1,8 @@
 package pack;
 
+class uvm_void;
+endclass
+   
 class Base;
 endclass
    

@@ -277,8 +277,7 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -286,8 +285,7 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -427,9 +425,50 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (work@top.un), line:6, parent:work@top
+          \_struct_net: (work@top.un), line:6, parent:work@top
             |vpiName:un
             |vpiFullName:work@top.un
+            |vpiTypespec:
+            \_union_typespec: , line:3
+              |vpiPacked:1
+              |vpiTypespecMember:
+              \_typespec_member: (v1), line:4
+                |vpiName:v1
+                |vpiTypespec:
+                \_bit_typespec: , line:4
+                  |vpiRange:
+                  \_range: , line:4
+                    |vpiLeftRange:
+                    \_constant: , line:4
+                      |vpiConstType:7
+                      |vpiDecompile:6
+                      |vpiSize:64
+                      |INT:6
+                    |vpiRightRange:
+                    \_constant: , line:4
+                      |vpiConstType:7
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |INT:0
+              |vpiTypespecMember:
+              \_typespec_member: (v2), line:5
+                |vpiName:v2
+                |vpiTypespec:
+                \_bit_typespec: , line:5
+                  |vpiRange:
+                  \_range: , line:5
+                    |vpiLeftRange:
+                    \_constant: , line:5
+                      |vpiConstType:7
+                      |vpiDecompile:6
+                      |vpiSize:64
+                      |INT:6
+                    |vpiRightRange:
+                    \_constant: , line:5
+                      |vpiConstType:7
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |INT:0
         |vpiRhs:
         \_tagged_pattern: (v2), line:9
           |vpiName:v2
@@ -448,7 +487,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (work@top.un), line:6, parent:work@top
+          \_struct_net: (work@top.un), line:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10
           |vpiName:v1
@@ -464,9 +503,9 @@ design: (work@top)
         |vpiArgument:
         \_constant: , line:11
           |vpiConstType:6
-          |vpiDecompile:":assert: ('%b' == 'v1:1010101'"
-          |vpiSize:32
-          |STRING:":assert: ('%b' == 'v1:1010101'"
+          |vpiDecompile::assert: ('%b' == 'v1:1010101'
+          |vpiSize:30
+          |STRING::assert: ('%b' == 'v1:1010101'
         |vpiArgument:
         \_ref_obj: (un), line:11
           |vpiName:un
@@ -492,9 +531,50 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (work@top.un), line:6, parent:work@top
+          \_struct_net: (work@top.un), line:6, parent:work@top
             |vpiName:un
             |vpiFullName:work@top.un
+            |vpiTypespec:
+            \_union_typespec: , line:3
+              |vpiPacked:1
+              |vpiTypespecMember:
+              \_typespec_member: (v1), line:4
+                |vpiName:v1
+                |vpiTypespec:
+                \_bit_typespec: , line:4
+                  |vpiRange:
+                  \_range: , line:4
+                    |vpiLeftRange:
+                    \_constant: , line:4
+                      |vpiConstType:7
+                      |vpiDecompile:6
+                      |vpiSize:64
+                      |INT:6
+                    |vpiRightRange:
+                    \_constant: , line:4
+                      |vpiConstType:7
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |INT:0
+              |vpiTypespecMember:
+              \_typespec_member: (v2), line:5
+                |vpiName:v2
+                |vpiTypespec:
+                \_bit_typespec: , line:5
+                  |vpiRange:
+                  \_range: , line:5
+                    |vpiLeftRange:
+                    \_constant: , line:5
+                      |vpiConstType:7
+                      |vpiDecompile:6
+                      |vpiSize:64
+                      |INT:6
+                    |vpiRightRange:
+                    \_constant: , line:5
+                      |vpiConstType:7
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |INT:0
         |vpiRhs:
         \_tagged_pattern: (v2), line:9
           |vpiName:v2
@@ -513,7 +593,7 @@ design: (work@top)
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (work@top.un), line:6, parent:work@top
+          \_struct_net: (work@top.un), line:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10
           |vpiName:v1
@@ -529,17 +609,17 @@ design: (work@top)
         |vpiArgument:
         \_constant: , line:11, parent:$display
           |vpiConstType:6
-          |vpiDecompile:":assert: ('%b' == 'v1:1010101'"
-          |vpiSize:32
-          |STRING:":assert: ('%b' == 'v1:1010101'"
+          |vpiDecompile::assert: ('%b' == 'v1:1010101'
+          |vpiSize:30
+          |STRING::assert: ('%b' == 'v1:1010101'
         |vpiArgument:
         \_ref_obj: (work@top.un), line:11, parent:$display
           |vpiName:un
           |vpiFullName:work@top.un
           |vpiActual:
-          \_logic_net: (work@top.un), line:6, parent:work@top
+          \_struct_net: (work@top.un), line:6, parent:work@top
   |vpiNet:
-  \_logic_net: (work@top.un), line:6, parent:work@top
+  \_struct_net: (work@top.un), line:6, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

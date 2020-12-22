@@ -1,0 +1,118 @@
+[INF:CM0023] Creating log file ../../build/tests/StringParameter/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "top".
+
+[WRN:PA0205] dut.sv:8: No timescale set for "parameter_module".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:8: Compile module "work@parameter_module".
+
+[INF:CP0303] dut.sv:1: Compile module "work@top".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:1: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 2.
+
+[NTE:EL0510] Nb instances: 2.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/StringParameter/slpp_unit//surelog.uhdm.chk.html
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallModules:
+\_module: work@parameter_module (work@parameter_module) dut.sv:8: , parent:work@top
+  |vpiDefName:work@parameter_module
+  |vpiFullName:work@parameter_module
+  |vpiParamAssign:
+  \_param_assign: , line:9, parent:work@parameter_module
+    |vpiRhs:
+    \_constant: , line:9
+      |vpiConstType:6
+      |vpiDecompile:FIRSTVALUE
+      |vpiSize:10
+      |STRING:FIRSTVALUE
+    |vpiLhs:
+    \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9, parent:work@parameter_module
+      |vpiName:FIRSTPARAMETER
+      |vpiFullName:work@parameter_module.FIRSTPARAMETER
+  |vpiParamAssign:
+  \_param_assign: , line:10, parent:work@parameter_module
+    |vpiRhs:
+    \_constant: , line:10
+      |vpiConstType:6
+      |vpiDecompile:SECONDVALUE
+      |vpiSize:11
+      |STRING:SECONDVALUE
+    |vpiLhs:
+    \_parameter: (work@parameter_module.SECONDPARAMETER), line:10, parent:work@parameter_module
+      |vpiName:SECONDPARAMETER
+      |vpiFullName:work@parameter_module.SECONDPARAMETER
+  |vpiParameter:
+  \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9, parent:work@parameter_module
+  |vpiParameter:
+  \_parameter: (work@parameter_module.SECONDPARAMETER), line:10, parent:work@parameter_module
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:1: , parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1: 
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiModule:
+  \_module: work@parameter_module (work@top.test_module) dut.sv:2: , parent:work@top
+    |vpiDefName:work@parameter_module
+    |vpiName:test_module
+    |vpiFullName:work@top.test_module
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiParamAssign:
+    \_param_assign: , line:9, parent:work@top.test_module
+      |vpiRhs:
+      \_constant: , line:9
+        |vpiConstType:7
+        |vpiDecompile:TOPFIRSTVALUE
+        |vpiSize:15
+        |STRING:TOPFIRSTVALUE
+      |vpiLhs:
+      \_parameter: (work@parameter_module.FIRSTPARAMETER), line:9, parent:work@parameter_module
+        |vpiName:FIRSTPARAMETER
+        |vpiFullName:work@parameter_module.FIRSTPARAMETER
+    |vpiParamAssign:
+    \_param_assign: , line:10, parent:work@top.test_module
+      |vpiRhs:
+      \_constant: , line:10
+        |vpiConstType:7
+        |vpiDecompile:TOPSECONDVALUE
+        |vpiSize:16
+        |STRING:TOPSECONDVALUE
+      |vpiLhs:
+      \_parameter: (work@parameter_module.SECONDPARAMETER), line:10, parent:work@parameter_module
+        |vpiName:SECONDPARAMETER
+        |vpiFullName:work@parameter_module.SECONDPARAMETER
+    |vpiParameter:
+    \_parameter: (work@top.test_module.FIRSTPARAMETER), line:3, parent:work@top.test_module
+      |vpiName:FIRSTPARAMETER
+      |vpiFullName:work@top.test_module.FIRSTPARAMETER
+      |STRING:TOPFIRSTVALUE
+    |vpiParameter:
+    \_parameter: (work@top.test_module.SECONDPARAMETER), line:4, parent:work@top.test_module
+      |vpiName:SECONDPARAMETER
+      |vpiFullName:work@top.test_module.SECONDPARAMETER
+      |STRING:TOPSECONDVALUE
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 2
+[   NOTE] : 5
+

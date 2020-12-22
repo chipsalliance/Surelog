@@ -169,7 +169,16 @@ void SValue::u_minus(const Value* a) {
 }
 
 std::string SValue::uhdmValue() {
-  std::string result = "INT:";
+  Value::Type valueType = getType();
+  std::string result;
+  switch (valueType) {
+    case (Value::Type::Scalar):
+      result = "SCAL:";
+      break;
+    default:
+      result = "INT:";
+      break;
+  }
   result += std::to_string(m_value);
   return result;
 }
@@ -552,8 +561,15 @@ void LValue::adjust(const Value* a) {
 void LValue::u_plus(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
-    m_valueArray[i].m_value = a->getValueL(i);
+    long long tmp = a->getValueL(i);
     m_valueArray[i].m_size = a->getSize(i);
+    if (tmp >= 0)
+      m_valueArray[i].m_value = tmp;
+    else {
+      m_valueArray[i].m_value = 0;
+      m_valid = false;
+      return;
+    }
   }
   m_valid = a->isValid();
 }
@@ -948,7 +964,10 @@ std::string StValue::uhdmValue() {
   else if (m_type == Type::Octal)
     result = "OCT:";
   else if (m_type == Type::Scalar)
-    result = "SCAL:";  
+    result = "SCAL:";
+  //Remove '"' from the string
+  if (result == "STRING:" && m_value.front() == '"' && m_value.back() == '"')
+    m_value = m_value.substr(1, m_value.length() - 2);
   result += m_value;
   return result;
 }

@@ -262,6 +262,7 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = conta;
     break;
   }
+  case VObjectType::slParameter_declaration:
   case VObjectType::slLocal_parameter_declaration: {
     NodeId Data_type_or_implicit = fC->Child(the_stmt);
     UHDM::typespec* ts =
@@ -910,12 +911,14 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
 }
 
 
-std::vector<io_decl*>* CompileHelper::compileTfPortDecl(
+std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*> CompileHelper::compileTfPortDecl(
   DesignComponent* component, UHDM::task_func* parent,
   const FileContent* fC, NodeId tf_item_decl,
   CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<io_decl*>* ios = s.MakeIo_declVec();
+  std::vector<variables*>* vars = s.MakeVariablesVec();
+  std::pair<std::vector<UHDM::io_decl*>*, std::vector<UHDM::variables*>*> results = std::make_pair(ios, vars);
   /*
 n<> u<137> t<TfPortDir_Inp> p<141> s<138> l<28>
 n<> u<138> t<Data_type_or_implicit> p<141> s<140> l<28>
@@ -924,37 +927,73 @@ n<> u<140> t<List_of_tf_variable_identifiers> p<141> c<139> l<28>
 n<> u<141> t<Tf_port_declaration> p<142> c<137> l<28>
 n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
   */
+  std::map<std::string, io_decl*> ioMap;
+
   while  (tf_item_decl) {
     if (fC->Type(tf_item_decl) == VObjectType::slTf_item_declaration) {
       NodeId Tf_port_declaration = fC->Child(tf_item_decl);
-      NodeId TfPortDir = fC->Child(Tf_port_declaration);
-      VObjectType tf_port_direction_type = fC->Type(TfPortDir);
-      NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
-      NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
-      int size;
-      VectorOfrange* ranges =
-          compileRanges(component, fC, Packed_dimension, compileDesign, nullptr,
-                        nullptr, true, size);
+      if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
+        NodeId TfPortDir = fC->Child(Tf_port_declaration);
+        VObjectType tf_port_direction_type = fC->Type(TfPortDir);
+        NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
+        NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
+        int size;
+        VectorOfrange* ranges =
+            compileRanges(component, fC, Packed_dimension, compileDesign,
+                          nullptr, nullptr, true, size);
 
-      NodeId List_of_tf_variable_identifiers =
-          fC->Sibling(Data_type_or_implicit);
-      while (List_of_tf_variable_identifiers) {
-        io_decl* decl = s.MakeIo_decl();
-        ios->push_back(decl);
-        decl->VpiParent(parent);
-        decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));
-        NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
-        decl->VpiName(fC->SymName(nameId));
-        decl->VpiFile(fC->getFileName());
-        decl->VpiLineNo(fC->Line(nameId));
-        decl->Ranges(ranges);
-        List_of_tf_variable_identifiers =
-            fC->Sibling(List_of_tf_variable_identifiers);
+        NodeId List_of_tf_variable_identifiers =
+            fC->Sibling(Data_type_or_implicit);
+        while (List_of_tf_variable_identifiers) {
+          NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
+          const std::string& name = fC->SymName(nameId);
+          io_decl* decl = s.MakeIo_decl();
+          ios->push_back(decl);
+          decl->VpiParent(parent);
+          decl->VpiDirection(
+              UhdmWriter::getVpiDirection(tf_port_direction_type));
+          decl->VpiName(name);
+          ioMap.insert(std::make_pair(name, decl));
+          decl->VpiFile(fC->getFileName());
+          decl->VpiLineNo(fC->Line(nameId));
+          decl->Ranges(ranges);
+          List_of_tf_variable_identifiers =
+              fC->Sibling(List_of_tf_variable_identifiers);
+        }
+      } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) {
+        NodeId Data_declaration = fC->Child(Tf_port_declaration);
+        if (fC->Type(Data_declaration) == slData_declaration) {
+          NodeId Variable_declaration = fC->Child(Data_declaration);
+          NodeId Data_type = fC->Child(Variable_declaration);
+          UHDM::typespec* ts = compileTypespec(
+              component, fC, Data_type, compileDesign, parent, nullptr, true);
+          NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type);
+          NodeId Variable_decl_assignment =
+              fC->Child(List_of_variable_decl_assignments);
+          while (Variable_decl_assignment) {
+            NodeId nameId = fC->Child(Variable_decl_assignment);
+            const std::string& name = fC->SymName(nameId);
+            std::map<std::string, io_decl*>::iterator itr = ioMap.find(name);
+            if (itr == ioMap.end()) {
+              variables* var = (variables*)compileVariable(
+                  component, fC, Data_type, compileDesign,
+                  nullptr, nullptr, true);
+              if (var) {    
+                var->VpiName(name);
+                vars->push_back(var);
+                var->Typespec(ts);
+              }
+            } else {
+              (*itr).second->Typespec(ts);
+            }
+            Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
+          }
+        }
       }
     }
     tf_item_decl = fC->Sibling(tf_item_decl);
   }
-  return ios;
+  return results;
 }
 
 std::vector<io_decl*>* CompileHelper::compileTfPortList(
@@ -1191,8 +1230,19 @@ bool CompileHelper::compileTask(
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
     NodeId Block_item_declaration = fC->Child(Tf_port_list);
     if (fC->Type(Block_item_declaration) != slBlock_item_declaration) {
-      task->Io_decls(compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign));
+      auto results = compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
+      task->Io_decls(results.first);
+      task->Variables(results.second);
       while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+        NodeId Tf_port_declaration = fC->Child(Tf_port_list);
+        if (fC->Type(Tf_port_declaration) == slTf_port_declaration) { 
+        } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) { 
+          NodeId ItemNode = fC->Child(Tf_port_declaration);
+          if (fC->Type(ItemNode) != slData_declaration)
+            break;
+        } else {
+          break;
+        }
         Tf_port_list = fC->Sibling(Tf_port_list);
       }
     }
@@ -1218,7 +1268,30 @@ bool CompileHelper::compileTask(
         break;
       if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null, compileDesign, begin)) {
         for (any* st : *sts) {
-          stmts->push_back(st);
+          UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+          if (stmt_type == uhdmparam_assign) {
+            UHDM::VectorOfparam_assign* param_assigns= task->Param_assigns();
+            if (param_assigns == nullptr) {
+              task->Param_assigns(s.MakeParam_assignVec());
+              param_assigns= task->Param_assigns();
+            }
+            param_assigns->push_back((param_assign*) st);
+          } else if (stmt_type == uhdmassign_stmt) {
+            assign_stmt* stmt = (assign_stmt*)st;
+            if (stmt->Rhs() == nullptr) {
+              // Declaration
+              VectorOfvariables* vars = task->Variables();
+              if (vars == nullptr) {
+                task->Variables(s.MakeVariablesVec());
+                vars = task->Variables();
+              }
+              vars->push_back((variables*)stmt->Lhs());
+            } else {
+              stmts->push_back(st);
+            }
+          } else {
+            stmts->push_back(st);
+          }
           st->VpiParent(begin);
         }
       }
@@ -1229,9 +1302,32 @@ bool CompileHelper::compileTask(
     if (Statement_or_null && (fC->Type(Statement_or_null) != slEndtask)) {
       VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, task);
       if (stmts) {
-        for (any* stmt : *stmts) {
-          task->Stmt(stmt);
-          stmt->VpiParent(task);
+        for (any* st : *stmts) {
+          UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+          if (stmt_type == uhdmparam_assign) {
+            UHDM::VectorOfparam_assign* param_assigns= task->Param_assigns();
+            if (param_assigns == nullptr) {
+              task->Param_assigns(s.MakeParam_assignVec());
+              param_assigns= task->Param_assigns();
+            }
+            param_assigns->push_back((param_assign*) st);
+          } else if (stmt_type == uhdmassign_stmt) {
+            assign_stmt* stmt = (assign_stmt*)st;
+            if (stmt->Rhs() == nullptr) {
+              // Declaration
+              VectorOfvariables* vars = task->Variables();
+              if (vars == nullptr) {
+                task->Variables(s.MakeVariablesVec());
+                vars = task->Variables();
+              }
+              vars->push_back((variables*)stmt->Lhs());
+            } else {
+              task->Stmt(st);
+            }  
+          } else {
+            task->Stmt(st);
+          }
+          st->VpiParent(task);
         }
       }
     }
@@ -1417,9 +1513,13 @@ bool CompileHelper::compileFunction(
     NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
     NodeId Return_data_type = fC->Child(Function_data_type);
-    func->Return(dynamic_cast<variables*>(
+    variables* var = dynamic_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
-                        nullptr, true)));
+                        nullptr, true));
+    if (var) {
+      var->VpiName("");
+    }                    
+    func->Return(var);
     NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
     if (fC->Type(Function_name) == VObjectType::slStringConst) {
       name = fC->SymName(Function_name);
@@ -1439,7 +1539,9 @@ bool CompileHelper::compileFunction(
     func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
     Function_statement_or_null = fC->Sibling(Tf_port_list);
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
-    func->Io_decls(compileTfPortDecl(component, func, fC, Tf_port_list, compileDesign));
+    auto results = compileTfPortDecl(component, func, fC, Tf_port_list, compileDesign);
+    func->Io_decls(results.first);
+    func->Variables(results.second);
     while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
       Tf_port_list = fC->Sibling(Tf_port_list);
     }
@@ -1462,7 +1564,30 @@ bool CompileHelper::compileFunction(
       if (Statement) {
         if (VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, begin)) {
           for (any* st : *sts) {
-            stmts->push_back(st);
+            UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+            if (stmt_type == uhdmparam_assign) {
+              UHDM::VectorOfparam_assign* param_assigns = func->Param_assigns();
+              if (param_assigns == nullptr) {
+                func->Param_assigns(s.MakeParam_assignVec());
+                param_assigns = func->Param_assigns();
+              }
+              param_assigns->push_back((param_assign*)st);
+            } else if (stmt_type == uhdmassign_stmt) {
+              assign_stmt* stmt = (assign_stmt*) st;
+              if (stmt->Rhs() == nullptr) {
+                // Declaration
+                VectorOfvariables* vars = func->Variables();
+                if (vars == nullptr) {
+                  func->Variables(s.MakeVariablesVec());
+                  vars = func->Variables(); 
+                }
+                vars->push_back((variables*) stmt->Lhs());
+              } else {
+               stmts->push_back(st);
+              }
+            } else {
+              stmts->push_back(st);
+            }
             st->VpiParent(begin);
           }
         }
@@ -1476,8 +1601,32 @@ bool CompileHelper::compileFunction(
       VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, func);
       if (sts) {
         any* st = (*sts)[0];
+        UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+        if (stmt_type == uhdmparam_assign) {
+          UHDM::VectorOfparam_assign* param_assigns = func->Param_assigns();
+          if (param_assigns == nullptr) {
+            func->Param_assigns(s.MakeParam_assignVec());
+            param_assigns = func->Param_assigns();
+          }
+          param_assigns->push_back((param_assign*)st);
+        } else if (stmt_type == uhdmassign_stmt) {
+          assign_stmt* stmt = (assign_stmt*)st;
+          if (stmt->Rhs() == nullptr) {
+            // Declaration
+            VectorOfvariables* vars = func->Variables();
+            if (vars == nullptr) {
+              func->Variables(s.MakeVariablesVec());
+              vars = func->Variables();
+            }
+            vars->push_back((variables*)stmt->Lhs());
+          } else {
+            func->Stmt(st);
+          }
+        } else {
+          func->Stmt(st);
+        }
         st->VpiParent(func);
-        func->Stmt(st);
+       
       }
     }
   }
@@ -1556,7 +1705,8 @@ Function* CompileHelper::compileFunctionPrototype(
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(scope, func, fC, Tf_port_list, compileDesign));
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
-    func->Io_decls(compileTfPortDecl(scope, func, fC, Tf_port_list, compileDesign));
+    auto results = compileTfPortDecl(scope, func, fC, Tf_port_list, compileDesign);
+    func->Io_decls(results.first);
   }
 
   DataType* returnType = new DataType(); 

@@ -36,6 +36,7 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/Parameter.h"
+#include "Design/ParamAssign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "Testbench/ClassDefinition.h"
 #include "CompileDesign.h"
@@ -74,7 +75,8 @@ UHDM::any* CompileHelper::compileVariable(
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   
-  if (the_type == VObjectType::slStringConst) {
+  if (the_type == VObjectType::slStringConst ||
+      the_type == VObjectType::slChandle_type) {
     chandle_var* ref = s.MakeChandle_var();
     ref->VpiName(fC->SymName(variable));
     ref->VpiFile(fC->getFileName());
@@ -202,7 +204,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
   const std::string& suffixname,
   const std::string& typeName) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  typespec* result = nullptr;  
+  typespec* result = nullptr;
   if (component) {
     const DataType* dt = component->getDataType(typeName);
     if (dt == nullptr) {
@@ -214,9 +216,28 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             component->getName() + "::" + typeName);
       }
       if (dt == nullptr) {
+        if (component->getParentScope())
+          dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(
+              ((DesignComponent*) component->getParentScope())->getName() + "::" + typeName);
+      }
+      if (dt == nullptr) {
+        dt = compileDesign->getCompiler()->getDesign()->getClassDefinition(typeName);
+      }
+      if (dt == nullptr) {
         Parameter* p = component->getParameter(typeName);
         if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter)) 
           dt = p;
+      }
+      if (dt == nullptr) {
+        for (ParamAssign* passign : component->getParamAssignVec()) {
+          const FileContent* fCP = passign->getFileContent(); 
+          if (fCP->SymName(passign->getParamId()) == typeName) {
+            UHDM::param_assign* param_assign = passign->getUhdmParamAssign();
+            UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
+            result = (typespec*) lhs->Typespec();
+            return result;
+          }
+        }
       }
     }
     TypeDef* parent_tpd = nullptr;
@@ -243,6 +264,14 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         break;
       } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
+        if (parent_tpd && result) {
+          ElaboratorListener listener(&s);
+          typespec* new_result = dynamic_cast<typespec*>(UHDM::clone_tree((any*) result, s, &listener));
+          if (new_result) {
+            new_result->Typedef_alias(result);
+            result = new_result;
+          }
+        }
         break;
       } else if (/*const Parameter* par = */dynamic_cast<const Parameter*>(dt)) {
         // Prevent circular definition
@@ -338,15 +367,43 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
 
       dt = dt->getDefinition();
     }
+
     if (result == nullptr) {
-      void_typespec* tps = s.MakeVoid_typespec();
+      std::string libName = fC->getLibrary()->getName();
+      Design* design = compileDesign->getCompiler()->getDesign();
+      ModuleDefinition* def = design->getModuleDefinition(libName + "@" + typeName);
+      if (def) {
+        if (def->getType() == slInterface_declaration) {
+          interface_typespec* tps = s.MakeInterface_typespec();
+          tps->VpiName(typeName);
+          tps->VpiFile(fC->getFileName());
+          tps->VpiLineNo(fC->Line(type));
+          result = tps;
+          if (NodeId sub = fC->Sibling(type)) {
+            const std::string& name = fC->SymName(sub);
+            if (def->getModPort(name)) {
+              interface_typespec* mptps = s.MakeInterface_typespec();
+              mptps->VpiName(name);
+              mptps->VpiFile(fC->getFileName());
+              mptps->VpiLineNo(fC->Line(type));
+              mptps->VpiParent(tps);
+              mptps->VpiIsModPort(true);
+              result = mptps;
+            }
+          }
+        }
+      }
+    }
+
+    if (result == nullptr) {
+      unsupported_typespec* tps = s.MakeUnsupported_typespec();
       tps->VpiName(typeName);
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       result = tps;
     }
   } else {
-    void_typespec* tps = s.MakeVoid_typespec();
+    unsupported_typespec* tps = s.MakeUnsupported_typespec();
     tps->VpiName(typeName);
     tps->VpiFile(fC->getFileName());
     tps->VpiLineNo(fC->Line(type));
@@ -373,13 +430,20 @@ UHDM::typespec* CompileHelper::compileTypespec(
   if(the_type == VObjectType::slPacked_dimension) {
     Packed_dimension = type;
   } else if (the_type == VObjectType::slStringConst) {
-    // Class parameter
+    // Class parameter or struct reference
+    Packed_dimension = fC->Sibling(type);
+    if (fC->Type(Packed_dimension) != slPacked_dimension)
+      Packed_dimension = 0;
   } else {
     Packed_dimension = fC->Sibling(type);
   }
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
+    case VObjectType::slConstant_mintypmax_expression: 
+    case VObjectType::slConstant_primary: {
+      return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
+    }
     case VObjectType::slSystem_task: {
       UHDM::constant* constant = dynamic_cast<UHDM::constant*> (compileExpression(component, fC, type, compileDesign, nullptr, instance, true));
       if (constant) {
@@ -389,7 +453,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiLineNo(fC->Line(type));
         result = var;
       } else {
-        void_typespec* tps = s.MakeVoid_typespec();
+        unsupported_typespec* tps = s.MakeUnsupported_typespec();
         tps->VpiFile(fC->getFileName());
         tps->VpiLineNo(fC->Line(type));
         result = tps;
@@ -426,12 +490,18 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
-      integer_typespec* var = s.MakeInteger_typespec();
-      std::string value = "INT:" + fC->SymName(literal);
-      var->VpiValue(value);
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      result = var;
+      if (fC->Type(literal) == slStringConst) {
+        const std::string& typeName = fC->SymName(literal);
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
+      } else {
+        integer_typespec* var = s.MakeInteger_typespec();
+        std::string value = "INT:" + fC->SymName(literal);
+        var->VpiValue(value);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      }
       break;
     }
     case VObjectType::slIntVec_TypeLogic:
@@ -656,19 +726,56 @@ UHDM::typespec* CompileHelper::compileTypespec(
     }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
-      result = compileDatastructureTypespec(component, fC, type, compileDesign,
-                                             instance, reduce, "", typeName);
+      if (typeName == "logic") {
+        logic_typespec* var = s.MakeLogic_typespec();
+        var->Ranges(ranges);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else if (typeName == "bit") {
+        bit_typespec* var = s.MakeBit_typespec();
+        var->Ranges(ranges);
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else if (typeName == "byte") {
+        byte_typespec* var = s.MakeByte_typespec();
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else {
+        result = compileDatastructureTypespec(
+            component, fC, type, compileDesign, instance, reduce, "", typeName);
+        if (ranges && result) {
+          if (result->UhdmType() == uhdmstruct_typespec) {
+            packed_array_typespec* pats = s.MakePacked_array_typespec();
+            pats->Elem_typespec(result);
+            pats->Ranges(ranges);
+            result = pats;
+          } else if (result->UhdmType() == uhdmlogic_typespec) {
+            ((logic_typespec*) result)->Ranges(ranges);
+          } 
+        }
+      }
       break;
     }
     case VObjectType::slConstant_expression: {
       expr* exp = (expr*) compileExpression(component, fC, type, compileDesign, nullptr, instance, true);
-      integer_typespec* var = s.MakeInteger_typespec();
-      if (exp) {
-        var->VpiValue(exp->VpiValue());
+      if (exp && exp->UhdmType() == uhdmref_obj) {
+        return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
+      } else {
+        integer_typespec* var = s.MakeInteger_typespec();
+        if (exp) {
+          var->VpiValue(exp->VpiValue());
+        }
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
       }
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      result = var;
+      break;
+    }
+    case VObjectType::slChandle_type: {
+      result = nullptr;
       break;
     }
     case VObjectType::slSigning_Signed:

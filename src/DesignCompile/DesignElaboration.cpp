@@ -67,7 +67,6 @@ bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();
   setupConfigurations_();
   identifyTopModules_();
-  bindTypedefs_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
   bindDataTypes_();
@@ -241,6 +240,7 @@ bool DesignElaboration::identifyTopModules_() {
   bool modulePresent = false;
   bool toplevelModuleFound = false;
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
+  std::set<std::string>& userTopList = m_compileDesign->getCompiler()->getCommandLineParser()->getTopLevelModules();
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
   typedef std::multimap<std::string, std::pair<DesignElement*,
@@ -250,13 +250,14 @@ bool DesignElaboration::identifyTopModules_() {
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
     for (DesignElement& element : file.second->getDesignElements()) {
-      std::string elemName = st->getSymbol(element.m_name);
+      const std::string& elemName = st->getSymbol(element.m_name);
       if (element.m_type == DesignElement::Module) {
         if (element.m_parent) {
           // This is a nested element
           continue;
         }
-        std::string topname = file.second->getLibrary()->getName();
+        const std::string& libName = file.second->getLibrary()->getName();
+        std::string topname = libName;
         topname += "@" + elemName;
 
         if (!file.second->getParent()) {
@@ -294,12 +295,19 @@ bool DesignElaboration::identifyTopModules_() {
                 st->registerSymbol(file.second->getFileName(element.m_node)),
                 element.m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
-              m_uniqueTopLevelModules.insert(topname);
-              m_topLevelModules.emplace_back(topname, file.second);
-              toplevelModuleFound = true;
-              Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
-              m_compileDesign->getCompiler()->getErrorContainer()->addError(
-                  err);
+              bool okModule = true;
+              if (userTopList.size()) {
+                if (userTopList.find(elemName) == userTopList.end())
+                  okModule = false;
+              }
+              if (okModule) {
+                m_uniqueTopLevelModules.insert(topname);
+                m_topLevelModules.emplace_back(topname, file.second);
+                toplevelModuleFound = true;
+                Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
+                m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                    err);
+              }
             }
           }
         }
@@ -539,16 +547,20 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       VObjectType::slConditional_generate_construct,  // Generate construct are
                                                       // a kind of instantiation
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block};
 
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration};
@@ -686,13 +698,18 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
     // Special module binding for generate statements
     else if (type == VObjectType::slConditional_generate_construct ||
              type == VObjectType::slGenerate_module_conditional_statement ||
+             type == VObjectType::slGenerate_interface_conditional_statement ||
              type == VObjectType::slLoop_generate_construct ||
-             type == VObjectType::slGenerate_module_loop_statement) {
+             type == VObjectType::slGenerate_module_loop_statement ||
+             type == VObjectType::slGenerate_interface_loop_statement) {
       modName = genBlkBaseName + std::to_string(genBlkIndex);
 
       std::vector<VObjectType> btypes = {
-          VObjectType::slGenerate_module_block, VObjectType::slGenerate_block,
-          VObjectType::slGenerate_module_named_block};
+          VObjectType::slGenerate_module_block, 
+          VObjectType::slGenerate_interface_block, 
+          VObjectType::slGenerate_block,
+          VObjectType::slGenerate_module_named_block,
+          VObjectType::slGenerate_interface_named_block};
 
       std::vector<NodeId> blockIds =
           fC->sl_collect_all(subInstanceId, btypes, true);
@@ -1318,16 +1335,19 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
+  std::vector<std::string> moduleParams;
   for (FileCNodeId param :
        module->getObjects(VObjectType::slParam_assignment)) {
     NodeId ident = param.fC->Child(param.nodeId);
     std::string name = param.fC->SymName(ident);
-    Value* value =
-        m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident), instance);
-    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
     params.push_back(name);
+    moduleParams.push_back(name);
+    Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
+                                          instance, true);
+    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
   }
 
+  std::set<std::string> overridenParams;
   std::vector<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
@@ -1344,6 +1364,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
         std::string name = parentFile->SymName(child);
+        overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(), true);
@@ -1363,8 +1384,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
         std::string name = "OUT_OF_RANGE_PARAM_INDEX";
-        if (index < params.size()) {
-          name = params[index];
+        if (index < moduleParams.size()) {
+          name = moduleParams[index];
+          overridenParams.insert(name);
         } else {
           Location loc(st->registerSymbol(parentFile->getFileName(paramAssign)),
                        parentFile->Line(paramAssign), 0,
@@ -1378,13 +1400,30 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
+  // Command line override
+  if (instance->getParent() == nullptr) { // Top level only
+    CommandLineParser* cmdLine = m_compileDesign->getCompiler()->getCommandLineParser();
+    const std::map<SymbolId, std::string>& useroverrides = cmdLine->getParamList();
+    for (std::map<SymbolId, std::string>::const_iterator itr = useroverrides.begin(); itr !=useroverrides.end(); itr++) {
+      const std::string& name = cmdLine->getSymbolTable().getSymbol((*itr).first);
+      const std::string& value = (*itr).second;
+      Value* val = m_exprBuilder.fromString(value);
+      if (val) {
+        instance->setValue(name, val, m_exprBuilder, 0);
+        overridenParams.insert(name);
+      }
+    } 
+  }
+
   // Defparams
   types = {VObjectType::slDefparam_assignment};
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
+      VObjectType::slGenerate_interface_conditional_statement,
       VObjectType::slLoop_generate_construct,
       VObjectType::slGenerate_module_loop_statement,
+      VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration};
@@ -1421,6 +1460,18 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     Value* val = m_exprBuilder.evalExpr(fC, value, instance);
     design->addDefParam(path, fC, hIdent, val);
   }
+
+  for (FileCNodeId param :
+       module->getObjects(VObjectType::slParam_assignment)) {
+    NodeId ident = param.fC->Child(param.nodeId);
+    std::string name = param.fC->SymName(ident);
+    if (overridenParams.find(name) == overridenParams.end()) {
+      Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
+                                            instance, true);
+      instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+    }
+  }
+
 }
 
 void DesignElaboration::checkElaboration_() {
@@ -1483,11 +1534,14 @@ void DesignElaboration::reduceUnnamedBlocks_() {
       if ((type == VObjectType::slConditional_generate_construct ||
            type == VObjectType::slGenerate_module_conditional_statement ||
            type == VObjectType::slLoop_generate_construct ||
-           type == VObjectType::slGenerate_module_loop_statement) &&
+           type == VObjectType::slGenerate_module_loop_statement ||
+           type == VObjectType::slGenerate_interface_loop_statement ) &&
           (typeP == VObjectType::slConditional_generate_construct ||
            typeP == VObjectType::slGenerate_module_conditional_statement ||
+           typeP == VObjectType::slGenerate_interface_conditional_statement ||
            typeP == VObjectType::slLoop_generate_construct ||
-           typeP == VObjectType::slGenerate_module_loop_statement)) {
+           typeP == VObjectType::slGenerate_module_loop_statement ||
+           typeP == VObjectType::slGenerate_interface_loop_statement)) {
         std::string fullModName = current->getModuleName();
         fullModName = StringUtils::leaf(fullModName);
         std::string fullModNameP = parent->getModuleName();
@@ -1544,10 +1598,15 @@ bool DesignElaboration::bindDataTypes_()
              compType == VObjectType::slLoop_generate_construct ||
              compType == VObjectType::slGenerate_item ||
              compType == VObjectType::slGenerate_module_conditional_statement ||
+             compType == VObjectType::slGenerate_interface_conditional_statement ||
              compType == VObjectType::slGenerate_module_loop_statement ||
+             compType == VObjectType::slGenerate_interface_loop_statement ||
              compType == VObjectType::slGenerate_module_named_block ||
+             compType == VObjectType::slGenerate_interface_named_block ||
              compType == VObjectType::slGenerate_module_block ||
+             compType == VObjectType::slGenerate_interface_block ||
              compType == VObjectType::slGenerate_module_item ||
+             compType == VObjectType::slGenerate_interface_item ||
              compType == VObjectType::slGenerate_block) {
       const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();

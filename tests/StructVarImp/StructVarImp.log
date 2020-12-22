@@ -325,13 +325,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25
@@ -350,13 +350,13 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
   |vpiParamAssign:
   \_param_assign: , line:4, parent:flash_ctrl_reg_pkg
@@ -371,7 +371,8 @@ design: (work@top)
       |vpiName:NBanks
       |vpiFullName:flash_ctrl_reg_pkg::NBanks
       |vpiTypespec:
-      \_int_typespec: , line:4, parent:flash_ctrl_reg_pkg::NBanks
+      \_int_typespec: (NBanks), line:4, parent:flash_ctrl_reg_pkg::NBanks
+        |vpiName:NBanks
   |vpiParamAssign:
   \_param_assign: , line:5, parent:flash_ctrl_reg_pkg
     |vpiRhs:
@@ -385,7 +386,8 @@ design: (work@top)
       |vpiName:NumRegions
       |vpiFullName:flash_ctrl_reg_pkg::NumRegions
       |vpiTypespec:
-      \_int_typespec: , line:5, parent:flash_ctrl_reg_pkg::NumRegions
+      \_int_typespec: (NumRegions), line:5, parent:flash_ctrl_reg_pkg::NumRegions
+        |vpiName:NumRegions
   |vpiParameter:
   \_parameter: (flash_ctrl_reg_pkg::NBanks), line:4, parent:flash_ctrl_reg_pkg
   |vpiParameter:
@@ -493,8 +495,7 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: (process), line:37
-      |vpiName:process
+    \_chandle_var: , line:37
   |vpiMethod:
   \_function: (work@process::status), line:40, parent:work@process
     |vpiMethod:1
@@ -502,8 +503,7 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: (state), line:40
-      |vpiName:state
+    \_chandle_var: , line:40
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -698,13 +698,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25
@@ -723,13 +723,13 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_reg_pkg)
@@ -737,12 +737,10 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:33: 
   |vpiDefName:work@top
   |vpiName:work@top
-  |vpiVariables:
-  \_packed_array_var: (work@top.region_cfgs), line:36, parent:work@top
+  |vpiNet:
+  \_packed_array_net: (work@top.region_cfgs), line:36, parent:work@top
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
-    |vpiAutomatic:1
-    |vpiVisibility:1
     |vpiRange:
     \_range: , line:36
       |vpiLeftRange:
@@ -755,8 +753,7 @@ design: (work@top)
         |vpiSize:64
         |INT:0
     |vpiElement:
-    \_struct_var: (work@top.region_cfgs), parent:work@top.region_cfgs
-      |vpiFullName:work@top.region_cfgs
+    \_struct_net: 
       |vpiTypespec:
       \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7
         |vpiPacked:1
@@ -822,13 +819,13 @@ design: (work@top)
                   \_constant: , line:21
                     |vpiConstType:7
                     |vpiDecompile:8
-                    |vpiSize:64
+                    |vpiSize:32
                     |INT:8
                   |vpiRightRange:
                   \_constant: , line:21
                     |vpiConstType:7
                     |vpiDecompile:0
-                    |vpiSize:64
+                    |vpiSize:32
                     |INT:0
         |vpiTypespecMember:
         \_typespec_member: (size), line:25
@@ -847,13 +844,13 @@ design: (work@top)
                   \_constant: , line:24
                     |vpiConstType:7
                     |vpiDecompile:8
-                    |vpiSize:64
+                    |vpiSize:32
                     |INT:8
                   |vpiRightRange:
                   \_constant: , line:24
                     |vpiConstType:7
                     |vpiDecompile:0
-                    |vpiSize:64
+                    |vpiSize:32
                     |INT:0
   |vpiTypedef:
   \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7, parent:work@top
@@ -920,13 +917,13 @@ design: (work@top)
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:21
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
     |vpiTypespecMember:
     \_typespec_member: (size), line:25, parent:flash_ctrl_reg2hw_mp_region_cfg_mreg_t
@@ -945,13 +942,13 @@ design: (work@top)
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:8
-                |vpiSize:64
+                |vpiSize:32
                 |INT:8
               |vpiRightRange:
               \_constant: , line:24
                 |vpiConstType:7
                 |vpiDecompile:0
-                |vpiSize:64
+                |vpiSize:32
                 |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_reg_pkg), parent:work@top

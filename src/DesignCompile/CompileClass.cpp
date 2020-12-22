@@ -656,7 +656,17 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
    n<> u<19> t<List_of_param_assignments> p<20> c<18> l<3>
    n<> u<20> t<Local_parameter_declaration> p<21> c<10> l<3>
   */
-  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, true);
+  NodeId list_of_type_assignments = fC->Child(id);
+  if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+      fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+    // Type param
+    m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
+                                         m_compileDesign, true, nullptr, false);
+
+  } else {
+    m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
+                                         true, nullptr, false);
+  }
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
@@ -688,7 +698,18 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
 
 bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
                                                   NodeId id) {
-  m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign, false);
+  NodeId list_of_type_assignments = fC->Child(id);
+  if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+      fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+    // Type param
+    m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
+                                         m_compileDesign, false, nullptr, false);
+
+  } else {
+    m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
+                                         false, nullptr, false);
+  }
+
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
@@ -781,13 +802,14 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
     NodeId parameter_port_declaration = fC->Child(paramList);
     while (parameter_port_declaration) {
       NodeId list_of_type_assignments = fC->Child(parameter_port_declaration);
-      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments) {
+      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+          fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
         // Type param
-        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false);
 
-      } else if (fC->Type(list_of_type_assignments) == slParameter_declaration) {
+      } else {
         // Regular param
-        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign);
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false);
 
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);

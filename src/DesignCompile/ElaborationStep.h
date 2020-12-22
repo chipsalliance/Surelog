@@ -39,6 +39,8 @@ class ElaborationStep {
   virtual ~ElaborationStep();
 
  protected:
+  bool bindTypedefs_();
+  
   const DataType* bindTypeDef_(TypeDef* typd,
                                const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);
@@ -81,7 +83,7 @@ class ElaborationStep {
 
   UHDM::any* makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
                 std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
-                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp);
+                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp, UHDM::typespec* tps);
 
   CompileDesign* m_compileDesign;
   ExprBuilder m_exprBuilder;

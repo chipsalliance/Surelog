@@ -27,10 +27,6 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 
-namespace UHDM {
-  class typespec;
-};
-
 namespace SURELOG {
 
 class Parameter : public DataType {
@@ -39,8 +35,6 @@ class Parameter : public DataType {
             NodeId node_type);
 
  ~Parameter() override;
-
-  virtual Category getCategory() { return Category::PARAMETER; }
 
   VObjectType getType() const override;
   NodeId getNodeType() const { return m_ntype; }

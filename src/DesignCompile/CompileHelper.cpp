@@ -37,7 +37,10 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "Design/SimpleType.h"
+#include "Design/DummyType.h"
 #include "Design/Parameter.h"
+#include "Design/ParamAssign.h"
+#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -66,6 +69,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       DesignComponent* comp = packageFile->getComponentDefinition(fullName);
       FileCNodeId fnid(packageFile, classDef);
       scope->addNamedObject(name, fnid, comp);
+      scope->insertDataType(name, (ClassDefinition*) comp);
     }
 
     auto& typeSet = def->getDataTypeMap();
@@ -362,7 +366,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
       ts->VpiName(name);
       st->setTypespec(ts);
       if (typespecs)
@@ -371,7 +375,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
       ts->VpiName(name);
       st->setTypespec(ts);
       if (typespecs)
@@ -397,7 +401,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
-    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, true));
+    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, false));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -455,9 +459,11 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       type->setDefinition(newTypeDef);
       if (scope)
         scope->insertTypeDef(newTypeDef);
-      SimpleType* simple = new SimpleType(fC, type_name, stype);
-      //newTypeDef->setDataType(simple);
-      //newTypeDef->setDefinition(simple);
+      DummyType* dummy = new DummyType(fC, type_name, stype);
+      newTypeDef->setDataType(dummy);
+      newTypeDef->setDefinition(dummy);
+      /*
+       Don't create the typespec here, as it is most likely going to be incomplete at compilation time
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts) {
         ts->VpiName(name);
@@ -465,6 +471,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
           typespecs->push_back(ts);
       }
       simple->setTypespec(ts);
+      */
+      if (scope)
+        scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
     } else {
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
@@ -474,7 +483,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       SimpleType* simple = new SimpleType(fC, type_name, stype);
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
-      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, false);
       if (ts) {
         ts->VpiName(name);
         if (typespecs)
@@ -881,7 +890,7 @@ bool CompileHelper::compileScopeVariable(Scope* parent, const FileContent* fC,
 }
 
 
-VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed) {
+VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed, NodeId& nodeType) {
   Packed_dimension = 0;
   is_signed = false;
   VObjectType signal_type = VObjectType::slData_type_or_implicit;
@@ -900,17 +909,39 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
           the_type = fC->Type(integer_vector_type);
           if (the_type == VObjectType::slIntVec_TypeBit ||
               the_type == VObjectType::slIntVec_TypeLogic ||
-              the_type == VObjectType::slIntVec_TypeReg) {
+              the_type == VObjectType::slIntVec_TypeReg ||
+              the_type == VObjectType::slStringConst ||
+              the_type == VObjectType::slClass_scope) {
+            if (the_type == VObjectType::slStringConst) {
+              const std::string& tname = fC->SymName(integer_vector_type);
+              if (tname == "logic") {
+                the_type =  VObjectType::slIntVec_TypeLogic;
+              } else if (tname == "bit") {
+                the_type =  VObjectType::slIntVec_TypeBit;
+              } else if (tname == "byte") {
+                the_type =  VObjectType::slIntegerAtomType_Byte;
+              } 
+            }   
             signal_type = the_type;
-            Packed_dimension = fC->Sibling(integer_vector_type);
+            nodeType = integer_vector_type;
+            if (the_type != VObjectType::slClass_scope)
+              Packed_dimension = fC->Sibling(integer_vector_type);
           }
-        } else if (the_type == VObjectType::slPacked_dimension) {
-          Packed_dimension = data_type;
         } else if (the_type == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(data_type);
           is_signed = true;
         } else if (the_type == VObjectType::slSigning_Unsigned) {
           Packed_dimension = fC->Sibling(data_type);
+          is_signed = false;
+        } else if (the_type == VObjectType::slPacked_dimension) {
+          Packed_dimension = data_type;
+        }
+        
+        if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
+          Packed_dimension = fC->Sibling(Packed_dimension);
+          is_signed = true;
+        } else if (fC->Type(Packed_dimension) == VObjectType::slSigning_Unsigned) {
+          Packed_dimension = fC->Sibling(Packed_dimension);
         }
       }
     }
@@ -920,7 +951,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
 
 void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         NodeId signal, VObjectType type,
-        VObjectType signal_type, NodeId packed_dimension, bool is_signed)
+        VObjectType signal_type, NodeId packed_dimension, bool is_signed,  NodeId nodeType)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
   VObjectType dir_type = slNoType;
@@ -939,8 +970,12 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           found = true;
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
-          if (signal_type != VObjectType::slData_type_or_implicit)
+          if (signal_type != VObjectType::slData_type_or_implicit) {
             port->setType(signal_type);
+            if (nodeType) {
+              port->setTypespecId(nodeType);
+            }
+          }
           break;
         }
       }
@@ -1087,7 +1122,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
       NodeId net_port_type = fC->Child(subNode);
       NodeId Packed_dimension = 0;
       bool is_signed = false;
-      VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ Packed_dimension,  /*ref*/ is_signed);
+      NodeId nodeType = 0;
+      VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ Packed_dimension,  /*ref*/ is_signed, /*ref*/ nodeType);
       NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
       if (fC->Type(list_of_port_identifiers) ==
               VObjectType::slPacked_dimension) {
@@ -1095,7 +1131,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                 fC->Sibling(list_of_port_identifiers);
       }
       NodeId signal = fC->Child(list_of_port_identifiers);
-      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension, is_signed);
+      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension, is_signed, nodeType);
       break;
     }
     default:
@@ -1141,27 +1177,39 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     port_direction = dir_type;
     net_port_type = fC->Sibling(net_port_type);
     NodeId NetType = fC->Child(net_port_type);
-    // n<> u<33> t<Packed_dimension> p<34> c<32> l<11>
-    // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
+    if (fC->Type(NetType) == VObjectType::slData_type_or_implicit) {
+      NodeId Data_type = fC->Child(NetType);
+      if (fC->Type(Data_type) == VObjectType::slData_type){
+        NetType = fC->Child(Data_type);
+      }
+    }
+
     NodeId packedDimension = fC->Sibling(NetType);
     NodeId specParamId = 0;
     bool is_signed = false;
     if (packedDimension == 0) {
       packedDimension = fC->Child(NetType);
-      if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
-        packedDimension = fC->Sibling(packedDimension);
-      } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
-        packedDimension = fC->Sibling(packedDimension);
-      } else {
-        packedDimension = fC->Child(packedDimension);
-      }
-      if (fC->Type(packedDimension) == VObjectType::slClass_scope) {
-        specParamId = packedDimension;
-      } else if (fC->Type(packedDimension) == VObjectType::slStringConst) {
-        specParamId = packedDimension;
-      }
     }
-    VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed);
+
+    if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
+      packedDimension = fC->Sibling(packedDimension);
+    } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
+      packedDimension = fC->Sibling(packedDimension);
+    }
+    // else {
+    //  packedDimension = fC->Child(packedDimension);
+    // }
+    if (fC->Type(NetType) == VObjectType::slClass_scope) {
+      specParamId = NetType;
+    } else if (fC->Type(NetType) == VObjectType::slStringConst) {
+      specParamId = NetType;
+    }
+    if (fC->Type(packedDimension) != VObjectType::slPacked_dimension) {
+      packedDimension = 0;
+    }
+
+    NodeId nodeType = 0;
+    VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed, nodeType);
     NodeId unpackedDimension = 0;
     NodeId tmp = fC->Sibling(identifier);
     if (fC->Type(tmp) == slUnpacked_dimension) {
@@ -1190,15 +1238,18 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(data_type_or_implicit);
     if (data_type) {
       NodeId if_type_name_s = fC->Child(data_type);
+      NodeId unpackedDimension = fC->Sibling(identifier);
+      if (fC->Type(unpackedDimension) != slUnpacked_dimension)
+         unpackedDimension = 0;
       if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
               fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
         Signal* signal = new Signal(fC, identifier, fC->Type(if_type_name_s),
-                VObjectType::slNoType, 0, false);
+                VObjectType::slNoType, unpackedDimension, false);
         component->getPorts().push_back(signal);
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       } else {
-        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, 0, false));
+        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, unpackedDimension, false));
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       }
@@ -1394,6 +1445,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     bool is_rand = false;
     bool is_randc = false;
     bool is_const = false;
+    bool is_signed = false;
     while ((type == VObjectType::slPropQualifier_ClassItem) ||
            (type == VObjectType::slPropQualifier_Rand) ||
            (type == VObjectType::slPropQualifier_Randc) ||
@@ -1428,8 +1480,14 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId packedDimension = fC->Sibling(intVec_TypeReg);
-    if (fC->Type(packedDimension) == slStringConst)
+    if (fC->Type(packedDimension) == slStringConst) {
       packedDimension = 0; // class or package name;
+    } else if (fC->Type(packedDimension) == slSigning_Signed) {
+      is_signed = true;
+      packedDimension = fC->Sibling(packedDimension);
+    } else if (fC->Type(packedDimension) == slSigning_Unsigned) {
+      packedDimension = fC->Sibling(packedDimension);
+    }  
     NodeId unpackedDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
@@ -1451,7 +1509,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = nullptr;
-      if (fC->Type(intVec_TypeReg) == slClass_scope || fC->Type(intVec_TypeReg) == slStringConst) {
+      VObjectType sigType = fC->Type(intVec_TypeReg);
+      if (sigType == slClass_scope || sigType == slStringConst || sigType == slStruct_union) {
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension, VObjectType::slNoType, intVec_TypeReg,
                unpackedDimension, false); 
       } else {
@@ -1467,6 +1526,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       if (is_protected) sig->setProtected();
       if (is_rand) sig->setRand();
       if (is_randc) sig->setRandc();
+      if (is_signed) sig->setSigned();
 
       component->getSignals().push_back(sig);
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);
@@ -1681,7 +1741,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
 }
 
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   std::vector<UHDM::any*>* parameters= component->getParameters();
@@ -1694,7 +1754,6 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
     component->setParam_assigns(s.MakeParam_assignVec());
     param_assigns= component->getParam_assigns();
   }
-
   if (fC->Type(nodeId) == slList_of_type_assignments) {
     // Type param
     NodeId typeNameId = fC->Child(nodeId);
@@ -1728,19 +1787,54 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       if (skip) typeNameId = fC->Sibling(typeNameId);
     }
 
+  } else if (fC->Type(nodeId) == slList_of_param_assignments) {
+    // Type param
+    NodeId Param_assignment = fC->Child(nodeId);
+    while (Param_assignment) {
+      NodeId Identifier = fC->Child(Param_assignment);
+      NodeId Constant_param_expression = fC->Sibling(Identifier);
+      UHDM::type_parameter* p = s.MakeType_parameter();
+      p->VpiName(fC->SymName(Identifier));
+      p->VpiFile(fC->getFileName());
+      p->VpiLineNo(fC->Line(Identifier));
+      NodeId Data_type = fC->Child(Constant_param_expression);
+      typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
+                                           p, nullptr, false, "");
+      p->Typespec(tps);
+      if (tps)
+        tps->VpiParent(p);
+      if (localParam) {
+        p->VpiLocalParam(true);
+      }
+      parameters->push_back(p);
+      Parameter* param =
+          new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression);
+      param->setUhdmParam(p);
+      component->insertParameter(param);
+      Param_assignment = fC->Sibling(Param_assignment);
+    }
   } else {
     // Regular param
     NodeId Data_type_or_implicit = fC->Child(nodeId);
-    UHDM::typespec* ts =
-        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
-                        compileDesign, nullptr, instance, true);
+ 
     NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
     NodeId Param_assignment = fC->Child(List_of_param_assignments);
     while (Param_assignment) {
+
+      UHDM::typespec* ts =
+        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
+                        compileDesign, nullptr, instance, reduce);
+
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
       expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
+      param->Typespec(ts);
+      if (ts) {
+        ts->VpiParent(param);
+        if (ts->VpiName() == "")
+          ts->VpiName(fC->SymName(name));
+      }
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
       // Unpacked dimensions
@@ -1748,7 +1842,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         int unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             compileRanges(component, fC, value, compileDesign, param, instance,
-                          true, unpackedSize);
+                          reduce, unpackedSize);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
@@ -1760,18 +1854,18 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(param);
       if (value) {
+        ParamAssign* assign = new ParamAssign(fC, name, value);
         UHDM::param_assign* param_assign = s.MakeParam_assign();
+        assign->setUhdmParamAssign(param_assign);
+        component->addParamAssign(assign);
         param_assign->VpiFile(fC->getFileName());
         param_assign->VpiLineNo(fC->Line(Param_assignment));
         param_assigns->push_back(param_assign);
         param->VpiName(fC->SymName(name));
-        param->Typespec(ts);
-        if (ts)
-          ts->VpiParent(param);
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
-            component, fC, value, compileDesign, nullptr, instance, true));
+            component, fC, value, compileDesign, nullptr, instance, reduce));
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

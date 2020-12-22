@@ -111,8 +111,10 @@ bool UhdmChecker::registerFile(const FileContent* fC) {
         type == VObjectType::slPort ||
         type == VObjectType::slConditional_generate_construct ||
         type == VObjectType::slGenerate_module_conditional_statement ||
+        type == VObjectType::slGenerate_interface_conditional_statement ||
         type == VObjectType::slLoop_generate_construct ||
         type == VObjectType::slGenerate_module_loop_statement ||
+        type == VObjectType::slGenerate_interface_loop_statement ||
         ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ;
         type == VObjectType::slGenerate_block) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);

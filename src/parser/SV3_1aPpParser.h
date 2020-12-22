@@ -31,51 +31,52 @@ public:
     PROGRAM = 57, ENDPROGRAM = 58, PRIMITIVE = 59, ENDPRIMITIVE = 60, PACKAGE = 61, 
     ENDPACKAGE = 62, CHECKER = 63, ENDCHECKER = 64, CONFIG = 65, ENDCONFIG = 66, 
     Macro_identifier = 67, Macro_Escaped_identifier = 68, String = 69, Simple_identifier = 70, 
-    Spaces = 71, Pound_delay = 72, TIMESCALE = 73, Number = 74, Fixed_point_number = 75, 
-    TEXT_CR = 76, ESCAPED_CR = 77, CR = 78, TICK_QUOTE = 79, TICK_BACKSLASH_TICK_QUOTE = 80, 
-    TICK_TICK = 81, PARENS_OPEN = 82, PARENS_CLOSE = 83, COMMA = 84, EQUAL_OP = 85, 
-    DOUBLE_QUOTE = 86, Escaped_identifier = 87, CURLY_OPEN = 88, CURLY_CLOSE = 89, 
-    SQUARE_OPEN = 90, SQUARE_CLOSE = 91, Special = 92, ANY = 93
+    Spaces = 71, Pound_Pound_delay = 72, Pound_delay = 73, TIMESCALE = 74, 
+    Number = 75, Fixed_point_number = 76, TEXT_CR = 77, ESCAPED_CR = 78, 
+    CR = 79, TICK_QUOTE = 80, TICK_BACKSLASH_TICK_QUOTE = 81, TICK_TICK = 82, 
+    PARENS_OPEN = 83, PARENS_CLOSE = 84, COMMA = 85, EQUAL_OP = 86, DOUBLE_QUOTE = 87, 
+    Escaped_identifier = 88, CURLY_OPEN = 89, CURLY_CLOSE = 90, SQUARE_OPEN = 91, 
+    SQUARE_CLOSE = 92, Special = 93, ANY = 94
   };
 
   enum {
     RuleTop_level_rule = 0, RuleSource_text = 1, RuleNull_rule = 2, RuleDescription = 3, 
     RuleMacro_instance = 4, RuleUnterminated_string = 5, RuleMacro_actual_args = 6, 
-    RuleComments = 7, RuleNumber = 8, RulePound_delay = 9, RuleMacro_definition = 10, 
-    RuleInclude_directive = 11, RuleLine_directive = 12, RuleDefault_nettype_directive = 13, 
-    RuleSv_file_directive = 14, RuleSv_line_directive = 15, RuleTimescale_directive = 16, 
-    RuleUndef_directive = 17, RuleIfdef_directive = 18, RuleIfdef_directive_in_macro_body = 19, 
-    RuleIfndef_directive = 20, RuleIfndef_directive_in_macro_body = 21, 
-    RuleElsif_directive = 22, RuleElsif_directive_in_macro_body = 23, RuleElseif_directive = 24, 
-    RuleElseif_directive_in_macro_body = 25, RuleElse_directive = 26, RuleEndif_directive = 27, 
-    RuleResetall_directive = 28, RuleBegin_keywords_directive = 29, RuleEnd_keywords_directive = 30, 
-    RulePragma_directive = 31, RuleCelldefine_directive = 32, RuleEndcelldefine_directive = 33, 
-    RuleProtect_directive = 34, RuleEndprotect_directive = 35, RuleProtected_directive = 36, 
-    RuleEndprotected_directive = 37, RuleExpand_vectornets_directive = 38, 
-    RuleNoexpand_vectornets_directive = 39, RuleAutoexpand_vectornets_directive = 40, 
-    RuleUselib_directive = 41, RuleDisable_portfaults_directive = 42, RuleEnable_portfaults_directive = 43, 
-    RuleNosuppress_faults_directive = 44, RuleSuppress_faults_directive = 45, 
-    RuleSigned_directive = 46, RuleUnsigned_directive = 47, RuleRemove_gatename_directive = 48, 
-    RuleNoremove_gatenames_directive = 49, RuleRemove_netname_directive = 50, 
-    RuleNoremove_netnames_directive = 51, RuleAccelerate_directive = 52, 
-    RuleNoaccelerate_directive = 53, RuleDefault_trireg_strenght_directive = 54, 
-    RuleDefault_decay_time_directive = 55, RuleUnconnected_drive_directive = 56, 
-    RuleNounconnected_drive_directive = 57, RuleDelay_mode_distributed_directive = 58, 
-    RuleDelay_mode_path_directive = 59, RuleDelay_mode_unit_directive = 60, 
-    RuleDelay_mode_zero_directive = 61, RuleUndefineall_directive = 62, 
-    RuleModule = 63, RuleEndmodule = 64, RuleSv_interface = 65, RuleEndinterface = 66, 
-    RuleProgram = 67, RuleEndprogram = 68, RulePrimitive = 69, RuleEndprimitive = 70, 
-    RuleSv_package = 71, RuleEndpackage = 72, RuleChecker = 73, RuleEndchecker = 74, 
-    RuleConfig = 75, RuleEndconfig = 76, RuleDefine_directive = 77, RuleMultiline_no_args_macro_definition = 78, 
-    RuleMultiline_args_macro_definition = 79, RuleSimple_no_args_macro_definition = 80, 
-    RuleSimple_args_macro_definition = 81, RuleIdentifier_in_macro_body = 82, 
-    RuleSimple_no_args_macro_definition_in_macro_body = 83, RuleSimple_args_macro_definition_in_macro_body = 84, 
-    RuleDirective_in_macro = 85, RuleMacro_arguments = 86, RuleEscaped_macro_definition_body = 87, 
-    RuleEscaped_macro_definition_body_alt1 = 88, RuleEscaped_macro_definition_body_alt2 = 89, 
-    RuleSimple_macro_definition_body = 90, RuleSimple_macro_definition_body_in_macro_body = 91, 
-    RulePragma_expression = 92, RuleMacro_arg = 93, RulePaired_parens = 94, 
-    RuleText_blob = 95, RuleString = 96, RuleEscaped_identifier = 97, RuleDefault_value = 98, 
-    RuleString_blob = 99
+    RuleComments = 7, RuleNumber = 8, RulePound_delay = 9, RulePound_pound_delay = 10, 
+    RuleMacro_definition = 11, RuleInclude_directive = 12, RuleLine_directive = 13, 
+    RuleDefault_nettype_directive = 14, RuleSv_file_directive = 15, RuleSv_line_directive = 16, 
+    RuleTimescale_directive = 17, RuleUndef_directive = 18, RuleIfdef_directive = 19, 
+    RuleIfdef_directive_in_macro_body = 20, RuleIfndef_directive = 21, RuleIfndef_directive_in_macro_body = 22, 
+    RuleElsif_directive = 23, RuleElsif_directive_in_macro_body = 24, RuleElseif_directive = 25, 
+    RuleElseif_directive_in_macro_body = 26, RuleElse_directive = 27, RuleEndif_directive = 28, 
+    RuleResetall_directive = 29, RuleBegin_keywords_directive = 30, RuleEnd_keywords_directive = 31, 
+    RulePragma_directive = 32, RuleCelldefine_directive = 33, RuleEndcelldefine_directive = 34, 
+    RuleProtect_directive = 35, RuleEndprotect_directive = 36, RuleProtected_directive = 37, 
+    RuleEndprotected_directive = 38, RuleExpand_vectornets_directive = 39, 
+    RuleNoexpand_vectornets_directive = 40, RuleAutoexpand_vectornets_directive = 41, 
+    RuleUselib_directive = 42, RuleDisable_portfaults_directive = 43, RuleEnable_portfaults_directive = 44, 
+    RuleNosuppress_faults_directive = 45, RuleSuppress_faults_directive = 46, 
+    RuleSigned_directive = 47, RuleUnsigned_directive = 48, RuleRemove_gatename_directive = 49, 
+    RuleNoremove_gatenames_directive = 50, RuleRemove_netname_directive = 51, 
+    RuleNoremove_netnames_directive = 52, RuleAccelerate_directive = 53, 
+    RuleNoaccelerate_directive = 54, RuleDefault_trireg_strenght_directive = 55, 
+    RuleDefault_decay_time_directive = 56, RuleUnconnected_drive_directive = 57, 
+    RuleNounconnected_drive_directive = 58, RuleDelay_mode_distributed_directive = 59, 
+    RuleDelay_mode_path_directive = 60, RuleDelay_mode_unit_directive = 61, 
+    RuleDelay_mode_zero_directive = 62, RuleUndefineall_directive = 63, 
+    RuleModule = 64, RuleEndmodule = 65, RuleSv_interface = 66, RuleEndinterface = 67, 
+    RuleProgram = 68, RuleEndprogram = 69, RulePrimitive = 70, RuleEndprimitive = 71, 
+    RuleSv_package = 72, RuleEndpackage = 73, RuleChecker = 74, RuleEndchecker = 75, 
+    RuleConfig = 76, RuleEndconfig = 77, RuleDefine_directive = 78, RuleMultiline_no_args_macro_definition = 79, 
+    RuleMultiline_args_macro_definition = 80, RuleSimple_no_args_macro_definition = 81, 
+    RuleSimple_args_macro_definition = 82, RuleIdentifier_in_macro_body = 83, 
+    RuleSimple_no_args_macro_definition_in_macro_body = 84, RuleSimple_args_macro_definition_in_macro_body = 85, 
+    RuleDirective_in_macro = 86, RuleMacro_arguments = 87, RuleEscaped_macro_definition_body = 88, 
+    RuleEscaped_macro_definition_body_alt1 = 89, RuleEscaped_macro_definition_body_alt2 = 90, 
+    RuleSimple_macro_definition_body = 91, RuleSimple_macro_definition_body_in_macro_body = 92, 
+    RulePragma_expression = 93, RuleMacro_arg = 94, RulePaired_parens = 95, 
+    RuleText_blob = 96, RuleString = 97, RuleEscaped_identifier = 98, RuleDefault_value = 99, 
+    RuleString_blob = 100
   };
 
   SV3_1aPpParser(antlr4::TokenStream *input);
@@ -98,6 +99,7 @@ public:
   class CommentsContext;
   class NumberContext;
   class Pound_delayContext;
+  class Pound_pound_delayContext;
   class Macro_definitionContext;
   class Include_directiveContext;
   class Line_directiveContext;
@@ -305,6 +307,7 @@ public:
     Text_blobContext *text_blob();
     Escaped_identifierContext *escaped_identifier();
     Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -424,6 +427,19 @@ public:
   };
 
   Pound_delayContext* pound_delay();
+
+  class  Pound_pound_delayContext : public antlr4::ParserRuleContext {
+  public:
+    Pound_pound_delayContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *Pound_Pound_delay();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Pound_pound_delayContext* pound_pound_delay();
 
   class  Macro_definitionContext : public antlr4::ParserRuleContext {
   public:
@@ -1601,6 +1617,7 @@ public:
     Simple_args_macro_definition_in_macro_bodyContext *simple_args_macro_definition_in_macro_body();
     Simple_no_args_macro_definition_in_macro_bodyContext *simple_no_args_macro_definition_in_macro_body();
     Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1671,6 +1688,8 @@ public:
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<Pound_delayContext *> pound_delay();
     Pound_delayContext* pound_delay(size_t i);
+    std::vector<Pound_pound_delayContext *> pound_pound_delay();
+    Pound_pound_delayContext* pound_pound_delay(size_t i);
     std::vector<antlr4::tree::TerminalNode *> PARENS_OPEN();
     antlr4::tree::TerminalNode* PARENS_OPEN(size_t i);
     std::vector<antlr4::tree::TerminalNode *> PARENS_CLOSE();
@@ -1739,6 +1758,8 @@ public:
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<Pound_delayContext *> pound_delay();
     Pound_delayContext* pound_delay(size_t i);
+    std::vector<Pound_pound_delayContext *> pound_pound_delay();
+    Pound_pound_delayContext* pound_pound_delay(size_t i);
     std::vector<antlr4::tree::TerminalNode *> ESCAPED_CR();
     antlr4::tree::TerminalNode* ESCAPED_CR(size_t i);
     std::vector<antlr4::tree::TerminalNode *> PARENS_OPEN();
@@ -1805,6 +1826,8 @@ public:
     NumberContext* number(size_t i);
     std::vector<Pound_delayContext *> pound_delay();
     Pound_delayContext* pound_delay(size_t i);
+    std::vector<Pound_pound_delayContext *> pound_pound_delay();
+    Pound_pound_delayContext* pound_pound_delay(size_t i);
     std::vector<antlr4::tree::TerminalNode *> TEXT_CR();
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<antlr4::tree::TerminalNode *> PARENS_OPEN();
@@ -1873,6 +1896,8 @@ public:
     NumberContext* number(size_t i);
     std::vector<Pound_delayContext *> pound_delay();
     Pound_delayContext* pound_delay(size_t i);
+    std::vector<Pound_pound_delayContext *> pound_pound_delay();
+    Pound_pound_delayContext* pound_pound_delay(size_t i);
     std::vector<antlr4::tree::TerminalNode *> TEXT_CR();
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<antlr4::tree::TerminalNode *> PARENS_OPEN();
@@ -1928,7 +1953,6 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -1938,9 +1962,11 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1958,18 +1984,20 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     Paired_parensContext *paired_parens();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
     Macro_instanceContext *macro_instance();
     antlr4::tree::TerminalNode *CR();
     antlr4::tree::TerminalNode *TEXT_CR();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Simple_args_macro_definition_in_macro_bodyContext *simple_args_macro_definition_in_macro_body();
     Simple_no_args_macro_definition_in_macro_bodyContext *simple_no_args_macro_definition_in_macro_body();
     CommentsContext *comments();
+    Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1994,8 +2022,6 @@ public:
     antlr4::tree::TerminalNode* Fixed_point_number(size_t i);
     std::vector<antlr4::tree::TerminalNode *> String();
     antlr4::tree::TerminalNode* String(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> Special();
-    antlr4::tree::TerminalNode* Special(size_t i);
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
     std::vector<antlr4::tree::TerminalNode *> EQUAL_OP();
@@ -2008,14 +2034,16 @@ public:
     antlr4::tree::TerminalNode* TEXT_CR(size_t i);
     std::vector<antlr4::tree::TerminalNode *> CR();
     antlr4::tree::TerminalNode* CR(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> ANY();
-    antlr4::tree::TerminalNode* ANY(size_t i);
     std::vector<Paired_parensContext *> paired_parens();
     Paired_parensContext* paired_parens(size_t i);
     std::vector<Escaped_identifierContext *> escaped_identifier();
     Escaped_identifierContext* escaped_identifier(size_t i);
     std::vector<CommentsContext *> comments();
     CommentsContext* comments(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> Special();
+    antlr4::tree::TerminalNode* Special(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> ANY();
+    antlr4::tree::TerminalNode* ANY(size_t i);
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -2044,7 +2072,6 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
@@ -2052,11 +2079,13 @@ public:
     antlr4::tree::TerminalNode *TICK_TICK();
     antlr4::tree::TerminalNode *TICK_VARIABLE();
     antlr4::tree::TerminalNode *TIMESCALE();
-    antlr4::tree::TerminalNode *ANY();
     Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
     antlr4::tree::TerminalNode *TICK_QUOTE();
     antlr4::tree::TerminalNode *TICK_BACKSLASH_TICK_QUOTE();
     antlr4::tree::TerminalNode *TEXT_CR();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2100,14 +2129,14 @@ public:
     antlr4::tree::TerminalNode *Spaces();
     antlr4::tree::TerminalNode *Fixed_point_number();
     antlr4::tree::TerminalNode *String();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     Macro_instanceContext *macro_instance();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2130,16 +2159,17 @@ public:
     antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
-    antlr4::tree::TerminalNode *Special();
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
-    antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
     antlr4::tree::TerminalNode *TIMESCALE();
     Pound_delayContext *pound_delay();
+    Pound_pound_delayContext *pound_pound_delay();
     antlr4::tree::TerminalNode *TEXT_CR();
+    antlr4::tree::TerminalNode *Special();
+    antlr4::tree::TerminalNode *ANY();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

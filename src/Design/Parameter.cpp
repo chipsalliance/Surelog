@@ -32,7 +32,9 @@ Parameter::Parameter(const FileContent* fC, NodeId nodeId,
   : DataType(fC, nodeId, name,
              fC ? fC->Type(node_type) : VObjectType::slParameter_declaration,
              true),
-    m_ntype(node_type), m_param(nullptr) {}
+    m_ntype(node_type), m_param(nullptr) {
+  m_category = DataType::Category::PARAMETER;
+}
 
 Parameter::~Parameter() {}
 

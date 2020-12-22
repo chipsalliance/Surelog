@@ -570,14 +570,12 @@ anonymous_program_item
     ; 
 
 local_parameter_declaration 
-   : LOCALPARAM ( data_type_or_implicit list_of_param_assignments 
-   | TYPE list_of_param_assignments )                
+   : LOCALPARAM ( data_type_or_implicit | TYPE ) list_of_param_assignments 
    ; 
 
 
 parameter_declaration  
-    : PARAMETER ( data_type_or_implicit list_of_param_assignments 
-    | TYPE list_of_type_assignments )                   
+    : PARAMETER ( data_type_or_implicit | TYPE ) list_of_param_assignments 
     ; 
      
 
@@ -852,7 +850,7 @@ struct_union
 tagged_keyword : TAGGED;
 
 type_reference : 
-      TYPE OPEN_PARENS expression CLOSE_PARENS | TYPE OPEN_PARENS data_type CLOSE_PARENS ; 
+      TYPE OPEN_PARENS ( expression | data_type ) CLOSE_PARENS; 
 
 drive_strength  
     : OPEN_PARENS ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) CLOSE_PARENS 
@@ -895,7 +893,8 @@ delay2
 
 
 pound_delay_value
-   : Pound_delay (time_unit)?
+   : Pound_Pound_delay (time_unit)?
+   | Pound_delay (time_unit)?
    | POUND delay_value ;
 
 delay_value 
@@ -1300,7 +1299,8 @@ sequence_expr
 
 
 cycle_delay_range  
-    : POUNDPOUND constant_primary    
+    : POUNDPOUND constant_primary
+    | Pound_Pound_delay
     | POUNDPOUND OPEN_BRACKET cycle_delay_const_range_expression  
       CLOSE_BRACKET                  
     | POUNDPOUND ASSOCIATIVE_UNSPECIFIED 
@@ -2335,17 +2335,17 @@ deferred_immediate_assertion_statement
     ; 
 
 deferred_immediate_assert_statement  
-      : ASSERT Pound_delay OPEN_PARENS expression CLOSE_PARENS action_block 
+      : ASSERT (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS action_block 
       | ASSERT FINAL ( expression ) action_block 
       ; 
 
 deferred_immediate_assume_statement  
-      : ASSUME Pound_delay OPEN_PARENS expression CLOSE_PARENS action_block 
+      : ASSUME (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS action_block 
       | ASSUME FINAL OPEN_PARENS expression CLOSE_PARENS  action_block 
       ; 
 
 deferred_immediate_cover_statement  
-      : COVER Pound_delay OPEN_PARENS expression CLOSE_PARENS statement_or_null 
+      : COVER (Pound_Pound_delay | Pound_delay) OPEN_PARENS expression CLOSE_PARENS statement_or_null 
       | COVER FINAL OPEN_PARENS expression CLOSE_PARENS  statement_or_null 
       ; 
 
@@ -2400,8 +2400,9 @@ clocking_drive
 
 cycle_delay  
     : POUNDPOUND Integral_number                     
+    | Pound_Pound_delay
     | POUNDPOUND identifier                          
-    | POUNDPOUND OPEN_PARENS expression CLOSE_PARENS 
+    | POUNDPOUND OPEN_PARENS expression CLOSE_PARENS
     ; 
 
 clockvar :  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 
@@ -2979,8 +2980,8 @@ expression
     | expression BITW_OR ( attribute_instance )* expression 
     | expression LOGICAL_AND ( attribute_instance )* expression 
     | expression LOGICAL_OR ( attribute_instance )* expression 
-    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
-    | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
+    | <assoc=right> expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
+    | <assoc=right> expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
     | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
     ; 

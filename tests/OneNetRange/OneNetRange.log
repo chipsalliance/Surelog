@@ -91,9 +91,9 @@ design: (work@TOP)
         |vpiArgument:
         \_constant: , line:3
           |vpiConstType:6
-          |vpiDecompile:"test.vcd"
-          |vpiSize:10
-          |STRING:"test.vcd"
+          |vpiDecompile:test.vcd
+          |vpiSize:8
+          |STRING:test.vcd
       |vpiStmt:
       \_sys_func_call: ($dumpvars), line:4, parent:work@TESTBENCH
         |vpiName:$dumpvars
@@ -103,9 +103,9 @@ design: (work@TOP)
         |vpiArgument:
         \_constant: , line:5
           |vpiConstType:6
-          |vpiDecompile:"@%0dns i = %0d, o = %0d"
-          |vpiSize:25
-          |STRING:"@%0dns i = %0d, o = %0d"
+          |vpiDecompile:@%0dns i = %0d, o = %0d
+          |vpiSize:23
+          |STRING:@%0dns i = %0d, o = %0d
         |vpiArgument:
         \_sys_func_call: ($time), line:5
           |vpiName:$time
@@ -191,9 +191,9 @@ design: (work@TOP)
             |vpiArgument:
             \_constant: , line:7
               |vpiConstType:6
-              |vpiDecompile:"OK!"
-              |vpiSize:5
-              |STRING:"OK!"
+              |vpiDecompile:OK!
+              |vpiSize:3
+              |STRING:OK!
           |vpiElseStmt:
           \_sys_func_call: ($fatal), line:7
             |vpiName:$fatal
@@ -206,9 +206,9 @@ design: (work@TOP)
             |vpiArgument:
             \_constant: , line:7
               |vpiConstType:6
-              |vpiDecompile:"drive != observe!"
-              |vpiSize:19
-              |STRING:"drive != observe!"
+              |vpiDecompile:drive != observe!
+              |vpiSize:17
+              |STRING:drive != observe!
       |vpiStmt:
       \_delay_control: , line:8, parent:work@TESTBENCH
         |#5
@@ -254,9 +254,9 @@ design: (work@TOP)
             |vpiArgument:
             \_constant: , line:9
               |vpiConstType:6
-              |vpiDecompile:"OK!"
-              |vpiSize:5
-              |STRING:"OK!"
+              |vpiDecompile:OK!
+              |vpiSize:3
+              |STRING:OK!
           |vpiElseStmt:
           \_sys_func_call: ($fatal), line:9
             |vpiName:$fatal
@@ -269,9 +269,9 @@ design: (work@TOP)
             |vpiArgument:
             \_constant: , line:9
               |vpiConstType:6
-              |vpiDecompile:"drive != observe!"
-              |vpiSize:19
-              |STRING:"drive != observe!"
+              |vpiDecompile:drive != observe!
+              |vpiSize:17
+              |STRING:drive != observe!
       |vpiStmt:
       \_delay_control: , line:10, parent:work@TESTBENCH
         |#100
@@ -597,6 +597,11 @@ design: (work@TOP)
     \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
     |vpiInstance:
     \_module: work@TOP (work@TOP) tb.v:16: 
+    |vpiParameter:
+    \_parameter: (work@TOP.conntb.width), line:20, parent:work@TOP.conntb
+      |vpiName:width
+      |vpiFullName:work@TOP.conntb.width
+      |INT:16
   |vpiModule:
   \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
     |vpiDefName:work@dut
@@ -733,6 +738,11 @@ design: (work@TOP)
       \_logic_net: (work@TOP.dut1.conntb.con_o), line:8, parent:work@TOP.dut1.conntb
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
+      |vpiParameter:
+      \_parameter: (work@TOP.dut1.conntb.width), line:3, parent:work@TOP.dut1.conntb
+        |vpiName:width
+        |vpiFullName:work@TOP.dut1.conntb.width
+        |INT:16
     |vpiModule:
     \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
       |vpiDefName:work@middle
@@ -859,13 +869,13 @@ design: (work@TOP)
         |vpiInstance:
         \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
         |vpiParamAssign:
-        \_param_assign: , line:15, parent:work@SUB
+        \_param_assign: , line:15, parent:work@TOP.dut1.middle1.sub1
           |vpiRhs:
           \_constant: , line:15
             |vpiConstType:7
-            |vpiDecompile:1
-            |vpiSize:32
-            |INT:1
+            |vpiDecompile:16
+            |vpiSize:64
+            |INT:16
           |vpiLhs:
           \_parameter: (work@SUB.width), line:15, parent:work@SUB
             |vpiName:width
@@ -875,20 +885,16 @@ design: (work@TOP)
           |vpiName:width
           |vpiFullName:work@TOP.dut1.middle1.sub1.width
           |INT:16
-      |vpiNet:
-      \_logic_net: (work@TOP.dut1.middle1.conn), line:11, parent:work@TOP.dut1.middle1
-        |vpiName:conn
-        |vpiFullName:work@TOP.dut1.middle1.conn
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
       |vpiParamAssign:
-      \_param_assign: , line:11, parent:work@middle
+      \_param_assign: , line:11, parent:work@TOP.dut1.middle1
         |vpiRhs:
         \_constant: , line:11
           |vpiConstType:7
-          |vpiDecompile:1
-          |vpiSize:32
-          |INT:1
+          |vpiDecompile:16
+          |vpiSize:64
+          |INT:16
         |vpiLhs:
         \_parameter: (work@middle.width), line:11, parent:work@middle
           |vpiName:width
@@ -905,13 +911,13 @@ design: (work@TOP)
     |vpiInstance:
     \_module: work@TOP (work@TOP) tb.v:16: 
     |vpiParamAssign:
-    \_param_assign: , line:2, parent:work@dut
+    \_param_assign: , line:2, parent:work@TOP.dut1
       |vpiRhs:
       \_constant: , line:2
         |vpiConstType:7
-        |vpiDecompile:1
-        |vpiSize:32
-        |INT:1
+        |vpiDecompile:16
+        |vpiSize:64
+        |INT:16
       |vpiLhs:
       \_parameter: (work@dut.width), line:2, parent:work@dut
         |vpiName:width
@@ -1002,7 +1008,7 @@ design: (work@TOP)
     \_constant: , line:17
       |vpiConstType:7
       |vpiDecompile:16
-      |vpiSize:32
+      |vpiSize:64
       |INT:16
     |vpiLhs:
     \_parameter: (work@TOP.width), line:17, parent:work@TOP
