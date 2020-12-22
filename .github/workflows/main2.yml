@@ -1,0 +1,484 @@
+name: 'main'
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  bionic-gcc-debug:
+    runs-on: ubuntu-18.04
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 \
+          tclsh \
+          default-jre \
+          cmake \
+          build-essential \
+          swig \
+          google-perftools \
+          libgoogle-perftools-dev \
+          uuid-dev
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Get top commit details
+      uses: actions/github-script@0.3.0
+      id: author-date
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const commit_details = await github.git.getCommit({ owner: context.repo.owner, repo: context.repo.repo, commit_sha: context.sha });
+          return commit_details.data.author.date
+
+    - name: Retrieve date
+      run: |
+        echo "COMMITTED_AT=$(date -d ${{ steps.author-date.outputs.result }} +'%Y.%m.%d_%H.%M.%S')" >> $GITHUB_ENV
+        echo ${{ env.COMMITTED_AT }}
+
+    - name: Git Pull
+      uses: actions/checkout@v2
+
+    - name: Pull UHDM
+      uses: actions/checkout@v2
+      with:
+        repository: alainmarcel/UHDM
+        path: third_party/UHDM
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull flatbuffers
+      uses: actions/checkout@v2
+      with:
+        repository: google/flatbuffers
+        path: third_party/flatbuffers
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull googletest
+      uses: actions/checkout@v2
+      with:
+        repository: google/googletest
+        path: third_party/googletest
+
+    - name: Pull capnproto
+      uses: actions/checkout@v2
+      with:
+        repository: capnproto/capnproto
+        path: third_party/UHDM/third_party/capnproto
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which make && make --version
+        which swig && swig -version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=out/install -S . -B out/build
+        cmake --build out/build -j `nproc`
+        cmake --install out/build
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Surelog_bionic-gcc-debug_${{ env.COMMITTED_AT }}
+        path: out/install
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Upload archive to bucket
+      run: |
+        cd out
+        tar czfp Surelog_bionic-gcc-debug_${{ env.COMMITTED_AT }}.tgz install
+        aws s3 cp Surelog_bionic-gcc-debug_${{ env.COMMITTED_AT }}.tgz s3://davenche-bin/Surelog_bionic-gcc-debug_${{ env.COMMITTED_AT }}.tgz
+
+
+  bionic-gcc-release:
+    runs-on: ubuntu-18.04
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -qq
+        sudo apt install -y \
+          g++-9 \
+          tclsh \
+          default-jre \
+          cmake \
+          build-essential \
+          swig \
+          google-perftools \
+          libgoogle-perftools-dev \
+          uuid-dev
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Get top commit details
+      uses: actions/github-script@0.3.0
+      id: author-date
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const commit_details = await github.git.getCommit({ owner: context.repo.owner, repo: context.repo.repo, commit_sha: context.sha });
+          return commit_details.data.author.date
+
+    - name: Retrieve date
+      run: |
+        echo "COMMITTED_AT=$(date -d ${{ steps.author-date.outputs.result }} +'%Y.%m.%d_%H.%M.%S')" >> $GITHUB_ENV
+        echo ${{ env.COMMITTED_AT }}
+
+    - name: Git Pull
+      uses: actions/checkout@v2
+
+    - name: Pull UHDM
+      uses: actions/checkout@v2
+      with:
+        repository: alainmarcel/UHDM
+        path: third_party/UHDM
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull flatbuffers
+      uses: actions/checkout@v2
+      with:
+        repository: google/flatbuffers
+        path: third_party/flatbuffers
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull googletest
+      uses: actions/checkout@v2
+      with:
+        repository: google/googletest
+        path: third_party/googletest
+
+    - name: Pull capnproto
+      uses: actions/checkout@v2
+      with:
+        repository: capnproto/capnproto
+        path: third_party/UHDM/third_party/capnproto
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which make && make --version
+        which swig && swig -version
+        which java && java -version
+        which python && python --version
+        which ninja && ninja --version
+        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=out/install -S . -B out/build
+        cmake --build out/build -j `nproc`
+        cmake --install out/build
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Surelog_bionic-gcc-release_${{ env.COMMITTED_AT }}
+        path: out/install
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Upload archive to bucket
+      run: |
+        cd out
+        tar czfp Surelog_bionic-gcc-release_${{ env.COMMITTED_AT }}.tgz install
+        aws s3 cp Surelog_bionic-gcc-release_${{ env.COMMITTED_AT }}.tgz s3://davenche-bin/Surelog_bionic-gcc-release_${{ env.COMMITTED_AT }}.tgz
+
+
+  windows-msvc-debug:
+    if: false
+    runs-on: windows-2019
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - name: Install Core Dependencies
+      run: |
+        choco install -y make
+        choco install -y swig --version=3.0.12
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        java-package: jre
+        architecture: x64
+
+    - run: git config --global core.autocrlf input
+      shell: bash
+
+    - name: Get top commit details
+      uses: actions/github-script@0.3.0
+      id: author-date
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const commit_details = await github.git.getCommit({ owner: context.repo.owner, repo: context.repo.repo, commit_sha: context.sha });
+          return commit_details.data.author.date
+
+    - name: Retrieve date
+      run: |
+        echo "COMMITTED_AT=$(date -d ${{ steps.author-date.outputs.result }} +'%Y.%m.%d_%H.%M.%S')" >> $GITHUB_ENV
+        echo ${{ env.COMMITTED_AT }}
+      shell: bash
+
+    - name: Git Pull
+      uses: actions/checkout@v2
+
+    - name: Configure shell
+      run: |
+        echo 'CC=cl' >> $GITHUB_ENV
+        echo 'CXX=cl' >> $GITHUB_ENV
+      shell: bash
+
+    - name: Pull UHDM
+      uses: actions/checkout@v2
+      with:
+        repository: alainmarcel/UHDM
+        path: third_party/UHDM
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull flatbuffers
+      uses: actions/checkout@v2
+      with:
+        repository: google/flatbuffers
+        path: third_party/flatbuffers
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull googletest
+      uses: actions/checkout@v2
+      with:
+        repository: google/googletest
+        path: third_party/googletest
+
+    - name: Pull capnproto
+      uses: actions/checkout@v2
+      with:
+        repository: capnproto/capnproto
+        path: third_party/UHDM/third_party/capnproto
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Build
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+
+        set CC=cl
+        set CXX=cl
+        set NO_TCMALLOC=On
+
+        set MAKE_DIR=C:\make\bin
+        set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
+        set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
+        set PATH=%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
+
+        set
+        where cmake && cmake --version
+        where make && make --version
+        where swig && swig -version
+        where java && java -version
+        where python && python --version
+        where ninja && ninja --version
+
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=out/install -S . -B out/build
+        cmake --build out/build -j %NUMBER_OF_PROCESSORS%
+        cmake --install out/build
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Surelog_windows-msvc-debug_${{ env.COMMITTED_AT }}
+        path: out/install
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Upload archive to bucket
+      run: |
+        cd out
+        tar czfp Surelog_windows-msvc-debug_${{ env.COMMITTED_AT }}.tgz install
+        aws s3 cp Surelog_windows-msvc-debug_${{ env.COMMITTED_AT }}.tgz s3://davenche-bin/Surelog_windows-msvc-debug_${{ env.COMMITTED_AT }}.tgz
+
+
+  windows-msvc-release:
+    runs-on: windows-2019
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+    - name: Install Core Dependencies
+      run: |
+        choco install -y make
+        choco install -y swig --version=3.0.12
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        architecture: x64
+
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        java-package: jre
+        architecture: x64
+
+    - run: git config --global core.autocrlf input
+      shell: bash
+
+    - name: Get top commit details
+      uses: actions/github-script@0.3.0
+      id: author-date
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const commit_details = await github.git.getCommit({ owner: context.repo.owner, repo: context.repo.repo, commit_sha: context.sha });
+          return commit_details.data.author.date
+
+    - name: Retrieve date
+      run: |
+        echo "COMMITTED_AT=$(date -d ${{ steps.author-date.outputs.result }} +'%Y.%m.%d_%H.%M.%S')" >> $GITHUB_ENV
+        echo ${{ env.COMMITTED_AT }}
+      shell: bash
+
+    - name: Git Pull
+      uses: actions/checkout@v2
+
+    - name: Configure shell
+      run: |
+        echo 'CC=cl' >> $GITHUB_ENV
+        echo 'CXX=cl' >> $GITHUB_ENV
+      shell: bash
+
+    - name: Pull UHDM
+      uses: actions/checkout@v2
+      with:
+        repository: alainmarcel/UHDM
+        path: third_party/UHDM
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull flatbuffers
+      uses: actions/checkout@v2
+      with:
+        repository: google/flatbuffers
+        path: third_party/flatbuffers
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Pull googletest
+      uses: actions/checkout@v2
+      with:
+        repository: google/googletest
+        path: third_party/googletest
+
+    - name: Pull capnproto
+      uses: actions/checkout@v2
+      with:
+        repository: capnproto/capnproto
+        path: third_party/UHDM/third_party/capnproto
+        # token: ${{ secrets.GHA_DAVENCHE_CI_TOKEN }}
+
+    - name: Build
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+
+        set CC=cl
+        set CXX=cl
+        set NO_TCMALLOC=On
+
+        set MAKE_DIR=C:\make\bin
+        set TCL_DIR=%PROGRAMFILES%\Git\mingw64\bin
+        set SWIG_DIR=%PROGRMDATA%\chocolatey\lib\swig\tools\install\swigwin-3.0.12
+        set PATH=%SWIG_DIR%;%JAVA_HOME%\bin;%MAKE_DIR%;%TCL_DIR%;%PATH%
+
+        set
+        where cmake && cmake --version
+        where make && make --version
+        where swig && swig -version
+        where java && java -version
+        where python && python --version
+        where ninja && ninja --version
+
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=out/install -S . -B out/build
+        cmake --build out/build -j %NUMBER_OF_PROCESSORS%
+        cmake --install out/build
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Surelog_windows-msvc-release_${{ env.COMMITTED_AT }}
+        path: out/install
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-1
+
+    - name: Upload archive to bucket
+      run: |
+        cd out
+        tar czfp Surelog_windows-msvc-release_${{ env.COMMITTED_AT }}.tgz install
+        aws s3 cp Surelog_windows-msvc-release_${{ env.COMMITTED_AT }}.tgz s3://davenche-bin/Surelog_windows-msvc-release_${{ env.COMMITTED_AT }}.tgz
