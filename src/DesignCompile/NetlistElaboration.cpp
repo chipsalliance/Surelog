@@ -50,6 +50,8 @@
 #include "Design/Union.h"
 #include "Design/SimpleType.h"
 #include "Design/ParamAssign.h"
+#include "ElaboratorListener.h"
+#include "clone_tree.h"
 #include <queue>
 
 #include "uhdm.h"
@@ -159,11 +161,24 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
 }
 
 bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
+//  Serializer& s =  m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
+/*
+  if (ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (instance->getDefinition())) {
+    if (std::vector<UHDM::cont_assign*>* assigns = mod->getContAssigns()) {
+      netlist->cont_assigns(s.MakeCont_assignVec());
+      for (auto assign : *assigns) {
+        ElaboratorListener listener(&s);
+        cont_assign* result = (cont_assign*) UHDM::clone_tree((any*) assign, s, &listener);
+        netlist->cont_assigns()->push_back(result);
+      }
+    }
+  }
+*/
   elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);

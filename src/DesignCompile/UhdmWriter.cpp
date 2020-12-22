@@ -626,14 +626,21 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   //VectorOfvariables* dest_vars = s.MakeVariablesVec();
   //writeVariables(orig_vars, m, dest_vars, s, componentMap);
   //m->Variables(dest_vars);
+
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  m->Cont_assigns(orig_cont_assigns);
-  if (m->Cont_assigns()) {
-    for (auto ps : *m->Cont_assigns()) {
+  if (orig_cont_assigns) {
+    std::vector<cont_assign*>* assigns = m->Cont_assigns();
+    if (assigns == nullptr) {
+      m->Cont_assigns(s.MakeCont_assignVec());
+      assigns = m->Cont_assigns();
+    }
+    for (auto ps : *orig_cont_assigns) {
+      assigns->push_back(ps);
       ps->VpiParent(m);
     }
   }
+
   // Processes
   m->Process(mod->getProcesses());
   if (m->Process()) {

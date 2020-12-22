@@ -1320,11 +1320,12 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       List_of_net_decl_assignments = net;
     }
   }
+  /*
   if (nettype == VObjectType::slIntVec_TypeLogic ||
       nettype == VObjectType::slNetType_Wire ||
       nettype == VObjectType::slIntVec_TypeReg )
     compileContinuousAssignment(component, fC, List_of_net_decl_assignments, compileDesign);
-
+*/
   if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
     List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }
