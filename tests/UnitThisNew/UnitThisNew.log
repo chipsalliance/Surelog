@@ -502,9 +502,14 @@ design: (unnamed)
     |vpiStmt:
     \_if_stmt: , line:27, parent:toto::uvm_reg::add_field
       |vpiCondition:
-      \_ref_obj: (toto::uvm_reg::add_field::fields.get_lsb_pos_in_register), line:27
+      \_hier_path: (fields.get_lsb_pos_in_register), line:27
         |vpiName:fields.get_lsb_pos_in_register
-        |vpiFullName:toto::uvm_reg::add_field::fields.get_lsb_pos_in_register
+        |vpiActual:
+        \_ref_obj: (fields)
+          |vpiName:fields
+        |vpiActual:
+        \_ref_obj: (get_lsb_pos_in_register)
+          |vpiName:get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27
         |vpiFullName:toto::uvm_reg::add_field

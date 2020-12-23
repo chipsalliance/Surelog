@@ -50,6 +50,8 @@
 #include "Design/Union.h"
 #include "Design/SimpleType.h"
 #include "Design/ParamAssign.h"
+#include "ElaboratorListener.h"
+#include "clone_tree.h"
 #include <queue>
 
 #include "uhdm.h"
@@ -159,11 +161,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
 }
 
 bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
+//  Serializer& s =  m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
+
   elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);
@@ -956,6 +960,12 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
       assign->VpiLineNo(fC->Line(id));
       assign->Lhs((expr*)obj);
       assign->Rhs(exp);
+      m_helper.setParentNoOverride((expr*)obj, assign);
+      m_helper.setParentNoOverride(exp, assign);
+      if (sig->getDelay()) {
+        expr* delay_expr = (expr*) m_helper.compileExpression(comp, fC, sig->getDelay(), m_compileDesign);
+        assign->Delay(delay_expr);
+      }
       std::vector<cont_assign*>* assigns = netlist->cont_assigns();
       if (assigns == nullptr) {
         netlist->cont_assigns(s.MakeCont_assignVec());

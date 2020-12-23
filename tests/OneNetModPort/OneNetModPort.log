@@ -116,11 +116,23 @@ design: (work@TOP)
         \_sys_func_call: ($time), line:5
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (intf.drive), line:5
+        \_hier_path: (intf.drive), line:5
           |vpiName:intf.drive
+          |vpiActual:
+          \_ref_obj: (intf)
+            |vpiName:intf
+          |vpiActual:
+          \_ref_obj: (drive)
+            |vpiName:drive
         |vpiArgument:
-        \_ref_obj: (intf.observe), line:5
+        \_hier_path: (intf.observe), line:5
           |vpiName:intf.observe
+          |vpiActual:
+          \_ref_obj: (intf)
+            |vpiName:intf
+          |vpiActual:
+          \_ref_obj: (observe)
+            |vpiName:observe
       |vpiStmt:
       \_assignment: , line:6, parent:work@TESTBENCH
         |vpiOpType:82
@@ -144,13 +156,23 @@ design: (work@TOP)
           \_operation: , line:7
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.intf.drive), line:7
+            \_hier_path: (intf.drive), line:7
               |vpiName:intf.drive
-              |vpiFullName:work@TESTBENCH.intf.drive
+              |vpiActual:
+              \_ref_obj: (intf)
+                |vpiName:intf
+              |vpiActual:
+              \_ref_obj: (drive)
+                |vpiName:drive
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.intf.observe), line:7
+            \_hier_path: (intf.observe), line:7
               |vpiName:intf.observe
-              |vpiFullName:work@TESTBENCH.intf.observe
+              |vpiActual:
+              \_ref_obj: (intf)
+                |vpiName:intf
+              |vpiActual:
+              \_ref_obj: (observe)
+                |vpiName:observe
           |vpiStmt:
           \_sys_func_call: ($display), line:7
             |vpiName:$display
@@ -201,13 +223,23 @@ design: (work@TOP)
           \_operation: , line:9
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.intf.drive), line:9
+            \_hier_path: (intf.drive), line:9
               |vpiName:intf.drive
-              |vpiFullName:work@TESTBENCH.intf.drive
+              |vpiActual:
+              \_ref_obj: (intf)
+                |vpiName:intf
+              |vpiActual:
+              \_ref_obj: (drive)
+                |vpiName:drive
             |vpiOperand:
-            \_ref_obj: (work@TESTBENCH.intf.observe), line:9
+            \_hier_path: (intf.observe), line:9
               |vpiName:intf.observe
-              |vpiFullName:work@TESTBENCH.intf.observe
+              |vpiActual:
+              \_ref_obj: (intf)
+                |vpiName:intf
+              |vpiActual:
+              \_ref_obj: (observe)
+                |vpiName:observe
           |vpiStmt:
           \_sys_func_call: ($display), line:9
             |vpiName:$display
@@ -321,15 +353,25 @@ design: (work@TOP)
       |vpiName:i
       |vpiFullName:work@dut.i
     |vpiLhs:
-    \_ref_obj: (work@dut.conntb.drive), line:3
+    \_hier_path: (conntb.drive), line:3
       |vpiName:conntb.drive
-      |vpiFullName:work@dut.conntb.drive
+      |vpiActual:
+      \_ref_obj: (conntb)
+        |vpiName:conntb
+      |vpiActual:
+      \_ref_obj: (drive)
+        |vpiName:drive
   |vpiContAssign:
   \_cont_assign: , line:4, parent:work@dut
     |vpiRhs:
-    \_ref_obj: (work@dut.conntb.observe), line:4
+    \_hier_path: (conntb.observe), line:4
       |vpiName:conntb.observe
-      |vpiFullName:work@dut.conntb.observe
+      |vpiActual:
+      \_ref_obj: (conntb)
+        |vpiName:conntb
+      |vpiActual:
+      \_ref_obj: (observe)
+        |vpiName:observe
     |vpiLhs:
     \_ref_obj: (work@dut.o), line:4
       |vpiName:o
@@ -456,8 +498,14 @@ design: (work@TOP)
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (conntb.observe), line:17
+      \_hier_path: (conntb.observe), line:17
         |vpiName:conntb.observe
+        |vpiActual:
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (observe)
+          |vpiName:observe
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -565,12 +613,14 @@ design: (work@TOP)
           |vpiName:inp
           |vpiDirection:1
           |vpiHighConn:
-          \_ref_obj: (intf.drive), line:23
+          \_hier_path: (intf.drive), line:23
             |vpiName:intf.drive
             |vpiActual:
-            \_logic_net: (drive), line:10
+            \_ref_obj: (intf)
+              |vpiName:intf
+            |vpiActual:
+            \_ref_obj: (drive)
               |vpiName:drive
-              |vpiNetType:36
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:
@@ -583,12 +633,14 @@ design: (work@TOP)
           |vpiName:out
           |vpiDirection:2
           |vpiHighConn:
-          \_ref_obj: (intf.observe), line:23
+          \_hier_path: (intf.observe), line:23
             |vpiName:intf.observe
             |vpiActual:
-            \_logic_net: (observe), line:11
+            \_ref_obj: (intf)
+              |vpiName:intf
+            |vpiActual:
+            \_ref_obj: (observe)
               |vpiName:observe
-              |vpiNetType:36
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:

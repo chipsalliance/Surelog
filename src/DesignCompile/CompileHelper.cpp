@@ -1320,12 +1320,15 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       List_of_net_decl_assignments = net;
     }
   }
+  /*
   if (nettype == VObjectType::slIntVec_TypeLogic ||
       nettype == VObjectType::slNetType_Wire ||
       nettype == VObjectType::slIntVec_TypeReg )
     compileContinuousAssignment(component, fC, List_of_net_decl_assignments, compileDesign);
-
+*/
+  NodeId delay = 0;
   if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
+    delay = List_of_net_decl_assignments;
     List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
@@ -1351,11 +1354,13 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       Signal* sig = new Signal(fC, signal, NetType, subnettype, Unpacked_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
+      sig->setDelay(delay);
       component->getSignals().push_back(sig);
     } else {
       Signal* sig = new Signal(fC, signal, nettype, slNoType, Packed_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
+      sig->setDelay(delay);
       component->getSignals().push_back(sig);
     }
 
