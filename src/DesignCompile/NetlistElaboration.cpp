@@ -152,8 +152,32 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
       c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
       inst_assign->Rhs(c);
     } else {
-      expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
-      inst_assign->Rhs(rhs);
+      bool override = false;
+      for (Parameter* tpm : instance->getTypeParams()) { // for parameters that do not resolve to scalars (complex structs)
+        if (tpm->getName() == paramName) {
+          override = true;
+          if (ModuleInstance* pinst = instance->getParent()) {
+            ModuleDefinition* pmod = dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
+            expr* rhs = (expr*)m_helper.compileExpression(pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign, nullptr, pinst, true);
+            // But if this value can be reduced to a constant then take the constant
+            expr* crhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
+            if (crhs && crhs->UhdmType() == uhdmconstant) {
+              constant* ccrhs = (constant*) crhs;
+              std::string s = ccrhs->VpiValue();
+              uint64_t v = atoi(s.c_str() + strlen("INT:"));
+              if (v > 0) {
+                rhs = crhs;
+              }
+            }
+            inst_assign->Rhs(rhs);
+            break;
+          }
+        }
+      }
+      if (override == false) {
+        expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
+        inst_assign->Rhs(rhs);
+      }
     }
     assigns->push_back(inst_assign);
   }

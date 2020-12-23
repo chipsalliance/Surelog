@@ -1375,6 +1375,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           NodeId type = parentFile->Child(data_type);
           Parameter* param = new Parameter(parentFile, expr, pname, type);
           instance->getTypeParams().push_back(param);
+          // Set the invalid value as a marker for netlist elaboration
+          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
         } else {   
           instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
         }
