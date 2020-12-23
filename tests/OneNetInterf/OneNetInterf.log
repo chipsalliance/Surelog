@@ -509,12 +509,14 @@ design: (work@dut)
         |vpiName:inp
         |vpiDirection:1
         |vpiHighConn:
-        \_ref_obj: (conn.con_i), line:11
+        \_hier_path: (conn.con_i), line:11
           |vpiName:conn.con_i
           |vpiActual:
-          \_logic_net: (con_i), line:7
+          \_ref_obj: (conn)
+            |vpiName:conn
+          |vpiActual:
+          \_ref_obj: (con_i)
             |vpiName:con_i
-            |vpiNetType:1
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -527,12 +529,14 @@ design: (work@dut)
         |vpiName:out
         |vpiDirection:2
         |vpiHighConn:
-        \_ref_obj: (conn.con_o), line:11
+        \_hier_path: (conn.con_o), line:11
           |vpiName:conn.con_o
           |vpiActual:
-          \_logic_net: (con_o), line:7
+          \_ref_obj: (conn)
+            |vpiName:conn
+          |vpiActual:
+          \_ref_obj: (con_o)
             |vpiName:con_o
-            |vpiNetType:48
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -637,12 +641,14 @@ design: (work@dut)
         |vpiName:inp
         |vpiDirection:1
         |vpiHighConn:
-        \_ref_obj: (conn.con_i), line:11
+        \_hier_path: (conn.con_i), line:11
           |vpiName:conn.con_i
           |vpiActual:
-          \_logic_net: (con_i), line:7
+          \_ref_obj: (conn)
+            |vpiName:conn
+          |vpiActual:
+          \_ref_obj: (con_i)
             |vpiName:con_i
-            |vpiNetType:1
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -655,12 +661,14 @@ design: (work@dut)
         |vpiName:out
         |vpiDirection:2
         |vpiHighConn:
-        \_ref_obj: (conn.con_o), line:11
+        \_hier_path: (conn.con_o), line:11
           |vpiName:conn.con_o
           |vpiActual:
-          \_logic_net: (con_o), line:7
+          \_ref_obj: (conn)
+            |vpiName:conn
+          |vpiActual:
+          \_ref_obj: (con_o)
             |vpiName:con_o
-            |vpiNetType:48
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -690,10 +698,14 @@ design: (work@dut)
       |vpiName:observe
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (conntb.con_o), line:18
+      \_hier_path: (conntb.con_o), line:18
         |vpiName:conntb.con_o
         |vpiActual:
-        \_logic_net: (work@tb.conntb.con_o), line:7, parent:work@tb.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_o)
+          |vpiName:con_o
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -706,10 +718,14 @@ design: (work@dut)
       |vpiName:drive
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (conntb.con_i), line:18
+      \_hier_path: (conntb.con_i), line:18
         |vpiName:conntb.con_i
         |vpiActual:
-        \_logic_net: (work@tb.conntb.con_i), line:7, parent:work@tb.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_i)
+          |vpiName:con_i
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:

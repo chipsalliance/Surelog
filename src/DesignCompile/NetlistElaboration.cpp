@@ -167,18 +167,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
-/*
-  if (ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (instance->getDefinition())) {
-    if (std::vector<UHDM::cont_assign*>* assigns = mod->getContAssigns()) {
-      netlist->cont_assigns(s.MakeCont_assignVec());
-      for (auto assign : *assigns) {
-        ElaboratorListener listener(&s);
-        cont_assign* result = (cont_assign*) UHDM::clone_tree((any*) assign, s, &listener);
-        netlist->cont_assigns()->push_back(result);
-      }
-    }
-  }
-*/
+
   elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);
@@ -971,6 +960,12 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
       assign->VpiLineNo(fC->Line(id));
       assign->Lhs((expr*)obj);
       assign->Rhs(exp);
+      m_helper.setParentNoOverride((expr*)obj, assign);
+      m_helper.setParentNoOverride(exp, assign);
+      if (sig->getDelay()) {
+        expr* delay_expr = (expr*) m_helper.compileExpression(comp, fC, sig->getDelay(), m_compileDesign);
+        assign->Delay(delay_expr);
+      }
       std::vector<cont_assign*>* assigns = netlist->cont_assigns();
       if (assigns == nullptr) {
         netlist->cont_assigns(s.MakeCont_assignVec());

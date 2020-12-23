@@ -133,9 +133,14 @@ design: (unnamed)
     |vpiStmt:
     \_do_while: , line:6, parent:toto::uvm_default_factory::print
       |vpiCondition:
-      \_ref_obj: (toto::uvm_default_factory::print::m_type_names.next), line:10
+      \_hier_path: (m_type_names.next), line:10
         |vpiName:m_type_names.next
-        |vpiFullName:toto::uvm_default_factory::print::m_type_names.next
+        |vpiActual:
+        \_ref_obj: (m_type_names)
+          |vpiName:m_type_names
+        |vpiActual:
+        \_ref_obj: (next)
+          |vpiName:next
       |vpiStmt:
       \_begin: (toto::uvm_default_factory::print), line:6
         |vpiFullName:toto::uvm_default_factory::print
@@ -145,12 +150,17 @@ design: (unnamed)
           \_operation: , line:7
             |vpiOpType:19
             |vpiOperand:
-            \_bit_select: (toto::uvm_default_factory::print::m_sync.m_state), line:7
-              |vpiName:m_sync.m_state
-              |vpiFullName:toto::uvm_default_factory::print::m_sync.m_state
-              |vpiIndex:
-              \_ref_obj: (i), line:7
-                |vpiName:i
+            \_hier_path: (m_sync[i].m_state), line:7
+              |vpiName:m_sync[i].m_state
+              |vpiActual:
+              \_bit_select: (m_sync)
+                |vpiName:m_sync
+                |vpiIndex:
+                \_ref_obj: (i), line:7
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (m_state)
+                |vpiName:m_state
             |vpiOperand:
             \_ref_obj: (toto::uvm_default_factory::print::UVM_PHASE_SYNCING), line:7
               |vpiName:UVM_PHASE_SYNCING

@@ -507,8 +507,14 @@ design: (work@dm_csrs)
             |vpiSize:1
             |BIN:0
           |vpiOperand:
-          \_ref_obj: (dmi_req_i.addr), line:15
+          \_hier_path: (dmi_req_i.addr), line:15
             |vpiName:dmi_req_i.addr
+            |vpiActual:
+            \_ref_obj: (dmi_req_i)
+              |vpiName:dmi_req_i
+            |vpiActual:
+            \_ref_obj: (addr)
+              |vpiName:addr
         |vpiCaseItem:
         \_case_item: , line:17
           |vpiExpr:
@@ -587,9 +593,14 @@ design: (work@dm_csrs)
             |vpiSize:1
             |BIN:0
           |vpiOperand:
-          \_ref_obj: (work@dm_csrs.csr_read_write.dmi_req_i.addr), line:15
+          \_hier_path: (dmi_req_i.addr), line:15
             |vpiName:dmi_req_i.addr
-            |vpiFullName:work@dm_csrs.csr_read_write.dmi_req_i.addr
+            |vpiActual:
+            \_ref_obj: (dmi_req_i), parent:dmi_req_i.addr
+              |vpiName:dmi_req_i
+            |vpiActual:
+            \_ref_obj: (addr), parent:dmi_req_i.addr
+              |vpiName:addr
         |vpiCaseItem:
         \_case_item: , line:17
           |vpiExpr:
