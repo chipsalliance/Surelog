@@ -163,11 +163,14 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
             expr* crhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
             if (crhs && crhs->UhdmType() == uhdmconstant) {
               constant* ccrhs = (constant*) crhs;
-              std::string s = ccrhs->VpiValue();
-              uint64_t v = atoi(s.c_str() + strlen("INT:"));
-              if (v > 0) {
+              const std::string& s = ccrhs->VpiValue();
+              Value* v1 = m_exprBuilder.fromVpiValue(s);
+              Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
+              if (*v1 > *v2) {
                 rhs = crhs;
               }
+              m_exprBuilder.deleteValue(v1);
+              m_exprBuilder.deleteValue(v2);
             }
             inst_assign->Rhs(rhs);
             break;
@@ -230,7 +233,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
-  std::string instName = instance->getFullPathName();
+  const std::string& instName = instance->getFullPathName();
   VObjectType inst_type = fC->Type(Udp_instantiation);
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
@@ -611,14 +614,14 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleI
     netlist->getInstanceMap().insert(std::make_pair(instName, std::make_pair(interf_instance, sm)));
     netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   }
-  std::string prefix = instName + ".";
+  const std::string prefix = instName + ".";
   elab_ports_nets_(instance, interf_instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix);
 
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
-    std::string modportfullname = instName + "." + orig_modport.first  ;
+    const std::string modportfullname = instName + "." + orig_modport.first  ;
     if ((modPortName != "") && (modportfullname != modPortName))
       continue;
     modport* dest_modport = s.MakeModport();
@@ -1060,7 +1063,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         // Ports pass
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection()));
-        std::string signame = sig->getName();
+        const std::string& signame = sig->getName();
         dest_port->VpiName(signame);
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiFile(fC->getFileName());
