@@ -727,15 +727,22 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-  //  strdup(s.c_str() + pos + strlen("BIN:"));
+    val = m_valueFactory.newLValue();
+    uint64_t v = std::strtoll(s.c_str() + strlen("BIN:"), 0, 2);  
+    val->set(v, Value::Type::Binary,  s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
-  //  strdup(s.c_str() + pos + strlen("HEX:"));
+    val = m_valueFactory.newLValue();
+    uint64_t v = std::strtoll(s.c_str() + strlen("HEX:"), 0, 16);  
+    val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
-   // strdup(s.c_str() + pos + strlen("OCT:"));
+    val = m_valueFactory.newLValue();
+    uint64_t v = std::strtoll(s.c_str() + strlen("OCT:"), 0, 8);  
+    val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
-  // strdup(s.c_str() + pos + strlen("STRING:"));
+    val = m_valueFactory.newStValue();
+    val->set(s.c_str() + strlen("STRING:"));
   } else if ((pos = s.find("REAL:")) != std::string::npos) {
-   // atof(s.c_str() + pos + strlen("REAL:"));
+   
   }
   return val;
 }

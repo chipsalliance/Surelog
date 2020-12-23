@@ -962,7 +962,7 @@ UHDM::any* CompileHelper::compileExpression(
         if (result)
           break;
 
-        if (sval == NULL) {
+        if (sval == NULL || (sval && !sval->isValid())) {
           if (component && reduce) {
             UHDM::VectorOfparam_assign* param_assigns= component->getParam_assigns();
             if (param_assigns) {
