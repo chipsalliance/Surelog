@@ -129,7 +129,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
       operation* op = (operation*) rhs;
       int opType = op->VpiOpType();
       if (opType == vpiAssignmentPatternOp || opType == vpiCastOp ||
-          opType == vpiConcatOp || opType == vpiMultiConcatOp ||
+          opType == vpiConcatOp ||
           opType == vpiMultiAssignmentPatternOp) {
         assigns->push_back(mod_assign);
         continue;
