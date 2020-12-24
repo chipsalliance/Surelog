@@ -193,7 +193,7 @@ public:
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance);
+                                       ValuedComponentI* instance, bool reduce);
 
   std::vector<UHDM::range*>* compileRanges(DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
                                        CompileDesign* compileDesign,
@@ -224,7 +224,7 @@ public:
                                             const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::any* pexpr,
-                                            ValuedComponentI* instance);
+                                            ValuedComponentI* instance, bool reduce);
 
   UHDM::any* compileBits(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
