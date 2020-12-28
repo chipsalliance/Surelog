@@ -1130,7 +1130,9 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
       func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
-      const std::string& ctype = fC->SymName(func_decl);
+      std::string ctype = fC->SymName(func_decl);
+      if (ctype.front() == '"' && ctype.back() == '"')
+          ctype = ctype.substr(1, ctype.length() - 2);
       if (ctype == "DPI-C")
         func->VpiDPICStr(vpiDPIC);
       else if (ctype == "DPI")

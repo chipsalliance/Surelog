@@ -46,6 +46,10 @@ Value* ValuedComponentI::getValue(const std::string& name) const {
   }
 }
 
+Value* ValuedComponentI::getValue(const std::string& name, ExprBuilder& exprBuilder) const {
+  return getValue(name);
+}
+
 void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBuilder) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr != m_paramMap.end()) {

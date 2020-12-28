@@ -37,6 +37,8 @@ class NetlistElaboration : public TestbenchElaboration {
  public:
   NetlistElaboration(CompileDesign* compileDesign);
   NetlistElaboration(const NetlistElaboration& orig) = delete;
+
+  bool elaborateParams(ModuleInstance* instance);
   bool elaborate() override;
 
   virtual ~NetlistElaboration() override;

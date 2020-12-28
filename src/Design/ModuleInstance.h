@@ -73,6 +73,8 @@ class ModuleInstance : public ValuedComponentI {
 
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }   
 
+  Value* getValue(const std::string& name, ExprBuilder& exprBuilder) const override;
+
  private:
   DesignComponent* m_definition;
   ModuleInstance** m_children;
