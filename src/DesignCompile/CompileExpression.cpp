@@ -121,52 +121,65 @@ static unsigned long long get_value(bool& invalidValue,
   return 0;
 }
 
-any* get_value(const std::string& name, DesignComponent* component,
+any* CompileHelper::getValue(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance) {
   Serializer& s = compileDesign->getSerializer();
   Value* sval = nullptr;    
-  any* result = nullptr;           
-  if (instance) sval = instance->getValue(name);
+  any* result = nullptr;
 
-  if (sval == NULL || (sval && !sval->isValid())) {
-    if (instance) {
-      ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
-      if (inst) {
-        Netlist* netlist = inst->getNetlist();
-        if (netlist) {
-          UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
-          if (param_assigns) {
-            for (param_assign* param : *param_assigns) {
-              const std::string& param_name = param->Lhs()->VpiName();
-              if (param_name == name) {
-                ElaboratorListener listener(&s);
-                result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-                break;
-              }
+  while (instance) {
+    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    if (inst) {
+      Netlist* netlist = inst->getNetlist();
+      if (netlist) {
+        UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
+        if (param_assigns) {
+          for (param_assign* param : *param_assigns) {
+            const std::string& param_name = param->Lhs()->VpiName();
+            if (param_name == name) {
+              ElaboratorListener listener(&s);
+              result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+              break;
             }
           }
         }
       }
     }
-    if (component && (result == nullptr)) {
-      UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
-      if (param_assigns) {
-        for (param_assign* param : *param_assigns) {
-          const std::string& param_name = param->Lhs()->VpiName();
-          if (param_name == name) {
-            ElaboratorListener listener(&s);
-            result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-            break;
-          }
+    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
+      if (inst->getType() != slModule_instantiation)
+        instance = (ValuedComponentI*) instance->getParentScope();
+      else
+        instance = nullptr;
+    } else {
+      instance = nullptr;
+    }
+  }
+
+  if (result == nullptr) {
+    if (instance) 
+      sval = instance->getValue(name);
+    if (sval) {  
+      UHDM::constant* c = s.MakeConstant();
+      c->VpiValue(sval->uhdmValue());
+      c->VpiDecompile(sval->decompiledValue());
+      result = c;
+    }
+  }
+
+  if (component && (result == nullptr)) {
+    UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
+    if (param_assigns) {
+      for (param_assign* param : *param_assigns) {
+        const std::string& param_name = param->Lhs()->VpiName();
+        if (param_name == name) {
+          ElaboratorListener listener(&s);
+          result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+          break;
         }
       }
     }
-  } else {
-    UHDM::constant* c = s.MakeConstant();
-    c->VpiValue(sval->uhdmValue());
-    c->VpiDecompile(sval->decompiledValue());
-    result = c;
   }
+
   return result;
 }
 
@@ -2278,7 +2291,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     bool reduced = false;
     if (reduce && (lexp->UhdmType() == uhdmconstant) && (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
-        any* v = get_value(name, component, compileDesign, instance);
+        any* v = getValue(name, component, compileDesign, instance);
         if (v && (v->UhdmType() == uhdmconstant)) {
           constant* cv = (constant*) v;
           Value* cvv = m_exprBuilder.fromVpiValue(cv->VpiValue());

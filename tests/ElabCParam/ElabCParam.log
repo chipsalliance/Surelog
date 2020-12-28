@@ -379,7 +379,7 @@ n<> u<348> t<Top_level_rule> l<2>
 
 [INF:CP0335] dut.sv:44: Compile generate block "work@socket_1n.gen_dfifo[1]".
 
-[INF:CP0335] dut.sv:8: Compile generate block "work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru".
+[INF:CP0335] dut.sv:15: Compile generate block "work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal".
 
 [NTE:EL0503] dut.sv:38: Top level module "work@socket_1n".
 
@@ -882,9 +882,9 @@ design: (work@socket_1n)
             |vpiRhs:
             \_constant: , line:3
               |vpiConstType:7
-              |vpiDecompile:4
-              |vpiSize:32
-              |INT:4
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
             |vpiLhs:
             \_parameter: (work@prim_fifo_sync.Depth), line:3, parent:work@prim_fifo_sync
               |vpiName:Depth
@@ -896,14 +896,14 @@ design: (work@socket_1n)
           \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth), line:30, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
             |vpiName:Depth
             |vpiFullName:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth
+            |INT:0
         |vpiParamAssign:
         \_param_assign: , line:25, parent:work@socket_1n.gen_dfifo[0].fifo_d
           |vpiRhs:
-          \_constant: , line:25
-            |vpiConstType:7
-            |vpiDecompile:6
-            |vpiSize:32
-            |INT:6
+          \_constant: , line:46
+            |vpiDecompile:INT:0
+            |vpiSize:4
+            |INT:0
           |vpiLhs:
           \_parameter: (work@fifo_sync.ReqDepth), line:25, parent:work@fifo_sync
             |vpiName:ReqDepth
@@ -938,24 +938,31 @@ design: (work@socket_1n)
           |vpiName:reqfifo
           |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
           |vpiGenScopeArray:
-          \_gen_scope_array: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), line:8, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
-            |vpiName:gen_passthru
-            |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
+          \_gen_scope_array: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal), line:15, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
+            |vpiName:gen_normal
+            |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
             |vpiGenScope:
-            \_gen_scope: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
-              |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
-              |vpiContAssign:
-              \_cont_assign: , line:11, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
+            \_gen_scope: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal), parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+              |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+              |vpiParamAssign:
+              \_param_assign: , line:18
                 |vpiRhs:
-                \_constant: , line:11
-                  |vpiConstType:3
-                  |vpiDecompile:'b0
-                  |vpiSize:1
-                  |BIN:0
+                \_constant: , line:18
+                  |vpiDecompile:18446744073709551615
+                  |INT:-1
                 |vpiLhs:
-                \_ref_obj: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru.depth), line:11
-                  |vpiName:depth
-                  |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_passthru.depth
+                \_parameter: (PTRV_W), line:18
+                  |vpiName:PTRV_W
+                  |vpiLocalParam:1
+                  |vpiTypespec:
+                  \_int_typespec: (PTRV_W), line:18, parent:PTRV_W
+                    |vpiName:PTRV_W
+              |vpiParameter:
+              \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W), line:18, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+                |vpiName:PTRV_W
+                |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W
+              |vpiParameter:
+              \_parameter: (PTRV_W), line:18
           |vpiInstance:
           \_module: work@fifo_sync (work@socket_1n.gen_dfifo[1].fifo_d) dut.sv:45: , parent:work@socket_1n.gen_dfifo[1]
           |vpiParamAssign:
@@ -963,23 +970,23 @@ design: (work@socket_1n)
             |vpiRhs:
             \_constant: , line:3
               |vpiConstType:7
-              |vpiDecompile:4
-              |vpiSize:32
-              |INT:4
+              |vpiDecompile:2
+              |vpiSize:64
+              |INT:2
             |vpiLhs:
             \_parameter: (work@prim_fifo_sync.Depth), line:3, parent:work@prim_fifo_sync
           |vpiParameter:
           \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth), line:30, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
             |vpiName:Depth
             |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth
+            |INT:2
         |vpiParamAssign:
         \_param_assign: , line:25, parent:work@socket_1n.gen_dfifo[1].fifo_d
           |vpiRhs:
-          \_constant: , line:25
-            |vpiConstType:7
-            |vpiDecompile:6
-            |vpiSize:32
-            |INT:6
+          \_constant: , line:46
+            |vpiDecompile:INT:2
+            |vpiSize:4
+            |INT:2
           |vpiLhs:
           \_parameter: (work@fifo_sync.ReqDepth), line:25, parent:work@fifo_sync
         |vpiParameter:

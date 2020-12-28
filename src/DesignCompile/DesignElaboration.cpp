@@ -48,6 +48,7 @@
 #include "Design/Parameter.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/DesignElaboration.h"
+#include "DesignCompile/NetlistElaboration.h"
 
 using namespace SURELOG;
 
@@ -537,6 +538,11 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
     }
   }
 
+  NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+  nelab->elaborateParams(parent);
+  delete nelab;
+
+
   // Scan for regular instances and generate blocks
   types = {
       VObjectType::slUdp_instantiation,
@@ -767,7 +773,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           cont = false;
         }
         while (cont) {
-          Value* currentIndexValue = parent->getValue(name);
+          Value* currentIndexValue = parent->getValue(name, m_exprBuilder);
           long currVal = currentIndexValue->getValueUL();
           std::string indexedModName =
             parent->getFullPathName() + "." + modName + "[" + std::to_string(currVal) + "]";

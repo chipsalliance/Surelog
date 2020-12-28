@@ -27,7 +27,12 @@
 #include "Design/FileContent.h"
 
 #include "Design/ModuleInstance.h"
+#include "uhdm.h"
+#include "clone_tree.h"
+#include "ElaboratorListener.h"
+
 using namespace SURELOG;
+using namespace UHDM;
 
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                const FileContent* fileContent, NodeId nodeId,
@@ -45,6 +50,59 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
   if (m_definition == NULL) {
     m_instName = modName + "&" + instName;
   }
+}
+
+Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilder) const {
+  Value* sval = nullptr;
+
+  ModuleInstance* instance = (ModuleInstance*) this;
+  while (instance) {
+    if (instance->m_netlist) {
+      UHDM::VectorOfparam_assign* param_assigns = instance->m_netlist->param_assigns();
+      if (param_assigns) {
+        for (param_assign* param : *param_assigns) {
+          const std::string& param_name = param->Lhs()->VpiName();
+          if (param_name == name) {
+            const any* exp = param->Rhs();
+            if (exp->UhdmType() == uhdmconstant) {
+              constant* c = (constant*)exp;
+              sval = exprBuilder.fromVpiValue(c->VpiValue());
+            }
+            break;
+          }
+        }
+      }
+    }
+
+    if (instance->getType() != slModule_instantiation)
+      instance = instance->getParent();
+    else
+      instance = nullptr;
+  }
+
+  if (sval == nullptr) {
+    sval = ValuedComponentI::getValue(name);
+  }
+
+  if (m_definition && (sval == nullptr)) {
+    UHDM::VectorOfparam_assign* param_assigns =
+        m_definition->getParam_assigns();
+    if (param_assigns) {
+      for (param_assign* param : *param_assigns) {
+        const std::string& param_name = param->Lhs()->VpiName();
+        if (param_name == name) {
+          const any* exp = param->Rhs();
+          if (exp->UhdmType() == uhdmconstant) {
+            constant* c = (constant*)exp;
+            sval = exprBuilder.fromVpiValue(c->VpiValue());
+          }
+          break;
+        }
+      }
+    }
+  }
+  
+  return sval;
 }
 
 ModuleInstance::~ModuleInstance() {}

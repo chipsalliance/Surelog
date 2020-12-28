@@ -141,7 +141,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
     inst_assign->VpiLineNo(mod_assign->VpiLineNo());
     inst_assign->Lhs((any*) mod_assign->Lhs());
     const std::string& paramName = assign->getFileContent()->SymName(assign->getParamId());
-    Value* value = instance->getValue(paramName);
+    Value* value = instance->getValue(paramName, m_exprBuilder);
     if (value && value->isValid()) {
       constant* c = s.MakeConstant();
       c->VpiValue(value->uhdmValue());
@@ -159,18 +159,24 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
           if (ModuleInstance* pinst = instance->getParent()) {
             ModuleDefinition* pmod = dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
             expr* rhs = (expr*)m_helper.compileExpression(pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign, nullptr, pinst, true);
-            // But if this value can be reduced to a constant then take the constant
-            expr* crhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
-            if (crhs && crhs->UhdmType() == uhdmconstant) {
-              constant* ccrhs = (constant*) crhs;
-              const std::string& s = ccrhs->VpiValue();
-              Value* v1 = m_exprBuilder.fromVpiValue(s);
-              Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
-              if (*v1 > *v2) {
-                rhs = crhs;
+            // If it is a complex expression (! constant)...
+            if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
+              // But if this value can be reduced to a constant then take the
+              // constant
+              expr* crhs = (expr*)m_helper.compileExpression(
+                  mod, assign->getFileContent(), assign->getAssignId(),
+                  m_compileDesign, nullptr, instance, true);
+              if (crhs && crhs->UhdmType() == uhdmconstant) {
+                constant* ccrhs = (constant*)crhs;
+                const std::string& s = ccrhs->VpiValue();
+                Value* v1 = m_exprBuilder.fromVpiValue(s);
+                Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
+                if (*v1 > *v2) {
+                  rhs = crhs;
+                }
+                m_exprBuilder.deleteValue(v1);
+                m_exprBuilder.deleteValue(v2);
               }
-              m_exprBuilder.deleteValue(v1);
-              m_exprBuilder.deleteValue(v2);
             }
             inst_assign->Rhs(rhs);
             break;
@@ -187,15 +193,25 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
   return true;
 }
 
-bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
-//  Serializer& s =  m_compileDesign->getSerializer();
+
+bool NetlistElaboration::elaborateParams(ModuleInstance* instance) {
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
 
-  elab_parameters_(instance);
+  return elab_parameters_(instance);
+}
+
+bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
+  Netlist* netlist = instance->getNetlist();
+  if (netlist == nullptr) {
+    netlist = new Netlist(instance);
+    instance->setNetlist(netlist);
+  }
+
+  //elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);
 

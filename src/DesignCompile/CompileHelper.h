@@ -284,6 +284,9 @@ public:
 
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
+  UHDM::any* getValue(const std::string& name, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance); 
+
 private:
   CompileHelper(const CompileHelper&) = delete;
 
