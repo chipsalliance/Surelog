@@ -968,6 +968,10 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
       for (Signal* port : module->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           found = true;
+          NodeId unpacked_dimension = fC->Sibling(signal);
+          if (fC->Type(unpacked_dimension) == slUnpacked_dimension) {
+            port->setUnpackedDimension(unpacked_dimension);
+          }
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit) {
@@ -987,12 +991,17 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         component->getSignals().push_back(sig);
       }
       signal = fC->Sibling(signal);
+
       while (fC->Type(signal) == VObjectType::slVariable_dimension) {
         signal = fC->Sibling(signal);
       }
 
       if (fC->Type(signal) == VObjectType::slConstant_expression) {
         signal = fC->Sibling(signal);
+      }
+
+      if (fC->Type(signal) == slUnpacked_dimension) {
+        break;
       }
     }
     return;
