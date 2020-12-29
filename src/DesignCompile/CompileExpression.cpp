@@ -1163,18 +1163,18 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
       case VObjectType::slScalar_1TickB1:
-      case VObjectType::slScalar_Tickb1:
-      case VObjectType::slScalar_TickB1:
       case VObjectType::sl1: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:1";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
-        c->VpiDecompile("'b1");
+        c->VpiDecompile("1'b1");
         result = c;
         break;
       }
+      case VObjectType::slScalar_Tickb1:
+      case VObjectType::slScalar_TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1:
@@ -1194,18 +1194,18 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slInitVal_1TickB0:
       case VObjectType::slScalar_1Tickb0:
       case VObjectType::slScalar_1TickB0:
-      case VObjectType::slScalar_Tickb0:
-      case VObjectType::slScalar_TickB0:
       case VObjectType::sl0: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:0";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
-        c->VpiDecompile("'b0");
+        c->VpiDecompile("1'b0");
         result = c;
         break;
       }
+      case VObjectType::slScalar_Tickb0:
+      case VObjectType::slScalar_TickB0:
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
       case VObjectType::slNumber_Tick0:
@@ -1233,7 +1233,7 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
-        c->VpiDecompile("'bX");
+        c->VpiDecompile("1'bX");
         result = c;
         break;
       }
@@ -1254,7 +1254,7 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
-        c->VpiDecompile("'b0");
+        c->VpiDecompile("1'b0");
         result = c;
         break;
       }
