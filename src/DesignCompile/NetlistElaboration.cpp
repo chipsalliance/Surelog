@@ -211,7 +211,6 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     instance->setNetlist(netlist);
   }
 
-  //elab_parameters_(instance);
   elab_interfaces_(instance);
   elab_generates_(instance);
 
