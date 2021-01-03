@@ -117,22 +117,25 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) return true;
   VectorOfparam_assign* assigns = netlist->param_assigns();
+  bool isMultidimensional = false;
   for (ParamAssign* assign : mod->getParamAssignVec()) {
     if (assigns == nullptr) {
       netlist->param_assigns(s.MakeParam_assignVec());
       assigns = netlist->param_assigns();
     }
     param_assign* mod_assign = assign->getUhdmParamAssign();
-    const any* rhs = mod_assign->Rhs();
-    if (rhs && rhs->UhdmType() == uhdmoperation) {
-      // Don't reduce these operations
-      operation* op = (operation*) rhs;
-      int opType = op->VpiOpType();
-      if (opType == vpiAssignmentPatternOp || opType == vpiCastOp ||
-          opType == vpiConcatOp ||
-          opType == vpiMultiAssignmentPatternOp) {
-        assigns->push_back(mod_assign);
-        continue;
+    isMultidimensional = assign->isMultidimensional();
+    if (mod_assign) {
+      const any* rhs = mod_assign->Rhs();
+      if (rhs && rhs->UhdmType() == uhdmoperation) {
+        // Don't reduce these operations
+        operation* op = (operation*)rhs;
+        int opType = op->VpiOpType();
+        if (opType == vpiAssignmentPatternOp || opType == vpiCastOp /*||
+            opType == vpiConcatOp*/ || opType == vpiMultiAssignmentPatternOp) {
+          assigns->push_back(mod_assign);
+          continue;
+        }
       }
     }
 
@@ -158,7 +161,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
           override = true;
           if (ModuleInstance* pinst = instance->getParent()) {
             ModuleDefinition* pmod = dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
-            expr* rhs = (expr*)m_helper.compileExpression(pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign, nullptr, pinst, true);
+            expr* rhs = (expr*)m_helper.compileExpression(pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign, nullptr, pinst, !isMultidimensional);
             // If it is a complex expression (! constant)...
             if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
               // But if this value can be reduced to a constant then take the
@@ -184,11 +187,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
         }
       }
       if (override == false) {
-        expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, true);
+        expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, !isMultidimensional);
         inst_assign->Rhs(rhs);
       }
     }
-    assigns->push_back(inst_assign);
+    if (inst_assign)
+      assigns->push_back(inst_assign);
   }
   return true;
 }

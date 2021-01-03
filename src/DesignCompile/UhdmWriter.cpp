@@ -1439,7 +1439,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
     }
     parameter* p = s.MakeParameter();
     p->VpiName(name);
-    if (val->isValid())
+    if (val && val->isValid())
       p->VpiValue(val->uhdmValue());
     p->VpiFile(instance->getFileName());
     p->VpiLineNo(param.second.second);

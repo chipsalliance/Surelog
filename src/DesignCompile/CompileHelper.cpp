@@ -1838,9 +1838,57 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       UHDM::typespec* ts =
         compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
                         compileDesign, nullptr, instance, reduce);
+                        
+      bool isMultiDimension = false;
+      if (ts) {
+        if (ts->UhdmType() == uhdmlogic_typespec) {
+          logic_typespec* lts = (logic_typespec*) ts;
+          if (lts->Ranges() && lts->Ranges()->size() > 1) 
+            isMultiDimension = true;
+        } else if (ts->UhdmType() == uhdmarray_typespec) {
+          array_typespec* lts = (array_typespec*) ts;
+          if (lts->Ranges() && lts->Ranges()->size() > 1) 
+            isMultiDimension = true;
+        } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
+          packed_array_typespec* lts = (packed_array_typespec*) ts;
+          if (lts->Ranges() && lts->Ranges()->size() > 1) 
+            isMultiDimension = true;
+        } else if (ts->UhdmType() == uhdmbit_typespec) {
+          bit_typespec* lts = (bit_typespec*) ts;
+          if (lts->Ranges() && lts->Ranges()->size() > 1) 
+            isMultiDimension = true;
+        }  
+      }
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
+      const std::string& the_name = fC->SymName(name);
+
+      if (dynamic_cast<Package*>(component) && (instance == nullptr)) {
+        NodeId actual_value = value;
+        while (fC->Type(actual_value) == slUnpacked_dimension) {
+          actual_value = fC->Sibling(actual_value);
+        }
+        Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
+                                            true);  // Errors muted
+        if (val->isValid()) {
+          component->setValue(the_name, val, m_exprBuilder);
+        } else {
+          UHDM::any* expr =
+              compileExpression(component, fC, actual_value, compileDesign,
+                                nullptr, nullptr, !isMultiDimension);
+          if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
+            UHDM::constant* c = (UHDM::constant*)expr;
+            val = m_exprBuilder.fromVpiValue(c->VpiValue());
+            component->setValue(the_name, val, m_exprBuilder);
+          } else {
+            val = m_exprBuilder.evalExpr(
+                fC, actual_value, component);  // This call to create an error
+            component->setValue(the_name, val, m_exprBuilder);
+          }
+        }
+      }
+
       expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
       param->Typespec(ts);
@@ -1868,7 +1916,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(param);
       if (value) {
-        ParamAssign* assign = new ParamAssign(fC, name, value);
+        ParamAssign* assign = new ParamAssign(fC, name, value, isMultiDimension);
         UHDM::param_assign* param_assign = s.MakeParam_assign();
         assign->setUhdmParamAssign(param_assign);
         component->addParamAssign(assign);
@@ -1879,7 +1927,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
-            component, fC, value, compileDesign, nullptr, instance, reduce));
+            component, fC, value, compileDesign, nullptr, instance, reduce && (!isMultiDimension)));
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

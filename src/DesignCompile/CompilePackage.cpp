@@ -167,26 +167,6 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slParam_assignment: {
-          NodeId ident = fC->Child(id);
-          std::string name = fC->SymName(ident);
-          NodeId val = fC->Sibling(ident);
-          while(fC->Type(val) == slUnpacked_dimension) {
-            val = fC->Sibling(val);
-          }
-          Value* value = m_package->m_exprBuilder.evalExpr(fC, val, m_package, true); // Errors muted
-          if (value->isValid()) {   
-            m_package->setValue(name, value, m_package->m_exprBuilder);
-          } else {
-            UHDM::any* expr = m_helper.compileExpression(m_package, fC, val, m_compileDesign, nullptr, nullptr, true);
-            if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
-              UHDM::constant* c = (UHDM::constant*) expr;
-              value = m_package->m_exprBuilder.fromVpiValue(c->VpiValue());
-              m_package->setValue(name, value, m_package->m_exprBuilder);
-            } else {
-              value = m_package->m_exprBuilder.evalExpr(fC, val, m_package); // This call to create an error
-              m_package->setValue(name, value, m_package->m_exprBuilder);
-            }
-          }
           FileCNodeId fnid(fC, id);
           m_package->addObject(type, fnid);
           break;

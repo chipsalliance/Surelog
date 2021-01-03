@@ -61,14 +61,16 @@ Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilde
       UHDM::VectorOfparam_assign* param_assigns = instance->m_netlist->param_assigns();
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
-          const std::string& param_name = param->Lhs()->VpiName();
-          if (param_name == name) {
-            const any* exp = param->Rhs();
-            if (exp->UhdmType() == uhdmconstant) {
-              constant* c = (constant*)exp;
-              sval = exprBuilder.fromVpiValue(c->VpiValue());
+          if (param && param->Lhs()) {
+            const std::string& param_name = param->Lhs()->VpiName();
+            if (param_name == name) {
+              const any* exp = param->Rhs();
+              if (exp->UhdmType() == uhdmconstant) {
+                constant* c = (constant*)exp;
+                sval = exprBuilder.fromVpiValue(c->VpiValue());
+              }
+              break;
             }
-            break;
           }
         }
       }

@@ -49,3 +49,19 @@ module socket_1n #(
 
 
 endmodule;
+
+
+module all_zero #(
+  parameter int unsigned  N         = 2,
+  parameter bit [7:0] DReqDepth = {2{4'h0}}) ();
+  parameter bit [7:0] AA = DReqDepth * 2;
+  parameter bit [7:0] BB = DReqDepth[1*4+:4];
+  
+  for (genvar i = 0 ; i < N ; i++) begin : gen_dfifo
+    fifo_sync #(
+      .ReqDepth(DReqDepth[i*4+:4])
+    ) fifo_d ();
+  end
+
+
+endmodule;
