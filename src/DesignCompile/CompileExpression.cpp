@@ -21,6 +21,7 @@
  * Created on May 14, 2019, 8:03 PM
  */
 #include <iostream>
+#include <bitset> 
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
 #include "Expression/Value.h"
@@ -46,6 +47,7 @@
 #include "expr.h"
 #include "UhdmWriter.h"
 #include "Utils/StringUtils.h"
+#include "Utils/NumUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
@@ -135,11 +137,13 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
         UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
         if (param_assigns) {
           for (param_assign* param : *param_assigns) {
-            const std::string& param_name = param->Lhs()->VpiName();
-            if (param_name == name) {
-              ElaboratorListener listener(&s);
-              result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-              break;
+            if (param && param->Lhs()) {
+              const std::string& param_name = param->Lhs()->VpiName();
+              if (param_name == name) {
+                ElaboratorListener listener(&s);
+                result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+                break;
+              }
             }
           }
         }
@@ -170,11 +174,13 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
     UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
     if (param_assigns) {
       for (param_assign* param : *param_assigns) {
-        const std::string& param_name = param->Lhs()->VpiName();
-        if (param_name == name) {
-          ElaboratorListener listener(&s);
-          result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-          break;
+        if (param && param->Lhs()) {
+          const std::string& param_name = param->Lhs()->VpiName();
+          if (param_name == name) {
+            ElaboratorListener listener(&s);
+            result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+            break;
+          }
         }
       }
     }
@@ -182,6 +188,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
 
   return result;
 }
+
 
 UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
                                                   const FileContent* fC,
@@ -423,7 +430,6 @@ UHDM::any* CompileHelper::compileExpression(
       if (exp) operands->push_back(exp);
       Expression = fC->Sibling(Expression);
     }
-    return result;
   } else if (parentType == VObjectType::slDelay2 ||
              parentType == VObjectType::slDelay3) {
     NodeId MinTypMax = child;
@@ -469,7 +475,8 @@ UHDM::any* CompileHelper::compileExpression(
     result = sys;
     return result;
   }
-
+  
+  if (result == nullptr) {
   if (child) {
     switch (childType) {
       case VObjectType::slNull_keyword: {
@@ -959,11 +966,13 @@ UHDM::any* CompileHelper::compileExpression(
             UHDM::VectorOfparam_assign* param_assigns= pack->getParam_assigns();
             if (param_assigns) {
               for (param_assign* param : *param_assigns) {
-                const std::string& param_name = param->Lhs()->VpiName();
-                if (param_name == n) {
-                  ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
-                  break;
+                if (param && param->Lhs()) {
+                  const std::string& param_name = param->Lhs()->VpiName();
+                  if (param_name == n) {
+                    ElaboratorListener listener(&s);
+                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    break;
+                  }
                 }
               }
             }
@@ -979,11 +988,13 @@ UHDM::any* CompileHelper::compileExpression(
             UHDM::VectorOfparam_assign* param_assigns= pack->getParam_assigns();
             if (param_assigns) {
               for (param_assign* param : *param_assigns) {
-                const std::string& param_name = param->Lhs()->VpiName();
-                if (param_name == n) {
-                  ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
-                  break;
+                if (param && param->Lhs()) {
+                  const std::string& param_name = param->Lhs()->VpiName();
+                  if (param_name == n) {
+                    ElaboratorListener listener(&s);
+                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    break;
+                  }
                 }
               }
             }
@@ -1034,12 +1045,14 @@ UHDM::any* CompileHelper::compileExpression(
                     netlist->param_assigns();
                 if (param_assigns) {
                   for (param_assign* param : *param_assigns) {
-                    const std::string& param_name = param->Lhs()->VpiName();
-                    if (param_name == name) {
-                      ElaboratorListener listener(&s);
-                      result =
+                    if (param && param->Lhs()) {
+                      const std::string& param_name = param->Lhs()->VpiName();
+                      if (param_name == name) {
+                        ElaboratorListener listener(&s);
+                        result =
                           UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-                      break;
+                        break;
+                      }
                     }
                   }
                 }
@@ -1050,11 +1063,13 @@ UHDM::any* CompileHelper::compileExpression(
             UHDM::VectorOfparam_assign* param_assigns= component->getParam_assigns();
             if (param_assigns) {
               for (param_assign* param : *param_assigns) {
-                const std::string& param_name = param->Lhs()->VpiName();
-                if (param_name == name) {
-                  ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
-                  break;
+                if (param && param->Lhs()) {
+                  const std::string& param_name = param->Lhs()->VpiName();
+                  if (param_name == name) {
+                    ElaboratorListener listener(&s);
+                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    break;
+                  }
                 }
               }
             }
@@ -1566,6 +1581,7 @@ UHDM::any* CompileHelper::compileExpression(
         break;
     }
   }
+  }
 
   NodeId the_node = 0;
   if (child) {
@@ -1985,22 +2001,97 @@ UHDM::any* CompileHelper::compileExpression(
             case vpiMultiConcatOp: {
               if (operands.size() == 2) {
                 unsigned long long n = get_value(invalidValue, (constant*)(operands[0]));
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[1]));
-                unsigned int width = ((constant*)(operands[1]))->VpiSize();
-                unsigned long long res = 0;
-                for (unsigned int i = 0; i < n; i++) {
-                  res |= val << (i*width);
-                }
+                if (n > 1000)
+                  n = 1000; // Must be -1 or something silly
+                constant* cv = (constant*)(operands[1]);
                 UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
+                unsigned int width = cv->VpiSize();
+                int consttype = cv->VpiConstType();
+                c->VpiConstType(consttype);
+                if (consttype == vpiBinaryConst) {
+                  std::string val = cv->VpiValue();
+                  std::string res;
+                  for (unsigned int i = 0; i < n; i++) {
+                    res += val.c_str() + strlen("BIN:");
+                  }
+                  c->VpiValue("BIN:" + res);
+                  c->VpiDecompile(res);
+                } else if (consttype == vpiHexConst) {
+                  std::string val = cv->VpiValue();
+                  std::string res;
+                  for (unsigned int i = 0; i < n; i++) {
+                    res += val.c_str() + strlen("HEX:");
+                  }
+                  c->VpiValue("HEX:" + res);
+                  c->VpiDecompile(res);
+                } else if (consttype == vpiOctConst) {
+                  std::string val = cv->VpiValue();
+                  std::string res;
+                  for (unsigned int i = 0; i < n; i++) {
+                    res += val.c_str() + strlen("OCT:");
+                  }
+                  c->VpiValue("OCT:" + res);
+                  c->VpiDecompile(res);
+                } else if (consttype == vpiStringConst) {
+                  std::string val = cv->VpiValue();
+                  std::string res;
+                  for (unsigned int i = 0; i < n; i++) {
+                    res += val.c_str() + strlen("STRING:");
+                  }
+                  c->VpiValue("STRING:" + res);
+                  c->VpiDecompile(res);
+                } else {
+                  unsigned long long val = get_value(invalidValue, cv);
+                  unsigned long long res = 0;
+                  for (unsigned int i = 0; i < n; i++) {
+                    res |= val << (i*width);
+                  }
+                  c->VpiValue("INT:" + std::to_string(res));
+                  c->VpiDecompile(std::to_string(res));
+                }
                 c->VpiSize(n * width);
                 result = c;
               }
               break;
             }
+            case vpiConcatOp: {
+              UHDM::constant* c = s.MakeConstant();
+              std::string cval;
+              int csize = 0;
+              for (unsigned int i = 0; i < operands.size(); i++) {
+                constant* c = (constant*) operands[i];
+                std::string v = c->VpiValue();
+                unsigned int size = c->VpiSize();
+                csize += size;
+                int type = c->VpiConstType();
+                switch (type) {
+                  case vpiBinaryConst: {
+                    cval += v.c_str() + strlen("BIN:");
+                    break;   
+                  }
+                  case vpiDecConst: {
+                    long long iv = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
+                  case vpiHexConst: {
+                    cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
+                    break;
+                  }
+                  case vpiOctConst: {
+                    long long iv = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
+                }
+              } 
+              c->VpiValue("BIN:" + cval);
+              c->VpiSize(csize);
+              c->VpiConstType(vpiBinaryConst);
+              result = c;
+              break;
+            }
             case vpiCastOp:
-            case vpiConcatOp:
             case vpiAssignmentPatternOp:  
             case vpiMultiAssignmentPatternOp: 
               // Don't reduce these ops
