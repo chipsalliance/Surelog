@@ -86,6 +86,16 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       }
     }
 
+    auto& paramSet = def->getParameterMap();
+    for (auto& param : paramSet) {
+      scope->insertParameter(param.second);
+    }
+
+    auto& values = def->getMappedValues();
+    for (auto& mvalue : values) {
+      scope->setValue(mvalue.first, mvalue.second.first, *def->getExprBuilder(), mvalue.second.second);
+    }
+
   } else {
     Location loc(m_symbols->registerSymbol(fC->getFileName(id)), fC->Line(id),
                  0, m_symbols->registerSymbol(pack_name));
@@ -408,7 +418,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = NULL;
       if (enumValueId) {
-        value = m_exprBuilder.evalExpr(fC, enumValueId, NULL);
+        value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
       } else {
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 32);

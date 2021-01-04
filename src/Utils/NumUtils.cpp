@@ -35,7 +35,7 @@ std::string NumUtils::hexToBin(const std::string &s){
     std::string out;
     for(auto i: s){
         uint8_t n;
-        if(i <= '9' and i >= '0')
+        if((i <= '9') && (i >= '0'))
             n = i - '0';
         else
             n = 10 + i - 'A';
