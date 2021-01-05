@@ -2324,7 +2324,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           }
           if (!associativeArray) {
             operation* op = s.MakeOperation();  // Decr by 1
-            op->VpiOpType(vpiMinusOp);
+            op->VpiOpType(vpiSubOp);
             op->Operands(s.MakeAnyVec());
             op->Operands()->push_back(rexp);
             constant* one = s.MakeConstant();
