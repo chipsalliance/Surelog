@@ -1848,7 +1848,17 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       UHDM::typespec* ts =
         compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
                         compileDesign, nullptr, instance, reduce);
-                        
+
+      bool isSigned = false;
+      NodeId Data_type = fC->Child(Data_type_or_implicit);
+      VObjectType the_type = fC->Type(Data_type);
+      if (the_type == VObjectType::slData_type) {
+        Data_type = fC->Child(Data_type);
+        NodeId Signage = fC->Sibling(Data_type);
+        if (fC->Type(Signage) == slSigning_Signed) 
+          isSigned = true;
+      }
+
       bool isMultiDimension = false;
       if (ts) {
         if (ts->UhdmType() == uhdmlogic_typespec) {
@@ -1907,6 +1917,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         if (ts->VpiName() == "")
           ts->VpiName(fC->SymName(name));
       }
+      param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
       // Unpacked dimensions
