@@ -27,6 +27,7 @@
 #include <regex>
 #include <sstream>
 #include <iostream>
+#include <bitset> 
 
 using namespace SURELOG;
 
