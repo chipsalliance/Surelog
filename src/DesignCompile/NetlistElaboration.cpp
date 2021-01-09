@@ -898,6 +898,17 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
           logicn->VpiName(signame);
           obj = logicn;
           logicn->Typespec(spec);
+        } else if (spec->UhdmType() == uhdmstruct_typespec) {
+          struct_net* stv = s.MakeStruct_net();
+          stv->Typespec(spec);
+          obj = stv;
+          if (packedDimensions) {
+            packed_array_net* pnets = s.MakePacked_array_net();
+            pnets->Ranges(packedDimensions);
+            pnets->Elements(s.MakeAnyVec());
+            pnets->Elements()->push_back(stv);
+            obj = pnets;
+          }
         } else if (spec->UhdmType() == uhdmbit_typespec) {
           bit_var* logicn = s.MakeBit_var();
           logicn->VpiSigned(sig->isSigned());
