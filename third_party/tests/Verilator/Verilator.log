@@ -2684,6 +2684,11 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_def09.v -l t_preproc_def09.v.log
+[WRN:PP0113] t_preproc_def09.v:55:8: Unused macro argument "a="=".
+
+[ERR:PP0109] t_preproc_def09.v:56: Macro instantiation omits argument 1 (a) for "MACROQUOTE",
+             t_preproc_def09.v:55: No default value for argument 1 (a) in macro definition.
+
 [ERR:PP0112] t_preproc_def09.v:60:19: Illegal space in between macro name "MACROPAREN" and open parenthesis.
 
 [SNT:PA0207] t_preproc_def09.v:12: Syntax error: mismatched input ''' expecting <EOF>,
@@ -2692,8 +2697,8 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
-[WARNING] : 0
+[  ERROR] : 2
+[WARNING] : 1
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_var_overwidth_bad.v -l t_var_overwidth_bad.v.log
 [  FATAL] : 0
@@ -5623,7 +5628,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 55
-[  ERROR] : 150
-[WARNING] : 36
+[  ERROR] : 151
+[WARNING] : 37
 [   NOTE] : 0
 

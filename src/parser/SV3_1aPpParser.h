@@ -2133,6 +2133,7 @@ public:
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
+    Paired_parensContext *paired_parens();
     Escaped_identifierContext *escaped_identifier();
     Macro_instanceContext *macro_instance();
     antlr4::tree::TerminalNode *Special();
