@@ -1829,7 +1829,31 @@ UHDM::any* CompileHelper::compileExpression(
             }
             case vpiSubOp: {
               if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) - get_value(invalidValue, (constant*)(operands[1]));
+                unsigned long long val1 = get_value(invalidValue, (constant*)(operands[0]));
+                unsigned long long val2 = get_value(invalidValue, (constant*)(operands[1]));
+                if (val2 > val1) {
+                  ErrorContainer* errors =
+                      compileDesign->getCompiler()->getErrorContainer();
+                  SymbolTable* symbols =
+                      compileDesign->getCompiler()->getSymbolTable();
+                  std::string instanceName;
+                  if (instance){
+                    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+                      instanceName = inst->getFullPathName();
+                    }
+                  } else if (component) {
+                    instanceName = component->getName();
+                  }
+                  std::string value = " (" + std::to_string(val1) + " - " +  std::to_string(val2) + ")";
+                  std::string message = instanceName + value;
+                  Location loc(
+                      symbols->registerSymbol(fC->getFileName(the_node)),
+                      fC->Line(the_node), 0,
+                      symbols->registerSymbol(message));
+                  Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
+                  errors->addError(err);
+                }
+                unsigned long long val = val1 - val2;
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
