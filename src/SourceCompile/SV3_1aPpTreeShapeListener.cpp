@@ -394,7 +394,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     MacroInfo* macroInf = m_pp->getMacro(macroName);
     if (macroInf) {
       IncludeFileInfo info(macroInf->m_line, macroInf->m_file,
-              m_pp->getSumLineCount(), 1);
+              m_pp->getSumLineCount() + 1, 1);
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(info);
       openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
       macroBody = m_pp->getMacro(macroName, actualArgs, m_pp, lineCol.first,
@@ -437,19 +437,20 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         }
       }
     }
+    bool emptyMacroBody = false;
     if (macroBody.empty()) {
+      emptyMacroBody = true;
       for (int i = 0; i < nbCRinArgs; i++)
         macroBody += "\n";
     }
 
     m_pp->append(pre + macroBody + post);
-    // if (macroArgs.find('`') != std::string::npos)
-    //  {
+    
     if (m_append_paused_context == NULL) {
       m_append_paused_context = ctx;
       m_pp->pauseAppend();
     }
-    //  }
+    
     if (openingIndex >= 0) {
       SymbolId fileId = 0;
       unsigned int line = 0;
@@ -460,10 +461,11 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         fileId = m_pp->getFileId(lineCol.first);
         line = lineCol.first;
       }
-      int totalLineCount = m_pp->getSumLineCount();
+      int totalLineCount = m_pp->getSumLineCount() + 1;
       int origLine = line;
-      if (macroBody.empty()) {
-        totalLineCount += nbCRinArgs + 1;
+      if (emptyMacroBody) {
+        if (nbCRinArgs)
+          totalLineCount -= nbCRinArgs;
       }
       IncludeFileInfo infop(origLine, fileId, totalLineCount, 2);
       infop.m_indexOpening = openingIndex;
@@ -518,7 +520,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       }
 
       IncludeFileInfo info(macroInf->m_line, macroInf->m_file,
-              m_pp->getSumLineCount(), 1);
+              m_pp->getSumLineCount() + 1, 1);
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(info);
       openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
 
@@ -581,7 +583,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       }
       int nbCRinMacroBody = std::count(macroBody.begin(), macroBody.end(),'\n');
       if (nbCRinMacroBody) {
-        IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount(), 2);
+        IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount() + 1, 2);
         infop.m_indexOpening = openingIndex;
         m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
         if (openingIndex >= 0)
