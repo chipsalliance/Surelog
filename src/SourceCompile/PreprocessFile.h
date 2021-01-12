@@ -121,6 +121,7 @@ class PreprocessFile {
   PreprocessFile* getIncluder() { return m_includer; }
   unsigned int getIncluderLine() { return m_includerLine; }
   unsigned int getLineCount() { return m_lineCount; }
+  void setLineCount(unsigned int count) { m_lineCount = count; }
   unsigned int getSumLineCount();
   std::vector<IncludeFileInfo>& getIncludeFileInfo() {
     return m_includeFileInfo;

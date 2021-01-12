@@ -457,14 +457,15 @@ bool PreprocessFile::preprocess() {
   return true;
 }
 
-unsigned int PreprocessFile::getSumLineCount() {
-  unsigned int total = m_lineCount;
-  if (m_includer) total += m_includer->getSumLineCount();
-  return total;
-}
-
 static unsigned int LinesCount(const std::string& s) {
   return std::count(s.begin(), s.end(), '\n');
+}
+
+unsigned int PreprocessFile::getSumLineCount() {
+  unsigned int total = LinesCount(m_result);
+  if (m_includer) 
+    total += m_includer->getSumLineCount();
+  return total;
 }
 
 void PreprocessFile::append(const std::string& s) {
