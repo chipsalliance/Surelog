@@ -1,0 +1,15 @@
+CAPI=2:
+name: lowrisc:prim_abstract:clock_buf
+filesets:
+  files_rtl:
+    depend:
+    - lowrisc:prim:prim_pkg
+    - lowrisc:prim_xilinx:clock_buf:0
+    - lowrisc:prim_generic:clock_buf:0
+    files:
+    - prim_clock_buf.sv
+    file_type: systemVerilogSource
+targets:
+  default:
+    filesets:
+    - files_rtl

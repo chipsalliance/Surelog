@@ -1,0 +1,15 @@
+CAPI=2:
+name: lowrisc:prim_abstract:clock_gating
+filesets:
+  files_rtl:
+    depend:
+    - lowrisc:prim:prim_pkg
+    - lowrisc:prim_generic:clock_gating:0
+    - lowrisc:prim_xilinx:clock_gating:0
+    files:
+    - prim_clock_gating.sv
+    file_type: systemVerilogSource
+targets:
+  default:
+    filesets:
+    - files_rtl
