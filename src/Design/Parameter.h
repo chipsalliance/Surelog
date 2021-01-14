@@ -41,10 +41,13 @@ class Parameter : public DataType {
 
   void setUhdmParam(UHDM::any* param) { m_param = param; }
   UHDM::any* getUhdmParam() const { return m_param; }
-
+  
+  void setImportedPackage(const std::string& package) {m_importedPackage = package; }
+  std::string importedPackage() { return m_importedPackage; }
  private:
   NodeId m_ntype;
   UHDM::any* m_param;
+  std::string m_importedPackage;
 };
 
 }  // namespace SURELOG
