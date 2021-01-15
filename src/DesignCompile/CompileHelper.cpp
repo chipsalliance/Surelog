@@ -46,12 +46,15 @@
 #include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
+#include "ElaboratorListener.h"
+#include "clone_tree.h"
 
 using namespace SURELOG;
 using namespace UHDM;
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
-                                  const FileContent* fC, NodeId id) {
+                                  const FileContent* fC, NodeId id, CompileDesign* compileDesign) {
+  Serializer& s = compileDesign->getSerializer();
   FileCNodeId fnid(fC, id);
   scope->addObject(VObjectType::slPackage_import_item, fnid);
 
@@ -86,9 +89,55 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       }
     }
 
+    // Type parameters
     auto& paramSet = def->getParameterMap();
     for (auto& param : paramSet) {
-      scope->insertParameter(param.second);
+      Parameter* orig = param.second;
+      Parameter* clone = new Parameter(*orig);
+      clone->setImportedPackage(pack_name);
+      scope->insertParameter(clone);
+      UHDM::any* p = orig->getUhdmParam();
+      if (p) {
+        ElaboratorListener listener(&s);
+        any* pclone = UHDM::clone_tree(p, s, &listener);
+        if (pclone->UhdmType() == uhdmtype_parameter) {
+          type_parameter* the_p = (type_parameter*) pclone;
+          the_p->VpiImported(pack_name);
+        }
+        clone->setUhdmParam(pclone);
+      }
+    }
+
+    // Regular parameter
+    auto& params = def->getParamAssignVec();
+    for (ParamAssign* orig : params) {
+      ParamAssign* clone = new ParamAssign(*orig);
+      scope->addParamAssign(clone);
+      UHDM::param_assign* pass = clone->getUhdmParamAssign();
+
+      UHDM::VectorOfparam_assign* param_assigns = scope->getParam_assigns();
+      if (param_assigns == nullptr) {
+        scope->setParam_assigns(s.MakeParam_assignVec());
+        param_assigns = scope->getParam_assigns();
+      }
+      UHDM::VectorOfany* parameters = scope->getParameters();
+      if (parameters == nullptr) {
+        scope->setParameters(s.MakeAnyVec());
+        parameters = scope->getParameters();
+      }
+
+      ElaboratorListener listener(&s);
+      UHDM::param_assign* cpass = (UHDM::param_assign*) UHDM::clone_tree(pass, s, &listener);
+      clone->setUhdmParamAssign(cpass);
+      param_assigns->push_back(cpass);
+      UHDM::any* orig_p = (UHDM::any*) cpass->Lhs();
+      UHDM::any* pclone = UHDM::clone_tree(orig_p, s, &listener);
+      cpass->Lhs(pclone);
+      if (pclone->UhdmType() == uhdmparameter) {
+        parameter* the_p = (parameter*)pclone;
+        the_p->VpiImported(pack_name);
+        parameters->push_back(the_p);
+      }
     }
 
     auto& values = def->getMappedValues();

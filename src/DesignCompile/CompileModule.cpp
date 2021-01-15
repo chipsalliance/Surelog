@@ -500,7 +500,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
     for (auto pack_import : pack_imports) {
       const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
-      m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
+      m_helper.importPackage(m_module, m_design, pack_fC, pack_id, m_compileDesign);
     }
 
     std::stack<NodeId> stack;
@@ -517,7 +517,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
       switch (type) {
         case VObjectType::slPackage_import_item: {
           if (!collectDefinitions) break;
-          m_helper.importPackage(m_module, m_design, fC, id);
+          m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
@@ -714,7 +714,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
     for (auto pack_import : pack_imports) {
       const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
-      m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
+      m_helper.importPackage(m_module, m_design, pack_fC, pack_id, m_compileDesign);
     }
 
     std::stack<NodeId> stack;
@@ -729,7 +729,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
       case VObjectType::slPackage_import_item:
       {
         if (!collectDefinitions) break;
-        m_helper.importPackage(m_module, m_design, fC, id);
+        m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slAnsi_port_declaration:

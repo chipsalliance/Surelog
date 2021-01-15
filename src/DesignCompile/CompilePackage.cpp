@@ -113,7 +113,7 @@ bool CompilePackage::collectObjects_() {
     for (auto pack_import : pack_imports) {
       const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
-      m_helper.importPackage(m_package, m_design, pack_fC, pack_id);
+      m_helper.importPackage(m_package, m_design, pack_fC, pack_id, m_compileDesign);
     }
 
     std::stack<NodeId> stack;
@@ -125,7 +125,7 @@ bool CompilePackage::collectObjects_() {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
-          m_helper.importPackage(m_package, m_design, fC, id);
+          m_helper.importPackage(m_package, m_design, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {

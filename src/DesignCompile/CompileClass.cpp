@@ -143,7 +143,7 @@ bool CompileClass::compile() {
   for (const auto& pack_import : pack_imports) {
     const FileContent* pack_fC = pack_import.fC;
     NodeId pack_id = pack_import.nodeId;
-    m_helper.importPackage(m_class, m_design, pack_fC, pack_id);
+    m_helper.importPackage(m_class, m_design, pack_fC, pack_id, m_compileDesign);
   }
 
   compile_class_parameters_(fC, nodeId);
@@ -171,7 +171,7 @@ bool CompileClass::compile() {
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::slPackage_import_item: {
-        m_helper.importPackage(m_class, m_design, fC, id);
+        m_helper.importPackage(m_class, m_design, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClass_constructor_declaration: {
