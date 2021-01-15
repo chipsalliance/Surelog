@@ -1422,6 +1422,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   
+  // TODO: See if we can remove this section from UHDM
   // Parameters with values (No type params)
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;

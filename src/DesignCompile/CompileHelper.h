@@ -55,7 +55,7 @@ public:
 // Surelog internal modeling
 
   bool importPackage(DesignComponent* scope, Design* design, const FileContent* fC,
-                     NodeId id);
+                     NodeId id, CompileDesign* compileDesign);
 
   bool compileTfPortList(Procedure* parent, const FileContent* fC, NodeId id,
                          TfPortList& targetList);
