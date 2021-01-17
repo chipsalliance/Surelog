@@ -49,6 +49,8 @@
 #include "Utils/StringUtils.h"
 #include "Utils/NumUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "DesignCompile/CompileDesign.h"
+#include "CommandLine/CommandLineParser.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -121,6 +123,26 @@ static unsigned long long get_value(bool& invalidValue,
     }
   }
   return 0;
+}
+
+bool substituteAssignedValue(param_assign* param, CompileDesign* compileDesign) {
+  bool substitute = true;
+  UHDM_OBJECT_TYPE opType = param->Rhs()->UhdmType();
+  if (opType == uhdmoperation) {
+    operation* op = (operation*)param->Rhs();
+    int opType = op->VpiOpType();
+    if (opType == vpiAssignmentPatternOp) {
+      bool verilatorMode = compileDesign->getCompiler()
+                               ->getCommandLineParser()
+                               ->getVerilatorMode();
+      if (verilatorMode) {
+        // Verilator does not support vpiAssignmentPatternOp assigned to
+        // parameters
+        substitute = false;
+      }
+    }
+  }
+  return substitute;
 }
 
 any* CompileHelper::getValue(const std::string& name, DesignComponent* component,
@@ -1048,10 +1070,12 @@ UHDM::any* CompileHelper::compileExpression(
                     if (param && param->Lhs()) {
                       const std::string& param_name = param->Lhs()->VpiName();
                       if (param_name == name) {
-                        ElaboratorListener listener(&s);
-                        result =
-                          UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-                        break;
+                        if (substituteAssignedValue(param, compileDesign)) {
+                          ElaboratorListener listener(&s);
+                          result =
+                            UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+                          break;
+                        }
                       }
                     }
                   }
@@ -1066,9 +1090,11 @@ UHDM::any* CompileHelper::compileExpression(
                 if (param && param->Lhs()) {
                   const std::string& param_name = param->Lhs()->VpiName();
                   if (param_name == name) {
-                    ElaboratorListener listener(&s);
-                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
-                    break;
+                    if (substituteAssignedValue(param, compileDesign)) {
+                      ElaboratorListener listener(&s);
+                      result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                      break;
+                    }
                   }
                 }
               }
@@ -1080,6 +1106,12 @@ UHDM::any* CompileHelper::compileExpression(
             ref->VpiParent(pexpr);
             if (pexpr) {
               UHDM::any* var = bindVariable(component, pexpr, name, compileDesign);
+              if (var)
+                ref->Actual_group(var);
+              else if (component)
+                component->needLateBinding(ref); 
+            } else if (instance) {
+              UHDM::any* var = bindVariable(component, instance, name, compileDesign);
               if (var)
                 ref->Actual_group(var);
               else if (component)
