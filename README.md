@@ -87,6 +87,8 @@ For more build/test options and system requirements for building see
    -nocomp               Turns off Compilation & Elaboration
    -noelab               Turns off Elaboration
    -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
+   -verilator            Creates Verilator-friendly UHDM db (Fixes for Verilator limitations)
+   -yosys                Creates Yosys-friendly UHDM db (Fixes for Yosys limitations)
    -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
    -pythonlistener       Enables the Parser Python Listener
    -pythonlistenerfile <script.py> Specifies the AST python listener file

@@ -117,6 +117,8 @@ const std::vector<std::string> helpText = {
     "  -top/--top-module <module> Top level module for elaboration (multiple cmds ok)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
     "                        Tests are expressed as one full command line per line.",
+    "  -verilator            Creates Verilator-friendly UHDM db (Fixes for Verilator limitations)",
+    "  -yosys                Creates Yosys-friendly UHDM db (Fixes for Yosys limitations)",
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
     "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
@@ -265,6 +267,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_parseOnly(false),
       m_compile(false),
       m_elaborate(false),
+      m_verilator(false),
+      m_yosys(false),
       m_diff_comp_mode(diff_comp_mode),
       m_help(false),
       m_cacheAllowed(true),
@@ -836,6 +840,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = false;
       m_elaborate = false;
       m_parseOnly = true;
+    } else if (all_arguments[i] == "-verilator") {
+      m_verilator = true;
+    } else if (all_arguments[i] == "-yosys") {
+      m_yosys = true;
     } else if (all_arguments[i] == "-nocomp") {
       m_compile = false;
       m_elaborate = false;

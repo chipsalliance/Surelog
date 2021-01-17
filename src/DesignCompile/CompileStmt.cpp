@@ -1987,6 +1987,16 @@ n<> u<83> t<For> p<84> s<44> l<5>
 }
 
 
+UHDM::any* CompileHelper::bindVariable(DesignComponent* component, ValuedComponentI* instance, const std::string& name, CompileDesign* compileDesign) {
+  UHDM::any* result = nullptr;
+  /*
+  if (ModuleInstance* instance = dynamic_cast<ModuleInstance*> (instance)) {
+
+  }
+  */
+  return result;
+}
+
 UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign) {
   UHDM_OBJECT_TYPE scope_type = scope->UhdmType();
   switch (scope_type) {
