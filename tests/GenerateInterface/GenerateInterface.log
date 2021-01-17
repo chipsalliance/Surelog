@@ -1001,11 +1001,6 @@ design: (work@top)
           |INT:0
     |vpiInstance:
     \_module: work@top (work@top) top.sv:16: 
-    |vpiParameter:
-    \_parameter: (work@top.intf.NO_Input), line:1, parent:work@top.intf
-      |vpiName:NO_Input
-      |vpiFullName:work@top.intf.NO_Input
-      |INT:3
 |uhdmtopModules:
 \_module: work@top2 (work@top2) top.sv:34: 
   |vpiDefName:work@top2
@@ -1189,11 +1184,24 @@ design: (work@top)
           |INT:0
     |vpiInstance:
     \_module: work@top2 (work@top2) top.sv:34: 
+    |vpiParamAssign:
+    \_param_assign: , line:22, parent:work@top2.intf
+      |vpiRhs:
+      \_constant: , line:22
+        |vpiConstType:7
+        |vpiDecompile:2
+        |vpiSize:64
+        |INT:2
+      |vpiLhs:
+      \_parameter: (work@top2.intf.Width), line:22, parent:work@top2.intf
+        |vpiName:Width
+        |vpiFullName:work@top2.intf.Width
+        |INT:2
+        |vpiTypespec:
+        \_int_typespec: (Width), line:22, parent:work@top2.intf.Width
+          |vpiName:Width
     |vpiParameter:
-    \_parameter: (work@top2.intf.Width), line:35, parent:work@top2.intf
-      |vpiName:Width
-      |vpiFullName:work@top2.intf.Width
-      |INT:2
+    \_parameter: (work@top2.intf.Width), line:22, parent:work@top2.intf
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top2.each_pin[0]), line:38, parent:work@top2
     |vpiName:each_pin[0]
@@ -1306,14 +1314,12 @@ design: (work@top)
     \_parameter: (work@top2.Width), line:34, parent:work@top2
       |vpiName:Width
       |vpiFullName:work@top2.Width
+      |INT:2
       |vpiTypespec:
       \_int_typespec: (Width), line:34, parent:work@top2.Width
         |vpiName:Width
   |vpiParameter:
   \_parameter: (work@top2.Width), line:34, parent:work@top2
-    |vpiName:Width
-    |vpiFullName:work@top2.Width
-    |INT:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

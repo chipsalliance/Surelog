@@ -416,14 +416,12 @@ design: (work@dut)
         |vpiSize:5
         |STRING:/blah
       |vpiLhs:
-      \_parameter: (work@ram_1p.MemInitFile), line:13, parent:work@ram_1p
+      \_parameter: (work@dut.u_ram.MemInitFile), line:13, parent:work@dut.u_ram
         |vpiName:MemInitFile
-        |vpiFullName:work@ram_1p.MemInitFile
+        |vpiFullName:work@dut.u_ram.MemInitFile
+        |STRING:/blah
     |vpiParameter:
-    \_parameter: (work@dut.u_ram.MemInitFile), line:6, parent:work@dut.u_ram
-      |vpiName:MemInitFile
-      |vpiFullName:work@dut.u_ram.MemInitFile
-      |STRING:/blah
+    \_parameter: (work@dut.u_ram.MemInitFile), line:13, parent:work@dut.u_ram
   |vpiNet:
   \_logic_net: (work@dut.o), line:3, parent:work@dut
   |vpiParamAssign:
@@ -438,11 +436,9 @@ design: (work@dut)
     \_parameter: (work@dut.SRAMInitFile), line:4, parent:work@dut
       |vpiName:SRAMInitFile
       |vpiFullName:work@dut.SRAMInitFile
+      |STRING:/blah
   |vpiParameter:
-  \_parameter: (work@dut.SRAMInitFile), parent:work@dut
-    |vpiName:SRAMInitFile
-    |vpiFullName:work@dut.SRAMInitFile
-    |STRING:/blah
+  \_parameter: (work@dut.SRAMInitFile), line:4, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

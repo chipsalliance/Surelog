@@ -285,7 +285,9 @@ public:
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
-               CompileDesign* compileDesign, ValuedComponentI* instance); 
+               CompileDesign* compileDesign, ValuedComponentI* instance);
+
+  bool isMultidimensional(UHDM::typespec* ts); 
 
 private:
   CompileHelper(const CompileHelper&) = delete;

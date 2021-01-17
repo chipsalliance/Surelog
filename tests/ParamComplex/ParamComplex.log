@@ -596,17 +596,17 @@ design: (work@top)
         |vpiPacked:1
         |vpiName:complex_t
         |vpiTypespecMember:
-        \_typespec_member: (a), line:3
+        \_typespec_member: (a), line:3, parent:complex_t
           |vpiName:a
           |vpiTypespec:
-          \_logic_typespec: , line:3
+          \_logic_typespec: , line:3, parent:a
         |vpiTypespecMember:
-        \_typespec_member: (b), line:4
+        \_typespec_member: (b), line:4, parent:complex_t
           |vpiName:b
           |vpiTypespec:
-          \_logic_typespec: , line:4
+          \_logic_typespec: , line:4, parent:b
             |vpiRange:
-            \_range: , line:4, parent:complex_t
+            \_range: , line:4
               |vpiLeftRange:
               \_constant: , line:4
                 |vpiConstType:7
@@ -621,6 +621,37 @@ design: (work@top)
                 |INT:0
   |vpiParameter:
   \_parameter: (work@top.init_val), line:10, parent:work@top
+    |vpiName:init_val
+    |vpiFullName:work@top.init_val
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_struct_typespec: (complex_t), line:2, parent:work@top.init_val
+      |vpiPacked:1
+      |vpiName:complex_t
+      |vpiTypespecMember:
+      \_typespec_member: (a), line:3
+        |vpiName:a
+        |vpiTypespec:
+        \_logic_typespec: , line:3
+      |vpiTypespecMember:
+      \_typespec_member: (b), line:4
+        |vpiName:b
+        |vpiTypespec:
+        \_logic_typespec: , line:4
+          |vpiRange:
+          \_range: , line:4, parent:complex_t
+            |vpiLeftRange:
+            \_constant: , line:4
+              |vpiConstType:7
+              |vpiDecompile:2
+              |vpiSize:32
+              |INT:2
+            |vpiRightRange:
+            \_constant: , line:4
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:9: 
   |vpiDefName:work@top
@@ -639,11 +670,12 @@ design: (work@top)
         |vpiDecompile:4
         |INT:4
       |vpiLhs:
-      \_parameter: (work@dut.size), line:18, parent:work@dut
+      \_parameter: (work@top.asgn0.size), line:18, parent:work@top.asgn0
         |vpiName:size
-        |vpiFullName:work@dut.size
+        |vpiFullName:work@top.asgn0.size
+        |INT:4
         |vpiTypespec:
-        \_int_typespec: (size), line:18, parent:work@dut.size
+        \_int_typespec: (size), line:18, parent:work@top.asgn0.size
           |vpiName:size
     |vpiParamAssign:
     \_param_assign: , line:19, parent:work@top.asgn0
@@ -675,20 +707,21 @@ design: (work@top)
               |vpiDecompile:'b1
               |BIN:1
       |vpiLhs:
-      \_parameter: (work@dut.init), line:19, parent:work@dut
+      \_parameter: (work@top.asgn0.init), line:19, parent:work@top.asgn0
         |vpiName:init
-        |vpiFullName:work@dut.init
+        |vpiFullName:work@top.asgn0.init
         |vpiTypespec:
-        \_bit_typespec: (init), line:19, parent:work@dut.init
+        \_bit_typespec: (init), line:19, parent:work@top.asgn0.init
           |vpiName:init
           |vpiRange:
-          \_range: , line:19
+          \_range: , line:19, parent:init
             |vpiLeftRange:
             \_operation: , line:19
               |vpiOpType:11
               |vpiOperand:
-              \_ref_obj: (size), line:19
+              \_ref_obj: (work@top.asgn0.init.init.size), line:19
                 |vpiName:size
+                |vpiFullName:work@top.asgn0.init.init.size
               |vpiOperand:
               \_constant: , line:19
                 |vpiConstType:7
@@ -702,13 +735,9 @@ design: (work@top)
               |vpiSize:32
               |INT:0
     |vpiParameter:
-    \_parameter: (work@top.asgn0.init), line:13, parent:work@top.asgn0
-      |vpiName:init
-      |vpiFullName:work@top.asgn0.init
+    \_parameter: (work@top.asgn0.size), line:18, parent:work@top.asgn0
     |vpiParameter:
-    \_parameter: (work@top.asgn0.size), line:12, parent:work@top.asgn0
-      |vpiName:size
-      |vpiFullName:work@top.asgn0.size
+    \_parameter: (work@top.asgn0.init), line:19, parent:work@top.asgn0
   |vpiParamAssign:
   \_param_assign: , line:10, parent:work@top
     |vpiRhs:
@@ -745,17 +774,17 @@ design: (work@top)
         |vpiPacked:1
         |vpiName:complex_t
         |vpiTypespecMember:
-        \_typespec_member: (a), line:3
+        \_typespec_member: (a), line:3, parent:complex_t
           |vpiName:a
           |vpiTypespec:
-          \_logic_typespec: , line:3
+          \_logic_typespec: , line:3, parent:a
         |vpiTypespecMember:
-        \_typespec_member: (b), line:4
+        \_typespec_member: (b), line:4, parent:complex_t
           |vpiName:b
           |vpiTypespec:
-          \_logic_typespec: , line:4
+          \_logic_typespec: , line:4, parent:b
             |vpiRange:
-            \_range: , line:4, parent:complex_t
+            \_range: , line:4
               |vpiLeftRange:
               \_constant: , line:4
                 |vpiConstType:7
@@ -770,8 +799,6 @@ design: (work@top)
                 |INT:0
   |vpiParameter:
   \_parameter: (work@top.init_val), line:10, parent:work@top
-    |vpiName:init_val
-    |vpiFullName:work@top.init_val
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
