@@ -97,13 +97,24 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       clone->setImportedPackage(pack_name);
       scope->insertParameter(clone);
       UHDM::any* p = orig->getUhdmParam();
+
+      UHDM::VectorOfany* parameters = scope->getParameters();
+      if (parameters == nullptr) {
+        scope->setParameters(s.MakeAnyVec());
+        parameters = scope->getParameters();
+      }
+
       if (p) {
         ElaboratorListener listener(&s);
         any* pclone = UHDM::clone_tree(p, s, &listener);
         if (pclone->UhdmType() == uhdmtype_parameter) {
           type_parameter* the_p = (type_parameter*) pclone;
           the_p->VpiImported(pack_name);
+        } else {
+          parameter* the_p = (parameter*) pclone;
+          the_p->VpiImported(pack_name);
         }
+        parameters->push_back(pclone);
         clone->setUhdmParam(pclone);
       }
     }
@@ -136,7 +147,6 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (pclone->UhdmType() == uhdmparameter) {
         parameter* the_p = (parameter*)pclone;
         the_p->VpiImported(pack_name);
-        parameters->push_back(the_p);
       }
     }
 
@@ -1813,6 +1823,26 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
   return true;
 }
 
+bool CompileHelper::isMultidimensional(UHDM::typespec* ts) {
+  bool isMultiDimension = false;
+  if (ts) {
+    if (ts->UhdmType() == uhdmlogic_typespec) {
+      logic_typespec* lts = (logic_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmarray_typespec) {
+      array_typespec* lts = (array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
+      packed_array_typespec* lts = (packed_array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmbit_typespec) {
+      bit_typespec* lts = (bit_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    }
+  }
+  return isMultiDimension;
+}
+
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1908,26 +1938,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
           isSigned = true;
       }
 
-      bool isMultiDimension = false;
-      if (ts) {
-        if (ts->UhdmType() == uhdmlogic_typespec) {
-          logic_typespec* lts = (logic_typespec*) ts;
-          if (lts->Ranges() && lts->Ranges()->size() > 1) 
-            isMultiDimension = true;
-        } else if (ts->UhdmType() == uhdmarray_typespec) {
-          array_typespec* lts = (array_typespec*) ts;
-          if (lts->Ranges() && lts->Ranges()->size() > 1) 
-            isMultiDimension = true;
-        } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
-          packed_array_typespec* lts = (packed_array_typespec*) ts;
-          if (lts->Ranges() && lts->Ranges()->size() > 1) 
-            isMultiDimension = true;
-        } else if (ts->UhdmType() == uhdmbit_typespec) {
-          bit_typespec* lts = (bit_typespec*) ts;
-          if (lts->Ranges() && lts->Ranges()->size() > 1) 
-            isMultiDimension = true;
-        }  
-      }
+      bool isMultiDimension = isMultidimensional(ts);
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
@@ -1960,6 +1971,12 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
 
       expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
+
+      Parameter* p =
+          new Parameter(fC, name, fC->SymName(name), fC->Child(Data_type_or_implicit));
+      p->setUhdmParam(param);
+      component->insertParameter(p);
+
       param->Typespec(ts);
       if (ts) {
         ts->VpiParent(param);
@@ -1969,6 +1986,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
+      param->VpiName(fC->SymName(name));
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         int unpackedSize;
@@ -1993,7 +2011,6 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param_assign->VpiFile(fC->getFileName());
         param_assign->VpiLineNo(fC->Line(Param_assignment));
         param_assigns->push_back(param_assign);
-        param->VpiName(fC->SymName(name));
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(

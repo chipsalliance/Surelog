@@ -699,9 +699,10 @@ design: (work@top)
         |vpiSize:64
         |INT:0
       |vpiLhs:
-      \_parameter: (work@assigner.invert), line:6, parent:work@assigner
+      \_parameter: (work@top.asgn0.invert), line:6, parent:work@top.asgn0
         |vpiName:invert
-        |vpiFullName:work@assigner.invert
+        |vpiFullName:work@top.asgn0.invert
+        |INT:0
     |vpiParamAssign:
     \_param_assign: , line:7, parent:work@top.asgn0
       |vpiRhs:
@@ -711,23 +712,18 @@ design: (work@top)
         |vpiSize:64
         |INT:0
       |vpiLhs:
-      \_parameter: (work@assigner.do_invert), line:7, parent:work@assigner
+      \_parameter: (work@top.asgn0.do_invert), line:7, parent:work@top.asgn0
         |vpiName:do_invert
-        |vpiFullName:work@assigner.do_invert
+        |vpiFullName:work@top.asgn0.do_invert
         |vpiLocalParam:1
+        |INT:0
         |vpiTypespec:
-        \_int_typespec: (do_invert), line:7, parent:work@assigner.do_invert
+        \_int_typespec: (do_invert), line:7, parent:work@top.asgn0.do_invert
           |vpiName:do_invert
     |vpiParameter:
-    \_parameter: (work@top.asgn0.do_invert), line:7, parent:work@top.asgn0
-      |vpiName:do_invert
-      |vpiFullName:work@top.asgn0.do_invert
-      |INT:0
+    \_parameter: (work@top.asgn0.invert), line:6, parent:work@top.asgn0
     |vpiParameter:
-    \_parameter: (work@top.asgn0.invert), line:2, parent:work@top.asgn0
-      |vpiName:invert
-      |vpiFullName:work@top.asgn0.invert
-      |INT:0
+    \_parameter: (work@top.asgn0.do_invert), line:7, parent:work@top.asgn0
   |vpiModule:
   \_module: work@assigner (work@top.asgn1) dut.sv:3: , parent:work@top
     |vpiDefName:work@assigner
@@ -800,7 +796,10 @@ design: (work@top)
         |vpiSize:64
         |INT:1
       |vpiLhs:
-      \_parameter: (work@assigner.invert), line:6, parent:work@assigner
+      \_parameter: (work@top.asgn1.invert), line:6, parent:work@top.asgn1
+        |vpiName:invert
+        |vpiFullName:work@top.asgn1.invert
+        |INT:1
     |vpiParamAssign:
     \_param_assign: , line:7, parent:work@top.asgn1
       |vpiRhs:
@@ -810,17 +809,18 @@ design: (work@top)
         |vpiSize:64
         |INT:0
       |vpiLhs:
-      \_parameter: (work@assigner.do_invert), line:7, parent:work@assigner
+      \_parameter: (work@top.asgn1.do_invert), line:7, parent:work@top.asgn1
+        |vpiName:do_invert
+        |vpiFullName:work@top.asgn1.do_invert
+        |vpiLocalParam:1
+        |INT:0
+        |vpiTypespec:
+        \_int_typespec: (do_invert), line:7, parent:work@top.asgn1.do_invert
+          |vpiName:do_invert
+    |vpiParameter:
+    \_parameter: (work@top.asgn1.invert), line:6, parent:work@top.asgn1
     |vpiParameter:
     \_parameter: (work@top.asgn1.do_invert), line:7, parent:work@top.asgn1
-      |vpiName:do_invert
-      |vpiFullName:work@top.asgn1.do_invert
-      |INT:0
-    |vpiParameter:
-    \_parameter: (work@top.asgn1.invert), line:3, parent:work@top.asgn1
-      |vpiName:invert
-      |vpiFullName:work@top.asgn1.invert
-      |INT:1
   |vpiNet:
   \_logic_net: (work@top.i), line:1, parent:work@top
   |vpiNet:

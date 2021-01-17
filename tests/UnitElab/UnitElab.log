@@ -15690,6 +15690,7 @@ design: (work@bottom1)
     \_parameter: (work@test.POWER1), line:37, parent:work@test
       |vpiName:POWER1
       |vpiFullName:work@test.POWER1
+      |INT:1
   |vpiParamAssign:
   \_param_assign: , line:38, parent:work@test
     |vpiRhs:
@@ -15702,16 +15703,11 @@ design: (work@bottom1)
     \_parameter: (work@test.POWER2), line:38, parent:work@test
       |vpiName:POWER2
       |vpiFullName:work@test.POWER2
+      |INT:1
   |vpiParameter:
   \_parameter: (work@test.POWER1), line:37, parent:work@test
-    |vpiName:POWER1
-    |vpiFullName:work@test.POWER1
-    |INT:1
   |vpiParameter:
   \_parameter: (work@test.POWER2), line:38, parent:work@test
-    |vpiName:POWER2
-    |vpiFullName:work@test.POWER2
-    |INT:1
 |uhdmtopModules:
 \_module: work@small_top (work@small_top) small.v:1: 
   |vpiDefName:work@small_top
@@ -36193,11 +36189,12 @@ design: (work@bottom1)
         |vpiConstType:7
         |vpiDecompile:10
         |vpiSize:64
-        |REAL:t.ttts
+        |INT:10
       |vpiLhs:
-      \_parameter: (work@small_test.SIZE), line:8, parent:work@small_test
+      \_parameter: (work@small_top.u1.SIZE), line:8, parent:work@small_top.u1
         |vpiName:SIZE
-        |vpiFullName:work@small_test.SIZE
+        |vpiFullName:work@small_top.u1.SIZE
+        |INT:10
     |vpiParamAssign:
     \_param_assign: , line:9, parent:work@small_top.u1
       |vpiRhs:
@@ -36207,9 +36204,10 @@ design: (work@bottom1)
         |vpiSize:64
         |INT:2
       |vpiLhs:
-      \_parameter: (work@small_test.dummy), line:9, parent:work@small_test
+      \_parameter: (work@small_top.u1.dummy), line:9, parent:work@small_top.u1
         |vpiName:dummy
-        |vpiFullName:work@small_test.dummy
+        |vpiFullName:work@small_top.u1.dummy
+        |INT:2
     |vpiParamAssign:
     \_param_assign: , line:10, parent:work@small_top.u1
       |vpiRhs:
@@ -36219,24 +36217,16 @@ design: (work@bottom1)
         |vpiSize:13
         |INT:4
       |vpiLhs:
-      \_parameter: (work@small_test.p1), line:10, parent:work@small_test
+      \_parameter: (work@small_top.u1.p1), line:10, parent:work@small_top.u1
         |vpiName:p1
-        |vpiFullName:work@small_test.p1
+        |vpiFullName:work@small_top.u1.p1
+        |INT:4
     |vpiParameter:
-    \_parameter: (work@small_top.u1.SIZE), line:2, parent:work@small_top.u1
-      |vpiName:SIZE
-      |vpiFullName:work@small_top.u1.SIZE
-      |REAL:t.ttts
+    \_parameter: (work@small_top.u1.SIZE), line:8, parent:work@small_top.u1
     |vpiParameter:
-    \_parameter: (work@small_top.u1.dummy), line:2, parent:work@small_top.u1
-      |vpiName:dummy
-      |vpiFullName:work@small_top.u1.dummy
-      |INT:2
+    \_parameter: (work@small_top.u1.dummy), line:9, parent:work@small_top.u1
     |vpiParameter:
     \_parameter: (work@small_top.u1.p1), line:10, parent:work@small_top.u1
-      |vpiName:p1
-      |vpiFullName:work@small_top.u1.p1
-      |INT:4
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

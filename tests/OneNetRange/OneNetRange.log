@@ -597,11 +597,21 @@ design: (work@TOP)
     \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
     |vpiInstance:
     \_module: work@TOP (work@TOP) tb.v:16: 
+    |vpiParamAssign:
+    \_param_assign: , line:8, parent:work@TOP.conntb
+      |vpiRhs:
+      \_constant: , line:8
+        |vpiConstType:7
+        |vpiDecompile:16
+        |vpiSize:64
+        |INT:16
+      |vpiLhs:
+      \_parameter: (work@TOP.conntb.width), line:8, parent:work@TOP.conntb
+        |vpiName:width
+        |vpiFullName:work@TOP.conntb.width
+        |INT:16
     |vpiParameter:
-    \_parameter: (work@TOP.conntb.width), line:20, parent:work@TOP.conntb
-      |vpiName:width
-      |vpiFullName:work@TOP.conntb.width
-      |INT:16
+    \_parameter: (work@TOP.conntb.width), line:8, parent:work@TOP.conntb
   |vpiModule:
   \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
     |vpiDefName:work@dut
@@ -746,11 +756,21 @@ design: (work@TOP)
       \_logic_net: (work@TOP.dut1.conntb.con_o), line:8, parent:work@TOP.dut1.conntb
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
+      |vpiParamAssign:
+      \_param_assign: , line:8, parent:work@TOP.dut1.conntb
+        |vpiRhs:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:16
+          |vpiSize:64
+          |INT:16
+        |vpiLhs:
+        \_parameter: (work@TOP.dut1.conntb.width), line:8, parent:work@TOP.dut1.conntb
+          |vpiName:width
+          |vpiFullName:work@TOP.dut1.conntb.width
+          |INT:16
       |vpiParameter:
-      \_parameter: (work@TOP.dut1.conntb.width), line:3, parent:work@TOP.dut1.conntb
-        |vpiName:width
-        |vpiFullName:work@TOP.dut1.conntb.width
-        |INT:16
+      \_parameter: (work@TOP.dut1.conntb.width), line:8, parent:work@TOP.dut1.conntb
     |vpiModule:
     \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
       |vpiDefName:work@middle
@@ -861,14 +881,12 @@ design: (work@TOP)
             |vpiSize:64
             |INT:16
           |vpiLhs:
-          \_parameter: (work@SUB.width), line:15, parent:work@SUB
+          \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15, parent:work@TOP.dut1.middle1.sub1
             |vpiName:width
-            |vpiFullName:work@SUB.width
+            |vpiFullName:work@TOP.dut1.middle1.sub1.width
+            |INT:16
         |vpiParameter:
-        \_parameter: (work@TOP.dut1.middle1.sub1.width), line:12, parent:work@TOP.dut1.middle1.sub1
-          |vpiName:width
-          |vpiFullName:work@TOP.dut1.middle1.sub1.width
-          |INT:16
+        \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15, parent:work@TOP.dut1.middle1.sub1
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
       |vpiParamAssign:
@@ -880,14 +898,12 @@ design: (work@TOP)
           |vpiSize:64
           |INT:16
         |vpiLhs:
-        \_parameter: (work@middle.width), line:11, parent:work@middle
+        \_parameter: (work@TOP.dut1.middle1.width), line:11, parent:work@TOP.dut1.middle1
           |vpiName:width
-          |vpiFullName:work@middle.width
+          |vpiFullName:work@TOP.dut1.middle1.width
+          |INT:16
       |vpiParameter:
-      \_parameter: (work@TOP.dut1.middle1.width), line:4, parent:work@TOP.dut1.middle1
-        |vpiName:width
-        |vpiFullName:work@TOP.dut1.middle1.width
-        |INT:16
+      \_parameter: (work@TOP.dut1.middle1.width), line:11, parent:work@TOP.dut1.middle1
     |vpiNet:
     \_logic_net: (work@TOP.dut1.i), line:2, parent:work@TOP.dut1
     |vpiNet:
@@ -903,14 +919,12 @@ design: (work@TOP)
         |vpiSize:64
         |INT:16
       |vpiLhs:
-      \_parameter: (work@dut.width), line:2, parent:work@dut
+      \_parameter: (work@TOP.dut1.width), line:2, parent:work@TOP.dut1
         |vpiName:width
-        |vpiFullName:work@dut.width
+        |vpiFullName:work@TOP.dut1.width
+        |INT:16
     |vpiParameter:
-    \_parameter: (work@TOP.dut1.width), line:21, parent:work@TOP.dut1
-      |vpiName:width
-      |vpiFullName:work@TOP.dut1.width
-      |INT:16
+    \_parameter: (work@TOP.dut1.width), line:2, parent:work@TOP.dut1
   |vpiNet:
   \_logic_net: (work@TOP.i), line:18, parent:work@TOP
   |vpiNet:
@@ -1006,11 +1020,9 @@ design: (work@TOP)
     \_parameter: (work@TOP.width), line:17, parent:work@TOP
       |vpiName:width
       |vpiFullName:work@TOP.width
+      |INT:16
   |vpiParameter:
   \_parameter: (work@TOP.width), line:17, parent:work@TOP
-    |vpiName:width
-    |vpiFullName:work@TOP.width
-    |INT:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

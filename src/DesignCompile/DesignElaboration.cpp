@@ -781,11 +781,12 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
 
           def = design->getComponentDefinition(indexedModName);
           if (def == NULL) {
-           def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+            def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
-           if (DesignComponent* defParent = parent->getDefinition())
-             def->setParentScope(defParent);                                           
-           design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
+            if (DesignComponent* defParent = parent->getDefinition())
+              def->setParentScope(defParent);                                           
+            design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
+
           }
 
           // Compile generate block
