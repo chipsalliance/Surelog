@@ -656,6 +656,9 @@ void writePackage(Package* pack, package* p, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   p->Typespecs(typespecs);
   writeDataTypes(pack->getDataTypeMap(), p, typespecs, s);
+  for (auto item : pack->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
@@ -818,6 +821,9 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  for (auto item : mod->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -894,6 +900,9 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   m->Typespecs(typespecs);
   writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+  for (auto item : mod->getImportedSymbols()) {
+    typespecs->push_back(item);
+  }
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -964,6 +973,9 @@ bool writeElabProgram(Serializer& s, ModuleInstance* instance, program* m) {
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    for (auto item : mod->getImportedSymbols()) {
+      typespecs->push_back(item);
+    }
   }
 
   m->Ports(netlist->ports());
@@ -1057,6 +1069,9 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m, Ex
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    for (auto item : mod->getImportedSymbols()) {
+      typespecs->push_back(item);
+    }
   }
 
   m->Nets(netlist->nets());
@@ -1218,6 +1233,9 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m, ExprBui
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    for (auto item : mod->getImportedSymbols()) {
+      typespecs->push_back(item);
+    }
   }
 
   writeElabParameters(s, instance, m, exprBuilder);
@@ -1335,6 +1353,9 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m, E
     VectorOftypespec* typespecs = s.MakeTypespecVec();
     m->Typespecs(typespecs);
     writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
+    for (auto item : mod->getImportedSymbols()) {
+      typespecs->push_back(item);
+    }
   }
 
   writeElabParameters(s, instance, m, exprBuilder);
