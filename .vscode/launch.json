@@ -179,6 +179,26 @@
             ]
         },
         {
+            "name": "RemoteEarlgrey_0_1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "Earlgrey_0_1.sl", "-d", "0", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Earlgrey_0_1/sim-icarus",
+            "environment": [],
+            "externalConsole": false,
+            "miDebuggerServerAddress": "10.0.0.214:9091",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "BlackParrot",
             "type": "cppdbg",
             "request": "launch",
@@ -316,9 +336,28 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
+            "args": ["-parse", "tests/ScratchPad.sv", "+incdir+tests", "-verilator", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "PreprocUhdmCov",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "PreprocUhdmCov.sl", "-d", "ast", "-d", "inst", "-d", "uhdm", "-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/PreprocUhdmCov",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

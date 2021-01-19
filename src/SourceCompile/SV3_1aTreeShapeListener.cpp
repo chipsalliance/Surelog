@@ -355,8 +355,12 @@ void SV3_1aTreeShapeListener::exitGenerate_block(SV3_1aParser::Generate_blockCon
 }
 
 void SV3_1aTreeShapeListener::exitNamed_port_connection(SV3_1aParser::Named_port_connectionContext * ctx) {
-   if (ctx->DOTSTAR())
+  if (ctx->DOTSTAR())
     addVObject ((ParserRuleContext*) ctx->DOTSTAR(), VObjectType::slDotStar);
+  if (ctx->OPEN_PARENS())
+    addVObject ((ParserRuleContext*) ctx->OPEN_PARENS(), VObjectType::slOpenParens);
+  if (ctx->CLOSE_PARENS())
+    addVObject ((ParserRuleContext*) ctx->CLOSE_PARENS(), VObjectType::slCloseParens);  
   addVObject (ctx, VObjectType::slNamed_port_connection);
 }
 

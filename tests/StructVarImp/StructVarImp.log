@@ -733,6 +733,52 @@ design: (work@top)
                 |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_reg_pkg)
+  |vpiParamAssign:
+  \_param_assign: , line:4, parent:work@top
+    |vpiRhs:
+    \_constant: , line:4
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:32
+      |INT:2
+    |vpiLhs:
+    \_parameter: (NBanks), line:4
+      |vpiName:NBanks
+      |vpiImported:flash_ctrl_reg_pkg
+      |vpiTypespec:
+      \_int_typespec: (NBanks), line:4, parent:NBanks
+        |vpiName:NBanks
+  |vpiParamAssign:
+  \_param_assign: , line:5, parent:work@top
+    |vpiRhs:
+    \_constant: , line:5
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (NumRegions), line:5
+      |vpiName:NumRegions
+      |vpiImported:flash_ctrl_reg_pkg
+      |vpiTypespec:
+      \_int_typespec: (NumRegions), line:5, parent:NumRegions
+        |vpiName:NumRegions
+  |vpiParameter:
+  \_parameter: (work@top.NBanks), line:4, parent:work@top
+    |vpiName:NBanks
+    |vpiFullName:work@top.NBanks
+    |vpiImported:flash_ctrl_reg_pkg
+    |vpiTypespec:
+    \_int_typespec: (NBanks), line:4, parent:work@top.NBanks
+      |vpiName:NBanks
+  |vpiParameter:
+  \_parameter: (work@top.NumRegions), line:5, parent:work@top
+    |vpiName:NumRegions
+    |vpiFullName:work@top.NumRegions
+    |vpiImported:flash_ctrl_reg_pkg
+    |vpiTypespec:
+    \_int_typespec: (NumRegions), line:5, parent:work@top.NumRegions
+      |vpiName:NumRegions
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:33: 
   |vpiDefName:work@top
@@ -952,16 +998,44 @@ design: (work@top)
                 |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_reg_pkg), parent:work@top
+  |vpiParamAssign:
+  \_param_assign: , line:4, parent:work@top
+    |vpiRhs:
+    \_constant: , line:4
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:64
+      |INT:2
+    |vpiLhs:
+    \_parameter: (work@top.NBanks), line:4, parent:work@top
+      |vpiName:NBanks
+      |vpiFullName:work@top.NBanks
+      |vpiImported:flash_ctrl_reg_pkg
+      |INT:2
+      |vpiTypespec:
+      \_int_typespec: (NBanks), line:4, parent:work@top.NBanks
+        |vpiName:NBanks
+  |vpiParamAssign:
+  \_param_assign: , line:5, parent:work@top
+    |vpiRhs:
+    \_constant: , line:5
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:64
+      |INT:8
+    |vpiLhs:
+    \_parameter: (work@top.NumRegions), line:5, parent:work@top
+      |vpiName:NumRegions
+      |vpiFullName:work@top.NumRegions
+      |vpiImported:flash_ctrl_reg_pkg
+      |INT:8
+      |vpiTypespec:
+      \_int_typespec: (NumRegions), line:5, parent:work@top.NumRegions
+        |vpiName:NumRegions
   |vpiParameter:
   \_parameter: (work@top.NBanks), line:4, parent:work@top
-    |vpiName:NBanks
-    |vpiFullName:work@top.NBanks
-    |INT:2
   |vpiParameter:
   \_parameter: (work@top.NumRegions), line:5, parent:work@top
-    |vpiName:NumRegions
-    |vpiFullName:work@top.NumRegions
-    |INT:8
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

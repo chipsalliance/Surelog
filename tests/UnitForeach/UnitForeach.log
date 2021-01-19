@@ -538,8 +538,14 @@ design: (unnamed)
           |vpiSize:17
           |STRING:arbitration_queue
         |vpiArgument:
-        \_ref_obj: (arb_sequence_q.size), line:7
+        \_hier_path: (arb_sequence_q.size), line:7
           |vpiName:arb_sequence_q.size
+          |vpiActual:
+          \_ref_obj: (arb_sequence_q)
+            |vpiName:arb_sequence_q
+          |vpiActual:
+          \_ref_obj: (size)
+            |vpiName:size
       |vpiStmt:
       \_foreach_stmt: (uvm_pkg::uvm_sequencer_base::do_print), line:8, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print
@@ -579,17 +585,29 @@ design: (unnamed)
               |vpiSize:11
               |STRING:%s@seqid%0d
             |vpiArgument:
-            \_bit_select: (arb_sequence_q.request), line:10
-              |vpiName:arb_sequence_q.request
-              |vpiIndex:
-              \_ref_obj: (i), line:10
-                |vpiName:i
+            \_hier_path: (arb_sequence_q[i].request), line:10
+              |vpiName:arb_sequence_q[i].request
+              |vpiActual:
+              \_bit_select: (arb_sequence_q)
+                |vpiName:arb_sequence_q
+                |vpiIndex:
+                \_ref_obj: (i), line:10
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (request)
+                |vpiName:request
             |vpiArgument:
-            \_bit_select: (arb_sequence_q.sequence_id), line:10
-              |vpiName:arb_sequence_q.sequence_id
-              |vpiIndex:
-              \_ref_obj: (i), line:10
-                |vpiName:i
+            \_hier_path: (arb_sequence_q[i].sequence_id), line:10
+              |vpiName:arb_sequence_q[i].sequence_id
+              |vpiActual:
+              \_bit_select: (arb_sequence_q)
+                |vpiName:arb_sequence_q
+                |vpiIndex:
+                \_ref_obj: (i), line:10
+                  |vpiName:i
+              |vpiActual:
+              \_ref_obj: (sequence_id)
+                |vpiName:sequence_id
           |vpiArgument:
           \_constant: , line:10
             |vpiConstType:6
@@ -1003,7 +1021,7 @@ design: (unnamed)
           |INT:0
         |vpiRightRange:
         \_operation: 
-          |vpiOpType:1
+          |vpiOpType:11
           |vpiOperand:
           \_constant: , line:50
             |vpiConstType:7
@@ -1044,7 +1062,7 @@ design: (unnamed)
         |INT:0
       |vpiRightRange:
       \_operation: 
-        |vpiOpType:1
+        |vpiOpType:11
         |vpiOperand:
         \_ref_obj: (uvm_reg_map), line:46
           |vpiName:uvm_reg_map

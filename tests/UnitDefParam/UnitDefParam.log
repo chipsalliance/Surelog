@@ -1277,14 +1277,12 @@ design: (work@top_def)
         |vpiSize:64
         |INT:3
       |vpiLhs:
-      \_parameter: (work@def.SIZE1), line:3, parent:work@def
+      \_parameter: (work@top_def.u1.SIZE1), line:3, parent:work@top_def.u1
         |vpiName:SIZE1
-        |vpiFullName:work@def.SIZE1
+        |vpiFullName:work@top_def.u1.SIZE1
+        |INT:3
     |vpiParameter:
     \_parameter: (work@top_def.u1.SIZE1), line:3, parent:work@top_def.u1
-      |vpiName:SIZE1
-      |vpiFullName:work@top_def.u1.SIZE1
-      |INT:3
 |uhdmtopModules:
 \_module: work@small_top (work@small_top) top.v:7: 
   |vpiDefName:work@small_top
@@ -2084,9 +2082,10 @@ design: (work@top_def)
         |vpiSize:64
         |INT:3
       |vpiLhs:
-      \_parameter: (work@small_test.SIZE), line:14, parent:work@small_test
+      \_parameter: (work@small_top.u1.SIZE), line:14, parent:work@small_top.u1
         |vpiName:SIZE
-        |vpiFullName:work@small_test.SIZE
+        |vpiFullName:work@small_top.u1.SIZE
+        |INT:3
     |vpiParamAssign:
     \_param_assign: , line:15, parent:work@small_top.u1
       |vpiRhs:
@@ -2096,9 +2095,10 @@ design: (work@top_def)
         |vpiSize:64
         |INT:4
       |vpiLhs:
-      \_parameter: (work@small_test.dummy), line:15, parent:work@small_test
+      \_parameter: (work@small_top.u1.dummy), line:15, parent:work@small_top.u1
         |vpiName:dummy
-        |vpiFullName:work@small_test.dummy
+        |vpiFullName:work@small_top.u1.dummy
+        |INT:4
     |vpiParamAssign:
     \_param_assign: , line:16, parent:work@small_top.u1
       |vpiRhs:
@@ -2108,24 +2108,16 @@ design: (work@top_def)
         |vpiSize:13
         |INT:4
       |vpiLhs:
-      \_parameter: (work@small_test.p1), line:16, parent:work@small_test
+      \_parameter: (work@small_top.u1.p1), line:16, parent:work@small_top.u1
         |vpiName:p1
-        |vpiFullName:work@small_test.p1
+        |vpiFullName:work@small_top.u1.p1
+        |INT:4
     |vpiParameter:
-    \_parameter: (work@small_top.u1.SIZE), parent:work@small_top.u1
-      |vpiName:SIZE
-      |vpiFullName:work@small_top.u1.SIZE
-      |INT:3
+    \_parameter: (work@small_top.u1.SIZE), line:14, parent:work@small_top.u1
     |vpiParameter:
-    \_parameter: (work@small_top.u1.dummy), parent:work@small_top.u1
-      |vpiName:dummy
-      |vpiFullName:work@small_top.u1.dummy
-      |INT:4
+    \_parameter: (work@small_top.u1.dummy), line:15, parent:work@small_top.u1
     |vpiParameter:
     \_parameter: (work@small_top.u1.p1), line:16, parent:work@small_top.u1
-      |vpiName:p1
-      |vpiFullName:work@small_top.u1.p1
-      |INT:4
 |uhdmtopModules:
 \_module: work@defparam_example (work@defparam_example) small.v:14: 
   |vpiDefName:work@defparam_example
@@ -2146,14 +2138,12 @@ design: (work@top_def)
         |vpiSize:64
         |INT:0
       |vpiLhs:
-      \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
+      \_parameter: (work@defparam_example.U0.SIZE), line:3, parent:work@defparam_example.U0
         |vpiName:SIZE
-        |vpiFullName:work@secret_number.SIZE
+        |vpiFullName:work@defparam_example.U0.SIZE
+        |INT:0
     |vpiParameter:
     \_parameter: (work@defparam_example.U0.SIZE), line:3, parent:work@defparam_example.U0
-      |vpiName:SIZE
-      |vpiFullName:work@defparam_example.U0.SIZE
-      |INT:0
   |vpiModule:
   \_module: work@secret_number (work@defparam_example.U1) small.v:20: , parent:work@defparam_example
     |vpiDefName:work@secret_number
@@ -2187,12 +2177,12 @@ design: (work@top_def)
         |vpiSize:64
         |INT:1
       |vpiLhs:
-      \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
+      \_parameter: (work@defparam_example.U1.SIZE), line:3, parent:work@defparam_example.U1
+        |vpiName:SIZE
+        |vpiFullName:work@defparam_example.U1.SIZE
+        |INT:1
     |vpiParameter:
-    \_parameter: (work@defparam_example.U1.SIZE), parent:work@defparam_example.U1
-      |vpiName:SIZE
-      |vpiFullName:work@defparam_example.U1.SIZE
-      |INT:1
+    \_parameter: (work@defparam_example.U1.SIZE), line:3, parent:work@defparam_example.U1
   |vpiModule:
   \_module: work@secret_number (work@defparam_example.U2) small.v:21: , parent:work@defparam_example
     |vpiDefName:work@secret_number
@@ -2243,12 +2233,12 @@ design: (work@top_def)
         |vpiSize:64
         |INT:2
       |vpiLhs:
-      \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
+      \_parameter: (work@defparam_example.U2.SIZE), line:3, parent:work@defparam_example.U2
+        |vpiName:SIZE
+        |vpiFullName:work@defparam_example.U2.SIZE
+        |INT:2
     |vpiParameter:
-    \_parameter: (work@defparam_example.U2.SIZE), parent:work@defparam_example.U2
-      |vpiName:SIZE
-      |vpiFullName:work@defparam_example.U2.SIZE
-      |INT:2
+    \_parameter: (work@defparam_example.U2.SIZE), line:3, parent:work@defparam_example.U2
   |vpiModule:
   \_module: work@secret_number (work@defparam_example.U3) small.v:22: , parent:work@defparam_example
     |vpiDefName:work@secret_number
@@ -2316,12 +2306,12 @@ design: (work@top_def)
         |vpiSize:64
         |INT:3
       |vpiLhs:
-      \_parameter: (work@secret_number.SIZE), line:3, parent:work@secret_number
+      \_parameter: (work@defparam_example.U3.SIZE), line:3, parent:work@defparam_example.U3
+        |vpiName:SIZE
+        |vpiFullName:work@defparam_example.U3.SIZE
+        |INT:3
     |vpiParameter:
-    \_parameter: (work@defparam_example.U3.SIZE), parent:work@defparam_example.U3
-      |vpiName:SIZE
-      |vpiFullName:work@defparam_example.U3.SIZE
-      |INT:3
+    \_parameter: (work@defparam_example.U3.SIZE), line:3, parent:work@defparam_example.U3
   |vpiModule:
   \_module: work@defparam_example::NO_DEF (work@defparam_example.U5) small.v:23: , parent:work@defparam_example
     |vpiDefName:work@defparam_example::NO_DEF

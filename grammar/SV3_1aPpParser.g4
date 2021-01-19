@@ -474,6 +474,7 @@ default_value : Simple_identifier
 	    | CURLY_CLOSE
 	    | SQUARE_OPEN
 	    | SQUARE_CLOSE
+	    | paired_parens
 	    | escaped_identifier
 	    | macro_instance
 	    | Special

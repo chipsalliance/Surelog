@@ -6696,15 +6696,20 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
           |vpiRhs:
-          \_bit_select: (work@test_program.read_command_queue_master.pop_front), line:254, parent:work@test_program
-            |vpiName:read_command_queue_master.pop_front
-            |vpiFullName:work@test_program.read_command_queue_master.pop_front
-            |vpiIndex:
-            \_constant: , line:254
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:32
-              |INT:0
+          \_hier_path: (read_command_queue_master[0].pop_front), line:254, parent:work@test_program
+            |vpiName:read_command_queue_master[0].pop_front
+            |vpiActual:
+            \_bit_select: (read_command_queue_master)
+              |vpiName:read_command_queue_master
+              |vpiIndex:
+              \_constant: , line:254
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+            |vpiActual:
+            \_ref_obj: (pop_front)
+              |vpiName:pop_front
         |vpiStmt:
         \_assignment: , line:255, parent:work@test_program
           |vpiOpType:82
@@ -6813,6 +6818,7 @@ design: (work@top)
               \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
                 |vpiName:MAX_BURST
                 |vpiFullName:work@test_program.MAX_BURST
+                |vpiLocalParam:1
                 |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@test_program
@@ -6914,9 +6920,14 @@ design: (work@top)
           \_operation: , line:300
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@test_program.actual_cmd.trans), line:300
+            \_hier_path: (actual_cmd.trans), line:300
               |vpiName:actual_cmd.trans
-              |vpiFullName:work@test_program.actual_cmd.trans
+              |vpiActual:
+              \_ref_obj: (actual_cmd)
+                |vpiName:actual_cmd
+              |vpiActual:
+              \_ref_obj: (trans)
+                |vpiName:trans
             |vpiOperand:
             \_ref_obj: (work@test_program.READ), line:300
               |vpiName:READ
@@ -6942,8 +6953,14 @@ design: (work@top)
                 |vpiFunction:
                 \_function: (work@test_program.create_response), line:759, parent:work@test_program
                 |vpiArgument:
-                \_ref_obj: (actual_cmd.burstcount), line:301
+                \_hier_path: (actual_cmd.burstcount), line:301
                   |vpiName:actual_cmd.burstcount
+                  |vpiActual:
+                  \_ref_obj: (actual_cmd)
+                    |vpiName:actual_cmd
+                  |vpiActual:
+                  \_ref_obj: (burstcount)
+                    |vpiName:burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_0), line:302, parent:work@test_program
               |vpiName:configure_and_push_response_to_slave_0
@@ -7049,15 +7066,20 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
           |vpiRhs:
-          \_bit_select: (work@test_program.read_command_queue_master.pop_front), line:397, parent:work@test_program
-            |vpiName:read_command_queue_master.pop_front
-            |vpiFullName:work@test_program.read_command_queue_master.pop_front
-            |vpiIndex:
-            \_constant: , line:397
-              |vpiConstType:7
-              |vpiDecompile:1
-              |vpiSize:32
-              |INT:1
+          \_hier_path: (read_command_queue_master[1].pop_front), line:397, parent:work@test_program
+            |vpiName:read_command_queue_master[1].pop_front
+            |vpiActual:
+            \_bit_select: (read_command_queue_master)
+              |vpiName:read_command_queue_master
+              |vpiIndex:
+              \_constant: , line:397
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
+            |vpiActual:
+            \_ref_obj: (pop_front)
+              |vpiName:pop_front
         |vpiStmt:
         \_assignment: , line:398, parent:work@test_program
           |vpiOpType:82
@@ -7264,9 +7286,14 @@ design: (work@top)
           \_operation: , line:443
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@test_program.actual_cmd.trans), line:443
+            \_hier_path: (actual_cmd.trans), line:443
               |vpiName:actual_cmd.trans
-              |vpiFullName:work@test_program.actual_cmd.trans
+              |vpiActual:
+              \_ref_obj: (actual_cmd)
+                |vpiName:actual_cmd
+              |vpiActual:
+              \_ref_obj: (trans)
+                |vpiName:trans
             |vpiOperand:
             \_ref_obj: (work@test_program.READ), line:443
               |vpiName:READ
@@ -7290,8 +7317,14 @@ design: (work@top)
                 |vpiFunction:
                 \_function: (work@test_program.create_response), line:759, parent:work@test_program
                 |vpiArgument:
-                \_ref_obj: (actual_cmd.burstcount), line:444
+                \_hier_path: (actual_cmd.burstcount), line:444
                   |vpiName:actual_cmd.burstcount
+                  |vpiActual:
+                  \_ref_obj: (actual_cmd)
+                    |vpiName:actual_cmd
+                  |vpiActual:
+                  \_ref_obj: (burstcount)
+                    |vpiName:burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_1), line:445, parent:work@test_program
               |vpiName:configure_and_push_response_to_slave_1
@@ -7542,9 +7575,14 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_0.i
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_read_response_from_master_0.rsp.burstcount), line:272
+          \_hier_path: (rsp.burstcount), line:272
             |vpiName:rsp.burstcount
-            |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.burstcount
+            |vpiActual:
+            \_ref_obj: (rsp)
+              |vpiName:rsp
+            |vpiActual:
+            \_ref_obj: (burstcount)
+              |vpiName:burstcount
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@test_program.get_read_response_from_master_0
           |vpiRhs:
@@ -7673,9 +7711,14 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_0.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.get_command_from_slave_0.cmd.burstcount), line:319
+              \_hier_path: (cmd.burstcount), line:319
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.get_command_from_slave_0.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd)
+                  |vpiName:cmd
+                |vpiActual:
+                \_ref_obj: (burstcount)
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.get_command_from_slave_0
               |vpiRhs:
@@ -7807,9 +7850,14 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_1.i
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_read_response_from_master_1.rsp.burstcount), line:415
+          \_hier_path: (rsp.burstcount), line:415
             |vpiName:rsp.burstcount
-            |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.burstcount
+            |vpiActual:
+            \_ref_obj: (rsp)
+              |vpiName:rsp
+            |vpiActual:
+            \_ref_obj: (burstcount)
+              |vpiName:burstcount
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@test_program.get_read_response_from_master_1
           |vpiRhs:
@@ -7936,9 +7984,14 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_1.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.get_command_from_slave_1.cmd.burstcount), line:462
+              \_hier_path: (cmd.burstcount), line:462
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.get_command_from_slave_1.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd)
+                  |vpiName:cmd
+                |vpiActual:
+                \_ref_obj: (burstcount)
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.get_command_from_slave_1
               |vpiRhs:
@@ -8192,9 +8245,14 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.create_command.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.create_command.cmd.burstcount), line:589
+              \_hier_path: (cmd.burstcount), line:589
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.create_command.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd)
+                  |vpiName:cmd
+                |vpiActual:
+                \_ref_obj: (burstcount)
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.create_command
               |vpiRhs:
@@ -8254,14 +8312,15 @@ design: (work@top)
                     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
                       |vpiName:NUM_SYMBOLS
                       |vpiFullName:work@test_program.NUM_SYMBOLS
+                      |vpiLocalParam:1
                       |INT:4
                   |vpiOperand:
-                  \_operation: , parent:work@test_program.create_command
+                  \_operation: , line:591, parent:work@test_program.create_command
                     |vpiOpType:33
                     |vpiOperand:
                     \_constant: , line:591
                       |vpiConstType:3
-                      |vpiDecompile:'b1
+                      |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
               |vpiStmt:
@@ -8441,6 +8500,7 @@ design: (work@top)
             \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
               |vpiName:SLAVE_SPAN
               |vpiFullName:work@test_program.SLAVE_SPAN
+              |vpiLocalParam:1
               |INT:4096
       |vpiStmt:
       \_assignment: , line:615, parent:work@test_program.generate_random_aligned_address
@@ -8743,9 +8803,14 @@ design: (work@top)
         \_operation: , line:690
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.trans), line:690
+          \_hier_path: (cmd.trans), line:690
             |vpiName:cmd.trans
-            |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.trans
+            |vpiActual:
+            \_ref_obj: (cmd)
+              |vpiName:cmd
+            |vpiActual:
+            \_ref_obj: (trans)
+              |vpiName:trans
           |vpiOperand:
           \_ref_obj: (work@test_program.get_expected_command_for_slave.WRITE), line:690
             |vpiName:WRITE
@@ -8795,13 +8860,23 @@ design: (work@top)
                 \_operation: , line:693
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd.addr), line:693
+                  \_hier_path: (exp_cmd.addr), line:693
                     |vpiName:exp_cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (exp_cmd)
+                      |vpiName:exp_cmd
+                    |vpiActual:
+                    \_ref_obj: (addr)
+                      |vpiName:addr
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.addr), line:693
+                  \_hier_path: (cmd.addr), line:693
                     |vpiName:cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (cmd)
+                      |vpiName:cmd
+                    |vpiActual:
+                    \_ref_obj: (addr)
+                      |vpiName:addr
                 |vpiStmt:
                 \_begin: (work@test_program.get_expected_command_for_slave), line:693
                   |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -8857,13 +8932,18 @@ design: (work@top)
                   |vpiName:exp_cmd
                   |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
                 |vpiRhs:
-                \_bit_select: (work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front), line:700, parent:work@test_program.get_expected_command_for_slave
-                  |vpiName:write_command_queue_slave.pop_front
-                  |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front
-                  |vpiIndex:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id), line:700, parent:work@test_program.get_expected_command_for_slave
-                    |vpiName:slave_id
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                \_hier_path: (write_command_queue_slave[slave_id].pop_front), line:700, parent:work@test_program.get_expected_command_for_slave
+                  |vpiName:write_command_queue_slave[slave_id].pop_front
+                  |vpiActual:
+                  \_bit_select: (write_command_queue_slave)
+                    |vpiName:write_command_queue_slave
+                    |vpiIndex:
+                    \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id), line:700, parent:work@test_program.get_expected_command_for_slave
+                      |vpiName:slave_id
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                  |vpiActual:
+                  \_ref_obj: (pop_front)
+                    |vpiName:pop_front
         |vpiElseStmt:
         \_begin: (work@test_program.get_expected_command_for_slave), line:702
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -8907,13 +8987,23 @@ design: (work@top)
                 \_operation: , line:705
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd.addr), line:705
+                  \_hier_path: (exp_cmd.addr), line:705
                     |vpiName:exp_cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (exp_cmd)
+                      |vpiName:exp_cmd
+                    |vpiActual:
+                    \_ref_obj: (addr)
+                      |vpiName:addr
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.addr), line:705
+                  \_hier_path: (cmd.addr), line:705
                     |vpiName:cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (cmd)
+                      |vpiName:cmd
+                    |vpiActual:
+                    \_ref_obj: (addr)
+                      |vpiName:addr
                 |vpiStmt:
                 \_begin: (work@test_program.get_expected_command_for_slave), line:705
                   |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -8969,13 +9059,18 @@ design: (work@top)
                   |vpiName:exp_cmd
                   |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
                 |vpiRhs:
-                \_bit_select: (work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front), line:712, parent:work@test_program.get_expected_command_for_slave
-                  |vpiName:read_command_queue_slave.pop_front
-                  |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front
-                  |vpiIndex:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id), line:712, parent:work@test_program.get_expected_command_for_slave
-                    |vpiName:slave_id
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                \_hier_path: (read_command_queue_slave[slave_id].pop_front), line:712, parent:work@test_program.get_expected_command_for_slave
+                  |vpiName:read_command_queue_slave[slave_id].pop_front
+                  |vpiActual:
+                  \_bit_select: (read_command_queue_slave)
+                    |vpiName:read_command_queue_slave
+                    |vpiIndex:
+                    \_ref_obj: (work@test_program.get_expected_command_for_slave.slave_id), line:712, parent:work@test_program.get_expected_command_for_slave
+                      |vpiName:slave_id
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
+                  |vpiActual:
+                  \_ref_obj: (pop_front)
+                    |vpiName:pop_front
       |vpiStmt:
       \_return_stmt: , line:716, parent:work@test_program.get_expected_command_for_slave
         |vpiCondition:
@@ -9142,9 +9237,14 @@ design: (work@top)
         \_operation: , line:779
           |vpiOpType:12
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_expected_read_response.cmd.addr), line:779
+          \_hier_path: (cmd.addr), line:779
             |vpiName:cmd.addr
-            |vpiFullName:work@test_program.get_expected_read_response.cmd.addr
+            |vpiActual:
+            \_ref_obj: (cmd)
+              |vpiName:cmd
+            |vpiActual:
+            \_ref_obj: (addr)
+              |vpiName:addr
           |vpiOperand:
           \_ref_obj: (work@test_program.get_expected_read_response.SLAVE_SPAN), line:779
             |vpiName:SLAVE_SPAN
@@ -9168,13 +9268,18 @@ design: (work@top)
             |vpiName:rsp
             |vpiFullName:work@test_program.get_expected_read_response.rsp
         |vpiRhs:
-        \_bit_select: (work@test_program.get_expected_read_response.read_response_queue_slave.pop_front), line:781, parent:work@test_program.get_expected_read_response
-          |vpiName:read_response_queue_slave.pop_front
-          |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front
-          |vpiIndex:
-          \_ref_obj: (work@test_program.get_expected_read_response.slave_id), line:781, parent:work@test_program.get_expected_read_response
-            |vpiName:slave_id
-            |vpiFullName:work@test_program.get_expected_read_response.slave_id
+        \_hier_path: (read_response_queue_slave[slave_id].pop_front), line:781, parent:work@test_program.get_expected_read_response
+          |vpiName:read_response_queue_slave[slave_id].pop_front
+          |vpiActual:
+          \_bit_select: (read_response_queue_slave)
+            |vpiName:read_response_queue_slave
+            |vpiIndex:
+            \_ref_obj: (work@test_program.get_expected_read_response.slave_id), line:781, parent:work@test_program.get_expected_read_response
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_read_response.slave_id
+          |vpiActual:
+          \_ref_obj: (pop_front)
+            |vpiName:pop_front
       |vpiStmt:
       \_return_stmt: , line:783, parent:work@test_program.get_expected_read_response
         |vpiCondition:
@@ -9322,6 +9427,7 @@ design: (work@top)
               \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
                 |vpiName:ADDR_W
                 |vpiFullName:work@test_program.ADDR_W
+                |vpiLocalParam:1
                 |INT:13
             |vpiOperand:
             \_constant: , line:49
@@ -9353,6 +9459,7 @@ design: (work@top)
               \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
                 |vpiName:DATA_W
                 |vpiFullName:work@test_program.DATA_W
+                |vpiLocalParam:1
                 |INT:32
             |vpiOperand:
             \_constant: , line:50
@@ -9571,6 +9678,7 @@ design: (work@top)
         \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
           |vpiName:SYMBOL_W
           |vpiFullName:work@test_program.SYMBOL_W
+          |vpiLocalParam:1
           |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
@@ -9825,15 +9933,20 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
           |vpiRhs:
-          \_bit_select: (work@test_program.read_command_queue_master.pop_front), line:254
-            |vpiName:read_command_queue_master.pop_front
-            |vpiFullName:work@test_program.read_command_queue_master.pop_front
-            |vpiIndex:
-            \_constant: , line:254, parent:work@test_program.read_command_queue_master.pop_front
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:32
-              |INT:0
+          \_hier_path: (read_command_queue_master[0].pop_front), line:254
+            |vpiName:read_command_queue_master[0].pop_front
+            |vpiActual:
+            \_bit_select: (read_command_queue_master), parent:read_command_queue_master[0].pop_front
+              |vpiName:read_command_queue_master
+              |vpiIndex:
+              \_constant: , line:254, parent:read_command_queue_master
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+            |vpiActual:
+            \_ref_obj: (pop_front), parent:read_command_queue_master[0].pop_front
+              |vpiName:pop_front
         |vpiStmt:
         \_assignment: , line:255, parent:work@test_program
           |vpiOpType:82
@@ -9945,6 +10058,7 @@ design: (work@top)
               \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
                 |vpiName:MAX_BURST
                 |vpiFullName:work@test_program.MAX_BURST
+                |vpiLocalParam:1
                 |INT:8
           |vpiForInitStmt:
           \_assign_stmt: , parent:work@test_program
@@ -9993,6 +10107,7 @@ design: (work@top)
                   \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
                     |vpiName:MAX_COMMAND_BACKPRESSURE
                     |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
+                    |vpiLocalParam:1
                     |INT:2
             |vpiStmt:
             \_func_call: ($root.tb.dut.slave_0.set_interface_wait_time), line:292, parent:work@test_program
@@ -10058,9 +10173,14 @@ design: (work@top)
           \_operation: , line:300
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@test_program.actual_cmd.trans), line:300
+            \_hier_path: (actual_cmd.trans), line:300
               |vpiName:actual_cmd.trans
-              |vpiFullName:work@test_program.actual_cmd.trans
+              |vpiActual:
+              \_ref_obj: (actual_cmd), parent:actual_cmd.trans
+                |vpiName:actual_cmd
+              |vpiActual:
+              \_ref_obj: (trans), parent:actual_cmd.trans
+                |vpiName:trans
             |vpiOperand:
             \_ref_obj: (work@test_program.READ), line:300
               |vpiName:READ
@@ -10086,9 +10206,14 @@ design: (work@top)
                 |vpiFunction:
                 \_function: (work@test_program.create_response), line:759, parent:work@test_program
                 |vpiArgument:
-                \_ref_obj: (work@test_program.actual_cmd.burstcount), line:301, parent:create_response
+                \_hier_path: (actual_cmd.burstcount), line:301, parent:create_response
                   |vpiName:actual_cmd.burstcount
-                  |vpiFullName:work@test_program.actual_cmd.burstcount
+                  |vpiActual:
+                  \_ref_obj: (actual_cmd), parent:actual_cmd.burstcount
+                    |vpiName:actual_cmd
+                  |vpiActual:
+                  \_ref_obj: (burstcount), parent:actual_cmd.burstcount
+                    |vpiName:burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_0), line:302, parent:work@test_program
               |vpiName:configure_and_push_response_to_slave_0
@@ -10187,6 +10312,7 @@ design: (work@top)
                                 \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
                                   |vpiName:DATA_W
                                   |vpiFullName:work@test_program.DATA_W
+                                  |vpiLocalParam:1
                                   |INT:32
                               |vpiOperand:
                               \_constant: , line:59
@@ -10343,15 +10469,20 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
           |vpiRhs:
-          \_bit_select: (work@test_program.read_command_queue_master.pop_front), line:397
-            |vpiName:read_command_queue_master.pop_front
-            |vpiFullName:work@test_program.read_command_queue_master.pop_front
-            |vpiIndex:
-            \_constant: , line:397, parent:work@test_program.read_command_queue_master.pop_front
-              |vpiConstType:7
-              |vpiDecompile:1
-              |vpiSize:32
-              |INT:1
+          \_hier_path: (read_command_queue_master[1].pop_front), line:397
+            |vpiName:read_command_queue_master[1].pop_front
+            |vpiActual:
+            \_bit_select: (read_command_queue_master), parent:read_command_queue_master[1].pop_front
+              |vpiName:read_command_queue_master
+              |vpiIndex:
+              \_constant: , line:397, parent:read_command_queue_master
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
+            |vpiActual:
+            \_ref_obj: (pop_front), parent:read_command_queue_master[1].pop_front
+              |vpiName:pop_front
         |vpiStmt:
         \_assignment: , line:398, parent:work@test_program
           |vpiOpType:82
@@ -10570,9 +10701,14 @@ design: (work@top)
           \_operation: , line:443
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (work@test_program.actual_cmd.trans), line:443
+            \_hier_path: (actual_cmd.trans), line:443
               |vpiName:actual_cmd.trans
-              |vpiFullName:work@test_program.actual_cmd.trans
+              |vpiActual:
+              \_ref_obj: (actual_cmd), parent:actual_cmd.trans
+                |vpiName:actual_cmd
+              |vpiActual:
+              \_ref_obj: (trans), parent:actual_cmd.trans
+                |vpiName:trans
             |vpiOperand:
             \_ref_obj: (work@test_program.READ), line:443
               |vpiName:READ
@@ -10596,9 +10732,14 @@ design: (work@top)
                 |vpiFunction:
                 \_function: (work@test_program.create_response), line:759, parent:work@test_program
                 |vpiArgument:
-                \_ref_obj: (work@test_program.actual_cmd.burstcount), line:444, parent:create_response
+                \_hier_path: (actual_cmd.burstcount), line:444, parent:create_response
                   |vpiName:actual_cmd.burstcount
-                  |vpiFullName:work@test_program.actual_cmd.burstcount
+                  |vpiActual:
+                  \_ref_obj: (actual_cmd), parent:actual_cmd.burstcount
+                    |vpiName:actual_cmd
+                  |vpiActual:
+                  \_ref_obj: (burstcount), parent:actual_cmd.burstcount
+                    |vpiName:burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_1), line:445, parent:work@test_program
               |vpiName:configure_and_push_response_to_slave_1
@@ -10888,9 +11029,18 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_0.i
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_read_response_from_master_0.rsp.burstcount), line:272
+          \_hier_path: (rsp.burstcount), line:272
             |vpiName:rsp.burstcount
-            |vpiFullName:work@test_program.get_read_response_from_master_0.rsp.burstcount
+            |vpiActual:
+            \_ref_obj: (rsp), parent:rsp.burstcount
+              |vpiName:rsp
+              |vpiActual:
+              \_chandle_var: (work@test_program.get_read_response_from_master_0.rsp), line:268
+                |vpiName:rsp
+                |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
+            |vpiActual:
+            \_ref_obj: (burstcount), parent:rsp.burstcount
+              |vpiName:burstcount
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@test_program.get_read_response_from_master_0
           |vpiRhs:
@@ -10937,8 +11087,6 @@ design: (work@top)
           |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
           |vpiActual:
           \_chandle_var: (work@test_program.get_read_response_from_master_0.rsp), line:268
-            |vpiName:rsp
-            |vpiFullName:work@test_program.get_read_response_from_master_0.rsp
     |vpiVariables:
     \_chandle_var: (work@test_program.get_read_response_from_master_0.rsp), line:268, parent:work@test_program.get_read_response_from_master_0
       |vpiName:rsp
@@ -11022,9 +11170,18 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_0.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.get_command_from_slave_0.cmd.burstcount), line:319
+              \_hier_path: (cmd.burstcount), line:319
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.get_command_from_slave_0.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd), parent:cmd.burstcount
+                  |vpiName:cmd
+                  |vpiActual:
+                  \_chandle_var: (work@test_program.get_command_from_slave_0.cmd), line:311
+                    |vpiName:cmd
+                    |vpiFullName:work@test_program.get_command_from_slave_0.cmd
+                |vpiActual:
+                \_ref_obj: (burstcount), parent:cmd.burstcount
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.get_command_from_slave_0
               |vpiRhs:
@@ -11104,8 +11261,6 @@ design: (work@top)
           |vpiFullName:work@test_program.get_command_from_slave_0.cmd
           |vpiActual:
           \_chandle_var: (work@test_program.get_command_from_slave_0.cmd), line:311
-            |vpiName:cmd
-            |vpiFullName:work@test_program.get_command_from_slave_0.cmd
     |vpiVariables:
     \_chandle_var: (work@test_program.get_command_from_slave_0.cmd), line:311, parent:work@test_program.get_command_from_slave_0
       |vpiName:cmd
@@ -11161,9 +11316,18 @@ design: (work@top)
             |vpiName:i
             |vpiFullName:work@test_program.get_read_response_from_master_1.i
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_read_response_from_master_1.rsp.burstcount), line:415
+          \_hier_path: (rsp.burstcount), line:415
             |vpiName:rsp.burstcount
-            |vpiFullName:work@test_program.get_read_response_from_master_1.rsp.burstcount
+            |vpiActual:
+            \_ref_obj: (rsp), parent:rsp.burstcount
+              |vpiName:rsp
+              |vpiActual:
+              \_chandle_var: (work@test_program.get_read_response_from_master_1.rsp), line:411
+                |vpiName:rsp
+                |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
+            |vpiActual:
+            \_ref_obj: (burstcount), parent:rsp.burstcount
+              |vpiName:burstcount
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@test_program.get_read_response_from_master_1
           |vpiRhs:
@@ -11210,8 +11374,6 @@ design: (work@top)
           |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
           |vpiActual:
           \_chandle_var: (work@test_program.get_read_response_from_master_1.rsp), line:411
-            |vpiName:rsp
-            |vpiFullName:work@test_program.get_read_response_from_master_1.rsp
     |vpiVariables:
     \_chandle_var: (work@test_program.get_read_response_from_master_1.rsp), line:411, parent:work@test_program.get_read_response_from_master_1
       |vpiName:rsp
@@ -11295,9 +11457,18 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.get_command_from_slave_1.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.get_command_from_slave_1.cmd.burstcount), line:462
+              \_hier_path: (cmd.burstcount), line:462
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.get_command_from_slave_1.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd), parent:cmd.burstcount
+                  |vpiName:cmd
+                  |vpiActual:
+                  \_chandle_var: (work@test_program.get_command_from_slave_1.cmd), line:454
+                    |vpiName:cmd
+                    |vpiFullName:work@test_program.get_command_from_slave_1.cmd
+                |vpiActual:
+                \_ref_obj: (burstcount), parent:cmd.burstcount
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.get_command_from_slave_1
               |vpiRhs:
@@ -11377,8 +11548,6 @@ design: (work@top)
           |vpiFullName:work@test_program.get_command_from_slave_1.cmd
           |vpiActual:
           \_chandle_var: (work@test_program.get_command_from_slave_1.cmd), line:454
-            |vpiName:cmd
-            |vpiFullName:work@test_program.get_command_from_slave_1.cmd
     |vpiVariables:
     \_chandle_var: (work@test_program.get_command_from_slave_1.cmd), line:454, parent:work@test_program.get_command_from_slave_1
       |vpiName:cmd
@@ -11540,6 +11709,7 @@ design: (work@top)
             \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
               |vpiName:MAX_COMMAND_IDLE
               |vpiFullName:work@test_program.MAX_COMMAND_IDLE
+              |vpiLocalParam:1
               |INT:5
       |vpiStmt:
       \_if_else: , line:588, parent:work@test_program.create_command
@@ -11572,9 +11742,18 @@ design: (work@top)
                 |vpiName:i
                 |vpiFullName:work@test_program.create_command.i
               |vpiOperand:
-              \_ref_obj: (work@test_program.create_command.cmd.burstcount), line:589
+              \_hier_path: (cmd.burstcount), line:589
                 |vpiName:cmd.burstcount
-                |vpiFullName:work@test_program.create_command.cmd.burstcount
+                |vpiActual:
+                \_ref_obj: (cmd), parent:cmd.burstcount
+                  |vpiName:cmd
+                  |vpiActual:
+                  \_chandle_var: (work@test_program.create_command.cmd), line:576
+                    |vpiName:cmd
+                    |vpiFullName:work@test_program.create_command.cmd
+                |vpiActual:
+                \_ref_obj: (burstcount), parent:cmd.burstcount
+                  |vpiName:burstcount
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@test_program.create_command
               |vpiRhs:
@@ -11635,14 +11814,15 @@ design: (work@top)
                     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
                       |vpiName:NUM_SYMBOLS
                       |vpiFullName:work@test_program.NUM_SYMBOLS
+                      |vpiLocalParam:1
                       |INT:4
                   |vpiOperand:
-                  \_operation: 
+                  \_operation: , line:591
                     |vpiOpType:33
                     |vpiOperand:
                     \_constant: , line:591
                       |vpiConstType:3
-                      |vpiDecompile:'b1
+                      |vpiDecompile:1'b1
                       |vpiSize:1
                       |BIN:1
               |vpiStmt:
@@ -11674,6 +11854,7 @@ design: (work@top)
                     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
                       |vpiName:MAX_DATA_IDLE
                       |vpiFullName:work@test_program.MAX_DATA_IDLE
+                      |vpiLocalParam:1
                       |INT:3
         |vpiElseStmt:
         \_begin: (work@test_program.create_command), line:594
@@ -11715,8 +11896,6 @@ design: (work@top)
           |vpiFullName:work@test_program.create_command.cmd
           |vpiActual:
           \_chandle_var: (work@test_program.create_command.cmd), line:576
-            |vpiName:cmd
-            |vpiFullName:work@test_program.create_command.cmd
     |vpiVariables:
     \_chandle_var: (work@test_program.create_command.cmd), line:576, parent:work@test_program.create_command
       |vpiName:cmd
@@ -11843,6 +12022,7 @@ design: (work@top)
             \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
               |vpiName:SLAVE_SPAN
               |vpiFullName:work@test_program.SLAVE_SPAN
+              |vpiLocalParam:1
               |INT:4096
       |vpiStmt:
       \_assignment: , line:615, parent:work@test_program.generate_random_aligned_address
@@ -12220,9 +12400,18 @@ design: (work@top)
         \_operation: , line:690
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.trans), line:690
+          \_hier_path: (cmd.trans), line:690
             |vpiName:cmd.trans
-            |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.trans
+            |vpiActual:
+            \_ref_obj: (cmd), parent:cmd.trans
+              |vpiName:cmd
+              |vpiActual:
+              \_chandle_var: (cmd.Command), line:683, parent:cmd
+                |vpiName:Command
+                |vpiFullName:cmd.Command
+            |vpiActual:
+            \_ref_obj: (trans), parent:cmd.trans
+              |vpiName:trans
           |vpiOperand:
           \_ref_obj: (work@test_program.get_expected_command_for_slave.WRITE), line:690
             |vpiName:WRITE
@@ -12279,13 +12468,27 @@ design: (work@top)
                 \_operation: , line:693
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd.addr), line:693
+                  \_hier_path: (exp_cmd.addr), line:693
                     |vpiName:exp_cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (exp_cmd), parent:exp_cmd.addr
+                      |vpiName:exp_cmd
+                      |vpiActual:
+                      \_chandle_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687
+                    |vpiActual:
+                    \_ref_obj: (addr), parent:exp_cmd.addr
+                      |vpiName:addr
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.addr), line:693
+                  \_hier_path: (cmd.addr), line:693
                     |vpiName:cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (cmd), parent:cmd.addr
+                      |vpiName:cmd
+                      |vpiActual:
+                      \_chandle_var: (cmd.Command), line:683, parent:cmd
+                    |vpiActual:
+                    \_ref_obj: (addr), parent:cmd.addr
+                      |vpiName:addr
                 |vpiStmt:
                 \_begin: (work@test_program.get_expected_command_for_slave), line:693
                   |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -12371,6 +12574,7 @@ design: (work@top)
                                       \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
                                         |vpiName:ADDR_W
                                         |vpiFullName:work@test_program.ADDR_W
+                                        |vpiLocalParam:1
                                         |INT:13
                                     |vpiOperand:
                                     \_constant: , line:49
@@ -12554,15 +12758,20 @@ design: (work@top)
                   |vpiActual:
                   \_chandle_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687
                 |vpiRhs:
-                \_bit_select: (work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front), line:700
-                  |vpiName:write_command_queue_slave.pop_front
-                  |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front
-                  |vpiIndex:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front.slave_id), line:700, parent:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front
-                    |vpiName:slave_id
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front.slave_id
-                    |vpiActual:
-                    \_int_var: (slave_id), line:684, parent:slave_id
+                \_hier_path: (write_command_queue_slave[slave_id].pop_front), line:700
+                  |vpiName:write_command_queue_slave[slave_id].pop_front
+                  |vpiActual:
+                  \_bit_select: (write_command_queue_slave), parent:write_command_queue_slave[slave_id].pop_front
+                    |vpiName:write_command_queue_slave
+                    |vpiIndex:
+                    \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave[slave_id].pop_front.write_command_queue_slave.slave_id), line:700, parent:write_command_queue_slave
+                      |vpiName:slave_id
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave[slave_id].pop_front.write_command_queue_slave.slave_id
+                      |vpiActual:
+                      \_int_var: (slave_id), line:684, parent:slave_id
+                  |vpiActual:
+                  \_ref_obj: (pop_front), parent:write_command_queue_slave[slave_id].pop_front
+                    |vpiName:pop_front
         |vpiElseStmt:
         \_begin: (work@test_program.get_expected_command_for_slave), line:702
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -12610,13 +12819,27 @@ design: (work@top)
                 \_operation: , line:705
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.exp_cmd.addr), line:705
+                  \_hier_path: (exp_cmd.addr), line:705
                     |vpiName:exp_cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (exp_cmd), parent:exp_cmd.addr
+                      |vpiName:exp_cmd
+                      |vpiActual:
+                      \_chandle_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687
+                    |vpiActual:
+                    \_ref_obj: (addr), parent:exp_cmd.addr
+                      |vpiName:addr
                   |vpiOperand:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.cmd.addr), line:705
+                  \_hier_path: (cmd.addr), line:705
                     |vpiName:cmd.addr
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.addr
+                    |vpiActual:
+                    \_ref_obj: (cmd), parent:cmd.addr
+                      |vpiName:cmd
+                      |vpiActual:
+                      \_chandle_var: (cmd.Command), line:683, parent:cmd
+                    |vpiActual:
+                    \_ref_obj: (addr), parent:cmd.addr
+                      |vpiName:addr
                 |vpiStmt:
                 \_begin: (work@test_program.get_expected_command_for_slave), line:705
                   |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -12718,15 +12941,20 @@ design: (work@top)
                   |vpiActual:
                   \_chandle_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687
                 |vpiRhs:
-                \_bit_select: (work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front), line:712
-                  |vpiName:read_command_queue_slave.pop_front
-                  |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front
-                  |vpiIndex:
-                  \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front.slave_id), line:712, parent:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front
-                    |vpiName:slave_id
-                    |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front.slave_id
-                    |vpiActual:
-                    \_int_var: (slave_id), line:684, parent:slave_id
+                \_hier_path: (read_command_queue_slave[slave_id].pop_front), line:712
+                  |vpiName:read_command_queue_slave[slave_id].pop_front
+                  |vpiActual:
+                  \_bit_select: (read_command_queue_slave), parent:read_command_queue_slave[slave_id].pop_front
+                    |vpiName:read_command_queue_slave
+                    |vpiIndex:
+                    \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave[slave_id].pop_front.read_command_queue_slave.slave_id), line:712, parent:read_command_queue_slave
+                      |vpiName:slave_id
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave[slave_id].pop_front.read_command_queue_slave.slave_id
+                      |vpiActual:
+                      \_int_var: (slave_id), line:684, parent:slave_id
+                  |vpiActual:
+                  \_ref_obj: (pop_front), parent:read_command_queue_slave[slave_id].pop_front
+                    |vpiName:pop_front
       |vpiStmt:
       \_return_stmt: , line:716, parent:work@test_program.get_expected_command_for_slave
         |vpiCondition:
@@ -12907,9 +13135,18 @@ design: (work@top)
         \_operation: , line:779
           |vpiOpType:12
           |vpiOperand:
-          \_ref_obj: (work@test_program.get_expected_read_response.cmd.addr), line:779
+          \_hier_path: (cmd.addr), line:779
             |vpiName:cmd.addr
-            |vpiFullName:work@test_program.get_expected_read_response.cmd.addr
+            |vpiActual:
+            \_ref_obj: (cmd), parent:cmd.addr
+              |vpiName:cmd
+              |vpiActual:
+              \_chandle_var: (cmd.Command), line:775, parent:cmd
+                |vpiName:Command
+                |vpiFullName:cmd.Command
+            |vpiActual:
+            \_ref_obj: (addr), parent:cmd.addr
+              |vpiName:addr
           |vpiOperand:
           \_ref_obj: (work@test_program.get_expected_read_response.SLAVE_SPAN), line:779
             |vpiName:SLAVE_SPAN
@@ -12933,13 +13170,18 @@ design: (work@top)
             |vpiName:rsp
             |vpiFullName:work@test_program.get_expected_read_response.rsp
         |vpiRhs:
-        \_bit_select: (work@test_program.get_expected_read_response.read_response_queue_slave.pop_front), line:781
-          |vpiName:read_response_queue_slave.pop_front
-          |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front
-          |vpiIndex:
-          \_ref_obj: (work@test_program.get_expected_read_response.read_response_queue_slave.pop_front.slave_id), line:781, parent:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front
-            |vpiName:slave_id
-            |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front.slave_id
+        \_hier_path: (read_response_queue_slave[slave_id].pop_front), line:781
+          |vpiName:read_response_queue_slave[slave_id].pop_front
+          |vpiActual:
+          \_bit_select: (read_response_queue_slave), parent:read_response_queue_slave[slave_id].pop_front
+            |vpiName:read_response_queue_slave
+            |vpiIndex:
+            \_ref_obj: (work@test_program.get_expected_read_response.read_response_queue_slave[slave_id].pop_front.read_response_queue_slave.slave_id), line:781, parent:read_response_queue_slave
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave[slave_id].pop_front.read_response_queue_slave.slave_id
+          |vpiActual:
+          \_ref_obj: (pop_front), parent:read_response_queue_slave[slave_id].pop_front
+            |vpiName:pop_front
       |vpiStmt:
       \_return_stmt: , line:783, parent:work@test_program.get_expected_read_response
         |vpiCondition:
@@ -13085,6 +13327,7 @@ design: (work@top)
           \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
             |vpiName:BURST_W
             |vpiFullName:work@test_program.BURST_W
+            |vpiLocalParam:1
             |INT:4
         |vpiOperand:
         \_constant: , line:31
@@ -13439,9 +13682,6 @@ design: (work@top)
       |INT:13
     |vpiLhs:
     \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
-      |vpiName:ADDR_W
-      |vpiFullName:work@test_program.ADDR_W
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:15, parent:work@test_program
     |vpiRhs:
@@ -13455,6 +13695,7 @@ design: (work@top)
       |vpiName:SYMBOL_W
       |vpiFullName:work@test_program.SYMBOL_W
       |vpiLocalParam:1
+      |INT:8
   |vpiParamAssign:
   \_param_assign: , line:16, parent:work@test_program
     |vpiRhs:
@@ -13465,9 +13706,6 @@ design: (work@top)
       |INT:4
     |vpiLhs:
     \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
-      |vpiName:NUM_SYMBOLS
-      |vpiFullName:work@test_program.NUM_SYMBOLS
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:17, parent:work@test_program
     |vpiRhs:
@@ -13478,9 +13716,6 @@ design: (work@top)
       |INT:32
     |vpiLhs:
     \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
-      |vpiName:DATA_W
-      |vpiFullName:work@test_program.DATA_W
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:19, parent:work@test_program
     |vpiRhs:
@@ -13491,9 +13726,6 @@ design: (work@top)
       |INT:4
     |vpiLhs:
     \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
-      |vpiName:BURST_W
-      |vpiFullName:work@test_program.BURST_W
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:20, parent:work@test_program
     |vpiRhs:
@@ -13504,9 +13736,6 @@ design: (work@top)
       |INT:8
     |vpiLhs:
     \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
-      |vpiName:MAX_BURST
-      |vpiFullName:work@test_program.MAX_BURST
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:22, parent:work@test_program
     |vpiRhs:
@@ -13517,9 +13746,6 @@ design: (work@top)
       |INT:4096
     |vpiLhs:
     \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
-      |vpiName:SLAVE_SPAN
-      |vpiFullName:work@test_program.SLAVE_SPAN
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:24, parent:work@test_program
     |vpiRhs:
@@ -13530,9 +13756,6 @@ design: (work@top)
       |INT:5
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
-      |vpiName:MAX_COMMAND_IDLE
-      |vpiFullName:work@test_program.MAX_COMMAND_IDLE
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:25, parent:work@test_program
     |vpiRhs:
@@ -13543,9 +13766,6 @@ design: (work@top)
       |INT:2
     |vpiLhs:
     \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
-      |vpiName:MAX_COMMAND_BACKPRESSURE
-      |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:26, parent:work@test_program
     |vpiRhs:
@@ -13556,32 +13776,26 @@ design: (work@top)
       |INT:3
     |vpiLhs:
     \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
-      |vpiName:MAX_DATA_IDLE
-      |vpiFullName:work@test_program.MAX_DATA_IDLE
-      |vpiLocalParam:1
   |vpiParameter:
   \_parameter: (work@test_program.ADDR_W), line:13, parent:work@test_program
   |vpiParameter:
-  \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
-  |vpiParameter:
-  \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
+  \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
   |vpiParameter:
   \_parameter: (work@test_program.NUM_SYMBOLS), line:16, parent:work@test_program
   |vpiParameter:
+  \_parameter: (work@test_program.DATA_W), line:17, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.BURST_W), line:19, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.MAX_BURST), line:20, parent:work@test_program
+  |vpiParameter:
   \_parameter: (work@test_program.SLAVE_SPAN), line:22, parent:work@test_program
   |vpiParameter:
-  \_parameter: (work@test_program.SYMBOL_W), line:15, parent:work@test_program
-    |vpiName:SYMBOL_W
-    |vpiFullName:work@test_program.SYMBOL_W
-    |INT:8
+  \_parameter: (work@test_program.MAX_COMMAND_IDLE), line:24, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.MAX_COMMAND_BACKPRESSURE), line:25, parent:work@test_program
+  |vpiParameter:
+  \_parameter: (work@test_program.MAX_DATA_IDLE), line:26, parent:work@test_program
 |uhdmtopModules:
 \_module: work@test_program1 (work@test_program1) dut.sv:800: 
   |vpiDefName:work@test_program1

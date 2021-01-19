@@ -113,7 +113,7 @@ bool CompilePackage::collectObjects_() {
     for (auto pack_import : pack_imports) {
       const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
-      m_helper.importPackage(m_package, m_design, pack_fC, pack_id);
+      m_helper.importPackage(m_package, m_design, pack_fC, pack_id, m_compileDesign);
     }
 
     std::stack<NodeId> stack;
@@ -125,7 +125,7 @@ bool CompilePackage::collectObjects_() {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
-          m_helper.importPackage(m_package, m_design, fC, id);
+          m_helper.importPackage(m_package, m_design, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
@@ -167,26 +167,6 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slParam_assignment: {
-          NodeId ident = fC->Child(id);
-          std::string name = fC->SymName(ident);
-          NodeId val = fC->Sibling(ident);
-          while(fC->Type(val) == slUnpacked_dimension) {
-            val = fC->Sibling(val);
-          }
-          Value* value = m_package->m_exprBuilder.evalExpr(fC, val, m_package, true); // Errors muted
-          if (value->isValid()) {   
-            m_package->setValue(name, value, m_package->m_exprBuilder);
-          } else {
-            UHDM::any* expr = m_helper.compileExpression(m_package, fC, val, m_compileDesign, nullptr, nullptr, true);
-            if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
-              UHDM::constant* c = (UHDM::constant*) expr;
-              value = m_package->m_exprBuilder.fromVpiValue(c->VpiValue());
-              m_package->setValue(name, value, m_package->m_exprBuilder);
-            } else {
-              value = m_package->m_exprBuilder.evalExpr(fC, val, m_package); // This call to create an error
-              m_package->setValue(name, value, m_package->m_exprBuilder);
-            }
-          }
           FileCNodeId fnid(fC, id);
           m_package->addObject(type, fnid);
           break;

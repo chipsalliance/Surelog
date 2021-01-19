@@ -1583,9 +1583,11 @@ Processing: -cd simple process.v -writepp -parse -nocache -nobuiltin -nonote -no
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple generate.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l generate.v.log
+[ERR:EL0531] generate.v:105: Negative value in instance work@gen_test4 (0 - 1).
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple constpower.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l constpower.v.log
@@ -2047,7 +2049,7 @@ Processing: -cd simple defvalue.sv -writepp -parse -nocache -nobuiltin -nonote -
 Processed 281 tests.
 [  FATAL] : 0
 [ SYNTAX] : 36
-[  ERROR] : 19
+[  ERROR] : 20
 [WARNING] : 83
 [   NOTE] : 0
 

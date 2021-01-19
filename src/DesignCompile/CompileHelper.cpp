@@ -46,12 +46,15 @@
 #include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
+#include "ElaboratorListener.h"
+#include "clone_tree.h"
 
 using namespace SURELOG;
 using namespace UHDM;
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
-                                  const FileContent* fC, NodeId id) {
+                                  const FileContent* fC, NodeId id, CompileDesign* compileDesign) {
+  Serializer& s = compileDesign->getSerializer();
   FileCNodeId fnid(fC, id);
   scope->addObject(VObjectType::slPackage_import_item, fnid);
 
@@ -84,6 +87,72 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       if (val) {
         scope->setValue(var.first, val, *def->getExprBuilder());
       }
+    }
+
+    // Type parameters
+    auto& paramSet = def->getParameterMap();
+    for (auto& param : paramSet) {
+      Parameter* orig = param.second;
+      Parameter* clone = new Parameter(*orig);
+      clone->setImportedPackage(pack_name);
+      scope->insertParameter(clone);
+      UHDM::any* p = orig->getUhdmParam();
+
+      UHDM::VectorOfany* parameters = scope->getParameters();
+      if (parameters == nullptr) {
+        scope->setParameters(s.MakeAnyVec());
+        parameters = scope->getParameters();
+      }
+
+      if (p) {
+        ElaboratorListener listener(&s);
+        any* pclone = UHDM::clone_tree(p, s, &listener);
+        if (pclone->UhdmType() == uhdmtype_parameter) {
+          type_parameter* the_p = (type_parameter*) pclone;
+          the_p->VpiImported(pack_name);
+        } else {
+          parameter* the_p = (parameter*) pclone;
+          the_p->VpiImported(pack_name);
+        }
+        parameters->push_back(pclone);
+        clone->setUhdmParam(pclone);
+      }
+    }
+
+    // Regular parameter
+    auto& params = def->getParamAssignVec();
+    for (ParamAssign* orig : params) {
+      ParamAssign* clone = new ParamAssign(*orig);
+      scope->addParamAssign(clone);
+      UHDM::param_assign* pass = clone->getUhdmParamAssign();
+
+      UHDM::VectorOfparam_assign* param_assigns = scope->getParam_assigns();
+      if (param_assigns == nullptr) {
+        scope->setParam_assigns(s.MakeParam_assignVec());
+        param_assigns = scope->getParam_assigns();
+      }
+      UHDM::VectorOfany* parameters = scope->getParameters();
+      if (parameters == nullptr) {
+        scope->setParameters(s.MakeAnyVec());
+        parameters = scope->getParameters();
+      }
+
+      ElaboratorListener listener(&s);
+      UHDM::param_assign* cpass = (UHDM::param_assign*) UHDM::clone_tree(pass, s, &listener);
+      clone->setUhdmParamAssign(cpass);
+      param_assigns->push_back(cpass);
+      UHDM::any* orig_p = (UHDM::any*) cpass->Lhs();
+      UHDM::any* pclone = UHDM::clone_tree(orig_p, s, &listener);
+      cpass->Lhs(pclone);
+      if (pclone->UhdmType() == uhdmparameter) {
+        parameter* the_p = (parameter*)pclone;
+        the_p->VpiImported(pack_name);
+      }
+    }
+
+    auto& values = def->getMappedValues();
+    for (auto& mvalue : values) {
+      scope->setValue(mvalue.first, mvalue.second.first, *def->getExprBuilder(), mvalue.second.second);
     }
 
   } else {
@@ -408,7 +477,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       NodeId enumValueId = fC->Sibling(enumNameId);
       Value* value = NULL;
       if (enumValueId) {
-        value = m_exprBuilder.evalExpr(fC, enumValueId, NULL);
+        value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
       } else {
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 32);
@@ -968,6 +1037,10 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
       for (Signal* port : module->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           found = true;
+          NodeId unpacked_dimension = fC->Sibling(signal);
+          if (fC->Type(unpacked_dimension) == slUnpacked_dimension) {
+            port->setUnpackedDimension(unpacked_dimension);
+          }
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit) {
@@ -987,12 +1060,17 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         component->getSignals().push_back(sig);
       }
       signal = fC->Sibling(signal);
+
       while (fC->Type(signal) == VObjectType::slVariable_dimension) {
         signal = fC->Sibling(signal);
       }
 
       if (fC->Type(signal) == VObjectType::slConstant_expression) {
         signal = fC->Sibling(signal);
+      }
+
+      if (fC->Type(signal) == slUnpacked_dimension) {
+        break;
       }
     }
     return;
@@ -1320,12 +1398,15 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       List_of_net_decl_assignments = net;
     }
   }
+  /*
   if (nettype == VObjectType::slIntVec_TypeLogic ||
       nettype == VObjectType::slNetType_Wire ||
       nettype == VObjectType::slIntVec_TypeReg )
     compileContinuousAssignment(component, fC, List_of_net_decl_assignments, compileDesign);
-
+*/
+  NodeId delay = 0;
   if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
+    delay = List_of_net_decl_assignments;
     List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
@@ -1351,11 +1432,13 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       Signal* sig = new Signal(fC, signal, NetType, subnettype, Unpacked_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
+      sig->setDelay(delay);
       component->getSignals().push_back(sig);
     } else {
       Signal* sig = new Signal(fC, signal, nettype, slNoType, Packed_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
+      sig->setDelay(delay);
       component->getSignals().push_back(sig);
     }
 
@@ -1740,6 +1823,26 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
   return true;
 }
 
+bool CompileHelper::isMultidimensional(UHDM::typespec* ts) {
+  bool isMultiDimension = false;
+  if (ts) {
+    if (ts->UhdmType() == uhdmlogic_typespec) {
+      logic_typespec* lts = (logic_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmarray_typespec) {
+      array_typespec* lts = (array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
+      packed_array_typespec* lts = (packed_array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    } else if (ts->UhdmType() == uhdmbit_typespec) {
+      bit_typespec* lts = (bit_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+    }
+  }
+  return isMultiDimension;
+}
+
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1825,18 +1928,65 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
                         compileDesign, nullptr, instance, reduce);
 
+      bool isSigned = false;
+      NodeId Data_type = fC->Child(Data_type_or_implicit);
+      VObjectType the_type = fC->Type(Data_type);
+      if (the_type == VObjectType::slData_type) {
+        Data_type = fC->Child(Data_type);
+        NodeId Signage = fC->Sibling(Data_type);
+        if (fC->Type(Signage) == slSigning_Signed) 
+          isSigned = true;
+      }
+
+      bool isMultiDimension = isMultidimensional(ts);
+
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
+      const std::string& the_name = fC->SymName(name);
+
+      if (dynamic_cast<Package*>(component) && (instance == nullptr)) {
+        NodeId actual_value = value;
+        while (fC->Type(actual_value) == slUnpacked_dimension) {
+          actual_value = fC->Sibling(actual_value);
+        }
+        Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
+                                            true);  // Errors muted
+        if (val->isValid()) {
+          component->setValue(the_name, val, m_exprBuilder);
+        } else {
+          UHDM::any* expr =
+              compileExpression(component, fC, actual_value, compileDesign,
+                                nullptr, nullptr, !isMultiDimension);
+          if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
+            UHDM::constant* c = (UHDM::constant*)expr;
+            val = m_exprBuilder.fromVpiValue(c->VpiValue());
+            component->setValue(the_name, val, m_exprBuilder);
+          } else {
+            val = m_exprBuilder.evalExpr(
+                fC, actual_value, component);  // This call to create an error
+            component->setValue(the_name, val, m_exprBuilder);
+          }
+        }
+      }
+
       expr* unpacked = nullptr;
       UHDM::parameter* param = s.MakeParameter();
+
+      Parameter* p =
+          new Parameter(fC, name, fC->SymName(name), fC->Child(Data_type_or_implicit));
+      p->setUhdmParam(param);
+      component->insertParameter(p);
+
       param->Typespec(ts);
       if (ts) {
         ts->VpiParent(param);
         if (ts->VpiName() == "")
           ts->VpiName(fC->SymName(name));
       }
+      param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
+      param->VpiName(fC->SymName(name));
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         int unpackedSize;
@@ -1854,18 +2004,17 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(param);
       if (value) {
-        ParamAssign* assign = new ParamAssign(fC, name, value);
+        ParamAssign* assign = new ParamAssign(fC, name, value, isMultiDimension);
         UHDM::param_assign* param_assign = s.MakeParam_assign();
         assign->setUhdmParamAssign(param_assign);
         component->addParamAssign(assign);
         param_assign->VpiFile(fC->getFileName());
         param_assign->VpiLineNo(fC->Line(Param_assignment));
         param_assigns->push_back(param_assign);
-        param->VpiName(fC->SymName(name));
         param->Expr(unpacked);
         param_assign->Lhs(param);
         param_assign->Rhs((expr*)compileExpression(
-            component, fC, value, compileDesign, nullptr, instance, reduce));
+            component, fC, value, compileDesign, nullptr, instance, reduce && (!isMultiDimension)));
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

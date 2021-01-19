@@ -1130,7 +1130,9 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
       func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
-      const std::string& ctype = fC->SymName(func_decl);
+      std::string ctype = fC->SymName(func_decl);
+      if (ctype.front() == '"' && ctype.back() == '"')
+          ctype = ctype.substr(1, ctype.length() - 2);
       if (ctype == "DPI-C")
         func->VpiDPICStr(vpiDPIC);
       else if (ctype == "DPI")
@@ -1275,7 +1277,8 @@ bool CompileHelper::compileTask(
               task->Param_assigns(s.MakeParam_assignVec());
               param_assigns= task->Param_assigns();
             }
-            param_assigns->push_back((param_assign*) st);
+            if (param_assign* pst = dynamic_cast<param_assign*> (st))
+              param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassign_stmt) {
             assign_stmt* stmt = (assign_stmt*)st;
             if (stmt->Rhs() == nullptr) {
@@ -1310,7 +1313,8 @@ bool CompileHelper::compileTask(
               task->Param_assigns(s.MakeParam_assignVec());
               param_assigns= task->Param_assigns();
             }
-            param_assigns->push_back((param_assign*) st);
+            if (param_assign* pst = dynamic_cast<param_assign*> (st))
+              param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassign_stmt) {
             assign_stmt* stmt = (assign_stmt*)st;
             if (stmt->Rhs() == nullptr) {
@@ -1571,7 +1575,8 @@ bool CompileHelper::compileFunction(
                 func->Param_assigns(s.MakeParam_assignVec());
                 param_assigns = func->Param_assigns();
               }
-              param_assigns->push_back((param_assign*)st);
+              if (param_assign* pst = dynamic_cast<param_assign*> (st))
+                param_assigns->push_back(pst);
             } else if (stmt_type == uhdmassign_stmt) {
               assign_stmt* stmt = (assign_stmt*) st;
               if (stmt->Rhs() == nullptr) {
@@ -1608,7 +1613,8 @@ bool CompileHelper::compileFunction(
             func->Param_assigns(s.MakeParam_assignVec());
             param_assigns = func->Param_assigns();
           }
-          param_assigns->push_back((param_assign*)st);
+          if (param_assign* pst = dynamic_cast<param_assign*> (st))
+            param_assigns->push_back(pst);
         } else if (stmt_type == uhdmassign_stmt) {
           assign_stmt* stmt = (assign_stmt*)st;
           if (stmt->Rhs() == nullptr) {
@@ -1980,6 +1986,16 @@ n<> u<83> t<For> p<84> s<44> l<5>
   return for_stmt;
 }
 
+
+UHDM::any* CompileHelper::bindVariable(DesignComponent* component, ValuedComponentI* instance, const std::string& name, CompileDesign* compileDesign) {
+  UHDM::any* result = nullptr;
+  /*
+  if (ModuleInstance* instance = dynamic_cast<ModuleInstance*> (instance)) {
+
+  }
+  */
+  return result;
+}
 
 UHDM::any* CompileHelper::bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign) {
   UHDM_OBJECT_TYPE scope_type = scope->UhdmType();

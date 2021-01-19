@@ -454,8 +454,14 @@ design: (work@top)
       |vpiDirection:2
       |vpiOutputEdge:13
       |vpiExpr:
-      \_ref_obj: (top.to), line:14
+      \_hier_path: (top.to), line:14
         |vpiName:top.to
+        |vpiActual:
+        \_ref_obj: (top)
+          |vpiName:top
+        |vpiActual:
+        \_ref_obj: (to)
+          |vpiName:to
   |vpiNet:
   \_logic_net: (work@top.clk), line:2, parent:work@top
 |uhdmtopModules:
@@ -540,9 +546,14 @@ design: (work@top)
       |vpiDirection:2
       |vpiOutputEdge:13
       |vpiExpr:
-      \_ref_obj: (work@top.cb1.to_Dut.top.to), line:14, parent:to_Dut
+      \_hier_path: (top.to), line:14, parent:to_Dut
         |vpiName:top.to
-        |vpiFullName:work@top.cb1.to_Dut.top.to
+        |vpiActual:
+        \_ref_obj: (top), parent:top.to
+          |vpiName:top
+        |vpiActual:
+        \_ref_obj: (to), parent:top.to
+          |vpiName:to
   |vpiNet:
   \_logic_net: (work@top.clk), line:2, parent:work@top
 ===================

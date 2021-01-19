@@ -756,8 +756,14 @@ design: (work@dut)
           \_operation: , line:6
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (cover_info.size), line:6
+            \_hier_path: (cover_info.size), line:6
               |vpiName:cover_info.size
+              |vpiActual:
+              \_ref_obj: (cover_info)
+                |vpiName:cover_info
+              |vpiActual:
+              \_ref_obj: (size)
+                |vpiName:size
             |vpiOperand:
             \_constant: , line:6
               |vpiConstType:7
@@ -1039,9 +1045,14 @@ design: (work@dut)
           \_operation: , line:6, parent:new
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info.size), line:6
+            \_hier_path: (cover_info.size), line:6
               |vpiName:cover_info.size
-              |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info.size
+              |vpiActual:
+              \_ref_obj: (cover_info), parent:cover_info.size
+                |vpiName:cover_info
+              |vpiActual:
+              \_ref_obj: (size), parent:cover_info.size
+                |vpiName:size
             |vpiOperand:
             \_constant: , line:6
               |vpiConstType:7

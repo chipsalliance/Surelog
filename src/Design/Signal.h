@@ -74,6 +74,8 @@ class Signal final {
   bool isProtected() { return m_protected; }
   bool isRand() { return m_rand; }
   bool isRandc() { return m_randc; }
+  void setDelay(NodeId id) { m_delay = id; }
+  void setDriveStrength(NodeId id) { m_drive_strength = id; }
 
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
@@ -81,6 +83,8 @@ class Signal final {
   NodeId getModPortId() const { return m_fileContent->Sibling(m_interfaceTypeNameId);}
   NodeId getInterfaceTypeNameId() const { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() const { return m_typeSpecId; }
+  NodeId getDelay() const { return m_delay; }
+  NodeId getDriveStrength() const { return m_drive_strength; }
   const DataType* getDataType() { return m_dataType; }
 
  private:
@@ -96,6 +100,8 @@ class Signal final {
   NodeId m_packedDimension = 0;
   NodeId m_typeSpecId = 0;
   NodeId m_unpackedDimension = 0;
+  NodeId m_delay = 0;
+  NodeId m_drive_strength = 0;
   bool m_const = false;
   bool m_var = false;
   bool m_signed = false;

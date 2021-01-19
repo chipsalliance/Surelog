@@ -36,6 +36,7 @@ class ValuedComponentI {
 
   virtual ~ValuedComponentI(){};
   virtual Value* getValue(const std::string& name) const;
+  virtual Value* getValue(const std::string& name, ExprBuilder& exprBuilder) const;
   virtual void setValue(const std::string& name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
   virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
   std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }

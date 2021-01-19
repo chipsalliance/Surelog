@@ -55,7 +55,7 @@ public:
 // Surelog internal modeling
 
   bool importPackage(DesignComponent* scope, Design* design, const FileContent* fC,
-                     NodeId id);
+                     NodeId id, CompileDesign* compileDesign);
 
   bool compileTfPortList(Procedure* parent, const FileContent* fC, NodeId id,
                          TfPortList& targetList);
@@ -193,7 +193,7 @@ public:
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance);
+                                       ValuedComponentI* instance, bool reduce);
 
   std::vector<UHDM::range*>* compileRanges(DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
                                        CompileDesign* compileDesign,
@@ -224,7 +224,7 @@ public:
                                             const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::any* pexpr,
-                                            ValuedComponentI* instance);
+                                            ValuedComponentI* instance, bool reduce);
 
   UHDM::any* compileBits(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
@@ -256,6 +256,7 @@ public:
                                     CompileDesign* compileDesign);
 
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign);
+  UHDM::any* bindVariable(DesignComponent* component, ValuedComponentI* instance, const std::string& name, CompileDesign* compileDesign);
 
   UHDM::event_control* compileClocking_event(DesignComponent* component, const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
@@ -283,6 +284,11 @@ public:
   bool isSelected(const FileContent* fC, NodeId id);
 
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
+
+  UHDM::any* getValue(const std::string& name, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance);
+
+  bool isMultidimensional(UHDM::typespec* ts); 
 
 private:
   CompileHelper(const CompileHelper&) = delete;

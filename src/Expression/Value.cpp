@@ -41,12 +41,24 @@ LValue::~LValue() { delete[] m_valueArray; }
 StValue::~StValue() {}
 
 bool LValue::operator<(const Value& rhs) const {
-  // TODO
+  if (!isValid() || !rhs.isValid()) 
+    return false;
+  for (unsigned int i = 0; i < m_nbWords; i++) {
+    if (getValueUL(i) >= rhs.getValueUL(i))
+      return false;
+  }
   return true;
 }
 
 bool LValue::operator==(const Value& rhs) const {
-  // TODO
+  if (!isValid() || !rhs.isValid()) 
+    return false;
+  if (getNbWords() != rhs.getNbWords())
+    return false;
+  for (unsigned int i = 0; i < m_nbWords; i++) {
+    if (getValueUL(i) != rhs.getValueUL(i))
+      return false;
+  }  
   return true;
 }
 
@@ -441,15 +453,16 @@ unsigned short LValue::getSize() const {
 
 std::string LValue::uhdmValue() {
   std::string result = "INT:";
-  if (m_type == Type::Binary)
-    result = "BIN:";
-  else if (m_type == Type::Double)
-    result = "REAL:";
-  else if (m_type == Type::Hexadecimal)
-    result = "HEX:";
-  else if (m_type == Type::Octal)
-    result = "OCT:";
-  else if (m_type == Type::Scalar)
+  // The value is encoded in int form.
+  //if (m_type == Type::Binary)
+  //  result = "BIN:";
+  //else if (m_type == Type::Double)
+  //  result = "REAL:";
+  //else if (m_type == Type::Hexadecimal)
+  //  result = "HEX:";
+  //else if (m_type == Type::Octal)
+  //  result = "OCT:";
+  if (m_type == Type::Scalar)
     result = "SCAL:";  
   for (int i = 0; i < m_nbWords; i++) {
     result += std::to_string(m_valueArray[i].m_value);

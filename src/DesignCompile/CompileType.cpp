@@ -314,44 +314,44 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
                 Parameter* p = formal.at(index);
                 fName = p->getName();
                 fparam = p->getUhdmParam();
-              }
-              if (actualFC->Type(Data_type) == slData_type) {
-                typespec* tps =
-                    compileTypespec(component, actualFC, Data_type, compileDesign,
-                                    result, instance, reduce);
-               
 
-                type_parameter* tp = s.MakeType_parameter();
-                tp->VpiName(fName);
-                tp->VpiParent(ref);
-                tps->VpiParent(tp);
-                tp->Typespec(tps);
-                params->push_back(tp);
-                param_assign* pass = s.MakeParam_assign();
-                pass->Rhs(tp);
-                pass->Lhs(fparam);
-                assigns->push_back(pass);
-              } else {
-                any* exp =
-                    compileExpression(component, actualFC, Param_expression,
-                                      compileDesign, nullptr, instance, reduce);
-                if (exp) {
-                  if (exp->UhdmType() == uhdmref_obj) {
-                    const std::string& name = ((ref_obj*)exp)->VpiName();
-                    typespec* tps = compileDatastructureTypespec(
-                        component, actualFC, param, compileDesign, instance, reduce,
-                        "", name);
-                    if (tps) {
-                      type_parameter* tp = s.MakeType_parameter();
-                      tp->VpiName(fName);
-                      tp->Typespec(tps);
-                      tps->VpiParent(tp);
-                      tp->VpiParent(ref);
-                      params->push_back(tp);
-                      param_assign* pass = s.MakeParam_assign();
-                      pass->Rhs(tp);
-                      pass->Lhs(fparam);
-                      assigns->push_back(pass);
+                if (actualFC->Type(Data_type) == slData_type) {
+                  typespec* tps =
+                      compileTypespec(component, actualFC, Data_type,
+                                      compileDesign, result, instance, reduce);
+
+                  type_parameter* tp = s.MakeType_parameter();
+                  tp->VpiName(fName);
+                  tp->VpiParent(ref);
+                  tps->VpiParent(tp);
+                  tp->Typespec(tps);
+                  params->push_back(tp);
+                  param_assign* pass = s.MakeParam_assign();
+                  pass->Rhs(tp);
+                  pass->Lhs(fparam);
+                  assigns->push_back(pass);
+                } else {
+                  any* exp = compileExpression(component, actualFC,
+                                               Param_expression, compileDesign,
+                                               nullptr, instance, reduce);
+                  if (exp) {
+                    if (exp->UhdmType() == uhdmref_obj) {
+                      const std::string& name = ((ref_obj*)exp)->VpiName();
+                      typespec* tps = compileDatastructureTypespec(
+                          component, actualFC, param, compileDesign, instance,
+                          reduce, "", name);
+                      if (tps) {
+                        type_parameter* tp = s.MakeType_parameter();
+                        tp->VpiName(fName);
+                        tp->Typespec(tps);
+                        tps->VpiParent(tp);
+                        tp->VpiParent(ref);
+                        params->push_back(tp);
+                        param_assign* pass = s.MakeParam_assign();
+                        pass->Rhs(tp);
+                        pass->Lhs(fparam);
+                        assigns->push_back(pass);
+                      }
                     }
                   }
                 }

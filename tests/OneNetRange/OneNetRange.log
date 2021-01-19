@@ -597,11 +597,21 @@ design: (work@TOP)
     \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
     |vpiInstance:
     \_module: work@TOP (work@TOP) tb.v:16: 
+    |vpiParamAssign:
+    \_param_assign: , line:8, parent:work@TOP.conntb
+      |vpiRhs:
+      \_constant: , line:8
+        |vpiConstType:7
+        |vpiDecompile:16
+        |vpiSize:64
+        |INT:16
+      |vpiLhs:
+      \_parameter: (work@TOP.conntb.width), line:8, parent:work@TOP.conntb
+        |vpiName:width
+        |vpiFullName:work@TOP.conntb.width
+        |INT:16
     |vpiParameter:
-    \_parameter: (work@TOP.conntb.width), line:20, parent:work@TOP.conntb
-      |vpiName:width
-      |vpiFullName:work@TOP.conntb.width
-      |INT:16
+    \_parameter: (work@TOP.conntb.width), line:8, parent:work@TOP.conntb
   |vpiModule:
   \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
     |vpiDefName:work@dut
@@ -612,10 +622,14 @@ design: (work@TOP)
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (conntb.con_i), line:21
+      \_hier_path: (conntb.con_i), line:21
         |vpiName:conntb.con_i
         |vpiActual:
-        \_logic_net: (work@TOP.conntb.con_i), line:8, parent:work@TOP.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_i)
+          |vpiName:con_i
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -642,10 +656,14 @@ design: (work@TOP)
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (conntb.con_o), line:21
+      \_hier_path: (conntb.con_o), line:21
         |vpiName:conntb.con_o
         |vpiActual:
-        \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_o)
+          |vpiName:con_o
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -738,11 +756,21 @@ design: (work@TOP)
       \_logic_net: (work@TOP.dut1.conntb.con_o), line:8, parent:work@TOP.dut1.conntb
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
+      |vpiParamAssign:
+      \_param_assign: , line:8, parent:work@TOP.dut1.conntb
+        |vpiRhs:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:16
+          |vpiSize:64
+          |INT:16
+        |vpiLhs:
+        \_parameter: (work@TOP.dut1.conntb.width), line:8, parent:work@TOP.dut1.conntb
+          |vpiName:width
+          |vpiFullName:work@TOP.dut1.conntb.width
+          |INT:16
       |vpiParameter:
-      \_parameter: (work@TOP.dut1.conntb.width), line:3, parent:work@TOP.dut1.conntb
-        |vpiName:width
-        |vpiFullName:work@TOP.dut1.conntb.width
-        |INT:16
+      \_parameter: (work@TOP.dut1.conntb.width), line:8, parent:work@TOP.dut1.conntb
     |vpiModule:
     \_module: work@middle (work@TOP.dut1.middle1) dut.v:4: , parent:work@TOP.dut1
       |vpiDefName:work@middle
@@ -775,26 +803,14 @@ design: (work@TOP)
           |vpiName:inp
           |vpiDirection:1
           |vpiHighConn:
-          \_ref_obj: (conn.con_i), line:12
+          \_hier_path: (conn.con_i), line:12
             |vpiName:conn.con_i
             |vpiActual:
-            \_logic_net: (con_i), line:8
+            \_ref_obj: (conn)
+              |vpiName:conn
+            |vpiActual:
+            \_ref_obj: (con_i)
               |vpiName:con_i
-              |vpiNetType:1
-              |vpiRange:
-              \_range: , line:8
-                |vpiLeftRange:
-                \_constant: , line:8
-                  |vpiConstType:7
-                  |vpiDecompile:15
-                  |vpiSize:64
-                  |INT:15
-                |vpiRightRange:
-                \_constant: , line:8
-                  |vpiConstType:7
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |INT:0
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:
@@ -821,26 +837,14 @@ design: (work@TOP)
           |vpiName:out
           |vpiDirection:2
           |vpiHighConn:
-          \_ref_obj: (conn.con_o), line:12
+          \_hier_path: (conn.con_o), line:12
             |vpiName:conn.con_o
             |vpiActual:
-            \_logic_net: (con_o), line:8
+            \_ref_obj: (conn)
+              |vpiName:conn
+            |vpiActual:
+            \_ref_obj: (con_o)
               |vpiName:con_o
-              |vpiNetType:48
-              |vpiRange:
-              \_range: , line:8
-                |vpiLeftRange:
-                \_constant: , line:8
-                  |vpiConstType:7
-                  |vpiDecompile:15
-                  |vpiSize:64
-                  |INT:15
-                |vpiRightRange:
-                \_constant: , line:8
-                  |vpiConstType:7
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |INT:0
           |vpiLowConn:
           \_ref_obj: 
             |vpiActual:
@@ -877,14 +881,12 @@ design: (work@TOP)
             |vpiSize:64
             |INT:16
           |vpiLhs:
-          \_parameter: (work@SUB.width), line:15, parent:work@SUB
+          \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15, parent:work@TOP.dut1.middle1.sub1
             |vpiName:width
-            |vpiFullName:work@SUB.width
+            |vpiFullName:work@TOP.dut1.middle1.sub1.width
+            |INT:16
         |vpiParameter:
-        \_parameter: (work@TOP.dut1.middle1.sub1.width), line:12, parent:work@TOP.dut1.middle1.sub1
-          |vpiName:width
-          |vpiFullName:work@TOP.dut1.middle1.sub1.width
-          |INT:16
+        \_parameter: (work@TOP.dut1.middle1.sub1.width), line:15, parent:work@TOP.dut1.middle1.sub1
       |vpiInstance:
       \_module: work@dut (work@TOP.dut1) tb.v:21: , parent:work@TOP
       |vpiParamAssign:
@@ -896,14 +898,12 @@ design: (work@TOP)
           |vpiSize:64
           |INT:16
         |vpiLhs:
-        \_parameter: (work@middle.width), line:11, parent:work@middle
+        \_parameter: (work@TOP.dut1.middle1.width), line:11, parent:work@TOP.dut1.middle1
           |vpiName:width
-          |vpiFullName:work@middle.width
+          |vpiFullName:work@TOP.dut1.middle1.width
+          |INT:16
       |vpiParameter:
-      \_parameter: (work@TOP.dut1.middle1.width), line:4, parent:work@TOP.dut1.middle1
-        |vpiName:width
-        |vpiFullName:work@TOP.dut1.middle1.width
-        |INT:16
+      \_parameter: (work@TOP.dut1.middle1.width), line:11, parent:work@TOP.dut1.middle1
     |vpiNet:
     \_logic_net: (work@TOP.dut1.i), line:2, parent:work@TOP.dut1
     |vpiNet:
@@ -919,14 +919,12 @@ design: (work@TOP)
         |vpiSize:64
         |INT:16
       |vpiLhs:
-      \_parameter: (work@dut.width), line:2, parent:work@dut
+      \_parameter: (work@TOP.dut1.width), line:2, parent:work@TOP.dut1
         |vpiName:width
-        |vpiFullName:work@dut.width
+        |vpiFullName:work@TOP.dut1.width
+        |INT:16
     |vpiParameter:
-    \_parameter: (work@TOP.dut1.width), line:21, parent:work@TOP.dut1
-      |vpiName:width
-      |vpiFullName:work@TOP.dut1.width
-      |INT:16
+    \_parameter: (work@TOP.dut1.width), line:2, parent:work@TOP.dut1
   |vpiNet:
   \_logic_net: (work@TOP.i), line:18, parent:work@TOP
   |vpiNet:
@@ -941,10 +939,14 @@ design: (work@TOP)
       |vpiName:observe
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (conntb.con_o), line:22
+      \_hier_path: (conntb.con_o), line:22
         |vpiName:conntb.con_o
         |vpiActual:
-        \_logic_net: (work@TOP.conntb.con_o), line:8, parent:work@TOP.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_o)
+          |vpiName:con_o
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -971,10 +973,14 @@ design: (work@TOP)
       |vpiName:drive
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (conntb.con_i), line:22
+      \_hier_path: (conntb.con_i), line:22
         |vpiName:conntb.con_i
         |vpiActual:
-        \_logic_net: (work@TOP.conntb.con_i), line:8, parent:work@TOP.conntb
+        \_ref_obj: (conntb)
+          |vpiName:conntb
+        |vpiActual:
+        \_ref_obj: (con_i)
+          |vpiName:con_i
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -1014,11 +1020,9 @@ design: (work@TOP)
     \_parameter: (work@TOP.width), line:17, parent:work@TOP
       |vpiName:width
       |vpiFullName:work@TOP.width
+      |INT:16
   |vpiParameter:
   \_parameter: (work@TOP.width), line:17, parent:work@TOP
-    |vpiName:width
-    |vpiFullName:work@TOP.width
-    |INT:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

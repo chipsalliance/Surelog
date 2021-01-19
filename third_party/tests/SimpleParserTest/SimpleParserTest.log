@@ -4208,7 +4208,7 @@ design: (work@dff_async_reset)
             |vpiRhs:
             \_constant: , line:26
               |vpiConstType:3
-              |vpiDecompile:'b0
+              |vpiDecompile:1'b0
               |vpiSize:1
               |BIN:0
         |vpiElseStmt:
@@ -4995,7 +4995,7 @@ design: (work@dff_async_reset)
               |vpiRhs:
               \_constant: , line:58
                 |vpiConstType:3
-                |vpiDecompile:'b1
+                |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
         |vpiCaseItem:
@@ -5047,7 +5047,7 @@ design: (work@dff_async_reset)
               |vpiRhs:
               \_constant: , line:62
                 |vpiConstType:3
-                |vpiDecompile:'b1
+                |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
         |vpiCaseItem:
@@ -5099,7 +5099,7 @@ design: (work@dff_async_reset)
               |vpiRhs:
               \_constant: , line:66
                 |vpiConstType:3
-                |vpiDecompile:'b1
+                |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
         |vpiCaseItem:
@@ -5136,7 +5136,7 @@ design: (work@dff_async_reset)
               |vpiRhs:
               \_constant: , line:70
                 |vpiConstType:3
-                |vpiDecompile:'bX
+                |vpiDecompile:1'bX
                 |vpiSize:1
                 |BIN:X
   |vpiPort:
@@ -8612,7 +8612,7 @@ design: (work@dff_async_reset)
       |vpiHighConn:
       \_constant: , line:96
         |vpiConstType:3
-        |vpiDecompile:'b0
+        |vpiDecompile:1'b0
         |vpiSize:1
         |BIN:0
     |vpiPort:
@@ -8679,7 +8679,7 @@ design: (work@dff_async_reset)
       |vpiHighConn:
       \_constant: , line:100
         |vpiConstType:3
-        |vpiDecompile:'b0
+        |vpiDecompile:1'b0
         |vpiSize:1
         |BIN:0
     |vpiPort:
@@ -8749,6 +8749,7 @@ design: (work@dff_async_reset)
     \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
       |vpiName:DATA_WIDTH
       |vpiFullName:work@syn_fifo.DATA_WIDTH
+      |INT:8
   |vpiParamAssign:
   \_param_assign: , line:23, parent:work@syn_fifo
     |vpiRhs:
@@ -8761,6 +8762,7 @@ design: (work@dff_async_reset)
     \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
       |vpiName:ADDR_WIDTH
       |vpiFullName:work@syn_fifo.ADDR_WIDTH
+      |INT:8
   |vpiParamAssign:
   \_param_assign: , line:24, parent:work@syn_fifo
     |vpiRhs:
@@ -8773,21 +8775,13 @@ design: (work@dff_async_reset)
     \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
       |vpiName:RAM_DEPTH
       |vpiFullName:work@syn_fifo.RAM_DEPTH
-  |vpiParameter:
-  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
-    |vpiName:ADDR_WIDTH
-    |vpiFullName:work@syn_fifo.ADDR_WIDTH
-    |INT:8
+      |INT:256
   |vpiParameter:
   \_parameter: (work@syn_fifo.DATA_WIDTH), line:22, parent:work@syn_fifo
-    |vpiName:DATA_WIDTH
-    |vpiFullName:work@syn_fifo.DATA_WIDTH
-    |INT:8
+  |vpiParameter:
+  \_parameter: (work@syn_fifo.ADDR_WIDTH), line:23, parent:work@syn_fifo
   |vpiParameter:
   \_parameter: (work@syn_fifo.RAM_DEPTH), line:24, parent:work@syn_fifo
-    |vpiName:RAM_DEPTH
-    |vpiFullName:work@syn_fifo.RAM_DEPTH
-    |INT:256
 |uhdmtopModules:
 \_module: work@uart (work@uart) uart.v:8: 
   |vpiDefName:work@uart
@@ -9630,9 +9624,10 @@ design: (work@dff_async_reset)
         |vpiSize:64
         |INT:8
       |vpiLhs:
-      \_parameter: (work@arbiter.NUMUNITS), line:7, parent:work@arbiter
+      \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
         |vpiName:NUMUNITS
-        |vpiFullName:work@arbiter.NUMUNITS
+        |vpiFullName:work@top.U.NUMUNITS
+        |INT:8
     |vpiParamAssign:
     \_param_assign: , line:8, parent:work@top.U
       |vpiRhs:
@@ -9642,19 +9637,14 @@ design: (work@dff_async_reset)
         |vpiSize:64
         |INT:3
       |vpiLhs:
-      \_parameter: (work@arbiter.ADDRESSWIDTH), line:8, parent:work@arbiter
+      \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
         |vpiName:ADDRESSWIDTH
-        |vpiFullName:work@arbiter.ADDRESSWIDTH
-    |vpiParameter:
-    \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
-      |vpiName:ADDRESSWIDTH
-      |vpiFullName:work@top.U.ADDRESSWIDTH
-      |INT:3
+        |vpiFullName:work@top.U.ADDRESSWIDTH
+        |INT:3
     |vpiParameter:
     \_parameter: (work@top.U.NUMUNITS), line:7, parent:work@top.U
-      |vpiName:NUMUNITS
-      |vpiFullName:work@top.U.NUMUNITS
-      |INT:8
+    |vpiParameter:
+    \_parameter: (work@top.U.ADDRESSWIDTH), line:8, parent:work@top.U
   |vpiNet:
   \_logic_net: (work@top.clk), line:5, parent:work@top
   |vpiNet:
@@ -10017,11 +10007,12 @@ design: (work@dff_async_reset)
     \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
       |vpiName:Chain1
       |vpiFullName:work@LFSR_TASK.Chain1
+      |INT:142
       |vpiTypespec:
       \_bit_typespec: (Chain1), line:7, parent:work@LFSR_TASK.Chain1
         |vpiName:Chain1
         |vpiRange:
-        \_range: , line:7
+        \_range: , line:7, parent:Chain1
           |vpiLeftRange:
           \_constant: , line:7
             |vpiConstType:7
@@ -10046,11 +10037,12 @@ design: (work@dff_async_reset)
     \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
       |vpiName:Chain2
       |vpiFullName:work@LFSR_TASK.Chain2
+      |INT:174
       |vpiTypespec:
       \_bit_typespec: (Chain2), line:8, parent:work@LFSR_TASK.Chain2
         |vpiName:Chain2
         |vpiRange:
-        \_range: , line:8
+        \_range: , line:8, parent:Chain2
           |vpiLeftRange:
           \_constant: , line:8
             |vpiConstType:7
@@ -10065,14 +10057,8 @@ design: (work@dff_async_reset)
             |INT:0
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain1), line:7, parent:work@LFSR_TASK
-    |vpiName:Chain1
-    |vpiFullName:work@LFSR_TASK.Chain1
-    |INT:142
   |vpiParameter:
   \_parameter: (work@LFSR_TASK.Chain2), line:8, parent:work@LFSR_TASK
-    |vpiName:Chain2
-    |vpiFullName:work@LFSR_TASK.Chain2
-    |INT:174
 |uhdmtopModules:
 \_module: work@mux21_switch (work@mux21_switch) mux21.v:7: 
   |vpiDefName:work@mux21_switch
