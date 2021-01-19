@@ -338,6 +338,9 @@ set TYPES(slImport) 1
 set TYPES(slExport) 1
 set TYPES(slPure) 1
 
+set TYPES(slOpenParens) 1
+set TYPES(slCloseParens) 1
+
 set TYPES(slAssignOp_Assign) 1
 set TYPES(slAssignOp_Add) 1
 set TYPES(slAssignOp_Sub) 1

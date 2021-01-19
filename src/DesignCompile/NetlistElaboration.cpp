@@ -443,7 +443,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
 
         std::string formalName = fC->SymName(formalId);
-        NodeId Expression = fC->Sibling(formalId);;
+        NodeId Expression = fC->Sibling(formalId);
         if (orderedConnection) {
           Expression = formalId;
           NodeId Primary = fC->Child(Expression);
@@ -451,14 +451,19 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           NodeId formalNameId = fC->Child(Primary_literal);
           formalName = fC->SymName(formalNameId);
         } else {
-          if (fC->Type(formalId) == VObjectType::slExpression) {
-            NodeId Expression = formalId;
-            NodeId Primary = fC->Child(Expression);
-            NodeId Primary_literal = fC->Child(Primary);
-            formalId = fC->Child(Primary_literal);
-            formalName = fC->SymName(formalId);
-          }
-          Expression =  fC->Sibling(formalId);
+          NodeId tmp = Expression;
+          if (fC->Type(tmp) == slOpenParens) {
+            tmp =  fC->Sibling(tmp);
+            if (fC->Type(tmp) == slCloseParens) { // .p()  explict disconnect
+              Named_port_connection = fC->Sibling(Named_port_connection);
+              index++;
+              continue;
+            } else if (fC->Type(tmp) == slExpression) { // .p(s) connection by name
+              formalId = tmp;
+              Expression = tmp;
+            }
+          } // else .p implicit connection
+
         }
         NodeId sigId = formalId;
         expr* hexpr = nullptr;

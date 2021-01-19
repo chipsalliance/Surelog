@@ -504,6 +504,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slClockvar_expression:
       text = "slClockvar_expression";
       break;
+    case slCloseParens:
+      text = "slCloseParens";
+      break;
     case slCmos_switch_instance:
       text = "slCmos_switch_instance";
       break;
@@ -1973,6 +1976,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slOpen_range_list:
       text = "slOpen_range_list";
+      break;
+    case slOpenParens:
+      text = "slOpenParens";
       break;
     case slOperator_assignment:
       text = "slOperator_assignment";
