@@ -88,7 +88,7 @@ jobs:
       with:
         msystem: MSYS
         update: true
-        install: make cmake ninja python python-devel gcc
+        install: make cmake ninja python python-devel gcc git
       env:
         MSYS2_PATH_TYPE: inherit
 
@@ -124,6 +124,7 @@ jobs:
         export PATH=$SWIG_DIR:$JAVA_HOME/bin:$PATH
         export PATH=$SWIG_DIR:$PATH
         env
+        where git && git --version
         where cmake && cmake --version
         where make && make --version
         where swig && swig -version
