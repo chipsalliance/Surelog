@@ -1,5 +1,5 @@
 
--DFPGA_XILINX=1 -DPRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
+-DFPGA_XILINX=1 -DPRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx -DSYNTHESIS
 -sv ../src/lowrisc_constants_top_pkg_0/rtl/top_pkg.sv
 -sv ../src/lowrisc_dv_pins_if_0/pins_if.sv
 -sv ../src/lowrisc_ibex_ibex_pkg_0.1/rtl/ibex_pkg.sv
