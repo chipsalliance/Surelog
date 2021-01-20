@@ -135,8 +135,11 @@ bool substituteAssignedValue(param_assign* param, CompileDesign* compileDesign) 
       bool verilatorMode = compileDesign->getCompiler()
                                ->getCommandLineParser()
                                ->getVerilatorMode();
-      if (verilatorMode) {
-        // Verilator does not support vpiAssignmentPatternOp assigned to
+      bool yosysMode = compileDesign->getCompiler()
+                               ->getCommandLineParser()
+                               ->getYosysMode();
+      if (verilatorMode || yosysMode) {
+        // Verilator and Yosys do not support vpiAssignmentPatternOp assigned to
         // parameters
         substitute = false;
       }
