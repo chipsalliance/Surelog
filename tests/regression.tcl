@@ -255,7 +255,7 @@ proc load_tests { } {
                 continue
             }
         }
-        if {[dict exists $BLACK_LIST $testname]} {
+        if {($ONETEST == "") && [dict exists $BLACK_LIST $testname]} {
             # Ignore black listed ones
             continue
         }
