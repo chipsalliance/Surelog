@@ -143,12 +143,14 @@ VectorOfany* CompileHelper::compileStmt(
     if (fC->Type(item) == VObjectType::slStringConst) {
       UHDM::named_begin* begin = s.MakeNamed_begin();
       begin->Stmts(stmts);
+      begin->VpiParent(pstmt);
       stmt = begin;
       begin->VpiName(fC->SymName(item));
       item = fC->Sibling(item);
     } else {
       UHDM::begin* begin = s.MakeBegin();
       begin->Stmts(stmts);
+      begin->VpiParent(pstmt);
       stmt = begin;
     }
 	  while (item) {
@@ -172,12 +174,14 @@ VectorOfany* CompileHelper::compileStmt(
     if (fC->Type(item) == VObjectType::slStringConst) {
       UHDM::named_fork* fork = s.MakeNamed_fork();
       fork->Stmts(stmts);
+      fork->VpiParent(pstmt);
       stmt = fork;
       fork->VpiName(fC->SymName(item));
       item = fC->Sibling(item);
     } else {
       UHDM::fork_stmt* fork = s.MakeFork_stmt();
       fork->Stmts(stmts);
+      fork->VpiParent(pstmt);
       stmt = fork;
     }
 	  while (item) {
@@ -621,7 +625,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         NodeId Expression = tmp;
 
         variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, nullptr, nullptr, true);
+            component, fC, Data_type, compileDesign, pstmt, nullptr, true);
 
         if (var) {
           var->VpiConstantVariable(const_status);

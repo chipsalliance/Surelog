@@ -659,6 +659,8 @@ bool ElaborationStep::bindPortType_(Signal* signal,
         DesignComponent* parentComponent,
         ErrorDefinition::ErrorType errtype)
 {
+  if (signal->getDataType() || signal->getInterfaceDef() || signal->getModPort())
+    return true;
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
@@ -979,9 +981,12 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
         override_spec = (UHDM::typespec*)((parameter*)uparam)->Typespec();
 
       if (override_spec == nullptr) {
+        ModuleInstance* parent = instance;
+        if (ModuleInstance* pinst = instance->getParent()) 
+          parent = pinst;
         override_spec = m_helper.compileTypespec(
             component, param->getFileContent(), param->getNodeType(),
-            m_compileDesign, nullptr, instance, true);
+            m_compileDesign, nullptr, parent, true);
       }
 
       if (override_spec) {
@@ -1028,7 +1033,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       stv->Expr(assignExp);
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
-      variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
       var->VpiSigned(sig->isSigned());
@@ -1043,7 +1048,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
     } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
       UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
       
-      variables* var = getSimpleVarFromTypespec(spec, packedDimensions, s);
+      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
       var->VpiSigned(sig->isSigned());
@@ -1055,21 +1060,38 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
     if (tpstype == uhdmstruct_typespec) {
       struct_var* stv = s.MakeStruct_var();
       stv->Typespec(tps);
+      stv->VpiName(signame);
       obj = stv;
       stv->Expr(assignExp);
     } else if (tpstype == uhdmenum_typespec) {
       enum_var* stv = s.MakeEnum_var();
       stv->Typespec(tps);
+      stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmbit_typespec) {
+      bit_var* stv = s.MakeBit_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      stv->Ranges(unpackedDimensions);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmbyte_typespec) {
+      byte_var* stv = s.MakeByte_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
       obj = stv;
       stv->Expr(assignExp);
     } else if (tpstype == uhdmunion_typespec) {
       union_var* stv = s.MakeUnion_var();
       stv->Typespec(tps);
+      stv->VpiName(signame);
       obj = stv;
       stv->Expr(assignExp);
     } else if (tpstype == uhdmclass_typespec) {
       class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
+      stv->VpiName(signame);
       tps->VpiParent(stv);
       obj = stv;
       stv->Expr(assignExp);
@@ -1182,49 +1204,3 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
   return obj;
 }
 
-
-variables* ElaborationStep::getSimpleVarFromTypespec(UHDM::typespec* spec,
-                                    std::vector<UHDM::range*>* packedDimensions,
-                                    Serializer& s) {
-  variables* var = nullptr;
-  if (spec->UhdmType() == uhdmint_typespec) {
-    UHDM::int_var* int_var = s.MakeInt_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmlong_int_typespec) {
-    UHDM::long_int_var* int_var = s.MakeLong_int_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmstring_typespec) {
-    UHDM::string_var* int_var = s.MakeString_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmshort_int_typespec) {
-    UHDM::short_int_var* int_var = s.MakeShort_int_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmbyte_typespec) {
-    UHDM::byte_var* int_var = s.MakeByte_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmreal_typespec) {
-    UHDM::real_var* int_var = s.MakeReal_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmshort_real_typespec) {
-    UHDM::short_real_var* int_var = s.MakeShort_real_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmtime_typespec) {
-    UHDM::time_var* int_var = s.MakeTime_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmbit_typespec) {
-    UHDM::bit_var* int_var = s.MakeBit_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmstring_typespec) {
-    UHDM::string_var* int_var = s.MakeString_var();
-    var = int_var;
-  } else if (spec->UhdmType() == uhdmlogic_typespec) {
-    logic_var* logicv = s.MakeLogic_var();
-    logicv->Ranges(packedDimensions);
-    var = logicv;
-  } else if (spec->UhdmType() == uhdmvoid_typespec) {
-    UHDM::logic_var* logicv = s.MakeLogic_var();
-    logicv->Ranges(packedDimensions);
-    var = logicv;
-  }
-  return var;
-}

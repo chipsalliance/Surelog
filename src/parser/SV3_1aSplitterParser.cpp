@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aSplitterParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aSplitterParser.g4 by ANTLR 4.9.1
 
 
 #include "SV3_1aSplitterParserListener.h"
@@ -67,7 +67,11 @@ SV3_1aSplitterParser::Source_textContext* SV3_1aSplitterParser::source_text() {
   enterRule(_localctx, 0, SV3_1aSplitterParser::RuleSource_text);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -195,7 +199,11 @@ SV3_1aSplitterParser::DescriptionContext* SV3_1aSplitterParser::description() {
   DescriptionContext *_localctx = _tracker.createInstance<DescriptionContext>(_ctx, getState());
   enterRule(_localctx, 2, SV3_1aSplitterParser::RuleDescription);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -352,7 +360,11 @@ SV3_1aSplitterParser::ModuleContext* SV3_1aSplitterParser::module() {
   ModuleContext *_localctx = _tracker.createInstance<ModuleContext>(_ctx, getState());
   enterRule(_localctx, 4, SV3_1aSplitterParser::RuleModule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -401,7 +413,11 @@ SV3_1aSplitterParser::EndmoduleContext* SV3_1aSplitterParser::endmodule() {
   EndmoduleContext *_localctx = _tracker.createInstance<EndmoduleContext>(_ctx, getState());
   enterRule(_localctx, 6, SV3_1aSplitterParser::RuleEndmodule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -450,7 +466,11 @@ SV3_1aSplitterParser::Sv_interfaceContext* SV3_1aSplitterParser::sv_interface() 
   Sv_interfaceContext *_localctx = _tracker.createInstance<Sv_interfaceContext>(_ctx, getState());
   enterRule(_localctx, 8, SV3_1aSplitterParser::RuleSv_interface);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -499,7 +519,11 @@ SV3_1aSplitterParser::EndinterfaceContext* SV3_1aSplitterParser::endinterface() 
   EndinterfaceContext *_localctx = _tracker.createInstance<EndinterfaceContext>(_ctx, getState());
   enterRule(_localctx, 10, SV3_1aSplitterParser::RuleEndinterface);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -548,7 +572,11 @@ SV3_1aSplitterParser::ProgramContext* SV3_1aSplitterParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
   enterRule(_localctx, 12, SV3_1aSplitterParser::RuleProgram);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -597,7 +625,11 @@ SV3_1aSplitterParser::EndprogramContext* SV3_1aSplitterParser::endprogram() {
   EndprogramContext *_localctx = _tracker.createInstance<EndprogramContext>(_ctx, getState());
   enterRule(_localctx, 14, SV3_1aSplitterParser::RuleEndprogram);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -646,7 +678,11 @@ SV3_1aSplitterParser::PrimitiveContext* SV3_1aSplitterParser::primitive() {
   PrimitiveContext *_localctx = _tracker.createInstance<PrimitiveContext>(_ctx, getState());
   enterRule(_localctx, 16, SV3_1aSplitterParser::RulePrimitive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -695,7 +731,11 @@ SV3_1aSplitterParser::EndprimitiveContext* SV3_1aSplitterParser::endprimitive() 
   EndprimitiveContext *_localctx = _tracker.createInstance<EndprimitiveContext>(_ctx, getState());
   enterRule(_localctx, 18, SV3_1aSplitterParser::RuleEndprimitive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -744,7 +784,11 @@ SV3_1aSplitterParser::Sv_packageContext* SV3_1aSplitterParser::sv_package() {
   Sv_packageContext *_localctx = _tracker.createInstance<Sv_packageContext>(_ctx, getState());
   enterRule(_localctx, 20, SV3_1aSplitterParser::RuleSv_package);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -793,7 +837,11 @@ SV3_1aSplitterParser::EndpackageContext* SV3_1aSplitterParser::endpackage() {
   EndpackageContext *_localctx = _tracker.createInstance<EndpackageContext>(_ctx, getState());
   enterRule(_localctx, 22, SV3_1aSplitterParser::RuleEndpackage);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -842,7 +890,11 @@ SV3_1aSplitterParser::CheckerContext* SV3_1aSplitterParser::checker() {
   CheckerContext *_localctx = _tracker.createInstance<CheckerContext>(_ctx, getState());
   enterRule(_localctx, 24, SV3_1aSplitterParser::RuleChecker);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -891,7 +943,11 @@ SV3_1aSplitterParser::EndcheckerContext* SV3_1aSplitterParser::endchecker() {
   EndcheckerContext *_localctx = _tracker.createInstance<EndcheckerContext>(_ctx, getState());
   enterRule(_localctx, 26, SV3_1aSplitterParser::RuleEndchecker);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -940,7 +996,11 @@ SV3_1aSplitterParser::ConfigContext* SV3_1aSplitterParser::config() {
   ConfigContext *_localctx = _tracker.createInstance<ConfigContext>(_ctx, getState());
   enterRule(_localctx, 28, SV3_1aSplitterParser::RuleConfig);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -989,7 +1049,11 @@ SV3_1aSplitterParser::EndconfigContext* SV3_1aSplitterParser::endconfig() {
   EndconfigContext *_localctx = _tracker.createInstance<EndconfigContext>(_ctx, getState());
   enterRule(_localctx, 30, SV3_1aSplitterParser::RuleEndconfig);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1038,7 +1102,11 @@ SV3_1aSplitterParser::AnyContext* SV3_1aSplitterParser::any() {
   AnyContext *_localctx = _tracker.createInstance<AnyContext>(_ctx, getState());
   enterRule(_localctx, 32, SV3_1aSplitterParser::RuleAny);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {

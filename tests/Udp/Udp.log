@@ -819,7 +819,30 @@ design: (work@udp_body_tb)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1

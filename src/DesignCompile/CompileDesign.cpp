@@ -336,11 +336,12 @@ bool CompileDesign::elaboration_()
   PackageAndRootElaboration* packEl = new PackageAndRootElaboration(this);
   packEl->elaborate();
   delete packEl;
+  NetlistElaboration* netlistEl = new NetlistElaboration(this);
+  netlistEl->elaboratePackages();
   DesignElaboration* designEl = new DesignElaboration(this);
   designEl->elaborate();
   delete designEl;
-  NetlistElaboration* netlistEl = new NetlistElaboration(this);
-  netlistEl->elaborate();
+  // netlistEl->elaborate();
   delete netlistEl;
   UVMElaboration* uvmEl = new UVMElaboration(this);
   uvmEl->elaborate();

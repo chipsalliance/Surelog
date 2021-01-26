@@ -68,9 +68,10 @@ bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();
   setupConfigurations_();
   identifyTopModules_();
+  bindPackagesDataTypes_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
-  bindDataTypes_();
+  //bindDataTypes_();
   reduceUnnamedBlocks_();
   checkElaboration_();
   reportElaboration_();
@@ -537,9 +538,10 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       }
     }
   }
-
+  bindDataTypes_(parent->getDefinition());
   NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
   nelab->elaborateParams(parent);
+  nelab->elaborateInstance(parent);
   delete nelab;
 
 
@@ -699,6 +701,11 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
       allSubInstances.push_back(child);
+      bindDataTypes_(def);
+      NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+      nelab->elaborateParams(child);
+      nelab->elaborateInstance(child);
+      delete nelab;
 
     }
     // Special module binding for generate statements
@@ -1580,6 +1587,31 @@ void DesignElaboration::bind_ports_nets_(
   for (Signal* signal : signals ) {
     bindPortType_(signal, fC, signal->getNodeId(), NULL, mod, ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
+}
+
+bool DesignElaboration::bindDataTypes_(DesignComponent* component) {
+  if (component == nullptr)
+    return true;
+  if (component->getFileContents().empty())
+    return true;  
+  const FileContent* fC = component->getFileContents()[0];
+  std::vector<Signal*>& ports = component->getPorts();      // Always empty
+  std::vector<Signal*>& signals = component->getSignals();  // Variables actually
+  bind_ports_nets_(ports, signals, fC, component);
+  return true;
+}
+
+bool DesignElaboration::bindPackagesDataTypes_() {
+  Design* design = m_compileDesign->getCompiler()->getDesign();
+  auto packages = design->getPackageDefinitions();
+  for (auto packNamePair : packages) {
+    Package* package = packNamePair.second;
+    const FileContent* fC = package->getFileContents()[0];
+    std::vector<Signal*>& ports = package->getPorts(); // Always empty
+    std::vector<Signal*>& signals = package->getSignals(); // Variables actually
+    bind_ports_nets_(ports, signals, fC, package);
+  }
+  return true;
 }
 
 bool DesignElaboration::bindDataTypes_()

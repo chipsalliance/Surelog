@@ -65,7 +65,7 @@ Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilde
             const std::string& param_name = param->Lhs()->VpiName();
             if (param_name == name) {
               const any* exp = param->Rhs();
-              if (exp->UhdmType() == uhdmconstant) {
+              if (exp && exp->UhdmType() == uhdmconstant) {
                 constant* c = (constant*)exp;
                 sval = exprBuilder.fromVpiValue(c->VpiValue());
               }

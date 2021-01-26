@@ -292,7 +292,30 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -536,30 +559,27 @@ design: (work@top)
       \_operation: , line:17
         |vpiOpType:33
         |vpiOperand:
-        \_operation: , line:17
-          |vpiOpType:75
-          |vpiOperand:
-          \_tagged_pattern: 
+        \_ref_obj: (MSTATUS_RST_VAL), line:17
+          |vpiName:MSTATUS_RST_VAL
+          |vpiActual:
+          \_parameter: (work@top.MSTATUS_RST_VAL), line:14, parent:work@top
+            |vpiName:MSTATUS_RST_VAL
+            |vpiFullName:work@top.MSTATUS_RST_VAL
+            |vpiLocalParam:1
             |vpiTypespec:
-            \_string_typespec: (mpie), line:14
-              |vpiName:mpie
-            |vpiPattern:
-            \_constant: , line:14
-              |vpiConstType:3
-              |vpiDecompile:1'b1
-              |vpiSize:1
-              |BIN:1
-          |vpiOperand:
-          \_tagged_pattern: 
-            |vpiTypespec:
-            \_string_typespec: (mie), line:15
-              |vpiName:mie
-            |vpiPattern:
-            \_constant: , line:15
-              |vpiConstType:3
-              |vpiDecompile:1'b0
-              |vpiSize:1
-              |BIN:0
+            \_struct_typespec: (status_t), line:9, parent:work@top.MSTATUS_RST_VAL
+              |vpiPacked:1
+              |vpiName:status_t
+              |vpiTypespecMember:
+              \_typespec_member: (mie), line:10, parent:status_t
+                |vpiName:mie
+                |vpiTypespec:
+                \_logic_typespec: , line:10, parent:mie
+              |vpiTypespecMember:
+              \_typespec_member: (mpie), line:11, parent:status_t
+                |vpiName:mpie
+                |vpiTypespec:
+                \_logic_typespec: , line:11, parent:mpie
       |vpiLhs:
       \_parameter: (work@top.u_mstatus_csr.ResetValue), line:2, parent:work@top.u_mstatus_csr
         |vpiName:ResetValue
@@ -626,23 +646,6 @@ design: (work@top)
           |BIN:0
     |vpiLhs:
     \_parameter: (work@top.MSTATUS_RST_VAL), line:14, parent:work@top
-      |vpiName:MSTATUS_RST_VAL
-      |vpiFullName:work@top.MSTATUS_RST_VAL
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_struct_typespec: (status_t), line:9, parent:work@top.MSTATUS_RST_VAL
-        |vpiPacked:1
-        |vpiName:status_t
-        |vpiTypespecMember:
-        \_typespec_member: (mie), line:10, parent:status_t
-          |vpiName:mie
-          |vpiTypespec:
-          \_logic_typespec: , line:10, parent:mie
-        |vpiTypespecMember:
-        \_typespec_member: (mpie), line:11, parent:status_t
-          |vpiName:mpie
-          |vpiTypespec:
-          \_logic_typespec: , line:11, parent:mpie
   |vpiParameter:
   \_parameter: (work@top.MSTATUS_RST_VAL), line:14, parent:work@top
 ===================

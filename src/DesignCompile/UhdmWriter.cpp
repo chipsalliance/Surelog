@@ -1225,6 +1225,8 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m, Ex
 
 bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m, ExprBuilder& exprBuilder) {
   Netlist* netlist = instance->getNetlist();
+  if (netlist == nullptr)
+    return true;
   m->Ports(netlist->ports());
 
   // Typepecs

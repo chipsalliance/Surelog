@@ -72,11 +72,6 @@ class ElaborationStep {
                      DesignComponent* parentComponent,
                      ErrorDefinition::ErrorType errtype);
 
-
-  UHDM::variables* getSimpleVarFromTypespec(UHDM::typespec* spec,
-                                    std::vector<UHDM::range*>* packedDimensions,
-                                    UHDM::Serializer& s);
-
   UHDM::expr* exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id, NodeId unpackedDimension, ModuleInstance* instance);
 
   UHDM::typespec* elabTypeParameter_(DesignComponent* component, Parameter* typeParam, ModuleInstance* instance);

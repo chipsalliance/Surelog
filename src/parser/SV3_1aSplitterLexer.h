@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aSplitterLexer.g4 by ANTLR 4.7.2
+// Generated from SV3_1aSplitterLexer.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -18,7 +18,7 @@ public:
     CONFIG = 15, ENDCONFIG = 16, String = 17, Spaces = 18, CR = 19, ANY = 20
   };
 
-  SV3_1aSplitterLexer(antlr4::CharStream *input);
+  explicit SV3_1aSplitterLexer(antlr4::CharStream *input);
   ~SV3_1aSplitterLexer();
 
   virtual std::string getGrammarFileName() const override;

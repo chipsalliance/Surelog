@@ -239,7 +239,30 @@ design: (work@dff_async_reset)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -278,27 +301,6 @@ design: (work@dff_async_reset)
       |vpiFullName:work@process::resume
   |vpiTypedef:
   \_enum_typespec: (state), line:35
-    |vpiName:state
-    |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35
-      |vpiName:FINISHED
-      |INT:0
-    |vpiEnumConst:
-    \_enum_const: (KILLED), line:35
-      |vpiName:KILLED
-      |INT:4
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35
-      |vpiName:RUNNING
-      |INT:1
-    |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35
-      |vpiName:SUSPENDED
-      |INT:3
-    |vpiEnumConst:
-    \_enum_const: (WAITING), line:35
-      |vpiName:WAITING
-      |INT:2
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dff_async_reset
   |vpiName:work@semaphore
@@ -825,6 +827,11 @@ design: (work@dff_async_reset)
         \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:17, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
           |vpiName:XorNor
           |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+          |vpiActual:
+          \_logic_var: (XorNor), line:14
+            |vpiName:XorNor
+            |vpiTypespec:
+            \_logic_typespec: , line:14
         |vpiRhs:
         \_operation: , line:17, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
           |vpiOpType:30
@@ -1016,6 +1023,8 @@ design: (work@dff_async_reset)
         \_ref_obj: (work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor), line:23, parent:work@LFSR_TASK.LFSR_TAPS8_TASK
           |vpiName:XorNor
           |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+          |vpiActual:
+          \_logic_var: (XorNor), line:14
     |vpiVariables:
     \_int_var: (i), line:13
       |vpiName:i
@@ -1023,9 +1032,6 @@ design: (work@dff_async_reset)
       \_int_typespec: , line:13
     |vpiVariables:
     \_logic_var: (XorNor), line:14
-      |vpiName:XorNor
-      |vpiTypespec:
-      \_logic_typespec: , line:14
   |vpiNet:
   \_logic_net: (work@LFSR_TASK.random1), line:6, parent:work@LFSR_TASK
   |vpiNet:
@@ -8557,145 +8563,46 @@ design: (work@dff_async_reset)
     |vpiDefName:work@syn_fifo::ram_dp_ar_aw
     |vpiName:DP_RAM
     |vpiFullName:work@syn_fifo.DP_RAM
-    |vpiPort:
-    \_port: (address_0), parent:work@syn_fifo.DP_RAM
-      |vpiName:address_0
-      |vpiHighConn:
-      \_ref_obj: (wr_pointer), line:92
-        |vpiName:wr_pointer
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.wr_pointer), line:38, parent:work@syn_fifo
-          |vpiName:wr_pointer
-          |vpiFullName:work@syn_fifo.wr_pointer
-          |vpiNetType:48
-          |vpiRange:
-          \_range: , line:38
-            |vpiLeftRange:
-            \_constant: , line:38
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:38
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-    |vpiPort:
-    \_port: (data_0), parent:work@syn_fifo.DP_RAM
-      |vpiName:data_0
-      |vpiHighConn:
-      \_ref_obj: (data_in), line:93
-        |vpiName:data_in
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.data_in), line:13, parent:work@syn_fifo
-    |vpiPort:
-    \_port: (cs_0), parent:work@syn_fifo.DP_RAM
-      |vpiName:cs_0
-      |vpiHighConn:
-      \_ref_obj: (wr_cs), line:94
-        |vpiName:wr_cs
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.wr_cs), line:11, parent:work@syn_fifo
-    |vpiPort:
-    \_port: (we_0), parent:work@syn_fifo.DP_RAM
-      |vpiName:we_0
-      |vpiHighConn:
-      \_ref_obj: (wr_en), line:95
-        |vpiName:wr_en
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.wr_en), line:15, parent:work@syn_fifo
-    |vpiPort:
-    \_port: (oe_0), parent:work@syn_fifo.DP_RAM
-      |vpiName:oe_0
-      |vpiHighConn:
-      \_constant: , line:96
-        |vpiConstType:3
-        |vpiDecompile:1'b0
-        |vpiSize:1
-        |BIN:0
-    |vpiPort:
-    \_port: (address_1), parent:work@syn_fifo.DP_RAM
-      |vpiName:address_1
-      |vpiHighConn:
-      \_ref_obj: (rd_pointer), line:97
-        |vpiName:rd_pointer
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.rd_pointer), line:39, parent:work@syn_fifo
-          |vpiName:rd_pointer
-          |vpiFullName:work@syn_fifo.rd_pointer
-          |vpiNetType:48
-          |vpiRange:
-          \_range: , line:39
-            |vpiLeftRange:
-            \_constant: , line:39
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:39
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-    |vpiPort:
-    \_port: (data_1), parent:work@syn_fifo.DP_RAM
-      |vpiName:data_1
-      |vpiHighConn:
-      \_ref_obj: (data_ram), line:98
-        |vpiName:data_ram
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.data_ram), line:42, parent:work@syn_fifo
-          |vpiName:data_ram
-          |vpiFullName:work@syn_fifo.data_ram
-          |vpiNetType:1
-          |vpiRange:
-          \_range: , line:42
-            |vpiLeftRange:
-            \_constant: , line:42
-              |vpiConstType:7
-              |vpiDecompile:7
-              |vpiSize:64
-              |INT:7
-            |vpiRightRange:
-            \_constant: , line:42
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
-    |vpiPort:
-    \_port: (cs_1), parent:work@syn_fifo.DP_RAM
-      |vpiName:cs_1
-      |vpiHighConn:
-      \_ref_obj: (rd_cs), line:99
-        |vpiName:rd_cs
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.rd_cs), line:12, parent:work@syn_fifo
-    |vpiPort:
-    \_port: (we_1), parent:work@syn_fifo.DP_RAM
-      |vpiName:we_1
-      |vpiHighConn:
-      \_constant: , line:100
-        |vpiConstType:3
-        |vpiDecompile:1'b0
-        |vpiSize:1
-        |BIN:0
-    |vpiPort:
-    \_port: (oe_1), parent:work@syn_fifo.DP_RAM
-      |vpiName:oe_1
-      |vpiHighConn:
-      \_ref_obj: (rd_en), line:101
-        |vpiName:rd_en
-        |vpiActual:
-        \_logic_net: (work@syn_fifo.rd_en), line:14, parent:work@syn_fifo
     |vpiInstance:
     \_module: work@syn_fifo (work@syn_fifo) synfifo.v:8: 
   |vpiNet:
   \_logic_net: (work@syn_fifo.wr_pointer), line:38, parent:work@syn_fifo
+    |vpiName:wr_pointer
+    |vpiFullName:work@syn_fifo.wr_pointer
+    |vpiNetType:48
+    |vpiRange:
+    \_range: , line:38
+      |vpiLeftRange:
+      \_constant: , line:38
+        |vpiConstType:7
+        |vpiDecompile:7
+        |vpiSize:64
+        |INT:7
+      |vpiRightRange:
+      \_constant: , line:38
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
   |vpiNet:
   \_logic_net: (work@syn_fifo.rd_pointer), line:39, parent:work@syn_fifo
+    |vpiName:rd_pointer
+    |vpiFullName:work@syn_fifo.rd_pointer
+    |vpiNetType:48
+    |vpiRange:
+    \_range: , line:39
+      |vpiLeftRange:
+      \_constant: , line:39
+        |vpiConstType:7
+        |vpiDecompile:7
+        |vpiSize:64
+        |INT:7
+      |vpiRightRange:
+      \_constant: , line:39
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
   |vpiNet:
   \_logic_net: (work@syn_fifo.status_cnt), line:40, parent:work@syn_fifo
     |vpiName:status_cnt
@@ -8719,6 +8626,23 @@ design: (work@dff_async_reset)
   \_logic_net: (work@syn_fifo.data_out), line:41, parent:work@syn_fifo
   |vpiNet:
   \_logic_net: (work@syn_fifo.data_ram), line:42, parent:work@syn_fifo
+    |vpiName:data_ram
+    |vpiFullName:work@syn_fifo.data_ram
+    |vpiNetType:1
+    |vpiRange:
+    \_range: , line:42
+      |vpiLeftRange:
+      \_constant: , line:42
+        |vpiConstType:7
+        |vpiDecompile:7
+        |vpiSize:64
+        |INT:7
+      |vpiRightRange:
+      \_constant: , line:42
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
   |vpiNet:
   \_logic_net: (work@syn_fifo.clk), line:9, parent:work@syn_fifo
   |vpiNet:
