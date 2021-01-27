@@ -51,6 +51,114 @@
 using namespace SURELOG;
 using namespace UHDM;
 
+
+variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
+                                    std::vector<UHDM::range*>* packedDimensions,
+                                    CompileDesign* compileDesign) {
+  Serializer& s = compileDesign->getSerializer();
+  variables* var = nullptr;
+  UHDM_OBJECT_TYPE ttps = spec->UhdmType();
+  switch (ttps) {
+  case uhdmint_typespec: {
+    UHDM::int_var* int_var = s.MakeInt_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmlong_int_typespec: {
+    UHDM::long_int_var* int_var = s.MakeLong_int_var();
+    var = int_var;
+    break;
+  }
+  case uhdmstring_typespec: {
+    UHDM::string_var* int_var = s.MakeString_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmshort_int_typespec: {
+    UHDM::short_int_var* int_var = s.MakeShort_int_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmbyte_typespec: {
+    UHDM::byte_var* int_var = s.MakeByte_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmreal_typespec: {
+    UHDM::real_var* int_var = s.MakeReal_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmshort_real_typespec: {
+    UHDM::short_real_var* int_var = s.MakeShort_real_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmtime_typespec: {
+    UHDM::time_var* int_var = s.MakeTime_var();
+    var = int_var;
+    break;
+  } 
+  case uhdmbit_typespec: {
+    UHDM::bit_var* int_var = s.MakeBit_var();
+    int_var->Ranges(packedDimensions);
+    var = int_var;
+    break;
+  } 
+  case uhdmenum_typespec: {
+    enum_typespec* etps = (enum_typespec*) spec;
+    typespec* base = (typespec*) etps->Base_typespec();
+    if (base) {
+      UHDM_OBJECT_TYPE basettps = base->UhdmType();
+      std::vector<UHDM::range*>* basePackedDimensions = nullptr;
+      if (basettps == uhdmbit_typespec) {
+        basePackedDimensions = ((bit_typespec*)base)->Ranges();
+      } else if (basettps == uhdmlogic_typespec) {
+        basePackedDimensions = ((logic_typespec*)base)->Ranges();
+      }
+      var = getSimpleVarFromTypespec(base, basePackedDimensions, compileDesign);
+      if (var) {
+        var->Typespec(spec);
+      }
+    } else {
+      UHDM::int_var* int_var = s.MakeInt_var();
+      var = int_var;
+    }
+    break;
+  } 
+  case uhdmlogic_typespec: {
+    logic_var* logicv = s.MakeLogic_var();
+    logicv->Ranges(packedDimensions);
+    var = logicv;
+    break;
+  } 
+  case uhdmvoid_typespec: {
+    UHDM::logic_var* logicv = s.MakeLogic_var();
+    logicv->Ranges(packedDimensions);
+    var = logicv;
+    break;
+  }
+  case uhdmunion_typespec: {
+    UHDM::union_var* unionv = s.MakeUnion_var();
+    var = unionv;
+    break;
+  }
+  case uhdmstruct_typespec: {
+    UHDM::struct_var* structv = s.MakeStruct_var();
+    var = structv;
+    break;
+  }
+  default:
+    break;
+  }
+  if (var) {
+    var->Typespec(spec);
+  }
+  return var;
+}
+
+
+
 UHDM::any* CompileHelper::compileVariable(
   DesignComponent* component, const FileContent* fC, NodeId variable,
   CompileDesign* compileDesign,
@@ -77,11 +185,39 @@ UHDM::any* CompileHelper::compileVariable(
   
   if (the_type == VObjectType::slStringConst ||
       the_type == VObjectType::slChandle_type) {
-    chandle_var* ref = s.MakeChandle_var();
-    ref->VpiName(fC->SymName(variable));
-    ref->VpiFile(fC->getFileName());
-    ref->VpiLineNo(fC->Line(variable));
-    result = ref;
+    const std::string& typeName = fC->SymName(variable);
+    /*
+    const any* ptmp = pstmt;
+    while (ptmp) {
+      if (const scope* s = dynamic_cast<const scope*>(ptmp)) {
+      }
+      ptmp = ptmp->VpiParent();
+    }
+    */
+    if (const DataType* dt = component->getDataType(typeName)) {
+      dt = dt->getActual();
+      typespec* tps = dt->getTypespec();
+      if (tps) {
+        if (ranges == nullptr) {
+          UHDM_OBJECT_TYPE ttype = tps->UhdmType();
+          if (ttype == uhdmbit_typespec) { 
+            ranges = ((bit_typespec*)tps)->Ranges();
+          } else if (ttype == uhdmlogic_typespec) { 
+            ranges = ((logic_typespec*)tps)->Ranges();
+          } 
+        }
+        variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
+        if (var) var->VpiName(fC->SymName(variable));
+        result = var;
+      } 
+    }
+    if (result == nullptr) {
+      chandle_var* ref = s.MakeChandle_var();
+      ref->VpiName(fC->SymName(variable));
+      result = ref;
+    }
+    result->VpiFile(fC->getFileName());
+    result->VpiLineNo(fC->Line(variable));
   } else if (the_type == VObjectType::slIntVec_TypeLogic ||
              the_type == VObjectType::slIntVec_TypeReg) {
     logic_var* var = s.MakeLogic_var();

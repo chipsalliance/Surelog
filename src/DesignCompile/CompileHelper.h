@@ -229,7 +229,7 @@ public:
   UHDM::any* compileBits(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::any* pexpr,
-                         ValuedComponentI* instance, bool reduce);
+                         ValuedComponentI* instance, bool reduce, bool sizeMode);
 
   UHDM::any* compileClog2(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
@@ -286,9 +286,22 @@ public:
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
-               CompileDesign* compileDesign, ValuedComponentI* instance);
+               CompileDesign* compileDesign, ValuedComponentI* instance, 
+               const std::string& fileName, int lineNumber, UHDM::any* pexpr);
 
-  bool isMultidimensional(UHDM::typespec* ts); 
+  bool isMultidimensional(UHDM::typespec* ts);
+
+  unsigned long long get_value(bool& invalidValue, const UHDM::expr* expr);
+
+  UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr);
+ 
+  unsigned int Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode);         
+
+  UHDM::variables* getSimpleVarFromTypespec(UHDM::typespec* spec,
+                                    std::vector<UHDM::range*>* packedDimensions,
+                                    CompileDesign* compileDesign);
 
 private:
   CompileHelper(const CompileHelper&) = delete;

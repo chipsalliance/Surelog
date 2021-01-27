@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aPpLexer.g4 by ANTLR 4.7.2
+// Generated from SV3_1aPpLexer.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -39,7 +39,7 @@ public:
     SQUARE_CLOSE = 92, Special = 93, ANY = 94
   };
 
-  SV3_1aPpLexer(antlr4::CharStream *input);
+  explicit SV3_1aPpLexer(antlr4::CharStream *input);
   ~SV3_1aPpLexer();
 
   virtual std::string getGrammarFileName() const override;

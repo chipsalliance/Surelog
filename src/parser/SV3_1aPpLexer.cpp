@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aPpLexer.g4 by ANTLR 4.7.2
+// Generated from SV3_1aPpLexer.g4 by ANTLR 4.9.1
 
 
 #include "SV3_1aPpLexer.h"
@@ -60,35 +60,33 @@ atn::ATN SV3_1aPpLexer::_atn;
 std::vector<uint16_t> SV3_1aPpLexer::_serializedATN;
 
 std::vector<std::string> SV3_1aPpLexer::_ruleNames = {
-  u8"One_line_comment", u8"Block_comment", u8"Comment_text", u8"TICK_VARIABLE", 
-  u8"TICK_DEFINE", u8"TICK_CELLDEFINE", u8"TICK_ENDCELLDEFINE", u8"TICK_DEFAULT_NETTYPE", 
-  u8"TICK_UNDEF", u8"TICK_IFDEF", u8"TICK_IFNDEF", u8"TICK_ELSE", u8"TICK_ELSIF", 
-  u8"TICK_ELSEIF", u8"TICK_ENDIF", u8"TICK_INCLUDE", u8"TICK_PRAGMA", u8"TICK_BEGIN_KEYWORDS", 
-  u8"TICK_END_KEYWORDS", u8"TICK_RESETALL", u8"TICK_TIMESCALE", u8"TICK_UNCONNECTED_DRIVE", 
-  u8"TICK_NOUNCONNECTED_DRIVE", u8"TICK_LINE", u8"TICK_DEFAULT_DECAY_TIME", 
-  u8"TICK_DEFAULT_TRIREG_STRENGTH", u8"TICK_DELAY_MODE_DISTRIBUTED", u8"TICK_DELAY_MODE_PATH", 
-  u8"TICK_DELAY_MODE_UNIT", u8"TICK_DELAY_MODE_ZERO", u8"TICK_UNDEFINEALL", 
-  u8"TICK_ACCELERATE", u8"TICK_NOACCELERATE", u8"TICK_PROTECT", u8"TICK_USELIB", 
-  u8"TICK_DISABLE_PORTFAULTS", u8"TICK_ENABLE_PORTFAULTS", u8"TICK_NOSUPPRESS_FAULTS", 
-  u8"TICK_SUPPRESS_FAULTS", u8"TICK_SIGNED", u8"TICK_UNSIGNED", u8"TICK_ENDPROTECT", 
-  u8"TICK_PROTECTED", u8"TICK_ENDPROTECTED", u8"TICK_EXPAND_VECTORNETS", 
-  u8"TICK_NOEXPAND_VECTORNETS", u8"TICK_AUTOEXPAND_VECTORNETS", u8"TICK_REMOVE_GATENAME", 
-  u8"TICK_NOREMOVE_GATENAMES", u8"TICK_REMOVE_NETNAME", u8"TICK_NOREMOVE_NETNAMES", 
-  u8"TICK_FILE__", u8"TICK_LINE__", u8"MODULE", u8"ENDMODULE", u8"INTERFACE", 
-  u8"ENDINTERFACE", u8"PROGRAM", u8"ENDPROGRAM", u8"PRIMITIVE", u8"ENDPRIMITIVE", 
-  u8"PACKAGE", u8"ENDPACKAGE", u8"CHECKER", u8"ENDCHECKER", u8"CONFIG", 
-  u8"ENDCONFIG", u8"Macro_identifier", u8"Macro_Escaped_identifier", u8"String", 
-  u8"Simple_identifier", u8"Spaces", u8"Pound_Pound_delay", u8"Pound_delay", 
-  u8"TIMESCALE", u8"Non_zero_unsigned_number", u8"Decimal_number", u8"Binary_number", 
-  u8"Octal_number", u8"Hex_number", u8"Number", u8"Unsigned_number", u8"Binary_value", 
-  u8"Octal_value", u8"Hex_value", u8"Decimal_base", u8"Binary_base", u8"Octal_base", 
-  u8"Hex_base", u8"Decimal_digit", u8"Binary_digit", u8"Binary_digit_no_qm", 
-  u8"Octal_digit", u8"Octal_digit_no_qm", u8"Hex_digit", u8"Hex_digit_no_qm", 
-  u8"X_digit", u8"Z_digit", u8"Z_digit_no_qm", u8"Fixed_point_number", u8"WS", 
-  u8"TAB", u8"TEXT_CR", u8"ESCAPED_CR", u8"CR", u8"TICK_QUOTE", u8"TICK_BACKSLASH_TICK_QUOTE", 
-  u8"TICK_TICK", u8"PARENS_OPEN", u8"PARENS_CLOSE", u8"COMMA", u8"EQUAL_OP", 
-  u8"DOUBLE_QUOTE", u8"Escaped_identifier", u8"CURLY_OPEN", u8"CURLY_CLOSE", 
-  u8"SQUARE_OPEN", u8"SQUARE_CLOSE", u8"Special", u8"ANY"
+  "One_line_comment", "Block_comment", "Comment_text", "TICK_VARIABLE", 
+  "TICK_DEFINE", "TICK_CELLDEFINE", "TICK_ENDCELLDEFINE", "TICK_DEFAULT_NETTYPE", 
+  "TICK_UNDEF", "TICK_IFDEF", "TICK_IFNDEF", "TICK_ELSE", "TICK_ELSIF", 
+  "TICK_ELSEIF", "TICK_ENDIF", "TICK_INCLUDE", "TICK_PRAGMA", "TICK_BEGIN_KEYWORDS", 
+  "TICK_END_KEYWORDS", "TICK_RESETALL", "TICK_TIMESCALE", "TICK_UNCONNECTED_DRIVE", 
+  "TICK_NOUNCONNECTED_DRIVE", "TICK_LINE", "TICK_DEFAULT_DECAY_TIME", "TICK_DEFAULT_TRIREG_STRENGTH", 
+  "TICK_DELAY_MODE_DISTRIBUTED", "TICK_DELAY_MODE_PATH", "TICK_DELAY_MODE_UNIT", 
+  "TICK_DELAY_MODE_ZERO", "TICK_UNDEFINEALL", "TICK_ACCELERATE", "TICK_NOACCELERATE", 
+  "TICK_PROTECT", "TICK_USELIB", "TICK_DISABLE_PORTFAULTS", "TICK_ENABLE_PORTFAULTS", 
+  "TICK_NOSUPPRESS_FAULTS", "TICK_SUPPRESS_FAULTS", "TICK_SIGNED", "TICK_UNSIGNED", 
+  "TICK_ENDPROTECT", "TICK_PROTECTED", "TICK_ENDPROTECTED", "TICK_EXPAND_VECTORNETS", 
+  "TICK_NOEXPAND_VECTORNETS", "TICK_AUTOEXPAND_VECTORNETS", "TICK_REMOVE_GATENAME", 
+  "TICK_NOREMOVE_GATENAMES", "TICK_REMOVE_NETNAME", "TICK_NOREMOVE_NETNAMES", 
+  "TICK_FILE__", "TICK_LINE__", "MODULE", "ENDMODULE", "INTERFACE", "ENDINTERFACE", 
+  "PROGRAM", "ENDPROGRAM", "PRIMITIVE", "ENDPRIMITIVE", "PACKAGE", "ENDPACKAGE", 
+  "CHECKER", "ENDCHECKER", "CONFIG", "ENDCONFIG", "Macro_identifier", "Macro_Escaped_identifier", 
+  "String", "Simple_identifier", "Spaces", "Pound_Pound_delay", "Pound_delay", 
+  "TIMESCALE", "Non_zero_unsigned_number", "Decimal_number", "Binary_number", 
+  "Octal_number", "Hex_number", "Number", "Unsigned_number", "Binary_value", 
+  "Octal_value", "Hex_value", "Decimal_base", "Binary_base", "Octal_base", 
+  "Hex_base", "Decimal_digit", "Binary_digit", "Binary_digit_no_qm", "Octal_digit", 
+  "Octal_digit_no_qm", "Hex_digit", "Hex_digit_no_qm", "X_digit", "Z_digit", 
+  "Z_digit_no_qm", "Fixed_point_number", "WS", "TAB", "TEXT_CR", "ESCAPED_CR", 
+  "CR", "TICK_QUOTE", "TICK_BACKSLASH_TICK_QUOTE", "TICK_TICK", "PARENS_OPEN", 
+  "PARENS_CLOSE", "COMMA", "EQUAL_OP", "DOUBLE_QUOTE", "Escaped_identifier", 
+  "CURLY_OPEN", "CURLY_CLOSE", "SQUARE_OPEN", "SQUARE_CLOSE", "Special", 
+  "ANY"
 };
 
 std::vector<std::string> SV3_1aPpLexer::_channelNames = {
@@ -96,56 +94,52 @@ std::vector<std::string> SV3_1aPpLexer::_channelNames = {
 };
 
 std::vector<std::string> SV3_1aPpLexer::_modeNames = {
-  u8"DEFAULT_MODE"
+  "DEFAULT_MODE"
 };
 
 std::vector<std::string> SV3_1aPpLexer::_literalNames = {
-  "", "", "", "", u8"'`define'", u8"'`celldefine'", u8"'`endcelldefine'", 
-  u8"'`default_nettype'", u8"'`undef'", u8"'`ifdef'", u8"'`ifndef'", u8"'`else'", 
-  u8"'`elsif'", u8"'`elseif'", u8"'`endif'", u8"'`include'", u8"'`pragma'", 
-  u8"'`begin_keywords'", u8"'`end_keywords'", u8"'`resetall'", u8"'`timescale'", 
-  u8"'`unconnected_drive'", u8"'`nounconnected_drive'", u8"'`line'", u8"'`default_decay_time'", 
-  u8"'`default_trireg_strength'", u8"'`delay_mode_distributed'", u8"'`delay_mode_path'", 
-  u8"'`delay_mode_unit'", u8"'`delay_mode_zero'", u8"'`undefineall'", u8"'`accelerate'", 
-  u8"'`noaccelerate'", u8"'`protect'", u8"'`uselib'", u8"'`disable_portfaults'", 
-  u8"'`enable_portfaults'", u8"'`nosuppress_faults'", u8"'`suppress_faults'", 
-  u8"'`signed'", u8"'`unsigned'", u8"'`endprotect'", u8"'`protected'", u8"'`endprotected'", 
-  u8"'`expand_vectornets'", u8"'`noexpand_vectornets'", u8"'`autoexpand_vectornets'", 
-  u8"'`remove_gatename'", u8"'`noremove_gatenames'", u8"'`remove_netname'", 
-  u8"'`noremove_netnames'", u8"'`__FILE__'", u8"'`__LINE__'", u8"'module'", 
-  u8"'endmodule'", u8"'interface'", u8"'endinterface'", u8"'program'", u8"'endprogram'", 
-  u8"'primivite'", u8"'endprimitive'", u8"'package'", u8"'endpackage'", 
-  u8"'checker'", u8"'endchecker'", u8"'config'", u8"'endconfig'", "", "", 
-  "", "", "", "", "", "", "", "", "", "", "", u8"'`\"'", u8"'`\\`\"'", u8"'``'", 
-  u8"'('", u8"')'", u8"','", u8"'='", u8"'\"'", "", u8"'{'", u8"'}'", u8"'['", 
-  u8"']'"
+  "", "", "", "", "'`define'", "'`celldefine'", "'`endcelldefine'", "'`default_nettype'", 
+  "'`undef'", "'`ifdef'", "'`ifndef'", "'`else'", "'`elsif'", "'`elseif'", 
+  "'`endif'", "'`include'", "'`pragma'", "'`begin_keywords'", "'`end_keywords'", 
+  "'`resetall'", "'`timescale'", "'`unconnected_drive'", "'`nounconnected_drive'", 
+  "'`line'", "'`default_decay_time'", "'`default_trireg_strength'", "'`delay_mode_distributed'", 
+  "'`delay_mode_path'", "'`delay_mode_unit'", "'`delay_mode_zero'", "'`undefineall'", 
+  "'`accelerate'", "'`noaccelerate'", "'`protect'", "'`uselib'", "'`disable_portfaults'", 
+  "'`enable_portfaults'", "'`nosuppress_faults'", "'`suppress_faults'", 
+  "'`signed'", "'`unsigned'", "'`endprotect'", "'`protected'", "'`endprotected'", 
+  "'`expand_vectornets'", "'`noexpand_vectornets'", "'`autoexpand_vectornets'", 
+  "'`remove_gatename'", "'`noremove_gatenames'", "'`remove_netname'", "'`noremove_netnames'", 
+  "'`__FILE__'", "'`__LINE__'", "'module'", "'endmodule'", "'interface'", 
+  "'endinterface'", "'program'", "'endprogram'", "'primivite'", "'endprimitive'", 
+  "'package'", "'endpackage'", "'checker'", "'endchecker'", "'config'", 
+  "'endconfig'", "", "", "", "", "", "", "", "", "", "", "", "", "", "'`\"'", 
+  "'`\\`\"'", "'``'", "'('", "')'", "','", "'='", "'\"'", "", "'{'", "'}'", 
+  "'['", "']'"
 };
 
 std::vector<std::string> SV3_1aPpLexer::_symbolicNames = {
-  "", u8"One_line_comment", u8"Block_comment", u8"TICK_VARIABLE", u8"TICK_DEFINE", 
-  u8"TICK_CELLDEFINE", u8"TICK_ENDCELLDEFINE", u8"TICK_DEFAULT_NETTYPE", 
-  u8"TICK_UNDEF", u8"TICK_IFDEF", u8"TICK_IFNDEF", u8"TICK_ELSE", u8"TICK_ELSIF", 
-  u8"TICK_ELSEIF", u8"TICK_ENDIF", u8"TICK_INCLUDE", u8"TICK_PRAGMA", u8"TICK_BEGIN_KEYWORDS", 
-  u8"TICK_END_KEYWORDS", u8"TICK_RESETALL", u8"TICK_TIMESCALE", u8"TICK_UNCONNECTED_DRIVE", 
-  u8"TICK_NOUNCONNECTED_DRIVE", u8"TICK_LINE", u8"TICK_DEFAULT_DECAY_TIME", 
-  u8"TICK_DEFAULT_TRIREG_STRENGTH", u8"TICK_DELAY_MODE_DISTRIBUTED", u8"TICK_DELAY_MODE_PATH", 
-  u8"TICK_DELAY_MODE_UNIT", u8"TICK_DELAY_MODE_ZERO", u8"TICK_UNDEFINEALL", 
-  u8"TICK_ACCELERATE", u8"TICK_NOACCELERATE", u8"TICK_PROTECT", u8"TICK_USELIB", 
-  u8"TICK_DISABLE_PORTFAULTS", u8"TICK_ENABLE_PORTFAULTS", u8"TICK_NOSUPPRESS_FAULTS", 
-  u8"TICK_SUPPRESS_FAULTS", u8"TICK_SIGNED", u8"TICK_UNSIGNED", u8"TICK_ENDPROTECT", 
-  u8"TICK_PROTECTED", u8"TICK_ENDPROTECTED", u8"TICK_EXPAND_VECTORNETS", 
-  u8"TICK_NOEXPAND_VECTORNETS", u8"TICK_AUTOEXPAND_VECTORNETS", u8"TICK_REMOVE_GATENAME", 
-  u8"TICK_NOREMOVE_GATENAMES", u8"TICK_REMOVE_NETNAME", u8"TICK_NOREMOVE_NETNAMES", 
-  u8"TICK_FILE__", u8"TICK_LINE__", u8"MODULE", u8"ENDMODULE", u8"INTERFACE", 
-  u8"ENDINTERFACE", u8"PROGRAM", u8"ENDPROGRAM", u8"PRIMITIVE", u8"ENDPRIMITIVE", 
-  u8"PACKAGE", u8"ENDPACKAGE", u8"CHECKER", u8"ENDCHECKER", u8"CONFIG", 
-  u8"ENDCONFIG", u8"Macro_identifier", u8"Macro_Escaped_identifier", u8"String", 
-  u8"Simple_identifier", u8"Spaces", u8"Pound_Pound_delay", u8"Pound_delay", 
-  u8"TIMESCALE", u8"Number", u8"Fixed_point_number", u8"TEXT_CR", u8"ESCAPED_CR", 
-  u8"CR", u8"TICK_QUOTE", u8"TICK_BACKSLASH_TICK_QUOTE", u8"TICK_TICK", 
-  u8"PARENS_OPEN", u8"PARENS_CLOSE", u8"COMMA", u8"EQUAL_OP", u8"DOUBLE_QUOTE", 
-  u8"Escaped_identifier", u8"CURLY_OPEN", u8"CURLY_CLOSE", u8"SQUARE_OPEN", 
-  u8"SQUARE_CLOSE", u8"Special", u8"ANY"
+  "", "One_line_comment", "Block_comment", "TICK_VARIABLE", "TICK_DEFINE", 
+  "TICK_CELLDEFINE", "TICK_ENDCELLDEFINE", "TICK_DEFAULT_NETTYPE", "TICK_UNDEF", 
+  "TICK_IFDEF", "TICK_IFNDEF", "TICK_ELSE", "TICK_ELSIF", "TICK_ELSEIF", 
+  "TICK_ENDIF", "TICK_INCLUDE", "TICK_PRAGMA", "TICK_BEGIN_KEYWORDS", "TICK_END_KEYWORDS", 
+  "TICK_RESETALL", "TICK_TIMESCALE", "TICK_UNCONNECTED_DRIVE", "TICK_NOUNCONNECTED_DRIVE", 
+  "TICK_LINE", "TICK_DEFAULT_DECAY_TIME", "TICK_DEFAULT_TRIREG_STRENGTH", 
+  "TICK_DELAY_MODE_DISTRIBUTED", "TICK_DELAY_MODE_PATH", "TICK_DELAY_MODE_UNIT", 
+  "TICK_DELAY_MODE_ZERO", "TICK_UNDEFINEALL", "TICK_ACCELERATE", "TICK_NOACCELERATE", 
+  "TICK_PROTECT", "TICK_USELIB", "TICK_DISABLE_PORTFAULTS", "TICK_ENABLE_PORTFAULTS", 
+  "TICK_NOSUPPRESS_FAULTS", "TICK_SUPPRESS_FAULTS", "TICK_SIGNED", "TICK_UNSIGNED", 
+  "TICK_ENDPROTECT", "TICK_PROTECTED", "TICK_ENDPROTECTED", "TICK_EXPAND_VECTORNETS", 
+  "TICK_NOEXPAND_VECTORNETS", "TICK_AUTOEXPAND_VECTORNETS", "TICK_REMOVE_GATENAME", 
+  "TICK_NOREMOVE_GATENAMES", "TICK_REMOVE_NETNAME", "TICK_NOREMOVE_NETNAMES", 
+  "TICK_FILE__", "TICK_LINE__", "MODULE", "ENDMODULE", "INTERFACE", "ENDINTERFACE", 
+  "PROGRAM", "ENDPROGRAM", "PRIMITIVE", "ENDPRIMITIVE", "PACKAGE", "ENDPACKAGE", 
+  "CHECKER", "ENDCHECKER", "CONFIG", "ENDCONFIG", "Macro_identifier", "Macro_Escaped_identifier", 
+  "String", "Simple_identifier", "Spaces", "Pound_Pound_delay", "Pound_delay", 
+  "TIMESCALE", "Number", "Fixed_point_number", "TEXT_CR", "ESCAPED_CR", 
+  "CR", "TICK_QUOTE", "TICK_BACKSLASH_TICK_QUOTE", "TICK_TICK", "PARENS_OPEN", 
+  "PARENS_CLOSE", "COMMA", "EQUAL_OP", "DOUBLE_QUOTE", "Escaped_identifier", 
+  "CURLY_OPEN", "CURLY_CLOSE", "SQUARE_OPEN", "SQUARE_CLOSE", "Special", 
+  "ANY"
 };
 
 dfa::Vocabulary SV3_1aPpLexer::_vocabulary(_literalNames, _symbolicNames);

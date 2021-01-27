@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aSplitterParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aSplitterParser.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -26,7 +26,7 @@ public:
     RuleAny = 16
   };
 
-  SV3_1aSplitterParser(antlr4::TokenStream *input);
+  explicit SV3_1aSplitterParser(antlr4::TokenStream *input);
   ~SV3_1aSplitterParser();
 
   virtual std::string getGrammarFileName() const override;

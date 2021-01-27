@@ -747,7 +747,30 @@ design: (work@socket_1n)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -1388,16 +1411,22 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:40, parent:work@socket_1n
     |vpiRhs:
-    \_constant: , line:40
-      |vpiConstType:5
-      |vpiDecompile:22
-      |vpiSize:8
-      |HEX:22
+    \_operation: , line:40
+      |vpiOpType:34
+      |vpiOperand:
+      \_constant: , line:40
+        |vpiDecompile:2
+        |INT:2
+      |vpiOperand:
+      \_constant: , line:40
+        |vpiConstType:5
+        |vpiDecompile:4'h2
+        |vpiSize:4
+        |HEX:2
     |vpiLhs:
     \_parameter: (work@socket_1n.DReqDepth), line:40, parent:work@socket_1n
       |vpiName:DReqDepth
       |vpiFullName:work@socket_1n.DReqDepth
-      |INT:34
       |vpiTypespec:
       \_bit_typespec: (DReqDepth), line:40, parent:work@socket_1n.DReqDepth
         |vpiName:DReqDepth
@@ -1418,14 +1447,23 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:41, parent:work@socket_1n
     |vpiRhs:
-    \_constant: , line:41
-      |vpiDecompile:68
-      |INT:68
+    \_operation: , line:41
+      |vpiOpType:25
+      |vpiOperand:
+      \_ref_obj: (DReqDepth), line:41
+        |vpiName:DReqDepth
+        |vpiActual:
+        \_parameter: (work@socket_1n.DReqDepth), line:40, parent:work@socket_1n
+      |vpiOperand:
+      \_constant: , line:41
+        |vpiConstType:7
+        |vpiDecompile:2
+        |vpiSize:32
+        |INT:2
     |vpiLhs:
     \_parameter: (work@socket_1n.AA), line:41, parent:work@socket_1n
       |vpiName:AA
       |vpiFullName:work@socket_1n.AA
-      |INT:68
       |vpiTypespec:
       \_bit_typespec: (AA), line:41, parent:work@socket_1n.AA
         |vpiName:AA
@@ -1446,15 +1484,34 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:42, parent:work@socket_1n
     |vpiRhs:
-    \_constant: , line:42
-      |vpiDecompile:INT:2
-      |vpiSize:4
-      |INT:2
+    \_indexed_part_select: , line:42, parent:DReqDepth
+      |vpiConstantSelect:1
+      |vpiIndexedPartSelectType:1
+      |vpiBaseExpr:
+      \_operation: , line:42
+        |vpiOpType:25
+        |vpiOperand:
+        \_constant: , line:42
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+        |vpiOperand:
+        \_constant: , line:42
+          |vpiConstType:7
+          |vpiDecompile:4
+          |vpiSize:32
+          |INT:4
+      |vpiWidthExpr:
+      \_constant: , line:42
+        |vpiConstType:7
+        |vpiDecompile:4
+        |vpiSize:32
+        |INT:4
     |vpiLhs:
     \_parameter: (work@socket_1n.BB), line:42, parent:work@socket_1n
       |vpiName:BB
       |vpiFullName:work@socket_1n.BB
-      |INT:2
       |vpiTypespec:
       \_bit_typespec: (BB), line:42, parent:work@socket_1n.BB
         |vpiName:BB
@@ -1659,16 +1716,24 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:56, parent:work@all_zero
     |vpiRhs:
-    \_constant: , line:56
-      |vpiConstType:5
-      |vpiDecompile:00
-      |vpiSize:8
-      |HEX:00
+    \_operation: , line:56
+      |vpiOpType:34
+      |vpiOperand:
+      \_constant: , line:56
+        |vpiConstType:7
+        |vpiDecompile:2
+        |vpiSize:32
+        |INT:2
+      |vpiOperand:
+      \_constant: , line:56
+        |vpiConstType:5
+        |vpiDecompile:4'h0
+        |vpiSize:4
+        |HEX:0
     |vpiLhs:
     \_parameter: (work@all_zero.DReqDepth), line:56, parent:work@all_zero
       |vpiName:DReqDepth
       |vpiFullName:work@all_zero.DReqDepth
-      |INT:0
       |vpiTypespec:
       \_bit_typespec: (DReqDepth), line:56, parent:work@all_zero.DReqDepth
         |vpiName:DReqDepth
@@ -1689,14 +1754,23 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:57, parent:work@all_zero
     |vpiRhs:
-    \_constant: , line:57
-      |vpiDecompile:0
-      |INT:0
+    \_operation: , line:57
+      |vpiOpType:25
+      |vpiOperand:
+      \_ref_obj: (DReqDepth), line:57
+        |vpiName:DReqDepth
+        |vpiActual:
+        \_parameter: (work@all_zero.DReqDepth), line:56, parent:work@all_zero
+      |vpiOperand:
+      \_constant: , line:57
+        |vpiConstType:7
+        |vpiDecompile:2
+        |vpiSize:32
+        |INT:2
     |vpiLhs:
     \_parameter: (work@all_zero.AA), line:57, parent:work@all_zero
       |vpiName:AA
       |vpiFullName:work@all_zero.AA
-      |INT:0
       |vpiTypespec:
       \_bit_typespec: (AA), line:57, parent:work@all_zero.AA
         |vpiName:AA
@@ -1717,15 +1791,34 @@ design: (work@socket_1n)
   |vpiParamAssign:
   \_param_assign: , line:58, parent:work@all_zero
     |vpiRhs:
-    \_constant: , line:58
-      |vpiDecompile:INT:0
-      |vpiSize:4
-      |INT:0
+    \_indexed_part_select: , line:58, parent:DReqDepth
+      |vpiConstantSelect:1
+      |vpiIndexedPartSelectType:1
+      |vpiBaseExpr:
+      \_operation: , line:58
+        |vpiOpType:25
+        |vpiOperand:
+        \_constant: , line:58
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+        |vpiOperand:
+        \_constant: , line:58
+          |vpiConstType:7
+          |vpiDecompile:4
+          |vpiSize:32
+          |INT:4
+      |vpiWidthExpr:
+      \_constant: , line:58
+        |vpiConstType:7
+        |vpiDecompile:4
+        |vpiSize:32
+        |INT:4
     |vpiLhs:
     \_parameter: (work@all_zero.BB), line:58, parent:work@all_zero
       |vpiName:BB
       |vpiFullName:work@all_zero.BB
-      |INT:0
       |vpiTypespec:
       \_bit_typespec: (BB), line:58, parent:work@all_zero.BB
         |vpiName:BB

@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aPpParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aPpParser.g4 by ANTLR 4.9.1
 
 
 #include "SV3_1aPpParserListener.h"
@@ -70,7 +70,11 @@ SV3_1aPpParser::Top_level_ruleContext* SV3_1aPpParser::top_level_rule() {
   Top_level_ruleContext *_localctx = _tracker.createInstance<Top_level_ruleContext>(_ctx, getState());
   enterRule(_localctx, 0, SV3_1aPpParser::RuleTop_level_rule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -128,7 +132,11 @@ SV3_1aPpParser::Source_textContext* SV3_1aPpParser::source_text() {
   enterRule(_localctx, 2, SV3_1aPpParser::RuleSource_text);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -275,7 +283,11 @@ SV3_1aPpParser::Null_ruleContext* SV3_1aPpParser::null_rule() {
   Null_ruleContext *_localctx = _tracker.createInstance<Null_ruleContext>(_ctx, getState());
   enterRule(_localctx, 4, SV3_1aPpParser::RuleNull_rule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -607,7 +619,11 @@ SV3_1aPpParser::DescriptionContext* SV3_1aPpParser::description() {
   DescriptionContext *_localctx = _tracker.createInstance<DescriptionContext>(_ctx, getState());
   enterRule(_localctx, 6, SV3_1aPpParser::RuleDescription);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1118,6 +1134,8 @@ SV3_1aPpParser::DescriptionContext* SV3_1aPpParser::description() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -1214,7 +1232,11 @@ SV3_1aPpParser::Macro_instanceContext* SV3_1aPpParser::macro_instance() {
   enterRule(_localctx, 8, SV3_1aPpParser::RuleMacro_instance);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1271,6 +1293,8 @@ SV3_1aPpParser::Macro_instanceContext* SV3_1aPpParser::macro_instance() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -1327,7 +1351,11 @@ SV3_1aPpParser::Unterminated_stringContext* SV3_1aPpParser::unterminated_string(
   enterRule(_localctx, 10, SV3_1aPpParser::RuleUnterminated_string);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1422,7 +1450,11 @@ SV3_1aPpParser::Macro_actual_argsContext* SV3_1aPpParser::macro_actual_args() {
   enterRule(_localctx, 12, SV3_1aPpParser::RuleMacro_actual_args);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1548,7 +1580,11 @@ SV3_1aPpParser::CommentsContext* SV3_1aPpParser::comments() {
   enterRule(_localctx, 14, SV3_1aPpParser::RuleComments);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1606,7 +1642,11 @@ SV3_1aPpParser::NumberContext* SV3_1aPpParser::number() {
   NumberContext *_localctx = _tracker.createInstance<NumberContext>(_ctx, getState());
   enterRule(_localctx, 16, SV3_1aPpParser::RuleNumber);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1655,7 +1695,11 @@ SV3_1aPpParser::Pound_delayContext* SV3_1aPpParser::pound_delay() {
   Pound_delayContext *_localctx = _tracker.createInstance<Pound_delayContext>(_ctx, getState());
   enterRule(_localctx, 18, SV3_1aPpParser::RulePound_delay);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1704,7 +1748,11 @@ SV3_1aPpParser::Pound_pound_delayContext* SV3_1aPpParser::pound_pound_delay() {
   Pound_pound_delayContext *_localctx = _tracker.createInstance<Pound_pound_delayContext>(_ctx, getState());
   enterRule(_localctx, 20, SV3_1aPpParser::RulePound_pound_delay);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1769,7 +1817,11 @@ SV3_1aPpParser::Macro_definitionContext* SV3_1aPpParser::macro_definition() {
   Macro_definitionContext *_localctx = _tracker.createInstance<Macro_definitionContext>(_ctx, getState());
   enterRule(_localctx, 22, SV3_1aPpParser::RuleMacro_definition);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1811,6 +1863,8 @@ SV3_1aPpParser::Macro_definitionContext* SV3_1aPpParser::macro_definition() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -1874,7 +1928,11 @@ SV3_1aPpParser::Include_directiveContext* SV3_1aPpParser::include_directive() {
   Include_directiveContext *_localctx = _tracker.createInstance<Include_directiveContext>(_ctx, getState());
   enterRule(_localctx, 24, SV3_1aPpParser::RuleInclude_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1976,7 +2034,11 @@ SV3_1aPpParser::Line_directiveContext* SV3_1aPpParser::line_directive() {
   Line_directiveContext *_localctx = _tracker.createInstance<Line_directiveContext>(_ctx, getState());
   enterRule(_localctx, 26, SV3_1aPpParser::RuleLine_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2043,7 +2105,11 @@ SV3_1aPpParser::Default_nettype_directiveContext* SV3_1aPpParser::default_nettyp
   Default_nettype_directiveContext *_localctx = _tracker.createInstance<Default_nettype_directiveContext>(_ctx, getState());
   enterRule(_localctx, 28, SV3_1aPpParser::RuleDefault_nettype_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2096,7 +2162,11 @@ SV3_1aPpParser::Sv_file_directiveContext* SV3_1aPpParser::sv_file_directive() {
   Sv_file_directiveContext *_localctx = _tracker.createInstance<Sv_file_directiveContext>(_ctx, getState());
   enterRule(_localctx, 30, SV3_1aPpParser::RuleSv_file_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2145,7 +2215,11 @@ SV3_1aPpParser::Sv_line_directiveContext* SV3_1aPpParser::sv_line_directive() {
   Sv_line_directiveContext *_localctx = _tracker.createInstance<Sv_line_directiveContext>(_ctx, getState());
   enterRule(_localctx, 32, SV3_1aPpParser::RuleSv_line_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2198,7 +2272,11 @@ SV3_1aPpParser::Timescale_directiveContext* SV3_1aPpParser::timescale_directive(
   Timescale_directiveContext *_localctx = _tracker.createInstance<Timescale_directiveContext>(_ctx, getState());
   enterRule(_localctx, 34, SV3_1aPpParser::RuleTimescale_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2265,7 +2343,11 @@ SV3_1aPpParser::Undef_directiveContext* SV3_1aPpParser::undef_directive() {
   Undef_directiveContext *_localctx = _tracker.createInstance<Undef_directiveContext>(_ctx, getState());
   enterRule(_localctx, 36, SV3_1aPpParser::RuleUndef_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2357,7 +2439,11 @@ SV3_1aPpParser::Ifdef_directiveContext* SV3_1aPpParser::ifdef_directive() {
   Ifdef_directiveContext *_localctx = _tracker.createInstance<Ifdef_directiveContext>(_ctx, getState());
   enterRule(_localctx, 38, SV3_1aPpParser::RuleIfdef_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2449,7 +2535,11 @@ SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext* SV3_1aPpParser::ifdef_dire
   Ifdef_directive_in_macro_bodyContext *_localctx = _tracker.createInstance<Ifdef_directive_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 40, SV3_1aPpParser::RuleIfdef_directive_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2542,7 +2632,11 @@ SV3_1aPpParser::Ifndef_directiveContext* SV3_1aPpParser::ifndef_directive() {
   Ifndef_directiveContext *_localctx = _tracker.createInstance<Ifndef_directiveContext>(_ctx, getState());
   enterRule(_localctx, 42, SV3_1aPpParser::RuleIfndef_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2634,7 +2728,11 @@ SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext* SV3_1aPpParser::ifndef_di
   Ifndef_directive_in_macro_bodyContext *_localctx = _tracker.createInstance<Ifndef_directive_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 44, SV3_1aPpParser::RuleIfndef_directive_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2727,7 +2825,11 @@ SV3_1aPpParser::Elsif_directiveContext* SV3_1aPpParser::elsif_directive() {
   Elsif_directiveContext *_localctx = _tracker.createInstance<Elsif_directiveContext>(_ctx, getState());
   enterRule(_localctx, 46, SV3_1aPpParser::RuleElsif_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2819,7 +2921,11 @@ SV3_1aPpParser::Elsif_directive_in_macro_bodyContext* SV3_1aPpParser::elsif_dire
   Elsif_directive_in_macro_bodyContext *_localctx = _tracker.createInstance<Elsif_directive_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 48, SV3_1aPpParser::RuleElsif_directive_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2912,7 +3018,11 @@ SV3_1aPpParser::Elseif_directiveContext* SV3_1aPpParser::elseif_directive() {
   Elseif_directiveContext *_localctx = _tracker.createInstance<Elseif_directiveContext>(_ctx, getState());
   enterRule(_localctx, 50, SV3_1aPpParser::RuleElseif_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3004,7 +3114,11 @@ SV3_1aPpParser::Elseif_directive_in_macro_bodyContext* SV3_1aPpParser::elseif_di
   Elseif_directive_in_macro_bodyContext *_localctx = _tracker.createInstance<Elseif_directive_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 52, SV3_1aPpParser::RuleElseif_directive_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3081,7 +3195,11 @@ SV3_1aPpParser::Else_directiveContext* SV3_1aPpParser::else_directive() {
   Else_directiveContext *_localctx = _tracker.createInstance<Else_directiveContext>(_ctx, getState());
   enterRule(_localctx, 54, SV3_1aPpParser::RuleElse_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3143,7 +3261,11 @@ SV3_1aPpParser::Endif_directiveContext* SV3_1aPpParser::endif_directive() {
   enterRule(_localctx, 56, SV3_1aPpParser::RuleEndif_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3176,6 +3298,8 @@ SV3_1aPpParser::Endif_directiveContext* SV3_1aPpParser::endif_directive() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -3219,7 +3343,11 @@ SV3_1aPpParser::Resetall_directiveContext* SV3_1aPpParser::resetall_directive() 
   Resetall_directiveContext *_localctx = _tracker.createInstance<Resetall_directiveContext>(_ctx, getState());
   enterRule(_localctx, 58, SV3_1aPpParser::RuleResetall_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3276,7 +3404,11 @@ SV3_1aPpParser::Begin_keywords_directiveContext* SV3_1aPpParser::begin_keywords_
   Begin_keywords_directiveContext *_localctx = _tracker.createInstance<Begin_keywords_directiveContext>(_ctx, getState());
   enterRule(_localctx, 60, SV3_1aPpParser::RuleBegin_keywords_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3329,7 +3461,11 @@ SV3_1aPpParser::End_keywords_directiveContext* SV3_1aPpParser::end_keywords_dire
   End_keywords_directiveContext *_localctx = _tracker.createInstance<End_keywords_directiveContext>(_ctx, getState());
   enterRule(_localctx, 62, SV3_1aPpParser::RuleEnd_keywords_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3402,7 +3538,11 @@ SV3_1aPpParser::Pragma_directiveContext* SV3_1aPpParser::pragma_directive() {
   Pragma_directiveContext *_localctx = _tracker.createInstance<Pragma_directiveContext>(_ctx, getState());
   enterRule(_localctx, 64, SV3_1aPpParser::RulePragma_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3495,7 +3635,11 @@ SV3_1aPpParser::Celldefine_directiveContext* SV3_1aPpParser::celldefine_directiv
   enterRule(_localctx, 66, SV3_1aPpParser::RuleCelldefine_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3569,7 +3713,11 @@ SV3_1aPpParser::Endcelldefine_directiveContext* SV3_1aPpParser::endcelldefine_di
   enterRule(_localctx, 68, SV3_1aPpParser::RuleEndcelldefine_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3643,7 +3791,11 @@ SV3_1aPpParser::Protect_directiveContext* SV3_1aPpParser::protect_directive() {
   enterRule(_localctx, 70, SV3_1aPpParser::RuleProtect_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3717,7 +3869,11 @@ SV3_1aPpParser::Endprotect_directiveContext* SV3_1aPpParser::endprotect_directiv
   enterRule(_localctx, 72, SV3_1aPpParser::RuleEndprotect_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3778,7 +3934,11 @@ SV3_1aPpParser::Protected_directiveContext* SV3_1aPpParser::protected_directive(
   Protected_directiveContext *_localctx = _tracker.createInstance<Protected_directiveContext>(_ctx, getState());
   enterRule(_localctx, 74, SV3_1aPpParser::RuleProtected_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3827,7 +3987,11 @@ SV3_1aPpParser::Endprotected_directiveContext* SV3_1aPpParser::endprotected_dire
   Endprotected_directiveContext *_localctx = _tracker.createInstance<Endprotected_directiveContext>(_ctx, getState());
   enterRule(_localctx, 76, SV3_1aPpParser::RuleEndprotected_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3876,7 +4040,11 @@ SV3_1aPpParser::Expand_vectornets_directiveContext* SV3_1aPpParser::expand_vecto
   Expand_vectornets_directiveContext *_localctx = _tracker.createInstance<Expand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 78, SV3_1aPpParser::RuleExpand_vectornets_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3925,7 +4093,11 @@ SV3_1aPpParser::Noexpand_vectornets_directiveContext* SV3_1aPpParser::noexpand_v
   Noexpand_vectornets_directiveContext *_localctx = _tracker.createInstance<Noexpand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 80, SV3_1aPpParser::RuleNoexpand_vectornets_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3974,7 +4146,11 @@ SV3_1aPpParser::Autoexpand_vectornets_directiveContext* SV3_1aPpParser::autoexpa
   Autoexpand_vectornets_directiveContext *_localctx = _tracker.createInstance<Autoexpand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 82, SV3_1aPpParser::RuleAutoexpand_vectornets_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4031,7 +4207,11 @@ SV3_1aPpParser::Uselib_directiveContext* SV3_1aPpParser::uselib_directive() {
   Uselib_directiveContext *_localctx = _tracker.createInstance<Uselib_directiveContext>(_ctx, getState());
   enterRule(_localctx, 84, SV3_1aPpParser::RuleUselib_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4099,7 +4279,11 @@ SV3_1aPpParser::Disable_portfaults_directiveContext* SV3_1aPpParser::disable_por
   Disable_portfaults_directiveContext *_localctx = _tracker.createInstance<Disable_portfaults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 86, SV3_1aPpParser::RuleDisable_portfaults_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4148,7 +4332,11 @@ SV3_1aPpParser::Enable_portfaults_directiveContext* SV3_1aPpParser::enable_portf
   Enable_portfaults_directiveContext *_localctx = _tracker.createInstance<Enable_portfaults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 88, SV3_1aPpParser::RuleEnable_portfaults_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4197,7 +4385,11 @@ SV3_1aPpParser::Nosuppress_faults_directiveContext* SV3_1aPpParser::nosuppress_f
   Nosuppress_faults_directiveContext *_localctx = _tracker.createInstance<Nosuppress_faults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 90, SV3_1aPpParser::RuleNosuppress_faults_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4246,7 +4438,11 @@ SV3_1aPpParser::Suppress_faults_directiveContext* SV3_1aPpParser::suppress_fault
   Suppress_faults_directiveContext *_localctx = _tracker.createInstance<Suppress_faults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 92, SV3_1aPpParser::RuleSuppress_faults_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4295,7 +4491,11 @@ SV3_1aPpParser::Signed_directiveContext* SV3_1aPpParser::signed_directive() {
   Signed_directiveContext *_localctx = _tracker.createInstance<Signed_directiveContext>(_ctx, getState());
   enterRule(_localctx, 94, SV3_1aPpParser::RuleSigned_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4344,7 +4544,11 @@ SV3_1aPpParser::Unsigned_directiveContext* SV3_1aPpParser::unsigned_directive() 
   Unsigned_directiveContext *_localctx = _tracker.createInstance<Unsigned_directiveContext>(_ctx, getState());
   enterRule(_localctx, 96, SV3_1aPpParser::RuleUnsigned_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4393,7 +4597,11 @@ SV3_1aPpParser::Remove_gatename_directiveContext* SV3_1aPpParser::remove_gatenam
   Remove_gatename_directiveContext *_localctx = _tracker.createInstance<Remove_gatename_directiveContext>(_ctx, getState());
   enterRule(_localctx, 98, SV3_1aPpParser::RuleRemove_gatename_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4442,7 +4650,11 @@ SV3_1aPpParser::Noremove_gatenames_directiveContext* SV3_1aPpParser::noremove_ga
   Noremove_gatenames_directiveContext *_localctx = _tracker.createInstance<Noremove_gatenames_directiveContext>(_ctx, getState());
   enterRule(_localctx, 100, SV3_1aPpParser::RuleNoremove_gatenames_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4491,7 +4703,11 @@ SV3_1aPpParser::Remove_netname_directiveContext* SV3_1aPpParser::remove_netname_
   Remove_netname_directiveContext *_localctx = _tracker.createInstance<Remove_netname_directiveContext>(_ctx, getState());
   enterRule(_localctx, 102, SV3_1aPpParser::RuleRemove_netname_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4540,7 +4756,11 @@ SV3_1aPpParser::Noremove_netnames_directiveContext* SV3_1aPpParser::noremove_net
   Noremove_netnames_directiveContext *_localctx = _tracker.createInstance<Noremove_netnames_directiveContext>(_ctx, getState());
   enterRule(_localctx, 104, SV3_1aPpParser::RuleNoremove_netnames_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4589,7 +4809,11 @@ SV3_1aPpParser::Accelerate_directiveContext* SV3_1aPpParser::accelerate_directiv
   Accelerate_directiveContext *_localctx = _tracker.createInstance<Accelerate_directiveContext>(_ctx, getState());
   enterRule(_localctx, 106, SV3_1aPpParser::RuleAccelerate_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4638,7 +4862,11 @@ SV3_1aPpParser::Noaccelerate_directiveContext* SV3_1aPpParser::noaccelerate_dire
   Noaccelerate_directiveContext *_localctx = _tracker.createInstance<Noaccelerate_directiveContext>(_ctx, getState());
   enterRule(_localctx, 108, SV3_1aPpParser::RuleNoaccelerate_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4695,7 +4923,11 @@ SV3_1aPpParser::Default_trireg_strenght_directiveContext* SV3_1aPpParser::defaul
   Default_trireg_strenght_directiveContext *_localctx = _tracker.createInstance<Default_trireg_strenght_directiveContext>(_ctx, getState());
   enterRule(_localctx, 110, SV3_1aPpParser::RuleDefault_trireg_strenght_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4764,7 +4996,11 @@ SV3_1aPpParser::Default_decay_time_directiveContext* SV3_1aPpParser::default_dec
   Default_decay_time_directiveContext *_localctx = _tracker.createInstance<Default_decay_time_directiveContext>(_ctx, getState());
   enterRule(_localctx, 112, SV3_1aPpParser::RuleDefault_decay_time_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4847,7 +5083,11 @@ SV3_1aPpParser::Unconnected_drive_directiveContext* SV3_1aPpParser::unconnected_
   Unconnected_drive_directiveContext *_localctx = _tracker.createInstance<Unconnected_drive_directiveContext>(_ctx, getState());
   enterRule(_localctx, 114, SV3_1aPpParser::RuleUnconnected_drive_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4913,7 +5153,11 @@ SV3_1aPpParser::Nounconnected_drive_directiveContext* SV3_1aPpParser::nounconnec
   enterRule(_localctx, 116, SV3_1aPpParser::RuleNounconnected_drive_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -4974,7 +5218,11 @@ SV3_1aPpParser::Delay_mode_distributed_directiveContext* SV3_1aPpParser::delay_m
   Delay_mode_distributed_directiveContext *_localctx = _tracker.createInstance<Delay_mode_distributed_directiveContext>(_ctx, getState());
   enterRule(_localctx, 118, SV3_1aPpParser::RuleDelay_mode_distributed_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5023,7 +5271,11 @@ SV3_1aPpParser::Delay_mode_path_directiveContext* SV3_1aPpParser::delay_mode_pat
   Delay_mode_path_directiveContext *_localctx = _tracker.createInstance<Delay_mode_path_directiveContext>(_ctx, getState());
   enterRule(_localctx, 120, SV3_1aPpParser::RuleDelay_mode_path_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5072,7 +5324,11 @@ SV3_1aPpParser::Delay_mode_unit_directiveContext* SV3_1aPpParser::delay_mode_uni
   Delay_mode_unit_directiveContext *_localctx = _tracker.createInstance<Delay_mode_unit_directiveContext>(_ctx, getState());
   enterRule(_localctx, 122, SV3_1aPpParser::RuleDelay_mode_unit_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5121,7 +5377,11 @@ SV3_1aPpParser::Delay_mode_zero_directiveContext* SV3_1aPpParser::delay_mode_zer
   Delay_mode_zero_directiveContext *_localctx = _tracker.createInstance<Delay_mode_zero_directiveContext>(_ctx, getState());
   enterRule(_localctx, 124, SV3_1aPpParser::RuleDelay_mode_zero_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5170,7 +5430,11 @@ SV3_1aPpParser::Undefineall_directiveContext* SV3_1aPpParser::undefineall_direct
   Undefineall_directiveContext *_localctx = _tracker.createInstance<Undefineall_directiveContext>(_ctx, getState());
   enterRule(_localctx, 126, SV3_1aPpParser::RuleUndefineall_directive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5219,7 +5483,11 @@ SV3_1aPpParser::ModuleContext* SV3_1aPpParser::module() {
   ModuleContext *_localctx = _tracker.createInstance<ModuleContext>(_ctx, getState());
   enterRule(_localctx, 128, SV3_1aPpParser::RuleModule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5268,7 +5536,11 @@ SV3_1aPpParser::EndmoduleContext* SV3_1aPpParser::endmodule() {
   EndmoduleContext *_localctx = _tracker.createInstance<EndmoduleContext>(_ctx, getState());
   enterRule(_localctx, 130, SV3_1aPpParser::RuleEndmodule);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5317,7 +5589,11 @@ SV3_1aPpParser::Sv_interfaceContext* SV3_1aPpParser::sv_interface() {
   Sv_interfaceContext *_localctx = _tracker.createInstance<Sv_interfaceContext>(_ctx, getState());
   enterRule(_localctx, 132, SV3_1aPpParser::RuleSv_interface);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5366,7 +5642,11 @@ SV3_1aPpParser::EndinterfaceContext* SV3_1aPpParser::endinterface() {
   EndinterfaceContext *_localctx = _tracker.createInstance<EndinterfaceContext>(_ctx, getState());
   enterRule(_localctx, 134, SV3_1aPpParser::RuleEndinterface);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5415,7 +5695,11 @@ SV3_1aPpParser::ProgramContext* SV3_1aPpParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
   enterRule(_localctx, 136, SV3_1aPpParser::RuleProgram);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5464,7 +5748,11 @@ SV3_1aPpParser::EndprogramContext* SV3_1aPpParser::endprogram() {
   EndprogramContext *_localctx = _tracker.createInstance<EndprogramContext>(_ctx, getState());
   enterRule(_localctx, 138, SV3_1aPpParser::RuleEndprogram);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5513,7 +5801,11 @@ SV3_1aPpParser::PrimitiveContext* SV3_1aPpParser::primitive() {
   PrimitiveContext *_localctx = _tracker.createInstance<PrimitiveContext>(_ctx, getState());
   enterRule(_localctx, 140, SV3_1aPpParser::RulePrimitive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5562,7 +5854,11 @@ SV3_1aPpParser::EndprimitiveContext* SV3_1aPpParser::endprimitive() {
   EndprimitiveContext *_localctx = _tracker.createInstance<EndprimitiveContext>(_ctx, getState());
   enterRule(_localctx, 142, SV3_1aPpParser::RuleEndprimitive);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5611,7 +5907,11 @@ SV3_1aPpParser::Sv_packageContext* SV3_1aPpParser::sv_package() {
   Sv_packageContext *_localctx = _tracker.createInstance<Sv_packageContext>(_ctx, getState());
   enterRule(_localctx, 144, SV3_1aPpParser::RuleSv_package);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5660,7 +5960,11 @@ SV3_1aPpParser::EndpackageContext* SV3_1aPpParser::endpackage() {
   EndpackageContext *_localctx = _tracker.createInstance<EndpackageContext>(_ctx, getState());
   enterRule(_localctx, 146, SV3_1aPpParser::RuleEndpackage);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5709,7 +6013,11 @@ SV3_1aPpParser::CheckerContext* SV3_1aPpParser::checker() {
   CheckerContext *_localctx = _tracker.createInstance<CheckerContext>(_ctx, getState());
   enterRule(_localctx, 148, SV3_1aPpParser::RuleChecker);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5758,7 +6066,11 @@ SV3_1aPpParser::EndcheckerContext* SV3_1aPpParser::endchecker() {
   EndcheckerContext *_localctx = _tracker.createInstance<EndcheckerContext>(_ctx, getState());
   enterRule(_localctx, 150, SV3_1aPpParser::RuleEndchecker);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5807,7 +6119,11 @@ SV3_1aPpParser::ConfigContext* SV3_1aPpParser::config() {
   ConfigContext *_localctx = _tracker.createInstance<ConfigContext>(_ctx, getState());
   enterRule(_localctx, 152, SV3_1aPpParser::RuleConfig);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5856,7 +6172,11 @@ SV3_1aPpParser::EndconfigContext* SV3_1aPpParser::endconfig() {
   EndconfigContext *_localctx = _tracker.createInstance<EndconfigContext>(_ctx, getState());
   enterRule(_localctx, 154, SV3_1aPpParser::RuleEndconfig);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -5926,7 +6246,11 @@ SV3_1aPpParser::Define_directiveContext* SV3_1aPpParser::define_directive() {
   enterRule(_localctx, 156, SV3_1aPpParser::RuleDefine_directive);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6021,7 +6345,11 @@ SV3_1aPpParser::Multiline_no_args_macro_definitionContext* SV3_1aPpParser::multi
   enterRule(_localctx, 158, SV3_1aPpParser::RuleMultiline_no_args_macro_definition);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6123,7 +6451,11 @@ SV3_1aPpParser::Multiline_args_macro_definitionContext* SV3_1aPpParser::multilin
   enterRule(_localctx, 160, SV3_1aPpParser::RuleMultiline_args_macro_definition);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6231,7 +6563,11 @@ SV3_1aPpParser::Simple_no_args_macro_definitionContext* SV3_1aPpParser::simple_n
   enterRule(_localctx, 162, SV3_1aPpParser::RuleSimple_no_args_macro_definition);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6303,6 +6639,8 @@ SV3_1aPpParser::Simple_no_args_macro_definitionContext* SV3_1aPpParser::simple_n
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -6379,7 +6717,11 @@ SV3_1aPpParser::Simple_args_macro_definitionContext* SV3_1aPpParser::simple_args
   enterRule(_localctx, 164, SV3_1aPpParser::RuleSimple_args_macro_definition);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6455,6 +6797,8 @@ SV3_1aPpParser::Simple_args_macro_definitionContext* SV3_1aPpParser::simple_args
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -6510,7 +6854,11 @@ SV3_1aPpParser::Identifier_in_macro_bodyContext* SV3_1aPpParser::identifier_in_m
   Identifier_in_macro_bodyContext *_localctx = _tracker.createInstance<Identifier_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 166, SV3_1aPpParser::RuleIdentifier_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6533,6 +6881,8 @@ SV3_1aPpParser::Identifier_in_macro_bodyContext* SV3_1aPpParser::identifier_in_m
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(691);
@@ -6605,7 +6955,11 @@ SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext* SV3_1aPpPa
   Simple_no_args_macro_definition_in_macro_bodyContext *_localctx = _tracker.createInstance<Simple_no_args_macro_definition_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 168, SV3_1aPpParser::RuleSimple_no_args_macro_definition_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6666,6 +7020,8 @@ SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext* SV3_1aPpPa
         break;
       }
 
+      default:
+        break;
       }
       setState(709);
       _errHandler->sync(this);
@@ -6714,6 +7070,8 @@ SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext* SV3_1aPpPa
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -6781,7 +7139,11 @@ SV3_1aPpParser::Simple_args_macro_definition_in_macro_bodyContext* SV3_1aPpParse
   Simple_args_macro_definition_in_macro_bodyContext *_localctx = _tracker.createInstance<Simple_args_macro_definition_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 170, SV3_1aPpParser::RuleSimple_args_macro_definition_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -6852,6 +7214,8 @@ SV3_1aPpParser::Simple_args_macro_definition_in_macro_bodyContext* SV3_1aPpParse
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -7143,7 +7507,11 @@ SV3_1aPpParser::Directive_in_macroContext* SV3_1aPpParser::directive_in_macro() 
   Directive_in_macroContext *_localctx = _tracker.createInstance<Directive_in_macroContext>(_ctx, getState());
   enterRule(_localctx, 172, SV3_1aPpParser::RuleDirective_in_macro);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -7591,6 +7959,8 @@ SV3_1aPpParser::Directive_in_macroContext* SV3_1aPpParser::directive_in_macro() 
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -7679,7 +8049,11 @@ SV3_1aPpParser::Macro_argumentsContext* SV3_1aPpParser::macro_arguments() {
   enterRule(_localctx, 174, SV3_1aPpParser::RuleMacro_arguments);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -7832,7 +8206,11 @@ SV3_1aPpParser::Escaped_macro_definition_bodyContext* SV3_1aPpParser::escaped_ma
   Escaped_macro_definition_bodyContext *_localctx = _tracker.createInstance<Escaped_macro_definition_bodyContext>(_ctx, getState());
   enterRule(_localctx, 176, SV3_1aPpParser::RuleEscaped_macro_definition_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -7853,6 +8231,8 @@ SV3_1aPpParser::Escaped_macro_definition_bodyContext* SV3_1aPpParser::escaped_ma
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -8133,7 +8513,11 @@ SV3_1aPpParser::Escaped_macro_definition_body_alt1Context* SV3_1aPpParser::escap
   enterRule(_localctx, 178, SV3_1aPpParser::RuleEscaped_macro_definition_body_alt1);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -8321,6 +8705,8 @@ SV3_1aPpParser::Escaped_macro_definition_body_alt1Context* SV3_1aPpParser::escap
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(901);
@@ -8626,7 +9012,11 @@ SV3_1aPpParser::Escaped_macro_definition_body_alt2Context* SV3_1aPpParser::escap
   Escaped_macro_definition_body_alt2Context *_localctx = _tracker.createInstance<Escaped_macro_definition_body_alt2Context>(_ctx, getState());
   enterRule(_localctx, 180, SV3_1aPpParser::RuleEscaped_macro_definition_body_alt2);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -8814,6 +9204,8 @@ SV3_1aPpParser::Escaped_macro_definition_body_alt2Context* SV3_1aPpParser::escap
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(944);
@@ -9120,7 +9512,11 @@ SV3_1aPpParser::Simple_macro_definition_bodyContext* SV3_1aPpParser::simple_macr
   Simple_macro_definition_bodyContext *_localctx = _tracker.createInstance<Simple_macro_definition_bodyContext>(_ctx, getState());
   enterRule(_localctx, 182, SV3_1aPpParser::RuleSimple_macro_definition_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -9308,6 +9704,8 @@ SV3_1aPpParser::Simple_macro_definition_bodyContext* SV3_1aPpParser::simple_macr
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(988);
@@ -9568,7 +9966,11 @@ SV3_1aPpParser::Simple_macro_definition_body_in_macro_bodyContext* SV3_1aPpParse
   Simple_macro_definition_body_in_macro_bodyContext *_localctx = _tracker.createInstance<Simple_macro_definition_body_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 184, SV3_1aPpParser::RuleSimple_macro_definition_body_in_macro_body);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -9744,6 +10146,8 @@ SV3_1aPpParser::Simple_macro_definition_body_in_macro_bodyContext* SV3_1aPpParse
           break;
         }
 
+        default:
+          break;
         } 
       }
       setState(1020);
@@ -9864,7 +10268,11 @@ SV3_1aPpParser::Pragma_expressionContext* SV3_1aPpParser::pragma_expression() {
   Pragma_expressionContext *_localctx = _tracker.createInstance<Pragma_expressionContext>(_ctx, getState());
   enterRule(_localctx, 186, SV3_1aPpParser::RulePragma_expression);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -10121,7 +10529,11 @@ SV3_1aPpParser::Macro_argContext* SV3_1aPpParser::macro_arg() {
   Macro_argContext *_localctx = _tracker.createInstance<Macro_argContext>(_ctx, getState());
   enterRule(_localctx, 188, SV3_1aPpParser::RuleMacro_arg);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -10261,6 +10673,8 @@ SV3_1aPpParser::Macro_argContext* SV3_1aPpParser::macro_arg() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -10453,7 +10867,11 @@ SV3_1aPpParser::Paired_parensContext* SV3_1aPpParser::paired_parens() {
   enterRule(_localctx, 190, SV3_1aPpParser::RulePaired_parens);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -11020,7 +11438,11 @@ SV3_1aPpParser::Text_blobContext* SV3_1aPpParser::text_blob() {
   Text_blobContext *_localctx = _tracker.createInstance<Text_blobContext>(_ctx, getState());
   enterRule(_localctx, 192, SV3_1aPpParser::RuleText_blob);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -11254,7 +11676,11 @@ SV3_1aPpParser::StringContext* SV3_1aPpParser::string() {
   StringContext *_localctx = _tracker.createInstance<StringContext>(_ctx, getState());
   enterRule(_localctx, 194, SV3_1aPpParser::RuleString);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -11303,7 +11729,11 @@ SV3_1aPpParser::Escaped_identifierContext* SV3_1aPpParser::escaped_identifier() 
   Escaped_identifierContext *_localctx = _tracker.createInstance<Escaped_identifierContext>(_ctx, getState());
   enterRule(_localctx, 196, SV3_1aPpParser::RuleEscaped_identifier);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -11404,7 +11834,11 @@ SV3_1aPpParser::Default_valueContext* SV3_1aPpParser::default_value() {
   Default_valueContext *_localctx = _tracker.createInstance<Default_valueContext>(_ctx, getState());
   enterRule(_localctx, 198, SV3_1aPpParser::RuleDefault_value);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -11509,6 +11943,8 @@ SV3_1aPpParser::Default_valueContext* SV3_1aPpParser::default_value() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -11632,7 +12068,11 @@ SV3_1aPpParser::String_blobContext* SV3_1aPpParser::string_blob() {
   String_blobContext *_localctx = _tracker.createInstance<String_blobContext>(_ctx, getState());
   enterRule(_localctx, 200, SV3_1aPpParser::RuleString_blob);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {

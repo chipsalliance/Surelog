@@ -55,7 +55,780 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-static unsigned long long get_value(bool& invalidValue,
+any* getObject(const std::string& name, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const any* pexpr) {
+  any* result = nullptr;
+  while (pexpr) {
+     if (const UHDM::scope* s = dynamic_cast<const scope*>(pexpr)) {
+       if (s->Variables()) {
+         for (auto o : *s->Variables()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }
+       }
+     }
+    if (const UHDM::task_func* s = dynamic_cast<const task_func*>(pexpr)) {
+       if (s->Io_decls()) {
+         for (auto o : *s->Io_decls()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }
+       }
+     }
+     pexpr = pexpr->VpiParent();
+  }
+  if (instance) {
+    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
+      Netlist* netlist = inst->getNetlist();
+      if (netlist) {
+        if (netlist->array_nets()) {
+          for (auto o : *netlist->array_nets()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }
+        }
+        if (netlist->nets()) {
+          for (auto o : *netlist->nets()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }
+        }
+        if (netlist->variables()) {
+          for (auto o : *netlist->variables()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }   
+        }
+        if (netlist->param_assigns()) {
+          for (auto o : *netlist->param_assigns()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }   
+        }  
+      }
+    }
+  }
+
+  return result;
+}
+
+
+expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr) {
+  Serializer& s = compileDesign->getSerializer();
+  UHDM_OBJECT_TYPE objtype = result->UhdmType();
+  if (objtype == uhdmoperation) {
+    UHDM::operation* op = (UHDM::operation*)result;
+    VectorOfany* operands = op->Operands();
+    bool constantOperands = true;
+    if (operands) {
+      for (auto oper : *operands) {
+        UHDM_OBJECT_TYPE optype = oper->UhdmType();
+        if (optype == uhdmref_obj) {
+          ref_obj* ref = (ref_obj*) oper;
+          const std::string& name = ref->VpiName();
+          any* tmp = getValue(name, component, compileDesign, instance, fileName, lineNumber, pexpr);
+          if (!tmp) {
+            constantOperands = false;
+            break;
+          }
+        } else if  (optype == uhdmoperation) {
+        } else if  (optype == uhdmsys_func_call) {
+        } else if (optype != uhdmconstant) {
+          constantOperands = false;
+          break;
+        }
+      }
+      if (constantOperands) {
+        VectorOfany& operands = *op->Operands();
+        switch (op->VpiOpType()) {
+          case vpiArithRShiftOp:
+          case vpiRShiftOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) >>
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiEqOp: {
+            if (operands.size() == 2) {
+              std::string s0;
+              std::string s1;
+              const UHDM::constant* hs0 =
+                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (hs0) {
+                s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
+                if (sval) {
+                  if (sval->format == vpiStringVal) {
+                    s0 = sval->value.str;
+                  }
+                }
+              }
+              const UHDM::constant* hs1 =
+                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (hs1) {
+                s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
+                if (sval) {
+                  if (sval->format == vpiStringVal) {
+                    s1 = sval->value.str;
+                  }
+                }
+              }
+
+              unsigned long long val = 0;
+              if (hs0 && hs1) {
+                val = (s0 == s1);
+              } else {
+                val = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) ==
+                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiNeqOp: {
+            if (operands.size() == 2) {
+              std::string s0;
+              std::string s1;
+              const UHDM::constant* hs0 =
+                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (hs0) {
+                s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
+                if (sval) {
+                  if (sval->format == vpiStringVal) {
+                    s0 = sval->value.str;
+                  }
+                }
+              }
+              const UHDM::constant* hs1 =
+                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (hs1) {
+                s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
+                if (sval) {
+                  if (sval->format == vpiStringVal) {
+                    s1 = sval->value.str;
+                  }
+                }
+              }
+
+              unsigned long long val = 0;
+              if (hs0 && hs1) {
+                val = (s0 != s1);
+              } else {
+                val = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) !=
+                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiGtOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) >
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiGeOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) >=
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiLtOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) <
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiLeOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) <=
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiArithLShiftOp:
+          case vpiLShiftOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
+                  << get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiAddOp:
+          case vpiPlusOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) +
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiBitOrOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) |
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiBitAndOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) &
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiLogOrOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) ||
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiLogAndOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) &&
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiMinusOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  -get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiSubOp: {
+            if (operands.size() == 2) {
+              unsigned long long val1 =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              unsigned long long val2 =
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (val2 > val1) {
+                ErrorContainer* errors =
+                    compileDesign->getCompiler()->getErrorContainer();
+                SymbolTable* symbols =
+                    compileDesign->getCompiler()->getSymbolTable();
+                std::string instanceName;
+                if (instance) {
+                  if (ModuleInstance* inst =
+                          dynamic_cast<ModuleInstance*>(instance)) {
+                    instanceName = inst->getFullPathName();
+                  }
+                } else if (component) {
+                  instanceName = component->getName();
+                }
+                std::string value = " (" + std::to_string(val1) + " - " +
+                                    std::to_string(val2) + ")";
+                std::string message = instanceName + value;
+                Location loc(symbols->registerSymbol(fileName),
+                             lineNumber, 0,
+                             symbols->registerSymbol(message));
+                Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
+                errors->addError(err);
+              }
+              unsigned long long val = val1 - val2;
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiMultOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) *
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiBitNegOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  ~get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiNotOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  !get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryAndOp: {
+            if (operands.size() == 1) {
+              constant* cst = (constant*)(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              unsigned long long val = get_value(invalidValue, cst);
+              int res = val & 1;
+              for (int i = 1; i < cst->VpiSize(); i++) {
+                res = res & ((val & (1 << i)) >> i);
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryNandOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int res = val & 1;
+              for (unsigned int i = 1; i < 32; i++) {
+                res = res & ((val & (1 << i)) >> i);
+              }
+              res = ~res;
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryOrOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int res = val & 1;
+              for (unsigned int i = 1; i < 32; i++) {
+                res = res | ((val & (1 << i)) >> i);
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryNorOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int res = val & 1;
+              for (unsigned int i = 1; i < 32; i++) {
+                res = res | ((val & (1 << i)) >> i);
+              }
+              res = ~res;
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryXorOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int res = val & 1;
+              for (unsigned int i = 1; i < 32; i++) {
+                res = res ^ ((val & (1 << i)) >> i);
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiUnaryXNorOp: {
+            if (operands.size() == 1) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int res = val & 1;
+              for (unsigned int i = 1; i < 32; i++) {
+                res = res ^ ((val & (1 << i)) >> i);
+              }
+              res = ~res;
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(res));
+              c->VpiDecompile(std::to_string(res));
+              result = c;
+            }
+            break;
+          }
+          case vpiModOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) %
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiDivOp: {
+            if (operands.size() == 2) {
+              unsigned long long divisor =
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (divisor) {
+                int val =
+                    get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) / divisor;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                result = c;
+              }
+            }
+            break;
+          }
+          case vpiConditionOp: {
+            if (operands.size() == 3) {
+              unsigned long long val =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
+                      ? get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
+                      : get_value(invalidValue, reduceExpr(operands[2], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiPowerOp: {
+            if (operands.size() == 2) {
+              unsigned long long val =
+                  pow(get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)),
+                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)));
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+            }
+            break;
+          }
+          case vpiMultiConcatOp: {
+            if (operands.size() == 2) {
+              unsigned long long n =
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              if (n > 1000) n = 1000;  // Must be -1 or something silly
+              constant* cv = (constant*)(operands[1]);
+              UHDM::constant* c = s.MakeConstant();
+              unsigned int width = cv->VpiSize();
+              int consttype = cv->VpiConstType();
+              c->VpiConstType(consttype);
+              if (consttype == vpiBinaryConst) {
+                std::string val = cv->VpiValue();
+                std::string res;
+                for (unsigned int i = 0; i < n; i++) {
+                  res += val.c_str() + strlen("BIN:");
+                }
+                c->VpiValue("BIN:" + res);
+                c->VpiDecompile(res);
+              } else if (consttype == vpiHexConst) {
+                std::string val = cv->VpiValue();
+                std::string res;
+                for (unsigned int i = 0; i < n; i++) {
+                  res += val.c_str() + strlen("HEX:");
+                }
+                c->VpiValue("HEX:" + res);
+                c->VpiDecompile(res);
+              } else if (consttype == vpiOctConst) {
+                std::string val = cv->VpiValue();
+                std::string res;
+                for (unsigned int i = 0; i < n; i++) {
+                  res += val.c_str() + strlen("OCT:");
+                }
+                c->VpiValue("OCT:" + res);
+                c->VpiDecompile(res);
+              } else if (consttype == vpiStringConst) {
+                std::string val = cv->VpiValue();
+                std::string res;
+                for (unsigned int i = 0; i < n; i++) {
+                  res += val.c_str() + strlen("STRING:");
+                }
+                c->VpiValue("STRING:" + res);
+                c->VpiDecompile(res);
+              } else {
+                unsigned long long val = get_value(
+                    invalidValue,
+                    reduceExpr(cv, invalidValue, component, compileDesign,
+                               instance, fileName, lineNumber, pexpr));
+                unsigned long long res = 0;
+                for (unsigned int i = 0; i < n; i++) {
+                  res |= val << (i * width);
+                }
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiDecompile(std::to_string(res));
+              }
+              c->VpiSize(n * width);
+              result = c;
+            }
+            break;
+          }
+          case vpiConcatOp: {
+            UHDM::constant* c = s.MakeConstant();
+            std::string cval;
+            int csize = 0;
+            for (unsigned int i = 0; i < operands.size(); i++) {
+              constant* c = (constant*)operands[i];
+              std::string v = c->VpiValue();
+              unsigned int size = c->VpiSize();
+              csize += size;
+              int type = c->VpiConstType();
+              switch (type) {
+                case vpiBinaryConst: {
+                  cval += v.c_str() + strlen("BIN:");
+                  break;
+                }
+                case vpiDecConst: {
+                  long long iv =
+                      std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+                  cval += NumUtils::toBinary(size, iv);
+                  break;
+                }
+                case vpiHexConst: {
+                  cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
+                  break;
+                }
+                case vpiOctConst: {
+                  long long iv = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+                  cval += NumUtils::toBinary(size, iv);
+                  break;
+                }
+              }
+            }
+            c->VpiValue("BIN:" + cval);
+            c->VpiSize(csize);
+            c->VpiConstType(vpiBinaryConst);
+            result = c;
+            break;
+          }
+          case vpiCastOp:
+          case vpiAssignmentPatternOp:
+          case vpiMultiAssignmentPatternOp:
+            // Don't reduce these ops
+            break;
+          default: {
+            invalidValue = true;
+          }
+        }
+      }
+    }
+    return (expr*) result;
+  } else if (objtype == uhdmconstant) {
+    return (expr*) result;
+  } else if (objtype == uhdmsys_func_call) {
+    sys_func_call* scall = (sys_func_call*)result;
+    const std::string& name = scall->VpiName();
+    if (name == "$bits") {
+      unsigned int bits = 0;
+      bool found = false;
+      for (auto arg : *scall->Tf_call_args()) {
+        UHDM::UHDM_OBJECT_TYPE argtype = arg->UhdmType();
+        if (argtype == uhdmref_obj) {
+          ref_obj* ref = (ref_obj*) arg;
+          const std::string& objname = ref->VpiName();
+          any* object = getObject(objname, component, compileDesign, instance, pexpr);
+          if (expr* exp = dynamic_cast<expr*>(object)) {
+            const typespec* tps = exp->Typespec();
+            if (tps) {
+              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, false);
+              found = true;
+            } else {
+              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, false);
+              found = true;
+            }
+          } 
+        }
+      }
+      if (found) {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("INT:" + std::to_string(bits));
+        c->VpiDecompile(std::to_string(bits));
+        result = c;
+      }
+    } else if (name == "$clog2") {
+      bool invalidValue = false;  
+      for (auto arg : *scall->Tf_call_args()) {
+        int clog2 = 0;
+        unsigned long long val = get_value(invalidValue, reduceExpr(arg, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+        if (val) {
+          val = val - 1;
+          for (; val > 0; clog2 = clog2 + 1) {
+            val = val >> 1;
+          }
+        }       
+        if (invalidValue == false) {
+          UHDM::constant* c = s.MakeConstant();
+          c->VpiValue("INT:" + std::to_string(clog2));
+          c->VpiDecompile(std::to_string(clog2));
+          result = c;
+        } 
+      }
+    } else if (name == "$size") {
+      unsigned int bits = 0;
+      bool found = false;
+      for (auto arg : *scall->Tf_call_args()) {
+        UHDM::UHDM_OBJECT_TYPE argtype = arg->UhdmType();
+        if (argtype == uhdmref_obj) {
+          ref_obj* ref = (ref_obj*) arg;
+          const std::string& objname = ref->VpiName();
+          any* object = getObject(objname, component, compileDesign, instance, pexpr);
+          if (expr* exp = dynamic_cast<expr*>(object)) {
+            const typespec* tps = exp->Typespec();
+            if (tps) {
+              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, true);
+              found = true;
+            } else {
+              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, true);
+              found = true;
+            }
+          } 
+        }
+      }
+      if (found) {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("INT:" + std::to_string(bits));
+        c->VpiDecompile(std::to_string(bits));
+        result = c;
+      }
+    }
+  } else if (objtype == uhdmref_obj) {
+    ref_obj* ref = (ref_obj*) result;
+    const std::string& name = ref->VpiName();
+    any* tmp = getValue(name, component, compileDesign, instance, fileName, lineNumber, pexpr);
+    if (tmp) {
+      result = tmp;
+    } 
+    return (expr*) result;
+  } else if (objtype == uhdmhier_path) {
+    hier_path* path = (hier_path*) result;
+    std::string base;
+    std::string select;
+    for (auto elem : *path->Path_elems()) {
+      if (base == "") {
+        base = elem->VpiName();
+      } else if (select == "") {
+        select = elem->VpiName();
+      } 
+    }
+    any* object = getObject(base, component, compileDesign, instance, pexpr);
+
+    if (object) {
+      if (variables* var = dynamic_cast<variables*> (object)) {
+        UHDM_OBJECT_TYPE ttps = var->UhdmType();
+        if (ttps == uhdmstruct_var) {
+          struct_typespec* stpt =
+              (struct_typespec*)((struct_var*)var)->Typespec();
+          for (typespec_member* member : *stpt->Members()) {
+            if (member->VpiName() == select) {
+              return (expr*)member->Default_value();
+            }
+          }
+        }
+      } else if (io_decl* decl = dynamic_cast<io_decl*> (object)) {
+        const any* exp = decl->Expr();
+        if (exp) {
+          UHDM_OBJECT_TYPE ttps = exp->UhdmType();
+          if (ttps == uhdmstruct_var) {   
+            struct_typespec* stpt = (struct_typespec*) ((struct_var*) exp)->Typespec();
+            for (typespec_member* member : *stpt->Members()) {
+              if (member->VpiName() == select) {
+                return  (expr*) member->Default_value();
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+  return (expr*) result;
+}
+
+unsigned long long CompileHelper::get_value(bool& invalidValue,
                                     const UHDM::expr* expr) {
   const UHDM::constant* hs = dynamic_cast<const UHDM::constant*>(expr);
   if (hs) {
@@ -97,7 +870,7 @@ static unsigned long long get_value(bool& invalidValue,
           std::string val = sval->value.str;
           unsigned long long result = 0;
           StringUtils::ltrim(val, '\'');
-          StringUtils::ltrim(val, 'h');
+          StringUtils::ltrim(val, 'o');
           try {
             result = std::stoull(val, nullptr, 8);
           } catch (...) {
@@ -121,6 +894,8 @@ static unsigned long long get_value(bool& invalidValue,
         }
       }
     }
+  } else {
+    invalidValue = true;
   }
   return 0;
 }
@@ -146,12 +921,30 @@ bool substituteAssignedValue(param_assign* param, CompileDesign* compileDesign) 
 }
 
 any* CompileHelper::getValue(const std::string& name, DesignComponent* component,
-               CompileDesign* compileDesign, ValuedComponentI* instance) {
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr) {
   Serializer& s = compileDesign->getSerializer();
   Value* sval = nullptr;    
   any* result = nullptr;
 
-  while (instance) {
+  if (strstr(name.c_str(), "::")) {
+    std::vector<std::string> res;
+    StringUtils::tokenizeMulti(name, "::", res);
+    if (res.size() > 1) {
+      const std::string& packName = res[0];
+      const std::string& varName = res[1];
+      Design* design = compileDesign->getCompiler()->getDesign();
+      if (Package* pack = design->getPackage(packName)) {
+        if (Value* sval = pack->getValue(varName)) {
+          UHDM::constant* c = s.MakeConstant();
+          c->VpiValue(sval->uhdmValue());
+          c->VpiDecompile(sval->decompiledValue());
+          result = c;
+        }
+      }
+    }
+  }
+
+  while ((result == nullptr) && instance) {
     ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
     if (inst) {
       Netlist* netlist = inst->getNetlist();
@@ -162,15 +955,19 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
             if (param && param->Lhs()) {
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
-                ElaboratorListener listener(&s);
-                result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-                break;
+                if (substituteAssignedValue(param, compileDesign)) {
+                  ElaboratorListener listener(&s);
+                  result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+                  break;
+                }
               }
             }
           }
         }
       }
     }
+    if (result)
+      break;
     if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
       if (inst->getType() != slModule_instantiation)
         instance = (ValuedComponentI*) instance->getParentScope();
@@ -193,21 +990,57 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
   }
 
   if (component && (result == nullptr)) {
+    sval = component->getValue(name);
+    if (sval) {  
+      UHDM::constant* c = s.MakeConstant();
+      c->VpiValue(sval->uhdmValue());
+      c->VpiDecompile(sval->decompiledValue());
+      result = c;
+    }
+  }
+
+  if (component && (result == nullptr)) {
     UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
     if (param_assigns) {
       for (param_assign* param : *param_assigns) {
         if (param && param->Lhs()) {
           const std::string& param_name = param->Lhs()->VpiName();
           if (param_name == name) {
-            ElaboratorListener listener(&s);
-            result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
-            break;
+            if (substituteAssignedValue(param, compileDesign)) {
+              ElaboratorListener listener(&s);
+              result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+              break;
+            }
           }
         }
       }
     }
   }
-
+  if (result) {
+    if (result->UhdmType() == uhdmref_obj) {
+      if (result->VpiName() != name) {
+        any* tmp = getValue(result->VpiName(), component, compileDesign,
+                            instance, fileName, lineNumber, pexpr);
+        if (tmp) result = tmp;
+      }
+    } else if (result->UhdmType() == uhdmoperation) {
+      bool invalidValue = false;
+      any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+      if (tmp) result = tmp;
+    }
+  }
+  /*
+  if (result == nullptr) {
+      ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+      std::string fileContent = FileUtils::getFileContent(fileName);
+      std::string lineText = StringUtils::getLineInString(fileContent, lineNumber);
+      Location loc (symbols->registerSymbol(fileName), lineNumber, 0,
+                    symbols->registerSymbol(lineText));
+      Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
+      errors->addError(err);
+  }
+  */
   return result;
 }
 
@@ -842,7 +1675,11 @@ UHDM::any* CompileHelper::compileExpression(
         if (name == "$bits") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileBits(component, fC, List_of_arguments, compileDesign,
-                               pexpr, instance, reduce);
+                               pexpr, instance, reduce, false);
+        } else if (name == "$size") {
+          NodeId List_of_arguments = fC->Sibling(child);
+          result = compileBits(component, fC, List_of_arguments, compileDesign,
+                               pexpr, instance, reduce, true);
         } else if (name == "$clog2") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
@@ -1330,7 +2167,7 @@ UHDM::any* CompileHelper::compileExpression(
             NodeId Integer_type = fC->Child(Constant_expression);
             NodeId Type = fC->Child(Integer_type);
             exp_slice = compileBits(component, fC, Type,
-                                    compileDesign, pexpr, instance, true);
+                                    compileDesign, pexpr, instance, true, false);
           } else {
             exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
           }
@@ -1408,7 +2245,11 @@ UHDM::any* CompileHelper::compileExpression(
         if (name == "bits") {
           NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
-          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, false);
+        } else if (name == "size") {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          NodeId Expression = fC->Child(List_of_arguments);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, true);
         } else if (name == "clog2") {
           NodeId List_of_arguments = fC->Sibling(nameId);
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
@@ -1644,539 +2485,29 @@ UHDM::any* CompileHelper::compileExpression(
   if ((result != nullptr) && reduce) {
 
     // Reduce
-    if (result->UhdmType() == uhdmoperation) {
-      operation* op = (operation*) result;
-      VectorOfany* operands = op->Operands();
-      bool constantOperands = true;
-      if (operands) {
-        for (auto oper : *operands) {
-          UHDM_OBJECT_TYPE optype = oper->UhdmType();
-          if (optype != uhdmconstant) {
-            constantOperands = false;
-            break;
-          }
-        }
-        if (constantOperands) {
-          VectorOfany& operands = *op->Operands();
-          bool invalidValue = false;
-          switch (op->VpiOpType()) {
-            case vpiArithRShiftOp:
-            case vpiRShiftOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) >> get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiEqOp: {
-              if (operands.size() == 2) {
-                std::string s0;
-                std::string s1;
-                const UHDM::constant* hs0 = dynamic_cast<const UHDM::constant*> ((constant*)(operands[0]));
-                if (hs0) {
-                  s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
-                  if (sval) {
-                    if (sval->format == vpiStringVal) {
-                      s0 = sval->value.str;
-                    }
-                  }
-                }
-                const UHDM::constant* hs1 = dynamic_cast<const UHDM::constant*> ((constant*)(operands[1]));
-                if (hs1) {
-                  s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
-                  if (sval) {
-                    if (sval->format == vpiStringVal) {
-                      s1 = sval->value.str;
-                    }
-                  }
-                }
-
-                unsigned long long val = 0;
-                if (hs0 && hs1) {
-                  val = (s0 == s1);
-                } else {
-                  val = get_value(invalidValue, (constant*)(operands[0])) == get_value(invalidValue, (constant*)(operands[1]));
-                }
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiNeqOp: {
-              if (operands.size() == 2) {
-                std::string s0;
-                std::string s1;
-                const UHDM::constant* hs0 = dynamic_cast<const UHDM::constant*> ((constant*)(operands[0]));
-                if (hs0) {
-                  s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
-                  if (sval) {
-                    if (sval->format == vpiStringVal) {
-                      s0 = sval->value.str;
-                    }
-                  }
-                }
-                const UHDM::constant* hs1 = dynamic_cast<const UHDM::constant*> ((constant*)(operands[1]));
-                if (hs1) {
-                  s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
-                  if (sval) {
-                    if (sval->format == vpiStringVal) {
-                      s1 = sval->value.str;
-                    }
-                  }
-                }
-
-                unsigned long long val = 0;
-                if (hs0 && hs1) {
-                  val = (s0 != s1);
-                } else {
-                  val = get_value(invalidValue, (constant*)(operands[0])) != get_value(invalidValue, (constant*)(operands[1]));
-                }
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiGtOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) > get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiGeOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) >=
-                          get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiLtOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) <
-                          get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiLeOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) <=
-                          get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiArithLShiftOp:
-            case vpiLShiftOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]))
-                          << get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiAddOp:
-            case vpiPlusOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) + get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiBitOrOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) | get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiBitAndOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) & get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiLogOrOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) || get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiLogAndOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) && get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiMinusOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = - get_value(invalidValue, (constant*)(operands[0]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiSubOp: {
-              if (operands.size() == 2) {
-                unsigned long long val1 = get_value(invalidValue, (constant*)(operands[0]));
-                unsigned long long val2 = get_value(invalidValue, (constant*)(operands[1]));
-                if (val2 > val1) {
-                  ErrorContainer* errors =
-                      compileDesign->getCompiler()->getErrorContainer();
-                  SymbolTable* symbols =
-                      compileDesign->getCompiler()->getSymbolTable();
-                  std::string instanceName;
-                  if (instance){
-                    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
-                      instanceName = inst->getFullPathName();
-                    }
-                  } else if (component) {
-                    instanceName = component->getName();
-                  }
-                  std::string value = " (" + std::to_string(val1) + " - " +  std::to_string(val2) + ")";
-                  std::string message = instanceName + value;
-                  Location loc(
-                      symbols->registerSymbol(fC->getFileName(the_node)),
-                      fC->Line(the_node), 0,
-                      symbols->registerSymbol(message));
-                  Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
-                  errors->addError(err);
-                }
-                unsigned long long val = val1 - val2;
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiMultOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) * get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiBitNegOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = ~ get_value(invalidValue, (constant*)(operands[0]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiNotOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = ! get_value(invalidValue, (constant*)(operands[0]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryAndOp: {
-              if (operands.size() == 1) {
-                constant* cst = (constant*)(operands[0]);
-                unsigned long long val = get_value(invalidValue, cst);
-                int res = val & 1;
-                for (int i = 1; i < cst->VpiSize(); i++) {
-                  res = res & ((val & (1 << i)) >> i);
-                }
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryNandOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
-                int res = val & 1;
-                for (unsigned int i = 1; i < 32; i++) {
-                  res = res & ((val & (1 << i)) >> i);
-                }
-                res = ~res;
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryOrOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
-                int res = val & 1;
-                for (unsigned int i = 1; i < 32; i++) {
-                  res = res | ((val & (1 << i)) >> i);
-                }
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryNorOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
-                int res = val & 1;
-                for (unsigned int i = 1; i < 32; i++) {
-                  res = res | ((val & (1 << i)) >> i);
-                }
-                res = ~res;
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryXorOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
-                int res = val & 1;
-                for (unsigned int i = 1; i < 32; i++) {
-                  res = res ^ ((val & (1 << i)) >> i);
-                }
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiUnaryXNorOp: {
-              if (operands.size() == 1) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0]));
-                int res = val & 1;
-                for (unsigned int i = 1; i < 32; i++) {
-                  res = res ^ ((val & (1 << i)) >> i);
-                }
-                res = ~res;
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(res));
-                c->VpiDecompile(std::to_string(res));
-                result = c;
-              }
-              break;
-            }
-            case vpiModOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) % get_value(invalidValue, (constant*)(operands[1]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiDivOp: {
-              if (operands.size() == 2) {
-                unsigned long long divisor = get_value(invalidValue, (constant*)operands[1]);
-                if (divisor) {
-                  int val = get_value(invalidValue, (constant*)(operands[0])) / divisor;
-                  UHDM::constant* c = s.MakeConstant();
-                  c->VpiValue("INT:" + std::to_string(val));
-                  c->VpiDecompile(std::to_string(val));
-                  result = c;
-                }
-              }
-              break;
-            }
-            case vpiConditionOp: {
-              if (operands.size() == 3) {
-                unsigned long long val = get_value(invalidValue, (constant*)(operands[0])) ? get_value(invalidValue, (constant*)(operands[1])) : get_value(invalidValue, (constant*)(operands[2]));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiPowerOp: {
-              if (operands.size() == 2) {
-                unsigned long long val = pow(get_value(invalidValue, (constant*)(operands[0])), get_value(invalidValue, (constant*)(operands[1])));
-                UHDM::constant* c = s.MakeConstant();
-                c->VpiValue("INT:" + std::to_string(val));
-                c->VpiDecompile(std::to_string(val));
-                result = c;
-              }
-              break;
-            }
-            case vpiMultiConcatOp: {
-              if (operands.size() == 2) {
-                unsigned long long n = get_value(invalidValue, (constant*)(operands[0]));
-                if (n > 1000)
-                  n = 1000; // Must be -1 or something silly
-                constant* cv = (constant*)(operands[1]);
-                UHDM::constant* c = s.MakeConstant();
-                unsigned int width = cv->VpiSize();
-                int consttype = cv->VpiConstType();
-                c->VpiConstType(consttype);
-                if (consttype == vpiBinaryConst) {
-                  std::string val = cv->VpiValue();
-                  std::string res;
-                  for (unsigned int i = 0; i < n; i++) {
-                    res += val.c_str() + strlen("BIN:");
-                  }
-                  c->VpiValue("BIN:" + res);
-                  c->VpiDecompile(res);
-                } else if (consttype == vpiHexConst) {
-                  std::string val = cv->VpiValue();
-                  std::string res;
-                  for (unsigned int i = 0; i < n; i++) {
-                    res += val.c_str() + strlen("HEX:");
-                  }
-                  c->VpiValue("HEX:" + res);
-                  c->VpiDecompile(res);
-                } else if (consttype == vpiOctConst) {
-                  std::string val = cv->VpiValue();
-                  std::string res;
-                  for (unsigned int i = 0; i < n; i++) {
-                    res += val.c_str() + strlen("OCT:");
-                  }
-                  c->VpiValue("OCT:" + res);
-                  c->VpiDecompile(res);
-                } else if (consttype == vpiStringConst) {
-                  std::string val = cv->VpiValue();
-                  std::string res;
-                  for (unsigned int i = 0; i < n; i++) {
-                    res += val.c_str() + strlen("STRING:");
-                  }
-                  c->VpiValue("STRING:" + res);
-                  c->VpiDecompile(res);
-                } else {
-                  unsigned long long val = get_value(invalidValue, cv);
-                  unsigned long long res = 0;
-                  for (unsigned int i = 0; i < n; i++) {
-                    res |= val << (i*width);
-                  }
-                  c->VpiValue("INT:" + std::to_string(res));
-                  c->VpiDecompile(std::to_string(res));
-                }
-                c->VpiSize(n * width);
-                result = c;
-              }
-              break;
-            }
-            case vpiConcatOp: {
-              UHDM::constant* c = s.MakeConstant();
-              std::string cval;
-              int csize = 0;
-              for (unsigned int i = 0; i < operands.size(); i++) {
-                constant* c = (constant*) operands[i];
-                std::string v = c->VpiValue();
-                unsigned int size = c->VpiSize();
-                csize += size;
-                int type = c->VpiConstType();
-                switch (type) {
-                  case vpiBinaryConst: {
-                    cval += v.c_str() + strlen("BIN:");
-                    break;   
-                  }
-                  case vpiDecConst: {
-                    long long iv = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
-                    cval += NumUtils::toBinary(size, iv);
-                    break;
-                  }
-                  case vpiHexConst: {
-                    cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
-                    break;
-                  }
-                  case vpiOctConst: {
-                    long long iv = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
-                    cval += NumUtils::toBinary(size, iv);
-                    break;
-                  }
-                }
-              } 
-              c->VpiValue("BIN:" + cval);
-              c->VpiSize(csize);
-              c->VpiConstType(vpiBinaryConst);
-              result = c;
-              break;
-            }
-            case vpiCastOp:
-            case vpiAssignmentPatternOp:  
-            case vpiMultiAssignmentPatternOp: 
-              // Don't reduce these ops
-              break;
-            default: {
-              invalidValue = true;
-            }
-          }
-          if (invalidValue) {
-            // Can't reduce an expression
-            ErrorContainer* errors =
-                compileDesign->getCompiler()->getErrorContainer();
-            SymbolTable* symbols =
-                compileDesign->getCompiler()->getSymbolTable();
-            std::string fileContent =
-                FileUtils::getFileContent(fC->getFileName());
-            std::string lineText =
-                StringUtils::getLineInString(fileContent, fC->Line(the_node));
-            Location loc(symbols->registerSymbol(fC->getFileName(the_node)),
-                         fC->Line(the_node), 0,
-                         symbols->registerSymbol(std::string("<") +
-                                                 fC->printObject(the_node) +
-                                                 std::string("> ") + lineText));
-            Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
-            errors->addError(err);
-          }
-        }
-      }
+    bool invalidValue = false;
+    any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fC->getFileName(the_node), fC->Line(the_node), pexpr);
+    if (tmp && (invalidValue == false)) {
+      result = tmp;
     }
+    /*
+    if (invalidValue) {
+      // Can't reduce an expression
+      ErrorContainer* errors =
+          compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+      std::string lineText =
+          StringUtils::getLineInString(fileContent, fC->Line(the_node));
+      Location loc(
+          symbols->registerSymbol(fC->getFileName(the_node)),
+          fC->Line(the_node), 0,
+          symbols->registerSymbol(std::string("<") + fC->printObject(the_node) +
+                                  std::string("> ") + lineText));
+      Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
+      errors->addError(err);
+    }
+    */
   }
 
   if (result) {
@@ -2438,7 +2769,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     bool reduced = false;
     if (reduce && (lexp->UhdmType() == uhdmconstant) && (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
-        any* v = getValue(name, component, compileDesign, instance);
+        any* v = getValue(name, component, compileDesign, instance, fC->getFileName(), fC->Line(Constant_expression), pexpr);
         if (v && (v->UhdmType() == uhdmconstant)) {
           constant* cv = (constant*) v;
           Value* cvv = m_exprBuilder.fromVpiValue(cv->VpiValue());
@@ -2494,11 +2825,13 @@ UHDM::any* CompileHelper::compilePartSelectRange(
   return result;
 }
 
-static unsigned int Bits(const UHDM::typespec* typespec) {
+unsigned int CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode) {
   unsigned int bits = 0;
   UHDM::VectorOfrange* ranges = nullptr;
   if (typespec) {
-    switch (typespec->UhdmType()) {
+    UHDM_OBJECT_TYPE ttps = typespec->UhdmType();
+    switch (ttps) {
       case UHDM::uhdmshort_real_typespec: {
         bits = 32;
         break;
@@ -2539,12 +2872,34 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
         ranges = lts->Ranges();
         break;
       }
+      case UHDM::uhdmlogic_net: {
+        bits = 1;
+        UHDM::logic_net* lts = (UHDM::logic_net*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmlogic_var: {
+        bits = 1;
+        UHDM::logic_var* lts = (UHDM::logic_var*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmbit_var: {
+        bits = 1;
+        UHDM::bit_var* lts = (UHDM::bit_var*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmbyte_var: {
+        bits = 8;
+        break;
+      }
       case UHDM::uhdmstruct_typespec: {
         UHDM::struct_typespec* sts = (UHDM::struct_typespec*) typespec;
         UHDM::VectorOftypespec_member* members = sts->Members();
         if (members) {
           for (UHDM::typespec_member* member : *members) {
-            bits += Bits(member->Typespec());
+            bits += Bits(member->Typespec(), invalidValue, component, compileDesign, instance, fileName, lineNumber, reduce, sizeMode);
           }
         }
         break;
@@ -2552,7 +2907,7 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
       case UHDM::uhdmenum_typespec: {
         const UHDM::enum_typespec* sts = dynamic_cast<const UHDM::enum_typespec*> (typespec);
         if (sts)
-          bits = Bits(sts->Base_typespec());
+          bits = Bits(sts->Base_typespec(), invalidValue, component, compileDesign, instance, fileName, lineNumber, reduce, sizeMode);
         break;
       }
       case UHDM::uhdmunion_typespec: {
@@ -2560,26 +2915,59 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
         UHDM::VectorOftypespec_member* members = sts->Members();
         if (members) {
           for (UHDM::typespec_member* member : *members) {
-            unsigned int max = Bits(member->Typespec());
+            unsigned int max = Bits(member->Typespec(), invalidValue, component, compileDesign, instance, fileName, lineNumber, reduce, sizeMode);
             if (max > bits)
               bits = max;
           }
         }
         break;
       }
+      case uhdmunsupported_typespec:
+        invalidValue = true;
+        break;
       default:
+        invalidValue = true;
         break;
     }
   }
   if (ranges) {
-    for (UHDM::range* ran : *ranges) {
-      bool invalidValue = false;
-      unsigned long long lv = get_value(invalidValue, ran->Left_expr());
-      unsigned long long rv = get_value(invalidValue, ran->Right_expr());
+    if (sizeMode) {
+      UHDM::range* last_range = nullptr;
+      for (UHDM::range* ran : *ranges) {
+        last_range = ran;
+      }
+      expr* lexpr = (expr*)last_range->Left_expr();
+      expr* rexpr = (expr*)last_range->Right_expr();
+      unsigned long long lv =
+          get_value(invalidValue,
+                    reduceExpr(lexpr, invalidValue, component, compileDesign,
+                               instance, fileName, lineNumber, nullptr));
+      unsigned long long rv =
+          get_value(invalidValue,
+                    reduceExpr(rexpr, invalidValue, component, compileDesign,
+                               instance, fileName, lineNumber, nullptr));
       if (lv > rv)
         bits = bits * (lv - rv + 1);
       else
         bits = bits * (rv - lv + 1);
+    } else {
+      for (UHDM::range* ran : *ranges) {
+        expr* lexpr = (expr*)ran->Left_expr();
+        expr* rexpr = (expr*)ran->Right_expr();
+        unsigned long long lv =
+            get_value(invalidValue,
+                      reduceExpr(lexpr, invalidValue, component, compileDesign,
+                                 instance, fileName, lineNumber, nullptr));
+        unsigned long long rv =
+            get_value(invalidValue,
+                      reduceExpr(rexpr, invalidValue, component, compileDesign,
+                                 instance, fileName, lineNumber, nullptr));
+
+        if (lv > rv)
+          bits = bits * (lv - rv + 1);
+        else
+          bits = bits * (rv - lv + 1);
+      }
     }
   }
   return bits;
@@ -2633,6 +3021,8 @@ const typespec* CompileHelper::getTypespec(
           fC->SymName(Class_type_name));
       if (p) {
         dtype = p->getDataType(fC->SymName(Class_scope_name));
+      } else {
+
       }
       break;
     }
@@ -2746,6 +3136,19 @@ const typespec* CompileHelper::getTypespec(
       }
     }
   }
+  /*
+  if (result == nullptr) {
+    ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+    SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+    std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+    std::string lineText =
+        StringUtils::getLineInString(fileContent, fC->Line(id));
+    Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0,
+                 symbols->registerSymbol(basename));
+    Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
+    errors->addError(err);
+  }
+  */
   return result;
 }
 
@@ -2753,7 +3156,7 @@ UHDM::any* CompileHelper::compileBits(
   DesignComponent* component, const FileContent* fC,
   NodeId List_of_arguments,
   CompileDesign* compileDesign, UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce) {
+  ValuedComponentI* instance, bool reduce, bool sizeMode) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId Expression = List_of_arguments;
@@ -2780,16 +3183,22 @@ UHDM::any* CompileHelper::compileBits(
   }
 
   unsigned int bits = 0;
-
+  bool invalidValue = false;
   const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
   if (tps)
-    bits = Bits(tps);
+    bits = Bits(tps, invalidValue, component, compileDesign, instance, fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce, sizeMode);
 
-  if (bits) {
+  if (bits && (!invalidValue)) {
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
     result = c;
+  } else if (sizeMode) {
+    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    sys->VpiName("$size");
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
+    sys->Tf_call_args(arguments);
+    result = sys;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$bits");
@@ -2893,7 +3302,7 @@ UHDM::any* CompileHelper::compileClog2(
   }
   expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
   bool invalidValue = false;
-  unsigned long long val = get_value(invalidValue, operand);
+  unsigned long long val = get_value(invalidValue, reduceExpr(operand, invalidValue, component, compileDesign, instance, fC->getFileName(), fC->Line(Expression), pexpr));
   if (val) {
     val = val - 1;
     int clog2 = 0;
@@ -2954,7 +3363,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     if (name == "bits") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileBits(component, fC, List_of_arguments, compileDesign, pexpr,
-                           instance, reduce);
+                           instance, reduce, false);
+    } else if (name == "size") {
+      NodeId List_of_arguments = fC->Sibling(nameId);
+      result = compileBits(component, fC, List_of_arguments, compileDesign, pexpr,
+                           instance, reduce, true);
     } else if (name == "clog2") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileClog2(component, fC, List_of_arguments, compileDesign,

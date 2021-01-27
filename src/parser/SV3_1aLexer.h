@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aLexer.g4 by ANTLR 4.7.2
+// Generated from SV3_1aLexer.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -109,7 +109,7 @@ public:
     WHITESPACES = 2, COMMENTS = 3
   };
 
-  SV3_1aLexer(antlr4::CharStream *input);
+  explicit SV3_1aLexer(antlr4::CharStream *input);
   ~SV3_1aLexer();
 
 

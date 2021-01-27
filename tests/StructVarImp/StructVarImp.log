@@ -503,7 +503,30 @@ design: (work@top)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -783,10 +806,12 @@ design: (work@top)
 \_module: work@top (work@top) dut.sv:33: 
   |vpiDefName:work@top
   |vpiName:work@top
-  |vpiNet:
-  \_packed_array_net: (work@top.region_cfgs), line:36, parent:work@top
+  |vpiVariables:
+  \_packed_array_var: (work@top.region_cfgs), line:36, parent:work@top
     |vpiName:region_cfgs
     |vpiFullName:work@top.region_cfgs
+    |vpiAutomatic:1
+    |vpiVisibility:1
     |vpiRange:
     \_range: , line:36
       |vpiLeftRange:
@@ -799,7 +824,8 @@ design: (work@top)
         |vpiSize:64
         |INT:0
     |vpiElement:
-    \_struct_net: 
+    \_struct_var: (work@top.region_cfgs), parent:work@top.region_cfgs
+      |vpiFullName:work@top.region_cfgs
       |vpiTypespec:
       \_struct_typespec: (flash_ctrl_reg2hw_mp_region_cfg_mreg_t), line:7
         |vpiPacked:1

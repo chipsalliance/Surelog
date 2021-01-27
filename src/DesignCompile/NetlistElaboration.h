@@ -40,12 +40,14 @@ class NetlistElaboration : public TestbenchElaboration {
 
   bool elaborateParams(ModuleInstance* instance);
   bool elaborate() override;
+  bool elaboratePackages();
+  bool elaborateInstance(ModuleInstance* instance);
 
   virtual ~NetlistElaboration() override;
   void elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, 
                   Netlist* netlist, DesignComponent* comp, const std::string& prefix);
  private:
-   bool elaborate_(ModuleInstance* instance);
+   bool elaborate_(ModuleInstance* instance, bool recurse);
    bool high_conn_(ModuleInstance* instance);
    bool elab_parameters_(ModuleInstance* instance);
    bool elab_interfaces_(ModuleInstance* instance);

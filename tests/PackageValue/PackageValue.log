@@ -599,6 +599,30 @@ n<> u<572> t<Top_level_rule> l<1>
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
+[ERR:EL0514] top.sv:58: Undefined variable: riscv::SSTATUS_UIE.
+
+[ERR:EL0514] top.sv:59: Undefined variable: riscv::SSTATUS_SIE.
+
+[ERR:EL0514] top.sv:60: Undefined variable: riscv::SSTATUS_SPIE.
+
+[ERR:EL0514] top.sv:61: Undefined variable: riscv::SSTATUS_SPP.
+
+[ERR:EL0514] top.sv:62: Undefined variable: riscv::SSTATUS_FS.
+
+[ERR:EL0514] top.sv:63: Undefined variable: riscv::SSTATUS_XS.
+
+[ERR:EL0514] top.sv:64: Undefined variable: riscv::SSTATUS_SUM.
+
+[ERR:EL0514] top.sv:65: Undefined variable: riscv::SSTATUS_MXR.
+
+[ERR:EL0514] top.sv:66: Undefined variable: riscv::SSTATUS_UPIE.
+
+[ERR:EL0514] top.sv:67: Undefined variable: riscv::SSTATUS_SPIE.
+
+[ERR:EL0514] top.sv:68: Undefined variable: riscv::SSTATUS_UXL.
+
+[ERR:EL0514] top.sv:69: Undefined variable: riscv::SSTATUS64_SD.
+
 [INF:EL0526] Design Elaboration...
 
 [INF:CP0335] top.sv:17: Compile generate block "work@prim_diff_decode.gen_pad_generic".
@@ -638,9 +662,110 @@ design: (work@prim_diff_decode)
   |vpiParamAssign:
   \_param_assign: , line:58, parent:ariane_pkg
     |vpiRhs:
-    \_constant: , line:58
-      |vpiDecompile:9223372036855685427
-      |INT:-1
+    \_operation: , line:58
+      |vpiOpType:29
+      |vpiOperand:
+      \_operation: , line:58
+        |vpiOpType:29
+        |vpiOperand:
+        \_operation: , line:58
+          |vpiOpType:29
+          |vpiOperand:
+          \_operation: , line:58
+            |vpiOpType:29
+            |vpiOperand:
+            \_operation: , line:58
+              |vpiOpType:29
+              |vpiOperand:
+              \_operation: , line:58
+                |vpiOpType:29
+                |vpiOperand:
+                \_operation: , line:58
+                  |vpiOpType:29
+                  |vpiOperand:
+                  \_operation: , line:58
+                    |vpiOpType:29
+                    |vpiOperand:
+                    \_operation: , line:58
+                      |vpiOpType:29
+                      |vpiOperand:
+                      \_operation: , line:58
+                        |vpiOpType:29
+                        |vpiOperand:
+                        \_operation: , line:58
+                          |vpiOpType:29
+                          |vpiOperand:
+                          \_constant: , line:58
+                            |vpiConstType:5
+                            |vpiDecompile:64'h00000001
+                            |vpiSize:64
+                            |HEX:00000001
+                          |vpiOperand:
+                          \_constant: , line:59
+                            |vpiConstType:5
+                            |vpiDecompile:64'h00000002
+                            |vpiSize:64
+                            |HEX:00000002
+                        |vpiOperand:
+                        \_constant: , line:60
+                          |vpiConstType:5
+                          |vpiDecompile:64'h00000020
+                          |vpiSize:64
+                          |HEX:00000020
+                      |vpiOperand:
+                      \_constant: , line:61
+                        |vpiConstType:5
+                        |vpiDecompile:64'h00000100
+                        |vpiSize:64
+                        |HEX:00000100
+                    |vpiOperand:
+                    \_constant: , line:62
+                      |vpiConstType:5
+                      |vpiDecompile:64'h00006000
+                      |vpiSize:64
+                      |HEX:00006000
+                  |vpiOperand:
+                  \_constant: , line:63
+                    |vpiConstType:5
+                    |vpiDecompile:64'h00018000
+                    |vpiSize:64
+                    |HEX:00018000
+                |vpiOperand:
+                \_constant: , line:64
+                  |vpiConstType:5
+                  |vpiDecompile:64'h00040000
+                  |vpiSize:64
+                  |HEX:00040000
+              |vpiOperand:
+              \_constant: , line:65
+                |vpiConstType:5
+                |vpiDecompile:64'h00080000
+                |vpiSize:64
+                |HEX:00080000
+            |vpiOperand:
+            \_constant: , line:66
+              |vpiConstType:5
+              |vpiDecompile:64'h00000010
+              |vpiSize:64
+              |HEX:00000010
+          |vpiOperand:
+          \_constant: , line:67
+            |vpiConstType:5
+            |vpiDecompile:64'h00000020
+            |vpiSize:64
+            |HEX:00000020
+        |vpiOperand:
+        \_constant: , line:68
+          |vpiConstType:5
+          |vpiDecompile:64'h0000000300000000
+          |vpiSize:64
+          |HEX:0000000300000000
+      |vpiOperand:
+      \_constant: , line:69
+        |vpiConstType:5
+        |vpiDecompile:64'h8000000000000000
+        |vpiSize:64
+        |HEX:8000000000000000
     |vpiLhs:
     \_parameter: (ariane_pkg::SMODE_STATUS_READ_MASK), line:58, parent:ariane_pkg
       |vpiName:SMODE_STATUS_READ_MASK
@@ -1201,7 +1326,30 @@ design: (work@prim_diff_decode)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1
@@ -1451,7 +1599,7 @@ design: (work@prim_diff_decode)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 12
 [WARNING] : 4
 [   NOTE] : 9
 

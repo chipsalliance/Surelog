@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aPpParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aPpParser.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -79,7 +79,7 @@ public:
     RuleString_blob = 100
   };
 
-  SV3_1aPpParser(antlr4::TokenStream *input);
+  explicit SV3_1aPpParser(antlr4::TokenStream *input);
   ~SV3_1aPpParser();
 
   virtual std::string getGrammarFileName() const override;

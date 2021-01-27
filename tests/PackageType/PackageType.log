@@ -217,19 +217,8 @@ design: (unnamed)
     \_operation: , line:19
       |vpiOpType:33
       |vpiOperand:
-      \_operation: , line:20
-        |vpiOpType:75
-        |vpiOperand:
-        \_tagged_pattern: 
-          |vpiTypespec:
-          \_string_typespec: (default), line:14
-            |vpiName:default
-          |vpiPattern:
-          \_constant: , line:14
-            |vpiConstType:6
-            |vpiDecompile:inv
-            |vpiSize:3
-            |STRING:inv
+      \_ref_obj: (bp_inv_cfg_p), line:20
+        |vpiName:bp_inv_cfg_p
     |vpiLhs:
     \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:18, parent:bp_common_aviary_pkg
       |vpiName:all_cfgs_gp
@@ -390,7 +379,30 @@ design: (unnamed)
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_chandle_var: , line:40
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
   |vpiMethod:
   \_task: (work@process::kill), line:43, parent:work@process
     |vpiMethod:1

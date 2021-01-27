@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aParser.g4 by ANTLR 4.9.1
 
 #pragma once
 
@@ -365,7 +365,7 @@ public:
     RuleUse_clause_config = 693, RuleUse_clause = 694
   };
 
-  SV3_1aParser(antlr4::TokenStream *input);
+  explicit SV3_1aParser(antlr4::TokenStream *input);
   ~SV3_1aParser();
 
   virtual std::string getGrammarFileName() const override;

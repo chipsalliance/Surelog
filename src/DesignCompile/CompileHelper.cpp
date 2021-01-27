@@ -1826,18 +1826,25 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
 bool CompileHelper::isMultidimensional(UHDM::typespec* ts) {
   bool isMultiDimension = false;
   if (ts) {
-    if (ts->UhdmType() == uhdmlogic_typespec) {
+    UHDM_OBJECT_TYPE ttps = ts->UhdmType();
+    if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
-    } else if (ts->UhdmType() == uhdmarray_typespec) {
+      if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+    } else if (ttps == uhdmarray_typespec) {
       array_typespec* lts = (array_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
-    } else if (ts->UhdmType() == uhdmpacked_array_typespec) {
+    } else if (ttps == uhdmpacked_array_typespec) {
       packed_array_typespec* lts = (packed_array_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
-    } else if (ts->UhdmType() == uhdmbit_typespec) {
+      if (lts->Elem_typespec() && (lts->Elem_typespec()->UhdmType() == uhdmstruct_typespec)) {
+        isMultiDimension = true;
+      } else {
+        if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+      }
+    } else if (ttps == uhdmbit_typespec) {
       bit_typespec* lts = (bit_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+      if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+    } else if (ttps == uhdmstruct_typespec) {
+      isMultiDimension = true;
     }
   }
   return isMultiDimension;

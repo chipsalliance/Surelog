@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aSplitterLexer.g4 by ANTLR 4.7.2
+// Generated from SV3_1aSplitterLexer.g4 by ANTLR 4.9.1
 
 
 #include "SV3_1aSplitterLexer.h"
@@ -60,11 +60,10 @@ atn::ATN SV3_1aSplitterLexer::_atn;
 std::vector<uint16_t> SV3_1aSplitterLexer::_serializedATN;
 
 std::vector<std::string> SV3_1aSplitterLexer::_ruleNames = {
-  u8"One_line_comment", u8"Block_comment", u8"Comment_text", u8"MODULE", 
-  u8"ENDMODULE", u8"INTERFACE", u8"ENDINTERFACE", u8"PROGRAM", u8"ENDPROGRAM", 
-  u8"PRIMITIVE", u8"ENDPRIMITIVE", u8"PACKAGE", u8"ENDPACKAGE", u8"CHECKER", 
-  u8"ENDCHECKER", u8"CONFIG", u8"ENDCONFIG", u8"String", u8"Spaces", u8"WS", 
-  u8"TAB", u8"CR", u8"ANY"
+  "One_line_comment", "Block_comment", "Comment_text", "MODULE", "ENDMODULE", 
+  "INTERFACE", "ENDINTERFACE", "PROGRAM", "ENDPROGRAM", "PRIMITIVE", "ENDPRIMITIVE", 
+  "PACKAGE", "ENDPACKAGE", "CHECKER", "ENDCHECKER", "CONFIG", "ENDCONFIG", 
+  "String", "Spaces", "WS", "TAB", "CR", "ANY"
 };
 
 std::vector<std::string> SV3_1aSplitterLexer::_channelNames = {
@@ -72,21 +71,20 @@ std::vector<std::string> SV3_1aSplitterLexer::_channelNames = {
 };
 
 std::vector<std::string> SV3_1aSplitterLexer::_modeNames = {
-  u8"DEFAULT_MODE"
+  "DEFAULT_MODE"
 };
 
 std::vector<std::string> SV3_1aSplitterLexer::_literalNames = {
-  "", "", "", u8"'module'", u8"'endmodule'", u8"'interface'", u8"'endinterface'", 
-  u8"'program'", u8"'endprogram'", u8"'primivite'", u8"'endprimitive'", 
-  u8"'package'", u8"'endpackage'", u8"'checker'", u8"'endchecker'", u8"'config'", 
-  u8"'endconfig'"
+  "", "", "", "'module'", "'endmodule'", "'interface'", "'endinterface'", 
+  "'program'", "'endprogram'", "'primivite'", "'endprimitive'", "'package'", 
+  "'endpackage'", "'checker'", "'endchecker'", "'config'", "'endconfig'"
 };
 
 std::vector<std::string> SV3_1aSplitterLexer::_symbolicNames = {
-  "", u8"One_line_comment", u8"Block_comment", u8"MODULE", u8"ENDMODULE", 
-  u8"INTERFACE", u8"ENDINTERFACE", u8"PROGRAM", u8"ENDPROGRAM", u8"PRIMITIVE", 
-  u8"ENDPRIMITIVE", u8"PACKAGE", u8"ENDPACKAGE", u8"CHECKER", u8"ENDCHECKER", 
-  u8"CONFIG", u8"ENDCONFIG", u8"String", u8"Spaces", u8"CR", u8"ANY"
+  "", "One_line_comment", "Block_comment", "MODULE", "ENDMODULE", "INTERFACE", 
+  "ENDINTERFACE", "PROGRAM", "ENDPROGRAM", "PRIMITIVE", "ENDPRIMITIVE", 
+  "PACKAGE", "ENDPACKAGE", "CHECKER", "ENDCHECKER", "CONFIG", "ENDCONFIG", 
+  "String", "Spaces", "CR", "ANY"
 };
 
 dfa::Vocabulary SV3_1aSplitterLexer::_vocabulary(_literalNames, _symbolicNames);
