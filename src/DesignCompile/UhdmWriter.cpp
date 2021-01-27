@@ -1511,11 +1511,12 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType, 
 }
 
 void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
-        Serializer& s,
+        CompileDesign* compileDesign,
         ComponentMap& componentMap,
         ModPortMap& modPortMap,
         InstanceMap& instanceMap,
         ExprBuilder& exprBuilder) {
+  Serializer& s = compileDesign->getSerializer();        
   VectorOfmodule* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
@@ -1540,6 +1541,10 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         if (subModules == nullptr)
           subModules = s.MakeModuleVec();
         module* sm = s.MakeModule();
+        if (childDef && childDef->getFileContents().size() &&
+            compileDesign->getCompiler()->isLibraryFile(childDef->getFileContents()[0]->getNodeId())) {
+          sm->VpiCellInstance(true);
+        }
         sm->VpiName(child->getInstanceName());
         sm->VpiDefName(child->getModuleName());
         sm->VpiFullName(child->getFullPathName());
@@ -1555,7 +1560,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((gen_scope*) m)->Modules(subModules);
           sm->VpiParent(m);
         }
-        writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap, exprBuilder);
+        writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,instanceMap, exprBuilder);
       } else if (insttype == VObjectType::slConditional_generate_construct ||
                  insttype == VObjectType::slLoop_generate_construct ||
                  insttype == VObjectType::slGenerate_block ||
@@ -1598,7 +1603,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((interface*)m)->Gen_scope_arrays(subGenScopeArrays);
           sm->VpiParent(m);
         }
-        writeInstance(mm, child, a_gen_scope, s, componentMap, modPortMap,instanceMap, exprBuilder);
+        writeInstance(mm, child, a_gen_scope, compileDesign, componentMap, modPortMap,instanceMap, exprBuilder);
 
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
@@ -1622,7 +1627,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((interface*) m)->Interfaces(subInterfaces);
           sm->VpiParent(m);
         }
-        writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap, exprBuilder);
+        writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,instanceMap, exprBuilder);
 
       } else if ((insttype == VObjectType::slUdp_instantiation) ||
                  (insttype == VObjectType::slGate_instantiation)) {
@@ -1758,7 +1763,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         ((gen_scope*) m)->Modules(subModules);
         sm->VpiParent(m);
       }
-      writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap, exprBuilder);
+      writeInstance(mm, child, sm, compileDesign, componentMap, modPortMap,instanceMap, exprBuilder);
     }
   }
 }
@@ -1873,6 +1878,9 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       } else if (mod->getType() == VObjectType::slModule_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         module* m = s.MakeModule();
+        if (m_compileDesign->getCompiler()->isLibraryFile(mod->getFileContents()[0]->getNodeId())) {
+          m->VpiCellInstance(true);
+        }
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
@@ -1928,7 +1936,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       m->VpiFullName(def->VpiDefName()); // Top's full instance name is module name
       m->VpiFile(def->VpiFile());
       m->VpiLineNo(def->VpiLineNo());
-      writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap, exprBuilder);
+      writeInstance(mod, inst, m, m_compileDesign, componentMap, modPortMap, instanceMap, exprBuilder);
       uhdm_top_modules->push_back(m);
     }
     d->TopModules(uhdm_top_modules);
