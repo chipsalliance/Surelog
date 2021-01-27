@@ -1226,10 +1226,16 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               child = factory->newModuleInstance(def, fC, subInstanceId, parent,
                                                  instName, modName);
             }
-            if (def && (type != VObjectType::slGate_instantiation))
+            if (def && (type != VObjectType::slGate_instantiation)) {
               elaborateInstance_(def->getFileContents()[0], childId,
                                  paramOverride, factory, child, subConfig);
-
+            } else {
+              // Build black box model
+              NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+              nelab->elaborateParams(child);
+              nelab->elaborateInstance(child);
+              delete nelab;
+            }
             if (!reuseInstance) allSubInstances.push_back(child);
           }
 

@@ -224,7 +224,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
     instance->setNetlist(netlist);
   }
 
-  //elab_interfaces_(instance);
+  
   DesignComponent* childDef = instance->getDefinition();
   if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
     VObjectType insttype = instance->getType();
