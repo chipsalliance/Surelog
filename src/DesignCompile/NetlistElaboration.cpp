@@ -223,7 +223,6 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
-
   
   DesignComponent* childDef = instance->getDefinition();
   if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
