@@ -1,0 +1,483 @@
+[INF:CM0023] Creating log file ../../build/tests/ElabIf/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[INF:PP0122] Preprocessing source file "builtin.sv".
+
+[INF:PP0122] Preprocessing source file "dut.sv".
+
+[INF:PA0201] Parsing source file "builtin.sv".
+
+[INF:PA0201] Parsing source file "dut.sv".
+
+[WRN:PA0205] dut.sv:1: No timescale set for "top".
+
+[WRN:PA0205] dut.sv:6: No timescale set for "assigner".
+
+[WRN:PA0205] dut.sv:13: No timescale set for "middleman".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:6: Compile module "work@assigner".
+
+[INF:CP0303] dut.sv:13: Compile module "work@middleman".
+
+[INF:CP0303] dut.sv:1: Compile module "work@top".
+
+[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
+
+[INF:CP0302] builtin.sv:33: Compile class "work@process".
+
+[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+
+[INF:EL0526] Design Elaboration...
+
+[INF:CP0335] dut.sv:9: Compile generate block "work@top.mdl1.asgn.genblk2".
+
+[INF:CP0335] dut.sv:7: Compile generate block "work@top.mdl0.asgn.genblk1".
+
+[NTE:EL0503] dut.sv:1: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 3.
+
+[NTE:EL0510] Nb instances: 5.
+
+[NTE:EL0511] Nb leaf instances: 0.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/ElabIf/slpp_unit//surelog.uhdm.chk.html
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallPackages:
+\_package: builtin (builtin), parent:work@top
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+  |vpiClassDefn:
+  \_class_defn: (builtin::array), parent:builtin
+    |vpiName:array
+    |vpiFullName:builtin::array
+  |vpiClassDefn:
+  \_class_defn: (builtin::queue), parent:builtin
+    |vpiName:queue
+    |vpiFullName:builtin::queue
+  |vpiClassDefn:
+  \_class_defn: (builtin::string), parent:builtin
+    |vpiName:string
+    |vpiFullName:builtin::string
+  |vpiClassDefn:
+  \_class_defn: (builtin::system), parent:builtin
+    |vpiName:system
+    |vpiFullName:builtin::system
+|uhdmallClasses:
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
+  |vpiName:work@mailbox
+  |vpiMethod:
+  \_function: (work@mailbox::new), line:6, parent:work@mailbox
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@mailbox::new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
+    |vpiIODecl:
+    \_io_decl: (bound)
+      |vpiName:bound
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (bound), line:6, parent:bound
+        |vpiFullName:bound
+  |vpiMethod:
+  \_function: (work@mailbox::num), line:9, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:num
+    |vpiFullName:work@mailbox::num
+    |vpiReturn:
+    \_int_var: , line:9
+  |vpiMethod:
+  \_task: (work@mailbox::put), line:12, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:put
+    |vpiFullName:work@mailbox::put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_function: (work@mailbox::try_put), line:15, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_put
+    |vpiFullName:work@mailbox::try_put
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:5
+  |vpiMethod:
+  \_task: (work@mailbox::get), line:18, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:get
+    |vpiFullName:work@mailbox::get
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox::try_get), line:21, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@mailbox::try_get
+    |vpiReturn:
+    \_int_var: , line:21
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_task: (work@mailbox::peek), line:24, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:peek
+    |vpiFullName:work@mailbox::peek
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+  |vpiMethod:
+  \_function: (work@mailbox::try_peek), line:27, parent:work@mailbox
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_peek
+    |vpiFullName:work@mailbox::try_peek
+    |vpiReturn:
+    \_int_var: , line:27
+    |vpiIODecl:
+    \_io_decl: (message)
+      |vpiName:message
+      |vpiDirection:6
+|uhdmallClasses:
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@top
+  |vpiName:work@process
+  |vpiMethod:
+  \_function: (work@process::self), line:37, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:self
+    |vpiFullName:work@process::self
+    |vpiReturn:
+    \_chandle_var: , line:37
+  |vpiMethod:
+  \_function: (work@process::status), line:40, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:status
+    |vpiFullName:work@process::status
+    |vpiReturn:
+    \_int_var: , line:40
+      |vpiTypespec:
+      \_enum_typespec: (state), line:35
+        |vpiName:state
+        |vpiEnumConst:
+        \_enum_const: (FINISHED), line:35
+          |vpiName:FINISHED
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35
+          |vpiName:KILLED
+          |INT:4
+        |vpiEnumConst:
+        \_enum_const: (RUNNING), line:35
+          |vpiName:RUNNING
+          |INT:1
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35
+          |vpiName:SUSPENDED
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (WAITING), line:35
+          |vpiName:WAITING
+          |INT:2
+  |vpiMethod:
+  \_task: (work@process::kill), line:43, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:kill
+    |vpiFullName:work@process::kill
+    |vpiStmt:
+    \_begin: (work@process::kill), parent:work@process::kill
+      |vpiFullName:work@process::kill
+  |vpiMethod:
+  \_task: (work@process::await), line:46, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:await
+    |vpiFullName:work@process::await
+    |vpiStmt:
+    \_begin: (work@process::await), parent:work@process::await
+      |vpiFullName:work@process::await
+  |vpiMethod:
+  \_task: (work@process::suspend), line:49, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:suspend
+    |vpiFullName:work@process::suspend
+    |vpiStmt:
+    \_begin: (work@process::suspend), parent:work@process::suspend
+      |vpiFullName:work@process::suspend
+  |vpiMethod:
+  \_task: (work@process::resume), line:52, parent:work@process
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:resume
+    |vpiFullName:work@process::resume
+    |vpiStmt:
+    \_begin: (work@process::resume), parent:work@process::resume
+      |vpiFullName:work@process::resume
+  |vpiTypedef:
+  \_enum_typespec: (state), line:35
+|uhdmallClasses:
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
+  |vpiName:work@semaphore
+  |vpiMethod:
+  \_function: (work@semaphore::new), line:60, parent:work@semaphore
+    |vpiMethod:1
+    |vpiName:new
+    |vpiFullName:work@semaphore::new
+    |vpiReturn:
+    \_class_var: 
+      |vpiTypespec:
+      \_class_typespec: 
+        |vpiClassDefn:
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:60, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore::put), line:63, parent:work@semaphore
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:put
+    |vpiFullName:work@semaphore::put
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:63, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_task: (work@semaphore::get), line:66, parent:work@semaphore
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:get
+    |vpiFullName:work@semaphore::get
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:66, parent:keyCount
+        |vpiFullName:keyCount
+  |vpiMethod:
+  \_function: (work@semaphore::try_get), line:69, parent:work@semaphore
+    |vpiMethod:1
+    |vpiVisibility:1
+    |vpiName:try_get
+    |vpiFullName:work@semaphore::try_get
+    |vpiReturn:
+    \_int_var: , line:69
+    |vpiIODecl:
+    \_io_decl: (keyCount)
+      |vpiName:keyCount
+      |vpiDirection:5
+      |vpiExpr:
+      \_int_var: (keyCount), line:69, parent:keyCount
+        |vpiFullName:keyCount
+|uhdmallModules:
+\_module: work@assigner (work@assigner) dut.sv:6: , parent:work@top
+  |vpiDefName:work@assigner
+  |vpiFullName:work@assigner
+  |vpiParamAssign:
+  \_param_assign: , line:6, parent:work@assigner
+    |vpiRhs:
+    \_constant: , line:6
+      |vpiConstType:7
+      |vpiDecompile:0
+      |vpiSize:32
+      |INT:0
+    |vpiLhs:
+    \_parameter: (work@assigner.invert), line:6, parent:work@assigner
+      |vpiName:invert
+      |vpiFullName:work@assigner.invert
+  |vpiParameter:
+  \_parameter: (work@assigner.invert), line:6, parent:work@assigner
+|uhdmallModules:
+\_module: work@middleman (work@middleman) dut.sv:13: , parent:work@top
+  |vpiDefName:work@middleman
+  |vpiFullName:work@middleman
+  |vpiParamAssign:
+  \_param_assign: , line:13, parent:work@middleman
+    |vpiRhs:
+    \_constant: , line:13
+      |vpiConstType:7
+      |vpiDecompile:0
+      |vpiSize:32
+      |INT:0
+    |vpiLhs:
+    \_parameter: (work@middleman.invert), line:13, parent:work@middleman
+      |vpiName:invert
+      |vpiFullName:work@middleman.invert
+  |vpiParameter:
+  \_parameter: (work@middleman.invert), line:13, parent:work@middleman
+|uhdmallModules:
+\_module: work@top (work@top) dut.sv:1: , parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+|uhdmtopModules:
+\_module: work@top (work@top) dut.sv:1: 
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiModule:
+  \_module: work@middleman (work@top.mdl1) dut.sv:2: , parent:work@top
+    |vpiDefName:work@middleman
+    |vpiName:mdl1
+    |vpiFullName:work@top.mdl1
+    |vpiModule:
+    \_module: work@assigner (work@top.mdl1.asgn) dut.sv:14: , parent:work@top.mdl1
+      |vpiDefName:work@assigner
+      |vpiName:asgn
+      |vpiFullName:work@top.mdl1.asgn
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@top.mdl1.asgn.genblk2), line:9, parent:work@top.mdl1.asgn
+        |vpiName:genblk2
+        |vpiFullName:work@top.mdl1.asgn.genblk2
+        |vpiGenScope:
+        \_gen_scope: (work@top.mdl1.asgn.genblk2), parent:work@top.mdl1.asgn.genblk2
+          |vpiFullName:work@top.mdl1.asgn.genblk2
+          |vpiContAssign:
+          \_cont_assign: , line:10, parent:work@top.mdl1.asgn.genblk2
+            |vpiRhs:
+            \_operation: , line:10
+              |vpiOpType:4
+              |vpiOperand:
+              \_ref_obj: (work@top.mdl1.asgn.genblk2.inp), line:10
+                |vpiName:inp
+                |vpiFullName:work@top.mdl1.asgn.genblk2.inp
+            |vpiLhs:
+            \_ref_obj: (work@top.mdl1.asgn.genblk2.out), line:10
+              |vpiName:out
+              |vpiFullName:work@top.mdl1.asgn.genblk2.out
+      |vpiInstance:
+      \_module: work@middleman (work@top.mdl1) dut.sv:2: , parent:work@top
+      |vpiParamAssign:
+      \_param_assign: , line:6, parent:work@top.mdl1.asgn
+        |vpiRhs:
+        \_constant: , line:6
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:64
+          |INT:1
+        |vpiLhs:
+        \_parameter: (work@top.mdl1.asgn.invert), line:6, parent:work@top.mdl1.asgn
+          |vpiName:invert
+          |vpiFullName:work@top.mdl1.asgn.invert
+          |INT:1
+      |vpiParameter:
+      \_parameter: (work@top.mdl1.asgn.invert), line:6, parent:work@top.mdl1.asgn
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiParamAssign:
+    \_param_assign: , line:13, parent:work@top.mdl1
+      |vpiRhs:
+      \_constant: , line:13
+        |vpiConstType:7
+        |vpiDecompile:1
+        |vpiSize:64
+        |INT:1
+      |vpiLhs:
+      \_parameter: (work@top.mdl1.invert), line:13, parent:work@top.mdl1
+        |vpiName:invert
+        |vpiFullName:work@top.mdl1.invert
+        |INT:1
+    |vpiParameter:
+    \_parameter: (work@top.mdl1.invert), line:13, parent:work@top.mdl1
+  |vpiModule:
+  \_module: work@middleman (work@top.mdl0) dut.sv:3: , parent:work@top
+    |vpiDefName:work@middleman
+    |vpiName:mdl0
+    |vpiFullName:work@top.mdl0
+    |vpiModule:
+    \_module: work@assigner (work@top.mdl0.asgn) dut.sv:14: , parent:work@top.mdl0
+      |vpiDefName:work@assigner
+      |vpiName:asgn
+      |vpiFullName:work@top.mdl0.asgn
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@top.mdl0.asgn.genblk1), line:7, parent:work@top.mdl0.asgn
+        |vpiName:genblk1
+        |vpiFullName:work@top.mdl0.asgn.genblk1
+        |vpiGenScope:
+        \_gen_scope: (work@top.mdl0.asgn.genblk1), parent:work@top.mdl0.asgn.genblk1
+          |vpiFullName:work@top.mdl0.asgn.genblk1
+          |vpiContAssign:
+          \_cont_assign: , line:8, parent:work@top.mdl0.asgn.genblk1
+            |vpiRhs:
+            \_ref_obj: (work@top.mdl0.asgn.genblk1.inp), line:8
+              |vpiName:inp
+              |vpiFullName:work@top.mdl0.asgn.genblk1.inp
+            |vpiLhs:
+            \_ref_obj: (work@top.mdl0.asgn.genblk1.out), line:8
+              |vpiName:out
+              |vpiFullName:work@top.mdl0.asgn.genblk1.out
+      |vpiInstance:
+      \_module: work@middleman (work@top.mdl0) dut.sv:3: , parent:work@top
+      |vpiParamAssign:
+      \_param_assign: , line:6, parent:work@top.mdl0.asgn
+        |vpiRhs:
+        \_constant: , line:6
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:64
+          |INT:0
+        |vpiLhs:
+        \_parameter: (work@top.mdl0.asgn.invert), line:6, parent:work@top.mdl0.asgn
+          |vpiName:invert
+          |vpiFullName:work@top.mdl0.asgn.invert
+          |INT:0
+      |vpiParameter:
+      \_parameter: (work@top.mdl0.asgn.invert), line:6, parent:work@top.mdl0.asgn
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: 
+    |vpiParamAssign:
+    \_param_assign: , line:13, parent:work@top.mdl0
+      |vpiRhs:
+      \_constant: , line:13
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:64
+        |INT:0
+      |vpiLhs:
+      \_parameter: (work@top.mdl0.invert), line:13, parent:work@top.mdl0
+        |vpiName:invert
+        |vpiFullName:work@top.mdl0.invert
+        |INT:0
+    |vpiParameter:
+    \_parameter: (work@top.mdl0.invert), line:13, parent:work@top.mdl0
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
+

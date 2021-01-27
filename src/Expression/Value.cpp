@@ -569,6 +569,9 @@ void LValue::adjust(const Value* a) {
     m_valueArray = new SValue[1];
     m_nbWords = 1;
   }
+  for (unsigned short i = 0; i < m_nbWords; i++) {
+    m_valueArray[i].m_value = 0;
+  }
 }
 
 void LValue::u_plus(const Value* a) {
