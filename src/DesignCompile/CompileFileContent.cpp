@@ -78,6 +78,10 @@ bool CompileFileContent::collectObjects_() {
         m_fileContent->addObject(type, fnid);
         break;
       }
+      case VObjectType::slFunction_declaration: {
+        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign);
+        break;
+      }
       case VObjectType::slData_declaration: {
         NodeId subNode = fC->Child(id);
         VObjectType subType = fC->Type(subNode);

@@ -118,6 +118,61 @@ any* getObject(const std::string& name, DesignComponent* component,
   return result;
 }
 
+UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignComponent* component,
+                      CompileDesign* compileDesign, any* pexpr) {
+  DesignComponent* comp = component;
+  if (strstr(name.c_str(), "::")) {
+    std::vector<std::string> res;
+    StringUtils::tokenizeMulti(name, "::", res);
+    if (res.size() > 1) {
+      const std::string& packName = res[0];
+      const std::string& funcName = res[1];
+      Design* design = compileDesign->getCompiler()->getDesign();
+      if (Package* pack = design->getPackage(packName)) {
+        if (pack->getTask_funcs()) {
+          for (UHDM::task_func* tf : *pack->getTask_funcs()) {
+            if (tf->VpiName() == funcName) {
+              return tf;
+            }
+          }
+        }
+      }
+    }
+  }
+  while (comp) {
+    if (comp->getTask_funcs()) {
+      for (UHDM::task_func* tf : *comp->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          return tf;
+        }
+      }
+    }
+    comp = dynamic_cast<DesignComponent*> ((DesignComponent*) comp->getParentScope());
+  }
+  for (const FileContent* cfC : component->getFileContents()) {
+    FileContent* fC = (FileContent*) cfC;
+    if (fC->getTask_funcs()) {
+      for (UHDM::task_func* tf : *fC->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          return tf;
+        }
+      }
+    }
+  }
+  Design* design = compileDesign->getCompiler()->getDesign();
+  auto& all_files = design->getAllFileContents();
+  for (auto file : all_files) {
+    FileContent* fC = file.second;
+    if (fC->getTask_funcs()) {
+      for (UHDM::task_func* tf : *fC->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          return tf;
+        }
+      }
+    }
+  }
+  return nullptr;
+}
 
 expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr) {
@@ -2240,24 +2295,44 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slSubroutine_call: {
         NodeId Dollar_keyword = fC->Child(child);
-        NodeId nameId = fC->Sibling(Dollar_keyword);
+        NodeId nameId = 0;
+        if (fC->Type(Dollar_keyword) == slStringConst) {
+          nameId = Dollar_keyword;
+        } else {
+          nameId = fC->Sibling(Dollar_keyword);
+        }
+        NodeId List_of_arguments = fC->Sibling(nameId);
         const std::string& name = fC->SymName(nameId);
         if (name == "bits") {
-          NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
           result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, false);
         } else if (name == "size") {
-          NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
           result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, true);
         } else if (name == "clog2") {
-          NodeId List_of_arguments = fC->Sibling(nameId);
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else if (name == "typename") {
-          NodeId List_of_arguments = fC->Sibling(nameId);
           result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
+        } else if (fC->Type(Dollar_keyword) == slStringConst) {
+          bool invalidValue = false;
+          VectorOfany* args = compileTfCallArguments(
+                component, fC, List_of_arguments, compileDesign, nullptr);
+          if (reduce) {
+            const std::string& fileName = fC->getFileName();
+            int lineNumber = fC->Line(nameId);
+            function* func = dynamic_cast<function*> (getTaskFunc(name, component, compileDesign, pexpr));
+            result =
+                EvalFunc(func, args, invalidValue, component, compileDesign,
+                         instance, fileName, lineNumber, pexpr);
+          } 
+          if (result == nullptr || invalidValue == true) {
+            UHDM::func_call* fcall = s.MakeFunc_call();
+            fcall->VpiName(name);
+            fcall->Tf_call_args(args);
+            result = fcall;
+          }
+        
         } else {
-          NodeId List_of_arguments = fC->Sibling(nameId);
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName("$" + name);
           VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
@@ -3451,43 +3526,20 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     std::string functionname = fC->SymName(Class_scope_name);
     std::string basename = packagename + "::" + functionname;
     tf_call* call = nullptr;
-    if (component && component->getTask_funcs()) {
-      // Function binding
-      for (UHDM::task_func* tf : *component->getTask_funcs()) {
-        if (tf->VpiName() == basename) {
-          if (tf->UhdmType() == uhdmfunction) {
-            func_call* fcall = s.MakeFunc_call();
-            fcall->Function(dynamic_cast<function*>(tf));
-            call = fcall;
-          } else {
-            task_call* tcall = s.MakeTask_call();
-            tcall->Task(dynamic_cast<task*>(tf));
-            call = tcall;
-          }
-          break;
-        }
+    task_func* tf = getTaskFunc(basename, component, compileDesign, pexpr);
+    if (tf) {
+      if (tf->UhdmType() == uhdmfunction) {
+        func_call* fcall = s.MakeFunc_call();
+        fcall->Function(dynamic_cast<function*>(tf));
+        call = fcall;
+      } else {
+        task_call* tcall = s.MakeTask_call();
+        tcall->Task(dynamic_cast<task*>(tf));
+        call = tcall;
       }
     }
     Design* design = compileDesign->getCompiler()->getDesign();
     Package* pack = design->getPackage(packagename);
-    if (call == nullptr) {
-      if (pack && pack->getTask_funcs()) {
-        for (UHDM::task_func* tf : *pack->getTask_funcs()) {
-          if (tf->VpiName() == functionname) {
-            if (tf->UhdmType() == uhdmfunction) {
-              func_call* fcall = s.MakeFunc_call();
-              fcall->Function(dynamic_cast<function*>(tf));
-              call = fcall;
-            } else {
-              task_call* tcall = s.MakeTask_call();
-              tcall->Task(dynamic_cast<task*>(tf));
-              call = tcall;
-            }
-            break;
-          }
-        }
-      }
-    }
     if (call == nullptr) {
       if (pack && (List_of_arguments == 0)) {
         Value* val = pack->getValue(functionname);

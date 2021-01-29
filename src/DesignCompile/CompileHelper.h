@@ -303,7 +303,15 @@ public:
                                     std::vector<UHDM::range*>* packedDimensions,
                                     CompileDesign* compileDesign);
 
-private:
+  UHDM::task_func* getTaskFunc(const std::string& name, DesignComponent* component,
+                      CompileDesign* compileDesign, UHDM::any* pexpr);
+
+  UHDM::expr* EvalFunc(UHDM::function* func, std::vector<UHDM::any*>* args,
+                 bool& invalidValue, DesignComponent* component,
+                 CompileDesign* compileDesign, ValuedComponentI* instance,
+                 const std::string& fileName, int lineNumber, UHDM::any* pexpr);
+
+ private:
   CompileHelper(const CompileHelper&) = delete;
 
   ErrorContainer* m_errors = nullptr;
