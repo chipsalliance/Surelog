@@ -2132,21 +2132,16 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
       call = fcall;
     }
 
-    if (component && component->getTask_funcs()) {
-      // Function binding
-      for (UHDM::task_func* tf : *component->getTask_funcs()) {
-        if (tf->VpiName() == name) {
-          if (tf->UhdmType() == uhdmfunction) {
-            func_call* fcall = s.MakeFunc_call();
-            fcall->Function(dynamic_cast<function*>(tf));
-            call = fcall;
-          } else {
-            task_call* tcall = s.MakeTask_call();
-            tcall->Task(dynamic_cast<task*>(tf));
-            call = tcall;
-          }
-          break;
-        }
+    task_func* tf = getTaskFunc(name, component, compileDesign, nullptr);
+    if (tf) {
+      if (tf->UhdmType() == uhdmfunction) {
+        func_call* fcall = s.MakeFunc_call();
+        fcall->Function(dynamic_cast<function*>(tf));
+        call = fcall;
+      } else {
+        task_call* tcall = s.MakeTask_call();
+        tcall->Task(dynamic_cast<task*>(tf));
+        call = tcall;
       }
     }
     if (call == nullptr)
