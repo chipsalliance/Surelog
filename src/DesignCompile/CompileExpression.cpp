@@ -999,6 +999,16 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
     }
   }
 
+  if (instance && dynamic_cast<FScope*> (instance)) {
+    sval = instance->getValue(name);
+    if (sval) {  
+      UHDM::constant* c = s.MakeConstant();
+      c->VpiValue(sval->uhdmValue());
+      c->VpiDecompile(sval->decompiledValue());
+      result = c;
+    }
+  } 
+
   while ((result == nullptr) && instance) {
     ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
     if (inst) {
