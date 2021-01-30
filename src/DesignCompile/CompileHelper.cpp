@@ -85,7 +85,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       scope->addVariable(var.second);
       Value* val = def->getValue(var.first);
       if (val) {
-        scope->setValue(var.first, val, *def->getExprBuilder());
+        //scope->setValue(var.first, val, *def->getExprBuilder());
+        scope->setValue(var.first, m_exprBuilder.clone(val), m_exprBuilder);
       }
     }
 
@@ -152,7 +153,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
 
     auto& values = def->getMappedValues();
     for (auto& mvalue : values) {
-      scope->setValue(mvalue.first, mvalue.second.first, *def->getExprBuilder(), mvalue.second.second);
+      scope->setValue(mvalue.first, m_exprBuilder.clone(mvalue.second.first), m_exprBuilder, mvalue.second.second);
     }
 
   } else {
