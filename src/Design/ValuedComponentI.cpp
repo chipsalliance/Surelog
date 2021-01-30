@@ -53,17 +53,17 @@ Value* ValuedComponentI::getValue(const std::string& name, ExprBuilder& exprBuil
 void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBuilder) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
-    exprBuilder.deleteValue((*itr).second.first);
+  //  exprBuilder.deleteValue((*itr).second.first);
     m_paramMap.erase(itr);
   }
 }
 
 void ValuedComponentI::setValue(const std::string& name, Value* val,
                                 ExprBuilder& exprBuilder, int lineNb) {
-  auto itr = m_paramMap.find(name);
-  if (itr != m_paramMap.end()) {
-    m_paramMap.erase(itr);
-  }                                
+  //auto itr = m_paramMap.find(name);
+  //if (itr != m_paramMap.end()) {
+  //  m_paramMap.erase(itr);
+  //}                                
   deleteValue(name, exprBuilder);
   m_paramMap.insert(std::make_pair(name, std::make_pair(val, lineNb)));
 }

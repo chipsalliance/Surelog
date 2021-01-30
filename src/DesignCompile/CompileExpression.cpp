@@ -174,6 +174,20 @@ UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignCompo
   return nullptr;
 }
 
+bool getStringVal(std::string& result, expr* val) {
+  const UHDM::constant* hs0 = dynamic_cast<const UHDM::constant*>(val);
+  if (hs0) {
+    s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
+    if (sval) {
+      if (sval->format == vpiStringVal) {
+        result = sval->value.str;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr) {
   Serializer& s = compileDesign->getSerializer();
@@ -220,33 +234,16 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 2) {
               std::string s0;
               std::string s1;
-              const UHDM::constant* hs0 =
-                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              if (hs0) {
-                s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
-                if (sval) {
-                  if (sval->format == vpiStringVal) {
-                    s0 = sval->value.str;
-                  }
-                }
-              }
-              const UHDM::constant* hs1 =
-                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              if (hs1) {
-                s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
-                if (sval) {
-                  if (sval->format == vpiStringVal) {
-                    s1 = sval->value.str;
-                  }
-                }
-              }
-
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              bool arg0isString = getStringVal(s0, reduc0);
+              bool arg1isString = getStringVal(s1, reduc0);
               unsigned long long val = 0;
-              if (hs0 && hs1) {
+              if ( arg0isString && arg1isString) {
                 val = (s0 == s1);
               } else {
-                val = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) ==
-                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                val = get_value(invalidValue, reduc0) ==
+                      get_value(invalidValue, reduc1);
               }
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -259,33 +256,16 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 2) {
               std::string s0;
               std::string s1;
-              const UHDM::constant* hs0 =
-                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              if (hs0) {
-                s_vpi_value* sval = String2VpiValue(hs0->VpiValue());
-                if (sval) {
-                  if (sval->format == vpiStringVal) {
-                    s0 = sval->value.str;
-                  }
-                }
-              }
-              const UHDM::constant* hs1 =
-                  dynamic_cast<const UHDM::constant*>(reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              if (hs1) {
-                s_vpi_value* sval = String2VpiValue(hs1->VpiValue());
-                if (sval) {
-                  if (sval->format == vpiStringVal) {
-                    s1 = sval->value.str;
-                  }
-                }
-              }
-
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              bool arg0isString = getStringVal(s0, reduc0);
+              bool arg1isString = getStringVal(s1, reduc0);
               unsigned long long val = 0;
-              if (hs0 && hs1) {
+              if ( arg0isString && arg1isString) {
                 val = (s0 != s1);
               } else {
-                val = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) !=
-                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                val = get_value(invalidValue, reduc0) !=
+                      get_value(invalidValue, reduc1);
               }
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));

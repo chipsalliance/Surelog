@@ -186,8 +186,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
                 if (*v1 > *v2) {
                   rhs = crhs;
                 }
-                m_exprBuilder.deleteValue(v1);
-                m_exprBuilder.deleteValue(v2);
+                //m_exprBuilder.deleteValue(v1);
+                //m_exprBuilder.deleteValue(v2);
               }
             }
             inst_assign->Rhs(rhs);

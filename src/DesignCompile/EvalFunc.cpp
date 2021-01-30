@@ -221,7 +221,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
   }
   // return value
   Value* result = scope->getValue(name);
-  if (result->isValid()) {
+  if (result && result->isValid()) {
     constant* c = s.MakeConstant();
     c->VpiValue(result->uhdmValue());
     invalidValue = false;

@@ -445,7 +445,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         if (sval->getType() == Value::Type::String) {
           m_valueFactory.deleteValue(value);
-          value = sval;
+          value = clone(sval);
         } else {
           value->u_plus(sval);
         }

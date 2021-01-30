@@ -69,8 +69,11 @@ Value* ValueFactory::newSValue() { return new SValue(); }
 Value* ValueFactory::newStValue() { return new StValue(); }
 
 Value* ValueFactory::newLValue() {
-  if (m_headFree == nullptr) {
-    return new LValue();
+  //if (m_headFree == nullptr) {
+    LValue* val = new LValue();
+    val->setValueFactory(this);
+    return val;
+  /*
   } else {
     LValue* ret = m_headFree;
     LValue* next = m_headFree->m_next;
@@ -86,6 +89,7 @@ Value* ValueFactory::newLValue() {
     ret->m_next = nullptr;
     return ret;
   }
+  */
 }
 
 Value* ValueFactory::newValue(SValue& initVal) { return new SValue(initVal); }
@@ -93,9 +97,11 @@ Value* ValueFactory::newValue(SValue& initVal) { return new SValue(initVal); }
 Value* ValueFactory::newValue(StValue& initVal) { return new StValue(initVal); }
 
 Value* ValueFactory::newValue(LValue& initVal) {
-  if (m_headFree == nullptr) {
-    return new LValue(initVal);
-  } else {
+ // if (m_headFree == nullptr) {
+    LValue* val = new LValue(initVal);
+    val->setValueFactory(this);
+    return val;
+ /* } else {
     LValue* ret = m_headFree;
     LValue* next = m_headFree->m_next;
     LValue* prev = m_headFree->m_prev;
@@ -116,29 +122,35 @@ Value* ValueFactory::newValue(LValue& initVal) {
 
     return ret;
   }
+  */
 }
 
 void ValueFactory::deleteValue(Value* value) {
+  delete value;
+  /*
   if (value->getType() == Value::Type::String) {
     // TODO: investigate memory corruption
     // delete (StValue*) value;
     return;
   }
+  */
+  /*
   LValue* val = (LValue*)value;
-  const Value* prev = m_headFree;
+  const Value* prev = value->m_valueFactory->m_headFree;
   if (prev == nullptr) {
-    m_headFree = (LValue*)val;
-    m_headFree->m_next = m_headFree;
-    m_headFree->m_prev = m_headFree;
+    value->m_valueFactory->m_headFree = (LValue*)val;
+    value->m_valueFactory->m_headFree->m_next = value->m_valueFactory->m_headFree;
+    value->m_valueFactory->m_headFree->m_prev = value->m_valueFactory->m_headFree;
   } else {
-    LValue* next = m_headFree;
-    LValue* prev = m_headFree->m_prev;
-    next->m_prev = val;
-    prev->m_next = val;
-    val->m_next = next;
-    val->m_prev = prev;
-    m_headFree = val;
+    LValue* next1 = value->m_valueFactory->m_headFree;
+    LValue* prev1 = value->m_valueFactory->m_headFree->m_prev;
+    next1->m_prev = val;
+    prev1->m_next = val;
+    val->m_next = next1;
+    val->m_prev = prev1;
+    value->m_valueFactory->m_headFree = val;
   }
+  */
 }
 
 void SValue::set(uint64_t val) {
@@ -559,8 +571,10 @@ void LValue::set(uint64_t val, Type type, unsigned short size) {
 void LValue::adjust(const Value* a) {
   m_type = a->getType();
   if (a->getNbWords() != getNbWords()) {
-    if (m_nbWords && m_valueArray) 
+    if (m_nbWords && m_valueArray) {
       delete[] m_valueArray;
+      m_valueArray = nullptr;
+    }
     m_nbWords = a->getNbWords();
     if (m_nbWords)
       m_valueArray = new SValue[m_nbWords];  
