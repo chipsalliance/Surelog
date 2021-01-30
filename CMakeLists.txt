@@ -104,9 +104,11 @@ else()
     # Under MSYS some files are too large to build without additional flags
     set(MSYS_COMPILE_OPTIONS "-m64 -Wa,-mbig-obj")
   endif()
-
+  #set(MEM_SANITIZER_FLAGS
+  #    "-fsanitize=address -fno-omit-frame-pointer"
+  #)
   set(CMAKE_CXX_FLAGS_DEBUG
-      "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MSYS_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}"
+      "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MSYS_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS} ${MEM_SANITIZER_FLAGS}"
   )
   set(CMAKE_CXX_FLAGS_RELEASE
       "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 ${MSYS_COMPILE_OPTIONS} -DNDEBUG ${MY_CXX_WARNING_FLAGS}"
@@ -496,7 +498,7 @@ add_custom_command(
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
     +incdir+ovm-2.1.2/src/ +incdir+vmm-1.1.1a/sv ovm-2.1.2/src/ovm_pkg.sv
-    -writepp -mt 0 -parse -nocomp -noelab -nostdout
+    -writepp -mt 0 -parse -nocomp -noelab -nostdout >> ovm_pkg.log
   COMMAND echo "       Package OVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
@@ -510,7 +512,7 @@ add_custom_command(
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
     +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0
-    -parse -nocomp -noelab -nostdout
+    -parse -nocomp -noelab -nostdout  >> uvm_pkg.log
   COMMAND echo "       Package UVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 add_dependencies(hellosureworld PrecompileOVM)

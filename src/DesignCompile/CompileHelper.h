@@ -320,7 +320,7 @@ public:
                  CompileDesign* compileDesign, ValuedComponentI* instance,
                  const std::string& fileName, int lineNumber, UHDM::any* pexpr);
 
-  void EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
+  void EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
               ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);               
 
  private:
