@@ -55,39 +55,150 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-class FScope {
- public:
-  FScope() {}
-  std::map<std::string, any*> vars;
-};
-
-typedef std::vector<FScope*> Scopes;
-
-void EvalStmt(Scopes& scopes, DesignComponent* component, CompileDesign* compileDesign, ValuedComponentI* instance, const any* stmt) {
+void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
+              ValuedComponentI* instance, const std::string& fileName, int lineNumber, const any* stmt) {
   UHDM_OBJECT_TYPE stt = stmt->UhdmType();
   switch (stt) {
     case uhdmif_else: {
+      if_else* st = (if_else*) stmt;
+      expr* cond = (expr*) st->VpiCondition();
+      unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
+      if (val) {
+        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+      } else {
+        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiElseStmt());
+      }                                   
       break;  
     }
+    case uhdmif_stmt: {
+      if_stmt* st = (if_stmt*) stmt;
+      expr* cond = (expr*) st->VpiCondition();
+      unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
+      if (val) {
+        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+      }                                  
+      break;  
+    }
+    case uhdmbegin: {
+      begin* st = (begin*) stmt;
+      //FScope* scope = new FScope(component, instance);
+      //scopes.push_back(scope);
+      if (st->Stmts()) {
+        for (auto bst : *st->Stmts()) {
+          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+        }
+      }
+      //delete scopes.back();
+      //scopes.pop_back();
+      break;
+    }
+    case uhdmassignment: {
+      assignment* st = (assignment*) stmt;
+      const std::string& lhs = st->Lhs()->VpiName();
+      expr* rhs = (expr*) st->Rhs();
+      unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
+      Value* value = m_exprBuilder.getValueFactory().newLValue();
+      value->set((unsigned long)val);
+      instance->setValue(lhs,value, m_exprBuilder);
+      break;
+    }
+    case uhdmassign_stmt: {
+      assign_stmt* st = (assign_stmt*) stmt;
+      const std::string& lhs = st->Lhs()->VpiName();
+      expr* rhs = (expr*) st->Rhs();
+      unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
+      Value* value = m_exprBuilder.getValueFactory().newLValue();
+      value->set((unsigned long)val);
+      instance->setValue(lhs,value, m_exprBuilder);
+      break;
+    }
+    case uhdmfor_stmt: {
+      for_stmt* st = (for_stmt*) stmt;
+      if (st->VpiForInitStmt()) {
+        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiForInitStmt());
+      }
+      if (st->VpiForInitStmts()) {
+        for(auto s : *st->VpiForInitStmts()) {
+          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, s);
+        }
+      }
+      while (1) {
+        expr* cond = (expr*)st->VpiCondition();
+        if (cond) {
+          unsigned long long val = get_value(
+              invalidValue,
+              reduceExpr(cond, invalidValue, component, compileDesign,
+                         scopes.back(), fileName, lineNumber, nullptr));
+          if (val == 0) {
+            break;
+          }
+        }
+        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+        if (st->VpiForIncStmt()) {
+          EvalStmt(funcName, scopes, invalidValue, component, compileDesign,
+                   scopes.back(), fileName, lineNumber, st->VpiForIncStmt());
+        }
+        if (st->VpiForIncStmts()) {
+          for (auto s : *st->VpiForIncStmts()) {
+            EvalStmt(funcName, scopes, invalidValue, component, compileDesign,
+                     scopes.back(), fileName, lineNumber, s);
+          }
+        }
+      }
+      break;
+    }
+    case uhdmreturn_stmt: {
+      return_stmt* st = (return_stmt*) stmt;
+      expr* cond = (expr*)st->VpiCondition();
+      if (cond) {
+        unsigned long long val =
+            get_value(invalidValue,
+                      reduceExpr(cond, invalidValue, component, compileDesign,
+                                 scopes.back(), fileName, lineNumber, nullptr));
+        Value* value = m_exprBuilder.getValueFactory().newLValue();
+        value->set((unsigned long)val);
+        instance->setValue(funcName,value, m_exprBuilder);
+      }
+      break;
+    }
     default:
+      invalidValue = true;
       break;
   }
 }
 
 expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr) {
-  Scopes scopes;
-  FScope* scope = new FScope();
   if ((func == nullptr)) {
     invalidValue = true;
     return nullptr;
   }
-  scope->vars.insert(std::make_pair(func->VpiName(), nullptr));
+  Serializer& s = compileDesign->getSerializer();
+  const std::string& name = func->VpiName();
+  // set internal scope stack
+  Scopes scopes;
+  FScope* scope = new FScope(component, instance);
+  // default return value is invalid
+  Value* defaultV = m_exprBuilder.fromString("INT:0");
+  defaultV->setInvalid();
+  scope->setValue(name,defaultV, m_exprBuilder);
+  // set args 
   if (func->Io_decls()) {
     unsigned int index = 0;  
     for (auto io : *func->Io_decls()) {
-      if (args && (index < args->size()))
-        scope->vars.insert(std::make_pair(io->VpiName(), args->at(index)));
+      if (args && (index < args->size())) {
+        const std::string& ioname = io->VpiName();
+        expr* ioexp = (expr*) args->at(index);
+        unsigned long long val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
+                                          compileDesign, instance, fileName, lineNumber, pexpr));
+        Value* argval = m_exprBuilder.getValueFactory().newLValue();
+        argval->set((unsigned long)val);
+        scope->setValue(ioname,argval, m_exprBuilder);
+      }
       index++;
     }
   }
@@ -98,15 +209,24 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
       case uhdmbegin: {
         UHDM::begin* st = (UHDM::begin*)the_stmt;
         for (auto stmt : *st->Stmts()) {
-          EvalStmt(scopes, component, compileDesign, instance, stmt);
+          EvalStmt(name, scopes, invalidValue, component, compileDesign, scope, fileName, lineNumber, stmt);
         }
         break;
       }
       default: {
-        EvalStmt(scopes, component, compileDesign, instance, the_stmt);
+        EvalStmt(name, scopes, invalidValue, component, compileDesign, scope, fileName, lineNumber, the_stmt);
         break;
       }
     }
   }
-  return (expr*) (*scope->vars.find(func->VpiName())).second;
+  // return value
+  Value* result = scope->getValue(name);
+  if (result->isValid()) {
+    constant* c = s.MakeConstant();
+    c->VpiValue(result->uhdmValue());
+    invalidValue = false;
+    return c;
+  } else {
+    return nullptr;
+  }
 }

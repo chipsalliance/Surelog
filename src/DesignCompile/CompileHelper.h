@@ -41,6 +41,15 @@ class Design;
 class CompileDesign;
 typedef std::vector<TfPortItem*> TfPortList;
 
+class FScope : public ValuedComponentI {
+ public:
+  FScope(const SURELOG::ValuedComponentI *parent, SURELOG::ValuedComponentI *definition) : 
+         ValuedComponentI(parent, definition) {}
+};
+
+typedef std::vector<FScope*> Scopes;
+
+
 class CompileHelper final {
 public:
   CompileHelper() {}
@@ -310,6 +319,9 @@ public:
                  bool& invalidValue, DesignComponent* component,
                  CompileDesign* compileDesign, ValuedComponentI* instance,
                  const std::string& fileName, int lineNumber, UHDM::any* pexpr);
+
+  void EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
+              ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);               
 
  private:
   CompileHelper(const CompileHelper&) = delete;
