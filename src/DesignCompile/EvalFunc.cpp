@@ -101,7 +101,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& 
       unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       Value* value = m_exprBuilder.getValueFactory().newLValue();
-      value->set((unsigned long)val);
+      value->set(val, Value::Type::Integer, 32);
       instance->setValue(lhs,value, m_exprBuilder);
       break;
     }
@@ -112,7 +112,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& 
       unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       Value* value = m_exprBuilder.getValueFactory().newLValue();
-      value->set((unsigned long)val);
+      value->set(val, Value::Type::Integer, 32);
       instance->setValue(lhs,value, m_exprBuilder);
       break;
     }
@@ -160,7 +160,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& 
                       reduceExpr(cond, invalidValue, component, compileDesign,
                                  scopes.back(), fileName, lineNumber, nullptr));
         Value* value = m_exprBuilder.getValueFactory().newLValue();
-        value->set((unsigned long)val);
+        value->set(val, Value::Type::Integer, 32);
         instance->setValue(funcName,value, m_exprBuilder);
       }
       break;
@@ -196,7 +196,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
         unsigned long long val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
                                           compileDesign, instance, fileName, lineNumber, pexpr));
         Value* argval = m_exprBuilder.getValueFactory().newLValue();
-        argval->set((unsigned long)val);
+        argval->set(val, Value::Type::Integer, 32);
         scope->setValue(ioname,argval, m_exprBuilder);
       }
       index++;
