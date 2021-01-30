@@ -62,6 +62,8 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
   std::string pack_name = fC->SymName(nameId);
   Package* def = design->getPackage(pack_name);
   if (def) {
+    if (def == scope) // skip
+      return true;
     scope->addAccessPackage(def);
     auto& classSet = def->getObjects(VObjectType::slClass_declaration);
     for (unsigned int i = 0; i < classSet.size(); i++) {
@@ -1487,14 +1489,14 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       NodeId package_name_id = fC->Child(package_import_item_id);
 
       NodeId item_name_id = fC->Sibling(package_name_id);
-      StValue* item_name;
+      Value* item_name = m_exprBuilder.getValueFactory().newStValue(); 
       if (item_name_id != 0) {
-        item_name = new StValue(fC->SymName(item_name_id));
+        item_name->set(fC->SymName(item_name_id));
       } else {
-        item_name = new StValue("*");
+        item_name->set("*");
       }
       UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
-      free(item_name);
+      m_exprBuilder.deleteValue(item_name);
       import_stmt->Item(imported_item);
 
       std::string package_name(fC->SymName(package_name_id));

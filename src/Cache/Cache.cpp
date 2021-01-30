@@ -67,7 +67,7 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string schemaVersion,
-                                std::string cacheFileName) {
+                                std::string cacheFileName) {                                
   /* Schema version */
   if (schemaVersion != header->m_flb_version()->c_str()) {
     return false;

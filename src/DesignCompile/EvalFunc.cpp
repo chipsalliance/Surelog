@@ -55,7 +55,7 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
+void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
               ValuedComponentI* instance, const std::string& fileName, int lineNumber, const any* stmt) {
   UHDM_OBJECT_TYPE stt = stmt->UhdmType();
   switch (stt) {
@@ -96,7 +96,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& 
     }
     case uhdmassignment: {
       assignment* st = (assignment*) stmt;
-      const std::string& lhs = st->Lhs()->VpiName();
+      const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
       unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
@@ -107,7 +107,7 @@ void CompileHelper::EvalStmt(const std::string& funcName, Scopes& scopes, bool& 
     }
     case uhdmassign_stmt: {
       assign_stmt* st = (assign_stmt*) stmt;
-      const std::string& lhs = st->Lhs()->VpiName();
+      const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
       unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
@@ -178,7 +178,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
     return nullptr;
   }
   Serializer& s = compileDesign->getSerializer();
-  const std::string& name = func->VpiName();
+  const std::string name = func->VpiName();
   // set internal scope stack
   Scopes scopes;
   FScope* scope = new FScope(component, instance);
@@ -191,7 +191,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
     unsigned int index = 0;  
     for (auto io : *func->Io_decls()) {
       if (args && (index < args->size())) {
-        const std::string& ioname = io->VpiName();
+        const std::string ioname = io->VpiName();
         expr* ioexp = (expr*) args->at(index);
         unsigned long long val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
                                           compileDesign, instance, fileName, lineNumber, pexpr));
