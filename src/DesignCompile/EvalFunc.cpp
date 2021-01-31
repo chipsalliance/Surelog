@@ -55,7 +55,8 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
+void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, bool& continue_flag, bool& break_flag, 
+                             DesignComponent* component, CompileDesign* compileDesign,
               ValuedComponentI* instance, const std::string& fileName, int lineNumber, const any* stmt) {
   if (invalidValue) {
     return;
@@ -68,9 +69,9 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       if (val) {
-        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+        EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
       } else {
-        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiElseStmt());
+        EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiElseStmt());
       }                                   
       break;  
     }
@@ -80,7 +81,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       if (val) {
-        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+        EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
       }                                  
       break;  
     }
@@ -88,7 +89,13 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       begin* st = (begin*) stmt;
       if (st->Stmts()) {
         for (auto bst : *st->Stmts()) {
-          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+          if (continue_flag) {
+            return;
+          }
+          if (break_flag) {
+            return;
+          }
         }
       }
       break;
@@ -97,7 +104,13 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       named_begin* st = (named_begin*) stmt;
       if (st->Stmts()) {
         for (auto bst : *st->Stmts()) {
-          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+          if (continue_flag) {
+            return;
+          }
+          if (break_flag) {
+            return;
+          }
         }
       }
       break;
@@ -127,11 +140,11 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
     case uhdmfor_stmt: {
       for_stmt* st = (for_stmt*) stmt;
       if (st->VpiForInitStmt()) {
-        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiForInitStmt());
+        EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiForInitStmt());
       }
       if (st->VpiForInitStmts()) {
         for(auto s : *st->VpiForInitStmts()) {
-          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, s);
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, s);
         }
       }
       while (1) {
@@ -144,15 +157,29 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
           if (val == 0) {
             break;
           }
+          if (invalidValue)
+            break;
         }
-        EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+        EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+        if (invalidValue)
+          break;
+        if (continue_flag) {
+          continue_flag = false;
+          continue;
+        }
+        if (break_flag) {
+          break_flag = false;
+          break;
+        }
         if (st->VpiForIncStmt()) {
-          EvalStmt(funcName, scopes, invalidValue, component, compileDesign,
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign,
                    scopes.back(), fileName, lineNumber, st->VpiForIncStmt());
         }
+        if (invalidValue)
+          break;
         if (st->VpiForIncStmts()) {
           for (auto s : *st->VpiForIncStmts()) {
-            EvalStmt(funcName, scopes, invalidValue, component, compileDesign,
+            EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign,
                      scopes.back(), fileName, lineNumber, s);
           }
         }
@@ -173,6 +200,72 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
         value->set(val, Value::Type::Integer, 32);
         instance->setValue(funcName,value, m_exprBuilder);
       }
+      break;
+    }
+    case uhdmwhile_stmt: {
+      while_stmt* st = (while_stmt*) stmt;
+      expr* cond = (expr*)st->VpiCondition();
+      if (cond) {
+        while (1) {
+          unsigned long long val = get_value(
+              invalidValue,
+              reduceExpr(cond, invalidValue, component, compileDesign,
+                         scopes.back(), fileName, lineNumber, nullptr));
+          if (invalidValue) 
+            break;
+          if (val == 0) {
+            break;
+          }
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+          if (invalidValue) 
+            break;
+          if (continue_flag) {
+            continue_flag = false;
+            continue;
+          }
+          if (break_flag) {
+            break_flag = false;
+            break;
+          }  
+        }
+      }
+      break;
+    }
+    case uhdmdo_while: {
+      do_while* st = (do_while*) stmt;
+      expr* cond = (expr*)st->VpiCondition();
+      if (cond) {
+        while (1) {
+          EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
+          if (invalidValue) 
+            break;
+          if (continue_flag) {
+            continue_flag = false;
+            continue;
+          }
+          if (break_flag) {
+            break_flag = false;
+            break;
+          }
+          unsigned long long val = get_value(
+              invalidValue,
+              reduceExpr(cond, invalidValue, component, compileDesign,
+                         scopes.back(), fileName, lineNumber, nullptr));
+         if (invalidValue) 
+            break;               
+          if (val == 0) {
+            break;
+          }
+        }
+      }
+      break;
+    }
+    case uhdmcontinue_stmt: {
+      continue_flag = true;
+      break;
+    }
+    case uhdmbreak_stmt: {
+      break_flag = true;
       break;
     }
     default: {
@@ -231,13 +324,66 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
     switch (stt) {
       case uhdmbegin: {
         UHDM::begin* st = (UHDM::begin*)the_stmt;
+        bool continue_flag = false;
+        bool break_flag = false;
         for (auto stmt : *st->Stmts()) {
-          EvalStmt(name, scopes, invalidValue, component, compileDesign, scope, fileName, lineNumber, stmt);
+          EvalStmt(name, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scope, fileName, lineNumber, stmt);
+          if (continue_flag || break_flag) {
+            ErrorContainer* errors =
+                compileDesign->getCompiler()->getErrorContainer();
+            SymbolTable* symbols =
+                compileDesign->getCompiler()->getSymbolTable();
+            std::string fileContent =
+                FileUtils::getFileContent(stmt->VpiFile());
+            std::string lineText = StringUtils::getLineInString(
+                fileContent, stmt->VpiLineNo());
+            Location loc(symbols->registerSymbol(the_stmt->VpiFile()), stmt->VpiLineNo(), 0,
+                         symbols->registerSymbol(lineText));
+            Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
+            errors->addError(err);
+          }
+        }
+        break;
+      }
+      case uhdmnamed_begin: {
+        UHDM::named_begin* st = (UHDM::named_begin*)the_stmt;
+        bool continue_flag = false;
+        bool break_flag = false;
+        for (auto stmt : *st->Stmts()) {
+          EvalStmt(name, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scope, fileName, lineNumber, stmt);
+          if (continue_flag || break_flag) {
+            ErrorContainer* errors =
+                compileDesign->getCompiler()->getErrorContainer();
+            SymbolTable* symbols =
+                compileDesign->getCompiler()->getSymbolTable();
+            std::string fileContent =
+                FileUtils::getFileContent(stmt->VpiFile());
+            std::string lineText = StringUtils::getLineInString(
+                fileContent, stmt->VpiLineNo());
+            Location loc(symbols->registerSymbol(stmt->VpiFile()), stmt->VpiLineNo(), 0,
+                         symbols->registerSymbol(lineText));
+            Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
+            errors->addError(err);
+          }
         }
         break;
       }
       default: {
-        EvalStmt(name, scopes, invalidValue, component, compileDesign, scope, fileName, lineNumber, the_stmt);
+        bool continue_flag = false;
+        bool break_flag = false;
+        EvalStmt(name, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scope, fileName, lineNumber, the_stmt);
+        if (continue_flag || break_flag) {
+          ErrorContainer* errors =
+              compileDesign->getCompiler()->getErrorContainer();
+          SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+          std::string fileContent = FileUtils::getFileContent(the_stmt->VpiFile());
+          std::string lineText =
+              StringUtils::getLineInString(fileContent, the_stmt->VpiLineNo());
+          Location loc(symbols->registerSymbol(the_stmt->VpiFile()), the_stmt->VpiLineNo(), 0,
+                       symbols->registerSymbol(lineText));
+          Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
+          errors->addError(err);
+        }
         break;
       }
     }
