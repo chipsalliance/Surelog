@@ -159,6 +159,17 @@ UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignCompo
       }
     }
   }
+  if (component) {
+    for (Package* pack : component->getAccessPackages()) {
+      if (pack->getTask_funcs()) {
+        for (UHDM::task_func* tf : *pack->getTask_funcs()) {
+          if (tf->VpiName() == name) {
+            return tf;
+          }
+        }
+      }
+    }
+  }
   Design* design = compileDesign->getCompiler()->getDesign();
   auto& all_files = design->getAllFileContents();
   for (auto file : all_files) {
