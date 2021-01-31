@@ -2270,19 +2270,23 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slConstant_concatenation:
       case VObjectType::slConcatenation: {
-        UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
-        operation->Attributes(attributes);
-        result = operation;
-        operation->VpiParent(pexpr);
-        operation->Operands(operands);
-        operation->VpiOpType(vpiConcatOp);
         NodeId Expression = fC->Child(child);
         while (Expression) {
           UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
           if (exp)
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
+        }
+        if (operands->size() == 1) {
+          result = operands->at(0);
+        } else {
+          UHDM::operation* operation = s.MakeOperation();
+          operation->Attributes(attributes);
+          result = operation;
+          operation->VpiParent(pexpr);
+          operation->Operands(operands);
+          operation->VpiOpType(vpiConcatOp);
         }
         break;
       }
