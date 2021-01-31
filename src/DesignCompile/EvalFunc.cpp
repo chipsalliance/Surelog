@@ -57,6 +57,9 @@ using namespace UHDM;
 
 void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, DesignComponent* component, CompileDesign* compileDesign,
               ValuedComponentI* instance, const std::string& fileName, int lineNumber, const any* stmt) {
+  if (invalidValue) {
+    return;
+  }
   UHDM_OBJECT_TYPE stt = stmt->UhdmType();
   switch (stt) {
     case uhdmif_else: {
@@ -83,15 +86,20 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
     }
     case uhdmbegin: {
       begin* st = (begin*) stmt;
-      //FScope* scope = new FScope(component, instance);
-      //scopes.push_back(scope);
       if (st->Stmts()) {
         for (auto bst : *st->Stmts()) {
           EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
         }
       }
-      //delete scopes.back();
-      //scopes.pop_back();
+      break;
+    }
+    case uhdmnamed_begin: {
+      named_begin* st = (named_begin*) stmt;
+      if (st->Stmts()) {
+        for (auto bst : *st->Stmts()) {
+          EvalStmt(funcName, scopes, invalidValue, component, compileDesign, scopes.back(), fileName, lineNumber, bst);
+        }
+      }
       break;
     }
     case uhdmassignment: {
@@ -148,6 +156,8 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
                      scopes.back(), fileName, lineNumber, s);
           }
         }
+        if (invalidValue)
+          break;
       }
       break;
     }
@@ -165,9 +175,22 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       }
       break;
     }
-    default:
+    default: {
       invalidValue = true;
+      ErrorContainer* errors =
+          compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+      std::string fileContent = FileUtils::getFileContent(stmt->VpiFile());
+      std::string lineText =
+          StringUtils::getLineInString(fileContent, stmt->VpiLineNo());
+      Location loc(
+          symbols->registerSymbol(fileName),
+          lineNumber, 0,
+          symbols->registerSymbol(lineText));
+      Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
+      errors->addError(err);
       break;
+    }
   }
 }
 
