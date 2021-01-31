@@ -284,6 +284,14 @@ UHDM::any* CompileHelper::compileVariable(
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     result = var;
+  } else if (the_type == VObjectType::slVariable_lvalue) {
+    NodeId hier_ident = fC->Child(variable);
+    NodeId nameid = fC->Child(hier_ident);
+    int_var* var = s.MakeInt_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    var->VpiName(fC->SymName(nameid));
+    result = var;
   } else {
     // Implicit type
     logic_var* var = s.MakeLogic_var();

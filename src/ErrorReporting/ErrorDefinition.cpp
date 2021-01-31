@@ -312,6 +312,8 @@ bool ErrorDefinition::init() {
       "%exloc type definition");
   rec(COMP_UNDEFINED_SYSTEM_FUNCTION, ERROR, COMP,
       "Undefined system task/function \"$%s\"");
+  rec(COMP_UNDEFINED_USER_FUNCTION, ERROR, COMP,
+      "Undefined user task/function \"%s\"");    
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");

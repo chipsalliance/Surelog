@@ -1876,7 +1876,6 @@ UHDM::any* CompileHelper::compileForLoop(
         assign_stmt->Lhs(var);
         if (var) {
           var->VpiParent(assign_stmt);
-          // var->VpiName(fC->SymName(Var));
         }
 
         expr* rhs =
