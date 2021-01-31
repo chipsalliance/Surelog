@@ -2313,7 +2313,7 @@ UHDM::any* CompileHelper::compileExpression(
           nameId = fC->Sibling(Dollar_keyword);
         }
         NodeId List_of_arguments = fC->Sibling(nameId);
-        const std::string& name = fC->SymName(nameId);
+        std::string name = fC->SymName(nameId);
         if (name == "bits") {
           NodeId Expression = fC->Child(List_of_arguments);
           result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, false);
@@ -2324,7 +2324,14 @@ UHDM::any* CompileHelper::compileExpression(
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else if (name == "typename") {
           result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
-        } else if (fC->Type(Dollar_keyword) == slStringConst) {
+        } else if (fC->Type(Dollar_keyword) == slStringConst ||
+                   fC->Type(Dollar_keyword) == slClass_scope) {
+          if (fC->Type(Dollar_keyword) == slClass_scope) {
+            NodeId Class_type = fC->Child(Dollar_keyword);
+            NodeId Class_type_name = fC->Child(Class_type);
+            NodeId Class_scope_name = fC->Sibling(Dollar_keyword);
+            name = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
+          }          
           bool invalidValue = false;
           VectorOfany* args = compileTfCallArguments(
                 component, fC, List_of_arguments, compileDesign, nullptr);
