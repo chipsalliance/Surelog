@@ -2278,7 +2278,7 @@ UHDM::any* CompileHelper::compileExpression(
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
-        if (operands->size() == 1) {
+        if (reduce && (operands->size() == 1)) {
           result = operands->at(0);
         } else {
           UHDM::operation* operation = s.MakeOperation();
