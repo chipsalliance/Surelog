@@ -2348,12 +2348,15 @@ UHDM::any* CompileHelper::compileExpression(
             name = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
           }          
           bool invalidValue = false;
+          UHDM::func_call* fcall = s.MakeFunc_call();
+          fcall->VpiName(name);
+          function* func = dynamic_cast<function*> (getTaskFunc(name, component, compileDesign, pexpr));
+          fcall->Function(func);
           VectorOfany* args = compileTfCallArguments(
-                component, fC, List_of_arguments, compileDesign, nullptr);
+                component, fC, List_of_arguments, compileDesign, fcall);
           if (reduce) {
             const std::string& fileName = fC->getFileName();
             int lineNumber = fC->Line(nameId);
-            function* func = dynamic_cast<function*> (getTaskFunc(name, component, compileDesign, pexpr));
             if (func == nullptr) {
               ErrorContainer* errors =
                   compileDesign->getCompiler()->getErrorContainer();
@@ -2370,8 +2373,6 @@ UHDM::any* CompileHelper::compileExpression(
                          instance, fileName, lineNumber, pexpr);
           } 
           if (result == nullptr || invalidValue == true) {
-            UHDM::func_call* fcall = s.MakeFunc_call();
-            fcall->VpiName(name);
             fcall->Tf_call_args(args);
             result = fcall;
           }
