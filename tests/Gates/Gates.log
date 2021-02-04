@@ -2848,7 +2848,7 @@ design: (work@gates)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@gates
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -3140,14 +3140,32 @@ design: (work@gates)
           |vpiSize:20
           |STRING:X = %b Y = %b F = %b
         |vpiArgument:
-        \_ref_obj: (X), line:134
+        \_ref_obj: (work@and_from_nand.X), line:134, parent:$monitor
           |vpiName:X
+          |vpiFullName:work@and_from_nand.X
+          |vpiActual:
+          \_logic_net: (work@and_from_nand.X), line:126, parent:work@and_from_nand
+            |vpiName:X
+            |vpiFullName:work@and_from_nand.X
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (Y), line:134
+        \_ref_obj: (work@and_from_nand.Y), line:134, parent:$monitor
           |vpiName:Y
+          |vpiFullName:work@and_from_nand.Y
+          |vpiActual:
+          \_logic_net: (work@and_from_nand.Y), line:126, parent:work@and_from_nand
+            |vpiName:Y
+            |vpiFullName:work@and_from_nand.Y
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (F), line:134
+        \_ref_obj: (work@and_from_nand.F), line:134, parent:$monitor
           |vpiName:F
+          |vpiFullName:work@and_from_nand.F
+          |vpiActual:
+          \_logic_net: (work@and_from_nand.F), line:127, parent:work@and_from_nand
+            |vpiName:F
+            |vpiFullName:work@and_from_nand.F
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:135, parent:work@and_from_nand
         |vpiOpType:82
@@ -3158,9 +3176,6 @@ design: (work@gates)
           |vpiFullName:work@and_from_nand.X
           |vpiActual:
           \_logic_net: (work@and_from_nand.X), line:126, parent:work@and_from_nand
-            |vpiName:X
-            |vpiFullName:work@and_from_nand.X
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:135
           |vpiConstType:7
@@ -3177,9 +3192,6 @@ design: (work@gates)
           |vpiFullName:work@and_from_nand.Y
           |vpiActual:
           \_logic_net: (work@and_from_nand.Y), line:126, parent:work@and_from_nand
-            |vpiName:Y
-            |vpiFullName:work@and_from_nand.Y
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:136
           |vpiConstType:7
@@ -3288,32 +3300,80 @@ design: (work@gates)
           |vpiSize:66
           |STRING:Time=%g b=%b c=%b  out1=%b out2=%b out3=%b out4=%b out5=%b out6=%b
         |vpiArgument:
-        \_sys_func_call: ($time), line:167
+        \_sys_func_call: ($time), line:167, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (b), line:167
+        \_ref_obj: (work@delay_example.b), line:167, parent:$monitor
           |vpiName:b
+          |vpiFullName:work@delay_example.b
+          |vpiActual:
+          \_logic_net: (work@delay_example.b), line:148, parent:work@delay_example
+            |vpiName:b
+            |vpiFullName:work@delay_example.b
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (c), line:167
+        \_ref_obj: (work@delay_example.c), line:167, parent:$monitor
           |vpiName:c
+          |vpiFullName:work@delay_example.c
+          |vpiActual:
+          \_logic_net: (work@delay_example.c), line:148, parent:work@delay_example
+            |vpiName:c
+            |vpiFullName:work@delay_example.c
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (out1), line:167
+        \_ref_obj: (work@delay_example.out1), line:167, parent:$monitor
           |vpiName:out1
+          |vpiFullName:work@delay_example.out1
+          |vpiActual:
+          \_logic_net: (work@delay_example.out1), line:147, parent:work@delay_example
+            |vpiName:out1
+            |vpiFullName:work@delay_example.out1
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out2), line:167
+        \_ref_obj: (work@delay_example.out2), line:167, parent:$monitor
           |vpiName:out2
+          |vpiFullName:work@delay_example.out2
+          |vpiActual:
+          \_logic_net: (work@delay_example.out2), line:147, parent:work@delay_example
+            |vpiName:out2
+            |vpiFullName:work@delay_example.out2
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out3), line:167
+        \_ref_obj: (work@delay_example.out3), line:167, parent:$monitor
           |vpiName:out3
+          |vpiFullName:work@delay_example.out3
+          |vpiActual:
+          \_logic_net: (work@delay_example.out3), line:147, parent:work@delay_example
+            |vpiName:out3
+            |vpiFullName:work@delay_example.out3
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out4), line:167
+        \_ref_obj: (work@delay_example.out4), line:167, parent:$monitor
           |vpiName:out4
+          |vpiFullName:work@delay_example.out4
+          |vpiActual:
+          \_logic_net: (work@delay_example.out4), line:147, parent:work@delay_example
+            |vpiName:out4
+            |vpiFullName:work@delay_example.out4
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out5), line:167
+        \_ref_obj: (work@delay_example.out5), line:167, parent:$monitor
           |vpiName:out5
+          |vpiFullName:work@delay_example.out5
+          |vpiActual:
+          \_logic_net: (work@delay_example.out5), line:147, parent:work@delay_example
+            |vpiName:out5
+            |vpiFullName:work@delay_example.out5
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out6), line:167
+        \_ref_obj: (work@delay_example.out6), line:167, parent:$monitor
           |vpiName:out6
+          |vpiFullName:work@delay_example.out6
+          |vpiActual:
+          \_logic_net: (work@delay_example.out6), line:147, parent:work@delay_example
+            |vpiName:out6
+            |vpiFullName:work@delay_example.out6
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:168, parent:work@delay_example
         |vpiOpType:82
@@ -3324,9 +3384,6 @@ design: (work@gates)
           |vpiFullName:work@delay_example.b
           |vpiActual:
           \_logic_net: (work@delay_example.b), line:148, parent:work@delay_example
-            |vpiName:b
-            |vpiFullName:work@delay_example.b
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:168
           |vpiConstType:7
@@ -3343,9 +3400,6 @@ design: (work@gates)
           |vpiFullName:work@delay_example.c
           |vpiActual:
           \_logic_net: (work@delay_example.c), line:148, parent:work@delay_example
-            |vpiName:c
-            |vpiFullName:work@delay_example.c
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:169
           |vpiConstType:7
@@ -3474,17 +3528,41 @@ design: (work@gates)
           |vpiSize:33
           |STRING:CLK = %b D = %b Q = %b Q_BAR = %b
         |vpiArgument:
-        \_ref_obj: (CLK), line:73
+        \_ref_obj: (work@dff_from_nand.CLK), line:73, parent:$monitor
           |vpiName:CLK
+          |vpiFullName:work@dff_from_nand.CLK
+          |vpiActual:
+          \_logic_net: (work@dff_from_nand.CLK), line:64, parent:work@dff_from_nand
+            |vpiName:CLK
+            |vpiFullName:work@dff_from_nand.CLK
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (D), line:73
+        \_ref_obj: (work@dff_from_nand.D), line:73, parent:$monitor
           |vpiName:D
+          |vpiFullName:work@dff_from_nand.D
+          |vpiActual:
+          \_logic_net: (work@dff_from_nand.D), line:64, parent:work@dff_from_nand
+            |vpiName:D
+            |vpiFullName:work@dff_from_nand.D
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (Q), line:73
+        \_ref_obj: (work@dff_from_nand.Q), line:73, parent:$monitor
           |vpiName:Q
+          |vpiFullName:work@dff_from_nand.Q
+          |vpiActual:
+          \_logic_net: (work@dff_from_nand.Q), line:63, parent:work@dff_from_nand
+            |vpiName:Q
+            |vpiFullName:work@dff_from_nand.Q
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (Q_BAR), line:73
+        \_ref_obj: (work@dff_from_nand.Q_BAR), line:73, parent:$monitor
           |vpiName:Q_BAR
+          |vpiFullName:work@dff_from_nand.Q_BAR
+          |vpiActual:
+          \_logic_net: (work@dff_from_nand.Q_BAR), line:63, parent:work@dff_from_nand
+            |vpiName:Q_BAR
+            |vpiFullName:work@dff_from_nand.Q_BAR
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:74, parent:work@dff_from_nand
         |vpiOpType:82
@@ -3495,9 +3573,6 @@ design: (work@gates)
           |vpiFullName:work@dff_from_nand.CLK
           |vpiActual:
           \_logic_net: (work@dff_from_nand.CLK), line:64, parent:work@dff_from_nand
-            |vpiName:CLK
-            |vpiFullName:work@dff_from_nand.CLK
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:74
           |vpiConstType:7
@@ -3514,9 +3589,6 @@ design: (work@gates)
           |vpiFullName:work@dff_from_nand.D
           |vpiActual:
           \_logic_net: (work@dff_from_nand.D), line:64, parent:work@dff_from_nand
-            |vpiName:D
-            |vpiFullName:work@dff_from_nand.D
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:75
           |vpiConstType:7
@@ -3650,26 +3722,68 @@ design: (work@gates)
           |vpiSize:51
           |STRING:in1=%b in2=%b in3=%b in4=%b out0=%b out1=%b out2=%b
         |vpiArgument:
-        \_ref_obj: (in1), line:15
+        \_ref_obj: (work@gates.in1), line:15, parent:$monitor
           |vpiName:in1
+          |vpiFullName:work@gates.in1
+          |vpiActual:
+          \_logic_net: (work@gates.in1), line:6, parent:work@gates
+            |vpiName:in1
+            |vpiFullName:work@gates.in1
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in2), line:15
+        \_ref_obj: (work@gates.in2), line:15, parent:$monitor
           |vpiName:in2
+          |vpiFullName:work@gates.in2
+          |vpiActual:
+          \_logic_net: (work@gates.in2), line:6, parent:work@gates
+            |vpiName:in2
+            |vpiFullName:work@gates.in2
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in3), line:15
+        \_ref_obj: (work@gates.in3), line:15, parent:$monitor
           |vpiName:in3
+          |vpiFullName:work@gates.in3
+          |vpiActual:
+          \_logic_net: (work@gates.in3), line:6, parent:work@gates
+            |vpiName:in3
+            |vpiFullName:work@gates.in3
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in4), line:15
+        \_ref_obj: (work@gates.in4), line:15, parent:$monitor
           |vpiName:in4
+          |vpiFullName:work@gates.in4
+          |vpiActual:
+          \_logic_net: (work@gates.in4), line:6, parent:work@gates
+            |vpiName:in4
+            |vpiFullName:work@gates.in4
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (out0), line:15
+        \_ref_obj: (work@gates.out0), line:15, parent:$monitor
           |vpiName:out0
+          |vpiFullName:work@gates.out0
+          |vpiActual:
+          \_logic_net: (work@gates.out0), line:3, parent:work@gates
+            |vpiName:out0
+            |vpiFullName:work@gates.out0
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out1), line:15
+        \_ref_obj: (work@gates.out1), line:15, parent:$monitor
           |vpiName:out1
+          |vpiFullName:work@gates.out1
+          |vpiActual:
+          \_logic_net: (work@gates.out1), line:4, parent:work@gates
+            |vpiName:out1
+            |vpiFullName:work@gates.out1
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out2), line:15
+        \_ref_obj: (work@gates.out2), line:15, parent:$monitor
           |vpiName:out2
+          |vpiFullName:work@gates.out2
+          |vpiActual:
+          \_logic_net: (work@gates.out2), line:5, parent:work@gates
+            |vpiName:out2
+            |vpiFullName:work@gates.out2
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:16, parent:work@gates
         |vpiOpType:82
@@ -3680,9 +3794,6 @@ design: (work@gates)
           |vpiFullName:work@gates.in1
           |vpiActual:
           \_logic_net: (work@gates.in1), line:6, parent:work@gates
-            |vpiName:in1
-            |vpiFullName:work@gates.in1
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:16
           |vpiConstType:7
@@ -3699,9 +3810,6 @@ design: (work@gates)
           |vpiFullName:work@gates.in2
           |vpiActual:
           \_logic_net: (work@gates.in2), line:6, parent:work@gates
-            |vpiName:in2
-            |vpiFullName:work@gates.in2
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:17
           |vpiConstType:7
@@ -3718,9 +3826,6 @@ design: (work@gates)
           |vpiFullName:work@gates.in3
           |vpiActual:
           \_logic_net: (work@gates.in3), line:6, parent:work@gates
-            |vpiName:in3
-            |vpiFullName:work@gates.in3
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:18
           |vpiConstType:7
@@ -3737,9 +3842,6 @@ design: (work@gates)
           |vpiFullName:work@gates.in4
           |vpiActual:
           \_logic_net: (work@gates.in4), line:6, parent:work@gates
-            |vpiName:in4
-            |vpiFullName:work@gates.in4
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:19
           |vpiConstType:7
@@ -3936,26 +4038,68 @@ design: (work@gates)
           |vpiSize:52
           |STRING:c0 = %b c1 = %b c2 = %b c3 = %b A = %b B = %b Y = %b
         |vpiArgument:
-        \_ref_obj: (c0), line:103
+        \_ref_obj: (work@mux_from_gates.c0), line:103, parent:$monitor
           |vpiName:c0
+          |vpiFullName:work@mux_from_gates.c0
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.c0), line:86, parent:work@mux_from_gates
+            |vpiName:c0
+            |vpiFullName:work@mux_from_gates.c0
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (c1), line:103
+        \_ref_obj: (work@mux_from_gates.c1), line:103, parent:$monitor
           |vpiName:c1
+          |vpiFullName:work@mux_from_gates.c1
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.c1), line:86, parent:work@mux_from_gates
+            |vpiName:c1
+            |vpiFullName:work@mux_from_gates.c1
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (c2), line:103
+        \_ref_obj: (work@mux_from_gates.c2), line:103, parent:$monitor
           |vpiName:c2
+          |vpiFullName:work@mux_from_gates.c2
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.c2), line:86, parent:work@mux_from_gates
+            |vpiName:c2
+            |vpiFullName:work@mux_from_gates.c2
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (c3), line:103
+        \_ref_obj: (work@mux_from_gates.c3), line:103, parent:$monitor
           |vpiName:c3
+          |vpiFullName:work@mux_from_gates.c3
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.c3), line:86, parent:work@mux_from_gates
+            |vpiName:c3
+            |vpiFullName:work@mux_from_gates.c3
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (A), line:103
+        \_ref_obj: (work@mux_from_gates.A), line:103, parent:$monitor
           |vpiName:A
+          |vpiFullName:work@mux_from_gates.A
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.A), line:86, parent:work@mux_from_gates
+            |vpiName:A
+            |vpiFullName:work@mux_from_gates.A
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (B), line:103
+        \_ref_obj: (work@mux_from_gates.B), line:103, parent:$monitor
           |vpiName:B
+          |vpiFullName:work@mux_from_gates.B
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.B), line:86, parent:work@mux_from_gates
+            |vpiName:B
+            |vpiFullName:work@mux_from_gates.B
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (Y), line:103
+        \_ref_obj: (work@mux_from_gates.Y), line:103, parent:$monitor
           |vpiName:Y
+          |vpiFullName:work@mux_from_gates.Y
+          |vpiActual:
+          \_logic_net: (work@mux_from_gates.Y), line:87, parent:work@mux_from_gates
+            |vpiName:Y
+            |vpiFullName:work@mux_from_gates.Y
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:104, parent:work@mux_from_gates
         |vpiOpType:82
@@ -3966,9 +4110,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.c0
           |vpiActual:
           \_logic_net: (work@mux_from_gates.c0), line:86, parent:work@mux_from_gates
-            |vpiName:c0
-            |vpiFullName:work@mux_from_gates.c0
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:104
           |vpiConstType:7
@@ -3985,9 +4126,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.c1
           |vpiActual:
           \_logic_net: (work@mux_from_gates.c1), line:86, parent:work@mux_from_gates
-            |vpiName:c1
-            |vpiFullName:work@mux_from_gates.c1
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:105
           |vpiConstType:7
@@ -4004,9 +4142,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.c2
           |vpiActual:
           \_logic_net: (work@mux_from_gates.c2), line:86, parent:work@mux_from_gates
-            |vpiName:c2
-            |vpiFullName:work@mux_from_gates.c2
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:106
           |vpiConstType:7
@@ -4023,9 +4158,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.c3
           |vpiActual:
           \_logic_net: (work@mux_from_gates.c3), line:86, parent:work@mux_from_gates
-            |vpiName:c3
-            |vpiFullName:work@mux_from_gates.c3
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:107
           |vpiConstType:7
@@ -4042,9 +4174,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.A
           |vpiActual:
           \_logic_net: (work@mux_from_gates.A), line:86, parent:work@mux_from_gates
-            |vpiName:A
-            |vpiFullName:work@mux_from_gates.A
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:108
           |vpiConstType:7
@@ -4061,9 +4190,6 @@ design: (work@gates)
           |vpiFullName:work@mux_from_gates.B
           |vpiActual:
           \_logic_net: (work@mux_from_gates.B), line:86, parent:work@mux_from_gates
-            |vpiName:B
-            |vpiFullName:work@mux_from_gates.B
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:109
           |vpiConstType:7
@@ -4287,26 +4413,68 @@ design: (work@gates)
           |vpiSize:65
           |STRING:in1 = %b in2 = %b in3 = %b in4 = %b out1 = %b out2 = %b out3 = %b
         |vpiArgument:
-        \_ref_obj: (in1), line:194
+        \_ref_obj: (work@n_in_primitive.in1), line:194, parent:$monitor
           |vpiName:in1
+          |vpiFullName:work@n_in_primitive.in1
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.in1), line:181, parent:work@n_in_primitive
+            |vpiName:in1
+            |vpiFullName:work@n_in_primitive.in1
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in2), line:194
+        \_ref_obj: (work@n_in_primitive.in2), line:194, parent:$monitor
           |vpiName:in2
+          |vpiFullName:work@n_in_primitive.in2
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.in2), line:181, parent:work@n_in_primitive
+            |vpiName:in2
+            |vpiFullName:work@n_in_primitive.in2
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in3), line:194
+        \_ref_obj: (work@n_in_primitive.in3), line:194, parent:$monitor
           |vpiName:in3
+          |vpiFullName:work@n_in_primitive.in3
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.in3), line:181, parent:work@n_in_primitive
+            |vpiName:in3
+            |vpiFullName:work@n_in_primitive.in3
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (in4), line:194
+        \_ref_obj: (work@n_in_primitive.in4), line:194, parent:$monitor
           |vpiName:in4
+          |vpiFullName:work@n_in_primitive.in4
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.in4), line:181, parent:work@n_in_primitive
+            |vpiName:in4
+            |vpiFullName:work@n_in_primitive.in4
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (out1), line:194
+        \_ref_obj: (work@n_in_primitive.out1), line:194, parent:$monitor
           |vpiName:out1
+          |vpiFullName:work@n_in_primitive.out1
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.out1), line:180, parent:work@n_in_primitive
+            |vpiName:out1
+            |vpiFullName:work@n_in_primitive.out1
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out2), line:194
+        \_ref_obj: (work@n_in_primitive.out2), line:194, parent:$monitor
           |vpiName:out2
+          |vpiFullName:work@n_in_primitive.out2
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.out2), line:180, parent:work@n_in_primitive
+            |vpiName:out2
+            |vpiFullName:work@n_in_primitive.out2
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out3), line:194
+        \_ref_obj: (work@n_in_primitive.out3), line:194, parent:$monitor
           |vpiName:out3
+          |vpiFullName:work@n_in_primitive.out3
+          |vpiActual:
+          \_logic_net: (work@n_in_primitive.out3), line:180, parent:work@n_in_primitive
+            |vpiName:out3
+            |vpiFullName:work@n_in_primitive.out3
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:195, parent:work@n_in_primitive
         |vpiOpType:82
@@ -4317,9 +4485,6 @@ design: (work@gates)
           |vpiFullName:work@n_in_primitive.in1
           |vpiActual:
           \_logic_net: (work@n_in_primitive.in1), line:181, parent:work@n_in_primitive
-            |vpiName:in1
-            |vpiFullName:work@n_in_primitive.in1
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:195
           |vpiConstType:7
@@ -4336,9 +4501,6 @@ design: (work@gates)
           |vpiFullName:work@n_in_primitive.in2
           |vpiActual:
           \_logic_net: (work@n_in_primitive.in2), line:181, parent:work@n_in_primitive
-            |vpiName:in2
-            |vpiFullName:work@n_in_primitive.in2
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:196
           |vpiConstType:7
@@ -4355,9 +4517,6 @@ design: (work@gates)
           |vpiFullName:work@n_in_primitive.in3
           |vpiActual:
           \_logic_net: (work@n_in_primitive.in3), line:181, parent:work@n_in_primitive
-            |vpiName:in3
-            |vpiFullName:work@n_in_primitive.in3
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:197
           |vpiConstType:7
@@ -4374,9 +4533,6 @@ design: (work@gates)
           |vpiFullName:work@n_in_primitive.in4
           |vpiActual:
           \_logic_net: (work@n_in_primitive.in4), line:181, parent:work@n_in_primitive
-            |vpiName:in4
-            |vpiFullName:work@n_in_primitive.in4
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:198
           |vpiConstType:7
@@ -4602,23 +4758,53 @@ design: (work@gates)
           |vpiSize:56
           |STRING:@%g in=%b data_enable_low=%b out1=%b out2= b data_bus=%b
         |vpiArgument:
-        \_sys_func_call: ($time), line:41
+        \_sys_func_call: ($time), line:41, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (in), line:41
+        \_ref_obj: (work@transmission_gates.in), line:41, parent:$monitor
           |vpiName:in
+          |vpiFullName:work@transmission_gates.in
+          |vpiActual:
+          \_logic_net: (work@transmission_gates.in), line:31, parent:work@transmission_gates
+            |vpiName:in
+            |vpiFullName:work@transmission_gates.in
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (data_enable_low), line:41
+        \_ref_obj: (work@transmission_gates.data_enable_low), line:41, parent:$monitor
           |vpiName:data_enable_low
+          |vpiFullName:work@transmission_gates.data_enable_low
+          |vpiActual:
+          \_logic_net: (work@transmission_gates.data_enable_low), line:31, parent:work@transmission_gates
+            |vpiName:data_enable_low
+            |vpiFullName:work@transmission_gates.data_enable_low
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (out1), line:41
+        \_ref_obj: (work@transmission_gates.out1), line:41, parent:$monitor
           |vpiName:out1
+          |vpiFullName:work@transmission_gates.out1
+          |vpiActual:
+          \_logic_net: (work@transmission_gates.out1), line:32, parent:work@transmission_gates
+            |vpiName:out1
+            |vpiFullName:work@transmission_gates.out1
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (out2), line:41
+        \_ref_obj: (work@transmission_gates.out2), line:41, parent:$monitor
           |vpiName:out2
+          |vpiFullName:work@transmission_gates.out2
+          |vpiActual:
+          \_logic_net: (work@transmission_gates.out2), line:32, parent:work@transmission_gates
+            |vpiName:out2
+            |vpiFullName:work@transmission_gates.out2
+            |vpiNetType:1
         |vpiArgument:
-        \_ref_obj: (data_bus), line:41
+        \_ref_obj: (work@transmission_gates.data_bus), line:41, parent:$monitor
           |vpiName:data_bus
+          |vpiFullName:work@transmission_gates.data_bus
+          |vpiActual:
+          \_logic_net: (work@transmission_gates.data_bus), line:32, parent:work@transmission_gates
+            |vpiName:data_bus
+            |vpiFullName:work@transmission_gates.data_bus
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:42, parent:work@transmission_gates
         |vpiOpType:82
@@ -4629,9 +4815,6 @@ design: (work@gates)
           |vpiFullName:work@transmission_gates.data_enable_low
           |vpiActual:
           \_logic_net: (work@transmission_gates.data_enable_low), line:31, parent:work@transmission_gates
-            |vpiName:data_enable_low
-            |vpiFullName:work@transmission_gates.data_enable_low
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:42
           |vpiConstType:7
@@ -4648,9 +4831,6 @@ design: (work@gates)
           |vpiFullName:work@transmission_gates.in
           |vpiActual:
           \_logic_net: (work@transmission_gates.in), line:31, parent:work@transmission_gates
-            |vpiName:in
-            |vpiFullName:work@transmission_gates.in
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:43
           |vpiConstType:7

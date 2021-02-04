@@ -104,6 +104,13 @@ any* getObject(const std::string& name, DesignComponent* component,
             }
           }   
         }
+        if (netlist->ports()) {
+          for (auto o : *netlist->ports()) {
+            if (o->VpiName() == name) {
+              return o;
+            }
+          }   
+        }
         if (netlist->param_assigns()) {
           for (auto o : *netlist->param_assigns()) {
             if (o->VpiName() == name) {
@@ -612,7 +619,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiConditionOp: {
             if (operands.size() == 3) {
-              unsigned long long val =
+              uint64_t val =
                   get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
                       ? get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
                       : get_value(invalidValue, reduceExpr(operands[2], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
@@ -625,7 +632,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiPowerOp: {
             if (operands.size() == 2) {
-              unsigned long long val =
+              uint64_t val =
                   pow(get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)),
                       get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)));
               UHDM::constant* c = s.MakeConstant();
@@ -637,7 +644,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiMultiConcatOp: {
             if (operands.size() == 2) {
-              unsigned long long n =
+              uint64_t n =
                   get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
               if (n > 1000) n = 1000;  // Must be -1 or something silly
               constant* cv = (constant*)(operands[1]);
@@ -678,11 +685,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 c->VpiValue("STRING:" + res);
                 c->VpiDecompile(res);
               } else {
-                unsigned long long val = get_value(
+                uint64_t val = get_value(
                     invalidValue,
                     reduceExpr(cv, invalidValue, component, compileDesign,
                                instance, fileName, lineNumber, pexpr));
-                unsigned long long res = 0;
+                uint64_t res = 0;
                 for (unsigned int i = 0; i < n; i++) {
                   res |= val << (i * width);
                 }
@@ -749,7 +756,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
   } else if (objtype == uhdmsys_func_call) {
     sys_func_call* scall = (sys_func_call*)result;
     const std::string& name = scall->VpiName();
-    if (name == "$bits") {
+    if ((name == "$bits") || (name == "$size")) {
       unsigned int bits = 0;
       bool found = false;
       for (auto arg : *scall->Tf_call_args()) {
@@ -761,13 +768,50 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           if (expr* exp = dynamic_cast<expr*>(object)) {
             const typespec* tps = exp->Typespec();
             if (tps) {
-              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, false);
+              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
               found = true;
             } else {
-              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, false);
+              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
               found = true;
             }
           } 
+        } else if (argtype == uhdmhier_path) {
+          hier_path* path = (hier_path*) arg;
+          auto elems = path->Path_elems();
+          if (elems && (elems->size() > 1)) {
+            const std::string& base = elems->at(0)->VpiName();
+            const std::string& suffix = elems->at(1)->VpiName();
+            any* var =
+                getObject(base, component, compileDesign, instance, pexpr);
+            if (var) {
+              UHDM_OBJECT_TYPE vtype = var->UhdmType();
+              if (vtype == uhdmport) {
+                port* p = (port*)var;
+                if (const typespec* tps = p->Typespec()) {
+                  UHDM_OBJECT_TYPE ttps = tps->UhdmType();
+                  if (ttps == uhdmstruct_typespec) {
+                    struct_typespec* tpss = (struct_typespec*)tps;
+                    for (typespec_member* memb : *tpss->Members()) {
+                      if (memb->VpiName() == suffix) {
+                        const typespec* tps = memb->Typespec();
+                        if (tps) {
+                          DesignComponent* comp = component;
+                          if (const UHDM::instance* inst = tps->Instance()) {
+                            if (Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(inst->VpiName())) {
+                              comp = pack;
+                            }
+                          }
+                          bits += Bits(tps, invalidValue, comp, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
+                          found = true;
+                        }
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
       if (found) {
@@ -794,34 +838,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           result = c;
         } 
       }
-    } else if (name == "$size") {
-      unsigned int bits = 0;
-      bool found = false;
-      for (auto arg : *scall->Tf_call_args()) {
-        UHDM::UHDM_OBJECT_TYPE argtype = arg->UhdmType();
-        if (argtype == uhdmref_obj) {
-          ref_obj* ref = (ref_obj*) arg;
-          const std::string& objname = ref->VpiName();
-          any* object = getObject(objname, component, compileDesign, instance, pexpr);
-          if (expr* exp = dynamic_cast<expr*>(object)) {
-            const typespec* tps = exp->Typespec();
-            if (tps) {
-              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, true);
-              found = true;
-            } else {
-              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, true);
-              found = true;
-            }
-          } 
-        }
-      }
-      if (found) {
-        UHDM::constant* c = s.MakeConstant();
-        c->VpiValue("INT:" + std::to_string(bits));
-        c->VpiDecompile(std::to_string(bits));
-        result = c;
-      }
-    }
+    } 
   } else if (objtype == uhdmfunc_call) {
     func_call* scall = (func_call*)result;
     const std::string& name = scall->VpiName();
@@ -1402,7 +1419,7 @@ UHDM::any* CompileHelper::compileExpression(
     sys->VpiParent(pexpr);
     NodeId argListNode = child;
     VectorOfany* arguments =
-        compileTfCallArguments(component, fC, argListNode, compileDesign, sys);
+        compileTfCallArguments(component, fC, argListNode, compileDesign, sys, instance, reduce);
     sys->Tf_call_args(arguments);
     result = sys;
     return result;
@@ -1769,7 +1786,7 @@ UHDM::any* CompileHelper::compileExpression(
           sys->VpiParent(pexpr);
           NodeId argListNode = fC->Sibling(child);
           VectorOfany* arguments =
-              compileTfCallArguments(component, fC, argListNode, compileDesign, sys);
+              compileTfCallArguments(component, fC, argListNode, compileDesign, sys, instance, reduce);
           sys->Tf_call_args(arguments);
           result = sys;
         }
@@ -2353,7 +2370,7 @@ UHDM::any* CompileHelper::compileExpression(
           function* func = dynamic_cast<function*> (getTaskFunc(name, component, compileDesign, pexpr));
           fcall->Function(func);
           VectorOfany* args = compileTfCallArguments(
-                component, fC, List_of_arguments, compileDesign, fcall);
+                component, fC, List_of_arguments, compileDesign, fcall, instance, reduce);
           if (reduce) {
             const std::string& fileName = fC->getFileName();
             int lineNumber = fC->Line(nameId);
@@ -2380,7 +2397,7 @@ UHDM::any* CompileHelper::compileExpression(
         } else {
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName("$" + name);
-          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
+          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
           sys->Tf_call_args(arguments);
           result = sys;
         }
@@ -3316,13 +3333,14 @@ UHDM::any* CompileHelper::compileBits(
   } else if (sizeMode) {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$size");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
     sys->Tf_call_args(arguments);
     result = sys;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$bits");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
+    VectorOfany* arguments = compileTfCallArguments(
+        component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -3436,7 +3454,7 @@ UHDM::any* CompileHelper::compileClog2(
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$clog2");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -3497,7 +3515,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
       sys->VpiName("$" + name);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, sys);
+          component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
       sys->Tf_call_args(arguments);
       result = sys;
     }
@@ -3517,7 +3535,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       fcall->Prefix(object);
       fcall->VpiName(name);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, fcall);
+          component, fC, List_of_arguments, compileDesign, fcall, instance, reduce);
       fcall->Tf_call_args(arguments);
       result = fcall;
     } else if (fC->Type(List_of_arguments) == slConstant_expression ||
@@ -3541,7 +3559,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       expr* object = (expr*)compileExpression(
           component, fC, Handle, compileDesign, pexpr, instance, reduce);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall);
+          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall, instance, reduce);
       // TODO: make name part of the prefix, get vpiName from sibling
       fcall->Prefix(object);
       fcall->VpiName(name);
@@ -3622,7 +3640,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     if (call != nullptr) {
       call->VpiName(basename);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, call);
+          component, fC, List_of_arguments, compileDesign, call, instance, reduce);
       call->Tf_call_args(arguments);
       result = call;
     } else {
@@ -3695,7 +3713,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         NodeId with_conditions_node;
         if (fC->Type(list_of_arguments) == slList_of_arguments) {
           VectorOfany* arguments = compileTfCallArguments(
-              component, fC, list_of_arguments, compileDesign, fcall);
+              component, fC, list_of_arguments, compileDesign, fcall, instance, reduce);
           fcall->Tf_call_args(arguments);
           with_conditions_node = fC->Sibling(list_of_arguments);
         } else {

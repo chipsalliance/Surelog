@@ -210,6 +210,9 @@ void Builtin::addBuiltins() {
     Package* package = m_design->getPackage(packageName);
     if (package == NULL) {
       package = new Package(packageName, NULL, NULL, 0);
+      UHDM::package* pack = s.MakePackage();
+      pack->VpiName(package->getName());
+      package->setUhdmInstance(pack);
       m_design->addPackageDefinition(packageName, package);
     }
     const std::string fullClassName = packageName + "::" + className;

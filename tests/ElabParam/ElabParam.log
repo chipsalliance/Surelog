@@ -237,7 +237,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@dut
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -257,7 +257,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
   |vpiDefName:top_pkg
-  |vpiFullName:top_pkg
+  |vpiName:top_pkg
   |vpiTypedef:
   \_enum_typespec: (opcode_e), line:5
     |vpiName:opcode_e
@@ -277,6 +277,8 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
+      |vpiInstance:
+      \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3
       |vpiName:OPCODE_LOAD
@@ -300,6 +302,8 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: (PMP_CFG_W), line:7, parent:top_pkg::PMP_CFG_W
         |vpiName:PMP_CFG_W
+        |vpiInstance:
+        \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
   |vpiParameter:
   \_parameter: (top_pkg::PMP_CFG_W), line:7, parent:top_pkg
 |uhdmallClasses:

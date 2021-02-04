@@ -1421,7 +1421,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
       NodeId Args = fC->Sibling(Stmt);
       if (fC->Type(Args) == slList_of_arguments) {
         VectorOfany* arguments = compileTfCallArguments(
-          component, fC, Args, compileDesign, mcall);
+          component, fC, Args, compileDesign, mcall, nullptr, false);
         mcall->Tf_call_args(arguments);
         Stmt = fC->Sibling(Stmt);
       }
@@ -1453,7 +1453,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
         NodeId Args = fC->Sibling(Stmt);
         if (fC->Type(Args) == slList_of_arguments) {
           VectorOfany* arguments =
-              compileTfCallArguments(component, fC, Args, compileDesign, mcall);
+              compileTfCallArguments(component, fC, Args, compileDesign, mcall, nullptr, false);
           mcall->Tf_call_args(arguments);
           Stmt = fC->Sibling(Stmt);
         }
@@ -2075,7 +2075,7 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(DesignComponent* com
   }
   NodeId Constraint_block = fC->Sibling(With);
   if (fC->Type(Identifier_list) == slIdentifier_list) {
-    VectorOfany* arguments = compileTfCallArguments( component, fC, Identifier_list, compileDesign, func_call);
+    VectorOfany* arguments = compileTfCallArguments(component, fC, Identifier_list, compileDesign, func_call, nullptr, false);
     func_call->Tf_call_args(arguments);
   }
 

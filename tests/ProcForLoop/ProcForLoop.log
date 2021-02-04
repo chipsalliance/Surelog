@@ -170,7 +170,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -510,8 +510,9 @@ design: (work@top)
           \_func_call: (f2), line:4, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (i), line:4
+            \_ref_obj: (work@top.foo.i), line:4, parent:f2
               |vpiName:i
+              |vpiFullName:work@top.foo.i
             |vpiArgument:
             \_constant: , line:4
               |vpiConstType:7
@@ -559,8 +560,9 @@ design: (work@top)
           \_func_call: (f2), line:7, parent:work@top.foo
             |vpiName:f2
             |vpiArgument:
-            \_ref_obj: (j), line:7
+            \_ref_obj: (work@top.foo.j), line:7, parent:f2
               |vpiName:j
+              |vpiFullName:work@top.foo.j
             |vpiArgument:
             \_constant: , line:7
               |vpiConstType:7

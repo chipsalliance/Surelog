@@ -51,12 +51,14 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
   |vpiDefName:flash_ctrl_pkg
-  |vpiFullName:flash_ctrl_pkg
+  |vpiName:flash_ctrl_pkg
   |vpiTypedef:
   \_enum_typespec: (flash_erase_op_e), line:69
     |vpiName:flash_erase_op_e
     |vpiBaseTypespec:
     \_logic_typespec: , line:66
+      |vpiInstance:
+      \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
     |vpiEnumConst:
     \_enum_const: (BankErase), line:68
       |vpiName:BankErase
@@ -82,10 +84,12 @@ design: (work@dut)
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
+    |vpiInstance:
+    \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
 |uhdmallPackages:
 \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiDefName:hmac_pkg
-  |vpiFullName:hmac_pkg
+  |vpiName:hmac_pkg
   |vpiTypedef:
   \_logic_typespec: (sha_word_t), line:59
     |vpiName:sha_word_t
@@ -103,6 +107,8 @@ design: (work@dut)
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
+    |vpiInstance:
+    \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:52, parent:hmac_pkg
     |vpiRhs:
@@ -119,6 +125,8 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: (NumAlerts), line:52, parent:hmac_pkg::NumAlerts
         |vpiName:NumAlerts
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:53, parent:hmac_pkg
     |vpiRhs:
@@ -152,6 +160,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:64
             |INT:0
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:55, parent:hmac_pkg
     |vpiRhs:
@@ -168,6 +178,8 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: (MsgFifoDepth), line:55, parent:hmac_pkg::MsgFifoDepth
         |vpiName:MsgFifoDepth
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:57, parent:hmac_pkg
     |vpiRhs:
@@ -184,6 +196,8 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: (NumRound), line:57, parent:hmac_pkg::NumRound
         |vpiName:NumRound
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParamAssign:
   \_param_assign: , line:60, parent:hmac_pkg
     |vpiRhs:
@@ -198,6 +212,8 @@ design: (work@dut)
       |vpiTypespec:
       \_int_typespec: (WordByte), line:60, parent:hmac_pkg::WordByte
         |vpiName:WordByte
+        |vpiInstance:
+        \_package: hmac_pkg (hmac_pkg) dut.sv:48: , parent:work@dut
   |vpiParameter:
   \_parameter: (hmac_pkg::NumAlerts), line:52, parent:hmac_pkg
   |vpiParameter:
@@ -211,7 +227,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
   |vpiDefName:tlul_pkg
-  |vpiFullName:tlul_pkg
+  |vpiName:tlul_pkg
   |vpiTypedef:
   \_struct_typespec: (tl_a_op_e), line:24
     |vpiPacked:1
@@ -221,6 +237,10 @@ design: (work@dut)
       |vpiName:b_valid
       |vpiTypespec:
       \_logic_typespec: , line:25
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+    |vpiInstance:
+    \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
   |vpiTypedef:
   \_struct_typespec: (tl_a_user_t), line:28
     |vpiPacked:1
@@ -230,6 +250,10 @@ design: (work@dut)
       |vpiName:b_valid
       |vpiTypespec:
       \_logic_typespec: , line:29
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+    |vpiInstance:
+    \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
   |vpiTypedef:
   \_struct_typespec: (tl_h2d_t), line:32
     |vpiPacked:1
@@ -239,6 +263,8 @@ design: (work@dut)
       |vpiName:a_valid
       |vpiTypespec:
       \_logic_typespec: , line:33
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_opcode), line:34
       |vpiName:a_opcode
@@ -263,6 +289,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_size), line:36
       |vpiName:a_size
@@ -289,6 +317,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_source), line:37
       |vpiName:a_source
@@ -317,6 +347,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_address), line:38
       |vpiName:a_address
@@ -345,6 +377,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_mask), line:39
       |vpiName:a_mask
@@ -371,6 +405,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_data), line:40
       |vpiName:a_data
@@ -399,6 +435,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiTypespecMember:
     \_typespec_member: (a_user), line:41
       |vpiName:a_user
@@ -409,10 +447,12 @@ design: (work@dut)
       |vpiName:d_ready
       |vpiTypespec:
       \_logic_typespec: , line:43
+        |vpiInstance:
+        \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
 |uhdmallPackages:
 \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
   |vpiDefName:top_pkg
-  |vpiFullName:top_pkg
+  |vpiName:top_pkg
   |vpiParamAssign:
   \_param_assign: , line:3, parent:top_pkg
     |vpiRhs:
@@ -891,6 +931,31 @@ design: (work@dut)
     |vpiName:flash_erase_op_e
     |vpiBaseTypespec:
     \_logic_typespec: , line:66
+      |vpiInstance:
+      \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
+        |vpiDefName:flash_ctrl_pkg
+        |vpiName:flash_ctrl_pkg
+        |vpiTypedef:
+        \_enum_typespec: (flash_erase_op_e), line:69
+        |vpiTypedef:
+        \_logic_typespec: (sha_word_t), line:71
+          |vpiName:sha_word_t
+          |vpiRange:
+          \_range: , line:71
+            |vpiLeftRange:
+            \_constant: , line:71
+              |vpiConstType:7
+              |vpiDecompile:31
+              |vpiSize:32
+              |INT:31
+            |vpiRightRange:
+            \_constant: , line:71
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+          |vpiInstance:
+          \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
     |vpiEnumConst:
     \_enum_const: (BankErase), line:68
       |vpiName:BankErase
@@ -901,21 +966,6 @@ design: (work@dut)
       |INT:0
   |vpiTypedef:
   \_logic_typespec: (sha_word_t), line:71
-    |vpiName:sha_word_t
-    |vpiRange:
-    \_range: , line:71
-      |vpiLeftRange:
-      \_constant: , line:71
-        |vpiConstType:7
-        |vpiDecompile:31
-        |vpiSize:32
-        |INT:31
-      |vpiRightRange:
-      \_constant: , line:71
-        |vpiConstType:7
-        |vpiDecompile:0
-        |vpiSize:32
-        |INT:0
   |vpiTypedef:
   \_import: (flash_ctrl_pkg)
   |vpiParamAssign:
@@ -1049,18 +1099,43 @@ design: (work@dut)
         |vpiName:a_valid
         |vpiTypespec:
         \_logic_typespec: , line:33
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+            |vpiDefName:tlul_pkg
+            |vpiName:tlul_pkg
+            |vpiTypedef:
+            \_struct_typespec: (tl_a_op_e), line:24
+              |vpiPacked:1
+              |vpiName:tl_a_op_e
+              |vpiTypespecMember:
+              \_typespec_member: (b_valid), line:25
+                |vpiName:b_valid
+                |vpiTypespec:
+                \_logic_typespec: , line:25
+                  |vpiInstance:
+                  \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+              |vpiInstance:
+              \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+            |vpiTypedef:
+            \_struct_typespec: (tl_a_user_t), line:28
+              |vpiPacked:1
+              |vpiName:tl_a_user_t
+              |vpiTypespecMember:
+              \_typespec_member: (b_valid), line:29
+                |vpiName:b_valid
+                |vpiTypespec:
+                \_logic_typespec: , line:29
+                  |vpiInstance:
+                  \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+              |vpiInstance:
+              \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
+            |vpiTypedef:
+            \_struct_typespec: (tl_h2d_t), line:32
       |vpiTypespecMember:
       \_typespec_member: (a_opcode), line:34
         |vpiName:a_opcode
         |vpiTypespec:
         \_struct_typespec: (tl_a_op_e), line:24
-          |vpiPacked:1
-          |vpiName:tl_a_op_e
-          |vpiTypespecMember:
-          \_typespec_member: (b_valid), line:25
-            |vpiName:b_valid
-            |vpiTypespec:
-            \_logic_typespec: , line:25
       |vpiTypespecMember:
       \_typespec_member: (a_param), line:35
         |vpiName:a_param
@@ -1080,6 +1155,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_size), line:36
         |vpiName:a_size
@@ -1106,6 +1183,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_source), line:37
         |vpiName:a_source
@@ -1134,6 +1213,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_address), line:38
         |vpiName:a_address
@@ -1162,6 +1243,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_mask), line:39
         |vpiName:a_mask
@@ -1188,6 +1271,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_data), line:40
         |vpiName:a_data
@@ -1216,23 +1301,20 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
       |vpiTypespecMember:
       \_typespec_member: (a_user), line:41
         |vpiName:a_user
         |vpiTypespec:
         \_struct_typespec: (tl_a_user_t), line:28
-          |vpiPacked:1
-          |vpiName:tl_a_user_t
-          |vpiTypespecMember:
-          \_typespec_member: (b_valid), line:29
-            |vpiName:b_valid
-            |vpiTypespec:
-            \_logic_typespec: , line:29
       |vpiTypespecMember:
       \_typespec_member: (d_ready), line:43
         |vpiName:d_ready
         |vpiTypespec:
         \_logic_typespec: , line:43
+          |vpiInstance:
+          \_package: tlul_pkg (tlul_pkg) dut.sv:22: , parent:work@dut
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
@@ -1345,6 +1427,44 @@ design: (work@dut)
     |vpiName:flash_erase_op_e
     |vpiBaseTypespec:
     \_logic_typespec: , line:66, parent:flash_erase_op_e
+      |vpiInstance:
+      \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
+        |vpiDefName:flash_ctrl_pkg
+        |vpiName:flash_ctrl_pkg
+        |vpiTypedef:
+        \_enum_typespec: (flash_erase_op_e), line:69
+          |vpiName:flash_erase_op_e
+          |vpiBaseTypespec:
+          \_logic_typespec: , line:66
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
+          |vpiEnumConst:
+          \_enum_const: (BankErase), line:68
+            |vpiName:BankErase
+            |INT:1
+          |vpiEnumConst:
+          \_enum_const: (PageErase), line:67
+            |vpiName:PageErase
+            |INT:0
+        |vpiTypedef:
+        \_logic_typespec: (sha_word_t), line:71
+          |vpiName:sha_word_t
+          |vpiRange:
+          \_range: , line:71
+            |vpiLeftRange:
+            \_constant: , line:71
+              |vpiConstType:7
+              |vpiDecompile:31
+              |vpiSize:32
+              |INT:31
+            |vpiRightRange:
+            \_constant: , line:71
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+          |vpiInstance:
+          \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
     |vpiEnumConst:
     \_enum_const: (BankErase), line:68, parent:flash_erase_op_e
       |vpiName:BankErase
@@ -1370,6 +1490,8 @@ design: (work@dut)
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
+    |vpiInstance:
+    \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:65: , parent:work@dut
   |vpiTypedef:
   \_import: (flash_ctrl_pkg), parent:work@dut
   |vpiParamAssign:

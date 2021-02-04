@@ -756,7 +756,7 @@ design: (work@simple_package)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@simple_package
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -776,7 +776,7 @@ design: (work@simple_package)
 |uhdmallPackages:
 \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
   |vpiDefName:definesPkg
-  |vpiFullName:definesPkg
+  |vpiName:definesPkg
   |vpiTypedef:
   \_enum_typespec: (bool), line:10
     |vpiName:bool
@@ -810,6 +810,8 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
     |vpiTypespecMember:
     \_typespec_member: (data), line:13
       |vpiName:data
@@ -829,11 +831,17 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14
       |vpiName:wr
       |vpiTypespec:
       \_bit_typespec: , line:14
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+    |vpiInstance:
+    \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
   |vpiParamAssign:
   \_param_assign: , line:8, parent:definesPkg
     |vpiRhs:
@@ -851,7 +859,7 @@ design: (work@simple_package)
 |uhdmallPackages:
 \_package: msgPkg (msgPkg) msgPkg.pkg:4: , parent:work@simple_package
   |vpiDefName:msgPkg
-  |vpiFullName:msgPkg
+  |vpiName:msgPkg
   |vpiTaskFunc:
   \_task: (msgPkg::initMsgPkg), line:12, parent:msgPkg
     |vpiVisibility:1
@@ -925,14 +933,16 @@ design: (work@simple_package)
         |vpiSize:19
         |STRING:@%0dns %s INFO : %s
       |vpiArgument:
-      \_sys_func_call: ($time), line:20
+      \_sys_func_call: ($time), line:20, parent:$display
         |vpiName:$time
       |vpiArgument:
-      \_ref_obj: (msgName), line:20
+      \_ref_obj: (msgPkg::msg_info::msgName), line:20, parent:$display
         |vpiName:msgName
+        |vpiFullName:msgPkg::msg_info::msgName
       |vpiArgument:
-      \_ref_obj: (msg), line:20
+      \_ref_obj: (msgPkg::msg_info::msg), line:20, parent:$display
         |vpiName:msg
+        |vpiFullName:msgPkg::msg_info::msg
   |vpiTaskFunc:
   \_task: (msgPkg::msg_warn), line:25, parent:msgPkg
     |vpiVisibility:1
@@ -958,14 +968,16 @@ design: (work@simple_package)
           |vpiSize:19
           |STRING:@%0dns %s WARN : %s
         |vpiArgument:
-        \_sys_func_call: ($time), line:26
+        \_sys_func_call: ($time), line:26, parent:$display
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (msgName), line:26
+        \_ref_obj: (msgPkg::msg_warn::msgName), line:26, parent:$display
           |vpiName:msgName
+          |vpiFullName:msgPkg::msg_warn::msgName
         |vpiArgument:
-        \_ref_obj: (msg), line:26
+        \_ref_obj: (msgPkg::msg_warn::msg), line:26, parent:$display
           |vpiName:msg
+          |vpiFullName:msgPkg::msg_warn::msg
       |vpiStmt:
       \_operation: , line:27, parent:msgPkg::msg_warn
         |vpiOpType:62
@@ -998,14 +1010,16 @@ design: (work@simple_package)
           |vpiSize:20
           |STRING:@%0dns %s ERROR : %s
         |vpiArgument:
-        \_sys_func_call: ($time), line:33
+        \_sys_func_call: ($time), line:33, parent:$display
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (msgName), line:33
+        \_ref_obj: (msgPkg::msg_error::msgName), line:33, parent:$display
           |vpiName:msgName
+          |vpiFullName:msgPkg::msg_error::msgName
         |vpiArgument:
-        \_ref_obj: (msg), line:33
+        \_ref_obj: (msgPkg::msg_error::msg), line:33, parent:$display
           |vpiName:msg
+          |vpiFullName:msgPkg::msg_error::msg
       |vpiStmt:
       \_operation: , line:34, parent:msgPkg::msg_error
         |vpiOpType:62
@@ -1047,14 +1061,16 @@ design: (work@simple_package)
           |vpiSize:20
           |STRING:@%0dns %s FATAL : %s
         |vpiArgument:
-        \_sys_func_call: ($time), line:41
+        \_sys_func_call: ($time), line:41, parent:$display
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (msgName), line:41
+        \_ref_obj: (msgPkg::msg_fatal::msgName), line:41, parent:$display
           |vpiName:msgName
+          |vpiFullName:msgPkg::msg_fatal::msgName
         |vpiArgument:
-        \_ref_obj: (msg), line:41
+        \_ref_obj: (msgPkg::msg_fatal::msg), line:41, parent:$display
           |vpiName:msg
+          |vpiFullName:msgPkg::msg_fatal::msg
       |vpiStmt:
       \_sys_func_call: ($finish), line:42, parent:msgPkg::msg_fatal
         |vpiName:$finish
@@ -1134,6 +1150,8 @@ design: (work@simple_package)
       |INT:0
     |vpiTypespec:
     \_bit_typespec: , line:7
+      |vpiInstance:
+      \_package: msgPkg (msgPkg) msgPkg.pkg:4: , parent:work@simple_package
   |vpiVariables:
   \_string_var: (msgPkg::msgName), line:8, parent:msgPkg
     |vpiName:msgName
@@ -1555,6 +1573,28 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+          |vpiDefName:definesPkg
+          |vpiName:definesPkg
+          |vpiTypedef:
+          \_enum_typespec: (bool), line:10
+          |vpiTypedef:
+          \_struct_typespec: (mem_s), line:11
+          |vpiParamAssign:
+          \_param_assign: , line:8, parent:definesPkg
+            |vpiRhs:
+            \_constant: , line:8
+              |vpiConstType:7
+              |vpiDecompile:2
+              |vpiSize:32
+              |INT:2
+            |vpiLhs:
+            \_parameter: (definesPkg::SIZE), line:8, parent:definesPkg
+              |vpiName:SIZE
+              |vpiFullName:definesPkg::SIZE
+          |vpiParameter:
+          \_parameter: (definesPkg::SIZE), line:8, parent:definesPkg
     |vpiTypespecMember:
     \_typespec_member: (data), line:13
       |vpiName:data
@@ -1574,11 +1614,17 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14
       |vpiName:wr
       |vpiTypespec:
       \_bit_typespec: , line:14
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+    |vpiInstance:
+    \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
   |vpiParamAssign:
   \_param_assign: , line:8, parent:work@simple_package
     |vpiRhs:
@@ -1769,6 +1815,28 @@ design: (work@simple_package)
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
+            |vpiInstance:
+            \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+              |vpiDefName:definesPkg
+              |vpiName:definesPkg
+              |vpiTypedef:
+              \_enum_typespec: (bool), line:10
+              |vpiTypedef:
+              \_struct_typespec: (mem_s), line:11
+              |vpiParamAssign:
+              \_param_assign: , line:8, parent:definesPkg
+                |vpiRhs:
+                \_constant: , line:8
+                  |vpiConstType:7
+                  |vpiDecompile:2
+                  |vpiSize:32
+                  |INT:2
+                |vpiLhs:
+                \_parameter: (definesPkg::SIZE), line:8, parent:definesPkg
+                  |vpiName:SIZE
+                  |vpiFullName:definesPkg::SIZE
+              |vpiParameter:
+              \_parameter: (definesPkg::SIZE), line:8, parent:definesPkg
         |vpiTypespecMember:
         \_typespec_member: (data), line:13
           |vpiName:data
@@ -1788,11 +1856,17 @@ design: (work@simple_package)
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
+            |vpiInstance:
+            \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
         |vpiTypespecMember:
         \_typespec_member: (wr), line:14
           |vpiName:wr
           |vpiTypespec:
           \_bit_typespec: , line:14
+            |vpiInstance:
+            \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
       |vpiParamAssign:
       \_param_assign: , line:8, parent:work@simple_package.inst
         |vpiRhs:
@@ -1844,6 +1918,8 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
     |vpiTypespecMember:
     \_typespec_member: (data), line:13, parent:mem_s
       |vpiName:data
@@ -1863,11 +1939,17 @@ design: (work@simple_package)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
     |vpiTypespecMember:
     \_typespec_member: (wr), line:14, parent:mem_s
       |vpiName:wr
       |vpiTypespec:
       \_bit_typespec: , line:14, parent:wr
+        |vpiInstance:
+        \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
+    |vpiInstance:
+    \_package: definesPkg (definesPkg) definesPkg.pkg:4: , parent:work@simple_package
   |vpiParamAssign:
   \_param_assign: , line:8, parent:work@simple_package
     |vpiRhs:

@@ -217,7 +217,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -237,7 +237,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: pkg (pkg) dut.sv:1: , parent:work@top
   |vpiDefName:pkg
-  |vpiFullName:pkg
+  |vpiName:pkg
   |vpiTypedef:
   \_struct_typespec: (complex_t), line:2, parent:work@top.init_val
     |vpiPacked:1
@@ -247,6 +247,8 @@ design: (work@top)
       |vpiName:a
       |vpiTypespec:
       \_logic_typespec: , line:3
+        |vpiInstance:
+        \_package: pkg (pkg) dut.sv:1: , parent:work@top
     |vpiTypespecMember:
     \_typespec_member: (b), line:4
       |vpiName:b
@@ -266,6 +268,8 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: pkg (pkg) dut.sv:1: , parent:work@top
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
   |vpiName:work@mailbox
@@ -623,6 +627,42 @@ design: (work@top)
           |vpiName:a
           |vpiTypespec:
           \_logic_typespec: , line:3, parent:a
+            |vpiInstance:
+            \_package: pkg (pkg) dut.sv:1: , parent:work@top
+              |vpiDefName:pkg
+              |vpiName:pkg
+              |vpiTypedef:
+              \_struct_typespec: (complex_t), line:2, parent:work@top.init_val
+                |vpiPacked:1
+                |vpiName:complex_t
+                |vpiTypespecMember:
+                \_typespec_member: (a), line:3
+                  |vpiName:a
+                  |vpiTypespec:
+                  \_logic_typespec: , line:3
+                    |vpiInstance:
+                    \_package: pkg (pkg) dut.sv:1: , parent:work@top
+                |vpiTypespecMember:
+                \_typespec_member: (b), line:4
+                  |vpiName:b
+                  |vpiTypespec:
+                  \_logic_typespec: , line:4
+                    |vpiRange:
+                    \_range: , line:4, parent:complex_t
+                      |vpiLeftRange:
+                      \_constant: , line:4
+                        |vpiConstType:7
+                        |vpiDecompile:2
+                        |vpiSize:32
+                        |INT:2
+                      |vpiRightRange:
+                      \_constant: , line:4
+                        |vpiConstType:7
+                        |vpiDecompile:0
+                        |vpiSize:32
+                        |INT:0
+                    |vpiInstance:
+                    \_package: pkg (pkg) dut.sv:1: , parent:work@top
         |vpiTypespecMember:
         \_typespec_member: (b), line:4, parent:complex_t
           |vpiName:b
@@ -642,6 +682,8 @@ design: (work@top)
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
+            |vpiInstance:
+            \_package: pkg (pkg) dut.sv:1: , parent:work@top
   |vpiParameter:
   \_parameter: (work@top.init_val), line:10, parent:work@top
     |vpiName:init_val
@@ -649,32 +691,6 @@ design: (work@top)
     |vpiLocalParam:1
     |vpiTypespec:
     \_struct_typespec: (complex_t), line:2, parent:work@top.init_val
-      |vpiPacked:1
-      |vpiName:complex_t
-      |vpiTypespecMember:
-      \_typespec_member: (a), line:3
-        |vpiName:a
-        |vpiTypespec:
-        \_logic_typespec: , line:3
-      |vpiTypespecMember:
-      \_typespec_member: (b), line:4
-        |vpiName:b
-        |vpiTypespec:
-        \_logic_typespec: , line:4
-          |vpiRange:
-          \_range: , line:4, parent:complex_t
-            |vpiLeftRange:
-            \_constant: , line:4
-              |vpiConstType:7
-              |vpiDecompile:2
-              |vpiSize:32
-              |INT:2
-            |vpiRightRange:
-            \_constant: , line:4
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:32
-              |INT:0
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:9: 
   |vpiDefName:work@top
@@ -722,6 +738,42 @@ design: (work@top)
                 |vpiName:a
                 |vpiTypespec:
                 \_logic_typespec: , line:3, parent:a
+                  |vpiInstance:
+                  \_package: pkg (pkg) dut.sv:1: , parent:work@top
+                    |vpiDefName:pkg
+                    |vpiName:pkg
+                    |vpiTypedef:
+                    \_struct_typespec: (complex_t), line:2, parent:work@top.init_val
+                      |vpiPacked:1
+                      |vpiName:complex_t
+                      |vpiTypespecMember:
+                      \_typespec_member: (a), line:3
+                        |vpiName:a
+                        |vpiTypespec:
+                        \_logic_typespec: , line:3
+                          |vpiInstance:
+                          \_package: pkg (pkg) dut.sv:1: , parent:work@top
+                      |vpiTypespecMember:
+                      \_typespec_member: (b), line:4
+                        |vpiName:b
+                        |vpiTypespec:
+                        \_logic_typespec: , line:4
+                          |vpiRange:
+                          \_range: , line:4, parent:complex_t
+                            |vpiLeftRange:
+                            \_constant: , line:4
+                              |vpiConstType:7
+                              |vpiDecompile:2
+                              |vpiSize:32
+                              |INT:2
+                            |vpiRightRange:
+                            \_constant: , line:4
+                              |vpiConstType:7
+                              |vpiDecompile:0
+                              |vpiSize:32
+                              |INT:0
+                          |vpiInstance:
+                          \_package: pkg (pkg) dut.sv:1: , parent:work@top
               |vpiTypespecMember:
               \_typespec_member: (b), line:4, parent:complex_t
                 |vpiName:b
@@ -741,6 +793,8 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:32
                       |INT:0
+                  |vpiInstance:
+                  \_package: pkg (pkg) dut.sv:1: , parent:work@top
       |vpiLhs:
       \_parameter: (work@top.asgn0.init), line:19, parent:work@top.asgn0
         |vpiName:init

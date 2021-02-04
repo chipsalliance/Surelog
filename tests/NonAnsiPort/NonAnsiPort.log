@@ -241,7 +241,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
   |vpiDefName:pkg1
-  |vpiFullName:pkg1
+  |vpiName:pkg1
   |vpiTypedef:
   \_struct_typespec: (struct1), line:2
     |vpiPacked:1
@@ -265,10 +265,12 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
 |uhdmallPackages:
 \_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
   |vpiDefName:pkg2
-  |vpiFullName:pkg2
+  |vpiName:pkg2
   |vpiTypedef:
   \_struct_typespec: (struct1), line:8
     |vpiPacked:1
@@ -292,6 +294,8 @@ design: (work@dut)
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
+        |vpiInstance:
+        \_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:13: , parent:work@dut
   |vpiDefName:work@dut
@@ -439,6 +443,12 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
+            |vpiDefName:pkg1
+            |vpiName:pkg1
+            |vpiTypedef:
+            \_struct_typespec: (struct1), line:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
@@ -474,6 +484,12 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
+            |vpiDefName:pkg2
+            |vpiName:pkg2
+            |vpiTypedef:
+            \_struct_typespec: (struct1), line:8
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:

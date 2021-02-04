@@ -111,14 +111,26 @@ design: (work@dut)
           |vpiSize:23
           |STRING:@%0dns i = %0d, o = %0d
         |vpiArgument:
-        \_sys_func_call: ($time), line:5
+        \_sys_func_call: ($time), line:5, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (drive), line:5
+        \_ref_obj: (work@TESTBENCH.drive), line:5, parent:$monitor
           |vpiName:drive
+          |vpiFullName:work@TESTBENCH.drive
+          |vpiActual:
+          \_logic_net: (work@tb.tb.drive), line:1, parent:work@tb.tb
+            |vpiName:drive
+            |vpiFullName:work@tb.tb.drive
+            |vpiNetType:48
         |vpiArgument:
-        \_ref_obj: (observe), line:5
+        \_ref_obj: (work@TESTBENCH.observe), line:5, parent:$monitor
           |vpiName:observe
+          |vpiFullName:work@TESTBENCH.observe
+          |vpiActual:
+          \_logic_net: (work@tb.tb.observe), line:1, parent:work@tb.tb
+            |vpiName:observe
+            |vpiFullName:work@tb.tb.observe
+            |vpiNetType:1
       |vpiStmt:
       \_assignment: , line:6, parent:work@TESTBENCH
         |vpiOpType:82
@@ -129,9 +141,6 @@ design: (work@dut)
           |vpiFullName:work@TESTBENCH.drive
           |vpiActual:
           \_logic_net: (work@tb.tb.drive), line:1, parent:work@tb.tb
-            |vpiName:drive
-            |vpiFullName:work@tb.tb.drive
-            |vpiNetType:48
         |vpiRhs:
         \_constant: , line:6
           |vpiConstType:7
@@ -158,9 +167,6 @@ design: (work@dut)
               |vpiFullName:work@TESTBENCH.observe
               |vpiActual:
               \_logic_net: (work@tb.tb.observe), line:1, parent:work@tb.tb
-                |vpiName:observe
-                |vpiFullName:work@tb.tb.observe
-                |vpiNetType:1
           |vpiStmt:
           \_sys_func_call: ($display), line:7
             |vpiName:$display

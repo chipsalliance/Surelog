@@ -1808,7 +1808,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       if (pack->getFileContents().size() &&
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];
-        package* p = s.MakePackage();
+        package* p = (package*) pack->getUhdmInstance();
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
         p->VpiDefName(pack->getName());

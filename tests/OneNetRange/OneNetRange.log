@@ -107,20 +107,10 @@ design: (work@TOP)
           |vpiSize:23
           |STRING:@%0dns i = %0d, o = %0d
         |vpiArgument:
-        \_sys_func_call: ($time), line:5
+        \_sys_func_call: ($time), line:5, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (drive), line:5
-          |vpiName:drive
-        |vpiArgument:
-        \_ref_obj: (observe), line:5
-          |vpiName:observe
-      |vpiStmt:
-      \_assignment: , line:6, parent:work@TESTBENCH
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@TESTBENCH.drive), line:6, parent:work@TESTBENCH
+        \_ref_obj: (work@TESTBENCH.drive), line:5, parent:$monitor
           |vpiName:drive
           |vpiFullName:work@TESTBENCH.drive
           |vpiActual:
@@ -142,6 +132,39 @@ design: (work@TOP)
                 |vpiDecompile:0
                 |vpiSize:64
                 |INT:0
+        |vpiArgument:
+        \_ref_obj: (work@TESTBENCH.observe), line:5, parent:$monitor
+          |vpiName:observe
+          |vpiFullName:work@TESTBENCH.observe
+          |vpiActual:
+          \_logic_net: (work@TOP.tb.observe), line:1, parent:work@TOP.tb
+            |vpiName:observe
+            |vpiFullName:work@TOP.tb.observe
+            |vpiNetType:1
+            |vpiRange:
+            \_range: , line:1
+              |vpiLeftRange:
+              \_constant: , line:1
+                |vpiConstType:7
+                |vpiDecompile:15
+                |vpiSize:64
+                |INT:15
+              |vpiRightRange:
+              \_constant: , line:1
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:64
+                |INT:0
+      |vpiStmt:
+      \_assignment: , line:6, parent:work@TESTBENCH
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (work@TESTBENCH.drive), line:6, parent:work@TESTBENCH
+          |vpiName:drive
+          |vpiFullName:work@TESTBENCH.drive
+          |vpiActual:
+          \_logic_net: (work@TOP.tb.drive), line:1, parent:work@TOP.tb
         |vpiRhs:
         \_constant: , line:6
           |vpiConstType:7
@@ -168,23 +191,6 @@ design: (work@TOP)
               |vpiFullName:work@TESTBENCH.observe
               |vpiActual:
               \_logic_net: (work@TOP.tb.observe), line:1, parent:work@TOP.tb
-                |vpiName:observe
-                |vpiFullName:work@TOP.tb.observe
-                |vpiNetType:1
-                |vpiRange:
-                \_range: , line:1
-                  |vpiLeftRange:
-                  \_constant: , line:1
-                    |vpiConstType:7
-                    |vpiDecompile:15
-                    |vpiSize:64
-                    |INT:15
-                  |vpiRightRange:
-                  \_constant: , line:1
-                    |vpiConstType:7
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |INT:0
           |vpiStmt:
           \_sys_func_call: ($display), line:7
             |vpiName:$display

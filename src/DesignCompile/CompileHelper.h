@@ -125,7 +125,7 @@ public:
 
   UHDM::VectorOfany* compileTfCallArguments(DesignComponent* component, const FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign, UHDM::any* call);
+        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce);
 
   UHDM::assignment* compileBlockingAssignment(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         bool blocking, CompileDesign* compileDesign, UHDM::any* pstmt);
@@ -141,7 +141,7 @@ public:
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool reduce);
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool port_param, bool reduce);
 
   bool compileTask(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool isMethod = false);

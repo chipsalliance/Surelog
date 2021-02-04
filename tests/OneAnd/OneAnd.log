@@ -597,17 +597,35 @@ design: (work@and_tb)
           |vpiSize:22
           |STRING:@%0dns %0d & %0d = %0d
         |vpiArgument:
-        \_sys_func_call: ($time), line:5
+        \_sys_func_call: ($time), line:5, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (a), line:5
+        \_ref_obj: (work@and_tb.a), line:5, parent:$monitor
           |vpiName:a
+          |vpiFullName:work@and_tb.a
+          |vpiActual:
+          \_logic_net: (work@and_tb.a), line:2, parent:work@and_tb
+            |vpiName:a
+            |vpiFullName:work@and_tb.a
+            |vpiNetType:36
         |vpiArgument:
-        \_ref_obj: (b), line:5
+        \_ref_obj: (work@and_tb.b), line:5, parent:$monitor
           |vpiName:b
+          |vpiFullName:work@and_tb.b
+          |vpiActual:
+          \_logic_net: (work@and_tb.b), line:2, parent:work@and_tb
+            |vpiName:b
+            |vpiFullName:work@and_tb.b
+            |vpiNetType:36
         |vpiArgument:
-        \_ref_obj: (o), line:5
+        \_ref_obj: (work@and_tb.o), line:5, parent:$monitor
           |vpiName:o
+          |vpiFullName:work@and_tb.o
+          |vpiActual:
+          \_logic_net: (work@and_tb.o), line:1, parent:work@and_tb
+            |vpiName:o
+            |vpiFullName:work@and_tb.o
+            |vpiNetType:36
       |vpiStmt:
       \_delay_control: , line:6, parent:work@and_tb
         |#100
@@ -629,9 +647,6 @@ design: (work@and_tb)
           |vpiFullName:work@and_tb.a
           |vpiActual:
           \_logic_net: (work@and_tb.a), line:2, parent:work@and_tb
-            |vpiName:a
-            |vpiFullName:work@and_tb.a
-            |vpiNetType:36
         |vpiRhs:
         \_constant: , line:11
           |vpiConstType:3
@@ -648,9 +663,6 @@ design: (work@and_tb)
           |vpiFullName:work@and_tb.b
           |vpiActual:
           \_logic_net: (work@and_tb.b), line:2, parent:work@and_tb
-            |vpiName:b
-            |vpiFullName:work@and_tb.b
-            |vpiNetType:36
         |vpiRhs:
         \_constant: , line:12
           |vpiConstType:3
@@ -671,9 +683,6 @@ design: (work@and_tb)
               |vpiFullName:work@and_tb.o
               |vpiActual:
               \_logic_net: (work@and_tb.o), line:1, parent:work@and_tb
-                |vpiName:o
-                |vpiFullName:work@and_tb.o
-                |vpiNetType:36
             |vpiOperand:
             \_operation: , line:13
               |vpiOpType:28

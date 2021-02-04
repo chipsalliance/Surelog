@@ -124,7 +124,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@dut
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -429,8 +429,29 @@ design: (work@dut)
     \_sys_func_call: ($unsigned), line:4
       |vpiName:$unsigned
       |vpiArgument:
-      \_ref_obj: (a), line:4
+      \_ref_obj: (work@dut.a), line:4, parent:$unsigned
         |vpiName:a
+        |vpiFullName:work@dut.a
+        |vpiActual:
+        \_logic_net: (work@dut.a), line:2, parent:work@dut
+          |vpiName:a
+          |vpiFullName:work@dut.a
+          |vpiNetType:36
+          |vpiSigned:1
+          |vpiRange:
+          \_range: , line:2
+            |vpiLeftRange:
+            \_constant: , line:2
+              |vpiConstType:7
+              |vpiDecompile:2
+              |vpiSize:64
+              |INT:2
+            |vpiRightRange:
+            \_constant: , line:2
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:4
       |vpiName:b

@@ -505,7 +505,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
                                m_compileDesign);
       }
     }
-
+    NodeId ParameterPortListId = 0;
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
@@ -513,6 +513,9 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
       id = stack.top();
       if (endOfBlockId && (id == endOfBlockId)) {
         break;
+      }
+      if (ParameterPortListId && (id == ParameterPortListId)) {
+        ParameterPortListId = 0;
       }
       stack.pop();
       current = fC->Object(id);
@@ -526,6 +529,10 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
         case VObjectType::slAnsi_port_declaration: {
           if (!collectDefinitions) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
+          break;
+        }
+        case VObjectType::slParameter_port_list: {
+          ParameterPortListId = id;
           break;
         }
         case VObjectType::slPort: {
@@ -577,16 +584,18 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-              slList_of_type_assignments || 
+                  slList_of_type_assignments ||
               fC->Type(list_of_type_assignments) ==
-              slList_of_param_assignments) {
+                  slList_of_param_assignments) {
             // Type param
             m_helper.compileParameterDeclaration(
-                m_module, fC, list_of_type_assignments, m_compileDesign, false, m_instance, m_instance != nullptr);
+                m_module, fC, list_of_type_assignments, m_compileDesign, false,
+                m_instance, ParameterPortListId != 0, m_instance != nullptr);
 
           } else {
-            m_helper.compileParameterDeclaration(m_module, fC, id,
-                                                 m_compileDesign, false, m_instance, m_instance != nullptr);
+            m_helper.compileParameterDeclaration(
+                m_module, fC, id, m_compileDesign, false, m_instance,
+                ParameterPortListId != 0, m_instance != nullptr);
           }
           break;
         }
@@ -600,12 +609,12 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_module, fC, id, m_compileDesign, true, m_instance,
-                m_instance != nullptr);
+                m_module, fC, id, m_compileDesign, true, m_instance
+                , ParameterPortListId != 0, m_instance != nullptr);
           }
           break;
         }
@@ -722,12 +731,15 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
                                m_compileDesign);
       }
     }
-
+    NodeId ParameterPortListId = 0;
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
     while (stack.size()) {
       id = stack.top();
+      if (ParameterPortListId && (id == ParameterPortListId)) {
+        ParameterPortListId = 0;
+      }
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
@@ -735,6 +747,10 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         case VObjectType::slPackage_import_item: {
           if (!collectDefinitions) break;
           m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slParameter_port_list: {
+          ParameterPortListId = id;
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
@@ -895,12 +911,12 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, false, m_instance,
-                m_instance != nullptr);
+                ParameterPortListId != 0, m_instance != nullptr);
           }
           break;
         }
@@ -912,12 +928,12 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, true, m_instance,
-                m_instance != nullptr);
+                ParameterPortListId != 0, m_instance != nullptr);
           }
           break;
         }

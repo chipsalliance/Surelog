@@ -255,7 +255,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:unnamed
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -275,7 +275,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: lc_ctrl_pkg (lc_ctrl_pkg) dut.sv:2: , parent:unnamed
   |vpiDefName:lc_ctrl_pkg
-  |vpiFullName:lc_ctrl_pkg
+  |vpiName:lc_ctrl_pkg
   |vpiTypedef:
   \_enum_typespec: (lc_state_e), line:14
     |vpiName:lc_state_e
@@ -301,6 +301,8 @@ design: (unnamed)
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
+      |vpiInstance:
+      \_package: lc_ctrl_pkg (lc_ctrl_pkg) dut.sv:2: , parent:unnamed
     |vpiEnumConst:
     \_enum_const: (LcStRaw), line:12
       |vpiName:LcStRaw
@@ -338,6 +340,8 @@ design: (unnamed)
             |vpiDecompile:0
             |vpiSize:64
             |INT:0
+        |vpiInstance:
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg) dut.sv:2: , parent:unnamed
   |vpiParamAssign:
   \_param_assign: , line:5, parent:lc_ctrl_pkg
     |vpiRhs:
@@ -367,6 +371,8 @@ design: (unnamed)
             |vpiDecompile:0
             |vpiSize:64
             |INT:0
+        |vpiInstance:
+        \_package: lc_ctrl_pkg (lc_ctrl_pkg) dut.sv:2: , parent:unnamed
   |vpiParameter:
   \_parameter: (lc_ctrl_pkg::A10), line:4, parent:lc_ctrl_pkg
   |vpiParameter:
@@ -374,7 +380,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:28: , parent:unnamed
   |vpiDefName:otp_ctrl_pkg
-  |vpiFullName:otp_ctrl_pkg
+  |vpiName:otp_ctrl_pkg
   |vpiTypedef:
   \_import: (prim_util_pkg)
   |vpiTypedef:
@@ -394,6 +400,67 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: (NumSramKeyReqSlots), line:22, parent:NumSramKeyReqSlots
         |vpiName:NumSramKeyReqSlots
+        |vpiInstance:
+        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
+          |vpiDefName:otp_ctrl_reg_pkg
+          |vpiName:otp_ctrl_reg_pkg
+          |vpiParamAssign:
+          \_param_assign: , line:22, parent:otp_ctrl_reg_pkg
+            |vpiRhs:
+            \_constant: , line:22
+              |vpiConstType:7
+              |vpiDecompile:2
+              |vpiSize:32
+              |INT:2
+            |vpiLhs:
+            \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg
+              |vpiName:NumSramKeyReqSlots
+              |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
+              |vpiTypespec:
+              \_int_typespec: (NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg::NumSramKeyReqSlots
+                |vpiName:NumSramKeyReqSlots
+                |vpiInstance:
+                \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
+          |vpiParamAssign:
+          \_param_assign: , line:23, parent:otp_ctrl_reg_pkg
+            |vpiRhs:
+            \_constant: , line:23
+              |vpiConstType:7
+              |vpiDecompile:11
+              |vpiSize:32
+              |INT:11
+            |vpiLhs:
+            \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg
+              |vpiName:OtpByteAddrWidth
+              |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
+              |vpiTypespec:
+              \_int_typespec: (OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg::OtpByteAddrWidth
+                |vpiName:OtpByteAddrWidth
+                |vpiInstance:
+                \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
+          |vpiParamAssign:
+          \_param_assign: , line:24, parent:otp_ctrl_reg_pkg
+            |vpiRhs:
+            \_constant: , line:24
+              |vpiConstType:7
+              |vpiDecompile:9
+              |vpiSize:32
+              |INT:9
+            |vpiLhs:
+            \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg
+              |vpiName:NumErrorEntries
+              |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
+              |vpiTypespec:
+              \_int_typespec: (NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg::NumErrorEntries
+                |vpiName:NumErrorEntries
+                |vpiInstance:
+                \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
+          |vpiParameter:
+          \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg
+          |vpiParameter:
+          \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg
+          |vpiParameter:
+          \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg
   |vpiParamAssign:
   \_param_assign: , line:23, parent:otp_ctrl_pkg
     |vpiRhs:
@@ -409,6 +476,8 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: (OtpByteAddrWidth), line:23, parent:OtpByteAddrWidth
         |vpiName:OtpByteAddrWidth
+        |vpiInstance:
+        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
   |vpiParamAssign:
   \_param_assign: , line:24, parent:otp_ctrl_pkg
     |vpiRhs:
@@ -424,6 +493,8 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: (NumErrorEntries), line:24, parent:NumErrorEntries
         |vpiName:NumErrorEntries
+        |vpiInstance:
+        \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
   |vpiParamAssign:
   \_param_assign: , line:34, parent:otp_ctrl_pkg
     |vpiRhs:
@@ -439,6 +510,8 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: (OtpWidth), line:34, parent:otp_ctrl_pkg::OtpWidth
         |vpiName:OtpWidth
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:28: , parent:unnamed
   |vpiParamAssign:
   \_param_assign: , line:35, parent:otp_ctrl_pkg
     |vpiRhs:
@@ -452,6 +525,8 @@ design: (unnamed)
       |vpiTypespec:
       \_int_typespec: (OtpAddrWidth), line:35, parent:otp_ctrl_pkg::OtpAddrWidth
         |vpiName:OtpAddrWidth
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:28: , parent:unnamed
   |vpiParameter:
   \_parameter: (otp_ctrl_pkg::NumErrorEntries), line:24, parent:otp_ctrl_pkg
     |vpiName:NumErrorEntries
@@ -460,6 +535,8 @@ design: (unnamed)
     |vpiTypespec:
     \_int_typespec: (NumErrorEntries), line:24, parent:otp_ctrl_pkg::NumErrorEntries
       |vpiName:NumErrorEntries
+      |vpiInstance:
+      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
   |vpiParameter:
   \_parameter: (otp_ctrl_pkg::NumSramKeyReqSlots), line:22, parent:otp_ctrl_pkg
     |vpiName:NumSramKeyReqSlots
@@ -468,6 +545,8 @@ design: (unnamed)
     |vpiTypespec:
     \_int_typespec: (NumSramKeyReqSlots), line:22, parent:otp_ctrl_pkg::NumSramKeyReqSlots
       |vpiName:NumSramKeyReqSlots
+      |vpiInstance:
+      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
   |vpiParameter:
   \_parameter: (otp_ctrl_pkg::OtpByteAddrWidth), line:23, parent:otp_ctrl_pkg
     |vpiName:OtpByteAddrWidth
@@ -476,65 +555,14 @@ design: (unnamed)
     |vpiTypespec:
     \_int_typespec: (OtpByteAddrWidth), line:23, parent:otp_ctrl_pkg::OtpByteAddrWidth
       |vpiName:OtpByteAddrWidth
+      |vpiInstance:
+      \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
   |vpiParameter:
   \_parameter: (otp_ctrl_pkg::OtpWidth), line:34, parent:otp_ctrl_pkg
   |vpiParameter:
   \_parameter: (otp_ctrl_pkg::OtpAddrWidth), line:35, parent:otp_ctrl_pkg
 |uhdmallPackages:
 \_package: otp_ctrl_reg_pkg (otp_ctrl_reg_pkg) dut.sv:19: , parent:unnamed
-  |vpiDefName:otp_ctrl_reg_pkg
-  |vpiFullName:otp_ctrl_reg_pkg
-  |vpiParamAssign:
-  \_param_assign: , line:22, parent:otp_ctrl_reg_pkg
-    |vpiRhs:
-    \_constant: , line:22
-      |vpiConstType:7
-      |vpiDecompile:2
-      |vpiSize:32
-      |INT:2
-    |vpiLhs:
-    \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg
-      |vpiName:NumSramKeyReqSlots
-      |vpiFullName:otp_ctrl_reg_pkg::NumSramKeyReqSlots
-      |vpiTypespec:
-      \_int_typespec: (NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg::NumSramKeyReqSlots
-        |vpiName:NumSramKeyReqSlots
-  |vpiParamAssign:
-  \_param_assign: , line:23, parent:otp_ctrl_reg_pkg
-    |vpiRhs:
-    \_constant: , line:23
-      |vpiConstType:7
-      |vpiDecompile:11
-      |vpiSize:32
-      |INT:11
-    |vpiLhs:
-    \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg
-      |vpiName:OtpByteAddrWidth
-      |vpiFullName:otp_ctrl_reg_pkg::OtpByteAddrWidth
-      |vpiTypespec:
-      \_int_typespec: (OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg::OtpByteAddrWidth
-        |vpiName:OtpByteAddrWidth
-  |vpiParamAssign:
-  \_param_assign: , line:24, parent:otp_ctrl_reg_pkg
-    |vpiRhs:
-    \_constant: , line:24
-      |vpiConstType:7
-      |vpiDecompile:9
-      |vpiSize:32
-      |INT:9
-    |vpiLhs:
-    \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg
-      |vpiName:NumErrorEntries
-      |vpiFullName:otp_ctrl_reg_pkg::NumErrorEntries
-      |vpiTypespec:
-      \_int_typespec: (NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg::NumErrorEntries
-        |vpiName:NumErrorEntries
-  |vpiParameter:
-  \_parameter: (otp_ctrl_reg_pkg::NumSramKeyReqSlots), line:22, parent:otp_ctrl_reg_pkg
-  |vpiParameter:
-  \_parameter: (otp_ctrl_reg_pkg::OtpByteAddrWidth), line:23, parent:otp_ctrl_reg_pkg
-  |vpiParameter:
-  \_parameter: (otp_ctrl_reg_pkg::NumErrorEntries), line:24, parent:otp_ctrl_reg_pkg
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:unnamed
   |vpiName:work@mailbox

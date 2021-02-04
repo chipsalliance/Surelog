@@ -100,6 +100,10 @@ void ResolveSymbols::createFastLookup() {
           // Package names are not prefixed by Library names!
           std::string pkgname = name;
           Package* pdef = new Package(pkgname, lib, m_fileData, object);
+          UHDM::package* pack = s.MakePackage();
+          pack->VpiName(pdef->getName());
+          pdef->setUhdmInstance(pack);
+
           m_fileData->addPackageDefinition(pkgname, pdef);
 
           std::vector<VObjectType> subtypes = {

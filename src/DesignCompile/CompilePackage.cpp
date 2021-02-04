@@ -54,6 +54,10 @@ int FunctorCompilePackage::operator()() const {
 
 bool CompilePackage::compile() {
   if (!m_package) return false;
+  UHDM::Serializer& s = m_compileDesign->getSerializer();
+  UHDM::package* pack = s.MakePackage();
+  pack->VpiName(m_package->getName());
+  m_package->setUhdmInstance(pack);
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
   m_package->m_exprBuilder.setDesign(
       m_compileDesign->getCompiler()->getDesign());
@@ -135,11 +139,11 @@ bool CompilePackage::collectObjects_() {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, false,
-                nullptr, true);
+                nullptr, false, true);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, false, nullptr, true);
+                m_package, fC, id, m_compileDesign, false, nullptr, false, true);
           }
           break;
         }
@@ -150,11 +154,11 @@ bool CompilePackage::collectObjects_() {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, true,
-                nullptr, true);
+                nullptr, false, true);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, true, nullptr, true);
+                m_package, fC, id, m_compileDesign, true, nullptr, false, true);
           }
           break;
         }

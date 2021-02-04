@@ -32,7 +32,7 @@ namespace SURELOG {
 class Parameter : public DataType {
  public:
   Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
-            NodeId node_type);
+            NodeId node_type, bool port_param);
 
  ~Parameter() override;
 
@@ -41,13 +41,14 @@ class Parameter : public DataType {
 
   void setUhdmParam(UHDM::any* param) { m_param = param; }
   UHDM::any* getUhdmParam() const { return m_param; }
-  
+  bool isPortParam() { return m_port_param; }
   void setImportedPackage(const std::string& package) {m_importedPackage = package; }
   std::string importedPackage() { return m_importedPackage; }
  private:
   NodeId m_ntype;
   UHDM::any* m_param;
   std::string m_importedPackage;
+  bool m_port_param;
 };
 
 }  // namespace SURELOG

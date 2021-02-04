@@ -328,7 +328,7 @@ design: (work@t)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@t
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -802,8 +802,13 @@ design: (work@t)
     \_func_call: (num_out), line:16
       |vpiName:num_out
       |vpiArgument:
-      \_ref_obj: (WIDTH), line:16
+      \_ref_obj: (WIDTH), line:16, parent:num_out
         |vpiName:WIDTH
+        |vpiActual:
+        \_parameter: (work@t.WIDTH), line:14, parent:work@t
+          |vpiName:WIDTH
+          |vpiFullName:work@t.WIDTH
+          |INT:33
     |vpiLhs:
     \_parameter: (work@t.NUM_OUT), line:16, parent:work@t
       |vpiName:NUM_OUT
