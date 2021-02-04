@@ -261,7 +261,7 @@ design: (work@t)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@t
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -281,7 +281,7 @@ design: (work@t)
 |uhdmallPackages:
 \_package: my_funcs (my_funcs) dut.sv:1: , parent:work@t
   |vpiDefName:my_funcs
-  |vpiFullName:my_funcs
+  |vpiName:my_funcs
   |vpiTaskFunc:
   \_function: (my_funcs::simple_minus), line:3, parent:my_funcs
     |vpiVisibility:1
@@ -369,15 +369,17 @@ design: (work@t)
           |vpiFunction:
           \_function: (my_funcs::simple_minus), line:3, parent:my_funcs
           |vpiArgument:
-          \_ref_obj: (value1), line:11
+          \_ref_obj: (my_funcs::simple_func::value1), line:11, parent:simple_minus
             |vpiName:value1
+            |vpiFullName:my_funcs::simple_func::value1
           |vpiArgument:
-          \_ref_obj: (value2), line:11
+          \_ref_obj: (my_funcs::simple_func::value2), line:11, parent:simple_minus
             |vpiName:value2
+            |vpiFullName:my_funcs::simple_func::value2
 |uhdmallPackages:
 \_package: my_module_types (my_module_types) dut.sv:16: , parent:work@t
   |vpiDefName:my_module_types
-  |vpiFullName:my_module_types
+  |vpiName:my_module_types
   |vpiTypedef:
   \_import: (my_funcs)
   |vpiParamAssign:

@@ -324,7 +324,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:unnamed
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -344,7 +344,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: toto (toto) dut.sv:1: , parent:unnamed
   |vpiDefName:toto
-  |vpiFullName:toto
+  |vpiName:toto
   |vpiTaskFunc:
   \_function: (toto::uvm_string_to_action), line:3, parent:toto
     |vpiVisibility:1
@@ -422,8 +422,9 @@ design: (unnamed)
         \_ref_obj: (tmp)
           |vpiName:tmp
         |vpiArgument:
-        \_ref_obj: (this), line:11
+        \_ref_obj: (toto::uvm_object::clone::this), line:11, parent:copy
           |vpiName:this
+          |vpiFullName:toto::uvm_object::clone::this
   |vpiTaskFunc:
   \_function: (toto::m_initialize), line:16, parent:toto
     |vpiVisibility:1
@@ -566,8 +567,9 @@ design: (unnamed)
               |vpiDecompile:this
               |STRING:this
             |vpiArgument:
-            \_ref_obj: (element), line:39
+            \_ref_obj: (toto::uvm_reg_backdoor::start_update_thread::element), line:39, parent:kill_update_thread
               |vpiName:element
+              |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::element
     |vpiVariables:
     \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37
       |vpiName:rg

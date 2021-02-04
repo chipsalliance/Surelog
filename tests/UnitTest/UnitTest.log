@@ -760,17 +760,7 @@ design: (work@tb_operators)
       \_sys_func_call: ($monitor), line:10, parent:work@tb_operators
         |vpiName:$monitor
         |vpiArgument:
-        \_ref_obj: (shifter), line:10
-          |vpiName:shifter
-        |vpiArgument:
-        \_ref_obj: (result), line:10
-          |vpiName:result
-      |vpiStmt:
-      \_assignment: , line:11, parent:work@tb_operators
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@tb_operators.shifter), line:11, parent:work@tb_operators
+        \_ref_obj: (work@tb_operators.shifter), line:10, parent:$monitor
           |vpiName:shifter
           |vpiFullName:work@tb_operators.shifter
           |vpiActual:
@@ -792,18 +782,8 @@ design: (work@tb_operators)
                 |vpiDecompile:0
                 |vpiSize:64
                 |INT:0
-        |vpiRhs:
-        \_constant: , line:11
-          |vpiConstType:3
-          |vpiDecompile:32'b1
-          |vpiSize:32
-          |BIN:1
-      |vpiStmt:
-      \_assignment: , line:13, parent:work@tb_operators
-        |vpiOpType:82
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@tb_operators.result), line:13, parent:work@tb_operators
+        |vpiArgument:
+        \_ref_obj: (work@tb_operators.result), line:10, parent:$monitor
           |vpiName:result
           |vpiFullName:work@tb_operators.result
           |vpiActual:
@@ -825,6 +805,32 @@ design: (work@tb_operators)
                 |vpiDecompile:0
                 |vpiSize:64
                 |INT:0
+      |vpiStmt:
+      \_assignment: , line:11, parent:work@tb_operators
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (work@tb_operators.shifter), line:11, parent:work@tb_operators
+          |vpiName:shifter
+          |vpiFullName:work@tb_operators.shifter
+          |vpiActual:
+          \_logic_net: (work@tb_operators.shifter), line:5, parent:work@tb_operators
+        |vpiRhs:
+        \_constant: , line:11
+          |vpiConstType:3
+          |vpiDecompile:32'b1
+          |vpiSize:32
+          |BIN:1
+      |vpiStmt:
+      \_assignment: , line:13, parent:work@tb_operators
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (work@tb_operators.result), line:13, parent:work@tb_operators
+          |vpiName:result
+          |vpiFullName:work@tb_operators.result
+          |vpiActual:
+          \_logic_net: (work@tb_operators.result), line:6, parent:work@tb_operators
         |vpiRhs:
         \_operation: , line:13, parent:work@tb_operators
           |vpiOpType:22

@@ -944,5 +944,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
   };
+  if (result && component) {
+    result->Instance(component->getUhdmInstance());
+  }
   return result;
 }

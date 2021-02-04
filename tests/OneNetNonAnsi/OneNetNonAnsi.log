@@ -99,14 +99,24 @@ design: (work@tb)
           |vpiSize:23
           |STRING:@%0dns i = %0d, o = %0d
         |vpiArgument:
-        \_sys_func_call: ($time), line:7
+        \_sys_func_call: ($time), line:7, parent:$monitor
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (i), line:7
+        \_ref_obj: (work@tb.i), line:7, parent:$monitor
           |vpiName:i
+          |vpiFullName:work@tb.i
+          |vpiActual:
+          \_logic_net: (work@tb.i), line:2, parent:work@tb
+            |vpiName:i
+            |vpiFullName:work@tb.i
         |vpiArgument:
-        \_ref_obj: (o), line:7
+        \_ref_obj: (work@tb.o), line:7, parent:$monitor
           |vpiName:o
+          |vpiFullName:work@tb.o
+          |vpiActual:
+          \_logic_net: (work@tb.o), line:2, parent:work@tb
+            |vpiName:o
+            |vpiFullName:work@tb.o
       |vpiStmt:
       \_delay_control: , line:8, parent:work@tb
         |#100
@@ -128,8 +138,6 @@ design: (work@tb)
           |vpiFullName:work@tb.i
           |vpiActual:
           \_logic_net: (work@tb.i), line:2, parent:work@tb
-            |vpiName:i
-            |vpiFullName:work@tb.i
         |vpiRhs:
         \_constant: , line:13
           |vpiConstType:7
@@ -156,8 +164,6 @@ design: (work@tb)
               |vpiFullName:work@tb.o
               |vpiActual:
               \_logic_net: (work@tb.o), line:2, parent:work@tb
-                |vpiName:o
-                |vpiFullName:work@tb.o
           |vpiStmt:
           \_sys_func_call: ($display), line:14
             |vpiName:$display

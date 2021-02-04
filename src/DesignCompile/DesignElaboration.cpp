@@ -628,7 +628,6 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
   }
   bindDataTypes_(parent->getDefinition());
   NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-  nelab->elaborateParams(parent);
   nelab->elaborateInstance(parent);
   delete nelab;
 
@@ -708,7 +707,6 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       allSubInstances.push_back(child);
       bindDataTypes_(def);
       NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-      nelab->elaborateParams(child);
       nelab->elaborateInstance(child);
       delete nelab;
     }
@@ -1236,7 +1234,6 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
             } else {
               // Build black box model
               NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
-              nelab->elaborateParams(child);
               nelab->elaborateInstance(child);
               delete nelab;
             }
@@ -1396,7 +1393,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           NodeId param_expression = parentFile->Sibling(child);
           NodeId data_type = parentFile->Child(param_expression);
           NodeId type = parentFile->Child(data_type);
-          Parameter* param = new Parameter(parentFile, expr, pname, type);
+          Parameter* param = new Parameter(parentFile, expr, pname, type, true);
           instance->getTypeParams().push_back(param);
           // Set the invalid value as a marker for netlist elaboration
           instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));

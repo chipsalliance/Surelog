@@ -350,7 +350,7 @@ design: (work@dut)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@dut
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -776,10 +776,10 @@ design: (work@dut)
         \_method_func_call: (new), line:6
           |vpiName:new
           |vpiArgument:
-          \_operation: , line:6
+          \_operation: , line:6, parent:new
             |vpiOpType:24
             |vpiOperand:
-            \_hier_path: (cover_info.size), line:6
+            \_hier_path: (cover_info.size), line:6, parent:new
               |vpiName:cover_info.size
               |vpiActual:
               \_ref_obj: (cover_info)
@@ -794,8 +794,9 @@ design: (work@dut)
               |vpiSize:32
               |INT:1
           |vpiArgument:
-          \_ref_obj: (cover_info), line:6
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.cover_info), line:6, parent:new
             |vpiName:cover_info
+            |vpiFullName:work@dut.uvm_packer::get_packed_bits.cover_info
       |vpiStmt:
       \_assignment: , line:7, parent:work@dut.uvm_packer::get_packed_bits
         |vpiOpType:82
@@ -808,8 +809,9 @@ design: (work@dut)
         \_method_func_call: (new), line:7
           |vpiName:new
           |vpiArgument:
-          \_ref_obj: (m_pack_iter), line:7
+          \_ref_obj: (work@dut.uvm_packer::get_packed_bits.m_pack_iter), line:7, parent:new
             |vpiName:m_pack_iter
+            |vpiFullName:work@dut.uvm_packer::get_packed_bits.m_pack_iter
       |vpiStmt:
       \_assignment: , line:8, parent:work@dut.uvm_packer::get_packed_bits
         |vpiOpType:82

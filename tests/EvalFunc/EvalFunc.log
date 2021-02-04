@@ -753,7 +753,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -773,7 +773,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: prim_util_pkg (prim_util_pkg) dut.sv:1: , parent:work@top
   |vpiDefName:prim_util_pkg
-  |vpiFullName:prim_util_pkg
+  |vpiName:prim_util_pkg
   |vpiTaskFunc:
   \_function: (prim_util_pkg::_clog2), line:3, parent:prim_util_pkg
     |vpiVisibility:1
@@ -944,8 +944,9 @@ design: (work@top)
           |vpiFunction:
           \_function: (prim_util_pkg::_clog2), line:3, parent:prim_util_pkg
           |vpiArgument:
-          \_ref_obj: (value), line:14
+          \_ref_obj: (prim_util_pkg::vbits::value), line:14, parent:prim_util_pkg::_clog2
             |vpiName:value
+            |vpiFullName:prim_util_pkg::vbits::value
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
   |vpiName:work@mailbox
@@ -1249,8 +1250,9 @@ design: (work@top)
         \_sys_func_call: ($clog2), line:25
           |vpiName:$clog2
           |vpiArgument:
-          \_ref_obj: (value), line:25
+          \_ref_obj: (work@top.vbits.value), line:25, parent:$clog2
             |vpiName:value
+            |vpiFullName:work@top.vbits.value
   |vpiTaskFunc:
   \_function: (work@top.foo), line:28, parent:work@top
     |vpiVisibility:1
@@ -1506,8 +1508,9 @@ design: (work@top)
                 |vpiFunction:
                 \_function: (work@top.foo), line:28, parent:work@top
                 |vpiArgument:
-                \_ref_obj: (value), line:56
+                \_ref_obj: (work@top.log2_2.value), line:56, parent:foo
                   |vpiName:value
+                  |vpiFullName:work@top.log2_2.value
               |vpiOperand:
               \_constant: , line:56
                 |vpiConstType:7
@@ -1592,8 +1595,14 @@ design: (work@top)
       |vpiFunction:
       \_function: (work@top.log2), line:33, parent:work@top
       |vpiArgument:
-      \_ref_obj: (RATIO), line:64
+      \_ref_obj: (RATIO), line:64, parent:log2
         |vpiName:RATIO
+        |vpiActual:
+        \_parameter: (work@top.RATIO), line:63, parent:work@top
+          |vpiName:RATIO
+          |vpiFullName:work@top.RATIO
+          |vpiLocalParam:1
+          |INT:30
     |vpiLhs:
     \_parameter: (work@top.log2RATIO1), line:64, parent:work@top
       |vpiName:log2RATIO1
@@ -1607,8 +1616,10 @@ design: (work@top)
       |vpiFunction:
       \_function: (work@top.vbits), line:24, parent:work@top
       |vpiArgument:
-      \_ref_obj: (RATIO), line:65
+      \_ref_obj: (RATIO), line:65, parent:vbits
         |vpiName:RATIO
+        |vpiActual:
+        \_parameter: (work@top.RATIO), line:63, parent:work@top
     |vpiLhs:
     \_parameter: (work@top.log2RATIO2), line:65, parent:work@top
       |vpiName:log2RATIO2
@@ -1622,8 +1633,10 @@ design: (work@top)
       |vpiFunction:
       \_function: (work@top.log2_2), line:51, parent:work@top
       |vpiArgument:
-      \_ref_obj: (RATIO), line:66
+      \_ref_obj: (RATIO), line:66, parent:log2_2
         |vpiName:RATIO
+        |vpiActual:
+        \_parameter: (work@top.RATIO), line:63, parent:work@top
     |vpiLhs:
     \_parameter: (work@top.log2RATIO3), line:66, parent:work@top
       |vpiName:log2RATIO3
@@ -1637,8 +1650,10 @@ design: (work@top)
       |vpiFunction:
       \_function: (prim_util_pkg::vbits), line:12, parent:prim_util_pkg
       |vpiArgument:
-      \_ref_obj: (RATIO), line:67
+      \_ref_obj: (RATIO), line:67, parent:prim_util_pkg::vbits
         |vpiName:RATIO
+        |vpiActual:
+        \_parameter: (work@top.RATIO), line:63, parent:work@top
     |vpiLhs:
     \_parameter: (work@top.log2RATIO4), line:67, parent:work@top
       |vpiName:log2RATIO4

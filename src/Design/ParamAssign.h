@@ -31,14 +31,15 @@ namespace SURELOG {
 
 class ParamAssign {
  public:
-  ParamAssign(const FileContent* fC, NodeId paramId, NodeId assignId, bool isMultidimensional)
-      : m_fileContent(fC), m_paramId(paramId), m_assignId(assignId), m_param_assign(nullptr), m_is_multidimensional(isMultidimensional) {}
+  ParamAssign(const FileContent* fC, NodeId paramId, NodeId assignId, bool isMultidimensional, bool port_param)
+      : m_fileContent(fC), m_paramId(paramId), m_assignId(assignId), m_param_assign(nullptr), 
+        m_is_multidimensional(isMultidimensional), m_port_param(port_param) {}
 
   ~ParamAssign();
   const FileContent* getFileContent() { return m_fileContent; }
   NodeId getParamId() { return m_paramId; }
   NodeId getAssignId() { return m_assignId; }
-
+  bool isPortParam() { return m_port_param; }
   void setUhdmParamAssign(UHDM::param_assign* assign) {
     m_param_assign = assign;
   }
@@ -50,6 +51,7 @@ class ParamAssign {
   NodeId m_assignId;
   UHDM::param_assign* m_param_assign;
   bool m_is_multidimensional;
+  bool m_port_param;
 };
 
 }  // namespace SURELOG

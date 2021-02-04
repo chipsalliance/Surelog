@@ -661,11 +661,11 @@ bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
       fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
-                                         m_compileDesign, true, nullptr, false);
+                                         m_compileDesign, true, nullptr, false, false);
 
   } else {
     m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
-                                         true, nullptr, false);
+                                         true, nullptr, false, false);
   }
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
@@ -703,11 +703,11 @@ bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
       fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
     // Type param
     m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments,
-                                         m_compileDesign, false, nullptr, false);
+                                         m_compileDesign, false, nullptr, false, false);
 
   } else {
     m_helper.compileParameterDeclaration(m_class, fC, id, m_compileDesign,
-                                         false, nullptr, false);
+                                         false, nullptr, false, false);
   }
 
   NodeId data_type_or_implicit = fC->Child(id);
@@ -805,11 +805,11 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
       if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
           fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
         // Type param
-        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false);
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false, false);
 
       } else {
         // Regular param
-        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false);
+        m_helper.compileParameterDeclaration(m_class, fC, list_of_type_assignments, m_compileDesign, false, nullptr, false, false);
 
       }
       parameter_port_declaration = fC->Sibling(parameter_port_declaration);

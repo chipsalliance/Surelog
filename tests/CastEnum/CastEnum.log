@@ -131,7 +131,7 @@ design: (work@dm_csrs)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@dm_csrs
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -151,7 +151,7 @@ design: (work@dm_csrs)
 |uhdmallPackages:
 \_package: dm (dm) dut.sv:1: , parent:work@dm_csrs
   |vpiDefName:dm
-  |vpiFullName:dm
+  |vpiName:dm
   |vpiTypedef:
   \_enum_typespec: (dtm_op_e), line:7
     |vpiName:dtm_op_e
@@ -171,6 +171,8 @@ design: (work@dm_csrs)
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
+      |vpiInstance:
+      \_package: dm (dm) dut.sv:1: , parent:work@dm_csrs
     |vpiEnumConst:
     \_enum_const: (DTM_NOP), line:4
       |vpiName:DTM_NOP
@@ -476,6 +478,12 @@ design: (work@dm_csrs)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: dm (dm) dut.sv:1: , parent:work@dm_csrs
+            |vpiDefName:dm
+            |vpiName:dm
+            |vpiTypedef:
+            \_enum_typespec: (dtm_op_e), line:7
         |vpiEnumConst:
         \_enum_const: (DTM_NOP), line:4
           |vpiName:DTM_NOP
@@ -533,6 +541,43 @@ design: (work@dm_csrs)
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
+          |vpiInstance:
+          \_package: dm (dm) dut.sv:1: , parent:work@dm_csrs
+            |vpiDefName:dm
+            |vpiName:dm
+            |vpiTypedef:
+            \_enum_typespec: (dtm_op_e), line:7
+              |vpiName:dtm_op_e
+              |vpiBaseTypespec:
+              \_logic_typespec: , line:3
+                |vpiRange:
+                \_range: , line:3
+                  |vpiLeftRange:
+                  \_constant: , line:3
+                    |vpiConstType:7
+                    |vpiDecompile:1
+                    |vpiSize:32
+                    |INT:1
+                  |vpiRightRange:
+                  \_constant: , line:3
+                    |vpiConstType:7
+                    |vpiDecompile:0
+                    |vpiSize:32
+                    |INT:0
+                |vpiInstance:
+                \_package: dm (dm) dut.sv:1: , parent:work@dm_csrs
+              |vpiEnumConst:
+              \_enum_const: (DTM_NOP), line:4
+                |vpiName:DTM_NOP
+                |INT:0
+              |vpiEnumConst:
+              \_enum_const: (DTM_READ), line:5
+                |vpiName:DTM_READ
+                |INT:1
+              |vpiEnumConst:
+              \_enum_const: (DTM_WRITE), line:6
+                |vpiName:DTM_WRITE
+                |INT:2
         |vpiEnumConst:
         \_enum_const: (DTM_NOP), line:4, parent:dtm_op_e
           |vpiName:DTM_NOP
@@ -557,35 +602,6 @@ design: (work@dm_csrs)
         |vpiVisibility:1
         |vpiTypespec:
         \_enum_typespec: (dtm_op_e), line:7
-          |vpiName:dtm_op_e
-          |vpiBaseTypespec:
-          \_logic_typespec: , line:3
-            |vpiRange:
-            \_range: , line:3
-              |vpiLeftRange:
-              \_constant: , line:3
-                |vpiConstType:7
-                |vpiDecompile:1
-                |vpiSize:32
-                |INT:1
-              |vpiRightRange:
-              \_constant: , line:3
-                |vpiConstType:7
-                |vpiDecompile:0
-                |vpiSize:32
-                |INT:0
-          |vpiEnumConst:
-          \_enum_const: (DTM_NOP), line:4
-            |vpiName:DTM_NOP
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (DTM_READ), line:5
-            |vpiName:DTM_READ
-            |INT:1
-          |vpiEnumConst:
-          \_enum_const: (DTM_WRITE), line:6
-            |vpiName:DTM_WRITE
-            |INT:2
   |vpiVariables:
   \_enum_var: (work@dm_csrs.dtm_op), line:14, parent:work@dm_csrs
 ===================

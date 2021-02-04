@@ -84,13 +84,13 @@ bool CompileProgram::compile() {
   do {
     VObject current = fC->Object(programId);
     programId = current.m_child;
-  } while (programId && (fC->Type(programId) != VObjectType::slAttribute_instance));
+  } while (programId &&
+           (fC->Type(programId) != VObjectType::slAttribute_instance));
   if (programId) {
     UHDM::VectorOfattribute* attributes =
-    m_helper.compileAttributes(m_program, fC, programId, m_compileDesign);
+        m_helper.compileAttributes(m_program, fC, programId, m_compileDesign);
     m_program->Attributes(attributes);
   }
-
 
   if (fC->getSize() == 0) return true;
   VObject current = fC->Object(nodeId);
@@ -108,131 +108,136 @@ bool CompileProgram::compile() {
   for (auto pack_import : pack_imports) {
     const FileContent* pack_fC = pack_import.fC;
     NodeId pack_id = pack_import.nodeId;
-    m_helper.importPackage(m_program, m_design, pack_fC, pack_id, m_compileDesign);
+    m_helper.importPackage(m_program, m_design, pack_fC, pack_id,
+                           m_compileDesign);
   }
-
+  NodeId ParameterPortListId = 0;
   std::stack<NodeId> stack;
   stack.push(id);
   VObjectType port_direction = VObjectType::slNoType;
   while (stack.size()) {
     id = stack.top();
+    if (ParameterPortListId && (id == ParameterPortListId)) {
+      ParameterPortListId = 0;
+    }
     stack.pop();
     current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
-    case VObjectType::slPackage_import_item:
-    {
-      m_helper.importPackage(m_program, m_design, fC, id, m_compileDesign);
-      break;
-    }
-    case VObjectType::slAnsi_port_declaration:
-    {
-      m_helper.compileAnsiPortDeclaration(m_program, fC, id, port_direction);
-      break;
-    }
-    case VObjectType::slPort:
-    {
-      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
-      break;
-    }
-    case VObjectType::slTask_declaration: {
-      m_helper.compileTask(m_program, fC, id, m_compileDesign);
-      break;
-    }
-    case VObjectType::slFunction_declaration: {
-      m_helper.compileFunction(m_program, fC, id, m_compileDesign);
-      break;
-    }
-    case VObjectType::slInput_declaration:
-    case VObjectType::slOutput_declaration:
-    case VObjectType::slInout_declaration:
-    {
-      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
-      break;
-    }
-    case VObjectType::slPort_declaration:
-    {
-      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
-      break;
-    }
-    case VObjectType::slContinuous_assign:
-    {
-      m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id), m_compileDesign);
-      break;
-    }
-    case VObjectType::slParameter_declaration: {
-      NodeId list_of_type_assignments = fC->Child(id);
-      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-          fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
-        // Type param
-        m_helper.compileParameterDeclaration(
-            m_program, fC, list_of_type_assignments, m_compileDesign, false,
-            nullptr, false);
-
-      } else {
-        m_helper.compileParameterDeclaration(m_program, fC, id, m_compileDesign,
-                                             false, nullptr, false);
+      case VObjectType::slPackage_import_item: {
+        m_helper.importPackage(m_program, m_design, fC, id, m_compileDesign);
+        break;
       }
-      break;
-    }
-    case VObjectType::slLocal_parameter_declaration: {
-      NodeId list_of_type_assignments = fC->Child(id);
-      if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-          fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
-        // Type param
-        m_helper.compileParameterDeclaration(
-            m_program, fC, list_of_type_assignments, m_compileDesign, true,
-            nullptr, false);
-
-      } else {
-        m_helper.compileParameterDeclaration(m_program, fC, id, m_compileDesign,
-                                             true, nullptr, false);
+      case VObjectType::slParameter_port_list: {
+        ParameterPortListId = id;
+        break;
       }
-      break;
-    }
-    case VObjectType::slClass_declaration:
-    {
-      NodeId nameId = fC->Child(id);
-      if (fC->Type(nameId) == slVirtual) {
-        nameId = fC->Sibling(nameId);
+      case VObjectType::slAnsi_port_declaration: {
+        m_helper.compileAnsiPortDeclaration(m_program, fC, id, port_direction);
+        break;
       }
-      std::string name = fC->SymName(nameId);
-      FileCNodeId fnid(fC, nameId);
-      m_program->addObject(type, fnid);
+      case VObjectType::slPort: {
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        break;
+      }
+      case VObjectType::slTask_declaration: {
+        m_helper.compileTask(m_program, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slFunction_declaration: {
+        m_helper.compileFunction(m_program, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slInput_declaration:
+      case VObjectType::slOutput_declaration:
+      case VObjectType::slInout_declaration: {
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        break;
+      }
+      case VObjectType::slPort_declaration: {
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        break;
+      }
+      case VObjectType::slContinuous_assign: {
+        m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id),
+                                             m_compileDesign);
+        break;
+      }
+      case VObjectType::slParameter_declaration: {
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_program, fC, list_of_type_assignments, m_compileDesign, false,
+              nullptr, ParameterPortListId != 0, false);
 
-      std::string completeName = m_program->getName() + "::" + name;
+        } else {
+          m_helper.compileParameterDeclaration(m_program, fC, id,
+                                               m_compileDesign, false, nullptr,
+                                               ParameterPortListId != 0, false);
+        }
+        break;
+      }
+      case VObjectType::slLocal_parameter_declaration: {
+        NodeId list_of_type_assignments = fC->Child(id);
+        if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
+            fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+          // Type param
+          m_helper.compileParameterDeclaration(
+              m_program, fC, list_of_type_assignments, m_compileDesign, true,
+              nullptr, ParameterPortListId != 0, false);
 
-      DesignComponent* comp = fC->getComponentDefinition(completeName);
+        } else {
+          m_helper.compileParameterDeclaration(m_program, fC, id,
+                                               m_compileDesign, true, nullptr,
+                                               ParameterPortListId != 0, false);
+        }
+        break;
+      }
+      case VObjectType::slClass_declaration: {
+        NodeId nameId = fC->Child(id);
+        if (fC->Type(nameId) == slVirtual) {
+          nameId = fC->Sibling(nameId);
+        }
+        std::string name = fC->SymName(nameId);
+        FileCNodeId fnid(fC, nameId);
+        m_program->addObject(type, fnid);
 
-      m_program->addNamedObject(name, fnid, comp);
-      break;
-    }
-    case VObjectType::slNet_declaration:
-    {
-      m_helper.compileNetDeclaration(m_program, fC, id, false, m_compileDesign);
-      break;
-    }
-    case VObjectType::slData_declaration:
-    {
-      m_helper.compileDataDeclaration(m_program, fC, id, false, m_compileDesign);
-      break;
-    }
-    case VObjectType::slInitial_construct:
-      m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
-      break;
-    case VObjectType::slParam_assignment:
-    case VObjectType::slDefparam_assignment: {
-      FileCNodeId fnid(fC, id);
-      m_program->addObject(type, fnid);
-      break;
-    }
-    case VObjectType::slDpi_import_export: {
-      Function* func = m_helper.compileFunctionPrototype(m_program, fC, id, m_compileDesign);
-     m_program->insertFunction(func);
-      break;
-    }
-    default:
-      break;
+        std::string completeName = m_program->getName() + "::" + name;
+
+        DesignComponent* comp = fC->getComponentDefinition(completeName);
+
+        m_program->addNamedObject(name, fnid, comp);
+        break;
+      }
+      case VObjectType::slNet_declaration: {
+        m_helper.compileNetDeclaration(m_program, fC, id, false,
+                                       m_compileDesign);
+        break;
+      }
+      case VObjectType::slData_declaration: {
+        m_helper.compileDataDeclaration(m_program, fC, id, false,
+                                        m_compileDesign);
+        break;
+      }
+      case VObjectType::slInitial_construct:
+        m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
+        break;
+      case VObjectType::slParam_assignment:
+      case VObjectType::slDefparam_assignment: {
+        FileCNodeId fnid(fC, id);
+        m_program->addObject(type, fnid);
+        break;
+      }
+      case VObjectType::slDpi_import_export: {
+        Function* func = m_helper.compileFunctionPrototype(m_program, fC, id,
+                                                           m_compileDesign);
+        m_program->insertFunction(func);
+        break;
+      }
+      default:
+        break;
     }
 
     if (current.m_sibling) stack.push(current.m_sibling);

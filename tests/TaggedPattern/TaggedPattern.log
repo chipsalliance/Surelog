@@ -157,7 +157,7 @@ design: (work@top)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:work@top
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -530,8 +530,11 @@ design: (work@top)
           |vpiSize:30
           |STRING::assert: ('%b' == 'v1:1010101'
         |vpiArgument:
-        \_ref_obj: (un), line:11
+        \_ref_obj: (work@top.un), line:11, parent:$display
           |vpiName:un
+          |vpiFullName:work@top.un
+          |vpiActual:
+          \_struct_net: (work@top.un), line:6, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.un), line:6, parent:work@top
     |vpiName:un

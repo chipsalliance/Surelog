@@ -1854,7 +1854,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts) {
 }
 
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool reduce) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool port_param, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   std::vector<UHDM::any*>* parameters= component->getParameters();
@@ -1893,7 +1893,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(p);
       Parameter* param =
-          new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype);
+          new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype, port_param);
       param->setUhdmParam(p);
       component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
@@ -1921,7 +1921,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(p);
       Parameter* param =
-          new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression);
+          new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression, port_param);
       param->setUhdmParam(p);
       component->insertParameter(param);
       Param_assignment = fC->Sibling(Param_assignment);
@@ -1983,7 +1983,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       UHDM::parameter* param = s.MakeParameter();
 
       Parameter* p =
-          new Parameter(fC, name, fC->SymName(name), fC->Child(Data_type_or_implicit));
+          new Parameter(fC, name, fC->SymName(name), fC->Child(Data_type_or_implicit), port_param);
       p->setUhdmParam(param);
       component->insertParameter(p);
 
@@ -2014,7 +2014,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       }
       parameters->push_back(param);
       if (value) {
-        ParamAssign* assign = new ParamAssign(fC, name, value, isMultiDimension);
+        ParamAssign* assign = new ParamAssign(fC, name, value, isMultiDimension, port_param);
         UHDM::param_assign* param_assign = s.MakeParam_assign();
         assign->setUhdmParamAssign(param_assign);
         component->addParamAssign(assign);
@@ -2157,7 +2157,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
   if (fC->Type(argListNode) == slAttribute_instance) {
     /* UHDM::VectorOfattribute* attributes = */ compileAttributes(component, fC, argListNode, compileDesign);
   } else {
-    VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call, nullptr, false);
     call->Tf_call_args(arguments);
   }
   return call;
@@ -2165,7 +2165,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
 
 VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, const FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign, UHDM::any* call) {
+        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany *arguments = s.MakeAnyVec();
   NodeId argumentNode = fC->Child(Arg_list_node);
@@ -2191,7 +2191,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
     if ((fC->Type(argumentNode) == slStringConst) && (fC->Type(sibling) == slExpression)) {
       // arg by name
       Expression = sibling;
-      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce);
       if (exp) {
         args.insert(std::make_pair(fC->SymName(argumentNode), exp));
         argOrder.push_back(exp);
@@ -2200,7 +2200,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
     } else {
       // arg by position
       Expression = argumentNode;
-      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce);
       if (exp)
         arguments->push_back(exp);
     }
@@ -2252,7 +2252,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
-        VectorOfany *arguments = compileTfCallArguments(component, fC, Delay_or_event_control, compileDesign, fcall);
+        VectorOfany *arguments = compileTfCallArguments(component, fC, Delay_or_event_control, compileDesign, fcall, nullptr, false);
         fcall->Tf_call_args(arguments);
       }
       Delay_or_event_control = 0;
@@ -2290,7 +2290,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     fcall->VpiFile(fC->getFileName());
     fcall->VpiLineNo(fC->Line(Hierarchical_identifier));
     if (List_of_arguments) {
-      VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
+      VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall, nullptr, false);
       fcall->Tf_call_args(arguments);
     }
 

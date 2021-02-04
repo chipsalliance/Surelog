@@ -44,7 +44,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
  public:
   DesignComponent(const DesignComponent* parent,
                   DesignComponent* definition)
-    : ValuedComponentI(parent, definition), PortNetHolder() {}
+    : ValuedComponentI(parent, definition), PortNetHolder(), m_instance(nullptr) {}
   ~DesignComponent() override {}
 
   virtual unsigned int getSize() const = 0;
@@ -116,6 +116,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void needLateBinding(UHDM::ref_obj* obj) { m_needLateBinding.push_back(obj); }
   const std::vector<UHDM::ref_obj*>& getLateBinding() const { return m_needLateBinding; }
 
+  void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
+  UHDM::instance* getUhdmInstance() { return m_instance; }
+
  protected:
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
@@ -138,6 +141,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   ParameterMap m_parameterMap;
   ParameterVec m_orderedParameters;
   ParamAssignVec m_paramAssigns;
+  UHDM::instance* m_instance;
 };
 
 };  // namespace SURELOG

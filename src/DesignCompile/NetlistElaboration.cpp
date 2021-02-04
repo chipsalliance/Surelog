@@ -109,7 +109,7 @@ bool NetlistElaboration::elaborate() {
   return true;
 }
 
-bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
+bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_port) {
   Serializer& s =  m_compileDesign->getSerializer();
   if (!instance) return true;
   ModuleDefinition* mod =
@@ -128,6 +128,9 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
   VectorOfparam_assign* assigns = netlist->param_assigns();
   bool isMultidimensional = false;
   for (ParamAssign* assign : mod->getParamAssignVec()) {
+    if (param_port ^ assign->isPortParam()) {
+      continue;
+    }
     if (assigns == nullptr) {
       netlist->param_assigns(s.MakeParam_assignVec());
       assigns = netlist->param_assigns();
@@ -207,35 +210,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance) {
 }
 
 
-bool NetlistElaboration::elaborateParams(ModuleInstance* instance) {
-  Netlist* netlist = instance->getNetlist();
-  if (netlist == nullptr) {
-    netlist = new Netlist(instance);
-    instance->setNetlist(netlist);
-  }
-
-  return elab_parameters_(instance);
-}
-
 bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   Netlist* netlist = instance->getNetlist();
-  if (netlist == nullptr) {
-    netlist = new Netlist(instance);
-    instance->setNetlist(netlist);
-  }
-  
-  DesignComponent* childDef = instance->getDefinition();
-  if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
-    VObjectType insttype = instance->getType();
-    if (insttype == VObjectType::slInterface_instantiation) {
-      elab_interface_(instance->getParent(), instance, instance->getInstanceName(),
-                      instance->getModuleName(), mm, instance->getFileName(),
-                      instance->getLineNb(), nullptr, "");
-    }
-  }
 
-  elab_generates_(instance);
-
+  bool elabPortsNets = false;
   VObjectType insttype = instance->getType();
   if ((insttype != VObjectType::slInterface_instantiation) &&
       (insttype != VObjectType::slConditional_generate_construct) &&
@@ -253,7 +231,34 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
       (insttype != VObjectType::slGenerate_interface_item) &&
       (insttype != VObjectType::slGenerate_block)
       ) {
-    elab_ports_nets_(instance);
+    elabPortsNets = true;
+  }
+
+  if (netlist == nullptr) {
+    netlist = new Netlist(instance);
+    instance->setNetlist(netlist);
+  }
+
+  elab_parameters_(instance, true);
+  if (elabPortsNets) {
+    elab_ports_nets_(instance, true);
+  }
+  elab_parameters_(instance, false);
+
+  DesignComponent* childDef = instance->getDefinition();
+  if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(childDef)) {
+    VObjectType insttype = instance->getType();
+    if (insttype == VObjectType::slInterface_instantiation) {
+      elab_interface_(instance->getParent(), instance, instance->getInstanceName(),
+                      instance->getModuleName(), mm, instance->getFileName(),
+                      instance->getLineNb(), nullptr, "");
+    }
+  }
+
+  elab_generates_(instance);
+
+  if (elabPortsNets) {
+    elab_ports_nets_(instance, false);
   }
 
   high_conn_(instance);
@@ -658,8 +663,8 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleI
     netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   }
   const std::string prefix = instName + ".";
-  elab_ports_nets_(instance, interf_instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix);
-
+  elab_ports_nets_(instance, interf_instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix, true);
+  elab_ports_nets_(instance, interf_instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix, false);
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
@@ -756,7 +761,8 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
       if (mm->getParam_assigns())
         gen_scope->Param_assigns(mm->getParam_assigns());
 
-      elab_ports_nets_(instance);
+      elab_ports_nets_(instance, true);
+      elab_ports_nets_(instance, false);
 
       gen_scope->Nets(netlist->nets());
       gen_scope->Array_vars(netlist->array_vars());
@@ -787,13 +793,13 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
   return true;
 }
 
-bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, bool ports) {
   Netlist* netlist = instance->getNetlist();
   DesignComponent* comp = instance->getDefinition();
   if (comp == nullptr) {
     return true;
   }
-  return elab_ports_nets_(instance, instance, netlist, netlist, comp, "");
+  return elab_ports_nets_(instance, instance, netlist, netlist, comp, "", ports);
 }
 
 void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child, 
@@ -1122,7 +1128,8 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   }
 }
 
-bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, 
+     Netlist* netlist, DesignComponent* comp, const std::string& prefix, bool do_ports) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
   std::vector<port*>* ports = netlist->ports();
@@ -1158,6 +1165,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       if (pass == 0) {
+        if (!do_ports)
+          continue;
         // Ports pass
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection()));
@@ -1284,11 +1293,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
       } else if (pass == 1) {
         // Nets pass
+        if (do_ports)
+          continue;
         if (portInterf.find(sig->getName()) == portInterf.end())
           elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);   
 
       } else if (pass == 2) {
         // Port low conn pass
+        if (do_ports)
+          continue;
         const std::string& signame = sig->getName();
         port* dest_port = (*netlist->ports())[portIndex];
      

@@ -478,7 +478,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: builtin (builtin), parent:unnamed
   |vpiDefName:builtin
-  |vpiFullName:builtin
+  |vpiName:builtin
   |vpiClassDefn:
   \_class_defn: (builtin::array), parent:builtin
     |vpiName:array
@@ -498,7 +498,7 @@ design: (unnamed)
 |uhdmallPackages:
 \_package: uvm_pkg (uvm_pkg) top2.v:3: , parent:unnamed
   |vpiDefName:uvm_pkg
-  |vpiFullName:uvm_pkg
+  |vpiName:uvm_pkg
   |vpiTaskFunc:
   \_function: (uvm_pkg::uvm_sequencer_base::do_print), line:5, parent:uvm_pkg
     |vpiVisibility:1
@@ -523,8 +523,9 @@ design: (unnamed)
           |vpiDecompile:super
           |STRING:super
         |vpiArgument:
-        \_ref_obj: (printer), line:6
+        \_ref_obj: (uvm_pkg::uvm_sequencer_base::do_print::printer), line:6, parent:do_print
           |vpiName:printer
+          |vpiFullName:uvm_pkg::uvm_sequencer_base::do_print::printer
       |vpiStmt:
       \_method_func_call: (print_array_header), line:7, parent:uvm_pkg::uvm_sequencer_base::do_print
         |vpiName:print_array_header
@@ -538,7 +539,7 @@ design: (unnamed)
           |vpiSize:17
           |STRING:arbitration_queue
         |vpiArgument:
-        \_hier_path: (arb_sequence_q.size), line:7
+        \_hier_path: (arb_sequence_q.size), line:7, parent:print_array_header
           |vpiName:arb_sequence_q.size
           |vpiActual:
           \_ref_obj: (arb_sequence_q)
@@ -573,7 +574,7 @@ design: (unnamed)
               |vpiSize:5
               |STRING:[%0d]
             |vpiArgument:
-            \_ref_obj: (i), line:9
+            \_ref_obj: (i), line:9, parent:$sformatf
               |vpiName:i
           |vpiArgument:
           \_sys_func_call: ($sformatf), line:10
@@ -585,25 +586,25 @@ design: (unnamed)
               |vpiSize:11
               |STRING:%s@seqid%0d
             |vpiArgument:
-            \_hier_path: (arb_sequence_q[i].request), line:10
+            \_hier_path: (arb_sequence_q[i].request), line:10, parent:$sformatf
               |vpiName:arb_sequence_q[i].request
               |vpiActual:
               \_bit_select: (arb_sequence_q)
                 |vpiName:arb_sequence_q
                 |vpiIndex:
-                \_ref_obj: (i), line:10
+                \_ref_obj: (i), line:10, parent:$sformatf
                   |vpiName:i
               |vpiActual:
               \_ref_obj: (request)
                 |vpiName:request
             |vpiArgument:
-            \_hier_path: (arb_sequence_q[i].sequence_id), line:10
+            \_hier_path: (arb_sequence_q[i].sequence_id), line:10, parent:$sformatf
               |vpiName:arb_sequence_q[i].sequence_id
               |vpiActual:
               \_bit_select: (arb_sequence_q)
                 |vpiName:arb_sequence_q
                 |vpiIndex:
-                \_ref_obj: (i), line:10
+                \_ref_obj: (i), line:10, parent:$sformatf
                   |vpiName:i
               |vpiActual:
               \_ref_obj: (sequence_id)
@@ -877,8 +878,9 @@ design: (unnamed)
         \_ref_obj: (m_submaps3)
           |vpiName:m_submaps3
         |vpiArgument:
-        \_ref_obj: (an_obj), line:52
+        \_ref_obj: (work@uvm_reg_map::set_check_on_read::an_obj), line:52, parent:push_back
           |vpiName:an_obj
+          |vpiFullName:work@uvm_reg_map::set_check_on_read::an_obj
       |vpiStmt:
       \_foreach_stmt: (work@uvm_reg_map::set_check_on_read), line:54, parent:work@uvm_reg_map::set_check_on_read
         |vpiFullName:work@uvm_reg_map::set_check_on_read
