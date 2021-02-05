@@ -104,8 +104,9 @@ bool CompileModule::compile() {
 
   switch (moduleType) {
     case VObjectType::slModule_declaration:
-      if (!collectModuleObjects_(true)) return false;
-      if (!collectModuleObjects_(false)) return false;
+      if (!collectModuleObjects_(CollectType::FUNCTION)) return false;
+      if (!collectModuleObjects_(CollectType::DEFINITION)) return false;
+      if (!collectModuleObjects_(CollectType::OTHER)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slLoop_generate_construct:
@@ -117,13 +118,15 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_module_block:
     case VObjectType::slGenerate_module_item:
     case VObjectType::slGenerate_module_named_block:
-      if (!collectModuleObjects_(true)) return false;
-      if (!collectModuleObjects_(false)) return false;
+      if (!collectModuleObjects_(CollectType::FUNCTION)) return false;
+      if (!collectModuleObjects_(CollectType::DEFINITION)) return false;
+      if (!collectModuleObjects_(CollectType::OTHER)) return false;
       if (!checkModule_()) return false;
       break;
     case VObjectType::slInterface_declaration:
-      if (!collectInterfaceObjects_(true)) return false;
-      if (!collectInterfaceObjects_(false)) return false;
+      if (!collectInterfaceObjects_(CollectType::FUNCTION)) return false;
+      if (!collectInterfaceObjects_(CollectType::DEFINITION)) return false;
+      if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slGenerate_interface_conditional_statement:
@@ -131,8 +134,9 @@ bool CompileModule::compile() {
     case VObjectType::slGenerate_interface_block:
     case VObjectType::slGenerate_interface_item:
     case VObjectType::slGenerate_interface_named_block:
-     if (!collectInterfaceObjects_(true)) return false;
-      if (!collectInterfaceObjects_(false)) return false;
+      if (!collectInterfaceObjects_(CollectType::FUNCTION)) return false;
+      if (!collectInterfaceObjects_(CollectType::DEFINITION)) return false;
+      if (!collectInterfaceObjects_(CollectType::OTHER)) return false;
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
@@ -451,7 +455,7 @@ bool CompileModule::collectUdpObjects_() {
   return true;
 }
 
-bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
+bool CompileModule::collectModuleObjects_(CollectType collectType) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slConditional_generate_construct,
       VObjectType::slGenerate_module_conditional_statement,
@@ -490,7 +494,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
     if (!id) id = current.m_sibling;
     if (!id) return false;
 
-    if (collectDefinitions) {
+    if (collectType == CollectType::FUNCTION) {
       // Package imports
       std::vector<FileCNodeId> pack_imports;
       // - Local file imports
@@ -522,12 +526,12 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
           break;
         }
@@ -536,51 +540,51 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slPort: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slClocking_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           compileClockingBlock_(fC, id);
           break;
         }
         case VObjectType::slNet_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slContinuous_assign:
         {
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
           break;
         }
         case VObjectType::slAlways_construct:
         {
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
@@ -600,7 +604,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments || 
@@ -619,23 +623,49 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slTask_declaration: {
-          if (!collectDefinitions) break;
+          // Called twice, placeholder first, then definition
+          if (collectType == CollectType::OTHER) break;
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slFunction_declaration: {
-          if (!collectDefinitions) break;
+          // Called twice, placeholder first, then definition
+          if (collectType == CollectType::OTHER) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {
+          if (collectType != CollectType::FUNCTION) break;
           Function* func = m_helper.compileFunctionPrototype(m_module, fC, id, m_compileDesign);
           m_module->insertFunction(func);
           break;
         }
         case VObjectType::slAssertion_item: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileAssertionItem(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slClass_declaration: {
+          if (collectType != CollectType::OTHER) break; 
+          NodeId nameId = fC->Child(id);
+          if (fC->Type(nameId) == slVirtual) {
+             nameId = fC->Sibling(nameId);
+          }
+          std::string name = fC->SymName(nameId);
+          FileCNodeId fnid(fC, nameId);
+          m_module->addObject(type, fnid);
+
+          std::string completeName = m_module->getName() + "::" + name;
+
+          DesignComponent* comp = fC->getComponentDefinition(completeName);
+
+          m_module->addNamedObject(name, fnid, comp);
+          break;
+        }
+        case VObjectType::slClass_constructor_declaration: {
+          if (collectType != CollectType::OTHER) break; 
+          m_helper.compileClassConstructorDeclaration(m_module, fC, id,
+                                                      m_compileDesign);
           break;
         }
         case VObjectType::slParam_assignment:
@@ -654,17 +684,17 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
         case VObjectType::slPar_block:
         case VObjectType::slSeq_block:
         case VObjectType::slDefparam_assignment: {
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;
         }
         case VObjectType::slInitial_construct:
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
         case VObjectType::slFinal_construct:
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
           break; 
         default:
@@ -689,7 +719,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
       }
     }
   }
-  if (collectDefinitions) {
+  if (collectType == CollectType::DEFINITION) {
     for (Signal* port : m_module->getPorts()) {
       bool found = false;
       for (Signal* sig : m_module->getSignals()) {
@@ -707,7 +737,7 @@ bool CompileModule::collectModuleObjects_(bool collectDefinitions) {
   return true;
 }
 
-bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
+bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
@@ -716,7 +746,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
     if (!id) id = current.m_sibling;
     if (!id) return false;
 
-    if (collectDefinitions) {
+    if (collectType == CollectType::FUNCTION) {
       // Package imports
       std::vector<FileCNodeId> pack_imports;
       // - Local file imports
@@ -745,7 +775,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
           break;
         }
@@ -754,50 +784,51 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileAnsiPortDeclaration(m_module, fC, id, port_direction);
           break;
         }
         case VObjectType::slNet_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileNetDeclaration(m_module, fC, id, true,
                                          m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, true,
                                           m_compileDesign);
           break;
         }
         case VObjectType::slContinuous_assign: {
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
                                                m_compileDesign);
           break;
         }
         case VObjectType::slTask_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slFunction_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {
+          if (collectType != CollectType::FUNCTION) break;
           Function* func = m_helper.compileFunctionPrototype(m_module, fC, id,
                                                              m_compileDesign);
           m_module->insertFunction(func);
           break;
         }
         case VObjectType::slClocking_declaration:
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           compileClockingBlock_(fC, id);
           break;
         case VObjectType::slGenerate_interface_item: {
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           // TODO: rewrite this rough implementation
           std::vector<VObjectType> types = {VObjectType::slModport_item};
           std::vector<NodeId> items = fC->sl_collect_all(id, types);
@@ -810,7 +841,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slModport_item:
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           /*
            n<tb> u<45> t<StringConst> p<56> s<50> l<43>
            n<> u<46> t<PortDir_Inp> p<49> s<48> l<43>
@@ -895,15 +926,15 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
           }
           break;
         case VObjectType::slInitial_construct:
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
         case VObjectType::slFinal_construct:
-          if (collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
           break;
         case VObjectType::slParameter_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
@@ -921,7 +952,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments) {
@@ -943,7 +974,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
         case VObjectType::slGenerate_interface_loop_statement:
         case VObjectType::slParam_assignment:
         case VObjectType::slDefparam_assignment: {
-          if (!collectDefinitions) break;
+          if (collectType != CollectType::OTHER) break;
           FileCNodeId fnid(fC, id);
           m_module->addObject(type, fnid);
           break;
@@ -957,7 +988,7 @@ bool CompileModule::collectInterfaceObjects_(bool collectDefinitions) {
     }
   }
 
-  if (collectDefinitions) {
+  if (collectType == CollectType::DEFINITION) {
     for (Signal* port : m_module->getPorts()) {
       bool found = false;
       for (Signal* sig : m_module->getSignals()) {

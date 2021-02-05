@@ -76,6 +76,16 @@ bool CompileProgram::compile() {
   Error err2(ErrorDefinition::COMP_PROGRAM_OBSOLETE_USAGE, loc);
   m_errors->addError(err2);
 
+  if (!collectObjects_(CollectType::FUNCTION)) return false;
+  if (!collectObjects_(CollectType::DEFINITION)) return false;
+  if (!collectObjects_(CollectType::OTHER)) return false;
+
+  return true;
+}
+
+bool CompileProgram::collectObjects_(CollectType collectType) {
+  const FileContent* fC = m_program->m_fileContents[0];
+  NodeId nodeId = m_program->m_nodeIds[0];
   std::vector<VObjectType> stopPoints = {
       VObjectType::slClass_declaration,
   };
@@ -98,19 +108,22 @@ bool CompileProgram::compile() {
   if (!id) id = current.m_sibling;
   if (!id) return false;
 
-  // Package imports
-  std::vector<FileCNodeId> pack_imports;
-  // - Local file imports
-  for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
-    pack_imports.push_back(import);
+  if (collectType == CollectType::FUNCTION) {
+    // Package imports
+    std::vector<FileCNodeId> pack_imports;
+    // - Local file imports
+    for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
+      pack_imports.push_back(import);
+    }
+
+    for (auto pack_import : pack_imports) {
+      const FileContent* pack_fC = pack_import.fC;
+      NodeId pack_id = pack_import.nodeId;
+      m_helper.importPackage(m_program, m_design, pack_fC, pack_id,
+                             m_compileDesign);
+    }
   }
 
-  for (auto pack_import : pack_imports) {
-    const FileContent* pack_fC = pack_import.fC;
-    NodeId pack_id = pack_import.nodeId;
-    m_helper.importPackage(m_program, m_design, pack_fC, pack_id,
-                           m_compileDesign);
-  }
   NodeId ParameterPortListId = 0;
   std::stack<NodeId> stack;
   stack.push(id);
@@ -125,6 +138,7 @@ bool CompileProgram::compile() {
     VObjectType type = fC->Type(id);
     switch (type) {
       case VObjectType::slPackage_import_item: {
+        if (collectType != CollectType::FUNCTION) break;
         m_helper.importPackage(m_program, m_design, fC, id, m_compileDesign);
         break;
       }
@@ -133,37 +147,47 @@ bool CompileProgram::compile() {
         break;
       }
       case VObjectType::slAnsi_port_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compileAnsiPortDeclaration(m_program, fC, id, port_direction);
         break;
       }
       case VObjectType::slPort: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
         break;
       }
       case VObjectType::slTask_declaration: {
+        // Called twice, placeholder first, then definition
+        if (collectType == CollectType::OTHER) break;
         m_helper.compileTask(m_program, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slFunction_declaration: {
+        // Called twice, placeholder first, then definition
+        if (collectType == CollectType::OTHER) break;
         m_helper.compileFunction(m_program, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slInput_declaration:
       case VObjectType::slOutput_declaration:
       case VObjectType::slInout_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
         break;
       }
       case VObjectType::slPort_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
         break;
       }
       case VObjectType::slContinuous_assign: {
+        if (collectType != CollectType::OTHER) break;
         m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id),
                                              m_compileDesign);
         break;
       }
       case VObjectType::slParameter_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
             fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
@@ -180,6 +204,7 @@ bool CompileProgram::compile() {
         break;
       }
       case VObjectType::slLocal_parameter_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
             fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
@@ -196,6 +221,7 @@ bool CompileProgram::compile() {
         break;
       }
       case VObjectType::slClass_declaration: {
+        if (collectType != CollectType::OTHER) break;
         NodeId nameId = fC->Child(id);
         if (fC->Type(nameId) == slVirtual) {
           nameId = fC->Sibling(nameId);
@@ -212,25 +238,34 @@ bool CompileProgram::compile() {
         break;
       }
       case VObjectType::slNet_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compileNetDeclaration(m_program, fC, id, false,
                                        m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration: {
+        if (collectType != CollectType::DEFINITION) break;
         m_helper.compileDataDeclaration(m_program, fC, id, false,
                                         m_compileDesign);
         break;
       }
       case VObjectType::slInitial_construct:
+        if (collectType != CollectType::OTHER) break;
         m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
+        break;
+      case VObjectType::slFinal_construct:
+        if (collectType != CollectType::OTHER) break;
+        m_helper.compileFinalBlock(m_program, fC, id, m_compileDesign);
         break;
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
+        if (collectType != CollectType::DEFINITION) break;
         FileCNodeId fnid(fC, id);
         m_program->addObject(type, fnid);
         break;
       }
       case VObjectType::slDpi_import_export: {
+        if (collectType != CollectType::FUNCTION) break;
         Function* func = m_helper.compileFunctionPrototype(m_program, fC, id,
                                                            m_compileDesign);
         m_program->insertFunction(func);

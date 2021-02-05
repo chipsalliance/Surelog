@@ -60,7 +60,8 @@ class CompilePackage final {
   bool compile();
 
  private:
-  bool collectObjects_();
+  enum CollectType { FUNCTION, DEFINITION, OTHER };
+  bool collectObjects_(CollectType collectType);
 
   CompileDesign* m_compileDesign;
   Package* const m_package;

@@ -80,6 +80,7 @@ bool CompileFileContent::collectObjects_() {
       }
       case VObjectType::slFunction_declaration: {
         m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign);
+        m_helper.compileFunction(m_fileContent, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration: {
