@@ -77,7 +77,9 @@ bool CompilePackage::compile() {
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   delete errors;
 
-  collectObjects_();
+  collectObjects_(CollectType::FUNCTION);
+  collectObjects_(CollectType::DEFINITION);
+  collectObjects_(CollectType::OTHER);
 
   do {
     VObject current = fC->Object(packId);
@@ -92,7 +94,7 @@ bool CompilePackage::compile() {
   return true;
 }
 
-bool CompilePackage::collectObjects_() {
+bool CompilePackage::collectObjects_(CollectType collectType) {
   std::vector<VObjectType> stopPoints = {
       VObjectType::slClass_declaration,
       VObjectType::slFunction_body_declaration,
@@ -107,17 +109,20 @@ bool CompilePackage::collectObjects_() {
     if (!id) id = current.m_sibling;
     if (!id) return false;
 
-    // Package imports
-    std::vector<FileCNodeId> pack_imports;
-    // - Local file imports
-    for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
-      pack_imports.push_back(import);
-    }
+    if (collectType == CollectType::FUNCTION) {
+      // Package imports
+      std::vector<FileCNodeId> pack_imports;
+      // - Local file imports
+      for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
+        pack_imports.push_back(import);
+      }
 
-    for (auto pack_import : pack_imports) {
-      const FileContent* pack_fC = pack_import.fC;
-      NodeId pack_id = pack_import.nodeId;
-      m_helper.importPackage(m_package, m_design, pack_fC, pack_id, m_compileDesign);
+      for (auto pack_import : pack_imports) {
+        const FileContent* pack_fC = pack_import.fC;
+        NodeId pack_id = pack_import.nodeId;
+        m_helper.importPackage(m_package, m_design, pack_fC, pack_id,
+                               m_compileDesign);
+      }
     }
 
     std::stack<NodeId> stack;
@@ -129,10 +134,12 @@ bool CompilePackage::collectObjects_() {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
+          if (collectType != CollectType::FUNCTION) break; 
           m_helper.importPackage(m_package, m_design, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
+          if (collectType != CollectType::DEFINITION) break; 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments) {
@@ -148,6 +155,7 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
+          if (collectType != CollectType::DEFINITION) break; 
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments) {
@@ -163,19 +171,25 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slTask_declaration: {
+          // Called twice, placeholder first, then definition
+          if (collectType == CollectType::OTHER) break;
           m_helper.compileTask(m_package, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slFunction_declaration: {
+          // Called twice, placeholder first, then definition
+          if (collectType == CollectType::OTHER) break;
           m_helper.compileFunction(m_package, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParam_assignment: {
+          if (collectType != CollectType::DEFINITION) break; 
           FileCNodeId fnid(fC, id);
           m_package->addObject(type, fnid);
           break;
         }
         case VObjectType::slClass_declaration: {
+          if (collectType != CollectType::OTHER) break; 
           NodeId nameId = fC->Child(id);
           if (fC->Type(nameId) == slVirtual) {
              nameId = fC->Sibling(nameId);
@@ -192,21 +206,25 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slClass_constructor_declaration: {
+          if (collectType != CollectType::OTHER) break; 
           m_helper.compileClassConstructorDeclaration(m_package, fC, id,
                                                       m_compileDesign);
           break;
         }
          case VObjectType::slNet_declaration: {
+          if (collectType != CollectType::DEFINITION) break; 
           // In a package this is certainly a var that the parser mis-interpreted 
           m_helper.compileNetDeclaration(m_package, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
+          if (collectType != CollectType::DEFINITION) break; 
           m_helper.compileDataDeclaration(m_package, fC, id, false,
                                           m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {
+          if (collectType != CollectType::FUNCTION) break; 
           Function* func = m_helper.compileFunctionPrototype(m_package, fC, id, m_compileDesign);
           m_package->insertFunction(func);
           break;

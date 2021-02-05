@@ -68,10 +68,10 @@ public:
 
 private:
   CompileModule(const CompileModule&) = delete;
-
-  bool collectModuleObjects_(bool collectDefinitions);
+  enum CollectType { FUNCTION, DEFINITION, OTHER};
+  bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();
-  bool collectInterfaceObjects_(bool collectDefinitions);
+  bool collectInterfaceObjects_(CollectType collectType);
   bool checkInterface_();
   bool collectUdpObjects_();
   void compileClockingBlock_(const FileContent* fC, NodeId id);

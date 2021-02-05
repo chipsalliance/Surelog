@@ -65,6 +65,9 @@ public:
   ~CompileProgram() override;
 
 private:
+  enum CollectType { FUNCTION, DEFINITION, OTHER };
+  bool collectObjects_(CollectType collectType);
+  
   CompileDesign* const m_compileDesign;
   Program* const m_program;
   Design* const m_design;

@@ -1098,6 +1098,10 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
     func_decl = fC->Child(nodeId);
     func_type = fC->Type(func_decl);
   } 
+  if (func_type == slTask_declaration) {
+    func_decl = fC->Child(nodeId);
+    func_type = fC->Type(func_decl);
+  }
 
   bool is_local = false;
   bool is_protected = false;
@@ -1121,60 +1125,61 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
     if (func_type == VObjectType::slPure_keyword) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiDPIPure(true);
+      if (func) func->VpiDPIPure(true);
     }
     if (func_type == VObjectType::slExport) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiAccessType(vpiDPIExportAcc);
+      if (func) func->VpiAccessType(vpiDPIExportAcc);
     }
     if (func_type == VObjectType::slImport) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiAccessType(vpiDPIImportAcc);
+      if (func) func->VpiAccessType(vpiDPIImportAcc);
     }
     if (func_type == VObjectType::slStringLiteral) {
       std::string ctype = fC->SymName(func_decl);
       if (ctype.front() == '"' && ctype.back() == '"')
           ctype = ctype.substr(1, ctype.length() - 2);
-      if (ctype == "DPI-C")
-        func->VpiDPICStr(vpiDPIC);
-      else if (ctype == "DPI")
-        func->VpiDPICStr(vpiDPI);        
+      if (ctype == "DPI-C") {
+        if (func) func->VpiDPICStr(vpiDPIC);
+      } else if (ctype == "DPI") {
+        if (func) func->VpiDPICStr(vpiDPI);
+      }        
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
     }
     if (func_type == VObjectType::slContext_keyword) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiDPIContext(true);
+      if (func) func->VpiDPIContext(true);
     }
     if (func_type == VObjectType::slMethodQualifier_Virtual) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiVirtual(true);
+      if (func) func->VpiVirtual(true);
     }
     if (func_type == VObjectType::slLifetime_Automatic) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiAutomatic(true);
+      if (func) func->VpiAutomatic(true);
     }
     if (func_type == VObjectType::slClassItemQualifier_Protected) {
       is_protected = true;
-      func->VpiVisibility(vpiProtectedVis);
+      if (func) func->VpiVisibility(vpiProtectedVis);
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
     }
     if (func_type == VObjectType::slPure_virtual_qualifier) {
-      func->VpiDPIPure(true);
-      func->VpiVirtual(true);
+      if (func) func->VpiDPIPure(true);
+      if (func) func->VpiVirtual(true);
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
     }
     if (func_type == VObjectType::slExtern_qualifier) {
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
-      func->VpiAccessType(vpiExternAcc);
+      if (func) func->VpiAccessType(vpiExternAcc);
     }
     if (func_type == VObjectType::slMethodQualifier_ClassItem) {
       NodeId qualifier = fC->Child(func_decl);
@@ -1183,12 +1188,12 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
         // TODO: No VPI attribute for static!
       }
       if (type == VObjectType::slClassItemQualifier_Local) {
-        func->VpiVisibility(vpiLocalVis);
+        if (func) func->VpiVisibility(vpiLocalVis);
         is_local = true;
       }
       if (type == VObjectType::slClassItemQualifier_Protected) {
         is_protected = true;
-        func->VpiVisibility(vpiProtectedVis);
+        if (func) func->VpiVisibility(vpiProtectedVis);
       }
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
@@ -1196,7 +1201,7 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
 
   }
   if ((!is_local) && (!is_protected)) {
-    func->VpiVisibility(vpiPublicVis);
+    if (func) func->VpiVisibility(vpiPublicVis);
   }
   return func_decl;
 }
@@ -1210,15 +1215,14 @@ bool CompileHelper::compileTask(
     component->setTask_funcs(s.MakeTask_funcVec());
     task_funcs = component->getTask_funcs();
   }
-  UHDM::task* task = s.MakeTask();
-  NodeId task_decl = setFuncTaskQualifiers(fC, nodeId, task);
-  task->VpiMethod(isMethod);
-  task->VpiFile(fC->getFileName());
-  task->VpiLineNo(fC->Line(nodeId));
-  task_funcs->push_back(task);
-  NodeId Task_body_declaration = fC->Child(task_decl);
-  NodeId task_name = fC->Child(Task_body_declaration);
   std::string name;
+  NodeId task_decl = setFuncTaskQualifiers(fC, nodeId, nullptr);
+  NodeId Task_body_declaration = 0;
+  if (fC->Type(task_decl) == slTask_body_declaration)
+    Task_body_declaration = task_decl;
+  else 
+    Task_body_declaration = fC->Child(task_decl);
+  NodeId task_name = fC->Child(Task_body_declaration);
   if (fC->Type(task_name) == VObjectType::slStringConst)
     name = fC->SymName(task_name);
   else if (fC->Type(task_name) == VObjectType::slClass_scope) {
@@ -1227,7 +1231,25 @@ bool CompileHelper::compileTask(
     name += "::" + fC->SymName(fC->Sibling(task_name));
     task_name = fC->Sibling(task_name);
   }
-  task->VpiName(name);
+
+  UHDM::task* task = nullptr;
+  for (auto f : *component->getTask_funcs()) {
+    if (f->VpiName() == name) {
+      task = dynamic_cast<UHDM::task*> (f);
+      break;
+    }
+  }
+  if (task == nullptr) {
+    // make placeholder first
+    task = s.MakeTask();
+    task->VpiName(name);
+    task_funcs->push_back(task);
+    return true;
+  }
+  setFuncTaskQualifiers(fC, nodeId, task);
+  task->VpiMethod(isMethod);
+  task->VpiFile(fC->getFileName());
+  task->VpiLineNo(fC->Line(nodeId));
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null = 0;
   if (fC->Type(Tf_port_list) == slTf_port_list) {
@@ -1488,23 +1510,57 @@ bool CompileHelper::compileFunction(
     component->setTask_funcs(s.MakeTask_funcVec());
     task_funcs = component->getTask_funcs();
   }
-  UHDM::function* func = s.MakeFunction();
-  func->VpiMethod(isMethod);
-  task_funcs->push_back(func);
-  func->VpiFile(fC->getFileName());
-  func->VpiLineNo(fC->Line(nodeId));
-  NodeId func_decl = setFuncTaskQualifiers(fC, nodeId, func);
+  std::string name;
+  NodeId func_decl = setFuncTaskQualifiers(fC, nodeId, nullptr);
   VObjectType func_decl_type = fC->Type(func_decl);
   bool constructor = false;
   if (func_decl_type == slClass_constructor_declaration ||
       func_decl_type == slClass_constructor_prototype) {
     constructor = true;
   }
-  std::string name;
   NodeId Tf_port_list = 0;
   if (constructor) {
-    name = "new";
     Tf_port_list = fC->Child(func_decl);
+    name = "new";
+  } else {
+    NodeId Function_body_declaration = 0;
+    if (fC->Type(func_decl) == slFunction_body_declaration) 
+      Function_body_declaration = func_decl;
+    else 
+      Function_body_declaration = fC->Child(func_decl);
+    NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
+    NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
+    if (fC->Type(Function_name) == VObjectType::slStringConst) {
+      name = fC->SymName(Function_name);
+      Tf_port_list = fC->Sibling(Function_name);
+    } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
+      NodeId Class_type = fC->Child(Function_name);
+      name = fC->SymName(fC->Child(Class_type));
+      NodeId suffixname = fC->Sibling(Function_name);
+      name += "::" + fC->SymName(suffixname);
+      Tf_port_list = fC->Sibling(suffixname);
+    }
+  }
+  UHDM::function* func = nullptr;
+  for (auto f : *component->getTask_funcs()) {
+    if (f->VpiName() == name) {
+      func = dynamic_cast<UHDM::function*>(f);
+      break;
+    }
+  }
+  if (func == nullptr) {
+    // make placeholder first
+    func = s.MakeFunction();
+    func->VpiName(name);
+    task_funcs->push_back(func);
+    return true;
+  }
+  setFuncTaskQualifiers(fC, nodeId, func);
+  func->VpiMethod(isMethod);
+  func->VpiFile(fC->getFileName());
+  func->VpiLineNo(fC->Line(nodeId));
+
+  if (constructor) {
     UHDM::class_var* var = s.MakeClass_var();
     func->Return(var);
     UHDM::class_typespec* tps = s.MakeClass_typespec();
@@ -1528,20 +1584,8 @@ bool CompileHelper::compileFunction(
       var->VpiName("");
     }                    
     func->Return(var);
-    NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
-    if (fC->Type(Function_name) == VObjectType::slStringConst) {
-      name = fC->SymName(Function_name);
-      Tf_port_list = fC->Sibling(Function_name);
-    } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
-      NodeId Class_type = fC->Child(Function_name);
-      name = fC->SymName(fC->Child(Class_type));
-      NodeId suffixname = fC->Sibling(Function_name);
-      name += "::" + fC->SymName(suffixname);
-      Tf_port_list = fC->Sibling(suffixname);
-    }
   }
-  func->VpiName(name);
-
+  
   NodeId Function_statement_or_null = Tf_port_list;
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));

@@ -433,6 +433,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     funcName = fC->SymName(function_name);
 
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
   } else if (func_type == VObjectType::slTask_declaration) {
     /*
@@ -448,7 +449,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     taskName = fC->SymName(task_name);
   
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
-          
+    m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
+
   } else if (func_type == VObjectType::slMethod_prototype) {
     /*
      n<> u<65> t<IntVec_TypeBit> p<66> l<37>
@@ -464,6 +466,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       NodeId task_name = fC->Child(func_prototype);
       taskName = fC->SymName(task_name);
 
+      m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
       m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
 
     } else {
@@ -482,6 +485,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
       funcName = fC->SymName(function_name);
 
       m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
+      m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
     }
     is_extern = true;
@@ -495,7 +499,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     funcName = "new";
 
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
-
+    m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
+    
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
   }
