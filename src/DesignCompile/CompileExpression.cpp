@@ -974,14 +974,9 @@ bool substituteAssignedValue(param_assign* param, CompileDesign* compileDesign) 
     operation* op = (operation*)param->Rhs();
     int opType = op->VpiOpType();
     if (opType == vpiAssignmentPatternOp) {
-      bool verilatorMode = compileDesign->getCompiler()
-                               ->getCommandLineParser()
-                               ->getVerilatorMode();
-      if (verilatorMode) {
-        // Verilator does not support vpiAssignmentPatternOp assigned to
-        // parameters
-        substitute = false;
-      }
+      substitute = compileDesign->getCompiler()
+                                ->getCommandLineParser()
+                                ->getParametersSubstitution();
     }
   }
   return substitute;
