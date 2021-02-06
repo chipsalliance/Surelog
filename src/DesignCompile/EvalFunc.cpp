@@ -51,6 +51,8 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "DesignCompile/CompileDesign.h"
 #include "CommandLine/CommandLineParser.h"
+#include "Design/Parameter.h"
+#include "Design/ParamAssign.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -268,6 +270,13 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       break_flag = true;
       break;
     }
+    case uhdmoperation: {
+      operation* op = (operation*)stmt;
+      // ++, -- ops
+      reduceExpr(op, invalidValue, component, compileDesign, scopes.back(),
+                 fileName, lineNumber, nullptr);
+      break;
+    }
     default: {
       invalidValue = true;
       ErrorContainer* errors =
@@ -311,9 +320,14 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
         expr* ioexp = (expr*) args->at(index);
         unsigned long long val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
                                           compileDesign, instance, fileName, lineNumber, pexpr));
-        Value* argval = m_exprBuilder.getValueFactory().newLValue();
-        argval->set(val, Value::Type::Integer, 32);
-        scope->setValue(ioname,argval, m_exprBuilder);
+        if (invalidValue) {
+          scope->setComplexValue(ioname, ioexp);
+          invalidValue = false;
+        } else {
+          Value* argval = m_exprBuilder.getValueFactory().newLValue();
+          argval->set(val, Value::Type::Integer, 32);
+          scope->setValue(ioname,argval, m_exprBuilder);
+        }
       }
       index++;
     }
@@ -397,5 +411,31 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
     return c;
   } else {
     return nullptr;
+  }
+}
+
+void CompileHelper::evalScheduledExprs(DesignComponent* component,
+                                       CompileDesign* compileDesign) {
+  for (auto& nameEval : component->getScheduledParamExprEval()) {
+    const std::string& name = nameEval.first;
+    ExprEval& expr_eval = nameEval.second;
+    bool invalidValue = false;
+    expr* result =
+        reduceExpr(expr_eval.m_expr, invalidValue, component, compileDesign,
+                   expr_eval.m_instance, expr_eval.m_fileName,
+                   expr_eval.m_lineNumber, expr_eval.m_pexpr);
+    if (result && result->UhdmType() == uhdmconstant) {
+      UHDM::constant* c = (UHDM::constant*)result;
+      Value* val = m_exprBuilder.fromVpiValue(c->VpiValue());
+      component->setValue(name, val, m_exprBuilder);
+      for (ParamAssign* pass : component->getParamAssignVec()) {
+        if (param_assign* upass = pass->getUhdmParamAssign()) {
+          if (upass->Lhs()->VpiName() == name) {
+            upass->Rhs(result);
+            break;
+          }
+        }
+      }
+    }
   }
 }

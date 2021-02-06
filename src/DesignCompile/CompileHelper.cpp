@@ -1971,6 +1971,10 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
             UHDM::constant* c = (UHDM::constant*)expr;
             val = m_exprBuilder.fromVpiValue(c->VpiValue());
             component->setValue(the_name, val, m_exprBuilder);
+          } else if (reduce && (!isMultiDimension)) {  
+            UHDM::expr* the_expr = (UHDM::expr*) expr;
+            ExprEval expr_eval (the_expr, instance, fC->getFileName(), fC->Line(name), nullptr); 
+            component->scheduleParamExprEval(the_name, expr_eval);
           } else {
             val = m_exprBuilder.evalExpr(
                 fC, actual_value, component);  // This call to create an error

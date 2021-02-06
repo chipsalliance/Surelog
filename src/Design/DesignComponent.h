@@ -40,6 +40,18 @@ class Variable;
 class Parameter;
 class ParamAssign;
 
+class ExprEval {
+  public:
+  ExprEval(UHDM::expr* expr, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr) : 
+               m_expr(expr), m_instance(instance), m_fileName(fileName), m_lineNumber(lineNumber), m_pexpr(pexpr) {}
+  UHDM::expr* m_expr; 
+  ValuedComponentI* m_instance; 
+  std::string m_fileName;
+  int m_lineNumber;
+  UHDM::any* m_pexpr; 
+};
+
+
 class DesignComponent : public ValuedComponentI, public PortNetHolder {
  public:
   DesignComponent(const DesignComponent* parent,
@@ -118,6 +130,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
 
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
   UHDM::instance* getUhdmInstance() { return m_instance; }
+  void scheduleParamExprEval(const std::string& name, ExprEval& expr_eval) { m_scheduledParamExprEval.push_back(std::make_pair(name, expr_eval)); }
+  std::vector<std::pair<std::string, ExprEval>>& getScheduledParamExprEval() { return m_scheduledParamExprEval; }
 
  protected:
   std::vector<const FileContent*> m_fileContents;
@@ -142,6 +156,8 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   ParameterVec m_orderedParameters;
   ParamAssignVec m_paramAssigns;
   UHDM::instance* m_instance;
+  std::vector<std::pair<std::string, ExprEval>> m_scheduledParamExprEval;
+
 };
 
 };  // namespace SURELOG

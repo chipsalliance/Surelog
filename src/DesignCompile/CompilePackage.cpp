@@ -79,6 +79,7 @@ bool CompilePackage::compile() {
 
   collectObjects_(CollectType::FUNCTION);
   collectObjects_(CollectType::DEFINITION);
+  m_helper.evalScheduledExprs(m_package, m_compileDesign);
   collectObjects_(CollectType::OTHER);
 
   do {
