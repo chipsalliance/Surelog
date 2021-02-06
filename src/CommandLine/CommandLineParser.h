@@ -102,8 +102,7 @@ class CommandLineParser final {
   bool getDebugUhdm() { return m_dumpUhdm; }
   bool getElabUhdm() { return m_elabUhdm; }
   bool getCoverUhdm() { return m_coverUhdm; }
-  bool getVerilatorMode() { return m_verilator; }
-  bool getYosysMode() { return m_yosys; }
+  bool getParametersSubstitution() { return m_parametersubstitution; }
   bool showVpiIds() { return m_showVpiIDs; }
   bool getDebugInstanceTree() { return m_debugInstanceTree; }
   bool getDebugLibraryDef() { return m_debugLibraryDef; }
@@ -121,8 +120,7 @@ class CommandLineParser final {
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setCompile(bool val) { m_compile = val; }
   void setElaborate(bool val) { m_elaborate = val; }
-  void setVerilatorMode(bool val) { m_verilator = val; }
-  void setYosysMode(bool val) { m_yosys = val; }
+  void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
   void noPython() { m_pythonAllowed = false; }
@@ -205,8 +203,7 @@ class CommandLineParser final {
   bool m_parseOnly;
   bool m_compile;
   bool m_elaborate;
-  bool m_verilator;
-  bool m_yosys;
+  bool m_parametersubstitution;
   bool m_diff_comp_mode;
   bool m_help;
   bool m_cacheAllowed;
