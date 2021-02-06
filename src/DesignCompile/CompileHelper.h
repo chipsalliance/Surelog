@@ -45,6 +45,21 @@ class FScope : public ValuedComponentI {
  public:
   FScope(const SURELOG::ValuedComponentI *parent, SURELOG::ValuedComponentI *definition) : 
          ValuedComponentI(parent, definition) {}
+   void setComplexValue(const std::string& name, UHDM::expr* val) {
+      auto itr = m_complexValues.find(name);
+      if (itr != m_complexValues.end())
+        m_complexValues.erase(itr);
+      m_complexValues.insert(std::make_pair(name, val));
+   }
+   UHDM::expr* getComplexValue(const std::string& name) {
+     auto itr = m_complexValues.find(name);
+     if (itr != m_complexValues.end()) {
+       return (*itr).second;
+     }
+     return nullptr;
+   }
+ private:  
+   std::map<std::string, UHDM::expr*> m_complexValues;
 };
 
 typedef std::vector<FScope*> Scopes;
@@ -322,7 +337,9 @@ public:
 
   void EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, bool& continue_flag, bool& break_flag,
                 DesignComponent* component, CompileDesign* compileDesign,
-              ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);               
+              ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);     
+
+  void evalScheduledExprs(DesignComponent* component, CompileDesign* compileDesign);                     
 
  private:
   CompileHelper(const CompileHelper&) = delete;

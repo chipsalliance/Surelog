@@ -240,7 +240,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_ArithShiftRight:
     return vpiArithRShiftOp;
   case VObjectType::slIncDec_PlusPlus:
-		return vpiPostIncOp;
+    return vpiPostIncOp;
   case VObjectType::slIncDec_MinusMinus:
     return vpiPostDecOp;
   case VObjectType::slConditional_operator:

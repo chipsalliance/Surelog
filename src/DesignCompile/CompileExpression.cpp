@@ -228,6 +228,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         } else if (optype == uhdmoperation) {
         } else if (optype == uhdmsys_func_call) {
         } else if (optype == uhdmfunc_call) {
+        } else if (optype == uhdmbit_select) {  
         } else if (optype != uhdmconstant) {
           constantOperands = false;
           break;
@@ -268,6 +269,28 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
               result = c;
+            }
+            break;
+          }
+          case vpiPostIncOp:
+          case vpiPostDecOp:
+          case vpiPreDecOp:
+          case vpiPreIncOp: {
+            if (operands.size() == 1) {
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              uint64_t val = get_value(invalidValue, reduc0);
+              if (op->VpiOpType() == vpiPostIncOp || op->VpiOpType() == vpiPreIncOp) {
+                val++;
+              } else {
+                val--;
+              }
+              UHDM::constant* c = s.MakeConstant();
+              c->VpiValue("INT:" + std::to_string(val));
+              c->VpiDecompile(std::to_string(val));
+              result = c;
+              Value* argval = m_exprBuilder.getValueFactory().newLValue();
+              argval->set(val, Value::Type::Integer, 32);
+              instance->setValue(operands[0]->VpiName(),argval, m_exprBuilder);
             }
             break;
           }
@@ -907,7 +930,31 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         }
       }
     }
-
+  } else if (objtype == uhdmbit_select) {
+    bit_select* sel = (bit_select*) result;
+    const std::string& name = sel->VpiName();
+    const expr* index = sel->VpiIndex();
+    unsigned long long index_val = get_value(invalidValue, reduceExpr((expr*) index, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+    if (invalidValue == false) {
+      if (FScope* scope = dynamic_cast<FScope*> (instance)) {
+        expr* complex = scope->getComplexValue(name);
+        if (complex) {
+          UHDM_OBJECT_TYPE ctype = complex->UhdmType();
+          if (ctype == uhdmoperation) {
+            operation* op = (operation*) complex;
+            int opType = op->VpiOpType();
+            if (opType == vpiAssignmentPatternOp) {
+              VectorOfany* ops = op->Operands();
+              if (ops && (index_val < ops->size())) {
+                result = ops->at(index_val);
+              } else {
+                invalidValue = true;
+              }
+            }
+          } 
+        }
+      }
+    }    
   }
   return (expr*) result;
 }
