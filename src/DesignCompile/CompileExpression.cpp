@@ -762,7 +762,20 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             result = c;
             break;
           }
-          case vpiCastOp:
+          case vpiCastOp: {
+            uint64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+            const typespec* tps = op->Typespec();
+            if (tps) {
+              if (tps->UhdmType() == uhdmint_typespec) {
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string((int)val0));
+                c->VpiSize(32);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              }
+            }
+            break;
+          }
           case vpiAssignmentPatternOp:
           case vpiMultiAssignmentPatternOp:
             // Don't reduce these ops
@@ -1152,6 +1165,23 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       }
     }
   }
+  if (component && (result == nullptr)) {
+    for (auto tp : component->getTypeDefMap()) {
+      TypeDef* tpd = tp.second;
+      typespec* tps = tpd->getTypespec();
+      if (tps && tps->UhdmType() == uhdmenum_typespec) {
+        enum_typespec* etps = (enum_typespec*) tps;
+        for (auto n : *etps->Enum_consts()) {
+          if (n->VpiName() == name) {
+            UHDM::constant* c = s.MakeConstant();
+            c->VpiValue(n->VpiValue());
+            result = c;
+          }
+        }
+      }
+    }
+  }
+
   if (result) {
     if (result->UhdmType() == uhdmref_obj) {
       if (result->VpiName() != name) {
