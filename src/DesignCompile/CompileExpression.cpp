@@ -766,13 +766,37 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             uint64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
             const typespec* tps = op->Typespec();
             if (tps) {
-              if (tps->UhdmType() == uhdmint_typespec) {
+              UHDM_OBJECT_TYPE ttps = tps->UhdmType();
+              if (ttps == uhdmint_typespec) {
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string((int)val0));
                 c->VpiSize(32);
                 c->VpiConstType(vpiIntConst);
                 result = c;
+              } else if (ttps == uhdmlong_int_typespec) {
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string((long int)val0));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else if (ttps == uhdmshort_int_typespec) {
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string((short int)val0));
+                c->VpiSize(16);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else if (ttps == uhdminteger_typespec) {
+                integer_typespec* itps = (integer_typespec*) tps;
+                long long cast_to = std::strtoll(itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
+                UHDM::constant* c = s.MakeConstant();
+                long long mask = (1 << cast_to) - 1;
+                long long res = val0 & mask;
+                c->VpiValue("INT:" + std::to_string(res));
+                c->VpiSize(cast_to);
+                c->VpiConstType(vpiIntConst);
+                result = c;
               }
+
             }
             break;
           }
@@ -860,7 +884,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
       bool invalidValue = false;  
       for (auto arg : *scall->Tf_call_args()) {
         int clog2 = 0;
-        unsigned long long val = get_value(invalidValue, reduceExpr(arg, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+        uint64_t val = get_value(invalidValue, reduceExpr(arg, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
         if (val) {
           val = val - 1;
           for (; val > 0; clog2 = clog2 + 1) {
@@ -907,15 +931,24 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
     hier_path* path = (hier_path*) result;
     std::string base;
     std::string select;
+    UHDM_OBJECT_TYPE baseType = uhdmunsupported_typespec;
+    uint64_t baseIndex = 0;
     for (auto elem : *path->Path_elems()) {
       if (base == "") {
         base = elem->VpiName();
+        baseType = elem->UhdmType();
+        if (baseType == uhdmbit_select) {
+          bit_select* select = (bit_select*) elem;
+          baseIndex = get_value(invalidValue, reduceExpr((any*) select->VpiIndex(), invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+        }
       } else if (select == "") {
         select = elem->VpiName();
       } 
     }
     any* object = getObject(base, component, compileDesign, instance, pexpr);
-
+    if (object == nullptr) {
+      object = getValue(base, component, compileDesign, instance, fileName, lineNumber, pexpr);
+    }
     if (object) {
       if (variables* var = dynamic_cast<variables*> (object)) {
         UHDM_OBJECT_TYPE ttps = var->UhdmType();
@@ -939,6 +972,46 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 return  (expr*) member->Default_value();
               }
             }
+          }
+        }
+      } else if (operation* oper = dynamic_cast<operation*> (object)) {
+        int opType = oper->VpiOpType();
+        if (opType == vpiAssignmentPatternOp) {
+          VectorOfany* operands = oper->Operands();
+          unsigned int ind = 0;
+          for (auto operand : *operands) {
+            UHDM_OBJECT_TYPE operandType = operand->UhdmType();
+            if (operandType == uhdmtagged_pattern) {
+              // PartInfo.select
+              tagged_pattern* tpatt = (tagged_pattern*) operand;
+              const typespec* tps = tpatt->Typespec();
+              if (tps->VpiName() == select) {
+                const any* patt = tpatt->Pattern();
+                if (patt->UhdmType() == uhdmconstant) {
+                  return (expr*) patt;
+                }
+              }
+            } else if (operandType == uhdmoperation) {
+              // PartInfo[k].select
+              operation* op = (operation*) operand;
+              if ((baseType == uhdmbit_select) && (ind == baseIndex)) {
+                VectorOfany* operands = op->Operands();
+                for (auto operand : *operands) {
+                  UHDM_OBJECT_TYPE operandType = operand->UhdmType();
+                  if (operandType == uhdmtagged_pattern) {
+                    tagged_pattern* tpatt = (tagged_pattern*)operand;
+                    const typespec* tps = tpatt->Typespec();
+                    if (tps->VpiName() == select) {
+                      const any* patt = tpatt->Pattern();
+                      if (patt->UhdmType() == uhdmconstant) {
+                        return (expr*)patt;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            ind++;
           }
         }
       }
@@ -2435,37 +2508,42 @@ UHDM::any* CompileHelper::compileExpression(
             NodeId Class_type_name = fC->Child(Class_type);
             NodeId Class_scope_name = fC->Sibling(Dollar_keyword);
             name = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
-          }          
-          bool invalidValue = false;
-          UHDM::func_call* fcall = s.MakeFunc_call();
-          fcall->VpiName(name);
-          function* func = dynamic_cast<function*> (getTaskFunc(name, component, compileDesign, pexpr));
-          fcall->Function(func);
-          VectorOfany* args = compileTfCallArguments(
-                component, fC, List_of_arguments, compileDesign, fcall, instance, reduce);
-          if (reduce) {
-            const std::string& fileName = fC->getFileName();
-            int lineNumber = fC->Line(nameId);
-            if (func == nullptr) {
-              ErrorContainer* errors =
-                  compileDesign->getCompiler()->getErrorContainer();
-              SymbolTable* symbols =
-                  compileDesign->getCompiler()->getSymbolTable();
-              Location loc(symbols->registerSymbol(fileName),
-                           lineNumber, 0,
-                           symbols->registerSymbol(name));
-              Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
-              errors->addError(err);
-            }
-            result =
-                EvalFunc(func, args, invalidValue, component, compileDesign,
-                         instance, fileName, lineNumber, pexpr);
           } 
-          if (result == nullptr || invalidValue == true) {
-            fcall->Tf_call_args(args);
-            result = fcall;
+          NodeId Select = fC->Sibling(Dollar_keyword);
+          if (fC->Type(Select) == slConstant_bit_select || fC->Type(Select) == slBit_select) {            
+            result = compileExpression(component, fC, Dollar_keyword, compileDesign, pexpr, instance, reduce);
+          } else {
+            bool invalidValue = false;
+            UHDM::func_call* fcall = s.MakeFunc_call();
+            fcall->VpiName(name);
+            function* func = dynamic_cast<function*>(
+                getTaskFunc(name, component, compileDesign, pexpr));
+            fcall->Function(func);
+            VectorOfany* args =
+                compileTfCallArguments(component, fC, List_of_arguments,
+                                       compileDesign, fcall, instance, reduce);
+            if (reduce) {
+              const std::string& fileName = fC->getFileName();
+              int lineNumber = fC->Line(nameId);
+              if (func == nullptr) {
+                ErrorContainer* errors =
+                    compileDesign->getCompiler()->getErrorContainer();
+                SymbolTable* symbols =
+                    compileDesign->getCompiler()->getSymbolTable();
+                Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
+                             symbols->registerSymbol(name));
+                Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
+                errors->addError(err);
+              }
+              result =
+                  EvalFunc(func, args, invalidValue, component, compileDesign,
+                           instance, fileName, lineNumber, pexpr);
+            }
+            if (result == nullptr || invalidValue == true) {
+              fcall->Tf_call_args(args);
+              result = fcall;
+            }
           }
-        
         } else {
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName("$" + name);
@@ -2566,7 +2644,8 @@ UHDM::any* CompileHelper::compileExpression(
         path->Path_elems(elems);
         bool is_hierarchical = false;
         while (dotedName) {
-          if (fC->Type(dotedName) == VObjectType::slStringConst) {
+          VObjectType dtype = fC->Type(dotedName);
+          if (dtype == VObjectType::slStringConst) {
             name += "." + fC->SymName(dotedName);
             if (tmpName != "") {
               ref_obj* ref = s.MakeRef_obj();
@@ -2577,7 +2656,7 @@ UHDM::any* CompileHelper::compileExpression(
               is_hierarchical = true;
             }
             tmpName = fC->SymName(dotedName);
-          } else if (fC->Type(dotedName) == VObjectType::slSelect) {
+          } else if (dtype == VObjectType::slSelect || dtype == VObjectType::slConstant_bit_select) {
             std::string ind;
             NodeId Bit_select = fC->Child(dotedName);
             NodeId Expression = fC->Child(Bit_select);
@@ -2631,8 +2710,9 @@ UHDM::any* CompileHelper::compileExpression(
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {
           NodeId op = fC->Sibling(parent);
-          if (op && (fC->Type(op) != VObjectType::slStringConst) && (fC->Type(op) != VObjectType::slExpression)) {
-            VObjectType opType = fC->Type(op);
+          VObjectType opType = fC->Type(op);
+          if (op && (opType != VObjectType::slStringConst) && (opType != VObjectType::slExpression) 
+                 && (opType != VObjectType::slBit_select) && (opType != VObjectType::slConstant_bit_select)) {
             unsigned int vopType = UhdmWriter::getVpiOpType(opType);
             if (vopType) {
               UHDM::operation* operation = s.MakeOperation();
@@ -3066,7 +3146,8 @@ unsigned int CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue, 
         break;
       }
       case UHDM::uhdminteger_typespec: {
-        bits = 32;
+        integer_typespec* itps = (integer_typespec*) typespec;  
+        bits = std::strtoll(itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
         break;
       }
       case UHDM::uhdmbit_typespec: {
@@ -3842,6 +3923,33 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       path->VpiFullName(fullName);
       path->VpiParent(pexpr);
       result = path;
+    } else if (UHDM::any* st = getValue(sval, component, compileDesign, instance, fC->getFileName(), fC->Line(Bit_select), pexpr)) {
+      UHDM_OBJECT_TYPE type = st->UhdmType();
+      NodeId Select = dotedName;
+      if (NodeId Bit_select = fC->Child(Select)) {
+        if (NodeId Expression = fC->Child(Bit_select)) {
+          expr* index = (expr*)compileExpression(
+              component, fC, Expression, compileDesign, pexpr, instance, true);
+          if (index && index->UhdmType() == uhdmconstant) {
+            bool invalidValue = false;
+            uint64_t ind = get_value(invalidValue, index);
+            if (invalidValue == false && type == uhdmoperation) {
+              operation* op = (operation*)st;
+              int opType = op->VpiOpType();
+              if (opType == vpiAssignmentPatternOp) {
+                VectorOfany* operands = op->Operands();
+                if (ind < operands->size()) {
+                  result = operands->at(ind);
+                }
+              }
+            }
+          }
+        }
+      }
+      if (result == nullptr) {
+        result = compileSelectExpression(component, fC, Bit_select, sval,
+                                       compileDesign, pexpr, instance, reduce);
+      }
     } else {
       result = compileSelectExpression(component, fC, Bit_select, sval,
                                        compileDesign, pexpr, instance, reduce);
