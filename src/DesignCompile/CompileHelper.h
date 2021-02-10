@@ -313,7 +313,7 @@ public:
                CompileDesign* compileDesign, ValuedComponentI* instance, 
                const std::string& fileName, int lineNumber, UHDM::any* pexpr);
 
-  bool isMultidimensional(UHDM::typespec* ts);
+  bool isMultidimensional(UHDM::typespec* ts, DesignComponent* component);
 
   unsigned long long get_value(bool& invalidValue, const UHDM::expr* expr);
 

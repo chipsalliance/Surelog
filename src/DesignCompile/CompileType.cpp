@@ -887,6 +887,15 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         result = var;
+      } else if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr)) {
+        constant* c = dynamic_cast<constant*> (cast_to);
+        if (c) {
+          integer_typespec* var = s.MakeInteger_typespec();
+          var->VpiValue(c->VpiValue());
+          var->VpiFile(fC->getFileName());
+          var->VpiLineNo(fC->Line(type));
+          result = var;
+        }
       } else {
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);

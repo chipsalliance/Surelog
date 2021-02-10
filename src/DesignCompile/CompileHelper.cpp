@@ -1826,13 +1826,17 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
   return true;
 }
 
-bool CompileHelper::isMultidimensional(UHDM::typespec* ts) {
+bool CompileHelper::isMultidimensional(UHDM::typespec* ts, DesignComponent* component) {
   bool isMultiDimension = false;
   if (ts) {
     UHDM_OBJECT_TYPE ttps = ts->UhdmType();
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+      if (component && dynamic_cast<Package*> (component)) {
+        if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+      } else {
+        if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
+      }
     } else if (ttps == uhdmarray_typespec) {
       array_typespec* lts = (array_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
@@ -1948,7 +1952,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
           isSigned = true;
       }
 
-      bool isMultiDimension = isMultidimensional(ts);
+      bool isMultiDimension = isMultidimensional(ts, component);
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);

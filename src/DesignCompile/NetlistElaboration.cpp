@@ -140,11 +140,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
     if (mod_assign) {
       const any* rhs = mod_assign->Rhs();
       if (rhs && rhs->UhdmType() == uhdmoperation) {
-        // Don't reduce these operations
         operation* op = (operation*)rhs;
         int opType = op->VpiOpType();
-        if (opType == vpiAssignmentPatternOp || opType == vpiCastOp /*||
-            opType == vpiConcatOp*/ || opType == vpiMultiAssignmentPatternOp) {
+        if (opType == vpiCastOp) {
+          isMultidimensional = false;
+        }
+        // Don't reduce these operations
+        if (opType == vpiAssignmentPatternOp || opType == vpiMultiAssignmentPatternOp) {
           assigns->push_back(mod_assign);
           continue;
         }
