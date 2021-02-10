@@ -270,8 +270,6 @@ n<> u<239> t<Top_level_rule> l<1>
 
 [NTE:EL0503] dut.sv:43: Top level module "work@top".
 
-[ERR:EL0531] dut.sv:38: Negative value in instance work@top.u_otp_ctrl_lci (0 - 1).
-
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 2.
@@ -1052,32 +1050,11 @@ design: (work@top)
       |vpiRange:
       \_range: , line:38
         |vpiLeftRange:
-        \_operation: , line:38
-          |vpiOpType:11
-          |vpiOperand:
-          \_operation: , line:38
-            |vpiOpType:23
-            |vpiOperand:
-            \_hier_path: (Info.size), line:36
-              |vpiName:Info.size
-              |vpiActual:
-              \_ref_obj: (Info), parent:Info.size
-                |vpiName:Info
-              |vpiActual:
-              \_ref_obj: (size), parent:Info.size
-                |vpiName:size
-            |vpiOperand:
-            \_constant: , line:36
-              |vpiConstType:7
-              |vpiDecompile:1
-              |vpiSize:32
-              |INT:1
-          |vpiOperand:
-          \_constant: , line:38
-            |vpiConstType:7
-            |vpiDecompile:1
-            |vpiSize:32
-            |INT:1
+        \_constant: , line:38
+          |vpiConstType:7
+          |vpiDecompile:27
+          |vpiSize:64
+          |INT:27
         |vpiRightRange:
         \_constant: , line:38
           |vpiConstType:7
@@ -1205,28 +1182,15 @@ design: (work@top)
     |vpiParamAssign:
     \_param_assign: , line:36, parent:work@top.u_otp_ctrl_lci
       |vpiRhs:
-      \_operation: , line:36
-        |vpiOpType:23
-        |vpiOperand:
-        \_hier_path: (Info.size), line:36
-          |vpiName:Info.size
-          |vpiActual:
-          \_ref_obj: (Info)
-            |vpiName:Info
-          |vpiActual:
-          \_ref_obj: (size)
-            |vpiName:size
-        |vpiOperand:
-        \_constant: , line:36
-          |vpiConstType:7
-          |vpiDecompile:1
-          |vpiSize:32
-          |INT:1
+      \_constant: , line:36
+        |vpiDecompile:28
+        |INT:28
       |vpiLhs:
       \_parameter: (work@top.u_otp_ctrl_lci.NumLcOtpWords), line:36, parent:work@top.u_otp_ctrl_lci
         |vpiName:NumLcOtpWords
         |vpiFullName:work@top.u_otp_ctrl_lci.NumLcOtpWords
         |vpiLocalParam:1
+        |INT:28
         |vpiTypespec:
         \_int_typespec: (NumLcOtpWords), line:36, parent:work@top.u_otp_ctrl_lci.NumLcOtpWords
           |vpiName:NumLcOtpWords
@@ -1404,7 +1368,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 4
 [   NOTE] : 5
 
