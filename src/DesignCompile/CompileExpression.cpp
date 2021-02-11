@@ -855,13 +855,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                       if (memb->VpiName() == suffix) {
                         const typespec* tps = memb->Typespec();
                         if (tps) {
-                          DesignComponent* comp = component;
-                          if (const UHDM::instance* inst = tps->Instance()) {
-                            if (Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(inst->VpiName())) {
-                              comp = pack;
-                            }
-                          }
-                          bits += Bits(tps, invalidValue, comp, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
+                          bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
                           found = true;
                         }
                         break;
@@ -3117,6 +3111,18 @@ UHDM::any* CompileHelper::compilePartSelectRange(
 unsigned int CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode) {
   unsigned int bits = 0;
+  if (typespec) {
+    const UHDM::typespec* tps = dynamic_cast<const UHDM::typespec*>(typespec);
+    if (tps) {
+      if (const UHDM::instance* inst = tps->Instance()) {
+        if (Package* pack =
+                compileDesign->getCompiler()->getDesign()->getPackage(
+                    inst->VpiName())) {
+          component = pack;
+        }
+      }
+    }
+  }
   UHDM::VectorOfrange* ranges = nullptr;
   if (typespec) {
     UHDM_OBJECT_TYPE ttps = typespec->UhdmType();
@@ -3425,7 +3431,20 @@ const typespec* CompileHelper::getTypespec(
         }
       }
     }
+  } else {
+    if (suffixname.size()) {
+      if (result && (result->UhdmType() == uhdmstruct_typespec)) {
+        struct_typespec* tpss = (struct_typespec*)result;
+        for (typespec_member* memb : *tpss->Members()) {
+          if (memb->VpiName() == suffixname) {
+            result = memb->Typespec();
+            break;
+          }
+        }
+      }
+    }
   }
+
   /*
   if (result == nullptr) {
     ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
