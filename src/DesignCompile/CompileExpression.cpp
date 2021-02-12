@@ -760,6 +760,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   cval += NumUtils::toBinary(size, iv);
                   break;
                 }
+                default: {
+                  long long iv =
+                      std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+                  cval += NumUtils::toBinary(size, iv);
+                  break;
+                }
               }
             }
             c->VpiValue("BIN:" + cval);
@@ -4011,3 +4017,44 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
   return result;
 }
 
+uint64_t CompileHelper::getValue(DesignComponent* component,
+                                 const FileContent* fC, NodeId nodeId,
+                                 CompileDesign* compileDesign,
+                                 UHDM::any* pexpr,
+                                 ValuedComponentI* instance) {
+  uint64_t result = 0;
+  UHDM::any* expr = compileExpression(component, fC, nodeId, compileDesign,
+                                          pexpr, instance, true);
+  if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
+    UHDM::constant* c = (UHDM::constant*)expr;
+    const std::string& v = c->VpiValue();
+    int type = c->VpiConstType();
+    switch (type) {
+      case vpiBinaryConst: {
+        result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
+        break;
+      }
+      case vpiDecConst: {
+        result = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+        break;
+      }
+      case vpiHexConst: {
+        result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
+        break;
+      }
+      case vpiOctConst: {
+        result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+        break;
+      }
+      case vpiIntConst: {
+        result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        break;
+      }
+      default: {
+        result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        break;
+      }
+    }
+  }
+  return result;
+}
