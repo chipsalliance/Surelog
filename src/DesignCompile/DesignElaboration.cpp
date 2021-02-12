@@ -840,8 +840,14 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         if (fC->Type(conditionId) != VObjectType::slConstant_expression) {
           conditionId = fC->Child(conditionId);
         }
-        Value* condValue = m_exprBuilder.evalExpr(fC, conditionId, parent);
-        long condVal = condValue->getValueUL();
+        uint64_t condVal = 0;
+        UHDM::any* condExpr = m_helper.compileExpression(def, fC, conditionId, m_compileDesign, nullptr, parent, true); 
+        if (condExpr && condExpr->UhdmType() == UHDM::uhdmconstant) {
+          UHDM::constant* c = (UHDM::constant*) condExpr;
+          const std::string& v = c->VpiValue();
+          condVal = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        }
+
         //m_exprBuilder.deleteValue(condValue);
         NodeId tmp = fC->Sibling(conditionId);
 
@@ -857,7 +863,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                 Value* caseValue = m_exprBuilder.evalExpr(fC, exprItem, parent);
-                long caseVal = caseValue->getValueUL();
+                uint64_t caseVal = caseValue->getValueUL();
                 //m_exprBuilder.deleteValue(caseValue);
                 if (condVal == caseVal) {
                   nomatch = false;
