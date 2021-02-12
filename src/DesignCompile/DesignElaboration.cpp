@@ -840,8 +840,6 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         if (fC->Type(conditionId) != VObjectType::slConstant_expression) {
           conditionId = fC->Child(conditionId);
         }
-       // Value* condValue = m_exprBuilder.evalExpr(fC, conditionId, parent);
-        //long condVal = condValue->getValueUL();
         uint64_t condVal = 0;
         UHDM::any* condExpr = m_helper.compileExpression(def, fC, conditionId, m_compileDesign, nullptr, parent, true); 
         if (condExpr && condExpr->UhdmType() == UHDM::uhdmconstant) {
