@@ -257,7 +257,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
               expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
               bool arg0isString = getStringVal(s0, reduc0);
-              bool arg1isString = getStringVal(s1, reduc0);
+              bool arg1isString = getStringVal(s1, reduc1);
               uint64_t val = 0;
               if ( arg0isString && arg1isString) {
                 val = (s0 == s1);
@@ -301,7 +301,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
               expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
               bool arg0isString = getStringVal(s0, reduc0);
-              bool arg1isString = getStringVal(s1, reduc0);
+              bool arg1isString = getStringVal(s1, reduc1);
               uint64_t val = 0;
               if ( arg0isString && arg1isString) {
                 val = (s0 != s1);
@@ -754,6 +754,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   cval += NumUtils::toBinary(size, iv);
                   break;
                 }
+                case vpiIntConst: {
+                  long long iv =
+                      std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+                  cval += NumUtils::toBinary(size, iv);
+                  break;
+                }
               }
             }
             c->VpiValue("BIN:" + cval);
@@ -1018,6 +1024,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
     if (invalidValue == false) {
       if (FScope* scope = dynamic_cast<FScope*> (instance)) {
         expr* complex = scope->getComplexValue(name);
+        if (complex == nullptr) {
+          complex = (expr*) getObject(name, component, compileDesign, instance, pexpr);
+        }
+        if (complex == nullptr) {
+         complex = (expr*) getValue(name, component, compileDesign, instance, fileName, lineNumber, pexpr);
+        }
         if (complex) {
           UHDM_OBJECT_TYPE ctype = complex->UhdmType();
           if (ctype == uhdmoperation) {
@@ -1032,6 +1044,26 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               }
             }
           } 
+        }
+      } else if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
+        any* object = getObject(name, component, compileDesign, inst, pexpr);
+        if (object == nullptr) {
+         object = getValue(name, component, compileDesign, inst, fileName, lineNumber, pexpr);
+        }
+        if (object) {
+          UHDM_OBJECT_TYPE otype = object->UhdmType();
+          if (otype == uhdmoperation) {
+            operation* op = (operation*) object;
+            int opType = op->VpiOpType();
+            if (opType == vpiAssignmentPatternOp) {
+              VectorOfany* ops = op->Operands();
+              if (ops && (index_val < ops->size())) {
+                result = ops->at(index_val);
+              } else {
+                invalidValue = true;
+              }
+            }
+          }
         }
       }
     }    
