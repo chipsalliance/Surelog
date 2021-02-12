@@ -337,9 +337,14 @@ public:
 
   void EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, bool& continue_flag, bool& break_flag,
                 DesignComponent* component, CompileDesign* compileDesign,
-              ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);     
+                ValuedComponentI* instance, const std::string& fileName, int lineNumber, const UHDM::any* stmt);     
 
   void evalScheduledExprs(DesignComponent* component, CompileDesign* compileDesign);                     
+
+  uint64_t getValue(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+			  CompileDesign* compileDesign,
+                    UHDM::any* pexpr = NULL,
+                    ValuedComponentI* instance = NULL);
 
  private:
   CompileHelper(const CompileHelper&) = delete;
