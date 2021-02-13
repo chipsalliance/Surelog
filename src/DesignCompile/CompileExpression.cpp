@@ -2446,9 +2446,7 @@ UHDM::any* CompileHelper::compileExpression(
         } else {
           Stream_concatenation = Slice_size;
         }
-
-        NodeId Stream_expression = fC->Child(Stream_concatenation);
-        NodeId Expression = fC->Child(Stream_expression);
+ 
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         operation->Attributes(attributes);
@@ -2459,12 +2457,25 @@ UHDM::any* CompileHelper::compileExpression(
           operation->VpiOpType(vpiStreamLROp);
         else
           operation->VpiOpType(vpiStreamRLOp);
-
         if (exp_slice)
           operands->push_back(exp_slice);
-        UHDM::any* exp_var = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
-        if (exp_var)
-          operands->push_back(exp_var);
+
+        UHDM::operation* concat_op = s.MakeOperation();
+        UHDM::VectorOfany* concat_ops = s.MakeAnyVec();
+        operands->push_back(concat_op);
+        concat_op->VpiParent(operation);
+        concat_op->Operands(concat_ops);
+        concat_op->VpiOpType(vpiConcatOp);
+
+        NodeId Stream_expression = fC->Child(Stream_concatenation);
+        while (Stream_expression) {
+          NodeId Expression = fC->Child(Stream_expression);
+          UHDM::any* exp_var =
+              compileExpression(component, fC, Expression, compileDesign, pexpr,
+                                instance, reduce);
+          if (exp_var) concat_ops->push_back(exp_var);
+          Stream_expression = fC->Sibling(Stream_expression);
+        }
         break;
       }
       case VObjectType::slEmpty_queue: {

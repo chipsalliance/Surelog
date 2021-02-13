@@ -332,6 +332,25 @@
             ]
         }, 
         {
+            "name": "SimpleIncludeAndMacros",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "SimpleIncludeAndMacros.sl", "-elabuhdm", "-d", "uhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleIncludeAndMacros",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }, 
+        {
             "name": "ConcatVal",
             "type": "cppdbg",
             "request": "launch",
