@@ -774,13 +774,10 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         // Generate block
         NodeId genBlock = fC->Sibling(iteration);
 
-        bool cont = true;
-        Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
-        cont = testCond->getValueUL();
-        if (!testCond->isValid()) {
-          cont = false;
-        }
-        //m_exprBuilder.deleteValue(testCond);
+        bool validValue;
+        uint64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
+        bool cont = (validValue && (condVal > 0));
+
         while (cont) {
           Value* currentIndexValue = parent->getValue(name, m_exprBuilder);
           long currVal = currentIndexValue->getValueUL();
@@ -839,7 +836,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         if (fC->Type(conditionId) != VObjectType::slConstant_expression) {
           conditionId = fC->Child(conditionId);
         }
-        uint64_t condVal = m_helper.getValue(def, fC, conditionId, m_compileDesign, nullptr, parent); 
+        bool validValue;
+        uint64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent); 
 
         NodeId tmp = fC->Sibling(conditionId);
 
@@ -854,7 +852,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
             while (nomatch) {
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
-                uint64_t caseVal = m_helper.getValue(def, fC, exprItem, m_compileDesign, nullptr, parent); 
+                bool validValue;
+                uint64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent); 
                 
                 if (condVal == caseVal) {
                   nomatch = false;
@@ -911,7 +910,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId If_generate_construct  = fC->Child(Conditional_generate_construct);
                 NodeId Cond = fC->Child(If_generate_construct);
                 if (fC->Type(Cond) == VObjectType::slConstant_expression) {
-                  condVal  = m_helper.getValue(def, fC, Cond, m_compileDesign, nullptr, parent); 
+                  bool validValue;
+                  condVal  = m_helper.getValue(validValue, def, fC, Cond, m_compileDesign, nullptr, parent); 
                 } else {
                   // It is not an else-if
                   condVal = true;
@@ -1192,10 +1192,11 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId constantRangeId = fC->Child(unpackedDimId);
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
-                uint64_t left = m_helper.getValue(def, fC, leftNode, m_compileDesign, nullptr, parent);
+                bool validValue;
+                uint64_t left = m_helper.getValue(validValue, def, fC, leftNode, m_compileDesign, nullptr, parent);
                 uint64_t right = 0;
                 if (rightNode)
-                  right = m_helper.getValue(def, fC, rightNode, m_compileDesign, nullptr, parent);
+                  right = m_helper.getValue(validValue, def, fC, rightNode, m_compileDesign, nullptr, parent);
                 if (left < right) {
                   from.push_back(left);
                   to.push_back(right);
