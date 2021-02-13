@@ -4028,12 +4028,13 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
   return result;
 }
 
-uint64_t CompileHelper::getValue(DesignComponent* component,
+uint64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
                                  const FileContent* fC, NodeId nodeId,
                                  CompileDesign* compileDesign,
                                  UHDM::any* pexpr,
                                  ValuedComponentI* instance) {
   uint64_t result = 0;
+  validValue = true;
   UHDM::any* expr = compileExpression(component, fC, nodeId, compileDesign,
                                           pexpr, instance, true);
   if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
@@ -4066,6 +4067,8 @@ uint64_t CompileHelper::getValue(DesignComponent* component,
         break;
       }
     }
+  } else {
+    validValue = false;
   }
   return result;
 }

@@ -341,7 +341,7 @@ public:
 
   void evalScheduledExprs(DesignComponent* component, CompileDesign* compileDesign);                     
 
-  uint64_t getValue(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+  uint64_t getValue(bool& validValue, DesignComponent* component, const FileContent* fC, NodeId nodeId,
 			  CompileDesign* compileDesign,
                     UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
