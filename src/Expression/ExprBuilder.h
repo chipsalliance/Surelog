@@ -51,7 +51,7 @@ class ExprBuilder final {
   void setDesign(Design* design) { m_design = design; }
   void deleteValue(Value* value) { m_valueFactory.deleteValue(value); }
   ValueFactory& getValueFactory() { return m_valueFactory; }
-
+  static bool unitTest();
  private:
   ExprBuilder(const ExprBuilder& orig) = delete;
 

@@ -44,7 +44,7 @@ bool LValue::operator<(const Value& rhs) const {
   if (!isValid() || !rhs.isValid()) 
     return false;
   for (unsigned int i = 0; i < m_nbWords; i++) {
-    if (getValueUL(i) >= rhs.getValueUL(i))
+    if (getValueL(i) >= rhs.getValueL(i))
       return false;
   }
   return true;
@@ -52,11 +52,11 @@ bool LValue::operator<(const Value& rhs) const {
 
 bool LValue::operator==(const Value& rhs) const {
   if (!isValid() || !rhs.isValid()) 
-    return false;
+    return false;  
   if (getNbWords() != rhs.getNbWords())
     return false;
   for (unsigned int i = 0; i < m_nbWords; i++) {
-    if (getValueUL(i) != rhs.getValueUL(i))
+    if (getValueL(i) != rhs.getValueL(i))
       return false;
   }  
   return true;
@@ -154,24 +154,34 @@ void ValueFactory::deleteValue(Value* value) {
 }
 
 void SValue::set(uint64_t val) {
-  m_value = val;
+  m_value = (int64_t)val;
   m_size = 64;
   m_valid = 1;
+  m_negative = 0;
 }
 void SValue::set(int64_t val) {
   m_value = val;
   m_size = 64;
   m_valid = 1;
+  if (val < 0)
+    m_negative = 1;
+  else 
+    m_negative = 0;
 }
 void SValue::set(double val) {
-  m_value = (uint64_t)val;
+  m_value = (int64_t)val;
   m_size = 64;
   m_valid = 1;
+  if (val < 0)
+    m_negative = 1;
+  else 
+    m_negative = 0;
 }
-void SValue::set(uint64_t val, Type type, unsigned short size) {
+void SValue::set(int64_t val, Type type, unsigned short size) {
   m_value = val;
   m_size = size;
   m_valid = 1;
+  m_negative = 0;
 }
 
 void SValue::u_plus(const Value* a) {
@@ -179,16 +189,26 @@ void SValue::u_plus(const Value* a) {
   m_size = aval->m_size;
   m_value = aval->m_value;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
-void SValue::incr() { m_value++; }
+void SValue::incr() {
+  m_value++; 
+  if (m_value == 0)
+    m_negative = false;
+}
 
-void SValue::decr() { m_value--; }
+void SValue::decr() { 
+ if (m_value == 0)
+    m_negative = true;
+  m_value--; 
+}
 
 void SValue::u_minus(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
   m_value = -aval->m_value;
+  m_negative = true; 
   m_valid = a->isValid();
 }
 
@@ -208,7 +228,8 @@ std::string SValue::uhdmValue() {
 }
 
 std::string SValue::decompiledValue() {
-  std::string result = std::to_string(m_value);
+  std::string result;
+  result += std::to_string(m_value);
   return result;
 }
 
@@ -217,6 +238,7 @@ void SValue::u_not(const Value* a) {
   m_size = aval->m_size;  
   m_value = !aval->m_value;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_tilda(const Value* a) {
@@ -224,6 +246,7 @@ void SValue::u_tilda(const Value* a) {
   m_size = aval->m_size; 
   m_value = ~aval->m_value;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwAnd(const Value* a) {
@@ -236,6 +259,7 @@ void SValue::u_bitwAnd(const Value* a) {
   }
   m_value = res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwNand(const Value* a) {
@@ -248,6 +272,7 @@ void SValue::u_bitwNand(const Value* a) {
   }
   m_value = ~res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwOr(const Value* a) {
@@ -260,6 +285,7 @@ void SValue::u_bitwOr(const Value* a) {
   }
   m_value = res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwNor(const Value* a) {
@@ -272,6 +298,7 @@ void SValue::u_bitwNor(const Value* a) {
   }
   m_value = ~res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwXor(const Value* a) {
@@ -284,6 +311,7 @@ void SValue::u_bitwXor(const Value* a) {
   }
   m_value = res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::u_bitwXnor(const Value* a) {
@@ -296,12 +324,17 @@ void SValue::u_bitwXnor(const Value* a) {
   }
   m_value = ~res;
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void SValue::plus(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  if ((aval->m_value + bval->m_value) > 0) 
+    m_negative = 0;
+  else 
+    m_negative = 1;  
   m_value = aval->m_value + bval->m_value;
   m_valid = a->isValid() && b->isValid();
 }
@@ -310,6 +343,10 @@ void SValue::minus(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  if ((aval->m_value - bval->m_value) > 0) 
+    m_negative = 0;
+  else 
+    m_negative = 1;  
   m_value = aval->m_value - bval->m_value;
   m_valid = a->isValid() && b->isValid();
 }
@@ -318,6 +355,7 @@ void SValue::mult(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_negative = aval->m_negative ^ bval->m_negative;
   m_value = aval->m_value * bval->m_value;
   m_valid = a->isValid() && b->isValid();
 }
@@ -329,7 +367,9 @@ void SValue::div(const Value* a, const Value* b) {
   if (bval->m_value == 0) {
     m_valid = 0;
     m_value = 0;
+    m_negative = 0;
   } else {
+    m_negative = aval->m_negative ^ bval->m_negative;
     m_value = aval->m_value / bval->m_value;
     m_valid = a->isValid() && b->isValid();
   }
@@ -340,6 +380,7 @@ void SValue::mod(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value % bval->m_value;
+  m_negative = aval->m_negative;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -348,6 +389,7 @@ void SValue::power(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = pow(aval->m_value , bval->m_value);
+  m_negative = aval->m_negative;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -356,6 +398,7 @@ void SValue::greater(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value > bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -364,6 +407,7 @@ void SValue::greater_equal(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value >= bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -372,6 +416,7 @@ void SValue::lesser(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value < bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -380,6 +425,7 @@ void SValue::lesser_equal(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value <= bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -388,6 +434,7 @@ void SValue::equiv(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value == bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -396,6 +443,7 @@ void SValue::logAnd(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value && bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -404,6 +452,7 @@ void SValue::logOr(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value || bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -412,6 +461,7 @@ void SValue::bitwAnd(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value & bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -420,6 +470,7 @@ void SValue::bitwOr(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value | bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -428,6 +479,7 @@ void SValue::bitwXor(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value ^ bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -436,6 +488,7 @@ void SValue::notEqual(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value != bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -444,6 +497,7 @@ void SValue::shiftLeft(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value << bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -452,6 +506,7 @@ void SValue::shiftRight(const Value* a, const Value* b) {
   const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value >> bval->m_value;
+  m_negative = 0;
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -475,9 +530,12 @@ std::string LValue::uhdmValue() {
   //else if (m_type == Type::Octal)
   //  result = "OCT:";
   if (m_type == Type::Scalar)
-    result = "SCAL:";  
+    result = "SCAL:"; 
   for (int i = 0; i < m_nbWords; i++) {
-    result += std::to_string(m_valueArray[i].m_value);
+    if (m_valueArray[i].m_negative)
+      result += std::to_string(m_valueArray[i].m_value);
+    else
+      result += std::to_string((uint64_t) m_valueArray[i].m_value);
   }
   return result;
 }
@@ -485,7 +543,10 @@ std::string LValue::uhdmValue() {
 std::string LValue::decompiledValue() {
   std::string result;
   for (int i = 0; i < m_nbWords; i++) {
-    result += std::to_string(m_valueArray[i].m_value);
+    if (m_valueArray[i].m_negative)
+      result += std::to_string(m_valueArray[i].m_value);
+    else
+      result += std::to_string((uint64_t) m_valueArray[i].m_value);
   }
   return result;
 }
@@ -493,7 +554,7 @@ std::string LValue::decompiledValue() {
 LValue::LValue(const LValue& val)
   : m_type(val.m_type), m_nbWords(val.m_nbWords),
     m_valueArray(new SValue[val.m_nbWords]),
-    m_valid(val.isValid()),
+    m_valid(val.isValid()), m_negative(val.isNegative()),
     m_prev(nullptr), m_next(nullptr) {
   for (int i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i] = val.m_valueArray[i];
@@ -503,69 +564,85 @@ LValue::LValue(const LValue& val)
 LValue::LValue(uint64_t val)
   : m_type(Type::Unsigned), m_nbWords(1),
     m_valueArray(new SValue[1]), m_valid(1), m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_value = val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = 0;
   m_valid = 1;
+  m_negative = 0;
 }
 
 LValue::LValue(int64_t val)
   : m_type(Type::Integer), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1),
     m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_value = (uint64_t)val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
 LValue::LValue(double val)
   : m_type(Type::Double), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1),
     m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_value = (uint64_t)val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
-LValue::LValue(uint64_t val, Type type, unsigned short size)
+LValue::LValue(int64_t val, Type type, unsigned short size)
   : m_type(type), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1),
     m_prev(nullptr), m_next(nullptr) {
   m_valueArray[0].m_value = val;
   m_valueArray[0].m_size = size;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
 void LValue::set(uint64_t val) {
   m_type = Type::Unsigned;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = 0;
   m_valid = 1;
+  m_negative = 0;
 }
 
 void LValue::set(int64_t val) {
   m_type = Type::Integer;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (uint64_t)val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
 void LValue::set(double val) {
   m_type = Type::Double;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (uint64_t)val;
+  m_valueArray[0].m_value = (int64_t)val;
   m_valueArray[0].m_size = 64;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
-void LValue::set(uint64_t val, Type type, unsigned short size) {
+void LValue::set(int64_t val, Type type, unsigned short size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
   m_valueArray[0].m_value = val;
   m_valueArray[0].m_size = size;
+  m_valueArray[0].m_negative = (val < 0);
   m_valid = 1;
+  m_negative = (val < 0);
 }
 
 void LValue::adjust(const Value* a) {
@@ -602,6 +679,7 @@ void LValue::u_plus(const Value* a) {
     }
   }
   m_valid = a->isValid();
+  m_negative = a->isNegative();
 }
 
 void LValue::incr() { 
@@ -621,11 +699,13 @@ void LValue::u_minus(const Value* a) {
   for (unsigned short i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value = a->getValueL(i);
     m_valueArray[i].m_size = a->getSize(i);
-    if (i == (m_nbWords - 1)) {
-      m_valueArray[i].m_value = ~m_valueArray[i].m_value + 1;
-    }
+    //if (i == (m_nbWords - 1)) {
+    //  m_valueArray[i].m_value = ~m_valueArray[i].m_value + 1;
+    //}
+    m_valueArray[i].m_value = -m_valueArray[i].m_value;
   }
   m_valid = a->isValid();
+  m_negative = !a->isNegative();
 }
 
 void LValue::u_not(const Value* a) {
@@ -639,6 +719,8 @@ void LValue::u_not(const Value* a) {
   }
   m_valueArray[0].m_value = !m_valueArray[0].m_value;
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = a->isNegative();
+  m_negative = a->isNegative();
 }
 
 void LValue::u_tilda(const Value* a) {
@@ -650,6 +732,7 @@ void LValue::u_tilda(const Value* a) {
     m_valueArray[i].m_value = ~a->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
+  m_negative = a->isNegative();
 }
 
 void LValue::u_bitwAnd(const Value* a) {
@@ -668,6 +751,8 @@ void LValue::u_bitwAnd(const Value* a) {
   }
   m_valueArray[0].m_value = res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::u_bitwNand(const Value* a) {
@@ -686,6 +771,8 @@ void LValue::u_bitwNand(const Value* a) {
   }
   m_valueArray[0].m_value = ~res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::u_bitwOr(const Value* a) {
@@ -704,6 +791,8 @@ void LValue::u_bitwOr(const Value* a) {
   }
   m_valueArray[0].m_value = res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::u_bitwNor(const Value* a) {
@@ -722,6 +811,8 @@ void LValue::u_bitwNor(const Value* a) {
   }
   m_valueArray[0].m_value = ~res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::u_bitwXor(const Value* a) {
@@ -740,6 +831,8 @@ void LValue::u_bitwXor(const Value* a) {
   }
   m_valueArray[0].m_value = res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::u_bitwXnor(const Value* a) {
@@ -758,6 +851,8 @@ void LValue::u_bitwXnor(const Value* a) {
   }
   m_valueArray[0].m_value = ~res;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::plus(const Value* a, const Value* b) {
@@ -768,6 +863,8 @@ void LValue::plus(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) + b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = ((a->getValueL(0) + b->getValueL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 void LValue::minus(const Value* a, const Value* b) {
@@ -778,6 +875,8 @@ void LValue::minus(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) - b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = ((a->getValueL(0) - b->getValueL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 void LValue::mult(const Value* a, const Value* b) {
@@ -788,6 +887,8 @@ void LValue::mult(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) * b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = ((a->getValueL(0) * b->getValueL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 void LValue::div(const Value* a, const Value* b) {
@@ -796,13 +897,16 @@ void LValue::div(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
   if (!m_valid)
     return;
-  if (b->getValueL(0))
+  if (b->getValueL(0)) {
     m_valueArray[0].m_value = a->getValueL(0) / b->getValueL(0);
-  else {
+    m_valueArray[0].m_negative = ((a->getValueL(0) / b->getValueL(0)) < 0);
+  } else {
     m_valueArray[0].m_value = 0;
     m_valid = 0;
+    m_valueArray[0].m_negative = 0;
   }
   m_valueArray[0].m_size = a->getSize(0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 void LValue::mod(const Value* a, const Value* b) {
@@ -813,6 +917,8 @@ void LValue::mod(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) % b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = ((a->getValueL(0) % b->getValueL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 
@@ -824,6 +930,8 @@ void LValue::power(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = pow(a->getValueL(0), b->getValueL(0));
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = (pow(a->getValueL(0), b->getValueL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 
@@ -835,6 +943,8 @@ void LValue::greater(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) > b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::greater_equal(const Value* a, const Value* b) {
@@ -845,6 +955,8 @@ void LValue::greater_equal(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) >= b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::lesser(const Value* a, const Value* b) {
@@ -855,6 +967,8 @@ void LValue::lesser(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) < b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::lesser_equal(const Value* a, const Value* b) {
@@ -865,6 +979,8 @@ void LValue::lesser_equal(const Value* a, const Value* b) {
     return;
   m_valueArray[0].m_value = a->getValueL(0) <= b->getValueL(0);
   m_valueArray[0].m_size = a->getSize(0);
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::equiv(const Value* a, const Value* b) {
@@ -881,6 +997,8 @@ void LValue::equiv(const Value* a, const Value* b) {
     }
   }
   m_valueArray[0].m_value = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::logAnd(const Value* a, const Value* b) {
@@ -897,6 +1015,8 @@ void LValue::logAnd(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_value = tmp1 && tmp2;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::logOr(const Value* a, const Value* b) {
@@ -913,6 +1033,8 @@ void LValue::logOr(const Value* a, const Value* b) {
   }
   m_valueArray[0].m_value = tmp1 || tmp2;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::bitwAnd(const Value* a, const Value* b) {
@@ -925,6 +1047,8 @@ void LValue::bitwAnd(const Value* a, const Value* b) {
     m_valueArray[i].m_value = a->getValueUL(i) & b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::bitwOr(const Value* a, const Value* b) {
@@ -937,6 +1061,8 @@ void LValue::bitwOr(const Value* a, const Value* b) {
     m_valueArray[i].m_value = a->getValueUL(i) | b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::bitwXor(const Value* a, const Value* b) {
@@ -949,6 +1075,8 @@ void LValue::bitwXor(const Value* a, const Value* b) {
     m_valueArray[i].m_value = a->getValueUL(i) ^ b->getValueUL(i);
     m_valueArray[i].m_size = a->getSize(i);
   }
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::notEqual(const Value* a, const Value* b) {
@@ -960,6 +1088,8 @@ void LValue::notEqual(const Value* a, const Value* b) {
   equiv(a, b);
   m_valueArray[0].m_value = !m_valueArray[0].m_value;
   m_valueArray[0].m_size = 1;
+  m_valueArray[0].m_negative = 0;
+  m_negative = 0;
 }
 
 void LValue::shiftLeft(const Value* a, const Value* b) {
@@ -968,8 +1098,10 @@ void LValue::shiftLeft(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
   if (!m_valid)
     return;
-  m_valueArray[0].m_value = a->getValueL(0) << b->getValueL(0);
+  m_valueArray[0].m_value = a->getValueUL(0) << b->getValueUL(0);
   m_valueArray[0].m_size =  a->getSize(0) + b->getValueL(0);
+  m_valueArray[0].m_negative = ((a->getValueUL(0) << b->getValueUL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 void LValue::shiftRight(const Value* a, const Value* b) {
@@ -978,8 +1110,10 @@ void LValue::shiftRight(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
   if (!m_valid)
     return;
-  m_valueArray[0].m_value = a->getValueL(0) >> b->getValueL(0);
+  m_valueArray[0].m_value = a->getValueUL(0) >> b->getValueUL(0);
   m_valueArray[0].m_size =  a->getSize(0) - b->getValueL(0);
+  m_valueArray[0].m_negative = ((a->getValueUL(0) >> b->getValueUL(0)) < 0);
+  m_negative = m_valueArray[0].m_negative;
 }
 
 
