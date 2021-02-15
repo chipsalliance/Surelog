@@ -3021,7 +3021,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
             constant* rexpc = s.MakeConstant();
             rexpc->VpiSize(rightV->getSize());
             rexpc->VpiConstType(vpiIntConst);
-            uint64_t rint = rightV->getValueL();
+            int64_t rint = rightV->getValueL();
             size = size * rint;
             rightV->decr(); // Decr by 1
             rexpc->VpiValue(rightV->uhdmValue());

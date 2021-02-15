@@ -32,6 +32,7 @@
 #include <iostream>
 #include <sstream>
 #include <math.h>
+#include <assert.h>
 #include "Utils/StringUtils.h"
 #include "Utils/NumUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -673,13 +674,14 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 Value* ExprBuilder::fromVpiValue(const std::string& s) {
   Value* val = nullptr;
   size_t pos;
+
   if ((pos = s.find("INT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = atoi(s.c_str() + pos + strlen("INT:"));
+    int64_t v = atoi(s.c_str() + pos + strlen("INT:"));
     val->set(v);
-  } else if ((pos = s.find("DEC:")) != std::string::npos) {
+  } else if ((pos = s.find("DEC:")) != std::string::npos) {  
     val = m_valueFactory.newLValue();
-    uint64_t v = atoi(s.c_str() + pos + strlen("DEC:"));
+    int64_t v = atoi(s.c_str() + pos + strlen("DEC:"));
     val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
@@ -707,7 +709,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
         } else if (strcasecmp(parse_pos, "NoChange") == 0) {
          
         } else {
-          uint64_t v = atoi(parse_pos);
+          int64_t v = atoi(parse_pos);
           val = m_valueFactory.newLValue();
           val->set(v);
         }
@@ -715,15 +717,15 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoll(s.c_str() + pos + strlen("BIN:"), 0, 2);  
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("BIN:"), 0, 2);  
     val->set(v, Value::Type::Binary,  s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoll(s.c_str() + pos + strlen("HEX:"), 0, 16);  
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("HEX:"), 0, 16);  
     val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoll(s.c_str() + pos + strlen("OCT:"), 0, 8);  
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("OCT:"), 0, 8);  
     val->set(v, Value::Type::Octal, (s.size() - 4) * 4);
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();
@@ -737,7 +739,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
 
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
-  uint64_t v = 0;
+  int64_t v = 0;
   if ((v = std::strtoull(value.c_str(), 0, 10))) {
     val = m_valueFactory.newLValue();
     val->set(v);
@@ -755,4 +757,55 @@ Value* ExprBuilder::fromString(const std::string& value) {
     val->set(value);
   }
   return val;
+}
+
+bool ExprBuilder::unitTest() {
+  bool result = true;
+  {
+    LValue v0, v1, v2;
+    v1.set((int64_t)1); v2.set((int64_t)0);
+    v0.bitwAnd(&v1, &v2);
+    assert(v0.getValueL() == 0 && "bitwAnd failed");
+  }
+  {
+    LValue v0, v1, v2;
+    v1.set((int64_t)1); v2.set((int64_t)0);
+    v0.bitwOr(&v1, &v2);
+    assert(v0.getValueL() == 1 && "bitwOr failed");
+  }
+  {
+    LValue v0, v1;
+    v1.set((int64_t)1);
+    v0.u_not(&v1);
+    assert(v0.getValueL() == 0 && "u_not failed");
+  }
+  {
+    LValue v0, v1, v2;
+    v1.set((int64_t)-1); v2.set((int64_t)1);
+    v0.plus(&v1, &v2);
+    assert(v0.getValueL() == 0 && "plus failed");
+  }
+  {
+    LValue v0, v1, v2;
+    v1.set((int64_t)-10); v2.set((int64_t)9);
+    v0.plus(&v1, &v2);
+    assert(v0.getValueL() == -1 && "plus failed");
+    assert(v0.uhdmValue() == "INT:-1" && "plus failed");
+  }
+  {
+    ValueFactory factory;
+    Value* v0 = factory.newStValue();
+    v0->set("BLAH");
+    assert(v0->uhdmValue() == "STRING:BLAH" && "string val failed");
+  }
+  {
+    ExprBuilder builder;
+    Value* v1 = builder.fromVpiValue("HEX:A");
+    Value* v2 = builder.fromVpiValue("INT:10");
+    LValue v0;
+    v0.equiv(v1,v2);
+    assert(v1->uhdmValue() == "INT:10" && "hex convertion failed");
+    assert(v0.getValueL() == 1 && "hex convertion failed");
+  }
+  return result;
 }
