@@ -1117,7 +1117,15 @@ Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns constmsk_testmap.v -l constmsk_testmap.v.log
-[ERR:EL0531] constmsk_testmap.v:37: Negative value in instance work@my_opt_reduce_or (0 - 1).
+[ERR:EL0531] constmsk_testmap.v:37: Negative value in instance work@my_opt_reduce_or
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     reg [count_nonconst_bits()-1:0] tmp;
+            |v1:
+            \_constant: , line:37
+              |INT:0
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1385,7 +1393,16 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns generate.v -l generate.v.log
-[ERR:EL0531] generate.v:105: Negative value in instance work@gen_test4 (0 - 1).
+[ERR:EL0531] generate.v:105: Negative value in instance work@gen_test4
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: 		localparam PREV = i - 1;
+            |v1:
+            \_constant: , line:105
+              |vpiDecompile:0
+              |INT:0
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0

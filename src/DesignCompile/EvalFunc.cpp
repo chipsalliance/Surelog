@@ -68,9 +68,9 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
     case uhdmif_else: {
       if_else* st = (if_else*) stmt;
       expr* cond = (expr*) st->VpiCondition();
-      unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
-      if (val) {
+      if (val > 0) {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
       } else {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiElseStmt());
@@ -80,9 +80,9 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
     case uhdmif_stmt: {
       if_stmt* st = (if_stmt*) stmt;
       expr* cond = (expr*) st->VpiCondition();
-      unsigned long long val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
-      if (val) {
+      if (val > 0) {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
       }                                  
       break;  
@@ -121,7 +121,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       assignment* st = (assignment*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       Value* value = m_exprBuilder.getValueFactory().newLValue();
       value->set(val, Value::Type::Integer, 32);
@@ -132,7 +132,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       assign_stmt* st = (assign_stmt*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      unsigned long long val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       Value* value = m_exprBuilder.getValueFactory().newLValue();
       value->set(val, Value::Type::Integer, 32);
@@ -152,7 +152,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       while (1) {
         expr* cond = (expr*)st->VpiCondition();
         if (cond) {
-          unsigned long long val = get_value(
+          int64_t val = get_value(
               invalidValue,
               reduceExpr(cond, invalidValue, component, compileDesign,
                          scopes.back(), fileName, lineNumber, nullptr));
@@ -194,7 +194,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       return_stmt* st = (return_stmt*) stmt;
       expr* cond = (expr*)st->VpiCondition();
       if (cond) {
-        unsigned long long val =
+        int64_t val =
             get_value(invalidValue,
                       reduceExpr(cond, invalidValue, component, compileDesign,
                                  scopes.back(), fileName, lineNumber, nullptr));
@@ -209,7 +209,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       expr* cond = (expr*)st->VpiCondition();
       if (cond) {
         while (1) {
-          unsigned long long val = get_value(
+          int64_t val = get_value(
               invalidValue,
               reduceExpr(cond, invalidValue, component, compileDesign,
                          scopes.back(), fileName, lineNumber, nullptr));
@@ -249,7 +249,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
             break_flag = false;
             break;
           }
-          unsigned long long val = get_value(
+          int64_t val = get_value(
               invalidValue,
               reduceExpr(cond, invalidValue, component, compileDesign,
                          scopes.back(), fileName, lineNumber, nullptr));
@@ -318,7 +318,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
       if (args && (index < args->size())) {
         const std::string ioname = io->VpiName();
         expr* ioexp = (expr*) args->at(index);
-        unsigned long long val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
+        int64_t val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
                                           compileDesign, instance, fileName, lineNumber, pexpr));
         if (invalidValue) {
           scope->setComplexValue(ioname, ioexp);

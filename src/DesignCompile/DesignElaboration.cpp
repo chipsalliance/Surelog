@@ -775,7 +775,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         NodeId genBlock = fC->Sibling(iteration);
 
         bool validValue;
-        uint64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
         bool cont = (validValue && (condVal > 0));
 
         while (cont) {
@@ -811,11 +811,15 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
           parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
-          Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
-          cont = testCond->getValueUL();
-          if (!testCond->isValid()) {
-            cont = false;
-          }
+          
+          condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
+          cont = (validValue && (condVal > 0));
+
+          //Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
+         // cont = testCond->getValueUL();
+         // if (!testCond->isValid()) {
+         //   cont = false;
+         // }
           if (!newVal->isValid()) {
             cont = false;
           }
@@ -837,7 +841,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           conditionId = fC->Child(conditionId);
         }
         bool validValue;
-        uint64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent); 
 
         NodeId tmp = fC->Sibling(conditionId);
 
@@ -853,7 +857,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                 bool validValue;
-                uint64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent); 
+                int64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent); 
                 
                 if (condVal == caseVal) {
                   nomatch = false;
@@ -878,7 +882,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
             }
           }
         } else {          // If-Else stmt
-          if (condVal) {  // If branch
+          if (condVal> 0) {  // If branch
             if (tmp)
               childId = tmp;
             else  // There is no If stmt
@@ -900,7 +904,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 n<> u<392> t<Generate_item> p<393> c<391> l<54>
                 n<> u<393> t<Generate_block> p<394> c<392> l<54>
                 */
-                long condVal = false;
+                int64_t condVal = 0;
 
                 NodeId Generate_block = tmp;
                 NodeId Generate_item = fC->Child(Generate_block);
@@ -917,7 +921,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                   condVal = true;
                 }
 
-                if (condVal) {
+                if (condVal > 0) {
                   activeBranch = true;
                   childId = tmp;
                   break;
@@ -1193,8 +1197,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
                 bool validValue;
-                uint64_t left = m_helper.getValue(validValue, def, fC, leftNode, m_compileDesign, nullptr, parent);
-                uint64_t right = 0;
+                int64_t left = m_helper.getValue(validValue, def, fC, leftNode, m_compileDesign, nullptr, parent);
+                int64_t right = 0;
                 if (rightNode)
                   right = m_helper.getValue(validValue, def, fC, rightNode, m_compileDesign, nullptr, parent);
                 if (left < right) {
