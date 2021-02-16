@@ -311,14 +311,14 @@ public:
 
   UHDM::any* getValue(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, 
-               const std::string& fileName, int lineNumber, UHDM::any* pexpr);
+               const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
 
   bool isMultidimensional(UHDM::typespec* ts, DesignComponent* component);
 
-  unsigned long long get_value(bool& invalidValue, const UHDM::expr* expr);
+  int64_t get_value(bool& invalidValue, const UHDM::expr* expr);
 
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue, DesignComponent* component,
-               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr);
+               CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
  
   unsigned int Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode);         
@@ -341,7 +341,7 @@ public:
 
   void evalScheduledExprs(DesignComponent* component, CompileDesign* compileDesign);                     
 
-  uint64_t getValue(bool& validValue, DesignComponent* component, const FileContent* fC, NodeId nodeId,
+  int64_t getValue(bool& validValue, DesignComponent* component, const FileContent* fC, NodeId nodeId,
 			  CompileDesign* compileDesign,
                     UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);

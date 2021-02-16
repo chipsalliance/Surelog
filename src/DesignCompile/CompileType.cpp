@@ -887,7 +887,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         result = var;
-      } else if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr)) {
+      } else if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
         constant* c = dynamic_cast<constant*> (cast_to);
         if (c) {
           integer_typespec* var = s.MakeInteger_typespec();
@@ -895,6 +895,11 @@ UHDM::typespec* CompileHelper::compileTypespec(
           var->VpiFile(fC->getFileName());
           var->VpiLineNo(fC->Line(type));
           result = var;
+        } else {
+          void_typespec* tps = s.MakeVoid_typespec();
+          tps->VpiFile(fC->getFileName());
+          tps->VpiLineNo(fC->Line(type));
+          result = tps;
         }
       } else {
         result = compileDatastructureTypespec(

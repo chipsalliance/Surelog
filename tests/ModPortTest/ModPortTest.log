@@ -299,6 +299,17 @@ PP TREE: (top_level_rule null_rule (source_text (description (module module)) (d
 
 [INF:EL0526] Design Elaboration...
 
+[ERR:EL0531] top.v:12: Negative value in instance work@AXI_BUS
+             v1:-1 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:   typedef logic [AXI_ID_WIDTH-1:0]   id_t;
+            |v1:
+            \_constant: , line:12
+              |vpiDecompile:-1
+              |INT:-1
+.
+
 [NTE:EL0503] top.v:1: Top level module "work@dff0_test".
 
 [NTE:EL0503] top.v:36: Top level module "work@memory_ctrl1".
@@ -356,8 +367,8 @@ design: (work@dff0_test)
     \_range: , line:12
       |vpiLeftRange:
       \_constant: , line:12
-        |vpiDecompile:18446744073709551614
-        |INT:-1
+        |vpiDecompile:-2
+        |INT:-2
       |vpiRightRange:
       \_constant: , line:12
         |vpiConstType:7
@@ -656,7 +667,7 @@ design: (work@dff0_test)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 4
 [WARNING] : 5
 [   NOTE] : 8
 

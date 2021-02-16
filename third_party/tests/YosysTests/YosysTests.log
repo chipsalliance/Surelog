@@ -5327,7 +5327,21 @@ Processing: -cd architecture/xilinx_ug901_synthesis_examples rams_sp_rf_rst.v -w
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/xilinx_ug901_synthesis_examples asym_ram_tdp_write_first.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l asym_ram_tdp_write_first.v.log
-[ERR:EL0531] asym_ram_tdp_write_first.v:76: Negative value in instance work@asym_ram_tdp_write_first (0 - 1).
+[ERR:EL0531] asym_ram_tdp_write_first.v:76: Negative value in instance work@asym_ram_tdp_write_first
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:log2, v2 name:
+             text:  reg [log2RATIO-1:0] lsbaddr ;
+            |v1:
+            \_func_call: (log2), line:76
+              |vpiName:log2
+              |vpiFunction:
+              \_function: (log2), line:35
+              |vpiArgument:
+              \_ref_obj: (portA.RATIO), line:57, parent:log2
+                |vpiName:RATIO
+                |vpiFullName:portA.RATIO
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -5419,7 +5433,21 @@ Processing: -cd architecture/xilinx_ug901_synthesis_examples sfir_shifter.v -wri
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/xilinx_ug901_synthesis_examples asym_ram_sdp_read_wider.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l asym_ram_sdp_read_wider.v.log
-[ERR:EL0531] asym_ram_sdp_read_wider.v:63: Negative value in instance work@asym_ram_sdp_read_wider (0 - 1).
+[ERR:EL0531] asym_ram_sdp_read_wider.v:63: Negative value in instance work@asym_ram_sdp_read_wider
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:log2, v2 name:
+             text:  reg [log2RATIO-1:0] lsbaddr;
+            |v1:
+            \_func_call: (log2), line:63
+              |vpiName:log2
+              |vpiFunction:
+              \_function: (log2), line:24
+              |vpiArgument:
+              \_ref_obj: (ramread.RATIO), line:46, parent:log2
+                |vpiName:RATIO
+                |vpiFullName:ramread.RATIO
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -5451,7 +5479,21 @@ Processing: -cd architecture/xilinx_ug901_synthesis_examples top_mux.v -writepp 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/xilinx_ug901_synthesis_examples asym_ram_tdp_read_first.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l asym_ram_tdp_read_first.v.log
-[ERR:EL0531] asym_ram_tdp_read_first.v:70: Negative value in instance work@asym_ram_tdp_read_first (0 - 1).
+[ERR:EL0531] asym_ram_tdp_read_first.v:70: Negative value in instance work@asym_ram_tdp_read_first
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:log2, v2 name:
+             text:  reg [log2RATIO-1:0] lsbaddr ;
+            |v1:
+            \_func_call: (log2), line:70
+              |vpiName:log2
+              |vpiFunction:
+              \_function: (log2), line:29
+              |vpiArgument:
+              \_ref_obj: (portA.RATIO), line:51, parent:log2
+                |vpiName:RATIO
+                |vpiFullName:portA.RATIO
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -5507,7 +5549,21 @@ Processing: -cd architecture/xilinx_ug901_synthesis_examples bytewrite_tdp_ram_w
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/xilinx_ug901_synthesis_examples asym_ram_sdp_write_wider.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l asym_ram_sdp_write_wider.v.log
-[ERR:EL0531] asym_ram_sdp_write_wider.v:66: Negative value in instance work@asym_ram_sdp_write_wider (0 - 1).
+[ERR:EL0531] asym_ram_sdp_write_wider.v:66: Negative value in instance work@asym_ram_sdp_write_wider
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:log2, v2 name:
+             text:  reg [log2RATIO-1:0] lsbaddr;
+            |v1:
+            \_func_call: (log2), line:66
+              |vpiName:log2
+              |vpiFunction:
+              \_function: (log2), line:29
+              |vpiArgument:
+              \_ref_obj: (ramwrite.RATIO), line:51, parent:log2
+                |vpiName:RATIO
+                |vpiFullName:ramwrite.RATIO
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -8650,7 +8706,16 @@ Processing: -cd regression/issue_00810/src Master_AXI_Read_Data_Channel.v -write
 [WARNING] : 9
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Down_Counter_Zero.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Down_Counter_Zero.v.log
-[ERR:EL0531] Down_Counter_Zero.v:35: Negative value in instance work@Down_Counter_Zero (0 - 1).
+[ERR:EL0531] Down_Counter_Zero.v:35: Negative value in instance work@Down_Counter_Zero
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     localparam ONE  = {{(WORD_WIDTH-1){1'b0}},1'b1};
+            |v1:
+            \_constant: , line:35
+              |vpiDecompile:0
+              |INT:0
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -10212,11 +10277,43 @@ Processing: -cd regression/issue_01002 top.v -writepp -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00314 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
-[ERR:EL0531] top.v:28: Negative value in instance work@top (0 - 1).
+[ERR:EL0531] top.v:28: Negative value in instance work@top
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:, v2 name:
+             text:         reg [(llen+rlen)-1:0] lbuf;
+            |v1:
+            \_operation: , line:28, parent:divmod
+              |vpiOpType:24
+              |vpiOperand:
+              \_ref_obj: (divmod.llen), line:28, parent:divmod
+                |vpiName:llen
+                |vpiFullName:divmod.llen
+              |vpiOperand:
+              \_ref_obj: (divmod.rlen), line:28
+                |vpiName:rlen
+                |vpiFullName:divmod.rlen
+.
+
+[ERR:EL0531] top.v:28: Negative value in instance work@top
+             v1:0 - v2:1
+             v1 invalid:1, v2 invalid:0
+             v1 name:, v2 name:
+             text:         reg [(llen+rlen)-1:0] lbuf;
+            |v1:
+            \_operation: , line:28
+              |vpiOpType:24
+              |vpiOperand:
+              \_ref_obj: (llen), line:28
+                |vpiName:llen
+              |vpiOperand:
+              \_ref_obj: (rlen), line:28
+                |vpiName:rlen
+.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00314 testbench.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l testbench.v.log
@@ -12972,7 +13069,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 66
-[  ERROR] : 39
+[  ERROR] : 40
 [WARNING] : 2374
 [   NOTE] : 0
 
