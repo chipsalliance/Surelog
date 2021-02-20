@@ -379,6 +379,14 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             UHDM::param_assign* param_assign = passign->getUhdmParamAssign();
             UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
             result = (typespec*) lhs->Typespec();
+            if (result == nullptr) {
+              int_typespec* tps = s.MakeInt_typespec();
+              tps->VpiName(typeName);
+              lhs->Typespec(tps);
+              tps->VpiFile(fC->getFileName());
+              tps->VpiLineNo(fC->Line(type));
+              result = tps;
+            }
             return result;
           }
         }
@@ -887,21 +895,24 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         result = var;
-      } else if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
-        constant* c = dynamic_cast<constant*> (cast_to);
-        if (c) {
-          integer_typespec* var = s.MakeInteger_typespec();
-          var->VpiValue(c->VpiValue());
-          var->VpiFile(fC->getFileName());
-          var->VpiLineNo(fC->Line(type));
-          result = var;
-        } else {
-          void_typespec* tps = s.MakeVoid_typespec();
-          tps->VpiFile(fC->getFileName());
-          tps->VpiLineNo(fC->Line(type));
-          result = tps;
+      } else if (reduce) {
+        if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
+          constant* c = dynamic_cast<constant*>(cast_to);
+          if (c) {
+            integer_typespec* var = s.MakeInteger_typespec();
+            var->VpiValue(c->VpiValue());
+            var->VpiFile(fC->getFileName());
+            var->VpiLineNo(fC->Line(type));
+            result = var;
+          } else {
+            void_typespec* tps = s.MakeVoid_typespec();
+            tps->VpiFile(fC->getFileName());
+            tps->VpiLineNo(fC->Line(type));
+            result = tps;
+          }
         }
-      } else {
+      }
+      if (result == nullptr) {
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
         if (ranges && result) {
