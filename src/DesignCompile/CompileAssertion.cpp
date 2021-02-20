@@ -80,6 +80,19 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileC
   return true;
 }
 
+UHDM::property_inst* createPropertyInst(any* property_expr, UHDM::Serializer& s) {
+  UHDM::property_inst* inst = (UHDM::property_inst*) property_expr;
+  if (property_expr->UhdmType() == uhdmfunc_call) {
+    func_call* call = (func_call*)property_expr;
+    UHDM::property_inst* real_property_expr = s.MakeProperty_inst();
+    real_property_expr->VpiArguments(call->Tf_call_args());
+    real_property_expr->VpiName(call->VpiName());
+    real_property_expr->VpiFile(call->VpiFile());
+    real_property_expr->VpiLineNo(call->VpiLineNo());
+    inst = real_property_expr;
+  }
+  return inst;
+}
 
 UHDM::any* CompileHelper::compileConcurrentAssertion(
   DesignComponent* component, const FileContent* fC, NodeId the_stmt,
@@ -120,7 +133,8 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
+    property_expr = createPropertyInst(property_expr, s);
     prop_spec->VpiPropertyExpr(property_expr);
     assert_stmt->VpiProperty(prop_spec);
     assert_stmt->Stmt(if_stmt);
@@ -132,12 +146,13 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::expr* clocking_event = nullptr;
     if (fC->Type(Property_expr) == slClocking_event) {
-      clocking_event = (UHDM::expr*) compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+      clocking_event = (UHDM::expr*) compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
       Property_expr = fC->Sibling(Property_expr);
     }
     UHDM::assume* assume_stmt = s.MakeAssume();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
+    property_expr = createPropertyInst(property_expr, s);
     prop_spec->VpiClockingEvent(clocking_event);
     prop_spec->VpiPropertyExpr(property_expr);
     assume_stmt->VpiProperty(prop_spec);
@@ -149,7 +164,8 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::cover* cover_stmt = s.MakeCover();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
+    property_expr = createPropertyInst(property_expr, s);
     prop_spec->VpiPropertyExpr(property_expr);
     cover_stmt->VpiProperty(prop_spec);
     cover_stmt->Stmt(if_stmt);
@@ -161,7 +177,8 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     UHDM::cover* cover_stmt = s.MakeCover();
     cover_stmt->VpiIsCoverSequence();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
+    property_expr = createPropertyInst(property_expr, s);
     prop_spec->VpiPropertyExpr(property_expr);
     cover_stmt->VpiProperty(prop_spec);
     cover_stmt->Stmt(if_stmt);
@@ -172,7 +189,8 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     NodeId Property_expr = fC->Child(Property_spec);
     UHDM::restrict* restrict_stmt = s.MakeRestrict();
     UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, true);
+    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
+    property_expr = createPropertyInst(property_expr, s);
     prop_spec->VpiPropertyExpr(property_expr);
     restrict_stmt->VpiProperty(prop_spec);
     restrict_stmt->Stmt(if_stmt);
@@ -204,7 +222,7 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
     if (else_keyword)
       else_stmt_id = fC->Sibling(else_keyword);
   }
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
   VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
@@ -302,7 +320,7 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
     if (else_keyword)
       else_stmt_id = fC->Sibling(else_keyword);
   }
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
   VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);

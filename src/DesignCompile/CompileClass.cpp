@@ -58,7 +58,7 @@ bool CompileClass::compile() {
   NodeId nodeId = m_class->m_nodeIds[0];
 
   std::string fileName = fC->getFileName(nodeId);
-  if (strstr(fileName.c_str(), "builtin.sv")) {
+  if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
     fileName = "builtin.sv";
   }
   std::string fullName;

@@ -360,6 +360,9 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string val = fC->SymName(child);
         std::string size = val;
         StringUtils::rtrim(size, '\'');
+        int64_t intsize = 0;
+        if (size != "") 
+          intsize = std::strtoull(size.c_str(), 0, 10);
         if (strstr(val.c_str(), "'")) {
           uint64_t hex_value = 0;
           char base = 'h';
@@ -372,28 +375,44 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           }
           std::string v = val.substr(i + 2);
           v = StringUtils::replaceAll(v, "_", "");
+          bool intformat = false;
           switch (base) {
-            case 'h':
-              hex_value = std::strtoull(v.c_str(), 0, 16);
+            case 'h': {
+              if (intsize > 64) {
+                m_valueFactory.deleteValue(value);
+                StValue* stval = (StValue*) m_valueFactory.newStValue();
+                stval->set(v, Value::Type::Hexadecimal, intsize);
+                value = stval;
+              } else {
+                hex_value = std::strtoull(v.c_str(), 0, 16);
+                intformat = true;
+              }
               break;
+            }
             case 'b':
               hex_value = std::strtoull(v.c_str(), 0, 2);
+              intformat = true;
               break;
             case 'o':
               hex_value = std::strtoull(v.c_str(), 0, 8);
+              intformat = true;
               break;
             case 'd':
               hex_value = std::strtoull(v.c_str(), 0, 10);
+              intformat = true;
               break;
             default:
               // '1
               hex_value = std::strtoull(v.c_str(), 0, 2);
+              intformat = true;
               break;
           }
-          if (size == "")
-            value->set(hex_value, Value::Type::Integer, 0);
-          else 
-            value->set(hex_value, Value::Type::Integer, std::strtoull(size.c_str(), 0, 10)); 
+          if (intformat) {
+            if (size == "")
+              value->set(hex_value, Value::Type::Integer, 0);
+            else 
+              value->set(hex_value, Value::Type::Integer, intsize); 
+          }
         } else {
           value->set((int64_t)atol(val.c_str()));
         }
@@ -444,7 +463,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           value->setInvalid();
           break;
         }
-        if (sval->getType() == Value::Type::String) {
+        if (sval->getType() == Value::Type::String ||
+            sval->getType() == Value::Type::Hexadecimal) {
           m_valueFactory.deleteValue(value);
           value = clone(sval);
         } else {
@@ -720,9 +740,15 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     int64_t v = std::strtoll(s.c_str() + pos + strlen("BIN:"), 0, 2);  
     val->set(v, Value::Type::Binary,  s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
-    val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("HEX:"), 0, 16);  
-    val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
+    if (s.size() > 20) { // HEX:FFFFFFFFFFFFFFFF
+      StValue* sval = (StValue*) m_valueFactory.newStValue();
+      sval->set(s.c_str() + pos + strlen("HEX:"), Value::Type::Hexadecimal, (s.size() - 4) * 4);
+      val = sval;
+    } else {
+      val = m_valueFactory.newLValue();
+      int64_t v = std::strtoll(s.c_str() + pos + strlen("HEX:"), 0, 16);  
+      val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
+    }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(s.c_str() + pos + strlen("OCT:"), 0, 8);  

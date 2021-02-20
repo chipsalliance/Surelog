@@ -158,59 +158,68 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
     inst_assign->VpiLineNo(mod_assign->VpiLineNo());
     inst_assign->Lhs((any*) mod_assign->Lhs());
     const std::string& paramName = assign->getFileContent()->SymName(assign->getParamId());
-    Value* value = instance->getValue(paramName, m_exprBuilder);
-    if (value && value->isValid()) {
-      constant* c = s.MakeConstant();
-      c->VpiValue(value->uhdmValue());
-      c->VpiDecompile(value->decompiledValue());
-      c->VpiFile(assign->getFileContent()->getFileName());
-      c->VpiSize(value->getSize());
-      c->VpiConstType(vpiIntConst);
-      c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
-      inst_assign->Rhs(c);
-    } else {
-      bool override = false;
-      for (Parameter* tpm : instance->getTypeParams()) { // for parameters that do not resolve to scalars (complex structs)
-        if (tpm->getName() == paramName) {
-          override = true;
-          if (ModuleInstance* pinst = instance->getParent()) {
-            ModuleDefinition* pmod = dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
-            expr* rhs = (expr*)m_helper.compileExpression(pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign, nullptr, pinst, !isMultidimensional);
-            // If it is a complex expression (! constant)...
-            if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
-              // But if this value can be reduced to a constant then take the
-              // constant
-              expr* crhs = (expr*)m_helper.compileExpression(
-                  mod, assign->getFileContent(), assign->getAssignId(),
-                  m_compileDesign, nullptr, instance, true);
-              if (crhs && crhs->UhdmType() == uhdmconstant) {
-                constant* ccrhs = (constant*)crhs;
-                const std::string& s = ccrhs->VpiValue();
-                Value* v1 = m_exprBuilder.fromVpiValue(s);
-                Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
-                if (*v1 > *v2) {
-                  rhs = crhs;
-                }
-                //m_exprBuilder.deleteValue(v1);
-                //m_exprBuilder.deleteValue(v2);
+
+    bool override = false;
+    for (Parameter* tpm :
+         instance->getTypeParams()) {  // for parameters that do not resolve to
+                                       // scalars (complex structs)
+      if (tpm->getName() == paramName) {
+        override = true;
+        if (ModuleInstance* pinst = instance->getParent()) {
+          ModuleDefinition* pmod =
+              dynamic_cast<ModuleDefinition*>(pinst->getDefinition());
+          expr* rhs = (expr*)m_helper.compileExpression(
+              pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
+              nullptr, pinst, !isMultidimensional);
+          // If it is a complex expression (! constant)...
+          if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
+            // But if this value can be reduced to a constant then take the
+            // constant
+            expr* crhs = (expr*)m_helper.compileExpression(
+                mod, assign->getFileContent(), assign->getAssignId(),
+                m_compileDesign, nullptr, instance, true);
+            if (crhs && crhs->UhdmType() == uhdmconstant) {
+              constant* ccrhs = (constant*)crhs;
+              const std::string& s = ccrhs->VpiValue();
+              Value* v1 = m_exprBuilder.fromVpiValue(s);
+              Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
+              if (*v1 > *v2) {
+                rhs = crhs;
               }
             }
-            inst_assign->Rhs(rhs);
-            break;
           }
+          inst_assign->Rhs(rhs);
+          break;
         }
       }
-      if (override == false) {
-        expr* rhs = (expr*)m_helper.compileExpression(mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign, nullptr, instance, !isMultidimensional);
-        inst_assign->Rhs(rhs);
+    }
+    if ((override == false) && (!isMultidimensional)) {
+      Value* value = instance->getValue(paramName, m_exprBuilder);
+      if (value && value->isValid()) {
+        constant* c = s.MakeConstant();
+        c->VpiValue(value->uhdmValue());
+        c->VpiDecompile(value->decompiledValue());
+        c->VpiFile(assign->getFileContent()->getFileName());
+        c->VpiSize(value->getSize());
+        c->VpiConstType(vpiIntConst);
+        c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
+        inst_assign->Rhs(c);
+        override = true;
       }
     }
-    if (inst_assign)
-      assigns->push_back(inst_assign);
+
+    if (override == false) {
+      // Default
+      expr* rhs = (expr*)m_helper.compileExpression(
+          mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign,
+          nullptr, instance, !isMultidimensional);
+      inst_assign->Rhs(rhs);
+    }
+
+    if (inst_assign) assigns->push_back(inst_assign);
   }
   return true;
 }
-
 
 bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   Netlist* netlist = instance->getNetlist();

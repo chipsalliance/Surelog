@@ -1124,6 +1124,9 @@ Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
              text:     reg [count_nonconst_bits()-1:0] tmp;
             |v1:
             \_constant: , line:37
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
               |INT:0
 .
 
@@ -1400,13 +1403,28 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
              text: 		localparam PREV = i - 1;
             |v1:
             \_constant: , line:105
+              |vpiConstType:7
               |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] generate.v:105: Negative value in instance work@gen_test4.foo[0]
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: 		localparam PREV = i - 1;
+            |v1:
+            \_constant: , line:105
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
               |INT:0
 .
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns constpower.v -l constpower.v.log
@@ -1710,18 +1728,12 @@ Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timesc
 [ERR:UH0700] counter.sv:21: Unsupported expression "<n<> u<347> t<Sequence_expr> p<356> c<346> s<349> l<21>> 	assert property (up ##1 down |=> cnt == $past(cnt, 2));
 ".
 
-[ERR:CP0337]  Undefined user task/function "down_n".
-
-[ERR:CP0337] counter.sv:28: Undefined user task/function "down_n".
-
-[ERR:UH0703] Internal Error: adding wrong object type (func_call) in a property_expr_group group!
+[ERR:UH0703] Internal Error: adding wrong object type (constant) in a property_expr_named_event_group group!
 .
-
-[ERR:CP0337] counter.sv:29: Undefined user task/function "down_n".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 8
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns basic05.sv -l basic05.sv.log
@@ -1797,12 +1809,9 @@ Processing: -cd various +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -ti
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sat +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns sizebits.sv -l sizebits.sv.log
-[ERR:UH0703] Internal Error: adding wrong object type (constant) in a property_expr_group group!
-.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns arrays02.sv -l arrays02.sv.log
@@ -1820,7 +1829,7 @@ Processing: -cd simple +incdir+. -parse -nocache -nobuiltin -nonote -noinfo -tim
 Processed 253 tests.
 [  FATAL] : 0
 [ SYNTAX] : 10
-[  ERROR] : 19
+[  ERROR] : 16
 [WARNING] : 97
 [   NOTE] : 0
 
