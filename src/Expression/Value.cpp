@@ -26,6 +26,7 @@
 #include <cstring>
 #include "Expression/Value.h"
 #include <math.h>    
+#include "vpi_user.h"
 using namespace SURELOG;
 
 unsigned int Value::nbWords_(unsigned int size) {
@@ -231,6 +232,10 @@ std::string SValue::decompiledValue() {
   std::string result;
   result += std::to_string(m_value);
   return result;
+}
+
+int SValue::vpiValType() {
+  return vpiIntConst;
 }
 
 void SValue::u_not(const Value* a) {
@@ -550,6 +555,31 @@ std::string LValue::decompiledValue() {
   }
   return result;
 }
+
+int LValue::vpiValType() {
+  switch (m_type) {
+    case Type::Binary:
+      return vpiBinaryConst;
+    case Type::Double:
+      return vpiRealConst;
+    case Type::Hexadecimal:
+      return vpiHexConst;
+    case Type::Integer:
+      return vpiIntConst;
+    case Type::Octal:
+      return vpiOctConst;
+    case Type::Scalar:
+      return vpiScalar;
+    case Type::String:
+      return vpiStringConst;
+    case Type::Unsigned:
+      return vpiIntConst;
+    case Type::None:
+      return 0;
+  }
+  return 0;
+}
+
 
 LValue::LValue(const LValue& val)
   : m_type(val.m_type), m_nbWords(val.m_nbWords),
@@ -1154,4 +1184,29 @@ void StValue::notEqual(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = (aval->m_value == bval->m_value) ? "0" : "1";
   m_valid = a->isValid() && b->isValid();
+}
+
+
+int StValue::vpiValType() {
+  switch (m_type) {
+    case Type::Binary:
+      return vpiBinaryConst;
+    case Type::Double:
+      return vpiRealConst;
+    case Type::Hexadecimal:
+      return vpiHexConst;
+    case Type::Integer:
+      return vpiIntConst;
+    case Type::Octal:
+      return vpiOctConst;
+    case Type::Scalar:
+      return vpiScalar;
+    case Type::String:
+      return vpiStringConst;
+    case Type::Unsigned:
+      return vpiIntConst;
+    case Type::None:
+      return 0;
+  }
+  return 0;
 }

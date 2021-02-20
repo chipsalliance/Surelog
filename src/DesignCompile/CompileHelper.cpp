@@ -178,6 +178,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiScalarVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(1);
       break;
     }
     case Value::Type::Binary: {
@@ -185,6 +186,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiBinStrVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::Hexadecimal: {
@@ -192,6 +194,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiHexStrVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::Octal: {
@@ -199,6 +202,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiOctStrVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::Unsigned:
@@ -207,6 +211,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiIntVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::Double: {
@@ -214,6 +219,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiRealVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::String: {
@@ -221,6 +227,7 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c->VpiConstType(vpiStringVal);
       c->VpiValue(val->uhdmValue());
       c->VpiDecompile(val->decompiledValue());
+      c->VpiSize(val->getSize());
       break;
     }
     case Value::Type::None:
@@ -483,7 +490,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
         value = m_exprBuilder.evalExpr(fC, enumValueId, scope);
       } else {
         value = m_exprBuilder.getValueFactory().newLValue();
-        value->set(val, Value::Type::Integer, 32);
+        value->set(val, Value::Type::Integer, 64);
       }
       the_enum->addValue(enumName, fC->Line(enumNameId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
@@ -2225,6 +2232,8 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
           constant* c = s.MakeConstant();
           c->VpiValue("INT:0");
           c->VpiDecompile("0");
+          c->VpiSize(64);
+          c->VpiConstType(vpiIntConst);
           arguments->push_back(c);
         }
       }

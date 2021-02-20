@@ -1360,9 +1360,21 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string name = param.fC->SymName(ident);
     params.push_back(name);
     moduleParams.push_back(name);
-    Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
-                                          instance, true);
-    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+    NodeId exprId = param.fC->Sibling(ident);
+    while (param.fC->Type(exprId) == slUnpacked_dimension) {
+      exprId = param.fC->Sibling(exprId);
+    }
+    NodeId Data_type = param.fC->Child(exprId);
+    if (param.fC->Type(Data_type) != slData_type) {
+      // Regular params
+      Value* value =
+          m_helper.getValueObj(instance->getDefinition(), param.fC, exprId,
+                               m_compileDesign, nullptr, instance);
+      if (value == nullptr) {
+        value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
+      }
+      instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+    }
   }
 
   std::set<std::string> overridenParams;
@@ -1486,9 +1498,21 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     NodeId ident = param.fC->Child(param.nodeId);
     std::string name = param.fC->SymName(ident);
     if (overridenParams.find(name) == overridenParams.end()) {
-      Value* value = m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident),
-                                            instance, true);
-      instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+      NodeId exprId = param.fC->Sibling(ident);
+      while (param.fC->Type(exprId) == slUnpacked_dimension) {
+        exprId = param.fC->Sibling(exprId);
+      }
+      NodeId Data_type = param.fC->Child(exprId);
+      if (param.fC->Type(Data_type) != slData_type) {
+        // Regular params
+        Value* value =
+            m_helper.getValueObj(instance->getDefinition(), param.fC, exprId,
+                                 m_compileDesign, nullptr, instance);
+        if (value == nullptr) {
+          value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
+        }
+        instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+      }
     }
   }
 

@@ -1123,9 +1123,48 @@ Processing: -cd misc/test_cell_error gold.v -writepp -parse -nocache -nobuiltin 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/test_cell_error simlib.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l simlib.v.log
+[ERR:EL0531] simlib.v:10: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: input [A_WIDTH-1:0] A;
+            |v1:
+            \_constant: , line:10
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] simlib.v:11: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: input [B_WIDTH-1:0] B;
+            |v1:
+            \_constant: , line:11
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] simlib.v:12: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: output [Y_WIDTH-1:0] Y;
+            |v1:
+            \_constant: , line:12
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/script top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -1613,9 +1652,48 @@ Processing: -cd misc/test_cell gold.v -writepp -parse -nocache -nobuiltin -nonot
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/test_cell simlib.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l simlib.v.log
+[ERR:EL0531] simlib.v:10: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: input [A_WIDTH-1:0] A;
+            |v1:
+            \_constant: , line:10
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] simlib.v:11: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: input [B_WIDTH-1:0] B;
+            |v1:
+            \_constant: , line:11
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] simlib.v:12: Negative value in instance work@$add
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: output [Y_WIDTH-1:0] Y;
+            |v1:
+            \_constant: , line:12
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/blackbox top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -7211,9 +7289,22 @@ Processing: -cd regression/issue_00642 testbench.v -writepp -parse -nocache -nob
 [WARNING] : 4
 [   NOTE] : 0
 Processing: -cd regression/issue_00708 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
+[ERR:EL0531] top.v:3: Negative value in instance work@top
+             v1:17 - v2:18
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text: localparam integer X = `MAX($clog2(1 << 17) - 18, 0);
+            |v1:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:17
+              |vpiSize:64
+              |INT:17
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00835 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -8668,6 +8759,32 @@ Processing: -cd regression/issue_01225 top.v -writepp -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src skid_buffer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l skid_buffer.v.log
+[ERR:EL0531] skid_buffer.v:27: Negative value in instance work@skid_buffer
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    s_data,
+            |v1:
+            \_constant: , line:27
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] skid_buffer.v:32: Negative value in instance work@skid_buffer
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [WORD_WIDTH-1:0]    m_data
+            |v1:
+            \_constant: , line:32
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [WRN:EL0500] skid_buffer.v:43: Cannot find a module definition for "work@skid_buffer::skid_buffer_fsm".
 
 [WRN:EL0500] skid_buffer.v:64: Cannot find a module definition for "work@skid_buffer::skid_buffer_datapath".
@@ -8678,10 +8795,36 @@ Processing: -cd regression/issue_00810/src skid_buffer.v -writepp -parse -nocach
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 4
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Read_Data_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Read_Data_Channel.v.log
+[ERR:EL0531] Master_AXI_Read_Data_Channel.v:49: Negative value in instance work@Master_AXI_Read_Data_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [WORD_WIDTH-1:0]    system_data,
+            |v1:
+            \_constant: , line:49
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Read_Data_Channel.v:59: Negative value in instance work@Master_AXI_Read_Data_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    rdata,
+            |v1:
+            \_constant: , line:59
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [WRN:EL0500] Master_AXI_Read_Data_Channel.v:88: Cannot find a module definition for "work@Master_AXI_Read_Data_Channel::Annuller".
 
 [WRN:EL0500] Master_AXI_Read_Data_Channel.v:99: Cannot find a module definition for "work@Master_AXI_Read_Data_Channel::Annuller".
@@ -8702,7 +8845,7 @@ Processing: -cd regression/issue_00810/src Master_AXI_Read_Data_Channel.v -write
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 9
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Down_Counter_Zero.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Down_Counter_Zero.v.log
@@ -8713,16 +8856,96 @@ Processing: -cd regression/issue_00810/src Down_Counter_Zero.v -writepp -parse -
              text:     localparam ONE  = {{(WORD_WIDTH-1){1'b0}},1'b1};
             |v1:
             \_constant: , line:35
+              |vpiConstType:7
               |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Down_Counter_Zero.v:18: Negative value in instance work@Down_Counter_Zero
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    count_in,
+            |v1:
+            \_constant: , line:18
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Down_Counter_Zero.v:20: Negative value in instance work@Down_Counter_Zero
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    load_value,
+            |v1:
+            \_constant: , line:20
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Down_Counter_Zero.v:22: Negative value in instance work@Down_Counter_Zero
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [WORD_WIDTH-1:0]    count_out,
+            |v1:
+            \_constant: , line:22
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
               |INT:0
 .
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Write_Data_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Write_Data_Channel.v.log
+[ERR:EL0531] Master_AXI_Write_Data_Channel.v:50: Negative value in instance work@Master_AXI_Write_Data_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    system_data,
+            |v1:
+            \_constant: , line:50
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Write_Data_Channel.v:62: Negative value in instance work@Master_AXI_Write_Data_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [WORD_WIDTH-1:0]    wdata,
+            |v1:
+            \_constant: , line:62
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Write_Data_Channel.v:63: Negative value in instance work@Master_AXI_Write_Data_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [BYTE_COUNT-1:0]    wstrb,
+            |v1:
+            \_constant: , line:63
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [WRN:EL0500] Master_AXI_Write_Data_Channel.v:83: Cannot find a module definition for "work@Master_AXI_Write_Data_Channel::posedge_pulse_generator".
 
 [WRN:EL0500] Master_AXI_Write_Data_Channel.v:106: Cannot find a module definition for "work@Master_AXI_Write_Data_Channel::Annuller".
@@ -8739,13 +8962,52 @@ Processing: -cd regression/issue_00810/src Master_AXI_Write_Data_Channel.v -writ
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 7
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Delay_Line.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Delay_Line.v.log
+[ERR:EL0531] Delay_Line.v:15: Negative value in instance work@Delay_Line
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WIDTH-1:0]     in,
+            |v1:
+            \_constant: , line:15
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Delay_Line.v:16: Negative value in instance work@Delay_Line
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [WIDTH-1:0]     out
+            |v1:
+            \_constant: , line:16
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Delay_Line.v:26: Negative value in instance work@Delay_Line.genblk1
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:             reg [WIDTH-1:0] stage [DEPTH-1:0];
+            |v1:
+            \_constant: , line:26
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Write_Sequencer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Write_Sequencer.v.log
@@ -8755,12 +9017,181 @@ Processing: -cd regression/issue_00810/src Master_AXI_Write_Sequencer.v -writepp
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src skid_buffer_datapath.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l skid_buffer_datapath.v.log
+[ERR:EL0531] skid_buffer_datapath.v:23: Negative value in instance work@skid_buffer_datapath
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    data_in,
+            |v1:
+            \_constant: , line:23
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] skid_buffer_datapath.v:24: Negative value in instance work@skid_buffer_datapath
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [WORD_WIDTH-1:0]    data_out,
+            |v1:
+            \_constant: , line:24
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] skid_buffer_datapath.v:46: Negative value in instance work@skid_buffer_datapath
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     reg [WORD_WIDTH-1:0] data_buffer    = WORD_ZERO;
+            |v1:
+            \_constant: , line:46
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] skid_buffer_datapath.v:47: Negative value in instance work@skid_buffer_datapath
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     reg [WORD_WIDTH-1:0] selected_data  = WORD_ZERO;
+            |v1:
+            \_constant: , line:47
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Transactor.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Transactor.v.log
+[ERR:EL0531] Master_AXI_Transactor.v:36: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [ADDR_WIDTH-1:0]    ar_system_address,
+            |v1:
+            \_constant: , line:36
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:47: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [ADDR_WIDTH-1:0]    araddr,
+            |v1:
+            \_constant: , line:47
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:58: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [ADDR_WIDTH-1:0]    aw_system_address,
+            |v1:
+            \_constant: , line:58
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:68: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [ADDR_WIDTH-1:0]    awaddr,
+            |v1:
+            \_constant: , line:68
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:79: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [WORD_WIDTH-1:0]    r_system_data,
+            |v1:
+            \_constant: , line:79
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:85: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    rdata,
+            |v1:
+            \_constant: , line:85
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:95: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]    w_system_data,
+            |v1:
+            \_constant: , line:95
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:100: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [WORD_WIDTH-1:0]    wdata,
+            |v1:
+            \_constant: , line:100
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Transactor.v:101: Negative value in instance work@Master_AXI_Transactor
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  wire    [BYTE_COUNT-1:0]    wstrb,
+            |v1:
+            \_constant: , line:101
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [WRN:EL0500] Master_AXI_Transactor.v:126: Cannot find a module definition for "work@Master_AXI_Transactor::Master_AXI_Address_Channel".
 
 [WRN:EL0500] Master_AXI_Transactor.v:163: Cannot find a module definition for "work@Master_AXI_Transactor::Master_AXI_Address_Channel".
@@ -8781,7 +9212,7 @@ Processing: -cd regression/issue_00810/src Master_AXI_Transactor.v -writepp -par
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 9
 [WARNING] : 9
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src posedge_pulse_generator.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l posedge_pulse_generator.v.log
@@ -8797,9 +9228,35 @@ Processing: -cd regression/issue_00810/src posedge_pulse_generator.v -writepp -p
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Annuller.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Annuller.v.log
+[ERR:EL0531] Annuller.v:37: Negative value in instance work@Annuller
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [WORD_WIDTH-1:0]   in,
+            |v1:
+            \_constant: , line:37
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Annuller.v:38: Negative value in instance work@Annuller
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [WORD_WIDTH-1:0]   out
+            |v1:
+            \_constant: , line:38
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Read_Sequencer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Read_Sequencer.v.log
@@ -8847,6 +9304,32 @@ Processing: -cd regression/issue_00810/src faxi_master.v -writepp -parse -nocach
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Address_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Address_Channel.v.log
+[ERR:EL0531] Master_AXI_Address_Channel.v:45: Negative value in instance work@Master_AXI_Address_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     input   wire    [ADDR_WIDTH-1:0]    system_address,
+            |v1:
+            \_constant: , line:45
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
+[ERR:EL0531] Master_AXI_Address_Channel.v:59: Negative value in instance work@Master_AXI_Address_Channel
+             v1:0 - v2:1
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:     output  reg     [ADDR_WIDTH-1:0]    axaddr,
+            |v1:
+            \_constant: , line:59
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:64
+              |INT:0
+.
+
 [WRN:EL0500] Master_AXI_Address_Channel.v:100: Cannot find a module definition for "work@Master_AXI_Address_Channel::pulse_to_level".
 
 [WRN:EL0512] Nb undefined modules: 1.
@@ -8855,7 +9338,7 @@ Processing: -cd regression/issue_00810/src Master_AXI_Address_Channel.v -writepp
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd regression/issue_01217 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -10215,9 +10698,12 @@ Processing: -cd regression/issue_00790 testbench.v -writepp -parse -nocache -nob
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd regression/issue_00603 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
+[ERR:UH0700] top.v:2: Unsupported expression "<n<> u<0> t<Null_rule> p<112> s<111> l<2>> module top #(
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00603 testbench.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l testbench.v.log
@@ -13069,7 +13555,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 66
-[  ERROR] : 40
+[  ERROR] : 78
 [WARNING] : 2374
 [   NOTE] : 0
 

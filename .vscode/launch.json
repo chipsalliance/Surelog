@@ -179,6 +179,25 @@
             ]
         },
         {
+            "name": "Earlgrey_nexysvideo",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "Earlgrey_nexysvideo.sl", "-d", "0", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Earlgrey_nexysvideo/synth",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Earlgrey_0_1",
             "type": "cppdbg",
             "request": "launch",
@@ -431,7 +450,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv","-d", "ast", "-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
+            "args": ["-parse", "tests/ScratchPad.sv","-d", "ast", "-d", "uhdm","-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

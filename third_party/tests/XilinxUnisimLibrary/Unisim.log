@@ -1553,9 +1553,22 @@ Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns ../glbl.v RAMB18E2.v -l RAMB18E2.v.log
+[ERR:EL0531] RAMB18E2.v:689: Negative value in instance work@RAMB18E2
+             v1:1 - v2:4
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:   localparam tmp_mem_depth = mem_size/(tmp_mem_width-tmp_memp_width);
+            |v1:
+            \_constant: , line:689
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns ../glbl.v FRAME_ECCE2.v -l FRAME_ECCE2.v.log
@@ -1571,9 +1584,22 @@ Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns ../glbl.v RAMB36E2.v -l RAMB36E2.v.log
+[ERR:EL0531] RAMB36E2.v:969: Negative value in instance work@RAMB36E2
+             v1:1 - v2:4
+             v1 invalid:0, v2 invalid:0
+             v1 name:, v2 name:
+             text:   localparam tmp_mem_depth = mem_size/(tmp_mem_width-tmp_memp_width);
+            |v1:
+            \_constant: , line:969
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:64
+              |INT:1
+.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns ../glbl.v RAMB36E1.v -l RAMB36E1.v.log
@@ -1859,7 +1885,7 @@ Processing: -cd verilog/src/unisims -writepp -parse -nocache -nobuiltin -nonote 
 Processed 250 tests.
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 6
 [WARNING] : 175
 [   NOTE] : 0
 

@@ -345,6 +345,10 @@ public:
 			  CompileDesign* compileDesign,
                     UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
+  Value* getValueObj(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+			  CompileDesign* compileDesign,
+                    UHDM::any* pexpr = NULL,
+                    ValuedComponentI* instance = NULL);
 
  private:
   CompileHelper(const CompileHelper&) = delete;

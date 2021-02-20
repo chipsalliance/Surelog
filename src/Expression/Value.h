@@ -91,6 +91,7 @@ class Value {
 
   virtual std::string uhdmValue() = 0;
   virtual std::string decompiledValue() = 0;
+  virtual int vpiValType() = 0;
 
   virtual void u_plus(const Value* a) = 0;
   virtual void u_minus(const Value* a) = 0;
@@ -185,6 +186,7 @@ class SValue : public Value {
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
+  int vpiValType() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -286,6 +288,7 @@ class LValue : public Value {
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
+  int vpiValType() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -363,6 +366,12 @@ class StValue : public Value {
     m_size = val.size();
     m_valid = true;
   }
+  void set(const std::string& val, Type type, unsigned short size) {
+    m_type = type;
+    m_value = val;
+    m_size = size;
+    m_valid = true;
+  }
   void set(const std::string& val) final {
     m_type = Type::String;
     m_value = val;
@@ -388,6 +397,7 @@ class StValue : public Value {
 
   std::string uhdmValue() final;
   std::string decompiledValue() final;
+  int vpiValType() final;
 
   void u_plus(const Value* a) final {}
   void u_minus(const Value* a) final {}

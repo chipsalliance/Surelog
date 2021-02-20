@@ -440,6 +440,9 @@ bool CompileModule::collectUdpObjects_() {
         assign_stmt->Rhs(c);
         std::string val = "INT:" + fC->SymName(Value);
         c->VpiValue(val);
+        c->VpiDecompile(fC->SymName(Value));
+        c->VpiSize(32);
+        c->VpiConstType(vpiIntConst);
         c->VpiParent(assign_stmt);
         c->VpiFile(fC->getFileName());
         c->VpiLineNo(fC->Line(Value));

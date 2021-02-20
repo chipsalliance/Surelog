@@ -135,6 +135,27 @@ any* getObject(const std::string& name, DesignComponent* component,
   return result;
 }
 
+UHDM::task_func* getFuncFromPackage(const std::string& name,
+                                    DesignComponent* component, std::set<DesignComponent*>& visited) {                                    
+  for (Package* pack : component->getAccessPackages()) {
+    if (pack->getTask_funcs()) {
+      for (UHDM::task_func* tf : *pack->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          return tf;
+        }
+      }
+    }
+    if (visited.find(pack) == visited.end()) {
+      visited.insert(pack);
+      UHDM::task_func* res = getFuncFromPackage(name, pack, visited);
+      if (res) {
+        return res;
+      }
+    }
+  }
+  return nullptr;
+}
+
 UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignComponent* component,
                       CompileDesign* compileDesign, any* pexpr) {
   DesignComponent* comp = component;
@@ -177,15 +198,10 @@ UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignCompo
     }
   }
   if (component) {
-    for (Package* pack : component->getAccessPackages()) {
-      if (pack->getTask_funcs()) {
-        for (UHDM::task_func* tf : *pack->getTask_funcs()) {
-          if (tf->VpiName() == name) {
-            return tf;
-          }
-        }
-      }
-    }
+    std::set<DesignComponent*> visited;
+    task_func* res = getFuncFromPackage(name, component, visited);
+    if (res)
+      return res;
   }
   Design* design = compileDesign->getCompiler()->getDesign();
   auto& all_files = design->getAllFileContents();
@@ -214,6 +230,206 @@ bool getStringVal(std::string& result, expr* val) {
     }
   }
   return false;
+}
+
+constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
+  VObjectType objtype = fC->Type(child);
+  constant* result = nullptr;
+  switch (objtype) {
+    case VObjectType::slIntConst: {
+      // Do not evaluate the constant, keep it as in the source text:
+      UHDM::constant* c = s.MakeConstant();
+      const std::string& value = fC->SymName(child);
+      std::string v;
+      c->VpiDecompile(value);
+      if (strstr(value.c_str(), "'")) {
+        char base = 'h';
+        unsigned int i = 0;
+        for (i = 0; i < value.size(); i++) {
+          if (value[i] == '\'') {
+            base = value[i + 1];
+            break;
+          }
+        }
+        v = value.substr(i + 2);
+        v = StringUtils::replaceAll(v, "_", "");
+        switch (base) {
+          case 'h': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "HEX:" + v;
+            c->VpiConstType(vpiHexConst);
+            break;
+          }
+          case 'b': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "BIN:" + v;
+            c->VpiConstType(vpiBinaryConst);
+            break;
+          }
+          case 'o': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "OCT:" + v;
+            c->VpiConstType(vpiOctConst);
+            break;
+          }
+          case 'd': {
+            std::string size = value;
+            StringUtils::rtrim(size, '\'');
+            c->VpiSize(atoi(size.c_str()));
+            v = "DEC:" + v;
+            c->VpiConstType(vpiDecConst);
+            break;
+          }
+          default: {
+            v = "BIN:" + v;
+            c->VpiConstType(vpiBinaryConst);
+            break;
+          }
+        }
+
+      } else {
+        v = "INT:" + value;
+        c->VpiSize(64);
+        c->VpiConstType(vpiIntConst);
+      }
+
+      c->VpiValue(v);
+      result = c;
+      break;
+    }
+    case VObjectType::slRealConst: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = fC->SymName(child);
+      c->VpiDecompile(value);
+      value = "REAL:" + value;
+      c->VpiValue(value);
+      c->VpiConstType(vpiRealConst);
+      c->VpiSize(64);
+      result = c;
+      break;
+    }
+    case VObjectType::slNumber_1Tickb1:
+    case VObjectType::slNumber_1TickB1:
+    case VObjectType::slInitVal_1Tickb1:
+    case VObjectType::slInitVal_1TickB1:
+    case VObjectType::slScalar_1Tickb1:
+    case VObjectType::slScalar_1TickB1:
+    case VObjectType::sl1: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:1";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(1);
+      c->VpiDecompile("1'b1");
+      result = c;
+      break;
+    }
+    case VObjectType::slScalar_Tickb1:
+    case VObjectType::slScalar_TickB1:
+    case VObjectType::slNumber_Tickb1:
+    case VObjectType::slNumber_TickB1:
+    case VObjectType::slNumber_Tick1: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:1";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(0);
+      c->VpiDecompile("'b1");
+      result = c;
+      break;
+    }
+    case VObjectType::slNumber_1Tickb0:
+    case VObjectType::slNumber_1TickB0:
+    case VObjectType::slInitVal_1Tickb0:
+    case VObjectType::slInitVal_1TickB0:
+    case VObjectType::slScalar_1Tickb0:
+    case VObjectType::slScalar_1TickB0:
+    case VObjectType::sl0: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:0";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(1);
+      c->VpiDecompile("1'b0");
+      result = c;
+      break;
+    }
+    case VObjectType::slScalar_Tickb0:
+    case VObjectType::slScalar_TickB0:
+    case VObjectType::slNumber_Tickb0:
+    case VObjectType::slNumber_TickB0:
+    case VObjectType::slNumber_Tick0: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:0";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(0);
+      c->VpiDecompile("'b0");
+      result = c;
+      break;
+    }
+    case VObjectType::slNumber_1TickBX:
+    case VObjectType::slNumber_1TickbX:
+    case VObjectType::slNumber_1Tickbx:
+    case VObjectType::slNumber_1TickBx:
+    case VObjectType::slInitVal_1Tickbx:
+    case VObjectType::slInitVal_1TickbX:
+    case VObjectType::slInitVal_1TickBx:
+    case VObjectType::slInitVal_1TickBX:
+    case VObjectType::slX: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:X";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(1);
+      c->VpiDecompile("1'bX");
+      result = c;
+      break;
+    }
+    case VObjectType::slZ: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:z";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(1);
+      c->VpiDecompile("'bz");
+      result = c;
+      break;
+    }
+    case VObjectType::slTime_literal: {
+      // TODO:
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:0";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(1);
+      c->VpiDecompile("1'b0");
+      result = c;
+      break;
+    }
+    case VObjectType::slStringLiteral: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = fC->SymName(child);
+      if (value.front() == '"' && value.back() == '"')
+        value = value.substr(1, value.length() - 2);
+      c->VpiDecompile(value);
+      c->VpiSize(strlen(value.c_str()));
+      value = "STRING:" + value;
+      c->VpiValue(value);
+      c->VpiConstType(vpiStringConst);
+      result = c;
+      break;
+    }
+    default:
+      break;
+  }
+  return result;
 }
 
 expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent* component,
@@ -256,6 +472,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -278,6 +496,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -297,9 +517,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
               Value* argval = m_exprBuilder.getValueFactory().newLValue();
-              argval->set(val, Value::Type::Integer, 32);
+              argval->set(val, Value::Type::Integer, 64);
               instance->setValue(operands[0]->VpiName(),argval, m_exprBuilder);
             }
             break;
@@ -322,6 +544,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -334,6 +558,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -346,6 +572,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -358,6 +586,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -370,6 +600,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -383,6 +615,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -396,6 +630,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -408,6 +644,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -420,6 +658,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -432,6 +672,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -444,6 +686,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -455,6 +699,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -506,6 +752,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -518,6 +766,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -529,6 +779,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -540,6 +792,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -555,6 +809,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -571,6 +827,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -586,6 +844,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -602,6 +862,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -617,6 +879,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -633,6 +897,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -645,6 +911,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -659,6 +927,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
                 result = c;
               }
             }
@@ -673,6 +943,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -685,6 +957,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
+              c->VpiSize(64);
+              c->VpiConstType(vpiIntConst);
               result = c;
             }
             break;
@@ -809,7 +1083,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               if (ttps == uhdmint_typespec) {
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string((int)val0));
-                c->VpiSize(32);
+                c->VpiSize(64);
                 c->VpiConstType(vpiIntConst);
                 result = c;
               } else if (ttps == uhdmlong_int_typespec) {
@@ -911,6 +1185,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("INT:" + std::to_string(bits));
         c->VpiDecompile(std::to_string(bits));
+        c->VpiSize(64);
+        c->VpiConstType(vpiIntConst);
         result = c;
       }
     } else if (name == "$clog2") {
@@ -928,6 +1204,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue("INT:" + std::to_string(clog2));
           c->VpiDecompile(std::to_string(clog2));
+          c->VpiSize(64);
+          c->VpiConstType(vpiIntConst);
           result = c;
         } 
       }
@@ -1208,6 +1486,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
           c->VpiDecompile(sval->decompiledValue());
+          c->VpiConstType(sval->vpiValType());
+          c->VpiSize(sval->getSize());
           result = c;
         }
       }
@@ -1220,6 +1500,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       UHDM::constant* c = s.MakeConstant();
       c->VpiValue(sval->uhdmValue());
       c->VpiDecompile(sval->decompiledValue());
+      c->VpiConstType(sval->vpiValType());
+      c->VpiSize(sval->getSize());
       result = c;
     }
   } 
@@ -1265,6 +1547,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       UHDM::constant* c = s.MakeConstant();
       c->VpiValue(sval->uhdmValue());
       c->VpiDecompile(sval->decompiledValue());
+      c->VpiConstType(sval->vpiValType());
+      c->VpiSize(sval->getSize());
       result = c;
     }
   }
@@ -1275,6 +1559,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       UHDM::constant* c = s.MakeConstant();
       c->VpiValue(sval->uhdmValue());
       c->VpiDecompile(sval->decompiledValue());
+      c->VpiConstType(sval->vpiValType());
+      c->VpiSize(sval->getSize());
       result = c;
     }
   }
@@ -1306,6 +1592,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
           if (n->VpiName() == name) {
             UHDM::constant* c = s.MakeConstant();
             c->VpiValue(n->VpiValue());
+            c->VpiSize(64);
             result = c;
           }
         }
@@ -1636,7 +1923,7 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("INT:0");
         c->VpiDecompile("0");
-        c->VpiSize(32);
+        c->VpiSize(64);
         c->VpiConstType(vpiNullConst);
         result = c;
         break;
@@ -1646,6 +1933,7 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiConstType(vpiUnboundedConst);
         c->VpiValue("STRING:$");
         c->VpiDecompile("$");
+        c->VpiSize(1);
         result = c;
         break;
       }
@@ -1653,6 +1941,8 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:this");
         c->VpiDecompile("this");
+        c->VpiConstType(vpiStringConst);
+        c->VpiSize(4);
         result = c;
         break;
       }
@@ -1660,6 +1950,8 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:super");
         c->VpiDecompile("super");
+        c->VpiConstType(vpiStringConst);
+        c->VpiSize(5);
         result = c;
         break;
       }
@@ -1667,6 +1959,8 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:this.super");
         c->VpiDecompile("this.super");
+        c->VpiConstType(vpiStringConst);
+        c->VpiSize(10);
         result = c;
         break;
       }
@@ -2186,6 +2480,8 @@ UHDM::any* CompileHelper::compileExpression(
             if (result)
               break;
           }
+          if (result)
+            break;
           if (instance)
             sval = instance->getValue(name);
         }
@@ -2258,149 +2554,38 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
           c->VpiDecompile(sval->decompiledValue());
+          c->VpiConstType(sval->vpiValType());
+          c->VpiSize(sval->getSize());
           result = c;
         }
         break;
       }
-      case VObjectType::slIntConst: {
-        // Do not evaluate the constant, keep it as in the source text:
-        UHDM::constant* c = s.MakeConstant();
-        const std::string& value = fC->SymName(child);
-        std::string v;
-        c->VpiDecompile(value);
-        if (strstr(value.c_str(), "'")) {
-          char base = 'h';
-          unsigned int i = 0;
-          for (i = 0; i < value.size(); i++) {
-            if (value[i] == '\'') {
-              base = value[i + 1];
-              break;
-            }
-          }
-          v = value.substr(i + 2);
-          v = StringUtils::replaceAll(v, "_", "");
-          switch (base) {
-          case 'h': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
-            v = "HEX:" + v;
-            c->VpiConstType(vpiHexConst);
-            break;
-          }
-          case 'b': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
-            v = "BIN:" + v;
-            c->VpiConstType(vpiBinaryConst);
-            break;
-          }
-          case 'o': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
-            v = "OCT:" + v;
-            c->VpiConstType(vpiOctConst);
-            break;
-          }
-          case 'd': {
-            std::string size = value;
-            StringUtils::rtrim(size, '\'');
-            c->VpiSize(atoi(size.c_str()));
-            v = "DEC:" + v;
-            c->VpiConstType(vpiDecConst);
-            break;
-          }  
-          default: {
-            v = "BIN:" + v;
-            c->VpiConstType(vpiBinaryConst);
-            break;
-          }
-          }
-
-        } else {
-          v = "INT:" + value;
-          c->VpiSize(32);
-          c->VpiConstType(vpiIntConst);
-        }
-        
-        c->VpiValue(v);
-        result = c;
-        break;
-      }
-      case VObjectType::slRealConst: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = fC->SymName(child);
-        c->VpiDecompile(value);
-        value = "REAL:" + value;
-        c->VpiValue(value);
-        c->VpiConstType(vpiRealConst);
-        result = c;
-        break;
-      }
+      case VObjectType::slIntConst: 
+      case VObjectType::slRealConst: 
       case VObjectType::slNumber_1Tickb1:
       case VObjectType::slNumber_1TickB1:
       case VObjectType::slInitVal_1Tickb1:
       case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
       case VObjectType::slScalar_1TickB1:
-      case VObjectType::sl1: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(1);
-        c->VpiDecompile("1'b1");
-        result = c;
-        break;
-      }
+      case VObjectType::sl1: 
       case VObjectType::slScalar_Tickb1:
       case VObjectType::slScalar_TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1:
-      {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:1";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(0);
-        c->VpiDecompile("'b1");
-        result = c;
-        break;
-      }
       case VObjectType::slNumber_1Tickb0:
       case VObjectType::slNumber_1TickB0:
       case VObjectType::slInitVal_1Tickb0:
       case VObjectType::slInitVal_1TickB0:
       case VObjectType::slScalar_1Tickb0:
       case VObjectType::slScalar_1TickB0:
-      case VObjectType::sl0: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:0";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(1);
-        c->VpiDecompile("1'b0");
-        result = c;
-        break;
-      }
+      case VObjectType::sl0: 
       case VObjectType::slScalar_Tickb0:
       case VObjectType::slScalar_TickB0:
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
       case VObjectType::slNumber_Tick0:
-      {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:0";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(0);
-        c->VpiDecompile("'b0");
-        result = c;
-        break;
-      }
       case VObjectType::slNumber_1TickBX:
       case VObjectType::slNumber_1TickbX:
       case VObjectType::slNumber_1Tickbx:
@@ -2409,48 +2594,11 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slInitVal_1TickbX:
       case VObjectType::slInitVal_1TickBx:
       case VObjectType::slInitVal_1TickBX:
-      case VObjectType::slX: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:X";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(1);
-        c->VpiDecompile("1'bX");
-        result = c;
-        break;
-      }
-      case VObjectType::slZ: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:z";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(1);
-        c->VpiDecompile("'bz");
-        result = c;
-        break;
-      }
-      case VObjectType::slTime_literal: {
-        // TODO:
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = "BIN:0";
-        c->VpiValue(value);
-        c->VpiConstType(vpiBinaryConst);
-        c->VpiSize(1);
-        c->VpiDecompile("1'b0");
-        result = c;
-        break;
-      }
+      case VObjectType::slX: 
+      case VObjectType::slZ: 
+      case VObjectType::slTime_literal: 
       case VObjectType::slStringLiteral: {
-        UHDM::constant* c = s.MakeConstant();
-        std::string value = fC->SymName(child);
-        if (value.front() == '"' && value.back() == '"')
-          value = value.substr(1, value.length() - 2);
-        c->VpiDecompile(value);
-        c->VpiSize(strlen(value.c_str()));
-        value = "STRING:" + value;
-        c->VpiValue(value);
-        c->VpiConstType(vpiStringConst);
-        result = c;
+        result = compileConst(fC, child, s);
         break;
       }
       case VObjectType::slStreaming_concatenation: {
@@ -2662,7 +2810,7 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("INT:0");
         c->VpiDecompile("0");
-        c->VpiSize(32);
+        c->VpiSize(64);
         c->VpiConstType(vpiNullConst);
         result = c;
         break;
@@ -2672,30 +2820,37 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiConstType(vpiUnboundedConst);
         c->VpiValue("STRING:$");
         c->VpiDecompile("$");
+        c->VpiSize(1);
         result = c;
         break;
       }
       case VObjectType::slThis_keyword: {
         // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
+        c->VpiConstType(vpiStringConst);
         c->VpiValue("STRING:this");
         c->VpiDecompile("this");
+        c->VpiSize(4);
         result = c;
         break;
       }
       case VObjectType::slSuper_keyword: {
          // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
+        c->VpiConstType(vpiStringConst);
         c->VpiValue("STRING:super");
         c->VpiDecompile("super");
+        c->VpiSize(5);
         result = c;
         break;
       }
       case VObjectType::slThis_dot_super: {
          // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
+        c->VpiConstType(vpiStringConst);
         c->VpiValue("STRING:this.super");
         c->VpiDecompile("this.super");
+        c->VpiSize(10);
         result = c;
         break;
       }
@@ -2703,6 +2858,47 @@ UHDM::any* CompileHelper::compileExpression(
         // Empty constraint block
         UHDM::constraint* cons = s.MakeConstraint();
         result = cons;
+        break;
+      }
+      case VObjectType::slIntConst: 
+      case VObjectType::slRealConst: 
+      case VObjectType::slNumber_1Tickb1:
+      case VObjectType::slNumber_1TickB1:
+      case VObjectType::slInitVal_1Tickb1:
+      case VObjectType::slInitVal_1TickB1:
+      case VObjectType::slScalar_1Tickb1:
+      case VObjectType::slScalar_1TickB1:
+      case VObjectType::sl1: 
+      case VObjectType::slScalar_Tickb1:
+      case VObjectType::slScalar_TickB1:
+      case VObjectType::slNumber_Tickb1:
+      case VObjectType::slNumber_TickB1:
+      case VObjectType::slNumber_Tick1:
+      case VObjectType::slNumber_1Tickb0:
+      case VObjectType::slNumber_1TickB0:
+      case VObjectType::slInitVal_1Tickb0:
+      case VObjectType::slInitVal_1TickB0:
+      case VObjectType::slScalar_1Tickb0:
+      case VObjectType::slScalar_1TickB0:
+      case VObjectType::sl0: 
+      case VObjectType::slScalar_Tickb0:
+      case VObjectType::slScalar_TickB0:
+      case VObjectType::slNumber_Tickb0:
+      case VObjectType::slNumber_TickB0:
+      case VObjectType::slNumber_Tick0:
+      case VObjectType::slNumber_1TickBX:
+      case VObjectType::slNumber_1TickbX:
+      case VObjectType::slNumber_1Tickbx:
+      case VObjectType::slNumber_1TickBx:
+      case VObjectType::slInitVal_1Tickbx:
+      case VObjectType::slInitVal_1TickbX:
+      case VObjectType::slInitVal_1TickBx:
+      case VObjectType::slInitVal_1TickBX:
+      case VObjectType::slX: 
+      case VObjectType::slZ: 
+      case VObjectType::slTime_literal: 
+      case VObjectType::slStringLiteral: {
+        result = compileConst(fC, parent, s);
         break;
       }
       case VObjectType::slStringConst: {
@@ -2767,7 +2963,6 @@ UHDM::any* CompileHelper::compileExpression(
           }
         } else {
           ref_obj* ref = s.MakeRef_obj();
-          assert ((tmpName.find(".") != std::string::npos) && "Can't have hier path here!"); 
           ref->VpiName(tmpName);
           ref->VpiParent(pexpr);
           tmpName == "";
@@ -2806,6 +3001,8 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
           c->VpiDecompile(sval->decompiledValue());
+          c->VpiConstType(sval->vpiValType());
+          c->VpiSize(sval->getSize());
           result = c;
         }
         break;
@@ -2989,6 +3186,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           uint64_t lint = 0;
           uint64_t rint = 0;
           if (leftV->isValid()) {
+            /*
             constant* lexpc = s.MakeConstant();
             lexpc->VpiSize(leftV->getSize());
             lexpc->VpiConstType(vpiIntConst);
@@ -2997,9 +3195,11 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
             lexpc->VpiFile(fC->getFileName());
             lexpc->VpiLineNo(fC->Line(lexpr));
             lexp = lexpc;
+            */
             lint = leftV->getValueL();
           }
           if (rightV->isValid()) {
+            /*
             constant* rexpc = s.MakeConstant();
             rexpc->VpiSize(rightV->getSize());
             rexpc->VpiConstType(vpiIntConst);
@@ -3008,6 +3208,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
             rexpc->VpiFile(fC->getFileName());
             rexpc->VpiLineNo(fC->Line(rexpr));
             rexp = rexpc;
+            */
             rint = rightV->getValueL();
           }
           uint64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
@@ -3036,7 +3237,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
 
         constant* lexpc = s.MakeConstant();
         lexpc->VpiConstType(vpiIntConst);
-        lexpc->VpiSize(1);
+        lexpc->VpiSize(64);
         lexpc->VpiValue("INT:0");
         lexpc->VpiDecompile("0");
         lexpc->VpiFile(fC->getFileName());
@@ -3046,17 +3247,17 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         if (reduce) {
           Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
           if (rightV->isValid()) {
-            constant* rexpc = s.MakeConstant();
-            rexpc->VpiSize(rightV->getSize());
-            rexpc->VpiConstType(vpiIntConst);
+            //constant* rexpc = s.MakeConstant();
+           // rexpc->VpiSize(rightV->getSize());
+           // rexpc->VpiConstType(vpiIntConst);
             int64_t rint = rightV->getValueL();
             size = size * rint;
-            rightV->decr(); // Decr by 1
-            rexpc->VpiValue(rightV->uhdmValue());
-            rexpc->VpiDecompile(rightV->decompiledValue());
-            rexpc->VpiFile(fC->getFileName());
-            rexpc->VpiLineNo(fC->Line(rexpr));
-            rexp = rexpc;
+           // rightV->decr(); // Decr by 1
+           // rexpc->VpiValue(rightV->uhdmValue());
+           // rexpc->VpiDecompile(rightV->decompiledValue());
+           // rexpc->VpiFile(fC->getFileName());
+           // rexpc->VpiLineNo(fC->Line(rexpr));
+           // rexp = rexpc;
           }
         }
         range->Left_expr(lexp);
@@ -3076,6 +3277,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
             op->Operands()->push_back(rexp);
             constant* one = s.MakeConstant();
             one->VpiValue("INT:1");
+            one->VpiConstType(vpiIntConst);
+            one->VpiSize(64);
             op->Operands()->push_back(one);
             rexp = op;
           }
@@ -3135,30 +3338,50 @@ UHDM::any* CompileHelper::compilePartSelectRange(
           Value* cvv = m_exprBuilder.fromVpiValue(cv->VpiValue());
           Value* left = m_exprBuilder.fromVpiValue(lexp->VpiValue());
           Value* range = m_exprBuilder.fromVpiValue(rexp->VpiValue());
-          uint64_t iv = cvv->getValueUL();
           uint64_t l = left->getValueUL();
           uint64_t r = range->getValueUL();
           uint64_t res = 0;
-          uint64_t mask = 0;
-          if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
-            for (int i = l; i > int(l - r); i--) {
-              mask |= 1 << i;
+          if ((cvv->getType() == Value::Type::Hexadecimal) && (cvv->getSize() > 64 /* hex val stored as string above 64 bits */)) {
+            std::string val = cvv->getValueS();
+            std::string part;
+            if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
+              int steps = r / 4;
+              l = l / 4;
+              for (unsigned int i = l; i < l + steps; i++) {
+                part += val[val.size() - 1 -i];
+              }
+            } else {
+              int steps = r / 4;
+              l = l / 4;
+              for (unsigned int i = l; i > l - steps; i--) {
+                part += val[val.size() - 1 -i];
+              }
             }
-            res = iv & mask;
-            res = res >> (l - r);
+            res = std::strtoull(part.c_str(), 0, 16);
           } else {
-            for (int i = l; i < int(l + r); i++) {
-              mask |= 1 << i;
+            uint64_t iv = cvv->getValueUL();
+            uint64_t mask = 0;
+            if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
+              for (int i = l; i > int(l - r); i--) {
+                mask |= 1 << i;
+              }
+              res = iv & mask;
+              res = res >> (l - r);
+            } else {
+              for (int i = l; i < int(l + r); i++) {
+                mask |= 1 << i;
+              }
+              res = iv & mask;
+              res = res >> l;
             }
-            res = iv & mask;
-            res = res >> l;
           }
           
           std::string sval = "INT:" + std::to_string(res);
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval);
-          c->VpiDecompile(sval);
+          c->VpiDecompile(std::to_string(res));
           c->VpiSize(r);
+          c->VpiConstType(vpiIntConst);
           result = c;
           reduced = true;
         }
@@ -3578,6 +3801,8 @@ UHDM::any* CompileHelper::compileBits(
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
+    c->VpiConstType(vpiIntConst);
+    c->VpiSize(64);
     result = c;
   } else if (sizeMode) {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -3612,56 +3837,67 @@ UHDM::any* CompileHelper::compileTypename(
     case slIntVec_TypeLogic:
       c->VpiValue("STRING:logic");
       c->VpiDecompile("logic");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntVec_TypeBit:
       c->VpiValue("STRING:bit");
       c->VpiDecompile("bit");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntVec_TypeReg:
       c->VpiValue("STRING:reg");
       c->VpiDecompile("reg");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntegerAtomType_Byte:
       c->VpiValue("STRING:byte");
       c->VpiDecompile("byte");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntegerAtomType_Shortint:
       c->VpiValue("STRING:shortint");
       c->VpiDecompile("shortint");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntegerAtomType_Int:
       c->VpiValue("STRING:int");
       c->VpiDecompile("int");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntegerAtomType_LongInt:
       c->VpiValue("STRING:longint");
       c->VpiDecompile("longint");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slIntegerAtomType_Time:
       c->VpiValue("STRING:time");
       c->VpiDecompile("time");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slNonIntType_ShortReal:
       c->VpiValue("STRING:shortreal");
       c->VpiDecompile("shortreal");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slNonIntType_Real:
       c->VpiValue("STRING:real");
       c->VpiDecompile("real");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     case slNonIntType_RealTime:
       c->VpiValue("STRING:realtime");
       c->VpiDecompile("realtime");
+      c->VpiConstType(vpiStringConst);
       result = c;
       break;
     default:
@@ -3671,6 +3907,7 @@ UHDM::any* CompileHelper::compileTypename(
       const std::string& arg = fC->SymName(Expression);
       c->VpiValue("STRING:" + arg);
       c->VpiDecompile(arg);
+      c->VpiConstType(vpiStringConst);
       break;
   }
   return result;
@@ -3699,6 +3936,8 @@ UHDM::any* CompileHelper::compileClog2(
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(clog2));
     c->VpiDecompile(std::to_string(clog2));
+    c->VpiConstType(vpiIntConst);
+    c->VpiSize(64);
     result = c;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -3876,6 +4115,8 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(val->uhdmValue());
           c->VpiDecompile(val->decompiledValue());
+          c->VpiSize(val->getSize());
+          c->VpiConstType(val->vpiValType());
           result = c;
           return result;
         }
@@ -4116,4 +4357,20 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
     validValue = false;
   }
   return result;
+}
+
+Value* CompileHelper::getValueObj(DesignComponent* component,
+                                  const FileContent* fC, NodeId nodeId,
+                                  CompileDesign* compileDesign,
+                                  UHDM::any* pexpr,
+                                  ValuedComponentI* instance) {
+  Value* value = nullptr;
+  UHDM::any* expr = compileExpression(component, fC, nodeId, compileDesign,
+                                      pexpr, instance, true);
+  if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
+    UHDM::constant* c = (UHDM::constant*)expr;
+    const std::string& v = c->VpiValue();
+    value = m_exprBuilder.fromVpiValue(v);
+  }
+  return value;
 }

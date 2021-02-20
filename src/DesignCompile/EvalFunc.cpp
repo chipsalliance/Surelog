@@ -198,9 +198,11 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
             get_value(invalidValue,
                       reduceExpr(cond, invalidValue, component, compileDesign,
                                  scopes.back(), fileName, lineNumber, nullptr));
-        Value* value = m_exprBuilder.getValueFactory().newLValue();
-        value->set(val, Value::Type::Integer, 32);
-        instance->setValue(funcName,value, m_exprBuilder);
+        if (invalidValue == false) {                       
+          Value* value = m_exprBuilder.getValueFactory().newLValue();
+          value->set(val, Value::Type::Integer, 32);
+          instance->setValue(funcName,value, m_exprBuilder);
+        }
       }
       break;
     }
@@ -331,6 +333,8 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
       }
       index++;
     }
+  } else {
+    return nullptr;
   }
   scopes.push_back(scope);
   if (const UHDM::any* the_stmt = func->Stmt()) {
@@ -407,6 +411,9 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
   if (result && result->isValid()) {
     constant* c = s.MakeConstant();
     c->VpiValue(result->uhdmValue());
+    c->VpiDecompile(result->decompiledValue());
+    c->VpiConstType(result->vpiValType());
+    c->VpiSize(result->getSize());
     invalidValue = false;
     return c;
   } else {
