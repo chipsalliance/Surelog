@@ -1354,7 +1354,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 invalidValue = true;
               }
             }
-          } 
+          } else if (ctype == uhdmconstant) {
+            if (index_val == 0) {
+              result = complex;
+            }
+          }
         }
       } else if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
         any* object = getObject(name, component, compileDesign, inst, pexpr);
@@ -1496,7 +1500,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
 
   if (instance && dynamic_cast<FScope*> (instance)) {
     sval = instance->getValue(name);
-    if (sval) {  
+    if (sval && sval->isValid()) {  
       UHDM::constant* c = s.MakeConstant();
       c->VpiValue(sval->uhdmValue());
       c->VpiDecompile(sval->decompiledValue());
@@ -1507,8 +1511,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
   } 
 
   while ((result == nullptr) && instance) {
-    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
-    if (inst) {
+    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
         UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
@@ -1535,6 +1538,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
         instance = (ValuedComponentI*) instance->getParentScope();
       else
         instance = nullptr;
+    } else if (FScope* inst = dynamic_cast<FScope*> (instance)) { 
+      instance = (ValuedComponentI*) inst->getParentScope();
     } else {
       instance = nullptr;
     }
