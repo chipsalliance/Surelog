@@ -1,0 +1,33 @@
+## Set common environment variables
+TOP ?= $(shell git rev-parse --show-toplevel)
+
+export SYSTEMC_INCLUDE := $(BP_EXTERNAL_DIR)/include
+export SYSTEMC_LIBDIR  := $(BP_EXTERNAL_DIR)/lib-linux64
+export LD_LIBRARY_PATH := $(SYSTEMC_LIBDIR):$(LD_LIBRARY_PATH)
+
+include $(TOP)/Makefile.common
+
+.PHONY: clean
+
+.DEFAULT: help
+
+clean:
+	@rm -rf results/
+	@rm -rf logs/
+	@rm -rf reports/
+	@rm -rf touchfiles/
+
+report:
+	$(eval REPORT_LIST := $(shell find $(REPORT_PATH) -type f -name "*.rpt"))
+	$(eval ERROR_LIST  := $(shell find $(REPORT_PATH) -type f -name "*.err"))
+	@printf "============================= Reports ===============================\n"
+	@$(foreach report,$(REPORT_LIST), echo $(notdir $(report)); \
+		echo "--------------------------------------------------"; \
+		cat $(report); echo "";)
+	@printf "============================= Errors ===============================\n"
+	@$(foreach err,$(ERROR_LIST), echo $(notdir $(err)); \
+		echo "--------------------------------------------------"; \
+		cat $(err); echo "";)
+	@printf "============================ Summary ===============================\n"
+	@echo "Reports: $(words $(REPORT_LIST))"
+	@echo "Errors: $(words $(ERROR_LIST))"

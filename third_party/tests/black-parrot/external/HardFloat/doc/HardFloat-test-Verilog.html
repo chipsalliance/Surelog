@@ -1,0 +1,1025 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+
+<HTML>
+
+<HEAD>
+<TITLE>Testing Berkeley HardFloat in Verilog Simulation</TITLE>
+</HEAD>
+
+<BODY>
+
+<H1>Berkeley HardFloat Release 1: Testing Using Verilog Simulation</H1>
+
+<P>
+John R. Hauser<BR>
+2019 July 29<BR>
+</P>
+
+
+<H2>Contents</H2>
+
+<BLOCKQUOTE>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+<COL WIDTH=25>
+<COL WIDTH="*">
+<TR><TD COLSPAN=2>1. Introduction</TD></TR>
+<TR><TD COLSPAN=2>2. Limitations</TD></TR>
+<TR><TD COLSPAN=2>3. Acknowledgments and License</TD></TR>
+<TR><TD COLSPAN=2>4. HardFloat Package Directory Structure</TD></TR>
+<TR><TD COLSPAN=2>5. The <CODE>finish_fail</CODE> Verilog Macro</TD></TR>
+<TR><TD COLSPAN=2>6. Specializing the HardFloat Modules to Test</TD></TR>
+<TR><TD COLSPAN=2>7. Dependence on Berkeley TestFloat</TD></TR>
+<TR><TD COLSPAN=2>8. <CODE>Makefile</CODE> Test Targets</TD></TR>
+<TR>
+  <TD></TD>
+  <TD>8.1. Testing Conversions Between Standard and Recoded Floating-Point
+      (<CODE>fNToRecFN</CODE> and <CODE>recFNToFN</CODE>)</TD>
+</TR>
+<TR>
+  <TD></TD>
+  <TD>8.2. Testing Conversions from Integer (<CODE>iNToRecFN</CODE>)</TD>
+</TR>
+<TR>
+  <TD></TD>
+  <TD>8.3. Testing Conversions to Integer (<CODE>recFNToIN</CODE>)</TD>
+</TR>
+<TR>
+  <TD></TD>
+  <TD>8.4. Testing Conversions Between Formats (<CODE>recFNToRecFN</CODE>)</TD>
+</TR>
+<TR>
+  <TD></TD>
+  <TD>8.5. Testing Addition and Subtraction (<CODE>addRecFN</CODE>)</TD>
+</TR>
+<TR><TD></TD><TD>8.6. Testing Multiplication (<CODE>mulRecFN</CODE>)</TD></TR>
+<TR>
+  <TD></TD>
+  <TD>8.7. Testing Fused Multiply-Add (<CODE>mulAddRecFN</CODE>)</TD>
+</TR>
+<TR>
+  <TD></TD>
+  <TD>8.8. Testing Division and Square Root
+      (<CODE>divSqrtRecFN_small</CODE>)</TD>
+</TR>
+<TR><TD></TD><TD>8.9. Testing Comparisons (<CODE>compareRecFN</CODE>)</TD></TR>
+<TR><TD></TD><TD>8.10. Testing Multiple Functions</TD></TR>
+<TR><TD COLSPAN=2>9. Interpreting the Test Output</TD></TR>
+<TR><TD COLSPAN=2>10. Contact Information</TD></TR>
+</TABLE>
+</BLOCKQUOTE>
+
+
+<H2>1. Introduction</H2>
+
+<P>
+This document provides instructions for testing Berkeley HardFloat using a
+Verilog simulator and the test infrastructure supplied in the HardFloat
+package.
+Berkeley HardFloat is a hardware implementation of binary floating-point
+conforming to the IEEE Standard for Floating-Point Arithmetic.
+For basic documentation about HardFloat, see
+<A HREF="HardFloat-Verilog.html"><NOBR><CODE>HardFloat-Verilog.html</CODE></NOBR></A>.
+</P>
+
+<P>
+It is also possible to test HardFloat using Verilator, a free tool for
+converting a subset of synthesizable Verilog or SystemVerilog into C++ code.
+Test programs created using Verilator have been found to be much faster than
+some Verilog simulators.
+For equivalent instructions for testing HardFloat using Verilator, refer to
+<A HREF="HardFloat-test-Verilator.html"><NOBR><CODE>HardFloat-test-Verilator.html</CODE></NOBR></A>.
+</P>
+
+<P>
+The supplied tests for HardFloat depend on Berkeley TestFloat, which is not
+included in the HardFloat package.
+TestFloat in turn depends on Berkeley SoftFloat.
+The TestFloat and SoftFloat packages can be obtained from these Web pages:
+<BLOCKQUOTE>
+<A HREF="http://www.jhauser.us/arithmetic/TestFloat.html"><NOBR><CODE>http://www.jhauser.us/arithmetic/TestFloat.html</CODE></NOBR></A>&nbsp;<BR>
+<A HREF="http://www.jhauser.us/arithmetic/SoftFloat.html"><NOBR><CODE>http://www.jhauser.us/arithmetic/SoftFloat.html</CODE></NOBR></A>&nbsp;
+</BLOCKQUOTE>
+
+
+<H2>2. Limitations</H2>
+
+<P>
+The Verilog sources for HardFloat and its testbench are written to conform to
+the 2001 IEEE Standard for the Verilog language.
+The Verilog simulator must support this standard at a mimimum.
+</P>
+
+<P>
+The supplied testbench can test only the common IEEE-defined formats supported
+by TestFloat, which are <NOBR>16-bit</NOBR> half-precision, <NOBR>32-bit</NOBR>
+single-precision, <NOBR>64-bit</NOBR> double-precision, and
+<NOBR>128-bit</NOBR> quadruple-precision.
+</P>
+
+<P>
+The <CODE>Makefile</CODE> provided for running tests requires GNU
+<CODE>make</CODE> or a very close relative.
+</P>
+
+<P>
+Adapting the testbench to overcome any of these limitations is possible but far
+from trivial.
+</P>
+
+
+<H2>3. Acknowledgments and License</H2>
+
+<P>
+The HardFloat package was written by me, <NOBR>John R.</NOBR> Hauser.
+The project was done in the employ of the University of California, Berkeley,
+within the Department of Electrical Engineering and Computer Sciences, first
+for the Parallel Computing Laboratory (Par Lab), then for the ASPIRE Lab, and
+lastly for the ADEPT Lab.
+The work was officially overseen by Prof. Krste Asanovic, with funding provided
+by these sources:
+<BLOCKQUOTE>
+<TABLE>
+<COL>
+<COL WIDTH=10>
+<COL>
+<TR>
+<TD VALIGN=TOP><NOBR>Par Lab:</NOBR></TD>
+<TD></TD>
+<TD>
+Microsoft (Award #024263), Intel (Award #024894), and U.C. Discovery
+(Award #DIG07-10227), with additional support from Par Lab affiliates Nokia,
+NVIDIA, Oracle, and Samsung.
+</TD>
+</TR>
+<TR>
+<TD VALIGN=TOP><NOBR>ASPIRE Lab:</NOBR></TD>
+<TD></TD>
+<TD>
+DARPA PERFECT program (Award #HR0011-12-2-0016), with additional support from
+ASPIRE industrial sponsor Intel and ASPIRE affiliates Google, Nokia, NVIDIA,
+Oracle, and Samsung.
+</TD>
+</TR>
+<TR>
+<TD VALIGN=TOP><NOBR>ADEPT Lab:</NOBR></TD>
+<TD></TD>
+<TD>
+ADEPT industrial sponsor Intel and ADEPT affiliates Google, Futurewei, Seagate,
+Siemens, and SK Hynix.
+</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+The following applies to the whole of HardFloat <NOBR>Release 1</NOBR> as well
+as to each source file individually.
+</P>
+
+<P>
+Copyright 2019 The Regents of the University of California.
+All rights reserved.
+</P>
+
+<P>
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+<OL>
+
+<LI>
+<P>
+Redistributions of source code must retain the above copyright notice, this
+list of conditions, and the following disclaimer.
+</P>
+
+<LI>
+<P>
+Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions, and the following disclaimer in the documentation and/or
+other materials provided with the distribution.
+</P>
+
+<LI>
+<P>
+Neither the name of the University nor the names of its contributors may be
+used to endorse or promote products derived from this software without specific
+prior written permission.
+</P>
+
+</OL>
+
+<P>
+THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS &ldquo;AS IS&rdquo;,
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, ARE
+DISCLAIMED.
+IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</P>
+
+
+<H2>4. HardFloat Package Directory Structure</H2>
+
+<P>
+The directory structure for the Verilog version of HardFloat is as follows:
+<BLOCKQUOTE>
+<PRE>
+doc
+source
+    8086-SSE
+    ARM-VFPv2
+    RISCV
+test
+    source
+        Verilator
+    build
+        Verilator-GCC
+        IcarusVerilog
+</PRE>
+</BLOCKQUOTE>
+<P>
+The source files that define HardFloat&rsquo;s modules are in the main
+<CODE>source</CODE> directory.
+The <CODE>test</CODE> directory has additional files used solely for testing.
+The test sources are of course all in <CODE>test/source</CODE>, while the
+<CODE>test/build</CODE> subdirectory contains a couple of example build
+targets.
+For testing using a Verilog simulator, the only example build target is for
+Icarus Verilog, an open-source Verilog simulator.
+</P>
+
+<P>
+Although Icarus Verilog is a capable simulator for Verilog, as of 2019 it runs
+the HardFloat tests much slower than Verilator.
+If you have access to a faster Verilog simulator, the Icarus Verilog target can
+serve as an example for targeting the faster simulator.
+On the other hand, if Icarus Verilog is the fastest simulator available to you,
+Verilator is highly recommended instead.
+Instructions for running the supplied tests using Verilator are in
+<A HREF="HardFloat-test-Verilator.html"><NOBR><CODE>HardFloat-test-Verilator.html</CODE></NOBR></A>.
+</P>
+
+<P>
+As supplied, subdirectory <CODE>IcarusVerilog</CODE> contains only two files,
+<BLOCKQUOTE>
+<PRE>
+Makefile
+config.make
+</PRE>
+</BLOCKQUOTE>
+<P>
+used to build and execute all tests.
+The <CODE>Makefile</CODE> is written solely for GNU <CODE>make</CODE>.
+Another <CODE>make</CODE> variant is unlikely to work unless it is highly
+GNU-compatible.
+</P>
+
+
+<H2>5. The <CODE>finish_fail</CODE> Verilog Macro</H2>
+
+<P>
+The supplied testbench <CODE>Makefile</CODE> is designed to run a collection of
+floating-point tests and stop at the first one that fails.
+Stopping at the first failing test helps ensure that a failure will not go
+unnoticed amidst a sea of passing tests.
+To be aware that a test failed, the <CODE>Makefile</CODE> needs the Verilog
+simulator to return a failure exit status (usually a nonzero integer) if a test
+fails.
+Unfortunately, the 2001 Standard for Verilog does not define a standard way for
+Verilog code to influence a simulator&rsquo;s exit status when a simulation
+ends.
+</P>
+
+<P>
+HardFloat&rsquo;s Verilog test sources have been written to invoke a macro
+called <CODE>finish_fail</CODE> when simulation should end with an exit status
+indicating failure.
+Executing
+<BLOCKQUOTE>
+<CODE>`finish_fail</CODE>
+</BLOCKQUOTE>
+<P>
+is thus expected to act the same as
+<BLOCKQUOTE>
+<CODE>$finish</CODE>
+</BLOCKQUOTE>
+<P>
+except that the Verilog simulator is expected to set its exit status to a
+failure value.
+This macro must be defined appropriately for the chosen Verilog simulator.
+</P>
+
+<P>
+For Icarus Verilog, the Verilog sources have
+<BLOCKQUOTE>
+<CODE>`define finish_fail $stop</CODE>
+</BLOCKQUOTE>
+<P>
+and then Icarus Verilog&rsquo;s program for running a simulation,
+<CODE>vvp</CODE>, is given option <CODE>-N</CODE>, which makes
+<CODE>$stop</CODE> act as desired, exiting simulation with a status
+<NOBR>of 1</NOBR>, denoting failure.
+</P>
+
+<P>
+If your Verilog simulator supports it, you can use the <CODE>$fatal</CODE> task
+defined by SystemVerilog:
+<BLOCKQUOTE>
+<CODE>`define finish_fail $fatal</CODE>
+</BLOCKQUOTE>
+<P>
+However, it may be that your simulator doesn&rsquo;t support
+<CODE>$fatal</CODE> or any equivalent mechanism.
+In the worst case, one can always fall back on
+<BLOCKQUOTE>
+<CODE>`define finish_fail $finish</CODE>
+</BLOCKQUOTE>
+<P>
+and give up on the <CODE>Makefile</CODE> stopping on failures.
+Or use
+<BLOCKQUOTE>
+<CODE>`define finish_fail $stop</CODE>
+</BLOCKQUOTE>
+<P>
+and allow failures to drop the user into the Verilog simulator&rsquo;s
+interactive mode.
+</P>
+
+
+<H2>6. Specializing the HardFloat Modules to Test</H2>
+
+<P>
+To determine the particular HardFloat variant to test, the testbench requires
+that a <CODE>Makefile</CODE> macro, <CODE>SPECIALIZE_TYPE</CODE>, be defined
+with the name of a selected specialization subdirectory within
+HardFloat&rsquo;s main <CODE>source</CODE> directory.
+As explained in
+<A HREF="HardFloat-Verilog.html"><NOBR><CODE>HardFloat-Verilog.html</CODE></NOBR></A>,
+the HardFloat package includes these prepared specializations from which to
+choose:
+<BLOCKQUOTE>
+<PRE>
+8086-SSE
+ARM-VFPv2
+RISCV
+</PRE>
+</BLOCKQUOTE>
+<P>
+Macro <CODE>SPECIALIZE_TYPE</CODE> can be defined either by editing the file
+<CODE>config.make</CODE> found in the <CODE>IcarusVerilog</CODE> directory
+alongside the <CODE>Makefile</CODE>, or by providing a definition for
+<CODE>SPECIALIZE_TYPE</CODE> among the arguments to the <CODE>make</CODE>
+command.
+</P>
+
+
+<H2>7. Dependence on Berkeley TestFloat</H2>
+
+<P>
+The HardFloat testbench depends on Berkeley TestFloat, which must be obtained
+and built separately.
+The latest version of TestFloat is available at Web page
+<A HREF="http://www.jhauser.us/arithmetic/TestFloat.html"><NOBR><CODE>http://www.jhauser.us/arithmetic/TestFloat.html</CODE></NOBR></A>.
+</P>
+
+<P>
+The testbench expects the reference floating-point used by TestFloat to
+<EM>exactly match</EM> the options chosen for building HardFloat.
+TestFloat&rsquo;s reference floating-point is provided by the Berkeley
+SoftFloat library, which again must be obtained and built separately.
+The Web page for SoftFloat is
+<A HREF="http://www.jhauser.us/arithmetic/SoftFloat.html"><NOBR><CODE>http://www.jhauser.us/arithmetic/SoftFloat.html</CODE></NOBR></A>.
+To avoid spurious error reports for HardFloat, make sure that the SoftFloat
+library incorporated into TestFloat is built for exactly the same variant of
+IEEE floating-point as your HardFloat modules.
+In the documentation for both SoftFloat and HardFloat, this is referred to as
+<I>specialization</I> of the corresponding floating-point implementation.
+</P>
+
+<P>
+The testbench <CODE>Makefile</CODE> requires that program
+<CODE>testfloat_gen</CODE> be directly executable by the <CODE>make</CODE>
+program.
+Usually this is achieved by modifying your <CODE>PATH</CODE> environment
+variable to include the directory containing <CODE>testfloat_gen</CODE>.
+</P>
+
+
+<H2>8. <CODE>Makefile</CODE> Test Targets</H2>
+
+<P>
+The <CODE>Makefile</CODE> in <CODE>test/build/IcarusVerilog</CODE> is the
+driver for building and executing tests.
+This <CODE>Makefile</CODE> supports a number of possible targets, each testing
+one or more HardFloat functions for all relevant rounding modes and other
+control parameters.
+In all cases, tests ultimately involve executing one or more commands of the
+form
+<BLOCKQUOTE>
+<PRE>
+testfloat_gen ... -prefix <I>&lt;control-args&gt;</I> <I>&lt;function&gt;</I> | vvp -N <I>&lt;compiled-Verilog-test-program&gt;</I>
+</PRE>
+</BLOCKQUOTE>
+<P>
+The vertical bar (<CODE>|</CODE>) represents a <EM>pipe</EM> from the
+<CODE>testfloat_gen</CODE> program, which provides a sequence of test operands
+and expected results, to Icarus Verilog&rsquo;s <CODE>vvp</CODE>, which
+executes a Verilog test program that was earlier &ldquo;compiled&rdquo; into a
+file with extension &lsquo;<CODE>.vvp</CODE>&rsquo;.
+The Verilog test program both invokes the specific module being tested and
+confirms that the module&rsquo;s output matches what <CODE>testfloat_gen</CODE>
+expected.
+</P>
+
+<P>
+The <NOBR><CODE><I>&lt;control-args&gt;</I></CODE></NOBR> are integers for
+extra module inputs such as <CODE>control</CODE> and <CODE>roundingMode</CODE>,
+depending on the module being tested.
+These get passed once from <CODE>testfloat_gen</CODE> to <CODE>vvp</CODE> ahead
+of the generated test cases, using the <CODE>-prefix</CODE> option of
+<CODE>testfloat_gen</CODE>.
+(Verilog&rsquo;s &ldquo;plusargs&rdquo; could have been used instead, but the
+<CODE>-prefix</CODE> technique has the virtue of reducing the number of
+different Verilog features the tests depend on.)
+</P>
+
+<P>
+Because <CODE>testfloat_gen</CODE> delivers floating-point values only in
+IEEE-standard form whereas the HardFloat modules require them to be in
+HardFloat&rsquo;s recoded format, all tests must implicitly invoke module
+<CODE>fNToRecFN</CODE> to convert the IEEE-format values coming from
+<CODE>testfloat_gen</CODE> into their equivalent recoded forms.
+Hence, a HardFloat module is never really tested alone but rather together with
+<CODE>fNToRecFN</CODE>.
+It is always possible that a bug in the module being tested is masked by a
+countervailing bug in <CODE>fNToRecFN</CODE>.
+However, it is considered unlikely that any such bug in <CODE>fNToRecFN</CODE>
+would go undetected during the testing of all other HardFloat modules as well.
+In this respect, the testing of all modules serves collectively to test module
+<CODE>fNToRecFN</CODE>.
+Confidence in <CODE>fNToRecFN</CODE> then improves the likelihood that
+individual modules are correct independent of <CODE>fNToRecFN</CODE>.
+</P>
+
+<P>
+Many <CODE>Makefile</CODE> targets are supported for running various sets of
+tests.
+The basic ones for testing individual HardFloat modules are these:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recFNToFN
+test-<I>&lt;level&gt;</I>-iNToRecFN
+test-<I>&lt;level&gt;</I>-recFNToIN
+test-<I>&lt;level&gt;</I>-recFNToRecFN
+test-<I>&lt;level&gt;</I>-addRecFN_add
+test-<I>&lt;level&gt;</I>-addRecFN_sub
+test-<I>&lt;level&gt;</I>-addRecFN
+test-<I>&lt;level&gt;</I>-mulRecFN
+test-<I>&lt;level&gt;</I>-mulAddRecFN
+test-<I>&lt;level&gt;</I>-mulAddRecFN_add
+test-<I>&lt;level&gt;</I>-mulAddRecFN_mul
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_div
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_sqrt
+test-<I>&lt;level&gt;</I>-compareRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+where <CODE><I>&lt;level&gt;</I></CODE> is always either
+&lsquo;<CODE>level1</CODE>&rsquo; or &lsquo;<CODE>level2</CODE>&rsquo;.
+The <CODE><I>&lt;level&gt;</I></CODE> component directly controls the
+<CODE>-level</CODE> option given to <CODE>testfloat_gen</CODE>, which
+determines the number and depth of tests performed.
+For example, the command to execute the complete set of
+&ldquo;<NOBR>level 2</NOBR>&rdquo; tests for module <CODE>addRecFN</CODE> is
+<BLOCKQUOTE>
+<PRE>
+make test-level2-addRecFN
+</PRE>
+</BLOCKQUOTE>
+
+<P>
+Each test is performed for all formats supported by TestFloat (and for only
+those formats), which for floating-point is IEEE <NOBR>16-bit</NOBR>
+half-precision, <NOBR>32-bit</NOBR> single-precision, <NOBR>64-bit</NOBR>
+double-precision, and <NOBR>128-bit</NOBR> quadruple-precision.
+For each supported format, all relevant rounding modes and other control
+parameters are tested, as already mentioned.
+</P>
+
+<P>
+The <CODE>Makefile</CODE> targets listed above are further dissected in
+subsections below.
+</P>
+
+<P>
+Other targets are supported that automatically test more than one module in
+sequence:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-all1
+test-<I>&lt;level&gt;</I>-all2
+test-<I>&lt;level&gt;</I>
+</PRE>
+</BLOCKQUOTE>
+<P>
+For more about these, see subsection 8.10 below, <I>Testing Multiple
+Functions</I>.
+</P>
+
+<P>
+The supplied tests all report status and error information in a common way.
+As it executes, each test writes status information to the standard error
+output, which should be the terminal screen by default.
+In order for this status to be displayed properly, the standard error stream
+should not be redirected to a file.
+Any discrepancies that are found are written to the standard output stream,
+which is easily redirected to a file if desired.
+Unless redirected, reported errors will appear intermixed with the ongoing
+status information in the output.
+</P>
+
+<H3>8.1. Testing Conversions Between Standard and Recoded Floating-Point (<CODE>fNToRecFN</CODE> and <CODE>recFNToFN</CODE>)</H3>
+
+<P>
+<CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recFNToFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+provide a means of testing round-trip conversions from an IEEE-standard
+floating-point format to the equivalent HardFloat recoded format and back
+again, through HardFloat modules <CODE>fNToRecFN</CODE> and
+<CODE>recFNToFN</CODE>.
+</P>
+
+<P>
+That the target names reference only module <CODE>recFNToFN</CODE> and not
+<CODE>fNToRecFN</CODE> is consistent with all other tests.
+As explained at the head of this section, <EM>all</EM> tests with
+floating-point inputs implicitly invoke <CODE>fNToRecFN</CODE> to convert the
+IEEE-format values supplied by <CODE>testfloat_gen</CODE> into the recoded
+formats used by the HardFloat modules.
+</P>
+
+<P>
+Testing can be restricted to a single TestFloat-supported format with one of
+these <CODE>Makefile</CODE> targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recF16ToF16
+test-<I>&lt;level&gt;</I>-recF32ToF32
+test-<I>&lt;level&gt;</I>-recF64ToF64
+test-<I>&lt;level&gt;</I>-recF128ToF128
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.2. Testing Conversions from Integer (<CODE>iNToRecFN</CODE>)</H3>
+
+<P>
+Module <CODE>iNToRecFN</CODE> is tested by <CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-iNToRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+Conversions from all source integer formats supported by TestFloat are tested,
+encompassing integers of sizes 32 bits and 64 bits, both unsigned and signed.
+</P>
+
+<P>
+Testing can be restricted to a single integer size and a single floating-point
+destination format with one of these <CODE>Makefile</CODE>
+targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-i32ToRecF16
+test-<I>&lt;level&gt;</I>-i32ToRecF32
+test-<I>&lt;level&gt;</I>-i32ToRecF64
+test-<I>&lt;level&gt;</I>-i32ToRecF128
+test-<I>&lt;level&gt;</I>-i64ToRecF16
+test-<I>&lt;level&gt;</I>-i64ToRecF32
+test-<I>&lt;level&gt;</I>-i64ToRecF64
+test-<I>&lt;level&gt;</I>-i64ToRecF128
+</PRE>
+</BLOCKQUOTE>
+<P>
+Each target tests conversions from both unsigned and signed integers of the
+specified size.
+</P>
+
+<H3>8.3. Testing Conversions to Integer (<CODE>recFNToIN</CODE>)</H3>
+
+<P>
+Module <CODE>recFNToIN</CODE> is tested by <CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recFNToIN
+</PRE>
+</BLOCKQUOTE>
+<P>
+Conversions to all destination integer formats supported by TestFloat are
+tested, encompassing integers of sizes 32 bits and 64 bits, both unsigned and
+signed.
+</P>
+
+<P>
+Testing can be restricted to a single floating-point source format and a single
+integer destination size with one of these <CODE>Makefile</CODE> targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recF16ToI32
+test-<I>&lt;level&gt;</I>-recF16ToI64
+test-<I>&lt;level&gt;</I>-recF32ToI32
+test-<I>&lt;level&gt;</I>-recF32ToI64
+test-<I>&lt;level&gt;</I>-recF64ToI32
+test-<I>&lt;level&gt;</I>-recF64ToI64
+test-<I>&lt;level&gt;</I>-recF128ToI32
+test-<I>&lt;level&gt;</I>-recF128ToI64
+</PRE>
+</BLOCKQUOTE>
+<P>
+Each target tests conversions to both unsigned and signed integers of the
+specified size.
+</P>
+
+<H3>8.4. Testing Conversions Between Formats (<CODE>recFNToRecFN</CODE>)</H3>
+
+<P>
+<CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recFNToRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+test module <CODE>recFNToRecFN</CODE>.
+</P>
+
+<P>
+Testing can be restricted to a single source format and single destination
+format using one of these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recF16ToRecF32
+test-<I>&lt;level&gt;</I>-recF16ToRecF64
+test-<I>&lt;level&gt;</I>-recF16ToRecF128
+test-<I>&lt;level&gt;</I>-recF32ToRecF16
+test-<I>&lt;level&gt;</I>-recF32ToRecF64
+test-<I>&lt;level&gt;</I>-recF32ToRecF128
+test-<I>&lt;level&gt;</I>-recF64ToRecF16
+test-<I>&lt;level&gt;</I>-recF64ToRecF32
+test-<I>&lt;level&gt;</I>-recF64ToRecF128
+test-<I>&lt;level&gt;</I>-recF128ToRecF16
+test-<I>&lt;level&gt;</I>-recF128ToRecF32
+test-<I>&lt;level&gt;</I>-recF128ToRecF64
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.5. Testing Addition and Subtraction (<CODE>addRecFN</CODE>)</H3>
+
+<P>
+<CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-addRecFN_add
+test-<I>&lt;level&gt;</I>-addRecFN_sub
+</PRE>
+</BLOCKQUOTE>
+<P>
+test module <CODE>addRecFN</CODE>, for input
+<NOBR><CODE>subOp</CODE> = 0</NOBR> and <NOBR><CODE>subOp</CODE> = 1</NOBR>
+respectively.
+Targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-addRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+combine both sets of tests (both addition and subtraction).
+</P>
+
+<P>
+Testing can be restricted to a single TestFloat-supported format with one of
+these <CODE>Makefile</CODE> targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-addRecF16_add
+test-<I>&lt;level&gt;</I>-addRecF32_add
+test-<I>&lt;level&gt;</I>-addRecF64_add
+test-<I>&lt;level&gt;</I>-addRecF128_add
+
+test-<I>&lt;level&gt;</I>-addRecF16_sub
+test-<I>&lt;level&gt;</I>-addRecF32_sub
+test-<I>&lt;level&gt;</I>-addRecF64_sub
+test-<I>&lt;level&gt;</I>-addRecF128_sub
+
+test-<I>&lt;level&gt;</I>-addRecF16
+test-<I>&lt;level&gt;</I>-addRecF32
+test-<I>&lt;level&gt;</I>-addRecF64
+test-<I>&lt;level&gt;</I>-addRecF128
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.6. Testing Multiplication (<CODE>mulRecFN</CODE>)</H3>
+
+<P>
+Module <CODE>mulRecFN</CODE> is tested by <CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-mulRecFN
+</PRE>
+</BLOCKQUOTE>
+
+<P>
+Testing can be restricted to a single TestFloat-supported format with one of
+these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-mulRecF16
+test-<I>&lt;level&gt;</I>-mulRecF32
+test-<I>&lt;level&gt;</I>-mulRecF64
+test-<I>&lt;level&gt;</I>-mulRecF128
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.7. Testing Fused Multiply-Add (<CODE>mulAddRecFN</CODE>)</H3>
+
+<P>
+Module <CODE>mulAddRecFN</CODE> is tested by <CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-mulAddRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+However, testing is currently done only for input
+<NOBR><CODE>op</CODE> = 0</NOBR>, because that is the only case for which
+<CODE>testfloat_gen</CODE> can supply test inputs.
+</P>
+
+<P>
+Additional special targets,
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-mulAddRecFN_add
+test-<I>&lt;level&gt;</I>-mulAddRecFN_mul
+</PRE>
+</BLOCKQUOTE>
+<P>
+exist for testing <CODE>mulAddRecFN</CODE> in the roles of just addition
+(<NOBR><CODE><I>a</I></CODE> &times; 1 + <CODE><I>c</I></CODE></NOBR>) and just
+multiplication
+(<NOBR><CODE><I>a</I></CODE> &times; <CODE><I>b</I></CODE> + 0</NOBR>).
+Used these ways, module <CODE>mulAddRecFN</CODE> is expected to behave the same
+as <CODE>addRecFN</CODE> and <CODE>mulRecFN</CODE> respectively (except
+possibly for specific NaN payload propagation in the case of addition).
+</P>
+
+<P>
+Testing can be restricted to a single TestFloat-supported format with one of
+these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-mulAddRecF16
+test-<I>&lt;level&gt;</I>-mulAddRecF32
+test-<I>&lt;level&gt;</I>-mulAddRecF64
+test-<I>&lt;level&gt;</I>-mulAddRecF128
+
+test-<I>&lt;level&gt;</I>-mulAddRecF16_add
+test-<I>&lt;level&gt;</I>-mulAddRecF32_add
+test-<I>&lt;level&gt;</I>-mulAddRecF64_add
+test-<I>&lt;level&gt;</I>-mulAddRecF128_add
+
+test-<I>&lt;level&gt;</I>-mulAddRecF16_mul
+test-<I>&lt;level&gt;</I>-mulAddRecF32_mul
+test-<I>&lt;level&gt;</I>-mulAddRecF64_mul
+test-<I>&lt;level&gt;</I>-mulAddRecF128_mul
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.8. Testing Division and Square Root (<CODE>divSqrtRecFN_small</CODE>)</H3>
+
+<P>
+<CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_div
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_sqrt
+</PRE>
+</BLOCKQUOTE>
+<P>
+test module <CODE>divSqrtRecFN_small</CODE>, for input
+<NOBR><CODE>sqrtOp</CODE> = 0</NOBR> and <NOBR><CODE>sqrtOp</CODE> = 1</NOBR>
+respectively.
+</P>
+
+<P>
+Testing can be restricted to a single TestFloat-supported format with one of
+these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-divSqrtRecF16_small_div
+test-<I>&lt;level&gt;</I>-divSqrtRecF32_small_div
+test-<I>&lt;level&gt;</I>-divSqrtRecF64_small_div
+test-<I>&lt;level&gt;</I>-divSqrtRecF128_small_div
+
+test-<I>&lt;level&gt;</I>-divSqrtRecF16_small_sqrt
+test-<I>&lt;level&gt;</I>-divSqrtRecF32_small_sqrt
+test-<I>&lt;level&gt;</I>-divSqrtRecF64_small_sqrt
+test-<I>&lt;level&gt;</I>-divSqrtRecF128_small_sqrt
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.9. Testing Comparisons (<CODE>compareRecFN</CODE>)</H3>
+
+<P>
+Module <CODE>compareRecFN</CODE> is tested by <CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-compareRecFN
+</PRE>
+</BLOCKQUOTE>
+<P>
+These targets test the module&rsquo;s outputs against TestFloat&rsquo;s
+comparison functions, <CODE>lt</CODE>, <CODE>le</CODE>, and <CODE>eq</CODE>.
+</P>
+
+<P>
+Like all the others, testing can be restricted to a single format with one of
+these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-compareRecF16
+test-<I>&lt;level&gt;</I>-compareRecF32
+test-<I>&lt;level&gt;</I>-compareRecF64
+test-<I>&lt;level&gt;</I>-compareRecF128
+</PRE>
+</BLOCKQUOTE>
+
+<H3>8.10. Testing Multiple Functions</H3>
+
+<P>
+A few <CODE>Makefile</CODE> targets combine larger collections of HardFloat
+functions.
+Targets named
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-all1
+</PRE>
+</BLOCKQUOTE>
+<P>
+test all of the &ldquo;one-operand&rdquo; functions, the same as covered by
+these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-recFNToFN
+test-<I>&lt;level&gt;</I>-iNToRecFN
+test-<I>&lt;level&gt;</I>-recFNToIN
+test-<I>&lt;level&gt;</I>-recFNToRecFN
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_sqrt
+</PRE>
+</BLOCKQUOTE>
+<P>
+Likewise, the &ldquo;two-operand&rdquo; functions can all be tested using
+<CODE>Makefile</CODE> targets
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-all2
+</PRE>
+</BLOCKQUOTE>
+<P>
+which combine these targets:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-addRecFN
+test-<I>&lt;level&gt;</I>-mulRecFN
+test-<I>&lt;level&gt;</I>-mulAddRecFN_add
+test-<I>&lt;level&gt;</I>-mulAddRecFN_mul
+test-<I>&lt;level&gt;</I>-divSqrtRecFN_small_div
+test-<I>&lt;level&gt;</I>-compareRecFN
+</PRE>
+</BLOCKQUOTE>
+
+<P>
+Lastly, the simplest of <CODE>Makefile</CODE> targets,
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>
+</PRE>
+</BLOCKQUOTE>
+<P>
+encompass all defined tests at a given level, being a combination of:
+<BLOCKQUOTE>
+<PRE>
+test-<I>&lt;level&gt;</I>-all1
+test-<I>&lt;level&gt;</I>-all2
+test-<I>&lt;level&gt;</I>-mulAddRecFN
+</PRE>
+</BLOCKQUOTE>
+
+
+<H2>9. Interpreting the Test Output</H2>
+
+<P>
+The &ldquo;errors&rdquo; reported by the HardFloat tests may or may not really
+represent errors in HardFloat.
+For each test case tried, the results from HardFloat could differ from the
+expected results for several reasons:
+<UL>
+<LI>
+The IEEE Floating-Point Standard allows for some variation in how conforming
+floating-point behaves.
+Two implementations can sometimes give different results without either being
+incorrect.
+<LI>
+TestFloat&rsquo;s trusted floating-point emulation could be faulty.
+This could be because there is a bug in the way the emulation is coded, or
+because a mistake was made when the code was compiled for the current system.
+<LI>
+HardFloat&rsquo;s Verilog testbench may not work properly, reporting
+differences that do not exist.
+<LI>
+Lastly, HardFloat could actually be faulty.
+</UL>
+<P>
+It is the responsibility of the user to determine the causes for the
+discrepancies that are reported.
+Making this determination can require detailed knowledge about both the IEEE
+Standard and HardFloat&rsquo;s recoded floating-point format.
+Assuming both TestFloat and the Verilog testbench are working properly, any
+differences found will be due to either the first or last of the reasons above.
+</P>
+
+<P>
+For each reported error (or apparent error), a line of text is written to the
+default output.
+If a line would be longer than 79 characters, it is divided.
+The first part of each error line begins in the leftmost column, and any
+subsequent &ldquo;continuation&rdquo; lines are indented with a tab.
+</P>
+
+<P>
+Each error reported is of the form:
+<BLOCKQUOTE>
+<PRE>
+&lt;<I>inputs</I>&gt;  => &lt;<I>observed-output</I>&gt;  expected &lt;<I>expected-output</I>&gt;
+</PRE>
+</BLOCKQUOTE>
+<P>
+The <CODE>&lt;<I>inputs</I>&gt;</CODE> are the inputs to the operation.
+Each output (observed or expected) is shown as a pair:  the result value first,
+followed by the exception flags.
+</P>
+
+<P>
+For example, two typical error lines could be
+<BLOCKQUOTE>
+<PRE>
+140fffe00 180000100  => 041000000 03  expected 041000000 01
+081000004 03ffffff8  => 041000000 03  expected 041000000 01
+</PRE>
+</BLOCKQUOTE>
+<P>
+In the first line, the inputs are <CODE>140fffe00</CODE> and
+<CODE>180000100</CODE>, and the observed result is <CODE>041000000</CODE> with
+flags <CODE>03</CODE>.
+TestFloat&rsquo;s result is the same but with different flags, <CODE>01</CODE>.
+The two instances above were reported as errors because the exception flag
+results differ.
+</P>
+
+<P>
+Each input and output value, including exception flags, is represented in raw
+hexadecimal.
+Floating-point inputs and outputs to HardFloat modules are usually encoded in
+HardFloat&rsquo;s recoded form, so they appear in this form, not in a standard
+IEEE format.
+The only exceptions to this rule are the <CODE>recFNToFN</CODE> tests, for
+which the output is in a standard IEEE format.
+</P>
+
+
+<H2>10. Contact Information</H2>
+
+<P>
+At the time of this writing, the most up-to-date information about HardFloat
+and the latest release can be found at the Web page
+<A HREF="http://www.jhauser.us/arithmetic/HardFloat.html"><NOBR><CODE>http://www.jhauser.us/arithmetic/HardFloat.html</CODE></NOBR></A>.
+</P>
+
+
+</BODY>
+
+</HTML>
+

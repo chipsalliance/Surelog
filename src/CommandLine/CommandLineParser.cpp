@@ -101,6 +101,7 @@ const std::vector<std::string> helpText = {
     "options supported)",
     "  -Dvar=value           Same as env var definition for -f files var substitution",
     "  -Pparameter=value     Top level parameter override",
+    "  -pvalue+parameter=value Top level parameter override",
     "  -sverilog             Forces all files to be parsed as SystemVerilog files",
     "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
     "FLOWS OPTIONS:",
@@ -648,6 +649,20 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
 	      SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, value));
       }
+    } else if (strstr (all_arguments[i].c_str(), "-pvalue+")) {
+      std::string def;
+      std::string value;
+      std::string tmp = all_arguments[i];
+      const size_t loc = tmp.find("=");
+      if (loc == std::string::npos) {
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_paramList.insert(std::make_pair(id, std::string()));
+      } else {
+        def = tmp.substr(8, loc - 2);
+        value = tmp.substr(loc + 1);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_paramList.insert(std::make_pair(id, value));
+      }
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
@@ -941,6 +956,16 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string fileName = all_arguments[i];
       fileName = FileUtils::basename(fileName);
       m_svSourceFiles.insert(fileName);
+    } else if (all_arguments[i].size() && all_arguments[i] == "--x-assign") {
+      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
+      m_errors->addError(err);
+      i++;
+    } else if (all_arguments[i].size() && all_arguments[i] == "--x-initial") {
+      Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
+      Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
+      m_errors->addError(err);      
+      i++;
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);

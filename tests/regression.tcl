@@ -175,7 +175,6 @@ set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
 set WINDOWS_BLACK_LIST [dict create]
 dict set WINDOWS_BLACK_LIST Ariane 1
 dict set WINDOWS_BLACK_LIST BlackParrot 1
-dict set WINDOWS_BLACK_LIST BlackParrot2 1
 dict set WINDOWS_BLACK_LIST CoresSweRV 1
 dict set WINDOWS_BLACK_LIST SimpleIncludeAndMacros 1
 dict set WINDOWS_BLACK_LIST TestFileSplit 1

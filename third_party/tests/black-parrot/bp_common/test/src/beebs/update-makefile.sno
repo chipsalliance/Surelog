@@ -1,0 +1,49 @@
+*	Argument processing
+
+	argv = ARRAY('0:9')
+	i = 0
+	first_arg = HOST(3)
+	argv[i] = HOST(2, first_arg - 1)
+
+get_args
+	arg = HOST(2, first_arg + i)				:F(args_done)
+	i = i + 1
+	argv[i] = arg						:(get_args)
+
+args_done
+	argc = i + 1
+
+	EQ(argc,1)						:S(args_ok)
+	TERMINAL = 'Usage: ' argv[0]				:(END)
+
+args_ok
+
+*	Useful strings and patterns
+
+	lc_aldig = 'abcdefghijklmnopqrstuvwxyz0123456789'
+	eqsign = ARBNO(' ') '='
+
+next_line
+	line = INPUT						:F(all_done)
+
+	line ' $(top_builddir)/support/libmain.la'		:S(insert_lib)
+
+*	Lines to omit
+
+* 	Ordinary lines we print out
+
+	OUTPUT = line						:(next_line)
+
+*	Update -lm line
+
+insert_lib
+	line POS(0) ARB . start ('$(top_builddir)/support/libmain.la'
++            ARB) . end RPOS(0)
+	OUTPUT = start '@DUMMY_CRT0@ \'
+	OUTPUT = DUPL(' ', SIZE(start)) end			:(next_line)
+
+*	All lines transferred
+
+all_done
+
+END
