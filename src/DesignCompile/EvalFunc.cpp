@@ -308,7 +308,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
   const std::string name = func->VpiName();
   // set internal scope stack
   Scopes scopes;
-  FScope* scope = new FScope(component, instance);
+  FScope* scope = new FScope((instance) ? instance : component, component);
   // default return value is invalid
   Value* defaultV = m_exprBuilder.fromString("INT:0");
   defaultV->setInvalid();
