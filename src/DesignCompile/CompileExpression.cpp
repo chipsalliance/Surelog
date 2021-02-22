@@ -1757,167 +1757,149 @@ UHDM::any* CompileHelper::compileExpression(
   if (child) {
     childType = fC->Type(child);
   }
-  if (parentType == VObjectType::slValue_range) {
-    UHDM::operation* list_op = s.MakeOperation();
-    list_op->VpiOpType(vpiListOp);
-    UHDM::VectorOfany* operands = s.MakeAnyVec();
-    list_op->Operands(operands);
-    NodeId lexpr = child;
-    NodeId rexpr = fC->Sibling(lexpr);
-    if (expr* op = dynamic_cast<expr*>(compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce))) {
-      operands->push_back(op);
-    }
-    if (rexpr) {
-      if (expr* op = dynamic_cast<expr*>(compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce))) {
+  switch (parentType) {
+    case VObjectType::slValue_range: {
+      UHDM::operation* list_op = s.MakeOperation();
+      list_op->VpiOpType(vpiListOp);
+      UHDM::VectorOfany* operands = s.MakeAnyVec();
+      list_op->Operands(operands);
+      NodeId lexpr = child;
+      NodeId rexpr = fC->Sibling(lexpr);
+      if (expr* op = dynamic_cast<expr*>(compileExpression(
+              component, fC, lexpr, compileDesign, pexpr, instance, reduce))) {
         operands->push_back(op);
       }
-    }
-    list_op->VpiFile(fC->getFileName());
-    list_op->VpiLineNo(fC->Line(child));
-    list_op->Attributes(attributes);
-    result = list_op;
-    result->VpiFile(fC->getFileName(parent));
-    result->VpiLineNo(fC->Line(parent));
-    return result;
-  } else if (parentType == VObjectType::slNet_lvalue) {
-    UHDM::operation* operation = s.MakeOperation();
-    UHDM::VectorOfany* operands = s.MakeAnyVec();
-    operation->Attributes(attributes);
-    result = operation;
-    operation->VpiParent(pexpr);
-    operation->Operands(operands);
-    operation->VpiOpType(vpiConcatOp);
-    result->VpiFile(fC->getFileName(parent));
-    result->VpiLineNo(fC->Line(parent));
-    NodeId Expression = parent;
-    while (Expression) {
-      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
-                                         compileDesign, pexpr, instance, reduce);
-      if (exp) {
-        operands->push_back(exp);
-        exp->VpiParent(operation);
+      if (rexpr) {
+        if (expr* op = dynamic_cast<expr*>(
+                compileExpression(component, fC, rexpr, compileDesign, pexpr,
+                                  instance, reduce))) {
+          operands->push_back(op);
+        }
       }
-      Expression = fC->Sibling(Expression);
+      list_op->VpiFile(fC->getFileName());
+      list_op->VpiLineNo(fC->Line(child));
+      list_op->Attributes(attributes);
+      result = list_op;
+      result->VpiFile(fC->getFileName(parent));
+      result->VpiLineNo(fC->Line(parent));
+      return result;
     }
-    return result;
-  } else if ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue)) {
-    UHDM::operation* operation = s.MakeOperation();
-    UHDM::VectorOfany* operands = s.MakeAnyVec();
-    operation->Attributes(attributes);
-    result = operation;
-    operation->VpiParent(pexpr);
-    operation->Operands(operands);
-    operation->VpiOpType(vpiConcatOp);
-    result->VpiFile(fC->getFileName(child));
-    result->VpiLineNo(fC->Line(child));
-    NodeId Expression = child;
-    while (Expression) {
-      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
-                                         compileDesign, pexpr, instance, reduce);
-      if (exp) {
-        operands->push_back(exp);
-        exp->VpiParent(operation);
-      }
-      Expression = fC->Sibling(Expression);
-    }
-    return result;
-  } else if (childType == VObjectType::slArray_member_label) {
-    UHDM::operation* operation = s.MakeOperation();
-    UHDM::VectorOfany* operands = s.MakeAnyVec();
-    operation->Attributes(attributes);
-    result = operation;
-    operation->VpiParent(pexpr);
-    operation->Operands(operands);
-    operation->VpiOpType(vpiConcatOp);
-    result->VpiFile(fC->getFileName(child));
-    result->VpiLineNo(fC->Line(child));
-    NodeId Expression = child;
-    bool odd = true;
-    while (Expression) {
-      NodeId the_exp = fC->Child(Expression);
-      if (the_exp == 0) {
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiName("default");
-        operands->push_back(ref);
-        ref->VpiParent(operation);
-        ref->VpiStructMember(true);
-      } else {
-        UHDM::any* exp = compileExpression(
-            component, fC, the_exp, compileDesign, pexpr, instance, reduce);
+    case VObjectType::slNet_lvalue: {
+      UHDM::operation* operation = s.MakeOperation();
+      UHDM::VectorOfany* operands = s.MakeAnyVec();
+      operation->Attributes(attributes);
+      result = operation;
+      operation->VpiParent(pexpr);
+      operation->Operands(operands);
+      operation->VpiOpType(vpiConcatOp);
+      result->VpiFile(fC->getFileName(parent));
+      result->VpiLineNo(fC->Line(parent));
+      NodeId Expression = parent;
+      while (Expression) {
+        UHDM::any* exp =
+            compileExpression(component, fC, fC->Child(Expression),
+                              compileDesign, pexpr, instance, reduce);
         if (exp) {
           operands->push_back(exp);
           exp->VpiParent(operation);
-          if (odd) {
-            if (exp->UhdmType() == uhdmref_obj)
-              ((ref_obj*)exp)->VpiStructMember(true);
-          }
         }
-      }
-      Expression = fC->Sibling(Expression);
-      odd = !odd;
-    }
-    return result;
-  } else if (parentType == VObjectType::slConcatenation) {
-    UHDM::operation* operation = s.MakeOperation();
-    UHDM::VectorOfany* operands = s.MakeAnyVec();
-    operation->Attributes(attributes);
-    result = operation;
-    operation->VpiParent(pexpr);
-    operation->Operands(operands);
-    operation->VpiOpType(vpiConcatOp);
-    NodeId Expression = fC->Child(parent);
-    while (Expression) {
-      UHDM::any* exp = compileExpression(
-          component, fC, Expression, compileDesign, pexpr, instance, reduce);
-      if (exp) operands->push_back(exp);
-      Expression = fC->Sibling(Expression);
-    }
-  } else if (parentType == VObjectType::slDelay2 ||
-             parentType == VObjectType::slDelay3) {
-    NodeId MinTypMax = child;
-    if (fC->Sibling(MinTypMax)) {
-      UHDM::operation* operation = s.MakeOperation();
-      UHDM::VectorOfany* operands = s.MakeAnyVec();
-      operation->Operands(operands);
-      operation->VpiOpType(vpiListOp);
-      result = operation;
-      NodeId Expression = MinTypMax;
-      while (Expression) {
-        UHDM::any* exp = compileExpression(
-          component, fC, Expression, compileDesign, pexpr, instance, reduce);
-        if (exp) operands->push_back(exp);
         Expression = fC->Sibling(Expression);
       }
       return result;
     }
-  } else if (parentType == VObjectType::slConstant_mintypmax_expression ||
-             parentType == VObjectType::slMintypmax_expression) {
-    NodeId Expression = child;
-    operation* op = s.MakeOperation();
-    op->VpiOpType(vpiMinTypMaxOp);
-    op->VpiParent(pexpr);
+    case VObjectType::slConcatenation: {
+      UHDM::operation* operation = s.MakeOperation();
+      UHDM::VectorOfany* operands = s.MakeAnyVec();
+      operation->Attributes(attributes);
+      result = operation;
+      operation->VpiParent(pexpr);
+      operation->Operands(operands);
+      operation->VpiOpType(vpiConcatOp);
+      NodeId Expression = fC->Child(parent);
+      while (Expression) {
+        UHDM::any* exp = compileExpression(
+            component, fC, Expression, compileDesign, pexpr, instance, reduce);
+        if (exp) operands->push_back(exp);
+        Expression = fC->Sibling(Expression);
+      }
+      break;
+    }
+    case VObjectType::slDelay2:
+    case VObjectType::slDelay3: {
+      NodeId MinTypMax = child;
+      if (fC->Sibling(MinTypMax)) {
+        UHDM::operation* operation = s.MakeOperation();
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Operands(operands);
+        operation->VpiOpType(vpiListOp);
+        result = operation;
+        NodeId Expression = MinTypMax;
+        while (Expression) {
+          UHDM::any* exp =
+              compileExpression(component, fC, Expression, compileDesign, pexpr,
+                                instance, reduce);
+          if (exp) operands->push_back(exp);
+          Expression = fC->Sibling(Expression);
+        }
+        return result;
+      }
+      break;
+    }
+    case VObjectType::slConstant_mintypmax_expression:
+    case VObjectType::slMintypmax_expression: {
+      NodeId Expression = child;
+      operation* op = s.MakeOperation();
+      op->VpiOpType(vpiMinTypMaxOp);
+      op->VpiParent(pexpr);
+      UHDM::VectorOfany* operands = s.MakeAnyVec();
+      op->Operands(operands);
+      result = op;
+      while (Expression) {
+        expr* sExpr = (expr*)compileExpression(
+            component, fC, Expression, compileDesign, op, instance, reduce);
+        if (sExpr) operands->push_back(sExpr);
+        Expression = fC->Sibling(Expression);
+      }
+      return result;
+    }
+    case VObjectType::slClass_new: {
+      UHDM::method_func_call* sys = s.MakeMethod_func_call();
+      sys->VpiName("new");
+      sys->VpiParent(pexpr);
+      NodeId argListNode = child;
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, argListNode, compileDesign, sys, instance, reduce);
+      sys->Tf_call_args(arguments);
+      result = sys;
+      return result;
+    }
+    default:
+      break;
+  }
+
+  if ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue)) {
+    UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
-    op->Operands(operands);
-    result = op;
+    operation->Attributes(attributes);
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    result->VpiFile(fC->getFileName(child));
+    result->VpiLineNo(fC->Line(child));
+    NodeId Expression = child;
     while (Expression) {
-      expr* sExpr = (expr*)compileExpression(
-          component, fC, Expression, compileDesign, op, instance, reduce);
-      if (sExpr) operands->push_back(sExpr);
+      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
+                                         compileDesign, pexpr, instance, reduce);
+      if (exp) {
+        operands->push_back(exp);
+        exp->VpiParent(operation);
+      }
       Expression = fC->Sibling(Expression);
     }
     return result;
-  } else if (parentType == VObjectType::slClass_new) {
-    UHDM::method_func_call* sys = s.MakeMethod_func_call();
-    sys->VpiName("new");
-    sys->VpiParent(pexpr);
-    NodeId argListNode = child;
-    VectorOfany* arguments =
-        compileTfCallArguments(component, fC, argListNode, compileDesign, sys, instance, reduce);
-    sys->Tf_call_args(arguments);
-    result = sys;
-    return result;
   }
-  
+
   if (result == nullptr) {
   if (child) {
     switch (childType) {
@@ -1965,6 +1947,43 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiSize(10);
         result = c;
         break;
+      }
+      case VObjectType::slArray_member_label: {
+        UHDM::operation* operation = s.MakeOperation();
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Attributes(attributes);
+        result = operation;
+        operation->VpiParent(pexpr);
+        operation->Operands(operands);
+        operation->VpiOpType(vpiConcatOp);
+        result->VpiFile(fC->getFileName(child));
+        result->VpiLineNo(fC->Line(child));
+        NodeId Expression = child;
+        bool odd = true;
+        while (Expression) {
+          NodeId the_exp = fC->Child(Expression);
+          if (the_exp == 0) {
+            ref_obj* ref = s.MakeRef_obj();
+            ref->VpiName("default");
+            operands->push_back(ref);
+            ref->VpiParent(operation);
+            ref->VpiStructMember(true);
+          } else {
+            UHDM::any* exp = compileExpression(
+                component, fC, the_exp, compileDesign, pexpr, instance, reduce);
+            if (exp) {
+              operands->push_back(exp);
+              exp->VpiParent(operation);
+              if (odd) {
+                if (exp->UhdmType() == uhdmref_obj)
+                  ((ref_obj*)exp)->VpiStructMember(true);
+              }
+            }
+          }
+          Expression = fC->Sibling(Expression);
+          odd = !odd;
+        }
+        return result;
       }
       case VObjectType::slIncDec_PlusPlus:
       case VObjectType::slIncDec_MinusMinus:
@@ -3234,9 +3253,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         // Specified by size
         NodeId rexpr = Constant_range;
         range* range = s.MakeRange();
-        expr* lexp = nullptr;
-        expr* rexp = nullptr;
-
+      
         constant* lexpc = s.MakeConstant();
         lexpc->VpiConstType(vpiIntConst);
         lexpc->VpiSize(64);
@@ -3244,47 +3261,31 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         lexpc->VpiDecompile("0");
         lexpc->VpiFile(fC->getFileName());
         lexpc->VpiLineNo(fC->Line(rexpr));
-        lexp = lexpc;
+        expr* lexp = lexpc;
 
-        if (reduce) {
-          Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
-          if (rightV->isValid()) {
-            //constant* rexpc = s.MakeConstant();
-           // rexpc->VpiSize(rightV->getSize());
-           // rexpc->VpiConstType(vpiIntConst);
-            int64_t rint = rightV->getValueL();
-            size = size * rint;
-           // rightV->decr(); // Decr by 1
-           // rexpc->VpiValue(rightV->uhdmValue());
-           // rexpc->VpiDecompile(rightV->decompiledValue());
-           // rexpc->VpiFile(fC->getFileName());
-           // rexpc->VpiLineNo(fC->Line(rexpr));
-           // rexp = rexpc;
-          }
-        }
         range->Left_expr(lexp);
         lexp->VpiParent(range);
-        if (rexp == nullptr) {
-          rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
-          bool associativeArray = false;
-          if (rexp && rexp->UhdmType() == uhdmconstant) {
-            constant* c = (constant*) rexp;
-            if (c->VpiConstType() == vpiUnboundedConst)
-              associativeArray = true;
-          }
-          if (!associativeArray) {
-            operation* op = s.MakeOperation();  // Decr by 1
-            op->VpiOpType(vpiSubOp);
-            op->Operands(s.MakeAnyVec());
-            op->Operands()->push_back(rexp);
-            constant* one = s.MakeConstant();
-            one->VpiValue("INT:1");
-            one->VpiConstType(vpiIntConst);
-            one->VpiSize(64);
-            op->Operands()->push_back(one);
-            rexp = op;
-          }
+
+        expr* rexp = dynamic_cast<expr*>(compileExpression(
+            component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+        bool associativeArray = false;
+        if (rexp && rexp->UhdmType() == uhdmconstant) {
+          constant* c = (constant*)rexp;
+          if (c->VpiConstType() == vpiUnboundedConst) associativeArray = true;
         }
+        if (!associativeArray) {
+          operation* op = s.MakeOperation();  // Decr by 1
+          op->VpiOpType(vpiSubOp);
+          op->Operands(s.MakeAnyVec());
+          op->Operands()->push_back(rexp);
+          constant* one = s.MakeConstant();
+          one->VpiValue("INT:1");
+          one->VpiConstType(vpiIntConst);
+          one->VpiSize(64);
+          op->Operands()->push_back(one);
+          rexp = op;
+        }
+
         if (rexp)
           rexp->VpiParent(range);
         range->Right_expr(rexp);
