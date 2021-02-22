@@ -3207,29 +3207,9 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           uint64_t lint = 0;
           uint64_t rint = 0;
           if (leftV->isValid()) {
-            /*
-            constant* lexpc = s.MakeConstant();
-            lexpc->VpiSize(leftV->getSize());
-            lexpc->VpiConstType(vpiIntConst);
-            lexpc->VpiValue(leftV->uhdmValue());
-            lexpc->VpiDecompile(leftV->decompiledValue());
-            lexpc->VpiFile(fC->getFileName());
-            lexpc->VpiLineNo(fC->Line(lexpr));
-            lexp = lexpc;
-            */
             lint = leftV->getValueL();
           }
           if (rightV->isValid()) {
-            /*
-            constant* rexpc = s.MakeConstant();
-            rexpc->VpiSize(rightV->getSize());
-            rexpc->VpiConstType(vpiIntConst);
-            rexpc->VpiValue(rightV->uhdmValue());
-            rexpc->VpiDecompile(rightV->decompiledValue());
-            rexpc->VpiFile(fC->getFileName());
-            rexpc->VpiLineNo(fC->Line(rexpr));
-            rexp = rexpc;
-            */
             rint = rightV->getValueL();
           }
           uint64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
@@ -3265,6 +3245,14 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
 
         range->Left_expr(lexp);
         lexp->VpiParent(range);
+
+        if (reduce) {
+          Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
+          if (rightV->isValid()) {
+            int64_t rint = rightV->getValueL();
+            size = size * rint;
+          }
+        }
 
         expr* rexp = dynamic_cast<expr*>(compileExpression(
             component, fC, rexpr, compileDesign, pexpr, instance, reduce));
