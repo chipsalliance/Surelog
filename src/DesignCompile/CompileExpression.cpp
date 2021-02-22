@@ -1534,7 +1534,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
     if (result)
       break;
     if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
-      instance = (ValuedComponentI*) instance->getParentScope();
+      instance = (ValuedComponentI*) inst->getParentScope();
     } else if (FScope* inst = dynamic_cast<FScope*> (instance)) { 
       instance = (ValuedComponentI*) inst->getParentScope();
     } else {

@@ -1,0 +1,99 @@
+# Copyright (C) 2014 Embecosm Limited.
+
+# Contributor Pierre Langlois <pierre.langlois@embecosm.com>
+
+# This file is part of BEEBS
+
+# This file is a board specification for the AVR atxmega256a3bu and
+# configuration file for loading a program with AVRDUDE.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 3 of the License, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# This is a list of toolchains that are supported on this board.
+set_board_info target_install ${target_triplet}
+
+# Load the generic configuration for this board. This will define a basic set
+# of routines needed by the tool to communicate with the board.
+load_generic_config "avrdude"
+
+# avrdude configuration
+set_board_info avrdude "$env(AVRDUDE)"
+set_board_info avrdude,flags "$env(AVRDUDE_FLAGS)"
+
+# Substitute proc
+
+proc avrdude_spawn { dest cmdline args } {
+    if {[board_info $dest exists avrdude]} {
+	set avrdude [board_info $dest avrdude]
+    } else {
+	perror "no avrdude defined for [board_info $dest name]"
+	exit 1
+    }
+
+    if { [which $avrdude] == 0 } {
+        verbose -log "$avrdude missing." 3
+	return -1
+    }
+
+    if {[board_info $dest exists avrdude,flags]} {
+	set avrdude_flags [board_info $dest avrdude,flags]
+    } else {
+        set avrdude_flags ""
+    }
+
+    return [eval remote_spawn host \{ "$avrdude $avrdude_flags -U flash:w:$cmdline" \} ]
+}
+
+proc avrdude_wait { dest timeout } {
+    return [remote_wait host $timeout]
+}
+
+proc avrdude_load { dest prog args } {
+    if {![file exists $prog]} then {
+	perror "avrdude.exp: $prog to be downloaded does not exist."
+	verbose -log "$prog to be downloaded does not exist." 3
+	return [list "untested" ""]
+    }
+
+    if {[board_info $dest exists avrdude_time_limit]} {
+	set avrdude_time_limit [board_info $dest avrdude_time_limit]
+    } else {
+	set avrdude_time_limit 240
+    }
+
+    # Launch avrdude
+    set avrdude_output ""
+    set avrdude_cmd $prog
+    set avrdude_id [remote_spawn target "${avrdude_cmd}"]
+    if { $avrdude_id <= 0 } {
+	return [list "fail" "remote_spawn failed"]
+    }
+
+    # Wait for avrdude to finish
+    set state [remote_wait target $avrdude_time_limit]
+    set status [lindex $state 0]
+    set output [lindex $state 1]
+
+    if { $status == 0 } {
+        set result "pass"
+    } else {
+        set result "fail"
+    }
+
+    return [list $result $output]
+}
+
+set_board_info protocol "avrdude"

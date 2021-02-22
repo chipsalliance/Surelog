@@ -1,0 +1,3 @@
+BP_DEMOS = \
+  sample
+

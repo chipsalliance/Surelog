@@ -1,0 +1,123 @@
+# Copyright (C) 2018 Embecosm Limited.
+
+# Contributor Jeremy Bennett <jeremy.bennett@embecosm.com>
+
+# This file is part of BEEBS
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 3 of the License, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+set_board_info beebs,benchmarks "$env(BENCHMARKS)"
+
+proc beebs_load { file } {
+    set GDB riscv32-unknown-elf-gdb
+    set GDB_SERVER riscv32-gdbserver
+
+    # Launch GDB, the target, and start running.
+    #
+    # We use the MI interpreter as we seem to get ANSI color codes in the output
+    # otherwise.
+    #
+    # The "stepi", "stepi", "load" sequence is required because we cannot set
+    # the PC until RI5CY is out of reset - stepping two instructions allows
+    # enough time for this to happen.
+    #
+    # We set all required breakpoints here then begin execution.
+    spawn $GDB --interpreter=mi -ex "set height 0" \
+      -ex "file $file" \
+      -ex "target remote | $GDB_SERVER -c ri5cy --stdin" \
+      -ex "stepi" \
+      -ex "stepi" \
+      -ex "load" \
+      -ex "break start_trigger" \
+      -ex "break stop_trigger" \
+      -ex "break _exit" \
+      -ex "jump *_start"
+
+    # Wait until we hit start_trigger
+    expect {
+      -re ".*stopped.*start_trigger.*" { }
+      timeout {
+        unresolved "$file: waiting for start_trigger\n"
+        return fail
+      }
+    }
+
+    # Record the cycle count at start_trigger
+    send "monitor cyclecount\n"
+    expect {
+      -re ".*@\"(\[0-9\]+)" {
+        set start_cycle_count $expect_out(1,string)
+      }
+      timeout {
+        unresolved "$file: get start_trigger cycle count\n"
+        return fail
+      }
+    }
+
+    # Continue and wait for stop_trigger
+    send "cont\n"
+    expect {
+      -re ".*stopped.*stop_trigger.*" { }
+      timeout {
+        unresolved "$file: waiting for stop_trigger\n"
+        return fail
+      }
+    }
+
+    # Record the cycle count at stop_trigger
+    send "monitor cyclecount\n"
+    expect {
+      -re ".*@\"(\[0-9\]+)" {
+        set stop_cycle_count $expect_out(1,string)
+      }
+      timeout {
+        unresolved "$file: get stop_trigger cycle count\n"
+        return fail
+      }
+    }
+
+    set cycle_count [expr $stop_cycle_count - $start_cycle_count]
+
+    # Wait for exit (syscalls are not fully implemented on RI5CY so we break on
+    # _exit and check its argument instead).
+    send "cont\n"
+    expect {
+      -re ".*__internal_syscall.*n=93.*" {
+        send "print \$a0\n"
+      }
+      timeout {
+        unresolved "$file: waiting to hit _exit\n"
+      }
+    }
+
+    expect {
+      -re ".*\[0-9\]+ = (\[0-9\]+).*" {
+        set exit_code $expect_out(1,string)
+        if { $exit_code == 0 } {
+          return [list pass $cycle_count]
+        } else {
+          return fail
+        }
+      }
+      timeout {
+        unresolved "$file: getting exit code"
+      }
+    }
+
+    # We should not get here.
+    verbose -log "$file: reached end of beebs_load - how did we get here?"
+    return fail
+}

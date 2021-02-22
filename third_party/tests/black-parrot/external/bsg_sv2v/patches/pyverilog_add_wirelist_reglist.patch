@@ -1,0 +1,173 @@
+From 1821e0d7a39e1eb2caccd425241d22fef316b757 Mon Sep 17 00:00:00 2001
+From: Scott Davidson <scottdavidson1992@gmail.com>
+Date: Fri, 29 Mar 2019 18:27:22 -0700
+Subject: [PATCH 1/2] Adding WireList and RegList ast classes. Used for codegen
+ only, parser does not use them/
+
+---
+ pyverilog/ast_code_generator/codegen.py            | 23 ++++++++++++++++++++
+ pyverilog/ast_code_generator/list_ast.txt          |  2 ++
+ pyverilog/ast_code_generator/template/reglist.txt  |  1 +
+ pyverilog/ast_code_generator/template/wirelist.txt |  1 +
+ pyverilog/vparser/ast.py                           | 25 ++++++++++++++++++++++
+ 5 files changed, 52 insertions(+)
+ create mode 100644 pyverilog/ast_code_generator/template/reglist.txt
+ create mode 100644 pyverilog/ast_code_generator/template/wirelist.txt
+
+diff --git a/pyverilog/ast_code_generator/codegen.py b/pyverilog/ast_code_generator/codegen.py
+index 7158a02..b1a9a4f 100644
+--- a/pyverilog/ast_code_generator/codegen.py
++++ b/pyverilog/ast_code_generator/codegen.py
+@@ -1022,3 +1022,26 @@ class ASTCodeGenerator(ConvertVisitor):
+ 
+     def visit_EmbeddedCode(self, node):
+         return node.code
++
++    def visit_WireList(self, node):
++        filename = getfilename(node)
++        template = self.get_template(filename)
++        template_dict = {
++            'name_str' : ','.join([escape(name) for name in node.name_list]),
++            'width' : '' if node.width is None else self.visit(node.width),
++            'signed' : node.signed,
++            }
++        rslt = template.render(template_dict)
++        return rslt
++
++    def visit_RefList(self, node):
++        filename = getfilename(node)
++        template = self.get_template(filename)
++        template_dict = {
++            'name_str' : ','.join([escape(name) for name in node.name_list]),
++            'width' : '' if node.width is None else self.visit(node.width),
++            'signed' : node.signed,
++            }
++        rslt = template.render(template_dict)
++        return rslt
++
+diff --git a/pyverilog/ast_code_generator/list_ast.txt b/pyverilog/ast_code_generator/list_ast.txt
+index 2fd9a6f..f23cfbb 100644
+--- a/pyverilog/ast_code_generator/list_ast.txt
++++ b/pyverilog/ast_code_generator/list_ast.txt
+@@ -103,3 +103,5 @@ PragmaEntry
+ Disable
+ ParallelBlock
+ SingleStatement
++WireList
++RegList
+diff --git a/pyverilog/ast_code_generator/template/reglist.txt b/pyverilog/ast_code_generator/template/reglist.txt
+new file mode 100644
+index 0000000..016a488
+--- /dev/null
++++ b/pyverilog/ast_code_generator/template/reglist.txt
+@@ -0,0 +1 @@
++reg {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str|wordwrap(100) }};
+diff --git a/pyverilog/ast_code_generator/template/wirelist.txt b/pyverilog/ast_code_generator/template/wirelist.txt
+new file mode 100644
+index 0000000..36423c9
+--- /dev/null
++++ b/pyverilog/ast_code_generator/template/wirelist.txt
+@@ -0,0 +1 @@
++wire {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str|wordwrap(100) }};
+diff --git a/pyverilog/vparser/ast.py b/pyverilog/vparser/ast.py
+index 9c5a315..98807d4 100644
+--- a/pyverilog/vparser/ast.py
++++ b/pyverilog/vparser/ast.py
+@@ -840,3 +840,28 @@ class EmbeddedCode(Node):
+     def children(self):
+         nodelist = []
+         return tuple(nodelist)
++
++class WireList(Node):
++    attr_names = ('name_list', 'signed')
++    def __init__(self, name_list, width=None, signed=False, lineno=0):
++        self.lineno = lineno
++        self.name_list = name_list
++        self.width = width
++        self.signed = signed
++    def children(self):
++        nodelist = []
++        if self.width: nodelist.append(self.width)
++        return tuple(nodelist)
++
++class RegList(Node):
++    attr_names = ('name_list', 'signed')
++    def __init__(self, name_list, width=None, signed=False, lineno=0):
++        self.lineno = lineno
++        self.name_list = name_list
++        self.width = width
++        self.signed = signed
++    def children(self):
++        nodelist = []
++        if self.width: nodelist.append(self.width)
++        return tuple(nodelist)
++
+-- 
+1.8.3.1
+
+
+From da8f10f6e499c8b3821c89cce4c4f823e5cb310f Mon Sep 17 00:00:00 2001
+From: Scott Davidson <scottdavidson1992@gmail.com>
+Date: Sat, 30 Mar 2019 08:39:52 -0700
+Subject: [PATCH 2/2] Bug fixes
+
+---
+ pyverilog/ast_code_generator/codegen.py            | 16 +++++++++++++---
+ pyverilog/ast_code_generator/template/reglist.txt  |  2 +-
+ pyverilog/ast_code_generator/template/wirelist.txt |  2 +-
+ 3 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/pyverilog/ast_code_generator/codegen.py b/pyverilog/ast_code_generator/codegen.py
+index b1a9a4f..8de6e20 100644
+--- a/pyverilog/ast_code_generator/codegen.py
++++ b/pyverilog/ast_code_generator/codegen.py
+@@ -1026,19 +1026,29 @@ class ASTCodeGenerator(ConvertVisitor):
+     def visit_WireList(self, node):
+         filename = getfilename(node)
+         template = self.get_template(filename)
++        name_str = ','.join([escape(name) for name in node.name_list])
++        for i in range(int(len(name_str)/80)):
++          start_index = (i+1)*80 + i
++          comma_index = name_str.rfind(',',0,start_index)
++          name_str = name_str[:comma_index+1] + '\n' + name_str[comma_index+1:]
+         template_dict = {
+-            'name_str' : ','.join([escape(name) for name in node.name_list]),
++            'name_str' : name_str,
+             'width' : '' if node.width is None else self.visit(node.width),
+             'signed' : node.signed,
+             }
+         rslt = template.render(template_dict)
+         return rslt
+ 
+-    def visit_RefList(self, node):
++    def visit_RegList(self, node):
+         filename = getfilename(node)
+         template = self.get_template(filename)
++        name_str = ','.join([escape(name) for name in node.name_list])
++        for i in range(int(len(name_str)/80)):
++          start_index = (i+1)*80 + i
++          comma_index = name_str.rfind(',',0,start_index)
++          name_str = name_str[:comma_index+1] + '\n' + name_str[comma_index+1:]
+         template_dict = {
+-            'name_str' : ','.join([escape(name) for name in node.name_list]),
++            'name_str' : name_str,
+             'width' : '' if node.width is None else self.visit(node.width),
+             'signed' : node.signed,
+             }
+diff --git a/pyverilog/ast_code_generator/template/reglist.txt b/pyverilog/ast_code_generator/template/reglist.txt
+index 016a488..9e21dcb 100644
+--- a/pyverilog/ast_code_generator/template/reglist.txt
++++ b/pyverilog/ast_code_generator/template/reglist.txt
+@@ -1 +1 @@
+-reg {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str|wordwrap(100) }};
++reg {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str }};
+diff --git a/pyverilog/ast_code_generator/template/wirelist.txt b/pyverilog/ast_code_generator/template/wirelist.txt
+index 36423c9..8058ff7 100644
+--- a/pyverilog/ast_code_generator/template/wirelist.txt
++++ b/pyverilog/ast_code_generator/template/wirelist.txt
+@@ -1 +1 @@
+-wire {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str|wordwrap(100) }};
++wire {% if signed %}signed {% endif %}{% if width != '' %}{{ width }} {% endif %}{{ name_str }};
+-- 
+1.8.3.1
+

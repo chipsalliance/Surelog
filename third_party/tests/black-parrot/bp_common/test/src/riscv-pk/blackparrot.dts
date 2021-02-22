@@ -1,0 +1,48 @@
+/dts-v1/;
+
+/ {
+  #address-cells = <0x00000002>;
+  #size-cells = <0x00000002>;
+  compatible = "ucbbar,spike-bare-dev";
+  model = "ucbbar,spike-bare";
+  chosen {
+  };
+  cpus {
+    #address-cells = <0x00000001>;
+    #size-cells = <0x00000000>;
+    timebase-frequency = <0x00989680>;
+    cpu@0 {
+      device_type = "cpu";
+      reg = <0x00000000>;
+      status = "okay";
+      compatible = "riscv";
+      riscv,isa = "rv64imafdc";
+      mmu-type = "riscv,sv48";
+      clock-frequency = <0x3b9aca00>;
+      interrupt-controller {
+        #interrupt-cells = <0x00000001>;
+        interrupt-controller;
+        compatible = "riscv,cpu-intc";
+        phandle = <0x00000001>;
+      };
+    };
+  };
+  memory@80000000 {
+    device_type = "memory";
+    reg = <0x00000000 0x80000000 0x00000000 0x08000000>;
+  };
+  soc {
+    #address-cells = <0x00000002>;
+    #size-cells = <0x00000002>;
+    compatible = "ucbbar,spike-bare-soc", "simple-bus";
+    ranges;
+    clint@2000000 {
+      compatible = "riscv,clint0";
+      interrupts-extended = <0x00000001 0x00000003 0x00000001 0x00000007>;
+      reg = <0x00000000 0x02000000 0x00000000 0x000c0000>;
+    };
+  };
+  htif {
+    compatible = "ucb,htif0";
+  };
+};

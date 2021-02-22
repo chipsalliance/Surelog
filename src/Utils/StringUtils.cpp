@@ -347,6 +347,13 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
     }
     if (var.empty() && s)
       var = s;
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)      
+    if (var.size() && (var[var.size()-1] != '\\'))
+      var += "\\";
+#else
+    if (var.size() && (var[var.size()-1] != '/'))
+      var += "/";
+#endif
     text.replace( match.position(0), match.length(0), var );
   }
 }

@@ -1,0 +1,110 @@
+# Copyright (C) 2014 Embecosm Limited.
+
+# Contributor Pierre Langlois <pierre.langlois@embecosm.com>
+
+# This file is part of BEEBS
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 3 of the License, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+global benchmarks
+global objdir
+global srcdir
+
+# The filehandle for the results file.
+set enerytool_results ""
+
+# The process handle for the energytool.
+set energytool_id ""
+
+# Start up the energytool.
+proc energytool_spawn { serial point pin } {
+    global srcdir
+    return [eval remote_spawn host \{ "$srcdir/tools/energytool.py $serial $point $pin" \} ]
+}
+
+# Called before any setup attempted
+proc beebs_filter_benchmark { benchmark benchmark_file } {
+
+    # If the energy tool environment variables are not set we can't run these tests
+    if { ! [info exists env(ENERGYTOOL_SERIAL)] ||
+         ! [info exists env(ENERGYTOOL_POINT)] ||
+         ! [info exists env(ENERYTOOL_PIN)] } {
+        return 0
+    }
+
+    return 1
+}
+
+# Called once before any tests are run.
+proc beebs_setup_before_all_benchmarks { } {
+    global energytool_results
+    global env
+
+    set filename ""
+    if [catch {set filename $env(ENERGY_DATA)}] {
+        set filename "[beebs_results_root]/energytool.csv"
+    }
+    set energytool_results [open $filename w]
+    puts $energytool_results "name,energy,time,avg_power,avg_current,avg_voltage"
+    return 1
+}
+
+# Called once after all the tests have run.
+proc beebs_cleanup_after_all_benchmarks { } {
+    global energytool_results
+
+    close $energytool_results
+    return 1
+}
+
+# Called once for each binary within a benchmark directory.
+proc beebs_setup_before_benchmark { benchmark filename } {
+    global energytool_id
+    global env
+
+    # Start the energy tool
+    set energytool_id [energytool_spawn "$env(ENERGYTOOL_SERIAL)" "$env(ENERGYTOOL_POINT)" "$env(ENERGYTOOL_PIN)"]
+    return 1
+}
+
+# Called once after each binary within a benchmark directory.
+proc beebs_cleanup_after_benchmark { benchmark filename } {
+    global energytool_id
+    global energytool_results
+    global env
+
+    set energytool_output ""
+    set energytool_timeout $env(ENERGYTOOL_TIMEOUT)
+
+    expect {
+        -i $energytool_id -timeout $energytool_timeout -re "(\[0-9\.e\-\]+,){4}\[0-9\.e\-\]+" {
+            set energytool_output $expect_out(buffer)
+        }
+        timeout {}
+        eof {}
+    }
+
+    verbose -log "Energy for $benchmark: $energytool_output"
+    if { $energytool_output == "" } {
+        # Output zeros if the measurement was unsuccessful.
+        puts $energytool_results "$benchmark,0,0,0,0,0"
+    } else {
+        puts $energytool_results "$benchmark,$energytool_output"
+    }
+}
+
+# Now start the benchmarks running.
+beebs_run_all_benchmarks

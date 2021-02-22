@@ -1,124 +1,0 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-
-}
-p {
-font-size: 14px;
-}</style>
-<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_concentrator.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: //</pre>
-<pre style="margin:0; padding:0 ">   2: // bsg_wormhole_concentrator.v</pre>
-<pre style="margin:0; padding:0 ">   3: // </pre>
-<pre style="margin:0; padding:0 ">   4: // 08/2019</pre>
-<pre style="margin:0; padding:0 ">   5: //</pre>
-<pre style="margin:0; padding:0 ">   6: // This is an adapter between 1 concentrated wormhole link and N unconcentrated wormhole links.</pre>
-<pre style="margin:0; padding:0 ">   7: // Extra bits (cid) are used in wormhole header to indicate wormhole packet destination.</pre>
-<pre style="margin:0; padding:0 ">   8: //</pre>
-<pre style="margin:0; padding:0 ">   9: // From implementation perspective this is a simplified version bsg_wormhole_router.</pre>
-<pre style="margin:0; padding:0 ">  10: // Wormhole_router relies on 2D routing_matrix, while wormhole_concentrator has fixed 1-to-n </pre>
-<pre style="margin:0; padding:0 ">  11: // and n-to-1 routing. This concentrator reuses most of the building blocks of wormhole_router, </pre>
-<pre style="margin:0; padding:0 ">  12: // concentrator header struct is defined in bsg_wormhole_router.vh.</pre>
-<pre style="margin:0; padding:0 ">  13: //</pre>
-<pre style="margin:0; padding:0 ">  14: // This concentrator has 1-cycle delay from input wormhole link(s) to output wormhole link(s).</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: // It has zero bubble between wormhole packets.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: //</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: //</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
-<pre style="margin:0; padding:0 ">  19: `include "bsg_defines.v"</pre>
-<pre style="margin:0; padding:0 ">  20: `include "bsg_noc_links.vh"</pre>
-<pre style="margin:0; padding:0 ">  21: `include "bsg_wormhole_router.vh"</pre>
-<pre style="margin:0; padding:0 ">  22: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: module bsg_wormhole_concentrator</pre>
-<pre style="margin:0; padding:0 ">  24: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   #(parameter flit_width_p        = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    ,parameter len_width_p         = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    ,parameter cid_width_p         = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:    ,parameter cord_width_p        = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    ,parameter num_in_p            = 1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    ,parameter debug_lp            = 0</pre>
-<pre style="margin:0; padding:0 ">  31:    )</pre>
-<pre style="margin:0; padding:0 ">  32: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   (input clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   ,input reset_i</pre>
-<pre style="margin:0; padding:0 ">  35: </pre>
-<pre style="margin:0; padding:0 ">  36:   // unconcentrated multiple links</pre>
-<pre style="margin:0; padding:0 ">  37:   ,input  [num_in_p-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] links_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   ,output [num_in_p-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] links_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
-<pre style="margin:0; padding:0 ">  40:   // concentrated single link</pre>
-<pre style="margin:0; padding:0 ">  41:   ,input  [`bsg_ready_and_link_sif_width(flit_width_p)-1:0] concentrated_link_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   ,output [`bsg_ready_and_link_sif_width(flit_width_p)-1:0] concentrated_link_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   );</pre>
-<pre style="margin:0; padding:0 ">  44: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   `declare_bsg_ready_and_link_sif_s(flit_width_p,bsg_ready_and_link_sif_s);</pre>
-<pre style="margin:0; padding:0 ">  46:   </pre>
-<pre style="margin:0; padding:0 ">  47:   bsg_ready_and_link_sif_s [num_in_p-1:0] links_i_cast, links_o_cast;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   bsg_ready_and_link_sif_s [num_in_p-1:0] links_o_stubbed_v, links_o_stubbed_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   </pre>
-<pre style="margin:0; padding:0 ">  50:   bsg_ready_and_link_sif_s concentrated_link_i_cast, concentrated_link_o_cast;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   bsg_ready_and_link_sif_s concentrated_link_o_stubbed_v, concentrated_link_o_stubbed_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   </pre>
-<pre style="margin:0; padding:0 ">  53:   assign links_i_cast = links_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign links_o = links_o_cast;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
-<pre style="margin:0; padding:0 ">  56:   assign concentrated_link_i_cast = concentrated_link_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign concentrated_link_o = concentrated_link_o_cast;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   </pre>
-<pre style="margin:0; padding:0 ">  59:   for (genvar i = 0; i < num_in_p; i++)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     begin : cast</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       assign links_o_cast[i].data          = links_o_stubbed_ready[i].data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       assign links_o_cast[i].v             = links_o_stubbed_ready[i].v;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       assign links_o_cast[i].ready_and_rev = links_o_stubbed_v[i].ready_and_rev;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     end</pre>
-<pre style="margin:0; padding:0 ">  65: </pre>
-<pre style="margin:0; padding:0 ">  66:   assign concentrated_link_o_cast.data          = concentrated_link_o_stubbed_ready.data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign concentrated_link_o_cast.v             = concentrated_link_o_stubbed_ready.v;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   assign concentrated_link_o_cast.ready_and_rev = concentrated_link_o_stubbed_v.ready_and_rev;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
-<pre style="margin:0; padding:0 ">  70:   bsg_wormhole_concentrator_in</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:    #(.flit_width_p(flit_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:      ,.len_width_p(len_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:      ,.cid_width_p(cid_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:      ,.num_in_p(num_in_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:      ,.cord_width_p(cord_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:      ,.debug_lp(debug_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:      )</pre>
-<pre style="margin:0; padding:0 ">  78:    concentrator_in</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     (.clk_i(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:      ,.reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: </pre>
-<pre style="margin:0; padding:0 ">  82:      ,.links_i(links_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:      ,.links_o(links_o_stubbed_v)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: </pre>
-<pre style="margin:0; padding:0 ">  85:      ,.concentrated_link_i(concentrated_link_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:      ,.concentrated_link_o(concentrated_link_o_stubbed_ready)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:      );</pre>
-<pre style="margin:0; padding:0 ">  88: </pre>
-<pre style="margin:0; padding:0 ">  89:   bsg_wormhole_concentrator_out</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    #(.flit_width_p(flit_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:      ,.len_width_p(len_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:      ,.cid_width_p(cid_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:      ,.num_in_p(num_in_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:      ,.cord_width_p(cord_width_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:      ,.debug_lp(debug_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:      )</pre>
-<pre style="margin:0; padding:0 ">  97:    concentrator_out</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     (.clk_i(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:      ,.reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
-<pre style="margin:0; padding:0 "> 101:      ,.links_i(links_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:      ,.links_o(links_o_stubbed_ready)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
-<pre style="margin:0; padding:0 "> 104:      ,.concentrated_link_i(concentrated_link_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:      ,.concentrated_link_o(concentrated_link_o_stubbed_v)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:      );</pre>
-<pre style="margin:0; padding:0 "> 107: </pre>
-<pre style="margin:0; padding:0 "> 108: endmodule</pre>
-<pre style="margin:0; padding:0 "> 109: </pre>
-<pre style="margin:0; padding:0 "> 110: </pre>
-</body>
-</html>
