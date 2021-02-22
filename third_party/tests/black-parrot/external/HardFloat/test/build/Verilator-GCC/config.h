@@ -1,3 +1,0 @@
-
-enum { maxNumErrors = 20 };
-
