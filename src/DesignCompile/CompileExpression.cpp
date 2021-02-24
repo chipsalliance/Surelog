@@ -745,8 +745,21 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   VisitedContainer visited;
                   vpiHandle dh = s.MakeUhdmHandle(operands[0]->UhdmType(), operands[0]);
                   std::stringstream out;
-                  visit_object(dh, 14, "v1", &visited, out);
+                  visit_object(dh, 14/* column */, "v1", &visited, out);
                   value += out.str();
+                  /*
+                  // Extra debug info:  
+                  if (instance) {
+                    if (ModuleInstance* inst =
+                            dynamic_cast<ModuleInstance*>(instance)) {
+                      for (auto ps : inst->getMappedValues()) {
+                        const std::string& name = ps.first;
+                        Value* val = ps.second.first;
+                        value += name + " = " + val->uhdmValue() + "\n";
+                      }
+                    }
+                  }
+                  */
                   std::string message = instanceName + value;
                   Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
                                symbols->registerSymbol(message));
