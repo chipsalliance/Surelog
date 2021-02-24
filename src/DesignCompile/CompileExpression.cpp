@@ -747,7 +747,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   std::stringstream out;
                   visit_object(dh, 14/* column */, "v1", &visited, out);
                   value += out.str();
-
+                  /*
+                  // Extra debug info:  
                   if (instance) {
                     if (ModuleInstance* inst =
                             dynamic_cast<ModuleInstance*>(instance)) {
@@ -758,7 +759,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                       }
                     }
                   }
-
+                  */
                   std::string message = instanceName + value;
                   Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
                                symbols->registerSymbol(message));

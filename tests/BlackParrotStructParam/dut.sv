@@ -1,7 +1,6 @@
- package bp_common_aviary_pkg;
+package bp_common_aviary_pkg;
   
-  localparam max_cfgs    = 128;
-  localparam lg_max_cfgs = ( ((max_cfgs)==1) ? 1 : $clog2((max_cfgs)));
+  localparam max_cfgs    = 1;
 
 typedef struct packed
   {
@@ -40,13 +39,13 @@ localparam bp_proc_param_s bp_multicore_cce_ucode_half_cfg_p    =
                         .cc_x_dim          
         };
 
- parameter bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp =
+ parameter bp_proc_param_s [max_cfgs:0] all_cfgs_gp =
   {
     // Various testing configs
     bp_multicore_cce_ucode_half_cfg_p
   };
 
- typedef enum bit [lg_max_cfgs-1:0]
+ typedef enum bit [max_cfgs:0]
   {
     e_bp_default_cfg                       = 0
   } bp_params_e;
@@ -61,3 +60,5 @@ module top import bp_common_aviary_pkg::*; #(
  logic [cc_x_dim_p-1:0] aa;
 
 endmodule
+
+
