@@ -974,3 +974,77 @@ UHDM::typespec* CompileHelper::compileTypespec(
   }
   return result;
 }
+
+UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr,
+                    ValuedComponentI* instance) {
+  Serializer& s = compileDesign->getSerializer();
+  typespec* result = spec;                    
+  UHDM_OBJECT_TYPE type = spec->UhdmType();
+  VectorOfrange* ranges = nullptr;
+  switch (type) {
+    case uhdmbit_typespec: {
+      bit_typespec* tps = (bit_typespec*) spec;
+      ranges = tps->Ranges();
+      if (ranges) {
+        ElaboratorListener listener(&s);
+        bit_typespec* res = dynamic_cast<bit_typespec*>(UHDM::clone_tree((any*) spec, s, &listener));
+        ranges = res->Ranges();
+        result = res;
+      }
+      break;
+    }
+    case uhdmlogic_typespec: {
+      logic_typespec* tps = (logic_typespec*) spec;
+      ranges = tps->Ranges();
+      if (ranges) {
+        ElaboratorListener listener(&s);
+        logic_typespec* res = dynamic_cast<logic_typespec*>(UHDM::clone_tree((any*) spec, s, &listener));
+        ranges = res->Ranges();
+        result = res;
+      }
+      break;
+    }
+    case uhdmarray_typespec: {
+      array_typespec* tps = (array_typespec*) spec;
+      ranges = tps->Ranges();
+      if (ranges) {
+        ElaboratorListener listener(&s);
+        array_typespec* res = dynamic_cast<array_typespec*>(UHDM::clone_tree((any*) spec, s, &listener));
+        ranges = res->Ranges();
+        result = res;
+      }
+      break;
+    }
+    case uhdmpacked_array_typespec: {
+      packed_array_typespec* tps = (packed_array_typespec*) spec;
+      ranges = tps->Ranges();
+      if (ranges) {
+        ElaboratorListener listener(&s);
+        packed_array_typespec* res = dynamic_cast<packed_array_typespec*>(UHDM::clone_tree((any*) spec, s, &listener));
+        ranges = res->Ranges();
+        result = res;
+      }
+      break;
+    }
+    default:
+      break;
+  }
+  if (ranges) {
+    for (UHDM::range* oldRange : *ranges) {
+      expr* oldLeft = (expr*)oldRange->Left_expr();
+      expr* oldRight = (expr*)oldRange->Right_expr();
+      bool invalidValue = false;
+      expr* newLeft =
+          reduceExpr(oldLeft, invalidValue, component, compileDesign, instance,
+                     oldLeft->VpiFile(), oldLeft->VpiLineNo(), pexpr);
+      expr* newRight =
+          reduceExpr(oldRight, invalidValue, component, compileDesign, instance,
+                     oldRight->VpiFile(), oldRight->VpiLineNo(), pexpr);
+      if (!invalidValue) {
+        oldRange->Left_expr(newLeft);
+        oldRange->Right_expr(newRight);
+      }
+    }
+  }
+  return result;
+}

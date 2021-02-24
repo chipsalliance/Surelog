@@ -350,6 +350,9 @@ public:
                     UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
 
+   UHDM::typespec* elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr = NULL,
+                    ValuedComponentI* instance = NULL);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 

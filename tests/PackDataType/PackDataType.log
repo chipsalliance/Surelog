@@ -592,11 +592,17 @@ design: (work@kmac_keymgr)
   |vpiParamAssign:
   \_param_assign: , line:18, parent:work@kmac_keymgr
     |vpiRhs:
-    \_constant: , line:18
-      |vpiConstType:7
-      |vpiDecompile:247
-      |vpiSize:64
-      |INT:247
+    \_sys_func_call: ($bits), line:18
+      |vpiName:$bits
+      |vpiArgument:
+      \_hier_path: (keymgr_data_o.digest_share0), line:18, parent:$bits
+        |vpiName:keymgr_data_o.digest_share0
+        |vpiActual:
+        \_ref_obj: (keymgr_data_o)
+          |vpiName:keymgr_data_o
+        |vpiActual:
+        \_ref_obj: (digest_share0)
+          |vpiName:digest_share0
     |vpiLhs:
     \_parameter: (work@kmac_keymgr.KeyMgrDigestW), line:18, parent:work@kmac_keymgr
       |vpiName:KeyMgrDigestW

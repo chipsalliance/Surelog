@@ -131,6 +131,12 @@ any* getObject(const std::string& name, DesignComponent* component,
         }
       }
     }
+    const DataType* dtype = component->getDataType(name);
+    if (dtype) {
+      dtype = dtype->getActual();
+      if (dtype->getTypespec())
+        return dtype->getTypespec();
+    }
   }
   return result;
 }
@@ -1138,16 +1144,23 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           ref_obj* ref = (ref_obj*) arg;
           const std::string& objname = ref->VpiName();
           any* object = getObject(objname, component, compileDesign, instance, pexpr);
+          const typespec* tps = nullptr;
           if (expr* exp = dynamic_cast<expr*>(object)) {
-            const typespec* tps = exp->Typespec();
-            if (tps) {
-              bits += Bits(tps, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
-              found = true;
-            } else {
-              bits += Bits(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, true, (name == "$size"));
-              found = true;
-            }
-          } 
+            tps = exp->Typespec();
+          } else if (typespec* tp = dynamic_cast<typespec*>(object)) {
+            tps = tp;
+          }
+          if (tps) {
+            bits += Bits(tps, invalidValue, component, compileDesign, instance,
+                         fileName, lineNumber, true, (name == "$size"));
+            found = true;
+          } else {
+            bits +=
+                Bits(object, invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, true, (name == "$size"));
+            found = true;
+          }
+
         } else if (argtype == uhdmhier_path) {
           hier_path* path = (hier_path*) arg;
           auto elems = path->Path_elems();
@@ -1758,6 +1771,22 @@ UHDM::any* CompileHelper::compileExpression(
     childType = fC->Type(child);
   }
   switch (parentType) {
+    case VObjectType::slIntegerAtomType_Byte: {
+      result = s.MakeByte_var();
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Int: {
+      result = s.MakeInt_var();
+      break;
+    }
+    case VObjectType::slIntegerAtomType_LongInt: {
+      result = s.MakeLong_int_var();
+      break;
+    }
+    case VObjectType::slIntegerAtomType_Shortint: {
+      result = s.MakeShort_int_var();
+      break;
+    }
     case VObjectType::slValue_range: {
       UHDM::operation* list_op = s.MakeOperation();
       list_op->VpiOpType(vpiListOp);
@@ -3785,10 +3814,10 @@ UHDM::any* CompileHelper::compileBits(
   unsigned int bits = 0;
   bool invalidValue = false;
   const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
-  if (tps)
+  if (reduce && tps)
     bits = Bits(tps, invalidValue, component, compileDesign, instance, fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce, sizeMode);
 
-  if (bits && (!invalidValue)) {
+  if (reduce && tps && (!invalidValue)) {
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
@@ -3917,8 +3946,10 @@ UHDM::any* CompileHelper::compileClog2(
   }
   expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
   bool invalidValue = false;
-  int64_t val = get_value(invalidValue, reduceExpr(operand, invalidValue, component, compileDesign, instance, fC->getFileName(), fC->Line(Expression), pexpr));
-  if (val) {
+  int64_t val = 0;
+  if (reduce)
+    val = get_value(invalidValue, reduceExpr(operand, invalidValue, component, compileDesign, instance, fC->getFileName(), fC->Line(Expression), pexpr));
+  if (reduce && (invalidValue == false)) {
     val = val - 1;
     int clog2 = 0;
     for (; val > 0; clog2 = clog2 + 1) {

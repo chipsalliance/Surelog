@@ -502,6 +502,15 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
   }
   processArgs_(cmd_line, all_arguments);
+  /*
+  std::string cmd = "EXPANDED CMD:";
+  for (unsigned int i = 0; i < all_arguments.size(); i++) {
+    cmd += std::string(" ") + all_arguments[i];
+  }
+  cmd += "\n\n";
+  std::cout << cmd;
+  */
+ 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i] == "-help" || all_arguments[i] == "-h" ||
         all_arguments[i] == "--help") {

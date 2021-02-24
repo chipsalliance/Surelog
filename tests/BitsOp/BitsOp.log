@@ -773,11 +773,31 @@ design: (work@dut)
                     \_operation: , line:121, parent:work@dmi_jtag.p_shift
                       |vpiOpType:11
                       |vpiOperand:
-                      \_constant: , line:121
-                        |vpiConstType:7
-                        |vpiDecompile:41
-                        |vpiSize:64
-                        |INT:41
+                      \_sys_func_call: ($bits), line:121
+                        |vpiName:$bits
+                        |vpiArgument:
+                        \_ref_obj: (work@dmi_jtag.p_shift.dr_q), line:121, parent:$bits
+                          |vpiName:dr_q
+                          |vpiFullName:work@dmi_jtag.p_shift.dr_q
+                          |vpiActual:
+                          \_logic_net: (work@dmi_jtag.dr_q), line:112, parent:work@dmi_jtag
+                            |vpiName:dr_q
+                            |vpiFullName:work@dmi_jtag.dr_q
+                            |vpiNetType:36
+                            |vpiRange:
+                            \_range: , line:112
+                              |vpiLeftRange:
+                              \_constant: , line:112
+                                |vpiConstType:7
+                                |vpiDecompile:40
+                                |vpiSize:64
+                                |INT:40
+                              |vpiRightRange:
+                              \_constant: , line:112
+                                |vpiConstType:7
+                                |vpiDecompile:0
+                                |vpiSize:64
+                                |INT:0
                       |vpiOperand:
                       \_constant: , line:121
                         |vpiConstType:7
@@ -916,11 +936,11 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:97
       |vpiLeftRange:
-      \_constant: , line:97
-        |vpiConstType:7
-        |vpiDecompile:9
-        |vpiSize:64
-        |INT:9
+      \_sys_func_call: ($bits), line:97
+        |vpiName:$bits
+        |vpiArgument:
+        \_ref_obj: (MyType), line:97, parent:$bits
+          |vpiName:MyType
       |vpiRightRange:
       \_constant: , line:97
         |vpiConstType:7
@@ -1002,11 +1022,11 @@ design: (work@dut)
     \_operation: , line:78
       |vpiOpType:12
       |vpiOperand:
-      \_constant: , line:78
-        |vpiConstType:7
-        |vpiDecompile:32
-        |vpiSize:64
-        |INT:32
+      \_sys_func_call: ($bits), line:78
+        |vpiName:$bits
+        |vpiArgument:
+        \_ref_obj: (sha_word_t), line:78, parent:$bits
+          |vpiName:sha_word_t
       |vpiOperand:
       \_constant: , line:78
         |vpiConstType:7
@@ -1040,11 +1060,29 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:81, parent:work@dut
     |vpiRhs:
-    \_constant: , line:81
-      |vpiConstType:7
-      |vpiDecompile:2
-      |vpiSize:64
-      |INT:2
+    \_sys_func_call: ($clog2), line:81
+      |vpiName:$clog2
+      |vpiArgument:
+      \_operation: , line:81, parent:$clog2
+        |vpiOpType:12
+        |vpiOperand:
+        \_ref_obj: (DataWidth), line:81, parent:$clog2
+          |vpiName:DataWidth
+          |vpiActual:
+          \_parameter: (work@dut.DataWidth), line:80, parent:work@dut
+            |vpiName:DataWidth
+            |vpiFullName:work@dut.DataWidth
+            |vpiLocalParam:1
+            |INT:32
+            |vpiTypespec:
+            \_int_typespec: (DataWidth), line:80, parent:work@dut.DataWidth
+              |vpiName:DataWidth
+        |vpiOperand:
+        \_constant: , line:81
+          |vpiConstType:7
+          |vpiDecompile:8
+          |vpiSize:64
+          |INT:8
     |vpiLhs:
     \_parameter: (work@dut.DataBitWidth), line:81, parent:work@dut
       |vpiName:DataBitWidth
@@ -1056,11 +1094,11 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:82, parent:work@dut
     |vpiRhs:
-    \_constant: , line:82
-      |vpiConstType:7
-      |vpiDecompile:1
-      |vpiSize:64
-      |INT:1
+    \_sys_func_call: ($bits), line:82
+      |vpiName:$bits
+      |vpiArgument:
+      \_ref_obj: (flash_erase_op_e), line:82, parent:$bits
+        |vpiName:flash_erase_op_e
     |vpiLhs:
     \_parameter: (work@dut.EraseBitWidth), line:82, parent:work@dut
       |vpiName:EraseBitWidth
@@ -1072,11 +1110,14 @@ design: (work@dut)
   |vpiParamAssign:
   \_param_assign: , line:84, parent:work@dut
     |vpiRhs:
-    \_constant: , line:84
-      |vpiConstType:7
-      |vpiDecompile:5
-      |vpiSize:64
-      |INT:5
+    \_sys_func_call: ($clog2), line:84
+      |vpiName:$clog2
+      |vpiArgument:
+      \_sys_func_call: ($bits), line:84
+        |vpiName:$bits
+        |vpiArgument:
+        \_ref_obj: (sha_word_t), line:84, parent:$bits
+          |vpiName:sha_word_t
     |vpiLhs:
     \_parameter: (work@dut.HashWordBits), line:84, parent:work@dut
       |vpiName:HashWordBits
@@ -1091,11 +1132,11 @@ design: (work@dut)
     \_operation: , line:86
       |vpiOpType:11
       |vpiOperand:
-      \_constant: , line:86
-        |vpiConstType:7
-        |vpiDecompile:85
-        |vpiSize:64
-        |INT:85
+      \_sys_func_call: ($bits), line:86
+        |vpiName:$bits
+        |vpiArgument:
+        \_ref_obj: (tlul_pkg::tl_h2d_t), line:86, parent:$bits
+          |vpiName:tlul_pkg::tl_h2d_t
       |vpiOperand:
       \_constant: , line:86
         |vpiConstType:7
@@ -1417,9 +1458,9 @@ design: (work@dut)
     \_bit_typespec: (MyBits), line:97
       |vpiName:MyBits
       |vpiRange:
-      \_range: , line:97
+      \_range: , line:97, parent:MyBits
         |vpiLeftRange:
-        \_constant: , line:97
+        \_constant: 
           |vpiConstType:7
           |vpiDecompile:9
           |vpiSize:64
@@ -1436,11 +1477,12 @@ design: (work@dut)
     |vpiRange:
     \_range: , line:97, parent:MyBits
       |vpiLeftRange:
-      \_constant: , line:97
-        |vpiConstType:7
-        |vpiDecompile:9
-        |vpiSize:64
-        |INT:9
+      \_sys_func_call: ($bits), line:97
+        |vpiName:$bits
+        |vpiArgument:
+        \_ref_obj: (work@dut.MyBits.MyType), line:97, parent:$bits
+          |vpiName:MyType
+          |vpiFullName:work@dut.MyBits.MyType
       |vpiRightRange:
       \_constant: , line:97
         |vpiConstType:7
@@ -1732,11 +1774,31 @@ design: (work@dut)
                     \_operation: , line:121
                       |vpiOpType:11
                       |vpiOperand:
-                      \_constant: , line:121
-                        |vpiConstType:7
-                        |vpiDecompile:41
-                        |vpiSize:64
-                        |INT:41
+                      \_sys_func_call: ($bits), line:121
+                        |vpiName:$bits
+                        |vpiArgument:
+                        \_ref_obj: (work@dmi_jtag.p_shift.dr_q.dr_q), line:121, parent:$bits
+                          |vpiName:dr_q
+                          |vpiFullName:work@dmi_jtag.p_shift.dr_q.dr_q
+                          |vpiActual:
+                          \_logic_net: (work@dmi_jtag.dr_q), line:112, parent:work@dmi_jtag
+                            |vpiName:dr_q
+                            |vpiFullName:work@dmi_jtag.dr_q
+                            |vpiNetType:36
+                            |vpiRange:
+                            \_range: , line:112
+                              |vpiLeftRange:
+                              \_constant: , line:112
+                                |vpiConstType:7
+                                |vpiDecompile:40
+                                |vpiSize:64
+                                |INT:40
+                              |vpiRightRange:
+                              \_constant: , line:112
+                                |vpiConstType:7
+                                |vpiDecompile:0
+                                |vpiSize:64
+                                |INT:0
                       |vpiOperand:
                       \_constant: , line:121
                         |vpiConstType:7
@@ -1760,23 +1822,6 @@ design: (work@dut)
         |vpiFullName:work@dmi_jtag.dr_q
         |vpiActual:
         \_logic_net: (work@dmi_jtag.dr_q), line:112, parent:work@dmi_jtag
-          |vpiName:dr_q
-          |vpiFullName:work@dmi_jtag.dr_q
-          |vpiNetType:36
-          |vpiRange:
-          \_range: , line:112
-            |vpiLeftRange:
-            \_constant: , line:112
-              |vpiConstType:7
-              |vpiDecompile:40
-              |vpiSize:64
-              |INT:40
-            |vpiRightRange:
-            \_constant: , line:112
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:64
-              |INT:0
       |vpiTypespec:
       \_struct_typespec: (dmi_t), line:106
         |vpiPacked:1
