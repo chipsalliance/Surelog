@@ -1033,6 +1033,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       stv->Expr(assignExp);
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
+      spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr, instance);
       variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());

@@ -540,11 +540,19 @@ design: (work@dut)
           |vpiSize:64
           |INT:1
       |vpiOperand:
-      \_constant: , line:5
-        |vpiConstType:7
-        |vpiDecompile:0
-        |vpiSize:64
-        |INT:0
+      \_sys_func_call: ($clog2), line:5
+        |vpiName:$clog2
+        |vpiArgument:
+        \_ref_obj: (NrDevices), line:5, parent:$clog2
+          |vpiName:NrDevices
+          |vpiActual:
+          \_parameter: (work@dut.NrDevices), line:2, parent:work@dut
+            |vpiName:NrDevices
+            |vpiFullName:work@dut.NrDevices
+            |INT:3
+            |vpiTypespec:
+            \_int_typespec: (NrDevices), line:2, parent:work@dut.NrDevices
+              |vpiName:NrDevices
       |vpiOperand:
       \_constant: , line:5
         |vpiConstType:7

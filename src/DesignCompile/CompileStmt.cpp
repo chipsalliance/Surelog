@@ -625,7 +625,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         NodeId Expression = tmp;
 
         variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, pstmt, nullptr, true);
+            component, fC, Data_type, compileDesign, pstmt, nullptr, false);
 
         if (var) {
           var->VpiConstantVariable(const_status);
