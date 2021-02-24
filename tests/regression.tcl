@@ -187,12 +187,14 @@ dict set WINDOWS_BLACK_LIST Compl1001 1
 dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_0_1 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_01_05_21 1
+dict set WINDOWS_BLACK_LIST Earlgrey_nexysvideo 1
 
 set UNIX_BLACK_LIST [dict create]
 # 2 message diff:
 dict set UNIX_BLACK_LIST UnitElabExternNested 1
 # Not sure why this test dies in the CI machine, RAM is now 5.9Go, less than other tests
 dict set UNIX_BLACK_LIST Earlgrey_nexysvideo 1
+dict set UNIX_BLACK_LIST BlackParrot 1
 
 if { $tcl_platform(platform) == "windows" } {
     set BLACK_LIST $WINDOWS_BLACK_LIST
