@@ -91,14 +91,14 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = dc;
     break;
   }
-  case VObjectType::slNonblocking_assignment:
-  case VObjectType::slOperator_assignment: {
+  case VObjectType::slNonblocking_assignment: {
     NodeId Operator_assignment  = the_stmt;
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
                 Operator_assignment, false, compileDesign, pstmt);
     stmt = assign;
     break;
   }
+  case VObjectType::slOperator_assignment:
   case VObjectType::slBlocking_assignment: {
     NodeId Operator_assignment = fC->Child(the_stmt);
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
