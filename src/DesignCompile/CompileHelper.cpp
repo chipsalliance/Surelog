@@ -2328,13 +2328,16 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   assignment* assign = s.MakeAssignment();
   UHDM::delay_control* delay_control = nullptr;
   if (Delay_or_event_control) {
-    delay_control = s.MakeDelay_control();
-    assign->Delay_control(delay_control);
-    delay_control->VpiParent(assign);
     NodeId Delay_control = fC->Child(Delay_or_event_control);
     NodeId IntConst = fC->Child(Delay_control);
     std::string value = fC->SymName(IntConst);
-    delay_control->VpiDelay(value);
+    if (value != "" && value != "@@BAD_SYMBOL@@") {
+      std::cout << "!*** Creating a delay with " << value << std::endl;
+      delay_control = s.MakeDelay_control();
+      delay_control->VpiParent(assign);
+      delay_control->VpiDelay(value);
+      assign->Delay_control(delay_control);
+    }
   }
   if (AssignOp_Assign)
     assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
