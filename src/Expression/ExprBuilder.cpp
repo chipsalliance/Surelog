@@ -440,15 +440,28 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           if (m_design) {
             Package* pack = m_design->getPackage(packageName);
             if (pack) {
-              sval = pack->getValue(name);
+              if (pack->getComplexValue(name)) {
+                muteErrors = true;
+                value->setInvalid();
+                break;
+              } else {
+                sval = pack->getValue(name);
+              }
             }
           }
           if (sval == NULL)
             fullName = packageName + "::" + name;
         } else {
           const std::string& name = fC->SymName(child);
-          if (instance)
-            sval = instance->getValue(name, *this);
+          if (instance) {
+            if (instance->getComplexValue(name)) {
+              muteErrors = true;
+              value->setInvalid();
+              break;
+            } else {
+              sval = instance->getValue(name, *this);
+            }
+          }
           if (sval == NULL)
             fullName = name;
         }
@@ -655,7 +668,15 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           name = fC->SymName(parent);
         }
         Value* sval = NULL;
-        if (instance) sval = instance->getValue(name);
+        if (instance) {
+          if (instance->getComplexValue(name)) {
+            muteErrors = true;
+            value->setInvalid();
+            break;
+          } else {
+            sval = instance->getValue(name);
+          }
+        }
         if (sval == NULL) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,

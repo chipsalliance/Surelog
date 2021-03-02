@@ -207,7 +207,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         override = true;
       }
     }
-
+    if (override == false) {
+      expr* exp = instance->getComplexValue(paramName);
+      if (exp) {
+        inst_assign->Rhs(exp);
+        override = true;
+      }
+    }
     if (override == false) {
       // Default
       expr* rhs = (expr*)m_helper.compileExpression(
@@ -337,7 +343,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       NodeId Unpacked_dimension = fC->Sibling(Name);
       if (Unpacked_dimension) {
         int size;
-        VectorOfrange* ranges = m_helper.compileRanges(comp, fC, Unpacked_dimension, m_compileDesign, nullptr, instance, true, size);
+        VectorOfrange* ranges = m_helper.compileRanges(comp, fC, Unpacked_dimension, m_compileDesign, nullptr, instance, true, size, false);
         netlist->ranges(ranges);
       }
     } else {
@@ -898,10 +904,10 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   int unpackedSize;
   std::vector<UHDM::range*>* packedDimensions =
       m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
-                             nullptr, child, true, packedSize);
+                             nullptr, child, true, packedSize, false);
   std::vector<UHDM::range*>* unpackedDimensions =
       m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
-                             nullptr, child, true, unpackedSize);
+                             nullptr, child, true, unpackedSize, false);
 
   any* obj = nullptr;
 
@@ -1195,7 +1201,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         int unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
-                                   nullptr, child, true, unpackedSize);
+                                   nullptr, child, true, unpackedSize, false);
 
         NodeId typeSpecId = sig->getTypeSpecId();
         if (typeSpecId) {

@@ -155,7 +155,11 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
 
     auto& values = def->getMappedValues();
     for (auto& mvalue : values) {
-      scope->setValue(mvalue.first, m_exprBuilder.clone(mvalue.second.first), m_exprBuilder, mvalue.second.second);
+      if (mvalue.second.first->isValid())
+        scope->setValue(mvalue.first, m_exprBuilder.clone(mvalue.second.first), m_exprBuilder, mvalue.second.second);
+    }
+    for (auto& cvalue : def->getComplexValues()) {
+      scope->setComplexValue(cvalue.first, cvalue.second);
     }
 
   } else {
@@ -1865,7 +1869,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts, DesignComponent* comp
 }
 
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool port_param, bool reduce) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance, bool port_param, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   std::vector<UHDM::any*>* parameters= component->getParameters();
@@ -1978,7 +1982,8 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
           UHDM::any* expr =
               compileExpression(component, fC, actual_value, compileDesign,
                                 nullptr, nullptr, !isMultiDimension);
-          if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
+          UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
+          if (expr && exprtype == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)expr;
             val = m_exprBuilder.fromVpiValue(c->VpiValue());
             component->setValue(the_name, val, m_exprBuilder);
@@ -1986,6 +1991,10 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
             UHDM::expr* the_expr = (UHDM::expr*) expr;
             ExprEval expr_eval (the_expr, instance, fC->getFileName(), fC->Line(name), nullptr); 
             component->scheduleParamExprEval(the_name, expr_eval);
+          } else if (expr && ((exprtype == uhdmoperation) ||
+                             (exprtype == uhdmfunc_call) || 
+                             (exprtype == uhdmsys_func_call))) {
+            component->setComplexValue(the_name, (UHDM::expr*) expr);
           } else {
             val = m_exprBuilder.evalExpr(
                 fC, actual_value, component);  // This call to create an error
@@ -2017,7 +2026,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         int unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             compileRanges(component, fC, value, compileDesign, param, instance,
-                          reduce, unpackedSize);
+                          reduce, unpackedSize, muteErrors);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
@@ -2076,6 +2085,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
                                   compileDesign,
                                   nullptr,
                                   nullptr,
+                                  false, 
                                   false);
   } else if (leaf_type == slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;
@@ -2119,6 +2129,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
                                                compileDesign,
                                                nullptr,
                                                nullptr,
+                                               false,
                                                false);
     } else if (fC->Type(handle) == slDollar_root_keyword) {
       name = "$root.";
@@ -2127,7 +2138,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
       name += fC->SymName(tfNameNode);
     }
   } else if (leaf_type == slClass_scope) {
-    return (tf_call*) compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign, nullptr, nullptr, false);
+    return (tf_call*) compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign, nullptr, nullptr, false, false);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -2172,7 +2183,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
   if (fC->Type(argListNode) == slAttribute_instance) {
     /* UHDM::VectorOfattribute* attributes = */ compileAttributes(component, fC, argListNode, compileDesign);
   } else {
-    VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call, nullptr, false);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call, nullptr, false, false);
     call->Tf_call_args(arguments);
   }
   return call;
@@ -2180,7 +2191,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
 
 VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, const FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce) {
+        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany *arguments = s.MakeAnyVec();
   NodeId argumentNode = fC->Child(Arg_list_node);
@@ -2206,7 +2217,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
     if ((fC->Type(argumentNode) == slStringConst) && (fC->Type(sibling) == slExpression)) {
       // arg by name
       Expression = sibling;
-      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce);
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce, muteErrors);
       if (exp) {
         args.insert(std::make_pair(fC->SymName(argumentNode), exp));
         argOrder.push_back(exp);
@@ -2215,7 +2226,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
     } else {
       // arg by position
       Expression = argumentNode;
-      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce);
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, call, instance, reduce, muteErrors);
       if (exp)
         arguments->push_back(exp);
     }
@@ -2269,7 +2280,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
-        VectorOfany *arguments = compileTfCallArguments(component, fC, Delay_or_event_control, compileDesign, fcall, nullptr, false);
+        VectorOfany *arguments = compileTfCallArguments(component, fC, Delay_or_event_control, compileDesign, fcall, nullptr, false, false);
         fcall->Tf_call_args(arguments);
       }
       Delay_or_event_control = 0;
@@ -2307,7 +2318,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     fcall->VpiFile(fC->getFileName());
     fcall->VpiLineNo(fC->Line(Hierarchical_identifier));
     if (List_of_arguments) {
-      VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall, nullptr, false);
+      VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall, nullptr, false, false);
       fcall->Tf_call_args(arguments);
     }
 

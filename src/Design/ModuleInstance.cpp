@@ -55,6 +55,10 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
 Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
 
+  if (getComplexValue(name)) {
+    return nullptr;
+  }
+
   ModuleInstance* instance = (ModuleInstance*) this;
   while (instance) {
     if (instance->m_netlist) {

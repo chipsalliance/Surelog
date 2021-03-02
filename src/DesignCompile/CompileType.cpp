@@ -162,7 +162,7 @@ variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
 UHDM::any* CompileHelper::compileVariable(
   DesignComponent* component, const FileContent* fC, NodeId variable,
   CompileDesign* compileDesign,
-  UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce) {
+  UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
@@ -181,7 +181,7 @@ UHDM::any* CompileHelper::compileVariable(
     }
   }
   int size;
-  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
+  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size, muteErrors);
   
   if (the_type == VObjectType::slStringConst ||
       the_type == VObjectType::slChandle_type) {
@@ -590,7 +590,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
     Packed_dimension = fC->Sibling(type);
   }
   int size;
-  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
+  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size, false);
   switch (the_type) {
     case VObjectType::slConstant_mintypmax_expression: 
     case VObjectType::slConstant_primary: {

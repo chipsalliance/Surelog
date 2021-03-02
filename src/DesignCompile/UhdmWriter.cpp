@@ -368,7 +368,6 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance, UHDM::scope* m
           }
         } else {
           // Regular param
-          Value* val = instance->getValue(name, exprBuilder);
           ElaboratorListener listener(&s);
           any* pclone = UHDM::clone_tree(orig, s, &listener);
           pclone->VpiParent(m);
@@ -376,9 +375,13 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance, UHDM::scope* m
           const typespec* ts = ((parameter*)pclone)->Typespec();
           bool multi = isMultidimensional(ts);
           if (((parameter*)pclone)->Ranges() && ((parameter*)pclone)->Ranges()->size() > 1)
-           multi = true;
-          if (val && val->isValid() && (!multi)) {
-            ((parameter*)pclone)->VpiValue(val->uhdmValue());
+            multi = true;
+          if (instance->getComplexValue(name)) {
+          } else { 
+            Value* val = instance->getValue(name, exprBuilder);
+            if (val && val->isValid() && (!multi)) {
+              ((parameter*)pclone)->VpiValue(val->uhdmValue());
+            }
           }
           params->push_back(pclone);
         }
@@ -1314,9 +1317,11 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m, ExprBui
       }
       if (m->Parameters()) {
         for (auto n : *m->Parameters()) {
-          if (n->VpiName() == name) {
-            ref->Actual_group(n);
-            break;
+          if (n->UhdmType() != uhdmtype_parameter) {
+            if (n->VpiName() == name) {
+              ref->Actual_group(n);
+              break;
+            }
           }
         }
         if (ref->Actual_group()) continue;

@@ -58,8 +58,39 @@ void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBui
   }
 }
 
+void ValuedComponentI::forgetValue(const std::string& name) {
+  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
+  if (itr != m_paramMap.end()) {
+    m_paramMap.erase(itr);
+  }
+}
+
 void ValuedComponentI::setValue(const std::string& name, Value* val,
                                 ExprBuilder& exprBuilder, int lineNb) {                            
   deleteValue(name, exprBuilder);
   m_paramMap.insert(std::make_pair(name, std::make_pair(exprBuilder.clone(val), lineNb)));
+  forgetComplexValue(name);
+}
+
+void ValuedComponentI::setComplexValue(const std::string& name,
+                                       UHDM::expr* val) {
+  auto itr = m_complexValues.find(name);
+  if (itr != m_complexValues.end()) m_complexValues.erase(itr);
+  m_complexValues.insert(std::make_pair(name, val));
+  forgetValue(name);
+}
+
+UHDM::expr* ValuedComponentI::getComplexValue(const std::string& name) const {
+  auto itr = m_complexValues.find(name);
+  if (itr != m_complexValues.end()) {
+    return (*itr).second;
+  }
+  return nullptr;
+}
+
+void ValuedComponentI::forgetComplexValue(const std::string& name) {
+  auto itr = m_complexValues.find(name);
+  if (itr != m_complexValues.end()) {
+    m_complexValues.erase(itr); 
+  }
 }

@@ -194,12 +194,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, false,
-              nullptr, ParameterPortListId != 0, false);
+              nullptr, ParameterPortListId != 0, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(m_program, fC, id,
                                                m_compileDesign, false, nullptr,
-                                               ParameterPortListId != 0, false);
+                                               ParameterPortListId != 0, false, false);
         }
         break;
       }
@@ -211,12 +211,12 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, true,
-              nullptr, ParameterPortListId != 0, false);
+              nullptr, ParameterPortListId != 0, false, false);
 
         } else {
           m_helper.compileParameterDeclaration(m_program, fC, id,
                                                m_compileDesign, true, nullptr,
-                                               ParameterPortListId != 0, false);
+                                               ParameterPortListId != 0, false, false);
         }
         break;
       }

@@ -240,9 +240,9 @@ VectorOfany* CompileHelper::compileStmt(
   case VObjectType::slForeach: {
     UHDM::foreach_stmt* foreach = s.MakeForeach_stmt();
     NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
-    UHDM::any* var = compileVariable(component, fC, fC->Child(Ps_or_hierarchical_array_identifier), compileDesign, foreach, nullptr, true);
+    UHDM::any* var = compileVariable(component, fC, fC->Child(Ps_or_hierarchical_array_identifier), compileDesign, foreach, nullptr, true, false);
     NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
-    UHDM::any* loop_var = compileVariable(component, fC, fC->Child(Loop_variables), compileDesign, foreach, nullptr, true);
+    UHDM::any* loop_var = compileVariable(component, fC, fC->Child(Loop_variables), compileDesign, foreach, nullptr, true, false);
     NodeId Statement = fC->Sibling(Loop_variables);
     VectorOfany* forev = compileStmt(component, fC, Statement, compileDesign, foreach);
     if (forev) {
@@ -287,7 +287,7 @@ VectorOfany* CompileHelper::compileStmt(
         int unpackedSize;
         std::vector<UHDM::range*>* unpackedDimensions =
             compileRanges(component, fC, value, compileDesign, param, nullptr,
-                          true, unpackedSize);
+                          true, unpackedSize, false);
         param->Ranges(unpackedDimensions);
         param->VpiSize(unpackedSize);
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
@@ -617,7 +617,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         if (fC->Type(tmp) != slExpression) {
           int unpackedSize;
           unpackedDimensions = compileRanges(component, fC, tmp, compileDesign,
-                                   nullptr, nullptr, false, unpackedSize);
+                                   nullptr, nullptr, false, unpackedSize, false);
         }
         while (tmp && (fC->Type(tmp) != slExpression)) {
           tmp = fC->Sibling(tmp);
@@ -625,7 +625,7 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         NodeId Expression = tmp;
 
         variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, pstmt, nullptr, false);
+            component, fC, Data_type, compileDesign, pstmt, nullptr, false, false);
 
         if (var) {
           var->VpiConstantVariable(const_status);
@@ -944,7 +944,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         int size;
         VectorOfrange* ranges =
             compileRanges(component, fC, Packed_dimension, compileDesign,
-                          nullptr, nullptr, true, size);
+                          nullptr, nullptr, true, size, false);
 
         NodeId List_of_tf_variable_identifiers =
             fC->Sibling(Data_type_or_implicit);
@@ -981,7 +981,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
             if (itr == ioMap.end()) {
               variables* var = (variables*)compileVariable(
                   component, fC, Data_type, compileDesign,
-                  nullptr, nullptr, true);
+                  nullptr, nullptr, true, false);
               if (var) {    
                 var->VpiName(name);
                 vars->push_back(var);
@@ -1067,7 +1067,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
         ElaboratorListener listener(&s);
         var = (variables*) UHDM::clone_tree((any*) previous_var, s, &listener);
       } else {
-        var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true);
+        var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true, false);
         previous_var = var;
       }
       decl->Expr(var);
@@ -1443,7 +1443,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
       NodeId Args = fC->Sibling(Stmt);
       if (fC->Type(Args) == slList_of_arguments) {
         VectorOfany* arguments = compileTfCallArguments(
-          component, fC, Args, compileDesign, mcall, nullptr, false);
+          component, fC, Args, compileDesign, mcall, nullptr, false, false);
         mcall->Tf_call_args(arguments);
         Stmt = fC->Sibling(Stmt);
       }
@@ -1475,7 +1475,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
         NodeId Args = fC->Sibling(Stmt);
         if (fC->Type(Args) == slList_of_arguments) {
           VectorOfany* arguments =
-              compileTfCallArguments(component, fC, Args, compileDesign, mcall, nullptr, false);
+              compileTfCallArguments(component, fC, Args, compileDesign, mcall, nullptr, false, false);
           mcall->Tf_call_args(arguments);
           Stmt = fC->Sibling(Stmt);
         }
@@ -1579,7 +1579,7 @@ bool CompileHelper::compileFunction(
     NodeId Return_data_type = fC->Child(Function_data_type);
     variables* var = dynamic_cast<variables*>(
         compileVariable(component, fC, Return_data_type, compileDesign, nullptr,
-                        nullptr, true));
+                        nullptr, true, false));
     if (var) {
       var->VpiName("");
     }                    
@@ -1742,7 +1742,7 @@ Function* CompileHelper::compileFunctionPrototype(
 
   func->Return(dynamic_cast<variables*>(
         compileVariable(scope, fC, type, compileDesign, nullptr,
-                        nullptr, true)));
+                        nullptr, true, false)));
   NodeId Tf_port_list = 0;
   if (fC->Type(function_name) == VObjectType::slStringConst) {
     Tf_port_list = fC->Sibling(function_name);
@@ -1883,7 +1883,7 @@ UHDM::any* CompileHelper::compileForLoop(
 
         variables* var =
             (variables*)compileVariable(component, fC, Data_type, compileDesign,
-                                        assign_stmt, nullptr, true);
+                                        assign_stmt, nullptr, true, false);
         assign_stmt->Lhs(var);
         if (var) {
           var->VpiParent(assign_stmt);
@@ -1916,7 +1916,7 @@ UHDM::any* CompileHelper::compileForLoop(
 
         variables* var = (variables*)compileVariable(
             component, fC, Variable_lvalue, compileDesign, assign_stmt, nullptr,
-            true);
+            true, false);
         assign_stmt->Lhs(var);
         if (var) {
           var->VpiParent(assign_stmt);
@@ -2119,7 +2119,7 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(DesignComponent* com
   }
   NodeId Constraint_block = fC->Sibling(With);
   if (fC->Type(Identifier_list) == slIdentifier_list) {
-    VectorOfany* arguments = compileTfCallArguments(component, fC, Identifier_list, compileDesign, func_call, nullptr, false);
+    VectorOfany* arguments = compileTfCallArguments(component, fC, Identifier_list, compileDesign, func_call, nullptr, false, false);
     func_call->Tf_call_args(arguments);
   }
 
