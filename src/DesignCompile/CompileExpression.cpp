@@ -57,86 +57,124 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-any* getObject(const std::string& name, DesignComponent* component,
+bool CompileHelper::substituteAssignedValue(const any* oper, CompileDesign* compileDesign) {
+  bool substitute = true;
+  UHDM_OBJECT_TYPE opType = oper->UhdmType();
+  if (opType == uhdmoperation) {
+    operation* op = (operation*)oper;
+    int opType = op->VpiOpType();
+    if (opType == vpiAssignmentPatternOp || opType == vpiConcatOp) {
+      substitute = compileDesign->getCompiler()
+                                ->getCommandLineParser()
+                                ->getParametersSubstitution();
+    }
+  }
+  return substitute;
+}
+
+
+any* CompileHelper::getObject(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const any* pexpr) {
   any* result = nullptr;
   while (pexpr) {
-     if (const UHDM::scope* s = dynamic_cast<const scope*>(pexpr)) {
-       if (s->Variables()) {
-         for (auto o : *s->Variables()) {
-            if (o->VpiName() == name) {
-              return o;
-            }
+    if (const UHDM::scope* s = dynamic_cast<const scope*>(pexpr)) {
+      if ((result == nullptr) && s->Variables()) {
+        for (auto o : *s->Variables()) {
+          if (o->VpiName() == name) {
+            result = o;
+            break;
           }
-       }
-     }
+        }
+      }
+    }
     if (const UHDM::task_func* s = dynamic_cast<const task_func*>(pexpr)) {
-       if (s->Io_decls()) {
-         for (auto o : *s->Io_decls()) {
-            if (o->VpiName() == name) {
-              return o;
-            }
+      if ((result == nullptr) && s->Io_decls()) {
+        for (auto o : *s->Io_decls()) {
+          if (o->VpiName() == name) {
+            result = o;
+            break;
           }
-       }
-     }
-     pexpr = pexpr->VpiParent();
+        }
+      }
+    }
+    if (result)
+      break;
+    pexpr = pexpr->VpiParent();
   }
-  if (instance) {
+  if ((result == nullptr) && instance) {
     if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
+      if (expr* complex = instance->getComplexValue(name)) {
+        result = complex;
+      }
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
-        if (netlist->array_nets()) {
+        if ((result == nullptr) && netlist->array_nets()) {
           for (auto o : *netlist->array_nets()) {
             if (o->VpiName() == name) {
-              return o;
+              result = o;
+              break;
             }
           }
         }
-        if (netlist->nets()) {
+        if ((result == nullptr) && netlist->nets()) {
           for (auto o : *netlist->nets()) {
             if (o->VpiName() == name) {
-              return o;
+              result = o;
+              break;
             }
           }
         }
-        if (netlist->variables()) {
+        if ((result == nullptr) && netlist->variables()) {
           for (auto o : *netlist->variables()) {
             if (o->VpiName() == name) {
-              return o;
+              result = o;
+              break;
             }
           }   
         }
-        if (netlist->ports()) {
+        if ((result == nullptr) && netlist->ports()) {
           for (auto o : *netlist->ports()) {
             if (o->VpiName() == name) {
-              return o;
+              result = o;
+              break;
             }
           }   
         }
-        if (netlist->param_assigns()) {
+        if ((result == nullptr) && netlist->param_assigns()) {
           for (auto o : *netlist->param_assigns()) {
-            if (o->VpiName() == name) {
-              return o;
+            const std::string& pname = o->Lhs()->VpiName();
+            if (pname == name) {
+              result = o;
+              break;
             }
           }   
         }  
       }
     }
   }
-  if (component) {
+  if ((result == nullptr) && component) {
     for (ParamAssign* pass : component->getParamAssignVec()) {
       if (param_assign* p = pass->getUhdmParamAssign()) {
-        if (p->VpiName() == name) {
-          return p;
+        const std::string& pname = p->Lhs()->VpiName();
+        if (pname == name) {
+          if (substituteAssignedValue(p->Rhs(), compileDesign)) {
+            result = (any*)p->Rhs();
+            break;
+          }       
         }
       }
     }
     const DataType* dtype = component->getDataType(name);
-    if (dtype) {
+    if ((result == nullptr) && dtype) {
       dtype = dtype->getActual();
       if (dtype->getTypespec())
-        return dtype->getTypespec();
+        result = dtype->getTypespec();
     }
+  }
+  if (result && (result->UhdmType() == uhdmref_obj)) {
+    ref_obj* ref = (ref_obj*) result;
+    const std::string& refname = ref->VpiName();
+    result = getObject(refname, component, compileDesign, instance, pexpr);
   }
   return result;
 }
@@ -460,7 +498,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         } else if (optype == uhdmoperation) {
         } else if (optype == uhdmsys_func_call) {
         } else if (optype == uhdmfunc_call) {
-        } else if (optype == uhdmbit_select) {  
+        } else if (optype == uhdmbit_select) { 
+        } else if (optype == uhdmhier_path) {  
         } else if (optype != uhdmconstant) {
           constantOperands = false;
           break;
@@ -472,8 +511,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiArithRShiftOp:
           case vpiRShiftOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) >> ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -488,8 +527,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 2) {
               std::string s0;
               std::string s1;
-              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
-              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
               bool arg0isString = getStringVal(s0, reduc0);
               bool arg1isString = getStringVal(s1, reduc1);
               uint64_t val = 0;
@@ -513,7 +552,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiPreDecOp:
           case vpiPreIncOp: {
             if (operands.size() == 1) {
-              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
               int64_t val = get_value(invalidValue, reduc0);
               if (op->VpiOpType() == vpiPostIncOp || op->VpiOpType() == vpiPreIncOp) {
                 val++;
@@ -536,8 +575,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 2) {
               std::string s0;
               std::string s1;
-              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
-              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr);
+              expr* reduc0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
               bool arg0isString = getStringVal(s0, reduc0);
               bool arg1isString = getStringVal(s1, reduc1);
               int64_t val = 0;
@@ -558,8 +597,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiGtOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = val0 > val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -572,8 +611,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiGeOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = val0 >= val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -586,8 +625,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiLtOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = val0 < val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -600,8 +639,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiLeOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = val0 <= val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -615,8 +654,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiArithLShiftOp:
           case vpiLShiftOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) << ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -630,8 +669,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiAddOp:
           case vpiPlusOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               int64_t val = val0 + val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -644,8 +683,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiBitOrOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) | ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -658,8 +697,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiBitAndOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) & ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -672,8 +711,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiLogOrOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) || ((uint64_t)val1); 
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -686,8 +725,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiLogAndOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = ((uint64_t)val0) && ((uint64_t)val1);
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -701,7 +740,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiMinusOp: {
             if (operands.size() == 1) {
               int64_t val =
-                  -get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  -get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -715,10 +754,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 2) {
               bool val1Invalid = false;
               int64_t val1 =
-                  get_value(val1Invalid, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(val1Invalid, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               bool val2Invalid = false;
               int64_t val2 =
-                  get_value(val2Invalid, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(val2Invalid, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               invalidValue = val1Invalid || val2Invalid;    
               if (val2 > val1) {
                 ErrorContainer* errors =
@@ -734,7 +773,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 } else if (component) {
                   instanceName = component->getName();
                 }
-                if (!muteErrors) {
+                if ((!muteErrors) && (!val1Invalid)) { // mute for complex values that might become simple values later when scheduled 
                   std::string value = "\n";
                   value += "             v1:" + std::to_string(val1) + " - v2:" + std::to_string(val2)+ "\n";
                   value += "             v1 invalid:" + std::to_string(val1Invalid) + ", v2 invalid:" + std::to_string(val2Invalid) + "\n";
@@ -742,24 +781,29 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   std::string fileContent = FileUtils::getFileContent(fileName);
                   std::string lineText = StringUtils::getLineInString(fileContent, lineNumber);
                   value += "             text: " + lineText;
-                  VisitedContainer visited;
-                  vpiHandle dh = s.MakeUhdmHandle(operands[0]->UhdmType(), operands[0]);
-                  std::stringstream out;
-                  visit_object(dh, 14/* column */, "v1", &visited, out);
-                  value += out.str();
-                  /*
-                  // Extra debug info:  
-                  if (instance) {
-                    if (ModuleInstance* inst =
-                            dynamic_cast<ModuleInstance*>(instance)) {
-                      for (auto ps : inst->getMappedValues()) {
-                        const std::string& name = ps.first;
-                        Value* val = ps.second.first;
-                        value += name + " = " + val->uhdmValue() + "\n";
+                  bool debugObject = false;
+                  if (debugObject) {
+                    VisitedContainer visited;
+                    vpiHandle dh =
+                        s.MakeUhdmHandle(operands[0]->UhdmType(), operands[0]);
+                    std::stringstream out;
+                    visit_object(dh, 14 /* column */, "v1", &visited, out);
+                    value += out.str();
+                  }
+                  bool extraInfo = false;
+                  if (extraInfo) {
+                    // Extra debug info:
+                    if (instance) {
+                      if (ModuleInstance* inst =
+                              dynamic_cast<ModuleInstance*>(instance)) {
+                        for (auto ps : inst->getMappedValues()) {
+                          const std::string& name = ps.first;
+                          Value* val = ps.second.first;
+                          value += name + " = " + val->uhdmValue() + "\n";
+                        }
                       }
                     }
                   }
-                  */
                   std::string message = instanceName + value;
                   Location loc(symbols->registerSymbol(fileName), lineNumber, 0,
                                symbols->registerSymbol(message));
@@ -779,8 +823,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiMultOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               int64_t val = val0 * val1;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -794,7 +838,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiBitNegOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  ~((uint64_t)get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)));
+                  ~((uint64_t)get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors)));
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -807,7 +851,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiNotOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  !((uint64_t)get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)));
+                  !((uint64_t)get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors)));
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -819,7 +863,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiUnaryAndOp: {
             if (operands.size() == 1) {
-              constant* cst = (constant*)(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+              constant* cst = (constant*)(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = get_value(invalidValue, cst);
               int res = val & 1;
               for (int i = 1; i < cst->VpiSize(); i++) {
@@ -837,7 +881,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiUnaryNandOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               int res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res & ((val & (1 << i)) >> i);
@@ -855,7 +899,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiUnaryOrOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               int res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res | ((val & (1 << i)) >> i);
@@ -872,7 +916,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiUnaryNorOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res | ((val & (1 << i)) >> i);
@@ -890,7 +934,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiUnaryXorOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res ^ ((val & (1 << i)) >> i);
@@ -907,7 +951,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiUnaryXNorOp: {
             if (operands.size() == 1) {
               uint64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t res = val & 1;
               for (unsigned int i = 1; i < 64; i++) {
                 res = res ^ ((val & (1 << i)) >> i);
@@ -924,9 +968,15 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiModOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
-              int64_t val = val0 % val1;
+              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+              int64_t val = 0;
+              if (val1)
+                val = val0 % val1;
+              else {
+                val = 0;
+                invalidValue = true;
+              }
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -939,10 +989,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiDivOp: {
             if (operands.size() == 2) {
               int64_t divisor =
-                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               if (divisor) {
                 int64_t val =
-                    get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)) / divisor;
+                    get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors)) / divisor;
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
                 c->VpiDecompile(std::to_string(val));
@@ -956,9 +1006,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiConditionOp: {
             if (operands.size() == 3) {
               int64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
-                      ? get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr))
-                      : get_value(invalidValue, reduceExpr(operands[2], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors))
+                      ? get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors))
+                      : get_value(invalidValue, reduceExpr(operands[2], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -971,8 +1021,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiPowerOp: {
             if (operands.size() == 2) {
               int64_t val =
-                  pow(get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)),
-                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr)));
+                  pow(get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors)),
+                      get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors)));
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
@@ -985,7 +1035,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiMultiConcatOp: {
             if (operands.size() == 2) {
               int64_t n =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               if (n > 1000) 
                 n = 1000;  // Must be -1 or something silly
               if (n < 0) 
@@ -1049,49 +1099,57 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             std::string cval;
             int csize = 0;
             for (unsigned int i = 0; i < operands.size(); i++) {
-              constant* c = (constant*)operands[i];
-              std::string v = c->VpiValue();
-              unsigned int size = c->VpiSize();
-              csize += size;
-              int type = c->VpiConstType();
-              switch (type) {
-                case vpiBinaryConst: {
-                  cval += v.c_str() + strlen("BIN:");
-                  break;
+              if (operands[i]->UhdmType() == uhdmconstant) {
+                constant* c = (constant*)operands[i];
+                std::string v = c->VpiValue();
+                unsigned int size = c->VpiSize();
+                csize += size;
+                int type = c->VpiConstType();
+                switch (type) {
+                  case vpiBinaryConst: {
+                    cval += v.c_str() + strlen("BIN:");
+                    break;
+                  }
+                  case vpiDecConst: {
+                    long long iv =
+                        std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
+                  case vpiHexConst: {
+                    cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
+                    break;
+                  }
+                  case vpiOctConst: {
+                    long long iv =
+                        std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
+                  case vpiIntConst: {
+                    long long iv =
+                        std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
+                  default: {
+                    long long iv =
+                        std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+                    cval += NumUtils::toBinary(size, iv);
+                    break;
+                  }
                 }
-                case vpiDecConst: {
-                  long long iv =
-                      std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
-                  cval += NumUtils::toBinary(size, iv);
-                  break;
-                }
-                case vpiHexConst: {
-                  cval += NumUtils::hexToBin(v.c_str() + strlen("HEX:"));
-                  break;
-                }
-                case vpiOctConst: {
-                  long long iv = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
-                  cval += NumUtils::toBinary(size, iv);
-                  break;
-                }
-                case vpiIntConst: {
-                  long long iv =
-                      std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
-                  cval += NumUtils::toBinary(size, iv);
-                  break;
-                }
-                default: {
-                  long long iv =
-                      std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
-                  cval += NumUtils::toBinary(size, iv);
-                  break;
-                }
+              } else {
+                c = nullptr;
+                break;
               }
             }
-            c->VpiValue("BIN:" + cval);
-            c->VpiSize(csize);
-            c->VpiConstType(vpiBinaryConst);
-            result = c;
+            if (c) {
+              c->VpiValue("BIN:" + cval);
+              c->VpiSize(csize);
+              c->VpiConstType(vpiBinaryConst);
+              result = c;
+            }
             break;
           }
           case vpiCastOp: {
@@ -1219,7 +1277,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
       bool invalidValue = false;  
       for (auto arg : *scall->Tf_call_args()) {
         int clog2 = 0;
-        uint64_t val = get_value(invalidValue, reduceExpr(arg, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+        uint64_t val = get_value(invalidValue, reduceExpr(arg, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
         if (val) {
           val = val - 1;
           for (; val > 0; clog2 = clog2 + 1) {
@@ -1276,7 +1334,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         baseType = elem->UhdmType();
         if (baseType == uhdmbit_select) {
           bit_select* select = (bit_select*) elem;
-          baseIndex = get_value(invalidValue, reduceExpr((any*) select->VpiIndex(), invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+          baseIndex = get_value(invalidValue, reduceExpr((any*) select->VpiIndex(), invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
         }
       } else if (select == "") {
         select = elem->VpiName();
@@ -1316,16 +1374,22 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         if (opType == vpiAssignmentPatternOp) {
           VectorOfany* operands = oper->Operands();
           unsigned int ind = 0;
+          any* defaultPattern = nullptr;
           for (auto operand : *operands) {
             UHDM_OBJECT_TYPE operandType = operand->UhdmType();
             if (operandType == uhdmtagged_pattern) {
               // PartInfo.select
               tagged_pattern* tpatt = (tagged_pattern*) operand;
               const typespec* tps = tpatt->Typespec();
+              if (tps->VpiName() == "default") {
+                defaultPattern = (any*) tpatt->Pattern();
+              }
               if (tps->VpiName() == select) {
                 const any* patt = tpatt->Pattern();
-                if (patt->UhdmType() == uhdmconstant) {
-                  return (expr*) patt;
+                if (patt->UhdmType() == uhdmconstant ||
+                    patt->UhdmType() == uhdmoperation) {
+                  expr* ex = reduceExpr((expr*)patt, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+                  return ex;
                 }
               }
             } else if (operandType == uhdmoperation) {
@@ -1338,10 +1402,15 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   if (operandType == uhdmtagged_pattern) {
                     tagged_pattern* tpatt = (tagged_pattern*)operand;
                     const typespec* tps = tpatt->Typespec();
+                    if (tps->VpiName() == "default") {
+                      defaultPattern = (any*) tpatt->Pattern();
+                    }
                     if (tps->VpiName() == select) {
                       const any* patt = tpatt->Pattern();
-                      if (patt->UhdmType() == uhdmconstant) {
-                        return (expr*)patt;
+                      if (patt->UhdmType() == uhdmconstant ||
+                          patt->UhdmType() == uhdmoperation) {
+                        expr* ex = reduceExpr((expr*)patt, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+                        return ex;
                       }
                     }
                   }
@@ -1350,14 +1419,20 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             }
             ind++;
           }
+          if (defaultPattern) {
+            expr* ex = dynamic_cast<expr*> (defaultPattern);
+            if (ex)
+              ex = reduceExpr(ex, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+            return ex;
+          }
         }
       }
-    }
+    } 
   } else if (objtype == uhdmbit_select) {
     bit_select* sel = (bit_select*) result;
     const std::string& name = sel->VpiName();
     const expr* index = sel->VpiIndex();
-    uint64_t index_val = get_value(invalidValue, reduceExpr((expr*) index, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr));
+    uint64_t index_val = get_value(invalidValue, reduceExpr((expr*) index, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
     if (invalidValue == false) {
       if (FScope* scope = dynamic_cast<FScope*> (instance)) {
         expr* complex = scope->getComplexValue(name);
@@ -1403,11 +1478,24 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               } else {
                 invalidValue = true;
               }
+            } else if (opType == vpiConcatOp) {
+              VectorOfany* ops = op->Operands();
+              if (ops && (index_val < ops->size())) {
+                result = ops->at(index_val);
+              } else {
+                invalidValue = true;
+              }
             }
           }
         }
       }
     }    
+  }
+  if (result && result->UhdmType() == uhdmref_obj) {
+    bool invalidValueTmp = false;
+    expr* tmp = reduceExpr(result, invalidValueTmp, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+    if (tmp && !invalidValueTmp)
+      result = tmp;  
   }
   return (expr*) result;
 }
@@ -1483,21 +1571,6 @@ int64_t CompileHelper::get_value(bool& invalidValue,
   return 0;
 }
 
-bool substituteAssignedValue(param_assign* param, CompileDesign* compileDesign) {
-  bool substitute = true;
-  UHDM_OBJECT_TYPE opType = param->Rhs()->UhdmType();
-  if (opType == uhdmoperation) {
-    operation* op = (operation*)param->Rhs();
-    int opType = op->VpiOpType();
-    if (opType == vpiAssignmentPatternOp) {
-      substitute = compileDesign->getCompiler()
-                                ->getCommandLineParser()
-                                ->getParametersSubstitution();
-    }
-  }
-  return substitute;
-}
-
 any* CompileHelper::getValue(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, any* pexpr, bool muteErrors) {
   Serializer& s = compileDesign->getSerializer();
@@ -1512,32 +1585,43 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       const std::string& varName = res[1];
       Design* design = compileDesign->getCompiler()->getDesign();
       if (Package* pack = design->getPackage(packName)) {
-        if (Value* sval = pack->getValue(varName)) {
-          UHDM::constant* c = s.MakeConstant();
-          c->VpiValue(sval->uhdmValue());
-          c->VpiDecompile(sval->decompiledValue());
-          c->VpiConstType(sval->vpiValType());
-          c->VpiSize(sval->getSize());
-          result = c;
+        if (expr* val = pack->getComplexValue(varName)) {
+          result = val;
+        }
+        if (result == nullptr) {
+          if (Value* sval = pack->getValue(varName)) {
+            UHDM::constant* c = s.MakeConstant();
+            c->VpiValue(sval->uhdmValue());
+            c->VpiDecompile(sval->decompiledValue());
+            c->VpiConstType(sval->vpiValType());
+            c->VpiSize(sval->getSize());
+            result = c;
+          }
         }
       }
     }
   }
 
-  if (instance && dynamic_cast<FScope*> (instance)) {
-    sval = instance->getValue(name);
-    if (sval && sval->isValid()) {  
-      UHDM::constant* c = s.MakeConstant();
-      c->VpiValue(sval->uhdmValue());
-      c->VpiDecompile(sval->decompiledValue());
-      c->VpiConstType(sval->vpiValType());
-      c->VpiSize(sval->getSize());
-      result = c;
+  if ((result == nullptr) && instance) {
+    if (expr* val = instance->getComplexValue(name)) {
+      result = val;
+    }
+    if (result == nullptr) {
+      sval = instance->getValue(name);
+      if (sval && sval->isValid()) {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue(sval->uhdmValue());
+        c->VpiDecompile(sval->decompiledValue());
+        c->VpiConstType(sval->vpiValType());
+        c->VpiSize(sval->getSize());
+        result = c;
+      }
     }
   } 
 
-  while ((result == nullptr) && instance) {
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+  ValuedComponentI* tmpInstance = instance;
+  while ((result == nullptr) && tmpInstance) {
+    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(tmpInstance)) {
       Netlist* netlist = inst->getNetlist();
       if (netlist) {
         UHDM::VectorOfparam_assign* param_assigns = netlist->param_assigns();
@@ -1546,7 +1630,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
             if (param && param->Lhs()) {
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
-                if (substituteAssignedValue(param, compileDesign)) {
+                if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                   ElaboratorListener listener(&s);
                   result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
                   break;
@@ -1559,37 +1643,48 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
     }
     if (result)
       break;
-    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance)) {
-      instance = (ValuedComponentI*) inst->getParentScope();
-    } else if (FScope* inst = dynamic_cast<FScope*> (instance)) { 
-      instance = (ValuedComponentI*) inst->getParentScope();
+    if (ModuleInstance* inst = dynamic_cast<ModuleInstance*> (tmpInstance)) {
+      tmpInstance = (ValuedComponentI*) inst->getParentScope();
+    } else if (FScope* inst = dynamic_cast<FScope*> (tmpInstance)) { 
+      tmpInstance = (ValuedComponentI*) inst->getParentScope();
     } else {
-      instance = nullptr;
+      tmpInstance = nullptr;
     }
   }
 
   if (result == nullptr) {
-    if (instance) 
-      sval = instance->getValue(name);
-    if (sval) {  
-      UHDM::constant* c = s.MakeConstant();
-      c->VpiValue(sval->uhdmValue());
-      c->VpiDecompile(sval->decompiledValue());
-      c->VpiConstType(sval->vpiValType());
-      c->VpiSize(sval->getSize());
-      result = c;
+    if (instance) {
+      if (expr* val = instance->getComplexValue(name)) {
+        result = val;
+      }
+      if (result == nullptr) {
+        sval = instance->getValue(name);
+        if (sval && sval->isValid()) {
+          UHDM::constant* c = s.MakeConstant();
+          c->VpiValue(sval->uhdmValue());
+          c->VpiDecompile(sval->decompiledValue());
+          c->VpiConstType(sval->vpiValType());
+          c->VpiSize(sval->getSize());
+          result = c;
+        }
+      }
     }
   }
 
   if (component && (result == nullptr)) {
-    sval = component->getValue(name);
-    if (sval) {  
-      UHDM::constant* c = s.MakeConstant();
-      c->VpiValue(sval->uhdmValue());
-      c->VpiDecompile(sval->decompiledValue());
-      c->VpiConstType(sval->vpiValType());
-      c->VpiSize(sval->getSize());
-      result = c;
+    if (expr* val = component->getComplexValue(name)) {
+      result = val;
+    }
+    if (result == nullptr) {
+      sval = component->getValue(name);
+      if (sval && sval->isValid()) {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue(sval->uhdmValue());
+        c->VpiDecompile(sval->decompiledValue());
+        c->VpiConstType(sval->vpiValType());
+        c->VpiSize(sval->getSize());
+        result = c;
+      }
     }
   }
 
@@ -1600,7 +1695,7 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
         if (param && param->Lhs()) {
           const std::string& param_name = param->Lhs()->VpiName();
           if (param_name == name) {
-            if (substituteAssignedValue(param, compileDesign)) {
+            if (substituteAssignedValue(param->Rhs(), compileDesign)) {
               ElaboratorListener listener(&s);
               result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
               break;
@@ -1664,7 +1759,7 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
                                                   const std::string& name,
                                                   CompileDesign* compileDesign,
                                                   UHDM::any* pexpr,
-                                                  ValuedComponentI* instance, bool reduce) {
+                                                  ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   if ((fC->Type(Bit_select) == slConstant_bit_select) && (!fC->Sibling(Bit_select))) {
@@ -1695,7 +1790,7 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
          bitexp = Bit_select;
       }
       if (bitexp) {
-        expr* sel = (expr*) compileExpression(component, fC, bitexp, compileDesign, pexpr, instance, reduce);
+        expr* sel = (expr*) compileExpression(component, fC, bitexp, compileDesign, pexpr, instance, reduce, muteErrors);
 
         if (result) {
           UHDM::var_select* var_select = (UHDM::var_select*) result;
@@ -1722,7 +1817,7 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
                fC->Type(Bit_select) == VObjectType::slConstant_part_select_range) {
       NodeId Constant_range = fC->Child(Bit_select);
       expr* sel = (expr*) compilePartSelectRange(component, fC, Constant_range, name,
-                                      compileDesign, pexpr, instance, reduce);
+                                      compileDesign, pexpr, instance, reduce, muteErrors);
       if (result) {
         UHDM::var_select* var_select = (UHDM::var_select*) result;
         VectorOfexpr* exprs = var_select->Exprs();
@@ -1767,7 +1862,7 @@ UHDM::any* CompileHelper::compileExpression(
   DesignComponent* component, const FileContent* fC, NodeId parent,
   CompileDesign* compileDesign,
   UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce) {
+  ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType parentType = fC->Type(parent);
@@ -1808,13 +1903,13 @@ UHDM::any* CompileHelper::compileExpression(
       NodeId lexpr = child;
       NodeId rexpr = fC->Sibling(lexpr);
       if (expr* op = dynamic_cast<expr*>(compileExpression(
-              component, fC, lexpr, compileDesign, pexpr, instance, reduce))) {
+              component, fC, lexpr, compileDesign, pexpr, instance, reduce, muteErrors))) {
         operands->push_back(op);
       }
       if (rexpr) {
         if (expr* op = dynamic_cast<expr*>(
                 compileExpression(component, fC, rexpr, compileDesign, pexpr,
-                                  instance, reduce))) {
+                                  instance, reduce, muteErrors))) {
           operands->push_back(op);
         }
       }
@@ -1840,7 +1935,7 @@ UHDM::any* CompileHelper::compileExpression(
       while (Expression) {
         UHDM::any* exp =
             compileExpression(component, fC, fC->Child(Expression),
-                              compileDesign, pexpr, instance, reduce);
+                              compileDesign, pexpr, instance, reduce, muteErrors);
         if (exp) {
           operands->push_back(exp);
           exp->VpiParent(operation);
@@ -1860,7 +1955,7 @@ UHDM::any* CompileHelper::compileExpression(
       NodeId Expression = fC->Child(parent);
       while (Expression) {
         UHDM::any* exp = compileExpression(
-            component, fC, Expression, compileDesign, pexpr, instance, reduce);
+            component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
         if (exp) operands->push_back(exp);
         Expression = fC->Sibling(Expression);
       }
@@ -1879,7 +1974,7 @@ UHDM::any* CompileHelper::compileExpression(
         while (Expression) {
           UHDM::any* exp =
               compileExpression(component, fC, Expression, compileDesign, pexpr,
-                                instance, reduce);
+                                instance, reduce, muteErrors);
           if (exp) operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
@@ -1898,7 +1993,7 @@ UHDM::any* CompileHelper::compileExpression(
       result = op;
       while (Expression) {
         expr* sExpr = (expr*)compileExpression(
-            component, fC, Expression, compileDesign, op, instance, reduce);
+            component, fC, Expression, compileDesign, op, instance, reduce, muteErrors);
         if (sExpr) operands->push_back(sExpr);
         Expression = fC->Sibling(Expression);
       }
@@ -1910,7 +2005,7 @@ UHDM::any* CompileHelper::compileExpression(
       sys->VpiParent(pexpr);
       NodeId argListNode = child;
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, argListNode, compileDesign, sys, instance, reduce);
+          component, fC, argListNode, compileDesign, sys, instance, reduce, muteErrors);
       sys->Tf_call_args(arguments);
       result = sys;
       return result;
@@ -1932,7 +2027,7 @@ UHDM::any* CompileHelper::compileExpression(
     NodeId Expression = child;
     while (Expression) {
       UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
-                                         compileDesign, pexpr, instance, reduce);
+                                         compileDesign, pexpr, instance, reduce, muteErrors);
       if (exp) {
         operands->push_back(exp);
         exp->VpiParent(operation);
@@ -2012,7 +2107,7 @@ UHDM::any* CompileHelper::compileExpression(
             ref->VpiStructMember(true);
           } else {
             UHDM::any* exp = compileExpression(
-                component, fC, the_exp, compileDesign, pexpr, instance, reduce);
+                component, fC, the_exp, compileDesign, pexpr, instance, reduce, muteErrors);
             if (exp) {
               operands->push_back(exp);
               exp->VpiParent(operation);
@@ -2049,7 +2144,7 @@ UHDM::any* CompileHelper::compileExpression(
           op->Attributes(attributes);
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance, reduce)) {
+                                                   compileDesign, op, instance, reduce, muteErrors)) {
             operands->push_back(operand);
           }
           op->Operands(operands);
@@ -2064,7 +2159,7 @@ UHDM::any* CompileHelper::compileExpression(
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance, reduce))
+                                                   compileDesign, op, instance, reduce, muteErrors))
           operands->push_back(operand);
         op->Operands(operands);
         result = op;
@@ -2077,7 +2172,7 @@ UHDM::any* CompileHelper::compileExpression(
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance, reduce))
+                                                   compileDesign, op, instance, reduce, muteErrors))
           operands->push_back(operand);
         op->Operands(operands);
         result = op;
@@ -2090,7 +2185,7 @@ UHDM::any* CompileHelper::compileExpression(
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance, reduce))
+                                                   compileDesign, op, instance, reduce, muteErrors))
           operands->push_back(operand);
         op->Operands(operands);
         result = op;
@@ -2108,10 +2203,10 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slAssignment_pattern_expression:
       case VObjectType::slConstant_assignment_pattern_expression:
       case VObjectType::slExpression_or_dist:
-        result = compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
+        result = compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce, muteErrors);
         break;
       case VObjectType::slComplex_func_call: {
-        result = compileComplexFuncCall(component, fC, child, compileDesign, pexpr, instance, reduce);
+        result = compileComplexFuncCall(component, fC, child, compileDesign, pexpr, instance, reduce, muteErrors);
         break;
       }
       case VObjectType::slDot: {
@@ -2132,17 +2227,17 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           op->Operands(operands);
           result = op;
-          expr* cExpr = (expr*) compileExpression(component, fC, Expression, compileDesign, op, instance, reduce);
+          expr* cExpr = (expr*) compileExpression(component, fC, Expression, compileDesign, op, instance, reduce, muteErrors);
           if (cExpr)
             operands->push_back(cExpr);
           while (Sibling) {
-            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce);
+            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce, muteErrors);
             if (sExpr)
               operands->push_back(sExpr);
             Sibling = fC->Sibling(Sibling);  
           }  
         } else {
-          result = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+          result = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
         }
         break;
       }
@@ -2159,17 +2254,17 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           op->Operands(operands);
           result = op;
-          expr* cExpr = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, op, instance, reduce);
+          expr* cExpr = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, op, instance, reduce, muteErrors);
           if (cExpr)
             operands->push_back(cExpr);
           while (Sibling) {
-            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce);
+            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce, muteErrors);
             if (sExpr)
               operands->push_back(sExpr);
             Sibling = fC->Sibling(Sibling);  
           }  
         } else {
-          result = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, pexpr, instance, reduce);
+          result = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, pexpr, instance, reduce, muteErrors);
         }
         break;
       }
@@ -2179,14 +2274,14 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::tagged_pattern* pattern = s.MakeTagged_pattern();
         pattern->VpiName(fC->SymName(Identifier));
         if (Expression)
-          pattern->Pattern(compileExpression(component, fC, Expression, compileDesign, pattern, instance, reduce)); 
+          pattern->Pattern(compileExpression(component, fC, Expression, compileDesign, pattern, instance, reduce, muteErrors)); 
         result = pattern;
         break;
       }
       case VObjectType::slEvent_expression: {
         NodeId subExpr = child;
         UHDM::any* opL =
-            compileExpression(component, fC, subExpr, compileDesign, pexpr, instance, reduce);
+            compileExpression(component, fC, subExpr, compileDesign, pexpr, instance, reduce, muteErrors);
         result = opL;
         NodeId op = fC->Sibling(subExpr);
         UHDM::operation* operation = nullptr;
@@ -2204,14 +2299,14 @@ UHDM::any* CompileHelper::compileExpression(
             operation->VpiOpType(vpiEventOrOp);
             NodeId subRExpr = fC->Sibling(op);
             UHDM::any* opR =
-                compileExpression(component, fC, subRExpr, compileDesign, pexpr, instance, reduce);
+                compileExpression(component, fC, subRExpr, compileDesign, pexpr, instance, reduce, muteErrors);
             operands->push_back(opR);
             op = fC->Sibling(subRExpr);
           } else if (fC->Type(op) == VObjectType::slComma_operator) {
             operation->VpiOpType(vpiListOp);
             NodeId subRExpr = fC->Sibling(op);
             UHDM::any* opR =
-                compileExpression(component, fC, subRExpr, compileDesign, pexpr, instance, reduce);
+                compileExpression(component, fC, subRExpr, compileDesign, pexpr, instance, reduce, muteErrors);
             operands->push_back(opR);
             op = fC->Sibling(subRExpr);
           }
@@ -2221,7 +2316,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slExpression:
       case VObjectType::slConstant_expression: {
         UHDM::any* opL =
-            compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
+            compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce, muteErrors);
         NodeId op = fC->Sibling(child);
         if (!op) {
           result = opL;
@@ -2277,7 +2372,7 @@ UHDM::any* CompileHelper::compileExpression(
           NodeId Expression = fC->Child(false_concat);
           // Open range list members
           while (Expression) {
-            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
             if (exp)
               operands->push_back(exp);
             Expression = fC->Sibling(Expression);
@@ -2288,7 +2383,7 @@ UHDM::any* CompileHelper::compileExpression(
           NodeId Value_range = fC->Child(op);
           NodeId Expression = fC->Child(Value_range);
           while (Expression) {
-            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
             if (exp)
               operands->push_back(exp);
             Expression = fC->Sibling(Expression);
@@ -2298,7 +2393,7 @@ UHDM::any* CompileHelper::compileExpression(
         }
 
         UHDM::any* opR =
-            compileExpression(component, fC, rval, compileDesign, operation, instance, reduce);
+            compileExpression(component, fC, rval, compileDesign, operation, instance, reduce, muteErrors);
         if (opR) {
           setParentNoOverride(opR, operation);
           operands->push_back(opR);
@@ -2307,7 +2402,7 @@ UHDM::any* CompileHelper::compileExpression(
             opType == VObjectType::slConditional_operator) { // Ternary op
           rval = fC->Sibling(rval);
           opR =
-            compileExpression(component, fC, rval, compileDesign, operation, instance, reduce);
+            compileExpression(component, fC, rval, compileDesign, operation, instance, reduce, muteErrors);
           if (opR) {
             setParentNoOverride(opR, operation);  
             operands->push_back(opR);
@@ -2330,14 +2425,14 @@ UHDM::any* CompileHelper::compileExpression(
         if (name == "$bits") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileBits(component, fC, List_of_arguments, compileDesign,
-                               pexpr, instance, reduce, false);
+                               pexpr, instance, reduce, false, muteErrors);
         } else if (name == "$size") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileBits(component, fC, List_of_arguments, compileDesign,
-                               pexpr, instance, reduce, true);
+                               pexpr, instance, reduce, true, muteErrors);
         } else if (name == "$clog2") {
           NodeId List_of_arguments = fC->Sibling(child);
-          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
+          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce, muteErrors);
         } else if (name == "$typename") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
@@ -2347,7 +2442,7 @@ UHDM::any* CompileHelper::compileExpression(
           sys->VpiParent(pexpr);
           NodeId argListNode = fC->Sibling(child);
           VectorOfany* arguments =
-              compileTfCallArguments(component, fC, argListNode, compileDesign, sys, instance, reduce);
+              compileTfCallArguments(component, fC, argListNode, compileDesign, sys, instance, reduce, muteErrors);
           sys->Tf_call_args(arguments);
           result = sys;
         }
@@ -2355,7 +2450,7 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slVariable_lvalue: {
         UHDM::any* variable =
-            compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
+            compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce, muteErrors);
         NodeId op = fC->Sibling(child);
         if (op) {
           VObjectType opType = fC->Type(op);
@@ -2399,7 +2494,7 @@ UHDM::any* CompileHelper::compileExpression(
             }
 
             UHDM::any* rexp =
-            compileExpression(component, fC, rval, compileDesign, pexpr, instance, reduce);
+            compileExpression(component, fC, rval, compileDesign, pexpr, instance, reduce, muteErrors);
             operands->push_back(rexp);
 
           }
@@ -2415,7 +2510,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slSequence_expr: {
         if (fC->Sibling(parent) == 0) {
           result = compileExpression(component, fC, child, compileDesign,
-                                nullptr, instance, reduce);
+                                nullptr, instance, reduce, muteErrors);
         } else {
           
         }
@@ -2430,7 +2525,7 @@ UHDM::any* CompileHelper::compileExpression(
           NodeId Expression = fC->Sibling(Casting_type);
           operand =
               compileExpression(component, fC, Expression, compileDesign,
-                                nullptr, instance, reduce);
+                                nullptr, instance, reduce, muteErrors);
         }
         if ((fC->Type(Simple_type) == slSigning_Unsigned) || 
             (fC->Type(Simple_type) == slSigning_Signed)) {
@@ -2483,8 +2578,10 @@ UHDM::any* CompileHelper::compileExpression(
                 if (param && param->Lhs()) {
                   const std::string& param_name = param->Lhs()->VpiName();
                   if (param_name == n) {
-                    ElaboratorListener listener(&s);
-                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    if (substituteAssignedValue(param->Rhs(), compileDesign)) {
+                      ElaboratorListener listener(&s);
+                      result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    }
                     break;
                   }
                 }
@@ -2505,8 +2602,10 @@ UHDM::any* CompileHelper::compileExpression(
                 if (param && param->Lhs()) {
                   const std::string& param_name = param->Lhs()->VpiName();
                   if (param_name == n) {
-                    ElaboratorListener listener(&s);
-                    result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    if (substituteAssignedValue(param->Rhs(), compileDesign)) {
+                      ElaboratorListener listener(&s);
+                      result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
+                    }
                     break;
                   }
                 }
@@ -2538,7 +2637,7 @@ UHDM::any* CompileHelper::compileExpression(
             } else if (fC->Type(rhs) == VObjectType::slSelect ||
                        fC->Type(rhs) == VObjectType::slConstant_select) {
               NodeId Bit_select = fC->Child(rhs);
-              result = compileSelectExpression(component, fC, Bit_select, name, compileDesign, pexpr, instance, reduce);
+              result = compileSelectExpression(component, fC, Bit_select, name, compileDesign, pexpr, instance, reduce, muteErrors);
             }
             if (result)
               break;
@@ -2564,7 +2663,7 @@ UHDM::any* CompileHelper::compileExpression(
                     if (param && param->Lhs()) {
                       const std::string& param_name = param->Lhs()->VpiName();
                       if (param_name == name) {
-                        if (substituteAssignedValue(param, compileDesign)) {
+                        if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                           ElaboratorListener listener(&s);
                           result =
                             UHDM::clone_tree((any*)param->Rhs(), s, &listener);
@@ -2584,7 +2683,7 @@ UHDM::any* CompileHelper::compileExpression(
                 if (param && param->Lhs()) {
                   const std::string& param_name = param->Lhs()->VpiName();
                   if (param_name == name) {
-                    if (substituteAssignedValue(param, compileDesign)) {
+                    if (substituteAssignedValue(param->Rhs(), compileDesign)) {
                       ElaboratorListener listener(&s);
                       result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
                       break;
@@ -2676,9 +2775,9 @@ UHDM::any* CompileHelper::compileExpression(
             NodeId Integer_type = fC->Child(Constant_expression);
             NodeId Type = fC->Child(Integer_type);
             exp_slice = compileBits(component, fC, Type,
-                                    compileDesign, pexpr, instance, true, false);
+                                    compileDesign, pexpr, instance, true, false, muteErrors);
           } else {
-            exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+            exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce, muteErrors);
           }
           Stream_concatenation = fC->Sibling(Slice_size);
         } else {
@@ -2710,7 +2809,7 @@ UHDM::any* CompileHelper::compileExpression(
           NodeId Expression = fC->Child(Stream_expression);
           UHDM::any* exp_var =
               compileExpression(component, fC, Expression, compileDesign, pexpr,
-                                instance, reduce);
+                                instance, reduce, muteErrors);
           if (exp_var) concat_ops->push_back(exp_var);
           Stream_expression = fC->Sibling(Stream_expression);
         }
@@ -2727,21 +2826,17 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         NodeId Expression = fC->Child(child);
         while (Expression) {
-          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
           if (exp)
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
-        if (reduce && (operands->size() == 1)) {
-          result = operands->at(0);
-        } else {
-          UHDM::operation* operation = s.MakeOperation();
-          operation->Attributes(attributes);
-          result = operation;
-          operation->VpiParent(pexpr);
-          operation->Operands(operands);
-          operation->VpiOpType(vpiConcatOp);
-        }
+        UHDM::operation* operation = s.MakeOperation();
+        operation->Attributes(attributes);
+        result = operation;
+        operation->VpiParent(pexpr);
+        operation->Operands(operands);
+        operation->VpiOpType(vpiConcatOp);
         break;
       }
       case VObjectType::slConstant_multiple_concatenation:
@@ -2755,7 +2850,7 @@ UHDM::any* CompileHelper::compileExpression(
         operation->VpiOpType(vpiMultiConcatOp);
         NodeId Expression = fC->Child(child);
         while (Expression) {
-          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
           if (exp)
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
@@ -2774,12 +2869,12 @@ UHDM::any* CompileHelper::compileExpression(
         std::string name = fC->SymName(nameId);
         if (name == "bits") {
           NodeId Expression = fC->Child(List_of_arguments);
-          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, false);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, false, muteErrors);
         } else if (name == "size") {
           NodeId Expression = fC->Child(List_of_arguments);
-          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, true);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce, true, muteErrors);
         } else if (name == "clog2") {
-          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
+          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce, muteErrors);
         } else if (name == "typename") {
           result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else if (fC->Type(Dollar_keyword) == slStringConst ||
@@ -2792,7 +2887,7 @@ UHDM::any* CompileHelper::compileExpression(
           } 
           NodeId Select = fC->Sibling(Dollar_keyword);
           if (fC->Type(Select) == slConstant_bit_select || fC->Type(Select) == slBit_select) {            
-            result = compileExpression(component, fC, Dollar_keyword, compileDesign, pexpr, instance, reduce);
+            result = compileExpression(component, fC, Dollar_keyword, compileDesign, pexpr, instance, reduce, muteErrors);
           } else {
             bool invalidValue = false;
             UHDM::func_call* fcall = s.MakeFunc_call();
@@ -2802,7 +2897,7 @@ UHDM::any* CompileHelper::compileExpression(
             fcall->Function(func);
             VectorOfany* args =
                 compileTfCallArguments(component, fC, List_of_arguments,
-                                       compileDesign, fcall, instance, reduce);
+                                       compileDesign, fcall, instance, reduce, muteErrors);
             if (reduce) {
               const std::string& fileName = fC->getFileName();
               int lineNumber = fC->Line(nameId);
@@ -2828,12 +2923,15 @@ UHDM::any* CompileHelper::compileExpression(
         } else {
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName("$" + name);
-          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
+          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce, muteErrors);
           sys->Tf_call_args(arguments);
           result = sys;
         }
         break;
       }
+      case VObjectType::slData_type:
+        // When trying to evaluate type parameters
+        return nullptr;
       default:
         break;
     }
@@ -2861,7 +2959,7 @@ UHDM::any* CompileHelper::compileExpression(
           op->VpiParent(pexpr);
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(parent),
-                                                   compileDesign, op, instance, reduce)) {
+                                                   compileDesign, op, instance, reduce, muteErrors)) {
             operands->push_back(operand);
           }
           op->Operands(operands);
@@ -3082,7 +3180,7 @@ UHDM::any* CompileHelper::compileExpression(
   } else {
     the_node = parent;
   }
-  if (result == nullptr) {
+  if ((result == nullptr) && (muteErrors == false)) {
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
       ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
@@ -3106,7 +3204,7 @@ UHDM::any* CompileHelper::compileExpression(
 
     // Reduce
     bool invalidValue = false;
-    any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fC->getFileName(the_node), fC->Line(the_node), pexpr);
+    any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fC->getFileName(the_node), fC->Line(the_node), pexpr, muteErrors);
     if (tmp && (invalidValue == false)) {
       result = tmp;
     }
@@ -3156,6 +3254,10 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
   operation->VpiParent(pexpr);
   operation->VpiOpType(vpiAssignmentPatternOp);
   operation->Operands(operands);
+  bool reduce = false;
+  if (component && dynamic_cast<Package*>(component)) {
+    reduce = true;
+  }
   // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand iteration shall return the expressions as if the
   // assignment pattern were written with the positional notation. Nesting of assignment patterns shall be preserved.
 
@@ -3172,7 +3274,7 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
     if (!with_key) {
       Expression = Structure_pattern_key; // No key '{1,2,...}
       if (Expression) {
-        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance, reduce, false)) {
           operands->push_back(exp);
         }
       }
@@ -3180,7 +3282,7 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
       Expression = fC->Sibling(Structure_pattern_key); // With key '{a: 1, b: 2,...}
 
       if (Expression) {
-        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+        if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance, reduce, false)) {
           tagged_pattern* pattern = s.MakeTagged_pattern();
           pattern->Pattern(exp);
           NodeId Constant_expression = fC->Child(Structure_pattern_key);
@@ -3217,7 +3319,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
   DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
   CompileDesign* compileDesign,
   UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce, int& size) {
+  ValuedComponentI* instance, bool reduce, int& size, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
   size = 0;
@@ -3240,7 +3342,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         // Specified by range
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
-        range* range = s.MakeRange();
+        UHDM::range* range = s.MakeRange();
         expr* lexp = nullptr;
         expr* rexp = nullptr;
         if (reduce) {
@@ -3258,12 +3360,12 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           size = size * tmp;
         }
         if (lexp == nullptr)
-          lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce));
+          lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce, muteErrors));
         range->Left_expr(lexp);
         if (lexp)
           lexp->VpiParent(range);
         if (rexp == nullptr)
-          rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+          rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce, muteErrors));
         if (rexp)
           rexp->VpiParent(range);
         range->Right_expr(rexp);
@@ -3274,7 +3376,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
       } else if (fC->Type(Constant_range) == VObjectType::slConstant_expression) {
         // Specified by size
         NodeId rexpr = Constant_range;
-        range* range = s.MakeRange();
+        UHDM::range* range = s.MakeRange();
       
         constant* lexpc = s.MakeConstant();
         lexpc->VpiConstType(vpiIntConst);
@@ -3297,7 +3399,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         }
 
         expr* rexp = dynamic_cast<expr*>(compileExpression(
-            component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+            component, fC, rexpr, compileDesign, pexpr, instance, reduce, muteErrors));
         bool associativeArray = false;
         if (rexp && rexp->UhdmType() == uhdmconstant) {
           constant* c = (constant*)rexp;
@@ -3335,7 +3437,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
   const std::string& name,
   CompileDesign* compileDesign,
   UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce) {
+  ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
@@ -3358,10 +3460,10 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     // constant_indexed_range
     NodeId Constant_expression = fC->Child(Constant_range);
     UHDM::expr* lexp =
-        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce, muteErrors);
     NodeId op = fC->Sibling(Constant_expression);
     UHDM::expr* rexp =
-        (expr*)compileExpression(component, fC, fC->Sibling(op), compileDesign, pexpr, instance, reduce);
+        (expr*)compileExpression(component, fC, fC->Sibling(op), compileDesign, pexpr, instance, reduce, muteErrors);
     bool reduced = false;
     if (reduce && (lexp->UhdmType() == uhdmconstant) && (rexp->UhdmType() == uhdmconstant)) {
       if (!name.empty()) {
@@ -3798,7 +3900,7 @@ UHDM::any* CompileHelper::compileBits(
   DesignComponent* component, const FileContent* fC,
   NodeId List_of_arguments,
   CompileDesign* compileDesign, UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce, bool sizeMode) {
+  ValuedComponentI* instance, bool reduce, bool sizeMode, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId Expression = List_of_arguments;
@@ -3840,14 +3942,14 @@ UHDM::any* CompileHelper::compileBits(
   } else if (sizeMode) {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$size");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce, muteErrors);
     sys->Tf_call_args(arguments);
     result = sys;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$bits");
     VectorOfany* arguments = compileTfCallArguments(
-        component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
+        component, fC, List_of_arguments, compileDesign, sys, instance, reduce, muteErrors);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -3950,14 +4052,14 @@ UHDM::any* CompileHelper::compileClog2(
   DesignComponent* component, const FileContent* fC,
   NodeId List_of_arguments,
   CompileDesign* compileDesign, UHDM::any* pexpr,
-  ValuedComponentI* instance, bool reduce) {
+  ValuedComponentI* instance, bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId Expression = List_of_arguments;
   if (fC->Type(Expression) == slList_of_arguments) {
     Expression = fC->Child(Expression);
   }
-  expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+  expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce, muteErrors);
   bool invalidValue = false;
   int64_t val = 0;
   if (reduce)
@@ -3977,7 +4079,7 @@ UHDM::any* CompileHelper::compileClog2(
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$clog2");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys, instance, reduce, muteErrors);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -3988,7 +4090,7 @@ UHDM::any* CompileHelper::compileClog2(
 UHDM::any* CompileHelper::compileComplexFuncCall(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
     CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance,
-    bool reduce) {
+    bool reduce, bool muteErrors) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId name = fC->Child(nodeId);
@@ -4041,21 +4143,21 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     if (name == "bits") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileBits(component, fC, List_of_arguments, compileDesign, pexpr,
-                           instance, reduce, false);
+                           instance, reduce, false, muteErrors);
     } else if (name == "size") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileBits(component, fC, List_of_arguments, compileDesign, pexpr,
-                           instance, reduce, true);
+                           instance, reduce, true, muteErrors);
     } else if (name == "clog2") {
       NodeId List_of_arguments = fC->Sibling(nameId);
       result = compileClog2(component, fC, List_of_arguments, compileDesign,
-                            pexpr, instance, reduce);
+                            pexpr, instance, reduce, muteErrors);
     } else {
       NodeId List_of_arguments = fC->Sibling(nameId);
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
       sys->VpiName("$" + name);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, sys, instance, reduce);
+          component, fC, List_of_arguments, compileDesign, sys, instance, reduce, muteErrors);
       sys->Tf_call_args(arguments);
       result = sys;
     }
@@ -4064,18 +4166,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     NodeId Method = fC->Sibling(name);
     if (Method == 0) {
       return compileExpression(component, fC, Handle, compileDesign, pexpr,
-                               instance, reduce);
+                               instance, reduce, muteErrors);
     }
     const std::string& name = fC->SymName(Method);
     NodeId List_of_arguments = fC->Sibling(Method);
     if (fC->Type(List_of_arguments) == slList_of_arguments) {
       method_func_call* fcall = s.MakeMethod_func_call();
       expr* object = (expr*)compileExpression(
-          component, fC, Handle, compileDesign, pexpr, instance, reduce);
+          component, fC, Handle, compileDesign, pexpr, instance, reduce, muteErrors);
       fcall->Prefix(object);
       fcall->VpiName(name);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, fcall, instance, reduce);
+          component, fC, List_of_arguments, compileDesign, fcall, instance, reduce, muteErrors);
       fcall->Tf_call_args(arguments);
       result = fcall;
     } else if (fC->Type(List_of_arguments) == slConstant_expression ||
@@ -4086,7 +4188,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       if (fC->Type(List_of_arguments) == slSelect)
         List_of_arguments = fC->Child(List_of_arguments);
       result = compileSelectExpression(component, fC, List_of_arguments, name,
-                                       compileDesign, pexpr, instance, reduce);
+                                       compileDesign, pexpr, instance, reduce, muteErrors);
       if (result == nullptr) {
         // TODO: this is a mockup
         constant* cvar = s.MakeConstant();
@@ -4097,9 +4199,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       // TODO: Fill this
       method_func_call* fcall = s.MakeMethod_func_call();
       expr* object = (expr*)compileExpression(
-          component, fC, Handle, compileDesign, pexpr, instance, reduce);
+          component, fC, Handle, compileDesign, pexpr, instance, reduce, muteErrors);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall, instance, reduce);
+          component, fC, fC->Sibling(fC->Sibling(List_of_arguments)), compileDesign, fcall, instance, reduce, muteErrors);
       // TODO: make name part of the prefix, get vpiName from sibling
       fcall->Prefix(object);
       fcall->VpiName(name);
@@ -4165,7 +4267,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                 (fC->Child(List_of_arguments))) {
               result = compileSelectExpression(component, fC,
                                                fC->Child(List_of_arguments), "",
-                                               compileDesign, pexpr, instance, reduce);
+                                               compileDesign, pexpr, instance, reduce, muteErrors);
               if (result)
                 result->VpiParent(param);
               else
@@ -4182,16 +4284,16 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     if (call != nullptr) {
       call->VpiName(basename);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign, call, instance, reduce);
+          component, fC, List_of_arguments, compileDesign, call, instance, reduce, muteErrors);
       call->Tf_call_args(arguments);
       result = call;
     } else {
       result = compileExpression(component, fC, name, compileDesign, pexpr,
-                                 instance, reduce);
+                                 instance, reduce, muteErrors);
     }
   } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
     result = compileExpression(component, fC, name, compileDesign, pexpr,
-                               instance, reduce);
+                               instance, reduce, muteErrors);
   } else if (fC->Type(dotedName) == VObjectType::slSelect ||
              fC->Type(dotedName) == VObjectType::slConstant_select ||
              fC->Type(dotedName) == VObjectType::slConstant_expression) {
@@ -4255,7 +4357,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         NodeId with_conditions_node;
         if (fC->Type(list_of_arguments) == slList_of_arguments) {
           VectorOfany* arguments = compileTfCallArguments(
-              component, fC, list_of_arguments, compileDesign, fcall, instance, reduce);
+              component, fC, list_of_arguments, compileDesign, fcall, instance, reduce, muteErrors);
           fcall->Tf_call_args(arguments);
           with_conditions_node = fC->Sibling(list_of_arguments);
         } else {
@@ -4337,11 +4439,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       }
       if (result == nullptr) {
         result = compileSelectExpression(component, fC, Bit_select, sval,
-                                       compileDesign, pexpr, instance, reduce);
+                                       compileDesign, pexpr, instance, reduce, muteErrors);
       }
     } else {
       result = compileSelectExpression(component, fC, Bit_select, sval,
-                                       compileDesign, pexpr, instance, reduce);
+                                       compileDesign, pexpr, instance, reduce, muteErrors);
     }
   } else {
     result = compileTfCall(component, fC, nodeId, compileDesign);
@@ -4394,18 +4496,3 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
   return result;
 }
 
-Value* CompileHelper::getValueObj(DesignComponent* component,
-                                  const FileContent* fC, NodeId nodeId,
-                                  CompileDesign* compileDesign,
-                                  UHDM::any* pexpr,
-                                  ValuedComponentI* instance) {
-  Value* value = nullptr;
-  UHDM::any* expr = compileExpression(component, fC, nodeId, compileDesign,
-                                      pexpr, instance, true);
-  if (expr && expr->UhdmType() == UHDM::uhdmconstant) {
-    UHDM::constant* c = (UHDM::constant*)expr;
-    const std::string& v = c->VpiValue();
-    value = m_exprBuilder.fromVpiValue(v);
-  }
-  return value;
-}

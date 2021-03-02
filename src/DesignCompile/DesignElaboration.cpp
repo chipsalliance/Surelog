@@ -49,6 +49,9 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/DesignElaboration.h"
 #include "DesignCompile/NetlistElaboration.h"
+#include "vpi_visitor.h"
+#include "clone_tree.h"
+#include "ElaboratorListener.h"
 
 using namespace SURELOG;
 
@@ -1340,8 +1343,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
 
         NodeId ident = packageFile->Child(param);
         const std::string& name = packageFile->SymName(ident);
-        Value* value = m_exprBuilder.clone(def->getValue(name));
-        instance->setValue(name,  m_exprBuilder.clone(value), m_exprBuilder, packageFile->Line(param));
+        if (UHDM::expr* exp = def->getComplexValue(name)) {
+          UHDM::Serializer& s = m_compileDesign->getSerializer();
+          UHDM::ElaboratorListener listener(&s);
+          UHDM::any* pclone = UHDM::clone_tree(exp, s, &listener);
+          instance->setComplexValue(name, (UHDM::expr*) pclone);
+        } else {
+          Value* value = m_exprBuilder.clone(def->getValue(name));
+          instance->setValue(name, value, m_exprBuilder, packageFile->Line(param));
+        }
         params.push_back(name);
       }
     } else {
@@ -1367,13 +1377,30 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     NodeId Data_type = param.fC->Child(exprId);
     if (param.fC->Type(Data_type) != slData_type) {
       // Regular params
-      Value* value =
-          m_helper.getValueObj(instance->getDefinition(), param.fC, exprId,
-                               m_compileDesign, nullptr, instance);
-      if (value == nullptr) {
+      UHDM::expr* expr =
+          (UHDM::expr*) m_helper.compileExpression(instance->getDefinition(), param.fC, exprId,
+                               m_compileDesign, nullptr, instance, true, true);
+      Value* value = nullptr;  
+      bool complex = false; 
+      if (expr) {
+        if (expr->UhdmType() == UHDM::uhdmconstant) {
+          UHDM::constant* c = (UHDM::constant*)expr;
+          const std::string& v = c->VpiValue();
+          value = m_exprBuilder.fromVpiValue(v);
+        } else if (expr->UhdmType() == UHDM::uhdmoperation) {
+          if (instance) {
+            complex = true;
+            instance->setComplexValue(name, expr);
+          }
+        }
+      }
+
+      if ((!complex) && (value == nullptr)) {
         value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
       }
-      instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+      if ((!complex) && value && value->isValid()) {
+        instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+      }
     }
   }
 
@@ -1396,25 +1423,73 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         std::string name = parentFile->SymName(child);
         overridenParams.insert(name);
         NodeId expr = parentFile->Sibling(child);
-        Value* value =
-            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(), true);
-        if (value == nullptr || (value && !value->isValid())) {
-          const std::string& pname = parentFile->SymName(child);
-          NodeId param_expression = parentFile->Sibling(child);
-          NodeId data_type = parentFile->Child(param_expression);
-          NodeId type = parentFile->Child(data_type);
-          Parameter* param = new Parameter(parentFile, expr, pname, type, true);
-          instance->getTypeParams().push_back(param);
-          // Set the invalid value as a marker for netlist elaboration
-          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
-        } else {   
-          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+
+        UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
+            (instance->getParent()) ? instance->getParent()->getDefinition() : 
+            instance->getDefinition(), 
+            parentFile, expr, m_compileDesign,
+            nullptr, instance->getParent(), true, false);
+
+        Value* value = nullptr;
+        bool complex = false;
+        if (complexV) {
+          UHDM::UHDM_OBJECT_TYPE exprtype = complexV->UhdmType();
+          if (exprtype == UHDM::uhdmconstant) {
+            UHDM::constant* c = (UHDM::constant*)complexV;
+            const std::string& v = c->VpiValue();
+            value = m_exprBuilder.fromVpiValue(v);
+          } else if ((exprtype == UHDM::uhdmoperation) ||
+                     (exprtype == UHDM::uhdmfunc_call) ||
+                     (exprtype == UHDM::uhdmsys_func_call)) {
+            if (instance) {
+              complex = true;
+              if (m_helper.substituteAssignedValue(complexV, m_compileDesign)) {
+                instance->setComplexValue(name, complexV);
+              } else {
+                complexV = (UHDM::expr*)m_helper.compileExpression(
+                    (instance->getParent())
+                        ? instance->getParent()->getDefinition()
+                        : instance->getDefinition(),
+                    parentFile, expr, m_compileDesign, nullptr,
+                    instance->getParent(), false, false);
+                instance->setComplexValue(name, complexV);
+              }
+            }
+          }
+        }
+        if (complex == false) {
+          if (value == nullptr)
+            value = m_exprBuilder.evalExpr(parentFile, expr,
+                                                instance->getParent(), true);
+          if (value == nullptr || (value && !value->isValid())) {
+            const std::string& pname = parentFile->SymName(child);
+            NodeId param_expression = parentFile->Sibling(child);
+            NodeId data_type = parentFile->Child(param_expression);
+            NodeId type = parentFile->Child(data_type);
+            Parameter* param =
+                new Parameter(parentFile, expr, pname, type, true);
+            instance->getTypeParams().push_back(param);
+            // Set the invalid value as a marker for netlist elaboration
+            instance->setValue(name, value, m_exprBuilder,
+                               parentFile->Line(expr));
+          } else {
+            instance->setValue(name, value, m_exprBuilder,
+                               parentFile->Line(expr));
+          }
         }
       } else {
         // Index param
-        NodeId expr = child;
-        Value* value =
-            m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
+        NodeId expr = child;        
+
+        UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
+            (instance->getParent()) ? instance->getParent()->getDefinition() : 
+            instance->getDefinition(), 
+            parentFile, expr, m_compileDesign,
+            nullptr, instance->getParent(), true, false);
+
+        Value* value = nullptr;
+        bool complex = false;
+
         std::string name = "OUT_OF_RANGE_PARAM_INDEX";
         if (index < moduleParams.size()) {
           name = moduleParams[index];
@@ -1426,7 +1501,28 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
           errors->addError(err);
         }
-        instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+
+        if (complexV) {
+          if (complexV->UhdmType() == UHDM::uhdmconstant) {
+            UHDM::constant* c = (UHDM::constant*)complexV;
+            const std::string& v = c->VpiValue();
+            value = m_exprBuilder.fromVpiValue(v);
+          } else if (complexV->UhdmType() == UHDM::uhdmoperation) {
+            if (instance) {
+              complex = true;
+              instance->setComplexValue(name, complexV);
+            }
+          }
+        }
+        if (complex == false) {
+          if (value == nullptr)
+            value = m_exprBuilder.evalExpr(parentFile, expr,
+                                                instance->getParent(), true);
+        }
+
+        if ((complex == false) && value && value->isValid())
+          instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
+
         index++;
       }
     }
@@ -1505,13 +1601,31 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       NodeId Data_type = param.fC->Child(exprId);
       if (param.fC->Type(Data_type) != slData_type) {
         // Regular params
-        Value* value =
-            m_helper.getValueObj(instance->getDefinition(), param.fC, exprId,
-                                 m_compileDesign, nullptr, instance);
-        if (value == nullptr) {
+
+        UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
+            instance->getDefinition(), param.fC, exprId, m_compileDesign,
+            nullptr, instance, true, false);
+        Value* value = nullptr;
+        bool complex = false;
+        if (expr) {
+          if (expr->UhdmType() == UHDM::uhdmconstant) {
+            UHDM::constant* c = (UHDM::constant*)expr;
+            const std::string& v = c->VpiValue();
+            value = m_exprBuilder.fromVpiValue(v);
+          } else if (expr->UhdmType() == UHDM::uhdmoperation) {
+            if (instance) {
+              complex = true;
+              instance->setComplexValue(name, expr);
+            }
+          }
+        }
+
+        if ((!complex) && (value == nullptr)) {
           value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
         }
-        instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+        if ((!complex) && value && value->isValid()) {
+          instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+        }
       }
     }
   }

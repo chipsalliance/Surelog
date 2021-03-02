@@ -723,13 +723,13 @@ bool TestbenchElaboration::bindProperties_() {
       int unpackedSize;
       std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
           classDefinition, fC, packedDimension, m_compileDesign, nullptr,
-          nullptr, true, packedSize);
+          nullptr, true, packedSize, false);
       std::vector<UHDM::range*>* unpackedDimensions = nullptr;
       if (fC->Type(unpackedDimension) == slClass_new) {
       } else {
         unpackedDimensions = m_helper.compileRanges(
           classDefinition, fC, unpackedDimension, m_compileDesign, nullptr,
-          nullptr, true, unpackedSize);
+          nullptr, true, unpackedSize, false);
       }
       UHDM::typespec* tps = nullptr;
       NodeId typeSpecId = sig->getTypeSpecId();

@@ -597,12 +597,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr);
+                ParameterPortListId != 0, m_instance != nullptr, false);
           }
           break;
         }
@@ -616,12 +616,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, true, m_instance
-                , ParameterPortListId != 0, m_instance != nullptr);
+                , ParameterPortListId != 0, m_instance != nullptr, false);
           }
           break;
         }
@@ -945,12 +945,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, false,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, false, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr);
+                ParameterPortListId != 0, m_instance != nullptr, false);
           }
           break;
         }
@@ -962,12 +962,12 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_module, fC, list_of_type_assignments, m_compileDesign, true,
-                m_instance, ParameterPortListId != 0, m_instance != nullptr);
+                m_instance, ParameterPortListId != 0, m_instance != nullptr, false);
 
           } else {
             m_helper.compileParameterDeclaration(
                 m_module, fC, id, m_compileDesign, true, m_instance,
-                ParameterPortListId != 0, m_instance != nullptr);
+                ParameterPortListId != 0, m_instance != nullptr, false);
           }
           break;
         }

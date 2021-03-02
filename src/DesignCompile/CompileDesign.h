@@ -43,6 +43,7 @@ public:
   virtual UHDM::Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
+  std::string decompile(UHDM::any* handle);
 
 private:
   CompileDesign(const CompileDesign& orig) = delete;

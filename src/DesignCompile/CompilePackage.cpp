@@ -147,11 +147,11 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, false,
-                nullptr, false, true);
+                nullptr, false, true, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, false, nullptr, false, true);
+                m_package, fC, id, m_compileDesign, false, nullptr, false, true, false);
           }
           break;
         }
@@ -163,11 +163,11 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, true,
-                nullptr, false, true);
+                nullptr, false, true, false);
 
           } else {
             m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, true, nullptr, false, true);
+                m_package, fC, id, m_compileDesign, true, nullptr, false, true, false);
           }
           break;
         }

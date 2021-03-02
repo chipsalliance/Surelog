@@ -45,21 +45,7 @@ class FScope : public ValuedComponentI {
  public:
   FScope(const SURELOG::ValuedComponentI *parent, SURELOG::ValuedComponentI *definition) : 
          ValuedComponentI(parent, definition) {}
-   void setComplexValue(const std::string& name, UHDM::expr* val) {
-      auto itr = m_complexValues.find(name);
-      if (itr != m_complexValues.end())
-        m_complexValues.erase(itr);
-      m_complexValues.insert(std::make_pair(name, val));
-   }
-   UHDM::expr* getComplexValue(const std::string& name) {
-     auto itr = m_complexValues.find(name);
-     if (itr != m_complexValues.end()) {
-       return (*itr).second;
-     }
-     return nullptr;
-   }
  private:  
-   std::map<std::string, UHDM::expr*> m_complexValues;
 };
 
 typedef std::vector<FScope*> Scopes;
@@ -140,7 +126,7 @@ public:
 
   UHDM::VectorOfany* compileTfCallArguments(DesignComponent* component, const FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce);
+        CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::assignment* compileBlockingAssignment(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         bool blocking, CompileDesign* compileDesign, UHDM::any* pstmt);
@@ -156,7 +142,7 @@ public:
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool port_param, bool reduce);
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool port_param, bool reduce, bool muteErrors);
 
   bool compileTask(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool isMethod = false);
@@ -181,7 +167,7 @@ public:
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce);
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::typespec* compileTypespec(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, const std::string& suffixname = "");
@@ -211,18 +197,18 @@ public:
   UHDM::any* compileExpression(DesignComponent* component, const FileContent* fC, NodeId nodeId,
 			       	CompileDesign* compileDesign,
                               UHDM::any* pexpr = NULL,
-                              ValuedComponentI* instance = NULL, bool reduce = false);
+                              ValuedComponentI* instance = NULL, bool reduce = false, bool muteErrors = false);
 
   UHDM::any* compilePartSelectRange(DesignComponent* component, const FileContent* fC, NodeId Constant_range,
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance, bool reduce);
+                                       ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   std::vector<UHDM::range*>* compileRanges(DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance, bool reduce, int& size);
+                                       ValuedComponentI* instance, bool reduce, int& size, bool muteErrors);
 
   UHDM::any* compileAssignmentPattern(DesignComponent* component, const FileContent* fC, NodeId Assignment_pattern,
                                        CompileDesign* compileDesign,
@@ -248,17 +234,17 @@ public:
                                             const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::any* pexpr,
-                                            ValuedComponentI* instance, bool reduce);
+                                            ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::any* compileBits(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::any* pexpr,
-                         ValuedComponentI* instance, bool reduce, bool sizeMode);
+                         ValuedComponentI* instance, bool reduce, bool sizeMode, bool muteErrors);
 
   UHDM::any* compileClog2(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::any* pexpr,
-                         ValuedComponentI* instance, bool reduce);
+                         ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
                          NodeId Expression,
@@ -273,7 +259,7 @@ public:
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
                                        ValuedComponentI* instance,
-                                       bool reduce);
+                                       bool reduce, bool muteErrors);
 
   std::vector<UHDM::attribute*>* compileAttributes(DesignComponent* component,
                                     const FileContent* fC, NodeId nodeId,
@@ -345,13 +331,14 @@ public:
 			  CompileDesign* compileDesign,
                     UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
-  Value* getValueObj(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-			  CompileDesign* compileDesign,
-                    UHDM::any* pexpr = NULL,
+
+  UHDM::typespec* elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
 
-   UHDM::typespec* elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr = NULL,
-                    ValuedComponentI* instance = NULL);
+  bool substituteAssignedValue(const UHDM::any* op, CompileDesign* compileDesign);
+
+  UHDM::any* getObject(const std::string& name, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, const UHDM::any* pexpr);
 
  private:
   CompileHelper(const CompileHelper&) = delete;

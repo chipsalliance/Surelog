@@ -50,6 +50,7 @@
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
 #include "DesignCompile/UhdmWriter.h"
+#include "vpi_visitor.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
@@ -355,4 +356,14 @@ vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
   vpiHandle h = uhdmwriter->write(fileName);
   delete uhdmwriter;
   return h;
+}
+
+
+std::string CompileDesign::decompile(UHDM::any* handle) {
+  UHDM::VisitedContainer visited;
+  vpiHandle dh = m_serializer.MakeUhdmHandle(handle->UhdmType(), handle);
+  std::stringstream out;
+  visit_object(dh, 0, "decompile", &visited, out);
+  std::cout << out.str() << "\n";
+  return out.str();
 }
