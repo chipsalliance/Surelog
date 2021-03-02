@@ -1691,6 +1691,7 @@ Function* CompileHelper::compileFunctionPrototype(
     DesignComponent* scope, const FileContent* fC,
     NodeId id, CompileDesign* compileDesign) {   
   std::string funcName;
+  NodeId function_name;
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1734,8 +1735,14 @@ Function* CompileHelper::compileFunctionPrototype(
   } else {
     typeName = VObject::getTypeName(the_type);
   }
-  NodeId function_name = fC->Sibling(function_data_type);
-  funcName = fC->SymName(function_name);
+
+  if (fC->Type(fC->Child(id)) == VObjectType::slExport) {
+    function_name = fC->Child(func_prototype);
+    funcName = fC->SymName(function_name);
+  } else if (fC->Type(fC->Child(id)) == VObjectType::slImport) {
+    function_name = fC->Sibling(function_data_type);
+    funcName = fC->SymName(function_name);
+  }
 
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(id));
