@@ -1177,9 +1177,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 result = c;
               } else if (ttps == uhdminteger_typespec) {
                 integer_typespec* itps = (integer_typespec*) tps;
-                long long cast_to = std::strtoll(itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
+                uint64_t cast_to = std::strtoll(itps->VpiValue().c_str() + strlen("INT:"), 0, 10);
                 UHDM::constant* c = s.MakeConstant();
-                long long mask = (1 << cast_to) - 1;
+                uint64_t mask = ((uint64_t)((uint64_t)1 << cast_to)) - ((uint64_t)1);
                 long long res = val0 & mask;
                 c->VpiValue("INT:" + std::to_string(res));
                 c->VpiSize(cast_to);
