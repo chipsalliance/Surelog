@@ -1235,7 +1235,7 @@ bool CompileHelper::compileTask(
   UHDM::task* task = nullptr;
   for (auto f : *component->getTask_funcs()) {
     if (f->VpiName() == name) {
-      task = dynamic_cast<UHDM::task*> (f);
+      task = reinterpret_cast<UHDM::task*> (f);
       break;
     }
   }
