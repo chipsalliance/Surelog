@@ -1088,6 +1088,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 }
                 c->VpiValue("INT:" + std::to_string(res));
                 c->VpiDecompile(std::to_string(res));
+                c->VpiConstType(vpiIntConst);
               }
               c->VpiSize(n * width);
               result = c;
@@ -1502,73 +1503,82 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
 
 int64_t CompileHelper::get_value(bool& invalidValue,
                                     const UHDM::expr* expr) {
-  if (const UHDM::constant* hs = dynamic_cast<const UHDM::constant*>(expr)) {
-    s_vpi_value* sval = String2VpiValue(hs->VpiValue());
-    if (sval) {
-      switch (sval->format) {
-        case vpiIntVal: {
-          int64_t result = sval->value.integer;
-          delete sval;
-          return result;
-        }
-        case vpiBinStrVal: {
-          std::string val = sval->value.str;
-          uint64_t result = 0;
-          StringUtils::ltrim(val, '\'');
-          StringUtils::ltrim(val, 'b');
-          try {
-            result = std::stoull(val, nullptr, 2);
-          } catch (...) {
-            invalidValue = true;
-          }
-          delete sval;
-          return result;
-        }
-        case vpiHexStrVal: {
-          std::string val = sval->value.str;
-          int64_t result = 0;
-          StringUtils::ltrim(val, '\'');
-          StringUtils::ltrim(val, 'h');
-          try {
-            result = std::stoull(val, nullptr, 16);
-          } catch (...) {
-            invalidValue = true;
-          }
-          delete sval;
-          return result;
-        }
-        case vpiOctStrVal: {
-          std::string val = sval->value.str;
-          int64_t result = 0;
-          StringUtils::ltrim(val, '\'');
-          StringUtils::ltrim(val, 'o');
-          try {
-            result = std::stoull(val, nullptr, 8);
-          } catch (...) {
-            invalidValue = true;
-          }
-          delete sval;
-          return result;
-        }
-        case vpiStringVal: {
-          // Don't error out, return 0
-          break;
-        }
-        case vpiScalarVal: {
-          int64_t result = sval->value.scalar;
-          delete sval;
-          return result;
-        }
-        default: {
+  int64_t result = 0;                                    
+  if (const UHDM::constant* c = dynamic_cast<const UHDM::constant*>(expr)) {
+    int type = c->VpiConstType();
+    std::string v = c->VpiValue();
+    switch (type) {
+      case vpiBinaryConst: {
+        StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 'b');
+        try {
+          result = std::strtoll(v.c_str() + strlen("BIN:"), 0, 2);
+        } catch (...) {
           invalidValue = true;
-          break;
         }
+        break;
+      }
+      case vpiDecConst: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("DEC:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiHexConst: {
+        StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 'h');
+        try {
+          result = std::strtoll(v.c_str() + strlen("HEX:"), 0, 16);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiOctConst: {
+        StringUtils::ltrim(v, '\'');
+        StringUtils::ltrim(v, 'o');
+        try {
+          result = std::strtoll(v.c_str() + strlen("OCT:"), 0, 8);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiIntConst: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiScalar: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("SCAL:"), 0, 2);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
+      }
+      case vpiStringConst: {
+        result = 0;
+        break;
+      }
+      default: {
+        try {
+          result = std::strtoll(v.c_str() + strlen("INT:"), 0, 10);
+        } catch (...) {
+          invalidValue = true;
+        }
+        break;
       }
     }
   } else {
     invalidValue = true;
   }
-  return 0;
+  return result;
 }
 
 any* CompileHelper::getValue(const std::string& name, DesignComponent* component,
