@@ -2262,7 +2262,12 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
         NodeId Operator_assignment, bool blocking,
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  NodeId Variable_lvalue = fC->Child(Operator_assignment);
+  NodeId Variable_lvalue = 0;
+  if (fC->Type(Operator_assignment) == slVariable_lvalue) {
+    Variable_lvalue = Operator_assignment;
+  } else {
+    Variable_lvalue = fC->Child(Operator_assignment);
+  }
   UHDM::expr* lhs_rf = nullptr;
   UHDM::any*  rhs_rf = nullptr;
   NodeId Delay_or_event_control  = 0;
