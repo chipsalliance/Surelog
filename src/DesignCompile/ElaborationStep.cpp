@@ -929,6 +929,9 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
       expression = assignment;
     } else {
       NodeId Primary = fC->Child(assignment);
+      if (fC->Type(assignment) == slExpression) {
+        Primary = assignment;
+      }
       expression = Primary;
     }
   } else {
