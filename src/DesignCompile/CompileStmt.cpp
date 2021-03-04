@@ -1691,7 +1691,7 @@ Function* CompileHelper::compileFunctionPrototype(
     DesignComponent* scope, const FileContent* fC,
     NodeId id, CompileDesign* compileDesign) {   
   std::string funcName;
-  NodeId function_name;
+  NodeId function_name = 0;
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
   if (task_funcs == nullptr) {

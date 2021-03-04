@@ -3315,6 +3315,37 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
   return result;
 }
 
+void CompileHelper::errorOnNegativeConstant(DesignComponent* component, expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance) {
+  if (exp == nullptr)
+    return;
+  if (exp->UhdmType() != uhdmconstant)
+    return;  
+  const std::string& val = exp->VpiValue();
+  if (val[4] == '-') {
+    std::string instanceName;
+    if (instance) {
+      if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+        instanceName = inst->getFullPathName();
+      }
+    } else if (component) {
+      instanceName = component->getName();
+    }
+    std::string message;
+    message += instanceName + "\n";
+    std::string fileContent = FileUtils::getFileContent(exp->VpiFile());
+    std::string lineText =
+        StringUtils::getLineInString(fileContent, exp->VpiLineNo());
+    message += "             text: " + lineText;
+    message += "             value: " + val;
+    ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+    SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+    Location loc(symbols->registerSymbol(exp->VpiFile()), exp->VpiLineNo(), 0,
+                 symbols->registerSymbol(message));
+    Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
+    errors->addError(err);
+  }
+}
+
 std::vector<UHDM::range*>* CompileHelper::compileRanges(
   DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
   CompileDesign* compileDesign,
@@ -3343,8 +3374,6 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         UHDM::range* range = s.MakeRange();
-        expr* lexp = nullptr;
-        expr* rexp = nullptr;
         if (reduce) {
           Value* leftV = m_exprBuilder.evalExpr(fC, lexpr, instance, true);
           Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
@@ -3359,13 +3388,14 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
           uint64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
           size = size * tmp;
         }
-        if (lexp == nullptr)
-          lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce, muteErrors));
+        
+        expr* lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce, muteErrors));
+        if (reduce) errorOnNegativeConstant(component, lexp, compileDesign, instance);
         range->Left_expr(lexp);
         if (lexp)
           lexp->VpiParent(range);
-        if (rexp == nullptr)
-          rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce, muteErrors));
+        expr* rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce, muteErrors));
+        if (reduce) errorOnNegativeConstant(component, lexp, compileDesign, instance);
         if (rexp)
           rexp->VpiParent(range);
         range->Right_expr(rexp);

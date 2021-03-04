@@ -340,6 +340,8 @@ public:
   UHDM::any* getObject(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const UHDM::any* pexpr);
 
+  void errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
