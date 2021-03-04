@@ -526,6 +526,7 @@ unsigned short LValue::getSize() const {
 std::string LValue::uhdmValue() {
   std::string result = "INT:";
   // The value is encoded in int form.
+  
   //if (m_type == Type::Binary)
   //  result = "BIN:";
   //else if (m_type == Type::Double)
@@ -557,17 +558,22 @@ std::string LValue::decompiledValue() {
 }
 
 int LValue::vpiValType() {
+  // The value is encoded in int form.
   switch (m_type) {
     case Type::Binary:
-      return vpiBinaryConst;
+      //return vpiBinaryConst;
+      return vpiIntConst;
     case Type::Double:
-      return vpiRealConst;
+      //return vpiRealConst;
+      return vpiIntConst;
     case Type::Hexadecimal:
-      return vpiHexConst;
+      //return vpiHexConst;
+      return vpiIntConst;
     case Type::Integer:
       return vpiIntConst;
     case Type::Octal:
-      return vpiOctConst;
+      //return vpiOctConst;
+      return vpiIntConst;
     case Type::Scalar:
       return vpiScalar;
     case Type::String:
