@@ -704,7 +704,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       VObjectType gatetype = fC->Type(fC->Child(subInstanceId));
       modName = builtinGateName(gatetype);
       def = design->getComponentDefinition(modName);
-      childId = 0;  // = def->getNodeId ();
+      childId = 0;
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
       allSubInstances.push_back(child);
@@ -818,11 +818,6 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
           cont = (validValue && (condVal > 0));
 
-          //Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
-         // cont = testCond->getValueUL();
-         // if (!testCond->isValid()) {
-         //   cont = false;
-         // }
           if (!newVal->isValid()) {
             cont = false;
           }
@@ -1082,7 +1077,9 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       if (def) childId = def->getNodeIds()[0];
 
       NodeId tmpId = fC->Sibling(moduleName);
-      if (fC->Type(tmpId) == VObjectType::slParameter_value_assignment) {
+      VObjectType tmpType = fC->Type(tmpId);
+      if (tmpType == VObjectType::slParameter_value_assignment || 
+          tmpType == slDelay2) {
         paramOverride = tmpId;
       }
 
@@ -1414,10 +1411,16 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
              VObjectType::slNamed_parameter_assignment};
     std::vector<NodeId> overrideParams =
         parentFile->sl_collect_all(parentParamOverride, types);
-
+    if (parentFile->Type(parentParamOverride) == slDelay2) {
+      //NodeId tmp = parentFile->Child(parentParamOverride);
+      overrideParams.push_back(parentParamOverride);
+    }
     unsigned int index = 0;
     for (auto paramAssign : overrideParams) {
       NodeId child = parentFile->Child(paramAssign);
+      if (parentFile->Type(paramAssign) == slDelay2) {
+        child = paramAssign;
+      }
       if (parentFile->Type(child) == VObjectType::slStringConst) {
         // Named param
         std::string name = parentFile->SymName(child);
@@ -1495,11 +1498,14 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           name = moduleParams[index];
           overridenParams.insert(name);
         } else {
-          Location loc(st->registerSymbol(parentFile->getFileName(paramAssign)),
-                       parentFile->Line(paramAssign), 0,
-                       st->registerSymbol(std::to_string(index)));
-          Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
-          errors->addError(err);
+          if (parentFile->Type(expr) != slDelay2) {
+            Location loc(
+                st->registerSymbol(parentFile->getFileName(paramAssign)),
+                parentFile->Line(paramAssign), 0,
+                st->registerSymbol(std::to_string(index)));
+            Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
+            errors->addError(err);
+          }
         }
 
         if (complexV) {

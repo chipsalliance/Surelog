@@ -778,8 +778,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   value += "             v1:" + std::to_string(val1) + " - v2:" + std::to_string(val2)+ "\n";
                   value += "             v1 invalid:" + std::to_string(val1Invalid) + ", v2 invalid:" + std::to_string(val2Invalid) + "\n";
                   value += "             v1 name:" + operands[0]->VpiName() + ", v2 name:" + operands[1]->VpiName() + "\n";
-                  std::string fileContent = FileUtils::getFileContent(fileName);
-                  std::string lineText = StringUtils::getLineInString(fileContent, lineNumber);
+                  std::string fileContent = FileUtils::getFileContent(operands[0]->VpiFile());
+                  std::string lineText = StringUtils::getLineInString(fileContent, operands[0]->VpiLineNo());
                   value += "             text: " + lineText;
                   bool debugObject = false;
                   if (debugObject) {
@@ -789,18 +789,23 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                     std::stringstream out;
                     visit_object(dh, 14 /* column */, "v1", &visited, out);
                     value += out.str();
+                    std::cout << std::string(out.str()) + "\n";
                   }
                   bool extraInfo = false;
                   if (extraInfo) {
                     // Extra debug info:
                     if (instance) {
-                      if (ModuleInstance* inst =
-                              dynamic_cast<ModuleInstance*>(instance)) {
+                      ModuleInstance* inst =
+                              dynamic_cast<ModuleInstance*>(instance);
+                      while (inst) {
+                        std::cout << "Instance:" << inst->getFullPathName() << " mod: " << inst->getModuleName() << "\n";
                         for (auto ps : inst->getMappedValues()) {
                           const std::string& name = ps.first;
                           Value* val = ps.second.first;
                           value += name + " = " + val->uhdmValue() + "\n";
+                          std::cout << std::string("    " + name + " = " + val->uhdmValue() + "\n");
                         }
+                        inst = inst->getParent();
                       }
                     }
                   }
