@@ -1411,7 +1411,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::vector<NodeId> overrideParams =
         parentFile->sl_collect_all(parentParamOverride, types);
     if (parentFile->Type(parentParamOverride) == slDelay2) {
-      overrideParams.push_back(parentParamOverride);
+      NodeId tmp = parentFile->Child(parentParamOverride);
+      if (parentFile->Type(tmp) == slMintypmax_expression) {
+        while (tmp) {
+          overrideParams.push_back(tmp);
+          tmp = parentFile->Sibling(tmp);
+        }
+      } else {
+        overrideParams.push_back(parentParamOverride);
+      }
     }
     unsigned int index = 0;
     for (auto paramAssign : overrideParams) {
