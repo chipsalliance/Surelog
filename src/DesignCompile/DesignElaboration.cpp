@@ -74,7 +74,6 @@ bool DesignElaboration::elaborate() {
   bindPackagesDataTypes_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
-  //bindDataTypes_();
   reduceUnnamedBlocks_();
   checkElaboration_();
   reportElaboration_();
@@ -1412,7 +1411,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::vector<NodeId> overrideParams =
         parentFile->sl_collect_all(parentParamOverride, types);
     if (parentFile->Type(parentParamOverride) == slDelay2) {
-      //NodeId tmp = parentFile->Child(parentParamOverride);
       overrideParams.push_back(parentParamOverride);
     }
     unsigned int index = 0;
