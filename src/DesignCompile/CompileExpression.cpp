@@ -1825,7 +1825,8 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
           bit_select->VpiName(name);
           bit_select->VpiIndex(sel);
           result = bit_select;
-          sel->VpiParent(bit_select);
+          if (sel->VpiParent() == nullptr)
+            sel->VpiParent(bit_select);
         }
       }
     } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
@@ -3497,6 +3498,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     if (!name.empty()) {
       UHDM::ref_obj* ref = s.MakeRef_obj();
       ref->VpiName(name);
+      ref->VpiDefName(name);
       part_select->VpiParent(ref);
     }
     part_select->VpiConstantSelect(true);
