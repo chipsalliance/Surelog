@@ -2047,8 +2047,9 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         param_assigns->push_back(param_assign);
         param->Expr(unpacked);
         param_assign->Lhs(param);
-        param_assign->Rhs((expr*)compileExpression(
-            component, fC, value, compileDesign, nullptr, instance, reduce && (!isMultiDimension)));
+        expr* rhs = (expr*)compileExpression(
+            component, fC, value, compileDesign, nullptr, instance, reduce && (!isMultiDimension));
+        param_assign->Rhs(rhs);
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

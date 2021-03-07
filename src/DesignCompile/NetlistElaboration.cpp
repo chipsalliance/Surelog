@@ -147,6 +147,9 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         }
         // Don't reduce these operations
         if (opType == vpiAssignmentPatternOp || opType == vpiMultiAssignmentPatternOp) {
+         // ElaboratorListener listener(&s);
+          //param_assign* pclone = (param_assign*) UHDM::clone_tree(mod_assign, s, &listener);
+         // pclone->VpiParent((any*) mod_assign->VpiParent());
           assigns->push_back(mod_assign);
           continue;
         }

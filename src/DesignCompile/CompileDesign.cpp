@@ -357,12 +357,3 @@ vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
   return h;
 }
 
-
-std::string CompileDesign::decompile(UHDM::any* handle) {
-  UHDM::VisitedContainer visited;
-  vpiHandle dh = m_serializer.MakeUhdmHandle(handle->UhdmType(), handle);
-  std::stringstream out;
-  visit_object(dh, 0, "decompile", &visited, out);
-  std::cout << out.str() << "\n";
-  return out.str();
-}
