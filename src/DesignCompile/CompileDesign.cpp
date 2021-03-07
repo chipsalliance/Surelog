@@ -340,11 +340,10 @@ bool CompileDesign::elaboration_()
   delete packEl;
   NetlistElaboration* netlistEl = new NetlistElaboration(this);
   netlistEl->elaboratePackages();
+  delete netlistEl;
   DesignElaboration* designEl = new DesignElaboration(this);
   designEl->elaborate();
   delete designEl;
-  // netlistEl->elaborate();
-  delete netlistEl;
   UVMElaboration* uvmEl = new UVMElaboration(this);
   uvmEl->elaborate();
   delete uvmEl;
