@@ -870,7 +870,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 1) {
               constant* cst = (constant*)(reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
               uint64_t val = get_value(invalidValue, cst);
-              int res = val & 1;
+              uint64_t res = val & 1;
               for (int i = 1; i < cst->VpiSize(); i++) {
                 res = res & ((val & (1 << i)) >> i);
               }
@@ -887,11 +887,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 1) {
               uint64_t val =
                   get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int res = val & 1;
+              uint64_t res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res & ((val & (1 << i)) >> i);
               }
-              res = ~res;
+              res = !res;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
@@ -905,7 +905,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (operands.size() == 1) {
               uint64_t val =
                   get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int res = val & 1;
+              uint64_t res = val & 1;
               for (unsigned int i = 1; i < 32; i++) {
                 res = res | ((val & (1 << i)) >> i);
               }
@@ -926,7 +926,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               for (unsigned int i = 1; i < 64; i++) {
                 res = res | ((val & (1 << i)) >> i);
               }
-              res = ~res;
+              res = !res;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));
@@ -961,7 +961,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               for (unsigned int i = 1; i < 64; i++) {
                 res = res ^ ((val & (1 << i)) >> i);
               }
-              res = ~res;
+              res = !res;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(res));
               c->VpiDecompile(std::to_string(res));

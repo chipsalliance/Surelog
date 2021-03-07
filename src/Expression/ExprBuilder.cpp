@@ -718,11 +718,11 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
 
   if ((pos = s.find("INT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = atoi(s.c_str() + pos + strlen("INT:"));
+    int64_t v = std::strtoull(s.c_str() + pos + strlen("INT:"), 0 , 10);
     val->set(v);
   } else if ((pos = s.find("DEC:")) != std::string::npos) {  
     val = m_valueFactory.newLValue();
-    int64_t v = atoi(s.c_str() + pos + strlen("DEC:"));
+    int64_t v = std::strtoull(s.c_str() + pos + strlen("DEC:"), 0 , 10);
     val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
@@ -750,7 +750,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
         } else if (strcasecmp(parse_pos, "NoChange") == 0) {
          
         } else {
-          int64_t v = atoi(parse_pos);
+          int64_t v = std::strtoull(parse_pos, 0, 10);
           val = m_valueFactory.newLValue();
           val->set(v);
         }
