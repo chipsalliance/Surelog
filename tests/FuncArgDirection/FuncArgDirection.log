@@ -260,7 +260,7 @@ design: (work@dut)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallClasses:
-\_class_defn: (work@mailbox) /home/grey/uhdm/yosys-tests/1${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), line:6, parent:work@mailbox
@@ -272,7 +272,7 @@ design: (work@dut)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox) /home/grey/uhdm/yosys-tests/1${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
@@ -353,7 +353,7 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process) /home/grey/uhdm/yosys-tests/1${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@dut
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@dut
   |vpiName:work@process
   |vpiMethod:
   \_function: (work@process::self), line:37, parent:work@process
@@ -454,7 +454,7 @@ design: (work@dut)
       |vpiName:WAITING
       |INT:2
 |uhdmallClasses:
-\_class_defn: (work@semaphore) /home/grey/uhdm/yosys-tests/1${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), line:60, parent:work@semaphore
@@ -466,7 +466,7 @@ design: (work@dut)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore) /home/grey/uhdm/yosys-tests/1${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
@@ -551,16 +551,16 @@ design: (work@dut)
           \_range: , line:10
             |vpiLeftRange:
             \_constant: , line:10
-              |vpiConstType:7
+              |vpiConstType:9
               |vpiDecompile:7
               |vpiSize:64
-              |INT:7
+              |UINT:7
             |vpiRightRange:
             \_constant: , line:10
-              |vpiConstType:7
+              |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
-              |INT:0
+              |UINT:0
     |vpiLhs:
     \_ref_obj: (work@dut.ctr_we_o), line:14
       |vpiName:ctr_we_o
@@ -577,16 +577,16 @@ design: (work@dut)
       \_range: , line:2
         |vpiLeftRange:
         \_constant: , line:2
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
-          |INT:7
+          |UINT:7
         |vpiRightRange:
         \_constant: , line:2
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
-          |INT:0
+          |UINT:0
     |vpiIODecl:
     \_io_decl: (in)
       |vpiName:in
@@ -598,16 +598,16 @@ design: (work@dut)
         \_range: , line:2
           |vpiLeftRange:
           \_constant: , line:2
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:7
             |vpiSize:64
-            |INT:7
+            |UINT:7
           |vpiRightRange:
           \_constant: , line:2
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
     |vpiStmt:
     \_begin: (work@dut.aes_rev_order_bit), parent:work@dut.aes_rev_order_bit
       |vpiFullName:work@dut.aes_rev_order_bit
@@ -623,18 +623,18 @@ design: (work@dut)
             |vpiFullName:work@dut.aes_rev_order_bit.i
           |vpiOperand:
           \_constant: , line:4
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:8
             |vpiSize:64
-            |INT:8
+            |UINT:8
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@dut.aes_rev_order_bit
           |vpiRhs:
           \_constant: , line:4
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
           |vpiLhs:
           \_int_var: (work@dut.aes_rev_order_bit.i), line:4
             |vpiName:i
@@ -669,10 +669,10 @@ design: (work@dut)
                 |vpiOpType:11
                 |vpiOperand:
                 \_constant: , line:5
-                  |vpiConstType:7
+                  |vpiConstType:9
                   |vpiDecompile:7
                   |vpiSize:64
-                  |INT:7
+                  |UINT:7
                 |vpiOperand:
                 \_ref_obj: (work@dut.aes_rev_order_bit.i), line:5
                   |vpiName:i
@@ -691,16 +691,16 @@ design: (work@dut)
       \_range: , line:3, parent:work@dut.aes_rev_order_bit
         |vpiLeftRange:
         \_constant: , line:3
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
-          |INT:7
+          |UINT:7
         |vpiRightRange:
         \_constant: , line:3
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
-          |INT:0
+          |UINT:0
   |vpiNet:
   \_logic_net: (work@dut.ctr_we_o_rev), line:10, parent:work@dut
     |vpiName:ctr_we_o_rev
@@ -736,16 +736,16 @@ design: (work@dut)
         \_range: , line:10
           |vpiLeftRange:
           \_constant: , line:10
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:7
             |vpiSize:64
-            |INT:7
+            |UINT:7
           |vpiRightRange:
           \_constant: , line:10
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
   |vpiContAssign:
   \_cont_assign: , line:14, parent:work@dut
     |vpiRhs:
@@ -772,16 +772,16 @@ design: (work@dut)
         \_range: , line:10
           |vpiLeftRange:
           \_constant: , line:10
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:7
             |vpiSize:64
-            |INT:7
+            |UINT:7
           |vpiRightRange:
           \_constant: , line:10
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
   |vpiTaskFunc:
   \_function: (work@dut.aes_rev_order_bit), line:2, parent:work@dut
     |vpiVisibility:1
@@ -794,16 +794,16 @@ design: (work@dut)
       \_range: , line:2
         |vpiLeftRange:
         \_constant: , line:2
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
-          |INT:7
+          |UINT:7
         |vpiRightRange:
         \_constant: , line:2
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
-          |INT:0
+          |UINT:0
     |vpiIODecl:
     \_io_decl: (in), parent:work@dut.aes_rev_order_bit
       |vpiName:in
@@ -815,16 +815,16 @@ design: (work@dut)
         \_range: , line:2, parent:work@dut.aes_rev_order_bit.in
           |vpiLeftRange:
           \_constant: , line:2
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:7
             |vpiSize:64
-            |INT:7
+            |UINT:7
           |vpiRightRange:
           \_constant: , line:2
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
     |vpiStmt:
     \_begin: (work@dut.aes_rev_order_bit), parent:work@dut.aes_rev_order_bit
       |vpiFullName:work@dut.aes_rev_order_bit
@@ -840,18 +840,18 @@ design: (work@dut)
             |vpiFullName:work@dut.aes_rev_order_bit.i
           |vpiOperand:
           \_constant: , line:4
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:8
             |vpiSize:64
-            |INT:8
+            |UINT:8
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@dut.aes_rev_order_bit
           |vpiRhs:
           \_constant: , line:4
-            |vpiConstType:7
+            |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
-            |INT:0
+            |UINT:0
           |vpiLhs:
           \_int_var: (work@dut.aes_rev_order_bit.i), line:4
             |vpiName:i
@@ -887,10 +887,10 @@ design: (work@dut)
                 |vpiOpType:11
                 |vpiOperand:
                 \_constant: , line:5
-                  |vpiConstType:7
+                  |vpiConstType:9
                   |vpiDecompile:7
                   |vpiSize:64
-                  |INT:7
+                  |UINT:7
                 |vpiOperand:
                 \_ref_obj: (work@dut.aes_rev_order_bit.in.i), line:5
                   |vpiName:i
@@ -909,16 +909,16 @@ design: (work@dut)
             \_range: , line:3, parent:work@dut.aes_rev_order_bit
               |vpiLeftRange:
               \_constant: , line:3
-                |vpiConstType:7
+                |vpiConstType:9
                 |vpiDecompile:7
                 |vpiSize:64
-                |INT:7
+                |UINT:7
               |vpiRightRange:
               \_constant: , line:3
-                |vpiConstType:7
+                |vpiConstType:9
                 |vpiDecompile:0
                 |vpiSize:64
-                |INT:0
+                |UINT:0
     |vpiVariables:
     \_logic_var: (work@dut.aes_rev_order_bit.out), line:3, parent:work@dut.aes_rev_order_bit
       |vpiName:out
@@ -927,16 +927,16 @@ design: (work@dut)
       \_range: , line:3, parent:work@dut.aes_rev_order_bit.out
         |vpiLeftRange:
         \_constant: , line:3
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:7
           |vpiSize:64
-          |INT:7
+          |UINT:7
         |vpiRightRange:
         \_constant: , line:3
-          |vpiConstType:7
+          |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
-          |INT:0
+          |UINT:0
   |vpiNet:
   \_logic_net: (work@dut.ctr_we_o_rev), line:10, parent:work@dut
   |vpiNet:

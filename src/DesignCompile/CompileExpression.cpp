@@ -1601,6 +1601,11 @@ int64_t CompileHelper::get_value(bool& invalidValue,
         result = 0;
         break;
       }
+      case vpiRealConst: {
+        // Don't do the double precision math, leave it to client tools
+        invalidValue = true;
+        break;
+      }
       default: {
         try {
           if (strstr(v.c_str(), "UINT:")) {
