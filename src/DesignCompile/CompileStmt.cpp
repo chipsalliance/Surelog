@@ -1041,7 +1041,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   variables* previous_var = nullptr;
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
-    int previousDirection = vpiNoDirection;
+    int previousDirection = vpiInput;
     while (tf_port_item) {
       io_decl* decl = s.MakeIo_decl();
       ios->push_back(decl);
