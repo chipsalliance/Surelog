@@ -411,10 +411,20 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             if (size == "")
               value->set(hex_value, Value::Type::Integer, 0);
             else 
-              value->set(hex_value, Value::Type::Integer, intsize); 
+              value->set(hex_value, Value::Type::Unsigned, intsize); 
           }
         } else {
-          value->set((int64_t)atol(val.c_str()));
+          if (val.size() && (val[0] == '-')) {
+            int64_t i = std::strtoll(val.c_str(), 0, 10);
+            value->set(i);
+          } else {
+            if (uint64_t i = std::strtoull(val.c_str(), 0, 10)) {
+              value->set(i);
+            } else {
+              uint64_t j = atoll(val.c_str());
+              value->set(j);
+            }
+          }
         }
         break;
       }
@@ -715,14 +725,17 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 Value* ExprBuilder::fromVpiValue(const std::string& s) {
   Value* val = nullptr;
   size_t pos;
-
-  if ((pos = s.find("INT:")) != std::string::npos) {
+  if ((pos = s.find("UINT:")) != std::string::npos) {  
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoull(s.c_str() + pos + strlen("INT:"), 0 , 10);
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0 , 10);
+    val->set(v);
+  } else if ((pos = s.find("INT:")) != std::string::npos) {
+    val = m_valueFactory.newLValue();
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0 , 10);
     val->set(v);
   } else if ((pos = s.find("DEC:")) != std::string::npos) {  
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoull(s.c_str() + pos + strlen("DEC:"), 0 , 10);
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0 , 10);
     val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
@@ -758,8 +771,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("BIN:"), 0, 2);  
-    val->set(v, Value::Type::Binary,  s.size() - 4);
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);  
+    val->set(v, Value::Type::Unsigned,  s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) { // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*) m_valueFactory.newStValue();
@@ -767,36 +780,39 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
-      int64_t v = std::strtoll(s.c_str() + pos + strlen("HEX:"), 0, 16);  
-      val->set(v, Value::Type::Hexadecimal, (s.size() - 4) * 4);
+      uint64_t v = std::strtoull(s.c_str() + pos + strlen("HEX:"), 0, 16);  
+      val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
     }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("OCT:"), 0, 8);  
-    val->set(v, Value::Type::Octal, (s.size() - 4) * 4);
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("OCT:"), 0, 8);  
+    val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();
     val->set(s.c_str() + pos + strlen("STRING:"));
   } else if ((pos = s.find("REAL:")) != std::string::npos) {
-   
+    val = m_valueFactory.newLValue();
+    double v = std::strtod(s.c_str() + pos + strlen("REAL:"), 0);
+    val->set(v);
   }
   return val;
 }
 
-
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
-  int64_t v = 0;
-  if ((v = std::strtoull(value.c_str(), 0, 10))) {
+  if (uint64_t v = std::strtoull(value.c_str(), 0, 10)) {
     val = m_valueFactory.newLValue();
     val->set(v);
-  } else if ((v = std::strtoull(value.c_str(), 0, 16))) {
+  } else if (int64_t v = std::strtoll(value.c_str(), 0, 10)) {
     val = m_valueFactory.newLValue();
     val->set(v);
-  } else if ((v = std::strtoull(value.c_str(), 0, 8))) {
+  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 16)) {
     val = m_valueFactory.newLValue();
     val->set(v);
-  } else if ((v = std::strtoull(value.c_str(), 0, 2))) {
+  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 8)) {
+    val = m_valueFactory.newLValue();
+    val->set(v);
+  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 2)) {
     val = m_valueFactory.newLValue();
     val->set(v);
   } else {
@@ -851,7 +867,7 @@ bool ExprBuilder::unitTest() {
     Value* v2 = builder.fromVpiValue("INT:10");
     LValue v0;
     v0.equiv(v1,v2);
-    assert(v1->uhdmValue() == "INT:10" && "hex convertion failed");
+    assert(v1->uhdmValue() == "UINT:10" && "hex convertion failed");
     assert(v0.getValueL() == 1 && "hex convertion failed");
   }
   return result;

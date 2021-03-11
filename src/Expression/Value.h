@@ -78,7 +78,7 @@ class Value {
   virtual void set(uint64_t val) = 0;
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(int64_t val, Type type, unsigned short size) = 0;
+  virtual void set(uint64_t val, Type type, unsigned short size) = 0;
   virtual void set(const std::string& val) = 0;
   virtual void set(const std::string& val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
@@ -135,19 +135,27 @@ class Value {
 class SValue : public Value {
   friend LValue;
 
+private:
+  union Data {
+    int64_t s_int;
+    uint64_t u_int;
+    double   d_int;  
+   };
+  Data m_value;
+
  public:
-  SValue() : m_value(0), m_size(0), m_valid(1), m_negative(0) {}
-  SValue(int64_t val, unsigned short size) : m_value(val), m_size(size), m_valid(1), m_negative(0) {}
-  SValue(uint64_t val) : m_value((int64_t)val), m_size(64), m_valid(1), m_negative(0) {}
-  SValue(int64_t val) : m_value(val), m_size(64), m_valid(1), m_negative(val<0) {}
-  SValue(double val) : m_value((int64_t)val), m_size(64), m_valid(1), m_negative(val<0) {}
+  SValue() : m_type(Value::Type::Unsigned), m_size(0), m_valid(1), m_negative(0) {m_value.u_int = 0; }
+  SValue(int64_t val, unsigned short size) : m_type(Value::Type::Integer), m_size(size), m_valid(1), m_negative(val<0) { m_value.s_int= val; }
+  SValue(uint64_t val) : m_type(Value::Type::Unsigned), m_size(64), m_valid(1), m_negative(0) {m_value.u_int = val;}
+  SValue(int64_t val) : m_type(Value::Type::Integer), m_size(64), m_valid(1), m_negative(val<0) { m_value.s_int= val; }
+  SValue(double val) : m_type(Value::Type::Double), m_size(64), m_valid(1), m_negative(val<0) {m_value.d_int = val; }
   ~SValue() final;
 
   unsigned short getSize() const final { return m_size; }
   unsigned short getSize(unsigned int wordIndex) const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
-  Type getType() const final { return Type::None; }
+  Type getType() const final { return m_type; }
   bool isValid() const final { return m_valid; }
   void setInvalid() final { m_valid = 0; }
   bool isNegative() const final { return m_negative; }
@@ -155,33 +163,46 @@ class SValue : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(int64_t val, Type type, unsigned short size) final;
+  void set(uint64_t val, Type type, unsigned short size) final;
   void set(const std::string& val) final {
-    m_value = 0;
+    m_type = Value::Type::None;
+    m_value.u_int = 0;
     m_size = 0;
     m_valid = false;
     m_negative = 0;
   }
+
   void set(const std::string& val, Type type) final {
-    m_value = 0;
+    m_type = Value::Type::None;
+    m_value.u_int = 0;
     m_size = 0;
     m_valid = false;
     m_negative = 0;
   }
 
   bool operator<(const Value& rhs) const final {
-    return m_value < (dynamic_cast<const SValue*>(&rhs))->m_value;
+    if (m_type == Value::Type::Integer) {
+      return m_value.s_int < (dynamic_cast<const SValue*>(&rhs))->m_value.s_int;
+    } else if (m_type == Value::Type::Double) {  
+      return m_value.d_int < (dynamic_cast<const SValue*>(&rhs))->m_value.d_int;
+    } else {
+      return m_value.u_int < (dynamic_cast<const SValue*>(&rhs))->m_value.u_int;
+    }
   }
+
   bool operator==(const Value& rhs) const final {
-    return m_value == (dynamic_cast<const SValue*>(&rhs))->m_value;
+    if (m_type == Value::Type::Integer) {
+      return m_value.s_int == (dynamic_cast<const SValue*>(&rhs))->m_value.s_int;
+    } else if (m_type == Value::Type::Double) {  
+      return m_value.d_int == (dynamic_cast<const SValue*>(&rhs))->m_value.d_int; 
+    } else {
+      return m_value.u_int == (dynamic_cast<const SValue*>(&rhs))->m_value.u_int;
+    }
   }
-  uint64_t getValueUL(unsigned short index = 0) const final { return (uint64_t)m_value; }
-  int64_t getValueL(unsigned short index = 0) const final {
-    return m_value;
-  }
-  double getValueD(unsigned short index = 0) const final {
-    return (double)m_value;
-  }
+
+  uint64_t getValueUL(unsigned short index = 0) const final { return m_value.u_int; }
+  int64_t getValueL(unsigned short index = 0) const final { return m_value.s_int; }
+  double getValueD(unsigned short index = 0) const final { return m_value.d_int; }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
   std::string uhdmValue() final;
@@ -221,7 +242,7 @@ class SValue : public Value {
   void shiftRight(const Value* a, const Value* b) final;
 
  private:
-  int64_t m_value;
+  Type m_type;
   unsigned short m_size;
   unsigned short m_valid;
   unsigned short m_negative;
@@ -269,20 +290,20 @@ class LValue : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(int64_t val, Type type, unsigned short size) final;
+  void set(uint64_t val, Type type, unsigned short size) final;
   void set(const std::string& val) final {}
   void set(const std::string& val, Type type) final {}
   bool operator<(const Value& rhs) const final;
   bool operator==(const Value& rhs) const final;
 
   uint64_t getValueUL(unsigned short index = 0) const final {
-    return ((index < m_nbWords) ? (uint64_t)m_valueArray[index].m_value : 0);
+    return ((index < m_nbWords) ? m_valueArray[index].m_value.u_int : 0);
   }
   int64_t getValueL(unsigned short index = 0) const final {
-    return ((index < m_nbWords) ? m_valueArray[index].m_value : 0);
+    return ((index < m_nbWords) ? m_valueArray[index].m_value.s_int : 0);
   }
   double getValueD(unsigned short index = 0) const final {
-    return ((index < m_nbWords) ? (double)m_valueArray[index].m_value : 0);
+    return ((index < m_nbWords) ? m_valueArray[index].m_value.d_int : 0);
   }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
@@ -354,7 +375,7 @@ class StValue : public Value {
   void set(uint64_t val) final { m_type = Type::Unsigned; m_value = std::to_string(val); m_valid = true; }
   void set(int64_t val) final { m_type = Type::Integer; m_value = std::to_string(val); m_valid = true; }
   void set(double val) final { m_type = Type::Double; m_value = std::to_string(val); m_valid = true; }
-  void set(int64_t val, Type type, unsigned short size) final {
+  void set(uint64_t val, Type type, unsigned short size) final {
     m_type = type;
     m_value = std::to_string(val);
     m_size = size;
@@ -385,10 +406,36 @@ class StValue : public Value {
     return m_value == (dynamic_cast<const StValue*>(&rhs))->m_value;
   }
   uint64_t getValueUL(unsigned short index = 0) const final {
-    return (uint64_t)atol(m_value.c_str());
+    switch (m_type) {
+    case Value::Type::Integer:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 10);
+    case Value::Type::Unsigned:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 10); 
+    case Value::Type::Hexadecimal:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 16);
+    case Value::Type::Octal:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 8);
+    case Value::Type::Binary:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 2);
+    default:
+      return (uint64_t)std::strtoull(m_value.c_str(), 0, 10);   
+    }      
   }
   int64_t getValueL(unsigned short index = 0) const final {
-    return (int64_t)atol(m_value.c_str());
+    switch (m_type) {
+    case Value::Type::Integer:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 10);
+    case Value::Type::Unsigned:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 10); 
+    case Value::Type::Hexadecimal:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 16);
+    case Value::Type::Octal:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 8);
+    case Value::Type::Binary:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 2);
+    default:
+      return (uint64_t)std::strtoll(m_value.c_str(), 0, 10);   
+    }    
   }
   double getValueD(unsigned short index = 0) const final {
     return strtod(m_value.c_str(), NULL);

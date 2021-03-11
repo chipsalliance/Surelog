@@ -306,7 +306,7 @@ public:
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
  
-  unsigned int Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
+  uint64_t Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode);         
 
   UHDM::variables* getSimpleVarFromTypespec(UHDM::typespec* spec,
