@@ -438,11 +438,11 @@ bool CompileModule::collectUdpObjects_() {
         assign_stmt->VpiParent(init);
         UHDM::constant* c = s.MakeConstant();
         assign_stmt->Rhs(c);
-        std::string val = "INT:" + fC->SymName(Value);
+        std::string val = "UINT:" + fC->SymName(Value);
         c->VpiValue(val);
         c->VpiDecompile(fC->SymName(Value));
-        c->VpiSize(32);
-        c->VpiConstType(vpiIntConst);
+        c->VpiSize(64);
+        c->VpiConstType(vpiUIntConst);
         c->VpiParent(assign_stmt);
         c->VpiFile(fC->getFileName());
         c->VpiLineNo(fC->Line(Value));

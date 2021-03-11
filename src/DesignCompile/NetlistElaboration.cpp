@@ -204,7 +204,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         c->VpiDecompile(value->decompiledValue());
         c->VpiFile(assign->getFileContent()->getFileName());
         c->VpiSize(value->getSize());
-        c->VpiConstType(vpiIntConst);
+        c->VpiConstType(value->vpiValType());
         c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
         inst_assign->Rhs(c);
         override = true;
