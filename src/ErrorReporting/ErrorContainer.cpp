@@ -27,6 +27,7 @@
 #include <fstream>
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
+#include "LogListener.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
@@ -35,12 +36,18 @@ using namespace antlr4;
 
 using namespace SURELOG;
 
-ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
+ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
+                               LogListener* const logListener /* = nullptr */)
     : m_clp(NULL),
       m_reportedFatalErrorLogFile(false),
       m_symbolTable(symbolTable),
-      m_interpState(NULL) {
+      m_interpState(NULL),
+      m_logListener(logListener) {
   m_interpState = PythonAPI::getMainInterp();
+
+  if (m_logListener == nullptr) {
+    m_logListener = new LogListener;
+  }
   /* Do nothing here */
 }
 
@@ -53,14 +60,10 @@ void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     const std::string& logFileName =
         m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
-    std::ofstream ofs;
-    ofs.open(logFileName, std::fstream::out);
-    if (!ofs.good()) {
+    if (LogListener::failed(m_logListener->initialize(logFileName))) {
       std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
                 << "\"" << std::endl;
-      return;
     }
-    ofs.close();
   }
 }
 
@@ -368,28 +371,17 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() {
   return stats;
 }
 
-static std::mutex m;
-bool ErrorContainer::printToLogFile(std::string report) {
-  m.lock();
-  if (!m_clp)
-    return false;
-  const std::string& logFileName =
-      m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
-  std::ofstream ofs;
-  ofs.open(logFileName, std::fstream::app);
-  if (!ofs.good()) {
-    if (!m_reportedFatalErrorLogFile) {
-      std::cerr << "[FTL:LG0002] Cannot open log file \"" << logFileName
-                << "\" in append mode" << std::endl;
+bool ErrorContainer::printToLogFile(const std::string &report) {
+  LogListener::LogResult result;
+  if (LogListener::failed(result = m_logListener->log(report))) {
+      if (!m_reportedFatalErrorLogFile && (result == LogListener::LogResult::FailedToOpenFileForWrite)) {
+        std::cerr << "[FTL:LG0002] Cannot open log file \""
+                  << m_logListener->getLogFilename() << "\" in append mode"
+                  << std::endl;
       m_reportedFatalErrorLogFile = true;
     }
-    m.unlock();
     return false;
-  } else {
-    ofs << report << std::flush;
-    ofs.close();
   }
-  m.unlock();
   return true;
 }
 
