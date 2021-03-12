@@ -595,6 +595,8 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1: , parent:work@dut
     |vpiIODecl:
     \_io_decl: (state_in)
       |vpiName:state_in
@@ -819,6 +821,185 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1: , parent:work@dut
+      |vpiDefName:work@dut
+      |vpiFullName:work@dut
+      |vpiContAssign:
+      \_cont_assign: , line:14, parent:work@dut
+        |vpiRhs:
+        \_func_call: (sbox4_64bit), line:14
+          |vpiName:sbox4_64bit
+          |vpiFunction:
+          \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
+          |vpiArgument:
+          \_ref_obj: (work@dut.data_state_xor), line:14, parent:sbox4_64bit
+            |vpiName:data_state_xor
+            |vpiFullName:work@dut.data_state_xor
+          |vpiArgument:
+          \_ref_obj: (work@dut.PRESENT_SBOX4), line:14, parent:sbox4_64bit
+            |vpiName:PRESENT_SBOX4
+            |vpiFullName:work@dut.PRESENT_SBOX4
+            |vpiActual:
+            \_parameter: (work@dut.PRESENT_SBOX4), line:2, parent:work@dut
+        |vpiLhs:
+        \_ref_obj: (work@dut.data_state_sbox), line:14
+          |vpiName:data_state_sbox
+          |vpiFullName:work@dut.data_state_sbox
+      |vpiTaskFunc:
+      \_function: (work@dut.sbox4_64bit), line:4, parent:work@dut
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiName:sbox4_64bit
+        |vpiFullName:work@dut.sbox4_64bit
+        |vpiReturn:
+        \_logic_var: , line:4
+        |vpiInstance:
+        \_module: work@dut (work@dut) dut.sv:1: , parent:work@dut
+        |vpiIODecl:
+        \_io_decl: (state_in)
+          |vpiName:state_in
+          |vpiDirection:1
+          |vpiExpr:
+          \_logic_var: (state_in), line:4, parent:state_in
+            |vpiFullName:state_in
+            |vpiRange:
+            \_range: , line:4
+              |vpiLeftRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:63
+                |vpiSize:64
+                |UINT:63
+              |vpiRightRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiIODecl:
+        \_io_decl: (sbox4)
+          |vpiName:sbox4
+          |vpiDirection:1
+          |vpiExpr:
+          \_logic_var: (sbox4), line:4, parent:sbox4
+            |vpiFullName:sbox4
+            |vpiRange:
+            \_range: , line:4
+              |vpiLeftRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:15
+                |vpiSize:64
+                |UINT:15
+              |vpiRightRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+            |vpiRange:
+            \_range: , line:4
+              |vpiLeftRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+              |vpiRightRange:
+              \_constant: , line:4
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiStmt:
+        \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
+          |vpiFullName:work@dut.sbox4_64bit
+      |vpiTypedef:
+      \_enum_typespec: (exc_cause_e), line:11
+        |vpiName:exc_cause_e
+        |vpiBaseTypespec:
+        \_logic_typespec: , line:7
+          |vpiRange:
+          \_range: , line:7
+            |vpiLeftRange:
+            \_constant: , line:7
+              |vpiConstType:9
+              |vpiDecompile:5
+              |vpiSize:64
+              |UINT:5
+            |vpiRightRange:
+            \_constant: , line:7
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+        |vpiEnumConst:
+        \_enum_const: (EXC_CAUSE_ECALL_MMODE), line:10
+          |vpiName:EXC_CAUSE_ECALL_MMODE
+          |BIN:001011
+        |vpiEnumConst:
+        \_enum_const: (EXC_CAUSE_IRQ_SOFTWARE_M), line:8
+          |vpiName:EXC_CAUSE_IRQ_SOFTWARE_M
+          |BIN:100011
+        |vpiEnumConst:
+        \_enum_const: (EXC_CAUSE_IRQ_TIMER_M), line:9
+          |vpiName:EXC_CAUSE_IRQ_TIMER_M
+          |BIN:100111
+      |vpiParamAssign:
+      \_param_assign: , line:2, parent:work@dut
+        |vpiRhs:
+        \_operation: , line:2
+          |vpiOpType:33
+          |vpiOperand:
+          \_constant: , line:2
+            |vpiConstType:5
+            |vpiDecompile:4'h2
+            |vpiSize:4
+            |HEX:2
+          |vpiOperand:
+          \_constant: , line:2
+            |vpiConstType:5
+            |vpiDecompile:4'h1
+            |vpiSize:4
+            |HEX:1
+        |vpiLhs:
+        \_parameter: (work@dut.PRESENT_SBOX4), line:2, parent:work@dut
+          |vpiName:PRESENT_SBOX4
+          |vpiFullName:work@dut.PRESENT_SBOX4
+          |vpiTypespec:
+          \_logic_typespec: (PRESENT_SBOX4), line:2, parent:work@dut.PRESENT_SBOX4
+            |vpiName:PRESENT_SBOX4
+            |vpiRange:
+            \_range: , line:2
+              |vpiLeftRange:
+              \_constant: , line:2
+                |vpiConstType:9
+                |vpiDecompile:15
+                |vpiSize:64
+                |UINT:15
+              |vpiRightRange:
+              \_constant: , line:2
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+            |vpiRange:
+            \_range: , line:2
+              |vpiLeftRange:
+              \_constant: , line:2
+                |vpiConstType:9
+                |vpiDecompile:3
+                |vpiSize:64
+                |UINT:3
+              |vpiRightRange:
+              \_constant: , line:2
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+      |vpiParameter:
+      \_parameter: (work@dut.PRESENT_SBOX4), line:2, parent:work@dut
     |vpiIODecl:
     \_io_decl: (state_in), parent:work@dut.sbox4_64bit
       |vpiName:state_in

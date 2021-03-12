@@ -533,6 +533,8 @@ design: (work@flash_ctrl_info_cfg)
     |vpiFullName:flash_ctrl_pkg::max_info_pages
     |vpiReturn:
     \_int_var: , line:35
+    |vpiInstance:
+    \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
     |vpiIODecl:
     \_io_decl: (infos)
       |vpiName:infos
@@ -693,33 +695,6 @@ design: (work@flash_ctrl_info_cfg)
 \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:48: , parent:work@flash_ctrl_info_cfg
   |vpiDefName:otp_ctrl_pkg
   |vpiName:otp_ctrl_pkg
-  |vpiTypedef:
-  \_import: (prim_util_pkg)
-  |vpiParamAssign:
-  \_param_assign: , line:54, parent:otp_ctrl_pkg
-    |vpiRhs:
-    \_func_call: (vbits), line:54
-      |vpiName:vbits
-      |vpiFunction:
-      \_function: (prim_util_pkg::vbits), line:15, parent:prim_util_pkg
-      |vpiArgument:
-      \_ref_obj: (InfosPerBank), line:54, parent:vbits
-        |vpiName:InfosPerBank
-    |vpiLhs:
-    \_parameter: (otp_ctrl_pkg::NumPartWidth), line:54, parent:otp_ctrl_pkg
-      |vpiName:NumPartWidth
-      |vpiFullName:otp_ctrl_pkg::NumPartWidth
-      |vpiTypespec:
-      \_int_typespec: (NumPartWidth), line:54, parent:otp_ctrl_pkg::NumPartWidth
-        |vpiName:NumPartWidth
-        |vpiInstance:
-        \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:48: , parent:work@flash_ctrl_info_cfg
-  |vpiParameter:
-  \_parameter: (otp_ctrl_pkg::NumPartWidth), line:54, parent:otp_ctrl_pkg
-|uhdmallPackages:
-\_package: prim_util_pkg (prim_util_pkg) dut.sv:2: , parent:work@flash_ctrl_info_cfg
-  |vpiDefName:prim_util_pkg
-  |vpiName:prim_util_pkg
   |vpiTaskFunc:
   \_function: (prim_util_pkg::_clog2), line:6, parent:prim_util_pkg
     |vpiVisibility:1
@@ -728,6 +703,62 @@ design: (work@flash_ctrl_info_cfg)
     |vpiFullName:prim_util_pkg::_clog2
     |vpiReturn:
     \_int_var: , line:6
+    |vpiInstance:
+    \_package: prim_util_pkg (prim_util_pkg) dut.sv:2: , parent:work@flash_ctrl_info_cfg
+      |vpiDefName:prim_util_pkg
+      |vpiName:prim_util_pkg
+      |vpiTaskFunc:
+      \_function: (prim_util_pkg::_clog2), line:6, parent:prim_util_pkg
+      |vpiTaskFunc:
+      \_function: (prim_util_pkg::vbits), line:15, parent:prim_util_pkg
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiName:vbits
+        |vpiFullName:prim_util_pkg::vbits
+        |vpiReturn:
+        \_int_var: , line:15
+        |vpiInstance:
+        \_package: prim_util_pkg (prim_util_pkg) dut.sv:2: , parent:work@flash_ctrl_info_cfg
+        |vpiIODecl:
+        \_io_decl: (value)
+          |vpiName:value
+          |vpiDirection:1
+          |vpiExpr:
+          \_int_var: (value), line:15, parent:value
+            |vpiFullName:value
+        |vpiStmt:
+        \_return_stmt: , line:17, parent:prim_util_pkg::vbits
+          |vpiCondition:
+          \_operation: , line:17
+            |vpiOpType:32
+            |vpiOperand:
+            \_operation: , line:17
+              |vpiOpType:14
+              |vpiOperand:
+              \_ref_obj: (prim_util_pkg::vbits::value), line:17
+                |vpiName:value
+                |vpiFullName:prim_util_pkg::vbits::value
+              |vpiOperand:
+              \_constant: , line:17
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+            |vpiOperand:
+            \_constant: , line:17
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
+            |vpiOperand:
+            \_func_call: (prim_util_pkg::_clog2), line:17
+              |vpiName:prim_util_pkg::_clog2
+              |vpiFunction:
+              \_function: (prim_util_pkg::_clog2), line:6, parent:prim_util_pkg
+              |vpiArgument:
+              \_ref_obj: (prim_util_pkg::vbits::value), line:17, parent:prim_util_pkg::_clog2
+                |vpiName:value
+                |vpiFullName:prim_util_pkg::vbits::value
     |vpiIODecl:
     \_io_decl: (value)
       |vpiName:value
@@ -848,52 +879,31 @@ design: (work@flash_ctrl_info_cfg)
       |vpiFullName:prim_util_pkg::_clog2::result
   |vpiTaskFunc:
   \_function: (prim_util_pkg::vbits), line:15, parent:prim_util_pkg
-    |vpiVisibility:1
-    |vpiAutomatic:1
-    |vpiName:vbits
-    |vpiFullName:prim_util_pkg::vbits
-    |vpiReturn:
-    \_int_var: , line:15
-    |vpiIODecl:
-    \_io_decl: (value)
-      |vpiName:value
-      |vpiDirection:1
-      |vpiExpr:
-      \_int_var: (value), line:15, parent:value
-        |vpiFullName:value
-    |vpiStmt:
-    \_return_stmt: , line:17, parent:prim_util_pkg::vbits
-      |vpiCondition:
-      \_operation: , line:17
-        |vpiOpType:32
-        |vpiOperand:
-        \_operation: , line:17
-          |vpiOpType:14
-          |vpiOperand:
-          \_ref_obj: (prim_util_pkg::vbits::value), line:17
-            |vpiName:value
-            |vpiFullName:prim_util_pkg::vbits::value
-          |vpiOperand:
-          \_constant: , line:17
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiOperand:
-        \_constant: , line:17
-          |vpiConstType:9
-          |vpiDecompile:1
-          |vpiSize:64
-          |UINT:1
-        |vpiOperand:
-        \_func_call: (prim_util_pkg::_clog2), line:17
-          |vpiName:prim_util_pkg::_clog2
-          |vpiFunction:
-          \_function: (prim_util_pkg::_clog2), line:6, parent:prim_util_pkg
-          |vpiArgument:
-          \_ref_obj: (prim_util_pkg::vbits::value), line:17, parent:prim_util_pkg::_clog2
-            |vpiName:value
-            |vpiFullName:prim_util_pkg::vbits::value
+  |vpiTypedef:
+  \_import: (prim_util_pkg)
+  |vpiParamAssign:
+  \_param_assign: , line:54, parent:otp_ctrl_pkg
+    |vpiRhs:
+    \_func_call: (vbits), line:54
+      |vpiName:vbits
+      |vpiFunction:
+      \_function: (prim_util_pkg::vbits), line:15, parent:prim_util_pkg
+      |vpiArgument:
+      \_ref_obj: (InfosPerBank), line:54, parent:vbits
+        |vpiName:InfosPerBank
+    |vpiLhs:
+    \_parameter: (otp_ctrl_pkg::NumPartWidth), line:54, parent:otp_ctrl_pkg
+      |vpiName:NumPartWidth
+      |vpiFullName:otp_ctrl_pkg::NumPartWidth
+      |vpiTypespec:
+      \_int_typespec: (NumPartWidth), line:54, parent:otp_ctrl_pkg::NumPartWidth
+        |vpiName:NumPartWidth
+        |vpiInstance:
+        \_package: otp_ctrl_pkg (otp_ctrl_pkg) dut.sv:48: , parent:work@flash_ctrl_info_cfg
+  |vpiParameter:
+  \_parameter: (otp_ctrl_pkg::NumPartWidth), line:54, parent:otp_ctrl_pkg
+|uhdmallPackages:
+\_package: prim_util_pkg (prim_util_pkg) dut.sv:2: , parent:work@flash_ctrl_info_cfg
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@flash_ctrl_info_cfg
   |vpiName:work@mailbox
@@ -1154,6 +1164,176 @@ design: (work@flash_ctrl_info_cfg)
 \_module: work@flash_ctrl_info_cfg (work@flash_ctrl_info_cfg) dut.sv:59: , parent:work@flash_ctrl_info_cfg
   |vpiDefName:work@flash_ctrl_info_cfg
   |vpiFullName:work@flash_ctrl_info_cfg
+  |vpiTaskFunc:
+  \_function: (flash_ctrl_pkg::max_info_pages), line:35, parent:flash_ctrl_pkg
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:max_info_pages
+    |vpiFullName:flash_ctrl_pkg::max_info_pages
+    |vpiReturn:
+    \_int_var: , line:35
+    |vpiInstance:
+    \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiDefName:flash_ctrl_pkg
+      |vpiName:flash_ctrl_pkg
+      |vpiTaskFunc:
+      \_function: (flash_ctrl_pkg::max_info_pages), line:35, parent:flash_ctrl_pkg
+      |vpiParamAssign:
+      \_param_assign: , line:26, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: , line:26
+          |vpiConstType:9
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
+          |vpiName:InfoTypes
+          |vpiFullName:flash_ctrl_pkg::InfoTypes
+          |vpiTypespec:
+          \_int_typespec: (InfoTypes), line:26, parent:flash_ctrl_pkg::InfoTypes
+            |vpiName:InfoTypes
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParamAssign:
+      \_param_assign: , line:27, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |vpiDecompile:10
+          |vpiSize:32
+          |INT:10
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
+          |vpiName:InfosPerBank
+          |vpiFullName:flash_ctrl_pkg::InfosPerBank
+          |vpiTypespec:
+          \_int_typespec: (InfosPerBank), line:27, parent:flash_ctrl_pkg::InfosPerBank
+            |vpiName:InfosPerBank
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParamAssign:
+      \_param_assign: , line:33, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |vpiDecompile:4
+          |vpiSize:32
+          |INT:4
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
+          |vpiName:InfoPageW
+          |vpiFullName:flash_ctrl_pkg::InfoPageW
+          |vpiTypespec:
+          \_int_typespec: (InfoPageW), line:33, parent:flash_ctrl_pkg::InfoPageW
+            |vpiName:InfoPageW
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
+    |vpiIODecl:
+    \_io_decl: (infos)
+      |vpiName:infos
+      |vpiDirection:1
+      |vpiExpr:
+      \_int_var: (infos), line:35, parent:infos
+        |vpiFullName:infos
+    |vpiStmt:
+    \_begin: (flash_ctrl_pkg::max_info_pages), parent:flash_ctrl_pkg::max_info_pages
+      |vpiFullName:flash_ctrl_pkg::max_info_pages
+      |vpiStmt:
+      \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
+        |vpiRhs:
+        \_constant: , line:36
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+        |vpiLhs:
+        \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36
+          |vpiName:current_max
+          |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+      |vpiStmt:
+      \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
+        |vpiFullName:flash_ctrl_pkg::max_info_pages
+        |vpiCondition:
+        \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:37
+            |vpiName:i
+            |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+          |vpiOperand:
+          \_ref_obj: (flash_ctrl_pkg::max_info_pages::InfoTypes), line:37
+            |vpiName:InfoTypes
+            |vpiFullName:flash_ctrl_pkg::max_info_pages::InfoTypes
+        |vpiForInitStmt:
+        \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
+          |vpiRhs:
+          \_constant: , line:37
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+          |vpiLhs:
+          \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37
+            |vpiName:i
+            |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+        |vpiForIncStmt:
+        \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
+          |vpiOpType:62
+          |vpiOperand:
+          \_ref_obj: (i), line:37
+            |vpiName:i
+        |vpiStmt:
+        \_begin: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
+          |vpiFullName:flash_ctrl_pkg::max_info_pages
+          |vpiStmt:
+          \_if_stmt: , line:38, parent:flash_ctrl_pkg::max_info_pages
+            |vpiCondition:
+            \_operation: , line:38
+              |vpiOpType:18
+              |vpiOperand:
+              \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:38
+                |vpiName:infos
+                |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
+                |vpiIndex:
+                \_ref_obj: (flash_ctrl_pkg::max_info_pages::infos::i), line:38, parent:flash_ctrl_pkg::max_info_pages::infos
+                  |vpiName:i
+                  |vpiFullName:flash_ctrl_pkg::max_info_pages::infos::i
+              |vpiOperand:
+              \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:38
+                |vpiName:current_max
+                |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+            |vpiStmt:
+            \_begin: (flash_ctrl_pkg::max_info_pages), line:38
+              |vpiFullName:flash_ctrl_pkg::max_info_pages
+              |vpiStmt:
+              \_assignment: , line:39, parent:flash_ctrl_pkg::max_info_pages
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:39, parent:flash_ctrl_pkg::max_info_pages
+                  |vpiName:current_max
+                  |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+                |vpiRhs:
+                \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:39
+                  |vpiName:infos
+                  |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
+                  |vpiIndex:
+                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:39, parent:flash_ctrl_pkg::max_info_pages
+                    |vpiName:i
+                    |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+      |vpiStmt:
+      \_return_stmt: , line:42, parent:flash_ctrl_pkg::max_info_pages
+        |vpiCondition:
+        \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:42
+          |vpiName:current_max
+          |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
   |vpiNet:
   \_logic_net: (work@flash_ctrl_info_cfg.CurPage), line:61, parent:work@flash_ctrl_info_cfg
     |vpiName:CurPage
@@ -1176,172 +1356,6 @@ design: (work@flash_ctrl_info_cfg)
         |vpiName:InfoTypes
         |vpiInstance:
         \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiDefName:flash_ctrl_pkg
-          |vpiName:flash_ctrl_pkg
-          |vpiTaskFunc:
-          \_function: (flash_ctrl_pkg::max_info_pages), line:35, parent:flash_ctrl_pkg
-            |vpiVisibility:1
-            |vpiAutomatic:1
-            |vpiName:max_info_pages
-            |vpiFullName:flash_ctrl_pkg::max_info_pages
-            |vpiReturn:
-            \_int_var: , line:35
-            |vpiIODecl:
-            \_io_decl: (infos)
-              |vpiName:infos
-              |vpiDirection:1
-              |vpiExpr:
-              \_int_var: (infos), line:35, parent:infos
-                |vpiFullName:infos
-            |vpiStmt:
-            \_begin: (flash_ctrl_pkg::max_info_pages), parent:flash_ctrl_pkg::max_info_pages
-              |vpiFullName:flash_ctrl_pkg::max_info_pages
-              |vpiStmt:
-              \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
-                |vpiRhs:
-                \_constant: , line:36
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                |vpiLhs:
-                \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36
-                  |vpiName:current_max
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-              |vpiStmt:
-              \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
-                |vpiFullName:flash_ctrl_pkg::max_info_pages
-                |vpiCondition:
-                \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiOpType:20
-                  |vpiOperand:
-                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:37
-                    |vpiName:i
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-                  |vpiOperand:
-                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::InfoTypes), line:37
-                    |vpiName:InfoTypes
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::InfoTypes
-                |vpiForInitStmt:
-                \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
-                  |vpiRhs:
-                  \_constant: , line:37
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                  |vpiLhs:
-                  \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37
-                    |vpiName:i
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-                |vpiForIncStmt:
-                \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiOpType:62
-                  |vpiOperand:
-                  \_ref_obj: (i), line:37
-                    |vpiName:i
-                |vpiStmt:
-                \_begin: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages
-                  |vpiStmt:
-                  \_if_stmt: , line:38, parent:flash_ctrl_pkg::max_info_pages
-                    |vpiCondition:
-                    \_operation: , line:38
-                      |vpiOpType:18
-                      |vpiOperand:
-                      \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:38
-                        |vpiName:infos
-                        |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
-                        |vpiIndex:
-                        \_ref_obj: (flash_ctrl_pkg::max_info_pages::infos::i), line:38, parent:flash_ctrl_pkg::max_info_pages::infos
-                          |vpiName:i
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::infos::i
-                      |vpiOperand:
-                      \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:38
-                        |vpiName:current_max
-                        |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-                    |vpiStmt:
-                    \_begin: (flash_ctrl_pkg::max_info_pages), line:38
-                      |vpiFullName:flash_ctrl_pkg::max_info_pages
-                      |vpiStmt:
-                      \_assignment: , line:39, parent:flash_ctrl_pkg::max_info_pages
-                        |vpiOpType:82
-                        |vpiBlocking:1
-                        |vpiLhs:
-                        \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:39, parent:flash_ctrl_pkg::max_info_pages
-                          |vpiName:current_max
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-                        |vpiRhs:
-                        \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:39
-                          |vpiName:infos
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
-                          |vpiIndex:
-                          \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:39, parent:flash_ctrl_pkg::max_info_pages
-                            |vpiName:i
-                            |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-              |vpiStmt:
-              \_return_stmt: , line:42, parent:flash_ctrl_pkg::max_info_pages
-                |vpiCondition:
-                \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:42
-                  |vpiName:current_max
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-          |vpiParamAssign:
-          \_param_assign: , line:26, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: , line:26
-              |vpiConstType:9
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
-              |vpiName:InfoTypes
-              |vpiFullName:flash_ctrl_pkg::InfoTypes
-              |vpiTypespec:
-              \_int_typespec: (InfoTypes), line:26, parent:flash_ctrl_pkg::InfoTypes
-                |vpiName:InfoTypes
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParamAssign:
-          \_param_assign: , line:27, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: 
-              |vpiConstType:7
-              |vpiDecompile:10
-              |vpiSize:32
-              |INT:10
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
-              |vpiName:InfosPerBank
-              |vpiFullName:flash_ctrl_pkg::InfosPerBank
-              |vpiTypespec:
-              \_int_typespec: (InfosPerBank), line:27, parent:flash_ctrl_pkg::InfosPerBank
-                |vpiName:InfosPerBank
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParamAssign:
-          \_param_assign: , line:33, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: 
-              |vpiConstType:7
-              |vpiDecompile:4
-              |vpiSize:32
-              |INT:4
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
-              |vpiName:InfoPageW
-              |vpiFullName:flash_ctrl_pkg::InfoPageW
-              |vpiTypespec:
-              \_int_typespec: (InfoPageW), line:33, parent:flash_ctrl_pkg::InfoPageW
-                |vpiName:InfoPageW
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
   |vpiParamAssign:
   \_param_assign: , line:27, parent:work@flash_ctrl_info_cfg
     |vpiRhs:
@@ -1410,6 +1424,295 @@ design: (work@flash_ctrl_info_cfg)
 \_module: work@flash_ctrl_info_cfg (work@flash_ctrl_info_cfg) dut.sv:59: 
   |vpiDefName:work@flash_ctrl_info_cfg
   |vpiName:work@flash_ctrl_info_cfg
+  |vpiTaskFunc:
+  \_function: (work@flash_ctrl_info_cfg.max_info_pages), line:35, parent:work@flash_ctrl_info_cfg
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:max_info_pages
+    |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
+    |vpiReturn:
+    \_int_var: , line:35
+    |vpiInstance:
+    \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiDefName:flash_ctrl_pkg
+      |vpiName:flash_ctrl_pkg
+      |vpiTaskFunc:
+      \_function: (flash_ctrl_pkg::max_info_pages), line:35, parent:flash_ctrl_pkg
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiName:max_info_pages
+        |vpiFullName:flash_ctrl_pkg::max_info_pages
+        |vpiReturn:
+        \_int_var: , line:35
+        |vpiInstance:
+        \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+        |vpiIODecl:
+        \_io_decl: (infos)
+          |vpiName:infos
+          |vpiDirection:1
+          |vpiExpr:
+          \_int_var: (infos), line:35, parent:infos
+            |vpiFullName:infos
+        |vpiStmt:
+        \_begin: (flash_ctrl_pkg::max_info_pages), parent:flash_ctrl_pkg::max_info_pages
+          |vpiFullName:flash_ctrl_pkg::max_info_pages
+          |vpiStmt:
+          \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
+            |vpiRhs:
+            \_constant: , line:36
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+            |vpiLhs:
+            \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36
+              |vpiName:current_max
+              |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+          |vpiStmt:
+          \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
+            |vpiFullName:flash_ctrl_pkg::max_info_pages
+            |vpiCondition:
+            \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
+              |vpiOpType:20
+              |vpiOperand:
+              \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:37
+                |vpiName:i
+                |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+              |vpiOperand:
+              \_ref_obj: (flash_ctrl_pkg::max_info_pages::InfoTypes), line:37
+                |vpiName:InfoTypes
+                |vpiFullName:flash_ctrl_pkg::max_info_pages::InfoTypes
+            |vpiForInitStmt:
+            \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
+              |vpiRhs:
+              \_constant: , line:37
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+              |vpiLhs:
+              \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37
+                |vpiName:i
+                |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+            |vpiForIncStmt:
+            \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
+              |vpiOpType:62
+              |vpiOperand:
+              \_ref_obj: (i), line:37
+                |vpiName:i
+            |vpiStmt:
+            \_begin: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
+              |vpiFullName:flash_ctrl_pkg::max_info_pages
+              |vpiStmt:
+              \_if_stmt: , line:38, parent:flash_ctrl_pkg::max_info_pages
+                |vpiCondition:
+                \_operation: , line:38
+                  |vpiOpType:18
+                  |vpiOperand:
+                  \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:38
+                    |vpiName:infos
+                    |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
+                    |vpiIndex:
+                    \_ref_obj: (flash_ctrl_pkg::max_info_pages::infos::i), line:38, parent:flash_ctrl_pkg::max_info_pages::infos
+                      |vpiName:i
+                      |vpiFullName:flash_ctrl_pkg::max_info_pages::infos::i
+                  |vpiOperand:
+                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:38
+                    |vpiName:current_max
+                    |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+                |vpiStmt:
+                \_begin: (flash_ctrl_pkg::max_info_pages), line:38
+                  |vpiFullName:flash_ctrl_pkg::max_info_pages
+                  |vpiStmt:
+                  \_assignment: , line:39, parent:flash_ctrl_pkg::max_info_pages
+                    |vpiOpType:82
+                    |vpiBlocking:1
+                    |vpiLhs:
+                    \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:39, parent:flash_ctrl_pkg::max_info_pages
+                      |vpiName:current_max
+                      |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+                    |vpiRhs:
+                    \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:39
+                      |vpiName:infos
+                      |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
+                      |vpiIndex:
+                      \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:39, parent:flash_ctrl_pkg::max_info_pages
+                        |vpiName:i
+                        |vpiFullName:flash_ctrl_pkg::max_info_pages::i
+          |vpiStmt:
+          \_return_stmt: , line:42, parent:flash_ctrl_pkg::max_info_pages
+            |vpiCondition:
+            \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:42
+              |vpiName:current_max
+              |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
+      |vpiParamAssign:
+      \_param_assign: , line:26, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: , line:26
+          |vpiConstType:9
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
+          |vpiName:InfoTypes
+          |vpiFullName:flash_ctrl_pkg::InfoTypes
+          |vpiTypespec:
+          \_int_typespec: (InfoTypes), line:26, parent:flash_ctrl_pkg::InfoTypes
+            |vpiName:InfoTypes
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParamAssign:
+      \_param_assign: , line:27, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |vpiDecompile:10
+          |vpiSize:32
+          |INT:10
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
+          |vpiName:InfosPerBank
+          |vpiFullName:flash_ctrl_pkg::InfosPerBank
+          |vpiTypespec:
+          \_int_typespec: (InfosPerBank), line:27, parent:flash_ctrl_pkg::InfosPerBank
+            |vpiName:InfosPerBank
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParamAssign:
+      \_param_assign: , line:33, parent:flash_ctrl_pkg
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |vpiDecompile:4
+          |vpiSize:32
+          |INT:4
+        |vpiLhs:
+        \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
+          |vpiName:InfoPageW
+          |vpiFullName:flash_ctrl_pkg::InfoPageW
+          |vpiTypespec:
+          \_int_typespec: (InfoPageW), line:33, parent:flash_ctrl_pkg::InfoPageW
+            |vpiName:InfoPageW
+            |vpiInstance:
+            \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
+      |vpiParameter:
+      \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
+    |vpiIODecl:
+    \_io_decl: (infos), parent:work@flash_ctrl_info_cfg.max_info_pages
+      |vpiName:infos
+      |vpiDirection:1
+      |vpiExpr:
+      \_int_var: (work@flash_ctrl_info_cfg.max_info_pages.infos), line:35, parent:infos
+        |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.infos
+    |vpiStmt:
+    \_begin: (work@flash_ctrl_info_cfg.max_info_pages), parent:work@flash_ctrl_info_cfg.max_info_pages
+      |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
+      |vpiStmt:
+      \_assign_stmt: , parent:work@flash_ctrl_info_cfg.max_info_pages
+        |vpiRhs:
+        \_constant: , line:36
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+        |vpiLhs:
+        \_int_var: (work@flash_ctrl_info_cfg.max_info_pages.current_max), line:36
+          |vpiName:current_max
+          |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.current_max
+      |vpiStmt:
+      \_for_stmt: (work@flash_ctrl_info_cfg.max_info_pages), line:37, parent:work@flash_ctrl_info_cfg.max_info_pages
+        |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
+        |vpiCondition:
+        \_operation: , line:37, parent:work@flash_ctrl_info_cfg.max_info_pages
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.i), line:37
+            |vpiName:i
+            |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.i
+          |vpiOperand:
+          \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.InfoTypes), line:37
+            |vpiName:InfoTypes
+            |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.InfoTypes
+            |vpiActual:
+            \_parameter: (work@flash_ctrl_info_cfg.InfoTypes), line:26, parent:work@flash_ctrl_info_cfg
+              |vpiName:InfoTypes
+              |vpiFullName:work@flash_ctrl_info_cfg.InfoTypes
+              |vpiImported:flash_ctrl_pkg
+              |UINT:3
+              |vpiTypespec:
+              \_int_typespec: (InfoTypes), line:26, parent:work@flash_ctrl_info_cfg.InfoTypes
+                |vpiName:InfoTypes
+                |vpiInstance:
+                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
+        |vpiForInitStmt:
+        \_assign_stmt: , parent:work@flash_ctrl_info_cfg.max_info_pages
+          |vpiRhs:
+          \_constant: , line:37
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+          |vpiLhs:
+          \_int_var: (work@flash_ctrl_info_cfg.max_info_pages.i), line:37
+            |vpiName:i
+            |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.i
+        |vpiForIncStmt:
+        \_operation: , line:37, parent:work@flash_ctrl_info_cfg.max_info_pages
+          |vpiOpType:62
+          |vpiOperand:
+          \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.i), line:37
+            |vpiName:i
+            |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.i
+        |vpiStmt:
+        \_begin: (work@flash_ctrl_info_cfg.max_info_pages), line:37, parent:work@flash_ctrl_info_cfg.max_info_pages
+          |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
+          |vpiStmt:
+          \_if_stmt: , line:38, parent:work@flash_ctrl_info_cfg.max_info_pages
+            |vpiCondition:
+            \_operation: , line:38
+              |vpiOpType:18
+              |vpiOperand:
+              \_bit_select: (work@flash_ctrl_info_cfg.max_info_pages.infos), line:38
+                |vpiName:infos
+                |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.infos
+                |vpiIndex:
+                \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.infos.i), line:38, parent:work@flash_ctrl_info_cfg.max_info_pages.infos
+                  |vpiName:i
+                  |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.infos.i
+              |vpiOperand:
+              \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.current_max), line:38
+                |vpiName:current_max
+                |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.current_max
+            |vpiStmt:
+            \_begin: (work@flash_ctrl_info_cfg.max_info_pages), line:38
+              |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages
+              |vpiStmt:
+              \_assignment: , line:39, parent:work@flash_ctrl_info_cfg.max_info_pages
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.current_max), line:39
+                  |vpiName:current_max
+                  |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.current_max
+                |vpiRhs:
+                \_bit_select: (work@flash_ctrl_info_cfg.max_info_pages.infos), line:39
+                  |vpiName:infos
+                  |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.infos
+                  |vpiIndex:
+                  \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.infos.i), line:39, parent:work@flash_ctrl_info_cfg.max_info_pages.infos
+                    |vpiName:i
+                    |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.infos.i
+      |vpiStmt:
+      \_return_stmt: , line:42, parent:work@flash_ctrl_info_cfg.max_info_pages
+        |vpiCondition:
+        \_ref_obj: (work@flash_ctrl_info_cfg.max_info_pages.current_max), line:42
+          |vpiName:current_max
+          |vpiFullName:work@flash_ctrl_info_cfg.max_info_pages.current_max
   |vpiNet:
   \_logic_net: (work@flash_ctrl_info_cfg.CurPage), line:61, parent:work@flash_ctrl_info_cfg
     |vpiName:CurPage
@@ -1439,181 +1742,6 @@ design: (work@flash_ctrl_info_cfg)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@flash_ctrl_info_cfg.InfoTypes), line:26, parent:work@flash_ctrl_info_cfg
-      |vpiName:InfoTypes
-      |vpiFullName:work@flash_ctrl_info_cfg.InfoTypes
-      |vpiImported:flash_ctrl_pkg
-      |UINT:3
-      |vpiTypespec:
-      \_int_typespec: (InfoTypes), line:26, parent:work@flash_ctrl_info_cfg.InfoTypes
-        |vpiName:InfoTypes
-        |vpiInstance:
-        \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiDefName:flash_ctrl_pkg
-          |vpiName:flash_ctrl_pkg
-          |vpiTaskFunc:
-          \_function: (flash_ctrl_pkg::max_info_pages), line:35, parent:flash_ctrl_pkg
-            |vpiVisibility:1
-            |vpiAutomatic:1
-            |vpiName:max_info_pages
-            |vpiFullName:flash_ctrl_pkg::max_info_pages
-            |vpiReturn:
-            \_int_var: , line:35
-            |vpiIODecl:
-            \_io_decl: (infos)
-              |vpiName:infos
-              |vpiDirection:1
-              |vpiExpr:
-              \_int_var: (infos), line:35, parent:infos
-                |vpiFullName:infos
-            |vpiStmt:
-            \_begin: (flash_ctrl_pkg::max_info_pages), parent:flash_ctrl_pkg::max_info_pages
-              |vpiFullName:flash_ctrl_pkg::max_info_pages
-              |vpiStmt:
-              \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
-                |vpiRhs:
-                \_constant: , line:36
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-                |vpiLhs:
-                \_int_var: (flash_ctrl_pkg::max_info_pages::current_max), line:36
-                  |vpiName:current_max
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-              |vpiStmt:
-              \_for_stmt: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
-                |vpiFullName:flash_ctrl_pkg::max_info_pages
-                |vpiCondition:
-                \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiOpType:20
-                  |vpiOperand:
-                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:37
-                    |vpiName:i
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-                  |vpiOperand:
-                  \_ref_obj: (flash_ctrl_pkg::max_info_pages::InfoTypes), line:37
-                    |vpiName:InfoTypes
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::InfoTypes
-                |vpiForInitStmt:
-                \_assign_stmt: , parent:flash_ctrl_pkg::max_info_pages
-                  |vpiRhs:
-                  \_constant: , line:37
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                  |vpiLhs:
-                  \_int_var: (flash_ctrl_pkg::max_info_pages::i), line:37
-                    |vpiName:i
-                    |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-                |vpiForIncStmt:
-                \_operation: , line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiOpType:62
-                  |vpiOperand:
-                  \_ref_obj: (i), line:37
-                    |vpiName:i
-                |vpiStmt:
-                \_begin: (flash_ctrl_pkg::max_info_pages), line:37, parent:flash_ctrl_pkg::max_info_pages
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages
-                  |vpiStmt:
-                  \_if_stmt: , line:38, parent:flash_ctrl_pkg::max_info_pages
-                    |vpiCondition:
-                    \_operation: , line:38
-                      |vpiOpType:18
-                      |vpiOperand:
-                      \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:38
-                        |vpiName:infos
-                        |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
-                        |vpiIndex:
-                        \_ref_obj: (flash_ctrl_pkg::max_info_pages::infos::i), line:38, parent:flash_ctrl_pkg::max_info_pages::infos
-                          |vpiName:i
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::infos::i
-                      |vpiOperand:
-                      \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:38
-                        |vpiName:current_max
-                        |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-                    |vpiStmt:
-                    \_begin: (flash_ctrl_pkg::max_info_pages), line:38
-                      |vpiFullName:flash_ctrl_pkg::max_info_pages
-                      |vpiStmt:
-                      \_assignment: , line:39, parent:flash_ctrl_pkg::max_info_pages
-                        |vpiOpType:82
-                        |vpiBlocking:1
-                        |vpiLhs:
-                        \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:39, parent:flash_ctrl_pkg::max_info_pages
-                          |vpiName:current_max
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-                        |vpiRhs:
-                        \_bit_select: (flash_ctrl_pkg::max_info_pages::infos), line:39
-                          |vpiName:infos
-                          |vpiFullName:flash_ctrl_pkg::max_info_pages::infos
-                          |vpiIndex:
-                          \_ref_obj: (flash_ctrl_pkg::max_info_pages::i), line:39, parent:flash_ctrl_pkg::max_info_pages
-                            |vpiName:i
-                            |vpiFullName:flash_ctrl_pkg::max_info_pages::i
-              |vpiStmt:
-              \_return_stmt: , line:42, parent:flash_ctrl_pkg::max_info_pages
-                |vpiCondition:
-                \_ref_obj: (flash_ctrl_pkg::max_info_pages::current_max), line:42
-                  |vpiName:current_max
-                  |vpiFullName:flash_ctrl_pkg::max_info_pages::current_max
-          |vpiParamAssign:
-          \_param_assign: , line:26, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: , line:26
-              |vpiConstType:9
-              |vpiDecompile:3
-              |vpiSize:64
-              |UINT:3
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
-              |vpiName:InfoTypes
-              |vpiFullName:flash_ctrl_pkg::InfoTypes
-              |vpiTypespec:
-              \_int_typespec: (InfoTypes), line:26, parent:flash_ctrl_pkg::InfoTypes
-                |vpiName:InfoTypes
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParamAssign:
-          \_param_assign: , line:27, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: 
-              |vpiConstType:7
-              |vpiDecompile:10
-              |vpiSize:32
-              |INT:10
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
-              |vpiName:InfosPerBank
-              |vpiFullName:flash_ctrl_pkg::InfosPerBank
-              |vpiTypespec:
-              \_int_typespec: (InfosPerBank), line:27, parent:flash_ctrl_pkg::InfosPerBank
-                |vpiName:InfosPerBank
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParamAssign:
-          \_param_assign: , line:33, parent:flash_ctrl_pkg
-            |vpiRhs:
-            \_constant: 
-              |vpiConstType:7
-              |vpiDecompile:4
-              |vpiSize:32
-              |INT:4
-            |vpiLhs:
-            \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
-              |vpiName:InfoPageW
-              |vpiFullName:flash_ctrl_pkg::InfoPageW
-              |vpiTypespec:
-              \_int_typespec: (InfoPageW), line:33, parent:flash_ctrl_pkg::InfoPageW
-                |vpiName:InfoPageW
-                |vpiInstance:
-                \_package: flash_ctrl_pkg (flash_ctrl_pkg) dut.sv:24: , parent:work@flash_ctrl_info_cfg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfoTypes), line:26, parent:flash_ctrl_pkg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfosPerBank), line:27, parent:flash_ctrl_pkg
-          |vpiParameter:
-          \_parameter: (flash_ctrl_pkg::InfoPageW), line:33, parent:flash_ctrl_pkg
   |vpiParamAssign:
   \_param_assign: , line:27, parent:work@flash_ctrl_info_cfg
     |vpiRhs:

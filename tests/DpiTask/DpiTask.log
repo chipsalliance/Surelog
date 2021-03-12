@@ -370,6 +370,8 @@ design: (work@top)
     |vpiDPICStr:2
     |vpiName:task_1
     |vpiFullName:work@top.task_1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: , parent:work@top
     |vpiIODecl:
     \_io_decl: (ret)
       |vpiName:ret
@@ -404,6 +406,42 @@ design: (work@top)
     |vpiDPICStr:2
     |vpiName:task_1
     |vpiFullName:work@top.task_1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1: , parent:work@top
+      |vpiDefName:work@top
+      |vpiFullName:work@top
+      |vpiTaskFunc:
+      \_function: (work@top.task_1), line:4, parent:work@top
+        |vpiAccessType:3
+        |vpiVisibility:1
+        |vpiDPICStr:2
+        |vpiName:task_1
+        |vpiFullName:work@top.task_1
+        |vpiInstance:
+        \_module: work@top (work@top) dut.sv:1: , parent:work@top
+        |vpiIODecl:
+        \_io_decl: (ret)
+          |vpiName:ret
+          |vpiDirection:2
+          |vpiExpr:
+          \_int_var: (ret), line:4, parent:ret
+            |vpiFullName:ret
+        |vpiStmt:
+        \_assignment: , line:5, parent:work@top.task_1
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiLhs:
+          \_ref_obj: (work@top.task_1.ret), line:5, parent:work@top.task_1
+            |vpiName:ret
+            |vpiFullName:work@top.task_1.ret
+            |vpiActual:
+            \_io_decl: (ret)
+          |vpiRhs:
+          \_constant: , line:5
+            |vpiConstType:9
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
     |vpiIODecl:
     \_io_decl: (ret), parent:work@top.task_1
       |vpiName:ret
@@ -421,7 +459,6 @@ design: (work@top)
         |vpiFullName:work@top.task_1.ret
         |vpiActual:
         \_int_var: (ret), line:4, parent:ret
-          |vpiFullName:ret
       |vpiRhs:
       \_constant: , line:5
         |vpiConstType:9

@@ -153,6 +153,7 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       }
     }
 
+    // Values (from enum declarations...)
     auto& values = def->getMappedValues();
     for (auto& mvalue : values) {
       if (mvalue.second.first->isValid())
@@ -162,6 +163,26 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       scope->setComplexValue(cvalue.first, cvalue.second);
     }
 
+    // tasks/functions
+    VectorOftask_func* funcs = def->getTask_funcs();
+    if (funcs) {
+      VectorOftask_func* sfuncs = scope->getTask_funcs();
+      if (sfuncs == nullptr) {
+        sfuncs = s.MakeTask_funcVec();
+      }
+      for (auto& func : *funcs) {
+        bool duplicate = false;
+        for (auto& f : *sfuncs) {
+          if (f->VpiName() == func->VpiName()) {
+            duplicate = true;
+            break;
+          }
+        }
+        if (!duplicate)
+          sfuncs->push_back(func);
+      }
+      scope->setTask_funcs(sfuncs);
+    }
   } else {
     Location loc(m_symbols->registerSymbol(fC->getFileName(id)), fC->Line(id),
                  0, m_symbols->registerSymbol(pack_name));
