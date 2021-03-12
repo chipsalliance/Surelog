@@ -579,7 +579,8 @@ void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Se
     c->Task_funcs(classDef->getTask_funcs());
     if (c->Task_funcs()) {
       for (auto tf : *c->Task_funcs()) {
-        tf->VpiParent(c);
+        if (tf->VpiParent() == 0)
+          tf->VpiParent(c);
       }
     }
     // Parameters
@@ -686,6 +687,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
   if (p->Task_funcs()) {
     for (auto tf : *p->Task_funcs()) {
       tf->VpiParent(p);
+      tf->Instance(p);
     }
   }
 
@@ -777,7 +779,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
     for (auto tf : *m->Task_funcs()) {
-      tf->VpiParent(m);
+      if (tf->VpiParent() == 0)
+        tf->VpiParent(m);
+      if (tf->Instance() == 0)
+        tf->Instance(m);
     }
   }
 
@@ -862,7 +867,10 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
     for (auto tf : *m->Task_funcs()) {
-      tf->VpiParent(m);
+      if (tf->VpiParent() == 0)
+        tf->VpiParent(m);
+      if (tf->Instance() == 0)
+        tf->Instance(m);  
     }
   }
 
