@@ -1471,6 +1471,20 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             value = m_exprBuilder.evalExpr(parentFile, expr,
                                                 instance->getParent(), true);
           if (value == nullptr || (value && !value->isValid())) {
+            // DEBUG
+            bool extraInfo = false;
+            if (extraInfo) {
+              (UHDM::expr*)m_helper.compileExpression(
+                  (instance->getParent())
+                      ? instance->getParent()->getDefinition()
+                      : instance->getDefinition(),
+                  parentFile, expr, m_compileDesign, nullptr,
+                  instance->getParent(), true, false);
+
+              m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(),
+                                     true);
+            }
+
             const std::string& pname = parentFile->SymName(child);
             NodeId param_expression = parentFile->Sibling(child);
             NodeId data_type = parentFile->Child(param_expression);
