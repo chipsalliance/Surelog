@@ -130,7 +130,30 @@ std::string Design::reportInstanceTree() const {
       Error err(ErrorDefinition::ELAB_SCOPE_PATH, loc);
       m_errors->addError(err);
     }
+
     tree += type_s + " " + def + undef + " " + tmp->getFullPathName() + "\n";
+
+    bool extraInfo = false;
+    if (extraInfo) {
+      // Extra debug info:
+      if (tmp) {
+        ModuleInstance* inst = dynamic_cast<ModuleInstance*>(tmp);
+        if (inst) {
+          for (auto ps : inst->getMappedValues()) {
+            const std::string& name = ps.first;
+            Value* val = ps.second.first;
+            tree += std::string("    " + name + " = " + val->uhdmValue() +
+                                     "\n");
+          }
+          for (auto ps : inst->getComplexValues()) {
+            const std::string& name = ps.first;
+            tree += std::string("    " + name + " = " + "complex" +
+                                     "\n");
+          }
+        }
+      }
+    }
+
   }
 
   return tree;
