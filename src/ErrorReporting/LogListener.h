@@ -37,7 +37,7 @@ namespace SURELOG {
 // the listener is initialized.
 class LogListener {
  private:
-  static constexpr int DEFAULT_MAX_QUEUED_MESSAGE_COUNT = 100;
+  static constexpr unsigned int DEFAULT_MAX_QUEUED_MESSAGE_COUNT = 100;
 
  public:
   enum class LogResult {
@@ -79,7 +79,7 @@ class LogListener {
   mutable std::mutex mutex;
   std::deque<std::string> queued;
   int droppedCount = 0;
-  int maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
+  unsigned int maxQueuedMessageCount = DEFAULT_MAX_QUEUED_MESSAGE_COUNT;
 
  private:
   LogListener(const LogListener&) = delete;
