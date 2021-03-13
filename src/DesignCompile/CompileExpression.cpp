@@ -763,7 +763,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               bool val2Invalid = false;
               int64_t val2 =
                   get_value(val2Invalid, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              invalidValue = val1Invalid || val2Invalid;    
+              invalidValue = val1Invalid || val2Invalid;
+              /*  This error should be 100% covered in errorOnNegativeConstant  
               if (val2 > val1) {
                 ErrorContainer* errors =
                     compileDesign->getCompiler()->getErrorContainer();
@@ -778,6 +779,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 } else if (component) {
                   instanceName = component->getName();
                 }
+                
                 if ((!muteErrors) && (!val1Invalid)) { // mute for complex values that might become simple values later when scheduled 
                   std::string value = "\n";
                   value += "             v1:" + std::to_string(val1) + " - v2:" + std::to_string(val2)+ "\n";
@@ -792,7 +794,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                     vpiHandle dh =
                         s.MakeUhdmHandle(operands[0]->UhdmType(), operands[0]);
                     std::stringstream out;
-                    visit_object(dh, 14 /* column */, "v1", &visited, out);
+                    visit_object(dh, 14, "v1", &visited, out);
                     value += out.str();
                     std::cout << std::string(out.str()) + "\n";
                   }
@@ -803,7 +805,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                       ModuleInstance* inst =
                               dynamic_cast<ModuleInstance*>(instance);
                       while (inst) {
-                        std::cout << "Instance:" << inst->getFullPathName() << " mod: " << inst->getModuleName() << "\n";
+                        std::cout << "Instance:" << inst->getFullPathName() << " " << inst->getFileName() << "\n";
+                        std::cout << "Mod: " << inst->getModuleName() << " " << component->getFileContents()[0]->getFileName() << "\n";
+
                         for (auto ps : inst->getMappedValues()) {
                           const std::string& name = ps.first;
                           Value* val = ps.second.first;
@@ -819,7 +823,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                           const std::string& name = ps.first;
                           std::cout << std::string("    " + name + " = " + std::to_string(val1)  + " (" + std::to_string(inv) + ")" + "\n");
                         }
-
+                        if (inst->getNetlist() && inst->getNetlist()->param_assigns()) {
+                          for (auto ps : *inst->getNetlist()->param_assigns()) {
+                            std::cout << ps->Lhs()->VpiName() << " = " << "\n";
+                            decompile((any*) ps->Rhs());
+                          }
+                        }
                         inst = inst->getParent();
                       }
                     }
@@ -829,8 +838,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                                symbols->registerSymbol(message));
                   Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
                   errors->addError(err);
-                }
+                }               
               }
+              */
               int64_t val = val1 - val2;
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("INT:" + std::to_string(val));
@@ -1025,16 +1035,31 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiConditionOp: {
             if (operands.size() == 3) {
-              int64_t val =
-                  get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors))
-                      ? get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors))
-                      : get_value(invalidValue, reduceExpr(operands[2], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiIntConst);
-              result = c;
+              bool localInvalidValue = false;
+              expr* cond = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              int64_t condVal = get_value(invalidValue, cond);
+              int64_t val = 0;
+              expr* the_val = nullptr;
+              if (condVal) {
+                the_val = reduceExpr(operands[1], localInvalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              } else {
+                the_val = reduceExpr(operands[2], localInvalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              }
+              if (localInvalidValue == false) {
+                val = get_value(localInvalidValue, the_val);
+                if (localInvalidValue == false) {
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("INT:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiIntConst);
+                  result = c;
+                } else {
+                  result = the_val;
+                }
+              } else {
+                result = the_val;
+              }
             }
             break;
           }
@@ -1523,6 +1548,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               } else {
                 invalidValue = true;
               }
+            } else if (opType == vpiConditionOp) {
+              int setBreakpointHere = 1;
+              setBreakpointHere++;
             }
           }
         }
@@ -1788,18 +1816,25 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
   }
 
   if (result) {
-    if (result->UhdmType() == uhdmref_obj) {
+    UHDM_OBJECT_TYPE resultType = result->UhdmType();
+    if (resultType == uhdmconstant) {
+    } else if (resultType == uhdmref_obj) {
       if (result->VpiName() != name) {
         any* tmp = getValue(result->VpiName(), component, compileDesign,
                             instance, fileName, lineNumber, pexpr);
         if (tmp) result = tmp;
       }
-    } else if (result->UhdmType() == uhdmoperation ||
-               result->UhdmType() == uhdmhier_path) {
+    } else if (resultType == uhdmoperation ||
+               resultType == uhdmhier_path ||
+               resultType == uhdmbit_select ||
+               resultType == uhdmsys_func_call) {
       bool invalidValue = false;
       any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
       if (tmp) result = tmp;
-    } 
+    } else {
+      int setBreakpointHere = 1;
+      setBreakpointHere++;
+    }
   }
   /*
   if (result == nullptr) {
@@ -3408,6 +3443,39 @@ void CompileHelper::errorOnNegativeConstant(DesignComponent* component, expr* ex
                  symbols->registerSymbol(message));
     Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
     errors->addError(err);
+
+    bool extraInfo = false;
+    if (extraInfo) {
+      // Extra debug info:
+      if (instance) {
+        ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+        while (inst) {
+          std::cout << "Instance:" << inst->getFullPathName() << " "
+                    << inst->getFileName() << "\n";
+          std::cout << "Mod: " << inst->getModuleName() << " "
+                    << component->getFileContents()[0]->getFileName() << "\n";
+
+          for (auto ps : inst->getMappedValues()) {
+            const std::string& name = ps.first;
+            Value* val = ps.second.first;
+            std::cout << std::string("    " + name + " = " + val->uhdmValue() +
+                                     "\n");
+          }
+          for (auto ps : inst->getComplexValues()) {
+            const std::string& name = ps.first;
+            std::cout << std::string("    " + name + " =  complex\n");
+          }
+          if (inst->getNetlist() && inst->getNetlist()->param_assigns()) {
+            for (auto ps : *inst->getNetlist()->param_assigns()) {
+              std::cout << ps->Lhs()->VpiName() << " = "
+                        << "\n";
+              decompile((any*)ps->Rhs());
+            }
+          }
+          inst = inst->getParent();
+        }
+      }
+    }
   }
 }
 
@@ -4528,6 +4596,11 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
               operation* op = (operation*)st;
               int opType = op->VpiOpType();
               if (opType == vpiAssignmentPatternOp) {
+                VectorOfany* operands = op->Operands();
+                if (ind < operands->size()) {
+                  result = operands->at(ind);
+                }
+              } else if (opType == vpiConcatOp) {
                 VectorOfany* operands = op->Operands();
                 if (ind < operands->size()) {
                   result = operands->at(ind);
