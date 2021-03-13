@@ -1549,7 +1549,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 invalidValue = true;
               }
             } else if (opType == vpiConditionOp) {
-            //  rgegg
+              int setBreakpointHere = 1;
+              setBreakpointHere++;
             }
           }
         }
@@ -1831,8 +1832,8 @@ any* CompileHelper::getValue(const std::string& name, DesignComponent* component
       any* tmp = reduceExpr(result, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
       if (tmp) result = tmp;
     } else {
-      int a =1;
-      a++;
+      int setBreakpointHere = 1;
+      setBreakpointHere++;
     }
   }
   /*
