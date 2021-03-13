@@ -300,6 +300,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.cpp
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/LogListener.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.cpp

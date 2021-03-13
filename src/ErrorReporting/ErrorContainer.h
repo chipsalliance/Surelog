@@ -32,6 +32,7 @@
 namespace SURELOG {
 
 class CommandLineParser;
+class LogListener;
 
 class ErrorContainer {
  public:
@@ -55,7 +56,7 @@ class ErrorContainer {
     int nbInfo = 0;
   };
 
-  ErrorContainer(SymbolTable* symbolTable);
+  ErrorContainer(SymbolTable* symbolTable, LogListener *const logListener = nullptr);
   void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
@@ -66,7 +67,7 @@ class ErrorContainer {
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
   bool printStats(Stats stats, bool muteStdout = false);
-  bool printToLogFile(std::string report);
+  bool printToLogFile(const std::string &report);
   bool hasFatalErrors();
   Stats getErrorStats();
   void appendErrors(ErrorContainer&);
@@ -86,6 +87,7 @@ class ErrorContainer {
   bool m_reportedFatalErrorLogFile;
   SymbolTable* m_symbolTable;
   void* m_interpState;
+  LogListener* m_logListener;
 };
 
 };  // namespace SURELOG
