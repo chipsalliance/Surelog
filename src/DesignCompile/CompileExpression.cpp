@@ -810,6 +810,16 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                           value += name + " = " + val->uhdmValue() + "\n";
                           std::cout << std::string("    " + name + " = " + val->uhdmValue() + "\n");
                         }
+                        for (auto ps : inst->getComplexValues()) {
+                          expr* ex = ps.second;
+                          bool inv = false;
+                          int64_t val1 =
+                              get_value(inv, reduceExpr(ex, inv, inst->getDefinition(), compileDesign, inst, fileName, lineNumber, pexpr, true));
+             
+                          const std::string& name = ps.first;
+                          std::cout << std::string("    " + name + " = " + std::to_string(val1)  + " (" + std::to_string(inv) + ")" + "\n");
+                        }
+
                         inst = inst->getParent();
                       }
                     }
