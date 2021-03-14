@@ -3442,7 +3442,6 @@ void CompileHelper::errorOnNegativeConstant(DesignComponent* component, expr* ex
     Location loc(symbols->registerSymbol(exp->VpiFile()), exp->VpiLineNo(), 0,
                  symbols->registerSymbol(message));
     Error err(ErrorDefinition::ELAB_NEGATIVE_VALUE, loc);
-    errors->addError(err);
 
     bool extraInfo = false;
     if (extraInfo) {
@@ -3476,6 +3475,7 @@ void CompileHelper::errorOnNegativeConstant(DesignComponent* component, expr* ex
         }
       }
     }
+    errors->addError(err);
   }
 }
 

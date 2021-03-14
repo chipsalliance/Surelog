@@ -1123,21 +1123,9 @@ Processing: -cd misc/test_cell_error gold.v -writepp -parse -nocache -nobuiltin 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/test_cell_error simlib.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l simlib.v.log
-[ERR:EL0531] simlib.v:10: Negative value in instance work@$add
-             text: input [A_WIDTH-1:0] A;
-             value: INT:-1.
-
-[ERR:EL0531] simlib.v:11: Negative value in instance work@$add
-             text: input [B_WIDTH-1:0] B;
-             value: INT:-1.
-
-[ERR:EL0531] simlib.v:12: Negative value in instance work@$add
-             text: output [Y_WIDTH-1:0] Y;
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/script top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -1625,21 +1613,9 @@ Processing: -cd misc/test_cell gold.v -writepp -parse -nocache -nobuiltin -nonot
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/test_cell simlib.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l simlib.v.log
-[ERR:EL0531] simlib.v:10: Negative value in instance work@$add
-             text: input [A_WIDTH-1:0] A;
-             value: INT:-1.
-
-[ERR:EL0531] simlib.v:11: Negative value in instance work@$add
-             text: input [B_WIDTH-1:0] B;
-             value: INT:-1.
-
-[ERR:EL0531] simlib.v:12: Negative value in instance work@$add
-             text: output [Y_WIDTH-1:0] Y;
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd misc/blackbox top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -8628,14 +8604,6 @@ Processing: -cd regression/issue_01225 top.v -writepp -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src skid_buffer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l skid_buffer.v.log
-[ERR:EL0531] skid_buffer.v:27: Negative value in instance work@skid_buffer
-             text:     input   wire    [WORD_WIDTH-1:0]    s_data,
-             value: INT:-1.
-
-[ERR:EL0531] skid_buffer.v:32: Negative value in instance work@skid_buffer
-             text:     output  wire    [WORD_WIDTH-1:0]    m_data
-             value: INT:-1.
-
 [WRN:EL0500] skid_buffer.v:43: Cannot find a module definition for "work@skid_buffer::skid_buffer_fsm".
 
 [WRN:EL0500] skid_buffer.v:64: Cannot find a module definition for "work@skid_buffer::skid_buffer_datapath".
@@ -8646,18 +8614,10 @@ Processing: -cd regression/issue_00810/src skid_buffer.v -writepp -parse -nocach
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 4
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Read_Data_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Read_Data_Channel.v.log
-[ERR:EL0531] Master_AXI_Read_Data_Channel.v:49: Negative value in instance work@Master_AXI_Read_Data_Channel
-             text:     output  wire    [WORD_WIDTH-1:0]    system_data,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Read_Data_Channel.v:59: Negative value in instance work@Master_AXI_Read_Data_Channel
-             text:     input   wire    [WORD_WIDTH-1:0]    rdata,
-             value: INT:-1.
-
 [WRN:EL0500] Master_AXI_Read_Data_Channel.v:88: Cannot find a module definition for "work@Master_AXI_Read_Data_Channel::Annuller".
 
 [WRN:EL0500] Master_AXI_Read_Data_Channel.v:99: Cannot find a module definition for "work@Master_AXI_Read_Data_Channel::Annuller".
@@ -8678,40 +8638,16 @@ Processing: -cd regression/issue_00810/src Master_AXI_Read_Data_Channel.v -write
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 9
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Down_Counter_Zero.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Down_Counter_Zero.v.log
-[ERR:EL0531] Down_Counter_Zero.v:18: Negative value in instance work@Down_Counter_Zero
-             text:     input   wire    [WORD_WIDTH-1:0]    count_in,
-             value: INT:-1.
-
-[ERR:EL0531] Down_Counter_Zero.v:20: Negative value in instance work@Down_Counter_Zero
-             text:     input   wire    [WORD_WIDTH-1:0]    load_value,
-             value: INT:-1.
-
-[ERR:EL0531] Down_Counter_Zero.v:22: Negative value in instance work@Down_Counter_Zero
-             text:     output  reg     [WORD_WIDTH-1:0]    count_out,
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Write_Data_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Write_Data_Channel.v.log
-[ERR:EL0531] Master_AXI_Write_Data_Channel.v:50: Negative value in instance work@Master_AXI_Write_Data_Channel
-             text:     input   wire    [WORD_WIDTH-1:0]    system_data,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Write_Data_Channel.v:62: Negative value in instance work@Master_AXI_Write_Data_Channel
-             text:     output  wire    [WORD_WIDTH-1:0]    wdata,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Write_Data_Channel.v:63: Negative value in instance work@Master_AXI_Write_Data_Channel
-             text:     output  reg     [BYTE_COUNT-1:0]    wstrb,
-             value: INT:-1.
-
 [WRN:EL0500] Master_AXI_Write_Data_Channel.v:83: Cannot find a module definition for "work@Master_AXI_Write_Data_Channel::posedge_pulse_generator".
 
 [WRN:EL0500] Master_AXI_Write_Data_Channel.v:106: Cannot find a module definition for "work@Master_AXI_Write_Data_Channel::Annuller".
@@ -8728,25 +8664,13 @@ Processing: -cd regression/issue_00810/src Master_AXI_Write_Data_Channel.v -writ
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 0
 [WARNING] : 7
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Delay_Line.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Delay_Line.v.log
-[ERR:EL0531] Delay_Line.v:15: Negative value in instance work@Delay_Line
-             text:     input   wire    [WIDTH-1:0]     in,
-             value: INT:-1.
-
-[ERR:EL0531] Delay_Line.v:16: Negative value in instance work@Delay_Line
-             text:     output  reg     [WIDTH-1:0]     out
-             value: INT:-1.
-
-[ERR:EL0531] Delay_Line.v:26: Negative value in instance work@Delay_Line.genblk1
-             text:             reg [WIDTH-1:0] stage [DEPTH-1:0];
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Write_Sequencer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Write_Sequencer.v.log
@@ -8756,64 +8680,12 @@ Processing: -cd regression/issue_00810/src Master_AXI_Write_Sequencer.v -writepp
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src skid_buffer_datapath.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l skid_buffer_datapath.v.log
-[ERR:EL0531] skid_buffer_datapath.v:23: Negative value in instance work@skid_buffer_datapath
-             text:     input   wire    [WORD_WIDTH-1:0]    data_in,
-             value: INT:-1.
-
-[ERR:EL0531] skid_buffer_datapath.v:24: Negative value in instance work@skid_buffer_datapath
-             text:     output  reg     [WORD_WIDTH-1:0]    data_out,
-             value: INT:-1.
-
-[ERR:EL0531] skid_buffer_datapath.v:46: Negative value in instance work@skid_buffer_datapath
-             text:     reg [WORD_WIDTH-1:0] data_buffer    = WORD_ZERO;
-             value: INT:-1.
-
-[ERR:EL0531] skid_buffer_datapath.v:47: Negative value in instance work@skid_buffer_datapath
-             text:     reg [WORD_WIDTH-1:0] selected_data  = WORD_ZERO;
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Transactor.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Transactor.v.log
-[ERR:EL0531] Master_AXI_Transactor.v:36: Negative value in instance work@Master_AXI_Transactor
-             text:     input   wire    [ADDR_WIDTH-1:0]    ar_system_address,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:47: Negative value in instance work@Master_AXI_Transactor
-             text:     output  wire    [ADDR_WIDTH-1:0]    araddr,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:58: Negative value in instance work@Master_AXI_Transactor
-             text:     input   wire    [ADDR_WIDTH-1:0]    aw_system_address,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:68: Negative value in instance work@Master_AXI_Transactor
-             text:     output  wire    [ADDR_WIDTH-1:0]    awaddr,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:79: Negative value in instance work@Master_AXI_Transactor
-             text:     output  wire    [WORD_WIDTH-1:0]    r_system_data,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:85: Negative value in instance work@Master_AXI_Transactor
-             text:     input   wire    [WORD_WIDTH-1:0]    rdata,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:95: Negative value in instance work@Master_AXI_Transactor
-             text:     input   wire    [WORD_WIDTH-1:0]    w_system_data,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:100: Negative value in instance work@Master_AXI_Transactor
-             text:     output  wire    [WORD_WIDTH-1:0]    wdata,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Transactor.v:101: Negative value in instance work@Master_AXI_Transactor
-             text:     output  wire    [BYTE_COUNT-1:0]    wstrb,
-             value: INT:-1.
-
 [WRN:EL0500] Master_AXI_Transactor.v:126: Cannot find a module definition for "work@Master_AXI_Transactor::Master_AXI_Address_Channel".
 
 [WRN:EL0500] Master_AXI_Transactor.v:163: Cannot find a module definition for "work@Master_AXI_Transactor::Master_AXI_Address_Channel".
@@ -8834,7 +8706,7 @@ Processing: -cd regression/issue_00810/src Master_AXI_Transactor.v -writepp -par
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 9
+[  ERROR] : 0
 [WARNING] : 9
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src posedge_pulse_generator.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l posedge_pulse_generator.v.log
@@ -8850,17 +8722,9 @@ Processing: -cd regression/issue_00810/src posedge_pulse_generator.v -writepp -p
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Annuller.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Annuller.v.log
-[ERR:EL0531] Annuller.v:37: Negative value in instance work@Annuller
-             text:     input   wire    [WORD_WIDTH-1:0]   in,
-             value: INT:-1.
-
-[ERR:EL0531] Annuller.v:38: Negative value in instance work@Annuller
-             text:     output  reg     [WORD_WIDTH-1:0]   out
-             value: INT:-1.
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Read_Sequencer.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Read_Sequencer.v.log
@@ -8908,14 +8772,6 @@ Processing: -cd regression/issue_00810/src faxi_master.v -writepp -parse -nocach
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00810/src Master_AXI_Address_Channel.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l Master_AXI_Address_Channel.v.log
-[ERR:EL0531] Master_AXI_Address_Channel.v:45: Negative value in instance work@Master_AXI_Address_Channel
-             text:     input   wire    [ADDR_WIDTH-1:0]    system_address,
-             value: INT:-1.
-
-[ERR:EL0531] Master_AXI_Address_Channel.v:59: Negative value in instance work@Master_AXI_Address_Channel
-             text:     output  reg     [ADDR_WIDTH-1:0]    axaddr,
-             value: INT:-1.
-
 [WRN:EL0500] Master_AXI_Address_Channel.v:100: Cannot find a module definition for "work@Master_AXI_Address_Channel::pulse_to_level".
 
 [WRN:EL0512] Nb undefined modules: 1.
@@ -8924,7 +8780,7 @@ Processing: -cd regression/issue_00810/src Master_AXI_Address_Channel.v -writepp
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd regression/issue_01217 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -13107,7 +12963,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 66
-[  ERROR] : 70
+[  ERROR] : 34
 [WARNING] : 2374
 [   NOTE] : 0
 
