@@ -1537,7 +1537,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (opType == vpiAssignmentPatternOp) {
               VectorOfany* ops = op->Operands();
               if (ops && (index_val < ops->size())) {
-                result = ops->at(index_val);
+                result = ops->at(ops->size() - index_val -1);
               } else {
                 invalidValue = true;
               }
@@ -4598,7 +4598,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
               if (opType == vpiAssignmentPatternOp) {
                 VectorOfany* operands = op->Operands();
                 if (ind < operands->size()) {
-                  result = operands->at(ind);
+                  result = operands->at(operands->size() - ind -1);
                 }
               } else if (opType == vpiConcatOp) {
                 VectorOfany* operands = op->Operands();
