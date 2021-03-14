@@ -1506,7 +1506,14 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       } else {
         // Index param
         NodeId expr = child;        
-
+        const DesignComponent::ParameterVec& params =  module->getOrderedParameters();
+        Parameter* p = nullptr;
+        bool isTypeParam = false;
+        if (index < params.size()) {
+          p = params.at(index);
+          isTypeParam = p->isTypeParam();
+        }
+          
         UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(
             (instance->getParent()) ? instance->getParent()->getDefinition() : 
             instance->getDefinition(), 
@@ -1546,7 +1553,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         if (complex == false) {
           if (value == nullptr)
             value = m_exprBuilder.evalExpr(parentFile, expr,
-                                                instance->getParent(), true);
+                                                instance->getParent(), isTypeParam);
         }
 
         if ((complex == false) && value && value->isValid())
