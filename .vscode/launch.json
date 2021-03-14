@@ -465,6 +465,25 @@
             ]
         },
         {
+            "name": "BlackParrotConf",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/BlackParrotConf/dut.sv","-d", "inst", "-nobuiltin", "-nocache",  "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Verilator",
             "type": "cppdbg",
             "request": "launch",

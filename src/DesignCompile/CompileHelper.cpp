@@ -1930,6 +1930,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       parameters->push_back(p);
       Parameter* param =
           new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype, port_param);
+      param->setTypeParam();    
       param->setUhdmParam(p);
       component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
@@ -1958,6 +1959,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       parameters->push_back(p);
       Parameter* param =
           new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression, port_param);
+      param->setTypeParam();        
       param->setUhdmParam(p);
       component->insertParameter(param);
       Param_assignment = fC->Sibling(Param_assignment);

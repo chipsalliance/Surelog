@@ -1467,9 +1467,12 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           }
         }
         if (complex == false) {
-          if (value == nullptr)
+          
+          if (value == nullptr) {
+            Parameter* p =  module->getParameter(name);
             value = m_exprBuilder.evalExpr(parentFile, expr,
-                                                instance->getParent(), true);
+                                                instance->getParent(), p->isTypeParam());
+          }
           if (value == nullptr || (value && !value->isValid())) {
             // DEBUG
             bool extraInfo = false;
