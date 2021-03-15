@@ -1372,10 +1372,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
     NodeId Data_type = param.fC->Child(exprId);
     if (param.fC->Type(Data_type) != slData_type) {
+      Parameter* p =  module->getParameter(name);
+      bool isMultidimension = false;
+      if (p) {
+        isMultidimension = p->isMultidimension();
+      }
       // Regular params
       UHDM::expr* expr =
           (UHDM::expr*) m_helper.compileExpression(instance->getDefinition(), param.fC, exprId,
-                               m_compileDesign, nullptr, instance, true, true);
+                               m_compileDesign, nullptr, instance, !isMultidimension, true);
       Value* value = nullptr;  
       bool complex = false; 
       if (expr) {
@@ -1470,8 +1475,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           
           if (value == nullptr) {
             Parameter* p =  module->getParameter(name);
+            bool isTypeParam = false;
+            if (p) isTypeParam = p->isTypeParam();
             value = m_exprBuilder.evalExpr(parentFile, expr,
-                                                instance->getParent(), p->isTypeParam());
+                                                instance->getParent(), isTypeParam);
           }
           if (value == nullptr || (value && !value->isValid())) {
             // DEBUG
@@ -1637,10 +1644,14 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
       NodeId Data_type = param.fC->Child(exprId);
       if (param.fC->Type(Data_type) != slData_type) {
         // Regular params
-
+        Parameter* p = module->getParameter(name);
+        bool isMultidimension = false;
+        if (p) {
+          isMultidimension = p->isMultidimension();
+        }
         UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
             instance->getDefinition(), param.fC, exprId, m_compileDesign,
-            nullptr, instance, true, false);
+            nullptr, instance, !isMultidimension, false);
         Value* value = nullptr;
         bool complex = false;
         if (expr) {

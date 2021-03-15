@@ -11,7 +11,7 @@ endpackage
 
 module flash_ctrl_info_cfg import flash_ctrl_pkg::*; ();
 
-  parameter int InfoSel = 0;
+  parameter int InfoSel = 2;
 
   for(genvar i = 0; i < InfosPerBank; i++) begin : gen_info_priv
 
