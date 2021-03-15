@@ -505,6 +505,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
         } else if (optype == uhdmfunc_call) {
         } else if (optype == uhdmbit_select) { 
         } else if (optype == uhdmhier_path) {  
+        } else if (optype == uhdmvar_select) {  
         } else if (optype != uhdmconstant) {
           constantOperands = false;
           break;
@@ -512,7 +513,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
       }
       if (constantOperands) {
         VectorOfany& operands = *op->Operands();
-        switch (op->VpiOpType()) {
+        int optype = op->VpiOpType();
+        switch (optype) {
           case vpiArithRShiftOp:
           case vpiRShiftOp: {
             if (operands.size() == 2) {
@@ -1253,8 +1255,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             }
             break;
           }
-          case vpiAssignmentPatternOp:
           case vpiMultiAssignmentPatternOp:
+          case vpiAssignmentPatternOp:
             // Don't reduce these ops
             break;
           default: {
@@ -1408,6 +1410,11 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
       object = getValue(base, component, compileDesign, instance, fileName, lineNumber, pexpr);
     }
     if (object) {
+      if (param_assign* pass = dynamic_cast<param_assign*> (object)) {
+        const any* rhs = pass->Rhs();
+        object = reduceExpr((any*) rhs , invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+      }
+
       if (variables* var = dynamic_cast<variables*> (object)) {
         UHDM_OBJECT_TYPE ttps = var->UhdmType();
         if (ttps == uhdmstruct_var) {
@@ -1517,6 +1524,13 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               } else {
                 invalidValue = true;
               }
+            } else if (opType == vpiConcatOp) {
+              VectorOfany* ops = op->Operands();
+              if (ops && (index_val < ops->size())) {
+                result = ops->at(index_val);
+              } else {
+                invalidValue = true;
+              }
             }
           } else if (ctype == uhdmconstant) {
             if (index_val == 0) {
@@ -1537,7 +1551,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
             if (opType == vpiAssignmentPatternOp) {
               VectorOfany* ops = op->Operands();
               if (ops && (index_val < ops->size())) {
-                result = ops->at(ops->size() - index_val -1);
+                result = ops->at(index_val);
               } else {
                 invalidValue = true;
               }
@@ -1549,13 +1563,96 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 invalidValue = true;
               }
             } else if (opType == vpiConditionOp) {
-              int setBreakpointHere = 1;
-              setBreakpointHere++;
+              expr* exp =
+                  reduceExpr(op, invalidValue, component, compileDesign,
+                             instance, fileName, lineNumber, pexpr, muteErrors);
+              UHDM_OBJECT_TYPE otype = exp->UhdmType();
+              if (otype == uhdmoperation) {
+                operation* op = (operation*)exp;
+                int opType = op->VpiOpType();
+                if (opType == vpiAssignmentPatternOp) {
+                  VectorOfany* ops = op->Operands();
+                  if (ops && (index_val < ops->size())) {
+                    object = ops->at(index_val);
+                  } else {
+                    invalidValue = true;
+                  }
+                } else if (opType == vpiConcatOp) {
+                  VectorOfany* ops = op->Operands();
+                  if (ops && (index_val < ops->size())) {
+                    object = ops->at(ops->size() - index_val - 1);
+                  } else {
+                    invalidValue = true;
+                  }
+                }
+              }
+            }
+          } else if (otype == uhdmconstant) {
+            if (index_val == 0) {
+              result = object;
             }
           }
         }
       }
     }    
+  } else if (objtype == uhdmvar_select) {
+    var_select* sel = (var_select*) result;
+    const std::string& name = sel->VpiName();
+    any* object = getObject(name, component, compileDesign, instance, pexpr);
+    if (object == nullptr) {
+      object = getValue(name, component, compileDesign, instance, fileName,
+                        lineNumber, pexpr);
+    }
+    for (auto index : *sel->Exprs()) {
+      uint64_t index_val = get_value(invalidValue, reduceExpr((expr*) index, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
+      if (object) {
+        UHDM_OBJECT_TYPE otype = object->UhdmType();
+        if (otype == uhdmoperation) {
+          operation* op = (operation*)object;
+          int opType = op->VpiOpType();
+          if (opType == vpiAssignmentPatternOp) {
+            VectorOfany* ops = op->Operands();
+            if (ops && (index_val < ops->size())) {
+              object = ops->at(index_val);
+            } else {
+              invalidValue = true;
+            }
+          } else if (opType == vpiConcatOp) {
+            VectorOfany* ops = op->Operands();
+            if (ops && (index_val < ops->size())) {
+              object = ops->at(ops->size() - index_val -1);
+            } else {
+              invalidValue = true;
+            }
+          } else if (opType == vpiConditionOp) {
+            expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+            UHDM_OBJECT_TYPE otype = exp->UhdmType();
+            if (otype == uhdmoperation) {
+              operation* op = (operation*)exp;
+              int opType = op->VpiOpType();
+              if (opType == vpiAssignmentPatternOp) {
+                VectorOfany* ops = op->Operands();
+                if (ops && (index_val < ops->size())) {
+                  object = ops->at(index_val);
+                } else {
+                  invalidValue = true;
+                }
+              } else if (opType == vpiConcatOp) {
+                VectorOfany* ops = op->Operands();
+                if (ops && (index_val < ops->size())) {
+                  object = ops->at(ops->size() - index_val - 1);
+                } else {
+                  invalidValue = true;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (object)
+      result = object;
+
   }
   if (result && result->UhdmType() == uhdmref_obj) {
     bool invalidValueTmp = false;
@@ -3824,6 +3921,11 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue, Desi
       case uhdmunsupported_typespec:
         invalidValue = true;
         break;
+      case uhdmconstant: {
+        constant* c = (constant*) typespec;
+        bits = c->VpiSize();
+        break;
+      }
       default:
         invalidValue = true;
         break;
@@ -3905,7 +4007,7 @@ const typespec* CompileHelper::getTypespec(
     case VObjectType::slStringConst: {
       basename = fC->SymName(id);
       NodeId suffix = fC->Sibling(id);
-      if (suffix) {
+      if (suffix && (fC->Type(suffix) == slStringConst)) {
         suffixname = fC->SymName(suffix);
       }
       break;
@@ -4097,10 +4199,25 @@ UHDM::any* CompileHelper::compileBits(
   uint64_t bits = 0;
   bool invalidValue = false;
   const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
+  any* exp = nullptr;
   if (reduce && tps)
     bits = Bits(tps, invalidValue, component, compileDesign, instance, fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce, sizeMode);
 
+  if (reduce && (!tps)) {
+    exp = compileExpression(component, fC, Expression, compileDesign, nullptr, instance, true, true);
+    if (exp) {
+       bits = Bits(exp, invalidValue, component, compileDesign, instance, fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce, sizeMode);
+    }
+  } 
+
   if (reduce && tps && (!invalidValue)) {
+    UHDM::constant* c = s.MakeConstant();
+    c->VpiValue("UINT:" + std::to_string(bits));
+    c->VpiDecompile(std::to_string(bits));
+    c->VpiConstType(vpiUIntConst);
+    c->VpiSize(64);
+    result = c;
+  } else if (reduce && exp && (!invalidValue)) {
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("UINT:" + std::to_string(bits));
     c->VpiDecompile(std::to_string(bits));
@@ -4586,7 +4703,8 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       UHDM_OBJECT_TYPE type = st->UhdmType();
       NodeId Select = dotedName;
       if (NodeId Bit_select = fC->Child(Select)) {
-        if (NodeId Expression = fC->Child(Bit_select)) {
+        NodeId Expression = fC->Child(Bit_select);
+        while (Expression) {
           expr* index = (expr*)compileExpression(
               component, fC, Expression, compileDesign, pexpr, instance, true);
           if (index && index->UhdmType() == uhdmconstant) {
@@ -4598,16 +4716,19 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
               if (opType == vpiAssignmentPatternOp) {
                 VectorOfany* operands = op->Operands();
                 if (ind < operands->size()) {
-                  result = operands->at(operands->size() - ind -1);
+                  result = operands->at(ind);
+                  st = result;
                 }
               } else if (opType == vpiConcatOp) {
                 VectorOfany* operands = op->Operands();
                 if (ind < operands->size()) {
                   result = operands->at(ind);
+                  st = result;
                 }
               }
             }
           }
+          Expression = fC->Sibling(Expression);
         }
       }
       if (result == nullptr) {

@@ -59,6 +59,10 @@ module top import bp_common_aviary_pkg::*; #(
 
  logic [cc_x_dim_p-1:0] aa;
 
+ if (cc_x_dim_p == 1) begin
+    OK ok();    
+ end
+   
 endmodule
 
 

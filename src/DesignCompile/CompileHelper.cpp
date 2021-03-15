@@ -1991,12 +1991,13 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
       const std::string& the_name = fC->SymName(name);
+      NodeId actual_value = value;
+      while (fC->Type(actual_value) == slUnpacked_dimension) {
+        actual_value = fC->Sibling(actual_value);
+        isMultiDimension = true;
+      }
 
       if (dynamic_cast<Package*>(component) && (instance == nullptr)) {
-        NodeId actual_value = value;
-        while (fC->Type(actual_value) == slUnpacked_dimension) {
-          actual_value = fC->Sibling(actual_value);
-        }
         Value* val = m_exprBuilder.evalExpr(fC, actual_value, component,
                                             true);  // Errors muted
         if (val->isValid()) {
@@ -2032,6 +2033,8 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       Parameter* p =
           new Parameter(fC, name, fC->SymName(name), fC->Child(Data_type_or_implicit), port_param);
       p->setUhdmParam(param);
+      if (isMultiDimension)
+        p->setMultidimension();
       component->insertParameter(p);
 
       param->Typespec(ts);

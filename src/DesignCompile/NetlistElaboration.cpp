@@ -142,9 +142,11 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
       if (rhs && rhs->UhdmType() == uhdmoperation) {
         operation* op = (operation*)rhs;
         int opType = op->VpiOpType();
-        if (opType == vpiCastOp) {
+        if (opType == vpiCastOp ||
+           (opType == vpiMultiConcatOp)) {
           isMultidimensional = false;
         }
+
         // Don't reduce these operations
         if (opType == vpiAssignmentPatternOp || opType == vpiMultiAssignmentPatternOp) {
          // ElaboratorListener listener(&s);
@@ -213,6 +215,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
     if (override == false) {
       expr* exp = instance->getComplexValue(paramName);
       if (exp) {
+        if (!isMultidimensional) {
+          bool invalidValue = false;
+          expr* tmp = m_helper.reduceExpr(exp, invalidValue, mod, m_compileDesign, instance, exp->VpiFile(), exp->VpiLineNo(), nullptr, true);
+          if (tmp && (invalidValue == false))
+            exp = tmp;
+        }
         inst_assign->Rhs(exp);
         override = true;
       }

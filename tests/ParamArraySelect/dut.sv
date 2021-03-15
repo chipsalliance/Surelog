@@ -39,6 +39,10 @@ module otp_ctrl_lci
  localparam int NumLcOtpWords = Info.size >> 1;
 
  logic [NumLcOtpWords-1:0] cnt_d;
+
+  if (NumLcOtpWords != 28) begin
+     BAD bad();
+  end
   
 endmodule // otp_ctrl_lci
 
