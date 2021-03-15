@@ -143,7 +143,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         operation* op = (operation*)rhs;
         int opType = op->VpiOpType();
         if (opType == vpiCastOp ||
-           (opType == vpiMultiConcatOp)) {
+           (opType == vpiMultiConcatOp) ||
+           (opType == vpiConditionOp)) {
           isMultidimensional = false;
         }
 

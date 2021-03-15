@@ -29,6 +29,8 @@
 
 namespace SURELOG {
 
+void decompile(ValuedComponentI* instance);
+
 class CompileDesign {
 public:
   CompileDesign(Compiler* compiler);

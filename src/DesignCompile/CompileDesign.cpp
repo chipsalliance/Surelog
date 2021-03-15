@@ -357,3 +357,36 @@ vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
   return h;
 }
 
+void decompile(ValuedComponentI* instance) {
+  if (instance) {
+    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    if (inst) {
+      DesignComponent* component = inst->getDefinition();
+      while (inst) {
+        std::cout << "Instance:" << inst->getFullPathName() << " "
+                  << inst->getFileName() << "\n";
+        std::cout << "Mod: " << inst->getModuleName() << " "
+                  << component->getFileContents()[0]->getFileName() << "\n";
+
+        for (auto ps : inst->getMappedValues()) {
+          const std::string& name = ps.first;
+          Value* val = ps.second.first;
+          std::cout << std::string("    " + name + " = " + val->uhdmValue() +
+                                   "\n");
+        }
+        for (auto ps : inst->getComplexValues()) {
+          const std::string& name = ps.first;
+          std::cout << std::string("    " + name + " =  complex\n");
+        }
+        if (inst->getNetlist() && inst->getNetlist()->param_assigns()) {
+          for (auto ps : *inst->getNetlist()->param_assigns()) {
+            std::cout << ps->Lhs()->VpiName() << " = "
+                      << "\n";
+            decompile((UHDM::any*)ps->Rhs());
+          }
+        }
+        inst = inst->getParent();
+      }
+    }
+  }
+}

@@ -1586,6 +1586,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                   }
                 }
               }
+              if (object)
+                result = object;
             }
           } else if (otype == uhdmconstant) {
             if (index_val == 0) {
@@ -1652,7 +1654,6 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
     }
     if (object)
       result = object;
-
   }
   if (result && result->UhdmType() == uhdmref_obj) {
     bool invalidValueTmp = false;
