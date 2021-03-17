@@ -777,7 +777,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         NodeId genBlock = fC->Sibling(iteration);
 
         bool validValue;
-        int64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false); 
         bool cont = (validValue && (condVal > 0));
 
         while (cont) {
@@ -814,7 +814,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
           parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
           
-          condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent); 
+          condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false); 
           cont = (validValue && (condVal > 0));
 
           if (!newVal->isValid()) {
@@ -838,7 +838,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           conditionId = fC->Child(conditionId);
         }
         bool validValue;
-        int64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent, true, false); 
 
         NodeId tmp = fC->Sibling(conditionId);
 
@@ -854,7 +854,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                 bool validValue;
-                int64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent); 
+                int64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent, true, false); 
                 
                 if (condVal == caseVal) {
                   nomatch = false;
@@ -912,7 +912,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId Cond = fC->Child(If_generate_construct);
                 if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                   bool validValue;
-                  condVal  = m_helper.getValue(validValue, def, fC, Cond, m_compileDesign, nullptr, parent); 
+                  condVal  = m_helper.getValue(validValue, def, fC, Cond, m_compileDesign, nullptr, parent, true, false); 
                 } else {
                   // It is not an else-if
                   condVal = true;
@@ -1196,10 +1196,10 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId leftNode = fC->Child(constantRangeId);
                 NodeId rightNode = fC->Sibling(leftNode);
                 bool validValue;
-                int64_t left = m_helper.getValue(validValue, def, fC, leftNode, m_compileDesign, nullptr, parent);
+                int64_t left = m_helper.getValue(validValue, def, fC, leftNode, m_compileDesign, nullptr, parent, true, false);
                 int64_t right = 0;
                 if (rightNode)
-                  right = m_helper.getValue(validValue, def, fC, rightNode, m_compileDesign, nullptr, parent);
+                  right = m_helper.getValue(validValue, def, fC, rightNode, m_compileDesign, nullptr, parent, true, false);
                 if (left < right) {
                   from.push_back(left);
                   to.push_back(right);
@@ -1359,6 +1359,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
+
   std::vector<std::string> moduleParams;
   for (FileCNodeId param :
        module->getObjects(VObjectType::slParam_assignment)) {
@@ -1366,6 +1367,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string name = param.fC->SymName(ident);
     params.push_back(name);
     moduleParams.push_back(name);
+    /*
     NodeId exprId = param.fC->Sibling(ident);
     while (param.fC->Type(exprId) == slUnpacked_dimension) {
       exprId = param.fC->Sibling(exprId);
@@ -1403,7 +1405,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
       }
     }
+    */
   }
+
 
   std::set<std::string> overridenParams;
   std::vector<VObjectType> types;
@@ -1450,6 +1454,24 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           UHDM::UHDM_OBJECT_TYPE exprtype = complexV->UhdmType();
           if (exprtype == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
+            /*
+            if (m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
+                instance->getDefinition(), complexV, m_compileDesign, instance->getParent())) {
+              bool replay = false;
+              // GDB: p replay=true
+              if (replay) {
+                (UHDM::expr*)m_helper.compileExpression(
+                    (instance->getParent())
+                        ? instance->getParent()->getDefinition()
+                        : instance->getDefinition(),
+                    parentFile, expr, m_compileDesign, nullptr,
+                    instance->getParent(), true, false);
+
+                m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(),
+                                       true);
+              }
+            }
+            */
             const std::string& v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v);
           } else if ((exprtype == UHDM::uhdmoperation) ||
@@ -1479,20 +1501,28 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (p) isTypeParam = p->isTypeParam();
             value = m_exprBuilder.evalExpr(parentFile, expr,
                                                 instance->getParent(), isTypeParam);
+            /*
+            if (m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
+                 instance->getDefinition(), value, m_compileDesign, instance->getParent())) {
+              bool replay = false;
+              // GDB: p replay=true
+              if (replay) {
+                m_exprBuilder.evalExpr(parentFile, expr,
+                                                instance->getParent(), isTypeParam);    
+              }   
+            } 
+            */                                 
           }
           if (value == nullptr || (value && !value->isValid())) {
-            // DEBUG
-            bool extraInfo = false;
-            if (extraInfo) {
+            bool replay = false;
+            // GDB: p replay=true
+            if (replay) {
               (UHDM::expr*)m_helper.compileExpression(
                   (instance->getParent())
                       ? instance->getParent()->getDefinition()
                       : instance->getDefinition(),
                   parentFile, expr, m_compileDesign, nullptr,
                   instance->getParent(), true, false);
-
-              m_exprBuilder.evalExpr(parentFile, expr, instance->getParent(),
-                                     true);
             }
 
             const std::string& pname = parentFile->SymName(child);

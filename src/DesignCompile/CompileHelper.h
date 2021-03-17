@@ -295,10 +295,6 @@ public:
 
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
-  UHDM::any* getValue(const std::string& name, DesignComponent* component,
-               CompileDesign* compileDesign, ValuedComponentI* instance, 
-               const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
-
   bool isMultidimensional(UHDM::typespec* ts, DesignComponent* component);
 
   int64_t get_value(bool& invalidValue, const UHDM::expr* expr);
@@ -327,10 +323,14 @@ public:
 
   void evalScheduledExprs(DesignComponent* component, CompileDesign* compileDesign);                     
 
+  UHDM::any* getValue(const std::string& name, DesignComponent* component,
+               CompileDesign* compileDesign, ValuedComponentI* instance, 
+               const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool reduce, bool muteErrors = false);
+
   int64_t getValue(bool& validValue, DesignComponent* component, const FileContent* fC, NodeId nodeId,
 			  CompileDesign* compileDesign,
-                    UHDM::any* pexpr = NULL,
-                    ValuedComponentI* instance = NULL);
+                    UHDM::any* pexpr,
+                    ValuedComponentI* instance, bool reduce, bool muteErrors = false);
 
   UHDM::typespec* elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr = NULL,
                     ValuedComponentI* instance = NULL);
@@ -340,7 +340,10 @@ public:
   UHDM::any* getObject(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const UHDM::any* pexpr);
 
-  void errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance);
+  bool errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance);
+  bool errorOnNegativeConstant(DesignComponent* component, Value* value, CompileDesign* compileDesign, ValuedComponentI* instance);
+  bool errorOnNegativeConstant(DesignComponent* component, const std::string& value, CompileDesign* compileDesign, ValuedComponentI* instance,
+                               const std::string& fileName, int lineNo);
 
  private:
   CompileHelper(const CompileHelper&) = delete;
