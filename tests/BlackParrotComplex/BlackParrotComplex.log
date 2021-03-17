@@ -3841,11 +3841,24 @@ design: (work@top)
           \_sys_func_call: ($bits), line:45
             |vpiName:$bits
             |vpiArgument:
-            \_constant: , line:45
-              |vpiConstType:3
-              |vpiDecompile:5'b01111
-              |vpiSize:5
-              |BIN:01111
+            \_var_select: (routing_matrix_p), line:45
+              |vpiName:routing_matrix_p
+              |vpiIndex:
+              \_constant: , line:45, parent:routing_matrix_p
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+              |vpiIndex:
+              \_ref_obj: (routing_matrix_p.i), line:45, parent:routing_matrix_p
+                |vpiName:i
+                |vpiFullName:routing_matrix_p.i
+                |vpiActual:
+                \_parameter: (work@top.i), line:4, parent:work@top
+                  |vpiName:i
+                  |vpiFullName:work@top.i
+                  |vpiLocalParam:1
+                  |UINT:0
           |vpiOperand:
           \_constant: , line:45
             |vpiConstType:9
@@ -4074,10 +4087,6 @@ design: (work@top)
                                                                                                                                             |vpiFullName:routing_matrix_p.i
                                                                                                                                             |vpiActual:
                                                                                                                                             \_parameter: (work@top.i), line:4, parent:work@top
-                                                                                                                                              |vpiName:i
-                                                                                                                                              |vpiFullName:work@top.i
-                                                                                                                                              |vpiLocalParam:1
-                                                                                                                                              |UINT:0
                                                                                                                                         |vpiOperand:
                                                                                                                                         \_constant: , line:45
                                                                                                                                           |vpiConstType:9

@@ -177,6 +177,17 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
+          /*
+          if (m_helper.errorOnNegativeConstant(pmod, rhs, m_compileDesign, pinst)) {
+            bool replay = false;
+            // GDB: p replay=true
+            if (replay) {
+              m_helper.compileExpression(pmod, tpm->getFileContent(),
+                                         tpm->getNodeId(), m_compileDesign,
+                                         nullptr, pinst, !isMultidimensional);
+            }
+          }
+          */
           // If it is a complex expression (! constant)...
           if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
             // But if this value can be reduced to a constant then take the
@@ -185,6 +196,17 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                 mod, assign->getFileContent(), assign->getAssignId(),
                 m_compileDesign, nullptr, instance, true);
             if (crhs && crhs->UhdmType() == uhdmconstant) {
+              /*
+              if (m_helper.errorOnNegativeConstant(mod, crhs, m_compileDesign, instance)) {
+                bool replay = false;
+                // GDB: p replay=true
+                if (replay) {
+                  m_helper.compileExpression(
+                      mod, assign->getFileContent(), assign->getAssignId(),
+                      m_compileDesign, nullptr, instance, true);
+                }
+              }
+              */
               constant* ccrhs = (constant*)crhs;
               const std::string& s = ccrhs->VpiValue();
               Value* v1 = m_exprBuilder.fromVpiValue(s);
@@ -210,6 +232,15 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         c->VpiConstType(value->vpiValType());
         c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
         inst_assign->Rhs(c);
+        /*
+        if (m_helper.errorOnNegativeConstant(mod, c, m_compileDesign, instance)) {
+          bool replay = false;
+          //GDB: p replay=true
+          if (replay) {
+            instance->getValue(paramName, m_exprBuilder);
+          }
+        }
+        */
         override = true;
       }
     }
@@ -223,6 +254,24 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             exp = tmp;
         }
         inst_assign->Rhs(exp);
+        /*
+        if (m_helper.errorOnNegativeConstant(mod, exp, m_compileDesign, instance)) {
+          bool replay = false;
+          //GDB: p replay=true
+          if (replay) {
+            expr* exp = instance->getComplexValue(paramName);
+            if (exp) {
+              if (!isMultidimensional) {
+                bool invalidValue = false;
+                expr* tmp = m_helper.reduceExpr(
+                    exp, invalidValue, mod, m_compileDesign, instance,
+                    exp->VpiFile(), exp->VpiLineNo(), nullptr, true);
+                if (tmp && (invalidValue == false)) exp = tmp;
+              }
+            }
+          }
+        }
+        */
         override = true;
       }
     }
