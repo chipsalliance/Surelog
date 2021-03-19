@@ -340,6 +340,8 @@ public:
   UHDM::any* getObject(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const UHDM::any* pexpr);
 
+  void reorderAssignmentPattern(DesignComponent* mod, const UHDM::any* lhs, UHDM::any* rhs, CompileDesign* compileDesign, ValuedComponentI* instance, int level);
+
   bool errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance);
   bool errorOnNegativeConstant(DesignComponent* component, Value* value, CompileDesign* compileDesign, ValuedComponentI* instance);
   bool errorOnNegativeConstant(DesignComponent* component, const std::string& value, CompileDesign* compileDesign, ValuedComponentI* instance,

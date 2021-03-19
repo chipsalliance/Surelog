@@ -1508,14 +1508,14 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 if (opType == vpiAssignmentPatternOp) {
                   VectorOfany* ops = op->Operands();
                   if (ops && (index_val < ops->size())) {
-                    object = ops->at(ops->size() - index_val - 1);
+                    object = ops->at(index_val);
                   } else {
                     invalidValue = true;
                   }
                 } else if (opType == vpiConcatOp) {
                   VectorOfany* ops = op->Operands();
                   if (ops && (index_val < ops->size())) {
-                    object = ops->at(ops->size() - index_val - 1);
+                    object = ops->at(index_val);
                   } else {
                     invalidValue = true;
                   }
@@ -1557,12 +1557,12 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           } else if (opType == vpiConcatOp) {
             VectorOfany* ops = op->Operands();
             if (ops && (index_val < ops->size())) {
-              object = ops->at(ops->size() - index_val -1);
+              object = ops->at(index_val);
             } else {
               invalidValue = true;
             }
           } else if (opType == vpiConditionOp) {
-            expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+            expr* exp = reduceExpr(object, invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
             UHDM_OBJECT_TYPE otype = exp->UhdmType();
             if (otype == uhdmoperation) {
               operation* op = (operation*)exp;
@@ -1577,7 +1577,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               } else if (opType == vpiConcatOp) {
                 VectorOfany* ops = op->Operands();
                 if (ops && (index_val < ops->size())) {
-                  object = ops->at(ops->size() - index_val - 1);
+                  object = ops->at(index_val);
                 } else {
                   invalidValue = true;
                 }
@@ -4766,3 +4766,73 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
   return result;
 }
 
+void CompileHelper::reorderAssignmentPattern(DesignComponent* mod, const UHDM::any* lhs, UHDM::any* rhs, 
+       CompileDesign* compileDesign, ValuedComponentI* instance, int level) {
+  if (rhs->UhdmType() != uhdmoperation)
+    return;
+  operation* op = (operation*)rhs;
+  int optype = op->VpiOpType();
+  if (optype == vpiConditionOp) {
+    bool invalidValue = false;
+    expr* tmp = reduceExpr(op, invalidValue, mod, compileDesign, instance, "", 0, nullptr, true);
+    if (tmp && (tmp->UhdmType() == uhdmoperation) && (invalidValue == false)) {
+      op = (operation*) tmp;
+      optype = op->VpiOpType();
+    }
+  }
+  if (op->VpiReordered())
+    return;
+  if ((optype != vpiAssignmentPatternOp) && (optype != vpiConcatOp))
+    return;
+  VectorOfany* operands = op->Operands();
+  bool ordered = true;
+  for (any* operand : *operands) {
+    if (operand->UhdmType() == uhdmtagged_pattern) {
+      ordered = false;
+      break;
+    }
+  }
+  if (ordered) {
+    if (lhs->UhdmType() == uhdmparameter) {
+      parameter* p = (parameter*)lhs;
+      VectorOfrange* ranges = nullptr;
+      if (p->Ranges()) {
+        ranges = p->Ranges();
+      } else if (const typespec* tps = p->Typespec()) {
+        UHDM_OBJECT_TYPE ttype = tps->UhdmType();
+        if (ttype == uhdmbit_typespec) {
+          ranges = ((bit_typespec*)tps)->Ranges();
+        } else if (ttype == uhdmlogic_typespec) {
+          ranges = ((logic_typespec*)tps)->Ranges();
+        } else if (ttype == uhdmarray_typespec) {
+          ranges = ((array_typespec*)tps)->Ranges();
+        } else if (ttype == uhdmpacked_array_typespec) {
+          ranges = ((packed_array_typespec*)tps)->Ranges();
+        } 
+      }
+      if (ranges) {
+        range* r = ranges->at(level);
+        expr* lr = (expr*)r->Left_expr();
+        expr* rr = (expr*)r->Right_expr();
+        bool invalidValue = false;
+        lr = reduceExpr(lr, invalidValue, mod, compileDesign,
+                                 instance, "", 0, nullptr, true);
+        int64_t lrv = get_value(invalidValue, lr);
+        rr = reduceExpr(rr, invalidValue, mod, compileDesign,
+                                 instance, "", 0, nullptr, true);
+        int64_t rrv = get_value(invalidValue, rr);
+        if (lrv > rrv) {
+          op->VpiReordered(true);  
+          std::reverse(operands->begin(), operands->end());
+          if (level == 0)
+            instance->setComplexValue(p->VpiName(), op);
+        }
+      } 
+    }
+  }
+  for (any* operand : *operands) {
+    if (operand->UhdmType() == uhdmoperation) {
+      reorderAssignmentPattern(mod, lhs, operand, compileDesign, instance, level + 1);
+    }
+  }
+}

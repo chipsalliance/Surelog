@@ -141,6 +141,7 @@ const std::vector<std::string> helpText = {
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
+    "  -replay               Enables replay of internal elaboration errors",
     "  -l <file>             Specifies log file, default is surelog.log under "
     "output dir",
     "", "OUTPUT OPTIONS:",
@@ -300,7 +301,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_dumpUhdm(false),
       m_elabUhdm(false),
       m_coverUhdm(false),
-      m_showVpiIDs(false) {
+      m_showVpiIDs(false), 
+      m_replay(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -821,6 +823,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       i++;
       m_cacheDirId = m_symbolTable->registerSymbol(all_arguments[i]);
+    } else if (all_arguments[i] == "-replay") {
+      m_replay = true; 
     } else if (all_arguments[i] == "-writepp") {
       m_writePpOutput = true;
     } else if (all_arguments[i] == "-noinfo") {
