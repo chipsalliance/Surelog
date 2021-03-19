@@ -1313,6 +1313,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                                        NodeId parentParamOverride) {
   if (!nodeId) return;
   if (!instance) return;
+  bool en_replay = m_compileDesign->getCompiler()->getCommandLineParser()->replay();
   Design* design = m_compileDesign->getCompiler()->getDesign();
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
   ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
@@ -1359,7 +1360,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     }
   }
 
-
   std::vector<std::string> moduleParams;
   for (FileCNodeId param :
        module->getObjects(VObjectType::slParam_assignment)) {
@@ -1367,47 +1367,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string name = param.fC->SymName(ident);
     params.push_back(name);
     moduleParams.push_back(name);
-    /*
-    NodeId exprId = param.fC->Sibling(ident);
-    while (param.fC->Type(exprId) == slUnpacked_dimension) {
-      exprId = param.fC->Sibling(exprId);
-    }
-    NodeId Data_type = param.fC->Child(exprId);
-    if (param.fC->Type(Data_type) != slData_type) {
-      Parameter* p =  module->getParameter(name);
-      bool isMultidimension = false;
-      if (p) {
-        isMultidimension = p->isMultidimension();
-      }
-      // Regular params
-      UHDM::expr* expr =
-          (UHDM::expr*) m_helper.compileExpression(instance->getDefinition(), param.fC, exprId,
-                               m_compileDesign, nullptr, instance, !isMultidimension, true);
-      Value* value = nullptr;  
-      bool complex = false; 
-      if (expr) {
-        if (expr->UhdmType() == UHDM::uhdmconstant) {
-          UHDM::constant* c = (UHDM::constant*)expr;
-          const std::string& v = c->VpiValue();
-          value = m_exprBuilder.fromVpiValue(v);
-        } else if (expr->UhdmType() == UHDM::uhdmoperation) {
-          if (instance) {
-            complex = true;
-            instance->setComplexValue(name, expr);
-          }
-        }
-      }
-
-      if ((!complex) && (value == nullptr)) {
-        value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
-      }
-      if ((!complex) && value && value->isValid()) {
-        instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
-      }
-    }
-    */
   }
-
 
   std::set<std::string> overridenParams;
   std::vector<VObjectType> types;
@@ -1454,8 +1414,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           UHDM::UHDM_OBJECT_TYPE exprtype = complexV->UhdmType();
           if (exprtype == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
-            /*
-            if (m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
+            if (en_replay && m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
                 instance->getDefinition(), complexV, m_compileDesign, instance->getParent())) {
               bool replay = false;
               // GDB: p replay=true
@@ -1471,7 +1430,6 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                                        true);
               }
             }
-            */
             const std::string& v = c->VpiValue();
             value = m_exprBuilder.fromVpiValue(v);
           } else if ((exprtype == UHDM::uhdmoperation) ||
@@ -1501,8 +1459,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (p) isTypeParam = p->isTypeParam();
             value = m_exprBuilder.evalExpr(parentFile, expr,
                                                 instance->getParent(), isTypeParam);
-            /*
-            if (m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
+            if (en_replay && m_helper.errorOnNegativeConstant((instance->getParent()) ? instance->getParent()->getDefinition() : 
                  instance->getDefinition(), value, m_compileDesign, instance->getParent())) {
               bool replay = false;
               // GDB: p replay=true
@@ -1510,8 +1467,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 m_exprBuilder.evalExpr(parentFile, expr,
                                                 instance->getParent(), isTypeParam);    
               }   
-            } 
-            */                                 
+            }                                
           }
           if (value == nullptr || (value && !value->isValid())) {
             bool replay = false;
@@ -1584,6 +1540,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (instance) {
               complex = true;
               instance->setComplexValue(name, complexV);
+              m_helper.reorderAssignmentPattern(module, p->getUhdmParam(), complexV, m_compileDesign, instance, 0);
             }
           }
         }
@@ -1693,6 +1650,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (instance) {
               complex = true;
               instance->setComplexValue(name, expr);
+              m_helper.reorderAssignmentPattern(module, p->getUhdmParam(), expr, m_compileDesign, instance, 0);
             }
           }
         }

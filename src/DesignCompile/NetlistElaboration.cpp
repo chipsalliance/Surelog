@@ -53,7 +53,7 @@
 #include "ElaboratorListener.h"
 #include "clone_tree.h"
 #include <queue>
-
+#include <algorithm>
 #include "uhdm.h"
 #include "Serializer.h"
 #include "UhdmWriter.h"
@@ -112,6 +112,7 @@ bool NetlistElaboration::elaborate() {
 bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_port) {
   Serializer& s =  m_compileDesign->getSerializer();
   if (!instance) return true;
+  bool en_replay = m_compileDesign->getCompiler()->getCommandLineParser()->replay();
   ModuleDefinition* mod =
       dynamic_cast<ModuleDefinition*>(instance->getDefinition());
   if (!mod) return true;
@@ -150,10 +151,17 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
 
         // Don't reduce these operations
         if (opType == vpiAssignmentPatternOp || opType == vpiMultiAssignmentPatternOp) {
-         // ElaboratorListener listener(&s);
-          //param_assign* pclone = (param_assign*) UHDM::clone_tree(mod_assign, s, &listener);
-         // pclone->VpiParent((any*) mod_assign->VpiParent());
-          assigns->push_back(mod_assign);
+          ElaboratorListener listener(&s);
+          param_assign* pclone = (param_assign*) UHDM::clone_tree(mod_assign, s, &listener);
+          pclone->VpiParent((any*) mod_assign->VpiParent());
+          
+          if (opType == vpiAssignmentPatternOp) {
+            const any* lhs = pclone->Lhs();
+            any* rhs = (any*) pclone->Rhs();
+            m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign, instance, 0);
+          }
+          
+          assigns->push_back(pclone);
           continue;
         }
       }
@@ -177,8 +185,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
-          /*
-          if (m_helper.errorOnNegativeConstant(pmod, rhs, m_compileDesign, pinst)) {
+          
+          if (en_replay && m_helper.errorOnNegativeConstant(pmod, rhs, m_compileDesign, pinst)) {
             bool replay = false;
             // GDB: p replay=true
             if (replay) {
@@ -187,7 +195,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                                          nullptr, pinst, !isMultidimensional);
             }
           }
-          */
+          
           // If it is a complex expression (! constant)...
           if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
             // But if this value can be reduced to a constant then take the
@@ -196,8 +204,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                 mod, assign->getFileContent(), assign->getAssignId(),
                 m_compileDesign, nullptr, instance, true);
             if (crhs && crhs->UhdmType() == uhdmconstant) {
-              /*
-              if (m_helper.errorOnNegativeConstant(mod, crhs, m_compileDesign, instance)) {
+              
+              if (en_replay && m_helper.errorOnNegativeConstant(mod, crhs, m_compileDesign, instance)) {
                 bool replay = false;
                 // GDB: p replay=true
                 if (replay) {
@@ -206,7 +214,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                       m_compileDesign, nullptr, instance, true);
                 }
               }
-              */
+              
               constant* ccrhs = (constant*)crhs;
               const std::string& s = ccrhs->VpiValue();
               Value* v1 = m_exprBuilder.fromVpiValue(s);
@@ -232,15 +240,15 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         c->VpiConstType(value->vpiValType());
         c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
         inst_assign->Rhs(c);
-        /*
-        if (m_helper.errorOnNegativeConstant(mod, c, m_compileDesign, instance)) {
+        
+        if (en_replay && m_helper.errorOnNegativeConstant(mod, c, m_compileDesign, instance)) {
           bool replay = false;
           //GDB: p replay=true
           if (replay) {
             instance->getValue(paramName, m_exprBuilder);
           }
         }
-        */
+        
         override = true;
       }
     }
@@ -254,8 +262,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             exp = tmp;
         }
         inst_assign->Rhs(exp);
-        /*
-        if (m_helper.errorOnNegativeConstant(mod, exp, m_compileDesign, instance)) {
+        
+        if (en_replay && m_helper.errorOnNegativeConstant(mod, exp, m_compileDesign, instance)) {
           bool replay = false;
           //GDB: p replay=true
           if (replay) {
@@ -271,7 +279,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             }
           }
         }
-        */
+        
         override = true;
       }
     }
