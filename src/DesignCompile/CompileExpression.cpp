@@ -1508,7 +1508,6 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 if (opType == vpiAssignmentPatternOp) {
                   VectorOfany* ops = op->Operands();
                   if (ops && (index_val < ops->size())) {
-                    //object = ops->at(ops->size() - index_val - 1);
                     object = ops->at(index_val);
                   } else {
                     invalidValue = true;
@@ -1516,7 +1515,6 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 } else if (opType == vpiConcatOp) {
                   VectorOfany* ops = op->Operands();
                   if (ops && (index_val < ops->size())) {
-                    //object = ops->at(ops->size() - index_val - 1);
                     object = ops->at(index_val);
                   } else {
                     invalidValue = true;
@@ -1559,7 +1557,6 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           } else if (opType == vpiConcatOp) {
             VectorOfany* ops = op->Operands();
             if (ops && (index_val < ops->size())) {
-              //object = ops->at(ops->size() - index_val -1);
               object = ops->at(index_val);
             } else {
               invalidValue = true;
@@ -1580,7 +1577,6 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               } else if (opType == vpiConcatOp) {
                 VectorOfany* ops = op->Operands();
                 if (ops && (index_val < ops->size())) {
-                  //object = ops->at(ops->size() - index_val - 1);
                   object = ops->at(index_val);
                 } else {
                   invalidValue = true;
