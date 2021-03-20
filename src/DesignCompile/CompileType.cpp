@@ -930,7 +930,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slConstant_expression: {
-      expr* exp = (expr*) compileExpression(component, fC, type, compileDesign, nullptr, instance, true);
+      expr* exp = (expr*) compileExpression(component, fC, type, compileDesign, nullptr, instance, true, reduce == false);
       if (exp && exp->UhdmType() == uhdmref_obj) {
         return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
       } else {

@@ -299,6 +299,8 @@ public:
 
   int64_t get_value(bool& invalidValue, const UHDM::expr* expr);
 
+  long double get_double(bool& invalidValue, const UHDM::expr* expr);
+
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
  
