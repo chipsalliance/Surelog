@@ -1,0 +1,18 @@
+cd ~/black-parrot
+git pull
+git submodule update --init --recursive
+cp -R bp_* ~/Surelog/third_party/tests/black-parrot/bp_*
+cp -R external/basejump_stl/* ~/Surelog/third_party/tests/black-parrot/external/basejump_stl/
+
+
+bp_common_defines.svh:
+Comment: //  `include "bp_common_defines.svh"
+
+Makefile:
+Replace: TOP ?= $(shell 'pwd')/../..
+
+Makefile.verilator:
+Comment: ## VV_OPTS += --threads $(VERILATOR_THREADS)
+
+wrapper.sv:
+Remove carriage return: `declare_bp_bedrock_mem_if(paddr_width_p, uce_mem_data_width_lp, lce_id_width_p, lce_assoc_p,uce);

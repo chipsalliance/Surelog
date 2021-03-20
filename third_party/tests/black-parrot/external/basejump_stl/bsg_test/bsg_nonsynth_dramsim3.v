@@ -25,6 +25,7 @@ module bsg_nonsynth_dramsim3
     , parameter mem_addr_width_lp=$clog2(num_channels_p)+channel_addr_width_p
     , parameter data_mask_width_lp=(data_width_p>>3)
     , parameter byte_offset_width_lp=`BSG_SAFE_CLOG2(data_width_p>>3)
+    , parameter tag_width_p=32
   )
   (
     input clk_i
@@ -38,6 +39,11 @@ module bsg_nonsynth_dramsim3
     , input [num_channels_p-1:0] data_v_i
     , input [num_channels_p-1:0][data_width_p-1:0] data_i
     , input [num_channels_p-1:0][data_mask_width_lp-1:0] mask_i
+
+    //stats info
+    , input print_stat_v_i
+    , input [tag_width_p-1:0] print_stat_tag_i
+
     , output logic [num_channels_p-1:0] data_yumi_o 
 
     , output logic [num_channels_p-1:0] data_v_o
@@ -53,39 +59,44 @@ module bsg_nonsynth_dramsim3
 
   // DPI
   import "DPI-C" context function 
-    bit     bsg_dramsim3_init(input int     num_channels,
-                              input int     data_width,
-                              input longint size,
-                              input int     num_columns,
-                              string        config_file);
+    chandle     bsg_dramsim3_init(input int     num_channels,
+                                  input int     data_width,
+                                  input longint size,
+                                  input int     num_columns,
+                                  string        config_file);
   
   import "DPI-C" context function 
-    bit     bsg_dramsim3_send_write_req(input longint addr);
+    bit     bsg_dramsim3_send_write_req(input chandle dramsim3_handle, input longint addr);
   
   import "DPI-C" context function 
-    bit     bsg_dramsim3_send_read_req(input longint addr);
+    bit     bsg_dramsim3_send_read_req(input chandle dramsim3_handle, input longint addr);
   
   import "DPI-C" context function 
-    bit     bsg_dramsim3_get_read_done(int ch);
+    bit     bsg_dramsim3_get_read_done(input chandle dramsim3_handle, int ch);
   
   import "DPI-C" context function 
-    longint bsg_dramsim3_get_read_done_addr(int ch);
+    longint bsg_dramsim3_get_read_done_addr(input chandle dramsim3_handle, int ch);
 
   import "DPI-C" context function 
-    bit     bsg_dramsim3_get_write_done(int ch);
+    bit     bsg_dramsim3_get_write_done(input chandle dramsim3_handle, int ch);
   
   import "DPI-C" context function 
-    longint bsg_dramsim3_get_write_done_addr(int ch);
+    longint bsg_dramsim3_get_write_done_addr(input chandle dramsim3_handle, int ch);
   
   import "DPI-C" context function
-    void    bsg_dramsim3_tick();
+    void    bsg_dramsim3_tick(input chandle dramsim3_handle);
+
+  import "DPI-C" context function
+    void    bsg_dramsim3_print_stats(input chandle dramsim3_handle, int unsigned tag);
   
   import "DPI-C" context function 
-    void    bsg_dramsim3_exit();
-     bit    init;
+    void    bsg_dramsim3_exit(input chandle dramsim3_handle);
+
+  chandle dramsim3_handle;
+
 
   initial begin
-    init = bsg_dramsim3_init(num_channels_p, data_width_p, size_in_bits_p, num_columns_p, config_p);
+    dramsim3_handle = bsg_dramsim3_init(num_channels_p, data_width_p, size_in_bits_p, num_columns_p, config_p);
   end
 
   // memory addr
@@ -174,17 +185,17 @@ module bsg_nonsynth_dramsim3
 
       // getting read/write done
       for (integer i = 0; i < num_channels_p; i++) begin
-        read_done[i] <= bsg_dramsim3_get_read_done(i);
-        if (bsg_dramsim3_get_read_done(i))
-          read_done_addr[i] <= bsg_dramsim3_get_read_done_addr(i);
+        read_done[i] <= bsg_dramsim3_get_read_done(dramsim3_handle, i);
+        if (bsg_dramsim3_get_read_done(dramsim3_handle, i))
+          read_done_addr[i] <= bsg_dramsim3_get_read_done_addr(dramsim3_handle, i);
 
-        write_done_o[i] <= bsg_dramsim3_get_write_done(i);
-        if (bsg_dramsim3_get_write_done(i))
-          write_done_addr[i] <= bsg_dramsim3_get_write_done_addr(i);
+        write_done_o[i] <= bsg_dramsim3_get_write_done(dramsim3_handle, i);
+        if (bsg_dramsim3_get_write_done(dramsim3_handle, i))
+          write_done_addr[i] <= bsg_dramsim3_get_write_done_addr(dramsim3_handle, i);
       end
 
       // tick
-      bsg_dramsim3_tick();
+      bsg_dramsim3_tick(dramsim3_handle);
 
     end
   end
@@ -199,12 +210,12 @@ module bsg_nonsynth_dramsim3
         if (v_i[i]) begin
           if (write_not_read_i[i]) begin
             if (data_v_i[i])
-              yumi_lo[i] <= bsg_dramsim3_send_write_req(mem_addr[i]);
+              yumi_lo[i] <= bsg_dramsim3_send_write_req(dramsim3_handle, mem_addr[i]);
             else
               yumi_lo[i] <= 1'b0;
           end
           else begin
-            yumi_lo[i] <= bsg_dramsim3_send_read_req(mem_addr[i]);
+            yumi_lo[i] <= bsg_dramsim3_send_read_req(dramsim3_handle, mem_addr[i]);
           end
         end
         else begin
@@ -263,6 +274,13 @@ module bsg_nonsynth_dramsim3
     end
   end
 
+  //print_stat
+  always_ff @ (negedge clk_i) begin
+    if ((reset_i === 0) & (print_stat_v_i === 1)) begin
+      bsg_dramsim3_print_stats(dramsim3_handle, print_stat_tag_i);
+    end
+  end
+
   // debugging
    integer file;
    initial begin
@@ -295,7 +313,7 @@ module bsg_nonsynth_dramsim3
 
   // final
   final begin
-    bsg_dramsim3_exit();
+    bsg_dramsim3_exit(dramsim3_handle);
     $fclose(file);
   end
 
