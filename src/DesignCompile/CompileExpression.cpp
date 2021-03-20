@@ -538,19 +538,37 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               expr* reduc1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
               bool arg0isString = getStringVal(s0, reduc0);
               bool arg1isString = getStringVal(s1, reduc1);
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              bool invalidValueS = true;
               uint64_t val = 0;
-              if ( arg0isString && arg1isString) {
+              if (arg0isString && arg1isString) {
+                invalidValueS = false;
                 val = (s0 == s1);
               } else {
-                val = get_value(invalidValue, reduc0) ==
-                      get_value(invalidValue, reduc1);
+                int64_t v0 = get_value(invalidValueI, reduc0);
+                int64_t v1 = get_value(invalidValueI, reduc1);
+                if ((invalidValue == false) && (invalidValueI == false)) {
+                  val = v0 == v1;
+                } else {
+                  invalidValueD = false;
+                  long double v0 = get_double(invalidValueD, reduc0);
+                  long double v1 = get_double(invalidValueD, reduc1);
+                  if ((invalidValue == false) && (invalidValueD == false)) {
+                    val = v0 == v1;
+                  }
+                }
               }
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("UINT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiUIntConst);
-              result = c;
+              if (invalidValueI && invalidValueD && invalidValueS) {
+                invalidValue = true;
+              } else {
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("UINT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiUIntConst);
+                result = c;
+              }
             }
             break;
           }
@@ -676,15 +694,36 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           case vpiAddOp:
           case vpiPlusOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int64_t val = val0 + val1;
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiIntConst);
-              result = c;
+              expr* expr0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* expr1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              int64_t val0 = get_value(invalidValueI, expr0);
+              int64_t val1 = get_value(invalidValueI, expr1);
+              if ((invalidValue == false) && (invalidValueI == false)) {
+                int64_t val = val0 + val1;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else {
+                invalidValueD = false;
+                long double val0 = get_double(invalidValueD, expr0);
+                long double val1 = get_double(invalidValueD, expr1);
+                if ((invalidValue == false) && (invalidValueD == false)) {
+                  long double val = val0 + val1;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiRealConst);
+                  result = c;
+                }
+              }
+              if (invalidValueI && invalidValueD)
+                invalidValue = true;
             }
             break;
           }
@@ -746,47 +785,103 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiMinusOp: {
             if (operands.size() == 1) {
-              int64_t val =
-                  -get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiIntConst);
-              result = c;
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              expr* expr0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);  
+              int64_t val0 = get_value(invalidValueI, expr0);
+              if ((invalidValue == false) && (invalidValueI == false)) {
+                int64_t val = -val0;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else {
+                invalidValueD = false;
+                long double val0 = get_double(invalidValueD, expr0);
+                if ((invalidValue == false) && (invalidValueD == false)) {
+                  long double val = -val0;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiRealConst);
+                  result = c;
+                }
+              }
+              if (invalidValueI && invalidValueD) 
+                invalidValue = true;
             }
             break;
           }
           case vpiSubOp: {
             if (operands.size() == 2) {
-              bool val1Invalid = false;
-              int64_t val1 =
-                  get_value(val1Invalid, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              bool val2Invalid = false;
-              int64_t val2 =
-                  get_value(val2Invalid, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              invalidValue = val1Invalid || val2Invalid;
-              int64_t val = val1 - val2;
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiIntConst);
-              result = c;
+              expr* expr0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* expr1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              int64_t val0 = get_value(invalidValueI, expr0);
+              int64_t val1 = get_value(invalidValueI, expr1);
+              if ((invalidValue == false) && (invalidValueI == false)) {
+                int64_t val = val0 - val1;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else {
+                invalidValueD = false;
+                long double val0 = get_double(invalidValueD, expr0);
+                long double val1 = get_double(invalidValueD, expr1);
+                if ((invalidValue == false) && (invalidValueD == false)) {
+                  long double val = val0 - val1;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiRealConst);
+                  result = c;
+                }
+              }
+              if (invalidValueI && invalidValueD)
+                invalidValue = true;
             }
             break;
           }
           case vpiMultOp: {
             if (operands.size() == 2) {
-              int64_t val0 = get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int64_t val1 = get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int64_t val = val0 * val1;
-              UHDM::constant* c = s.MakeConstant();
-              c->VpiValue("INT:" + std::to_string(val));
-              c->VpiDecompile(std::to_string(val));
-              c->VpiSize(64);
-              c->VpiConstType(vpiIntConst);
-              result = c;
+              expr* expr0 = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* expr1 = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              int64_t val0 = get_value(invalidValueI, expr0);
+              int64_t val1 = get_value(invalidValueI, expr1);
+              if ((invalidValue == false) && (invalidValueI == false)) {
+                int64_t val = val0 * val1;
+                UHDM::constant* c = s.MakeConstant();
+                c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
+                c->VpiSize(64);
+                c->VpiConstType(vpiIntConst);
+                result = c;
+              } else {
+                invalidValueD = false;
+                long double val0 = get_double(invalidValueD, expr0);
+                long double val1 = get_double(invalidValueD, expr1);
+                if ((invalidValue == false) && (invalidValueD == false)) {
+                  long double val = val0 * val1;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiRealConst);
+                  result = c;
+                }
+              }
+              if (invalidValueI && invalidValueD)
+                invalidValue = true;
             }
             break;
           }
@@ -943,11 +1038,15 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
           }
           case vpiDivOp: {
             if (operands.size() == 2) {
-              int64_t divisor =
-                  get_value(invalidValue, reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              int64_t num =
-                    get_value(invalidValue, reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors));
-              if (divisor) {
+              bool divideByZero = true;
+              expr* div_expr = reduceExpr(operands[1], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              expr* num_expr = reduceExpr(operands[0], invalidValue, component, compileDesign, instance, fileName, lineNumber, pexpr, muteErrors);
+              bool invalidValueI = false;
+              bool invalidValueD = false;
+              int64_t divisor = get_value(invalidValueI, div_expr);
+              int64_t num = get_value(invalidValueI, num_expr);
+              if (divisor && (invalidValue == false) && (invalidValueI == false)) {
+                divideByZero = false;
                 int64_t val = num / divisor;
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
@@ -956,7 +1055,44 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
                 c->VpiConstType(vpiIntConst);
                 result = c;
               } else {
+                invalidValueD = false;
+                long double divisor = get_double(invalidValueD, div_expr);
+                long double num = get_double(invalidValueD, num_expr);
+                if (divisor && (invalidValue == false) && (invalidValueD == false)) {
+                  divideByZero = false;
+                  long double val =  num / divisor;
+                  UHDM::constant* c = s.MakeConstant();
+                  c->VpiValue("REAL:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
+                  c->VpiSize(64);
+                  c->VpiConstType(vpiRealConst);
+                  result = c;
+                }
+              }
+              if (invalidValueI && invalidValueD)
+                invalidValue = true;
+              if (divideByZero) {
                 // Divide by 0
+                if (!muteErrors) {
+                  std::string instanceName;
+                  if (instance) {
+                    if (ModuleInstance* inst =
+                            dynamic_cast<ModuleInstance*>(instance)) {
+                      instanceName = inst->getFullPathName();
+                    }
+                  } else if (component) {
+                    instanceName = component->getName();
+                  }
+                  ErrorContainer* errors =
+                      compileDesign->getCompiler()->getErrorContainer();
+                  SymbolTable* symbols =
+                      compileDesign->getCompiler()->getSymbolTable();
+                  Location loc(symbols->registerSymbol(fileName),
+                               lineNumber, 0,
+                               symbols->registerSymbol(instanceName));
+                  Error err(ErrorDefinition::ELAB_DIVIDE_BY_ZERO, loc);
+                  errors->addError(err);
+                }
                 bool replay = false;
                 //GDB: p replay=true
                 if (replay) {
@@ -1597,6 +1733,27 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
       result = tmp;  
   }
   return (expr*) result;
+}
+
+long double CompileHelper::get_double(bool& invalidValue, const UHDM::expr* expr) {
+  long double result = 0;
+  if (const UHDM::constant* c = dynamic_cast<const UHDM::constant*>(expr)) {
+    int type = c->VpiConstType();
+    std::string v = c->VpiValue();
+    switch (type) {
+      case vpiRealConst: {
+        result = std::strtold(v.c_str() + strlen("REAL:"), 0);
+        break;
+      }
+      default: {
+        result = get_value(invalidValue, expr);
+        break;
+      }
+    }
+  } else {
+    invalidValue = true;
+  }
+  return result;
 }
 
 int64_t CompileHelper::get_value(bool& invalidValue,
@@ -3478,7 +3635,7 @@ bool CompileHelper::errorOnNegativeConstant(DesignComponent* component, const st
       instanceName = component->getName();
     }
     std::string message;
-    message += instanceName + "\n";
+    message += "\"" + instanceName + "\"\n";
     std::string fileContent = FileUtils::getFileContent(fileName);
     std::string lineText =
         StringUtils::getLineInString(fileContent, lineNo);
@@ -4316,7 +4473,7 @@ UHDM::any* CompileHelper::compileClog2(
   bool invalidValue = false;
   int64_t val = 0;
   if (reduce)
-    val = get_value(invalidValue, reduceExpr(operand, invalidValue, component, compileDesign, instance, fC->getFileName(), fC->Line(Expression), pexpr));
+    val = get_value(invalidValue, reduceExpr(operand, invalidValue, component, compileDesign, instance, fC->getFileName(), fC->Line(Expression), pexpr, muteErrors));
   if (reduce && (invalidValue == false)) {
     val = val - 1;
     uint64_t clog2 = 0;

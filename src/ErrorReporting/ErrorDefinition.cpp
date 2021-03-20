@@ -364,7 +364,9 @@ bool ErrorDefinition::init() {
   rec(ELAB_OUT_OF_RANGE_PARAM_INDEX, ERROR, ELAB,
       "Out of range parameter index: \"%s\"");
   rec(ELAB_NEGATIVE_VALUE, NOTE, ELAB,
-      "Negative value in instance %s");    
+      "Negative value in instance %s");
+  rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB, 
+      "Division by zero in instance \"%s\"");    
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
