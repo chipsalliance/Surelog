@@ -239,20 +239,21 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/NonAnsiPort/slpp_unit//surelog.uhdm
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
+\_package: pkg1 (pkg1::) dut.sv:1: , parent:work@dut
   |vpiDefName:pkg1
   |vpiName:pkg1
+  |vpiFullName:pkg1::
   |vpiTypedef:
-  \_struct_typespec: (struct1), line:2
+  \_struct_typespec: (pkg1::struct1), line:2
     |vpiPacked:1
-    |vpiName:struct1
+    |vpiName:pkg1::struct1
     |vpiTypespecMember:
     \_typespec_member: (first), line:3
       |vpiName:first
       |vpiTypespec:
       \_logic_typespec: , line:3
         |vpiRange:
-        \_range: , line:3, parent:struct1
+        \_range: , line:3, parent:pkg1::struct1
           |vpiLeftRange:
           \_constant: , line:3
             |vpiConstType:9
@@ -266,22 +267,23 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
         |vpiInstance:
-        \_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
+        \_package: pkg1 (pkg1::) dut.sv:1: , parent:work@dut
 |uhdmallPackages:
-\_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
+\_package: pkg2 (pkg2::) dut.sv:7: , parent:work@dut
   |vpiDefName:pkg2
   |vpiName:pkg2
+  |vpiFullName:pkg2::
   |vpiTypedef:
-  \_struct_typespec: (struct1), line:8
+  \_struct_typespec: (pkg2::struct1), line:8
     |vpiPacked:1
-    |vpiName:struct1
+    |vpiName:pkg2::struct1
     |vpiTypespecMember:
     \_typespec_member: (second), line:9
       |vpiName:second
       |vpiTypespec:
       \_logic_typespec: , line:9
         |vpiRange:
-        \_range: , line:9, parent:struct1
+        \_range: , line:9, parent:pkg2::struct1
           |vpiLeftRange:
           \_constant: , line:9
             |vpiConstType:9
@@ -295,7 +297,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
         |vpiInstance:
-        \_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
+        \_package: pkg2 (pkg2::) dut.sv:7: , parent:work@dut
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:13: , parent:work@dut
   |vpiDefName:work@dut
@@ -421,16 +423,16 @@ design: (work@dut)
     |vpiName:var1
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (struct1), line:2
+    \_struct_typespec: (pkg1::struct1), line:2
       |vpiPacked:1
-      |vpiName:struct1
+      |vpiName:pkg1::struct1
       |vpiTypespecMember:
       \_typespec_member: (first), line:3
         |vpiName:first
         |vpiTypespec:
         \_logic_typespec: , line:3
           |vpiRange:
-          \_range: , line:3, parent:struct1
+          \_range: , line:3, parent:pkg1::struct1
             |vpiLeftRange:
             \_constant: , line:3
               |vpiConstType:9
@@ -444,11 +446,12 @@ design: (work@dut)
               |vpiSize:64
               |UINT:0
           |vpiInstance:
-          \_package: pkg1 (pkg1) dut.sv:1: , parent:work@dut
+          \_package: pkg1 (pkg1::) dut.sv:1: , parent:work@dut
             |vpiDefName:pkg1
             |vpiName:pkg1
+            |vpiFullName:pkg1::
             |vpiTypedef:
-            \_struct_typespec: (struct1), line:2
+            \_struct_typespec: (pkg1::struct1), line:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
@@ -456,22 +459,22 @@ design: (work@dut)
         |vpiName:var1
         |vpiFullName:work@dut.var1
         |vpiTypespec:
-        \_struct_typespec: (struct1), line:2
+        \_struct_typespec: (pkg1::struct1), line:2
   |vpiPort:
   \_port: (var2), line:13, parent:work@dut
     |vpiName:var2
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (struct1), line:8
+    \_struct_typespec: (pkg2::struct1), line:8
       |vpiPacked:1
-      |vpiName:struct1
+      |vpiName:pkg2::struct1
       |vpiTypespecMember:
       \_typespec_member: (second), line:9
         |vpiName:second
         |vpiTypespec:
         \_logic_typespec: , line:9
           |vpiRange:
-          \_range: , line:9, parent:struct1
+          \_range: , line:9, parent:pkg2::struct1
             |vpiLeftRange:
             \_constant: , line:9
               |vpiConstType:9
@@ -485,11 +488,12 @@ design: (work@dut)
               |vpiSize:64
               |UINT:0
           |vpiInstance:
-          \_package: pkg2 (pkg2) dut.sv:7: , parent:work@dut
+          \_package: pkg2 (pkg2::) dut.sv:7: , parent:work@dut
             |vpiDefName:pkg2
             |vpiName:pkg2
+            |vpiFullName:pkg2::
             |vpiTypedef:
-            \_struct_typespec: (struct1), line:8
+            \_struct_typespec: (pkg2::struct1), line:8
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
@@ -497,7 +501,7 @@ design: (work@dut)
         |vpiName:var2
         |vpiFullName:work@dut.var2
         |vpiTypespec:
-        \_struct_typespec: (struct1), line:8
+        \_struct_typespec: (pkg2::struct1), line:8
   |vpiPort:
   \_port: (var3), line:13, parent:work@dut
     |vpiName:var3

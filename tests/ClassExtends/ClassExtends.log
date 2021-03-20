@@ -37,15 +37,16 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ClassExtends/slpp_unit//surelog.uhd
 design: (unnamed)
 |vpiName:unnamed
 |uhdmallPackages:
-\_package: p1 (p1) dut.sv:1: , parent:unnamed
+\_package: p1 (p1::) dut.sv:1: , parent:unnamed
   |vpiDefName:p1
   |vpiName:p1
+  |vpiFullName:p1::
   |vpiClassDefn:
-  \_class_defn: (p1::c1) dut.sv:3: , parent:p1
+  \_class_defn: (p1::c1) dut.sv:3: , parent:p1::
     |vpiName:c1
     |vpiFullName:p1::c1
     |vpiDerivedClasses:
-    \_class_defn: (p2::c2) dut.sv:21: , parent:p2
+    \_class_defn: (p2::c2) dut.sv:21: , parent:p2::
       |vpiName:c2
       |vpiFullName:p2::c2
       |vpiExtends:
@@ -53,7 +54,7 @@ design: (unnamed)
         |vpiClassTypespec:
         \_class_typespec: 
           |vpiClassDefn:
-          \_class_defn: (p1::c1) dut.sv:3: , parent:p1
+          \_class_defn: (p1::c1) dut.sv:3: , parent:p1::
       |vpiVariables:
       \_class_var: (p2::c2::inst1), line:23, parent:p2::c2
         |vpiName:inst1
@@ -64,39 +65,41 @@ design: (unnamed)
         \_class_typespec: (p3::c33), line:23, parent:p2::c2::inst1
           |vpiName:p3::c33
           |vpiClassDefn:
-          \_class_defn: (p3::c33) dut.sv:13: , parent:p3
+          \_class_defn: (p3::c33) dut.sv:13: , parent:p3::
             |vpiName:c33
             |vpiFullName:p3::c33
       |vpiTypedef:
-      \_class_typespec: (c3), line:8, parent:p2::c2
-        |vpiName:c3
+      \_class_typespec: (p2::p1::c3), line:8, parent:p2::c2
+        |vpiName:p2::p1::c3
         |vpiClassDefn:
-        \_class_defn: (p1::c1) dut.sv:3: , parent:p1
+        \_class_defn: (p1::c1) dut.sv:3: , parent:p1::
         |vpiInstance:
-        \_package: p1 (p1) dut.sv:1: , parent:unnamed
+        \_package: p1 (p1::) dut.sv:1: , parent:unnamed
   |vpiTypedef:
-  \_class_typespec: (c3), line:8
-    |vpiName:c3
+  \_class_typespec: (p2::p1::c3), line:8
+    |vpiName:p2::p1::c3
     |vpiClassDefn:
-    \_class_defn: (p1::c1) dut.sv:3: , parent:p1
+    \_class_defn: (p1::c1) dut.sv:3: , parent:p1::
     |vpiInstance:
-    \_package: p1 (p1) dut.sv:1: , parent:unnamed
+    \_package: p1 (p1::) dut.sv:1: , parent:unnamed
 |uhdmallPackages:
-\_package: p2 (p2) dut.sv:17: , parent:unnamed
+\_package: p2 (p2::) dut.sv:17: , parent:unnamed
   |vpiDefName:p2
   |vpiName:p2
+  |vpiFullName:p2::
   |vpiClassDefn:
-  \_class_defn: (p2::c2) dut.sv:21: , parent:p2
+  \_class_defn: (p2::c2) dut.sv:21: , parent:p2::
   |vpiTypedef:
-  \_class_typespec: (c3), line:8
+  \_class_typespec: (p2::p1::c3), line:8
   |vpiTypedef:
   \_import: (p1)
 |uhdmallPackages:
-\_package: p3 (p3) dut.sv:12: , parent:unnamed
+\_package: p3 (p3::) dut.sv:12: , parent:unnamed
   |vpiDefName:p3
   |vpiName:p3
+  |vpiFullName:p3::
   |vpiClassDefn:
-  \_class_defn: (p3::c33) dut.sv:13: , parent:p3
+  \_class_defn: (p3::c33) dut.sv:13: , parent:p3::
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

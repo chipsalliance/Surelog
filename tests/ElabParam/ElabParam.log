@@ -235,32 +235,34 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/ElabParam/slpp_all//surelog.uhdm.ch
 design: (work@dut)
 |vpiName:work@dut
 |uhdmallPackages:
-\_package: builtin (builtin), parent:work@dut
+\_package: builtin (builtin::), parent:work@dut
   |vpiDefName:builtin
   |vpiName:builtin
+  |vpiFullName:builtin::
   |vpiClassDefn:
-  \_class_defn: (builtin::array), parent:builtin
+  \_class_defn: (builtin::array), parent:builtin::
     |vpiName:array
     |vpiFullName:builtin::array
   |vpiClassDefn:
-  \_class_defn: (builtin::queue), parent:builtin
+  \_class_defn: (builtin::queue), parent:builtin::
     |vpiName:queue
     |vpiFullName:builtin::queue
   |vpiClassDefn:
-  \_class_defn: (builtin::string), parent:builtin
+  \_class_defn: (builtin::string), parent:builtin::
     |vpiName:string
     |vpiFullName:builtin::string
   |vpiClassDefn:
-  \_class_defn: (builtin::system), parent:builtin
+  \_class_defn: (builtin::system), parent:builtin::
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallPackages:
-\_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
+\_package: top_pkg (top_pkg::) dut.sv:1: , parent:work@dut
   |vpiDefName:top_pkg
   |vpiName:top_pkg
+  |vpiFullName:top_pkg::
   |vpiTypedef:
-  \_enum_typespec: (opcode_e), line:5
-    |vpiName:opcode_e
+  \_enum_typespec: (top_pkg::opcode_e), line:5
+    |vpiName:top_pkg::opcode_e
     |vpiBaseTypespec:
     \_logic_typespec: , line:2
       |vpiRange:
@@ -278,7 +280,7 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
       |vpiInstance:
-      \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
+      \_package: top_pkg (top_pkg::) dut.sv:1: , parent:work@dut
     |vpiEnumConst:
     \_enum_const: (OPCODE_LOAD), line:3
       |vpiName:OPCODE_LOAD
@@ -288,7 +290,7 @@ design: (work@dut)
       |vpiName:OPCODE_STORE
       |UINT:19
   |vpiParamAssign:
-  \_param_assign: , line:7, parent:top_pkg
+  \_param_assign: , line:7, parent:top_pkg::
     |vpiRhs:
     \_constant: , line:7
       |vpiConstType:9
@@ -296,16 +298,16 @@ design: (work@dut)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (top_pkg::PMP_CFG_W), line:7, parent:top_pkg
+    \_parameter: (top_pkg::PMP_CFG_W), line:7, parent:top_pkg::
       |vpiName:PMP_CFG_W
       |vpiFullName:top_pkg::PMP_CFG_W
       |vpiTypespec:
       \_int_typespec: (PMP_CFG_W), line:7, parent:top_pkg::PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
-        \_package: top_pkg (top_pkg) dut.sv:1: , parent:work@dut
+        \_package: top_pkg (top_pkg::) dut.sv:1: , parent:work@dut
   |vpiParameter:
-  \_parameter: (top_pkg::PMP_CFG_W), line:7, parent:top_pkg
+  \_parameter: (top_pkg::PMP_CFG_W), line:7, parent:top_pkg::
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@dut
   |vpiName:work@mailbox

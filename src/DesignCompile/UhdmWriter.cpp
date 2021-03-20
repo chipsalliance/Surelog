@@ -487,6 +487,10 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
         dtype = dtype->getDefinition();
     }
     typespec* tps = dtype->getTypespec();
+    if (parent->UhdmType() == uhdmpackage) {
+      if (tps) 
+        tps->VpiName(parent->VpiName() + "::" + tps->VpiName());
+    }
     if (tps) {
       if (ids.find(tps->UhdmId()) == ids.end()) {
         dest_typespecs->push_back(tps);
@@ -656,6 +660,7 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
 
 void writePackage(Package* pack, package* p, Serializer& s,
         ComponentMap& componentMap) {
+  p->VpiFullName(pack->getName() + "::");
   // Typepecs
   VectorOftypespec* typespecs = s.MakeTypespecVec();
   p->Typespecs(typespecs);
@@ -673,6 +678,11 @@ void writePackage(Package* pack, package* p, Serializer& s,
     p->Parameters(pack->getParameters());
     for (auto ps : *p->Parameters()) {
       ps->VpiParent(p);
+      if (ps->UhdmType() == uhdmparameter) {
+        ((parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
+      } else {
+        ((type_parameter*)ps)->VpiFullName(pack->getName() + "::" + ps->VpiName());
+      }
     }
   }
   // Param_assigns
@@ -688,6 +698,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     for (auto tf : *p->Task_funcs()) {
       tf->VpiParent(p);
       tf->Instance(p);
+      ((task_func*)tf)->VpiFullName(pack->getName() + "::" + tf->VpiName());
     }
   }
 
@@ -698,6 +709,7 @@ void writePackage(Package* pack, package* p, Serializer& s,
     if (netlist->variables()) {
       for (auto obj : *netlist->variables()) {
         obj->VpiParent(p);
+        ((variables*)obj)->VpiFullName(pack->getName() + "::" + obj->VpiName());
       }
     }
   }
