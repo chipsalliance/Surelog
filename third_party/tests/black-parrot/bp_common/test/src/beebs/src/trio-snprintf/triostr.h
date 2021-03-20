@@ -1,1 +1,0 @@
-../trio/triostr.h
