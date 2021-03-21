@@ -1,0 +1,30 @@
+cd ~/black-parrot
+git pull
+git submodule update --init --recursive
+cp -R bp_* ~/Surelog/third_party/tests/black-parrot/bp_*
+cp -R external/basejump_stl/* ~/Surelog/third_party/tests/black-parrot/external/basejump_stl/
+rm -rf  ~/Surelog/third_party/tests/black-parrot/bp_common/test/src/linux
+git rm -r *.cpp
+git rm -r *.c
+git rm -r *.cfg
+git rm -r *.h
+git rm -r *.hpp
+git rm -r *.gz
+git rm -r *.py
+
+File Sizes:
+git rev-list --objects --all |   git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |   sed -n 's/^blob //p' |   sort --numeric-sort --key=2 |   cut -c 1-12,41- |   $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+
+
+
+bp_common_defines.svh:
+Comment: //  `include "bp_common_defines.svh"
+
+Makefile:
+Replace: TOP ?= $(shell 'pwd')/../..
+
+Makefile.verilator:
+Comment: ## VV_OPTS += --threads $(VERILATOR_THREADS)
+
+wrapper.sv:
+Remove carriage return: `declare_bp_bedrock_mem_if(paddr_width_p, uce_mem_data_width_lp, lce_id_width_p, lce_assoc_p,uce);

@@ -4,7 +4,7 @@ export BASEJUMP_STL_DIR = $(abspath ../../..)
 INCDIR =  +incdir+$(BASEJUMP_STL_DIR)/bsg_misc
 
 VCS_FLAGS =  -full64 +lint=all,noSVA-UA,noSVA-NSVU,noVCDE -debug_access
-VCS_FLAGS += +v2k -sverilog -timescale=1ps/1ps -O4
+VCS_FLAGS += +v2k -sverilog -timescale=1ps/1ps -O4 -assert svaext
 
 ###### TEST SUITE ######
 BASIC_TEST += test_random1
@@ -15,6 +15,8 @@ BASIC_TEST += test_atomic2
 BASIC_TEST += test_atomic3
 BASIC_TEST += test_atomic4
 BASIC_TEST += test_stride1
+BASIC_TEST += test_stride2
+BASIC_TEST += test_mask1
 
 ########################
 
@@ -28,6 +30,7 @@ DMA_READ_DELAY_P  ?= 0
 DMA_WRITE_DELAY_P ?= 0
 DMA_REQ_DELAY_P   ?= 0
 DMA_DATA_DELAY_P  ?= 0
+BLOCK_SIZE_IN_WORDS_P ?= 8
 
 VCS_DEFINES += +define+YUMI_MIN_DELAY_P=$(YUMI_MIN_DELAY_P)
 VCS_DEFINES += +define+YUMI_MAX_DELAY_P=$(YUMI_MAX_DELAY_P)
@@ -36,6 +39,8 @@ VCS_DEFINES += +define+DMA_READ_DELAY_P=$(DMA_READ_DELAY_P)
 VCS_DEFINES += +define+DMA_WRITE_DELAY_P=$(DMA_WRITE_DELAY_P)
 VCS_DEFINES += +define+DMA_REQ_DELAY_P=$(DMA_REQ_DELAY_P)
 VCS_DEFINES += +define+DMA_DATA_DELAY_P=$(DMA_DATA_DELAY_P)
+
+VCS_DEFINES += +define+BLOCK_SIZE_IN_WORDS_P=$(BLOCK_SIZE_IN_WORDS_P)
 #######################
 
 
@@ -57,7 +62,7 @@ simv:
 out/%/trace.tr:
 	mkdir -p out/
 	mkdir -p out/$*
-	python $*.py > $@
+	python $*.py $(BLOCK_SIZE_IN_WORDS_P) > $@
 
 %.basic.run: simv out/%/trace.tr
 	(cd out/$*; $(SIMV) +wave=$(WAVE) +checker=basic -l simv.log)
@@ -73,7 +78,7 @@ summary:
 clean:
 	rm -rf DVEfiles
 	rm -rf csrc simv
-	rm -rf simv.daidir simv.vdb vcs.log
+	rm -rf simv.daidir simv.vdb vcs.log vc_hdrs.h
 	rm -rf ucli.key vcdplus.vpd simv cm.log *.tar.gz
 	rm -rf stack.info.* *.pyc
 	rm -rf out
