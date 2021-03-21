@@ -9,6 +9,13 @@ git rm -r *.c
 git rm -r *.cfg
 git rm -r *.h
 git rm -r *.hpp
+git rm -r *.gz
+git rm -r *.py
+
+File Sizes:
+git rev-list --objects --all |   git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' |   sed -n 's/^blob //p' |   sort --numeric-sort --key=2 |   cut -c 1-12,41- |   $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest
+
+
 
 bp_common_defines.svh:
 Comment: //  `include "bp_common_defines.svh"
