@@ -121,22 +121,57 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       assignment* st = (assignment*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      int64_t val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
-                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
-      Value* value = m_exprBuilder.getValueFactory().newLValue();
-      value->set(val, Value::Type::Integer, 32);
-      instance->setValue(lhs,value, m_exprBuilder);
+      expr* rhsexp = reduceExpr(rhs, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr);
+
+      bool invalidValueI = false;
+      bool invalidValueD = false;
+      int64_t valI = get_value(invalidValueI, rhsexp);
+      long double valD = 0;
+      if (invalidValueI) {
+        valD = get_double(invalidValueD, rhsexp);
+      }
+      if (invalidValueI && invalidValueD) {
+        instance->setComplexValue(lhs, rhsexp);
+      } else if (invalidValueI) {
+        Value* value = m_exprBuilder.getValueFactory().newLValue();
+        value->set((double) valD);
+        instance->setValue(lhs, value, m_exprBuilder);
+      } else {
+        Value* value = m_exprBuilder.getValueFactory().newLValue();
+        value->set(valI, Value::Type::Integer, 32);
+        instance->setValue(lhs, value, m_exprBuilder);
+      }
+      if (invalidValueI && invalidValueD)
+        invalidValue = true;
       break;
     }
     case uhdmassign_stmt: {
       assign_stmt* st = (assign_stmt*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      int64_t val = get_value(invalidValue, reduceExpr(rhs, invalidValue, component, 
-                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr));
-      Value* value = m_exprBuilder.getValueFactory().newLValue();
-      value->set(val, Value::Type::Integer, 32);
-      instance->setValue(lhs,value, m_exprBuilder);
+      expr* rhsexp = reduceExpr(rhs, invalidValue, component, 
+                                          compileDesign, scopes.back(), fileName, lineNumber, nullptr);
+      bool invalidValueI = false;
+      bool invalidValueD = false;
+      int64_t valI = get_value(invalidValueI, rhsexp);
+      long double valD = 0;
+      if (invalidValueI) {
+        valD = get_double(invalidValueD, rhsexp);
+      }
+      if (invalidValueI && invalidValueD) {
+        instance->setComplexValue(lhs, rhsexp);
+      } else if (invalidValueI) {
+        Value* value = m_exprBuilder.getValueFactory().newLValue();
+        value->set((double) valD);
+        instance->setValue(lhs, value, m_exprBuilder);
+      } else {
+        Value* value = m_exprBuilder.getValueFactory().newLValue();
+        value->set(valI, Value::Type::Integer, 32);
+        instance->setValue(lhs, value, m_exprBuilder);
+      }
+      if (invalidValueI && invalidValueD)
+        invalidValue = true;
       break;
     }
     case uhdmfor_stmt: {
@@ -194,15 +229,27 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       return_stmt* st = (return_stmt*) stmt;
       expr* cond = (expr*)st->VpiCondition();
       if (cond) {
-        int64_t val =
-            get_value(invalidValue,
-                      reduceExpr(cond, invalidValue, component, compileDesign,
-                                 scopes.back(), fileName, lineNumber, nullptr));
-        if (invalidValue == false) {                       
-          Value* value = m_exprBuilder.getValueFactory().newLValue();
-          value->set(val, Value::Type::Integer, 32);
-          instance->setValue(funcName,value, m_exprBuilder);
+        expr* rhsexp = reduceExpr(cond, invalidValue, component, compileDesign,
+                                  scopes.back(), fileName, lineNumber, nullptr);
+        bool invalidValueI = false;
+        bool invalidValueD = false;
+        int64_t valI = get_value(invalidValueI, rhsexp);
+        long double valD = 0;
+        if (invalidValueI) {
+          valD = get_double(invalidValueD, rhsexp);
         }
+        if (invalidValueI && invalidValueD) {
+          instance->setComplexValue(funcName, rhsexp);
+        } else if (invalidValueI) {
+          Value* value = m_exprBuilder.getValueFactory().newLValue();
+          value->set((double)valD);
+          instance->setValue(funcName, value, m_exprBuilder);
+        } else {
+          Value* value = m_exprBuilder.getValueFactory().newLValue();
+          value->set(valI, Value::Type::Integer, 32);
+          instance->setValue(funcName, value, m_exprBuilder);
+        }
+        if (invalidValueI && invalidValueD) invalidValue = true;
       }
       break;
     }
@@ -320,14 +367,24 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
       if (args && (index < args->size())) {
         const std::string ioname = io->VpiName();
         expr* ioexp = (expr*) args->at(index);
-        int64_t val = get_value(invalidValue, reduceExpr(ioexp, invalidValue, component, 
-                                          compileDesign, instance, fileName, lineNumber, pexpr));
-        if (invalidValue) {
+        expr* exparg = reduceExpr(ioexp, invalidValue, component, 
+                                          compileDesign, instance, fileName, lineNumber, pexpr);
+        bool invalidValueI = false;
+        bool invalidValueD = false;
+        int64_t valI = get_value(invalidValueI, exparg);
+        long double valD = 0;
+        if (invalidValueI) {
+          valD = get_double(invalidValueD, exparg);
+        }
+        if (invalidValueI && invalidValueD) {
           scope->setComplexValue(ioname, ioexp);
-          invalidValue = false;
+        } else if (invalidValueI) {
+          Value* argval = m_exprBuilder.getValueFactory().newLValue();
+          argval->set((double) valD);
+          scope->setValue(ioname,argval, m_exprBuilder);
         } else {
           Value* argval = m_exprBuilder.getValueFactory().newLValue();
-          argval->set(val, Value::Type::Integer, 32);
+          argval->set(valI, Value::Type::Integer, 32);
           scope->setValue(ioname,argval, m_exprBuilder);
         }
       }
