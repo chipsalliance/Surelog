@@ -4,9 +4,12 @@ ENTRY(_start)
 
 SECTIONS
 {
-    . = 0x1000;
-  .data .  : { *(.*data) *(.rodata*) }
-  . = 0x0;
-  .text .  : { *(.text) }
+    . = 0;
+  .text   : { *(.text*) }
  _end = .;
+  . = 0x10000;
+  .data  :  ALIGN(0x800) { *(.*data) *(.rodata*) STACK = ALIGN(16) + 0x8000; }
+  .bss : { *(.bss) }
+  . = 0xd0580000;
+  .data.io   : { *(.data.io) }
 }
