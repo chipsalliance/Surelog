@@ -1,4 +1,19 @@
 #!/usr/bin/perl
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2020 Western Digital Corporation or its affiliates.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
 use Getopt::Long;
 
@@ -8,7 +23,7 @@ $helpusage = "placeholder";
 
 GetOptions ('len=s'       => \$len,
             'num=s'       => \$num,
-	    'den=s'       => \$den,
+            'den=s'       => \$den,
             'skip'   => \$skip)  || die("$helpusage");
 
 if (!defined($len)) { $len=8; }
@@ -25,9 +40,9 @@ printf(".ob smallnum[3] smallnum[2] smallnum[1] smallnum[0]\n");
 printf(".type fr\n");
 for ($q=0; $q<16; $q++) {
     for ($m=0; $m<16; $m++) {
-	if ($m==0) { next; }
-	$result=int($q/$m);
-	printf("%s %s %s\n",d2bl($q,4),d2bl($m,4),d2bl($result,4));
+        if ($m==0) { next; }
+        $result=int($q/$m);
+        printf("%s %s %s\n",d2bl($q,4),d2bl($m,4),d2bl($result,4));
     }
 }
 
@@ -49,20 +64,20 @@ for ($i=1; $i<=$LEN; $i++) {
 
 
     $signa = substr($a,0,1);
-    
-    
+
+
     $a = substr($a.$q,1,$LEN);  # new a with q shifted in
-    
+
     if ($signa==0) { $a=b2d($a)-b2d($m); }
     else           { $a=b2d($a)+b2d($m); }
-    
+
     $a=d2b($a);
-    
-    
+
+
     $signa = substr($a,0,1);
     if ($signa==0) { $q=substr($q,1,$LEN-1)."1"; }
     else           { $q=substr($q,1,$LEN-1)."0"; }
-    
+
 }
 
 
@@ -80,9 +95,9 @@ else          { printf("\n"); }
 
 sub b2d {
     my ($v) = @_;
-    
+
     $v = oct("0b" . $v);
-    
+
     return($v);
 }
 
@@ -93,11 +108,11 @@ sub d2b {
 
     $v = sprintf "%b",$v;
     if (length($v)<$LEN) {
-	$repeat=$LEN-length($v);
-	$v="0"x$repeat.$v;
+        $repeat=$LEN-length($v);
+        $v="0"x$repeat.$v;
     }
     elsif (length($v)>$LEN) {
-	$v=substr($v,length($v)-$LEN,$LEN);
+        $v=substr($v,length($v)-$LEN,$LEN);
     }
 
     return($v);
@@ -110,11 +125,11 @@ sub d2bl {
 
     $v = sprintf "%b",$v;
     if (length($v)<$LEN) {
-	$repeat=$LEN-length($v);
-	$v="0"x$repeat.$v;
+        $repeat=$LEN-length($v);
+        $v="0"x$repeat.$v;
     }
     elsif (length($v)>$LEN) {
-	$v=substr($v,length($v)-$LEN,$LEN);
+        $v=substr($v,length($v)-$LEN,$LEN);
     }
 
     return($v);

@@ -1,1 +1,4 @@
-  -DRV_ROOT=./ ../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv  +define+RV_OPENSOURCE +error+500 +incdir+./design/lib +incdir+./design/include ./configs/snapshots/default/common_defines.vh  ./design/include/build.h ./design/include/global.h ./design/include/swerv_types.sv  ./configs/snapshots/default/common_defines.vh +incdir+./design/dmi +incdir+./configs/snapshots/default   +libext+.v ./configs/snapshots/default/common_defines.vh -f ./testbench/flist.vcs  -writepp -parse -verbose -d coveruhdm
+../../UVM/1800.2-2017-1.0/src/uvm_pkg.sv --cc -CFLAGS "-std=c++11" snapshots/default/common_defines.vh /home/alain/Cores-SweRV//design/include/swerv_types.sv -I/home/alain/Cores-SweRV//design/include -I/home/alain/Cores-SweRV//design/lib  -Isnapshots/default -Wno-UNOPTFLAT  -I/home/alain/Cores-SweRV//testbench -f /home/alain/Cores-SweRV//testbench/flist /home/alain/Cores-SweRV//testbench/tb_top.sv /home/alain/Cores-SweRV//testbench/ahb_sif.sv --top-module tb_top -verbose -parse -elabuhdm -d coveruhdm
+
+
+
