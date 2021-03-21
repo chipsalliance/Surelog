@@ -303,7 +303,14 @@ public:
 
   UHDM::expr* reduceExpr(UHDM::any* expr, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr, bool muteErrors = false);
- 
+
+  UHDM::expr* reduceCompOp(UHDM::operation* op, bool& invalidValue,
+                           DesignComponent* component,
+                           CompileDesign* compileDesign,
+                           ValuedComponentI* instance,
+                           const std::string& fileName, int lineNumber,
+                           UHDM::any* pexpr, bool muteErrors);
+
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode);         
 
