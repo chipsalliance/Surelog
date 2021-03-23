@@ -84,8 +84,9 @@ bool UhdmChecker::registerFile(const FileContent* fC) {
     current = fC->Object(id);
     bool skip = false;
     VObjectType type = (VObjectType) current.m_type;
-    if (type == VObjectType::slEnd ||
-        type == VObjectType::slEndcase ||
+    if ( type == VObjectType::slEnd) 
+       skip = true;
+    if ( type == VObjectType::slEndcase ||
         type == VObjectType::slEndtask ||
         type == VObjectType::slEndfunction||
         type == VObjectType::slEndmodule ||
@@ -136,7 +137,6 @@ bool UhdmChecker::registerFile(const FileContent* fC) {
         ) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
-        //uhdmCover.erase(lineItr);
         (*lineItr).second = 1;
       } else {
         uhdmCover.insert(std::make_pair(current.m_line, 1));
@@ -327,7 +327,10 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
     if (!bc)
       continue;
     bool unsupported = false;
-    if (bc->UhdmType() == uhdmunsupported_expr || bc->UhdmType() == uhdmunsupported_stmt)
+    UHDM_OBJECT_TYPE ot = bc->UhdmType();
+    if ((ot == uhdmunsupported_expr) || 
+        (ot == uhdmunsupported_stmt) || 
+        (ot == uhdmunsupported_typespec))
       unsupported  = true;
     const std::string& fn = bc->VpiFile();
     const auto& fItr =  fileMap.find(fn);

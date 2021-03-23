@@ -1636,30 +1636,34 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         if (p) {
           isMultidimension = p->isMultidimension();
         }
-        UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
-            instance->getDefinition(), param.fC, exprId, m_compileDesign,
-            nullptr, instance, !isMultidimension, false);
-        Value* value = nullptr;
-        bool complex = false;
-        if (expr) {
-          if (expr->UhdmType() == UHDM::uhdmconstant) {
-            UHDM::constant* c = (UHDM::constant*)expr;
-            const std::string& v = c->VpiValue();
-            value = m_exprBuilder.fromVpiValue(v);
-          } else if (expr->UhdmType() == UHDM::uhdmoperation) {
-            if (instance) {
-              complex = true;
-              instance->setComplexValue(name, expr);
-              m_helper.reorderAssignmentPattern(module, p->getUhdmParam(), expr, m_compileDesign, instance, 0);
+        if (exprId) {
+          UHDM::expr* expr = (UHDM::expr*)m_helper.compileExpression(
+              instance->getDefinition(), param.fC, exprId, m_compileDesign,
+              nullptr, instance, !isMultidimension, false);
+          Value* value = nullptr;
+          bool complex = false;
+          if (expr) {
+            if (expr->UhdmType() == UHDM::uhdmconstant) {
+              UHDM::constant* c = (UHDM::constant*)expr;
+              const std::string& v = c->VpiValue();
+              value = m_exprBuilder.fromVpiValue(v);
+            } else if (expr->UhdmType() == UHDM::uhdmoperation) {
+              if (instance) {
+                complex = true;
+                instance->setComplexValue(name, expr);
+                m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
+                                                  expr, m_compileDesign,
+                                                  instance, 0);
+              }
             }
           }
-        }
 
-        if ((!complex) && (value == nullptr)) {
-          value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
-        }
-        if ((!complex) && value && value->isValid()) {
-          instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+          if ((!complex) && (value == nullptr)) {
+            value = m_exprBuilder.evalExpr(param.fC, exprId, instance, true);
+          }
+          if ((!complex) && value && value->isValid()) {
+            instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
+          }
         }
       }
     }

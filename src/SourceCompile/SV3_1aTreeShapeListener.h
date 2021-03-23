@@ -263,9 +263,9 @@ namespace SURELOG {
    void enterAnonymous_program_item(SV3_1aParser::Anonymous_program_itemContext * /*ctx*/) final { }
    void exitAnonymous_program_item(SV3_1aParser::Anonymous_program_itemContext * ctx) final { addVObject (ctx, VObjectType::slAnonymous_program_item); }
    void enterLocal_parameter_declaration(SV3_1aParser::Local_parameter_declarationContext * /*ctx*/) final { }
-   void exitLocal_parameter_declaration(SV3_1aParser::Local_parameter_declarationContext * ctx) final { addVObject (ctx, VObjectType::slLocal_parameter_declaration); }
+   void exitLocal_parameter_declaration(SV3_1aParser::Local_parameter_declarationContext * /*ctx*/) final ;
    void enterParameter_declaration(SV3_1aParser::Parameter_declarationContext * /*ctx*/) final { }
-   void exitParameter_declaration(SV3_1aParser::Parameter_declarationContext * ctx) final { addVObject (ctx, VObjectType::slParameter_declaration); }
+   void exitParameter_declaration(SV3_1aParser::Parameter_declarationContext * /*ctx*/) final ;
    void enterSpecparam_declaration(SV3_1aParser::Specparam_declarationContext * /*ctx*/) final { }
    void exitSpecparam_declaration(SV3_1aParser::Specparam_declarationContext * ctx) final { addVObject (ctx, VObjectType::slSpecparam_declaration); }
    void enterInout_declaration(SV3_1aParser::Inout_declarationContext * /*ctx*/) final { }
