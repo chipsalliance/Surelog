@@ -2940,6 +2940,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slTxz_path_delay_expression:
       text = "slTxz_path_delay_expression";
       break;
+    case slType:
+      text = "slType";
+      break;
     case slType_declaration:
       text = "slType_declaration";
       break;

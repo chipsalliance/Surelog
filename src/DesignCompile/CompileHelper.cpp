@@ -566,16 +566,21 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       DummyType* dummy = new DummyType(fC, type_name, stype);
       newTypeDef->setDataType(dummy);
       newTypeDef->setDefinition(dummy);
+      
+      // Don't create the typespec here, as it is most likely going to be incomplete at compilation time
       /*
-       Don't create the typespec here, as it is most likely going to be incomplete at compilation time
-      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, false);
       if (ts) {
-        ts->VpiName(name);
+        ElaboratorListener listener(&s);
+        typespec* tpclone = (typespec*) UHDM::clone_tree((any*) ts, s, &listener);
+        tpclone->VpiName(name);
         if (typespecs)
-          typespecs->push_back(ts);
+          typespecs->push_back(tpclone);
+          newTypeDef->setTypespec(tpclone); 
+        dummy->setTypespec(tpclone);   
       }
-      simple->setTypespec(ts);
       */
+
       if (scope)
         scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
@@ -1937,9 +1942,10 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       if (skip) typeNameId = fC->Sibling(typeNameId);
     }
 
-  } else if (fC->Type(nodeId) == slList_of_param_assignments) {
+  } else if (fC->Type(nodeId) == slType) {
     // Type param
-    NodeId Param_assignment = fC->Child(nodeId);
+    NodeId list_of_param_assignments = fC->Sibling(nodeId);
+    NodeId Param_assignment = fC->Child(list_of_param_assignments);
     while (Param_assignment) {
       NodeId Identifier = fC->Child(Param_assignment);
       NodeId Constant_param_expression = fC->Sibling(Identifier);
@@ -1966,16 +1972,23 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
     }
   } else {
     // Regular param
-    NodeId Data_type_or_implicit = fC->Child(nodeId);
+    NodeId Data_type_or_implicit = 0;
+     NodeId List_of_param_assignments = 0;
+    if (fC->Type(nodeId) == slList_of_param_assignments) {
+      List_of_param_assignments = nodeId;
+    } else {
+      Data_type_or_implicit = fC->Child(nodeId);
+      List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
+    }
  
-    NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
     NodeId Param_assignment = fC->Child(List_of_param_assignments);
     while (Param_assignment) {
 
-      UHDM::typespec* ts =
-        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
+      UHDM::typespec* ts = nullptr;
+      if (Data_type_or_implicit) {
+        ts = compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
                         compileDesign, nullptr, instance, reduce);
-
+      }
       bool isSigned = false;
       NodeId Data_type = fC->Child(Data_type_or_implicit);
       VObjectType the_type = fC->Type(Data_type);
@@ -2038,6 +2051,9 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       component->insertParameter(p);
 
       param->Typespec(ts);
+      if (ts && (ts->UhdmType() == uhdmunsupported_typespec)) {
+        component->needLateTypedefBinding(param);
+      }
       if (ts) {
         ts->VpiParent(param);
         if (ts->VpiName() == "")

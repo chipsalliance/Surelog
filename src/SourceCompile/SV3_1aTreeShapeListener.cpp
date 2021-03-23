@@ -1427,3 +1427,17 @@ void SV3_1aTreeShapeListener::exitDeferred_immediate_cover_statement(SV3_1aParse
   } 
   addVObject (ctx, VObjectType::slDeferred_immediate_cover_statement);
 }
+
+void SV3_1aTreeShapeListener::exitLocal_parameter_declaration(SV3_1aParser::Local_parameter_declarationContext * ctx)  {
+  if (ctx->TYPE()) {
+    addVObject ((ParserRuleContext*)ctx->TYPE(), VObjectType::slType); 
+  }
+  addVObject (ctx, VObjectType::slLocal_parameter_declaration); 
+}
+  
+void SV3_1aTreeShapeListener::exitParameter_declaration(SV3_1aParser::Parameter_declarationContext * ctx) { 
+  if (ctx->TYPE()) {
+    addVObject ((ParserRuleContext*)ctx->TYPE(), VObjectType::slType); 
+  }
+  addVObject (ctx, VObjectType::slParameter_declaration); 
+}

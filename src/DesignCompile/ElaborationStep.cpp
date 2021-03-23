@@ -46,6 +46,9 @@
 #include "Design/Union.h"
 #include "Design/SimpleType.h"
 #include "headers/uhdm.h"
+#include "headers/Serializer.h"
+#include "headers/ElaboratorListener.h"
+#include "headers/clone_tree.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -70,9 +73,9 @@ bool ElaborationStep::bindTypedefs_() {
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
   Design* design = compiler->getDesign();
-
+  Serializer& s = m_compileDesign->getSerializer();
   std::vector<std::pair<TypeDef*, DesignComponent*>> defs;
-
+  std::map<std::string, typespec*> specs;
   for (auto file : design->getAllFileContents()) {
     FileContent* fC = file.second;
     for (auto typed : fC->getTypeDefMap()) {
@@ -122,22 +125,37 @@ bool ElaborationStep::bindTypedefs_() {
       prevDef = prevDef->getActual();
       if (prevDef->getTypespec() == nullptr)
         noTypespec = true;
+      else 
+        specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(), prevDef->getTypespec()));
     }
 
     if (noTypespec == true) {
       if (prevDef && prevDef->getCategory() == DataType::Category::DUMMY) {
         const DataType* def =
             bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
-        if (def && (typd != def)) {  
+        if (def && (typd != def)) {
           typd->setDefinition(def);
           typd->setDataType((DataType*)def);
+          if (typespec* tps = def->getTypespec()) {
+            ElaboratorListener listener(&s);
+            typespec* tpclone =
+                (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
+            typd->setTypespec(tpclone);
+            tpclone->VpiName(typd->getName());
+            specs.insert(std::make_pair(typd->getName(), tpclone));
+          }
         }
-      } 
-      UHDM::typespec* ts = m_helper.compileTypespec(
-          defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
-          m_compileDesign, nullptr, nullptr, true);
-      if (ts) ts->VpiName(typd->getName());
-      typd->setTypespec(ts);
+      }
+      if (typd->getTypespec() == nullptr) {
+        UHDM::typespec* ts = m_helper.compileTypespec(
+            defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
+            m_compileDesign, nullptr, nullptr, true);
+        if (ts) {
+          ts->VpiName(typd->getName());
+          specs.insert(std::make_pair(typd->getName(), ts));
+        }
+        typd->setTypespec(ts);
+      }
     } else if (prevDef == NULL) {
       const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
@@ -148,7 +166,10 @@ bool ElaborationStep::bindTypedefs_() {
         UHDM::typespec* ts = m_helper.compileTypespec(
             defTuple.second, typd->getFileContent(), typd->getDefinitionNode(),
             m_compileDesign, nullptr, nullptr, true);
-        if (ts) ts->VpiName(typd->getName());
+        if (ts) {
+          specs.insert(std::make_pair(typd->getName(), ts));
+          ts->VpiName(typd->getName());
+        }
         typd->setTypespec(ts);
       } else {
         if (prevDef == NULL) {
@@ -169,8 +190,84 @@ bool ElaborationStep::bindTypedefs_() {
         }
       }
     }
+    if (typespec* tps = typd->getTypespec()) {
+      for (any* var : comp->getLateTypedefBinding()) {
+        const typespec* orig = nullptr;
+        if (expr* ex = dynamic_cast<expr*>(var)) {
+          orig = ex->Typespec();
+        } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+          orig = ex->Typespec();
+        }
+        if (orig->UhdmType() == uhdmunsupported_typespec) {
+          const std::string& need = orig->VpiName();
+          if (need == tps->VpiName()) {
+            s.unsupported_typespecMaker.Erase((unsupported_typespec*) orig);
+            if (expr* ex = dynamic_cast<expr*>(var)) {
+              ex->Typespec(tps);
+            } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+              ex->Typespec(tps);
+            }
+          }
+        }
+      }
+    }
   }
-
+  for (auto module : design->getPackageDefinitions()) {
+    DesignComponent* comp = module.second;
+    for (any* var : comp->getLateTypedefBinding()) {
+      const typespec* orig = nullptr;
+      if (expr* ex = dynamic_cast<expr*>(var)) {
+        orig = ex->Typespec();
+      } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+        orig = ex->Typespec();
+      }
+      if (orig->UhdmType() == uhdmunsupported_typespec) {
+        const std::string& need = orig->VpiName();
+        std::map<std::string, typespec*>::iterator itr = specs.find(need);
+        if (itr != specs.end()) {
+          typespec* tps = (*itr).second;
+          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+          if (expr* ex = dynamic_cast<expr*>(var)) {
+            ex->Typespec(tps);
+          } else if (typespec_member* ex =
+                         dynamic_cast<typespec_member*>(var)) {
+            ex->Typespec(tps);
+          }
+        } else {
+          int setBreakpointHere = 0;
+          setBreakpointHere ++;
+        }
+      }
+    }
+  }
+  for (auto module : design->getModuleDefinitions()) {
+    DesignComponent* comp = module.second;
+    for (any* var : comp->getLateTypedefBinding()) {
+      const typespec* orig = nullptr;
+      if (expr* ex = dynamic_cast<expr*>(var)) {
+        orig = ex->Typespec();
+      } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+        orig = ex->Typespec();
+      }
+      if (orig->UhdmType() == uhdmunsupported_typespec) {
+        const std::string& need = orig->VpiName();
+        std::map<std::string, typespec*>::iterator itr = specs.find(need);
+        if (itr != specs.end()) {
+          typespec* tps = (*itr).second;
+          s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
+          if (expr* ex = dynamic_cast<expr*>(var)) {
+            ex->Typespec(tps);
+          } else if (typespec_member* ex =
+                         dynamic_cast<typespec_member*>(var)) {
+            ex->Typespec(tps);
+          }
+        } else {
+          int setBreakpointHere = 0;
+          setBreakpointHere ++;
+        }
+      }
+    }
+  }
   return true;
 }
 

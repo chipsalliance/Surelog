@@ -27,6 +27,7 @@
 #include "Design/Struct.h"
 #include "Design/Union.h"
 #include "Design/SimpleType.h"
+#include "Design/DummyType.h"
 #include "Design/Function.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -415,6 +416,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
       } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
         result = un->getTypespec();
         break;
+      } else if (const DummyType* un = dynamic_cast<const DummyType*>(dt)) {
+        result = un->getTypespec();
       } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
         result = sit->getTypespec();
         if (parent_tpd && result) {
@@ -517,7 +520,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         }
         break;
       }
-
+      //if (result)
+      //  break;
       dt = dt->getDefinition();
     }
 
@@ -863,6 +867,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
           const std::string& mem_name = fC->SymName(member_name);
           m->VpiName(mem_name);
           m->Typespec(member_ts);
+          if (member_ts && (member_ts->UhdmType() == uhdmunsupported_typespec)) {
+            component->needLateTypedefBinding(m);
+          }
           m->VpiFile(fC->getFileName());
           m->VpiLineNo(fC->Line(member_name));
           members->push_back(m);
@@ -910,6 +917,25 @@ UHDM::typespec* CompileHelper::compileTypespec(
             tps->VpiFile(fC->getFileName());
             tps->VpiLineNo(fC->Line(type));
             result = tps;
+          }
+        }
+      }
+      if (!result) {
+        UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
+        if (param_assigns) {
+          for (param_assign* param : *param_assigns) {
+            const std::string& param_name = param->Lhs()->VpiName();
+            if (param_name == typeName) {
+              const any* rhs = param->Rhs();
+              if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                UHDM::int_typespec* its = s.MakeInt_typespec();
+                its->VpiValue(exp->VpiValue());
+                result = its;
+              } else {
+                result = (UHDM::typespec*)rhs;
+              }
+              break;
+            }
           }
         }
       }

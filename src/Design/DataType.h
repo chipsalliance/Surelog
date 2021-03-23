@@ -48,7 +48,7 @@ public:
     REF, // points to actual definition
     PARAMETER,
     TYPEDEF,
-    DUMMY, // placeholder for later bnding
+    DUMMY, // placeholder for later binding
   };
 
   DataType(){}

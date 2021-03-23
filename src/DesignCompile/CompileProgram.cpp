@@ -143,7 +143,13 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         break;
       }
       case VObjectType::slParameter_port_list: {
+        if (collectType != CollectType::DEFINITION) break;
         ParameterPortListId = id;
+        NodeId list_of_param_assignments = fC->Child(id);
+        if (list_of_param_assignments)
+          m_helper.compileParameterDeclaration(
+              m_program, fC, list_of_param_assignments, m_compileDesign, false,
+              nullptr, false, false, false);
         break;
       }
       case VObjectType::slAnsi_port_declaration: {
@@ -190,7 +196,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+            fC->Type(list_of_type_assignments) == slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, false,
@@ -207,7 +213,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         if (collectType != CollectType::DEFINITION) break;
         NodeId list_of_type_assignments = fC->Child(id);
         if (fC->Type(list_of_type_assignments) == slList_of_type_assignments ||
-            fC->Type(list_of_type_assignments) == slList_of_param_assignments) {
+            fC->Type(list_of_type_assignments) == slType) {
           // Type param
           m_helper.compileParameterDeclaration(
               m_program, fC, list_of_type_assignments, m_compileDesign, true,

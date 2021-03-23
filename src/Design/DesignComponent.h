@@ -128,6 +128,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   void needLateBinding(UHDM::ref_obj* obj) { m_needLateBinding.push_back(obj); }
   const std::vector<UHDM::ref_obj*>& getLateBinding() const { return m_needLateBinding; }
 
+  void needLateTypedefBinding(UHDM::any* obj) { m_needLateTypedefBinding.push_back(obj); }
+  const std::vector<UHDM::any*>& getLateTypedefBinding() const { return m_needLateTypedefBinding; }
+
   void setUhdmInstance(UHDM::instance* instance) { m_instance = instance; }
   UHDM::instance* getUhdmInstance() { return m_instance; }
   void scheduleParamExprEval(const std::string& name, ExprEval& expr_eval) { m_scheduledParamExprEval.push_back(std::make_pair(name, expr_eval)); }
@@ -152,6 +155,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   VariableMap m_variables;
   std::vector<UHDM::import*> m_imported_symbols;
   std::vector<UHDM::ref_obj*> m_needLateBinding;
+  std::vector<UHDM::any*> m_needLateTypedefBinding;
   ParameterMap m_parameterMap;
   ParameterVec m_orderedParameters;
   ParamAssignVec m_paramAssigns;

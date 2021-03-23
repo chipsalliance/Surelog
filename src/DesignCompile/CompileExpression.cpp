@@ -2932,6 +2932,9 @@ UHDM::any* CompileHelper::compileExpression(
             operands->push_back(operand);
           }
           operation->Typespec(tps);
+          if (tps && tps->UhdmType() == uhdmunsupported_typespec) {
+            component->needLateTypedefBinding(operation);
+          }
           result = operation;
         }
         break;

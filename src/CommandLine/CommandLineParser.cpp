@@ -512,7 +512,6 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   cmd += "\n\n";
   std::cout << cmd;
   */
- 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i] == "-help" || all_arguments[i] == "-h" ||
         all_arguments[i] == "--help") {
