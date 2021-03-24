@@ -573,7 +573,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slContinuous_assign:
         {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
+          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slAlways_construct:
@@ -820,7 +820,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slContinuous_assign: {
           if (collectType != CollectType::OTHER) break;
           m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id),
-                                               m_compileDesign);
+                                               m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slTask_declaration: {

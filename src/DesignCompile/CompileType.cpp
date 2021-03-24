@@ -929,13 +929,48 @@ UHDM::typespec* CompileHelper::compileTypespec(
               const any* rhs = param->Rhs();
               if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
                 UHDM::int_typespec* its = s.MakeInt_typespec();
+                its->VpiParent((any*) param->Lhs());
                 its->VpiValue(exp->VpiValue());
+                its->VpiName(typeName);
+                its->VpiFile(param->VpiFile());
+                its->VpiLineNo(param->VpiLineNo());
                 result = its;
               } else {
                 result = (UHDM::typespec*)rhs;
               }
               break;
             }
+          }
+        }
+        if (!result) {
+          while (instance) {
+            if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+              if (inst->getNetlist()) {
+                UHDM::VectorOfparam_assign* param_assigns =
+                    inst->getNetlist()->param_assigns();
+                if (param_assigns) {
+                  for (param_assign* param : *param_assigns) {
+                    const std::string& param_name = param->Lhs()->VpiName();
+                    if (param_name == typeName) {
+                      const any* rhs = param->Rhs();
+                      if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                        UHDM::int_typespec* its = s.MakeInt_typespec();
+                        its->VpiParent((any*) param->Lhs());
+                        its->VpiValue(exp->VpiValue());
+                        its->VpiName(typeName);
+                        its->VpiFile(param->VpiFile());
+                        its->VpiLineNo(param->VpiLineNo());
+                        result = its;
+                      } else {
+                        result = (UHDM::typespec*)rhs;
+                      }
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+            instance = (ValuedComponentI*) instance->getParentScope();
           }
         }
       }

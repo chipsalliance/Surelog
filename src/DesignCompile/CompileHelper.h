@@ -115,7 +115,7 @@ public:
 // UHDM modeling
 
   bool compileContinuousAssignment(DesignComponent* component,
-        const FileContent* fC, NodeId id, CompileDesign* compileDesign);
+        const FileContent* fC, NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance);
 
   bool compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);

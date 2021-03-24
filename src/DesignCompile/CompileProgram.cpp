@@ -189,7 +189,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slContinuous_assign: {
         if (collectType != CollectType::OTHER) break;
         m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id),
-                                             m_compileDesign);
+                                             m_compileDesign, nullptr);
         break;
       }
       case VObjectType::slParameter_declaration: {

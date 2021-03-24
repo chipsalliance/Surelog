@@ -1661,7 +1661,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
 
 bool CompileHelper::compileContinuousAssignment(DesignComponent* component,
         const FileContent* fC, NodeId List_of_net_assignments,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, ValuedComponentI* instance) {
    UHDM::Serializer& s = compileDesign->getSerializer();
   /*
 n<o> u<6> t<StringConst> p<7> l<4>
@@ -1687,7 +1687,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     Strength1 = fC->Sibling(Strength0);
     List_of_net_assignments = fC->Sibling(List_of_net_assignments);
   } else if (fC->Type(List_of_net_assignments) == VObjectType::slDelay3) {
-    delay_expr = (expr*) compileExpression(component, fC, List_of_net_assignments, compileDesign);
+    delay_expr = (expr*) compileExpression(component, fC, List_of_net_assignments, compileDesign, nullptr, instance);
     List_of_net_assignments = fC->Sibling(List_of_net_assignments);
   }
   NodeId Net_assignment = fC->Child(List_of_net_assignments);
@@ -1700,11 +1700,11 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       if (fC->Child(Net_lvalue))
         Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
       UHDM::any* lhs_exp =
-          compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign);
+          compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign, nullptr, instance);
 
       // RHS
       UHDM::any* rhs_exp =
-          compileExpression(component, fC, Expression, compileDesign);
+          compileExpression(component, fC, Expression, compileDesign, nullptr, instance);
 
       UHDM::cont_assign* cassign = s.MakeCont_assign();
       if (Strength0) {
