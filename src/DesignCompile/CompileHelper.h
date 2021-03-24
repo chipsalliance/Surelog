@@ -118,7 +118,7 @@ public:
         const FileContent* fC, NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance);
 
   bool compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
-        NodeId id, CompileDesign* compileDesign);
+        NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance);
 
   UHDM::any* compileTfCall(DesignComponent* component, const FileContent* fC,
         NodeId Tf_call_stmt,
@@ -129,17 +129,17 @@ public:
         CompileDesign* compileDesign, UHDM::any* call, ValuedComponentI* instance, bool reduce, bool muteErrors);
 
   UHDM::assignment* compileBlockingAssignment(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        bool blocking, CompileDesign* compileDesign, UHDM::any* pstmt);
+        bool blocking, CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance = nullptr);
 
   UHDM::atomic_stmt* compileProceduralTimingControlStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance = nullptr);
 
   UHDM::atomic_stmt* compileEventControlStmt(DesignComponent* component, const FileContent* fC,
         NodeId nodeId,
-        CompileDesign* compileDesign) ;
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance = nullptr) ;
 
   UHDM::atomic_stmt* compileConditionalStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance = nullptr);
 
   bool compileParameterDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance, bool port_param, bool reduce, bool muteErrors);
@@ -161,10 +161,10 @@ public:
                          CompileDesign* compileDesign);
 
   UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pstmt = nullptr, ValuedComponentI* instance = nullptr);
 
   UHDM::VectorOfany* compileStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
+        CompileDesign* compileDesign, UHDM::any* pstmt = nullptr, ValuedComponentI* instance = nullptr);
 
   UHDM::any* compileVariable(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, bool muteErrors);
@@ -269,14 +269,14 @@ public:
   UHDM::any* bindVariable(DesignComponent* component, ValuedComponentI* instance, const std::string& name, CompileDesign* compileDesign);
 
   UHDM::event_control* compileClocking_event(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-                                    CompileDesign* compileDesign);
+                                    CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance);
 
   UHDM::clocking_block* compileClockingBlock(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-                                    CompileDesign* compileDesign);
+                                    CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance);
 
   UHDM::atomic_stmt* compileDelayControl(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance);
 
   bool compileClassConstructorDeclaration(DesignComponent* component,
                                           const FileContent* fC, NodeId nodeId,

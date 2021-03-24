@@ -728,6 +728,8 @@ design: (work@FSM)
           \_ref_obj: (work@FSM.FSM3.keys), line:19
             |vpiName:keys
             |vpiFullName:work@FSM.FSM3.keys
+            |vpiActual:
+            \_logic_net: (work@FSM.keys), line:3, parent:work@FSM
           |vpiStmt:
           \_begin: (work@FSM.FSM3), line:19
             |vpiFullName:work@FSM.FSM3
@@ -737,6 +739,11 @@ design: (work@FSM)
               \_ref_obj: (work@FSM.FSM3.accelerate), line:21
                 |vpiName:accelerate
                 |vpiFullName:work@FSM.FSM3.accelerate
+                |vpiActual:
+                \_logic_net: (work@FSM.accelerate), line:3, parent:work@FSM
+                  |vpiName:accelerate
+                  |vpiFullName:work@FSM.accelerate
+                  |vpiNetType:1
               |vpiStmt:
               \_case_stmt: , line:22
                 |vpiCaseType:1
@@ -744,12 +751,36 @@ design: (work@FSM)
                 \_ref_obj: (work@FSM.FSM3.Speed), line:22
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (work@FSM.Speed), line:5, parent:work@FSM
+                    |vpiName:Speed
+                    |vpiFullName:work@FSM.Speed
+                    |vpiNetType:48
+                    |vpiRange:
+                    \_range: , line:5
+                      |vpiLeftRange:
+                      \_constant: , line:5
+                        |vpiConstType:9
+                        |vpiDecompile:3
+                        |vpiSize:64
+                        |UINT:3
+                      |vpiRightRange:
+                      \_constant: , line:5
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
                 |vpiCaseItem:
                 \_case_item: , line:23
                   |vpiExpr:
                   \_ref_obj: (work@FSM.FSM3.Stop), line:23
                     |vpiName:Stop
                     |vpiFullName:work@FSM.FSM3.Stop
+                    |vpiActual:
+                    \_parameter: (work@FSM.Stop), line:9, parent:work@FSM
+                      |vpiName:Stop
+                      |vpiFullName:work@FSM.Stop
+                      |UINT:0
                   |vpiStmt:
                   \_assignment: , line:23
                     |vpiOpType:82
@@ -759,23 +790,6 @@ design: (work@FSM)
                       |vpiFullName:work@FSM.FSM3.Speed
                       |vpiActual:
                       \_logic_net: (work@FSM.Speed), line:5, parent:work@FSM
-                        |vpiName:Speed
-                        |vpiFullName:work@FSM.Speed
-                        |vpiNetType:48
-                        |vpiRange:
-                        \_range: , line:5
-                          |vpiLeftRange:
-                          \_constant: , line:5
-                            |vpiConstType:9
-                            |vpiDecompile:3
-                            |vpiSize:64
-                            |UINT:3
-                          |vpiRightRange:
-                          \_constant: , line:5
-                            |vpiConstType:9
-                            |vpiDecompile:0
-                            |vpiSize:64
-                            |UINT:0
                     |vpiRhs:
                     \_ref_obj: (work@FSM.FSM3.Slow), line:23
                       |vpiName:Slow
@@ -791,6 +805,11 @@ design: (work@FSM)
                   \_ref_obj: (work@FSM.FSM3.Move), line:24
                     |vpiName:Move
                     |vpiFullName:work@FSM.FSM3.Move
+                    |vpiActual:
+                    \_parameter: (work@FSM.Move), line:10, parent:work@FSM
+                      |vpiName:Move
+                      |vpiFullName:work@FSM.Move
+                      |UINT:1
                   |vpiStmt:
                   \_assignment: , line:24
                     |vpiOpType:82
@@ -820,6 +839,11 @@ design: (work@FSM)
             \_ref_obj: (work@FSM.FSM3.brake), line:29
               |vpiName:brake
               |vpiFullName:work@FSM.FSM3.brake
+              |vpiActual:
+              \_logic_net: (work@FSM.brake), line:3, parent:work@FSM
+                |vpiName:brake
+                |vpiFullName:work@FSM.brake
+                |vpiNetType:1
             |vpiStmt:
             \_case_stmt: , line:30
               |vpiCaseType:1
@@ -827,12 +851,16 @@ design: (work@FSM)
               \_ref_obj: (work@FSM.FSM3.Speed), line:30
                 |vpiName:Speed
                 |vpiFullName:work@FSM.FSM3.Speed
+                |vpiActual:
+                \_logic_net: (work@FSM.Speed), line:5, parent:work@FSM
               |vpiCaseItem:
               \_case_item: , line:31
                 |vpiExpr:
                 \_ref_obj: (work@FSM.FSM3.Stop), line:31
                   |vpiName:Stop
                   |vpiFullName:work@FSM.FSM3.Stop
+                  |vpiActual:
+                  \_parameter: (work@FSM.Stop), line:9, parent:work@FSM
                 |vpiStmt:
                 \_assignment: , line:31
                   |vpiOpType:82
@@ -854,6 +882,8 @@ design: (work@FSM)
                 \_ref_obj: (work@FSM.FSM3.Move), line:32
                   |vpiName:Move
                   |vpiFullName:work@FSM.FSM3.Move
+                  |vpiActual:
+                  \_parameter: (work@FSM.Move), line:10, parent:work@FSM
                 |vpiStmt:
                 \_assignment: , line:32
                   |vpiOpType:82

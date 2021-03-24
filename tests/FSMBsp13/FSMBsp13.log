@@ -6311,6 +6311,10 @@ design: (work@top)
           \_ref_obj: (work@FSM1.SEQ.Reset), line:15
             |vpiName:Reset
             |vpiFullName:work@FSM1.SEQ.Reset
+            |vpiActual:
+            \_logic_net: (work@top.F1.Reset), line:1, parent:work@top.F1
+              |vpiName:Reset
+              |vpiFullName:work@top.F1.Reset
           |vpiStmt:
           \_assignment: , line:16
             |vpiOpType:82
@@ -6495,15 +6499,39 @@ design: (work@top)
         \_case_stmt: , line:29, parent:work@FSM1.COMB
           |vpiCaseType:1
           |vpiCondition:
-          \_ref_obj: (work@FSM1.COMB.CurState), line:29
+          \_ref_obj: (work@FSM1.COMB.CurState), line:29, parent:work@FSM1.COMB
             |vpiName:CurState
             |vpiFullName:work@FSM1.COMB.CurState
+            |vpiActual:
+            \_logic_net: (work@top.F1.CurState), line:11, parent:work@top.F1
           |vpiCaseItem:
           \_case_item: , line:31
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Trx), line:31
+            \_ref_obj: (work@FSM1.COMB.ST_Trx), line:31, parent:work@FSM1.COMB
               |vpiName:ST_Trx
               |vpiFullName:work@FSM1.COMB.ST_Trx
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Trx), line:8, parent:work@top.F1
+                |vpiName:ST_Trx
+                |vpiFullName:work@top.F1.ST_Trx
+                |UINT:3
+                |vpiTypespec:
+                \_bit_typespec: (ST_Trx), line:7, parent:work@top.F1.ST_Trx
+                  |vpiName:ST_Trx
+                  |vpiRange:
+                  \_range: , line:7, parent:ST_Trx
+                    |vpiLeftRange:
+                    \_constant: , line:7
+                      |vpiConstType:9
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                    |vpiRightRange:
+                    \_constant: , line:7
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:31
               |vpiFullName:work@FSM1.COMB
@@ -6589,9 +6617,11 @@ design: (work@top)
                 \_operation: , line:36
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Read), line:36
+                  \_ref_obj: (work@FSM1.COMB.Read), line:36, parent:work@FSM1.COMB
                     |vpiName:Read
                     |vpiFullName:work@FSM1.COMB.Read
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Read), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:36
                     |vpiConstType:9
@@ -6643,6 +6673,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Write), line:37
                       |vpiName:Write
                       |vpiFullName:work@FSM1.COMB.Write
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Write), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:37
                       |vpiConstType:9
@@ -6694,6 +6726,10 @@ design: (work@top)
                       \_ref_obj: (work@FSM1.COMB.SlowRam), line:38
                         |vpiName:SlowRam
                         |vpiFullName:work@FSM1.COMB.SlowRam
+                        |vpiActual:
+                        \_logic_net: (work@top.F1.SlowRam), line:1, parent:work@top.F1
+                          |vpiName:SlowRam
+                          |vpiFullName:work@top.F1.SlowRam
                       |vpiOperand:
                       \_constant: , line:38
                         |vpiConstType:9
@@ -6745,6 +6781,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM1.COMB.Wait), line:39
                           |vpiName:Wait
                           |vpiFullName:work@FSM1.COMB.Wait
+                          |vpiActual:
+                          \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                         |vpiOperand:
                         \_constant: , line:39
                           |vpiConstType:9
@@ -6796,6 +6834,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM1.COMB.Delay), line:40
                             |vpiName:Delay
                             |vpiFullName:work@FSM1.COMB.Delay
+                            |vpiActual:
+                            \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                           |vpiOperand:
                           \_constant: , line:40
                             |vpiConstType:9
@@ -6857,9 +6897,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:44
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Hold), line:44
+            \_ref_obj: (work@FSM1.COMB.ST_Hold), line:44, parent:work@FSM1.COMB
               |vpiName:ST_Hold
               |vpiFullName:work@FSM1.COMB.ST_Hold
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Hold), line:8, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:44
               |vpiFullName:work@FSM1.COMB
@@ -6945,9 +6987,11 @@ design: (work@top)
                 \_operation: , line:49
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Read), line:49
+                  \_ref_obj: (work@FSM1.COMB.Read), line:49, parent:work@FSM1.COMB
                     |vpiName:Read
                     |vpiFullName:work@FSM1.COMB.Read
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Read), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:49
                     |vpiConstType:9
@@ -6979,6 +7023,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Write), line:50
                       |vpiName:Write
                       |vpiFullName:work@FSM1.COMB.Write
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Write), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:50
                       |vpiConstType:9
@@ -7010,6 +7056,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM1.COMB.SlowRam), line:51
                         |vpiName:SlowRam
                         |vpiFullName:work@FSM1.COMB.SlowRam
+                        |vpiActual:
+                        \_logic_net: (work@top.F1.SlowRam), line:1, parent:work@top.F1
                       |vpiOperand:
                       \_constant: , line:51
                         |vpiConstType:9
@@ -7041,6 +7089,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM1.COMB.Wait), line:52
                           |vpiName:Wait
                           |vpiFullName:work@FSM1.COMB.Wait
+                          |vpiActual:
+                          \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                         |vpiOperand:
                         \_constant: , line:52
                           |vpiConstType:9
@@ -7072,6 +7122,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM1.COMB.Delay), line:53
                             |vpiName:Delay
                             |vpiFullName:work@FSM1.COMB.Delay
+                            |vpiActual:
+                            \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                           |vpiOperand:
                           \_constant: , line:53
                             |vpiConstType:9
@@ -7113,9 +7165,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:57
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Block), line:57
+            \_ref_obj: (work@FSM1.COMB.ST_Block), line:57, parent:work@FSM1.COMB
               |vpiName:ST_Block
               |vpiFullName:work@FSM1.COMB.ST_Block
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Block), line:8, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:57
               |vpiFullName:work@FSM1.COMB
@@ -7201,9 +7255,11 @@ design: (work@top)
                 \_operation: , line:62
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Read), line:62
+                  \_ref_obj: (work@FSM1.COMB.Read), line:62, parent:work@FSM1.COMB
                     |vpiName:Read
                     |vpiFullName:work@FSM1.COMB.Read
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Read), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:62
                     |vpiConstType:9
@@ -7235,6 +7291,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Write), line:63
                       |vpiName:Write
                       |vpiFullName:work@FSM1.COMB.Write
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Write), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:63
                       |vpiConstType:9
@@ -7266,6 +7324,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM1.COMB.SlowRam), line:64
                         |vpiName:SlowRam
                         |vpiFullName:work@FSM1.COMB.SlowRam
+                        |vpiActual:
+                        \_logic_net: (work@top.F1.SlowRam), line:1, parent:work@top.F1
                       |vpiOperand:
                       \_constant: , line:64
                         |vpiConstType:9
@@ -7297,6 +7357,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM1.COMB.Wait), line:65
                           |vpiName:Wait
                           |vpiFullName:work@FSM1.COMB.Wait
+                          |vpiActual:
+                          \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                         |vpiOperand:
                         \_constant: , line:65
                           |vpiConstType:9
@@ -7348,6 +7410,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM1.COMB.Delay), line:66
                             |vpiName:Delay
                             |vpiFullName:work@FSM1.COMB.Delay
+                            |vpiActual:
+                            \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                           |vpiOperand:
                           \_constant: , line:66
                             |vpiConstType:9
@@ -7409,9 +7473,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:70
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Wait), line:70
+            \_ref_obj: (work@FSM1.COMB.ST_Wait), line:70, parent:work@FSM1.COMB
               |vpiName:ST_Wait
               |vpiFullName:work@FSM1.COMB.ST_Wait
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Wait), line:9, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:70
               |vpiFullName:work@FSM1.COMB
@@ -7497,9 +7563,11 @@ design: (work@top)
                 \_operation: , line:75
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Delay), line:75
+                  \_ref_obj: (work@FSM1.COMB.Delay), line:75, parent:work@FSM1.COMB
                     |vpiName:Delay
                     |vpiFullName:work@FSM1.COMB.Delay
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:75
                     |vpiConstType:9
@@ -7531,6 +7599,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Wait), line:76
                       |vpiName:Wait
                       |vpiFullName:work@FSM1.COMB.Wait
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:76
                       |vpiConstType:9
@@ -7572,9 +7642,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:80
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Turn), line:80
+            \_ref_obj: (work@FSM1.COMB.ST_Turn), line:80, parent:work@FSM1.COMB
               |vpiName:ST_Turn
               |vpiFullName:work@FSM1.COMB.ST_Turn
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Turn), line:9, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:80
               |vpiFullName:work@FSM1.COMB
@@ -7660,9 +7732,11 @@ design: (work@top)
                 \_operation: , line:85
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Delay), line:85
+                  \_ref_obj: (work@FSM1.COMB.Delay), line:85, parent:work@FSM1.COMB
                     |vpiName:Delay
                     |vpiFullName:work@FSM1.COMB.Delay
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:85
                     |vpiConstType:9
@@ -7714,6 +7788,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Wait), line:86
                       |vpiName:Wait
                       |vpiFullName:work@FSM1.COMB.Wait
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:86
                       |vpiConstType:9
@@ -7755,9 +7831,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:90
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Quit), line:90
+            \_ref_obj: (work@FSM1.COMB.ST_Quit), line:90, parent:work@FSM1.COMB
               |vpiName:ST_Quit
               |vpiFullName:work@FSM1.COMB.ST_Quit
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Quit), line:9, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:90
               |vpiFullName:work@FSM1.COMB
@@ -7843,9 +7921,11 @@ design: (work@top)
                 \_operation: , line:95
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Wait), line:95
+                  \_ref_obj: (work@FSM1.COMB.Wait), line:95, parent:work@FSM1.COMB
                     |vpiName:Wait
                     |vpiFullName:work@FSM1.COMB.Wait
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:95
                     |vpiConstType:9
@@ -7877,6 +7957,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Write), line:96
                       |vpiName:Write
                       |vpiFullName:work@FSM1.COMB.Write
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Write), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:96
                       |vpiConstType:9
@@ -7918,9 +8000,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:100
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Exit), line:100
+            \_ref_obj: (work@FSM1.COMB.ST_Exit), line:100, parent:work@FSM1.COMB
               |vpiName:ST_Exit
               |vpiFullName:work@FSM1.COMB.ST_Exit
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Exit), line:10, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:100
               |vpiFullName:work@FSM1.COMB
@@ -8006,9 +8090,11 @@ design: (work@top)
                 \_operation: , line:105
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Delay), line:105
+                  \_ref_obj: (work@FSM1.COMB.Delay), line:105, parent:work@FSM1.COMB
                     |vpiName:Delay
                     |vpiFullName:work@FSM1.COMB.Delay
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:105
                     |vpiConstType:9
@@ -8040,6 +8126,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Wait), line:106
                       |vpiName:Wait
                       |vpiFullName:work@FSM1.COMB.Wait
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:106
                       |vpiConstType:9
@@ -8081,9 +8169,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:110
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Done), line:110
+            \_ref_obj: (work@FSM1.COMB.ST_Done), line:110, parent:work@FSM1.COMB
               |vpiName:ST_Done
               |vpiFullName:work@FSM1.COMB.ST_Done
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Done), line:10, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:110
               |vpiFullName:work@FSM1.COMB
@@ -8169,9 +8259,11 @@ design: (work@top)
                 \_operation: , line:115
                   |vpiOpType:14
                   |vpiOperand:
-                  \_ref_obj: (work@FSM1.COMB.Delay), line:115
+                  \_ref_obj: (work@FSM1.COMB.Delay), line:115, parent:work@FSM1.COMB
                     |vpiName:Delay
                     |vpiFullName:work@FSM1.COMB.Delay
+                    |vpiActual:
+                    \_logic_net: (work@top.F1.Delay), line:5, parent:work@top.F1
                   |vpiOperand:
                   \_constant: , line:115
                     |vpiConstType:9
@@ -8203,6 +8295,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM1.COMB.Wait), line:116
                       |vpiName:Wait
                       |vpiFullName:work@FSM1.COMB.Wait
+                      |vpiActual:
+                      \_logic_net: (work@top.F1.Wait), line:5, parent:work@top.F1
                     |vpiOperand:
                     \_constant: , line:116
                       |vpiConstType:9
@@ -8244,9 +8338,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:120
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Read), line:120
+            \_ref_obj: (work@FSM1.COMB.ST_Read), line:120, parent:work@FSM1.COMB
               |vpiName:ST_Read
               |vpiFullName:work@FSM1.COMB.ST_Read
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Read), line:7, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:120
               |vpiFullName:work@FSM1.COMB
@@ -8339,9 +8435,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:128
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Write), line:128
+            \_ref_obj: (work@FSM1.COMB.ST_Write), line:128, parent:work@FSM1.COMB
               |vpiName:ST_Write
               |vpiFullName:work@FSM1.COMB.ST_Write
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Write), line:7, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:128
               |vpiFullName:work@FSM1.COMB
@@ -8421,6 +8519,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM1.COMB.SlowRam), line:133
                   |vpiName:SlowRam
                   |vpiFullName:work@FSM1.COMB.SlowRam
+                  |vpiActual:
+                  \_logic_net: (work@top.F1.SlowRam), line:1, parent:work@top.F1
                 |vpiStmt:
                 \_assignment: , line:134
                   |vpiOpType:82
@@ -8476,9 +8576,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:139
             |vpiExpr:
-            \_ref_obj: (work@FSM1.COMB.ST_Delay), line:139
+            \_ref_obj: (work@FSM1.COMB.ST_Delay), line:139, parent:work@FSM1.COMB
               |vpiName:ST_Delay
               |vpiFullName:work@FSM1.COMB.ST_Delay
+              |vpiActual:
+              \_parameter: (work@top.F1.ST_Delay), line:7, parent:work@top.F1
             |vpiStmt:
             \_begin: (work@FSM1.COMB), line:139
               |vpiFullName:work@FSM1.COMB
@@ -9299,15 +9401,36 @@ design: (work@top)
         \_case_stmt: , line:38, parent:work@FSM2.COMB
           |vpiCaseType:1
           |vpiCondition:
-          \_ref_obj: (work@FSM2.COMB.CurrentState), line:38
+          \_ref_obj: (work@FSM2.COMB.CurrentState), line:38, parent:work@FSM2.COMB
             |vpiName:CurrentState
             |vpiFullName:work@FSM2.COMB.CurrentState
+            |vpiActual:
+            \_logic_net: (work@top.F2.CurrentState), line:8, parent:work@top.F2
+              |vpiName:CurrentState
+              |vpiFullName:work@top.F2.CurrentState
+              |vpiNetType:48
+              |vpiRange:
+              \_range: , line:8
+                |vpiLeftRange:
+                \_constant: , line:8
+                  |vpiConstType:9
+                  |vpiDecompile:3
+                  |vpiSize:64
+                  |UINT:3
+                |vpiRightRange:
+                \_constant: , line:8
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
           |vpiCaseItem:
           \_case_item: , line:39
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST0), line:39
+            \_ref_obj: (work@FSM2.COMB.ST0), line:39, parent:work@FSM2.COMB
               |vpiName:ST0
               |vpiFullName:work@FSM2.COMB.ST0
+              |vpiActual:
+              \_parameter: (work@top.F2.ST0), line:6, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:39
               |vpiFullName:work@FSM2.COMB
@@ -9355,9 +9478,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:44
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST1), line:44
+            \_ref_obj: (work@FSM2.COMB.ST1), line:44, parent:work@FSM2.COMB
               |vpiName:ST1
               |vpiFullName:work@FSM2.COMB.ST1
+              |vpiActual:
+              \_parameter: (work@top.F2.ST1), line:6, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:44
               |vpiFullName:work@FSM2.COMB
@@ -9367,6 +9492,10 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.COMB.control), line:45
                   |vpiName:control
                   |vpiFullName:work@FSM2.COMB.control
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.control), line:1, parent:work@top.F2
+                    |vpiName:control
+                    |vpiFullName:work@top.F2.control
                 |vpiStmt:
                 \_assignment: , line:46
                   |vpiOpType:82
@@ -9447,9 +9576,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:52
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST2), line:52
+            \_ref_obj: (work@FSM2.COMB.ST2), line:52, parent:work@FSM2.COMB
               |vpiName:ST2
               |vpiFullName:work@FSM2.COMB.ST2
+              |vpiActual:
+              \_parameter: (work@top.F2.ST2), line:6, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:52
               |vpiFullName:work@FSM2.COMB
@@ -9477,9 +9608,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:57
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST3), line:57
+            \_ref_obj: (work@FSM2.COMB.ST3), line:57, parent:work@FSM2.COMB
               |vpiName:ST3
               |vpiFullName:work@FSM2.COMB.ST3
+              |vpiActual:
+              \_parameter: (work@top.F2.ST3), line:6, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:57
               |vpiFullName:work@FSM2.COMB
@@ -9502,9 +9635,31 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:61
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST4), line:61
+            \_ref_obj: (work@FSM2.COMB.ST4), line:61, parent:work@FSM2.COMB
               |vpiName:ST4
               |vpiFullName:work@FSM2.COMB.ST4
+              |vpiActual:
+              \_parameter: (work@top.F2.ST4), line:6, parent:work@top.F2
+                |vpiName:ST4
+                |vpiFullName:work@top.F2.ST4
+                |UINT:4
+                |vpiTypespec:
+                \_bit_typespec: (ST4), line:6, parent:work@top.F2.ST4
+                  |vpiName:ST4
+                  |vpiRange:
+                  \_range: , line:6, parent:ST4
+                    |vpiLeftRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                    |vpiRightRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:61
               |vpiFullName:work@FSM2.COMB
@@ -9552,9 +9707,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:66
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST5), line:66
+            \_ref_obj: (work@FSM2.COMB.ST5), line:66, parent:work@FSM2.COMB
               |vpiName:ST5
               |vpiFullName:work@FSM2.COMB.ST5
+              |vpiActual:
+              \_parameter: (work@top.F2.ST5), line:6, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:66
               |vpiFullName:work@FSM2.COMB
@@ -9602,9 +9759,31 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:71
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST6), line:71
+            \_ref_obj: (work@FSM2.COMB.ST6), line:71, parent:work@FSM2.COMB
               |vpiName:ST6
               |vpiFullName:work@FSM2.COMB.ST6
+              |vpiActual:
+              \_parameter: (work@top.F2.ST6), line:6, parent:work@top.F2
+                |vpiName:ST6
+                |vpiFullName:work@top.F2.ST6
+                |UINT:6
+                |vpiTypespec:
+                \_bit_typespec: (ST6), line:6, parent:work@top.F2.ST6
+                  |vpiName:ST6
+                  |vpiRange:
+                  \_range: , line:6, parent:ST6
+                    |vpiLeftRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                    |vpiRightRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:71
               |vpiFullName:work@FSM2.COMB
@@ -9632,9 +9811,31 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:76
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST7), line:76
+            \_ref_obj: (work@FSM2.COMB.ST7), line:76, parent:work@FSM2.COMB
               |vpiName:ST7
               |vpiFullName:work@FSM2.COMB.ST7
+              |vpiActual:
+              \_parameter: (work@top.F2.ST7), line:6, parent:work@top.F2
+                |vpiName:ST7
+                |vpiFullName:work@top.F2.ST7
+                |UINT:7
+                |vpiTypespec:
+                \_bit_typespec: (ST7), line:6, parent:work@top.F2.ST7
+                  |vpiName:ST7
+                  |vpiRange:
+                  \_range: , line:6, parent:ST7
+                    |vpiLeftRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                    |vpiRightRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:76
               |vpiFullName:work@FSM2.COMB
@@ -9649,6 +9850,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.COMB.Ctrl1), line:78
                   |vpiName:Ctrl1
                   |vpiFullName:work@FSM2.COMB.Ctrl1
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.Ctrl1), line:10, parent:work@top.F2
                 |vpiStmt:
                 \_assignment: , line:78
                   |vpiOpType:82
@@ -9691,6 +9894,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM2.COMB.Ctrl2), line:79
                     |vpiName:Ctrl2
                     |vpiFullName:work@FSM2.COMB.Ctrl2
+                    |vpiActual:
+                    \_logic_net: (work@top.F2.Ctrl2), line:10, parent:work@top.F2
                   |vpiStmt:
                   \_assignment: , line:79
                     |vpiOpType:82
@@ -9707,32 +9912,14 @@ design: (work@top)
                       |vpiFullName:work@FSM2.COMB.ST4
                       |vpiActual:
                       \_parameter: (work@top.F2.ST4), line:6, parent:work@top.F2
-                        |vpiName:ST4
-                        |vpiFullName:work@top.F2.ST4
-                        |UINT:4
-                        |vpiTypespec:
-                        \_bit_typespec: (ST4), line:6, parent:work@top.F2.ST4
-                          |vpiName:ST4
-                          |vpiRange:
-                          \_range: , line:6, parent:ST4
-                            |vpiLeftRange:
-                            \_constant: , line:6
-                              |vpiConstType:9
-                              |vpiDecompile:3
-                              |vpiSize:64
-                              |UINT:3
-                            |vpiRightRange:
-                            \_constant: , line:6
-                              |vpiConstType:9
-                              |vpiDecompile:0
-                              |vpiSize:64
-                              |UINT:0
                   |vpiElseStmt:
                   \_if_else: , line:80
                     |vpiCondition:
                     \_ref_obj: (work@FSM2.COMB.Ctrl3), line:80
                       |vpiName:Ctrl3
                       |vpiFullName:work@FSM2.COMB.Ctrl3
+                      |vpiActual:
+                      \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                     |vpiStmt:
                     \_assignment: , line:80
                       |vpiOpType:82
@@ -9755,6 +9942,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.Ctrl4), line:81
                         |vpiName:Ctrl4
                         |vpiFullName:work@FSM2.COMB.Ctrl4
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.Ctrl4), line:10, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:81
                         |vpiOpType:82
@@ -9777,6 +9966,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM2.COMB.Ctrl5), line:82
                           |vpiName:Ctrl5
                           |vpiFullName:work@FSM2.COMB.Ctrl5
+                          |vpiActual:
+                          \_logic_net: (work@top.F2.Ctrl5), line:10, parent:work@top.F2
                         |vpiStmt:
                         \_assignment: , line:82
                           |vpiOpType:82
@@ -9799,6 +9990,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM2.COMB.Ctrl6), line:83
                             |vpiName:Ctrl6
                             |vpiFullName:work@FSM2.COMB.Ctrl6
+                            |vpiActual:
+                            \_logic_net: (work@top.F2.Ctrl6), line:10, parent:work@top.F2
                           |vpiStmt:
                           \_assignment: , line:83
                             |vpiOpType:82
@@ -9821,6 +10014,8 @@ design: (work@top)
                             \_ref_obj: (work@FSM2.COMB.Ctrl7), line:84
                               |vpiName:Ctrl7
                               |vpiFullName:work@FSM2.COMB.Ctrl7
+                              |vpiActual:
+                              \_logic_net: (work@top.F2.Ctrl7), line:10, parent:work@top.F2
                             |vpiStmt:
                             \_assignment: , line:84
                               |vpiOpType:82
@@ -9856,9 +10051,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:88
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST8), line:88
+            \_ref_obj: (work@FSM2.COMB.ST8), line:88, parent:work@FSM2.COMB
               |vpiName:ST8
               |vpiFullName:work@FSM2.COMB.ST8
+              |vpiActual:
+              \_parameter: (work@top.F2.ST8), line:7, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:88
               |vpiFullName:work@FSM2.COMB
@@ -9873,6 +10070,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.COMB.Ctrl1), line:90
                   |vpiName:Ctrl1
                   |vpiFullName:work@FSM2.COMB.Ctrl1
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.Ctrl1), line:10, parent:work@top.F2
                 |vpiStmt:
                 \_assignment: , line:90
                   |vpiOpType:82
@@ -9922,6 +10121,8 @@ design: (work@top)
                     \_ref_obj: (work@FSM2.COMB.Ctrl3), line:92
                       |vpiName:Ctrl3
                       |vpiFullName:work@FSM2.COMB.Ctrl3
+                      |vpiActual:
+                      \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                     |vpiStmt:
                     \_assignment: , line:92
                       |vpiOpType:82
@@ -9971,6 +10172,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM2.COMB.Ctrl5), line:94
                           |vpiName:Ctrl5
                           |vpiFullName:work@FSM2.COMB.Ctrl5
+                          |vpiActual:
+                          \_logic_net: (work@top.F2.Ctrl5), line:10, parent:work@top.F2
                         |vpiStmt:
                         \_assignment: , line:94
                           |vpiOpType:82
@@ -10020,6 +10223,8 @@ design: (work@top)
                             \_ref_obj: (work@FSM2.COMB.Ctrl7), line:96
                               |vpiName:Ctrl7
                               |vpiFullName:work@FSM2.COMB.Ctrl7
+                              |vpiActual:
+                              \_logic_net: (work@top.F2.Ctrl7), line:10, parent:work@top.F2
                             |vpiStmt:
                             \_assignment: , line:96
                               |vpiOpType:82
@@ -10055,9 +10260,31 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:100
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST9), line:100
+            \_ref_obj: (work@FSM2.COMB.ST9), line:100, parent:work@FSM2.COMB
               |vpiName:ST9
               |vpiFullName:work@FSM2.COMB.ST9
+              |vpiActual:
+              \_parameter: (work@top.F2.ST9), line:7, parent:work@top.F2
+                |vpiName:ST9
+                |vpiFullName:work@top.F2.ST9
+                |UINT:9
+                |vpiTypespec:
+                \_bit_typespec: (ST9), line:6, parent:work@top.F2.ST9
+                  |vpiName:ST9
+                  |vpiRange:
+                  \_range: , line:6, parent:ST9
+                    |vpiLeftRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:3
+                      |vpiSize:64
+                      |UINT:3
+                    |vpiRightRange:
+                    \_constant: , line:6
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:100
               |vpiFullName:work@FSM2.COMB
@@ -10072,6 +10299,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.COMB.Ctrl3), line:102
                   |vpiName:Ctrl3
                   |vpiFullName:work@FSM2.COMB.Ctrl3
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                 |vpiStmt:
                 \_assignment: , line:102
                   |vpiOpType:82
@@ -10088,26 +10317,6 @@ design: (work@top)
                     |vpiFullName:work@FSM2.COMB.ST7
                     |vpiActual:
                     \_parameter: (work@top.F2.ST7), line:6, parent:work@top.F2
-                      |vpiName:ST7
-                      |vpiFullName:work@top.F2.ST7
-                      |UINT:7
-                      |vpiTypespec:
-                      \_bit_typespec: (ST7), line:6, parent:work@top.F2.ST7
-                        |vpiName:ST7
-                        |vpiRange:
-                        \_range: , line:6, parent:ST7
-                          |vpiLeftRange:
-                          \_constant: , line:6
-                            |vpiConstType:9
-                            |vpiDecompile:3
-                            |vpiSize:64
-                            |UINT:3
-                          |vpiRightRange:
-                          \_constant: , line:6
-                            |vpiConstType:9
-                            |vpiDecompile:0
-                            |vpiSize:64
-                            |UINT:0
                 |vpiElseStmt:
                 \_assignment: , line:103
                   |vpiOpType:82
@@ -10127,9 +10336,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:106
             |vpiExpr:
-            \_ref_obj: (work@FSM2.COMB.ST10), line:106
+            \_ref_obj: (work@FSM2.COMB.ST10), line:106, parent:work@FSM2.COMB
               |vpiName:ST10
               |vpiFullName:work@FSM2.COMB.ST10
+              |vpiActual:
+              \_parameter: (work@top.F2.ST10), line:7, parent:work@top.F2
             |vpiStmt:
             \_begin: (work@FSM2.COMB), line:106
               |vpiFullName:work@FSM2.COMB
@@ -10144,6 +10355,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.COMB.Ctrl4), line:108
                   |vpiName:Ctrl4
                   |vpiFullName:work@FSM2.COMB.Ctrl4
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.Ctrl4), line:10, parent:work@top.F2
                 |vpiStmt:
                 \_assignment: , line:108
                   |vpiOpType:82
@@ -10160,26 +10373,6 @@ design: (work@top)
                     |vpiFullName:work@FSM2.COMB.ST6
                     |vpiActual:
                     \_parameter: (work@top.F2.ST6), line:6, parent:work@top.F2
-                      |vpiName:ST6
-                      |vpiFullName:work@top.F2.ST6
-                      |UINT:6
-                      |vpiTypespec:
-                      \_bit_typespec: (ST6), line:6, parent:work@top.F2.ST6
-                        |vpiName:ST6
-                        |vpiRange:
-                        \_range: , line:6, parent:ST6
-                          |vpiLeftRange:
-                          \_constant: , line:6
-                            |vpiConstType:9
-                            |vpiDecompile:3
-                            |vpiSize:64
-                            |UINT:3
-                          |vpiRightRange:
-                          \_constant: , line:6
-                            |vpiConstType:9
-                            |vpiDecompile:0
-                            |vpiSize:64
-                            |UINT:0
                 |vpiElseStmt:
                 \_assignment: , line:109
                   |vpiOpType:82
@@ -10234,6 +10427,8 @@ design: (work@top)
           \_ref_obj: (work@FSM2.SEQ.reset), line:117
             |vpiName:reset
             |vpiFullName:work@FSM2.SEQ.reset
+            |vpiActual:
+            \_logic_net: (work@top.F2.reset), line:1, parent:work@top.F2
           |vpiStmt:
           \_assignment: , line:118
             |vpiOpType:82
@@ -10244,23 +10439,6 @@ design: (work@top)
               |vpiFullName:work@FSM2.SEQ.CurrentState
               |vpiActual:
               \_logic_net: (work@top.F2.CurrentState), line:8, parent:work@top.F2
-                |vpiName:CurrentState
-                |vpiFullName:work@top.F2.CurrentState
-                |vpiNetType:48
-                |vpiRange:
-                \_range: , line:8
-                  |vpiLeftRange:
-                  \_constant: , line:8
-                    |vpiConstType:9
-                    |vpiDecompile:3
-                    |vpiSize:64
-                    |UINT:3
-                  |vpiRightRange:
-                  \_constant: , line:8
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
             |vpiRhs:
             \_ref_obj: (work@FSM2.SEQ.ST0), line:118
               |vpiName:ST0
@@ -10300,15 +10478,19 @@ design: (work@top)
         \_case_stmt: , line:125, parent:work@FSM2.OUT_LOGIC
           |vpiCaseType:1
           |vpiCondition:
-          \_ref_obj: (work@FSM2.OUT_LOGIC.CurrentState), line:125
+          \_ref_obj: (work@FSM2.OUT_LOGIC.CurrentState), line:125, parent:work@FSM2.OUT_LOGIC
             |vpiName:CurrentState
             |vpiFullName:work@FSM2.OUT_LOGIC.CurrentState
+            |vpiActual:
+            \_logic_net: (work@top.F2.CurrentState), line:8, parent:work@top.F2
           |vpiCaseItem:
           \_case_item: , line:126
             |vpiExpr:
-            \_ref_obj: (work@FSM2.OUT_LOGIC.ST0), line:126
+            \_ref_obj: (work@FSM2.OUT_LOGIC.ST0), line:126, parent:work@FSM2.OUT_LOGIC
               |vpiName:ST0
               |vpiFullName:work@FSM2.OUT_LOGIC.ST0
+              |vpiActual:
+              \_parameter: (work@top.F2.ST0), line:6, parent:work@top.F2
             |vpiStmt:
             \_assignment: , line:126
               |vpiOpType:82
@@ -10345,9 +10527,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:127
             |vpiExpr:
-            \_ref_obj: (work@FSM2.OUT_LOGIC.ST1), line:127
+            \_ref_obj: (work@FSM2.OUT_LOGIC.ST1), line:127, parent:work@FSM2.OUT_LOGIC
               |vpiName:ST1
               |vpiFullName:work@FSM2.OUT_LOGIC.ST1
+              |vpiActual:
+              \_parameter: (work@top.F2.ST1), line:6, parent:work@top.F2
             |vpiStmt:
             \_assignment: , line:127
               |vpiOpType:82
@@ -10367,9 +10551,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:128
             |vpiExpr:
-            \_ref_obj: (work@FSM2.OUT_LOGIC.ST2), line:128
+            \_ref_obj: (work@FSM2.OUT_LOGIC.ST2), line:128, parent:work@FSM2.OUT_LOGIC
               |vpiName:ST2
               |vpiFullName:work@FSM2.OUT_LOGIC.ST2
+              |vpiActual:
+              \_parameter: (work@top.F2.ST2), line:6, parent:work@top.F2
             |vpiStmt:
             \_assignment: , line:128
               |vpiOpType:82
@@ -10389,9 +10575,11 @@ design: (work@top)
           |vpiCaseItem:
           \_case_item: , line:129
             |vpiExpr:
-            \_ref_obj: (work@FSM2.OUT_LOGIC.ST3), line:129
+            \_ref_obj: (work@FSM2.OUT_LOGIC.ST3), line:129, parent:work@FSM2.OUT_LOGIC
               |vpiName:ST3
               |vpiFullName:work@FSM2.OUT_LOGIC.ST3
+              |vpiActual:
+              \_parameter: (work@top.F2.ST3), line:6, parent:work@top.F2
             |vpiStmt:
             \_assignment: , line:129
               |vpiOpType:82
@@ -11155,6 +11343,10 @@ design: (work@top)
             \_ref_obj: (work@FSM3.FSM3.accelerate), line:25
               |vpiName:accelerate
               |vpiFullName:work@FSM3.FSM3.accelerate
+              |vpiActual:
+              \_logic_net: (work@top.F3.accelerate), line:1, parent:work@top.F3
+                |vpiName:accelerate
+                |vpiFullName:work@top.F3.accelerate
             |vpiStmt:
             \_case_stmt: , line:26
               |vpiCaseType:1
@@ -11162,12 +11354,16 @@ design: (work@top)
               \_ref_obj: (work@FSM3.FSM3.Speed), line:26
                 |vpiName:Speed
                 |vpiFullName:work@FSM3.FSM3.Speed
+                |vpiActual:
+                \_logic_net: (work@top.F3.Speed), line:4, parent:work@top.F3
               |vpiCaseItem:
               \_case_item: , line:27
                 |vpiExpr:
                 \_ref_obj: (work@FSM3.FSM3.Stop), line:27
                   |vpiName:Stop
                   |vpiFullName:work@FSM3.FSM3.Stop
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Stop), line:8, parent:work@top.F3
                 |vpiStmt:
                 \_assignment: , line:27
                   |vpiOpType:82
@@ -11193,6 +11389,11 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Move), line:28
                   |vpiName:Move
                   |vpiFullName:work@FSM3.FSM3.Move
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Move), line:9, parent:work@top.F3
+                    |vpiName:Move
+                    |vpiFullName:work@top.F3.Move
+                    |UINT:1
                 |vpiStmt:
                 \_assignment: , line:28
                   |vpiOpType:82
@@ -11218,6 +11419,11 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Turn), line:29
                   |vpiName:Turn
                   |vpiFullName:work@FSM3.FSM3.Turn
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Turn), line:10, parent:work@top.F3
+                    |vpiName:Turn
+                    |vpiFullName:work@top.F3.Turn
+                    |UINT:2
                 |vpiStmt:
                 \_assignment: , line:29
                   |vpiOpType:82
@@ -11234,15 +11440,14 @@ design: (work@top)
                     |vpiFullName:work@FSM3.FSM3.Move
                     |vpiActual:
                     \_parameter: (work@top.F3.Move), line:9, parent:work@top.F3
-                      |vpiName:Move
-                      |vpiFullName:work@top.F3.Move
-                      |UINT:1
               |vpiCaseItem:
               \_case_item: , line:30
                 |vpiExpr:
                 \_ref_obj: (work@FSM3.FSM3.Slow), line:30
                   |vpiName:Slow
                   |vpiFullName:work@FSM3.FSM3.Slow
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Slow), line:11, parent:work@top.F3
                 |vpiStmt:
                 \_assignment: , line:30
                   |vpiOpType:82
@@ -11268,6 +11473,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Medium), line:31
                   |vpiName:Medium
                   |vpiFullName:work@FSM3.FSM3.Medium
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Medium), line:12, parent:work@top.F3
                 |vpiStmt:
                 \_assignment: , line:31
                   |vpiOpType:82
@@ -11293,6 +11500,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Fast), line:32
                   |vpiName:Fast
                   |vpiFullName:work@FSM3.FSM3.Fast
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Fast), line:13, parent:work@top.F3
                 |vpiStmt:
                 \_assignment: , line:32
                   |vpiOpType:82
@@ -11315,6 +11524,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Faster), line:33
                   |vpiName:Faster
                   |vpiFullName:work@FSM3.FSM3.Faster
+                  |vpiActual:
+                  \_parameter: (work@top.F3.Faster), line:14, parent:work@top.F3
                 |vpiStmt:
                 \_assignment: , line:33
                   |vpiOpType:82
@@ -11337,6 +11548,10 @@ design: (work@top)
               \_ref_obj: (work@FSM3.FSM3.brake), line:35
                 |vpiName:brake
                 |vpiFullName:work@FSM3.FSM3.brake
+                |vpiActual:
+                \_logic_net: (work@top.F3.brake), line:1, parent:work@top.F3
+                  |vpiName:brake
+                  |vpiFullName:work@top.F3.brake
               |vpiStmt:
               \_case_stmt: , line:36
                 |vpiCaseType:1
@@ -11344,12 +11559,16 @@ design: (work@top)
                 \_ref_obj: (work@FSM3.FSM3.Speed), line:36
                   |vpiName:Speed
                   |vpiFullName:work@FSM3.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (work@top.F3.Speed), line:4, parent:work@top.F3
                 |vpiCaseItem:
                 \_case_item: , line:37
                   |vpiExpr:
                   \_ref_obj: (work@FSM3.FSM3.Stop), line:37
                     |vpiName:Stop
                     |vpiFullName:work@FSM3.FSM3.Stop
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Stop), line:8, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:37
                     |vpiOpType:82
@@ -11372,6 +11591,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Move), line:38
                     |vpiName:Move
                     |vpiFullName:work@FSM3.FSM3.Move
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Move), line:9, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:38
                     |vpiOpType:82
@@ -11394,6 +11615,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Turn), line:39
                     |vpiName:Turn
                     |vpiFullName:work@FSM3.FSM3.Turn
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Turn), line:10, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:39
                     |vpiOpType:82
@@ -11416,6 +11639,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Slow), line:40
                     |vpiName:Slow
                     |vpiFullName:work@FSM3.FSM3.Slow
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Slow), line:11, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:40
                     |vpiOpType:82
@@ -11438,6 +11663,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Medium), line:41
                     |vpiName:Medium
                     |vpiFullName:work@FSM3.FSM3.Medium
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Medium), line:12, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:41
                     |vpiOpType:82
@@ -11460,6 +11687,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Fast), line:42
                     |vpiName:Fast
                     |vpiFullName:work@FSM3.FSM3.Fast
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Fast), line:13, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:42
                     |vpiOpType:82
@@ -11482,6 +11711,8 @@ design: (work@top)
                   \_ref_obj: (work@FSM3.FSM3.Faster), line:43
                     |vpiName:Faster
                     |vpiFullName:work@FSM3.FSM3.Faster
+                    |vpiActual:
+                    \_parameter: (work@top.F3.Faster), line:14, parent:work@top.F3
                   |vpiStmt:
                   \_assignment: , line:43
                     |vpiOpType:82
@@ -18773,15 +19004,19 @@ design: (work@top)
               \_case_stmt: , line:38, parent:work@FSM2.COMB
                 |vpiCaseType:1
                 |vpiCondition:
-                \_ref_obj: (work@FSM2.COMB.CurrentState), line:38
+                \_ref_obj: (work@FSM2.COMB.CurrentState), line:38, parent:work@FSM2.COMB
                   |vpiName:CurrentState
                   |vpiFullName:work@FSM2.COMB.CurrentState
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.CurrentState), line:8, parent:work@top.F2
                 |vpiCaseItem:
                 \_case_item: , line:39
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST0), line:39
+                  \_ref_obj: (work@FSM2.COMB.ST0), line:39, parent:work@FSM2.COMB
                     |vpiName:ST0
                     |vpiFullName:work@FSM2.COMB.ST0
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST0), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:39
                     |vpiFullName:work@FSM2.COMB
@@ -18809,9 +19044,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:44
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST1), line:44
+                  \_ref_obj: (work@FSM2.COMB.ST1), line:44, parent:work@FSM2.COMB
                     |vpiName:ST1
                     |vpiFullName:work@FSM2.COMB.ST1
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST1), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:44
                     |vpiFullName:work@FSM2.COMB
@@ -18821,6 +19058,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.control), line:45
                         |vpiName:control
                         |vpiFullName:work@FSM2.COMB.control
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.control), line:1, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:46
                         |vpiOpType:82
@@ -18861,9 +19100,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:52
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST2), line:52
+                  \_ref_obj: (work@FSM2.COMB.ST2), line:52, parent:work@FSM2.COMB
                     |vpiName:ST2
                     |vpiFullName:work@FSM2.COMB.ST2
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST2), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:52
                     |vpiFullName:work@FSM2.COMB
@@ -18891,9 +19132,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:57
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST3), line:57
+                  \_ref_obj: (work@FSM2.COMB.ST3), line:57, parent:work@FSM2.COMB
                     |vpiName:ST3
                     |vpiFullName:work@FSM2.COMB.ST3
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST3), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:57
                     |vpiFullName:work@FSM2.COMB
@@ -18916,9 +19159,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:61
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST4), line:61
+                  \_ref_obj: (work@FSM2.COMB.ST4), line:61, parent:work@FSM2.COMB
                     |vpiName:ST4
                     |vpiFullName:work@FSM2.COMB.ST4
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST4), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:61
                     |vpiFullName:work@FSM2.COMB
@@ -18946,9 +19191,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:66
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST5), line:66
+                  \_ref_obj: (work@FSM2.COMB.ST5), line:66, parent:work@FSM2.COMB
                     |vpiName:ST5
                     |vpiFullName:work@FSM2.COMB.ST5
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST5), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:66
                     |vpiFullName:work@FSM2.COMB
@@ -18976,9 +19223,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:71
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST6), line:71
+                  \_ref_obj: (work@FSM2.COMB.ST6), line:71, parent:work@FSM2.COMB
                     |vpiName:ST6
                     |vpiFullName:work@FSM2.COMB.ST6
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST6), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:71
                     |vpiFullName:work@FSM2.COMB
@@ -19006,9 +19255,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:76
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST7), line:76
+                  \_ref_obj: (work@FSM2.COMB.ST7), line:76, parent:work@FSM2.COMB
                     |vpiName:ST7
                     |vpiFullName:work@FSM2.COMB.ST7
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST7), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:76
                     |vpiFullName:work@FSM2.COMB
@@ -19023,6 +19274,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.Ctrl1), line:78
                         |vpiName:Ctrl1
                         |vpiFullName:work@FSM2.COMB.Ctrl1
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.Ctrl1), line:10, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:78
                         |vpiOpType:82
@@ -19045,6 +19298,8 @@ design: (work@top)
                         \_ref_obj: (work@FSM2.COMB.Ctrl2), line:79
                           |vpiName:Ctrl2
                           |vpiFullName:work@FSM2.COMB.Ctrl2
+                          |vpiActual:
+                          \_logic_net: (work@top.F2.Ctrl2), line:10, parent:work@top.F2
                         |vpiStmt:
                         \_assignment: , line:79
                           |vpiOpType:82
@@ -19067,6 +19322,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM2.COMB.Ctrl3), line:80
                             |vpiName:Ctrl3
                             |vpiFullName:work@FSM2.COMB.Ctrl3
+                            |vpiActual:
+                            \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                           |vpiStmt:
                           \_assignment: , line:80
                             |vpiOpType:82
@@ -19089,6 +19346,8 @@ design: (work@top)
                             \_ref_obj: (work@FSM2.COMB.Ctrl4), line:81
                               |vpiName:Ctrl4
                               |vpiFullName:work@FSM2.COMB.Ctrl4
+                              |vpiActual:
+                              \_logic_net: (work@top.F2.Ctrl4), line:10, parent:work@top.F2
                             |vpiStmt:
                             \_assignment: , line:81
                               |vpiOpType:82
@@ -19111,6 +19370,8 @@ design: (work@top)
                               \_ref_obj: (work@FSM2.COMB.Ctrl5), line:82
                                 |vpiName:Ctrl5
                                 |vpiFullName:work@FSM2.COMB.Ctrl5
+                                |vpiActual:
+                                \_logic_net: (work@top.F2.Ctrl5), line:10, parent:work@top.F2
                               |vpiStmt:
                               \_assignment: , line:82
                                 |vpiOpType:82
@@ -19133,6 +19394,8 @@ design: (work@top)
                                 \_ref_obj: (work@FSM2.COMB.Ctrl6), line:83
                                   |vpiName:Ctrl6
                                   |vpiFullName:work@FSM2.COMB.Ctrl6
+                                  |vpiActual:
+                                  \_logic_net: (work@top.F2.Ctrl6), line:10, parent:work@top.F2
                                 |vpiStmt:
                                 \_assignment: , line:83
                                   |vpiOpType:82
@@ -19155,6 +19418,8 @@ design: (work@top)
                                   \_ref_obj: (work@FSM2.COMB.Ctrl7), line:84
                                     |vpiName:Ctrl7
                                     |vpiFullName:work@FSM2.COMB.Ctrl7
+                                    |vpiActual:
+                                    \_logic_net: (work@top.F2.Ctrl7), line:10, parent:work@top.F2
                                   |vpiStmt:
                                   \_assignment: , line:84
                                     |vpiOpType:82
@@ -19190,9 +19455,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:88
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST8), line:88
+                  \_ref_obj: (work@FSM2.COMB.ST8), line:88, parent:work@FSM2.COMB
                     |vpiName:ST8
                     |vpiFullName:work@FSM2.COMB.ST8
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST8), line:7, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:88
                     |vpiFullName:work@FSM2.COMB
@@ -19207,6 +19474,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.Ctrl1), line:90
                         |vpiName:Ctrl1
                         |vpiFullName:work@FSM2.COMB.Ctrl1
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.Ctrl1), line:10, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:90
                         |vpiOpType:82
@@ -19256,6 +19525,8 @@ design: (work@top)
                           \_ref_obj: (work@FSM2.COMB.Ctrl3), line:92
                             |vpiName:Ctrl3
                             |vpiFullName:work@FSM2.COMB.Ctrl3
+                            |vpiActual:
+                            \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                           |vpiStmt:
                           \_assignment: , line:92
                             |vpiOpType:82
@@ -19305,6 +19576,8 @@ design: (work@top)
                               \_ref_obj: (work@FSM2.COMB.Ctrl5), line:94
                                 |vpiName:Ctrl5
                                 |vpiFullName:work@FSM2.COMB.Ctrl5
+                                |vpiActual:
+                                \_logic_net: (work@top.F2.Ctrl5), line:10, parent:work@top.F2
                               |vpiStmt:
                               \_assignment: , line:94
                                 |vpiOpType:82
@@ -19354,6 +19627,8 @@ design: (work@top)
                                   \_ref_obj: (work@FSM2.COMB.Ctrl7), line:96
                                     |vpiName:Ctrl7
                                     |vpiFullName:work@FSM2.COMB.Ctrl7
+                                    |vpiActual:
+                                    \_logic_net: (work@top.F2.Ctrl7), line:10, parent:work@top.F2
                                   |vpiStmt:
                                   \_assignment: , line:96
                                     |vpiOpType:82
@@ -19389,9 +19664,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:100
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST9), line:100
+                  \_ref_obj: (work@FSM2.COMB.ST9), line:100, parent:work@FSM2.COMB
                     |vpiName:ST9
                     |vpiFullName:work@FSM2.COMB.ST9
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST9), line:7, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:100
                     |vpiFullName:work@FSM2.COMB
@@ -19406,6 +19683,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.Ctrl3), line:102
                         |vpiName:Ctrl3
                         |vpiFullName:work@FSM2.COMB.Ctrl3
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.Ctrl3), line:10, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:102
                         |vpiOpType:82
@@ -19441,9 +19720,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:106
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.COMB.ST10), line:106
+                  \_ref_obj: (work@FSM2.COMB.ST10), line:106, parent:work@FSM2.COMB
                     |vpiName:ST10
                     |vpiFullName:work@FSM2.COMB.ST10
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST10), line:7, parent:work@top.F2
                   |vpiStmt:
                   \_begin: (work@FSM2.COMB), line:106
                     |vpiFullName:work@FSM2.COMB
@@ -19458,6 +19739,8 @@ design: (work@top)
                       \_ref_obj: (work@FSM2.COMB.Ctrl4), line:108
                         |vpiName:Ctrl4
                         |vpiFullName:work@FSM2.COMB.Ctrl4
+                        |vpiActual:
+                        \_logic_net: (work@top.F2.Ctrl4), line:10, parent:work@top.F2
                       |vpiStmt:
                       \_assignment: , line:108
                         |vpiOpType:82
@@ -19524,6 +19807,8 @@ design: (work@top)
                 \_ref_obj: (work@FSM2.SEQ.reset), line:117
                   |vpiName:reset
                   |vpiFullName:work@FSM2.SEQ.reset
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.reset), line:1, parent:work@top.F2
                 |vpiStmt:
                 \_assignment: , line:118
                   |vpiOpType:82
@@ -19573,15 +19858,19 @@ design: (work@top)
               \_case_stmt: , line:125, parent:work@FSM2.OUT_LOGIC
                 |vpiCaseType:1
                 |vpiCondition:
-                \_ref_obj: (work@FSM2.OUT_LOGIC.CurrentState), line:125
+                \_ref_obj: (work@FSM2.OUT_LOGIC.CurrentState), line:125, parent:work@FSM2.OUT_LOGIC
                   |vpiName:CurrentState
                   |vpiFullName:work@FSM2.OUT_LOGIC.CurrentState
+                  |vpiActual:
+                  \_logic_net: (work@top.F2.CurrentState), line:8, parent:work@top.F2
                 |vpiCaseItem:
                 \_case_item: , line:126
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST0), line:126
+                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST0), line:126, parent:work@FSM2.OUT_LOGIC
                     |vpiName:ST0
                     |vpiFullName:work@FSM2.OUT_LOGIC.ST0
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST0), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_assignment: , line:126
                     |vpiOpType:82
@@ -19601,9 +19890,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:127
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST1), line:127
+                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST1), line:127, parent:work@FSM2.OUT_LOGIC
                     |vpiName:ST1
                     |vpiFullName:work@FSM2.OUT_LOGIC.ST1
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST1), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_assignment: , line:127
                     |vpiOpType:82
@@ -19623,9 +19914,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:128
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST2), line:128
+                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST2), line:128, parent:work@FSM2.OUT_LOGIC
                     |vpiName:ST2
                     |vpiFullName:work@FSM2.OUT_LOGIC.ST2
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST2), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_assignment: , line:128
                     |vpiOpType:82
@@ -19645,9 +19938,11 @@ design: (work@top)
                 |vpiCaseItem:
                 \_case_item: , line:129
                   |vpiExpr:
-                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST3), line:129
+                  \_ref_obj: (work@FSM2.OUT_LOGIC.ST3), line:129, parent:work@FSM2.OUT_LOGIC
                     |vpiName:ST3
                     |vpiFullName:work@FSM2.OUT_LOGIC.ST3
+                    |vpiActual:
+                    \_parameter: (work@top.F2.ST3), line:6, parent:work@top.F2
                   |vpiStmt:
                   \_assignment: , line:129
                     |vpiOpType:82
