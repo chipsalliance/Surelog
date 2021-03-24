@@ -1088,6 +1088,11 @@ design: (work@foo)
         \_ref_obj: (work@bar.rst), line:8
           |vpiName:rst
           |vpiFullName:work@bar.rst
+          |vpiActual:
+          \_logic_net: (work@foo.bar_instance.rst), line:1, parent:work@foo.bar_instance
+            |vpiName:rst
+            |vpiFullName:work@foo.bar_instance.rst
+            |vpiNetType:1
         |vpiStmt:
         \_assignment: , line:8
           |vpiOpType:82
@@ -1192,7 +1197,7 @@ design: (work@foo)
       \_case_stmt: , line:29, parent:work@foo
         |vpiCaseType:1
         |vpiCondition:
-        \_ref_obj: (work@foo.a), line:29
+        \_ref_obj: (work@foo.a), line:29, parent:work@foo
           |vpiName:a
           |vpiFullName:work@foo.a
         |vpiCaseItem:

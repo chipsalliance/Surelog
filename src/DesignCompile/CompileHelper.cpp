@@ -1776,7 +1776,7 @@ bool CompileHelper::compileFinalBlock(DesignComponent* component,
 
 UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   /*
   n<#100> u<70> t<IntConst> p<71> l<7>
@@ -1786,7 +1786,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignCompo
 
   NodeId Delay_control = fC->Child(Procedural_timing_control);
   if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
-    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign);
+    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign, pstmt, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
   std::string value = fC->SymName(IntConst);
@@ -1794,7 +1794,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignCompo
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   if (Statement_or_null) {
-    VectorOfany* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
+    VectorOfany* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc, instance);
     if (st) {
       any* stmt = (*st)[0];
       dc->Stmt(stmt);
@@ -1806,12 +1806,12 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignCompo
 
 UHDM::atomic_stmt* CompileHelper::compileDelayControl(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
  
   NodeId Delay_control = fC->Child(Procedural_timing_control);
   if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
-    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign);
+    return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign, pexpr, instance);
   }
   NodeId IntConst = fC->Child(Delay_control);
   std::string value = fC->SymName(IntConst);
@@ -1821,7 +1821,7 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(DesignComponent* component
 }
 
 bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileContent* fC,
-        NodeId id, CompileDesign* compileDesign) {
+        NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   always* always = s.MakeAlways();
@@ -1851,7 +1851,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  VectorOfany* stmts = compileStmt(component, fC, the_stmt, compileDesign, always);
+  VectorOfany* stmts = compileStmt(component, fC, the_stmt, compileDesign, always, instance);
   if (stmts) {
     any* stmt = (*stmts)[0];
     always->Stmt(stmt);
@@ -2303,7 +2303,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, c
 
 UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* component, const FileContent* fC,
         NodeId Operator_assignment, bool blocking,
-        CompileDesign* compileDesign, UHDM::any* pstmt) {
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Variable_lvalue = 0;
   if (fC->Type(Operator_assignment) == slVariable_lvalue) {
@@ -2319,7 +2319,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Variable_lvalue = Operator_assignment;
     Delay_or_event_control = fC->Sibling(Variable_lvalue);
     NodeId Expression = fC->Sibling(Delay_or_event_control);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Variable_lvalue, compileDesign));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Variable_lvalue, compileDesign, pstmt, instance));
     AssignOp_Assign = 0;
     if (fC->Type(Delay_or_event_control) == slDynamic_array_new) {
       method_func_call* fcall = s.MakeMethod_func_call();
@@ -2334,14 +2334,14 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
       Delay_or_event_control = 0;
       rhs_rf = fcall;
     } else {
-      rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+      rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt, instance);
     }
   } else if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
     NodeId Hierarchical_identifier = Variable_lvalue;
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
        Hierarchical_identifier = fC->Child(Hierarchical_identifier);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt, instance));
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -2353,14 +2353,14 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     } else {
       Expression = fC->Sibling(AssignOp_Assign);
     }
-    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt);
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt, instance);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
     //  = new ...
     NodeId Hierarchical_identifier = Operator_assignment;
     NodeId Select = fC->Sibling(Hierarchical_identifier);
     NodeId Class_new = fC->Sibling(Select);
     NodeId List_of_arguments = fC->Child(Class_new);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt, instance));
     method_func_call* fcall = s.MakeMethod_func_call();
     fcall->VpiName("new");
     fcall->VpiFile(fC->getFileName());
@@ -2450,7 +2450,7 @@ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(
 
 UHDM::clocking_block* CompileHelper::compileClockingBlock(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
-    CompileDesign* compileDesign) {
+    CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::clocking_block* cblock = s.MakeClocking_block();
 
@@ -2475,7 +2475,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
   cblock->VpiFile(fC->getFileName());
   cblock->VpiLineNo(fC->Line(nodeId));
   event_control* ctrl =
-      compileClocking_event(component, fC, clocking_event, compileDesign);
+      compileClocking_event(component, fC, clocking_event, compileDesign, cblock, instance);
   cblock->Clocking_event(ctrl);
   NodeId clocking_item = fC->Sibling(clocking_event);
   while (clocking_item) {
@@ -2503,7 +2503,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             UHDM::delay_control* dc = (delay_control*)compileDelayControl(
-                component, fC, Skew, compileDesign);
+                component, fC, Skew, compileDesign, cblock, instance);
             cblock->Input_skew(dc);
           }
           Clocking_skew = fC->Sibling(Clocking_skew);
@@ -2522,7 +2522,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
             }
             if (Skew) {
               UHDM::delay_control* dc = (delay_control*)compileDelayControl(
-                  component, fC, Clocking_skew, compileDesign);
+                  component, fC, Clocking_skew, compileDesign, cblock, instance);
               cblock->Output_skew(dc);
             }
           }
@@ -2545,7 +2545,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             UHDM::delay_control* dc = (delay_control*)compileDelayControl(
-                component, fC, Skew, compileDesign);
+                component, fC, Skew, compileDesign, cblock, instance);
             cblock->Input_skew(dc);
           }
         }
@@ -2567,7 +2567,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             UHDM::delay_control* dc = (delay_control*)compileDelayControl(
-                component, fC, Skew, compileDesign);
+                component, fC, Skew, compileDesign, cblock, instance);
             cblock->Output_skew(dc);
           }
         }
@@ -2588,7 +2588,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             dcInp = (delay_control*)compileDelayControl(component, fC, Skew,
-                                                        compileDesign);
+                                                        compileDesign, cblock, instance);
           }
         }
       } else if (direction == slClockingDir_Output) {
@@ -2608,7 +2608,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             dcOut = (delay_control*)compileDelayControl(component, fC, Skew,
-                                                        compileDesign);
+                                                        compileDesign, cblock, instance);
           }
         }
       } else if (direction == slClockingDir_InputOutput) {
@@ -2628,7 +2628,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           }
           if (Skew) {
             dcInp = (delay_control*)compileDelayControl(component, fC, Skew,
-                                                        compileDesign);
+                                                        compileDesign, cblock, instance);
           }
 
           Clocking_skew = fC->Sibling(Clocking_skew);
@@ -2647,7 +2647,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
             }
             if (Skew) {
               dcOut = (delay_control*)compileDelayControl(component, fC, Skew,
-                                                          compileDesign);
+                                                          compileDesign, cblock, instance);
             }
           }
         }
@@ -2672,7 +2672,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
           io->VpiOutputEdge(outputEdge);
           if (Expr) {
             UHDM::expr* exp =
-                (expr*)compileExpression(component, fC, Expr, compileDesign);
+                (expr*)compileExpression(component, fC, Expr, compileDesign, ctrl, instance);
             io->Expr(exp);
             if (exp) exp->VpiParent(ctrl);
           }
@@ -2703,11 +2703,11 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
 
 UHDM::event_control* CompileHelper::compileClocking_event(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
-    CompileDesign* compileDesign) {
+    CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   event_control* ctrl = s.MakeEvent_control();
   NodeId identifier = fC->Child(nodeId);
-  UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign);
+  UHDM::any* exp = compileExpression(component, fC, identifier, compileDesign, pexpr, instance);
   ctrl->VpiCondition(exp);
   if (exp) exp->VpiParent(ctrl);
   return ctrl;

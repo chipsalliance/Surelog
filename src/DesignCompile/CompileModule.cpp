@@ -579,7 +579,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slAlways_construct:
         {
           if (collectType != CollectType::OTHER) break;
-          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
+          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slParameter_port_list: {
@@ -1157,7 +1157,7 @@ void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   else
     clocking_block_symbol = m_symbols->registerSymbol("unnamed_clocking_block");
   UHDM::clocking_block* cblock =
-      m_helper.compileClockingBlock(m_module, fC, id, m_compileDesign);
+      m_helper.compileClockingBlock(m_module, fC, id, m_compileDesign, nullptr, m_instance);
   ClockingBlock cb(fC, clocking_block_type, clocking_event, type, cblock);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
