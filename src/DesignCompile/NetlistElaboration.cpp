@@ -515,41 +515,28 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       if (fC->Type(Named_port_connection) == VObjectType::slOrdered_port_connection) {
         orderedConnection = true;
       }
+
+      bool wildcard = false;
+      NodeId MemNamed_port_connection = Named_port_connection;
+      while (Named_port_connection) {
+        NodeId formalId = fC->Child(Named_port_connection);
+        if (fC->Type(formalId) == VObjectType::slDotStar) {
+          // .* connection
+          wildcard = true;
+          break;
+        }
+        Named_port_connection = fC->Sibling(Named_port_connection);
+      }
+
+      Named_port_connection = MemNamed_port_connection;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (formalId == 0)
           break;
         if (fC->Type(formalId) == VObjectType::slDotStar) {
           // .* connection
-          if (signals) {
-            for (Signal* s1 : *signals) {
-              port* p = nullptr;
-              if (ports) {
-                if (index < ports->size()) {
-                  p = (*ports)[index];
-                } else {
-                  p = s.MakePort();
-                  ports->push_back(p);
-                }
-              } else {
-                ports = s.MakePortVec();
-                netlist->ports(ports);
-                p = s.MakePort();
-                ports->push_back(p);
-              }
-              const std::string& sigName = s1->getName();
-              p->VpiName(sigName);
-              ref_obj* ref = s.MakeRef_obj();
-              ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(formalId));
-              ref->VpiName(sigName);
-              p->High_conn(ref);
-              UHDM::any* net = bind_net_(parent, sigName);
-              ref->Actual_group(net);
-              index++;
-            }
-          }
-          break;
+          Named_port_connection = fC->Sibling(Named_port_connection);
+          continue;
         }
 
         std::string formalName = fC->SymName(formalId);
@@ -564,7 +551,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           NodeId tmp = Expression;
           if (fC->Type(tmp) == slOpenParens) {
             tmp =  fC->Sibling(tmp);
-            if (fC->Type(tmp) == slCloseParens) { // .p()  explict disconnect
+            if (fC->Type(tmp) == slCloseParens) { // .p()  explicit disconnect
               Named_port_connection = fC->Sibling(Named_port_connection);
               index++;
               continue;
@@ -717,6 +704,41 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
         Named_port_connection = fC->Sibling(Named_port_connection);
         index++;
+      }
+      if (wildcard) {
+        if (signals) {
+          // Add missing ports
+          VectorOfport* newPorts = s.MakePortVec();
+          for (Signal* s1 : *signals) {
+            const std::string& sigName = s1->getName();
+            bool found = false;
+            port* pp = nullptr;
+            for (port* p : *ports) {
+              if (p->VpiName() == s1->getName()) {
+                newPorts->push_back(p);
+                found = true;
+                pp = p;
+                break;
+              }
+            }
+            if (!found) {
+              port* p = s.MakePort();
+              p->VpiName(sigName);
+              newPorts->push_back(p);
+              pp = p;
+            }
+            if (pp->High_conn() == nullptr) {
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiFile(fC->getFileName());
+              ref->VpiLineNo(fC->Line(s1->getNodeId()));
+              ref->VpiName(sigName);
+              pp->High_conn(ref);
+              UHDM::any* net = bind_net_(parent, sigName);
+              ref->Actual_group(net);
+            }  
+          }
+          netlist->ports(newPorts);
+        }
       }
     }
   }
