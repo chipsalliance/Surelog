@@ -551,11 +551,44 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           NodeId tmp = Expression;
           if (fC->Type(tmp) == slOpenParens) {
             tmp =  fC->Sibling(tmp);
-            if (fC->Type(tmp) == slCloseParens) { // .p()  explicit disconnect
+            if (fC->Type(tmp) == slCloseParens) {  // .p()  explicit disconnect
               Named_port_connection = fC->Sibling(Named_port_connection);
+              port* p = nullptr;
+              if (ports) {
+                if (index < ports->size()) {
+                  if (orderedConnection) {
+                    formalName = ((*signals)[index])->getName();
+                    p = (*ports)[index];
+                  } else {
+                    for (port* pItr : *ports) {
+                      if (pItr->VpiName() == formalName) {
+                        p = pItr;
+                        break;
+                      }
+                    }
+                    if (p == nullptr) p = (*ports)[index];
+                  }
+                } else {
+                  p = s.MakePort();
+                  ports->push_back(p);
+                  p->VpiName(formalName);
+                }
+              } else {
+                ports = s.MakePortVec();
+                netlist->ports(ports);
+                p = s.MakePort();
+                ports->push_back(p);
+                p->VpiName(formalName);
+              }
+              operation* op = s.MakeOperation();
+              op->VpiOpType(vpiNullOp);
+              op->VpiFile(fC->getFileName());
+              op->VpiLineNo(fC->Line(tmp));
+              p->High_conn(op);
               index++;
               continue;
-            } else if (fC->Type(tmp) == slExpression) { // .p(s) connection by name
+            } else if (fC->Type(tmp) ==
+                       slExpression) {  // .p(s) connection by name
               formalId = tmp;
               Expression = tmp;
             }
@@ -625,7 +658,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref->VpiName(sigName);
           p->High_conn(ref);
           ref->Actual_group(net);
-        } else {
+        } else if (hexpr != nullptr) {
           p->High_conn(hexpr);
           if (hexpr->UhdmType() == uhdmref_obj) {
             ((ref_obj*)hexpr)->Actual_group(net);
