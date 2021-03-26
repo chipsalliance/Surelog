@@ -172,6 +172,7 @@ bool CompileClass::compile() {
     switch (type) {
       case VObjectType::slPackage_import_item: {
         m_helper.importPackage(m_class, m_design, fC, id, m_compileDesign);
+        m_helper.compileImportDeclaration(m_class, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClass_constructor_declaration: {

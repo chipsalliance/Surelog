@@ -531,6 +531,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slPackage_import_item: {
           if (collectType != CollectType::FUNCTION) break;
           m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
+          m_helper.compileImportDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
@@ -787,6 +788,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slPackage_import_item: {
           if (collectType != CollectType::FUNCTION) break;
           m_helper.importPackage(m_module, m_design, fC, id, m_compileDesign);
+          m_helper.compileImportDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_port_list: {

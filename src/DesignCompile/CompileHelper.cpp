@@ -1487,6 +1487,47 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
   return true;
 }
 
+void CompileHelper::compileImportDeclaration(DesignComponent* component,
+        const FileContent* fC, NodeId package_import_item_id,
+        CompileDesign* compileDesign) {
+  /*
+     Verilog:
+       import my_pkg::opcode_e, my_pkg::OPCODE_LOAD;
+     Expected tree:
+       n<my_pkg> u<27> t<StringConst> p<29> s<28> l<3>
+       n<opcode_e> u<28> t<StringConst> p<29> l<3>
+       n<> u<29> t<Package_import_item> p<33> c<27> s<32> l<3>
+       n<my_pkg> u<30> t<StringConst> p<32> s<31> l<3>
+       n<OPCODE_LOAD> u<31> t<StringConst> p<32> l<3>
+       n<> u<32> t<Package_import_item> p<33> c<30> l<3>
+       n<> u<33> t<Package_import_declaration> p<34> c<29> l<3>
+     */
+  Serializer& s = compileDesign->getSerializer();
+  while (package_import_item_id != 0) {
+    import* import_stmt = s.MakeImport();
+    import_stmt->VpiFile(fC->getFileName());
+    import_stmt->VpiLineNo(fC->Line(package_import_item_id));
+    NodeId package_name_id = fC->Child(package_import_item_id);
+
+    NodeId item_name_id = fC->Sibling(package_name_id);
+    Value* item_name = m_exprBuilder.getValueFactory().newStValue();
+    if (item_name_id != 0) {
+      item_name->set(fC->SymName(item_name_id));
+    } else {
+      item_name->set("*");
+    }
+    UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
+    m_exprBuilder.deleteValue(item_name);
+    import_stmt->Item(imported_item);
+
+    std::string package_name(fC->SymName(package_name_id));
+    import_stmt->VpiName(package_name);
+
+    package_import_item_id = fC->Sibling(package_import_item_id);
+    component->addImportedSymbol(import_stmt);
+  }
+}
+
 bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         const FileContent* fC, NodeId id,
         bool interface,
@@ -1504,44 +1545,6 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       n<> u<18> t<Data_declaration> p<19> c<17> l<13>
      */
     compileTypeDef(component, fC, id, compileDesign);
-    break;
-  }
-  case VObjectType::slPackage_import_declaration: {
-    /*
-    Verilog:
-      import my_pkg::opcode_e, my_pkg::OPCODE_LOAD;
-    Expected tree:
-      n<my_pkg> u<27> t<StringConst> p<29> s<28> l<3>
-      n<opcode_e> u<28> t<StringConst> p<29> l<3>
-      n<> u<29> t<Package_import_item> p<33> c<27> s<32> l<3>
-      n<my_pkg> u<30> t<StringConst> p<32> s<31> l<3>
-      n<OPCODE_LOAD> u<31> t<StringConst> p<32> l<3>
-      n<> u<32> t<Package_import_item> p<33> c<30> l<3>
-      n<> u<33> t<Package_import_declaration> p<34> c<29> l<3>
-    */
-    Serializer& s = compileDesign->getSerializer();
-    NodeId package_import_item_id = fC->Child(subNode);
-    while (package_import_item_id != 0) {
-      import* import_stmt = s.MakeImport();
-      NodeId package_name_id = fC->Child(package_import_item_id);
-
-      NodeId item_name_id = fC->Sibling(package_name_id);
-      Value* item_name = m_exprBuilder.getValueFactory().newStValue(); 
-      if (item_name_id != 0) {
-        item_name->set(fC->SymName(item_name_id));
-      } else {
-        item_name->set("*");
-      }
-      UHDM::constant* imported_item = constantFromValue(item_name, compileDesign);
-      m_exprBuilder.deleteValue(item_name);
-      import_stmt->Item(imported_item);
-
-      std::string package_name(fC->SymName(package_name_id));
-      import_stmt->VpiName(package_name);
-
-      package_import_item_id = fC->Sibling(package_import_item_id);
-      component->addImportedSymbol(import_stmt);
-    }
     break;
   }
   default:

@@ -265,6 +265,10 @@ public:
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 
+  void compileImportDeclaration(DesignComponent* component,
+        const FileContent* fC, NodeId id,
+        CompileDesign* compileDesign);
+
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope, const std::string& name, CompileDesign* compileDesign);
   UHDM::any* bindVariable(DesignComponent* component, ValuedComponentI* instance, const std::string& name, CompileDesign* compileDesign);
 

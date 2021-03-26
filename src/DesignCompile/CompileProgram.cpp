@@ -140,6 +140,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slPackage_import_item: {
         if (collectType != CollectType::FUNCTION) break;
         m_helper.importPackage(m_program, m_design, fC, id, m_compileDesign);
+        m_helper.compileImportDeclaration(m_program, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slParameter_port_list: {
