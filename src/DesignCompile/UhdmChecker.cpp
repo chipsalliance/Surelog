@@ -395,7 +395,8 @@ bool UhdmChecker::check(const std::string& reportFile) {
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {
     collectUsedFileContents(files, moduleNames, top);
   }
-  for (const auto& [name, pack] : m_design->getPackageDefinitions()) {
+  for (auto packInfo : m_design->getPackageDefinitions()) {
+    Package* pack = packInfo.second;
     for (auto file : pack->getFileContents()) {
       if (file)
         files.insert(file);
