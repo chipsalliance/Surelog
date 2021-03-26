@@ -37,7 +37,7 @@ public:
   bool check(const std::string& reportFile);
 
 private:
-    bool registerFile(const FileContent* fC);
+    bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
     bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage);
     float reportCoverage(const std::string& reportFile);
     void annotate(CompileDesign* m_compileDesign);

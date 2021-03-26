@@ -518,11 +518,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 
       bool wildcard = false;
       NodeId MemNamed_port_connection = Named_port_connection;
+      int wildcardLineNumber = 0;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (fC->Type(formalId) == VObjectType::slDotStar) {
           // .* connection
           wildcard = true;
+          wildcardLineNumber = fC->Line(formalId);
           break;
         }
         Named_port_connection = fC->Sibling(Named_port_connection);
@@ -763,7 +765,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (pp->High_conn() == nullptr) {
               ref_obj* ref = s.MakeRef_obj();
               ref->VpiFile(fC->getFileName());
-              ref->VpiLineNo(fC->Line(s1->getNodeId()));
+              ref->VpiLineNo(wildcardLineNumber);
               ref->VpiName(sigName);
               pp->High_conn(ref);
               UHDM::any* net = bind_net_(parent, sigName);
