@@ -142,6 +142,7 @@ bool ElaborationStep::bindTypedefs_() {
                 (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
             typd->setTypespec(tpclone);
             tpclone->VpiName(typd->getName());
+            tpclone->Typedef_alias(tps);
             specs.insert(std::make_pair(typd->getName(), tpclone));
           }
         }
