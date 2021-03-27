@@ -76,20 +76,26 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       scope->addNamedObject(name, fnid, comp);
       scope->insertDataType(name, (ClassDefinition*) comp);
     }
-
+    // Typespecs
     auto& typeSet = def->getDataTypeMap();
     for (auto& type : typeSet) {
       scope->insertDataType(type.first, type.second);
     }
-
+    // Variables
     auto& variableSet = def->getVariables();
     for (auto& var : variableSet) {
       scope->addVariable(var.second);
       Value* val = def->getValue(var.first);
       if (val) {
-        //scope->setValue(var.first, val, *def->getExprBuilder());
         scope->setValue(var.first, m_exprBuilder.clone(val), m_exprBuilder);
       }
+    }
+    // Incomplete bindings
+    for (auto& var : def->getLateBinding()) {
+      scope->needLateBinding(var);
+    }
+    for (auto& var : def->getLateTypedefBinding()) {
+      scope->needLateTypedefBinding(var);
     }
 
     // Type parameters
@@ -113,9 +119,19 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
         if (pclone->UhdmType() == uhdmtype_parameter) {
           type_parameter* the_p = (type_parameter*) pclone;
           the_p->VpiImported(pack_name);
+          if (const typespec* tps = the_p->Typespec()) {
+            if (tps->UhdmType() == uhdmunsupported_typespec) {
+              scope->needLateTypedefBinding(the_p);
+            }
+          }
         } else {
           parameter* the_p = (parameter*) pclone;
           the_p->VpiImported(pack_name);
+          if (const typespec* tps = the_p->Typespec()) {
+            if (tps->UhdmType() == uhdmunsupported_typespec) {
+              scope->needLateTypedefBinding(the_p);
+            }
+          }
         }
         parameters->push_back(pclone);
         clone->setUhdmParam(pclone);
@@ -145,11 +161,16 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
       clone->setUhdmParamAssign(cpass);
       param_assigns->push_back(cpass);
       UHDM::any* orig_p = (UHDM::any*) cpass->Lhs();
-      UHDM::any* pclone = UHDM::clone_tree(orig_p, s, &listener);
+      UHDM::any* pclone = orig_p; // The param_assign clone already cloned the param
       cpass->Lhs(pclone);
       if (pclone->UhdmType() == uhdmparameter) {
         parameter* the_p = (parameter*)pclone;
         the_p->VpiImported(pack_name);
+        if (const typespec* tps = the_p->Typespec()) {
+          if (tps->UhdmType() == uhdmunsupported_typespec) {
+            scope->needLateTypedefBinding(the_p);
+          }
+        }
       }
     }
 

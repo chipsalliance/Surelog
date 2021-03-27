@@ -197,6 +197,10 @@ bool ElaborationStep::bindTypedefs_() {
           orig = ex->Typespec();
         } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
           orig = ex->Typespec();
+        } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+          orig = ex->Typespec();
+        } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+          orig = ex->Typespec();
         }
         if (orig->UhdmType() == uhdmunsupported_typespec) {
           const std::string& need = orig->VpiName();
@@ -205,6 +209,11 @@ bool ElaborationStep::bindTypedefs_() {
             if (expr* ex = dynamic_cast<expr*>(var)) {
               ex->Typespec(tps);
             } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+              ex->Typespec(tps);
+            } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+              ex->Typespec(tps);
+            } else if (type_parameter* ex =
+                           dynamic_cast<type_parameter*>(var)) {
               ex->Typespec(tps);
             }
           }
@@ -220,7 +229,11 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
         orig = ex->Typespec();
-      }
+      } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+        orig = ex->Typespec();
+      } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+        orig = ex->Typespec();
+      } 
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
@@ -231,6 +244,10 @@ bool ElaborationStep::bindTypedefs_() {
             ex->Typespec(tps);
           } else if (typespec_member* ex =
                          dynamic_cast<typespec_member*>(var)) {
+            ex->Typespec(tps);
+          } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+            ex->Typespec(tps);
+          } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
           }
         } else {
@@ -248,7 +265,11 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
         orig = ex->Typespec();
-      }
+      } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+        orig = ex->Typespec();
+      } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
+        orig = ex->Typespec();
+      } 
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
@@ -259,6 +280,10 @@ bool ElaborationStep::bindTypedefs_() {
             ex->Typespec(tps);
           } else if (typespec_member* ex =
                          dynamic_cast<typespec_member*>(var)) {
+            ex->Typespec(tps);
+          } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
+            ex->Typespec(tps);
+          } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
             ex->Typespec(tps);
           }
         } else {

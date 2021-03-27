@@ -98,7 +98,7 @@ bool CompileSourceFile::compile(Action action) {
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
     SymbolId fileId = m_fileId;
-    if (strstr(fileName.c_str(), "builtin.sv")) {
+    if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
       fileId = m_symbolTable->registerSymbol("builtin.sv");
     }
     Location loc(fileId);
@@ -130,7 +130,7 @@ bool CompileSourceFile::compile(Action action) {
     case Parse:
       return parse_();
     case PythonAPI: {
-      if (!strstr(fileName.c_str(), "builtin.sv")) {
+      if (!strstr(fileName.c_str(), "/bin/sv/builtin.sv")) {
         return pythonAPI_();
       }
     }
