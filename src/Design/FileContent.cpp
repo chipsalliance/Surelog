@@ -62,7 +62,7 @@ std::string FileContent::printObjects() const {
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
-  if (strstr(fileName.c_str(), "builtin.sv"))
+  if (strstr(fileName.c_str(), "/bin/sv/builtin.sv"))
     return "";
   text += "FILE: " + fileName + "\n";
 

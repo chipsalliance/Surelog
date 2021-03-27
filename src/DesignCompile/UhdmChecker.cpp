@@ -406,7 +406,7 @@ bool UhdmChecker::check(const std::string& reportFile) {
   for (const FileContent* fC : files) {
     const std::string& fileName = fC->getFileName();
     if (!clp->createCache()) {
-      if (strstr(fileName.c_str(), "builtin.sv") ||
+      if (strstr(fileName.c_str(), "/bin/sv/builtin.sv") ||
           strstr(fileName.c_str(), "uvm_pkg.sv") ||
           strstr(fileName.c_str(), "ovm_pkg.sv")) {
         continue;
