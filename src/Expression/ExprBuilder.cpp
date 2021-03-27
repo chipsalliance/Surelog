@@ -39,6 +39,7 @@
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/Design.h"
+#include "Utils/StringUtils.h"
 
 using namespace SURELOG;
 
@@ -800,19 +801,74 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
 
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
-  if (uint64_t v = std::strtoull(value.c_str(), 0, 10)) {
+  std::string sval;
+  if (strstr(value.c_str(), "'")) {
+    char base = 'b';
+    unsigned int i = 0;
+    for (i = 0; i < value.size(); i++) {
+      if (value[i] == '\'') {
+        base = value[i + 1];
+        break;
+      }
+    }
+    sval = value.substr(i + 2);
+    sval = StringUtils::replaceAll(sval, "_", "");
+    switch (base) {
+      case 'h': {
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        int s = atoi(size.c_str());
+        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        stval->set(sval, Value::Type::Hexadecimal, s);
+        val = stval;
+        break;
+      }
+      case 'b': {
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        int s = atoi(size.c_str());
+        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        stval->set(sval, Value::Type::Binary, s);
+        val = stval;
+        break;
+      }
+      case 'o': {
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        int s = atoi(size.c_str());
+        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        stval->set(sval, Value::Type::Octal, s);
+        val = stval;
+        break;
+      }
+      case 'd': {
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        int s = atoi(size.c_str());
+        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        stval->set(sval, Value::Type::Integer, s);
+        val = stval;
+        break;
+      }
+      default: {
+        std::string size = value;
+        StringUtils::rtrim(size, '\'');
+        int s = atoi(size.c_str());
+        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        stval->set(sval, Value::Type::Binary, s);
+        val = stval;
+        break;
+      }
+    }
+  } else if (strstr(value.c_str(), ".")) {
+    long double v = std::strtold(value.c_str(), 0);
     val = m_valueFactory.newLValue();
-    val->set(v);
-  } else if (int64_t v = std::strtoll(value.c_str(), 0, 10)) {
+    val->set((double) v);  
+  } else if (value.size() && value[0] == '-') {
+    int64_t v = std::strtoll(value.c_str(), 0, 10);
     val = m_valueFactory.newLValue();
-    val->set(v);
-  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 16)) {
-    val = m_valueFactory.newLValue();
-    val->set(v);
-  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 8)) {
-    val = m_valueFactory.newLValue();
-    val->set(v);
-  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 2)) {
+    val->set(v);  
+  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 10)) {
     val = m_valueFactory.newLValue();
     val->set(v);
   } else {
