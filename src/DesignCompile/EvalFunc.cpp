@@ -357,7 +357,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
   Scopes scopes;
   FScope* scope = new FScope((instance) ? instance : component, component);
   // default return value is invalid
-  Value* defaultV = m_exprBuilder.fromString("INT:0");
+  Value* defaultV = m_exprBuilder.fromVpiValue("INT:0");
   defaultV->setInvalid();
   scope->setValue(name,defaultV, m_exprBuilder);
   // set args 

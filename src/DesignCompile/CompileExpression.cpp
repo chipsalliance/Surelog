@@ -287,7 +287,7 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
       std::string v;
       c->VpiDecompile(value);
       if (strstr(value.c_str(), "'")) {
-        char base = 'h';
+        char base = 'b';
         unsigned int i = 0;
         for (i = 0; i < value.size(); i++) {
           if (value[i] == '\'') {
