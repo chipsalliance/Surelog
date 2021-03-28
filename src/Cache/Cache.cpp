@@ -220,6 +220,7 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     //                                              canonicalSymbols.getId(m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(object.m_name)),
     //                                              object.m_uniqueId,
     //                                              object.m_type,
+    //                                              object.m_column,
     //                                              object.m_line,
     //                                              object.m_parent,
     //                                               object.m_definition,
@@ -232,8 +233,7 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
     field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
     field1 |= (((uint64_t)object.m_type) << (20));  // 12 Bits => Filled 32 Bits (Of 64)
-    // UNUSED: field1 |= (((unsigned long) object.m_line)   << (20 + 12)); // 16
-    // Bits => Filled 48 Bits (Of 64)
+    field1 |= (((uint64_t) object.m_column)   << (20 + 12)); // 16 Bits => Filled 48 Bits (Of 64)
     field1 |= ((uint64_t)object.m_parent << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
     field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
     field2 |= (((uint64_t)object.m_definition) << (4));  // 20 Bits => Filled 24 Bits (Of 64)
@@ -264,7 +264,7 @@ void Cache::restoreVObjects(
 
     // VObject object
     // (m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(canonicalSymbols.getSymbol(objectc->m_name())),
-    //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(),
+    //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(), objectc->m_column(),
     //                objectc->m_line(), objectc->m_parent(),
     //                objectc->m_definition(),
     //               objectc->m_child(),  objectc->m_sibling());
@@ -275,8 +275,7 @@ void Cache::restoreVObjects(
     // Decode compression done when saving cache (see below)
     SymbolId name = (field1 & 0x00000000000FFFFF);
     unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
-    // UNUSED: unsigned int   line  = (field1 & 0x0000FFFF00000000) >> (20 +
-    // 12);
+    unsigned short column  = (field1 & 0x0000FFFF00000000) >> (20 + 12);
     NodeId parent = (field1 & 0xFFFF000000000000) >> (20 + 12 + 16);
     parent |= (field2 & 0x000000000000000F) << (16);
     NodeId definition = (field2 & 0x0000000000FFFFF0) >> (4);
@@ -289,7 +288,7 @@ void Cache::restoreVObjects(
         canonicalSymbols.getSymbol(name)),
       fileTable.registerSymbol(
         canonicalSymbols.getSymbol(fileId)),
-      (VObjectType)type, line, parent, definition, child, sibling);
+      (VObjectType)type, line, column, parent, definition, child, sibling);
 
     fileContent->getVObjects().push_back(object);
   }

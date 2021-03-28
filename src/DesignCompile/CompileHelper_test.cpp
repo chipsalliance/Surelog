@@ -115,9 +115,9 @@ CompileHelperTestStruct testCases[] = {
       //
       // Constructor call:
       // (nameId, fileId, type, line, parent, definition, child, sibling)
-     { 0, 0, VObjectType::slSubroutine_call,   3, 20, 1,  1, 0},
-     { 1, 0, VObjectType::slStringConst,       3, 0, 2, 0,  2},
-     { 0, 0, VObjectType::slList_of_arguments, 3, 0, 3, 0,  0}
+     { 0, 0, VObjectType::slSubroutine_call,   3, 5, 20, 1,  1, 0},
+     { 1, 0, VObjectType::slStringConst,       3, 5, 0, 2, 0,  2},
+     { 0, 0, VObjectType::slList_of_arguments, 3, 5, 0, 3, 0,  0}
     },
     // Symbol table
     {"foo"},
@@ -147,17 +147,17 @@ CompileHelperTestStruct testCases[] = {
       //                    n<clk> u<10> t<StringConst> p<9> l<4>
       // Constructor call:
       // (nameId, fileId, type, line, parent, definition, child, sibling)
-     { 0, 0, VObjectType::slSubroutine_call,         4, 35,  0,  1, 0},
-       { 1, 0, VObjectType::slStringConst,           4,  0,  1,  0, 2},
-       { 0, 0, VObjectType::slList_of_arguments,     4,  0,  2,  3, 0},
-         { 0, 0, VObjectType::slExpression,          4,  2,  3,  4, 7},
-           { 0, 0, VObjectType::slPrimary,           4,  3,  4,  5, 0},
-             { 0, 0, VObjectType::slPrimary_literal, 4,  4,  5,  6, 0},
-               { 2, 0, VObjectType::slStringLiteral, 4,  5,  6,  0, 0},
-         { 0, 0, VObjectType::slExpression,          4,  2,  7,  8, 0},
-           { 0, 0, VObjectType::slPrimary,           4,  7,  8,  9, 0},
-             { 0, 0, VObjectType::slPrimary_literal, 4,  8,  9, 10, 0},
-               { 3, 0, VObjectType::slStringConst,   4,  9, 10,  0, 0},
+     { 0, 0, VObjectType::slSubroutine_call,         4, 5, 35,  0,  1, 0},
+       { 1, 0, VObjectType::slStringConst,           4, 5,  0,  1,  0, 2},
+       { 0, 0, VObjectType::slList_of_arguments,     4, 5,  0,  2,  3, 0},
+         { 0, 0, VObjectType::slExpression,          4, 5,  2,  3,  4, 7},
+           { 0, 0, VObjectType::slPrimary,           4, 5,  3,  4,  5, 0},
+             { 0, 0, VObjectType::slPrimary_literal, 4, 5,  4,  5,  6, 0},
+               { 2, 0, VObjectType::slStringLiteral, 4, 5,  5,  6,  0, 0},
+         { 0, 0, VObjectType::slExpression,          4, 5,  2,  7,  8, 0},
+           { 0, 0, VObjectType::slPrimary,           4, 5,  7,  8,  9, 0},
+             { 0, 0, VObjectType::slPrimary_literal, 4, 5,  8,  9, 10, 0},
+               { 3, 0, VObjectType::slStringConst,   4, 5,  9, 10,  0, 0},
     },
     // Symbol table
     {"dsp", "%d", "clk"},
@@ -197,14 +197,14 @@ CompileHelperTestStruct testCases[] = {
       //                    n<"Hello"> u<28> t<StringLiteral> p<29> l<4>
       // Constructor call:
       // (nameId, fileId, type, line, parent, definition, child, sibling)
-      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
-      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
-      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
-      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
-      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 0},
-      {0, 0, VObjectType::slPrimary, 4, 4, 0, 6, 0},
-      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 7, 0},
-      {2, 0, VObjectType::slStringLiteral, 4, 6, 0, 0, 0},
+      {0, 0, VObjectType::slSubroutine_call, 4, 5, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 5, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 5, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 5, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 5, 3, 0, 5, 0},
+      {0, 0, VObjectType::slPrimary, 4, 5, 4, 0, 6, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 5, 0, 7, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 5, 6, 0, 0, 0},
     },
     // Symbol table
     {"display", "Hello"},
@@ -240,18 +240,18 @@ CompileHelperTestStruct testCases[] = {
       //            n<> u<34> t<Primary> p<35> c<33> l<4>
       //                n<> u<33> t<Primary_literal> p<34> c<32> l<4>
       //                    n<0> u<32> t<IntConst> p<33> l<4>
-      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
-      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
-      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
-      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
-      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 6},
-      {0, 0, VObjectType::slPrimary, 4, 4, 0, 7, 0},
-      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 8, 0},
-      {2, 0, VObjectType::slStringLiteral, 4, 7, 0, 0, 0},
-      {0, 0, VObjectType::slExpression, 4, 3, 0, 9, 0},
-      {0, 0, VObjectType::slPrimary, 4, 6, 0, 10, 0},
-      {0, 0, VObjectType::slPrimary_literal, 4, 9, 0, 11, 0},
-      {3, 0, VObjectType::slIntConst, 4, 10, 0, 0, 0},
+      {0, 0, VObjectType::slSubroutine_call, 4, 5, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 5, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 5, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 5, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 5, 3, 0, 5, 6},
+      {0, 0, VObjectType::slPrimary, 4, 5, 4, 0, 7, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 5, 0, 8, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 5, 7, 0, 0, 0},
+      {0, 0, VObjectType::slExpression, 4, 5, 3, 0, 9, 0},
+      {0, 0, VObjectType::slPrimary, 4, 5, 6, 0, 10, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 9, 0, 11, 0},
+      {3, 0, VObjectType::slIntConst, 4, 5, 10, 0, 0, 0},
     },
     // Symbol table
     {"display", "%d", "0"},
@@ -293,18 +293,18 @@ CompileHelperTestStruct testCases[] = {
       //            n<> u<34> t<Primary> p<35> c<33> l<4>
       //                n<> u<33> t<Primary_literal> p<34> c<32> l<4>
       //                    n<'hFF> u<32> t<IntConst> p<33> l<4>
-      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
-      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
-      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
-      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
-      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 6},
-      {0, 0, VObjectType::slPrimary, 4, 4, 0, 7, 0},
-      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 8, 0},
-      {2, 0, VObjectType::slStringLiteral, 4, 7, 0, 0, 0},
-      {0, 0, VObjectType::slExpression, 4, 3, 0, 9, 0},
-      {0, 0, VObjectType::slPrimary, 4, 6, 0, 10, 0},
-      {0, 0, VObjectType::slPrimary_literal, 4, 9, 0, 11, 0},
-      {3, 0, VObjectType::slIntConst, 4, 10, 0, 0, 0},
+      {0, 0, VObjectType::slSubroutine_call, 4, 5, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 5, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 5, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 5, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 5, 3, 0, 5, 6},
+      {0, 0, VObjectType::slPrimary, 4, 5, 4, 0, 7, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 5, 0, 8, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 5, 7, 0, 0, 0},
+      {0, 0, VObjectType::slExpression, 4, 5, 3, 0, 9, 0},
+      {0, 0, VObjectType::slPrimary, 4, 5, 6, 0, 10, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 9, 0, 11, 0},
+      {3, 0, VObjectType::slIntConst, 4, 5, 10, 0, 0, 0},
     },
     // Symbol table
     {"display", "Value: %d", "'hFF"},

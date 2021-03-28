@@ -84,15 +84,19 @@ unsigned short& CommonListenerHelper::Type(NodeId index) {
   return m_fileContent->getVObjects()[index].m_type;
 }
 
+unsigned short& CommonListenerHelper::Column(NodeId index) {
+  return m_fileContent->getVObjects()[index].m_column;
+}
+
 unsigned int& CommonListenerHelper::Line(NodeId index) {
   return m_fileContent->getVObjects()[index].m_line;
 }
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype) {
   SymbolId fileId;
-  const unsigned int line = getFileLine(ctx, fileId);
+  auto [line, column] = getFileLine(ctx, fileId);
 
-  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, 0);
+  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column, 0);
   int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
