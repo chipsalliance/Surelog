@@ -418,7 +418,7 @@ if (UNIX)
   target_link_libraries(surelog PRIVATE pthread)
 endif()
 
-if (LINUX)
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
   target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE rt)
 endif()
