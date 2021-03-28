@@ -45,13 +45,14 @@ class DesignElement final {
   };
 
   DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                SymbolId uniqueId, unsigned int line, SymbolId parent);
+                SymbolId uniqueId, unsigned int line, unsigned short column, SymbolId parent);
 
   SymbolId m_name;
   SymbolId m_fileId;
   ElemType m_type;
   SymbolId m_uniqueId;
   unsigned int m_line;
+  unsigned short m_column;
   TimeInfo m_timeInfo;
   SymbolId m_parent;
   NodeId m_node;

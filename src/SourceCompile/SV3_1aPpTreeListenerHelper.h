@@ -77,7 +77,7 @@ public:
 
     SymbolId registerSymbol(const std::string &symbol) final;
 
-    unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
+    std::pair<unsigned int, unsigned short> getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
 
     ~SV3_1aPpTreeListenerHelper() override;
 };

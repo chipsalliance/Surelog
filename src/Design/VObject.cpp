@@ -63,6 +63,6 @@ std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
     text += "s<" + std::to_string(m_sibling) + ">";
   }
   text += " ";
-  text += "l<" + std::to_string(m_line) + ">";
+  text += "l<" + std::to_string(m_line) + ":" + std::to_string(m_column) + ">";
   return text;
 }

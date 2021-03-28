@@ -67,6 +67,8 @@ public:
 
   unsigned short& Type(NodeId index);
 
+  unsigned short& Column(NodeId index);
+
   unsigned int& Line(NodeId index);
 
   int addVObject(antlr4::ParserRuleContext* ctx,
@@ -80,7 +82,7 @@ public:
 
   FileContent* getFileContent() { return m_fileContent; }
 
-  virtual unsigned int getFileLine(antlr4::ParserRuleContext* ctx,
+  virtual std::pair<unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx,
                                    SymbolId& fileId) = 0;
 
 private:

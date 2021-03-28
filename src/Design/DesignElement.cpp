@@ -27,13 +27,14 @@
 using namespace SURELOG;
 
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                             SymbolId uniqueId, unsigned int line,
+                             SymbolId uniqueId, unsigned int line, unsigned short column,
                              SymbolId parent)
     : m_name(name),
       m_fileId(fileId),
       m_type(type),
       m_uniqueId(uniqueId),
       m_line(line),
+      m_column(column),
       m_parent(parent),
       m_node(0),
       m_context(NULL) {}
