@@ -802,7 +802,9 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
   std::string sval;
-  if (strstr(value.c_str(), "'")) {
+  const char *value_ptr = value.c_str();
+  char *end_parse_ptr;
+  if (strstr(value_ptr, "'")) {
     char base = 'b';
     unsigned int i = 0;
     for (i = 0; i < value.size(); i++) {
@@ -860,20 +862,23 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
     }
-  } else if (strstr(value.c_str(), ".")) {
-    long double v = std::strtold(value.c_str(), 0);
+  } else if (strstr(value_ptr, ".")) {
+    long double v = std::strtold(value_ptr, 0);
     val = m_valueFactory.newLValue();
     val->set((double) v);  
   } else if (value.size() && value[0] == '-') {
-    int64_t v = std::strtoll(value.c_str(), 0, 10);
+    int64_t v = std::strtoll(value_ptr, 0, 10);
     val = m_valueFactory.newLValue();
     val->set(v);  
-  } else if (uint64_t v = std::strtoull(value.c_str(), 0, 10)) {
-    val = m_valueFactory.newLValue();
-    val->set(v);
   } else {
-    val = m_valueFactory.newStValue();
-    val->set(value);
+    uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
+    if (value_ptr != end_parse_ptr) {
+      val = m_valueFactory.newLValue();
+      val->set(v);
+    } else {
+      val = m_valueFactory.newStValue();
+      val->set(value);
+    }
   }
   return val;
 }
