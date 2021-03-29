@@ -369,6 +369,20 @@ set_target_properties(surelog PROPERTIES PUBLIC_HEADER "${SURELOG_PUBLIC_HEADERS
 add_executable(surelog-bin ${PROJECT_SOURCE_DIR}/src/main.cpp)
 set_target_properties(surelog-bin PROPERTIES OUTPUT_NAME surelog)
 
+if (APPLE)
+  # In macOS, it is necessary to add the correct @rpath to the executable for
+  # finding python dynamic libraries ref: https://gitlab.kitware.com/cmake/cmake/-/issues/21293
+  # https://gitlab.kitware.com/cmake/cmake/-/issues/21947
+  # Python3_LINK_OPTIONS is variable available from cmake 3.19, update cmake using homebrew
+  # if can't update cmake use:
+  # set_target_properties(surelog-bin PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE
+  # INSTALL_RPATH "/Library/Developer/CommandLineTools/Library/Frameworks/")
+  # if you installed python with hombrew. Or if you install python with Xcode:
+  # set_target_properties(surelog-bin PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE
+  # INSTALL_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/")
+  target_link_options(surelog-bin PRIVATE ${Python3_LINK_OPTIONS})
+endif()
+
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
 add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
 
@@ -398,12 +412,15 @@ if($<BOOL:${TCMALLOC_LIBRARY}>)
 endif()
 
 if (UNIX)
-  target_link_libraries(surelog PRIVATE stdc++fs)
   target_link_libraries(surelog PRIVATE dl)
   target_link_libraries(surelog PRIVATE util)
   target_link_libraries(surelog PRIVATE m)
-  target_link_libraries(surelog PRIVATE rt)
   target_link_libraries(surelog PRIVATE pthread)
+endif()
+
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+  target_link_libraries(surelog PRIVATE stdc++fs)
+  target_link_libraries(surelog PRIVATE rt)
 endif()
 
 # Unit tests
