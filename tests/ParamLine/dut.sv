@@ -21,4 +21,7 @@ module top();
    if (p == 12.12) begin
       GOOD_REAL12 good();
    end
+   if (p == 0) begin
+      GOOD_0 good();
+   end
 endmodule
