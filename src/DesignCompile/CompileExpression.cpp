@@ -2210,7 +2210,7 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
         result = sel;
       }
     } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
-      std::string hname = name + "." + fC->SymName(Bit_select);
+      std::string hname = name;
       hier_path* path = s.MakeHier_path();
       VectorOfany* elems = s.MakeAnyVec();
       ref_obj* r1 = s.MakeRef_obj();
@@ -2218,10 +2218,16 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
       r1->VpiFullName(name);
       path->Path_elems(elems);
       elems->push_back(r1);
-      ref_obj* r2 = s.MakeRef_obj();
-      r2->VpiName(fC->SymName(Bit_select));
-      r2->VpiFullName(fC->SymName(Bit_select));
-      elems->push_back(r2);
+      while (Bit_select) {
+        if (fC->Type(Bit_select) == VObjectType::slStringConst) {
+          ref_obj* r2 = s.MakeRef_obj();
+          r2->VpiName(fC->SymName(Bit_select));
+          r2->VpiFullName(fC->SymName(Bit_select));
+          elems->push_back(r2);
+          hname += "." + fC->SymName(Bit_select);
+        }
+        Bit_select = fC->Sibling(Bit_select);
+      }
       path->VpiName(hname);
       path->VpiFullName(hname);
       path->VpiFile(fC->getFileName());
