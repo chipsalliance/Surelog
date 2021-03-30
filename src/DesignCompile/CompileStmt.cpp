@@ -1063,12 +1063,26 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
       NodeId type = fC->Child(tf_data_type);
 
       variables* var = nullptr;
+      std::vector<UHDM::range*>* unpackedDimensions = nullptr;
       if (previous_var && (tf_data_type == 0)) {
         ElaboratorListener listener(&s);
         var = (variables*) UHDM::clone_tree((any*) previous_var, s, &listener);
       } else {
         var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true, false);
         previous_var = var;
+        int size;
+        NodeId varDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+        unpackedDimensions = compileRanges(component, fC, varDimension,
+					   compileDesign, nullptr, nullptr,
+					   false, size, false);
+        if (unpackedDimensions) {
+          array_var* arr = s.MakeArray_var();
+          arr->Ranges(unpackedDimensions);
+          VectorOfvariables* vars = s.MakeVariablesVec();
+          arr->Variables(vars);
+          vars->push_back(var);
+          var = arr;
+        }
       }
       decl->Expr(var);
       if (var)

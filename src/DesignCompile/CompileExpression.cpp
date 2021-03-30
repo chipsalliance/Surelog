@@ -3903,6 +3903,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         range->VpiLineNo(fC->Line(Constant_range));
         ranges->push_back(range);
         range->VpiParent(pexpr);
+      } else if (fC->Type(fC->Child(Packed_dimension)) == VObjectType::slUnsized_dimension) {
+        return nullptr;
       }
       Packed_dimension = fC->Sibling(Packed_dimension);
     }
