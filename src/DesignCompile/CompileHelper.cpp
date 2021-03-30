@@ -1557,6 +1557,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
   switch (subType) {
+  case VObjectType::slPackage_import_declaration:
+    break;
   case VObjectType::slType_declaration:
   {
     /*
