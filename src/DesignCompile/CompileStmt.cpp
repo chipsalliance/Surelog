@@ -282,6 +282,7 @@ VectorOfany* CompileHelper::compileStmt(
       UHDM::parameter* param = s.MakeParameter();
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
+      param->VpiColumnNo(fC->Column(Param_assignment));
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         int unpackedSize;
@@ -298,6 +299,7 @@ VectorOfany* CompileHelper::compileStmt(
       UHDM::param_assign* param_assign = s.MakeParam_assign();
       param_assign->VpiFile(fC->getFileName());
       param_assign->VpiLineNo(fC->Line(Param_assignment));
+      param_assign->VpiColumnNo(fC->Column(Param_assignment));
       param_assigns->push_back(param_assign);
       param->VpiName(fC->SymName(name));
       param->Typespec(ts);
@@ -530,6 +532,7 @@ VectorOfany* CompileHelper::compileStmt(
     }
     stmt->VpiFile(fC->getFileName(the_stmt));
     stmt->VpiLineNo(fC->Line(the_stmt));
+    stmt->VpiColumnNo(fC->Column(the_stmt));
     stmt->VpiParent(pstmt);
     results = s.MakeAnyVec();
     results->push_back(stmt);
@@ -563,6 +566,7 @@ VectorOfany* CompileHelper::compileStmt(
       ustmt->VpiValue("STRING:" + lineText);
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
+      ustmt->VpiColumnNo(fC->Column(the_stmt));
       ustmt->VpiParent(pstmt);
       stmt = ustmt;
       // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt)
@@ -833,6 +837,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
       case_items->push_back(case_item);
       case_item->VpiFile(fC->getFileName());
       case_item->VpiLineNo(fC->Line(Case_item));
+      case_item->VpiColumnNo(fC->Column(Case_item));
       case_item->VpiParent(case_stmt);
     }
     bool isDefault = false;
@@ -960,6 +965,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           ioMap.insert(std::make_pair(name, decl));
           decl->VpiFile(fC->getFileName());
           decl->VpiLineNo(fC->Line(nameId));
+          decl->VpiColumnNo(fC->Column(nameId));
           decl->Ranges(ranges);
           List_of_tf_variable_identifiers =
               fC->Sibling(List_of_tf_variable_identifiers);
@@ -1070,7 +1076,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
       } else {
         var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true, false);
         previous_var = var;
-        int size;
+	int size;
         NodeId varDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
         unpackedDimensions = compileRanges(component, fC, varDimension,
 					   compileDesign, nullptr, nullptr,
@@ -1264,6 +1270,7 @@ bool CompileHelper::compileTask(
   task->VpiMethod(isMethod);
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(nodeId));
+  task->VpiColumnNo(fC->Column(nodeId));
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null = 0;
   if (fC->Type(Tf_port_list) == slTf_port_list) {
@@ -1393,7 +1400,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
   task_funcs->push_back(func);
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
-
+  func->VpiColumnNo(fC->Column(nodeId));
   std::string name = "new";
   std::string className;
   NodeId Tf_port_list = 0;
@@ -1573,7 +1580,7 @@ bool CompileHelper::compileFunction(
   func->VpiMethod(isMethod);
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
-
+  func->VpiColumnNo(fC->Column(nodeId));
   if (constructor) {
     UHDM::class_var* var = s.MakeClass_var();
     func->Return(var);
@@ -1760,7 +1767,7 @@ Function* CompileHelper::compileFunctionPrototype(
 
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(id));
-
+  func->VpiColumnNo(fC->Column(id));
   func->Return(dynamic_cast<variables*>(
         compileVariable(scope, fC, type, compileDesign, nullptr,
                         nullptr, true, false)));

@@ -228,6 +228,17 @@ unsigned int FileContent::Line(NodeId index) const {
   return m_objects[index].m_line;
 }
 
+unsigned short FileContent::Column(NodeId index) const {
+  if (index >= m_objects.size()) {
+    Location loc(this->m_fileId);
+    Error err (ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
+    m_errors->addError(err);
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";  
+    return m_objects[0].m_line;
+  }
+  return m_objects[index].m_column;
+}
+
 NodeId FileContent::sl_get(NodeId parent, VObjectType type) {
   if (!m_objects.size()) return 0;
   if (parent > m_objects.size() - 1) return 0;

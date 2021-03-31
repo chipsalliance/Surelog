@@ -358,7 +358,7 @@ public:
   bool errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp, CompileDesign* compileDesign, ValuedComponentI* instance);
   bool errorOnNegativeConstant(DesignComponent* component, Value* value, CompileDesign* compileDesign, ValuedComponentI* instance);
   bool errorOnNegativeConstant(DesignComponent* component, const std::string& value, CompileDesign* compileDesign, ValuedComponentI* instance,
-                               const std::string& fileName, int lineNo);
+                               const std::string& fileName, unsigned int lineNo, unsigned short columnNo);
 
  private:
   CompileHelper(const CompileHelper&) = delete;
