@@ -208,6 +208,7 @@ bool CompileModule::collectUdpObjects_() {
           const std::string& name = fC->SymName(port);
           io->VpiFile(fC->getFileName());
           io->VpiLineNo(fC->Line(port));
+          io->VpiColumnNo(fC->Column(port));
           io->VpiName(name);
           io->VpiParent(defn);
           ios->push_back(io);
@@ -230,6 +231,7 @@ bool CompileModule::collectUdpObjects_() {
         UHDM::logic_net* net = s.MakeLogic_net();
         net->VpiFile(fC->getFileName());
         net->VpiLineNo(fC->Line(id));
+        net->VpiColumnNo(fC->Column(id));
         net->Attributes(attributes);
         net->VpiParent(defn);
         if (ios) {
@@ -261,6 +263,7 @@ bool CompileModule::collectUdpObjects_() {
             UHDM::logic_net* net = s.MakeLogic_net();
             net->VpiFile(fC->getFileName());
             net->VpiLineNo(fC->Line(id));
+            net->VpiColumnNo(fC->Column(id));
             net->Attributes(attributes);
             net->VpiParent(defn);
             for (auto io : *ios) {
@@ -318,6 +321,7 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiSize(nb);
         entry->VpiFile(fC->getFileName());
         entry->VpiLineNo(fC->Line(Level_input_list));
+        entry->VpiColumnNo(fC->Column(Level_symbol));
         entries->push_back(entry);
         break;
       }
@@ -416,6 +420,7 @@ bool CompileModule::collectUdpObjects_() {
         entry->VpiSize(nb);
         entry->VpiFile(fC->getFileName());
         entry->VpiLineNo(fC->Line(Level_input_list));
+        entry->VpiColumnNo(fC->Column(Level_symbol));
         entries->push_back(entry);
         break;
       }
@@ -425,6 +430,7 @@ bool CompileModule::collectUdpObjects_() {
         UHDM::initial* init = s.MakeInitial();
         init->VpiFile(fC->getFileName());
         init->VpiLineNo(fC->Line(id));
+        init->VpiColumnNo(fC->Column(id));
         init->VpiParent(defn);
         defn->Initial(init);
         UHDM::assign_stmt* assign_stmt = s.MakeAssign_stmt();
@@ -435,6 +441,7 @@ bool CompileModule::collectUdpObjects_() {
         assign_stmt->Lhs(ref);
         assign_stmt->VpiFile(fC->getFileName());
         assign_stmt->VpiLineNo(fC->Line(Identifier));
+        assign_stmt->VpiColumnNo(fC->Column(Identifier));
         assign_stmt->VpiParent(init);
         UHDM::constant* c = s.MakeConstant();
         assign_stmt->Rhs(c);
@@ -446,6 +453,7 @@ bool CompileModule::collectUdpObjects_() {
         c->VpiParent(assign_stmt);
         c->VpiFile(fC->getFileName());
         c->VpiLineNo(fC->Line(Value));
+        c->VpiColumnNo(fC->Column(Value));
         break;
       }
       default:

@@ -555,6 +555,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     enum_t->VpiName(name);
     enum_t->VpiFile(the_enum->getFileContent()->getFileName());
     enum_t->VpiLineNo(the_enum->getFileContent()->Line(the_enum->getDefinitionId()));
+    enum_t->VpiColumnNo(the_enum->getFileContent()->Column(the_enum->getDefinitionId()));
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
     // Enum values
@@ -567,6 +568,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       econst->VpiName((*enum_val).first);
       econst->VpiFile(the_enum->getFileContent()->getFileName());
       econst->VpiLineNo((*enum_val).second.first);
+      econst->VpiColumnNo(0);
       econst->VpiValue((*enum_val).second.second->uhdmValue());
       econsts->push_back(econst);
     }
@@ -1528,6 +1530,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
     import* import_stmt = s.MakeImport();
     import_stmt->VpiFile(fC->getFileName());
     import_stmt->VpiLineNo(fC->Line(package_import_item_id));
+    import_stmt->VpiColumnNo(fC->Column(package_import_item_id));
     NodeId package_name_id = fC->Child(package_import_item_id);
 
     NodeId item_name_id = fC->Sibling(package_name_id);
@@ -1747,6 +1750,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       setParentNoOverride(rhs_exp, cassign);
       cassign->VpiFile(fC->getFileName());
       cassign->VpiLineNo(fC->Line(List_of_net_assignments));
+      cassign->VpiColumnNo(fC->Column(List_of_net_assignments));
       if (component->getContAssigns() == nullptr) {
         component->setContAssigns(s.MakeCont_assignVec());
       }
@@ -1885,6 +1889,7 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, const FileCon
   }
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
+  always->VpiColumnNo(fC->Column(id));
   compileDesign->unlockSerializer();
   return true;
 }
@@ -1950,6 +1955,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       p->VpiName(fC->SymName(typeNameId));
       p->VpiFile(fC->getFileName());
       p->VpiLineNo(fC->Line(typeNameId));
+      p->VpiColumnNo(fC->Column(typeNameId));
       typespec* tps = compileTypespec(component, fC, ntype, compileDesign,
                                            p, nullptr, false, "");
       p->Typespec(tps);
@@ -1979,6 +1985,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       p->VpiName(fC->SymName(Identifier));
       p->VpiFile(fC->getFileName());
       p->VpiLineNo(fC->Line(Identifier));
+      p->VpiColumnNo(fC->Column(Identifier));
       NodeId Data_type = fC->Child(Constant_param_expression);
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
                                            p, nullptr, false, "");
@@ -2088,6 +2095,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       param->VpiSigned(isSigned);
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
+      param->VpiColumnNo(fC->Column(Param_assignment));
       param->VpiName(fC->SymName(name));
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
@@ -2112,6 +2120,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         component->addParamAssign(assign);
         param_assign->VpiFile(fC->getFileName());
         param_assign->VpiLineNo(fC->Line(Param_assignment));
+        param_assign->VpiColumnNo(fC->Column(Param_assignment));
         param_assigns->push_back(param_assign);
         param->Expr(unpacked);
         param_assign->Lhs(param);
@@ -2223,6 +2232,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
       const std::string& mname = fC->SymName(tfNameNode);
       fcall->VpiFile(fC->getFileName());
       fcall->VpiLineNo(fC->Line(Constant_bit_select));
+      fcall->VpiColumnNo(fC->Column(Constant_bit_select));
       fcall->VpiName(mname);
       ref_obj* prefix = s.MakeRef_obj();
       prefix->VpiName(name);
@@ -2351,6 +2361,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
       method_func_call* fcall = s.MakeMethod_func_call();
       fcall->VpiFile(fC->getFileName());
       fcall->VpiLineNo(fC->Line(Delay_or_event_control));
+      fcall->VpiColumnNo(fC->Column(Delay_or_event_control));
       fcall->VpiName("new");
       NodeId List_of_arguments = fC->Child(Delay_or_event_control);
       if (List_of_arguments) {
@@ -2391,6 +2402,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     fcall->VpiName("new");
     fcall->VpiFile(fC->getFileName());
     fcall->VpiLineNo(fC->Line(Hierarchical_identifier));
+    fcall->VpiColumnNo(fC->Column(Hierarchical_identifier));
     if (List_of_arguments) {
       VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall, nullptr, false, false);
       fcall->Tf_call_args(arguments);
@@ -2500,6 +2512,7 @@ UHDM::clocking_block* CompileHelper::compileClockingBlock(
   cblock->VpiName(name);
   cblock->VpiFile(fC->getFileName());
   cblock->VpiLineNo(fC->Line(nodeId));
+  cblock->VpiColumnNo(fC->Column(nodeId));
   event_control* ctrl =
       compileClocking_event(component, fC, clocking_event, compileDesign, cblock, instance);
   cblock->Clocking_event(ctrl);

@@ -336,7 +336,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
           StringUtils::getLineInString(fileContent, stmt->VpiLineNo());
       Location loc(
           symbols->registerSymbol(fileName),
-          lineNumber, 0,
+          lineNumber, stmt->VpiColumnNo(),
           symbols->registerSymbol(lineText));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
       errors->addError(err);
@@ -412,7 +412,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
                 FileUtils::getFileContent(stmt->VpiFile());
             std::string lineText = StringUtils::getLineInString(
                 fileContent, stmt->VpiLineNo());
-            Location loc(symbols->registerSymbol(the_stmt->VpiFile()), stmt->VpiLineNo(), 0,
+            Location loc(symbols->registerSymbol(the_stmt->VpiFile()), stmt->VpiLineNo(), stmt->VpiColumnNo(),
                          symbols->registerSymbol(lineText));
             Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
             errors->addError(err);
@@ -435,7 +435,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
                 FileUtils::getFileContent(stmt->VpiFile());
             std::string lineText = StringUtils::getLineInString(
                 fileContent, stmt->VpiLineNo());
-            Location loc(symbols->registerSymbol(stmt->VpiFile()), stmt->VpiLineNo(), 0,
+            Location loc(symbols->registerSymbol(stmt->VpiFile()), stmt->VpiLineNo(), stmt->VpiColumnNo(),
                          symbols->registerSymbol(lineText));
             Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
             errors->addError(err);
@@ -454,7 +454,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
           std::string fileContent = FileUtils::getFileContent(the_stmt->VpiFile());
           std::string lineText =
               StringUtils::getLineInString(fileContent, the_stmt->VpiLineNo());
-          Location loc(symbols->registerSymbol(the_stmt->VpiFile()), the_stmt->VpiLineNo(), 0,
+          Location loc(symbols->registerSymbol(the_stmt->VpiFile()), the_stmt->VpiLineNo(), the_stmt->VpiColumnNo(),
                        symbols->registerSymbol(lineText));
           Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
           errors->addError(err);
