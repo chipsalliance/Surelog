@@ -610,7 +610,7 @@ design: (work@carry_rtl)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@carry_rtl
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -625,18 +625,18 @@ design: (work@carry_rtl)
       |vpiName:bound
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, parent:bound
+      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
         |vpiFullName:work@mailbox::new::bound
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9
+    \_int_var: , line:9, col:11
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -646,7 +646,7 @@ design: (work@carry_rtl)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -656,7 +656,7 @@ design: (work@carry_rtl)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -666,19 +666,19 @@ design: (work@carry_rtl)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21
+    \_int_var: , line:21, col:11
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -688,13 +688,13 @@ design: (work@carry_rtl)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27
+    \_int_var: , line:27, col:11
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -703,23 +703,23 @@ design: (work@carry_rtl)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@carry_rtl
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37, parent:work@process
+  \_function: (work@process::self), line:37, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37
+    \_chandle_var: , line:37, col:18
   |vpiMethod:
-  \_function: (work@process::status), line:40, parent:work@process
+  \_function: (work@process::status), line:40, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40
+    \_int_var: , line:40, col:11
       |vpiTypespec:
-      \_enum_typespec: (state), line:35
+      \_enum_typespec: (state), line:35, col:65
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED), line:35
@@ -742,7 +742,7 @@ design: (work@carry_rtl)
           |vpiName:WAITING
           |INT:2
   |vpiMethod:
-  \_task: (work@process::kill), line:43, parent:work@process
+  \_task: (work@process::kill), line:43, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -751,7 +751,7 @@ design: (work@carry_rtl)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46, parent:work@process
+  \_task: (work@process::await), line:46, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -760,7 +760,7 @@ design: (work@carry_rtl)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49, parent:work@process
+  \_task: (work@process::suspend), line:49, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -769,7 +769,7 @@ design: (work@carry_rtl)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52, parent:work@process
+  \_task: (work@process::resume), line:52, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -778,7 +778,7 @@ design: (work@carry_rtl)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35, parent:work@process
+  \_enum_typespec: (state), line:35, col:65, parent:work@process
     |vpiName:state
     |vpiEnumConst:
     \_enum_const: (FINISHED), line:35, parent:state
@@ -804,7 +804,7 @@ design: (work@carry_rtl)
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@carry_rtl
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -819,10 +819,10 @@ design: (work@carry_rtl)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, parent:keyCount
+      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
         |vpiFullName:work@semaphore::new::keyCount
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -832,10 +832,10 @@ design: (work@carry_rtl)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, parent:keyCount
+      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
         |vpiFullName:work@semaphore::put::keyCount
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -845,87 +845,87 @@ design: (work@carry_rtl)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, parent:keyCount
+      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
         |vpiFullName:work@semaphore::get::keyCount
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69
+    \_int_var: , line:69, col:11
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, parent:keyCount
+      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
         |vpiFullName:work@semaphore::try_get::keyCount
 |uhdmallModules:
 \_module: work@carry_gate (work@carry_gate) dut.sv:8: , parent:work@carry_rtl
   |vpiDefName:work@carry_gate
   |vpiFullName:work@carry_gate
   |vpiPort:
-  \_port: (a), line:8, parent:work@carry_gate
+  \_port: (a), line:8, col:24, parent:work@carry_gate
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
         |vpiName:a
         |vpiFullName:work@carry_gate.a
   |vpiPort:
-  \_port: (b), line:8, parent:work@carry_gate
+  \_port: (b), line:8, col:27, parent:work@carry_gate
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
         |vpiName:b
         |vpiFullName:work@carry_gate.b
   |vpiPort:
-  \_port: (c), line:8, parent:work@carry_gate
+  \_port: (c), line:8, col:30, parent:work@carry_gate
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
         |vpiName:c
         |vpiFullName:work@carry_gate.c
   |vpiPort:
-  \_port: (cout), line:9, parent:work@carry_gate
+  \_port: (cout), line:9, col:11, parent:work@carry_gate
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.cout), line:9, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.cout), line:9, col:11, parent:work@carry_gate
         |vpiName:cout
         |vpiFullName:work@carry_gate.cout
   |vpiNet:
-  \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.cout), line:9, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.cout), line:9, col:11, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.x), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.x), line:11, col:5, parent:work@carry_gate
     |vpiName:x
     |vpiFullName:work@carry_gate.x
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_gate.y), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.y), line:11, col:8, parent:work@carry_gate
     |vpiName:y
     |vpiFullName:work@carry_gate.y
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_gate.z), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.z), line:11, col:11, parent:work@carry_gate
     |vpiName:z
     |vpiFullName:work@carry_gate.z
     |vpiNetType:1
@@ -934,198 +934,198 @@ design: (work@carry_rtl)
   |vpiDefName:work@carry_rtl
   |vpiFullName:work@carry_rtl
   |vpiPort:
-  \_port: (a), line:1, parent:work@carry_rtl
+  \_port: (a), line:1, col:23, parent:work@carry_rtl
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
         |vpiName:a
         |vpiFullName:work@carry_rtl.a
   |vpiPort:
-  \_port: (b), line:1, parent:work@carry_rtl
+  \_port: (b), line:1, col:26, parent:work@carry_rtl
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
         |vpiName:b
         |vpiFullName:work@carry_rtl.b
   |vpiPort:
-  \_port: (c), line:1, parent:work@carry_rtl
+  \_port: (c), line:1, col:29, parent:work@carry_rtl
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
         |vpiName:c
         |vpiFullName:work@carry_rtl.c
   |vpiPort:
-  \_port: (cout), line:2, parent:work@carry_rtl
+  \_port: (cout), line:2, col:10, parent:work@carry_rtl
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.cout), line:2, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.cout), line:2, col:10, parent:work@carry_rtl
         |vpiName:cout
         |vpiFullName:work@carry_rtl.cout
   |vpiContAssign:
-  \_cont_assign: , line:3, parent:work@carry_rtl
+  \_cont_assign: , line:3, col:10, parent:work@carry_rtl
     |vpiRhs:
-    \_operation: , line:3
+    \_operation: , line:3, col:17
       |vpiOpType:29
       |vpiOperand:
-      \_operation: , line:3
+      \_operation: , line:3, col:17
         |vpiOpType:29
         |vpiOperand:
-        \_operation: , line:3
+        \_operation: , line:3, col:18
           |vpiOpType:28
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.a), line:3
+          \_ref_obj: (work@carry_rtl.a), line:3, col:18
             |vpiName:a
             |vpiFullName:work@carry_rtl.a
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.b), line:3
+          \_ref_obj: (work@carry_rtl.b), line:3, col:20
             |vpiName:b
             |vpiFullName:work@carry_rtl.b
             |vpiActual:
-            \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
               |vpiName:b
               |vpiFullName:work@carry_rtl.b
         |vpiOperand:
-        \_operation: , line:3
+        \_operation: , line:3, col:26
           |vpiOpType:28
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.a), line:3
+          \_ref_obj: (work@carry_rtl.a), line:3, col:26
             |vpiName:a
             |vpiFullName:work@carry_rtl.a
             |vpiActual:
-            \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
               |vpiName:a
               |vpiFullName:work@carry_rtl.a
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.c), line:3
+          \_ref_obj: (work@carry_rtl.c), line:3, col:28
             |vpiName:c
             |vpiFullName:work@carry_rtl.c
             |vpiActual:
-            \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
               |vpiName:c
               |vpiFullName:work@carry_rtl.c
       |vpiOperand:
-      \_operation: , line:3
+      \_operation: , line:3, col:34
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (work@carry_rtl.b), line:3
+        \_ref_obj: (work@carry_rtl.b), line:3, col:34
           |vpiName:b
           |vpiFullName:work@carry_rtl.b
           |vpiActual:
-          \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+          \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
         |vpiOperand:
-        \_ref_obj: (work@carry_rtl.c), line:3
+        \_ref_obj: (work@carry_rtl.c), line:3, col:36
           |vpiName:c
           |vpiFullName:work@carry_rtl.c
           |vpiActual:
-          \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+          \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
     |vpiLhs:
-    \_ref_obj: (work@carry_rtl.cout), line:3
+    \_ref_obj: (work@carry_rtl.cout), line:3, col:10
       |vpiName:cout
       |vpiFullName:work@carry_rtl.cout
   |vpiNet:
-  \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.cout), line:2, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.cout), line:2, col:10, parent:work@carry_rtl
 |uhdmallModules:
 \_module: work@carry_trans (work@carry_trans) dut.sv:18: , parent:work@carry_rtl
   |vpiDefName:work@carry_trans
   |vpiFullName:work@carry_trans
   |vpiPort:
-  \_port: (a), line:18, parent:work@carry_trans
+  \_port: (a), line:18, col:25, parent:work@carry_trans
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
         |vpiName:a
         |vpiFullName:work@carry_trans.a
   |vpiPort:
-  \_port: (b), line:18, parent:work@carry_trans
+  \_port: (b), line:18, col:28, parent:work@carry_trans
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
         |vpiName:b
         |vpiFullName:work@carry_trans.b
   |vpiPort:
-  \_port: (c), line:18, parent:work@carry_trans
+  \_port: (c), line:18, col:31, parent:work@carry_trans
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
         |vpiName:c
         |vpiFullName:work@carry_trans.c
   |vpiPort:
-  \_port: (cout), line:18, parent:work@carry_trans
+  \_port: (cout), line:18, col:41, parent:work@carry_trans
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
         |vpiName:cout
         |vpiFullName:work@carry_trans.cout
   |vpiNet:
-  \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.i1), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i1), line:20, col:5, parent:work@carry_trans
     |vpiName:i1
     |vpiFullName:work@carry_trans.i1
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.i2), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i2), line:20, col:9, parent:work@carry_trans
     |vpiName:i2
     |vpiFullName:work@carry_trans.i2
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.i3), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i3), line:20, col:13, parent:work@carry_trans
     |vpiName:i3
     |vpiFullName:work@carry_trans.i3
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.i4), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i4), line:20, col:17, parent:work@carry_trans
     |vpiName:i4
     |vpiFullName:work@carry_trans.i4
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
     |vpiName:cn
     |vpiFullName:work@carry_trans.cn
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.zero), line:22, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.zero), line:22, col:5, parent:work@carry_trans
     |vpiName:zero
     |vpiFullName:work@carry_trans.zero
     |vpiNetType:1
   |vpiNet:
-  \_logic_net: (work@carry_trans.one), line:23, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.one), line:23, col:5, parent:work@carry_trans
     |vpiName:one
     |vpiFullName:work@carry_trans.one
     |vpiNetType:1
@@ -1134,112 +1134,112 @@ design: (work@carry_rtl)
   |vpiDefName:work@carry_rtl
   |vpiName:work@carry_rtl
   |vpiPort:
-  \_port: (a), line:1, parent:work@carry_rtl
+  \_port: (a), line:1, col:23, parent:work@carry_rtl
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
         |vpiName:a
         |vpiFullName:work@carry_rtl.a
   |vpiPort:
-  \_port: (b), line:1, parent:work@carry_rtl
+  \_port: (b), line:1, col:26, parent:work@carry_rtl
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
         |vpiName:b
         |vpiFullName:work@carry_rtl.b
   |vpiPort:
-  \_port: (c), line:1, parent:work@carry_rtl
+  \_port: (c), line:1, col:29, parent:work@carry_rtl
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
         |vpiName:c
         |vpiFullName:work@carry_rtl.c
   |vpiPort:
-  \_port: (cout), line:2, parent:work@carry_rtl
+  \_port: (cout), line:2, col:10, parent:work@carry_rtl
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_rtl.cout), line:2, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.cout), line:2, col:10, parent:work@carry_rtl
         |vpiName:cout
         |vpiFullName:work@carry_rtl.cout
   |vpiContAssign:
-  \_cont_assign: , line:3, parent:work@carry_rtl
+  \_cont_assign: , line:3, col:10, parent:work@carry_rtl
     |vpiRhs:
-    \_operation: , line:3
+    \_operation: , line:3, col:17
       |vpiOpType:29
       |vpiOperand:
-      \_operation: , line:3
+      \_operation: , line:3, col:17
         |vpiOpType:29
         |vpiOperand:
-        \_operation: , line:3
+        \_operation: , line:3, col:18
           |vpiOpType:28
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.a), line:3
+          \_ref_obj: (work@carry_rtl.a), line:3, col:18
             |vpiName:a
             |vpiFullName:work@carry_rtl.a
             |vpiActual:
-            \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.b), line:3
+          \_ref_obj: (work@carry_rtl.b), line:3, col:20
             |vpiName:b
             |vpiFullName:work@carry_rtl.b
             |vpiActual:
-            \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
         |vpiOperand:
-        \_operation: , line:3
+        \_operation: , line:3, col:26
           |vpiOpType:28
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.a), line:3
+          \_ref_obj: (work@carry_rtl.a), line:3, col:26
             |vpiName:a
             |vpiFullName:work@carry_rtl.a
             |vpiActual:
-            \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
           |vpiOperand:
-          \_ref_obj: (work@carry_rtl.c), line:3
+          \_ref_obj: (work@carry_rtl.c), line:3, col:28
             |vpiName:c
             |vpiFullName:work@carry_rtl.c
             |vpiActual:
-            \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+            \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
       |vpiOperand:
-      \_operation: , line:3
+      \_operation: , line:3, col:34
         |vpiOpType:28
         |vpiOperand:
-        \_ref_obj: (work@carry_rtl.b), line:3
+        \_ref_obj: (work@carry_rtl.b), line:3, col:34
           |vpiName:b
           |vpiFullName:work@carry_rtl.b
           |vpiActual:
-          \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+          \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
         |vpiOperand:
-        \_ref_obj: (work@carry_rtl.c), line:3
+        \_ref_obj: (work@carry_rtl.c), line:3, col:36
           |vpiName:c
           |vpiFullName:work@carry_rtl.c
           |vpiActual:
-          \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+          \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
     |vpiLhs:
-    \_ref_obj: (work@carry_rtl.cout), line:3
+    \_ref_obj: (work@carry_rtl.cout), line:3, col:10
       |vpiName:cout
       |vpiFullName:work@carry_rtl.cout
       |vpiActual:
-      \_logic_net: (work@carry_rtl.cout), line:2, parent:work@carry_rtl
+      \_logic_net: (work@carry_rtl.cout), line:2, col:10, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.a), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.a), line:1, col:23, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.b), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.b), line:1, col:26, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.c), line:1, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.c), line:1, col:29, parent:work@carry_rtl
   |vpiNet:
-  \_logic_net: (work@carry_rtl.cout), line:2, parent:work@carry_rtl
+  \_logic_net: (work@carry_rtl.cout), line:2, col:10, parent:work@carry_rtl
 |uhdmtopModules:
 \_module: work@carry_gate (work@carry_gate) dut.sv:8: 
   |vpiDefName:work@carry_gate
@@ -1251,36 +1251,36 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_gate.g1
     |vpiPrimType:1
     |vpiPrimTerm:
-    \_prim_term: , line:12, parent:work@carry_gate.g1
+    \_prim_term: , line:12, col:7, parent:work@carry_gate.g1
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (x), line:12
+      \_ref_obj: (x), line:12, col:7
         |vpiName:x
         |vpiActual:
-        \_logic_net: (work@carry_gate.x), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.x), line:11, col:5, parent:work@carry_gate
           |vpiName:x
           |vpiFullName:work@carry_gate.x
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:12, parent:work@carry_gate.g1
+    \_prim_term: , line:12, col:10, parent:work@carry_gate.g1
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (a), line:12
+      \_ref_obj: (a), line:12, col:10
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
           |vpiName:a
           |vpiFullName:work@carry_gate.a
     |vpiPrimTerm:
-    \_prim_term: , line:12, parent:work@carry_gate.g1
+    \_prim_term: , line:12, col:13, parent:work@carry_gate.g1
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (b), line:12
+      \_ref_obj: (b), line:12, col:13
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
           |vpiName:b
           |vpiFullName:work@carry_gate.b
   |vpiPrimitive:
@@ -1290,34 +1290,34 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_gate.g2
     |vpiPrimType:1
     |vpiPrimTerm:
-    \_prim_term: , line:13, parent:work@carry_gate.g2
+    \_prim_term: , line:13, col:7, parent:work@carry_gate.g2
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (y), line:13
+      \_ref_obj: (y), line:13, col:7
         |vpiName:y
         |vpiActual:
-        \_logic_net: (work@carry_gate.y), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.y), line:11, col:8, parent:work@carry_gate
           |vpiName:y
           |vpiFullName:work@carry_gate.y
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:13, parent:work@carry_gate.g2
+    \_prim_term: , line:13, col:10, parent:work@carry_gate.g2
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (a), line:13
+      \_ref_obj: (a), line:13, col:10
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
     |vpiPrimTerm:
-    \_prim_term: , line:13, parent:work@carry_gate.g2
+    \_prim_term: , line:13, col:13, parent:work@carry_gate.g2
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (c), line:13
+      \_ref_obj: (c), line:13, col:13
         |vpiName:c
         |vpiActual:
-        \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
           |vpiName:c
           |vpiFullName:work@carry_gate.c
   |vpiPrimitive:
@@ -1327,34 +1327,34 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_gate.g3
     |vpiPrimType:1
     |vpiPrimTerm:
-    \_prim_term: , line:14, parent:work@carry_gate.g3
+    \_prim_term: , line:14, col:7, parent:work@carry_gate.g3
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (z), line:14
+      \_ref_obj: (z), line:14, col:7
         |vpiName:z
         |vpiActual:
-        \_logic_net: (work@carry_gate.z), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.z), line:11, col:11, parent:work@carry_gate
           |vpiName:z
           |vpiFullName:work@carry_gate.z
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:14, parent:work@carry_gate.g3
+    \_prim_term: , line:14, col:10, parent:work@carry_gate.g3
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (b), line:14
+      \_ref_obj: (b), line:14, col:10
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
     |vpiPrimTerm:
-    \_prim_term: , line:14, parent:work@carry_gate.g3
+    \_prim_term: , line:14, col:13, parent:work@carry_gate.g3
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (c), line:14
+      \_ref_obj: (c), line:14, col:13
         |vpiName:c
         |vpiActual:
-        \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
   |vpiPrimitive:
   \_gate: work@or (work@carry_gate.g4), line:15, parent:work@carry_gate
     |vpiDefName:work@or
@@ -1362,88 +1362,88 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_gate.g4
     |vpiPrimType:4
     |vpiPrimTerm:
-    \_prim_term: , line:15, parent:work@carry_gate.g4
+    \_prim_term: , line:15, col:6, parent:work@carry_gate.g4
       |vpiDirection:2
       |vpiExpr:
-      \_ref_obj: (cout), line:15
+      \_ref_obj: (cout), line:15, col:6
         |vpiName:cout
         |vpiActual:
-        \_logic_net: (work@carry_gate.cout), line:9, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.cout), line:9, col:11, parent:work@carry_gate
           |vpiName:cout
           |vpiFullName:work@carry_gate.cout
     |vpiPrimTerm:
-    \_prim_term: , line:15, parent:work@carry_gate.g4
+    \_prim_term: , line:15, col:12, parent:work@carry_gate.g4
       |vpiDirection:1
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (x), line:15
+      \_ref_obj: (x), line:15, col:12
         |vpiName:x
         |vpiActual:
-        \_logic_net: (work@carry_gate.x), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.x), line:11, col:5, parent:work@carry_gate
     |vpiPrimTerm:
-    \_prim_term: , line:15, parent:work@carry_gate.g4
+    \_prim_term: , line:15, col:15, parent:work@carry_gate.g4
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (y), line:15
+      \_ref_obj: (y), line:15, col:15
         |vpiName:y
         |vpiActual:
-        \_logic_net: (work@carry_gate.y), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.y), line:11, col:8, parent:work@carry_gate
     |vpiPrimTerm:
-    \_prim_term: , line:15, parent:work@carry_gate.g4
+    \_prim_term: , line:15, col:18, parent:work@carry_gate.g4
       |vpiDirection:1
       |vpiTermIndex:3
       |vpiExpr:
-      \_ref_obj: (z), line:15
+      \_ref_obj: (z), line:15, col:18
         |vpiName:z
         |vpiActual:
-        \_logic_net: (work@carry_gate.z), line:11, parent:work@carry_gate
+        \_logic_net: (work@carry_gate.z), line:11, col:11, parent:work@carry_gate
   |vpiPort:
-  \_port: (a), line:8, parent:work@carry_gate
+  \_port: (a), line:8, col:24, parent:work@carry_gate
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
   |vpiPort:
-  \_port: (b), line:8, parent:work@carry_gate
+  \_port: (b), line:8, col:27, parent:work@carry_gate
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
   |vpiPort:
-  \_port: (c), line:8, parent:work@carry_gate
+  \_port: (c), line:8, col:30, parent:work@carry_gate
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
   |vpiPort:
-  \_port: (cout), line:9, parent:work@carry_gate
+  \_port: (cout), line:9, col:11, parent:work@carry_gate
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_gate.cout), line:9, parent:work@carry_gate
+      \_logic_net: (work@carry_gate.cout), line:9, col:11, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.a), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.a), line:8, col:24, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.b), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.b), line:8, col:27, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.c), line:8, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.c), line:8, col:30, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.cout), line:9, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.cout), line:9, col:11, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.x), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.x), line:11, col:5, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.y), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.y), line:11, col:8, parent:work@carry_gate
   |vpiNet:
-  \_logic_net: (work@carry_gate.z), line:11, parent:work@carry_gate
+  \_logic_net: (work@carry_gate.z), line:11, col:11, parent:work@carry_gate
 |uhdmtopModules:
 \_module: work@carry_trans (work@carry_trans) dut.sv:18: 
   |vpiDefName:work@carry_trans
@@ -1455,37 +1455,37 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n1
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:25, parent:work@carry_trans.n1
+    \_prim_term: , line:25, col:11, parent:work@carry_trans.n1
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i1), line:25
+      \_ref_obj: (i1), line:25, col:11
         |vpiName:i1
         |vpiActual:
-        \_logic_net: (work@carry_trans.i1), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i1), line:20, col:5, parent:work@carry_trans
           |vpiName:i1
           |vpiFullName:work@carry_trans.i1
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:25, parent:work@carry_trans.n1
+    \_prim_term: , line:25, col:14, parent:work@carry_trans.n1
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (zero), line:25
+      \_ref_obj: (zero), line:25, col:14
         |vpiName:zero
         |vpiActual:
-        \_logic_net: (work@carry_trans.zero), line:22
+        \_logic_net: (work@carry_trans.zero), line:22, col:5
           |vpiName:zero
           |vpiFullName:work@carry_trans.zero
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:25, parent:work@carry_trans.n1
+    \_prim_term: , line:25, col:20, parent:work@carry_trans.n1
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (a), line:25
+      \_ref_obj: (a), line:25, col:20
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
           |vpiName:a
           |vpiFullName:work@carry_trans.a
   |vpiPrimitive:
@@ -1495,31 +1495,31 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n2
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:26, parent:work@carry_trans.n2
+    \_prim_term: , line:26, col:11, parent:work@carry_trans.n2
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i1), line:26
+      \_ref_obj: (i1), line:26, col:11
         |vpiName:i1
         |vpiActual:
-        \_logic_net: (work@carry_trans.i1), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i1), line:20, col:5, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:26, parent:work@carry_trans.n2
+    \_prim_term: , line:26, col:15, parent:work@carry_trans.n2
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (zero), line:26
+      \_ref_obj: (zero), line:26, col:15
         |vpiName:zero
         |vpiActual:
-        \_logic_net: (work@carry_trans.zero), line:22
+        \_logic_net: (work@carry_trans.zero), line:22, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:26, parent:work@carry_trans.n2
+    \_prim_term: , line:26, col:21, parent:work@carry_trans.n2
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (b), line:26
+      \_ref_obj: (b), line:26, col:21
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
           |vpiName:b
           |vpiFullName:work@carry_trans.b
   |vpiPrimitive:
@@ -1529,34 +1529,34 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n3
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:27, parent:work@carry_trans.n3
+    \_prim_term: , line:27, col:11, parent:work@carry_trans.n3
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cn), line:27
+      \_ref_obj: (cn), line:27, col:11
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
           |vpiName:cn
           |vpiFullName:work@carry_trans.cn
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:27, parent:work@carry_trans.n3
+    \_prim_term: , line:27, col:15, parent:work@carry_trans.n3
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (i1), line:27
+      \_ref_obj: (i1), line:27, col:15
         |vpiName:i1
         |vpiActual:
-        \_logic_net: (work@carry_trans.i1), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i1), line:20, col:5, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:27, parent:work@carry_trans.n3
+    \_prim_term: , line:27, col:19, parent:work@carry_trans.n3
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (c), line:27
+      \_ref_obj: (c), line:27, col:19
         |vpiName:c
         |vpiActual:
-        \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
           |vpiName:c
           |vpiFullName:work@carry_trans.c
   |vpiPrimitive:
@@ -1566,34 +1566,34 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n4
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:28, parent:work@carry_trans.n4
+    \_prim_term: , line:28, col:11, parent:work@carry_trans.n4
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i2), line:28
+      \_ref_obj: (i2), line:28, col:11
         |vpiName:i2
         |vpiActual:
-        \_logic_net: (work@carry_trans.i2), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i2), line:20, col:9, parent:work@carry_trans
           |vpiName:i2
           |vpiFullName:work@carry_trans.i2
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:28, parent:work@carry_trans.n4
+    \_prim_term: , line:28, col:15, parent:work@carry_trans.n4
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (zero), line:28
+      \_ref_obj: (zero), line:28, col:15
         |vpiName:zero
         |vpiActual:
-        \_logic_net: (work@carry_trans.zero), line:22
+        \_logic_net: (work@carry_trans.zero), line:22, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:28, parent:work@carry_trans.n4
+    \_prim_term: , line:28, col:21, parent:work@carry_trans.n4
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (b), line:28
+      \_ref_obj: (b), line:28, col:21
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif1 (work@carry_trans.n5), line:29, parent:work@carry_trans
     |vpiDefName:work@tranif1
@@ -1601,31 +1601,31 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n5
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:29, parent:work@carry_trans.n5
+    \_prim_term: , line:29, col:11, parent:work@carry_trans.n5
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cn), line:29
+      \_ref_obj: (cn), line:29, col:11
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:29, parent:work@carry_trans.n5
+    \_prim_term: , line:29, col:15, parent:work@carry_trans.n5
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (i2), line:29
+      \_ref_obj: (i2), line:29, col:15
         |vpiName:i2
         |vpiActual:
-        \_logic_net: (work@carry_trans.i2), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i2), line:20, col:9, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:29, parent:work@carry_trans.n5
+    \_prim_term: , line:29, col:19, parent:work@carry_trans.n5
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (a), line:29
+      \_ref_obj: (a), line:29, col:19
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p1), line:30, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1633,37 +1633,37 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p1
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:30, parent:work@carry_trans.p1
+    \_prim_term: , line:30, col:11, parent:work@carry_trans.p1
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i3), line:30
+      \_ref_obj: (i3), line:30, col:11
         |vpiName:i3
         |vpiActual:
-        \_logic_net: (work@carry_trans.i3), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i3), line:20, col:13, parent:work@carry_trans
           |vpiName:i3
           |vpiFullName:work@carry_trans.i3
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:30, parent:work@carry_trans.p1
+    \_prim_term: , line:30, col:15, parent:work@carry_trans.p1
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (one), line:30
+      \_ref_obj: (one), line:30, col:15
         |vpiName:one
         |vpiActual:
-        \_logic_net: (work@carry_trans.one), line:23
+        \_logic_net: (work@carry_trans.one), line:23, col:5
           |vpiName:one
           |vpiFullName:work@carry_trans.one
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:30, parent:work@carry_trans.p1
+    \_prim_term: , line:30, col:20, parent:work@carry_trans.p1
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (a), line:30
+      \_ref_obj: (a), line:30, col:20
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p2), line:31, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1671,31 +1671,31 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p2
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:31, parent:work@carry_trans.p2
+    \_prim_term: , line:31, col:11, parent:work@carry_trans.p2
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i3), line:31
+      \_ref_obj: (i3), line:31, col:11
         |vpiName:i3
         |vpiActual:
-        \_logic_net: (work@carry_trans.i3), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i3), line:20, col:13, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:31, parent:work@carry_trans.p2
+    \_prim_term: , line:31, col:15, parent:work@carry_trans.p2
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (one), line:31
+      \_ref_obj: (one), line:31, col:15
         |vpiName:one
         |vpiActual:
-        \_logic_net: (work@carry_trans.one), line:23
+        \_logic_net: (work@carry_trans.one), line:23, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:31, parent:work@carry_trans.p2
+    \_prim_term: , line:31, col:20, parent:work@carry_trans.p2
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (b), line:31
+      \_ref_obj: (b), line:31, col:20
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p3), line:32, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1703,31 +1703,31 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p3
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:32, parent:work@carry_trans.p3
+    \_prim_term: , line:32, col:11, parent:work@carry_trans.p3
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cn), line:32
+      \_ref_obj: (cn), line:32, col:11
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:32, parent:work@carry_trans.p3
+    \_prim_term: , line:32, col:15, parent:work@carry_trans.p3
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (i3), line:32
+      \_ref_obj: (i3), line:32, col:15
         |vpiName:i3
         |vpiActual:
-        \_logic_net: (work@carry_trans.i3), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i3), line:20, col:13, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:32, parent:work@carry_trans.p3
+    \_prim_term: , line:32, col:19, parent:work@carry_trans.p3
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (c), line:32
+      \_ref_obj: (c), line:32, col:19
         |vpiName:c
         |vpiActual:
-        \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p4), line:33, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1735,34 +1735,34 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p4
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:33, parent:work@carry_trans.p4
+    \_prim_term: , line:33, col:11, parent:work@carry_trans.p4
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (i4), line:33
+      \_ref_obj: (i4), line:33, col:11
         |vpiName:i4
         |vpiActual:
-        \_logic_net: (work@carry_trans.i4), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i4), line:20, col:17, parent:work@carry_trans
           |vpiName:i4
           |vpiFullName:work@carry_trans.i4
           |vpiNetType:1
     |vpiPrimTerm:
-    \_prim_term: , line:33, parent:work@carry_trans.p4
+    \_prim_term: , line:33, col:15, parent:work@carry_trans.p4
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (one), line:33
+      \_ref_obj: (one), line:33, col:15
         |vpiName:one
         |vpiActual:
-        \_logic_net: (work@carry_trans.one), line:23
+        \_logic_net: (work@carry_trans.one), line:23, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:33, parent:work@carry_trans.p4
+    \_prim_term: , line:33, col:20, parent:work@carry_trans.p4
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (b), line:33
+      \_ref_obj: (b), line:33, col:20
         |vpiName:b
         |vpiActual:
-        \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p5), line:34, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1770,31 +1770,31 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p5
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:34, parent:work@carry_trans.p5
+    \_prim_term: , line:34, col:11, parent:work@carry_trans.p5
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cn), line:34
+      \_ref_obj: (cn), line:34, col:11
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:34, parent:work@carry_trans.p5
+    \_prim_term: , line:34, col:15, parent:work@carry_trans.p5
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (i4), line:34
+      \_ref_obj: (i4), line:34, col:15
         |vpiName:i4
         |vpiActual:
-        \_logic_net: (work@carry_trans.i4), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.i4), line:20, col:17, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:34, parent:work@carry_trans.p5
+    \_prim_term: , line:34, col:19, parent:work@carry_trans.p5
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (a), line:34
+      \_ref_obj: (a), line:34, col:19
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif1 (work@carry_trans.n6), line:35, parent:work@carry_trans
     |vpiDefName:work@tranif1
@@ -1802,33 +1802,33 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.n6
     |vpiPrimType:24
     |vpiPrimTerm:
-    \_prim_term: , line:35, parent:work@carry_trans.n6
+    \_prim_term: , line:35, col:11, parent:work@carry_trans.n6
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cout), line:35
+      \_ref_obj: (cout), line:35, col:11
         |vpiName:cout
         |vpiActual:
-        \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
           |vpiName:cout
           |vpiFullName:work@carry_trans.cout
     |vpiPrimTerm:
-    \_prim_term: , line:35, parent:work@carry_trans.n6
+    \_prim_term: , line:35, col:17, parent:work@carry_trans.n6
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (zero), line:35
+      \_ref_obj: (zero), line:35, col:17
         |vpiName:zero
         |vpiActual:
-        \_logic_net: (work@carry_trans.zero), line:22
+        \_logic_net: (work@carry_trans.zero), line:22, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:35, parent:work@carry_trans.n6
+    \_prim_term: , line:35, col:23, parent:work@carry_trans.n6
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (cn), line:35
+      \_ref_obj: (cn), line:35, col:23
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
   |vpiPrimitive:
   \_switch_tran: work@tranif0 (work@carry_trans.p6), line:36, parent:work@carry_trans
     |vpiDefName:work@tranif0
@@ -1836,105 +1836,105 @@ design: (work@carry_rtl)
     |vpiFullName:work@carry_trans.p6
     |vpiPrimType:23
     |vpiPrimTerm:
-    \_prim_term: , line:36, parent:work@carry_trans.p6
+    \_prim_term: , line:36, col:11, parent:work@carry_trans.p6
       |vpiDirection:3
       |vpiExpr:
-      \_ref_obj: (cout), line:36
+      \_ref_obj: (cout), line:36, col:11
         |vpiName:cout
         |vpiActual:
-        \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
     |vpiPrimTerm:
-    \_prim_term: , line:36, parent:work@carry_trans.p6
+    \_prim_term: , line:36, col:17, parent:work@carry_trans.p6
       |vpiDirection:3
       |vpiTermIndex:1
       |vpiExpr:
-      \_ref_obj: (one), line:36
+      \_ref_obj: (one), line:36, col:17
         |vpiName:one
         |vpiActual:
-        \_logic_net: (work@carry_trans.one), line:23
+        \_logic_net: (work@carry_trans.one), line:23, col:5
     |vpiPrimTerm:
-    \_prim_term: , line:36, parent:work@carry_trans.p6
+    \_prim_term: , line:36, col:22, parent:work@carry_trans.p6
       |vpiDirection:1
       |vpiTermIndex:2
       |vpiExpr:
-      \_ref_obj: (cn), line:36
+      \_ref_obj: (cn), line:36, col:22
         |vpiName:cn
         |vpiActual:
-        \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+        \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
   |vpiPort:
-  \_port: (a), line:18, parent:work@carry_trans
+  \_port: (a), line:18, col:25, parent:work@carry_trans
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiPort:
-  \_port: (b), line:18, parent:work@carry_trans
+  \_port: (b), line:18, col:28, parent:work@carry_trans
     |vpiName:b
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiPort:
-  \_port: (c), line:18, parent:work@carry_trans
+  \_port: (c), line:18, col:31, parent:work@carry_trans
     |vpiName:c
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
   |vpiPort:
-  \_port: (cout), line:18, parent:work@carry_trans
+  \_port: (cout), line:18, col:41, parent:work@carry_trans
     |vpiName:cout
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+      \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
   |vpiContAssign:
-  \_cont_assign: , line:22, parent:work@carry_trans
+  \_cont_assign: , line:22, col:5, parent:work@carry_trans
     |vpiRhs:
-    \_constant: , line:22
+    \_constant: , line:22, col:12
       |vpiConstType:3
       |vpiDecompile:1'b0
       |vpiSize:1
       |BIN:0
     |vpiLhs:
-    \_logic_net: (work@carry_trans.zero), line:22
+    \_logic_net: (work@carry_trans.zero), line:22, col:5
   |vpiContAssign:
-  \_cont_assign: , line:23, parent:work@carry_trans
+  \_cont_assign: , line:23, col:5, parent:work@carry_trans
     |vpiRhs:
-    \_constant: , line:23
+    \_constant: , line:23, col:11
       |vpiConstType:3
       |vpiDecompile:1'b1
       |vpiSize:1
       |BIN:1
     |vpiLhs:
-    \_logic_net: (work@carry_trans.one), line:23
+    \_logic_net: (work@carry_trans.one), line:23, col:5
   |vpiNet:
-  \_logic_net: (work@carry_trans.a), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.a), line:18, col:25, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.b), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.b), line:18, col:28, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.c), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.c), line:18, col:31, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.cout), line:18, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.cout), line:18, col:41, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.i1), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i1), line:20, col:5, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.i2), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i2), line:20, col:9, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.i3), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i3), line:20, col:13, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.i4), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.i4), line:20, col:17, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.cn), line:20, parent:work@carry_trans
+  \_logic_net: (work@carry_trans.cn), line:20, col:21, parent:work@carry_trans
   |vpiNet:
-  \_logic_net: (work@carry_trans.zero), line:22
+  \_logic_net: (work@carry_trans.zero), line:22, col:5
   |vpiNet:
-  \_logic_net: (work@carry_trans.one), line:23
+  \_logic_net: (work@carry_trans.one), line:23, col:5
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

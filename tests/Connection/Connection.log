@@ -75,7 +75,7 @@ design: (work@top)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@top
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -90,18 +90,18 @@ design: (work@top)
       |vpiName:bound
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (bound), line:6, parent:bound
+      \_int_var: (bound), line:6, col:16, parent:bound
         |vpiFullName:bound
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9
+    \_int_var: , line:9, col:11
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -111,7 +111,7 @@ design: (work@top)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -121,7 +121,7 @@ design: (work@top)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -131,19 +131,19 @@ design: (work@top)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21
+    \_int_var: , line:21, col:11
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -153,13 +153,13 @@ design: (work@top)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27, col:2, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27
+    \_int_var: , line:27, col:11
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
@@ -168,23 +168,23 @@ design: (work@top)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@top
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37, parent:work@process
+  \_function: (work@process::self), line:37, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37
+    \_chandle_var: , line:37, col:18
   |vpiMethod:
-  \_function: (work@process::status), line:40, parent:work@process
+  \_function: (work@process::status), line:40, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40
+    \_int_var: , line:40, col:11
       |vpiTypespec:
-      \_enum_typespec: (state), line:35
+      \_enum_typespec: (state), line:35, col:65
         |vpiName:state
         |vpiEnumConst:
         \_enum_const: (FINISHED), line:35
@@ -207,7 +207,7 @@ design: (work@top)
           |vpiName:WAITING
           |INT:2
   |vpiMethod:
-  \_task: (work@process::kill), line:43, parent:work@process
+  \_task: (work@process::kill), line:43, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -216,7 +216,7 @@ design: (work@top)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46, parent:work@process
+  \_task: (work@process::await), line:46, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -225,7 +225,7 @@ design: (work@top)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49, parent:work@process
+  \_task: (work@process::suspend), line:49, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -234,7 +234,7 @@ design: (work@top)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52, parent:work@process
+  \_task: (work@process::resume), line:52, col:2, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -243,12 +243,12 @@ design: (work@top)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35
+  \_enum_typespec: (state), line:35, col:65
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -263,10 +263,10 @@ design: (work@top)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (keyCount), line:60, parent:keyCount
+      \_int_var: (keyCount), line:60, col:15, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -276,10 +276,10 @@ design: (work@top)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (keyCount), line:63, parent:keyCount
+      \_int_var: (keyCount), line:63, col:11, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -289,129 +289,129 @@ design: (work@top)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (keyCount), line:66, parent:keyCount
+      \_int_var: (keyCount), line:66, col:11, parent:keyCount
         |vpiFullName:keyCount
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69
+    \_int_var: , line:69, col:11
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiExpr:
-      \_int_var: (keyCount), line:69, parent:keyCount
+      \_int_var: (keyCount), line:69, col:23, parent:keyCount
         |vpiFullName:keyCount
 |uhdmallModules:
 \_module: work@ibex_csr (work@ibex_csr) dut.sv:12: , parent:work@top
   |vpiDefName:work@ibex_csr
   |vpiFullName:work@ibex_csr
   |vpiPort:
-  \_port: (rd_const_conn), line:14, parent:work@ibex_csr
+  \_port: (rd_const_conn), line:14, col:19, parent:work@ibex_csr
     |vpiName:rd_const_conn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@ibex_csr.rd_const_conn), line:14, parent:work@ibex_csr
+      \_logic_net: (work@ibex_csr.rd_const_conn), line:14, col:19, parent:work@ibex_csr
         |vpiName:rd_const_conn
         |vpiFullName:work@ibex_csr.rd_const_conn
         |vpiNetType:36
   |vpiPort:
-  \_port: (rd_impl_conn), line:15, parent:work@ibex_csr
+  \_port: (rd_impl_conn), line:15, col:20, parent:work@ibex_csr
     |vpiName:rd_impl_conn
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@ibex_csr.rd_impl_conn), line:15, parent:work@ibex_csr
+      \_logic_net: (work@ibex_csr.rd_impl_conn), line:15, col:20, parent:work@ibex_csr
         |vpiName:rd_impl_conn
         |vpiFullName:work@ibex_csr.rd_impl_conn
         |vpiNetType:36
   |vpiPort:
-  \_port: (rd_name_conn), line:15, parent:work@ibex_csr
+  \_port: (rd_name_conn), line:15, col:34, parent:work@ibex_csr
     |vpiName:rd_name_conn
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@ibex_csr.rd_name_conn), line:15, parent:work@ibex_csr
+      \_logic_net: (work@ibex_csr.rd_name_conn), line:15, col:34, parent:work@ibex_csr
         |vpiName:rd_name_conn
         |vpiFullName:work@ibex_csr.rd_name_conn
         |vpiNetType:36
   |vpiPort:
-  \_port: (rd_disconn), line:15, parent:work@ibex_csr
+  \_port: (rd_disconn), line:15, col:48, parent:work@ibex_csr
     |vpiName:rd_disconn
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@ibex_csr.rd_disconn), line:15, parent:work@ibex_csr
+      \_logic_net: (work@ibex_csr.rd_disconn), line:15, col:48, parent:work@ibex_csr
         |vpiName:rd_disconn
         |vpiFullName:work@ibex_csr.rd_disconn
         |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@ibex_csr.rd_const_conn), line:14, parent:work@ibex_csr
+  \_logic_net: (work@ibex_csr.rd_const_conn), line:14, col:19, parent:work@ibex_csr
   |vpiNet:
-  \_logic_net: (work@ibex_csr.rd_impl_conn), line:15, parent:work@ibex_csr
+  \_logic_net: (work@ibex_csr.rd_impl_conn), line:15, col:20, parent:work@ibex_csr
   |vpiNet:
-  \_logic_net: (work@ibex_csr.rd_name_conn), line:15, parent:work@ibex_csr
+  \_logic_net: (work@ibex_csr.rd_name_conn), line:15, col:34, parent:work@ibex_csr
   |vpiNet:
-  \_logic_net: (work@ibex_csr.rd_disconn), line:15, parent:work@ibex_csr
+  \_logic_net: (work@ibex_csr.rd_disconn), line:15, col:48, parent:work@ibex_csr
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1: , parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
   |vpiPort:
-  \_port: (rd_impl_conn), line:1, parent:work@top
+  \_port: (rd_impl_conn), line:1, col:17, parent:work@top
     |vpiName:rd_impl_conn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.rd_impl_conn), line:1, parent:work@top
+      \_logic_net: (work@top.rd_impl_conn), line:1, col:17, parent:work@top
         |vpiName:rd_impl_conn
         |vpiFullName:work@top.rd_impl_conn
   |vpiPort:
-  \_port: (rd_name_conn), line:1, parent:work@top
+  \_port: (rd_name_conn), line:1, col:31, parent:work@top
     |vpiName:rd_name_conn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.rd_name_conn), line:1, parent:work@top
+      \_logic_net: (work@top.rd_name_conn), line:1, col:31, parent:work@top
         |vpiName:rd_name_conn
         |vpiFullName:work@top.rd_name_conn
   |vpiNet:
-  \_logic_net: (work@top.rd_impl_conn), line:1, parent:work@top
+  \_logic_net: (work@top.rd_impl_conn), line:1, col:17, parent:work@top
   |vpiNet:
-  \_logic_net: (work@top.rd_name_conn), line:1, parent:work@top
+  \_logic_net: (work@top.rd_name_conn), line:1, col:31, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1: 
   |vpiDefName:work@top
   |vpiName:work@top
   |vpiPort:
-  \_port: (rd_impl_conn), line:1, parent:work@top
+  \_port: (rd_impl_conn), line:1, col:17, parent:work@top
     |vpiName:rd_impl_conn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.rd_impl_conn), line:1, parent:work@top
+      \_logic_net: (work@top.rd_impl_conn), line:1, col:17, parent:work@top
         |vpiName:rd_impl_conn
         |vpiFullName:work@top.rd_impl_conn
   |vpiPort:
-  \_port: (rd_name_conn), line:1, parent:work@top
+  \_port: (rd_name_conn), line:1, col:31, parent:work@top
     |vpiName:rd_name_conn
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@top.rd_name_conn), line:1, parent:work@top
+      \_logic_net: (work@top.rd_name_conn), line:1, col:31, parent:work@top
         |vpiName:rd_name_conn
         |vpiFullName:work@top.rd_name_conn
   |vpiModule:
@@ -420,11 +420,11 @@ design: (work@top)
     |vpiName:u_mie_csr
     |vpiFullName:work@top.u_mie_csr
     |vpiPort:
-    \_port: (rd_const_conn), line:14, parent:work@top.u_mie_csr
+    \_port: (rd_const_conn), line:14, col:19, parent:work@top.u_mie_csr
       |vpiName:rd_const_conn
       |vpiDirection:1
       |vpiHighConn:
-      \_constant: , line:7
+      \_constant: , line:7, col:20
         |vpiConstType:3
         |vpiDecompile:1'b1
         |vpiSize:1
@@ -432,70 +432,70 @@ design: (work@top)
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (work@top.u_mie_csr.rd_const_conn), line:14, parent:work@top.u_mie_csr
+        \_logic_net: (work@top.u_mie_csr.rd_const_conn), line:14, col:19, parent:work@top.u_mie_csr
           |vpiName:rd_const_conn
           |vpiFullName:work@top.u_mie_csr.rd_const_conn
           |vpiNetType:36
     |vpiPort:
-    \_port: (rd_impl_conn), line:15, parent:work@top.u_mie_csr
+    \_port: (rd_impl_conn), line:15, col:20, parent:work@top.u_mie_csr
       |vpiName:rd_impl_conn
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (rd_impl_conn), line:4
+      \_ref_obj: (rd_impl_conn), line:4, col:6
         |vpiName:rd_impl_conn
         |vpiActual:
-        \_logic_net: (work@top.rd_impl_conn), line:1, parent:work@top
+        \_logic_net: (work@top.rd_impl_conn), line:1, col:17, parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (work@top.u_mie_csr.rd_impl_conn), line:15, parent:work@top.u_mie_csr
+        \_logic_net: (work@top.u_mie_csr.rd_impl_conn), line:15, col:20, parent:work@top.u_mie_csr
           |vpiName:rd_impl_conn
           |vpiFullName:work@top.u_mie_csr.rd_impl_conn
           |vpiNetType:36
     |vpiPort:
-    \_port: (rd_name_conn), line:15, parent:work@top.u_mie_csr
+    \_port: (rd_name_conn), line:15, col:34, parent:work@top.u_mie_csr
       |vpiName:rd_name_conn
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (rd_name_conn), line:5
+      \_ref_obj: (rd_name_conn), line:5, col:19
         |vpiName:rd_name_conn
         |vpiActual:
-        \_logic_net: (work@top.rd_name_conn), line:1, parent:work@top
+        \_logic_net: (work@top.rd_name_conn), line:1, col:31, parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (work@top.u_mie_csr.rd_name_conn), line:15, parent:work@top.u_mie_csr
+        \_logic_net: (work@top.u_mie_csr.rd_name_conn), line:15, col:34, parent:work@top.u_mie_csr
           |vpiName:rd_name_conn
           |vpiFullName:work@top.u_mie_csr.rd_name_conn
           |vpiNetType:36
     |vpiPort:
-    \_port: (rd_disconn), line:15, parent:work@top.u_mie_csr
+    \_port: (rd_disconn), line:15, col:48, parent:work@top.u_mie_csr
       |vpiName:rd_disconn
       |vpiDirection:2
       |vpiHighConn:
-      \_operation: , line:6
+      \_operation: , line:6, col:17
         |vpiOpType:36
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (work@top.u_mie_csr.rd_disconn), line:15, parent:work@top.u_mie_csr
+        \_logic_net: (work@top.u_mie_csr.rd_disconn), line:15, col:48, parent:work@top.u_mie_csr
           |vpiName:rd_disconn
           |vpiFullName:work@top.u_mie_csr.rd_disconn
           |vpiNetType:36
     |vpiNet:
-    \_logic_net: (work@top.u_mie_csr.rd_const_conn), line:14, parent:work@top.u_mie_csr
+    \_logic_net: (work@top.u_mie_csr.rd_const_conn), line:14, col:19, parent:work@top.u_mie_csr
     |vpiNet:
-    \_logic_net: (work@top.u_mie_csr.rd_impl_conn), line:15, parent:work@top.u_mie_csr
+    \_logic_net: (work@top.u_mie_csr.rd_impl_conn), line:15, col:20, parent:work@top.u_mie_csr
     |vpiNet:
-    \_logic_net: (work@top.u_mie_csr.rd_name_conn), line:15, parent:work@top.u_mie_csr
+    \_logic_net: (work@top.u_mie_csr.rd_name_conn), line:15, col:34, parent:work@top.u_mie_csr
     |vpiNet:
-    \_logic_net: (work@top.u_mie_csr.rd_disconn), line:15, parent:work@top.u_mie_csr
+    \_logic_net: (work@top.u_mie_csr.rd_disconn), line:15, col:48, parent:work@top.u_mie_csr
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1: 
   |vpiNet:
-  \_logic_net: (work@top.rd_impl_conn), line:1, parent:work@top
+  \_logic_net: (work@top.rd_impl_conn), line:1, col:17, parent:work@top
   |vpiNet:
-  \_logic_net: (work@top.rd_name_conn), line:1, parent:work@top
+  \_logic_net: (work@top.rd_name_conn), line:1, col:31, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
