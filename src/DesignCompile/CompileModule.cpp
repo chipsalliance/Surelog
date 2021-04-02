@@ -494,9 +494,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       }
       endOfBlockId = tmp;
       while (endOfBlockId) {
-         if (fC->Type(endOfBlockId) == VObjectType::slEnd)
-           break;
-         endOfBlockId = fC->Sibling(endOfBlockId);
+        VObjectType type = fC->Type(endOfBlockId);
+        if (type == VObjectType::slEnd)
+          break; 
+        endOfBlockId = fC->Sibling(endOfBlockId);
+        if (type == VObjectType::slGenerate_module_item)
+          break; 
       }
       if (fC->Type(id) == VObjectType::slGenerate_item) {
         id = fC->Parent(id);
