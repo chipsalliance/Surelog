@@ -82,7 +82,7 @@ public:
 
   FileContent* getFileContent() { return m_fileContent; }
 
-  virtual std::pair<unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx,
+  virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx,
                                    SymbolId& fileId) = 0;
 
 private:

@@ -35,7 +35,12 @@ public:
   static std::pair<int, int> getLineColumn(antlr4::CommonTokenStream* stream,
                                            antlr4::ParserRuleContext* context);
 
+  static std::pair<int, int> getEndLineColumn(antlr4::CommonTokenStream* stream,
+                                           antlr4::ParserRuleContext* context);                                        
+
   static std::pair<int, int> getLineColumn(antlr4::tree::TerminalNode* node);
+
+   static std::pair<int, int> getEndLineColumn(antlr4::tree::TerminalNode* node);
 
   static std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
   static void tokenizeAtComma(std::vector<std::string>& actualArgs,

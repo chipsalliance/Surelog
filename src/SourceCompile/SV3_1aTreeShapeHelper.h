@@ -78,7 +78,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  std::pair<unsigned int, unsigned short> getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
+  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
 
  protected:
   ParseFile* m_pf;

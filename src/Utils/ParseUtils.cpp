@@ -36,6 +36,13 @@ std::pair<int, int> ParseUtils::getLineColumn(tree::TerminalNode* node) {
   return std::make_pair(lineNb, columnNb);
 }
 
+std::pair<int, int> ParseUtils::getEndLineColumn(tree::TerminalNode* node) {
+  Token* token = node->getSymbol();
+  int lineNb = token->getLine();
+  int columnNb = token->getCharPositionInLine() + token->getStopIndex() - token->getStartIndex();
+  return std::make_pair(lineNb, columnNb);
+}
+
 std::pair<int, int> ParseUtils::getLineColumn(CommonTokenStream* stream,
                                               ParserRuleContext* context) {
   const misc::Interval sourceInterval =
@@ -45,6 +52,18 @@ std::pair<int, int> ParseUtils::getLineColumn(CommonTokenStream* stream,
   Token* firstToken = stream->get(sourceInterval.a);
   int lineNb = firstToken->getLine();
   int columnNb = firstToken->getCharPositionInLine();
+  return std::make_pair(lineNb, columnNb);
+}
+
+std::pair<int, int> ParseUtils::getEndLineColumn(CommonTokenStream* stream,
+                                              ParserRuleContext* context) {
+  const misc::Interval sourceInterval =
+      ((ParserRuleContext*)context)->getSourceInterval();
+  if (sourceInterval.b == -1)
+    return std::make_pair(0, 0);
+  Token* firstToken = stream->get(sourceInterval.b);
+  int lineNb = firstToken->getLine();
+  int columnNb = firstToken->getCharPositionInLine() + firstToken->getStopIndex() - firstToken->getStartIndex() + 1;
   return std::make_pair(lineNb, columnNb);
 }
 

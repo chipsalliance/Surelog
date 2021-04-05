@@ -108,7 +108,7 @@ bool ParseCache::restore_(std::string cacheFileName) {
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
             canonicalSymbols.getSymbol(elemc->m_fileId())),
         (DesignElement::ElemType)elemc->m_type(), elemc->m_uniqueId(),
-        elemc->m_line(), elemc->m_column(), elemc->m_parent());
+        elemc->m_line(), elemc->m_column(), elemc->m_end_line(), elemc->m_end_column(), elemc->m_parent());
     elem.m_node = elemc->m_node();
     elem.m_timeInfo.m_type = (TimeInfo::Type)elemc->m_timeInfo()->m_type();
     elem.m_timeInfo.m_fileId = elemc->m_timeInfo()->m_fileId();
@@ -223,7 +223,7 @@ bool ParseCache::save() {
         canonicalSymbols.getId(
             m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
                 elem.m_fileId)),
-        elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column, timeInfo, elem.m_parent,
+        elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column, elem.m_endLine, elem.m_endColumn, timeInfo, elem.m_parent,
         elem.m_node));
   }
   auto elementList = builder.CreateVector(element_vec);

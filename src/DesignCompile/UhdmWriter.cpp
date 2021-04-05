@@ -1919,8 +1919,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m->VpiDefName(mod->getName());
         m->Attributes(mod->Attributes());
         m->VpiFile(fC->getFileName());
-        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        m->VpiColumnNo(fC->Column(mod->getNodeIds()[0]));
+        NodeId modId = mod->getNodeIds()[0];
+        m->VpiLineNo(fC->Line(modId));
+        m->VpiColumnNo(fC->Column(modId));
+        m->VpiEndLineNo(fC->EndLine(modId));
+        m->VpiEndColumnNo(fC->EndColumn(modId));
         uhdm_modules->push_back(m);
         writeModule(mod, m, s, componentMap, modPortMap);
       } else if (mod->getType() == VObjectType::slUdp_declaration) {
@@ -1972,6 +1975,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       m->VpiFile(def->VpiFile());
       m->VpiLineNo(def->VpiLineNo());
       m->VpiColumnNo(def->VpiColumnNo());
+      m->VpiEndLineNo(def->VpiEndLineNo());
+      m->VpiEndColumnNo(def->VpiEndColumnNo());
       writeInstance(mod, inst, m, m_compileDesign, componentMap, modPortMap, instanceMap, exprBuilder);
       uhdm_top_modules->push_back(m);
     }
