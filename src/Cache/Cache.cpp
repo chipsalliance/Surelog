@@ -230,6 +230,7 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     uint64_t field1 = 0;
     uint64_t field2 = 0;
     uint64_t field3 = 0;
+    uint64_t field4 = 0;
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
     field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
     field1 |= (((uint64_t)object.m_type) << (20));  // 12 Bits => Filled 32 Bits (Of 64)
@@ -241,7 +242,9 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     field2 |= (((uint64_t)object.m_sibling) << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
     field3 |= (uint64_t)object.m_fileId;
     field3 |= (((uint64_t)object.m_line) << (32));
-    SURELOG::CACHE::VObject vostruct(field1, field2, field3);
+    field4 |= ((uint64_t)object.m_endLine);
+    field4 |= (((uint64_t)object.m_endColumn) << (32)); 
+    SURELOG::CACHE::VObject vostruct(field1, field2, field3, field4);
     object_vec.push_back(vostruct);
   }
   // std::cout << "SAVE: " << cacheFileName << " "
@@ -272,6 +275,7 @@ void Cache::restoreVObjects(
     uint64_t field1 = objectc->m_field1();
     uint64_t field2 = objectc->m_field2();
     uint64_t field3 = objectc->m_field3();
+    uint64_t field4 = objectc->m_field4();
     // Decode compression done when saving cache (see below)
     SymbolId name = (field1 & 0x00000000000FFFFF);
     unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
@@ -283,12 +287,14 @@ void Cache::restoreVObjects(
     NodeId sibling = (field2 & 0xFFFFF00000000000) >> (4 + 20 + 20);
     SymbolId fileId = (field3 & 0x00000000FFFFFFFF);
     unsigned int line = (field3 & 0xFFFFFFFF00000000) >> (32);
+    unsigned int endLine = (field4 & 0x00000000FFFFFFFF);
+    unsigned short endColumn = (field4 & 0xFFFFFFFF00000000) >> (32);
     VObject object(
       fileTable.registerSymbol(
         canonicalSymbols.getSymbol(name)),
       fileTable.registerSymbol(
         canonicalSymbols.getSymbol(fileId)),
-      (VObjectType)type, line, column, parent, definition, child, sibling);
+      (VObjectType)type, line, column, endLine, endColumn, parent, definition, child, sibling);
 
     fileContent->getVObjects().push_back(object);
   }

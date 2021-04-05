@@ -57,10 +57,10 @@ using namespace antlr4;
 using namespace SURELOG;
 
 std::string defaultLogFileName = "surelog.log";
-std::string CommandLineParser::m_versionNumber = "1.00";
+std::string CommandLineParser::m_versionNumber = "1.01";
 
 const std::vector<std::string> copyright = {
-    "Copyright (c) 2017-2019 Alain Dargelas,",
+    "Copyright (c) 2017-2021 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
 const std::vector<std::string> banner = {

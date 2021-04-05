@@ -94,9 +94,9 @@ unsigned int& CommonListenerHelper::Line(NodeId index) {
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype) {
   SymbolId fileId;
-  auto [line, column] = getFileLine(ctx, fileId);
+  auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column, 0);
+  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column, endLine, endColumn, 0);
   int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);

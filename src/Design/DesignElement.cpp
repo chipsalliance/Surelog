@@ -28,6 +28,7 @@ using namespace SURELOG;
 
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
                              SymbolId uniqueId, unsigned int line, unsigned short column,
+                             unsigned int endLine, unsigned short endColumn,
                              SymbolId parent)
     : m_name(name),
       m_fileId(fileId),
@@ -35,6 +36,8 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_uniqueId(uniqueId),
       m_line(line),
       m_column(column),
+      m_endLine(endLine),
+      m_endColumn(endColumn),
       m_parent(parent),
       m_node(0),
       m_context(NULL) {}

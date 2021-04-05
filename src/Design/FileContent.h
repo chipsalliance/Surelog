@@ -159,6 +159,10 @@ class FileContent : public DesignComponent {
 
   unsigned short Column(NodeId index) const;
 
+  unsigned int EndLine(NodeId index) const;
+
+  unsigned short EndColumn(NodeId index) const;
+
   const std::string& SymName(NodeId index) const {
     return m_symbolTable->getSymbol(Name(index));
   }

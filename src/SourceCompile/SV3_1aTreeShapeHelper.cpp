@@ -116,10 +116,10 @@ void SV3_1aTreeShapeHelper::addNestedDesignElement(
     ParserRuleContext* ctx, std::string name, DesignElement::ElemType elemtype,
     VObjectType objtype) {
   SymbolId fileId;
-  auto [line, column] = getFileLine(ctx, fileId);
+  auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
   DesignElement elem(registerSymbol(name), fileId, elemtype,
-                     generateDesignElemId(), line, column, 0);
+                     generateDesignElemId(), line, column, endLine, endColumn, 0);
   elem.m_context = ctx;
   elem.m_timeInfo =
       m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);
@@ -137,9 +137,9 @@ void SV3_1aTreeShapeHelper::addDesignElement(ParserRuleContext* ctx,
                                              DesignElement::ElemType elemtype,
                                              VObjectType objtype) {
   SymbolId fileId;
-  auto [line, column] = getFileLine(ctx, fileId);
+  auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
   DesignElement elem(registerSymbol(name), fileId, elemtype,
-                     generateDesignElemId(), line, column, 0);
+                     generateDesignElemId(), line, column, endLine, endColumn, 0);
   elem.m_context = ctx;
   elem.m_timeInfo =
       m_pf->getCompilationUnit()->getTimeInfo(m_pf->getFileId(line), line);
@@ -147,24 +147,28 @@ void SV3_1aTreeShapeHelper::addDesignElement(ParserRuleContext* ctx,
   m_currentElement = &m_fileContent->getDesignElements().back();
 }
 
-std::pair<unsigned int, unsigned short> SV3_1aTreeShapeHelper::getFileLine(ParserRuleContext* ctx,
+std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> SV3_1aTreeShapeHelper::getFileLine(ParserRuleContext* ctx,
                                                 SymbolId& fileId) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
-  std::pair<unsigned int, unsigned short> result;
+  std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
   unsigned int line = 0;
   unsigned short column = 0;
+  unsigned int endLine = 0;
+  unsigned short endColumn = 0;
   if (m_ppOutputFileLocation) {
     fileId = m_pf->getFileId(0);
     line = lineCol.first;
     column = lineCol.second;
+    endLine = endLineCol.first;
+    endColumn = endLineCol.second;
   } else {
     fileId = m_pf->getFileId(lineCol.first + m_lineOffset);
     line = m_pf->getLineNb(lineCol.first + m_lineOffset);
     column = lineCol.second;
+    endLine = m_pf->getLineNb(endLineCol.first + m_lineOffset);
+    endColumn = endLineCol.second;
   }
-  result.first = line;
-  result.second = column;
-  return result;
+  return std::make_tuple(line, column, endLine, endColumn);
 }
 
 std::pair<double, TimeInfo::Unit> SV3_1aTreeShapeHelper::getTimeValue(
