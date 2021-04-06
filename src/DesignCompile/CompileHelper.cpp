@@ -581,7 +581,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
   } else if (structType) {
   } else {
     NodeId stype = fC->Child(data_type);
-    if (fC->Type(stype) == VObjectType::slStringConst) {
+    if ((fC->Type(stype) == VObjectType::slStringConst) ||
+         fC->Type(stype) == VObjectType::slClass_scope) {
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       if (scope)

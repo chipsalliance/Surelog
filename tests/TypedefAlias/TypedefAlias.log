@@ -2,15 +2,23 @@
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
-[WRN:PA0205] dut.sv:1: No timescale set for "test".
+[WRN:PA0205] dut.sv:1: No timescale set for "package1".
+
+[WRN:PA0205] dut.sv:9: No timescale set for "package2".
+
+[WRN:PA0205] dut.sv:15: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
-[INF:CP0303] dut.sv:1: Compile module "work@test".
+[INF:CP0301] dut.sv:1: Compile package "package1".
+
+[INF:CP0301] dut.sv:9: Compile package "package2".
+
+[INF:CP0303] dut.sv:15: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:1: Top level module "work@test".
+[NTE:EL0503] dut.sv:15: Top level module "work@test".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -24,136 +32,189 @@ UHDM HTML COVERAGE REPORT: ../../build/tests/TypedefAlias/slpp_unit//surelog.uhd
 ====== UHDM =======
 design: (work@test)
 |vpiName:work@test
+|uhdmallPackages:
+\_package: package1 (package1::) dut.sv:1: , parent:work@test
+  |vpiDefName:package1
+  |vpiName:package1
+  |vpiFullName:package1::
+  |vpiTypedef:
+  \_struct_typespec: (package1::type_alias), line:2, col:10
+    |vpiPacked:1
+    |vpiName:package1::type_alias
+    |vpiTypespecMember:
+    \_typespec_member: (q), line:3, col:19, parent:package1::type_alias
+      |vpiName:q
+      |vpiTypespec:
+      \_logic_typespec: , line:3, col:6, parent:q
+        |vpiInstance:
+        \_package: package1 (package1::) dut.sv:1: , parent:work@test
+    |vpiTypedefAlias:
+    \_struct_typespec: (package1::type_t), line:2, col:10
+      |vpiPacked:1
+      |vpiName:package1::type_t
+      |vpiTypespecMember:
+      \_typespec_member: (q), line:3, col:19
+        |vpiName:q
+        |vpiTypespec:
+        \_logic_typespec: , line:3, col:6
+          |vpiInstance:
+          \_package: package1 (package1::) dut.sv:1: , parent:work@test
+      |vpiInstance:
+      \_package: package1 (package1::) dut.sv:1: , parent:work@test
+    |vpiInstance:
+    \_package: package1 (package1::) dut.sv:1: , parent:work@test
+  |vpiTypedef:
+  \_struct_typespec: (package1::type_t), line:2, col:10
+|uhdmallPackages:
+\_package: package2 (package2::) dut.sv:9: , parent:work@test
+  |vpiDefName:package2
+  |vpiName:package2
+  |vpiFullName:package2::
+  |vpiTypedef:
+  \_struct_typespec: (package2::type_alias), line:2, col:10
+    |vpiPacked:1
+    |vpiName:package2::type_alias
+    |vpiTypespecMember:
+    \_typespec_member: (q), line:3, col:19, parent:package2::type_alias
+      |vpiName:q
+      |vpiTypespec:
+      \_logic_typespec: , line:3, col:6, parent:q
+        |vpiInstance:
+        \_package: package1 (package1::) dut.sv:1: , parent:work@test
+    |vpiTypedefAlias:
+    \_struct_typespec: (package1::type_t), line:2, col:10
+    |vpiInstance:
+    \_package: package1 (package1::) dut.sv:1: , parent:work@test
 |uhdmallModules:
-\_module: work@test (work@test) dut.sv:1: , endline:6:9: , parent:work@test
+\_module: work@test (work@test) dut.sv:15: , endline:20:9: , parent:work@test
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiNet:
-  \_logic_net: (work@test.kkkk), line:4, col:15, parent:work@test
+  \_logic_net: (work@test.kkkk), line:18, col:15, parent:work@test
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiNetType:36
   |vpiNet:
-  \_logic_net: (work@test.zzzz), line:5, col:20, parent:work@test
+  \_logic_net: (work@test.zzzz), line:19, col:20, parent:work@test
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiNetType:36
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits), line:2, col:12
+  \_logic_typespec: (t_two_bits), line:16, col:12
     |vpiName:t_two_bits
     |vpiRange:
-    \_range: , line:2, col:19
+    \_range: , line:16, col:19
       |vpiLeftRange:
-      \_constant: , line:2, col:19
+      \_constant: , line:16, col:19
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiRightRange:
-      \_constant: , line:2, col:21
+      \_constant: , line:16, col:21
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits_copy), line:2, col:12
+  \_logic_typespec: (t_two_bits_copy), line:16, col:12
     |vpiName:t_two_bits_copy
     |vpiRange:
-    \_range: , line:2, col:19, parent:t_two_bits_copy
+    \_range: , line:16, col:19, parent:t_two_bits_copy
       |vpiLeftRange:
-      \_constant: , line:2, col:19
+      \_constant: , line:16, col:19
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiRightRange:
-      \_constant: , line:2, col:21
+      \_constant: , line:16, col:21
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
     |vpiTypedefAlias:
-    \_logic_typespec: (t_two_bits), line:2, col:12
+    \_logic_typespec: (t_two_bits), line:16, col:12
 |uhdmtopModules:
-\_module: work@test (work@test) dut.sv:1: , endline:6:9: 
+\_module: work@test (work@test) dut.sv:15: , endline:20:9: 
   |vpiDefName:work@test
   |vpiName:work@test
   |vpiNet:
-  \_logic_net: (work@test.kkkk), line:4, col:15, parent:work@test
+  \_logic_net: (work@test.kkkk), line:18, col:15, parent:work@test
     |vpiName:kkkk
     |vpiFullName:work@test.kkkk
     |vpiNetType:36
     |vpiTypespec:
-    \_logic_typespec: (t_two_bits), line:2, col:12
+    \_logic_typespec: (t_two_bits), line:16, col:12
       |vpiName:t_two_bits
       |vpiRange:
-      \_range: , line:2, col:19
+      \_range: , line:16, col:19
         |vpiLeftRange:
-        \_constant: , line:2, col:19
+        \_constant: , line:16, col:19
           |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
         |vpiRightRange:
-        \_constant: , line:2, col:21
+        \_constant: , line:16, col:21
           |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
   |vpiNet:
-  \_logic_net: (work@test.zzzz), line:5, col:20, parent:work@test
+  \_logic_net: (work@test.zzzz), line:19, col:20, parent:work@test
     |vpiName:zzzz
     |vpiFullName:work@test.zzzz
     |vpiNetType:36
     |vpiTypespec:
-    \_logic_typespec: (t_two_bits), line:2, col:12
+    \_logic_typespec: (t_two_bits), line:16, col:12
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits), line:2, col:12, parent:work@test
+  \_logic_typespec: (t_two_bits), line:16, col:12, parent:work@test
     |vpiName:t_two_bits
     |vpiRange:
-    \_range: , line:2, col:19, parent:t_two_bits
+    \_range: , line:16, col:19, parent:t_two_bits
       |vpiLeftRange:
-      \_constant: , line:2, col:19
+      \_constant: , line:16, col:19
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiRightRange:
-      \_constant: , line:2, col:21
+      \_constant: , line:16, col:21
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
   |vpiTypedef:
-  \_logic_typespec: (t_two_bits_copy), line:2, col:12, parent:work@test
+  \_logic_typespec: (t_two_bits_copy), line:16, col:12, parent:work@test
     |vpiName:t_two_bits_copy
     |vpiRange:
-    \_range: , line:2, col:19, parent:t_two_bits_copy
+    \_range: , line:16, col:19, parent:t_two_bits_copy
       |vpiLeftRange:
-      \_constant: , line:2, col:19
+      \_constant: , line:16, col:19
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
       |vpiRightRange:
-      \_constant: , line:2, col:21
+      \_constant: , line:16, col:21
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
     |vpiTypedefAlias:
-    \_logic_typespec: (t_two_bits), line:2, col:12, parent:t_two_bits_copy
+    \_logic_typespec: (t_two_bits), line:16, col:12, parent:t_two_bits_copy
       |vpiName:t_two_bits
       |vpiRange:
-      \_range: , line:2, col:19, parent:t_two_bits
+      \_range: , line:16, col:19, parent:t_two_bits
         |vpiLeftRange:
-        \_constant: , line:2, col:19
+        \_constant: , line:16, col:19
           |vpiConstType:9
           |vpiDecompile:1
           |vpiSize:64
           |UINT:1
         |vpiRightRange:
-        \_constant: , line:2, col:21
+        \_constant: , line:16, col:21
           |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
@@ -162,6 +223,6 @@ design: (work@test)
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 1
+[WARNING] : 3
 [   NOTE] : 5
 

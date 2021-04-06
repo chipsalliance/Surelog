@@ -311,6 +311,10 @@ const DataType* ElaborationStep::bindTypeDef_(
   std::string objName;
   if (defType == VObjectType::slStringConst) {
     objName = fC->SymName(defNode);
+  } else if (defType == VObjectType::slClass_scope) {
+    NodeId class_type = fC->Child(defNode);
+    NodeId nameId = fC->Child(class_type);
+    objName = fC->SymName(nameId) + "::" + fC->SymName(fC->Sibling(defNode));
   } else {
     objName = "NOT_A_VALID_TYPE_NAME";
     symbols->registerSymbol(objName);
