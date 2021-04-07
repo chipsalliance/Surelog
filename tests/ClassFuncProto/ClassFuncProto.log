@@ -391,25 +391,35 @@ design: (work@toto)
       \_enum_typespec: (state), line:35, col:65
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35
+        \_enum_const: (FINISHED), line:35, col:17
           |vpiName:FINISHED
+          |vpiDecompile:0
           |INT:0
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35
-          |vpiName:KILLED
-          |INT:4
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35
+        \_enum_const: (RUNNING), line:35, col:27
           |vpiName:RUNNING
+          |vpiDecompile:1
           |INT:1
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35
-          |vpiName:SUSPENDED
-          |INT:3
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:35
+        \_enum_const: (WAITING), line:35, col:36
           |vpiName:WAITING
+          |vpiDecompile:2
           |INT:2
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35, col:45
+          |vpiName:SUSPENDED
+          |vpiDecompile:3
+          |INT:3
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35, col:56
+          |vpiName:KILLED
+          |vpiDecompile:4
+          |INT:4
+          |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), line:43, col:2, parent:work@process
     |vpiMethod:1
@@ -450,25 +460,35 @@ design: (work@toto)
   \_enum_typespec: (state), line:35, col:65, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35, parent:state
+    \_enum_const: (FINISHED), line:35, col:17, parent:state
       |vpiName:FINISHED
+      |vpiDecompile:0
       |INT:0
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35, parent:state
-      |vpiName:KILLED
-      |INT:4
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35, parent:state
+    \_enum_const: (RUNNING), line:35, col:27, parent:state
       |vpiName:RUNNING
+      |vpiDecompile:1
       |INT:1
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35, parent:state
-      |vpiName:SUSPENDED
-      |INT:3
-    |vpiEnumConst:
-    \_enum_const: (WAITING), line:35, parent:state
+    \_enum_const: (WAITING), line:35, col:36, parent:state
       |vpiName:WAITING
+      |vpiDecompile:2
       |INT:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35, col:45, parent:state
+      |vpiName:SUSPENDED
+      |vpiDecompile:3
+      |INT:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35, col:56, parent:state
+      |vpiName:KILLED
+      |vpiDecompile:4
+      |INT:4
+      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@toto
   |vpiName:work@semaphore
@@ -620,21 +640,28 @@ design: (work@toto)
                 |vpiSize:64
                 |UINT:0
           |vpiEnumConst:
-          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+          \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |vpiDecompile:0
+            |INT:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |vpiDecompile:1
+            |INT:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
             |vpiName:UVM_ERROR
             |STRING:toto
+            |vpiSize:4
           |vpiEnumConst:
-          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+          \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
             |vpiName:UVM_FATAL
+            |vpiDecompile:3
             |INT:3
-          |vpiEnumConst:
-          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-            |vpiName:UVM_INFO
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-            |vpiName:UVM_WARNING
-            |INT:1
+            |vpiSize:64
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
         |vpiName:reg_a
@@ -674,21 +701,28 @@ design: (work@toto)
                 |vpiSize:64
                 |UINT:0
           |vpiEnumConst:
-          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+          \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |vpiDecompile:0
+            |INT:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |vpiDecompile:1
+            |INT:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
             |vpiName:UVM_ERROR
             |STRING:toto
+            |vpiSize:4
           |vpiEnumConst:
-          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+          \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
             |vpiName:UVM_FATAL
+            |vpiDecompile:3
             |INT:3
-          |vpiEnumConst:
-          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-            |vpiName:UVM_INFO
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-            |vpiName:UVM_WARNING
-            |INT:1
+            |vpiSize:64
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
         |vpiName:reg_a
@@ -766,21 +800,28 @@ design: (work@toto)
             |vpiSize:64
             |UINT:0
       |vpiEnumConst:
-      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+      \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+        |vpiName:UVM_INFO
+        |vpiDecompile:0
+        |INT:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+        |vpiName:UVM_WARNING
+        |vpiDecompile:1
+        |INT:1
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
         |vpiName:UVM_ERROR
         |STRING:toto
+        |vpiSize:4
       |vpiEnumConst:
-      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+      \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
         |vpiName:UVM_FATAL
+        |vpiDecompile:3
         |INT:3
-      |vpiEnumConst:
-      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-        |vpiName:UVM_INFO
-        |INT:0
-      |vpiEnumConst:
-      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-        |vpiName:UVM_WARNING
-        |INT:1
+        |vpiSize:64
   |vpiClassDefn:
   \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
   |vpiClassDefn:
@@ -854,21 +895,28 @@ design: (work@toto)
                 |vpiSize:64
                 |UINT:0
           |vpiEnumConst:
-          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+          \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |vpiDecompile:0
+            |INT:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |vpiDecompile:1
+            |INT:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
             |vpiName:UVM_ERROR
             |STRING:toto
+            |vpiSize:4
           |vpiEnumConst:
-          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+          \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
             |vpiName:UVM_FATAL
+            |vpiDecompile:3
             |INT:3
-          |vpiEnumConst:
-          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-            |vpiName:UVM_INFO
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-            |vpiName:UVM_WARNING
-            |INT:1
+            |vpiSize:64
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
         |vpiName:reg_a
@@ -908,21 +956,28 @@ design: (work@toto)
                 |vpiSize:64
                 |UINT:0
           |vpiEnumConst:
-          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+          \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |vpiDecompile:0
+            |INT:0
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |vpiDecompile:1
+            |INT:1
+            |vpiSize:64
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
             |vpiName:UVM_ERROR
             |STRING:toto
+            |vpiSize:4
           |vpiEnumConst:
-          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+          \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
             |vpiName:UVM_FATAL
+            |vpiDecompile:3
             |INT:3
-          |vpiEnumConst:
-          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-            |vpiName:UVM_INFO
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-            |vpiName:UVM_WARNING
-            |INT:1
+            |vpiSize:64
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
         |vpiName:reg_a
@@ -1018,21 +1073,28 @@ design: (work@toto)
                             |vpiSize:64
                             |UINT:0
                       |vpiEnumConst:
-                      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                      \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+                        |vpiName:UVM_INFO
+                        |vpiDecompile:0
+                        |INT:0
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+                        |vpiName:UVM_WARNING
+                        |vpiDecompile:1
+                        |INT:1
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
                         |vpiName:UVM_ERROR
                         |STRING:toto
+                        |vpiSize:4
                       |vpiEnumConst:
-                      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                      \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
                         |vpiName:UVM_FATAL
+                        |vpiDecompile:3
                         |INT:3
-                      |vpiEnumConst:
-                      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                        |vpiName:UVM_INFO
-                        |INT:0
-                      |vpiEnumConst:
-                      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                        |vpiName:UVM_WARNING
-                        |INT:1
+                        |vpiSize:64
                   |vpiIODecl:
                   \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
                     |vpiName:reg_a
@@ -1072,21 +1134,28 @@ design: (work@toto)
                             |vpiSize:64
                             |UINT:0
                       |vpiEnumConst:
-                      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                      \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+                        |vpiName:UVM_INFO
+                        |vpiDecompile:0
+                        |INT:0
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+                        |vpiName:UVM_WARNING
+                        |vpiDecompile:1
+                        |INT:1
+                        |vpiSize:64
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
                         |vpiName:UVM_ERROR
                         |STRING:toto
+                        |vpiSize:4
                       |vpiEnumConst:
-                      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                      \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
                         |vpiName:UVM_FATAL
+                        |vpiDecompile:3
                         |INT:3
-                      |vpiEnumConst:
-                      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                        |vpiName:UVM_INFO
-                        |INT:0
-                      |vpiEnumConst:
-                      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                        |vpiName:UVM_WARNING
-                        |INT:1
+                        |vpiSize:64
                   |vpiIODecl:
                   \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
                     |vpiName:reg_a
@@ -1147,21 +1216,28 @@ design: (work@toto)
                         |vpiSize:64
                         |UINT:0
                   |vpiEnumConst:
-                  \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                  \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+                    |vpiName:UVM_INFO
+                    |vpiDecompile:0
+                    |INT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+                    |vpiName:UVM_WARNING
+                    |vpiDecompile:1
+                    |INT:1
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
                     |vpiName:UVM_ERROR
                     |STRING:toto
+                    |vpiSize:4
                   |vpiEnumConst:
-                  \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                  \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
                     |vpiName:UVM_FATAL
+                    |vpiDecompile:3
                     |INT:3
-                  |vpiEnumConst:
-                  \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                    |vpiName:UVM_INFO
-                    |INT:0
-                  |vpiEnumConst:
-                  \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                    |vpiName:UVM_WARNING
-                    |INT:1
+                    |vpiSize:64
             |vpiTypedef:
             \_int_typespec: (this_type), line:10, col:8, parent:work@toto::c2
               |vpiName:this_type
@@ -1203,21 +1279,28 @@ design: (work@toto)
             |vpiSize:64
             |UINT:0
       |vpiEnumConst:
-      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+      \_enum_const: (UVM_INFO), line:23, col:2, parent:uvm_severity
+        |vpiName:UVM_INFO
+        |vpiDecompile:0
+        |INT:0
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (UVM_WARNING), line:24, col:2, parent:uvm_severity
+        |vpiName:UVM_WARNING
+        |vpiDecompile:1
+        |INT:1
+        |vpiSize:64
+      |vpiEnumConst:
+      \_enum_const: (UVM_ERROR), line:25, col:2, parent:uvm_severity
         |vpiName:UVM_ERROR
         |STRING:toto
+        |vpiSize:4
       |vpiEnumConst:
-      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+      \_enum_const: (UVM_FATAL), line:26, col:2, parent:uvm_severity
         |vpiName:UVM_FATAL
+        |vpiDecompile:3
         |INT:3
-      |vpiEnumConst:
-      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-        |vpiName:UVM_INFO
-        |INT:0
-      |vpiEnumConst:
-      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-        |vpiName:UVM_WARNING
-        |INT:1
+        |vpiSize:64
   |vpiClassDefn:
   \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
     |vpiName:c2

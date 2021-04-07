@@ -6542,25 +6542,35 @@ design: (work@top)
       \_enum_typespec: (state), line:35, col:65
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35
+        \_enum_const: (FINISHED), line:35, col:17
           |vpiName:FINISHED
+          |vpiDecompile:0
           |INT:0
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35
-          |vpiName:KILLED
-          |INT:4
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35
+        \_enum_const: (RUNNING), line:35, col:27
           |vpiName:RUNNING
+          |vpiDecompile:1
           |INT:1
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35
-          |vpiName:SUSPENDED
-          |INT:3
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:35
+        \_enum_const: (WAITING), line:35, col:36
           |vpiName:WAITING
+          |vpiDecompile:2
           |INT:2
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35, col:45
+          |vpiName:SUSPENDED
+          |vpiDecompile:3
+          |INT:3
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35, col:56
+          |vpiName:KILLED
+          |vpiDecompile:4
+          |INT:4
+          |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), line:43, col:2, parent:work@process
     |vpiMethod:1
@@ -6601,25 +6611,35 @@ design: (work@top)
   \_enum_typespec: (state), line:35, col:65, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35, parent:state
+    \_enum_const: (FINISHED), line:35, col:17, parent:state
       |vpiName:FINISHED
+      |vpiDecompile:0
       |INT:0
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35, parent:state
-      |vpiName:KILLED
-      |INT:4
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35, parent:state
+    \_enum_const: (RUNNING), line:35, col:27, parent:state
       |vpiName:RUNNING
+      |vpiDecompile:1
       |INT:1
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35, parent:state
-      |vpiName:SUSPENDED
-      |INT:3
-    |vpiEnumConst:
-    \_enum_const: (WAITING), line:35, parent:state
+    \_enum_const: (WAITING), line:35, col:36, parent:state
       |vpiName:WAITING
+      |vpiDecompile:2
       |INT:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35, col:45, parent:state
+      |vpiName:SUSPENDED
+      |vpiDecompile:3
+      |INT:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35, col:56, parent:state
+      |vpiName:KILLED
+      |vpiDecompile:4
+      |INT:4
+      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@top
   |vpiName:work@semaphore
@@ -6751,13 +6771,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35
+                  \_enum_const: (WRITE), line:35, col:7
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36
                 |vpiName:burstcount
@@ -7336,7 +7360,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
           |vpiStmt:
           \_begin: (work@test_program), line:300, col:36
             |vpiFullName:work@test_program
@@ -7790,7 +7814,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
           |vpiStmt:
           \_begin: (work@test_program), line:443, col:36
             |vpiFullName:work@test_program
@@ -7973,15 +7997,17 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.NOBURST), line:530, col:38, parent:master_send_commands
           |vpiName:NOBURST
           |vpiFullName:work@test_program.NOBURST
           |vpiActual:
-          \_enum_const: (NOBURST), line:41
+          \_enum_const: (NOBURST), line:41, col:7
             |vpiName:NOBURST
+            |vpiDecompile:0
             |UINT:0
+            |vpiSize:64
       |vpiStmt:
       \_sys_func_call: ($display), line:532, col:6, parent:work@test_program
         |vpiName:$display
@@ -8007,13 +8033,13 @@ design: (work@top)
           |vpiName:READ
           |vpiFullName:work@test_program.READ
           |vpiActual:
-          \_enum_const: (READ), line:36
+          \_enum_const: (READ), line:36, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.NOBURST), line:533, col:37, parent:master_send_commands
           |vpiName:NOBURST
           |vpiFullName:work@test_program.NOBURST
           |vpiActual:
-          \_enum_const: (NOBURST), line:41
+          \_enum_const: (NOBURST), line:41, col:7
       |vpiStmt:
       \_sys_func_call: ($display), line:535, col:6, parent:work@test_program
         |vpiName:$display
@@ -8039,15 +8065,17 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.BURST), line:536, col:38, parent:master_send_commands
           |vpiName:BURST
           |vpiFullName:work@test_program.BURST
           |vpiActual:
-          \_enum_const: (BURST), line:42
+          \_enum_const: (BURST), line:42, col:7
             |vpiName:BURST
+            |vpiDecompile:1
             |UINT:1
+            |vpiSize:64
       |vpiStmt:
       \_sys_func_call: ($display), line:538, col:6, parent:work@test_program
         |vpiName:$display
@@ -8073,13 +8101,13 @@ design: (work@top)
           |vpiName:READ
           |vpiFullName:work@test_program.READ
           |vpiActual:
-          \_enum_const: (READ), line:36
+          \_enum_const: (READ), line:36, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.BURST), line:539, col:37, parent:master_send_commands
           |vpiName:BURST
           |vpiFullName:work@test_program.BURST
           |vpiActual:
-          \_enum_const: (BURST), line:42
+          \_enum_const: (BURST), line:42, col:7
       |vpiStmt:
       \_sys_func_call: ($display), line:541, col:6, parent:work@test_program
         |vpiName:$display
@@ -8173,7 +8201,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.configure_and_push_command_to_master_0.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_0), line:232, col:30
           |vpiFullName:work@test_program.configure_and_push_command_to_master_0
@@ -8565,7 +8593,7 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.get_command_from_slave_0.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
           |vpiStmt:
           \_for_stmt: (work@test_program.get_command_from_slave_0), line:319, col:9, parent:work@test_program.get_command_from_slave_0
             |vpiFullName:work@test_program.get_command_from_slave_0
@@ -8684,7 +8712,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.get_command_from_slave_0.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
       |vpiStmt:
       \_return_stmt: , line:327, col:6, parent:work@test_program.get_command_from_slave_0
         |vpiCondition:
@@ -9049,7 +9077,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.configure_and_push_command_to_master_1.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_1), line:375, col:30
           |vpiFullName:work@test_program.configure_and_push_command_to_master_1
@@ -9441,7 +9469,7 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.get_command_from_slave_1.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
           |vpiStmt:
           \_for_stmt: (work@test_program.get_command_from_slave_1), line:462, col:9, parent:work@test_program.get_command_from_slave_1
             |vpiFullName:work@test_program.get_command_from_slave_1
@@ -9560,7 +9588,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.get_command_from_slave_1.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
       |vpiStmt:
       \_return_stmt: , line:470, col:6, parent:work@test_program.get_command_from_slave_1
         |vpiCondition:
@@ -9871,9 +9899,9 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:39, col:16
         |vpiEnumConst:
-        \_enum_const: (BURST), line:42
+        \_enum_const: (NOBURST), line:41, col:7
         |vpiEnumConst:
-        \_enum_const: (NOBURST), line:41
+        \_enum_const: (BURST), line:42, col:7
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
@@ -10093,7 +10121,7 @@ design: (work@top)
             |vpiName:BURST
             |vpiFullName:work@test_program.create_command.BURST
             |vpiActual:
-            \_enum_const: (BURST), line:42
+            \_enum_const: (BURST), line:42, col:7
         |vpiStmt:
         \_begin: (work@test_program.create_command), line:578, col:30
           |vpiFullName:work@test_program.create_command
@@ -10201,7 +10229,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.create_command.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.create_command), line:588, col:26
           |vpiFullName:work@test_program.create_command
@@ -10695,7 +10723,7 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.save_command_master.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
       |vpiStmt:
       \_begin: (work@test_program.save_command_master), line:636, col:33
         |vpiFullName:work@test_program.save_command_master
@@ -10786,7 +10814,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.save_command_slave.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.save_command_slave), line:650, col:30
           |vpiFullName:work@test_program.save_command_slave
@@ -11136,7 +11164,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.get_expected_command_for_slave.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.get_expected_command_for_slave), line:690, col:30
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -11505,7 +11533,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.verify_command.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.verify_command), line:726, col:37
           |vpiFullName:work@test_program.verify_command
@@ -12521,13 +12549,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -13084,13 +13116,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -13286,13 +13322,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -13736,9 +13776,11 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
                 |vpiName:READ
+                |vpiDecompile:1
                 |UINT:1
+                |vpiSize:64
           |vpiStmt:
           \_begin: (work@test_program), line:300, col:36
             |vpiFullName:work@test_program
@@ -14044,13 +14086,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -14591,13 +14637,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -14793,13 +14843,17 @@ design: (work@top)
                   |vpiBaseTypespec:
                   \_bit_typespec: , line:33, col:16, parent:Transaction
                   |vpiEnumConst:
-                  \_enum_const: (READ), line:36, parent:Transaction
-                    |vpiName:READ
-                    |UINT:1
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35, parent:Transaction
+                  \_enum_const: (WRITE), line:35, col:7, parent:Transaction
                     |vpiName:WRITE
+                    |vpiDecompile:0
                     |UINT:0
+                    |vpiSize:64
+                  |vpiEnumConst:
+                  \_enum_const: (READ), line:36, col:7, parent:Transaction
+                    |vpiName:READ
+                    |vpiDecompile:1
+                    |UINT:1
+                    |vpiSize:64
               |vpiTypespecMember:
               \_typespec_member: (burstcount), line:48, col:36, parent:Command
                 |vpiName:burstcount
@@ -15235,7 +15289,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
           |vpiStmt:
           \_begin: (work@test_program), line:443, col:36
             |vpiFullName:work@test_program
@@ -15422,17 +15476,21 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
             |vpiName:WRITE
+            |vpiDecompile:0
             |UINT:0
+            |vpiSize:64
         |vpiArgument:
         \_ref_obj: (work@test_program.NOBURST), line:530, col:38, parent:master_send_commands
           |vpiName:NOBURST
           |vpiFullName:work@test_program.NOBURST
           |vpiActual:
-          \_enum_const: (NOBURST), line:41
+          \_enum_const: (NOBURST), line:41, col:7
             |vpiName:NOBURST
+            |vpiDecompile:0
             |UINT:0
+            |vpiSize:64
       |vpiStmt:
       \_sys_func_call: ($display), line:532, col:6, parent:work@test_program
         |vpiName:$display
@@ -15458,13 +15516,13 @@ design: (work@top)
           |vpiName:READ
           |vpiFullName:work@test_program.READ
           |vpiActual:
-          \_enum_const: (READ), line:36
+          \_enum_const: (READ), line:36, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.NOBURST), line:533, col:37, parent:master_send_commands
           |vpiName:NOBURST
           |vpiFullName:work@test_program.NOBURST
           |vpiActual:
-          \_enum_const: (NOBURST), line:41
+          \_enum_const: (NOBURST), line:41, col:7
       |vpiStmt:
       \_sys_func_call: ($display), line:535, col:6, parent:work@test_program
         |vpiName:$display
@@ -15490,15 +15548,17 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.BURST), line:536, col:38, parent:master_send_commands
           |vpiName:BURST
           |vpiFullName:work@test_program.BURST
           |vpiActual:
-          \_enum_const: (BURST), line:42
+          \_enum_const: (BURST), line:42, col:7
             |vpiName:BURST
+            |vpiDecompile:1
             |UINT:1
+            |vpiSize:64
       |vpiStmt:
       \_sys_func_call: ($display), line:538, col:6, parent:work@test_program
         |vpiName:$display
@@ -15524,13 +15584,13 @@ design: (work@top)
           |vpiName:READ
           |vpiFullName:work@test_program.READ
           |vpiActual:
-          \_enum_const: (READ), line:36
+          \_enum_const: (READ), line:36, col:7
         |vpiArgument:
         \_ref_obj: (work@test_program.BURST), line:539, col:37, parent:master_send_commands
           |vpiName:BURST
           |vpiFullName:work@test_program.BURST
           |vpiActual:
-          \_enum_const: (BURST), line:42
+          \_enum_const: (BURST), line:42, col:7
       |vpiStmt:
       \_sys_func_call: ($display), line:541, col:6, parent:work@test_program
         |vpiName:$display
@@ -15595,9 +15655,9 @@ design: (work@top)
                       |vpiBaseTypespec:
                       \_bit_typespec: , line:33, col:16
                       |vpiEnumConst:
-                      \_enum_const: (READ), line:36
+                      \_enum_const: (WRITE), line:35, col:7
                       |vpiEnumConst:
-                      \_enum_const: (WRITE), line:35
+                      \_enum_const: (READ), line:36, col:7
                   |vpiTypespecMember:
                   \_typespec_member: (burstcount), line:48, col:36
                     |vpiName:burstcount
@@ -16058,7 +16118,7 @@ design: (work@top)
                   |vpiName:READ
                   |vpiFullName:work@test_program.READ
                   |vpiActual:
-                  \_enum_const: (READ), line:36
+                  \_enum_const: (READ), line:36, col:7
               |vpiStmt:
               \_begin: (work@test_program), line:300, col:36
                 |vpiFullName:work@test_program
@@ -16502,7 +16562,7 @@ design: (work@top)
                   |vpiName:READ
                   |vpiFullName:work@test_program.READ
                   |vpiActual:
-                  \_enum_const: (READ), line:36
+                  \_enum_const: (READ), line:36, col:7
               |vpiStmt:
               \_begin: (work@test_program), line:443, col:36
                 |vpiFullName:work@test_program
@@ -16675,13 +16735,13 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
             |vpiArgument:
             \_ref_obj: (work@test_program.NOBURST), line:530, col:38, parent:master_send_commands
               |vpiName:NOBURST
               |vpiFullName:work@test_program.NOBURST
               |vpiActual:
-              \_enum_const: (NOBURST), line:41
+              \_enum_const: (NOBURST), line:41, col:7
           |vpiStmt:
           \_sys_func_call: ($display), line:532, col:6, parent:work@test_program
             |vpiName:$display
@@ -16707,13 +16767,13 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
             |vpiArgument:
             \_ref_obj: (work@test_program.NOBURST), line:533, col:37, parent:master_send_commands
               |vpiName:NOBURST
               |vpiFullName:work@test_program.NOBURST
               |vpiActual:
-              \_enum_const: (NOBURST), line:41
+              \_enum_const: (NOBURST), line:41, col:7
           |vpiStmt:
           \_sys_func_call: ($display), line:535, col:6, parent:work@test_program
             |vpiName:$display
@@ -16739,13 +16799,13 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
             |vpiArgument:
             \_ref_obj: (work@test_program.BURST), line:536, col:38, parent:master_send_commands
               |vpiName:BURST
               |vpiFullName:work@test_program.BURST
               |vpiActual:
-              \_enum_const: (BURST), line:42
+              \_enum_const: (BURST), line:42, col:7
           |vpiStmt:
           \_sys_func_call: ($display), line:538, col:6, parent:work@test_program
             |vpiName:$display
@@ -16771,13 +16831,13 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
             |vpiArgument:
             \_ref_obj: (work@test_program.BURST), line:539, col:37, parent:master_send_commands
               |vpiName:BURST
               |vpiFullName:work@test_program.BURST
               |vpiActual:
-              \_enum_const: (BURST), line:42
+              \_enum_const: (BURST), line:42, col:7
           |vpiStmt:
           \_sys_func_call: ($display), line:541, col:6, parent:work@test_program
             |vpiName:$display
@@ -16871,7 +16931,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_0.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.configure_and_push_command_to_master_0), line:232, col:30
               |vpiFullName:work@test_program.configure_and_push_command_to_master_0
@@ -17263,7 +17323,7 @@ design: (work@top)
                   |vpiName:WRITE
                   |vpiFullName:work@test_program.get_command_from_slave_0.WRITE
                   |vpiActual:
-                  \_enum_const: (WRITE), line:35
+                  \_enum_const: (WRITE), line:35, col:7
               |vpiStmt:
               \_for_stmt: (work@test_program.get_command_from_slave_0), line:319, col:9, parent:work@test_program.get_command_from_slave_0
                 |vpiFullName:work@test_program.get_command_from_slave_0
@@ -17382,7 +17442,7 @@ design: (work@top)
                   |vpiName:READ
                   |vpiFullName:work@test_program.get_command_from_slave_0.READ
                   |vpiActual:
-                  \_enum_const: (READ), line:36
+                  \_enum_const: (READ), line:36, col:7
           |vpiStmt:
           \_return_stmt: , line:327, col:6, parent:work@test_program.get_command_from_slave_0
             |vpiCondition:
@@ -17747,7 +17807,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.configure_and_push_command_to_master_1.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.configure_and_push_command_to_master_1), line:375, col:30
               |vpiFullName:work@test_program.configure_and_push_command_to_master_1
@@ -18139,7 +18199,7 @@ design: (work@top)
                   |vpiName:WRITE
                   |vpiFullName:work@test_program.get_command_from_slave_1.WRITE
                   |vpiActual:
-                  \_enum_const: (WRITE), line:35
+                  \_enum_const: (WRITE), line:35, col:7
               |vpiStmt:
               \_for_stmt: (work@test_program.get_command_from_slave_1), line:462, col:9, parent:work@test_program.get_command_from_slave_1
                 |vpiFullName:work@test_program.get_command_from_slave_1
@@ -18258,7 +18318,7 @@ design: (work@top)
                   |vpiName:READ
                   |vpiFullName:work@test_program.get_command_from_slave_1.READ
                   |vpiActual:
-                  \_enum_const: (READ), line:36
+                  \_enum_const: (READ), line:36, col:7
           |vpiStmt:
           \_return_stmt: , line:470, col:6, parent:work@test_program.get_command_from_slave_1
             |vpiCondition:
@@ -18569,9 +18629,9 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:39, col:16
             |vpiEnumConst:
-            \_enum_const: (BURST), line:42
+            \_enum_const: (NOBURST), line:41, col:7
             |vpiEnumConst:
-            \_enum_const: (NOBURST), line:41
+            \_enum_const: (BURST), line:42, col:7
         |vpiStmt:
         \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
           |vpiFullName:work@test_program.master_send_commands
@@ -18791,7 +18851,7 @@ design: (work@top)
                 |vpiName:BURST
                 |vpiFullName:work@test_program.create_command.BURST
                 |vpiActual:
-                \_enum_const: (BURST), line:42
+                \_enum_const: (BURST), line:42, col:7
             |vpiStmt:
             \_begin: (work@test_program.create_command), line:578, col:30
               |vpiFullName:work@test_program.create_command
@@ -18899,7 +18959,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.create_command.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.create_command), line:588, col:26
               |vpiFullName:work@test_program.create_command
@@ -19393,7 +19453,7 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.save_command_master.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
           |vpiStmt:
           \_begin: (work@test_program.save_command_master), line:636, col:33
             |vpiFullName:work@test_program.save_command_master
@@ -19484,7 +19544,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.save_command_slave.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.save_command_slave), line:650, col:30
               |vpiFullName:work@test_program.save_command_slave
@@ -19834,7 +19894,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.get_expected_command_for_slave.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:690, col:30
               |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -20203,7 +20263,7 @@ design: (work@top)
                 |vpiName:WRITE
                 |vpiFullName:work@test_program.verify_command.WRITE
                 |vpiActual:
-                \_enum_const: (WRITE), line:35
+                \_enum_const: (WRITE), line:35, col:7
             |vpiStmt:
             \_begin: (work@test_program.verify_command), line:726, col:37
               |vpiFullName:work@test_program.verify_command
@@ -21056,13 +21116,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -21310,7 +21374,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.configure_and_push_command_to_master_0.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_0), line:232, col:30
           |vpiFullName:work@test_program.configure_and_push_command_to_master_0
@@ -21807,7 +21871,7 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.get_command_from_slave_0.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
           |vpiStmt:
           \_for_stmt: (work@test_program.get_command_from_slave_0), line:319, col:9, parent:work@test_program.get_command_from_slave_0
             |vpiFullName:work@test_program.get_command_from_slave_0
@@ -21929,7 +21993,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.get_command_from_slave_0.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
       |vpiStmt:
       \_return_stmt: , line:327, col:6, parent:work@test_program.get_command_from_slave_0
         |vpiCondition:
@@ -21954,13 +22018,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -22540,13 +22608,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -22794,7 +22866,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.configure_and_push_command_to_master_1.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.configure_and_push_command_to_master_1), line:375, col:30
           |vpiFullName:work@test_program.configure_and_push_command_to_master_1
@@ -23291,7 +23363,7 @@ design: (work@top)
               |vpiName:WRITE
               |vpiFullName:work@test_program.get_command_from_slave_1.WRITE
               |vpiActual:
-              \_enum_const: (WRITE), line:35
+              \_enum_const: (WRITE), line:35, col:7
           |vpiStmt:
           \_for_stmt: (work@test_program.get_command_from_slave_1), line:462, col:9, parent:work@test_program.get_command_from_slave_1
             |vpiFullName:work@test_program.get_command_from_slave_1
@@ -23413,7 +23485,7 @@ design: (work@top)
               |vpiName:READ
               |vpiFullName:work@test_program.get_command_from_slave_1.READ
               |vpiActual:
-              \_enum_const: (READ), line:36
+              \_enum_const: (READ), line:36, col:7
       |vpiStmt:
       \_return_stmt: , line:470, col:6, parent:work@test_program.get_command_from_slave_1
         |vpiCondition:
@@ -23438,13 +23510,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -24024,13 +24100,17 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:33, col:16, parent:Transaction
         |vpiEnumConst:
-        \_enum_const: (READ), line:36, parent:Transaction
-          |vpiName:READ
-          |UINT:1
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:35, parent:Transaction
+        \_enum_const: (WRITE), line:35, col:7, parent:Transaction
           |vpiName:WRITE
+          |vpiDecompile:0
           |UINT:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (READ), line:36, col:7, parent:Transaction
+          |vpiName:READ
+          |vpiDecompile:1
+          |UINT:1
+          |vpiSize:64
     |vpiIODecl:
     \_io_decl: (burstmode), parent:work@test_program.master_send_commands
       |vpiName:burstmode
@@ -24041,13 +24121,17 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:39, col:16, parent:Burstmode
         |vpiEnumConst:
-        \_enum_const: (BURST), line:42, parent:Burstmode
-          |vpiName:BURST
-          |UINT:1
-        |vpiEnumConst:
-        \_enum_const: (NOBURST), line:41, parent:Burstmode
+        \_enum_const: (NOBURST), line:41, col:7, parent:Burstmode
           |vpiName:NOBURST
+          |vpiDecompile:0
           |UINT:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (BURST), line:42, col:7, parent:Burstmode
+          |vpiName:BURST
+          |vpiDecompile:1
+          |UINT:1
+          |vpiSize:64
     |vpiStmt:
     \_begin: (work@test_program.master_send_commands), parent:work@test_program.master_send_commands
       |vpiFullName:work@test_program.master_send_commands
@@ -24223,13 +24307,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -24653,13 +24741,17 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:33, col:16, parent:Transaction
         |vpiEnumConst:
-        \_enum_const: (READ), line:36, parent:Transaction
-          |vpiName:READ
-          |UINT:1
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:35, parent:Transaction
+        \_enum_const: (WRITE), line:35, col:7, parent:Transaction
           |vpiName:WRITE
+          |vpiDecompile:0
           |UINT:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (READ), line:36, col:7, parent:Transaction
+          |vpiName:READ
+          |vpiDecompile:1
+          |UINT:1
+          |vpiSize:64
     |vpiIODecl:
     \_io_decl: (burstmode), parent:work@test_program.create_command
       |vpiName:burstmode
@@ -24670,13 +24762,17 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:39, col:16, parent:Burstmode
         |vpiEnumConst:
-        \_enum_const: (BURST), line:42, parent:Burstmode
-          |vpiName:BURST
-          |UINT:1
-        |vpiEnumConst:
-        \_enum_const: (NOBURST), line:41, parent:Burstmode
+        \_enum_const: (NOBURST), line:41, col:7, parent:Burstmode
           |vpiName:NOBURST
+          |vpiDecompile:0
           |UINT:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (BURST), line:42, col:7, parent:Burstmode
+          |vpiName:BURST
+          |vpiDecompile:1
+          |UINT:1
+          |vpiSize:64
     |vpiIODecl:
     \_io_decl: (slave_id), parent:work@test_program.create_command
       |vpiName:slave_id
@@ -24700,7 +24796,7 @@ design: (work@top)
             |vpiName:BURST
             |vpiFullName:work@test_program.create_command.BURST
             |vpiActual:
-            \_enum_const: (BURST), line:42
+            \_enum_const: (BURST), line:42, col:7
         |vpiStmt:
         \_begin: (work@test_program.create_command), line:578, col:30
           |vpiFullName:work@test_program.create_command
@@ -24800,7 +24896,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.create_command.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.create_command), line:588, col:26
           |vpiFullName:work@test_program.create_command
@@ -24975,13 +25071,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -25412,13 +25512,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -25674,13 +25778,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -25883,7 +25991,7 @@ design: (work@top)
           |vpiName:WRITE
           |vpiFullName:work@test_program.save_command_master.WRITE
           |vpiActual:
-          \_enum_const: (WRITE), line:35
+          \_enum_const: (WRITE), line:35, col:7
       |vpiStmt:
       \_begin: (work@test_program.save_command_master), line:636, col:33
         |vpiFullName:work@test_program.save_command_master
@@ -26038,13 +26146,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -26272,7 +26384,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.save_command_slave.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.save_command_slave), line:650, col:30
           |vpiFullName:work@test_program.save_command_slave
@@ -26605,13 +26717,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -26875,13 +26991,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -27099,7 +27219,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.get_expected_command_for_slave.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.get_expected_command_for_slave), line:690, col:30
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -27398,13 +27518,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -27606,13 +27730,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -27806,13 +27934,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -28070,7 +28202,7 @@ design: (work@top)
             |vpiName:WRITE
             |vpiFullName:work@test_program.verify_command.WRITE
             |vpiActual:
-            \_enum_const: (WRITE), line:35
+            \_enum_const: (WRITE), line:35, col:7
         |vpiStmt:
         \_begin: (work@test_program.verify_command), line:726, col:37
           |vpiFullName:work@test_program.verify_command
@@ -28634,13 +28766,17 @@ design: (work@top)
             |vpiBaseTypespec:
             \_bit_typespec: , line:33, col:16, parent:Transaction
             |vpiEnumConst:
-            \_enum_const: (READ), line:36, parent:Transaction
-              |vpiName:READ
-              |UINT:1
-            |vpiEnumConst:
-            \_enum_const: (WRITE), line:35, parent:Transaction
+            \_enum_const: (WRITE), line:35, col:7, parent:Transaction
               |vpiName:WRITE
+              |vpiDecompile:0
               |UINT:0
+              |vpiSize:64
+            |vpiEnumConst:
+            \_enum_const: (READ), line:36, col:7, parent:Transaction
+              |vpiName:READ
+              |vpiDecompile:1
+              |UINT:1
+              |vpiSize:64
         |vpiTypespecMember:
         \_typespec_member: (burstcount), line:48, col:36, parent:Command
           |vpiName:burstcount
@@ -29373,13 +29509,17 @@ design: (work@top)
     |vpiBaseTypespec:
     \_bit_typespec: , line:39, col:16, parent:Burstmode
     |vpiEnumConst:
-    \_enum_const: (BURST), line:42, parent:Burstmode
-      |vpiName:BURST
-      |UINT:1
-    |vpiEnumConst:
-    \_enum_const: (NOBURST), line:41, parent:Burstmode
+    \_enum_const: (NOBURST), line:41, col:7, parent:Burstmode
       |vpiName:NOBURST
+      |vpiDecompile:0
       |UINT:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (BURST), line:42, col:7, parent:Burstmode
+      |vpiName:BURST
+      |vpiDecompile:1
+      |UINT:1
+      |vpiSize:64
   |vpiTypedef:
   \_struct_typespec: (Command), line:45, col:11, parent:work@test_program
     |vpiName:Command
@@ -29392,13 +29532,17 @@ design: (work@top)
         |vpiBaseTypespec:
         \_bit_typespec: , line:33, col:16, parent:Transaction
         |vpiEnumConst:
-        \_enum_const: (READ), line:36, parent:Transaction
-          |vpiName:READ
-          |UINT:1
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:35, parent:Transaction
+        \_enum_const: (WRITE), line:35, col:7, parent:Transaction
           |vpiName:WRITE
+          |vpiDecompile:0
           |UINT:0
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (READ), line:36, col:7, parent:Transaction
+          |vpiName:READ
+          |vpiDecompile:1
+          |UINT:1
+          |vpiSize:64
     |vpiTypespecMember:
     \_typespec_member: (burstcount), line:48, col:36, parent:Command
       |vpiName:burstcount
@@ -29687,13 +29831,17 @@ design: (work@top)
     |vpiBaseTypespec:
     \_bit_typespec: , line:33, col:16, parent:Transaction
     |vpiEnumConst:
-    \_enum_const: (READ), line:36, parent:Transaction
-      |vpiName:READ
-      |UINT:1
-    |vpiEnumConst:
-    \_enum_const: (WRITE), line:35, parent:Transaction
+    \_enum_const: (WRITE), line:35, col:7, parent:Transaction
       |vpiName:WRITE
+      |vpiDecompile:0
       |UINT:0
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (READ), line:36, col:7, parent:Transaction
+      |vpiName:READ
+      |vpiDecompile:1
+      |UINT:1
+      |vpiSize:64
   |vpiTypedef:
   \_import: (verbosity_pkg), line:7, col:10, parent:work@test_program
   |vpiTypedef:
