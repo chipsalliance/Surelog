@@ -1068,6 +1068,8 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
             nodeType = integer_vector_type;
             if (the_type != VObjectType::slClass_scope)
               Packed_dimension = fC->Sibling(integer_vector_type);
+            else 
+              Packed_dimension = fC->Sibling(fC->Sibling(integer_vector_type)); 
           }
         } else if (the_type == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(data_type);
@@ -1336,6 +1338,9 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     }
 
     NodeId packedDimension = fC->Sibling(NetType);
+    if (fC->Type(packedDimension) == slStringConst) { // net type is class_scope
+      packedDimension = fC->Sibling(packedDimension);
+    }
     NodeId specParamId = 0;
     bool is_signed = false;
     if (packedDimension == 0) {
@@ -1347,9 +1352,6 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
       packedDimension = fC->Sibling(packedDimension);
     }
-    // else {
-    //  packedDimension = fC->Child(packedDimension);
-    // }
     if (fC->Type(NetType) == VObjectType::slClass_scope) {
       specParamId = NetType;
     } else if (fC->Type(NetType) == VObjectType::slStringConst) {
@@ -1383,7 +1385,6 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
     component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, unpacked_dimension, false));
-    //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
     NodeId data_type = fC->Child(data_type_or_implicit);
