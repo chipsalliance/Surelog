@@ -158,8 +158,6 @@ variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
   return var;
 }
 
-
-
 UHDM::any* CompileHelper::compileVariable(
   DesignComponent* component, const FileContent* fC, NodeId variable,
   CompileDesign* compileDesign,
@@ -187,26 +185,11 @@ UHDM::any* CompileHelper::compileVariable(
   if (the_type == VObjectType::slStringConst ||
       the_type == VObjectType::slChandle_type) {
     const std::string& typeName = fC->SymName(variable);
-    /*
-    const any* ptmp = pstmt;
-    while (ptmp) {
-      if (const scope* s = dynamic_cast<const scope*>(ptmp)) {
-      }
-      ptmp = ptmp->VpiParent();
-    }
-    */
+   
     if (const DataType* dt = component->getDataType(typeName)) {
       dt = dt->getActual();
       typespec* tps = dt->getTypespec();
       if (tps) {
-        if (ranges == nullptr) {
-          UHDM_OBJECT_TYPE ttype = tps->UhdmType();
-          if (ttype == uhdmbit_typespec) { 
-            ranges = ((bit_typespec*)tps)->Ranges();
-          } else if (ttype == uhdmlogic_typespec) { 
-            ranges = ((logic_typespec*)tps)->Ranges();
-          } 
-        }
         variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
         if (var) var->VpiName(fC->SymName(variable));
         result = var;

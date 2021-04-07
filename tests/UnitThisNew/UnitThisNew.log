@@ -361,17 +361,19 @@ design: (unnamed)
     \_io_decl: (action_str)
       |vpiName:action_str
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (action_str), line:3, col:48, parent:action_str
-        |vpiFullName:action_str
+      |vpiTypedef:
+      \_string_typespec: , line:3, col:48
+        |vpiInstance:
+        \_package: toto (toto::) dut.sv:1: , parent:unnamed
     |vpiIODecl:
     \_io_decl: (action)
       |vpiName:action
       |vpiDirection:2
-      |vpiExpr:
-      \_chandle_var: (action.uvm_action), line:3, col:74, parent:action
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_action), line:3, col:74
         |vpiName:uvm_action
-        |vpiFullName:action.uvm_action
+        |vpiInstance:
+        \_package: toto (toto::) dut.sv:1: , parent:unnamed
     |vpiVariables:
     \_array_var: (toto::uvm_string_to_action)
       |vpiFullName:toto::uvm_string_to_action
@@ -509,10 +511,11 @@ design: (unnamed)
     \_io_decl: (field)
       |vpiName:field
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (field.uvm_reg_field), line:25, col:33, parent:field
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_reg_field), line:25, col:33
         |vpiName:uvm_reg_field
-        |vpiFullName:field.uvm_reg_field
+        |vpiInstance:
+        \_package: toto (toto::) dut.sv:1: , parent:unnamed
     |vpiStmt:
     \_if_stmt: , line:27, col:3, parent:toto::uvm_reg::add_field
       |vpiCondition:
@@ -561,10 +564,11 @@ design: (unnamed)
     \_io_decl: (element)
       |vpiName:element
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (element.uvm_object), line:36, col:52, parent:element
+      |vpiTypedef:
+      \_unsupported_typespec: (uvm_object), line:36, col:52
         |vpiName:uvm_object
-        |vpiFullName:element.uvm_object
+        |vpiInstance:
+        \_package: toto (toto::) dut.sv:1: , parent:unnamed
     |vpiStmt:
     \_begin: (toto::uvm_reg_backdoor::start_update_thread), parent:toto::uvm_reg_backdoor::start_update_thread
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
@@ -611,9 +615,14 @@ design: (unnamed)
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
-        |vpiFullName:work@mailbox::new::bound
+      \_constant: , line:6, col:28, parent:bound
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
@@ -805,9 +814,14 @@ design: (unnamed)
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
-        |vpiFullName:work@semaphore::new::keyCount
+      \_constant: , line:60, col:30, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -818,9 +832,14 @@ design: (unnamed)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::put::keyCount
+      \_constant: , line:63, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -831,9 +850,14 @@ design: (unnamed)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::get::keyCount
+      \_constant: , line:66, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -846,9 +870,14 @@ design: (unnamed)
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
-        |vpiFullName:work@semaphore::try_get::keyCount
+      \_constant: , line:69, col:38, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

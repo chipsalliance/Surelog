@@ -572,9 +572,8 @@ design: (work@top)
     \_io_decl: (state_in)
       |vpiName:state_in
       |vpiDirection:1
-      |vpiExpr:
-      \_logic_var: (state_in), line:8, col:46, parent:state_in
-        |vpiFullName:state_in
+      |vpiTypedef:
+      \_logic_typespec: , line:8, col:46
         |vpiRange:
         \_range: , line:8, col:53
           |vpiLeftRange:
@@ -589,13 +588,14 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+        |vpiInstance:
+        \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
     |vpiIODecl:
     \_io_decl: (sbox4)
       |vpiName:sbox4
       |vpiDirection:1
-      |vpiExpr:
-      \_logic_var: (sbox4), line:8, col:69, parent:sbox4
-        |vpiFullName:sbox4
+      |vpiTypedef:
+      \_logic_typespec: , line:8, col:69
         |vpiRange:
         \_range: , line:8, col:76
           |vpiLeftRange:
@@ -624,6 +624,8 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+        |vpiInstance:
+        \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
     |vpiStmt:
     \_begin: (prim_cipher_pkg::sbox4_64bit), parent:prim_cipher_pkg::sbox4_64bit
       |vpiFullName:prim_cipher_pkg::sbox4_64bit
@@ -965,9 +967,14 @@ design: (work@top)
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
-        |vpiFullName:work@mailbox::new::bound
+      \_constant: , line:6, col:28, parent:bound
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
@@ -1159,9 +1166,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
-        |vpiFullName:work@semaphore::new::keyCount
+      \_constant: , line:60, col:30, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1172,9 +1184,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::put::keyCount
+      \_constant: , line:63, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1185,9 +1202,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::get::keyCount
+      \_constant: , line:66, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1200,9 +1222,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
-        |vpiFullName:work@semaphore::try_get::keyCount
+      \_constant: , line:69, col:38, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:26: , endline:42:9: , parent:work@top
   |vpiDefName:work@top
@@ -1387,9 +1414,8 @@ design: (work@top)
               \_io_decl: (state_in)
                 |vpiName:state_in
                 |vpiDirection:1
-                |vpiExpr:
-                \_logic_var: (state_in), line:8, col:46, parent:state_in
-                  |vpiFullName:state_in
+                |vpiTypedef:
+                \_logic_typespec: , line:8, col:46
                   |vpiRange:
                   \_range: , line:8, col:53
                     |vpiLeftRange:
@@ -1404,13 +1430,14 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
+                  |vpiInstance:
+                  \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
               |vpiIODecl:
               \_io_decl: (sbox4)
                 |vpiName:sbox4
                 |vpiDirection:1
-                |vpiExpr:
-                \_logic_var: (sbox4), line:8, col:69, parent:sbox4
-                  |vpiFullName:sbox4
+                |vpiTypedef:
+                \_logic_typespec: , line:8, col:69
                   |vpiRange:
                   \_range: , line:8, col:76
                     |vpiLeftRange:
@@ -1439,6 +1466,8 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
+                  |vpiInstance:
+                  \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
               |vpiStmt:
               \_begin: (prim_cipher_pkg::sbox4_64bit), parent:prim_cipher_pkg::sbox4_64bit
                 |vpiFullName:prim_cipher_pkg::sbox4_64bit
@@ -1915,9 +1944,8 @@ design: (work@top)
               \_io_decl: (state_in)
                 |vpiName:state_in
                 |vpiDirection:1
-                |vpiExpr:
-                \_logic_var: (state_in), line:8, col:46, parent:state_in
-                  |vpiFullName:state_in
+                |vpiTypedef:
+                \_logic_typespec: , line:8, col:46
                   |vpiRange:
                   \_range: , line:8, col:53
                     |vpiLeftRange:
@@ -1932,13 +1960,14 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
+                  |vpiInstance:
+                  \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
               |vpiIODecl:
               \_io_decl: (sbox4)
                 |vpiName:sbox4
                 |vpiDirection:1
-                |vpiExpr:
-                \_logic_var: (sbox4), line:8, col:69, parent:sbox4
-                  |vpiFullName:sbox4
+                |vpiTypedef:
+                \_logic_typespec: , line:8, col:69
                   |vpiRange:
                   \_range: , line:8, col:76
                     |vpiLeftRange:
@@ -1967,6 +1996,8 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
+                  |vpiInstance:
+                  \_package: prim_cipher_pkg (prim_cipher_pkg::) dut.sv:1: , parent:work@top
               |vpiStmt:
               \_begin: (prim_cipher_pkg::sbox4_64bit), parent:prim_cipher_pkg::sbox4_64bit
                 |vpiFullName:prim_cipher_pkg::sbox4_64bit

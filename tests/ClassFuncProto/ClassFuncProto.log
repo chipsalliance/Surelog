@@ -288,9 +288,14 @@ design: (work@toto)
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
-        |vpiFullName:work@mailbox::new::bound
+      \_constant: , line:6, col:28, parent:bound
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
@@ -482,9 +487,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
-        |vpiFullName:work@semaphore::new::keyCount
+      \_constant: , line:60, col:30, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -495,9 +505,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::put::keyCount
+      \_constant: , line:63, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -508,9 +523,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::get::keyCount
+      \_constant: , line:66, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -523,9 +543,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
-        |vpiFullName:work@semaphore::try_get::keyCount
+      \_constant: , line:69, col:38, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
 |uhdmallModules:
 \_module: work@toto (work@toto) top.v:6: , endline:52:9: , parent:work@toto
   |vpiDefName:work@toto
@@ -560,10 +585,9 @@ design: (work@toto)
       \_io_decl: (provider), parent:work@toto::c1::connect
         |vpiName:provider
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::connect::provider::this_type), line:35, col:23, parent:provider
+        |vpiTypedef:
+        \_unsupported_typespec: (this_type), line:35, col:23, parent:provider
           |vpiName:this_type
-          |vpiFullName:work@toto::c1::connect::provider::this_type
     |vpiMethod:
     \_function: (work@toto::c1::get_verbosity_level), line:38, col:3, parent:work@toto::c1
       |vpiMethod:1
@@ -576,67 +600,48 @@ design: (work@toto)
       \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
         |vpiName:severity
         |vpiDirection:1
-        |vpiExpr:
-        \_bit_var: (work@toto::c1::get_verbosity_level::severity::uvm_severity), line:38, col:36, parent:severity
+        |vpiTypedef:
+        \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
           |vpiName:uvm_severity
-          |vpiFullName:work@toto::c1::get_verbosity_level::severity::uvm_severity
-          |vpiRange:
-          \_range: , line:21, col:18, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-            |vpiLeftRange:
-            \_constant: , line:21, col:18
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiRightRange:
-            \_constant: , line:21, col:20
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiTypespec:
-          \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-            |vpiName:uvm_severity
-            |vpiBaseTypespec:
-            \_bit_typespec: , line:21, col:13, parent:uvm_severity
-              |vpiRange:
-              \_range: , line:21, col:18
-                |vpiLeftRange:
-                \_constant: , line:21, col:18
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:21, col:20
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-              |vpiName:UVM_ERROR
-              |STRING:toto
-            |vpiEnumConst:
-            \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-              |vpiName:UVM_FATAL
-              |INT:3
-            |vpiEnumConst:
-            \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-              |vpiName:UVM_INFO
-              |INT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-              |vpiName:UVM_WARNING
-              |INT:1
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:21, col:13, parent:uvm_severity
+            |vpiRange:
+            \_range: , line:21, col:18
+              |vpiLeftRange:
+              \_constant: , line:21, col:18
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+              |vpiRightRange:
+              \_constant: , line:21, col:20
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+            |vpiName:UVM_ERROR
+            |STRING:toto
+          |vpiEnumConst:
+          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+            |vpiName:UVM_FATAL
+            |INT:3
+          |vpiEnumConst:
+          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |INT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |INT:1
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
         |vpiName:reg_a
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::get_verbosity_level::reg_a::uvm_reg), line:38, col:70, parent:reg_a
+        |vpiTypedef:
+        \_unsupported_typespec: (uvm_reg), line:38, col:70, parent:reg_a
           |vpiName:uvm_reg
-          |vpiFullName:work@toto::c1::get_verbosity_level::reg_a::uvm_reg
     |vpiMethod:
     \_function: (work@toto::c1::set_verbosity_level), line:41, col:1, parent:work@toto::c1
       |vpiMethod:1
@@ -649,67 +654,48 @@ design: (work@toto)
       \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
         |vpiName:severity
         |vpiDirection:1
-        |vpiExpr:
-        \_bit_var: (work@toto::c1::set_verbosity_level::severity::uvm_severity), line:41, col:34, parent:severity
+        |vpiTypedef:
+        \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
           |vpiName:uvm_severity
-          |vpiFullName:work@toto::c1::set_verbosity_level::severity::uvm_severity
-          |vpiRange:
-          \_range: , line:21, col:18, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-            |vpiLeftRange:
-            \_constant: , line:21, col:18
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiRightRange:
-            \_constant: , line:21, col:20
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiTypespec:
-          \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-            |vpiName:uvm_severity
-            |vpiBaseTypespec:
-            \_bit_typespec: , line:21, col:13, parent:uvm_severity
-              |vpiRange:
-              \_range: , line:21, col:18
-                |vpiLeftRange:
-                \_constant: , line:21, col:18
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:21, col:20
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-              |vpiName:UVM_ERROR
-              |STRING:toto
-            |vpiEnumConst:
-            \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-              |vpiName:UVM_FATAL
-              |INT:3
-            |vpiEnumConst:
-            \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-              |vpiName:UVM_INFO
-              |INT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-              |vpiName:UVM_WARNING
-              |INT:1
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:21, col:13, parent:uvm_severity
+            |vpiRange:
+            \_range: , line:21, col:18
+              |vpiLeftRange:
+              \_constant: , line:21, col:18
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+              |vpiRightRange:
+              \_constant: , line:21, col:20
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+            |vpiName:UVM_ERROR
+            |STRING:toto
+          |vpiEnumConst:
+          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+            |vpiName:UVM_FATAL
+            |INT:3
+          |vpiEnumConst:
+          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |INT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |INT:1
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
         |vpiName:reg_a
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::set_verbosity_level::reg_a::uvm_reg), line:41, col:70, parent:reg_a
+        |vpiTypedef:
+        \_unsupported_typespec: (uvm_reg), line:41, col:70, parent:reg_a
           |vpiName:uvm_reg
-          |vpiFullName:work@toto::c1::set_verbosity_level::reg_a::uvm_reg
     |vpiMethod:
     \_task: (work@toto::c1::wait_for_total_count), line:44, col:1, parent:work@toto::c1
       |vpiMethod:1
@@ -720,40 +706,46 @@ design: (work@toto)
       \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
         |vpiName:obj
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::wait_for_total_count::obj::c2), line:44, col:27, parent:obj
+        |vpiTypedef:
+        \_class_typespec: (c2), line:44, col:27, parent:obj
           |vpiName:c2
-          |vpiFullName:work@toto::c1::wait_for_total_count::obj::c2
+          |vpiClassDefn:
+          \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
+            |vpiName:c2
+            |vpiFullName:work@toto::c2
+            |vpiDerivedClasses:
+            \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
+              |vpiName:c3
+              |vpiFullName:work@toto::c3
+              |vpiExtends:
+              \_extends: , line:15, col:17, parent:work@toto::c3
+                |vpiClassTypespec:
+                \_class_typespec: 
+                  |vpiClassDefn:
+                  \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
+              |vpiDerivedClasses:
+              \_class_defn: (work@toto::c1) top.v:18: , parent:work@toto
+            |vpiTypedef:
+            \_int_typespec: (this_type), line:10, col:8, parent:work@toto::c2
+              |vpiName:this_type
       |vpiIODecl:
       \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
         |vpiName:count
         |vpiDirection:1
+        |vpiTypedef:
+        \_int_typespec: , line:44, col:40, parent:count
         |vpiExpr:
-        \_int_var: (work@toto::c1::wait_for_total_count::count), line:44, col:40, parent:count
-          |vpiFullName:work@toto::c1::wait_for_total_count::count
+        \_constant: , line:44, col:50, parent:count
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
     |vpiExtends:
     \_extends: , line:18, col:17, parent:work@toto::c1
       |vpiClassTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
-          |vpiName:c3
-          |vpiFullName:work@toto::c3
-          |vpiExtends:
-          \_extends: , line:15, col:17, parent:work@toto::c3
-            |vpiClassTypespec:
-            \_class_typespec: 
-              |vpiClassDefn:
-              \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
-                |vpiName:c2
-                |vpiFullName:work@toto::c2
-                |vpiDerivedClasses:
-                \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
-                |vpiTypedef:
-                \_int_typespec: (this_type), line:10, col:8, parent:work@toto::c2
-                  |vpiName:this_type
-          |vpiDerivedClasses:
-          \_class_defn: (work@toto::c1) top.v:18: , parent:work@toto
     |vpiTypedef:
     \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1
       |vpiName:uvm_severity
@@ -827,10 +819,9 @@ design: (work@toto)
       \_io_decl: (provider), parent:work@toto::c1::connect
         |vpiName:provider
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::connect::provider::this_type), line:35, col:23, parent:provider
+        |vpiTypedef:
+        \_unsupported_typespec: (this_type), line:35, col:23, parent:provider
           |vpiName:this_type
-          |vpiFullName:work@toto::c1::connect::provider::this_type
     |vpiMethod:
     \_function: (work@toto::c1::get_verbosity_level), line:38, col:3, parent:work@toto::c1
       |vpiMethod:1
@@ -843,67 +834,48 @@ design: (work@toto)
       \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
         |vpiName:severity
         |vpiDirection:1
-        |vpiExpr:
-        \_bit_var: (work@toto::c1::get_verbosity_level::severity::uvm_severity), line:38, col:36, parent:severity
+        |vpiTypedef:
+        \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
           |vpiName:uvm_severity
-          |vpiFullName:work@toto::c1::get_verbosity_level::severity::uvm_severity
-          |vpiRange:
-          \_range: , line:21, col:18, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-            |vpiLeftRange:
-            \_constant: , line:21, col:18
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiRightRange:
-            \_constant: , line:21, col:20
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiTypespec:
-          \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-            |vpiName:uvm_severity
-            |vpiBaseTypespec:
-            \_bit_typespec: , line:21, col:13, parent:uvm_severity
-              |vpiRange:
-              \_range: , line:21, col:18
-                |vpiLeftRange:
-                \_constant: , line:21, col:18
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:21, col:20
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-              |vpiName:UVM_ERROR
-              |STRING:toto
-            |vpiEnumConst:
-            \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-              |vpiName:UVM_FATAL
-              |INT:3
-            |vpiEnumConst:
-            \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-              |vpiName:UVM_INFO
-              |INT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-              |vpiName:UVM_WARNING
-              |INT:1
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:21, col:13, parent:uvm_severity
+            |vpiRange:
+            \_range: , line:21, col:18
+              |vpiLeftRange:
+              \_constant: , line:21, col:18
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+              |vpiRightRange:
+              \_constant: , line:21, col:20
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+            |vpiName:UVM_ERROR
+            |STRING:toto
+          |vpiEnumConst:
+          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+            |vpiName:UVM_FATAL
+            |INT:3
+          |vpiEnumConst:
+          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |INT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |INT:1
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
         |vpiName:reg_a
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::get_verbosity_level::reg_a::uvm_reg), line:38, col:70, parent:reg_a
+        |vpiTypedef:
+        \_unsupported_typespec: (uvm_reg), line:38, col:70, parent:reg_a
           |vpiName:uvm_reg
-          |vpiFullName:work@toto::c1::get_verbosity_level::reg_a::uvm_reg
     |vpiMethod:
     \_function: (work@toto::c1::set_verbosity_level), line:41, col:1, parent:work@toto::c1
       |vpiMethod:1
@@ -916,67 +888,48 @@ design: (work@toto)
       \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
         |vpiName:severity
         |vpiDirection:1
-        |vpiExpr:
-        \_bit_var: (work@toto::c1::set_verbosity_level::severity::uvm_severity), line:41, col:34, parent:severity
+        |vpiTypedef:
+        \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
           |vpiName:uvm_severity
-          |vpiFullName:work@toto::c1::set_verbosity_level::severity::uvm_severity
-          |vpiRange:
-          \_range: , line:21, col:18, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-            |vpiLeftRange:
-            \_constant: , line:21, col:18
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiRightRange:
-            \_constant: , line:21, col:20
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiTypespec:
-          \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-            |vpiName:uvm_severity
-            |vpiBaseTypespec:
-            \_bit_typespec: , line:21, col:13, parent:uvm_severity
-              |vpiRange:
-              \_range: , line:21, col:18
-                |vpiLeftRange:
-                \_constant: , line:21, col:18
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-                |vpiRightRange:
-                \_constant: , line:21, col:20
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-              |vpiName:UVM_ERROR
-              |STRING:toto
-            |vpiEnumConst:
-            \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-              |vpiName:UVM_FATAL
-              |INT:3
-            |vpiEnumConst:
-            \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-              |vpiName:UVM_INFO
-              |INT:0
-            |vpiEnumConst:
-            \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-              |vpiName:UVM_WARNING
-              |INT:1
+          |vpiBaseTypespec:
+          \_bit_typespec: , line:21, col:13, parent:uvm_severity
+            |vpiRange:
+            \_range: , line:21, col:18
+              |vpiLeftRange:
+              \_constant: , line:21, col:18
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+              |vpiRightRange:
+              \_constant: , line:21, col:20
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+            |vpiName:UVM_ERROR
+            |STRING:toto
+          |vpiEnumConst:
+          \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+            |vpiName:UVM_FATAL
+            |INT:3
+          |vpiEnumConst:
+          \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+            |vpiName:UVM_INFO
+            |INT:0
+          |vpiEnumConst:
+          \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+            |vpiName:UVM_WARNING
+            |INT:1
       |vpiIODecl:
       \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
         |vpiName:reg_a
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::set_verbosity_level::reg_a::uvm_reg), line:41, col:70, parent:reg_a
+        |vpiTypedef:
+        \_unsupported_typespec: (uvm_reg), line:41, col:70, parent:reg_a
           |vpiName:uvm_reg
-          |vpiFullName:work@toto::c1::set_verbosity_level::reg_a::uvm_reg
     |vpiMethod:
     \_task: (work@toto::c1::wait_for_total_count), line:44, col:1, parent:work@toto::c1
       |vpiMethod:1
@@ -987,276 +940,249 @@ design: (work@toto)
       \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
         |vpiName:obj
         |vpiDirection:1
-        |vpiExpr:
-        \_chandle_var: (work@toto::c1::wait_for_total_count::obj::c2), line:44, col:27, parent:obj
+        |vpiTypedef:
+        \_class_typespec: (c2), line:44, col:27, parent:obj
           |vpiName:c2
-          |vpiFullName:work@toto::c1::wait_for_total_count::obj::c2
+          |vpiClassDefn:
+          \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
+            |vpiName:c2
+            |vpiFullName:work@toto::c2
+            |vpiDerivedClasses:
+            \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
+              |vpiName:c3
+              |vpiFullName:work@toto::c3
+              |vpiExtends:
+              \_extends: , line:15, col:17, parent:work@toto::c3
+                |vpiClassTypespec:
+                \_class_typespec: 
+                  |vpiClassDefn:
+                  \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
+              |vpiDerivedClasses:
+              \_class_defn: (work@toto::c1) top.v:18: , parent:work@toto
+                |vpiName:c1
+                |vpiFullName:work@toto::c1
+                |vpiMethod:
+                \_function: (work@toto::c1::get_current_item), line:30, parent:work@toto::c1
+                  |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiName:get_current_item
+                  |vpiFullName:work@toto::c1::get_current_item
+                  |vpiReturn:
+                  \_chandle_var: , line:30, col:9
+                  |vpiVariables:
+                  \_chandle_var: (work@toto::c1::get_current_item::t), line:31, col:4, parent:work@toto::c1::get_current_item
+                    |vpiName:t
+                    |vpiFullName:work@toto::c1::get_current_item::t
+                |vpiMethod:
+                \_function: (work@toto::c1::connect), line:35, col:1, parent:work@toto::c1
+                  |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiName:connect
+                  |vpiFullName:work@toto::c1::connect
+                  |vpiIODecl:
+                  \_io_decl: (provider), parent:work@toto::c1::connect
+                    |vpiName:provider
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_unsupported_typespec: (this_type), line:35, col:23, parent:provider
+                      |vpiName:this_type
+                |vpiMethod:
+                \_function: (work@toto::c1::get_verbosity_level), line:38, col:3, parent:work@toto::c1
+                  |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiName:get_verbosity_level
+                  |vpiFullName:work@toto::c1::get_verbosity_level
+                  |vpiReturn:
+                  \_int_var: , line:38, col:12
+                  |vpiIODecl:
+                  \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
+                    |vpiName:severity
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
+                      |vpiName:uvm_severity
+                      |vpiBaseTypespec:
+                      \_bit_typespec: , line:21, col:13, parent:uvm_severity
+                        |vpiRange:
+                        \_range: , line:21, col:18
+                          |vpiLeftRange:
+                          \_constant: , line:21, col:18
+                            |vpiConstType:9
+                            |vpiDecompile:1
+                            |vpiSize:64
+                            |UINT:1
+                          |vpiRightRange:
+                          \_constant: , line:21, col:20
+                            |vpiConstType:9
+                            |vpiDecompile:0
+                            |vpiSize:64
+                            |UINT:0
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                        |vpiName:UVM_ERROR
+                        |STRING:toto
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                        |vpiName:UVM_FATAL
+                        |INT:3
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+                        |vpiName:UVM_INFO
+                        |INT:0
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+                        |vpiName:UVM_WARNING
+                        |INT:1
+                  |vpiIODecl:
+                  \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
+                    |vpiName:reg_a
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_unsupported_typespec: (uvm_reg), line:38, col:70, parent:reg_a
+                      |vpiName:uvm_reg
+                |vpiMethod:
+                \_function: (work@toto::c1::set_verbosity_level), line:41, col:1, parent:work@toto::c1
+                  |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiName:set_verbosity_level
+                  |vpiFullName:work@toto::c1::set_verbosity_level
+                  |vpiReturn:
+                  \_int_var: , line:41, col:10
+                  |vpiIODecl:
+                  \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
+                    |vpiName:severity
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_enum_typespec: (uvm_severity), line:27, col:2, parent:severity
+                      |vpiName:uvm_severity
+                      |vpiBaseTypespec:
+                      \_bit_typespec: , line:21, col:13, parent:uvm_severity
+                        |vpiRange:
+                        \_range: , line:21, col:18
+                          |vpiLeftRange:
+                          \_constant: , line:21, col:18
+                            |vpiConstType:9
+                            |vpiDecompile:1
+                            |vpiSize:64
+                            |UINT:1
+                          |vpiRightRange:
+                          \_constant: , line:21, col:20
+                            |vpiConstType:9
+                            |vpiDecompile:0
+                            |vpiSize:64
+                            |UINT:0
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                        |vpiName:UVM_ERROR
+                        |STRING:toto
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                        |vpiName:UVM_FATAL
+                        |INT:3
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+                        |vpiName:UVM_INFO
+                        |INT:0
+                      |vpiEnumConst:
+                      \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+                        |vpiName:UVM_WARNING
+                        |INT:1
+                  |vpiIODecl:
+                  \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
+                    |vpiName:reg_a
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_unsupported_typespec: (uvm_reg), line:41, col:70, parent:reg_a
+                      |vpiName:uvm_reg
+                |vpiMethod:
+                \_task: (work@toto::c1::wait_for_total_count), line:44, col:1, parent:work@toto::c1
+                  |vpiMethod:1
+                  |vpiVisibility:1
+                  |vpiName:wait_for_total_count
+                  |vpiFullName:work@toto::c1::wait_for_total_count
+                  |vpiIODecl:
+                  \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
+                    |vpiName:obj
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_class_typespec: (c2), line:44, col:27, parent:obj
+                      |vpiName:c2
+                      |vpiClassDefn:
+                      \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
+                  |vpiIODecl:
+                  \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
+                    |vpiName:count
+                    |vpiDirection:1
+                    |vpiTypedef:
+                    \_int_typespec: , line:44, col:40, parent:count
+                    |vpiExpr:
+                    \_constant: , line:44, col:50, parent:count
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
+                |vpiExtends:
+                \_extends: , line:18, col:17, parent:work@toto::c1
+                  |vpiClassTypespec:
+                  \_class_typespec: 
+                    |vpiClassDefn:
+                    \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
+                |vpiTypedef:
+                \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1
+                  |vpiName:uvm_severity
+                  |vpiBaseTypespec:
+                  \_bit_typespec: , line:21, col:13, parent:uvm_severity
+                    |vpiRange:
+                    \_range: , line:21, col:18
+                      |vpiLeftRange:
+                      \_constant: , line:21, col:18
+                        |vpiConstType:9
+                        |vpiDecompile:1
+                        |vpiSize:64
+                        |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:21, col:20
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
+                    |vpiName:UVM_ERROR
+                    |STRING:toto
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
+                    |vpiName:UVM_FATAL
+                    |INT:3
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
+                    |vpiName:UVM_INFO
+                    |INT:0
+                  |vpiEnumConst:
+                  \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
+                    |vpiName:UVM_WARNING
+                    |INT:1
+            |vpiTypedef:
+            \_int_typespec: (this_type), line:10, col:8, parent:work@toto::c2
+              |vpiName:this_type
       |vpiIODecl:
       \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
         |vpiName:count
         |vpiDirection:1
+        |vpiTypedef:
+        \_int_typespec: , line:44, col:40, parent:count
         |vpiExpr:
-        \_int_var: (work@toto::c1::wait_for_total_count::count), line:44, col:40, parent:count
-          |vpiFullName:work@toto::c1::wait_for_total_count::count
+        \_constant: , line:44, col:50, parent:count
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
     |vpiExtends:
     \_extends: , line:18, col:17, parent:work@toto::c1
       |vpiClassTypespec:
       \_class_typespec: 
         |vpiClassDefn:
         \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
-          |vpiName:c3
-          |vpiFullName:work@toto::c3
-          |vpiExtends:
-          \_extends: , line:15, col:17, parent:work@toto::c3
-            |vpiClassTypespec:
-            \_class_typespec: 
-              |vpiClassDefn:
-              \_class_defn: (work@toto::c2) top.v:8: , parent:work@toto
-                |vpiName:c2
-                |vpiFullName:work@toto::c2
-                |vpiDerivedClasses:
-                \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
-                |vpiTypedef:
-                \_int_typespec: (this_type), line:10, col:8, parent:work@toto::c2
-                  |vpiName:this_type
-          |vpiDerivedClasses:
-          \_class_defn: (work@toto::c1) top.v:18: , parent:work@toto
-            |vpiName:c1
-            |vpiFullName:work@toto::c1
-            |vpiMethod:
-            \_function: (work@toto::c1::get_current_item), line:30, parent:work@toto::c1
-              |vpiMethod:1
-              |vpiVisibility:1
-              |vpiName:get_current_item
-              |vpiFullName:work@toto::c1::get_current_item
-              |vpiReturn:
-              \_chandle_var: , line:30, col:9
-              |vpiVariables:
-              \_chandle_var: (work@toto::c1::get_current_item::t), line:31, col:4, parent:work@toto::c1::get_current_item
-                |vpiName:t
-                |vpiFullName:work@toto::c1::get_current_item::t
-            |vpiMethod:
-            \_function: (work@toto::c1::connect), line:35, col:1, parent:work@toto::c1
-              |vpiMethod:1
-              |vpiVisibility:1
-              |vpiName:connect
-              |vpiFullName:work@toto::c1::connect
-              |vpiIODecl:
-              \_io_decl: (provider), parent:work@toto::c1::connect
-                |vpiName:provider
-                |vpiDirection:1
-                |vpiExpr:
-                \_chandle_var: (work@toto::c1::connect::provider::this_type), line:35, col:23, parent:provider
-                  |vpiName:this_type
-                  |vpiFullName:work@toto::c1::connect::provider::this_type
-            |vpiMethod:
-            \_function: (work@toto::c1::get_verbosity_level), line:38, col:3, parent:work@toto::c1
-              |vpiMethod:1
-              |vpiVisibility:1
-              |vpiName:get_verbosity_level
-              |vpiFullName:work@toto::c1::get_verbosity_level
-              |vpiReturn:
-              \_int_var: , line:38, col:12
-              |vpiIODecl:
-              \_io_decl: (severity), parent:work@toto::c1::get_verbosity_level
-                |vpiName:severity
-                |vpiDirection:1
-                |vpiExpr:
-                \_bit_var: (work@toto::c1::get_verbosity_level::severity::uvm_severity), line:38, col:36, parent:severity
-                  |vpiName:uvm_severity
-                  |vpiFullName:work@toto::c1::get_verbosity_level::severity::uvm_severity
-                  |vpiRange:
-                  \_range: , line:21, col:18, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-                    |vpiLeftRange:
-                    \_constant: , line:21, col:18
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:21, col:20
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiTypespec:
-                  \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::get_verbosity_level::severity::uvm_severity
-                    |vpiName:uvm_severity
-                    |vpiBaseTypespec:
-                    \_bit_typespec: , line:21, col:13, parent:uvm_severity
-                      |vpiRange:
-                      \_range: , line:21, col:18
-                        |vpiLeftRange:
-                        \_constant: , line:21, col:18
-                          |vpiConstType:9
-                          |vpiDecompile:1
-                          |vpiSize:64
-                          |UINT:1
-                        |vpiRightRange:
-                        \_constant: , line:21, col:20
-                          |vpiConstType:9
-                          |vpiDecompile:0
-                          |vpiSize:64
-                          |UINT:0
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-                      |vpiName:UVM_ERROR
-                      |STRING:toto
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-                      |vpiName:UVM_FATAL
-                      |INT:3
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                      |vpiName:UVM_INFO
-                      |INT:0
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                      |vpiName:UVM_WARNING
-                      |INT:1
-              |vpiIODecl:
-              \_io_decl: (reg_a), parent:work@toto::c1::get_verbosity_level
-                |vpiName:reg_a
-                |vpiDirection:1
-                |vpiExpr:
-                \_chandle_var: (work@toto::c1::get_verbosity_level::reg_a::uvm_reg), line:38, col:70, parent:reg_a
-                  |vpiName:uvm_reg
-                  |vpiFullName:work@toto::c1::get_verbosity_level::reg_a::uvm_reg
-            |vpiMethod:
-            \_function: (work@toto::c1::set_verbosity_level), line:41, col:1, parent:work@toto::c1
-              |vpiMethod:1
-              |vpiVisibility:1
-              |vpiName:set_verbosity_level
-              |vpiFullName:work@toto::c1::set_verbosity_level
-              |vpiReturn:
-              \_int_var: , line:41, col:10
-              |vpiIODecl:
-              \_io_decl: (severity), parent:work@toto::c1::set_verbosity_level
-                |vpiName:severity
-                |vpiDirection:1
-                |vpiExpr:
-                \_bit_var: (work@toto::c1::set_verbosity_level::severity::uvm_severity), line:41, col:34, parent:severity
-                  |vpiName:uvm_severity
-                  |vpiFullName:work@toto::c1::set_verbosity_level::severity::uvm_severity
-                  |vpiRange:
-                  \_range: , line:21, col:18, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-                    |vpiLeftRange:
-                    \_constant: , line:21, col:18
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:21, col:20
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiTypespec:
-                  \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1::set_verbosity_level::severity::uvm_severity
-                    |vpiName:uvm_severity
-                    |vpiBaseTypespec:
-                    \_bit_typespec: , line:21, col:13, parent:uvm_severity
-                      |vpiRange:
-                      \_range: , line:21, col:18
-                        |vpiLeftRange:
-                        \_constant: , line:21, col:18
-                          |vpiConstType:9
-                          |vpiDecompile:1
-                          |vpiSize:64
-                          |UINT:1
-                        |vpiRightRange:
-                        \_constant: , line:21, col:20
-                          |vpiConstType:9
-                          |vpiDecompile:0
-                          |vpiSize:64
-                          |UINT:0
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-                      |vpiName:UVM_ERROR
-                      |STRING:toto
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-                      |vpiName:UVM_FATAL
-                      |INT:3
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                      |vpiName:UVM_INFO
-                      |INT:0
-                    |vpiEnumConst:
-                    \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                      |vpiName:UVM_WARNING
-                      |INT:1
-              |vpiIODecl:
-              \_io_decl: (reg_a), parent:work@toto::c1::set_verbosity_level
-                |vpiName:reg_a
-                |vpiDirection:1
-                |vpiExpr:
-                \_chandle_var: (work@toto::c1::set_verbosity_level::reg_a::uvm_reg), line:41, col:70, parent:reg_a
-                  |vpiName:uvm_reg
-                  |vpiFullName:work@toto::c1::set_verbosity_level::reg_a::uvm_reg
-            |vpiMethod:
-            \_task: (work@toto::c1::wait_for_total_count), line:44, col:1, parent:work@toto::c1
-              |vpiMethod:1
-              |vpiVisibility:1
-              |vpiName:wait_for_total_count
-              |vpiFullName:work@toto::c1::wait_for_total_count
-              |vpiIODecl:
-              \_io_decl: (obj), parent:work@toto::c1::wait_for_total_count
-                |vpiName:obj
-                |vpiDirection:1
-                |vpiExpr:
-                \_chandle_var: (work@toto::c1::wait_for_total_count::obj::c2), line:44, col:27, parent:obj
-                  |vpiName:c2
-                  |vpiFullName:work@toto::c1::wait_for_total_count::obj::c2
-              |vpiIODecl:
-              \_io_decl: (count), parent:work@toto::c1::wait_for_total_count
-                |vpiName:count
-                |vpiDirection:1
-                |vpiExpr:
-                \_int_var: (work@toto::c1::wait_for_total_count::count), line:44, col:40, parent:count
-                  |vpiFullName:work@toto::c1::wait_for_total_count::count
-            |vpiExtends:
-            \_extends: , line:18, col:17, parent:work@toto::c1
-              |vpiClassTypespec:
-              \_class_typespec: 
-                |vpiClassDefn:
-                \_class_defn: (work@toto::c3) top.v:15: , parent:work@toto
-            |vpiTypedef:
-            \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1
-              |vpiName:uvm_severity
-              |vpiBaseTypespec:
-              \_bit_typespec: , line:21, col:13, parent:uvm_severity
-                |vpiRange:
-                \_range: , line:21, col:18
-                  |vpiLeftRange:
-                  \_constant: , line:21, col:18
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                  |vpiRightRange:
-                  \_constant: , line:21, col:20
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-              |vpiEnumConst:
-              \_enum_const: (UVM_ERROR), line:25, parent:uvm_severity
-                |vpiName:UVM_ERROR
-                |STRING:toto
-              |vpiEnumConst:
-              \_enum_const: (UVM_FATAL), line:26, parent:uvm_severity
-                |vpiName:UVM_FATAL
-                |INT:3
-              |vpiEnumConst:
-              \_enum_const: (UVM_INFO), line:23, parent:uvm_severity
-                |vpiName:UVM_INFO
-                |INT:0
-              |vpiEnumConst:
-              \_enum_const: (UVM_WARNING), line:24, parent:uvm_severity
-                |vpiName:UVM_WARNING
-                |INT:1
     |vpiTypedef:
     \_enum_typespec: (uvm_severity), line:27, col:2, parent:work@toto::c1
       |vpiName:uvm_severity

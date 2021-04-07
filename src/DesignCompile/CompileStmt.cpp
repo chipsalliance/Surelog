@@ -1044,10 +1044,10 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
    n<> u<52> t<Tf_port_item> p<53> c<49> l<18>
   */
   // Compile arguments
-  variables* previous_var = nullptr;
   if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
     NodeId tf_port_item = fC->Child(tf_port_list);
     int previousDirection = vpiInput;
+    UHDM::typespec* ts = nullptr;
     while (tf_port_item) {
       io_decl* decl = s.MakeIo_decl();
       ios->push_back(decl);
@@ -1068,39 +1068,28 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
       }
       NodeId type = fC->Child(tf_data_type);
 
-      variables* var = nullptr;
       std::vector<UHDM::range*>* unpackedDimensions = nullptr;
-      if (previous_var && (tf_data_type == 0)) {
-        ElaboratorListener listener(&s);
-        var = (variables*) UHDM::clone_tree((any*) previous_var, s, &listener);
-      } else {
-        var = (variables*) compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true, false);
-        previous_var = var;
-	int size;
-        NodeId varDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
-        unpackedDimensions = compileRanges(component, fC, varDimension,
-					   compileDesign, nullptr, nullptr,
-					   false, size, false);
-        if (unpackedDimensions) {
-          array_var* arr = s.MakeArray_var();
-          arr->Ranges(unpackedDimensions);
-          VectorOfvariables* vars = s.MakeVariablesVec();
-          arr->Variables(vars);
-          vars->push_back(var);
-          var = arr;
-        }
+      NodeId varDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+      int size;
+      unpackedDimensions =
+          compileRanges(component, fC, varDimension, compileDesign, nullptr,
+                        nullptr, false, size, false);
+      if (UHDM::typespec* tempts =
+        compileTypespec(component, fC, type,
+                        compileDesign, nullptr, nullptr, false)) {
+        ts = tempts;
       }
-      decl->Expr(var);
-      if (var)
-        var->VpiParent(decl);
-      std::string name = fC->SymName(tf_param_name);
+      decl->Typespec(ts);
+      decl->Ranges(unpackedDimensions);
+      const std::string& name = fC->SymName(tf_param_name);
       decl->VpiName(name);
-      NodeId expression = fC->Sibling(tf_param_name);
 
+      NodeId expression = fC->Sibling(tf_param_name);
       if (expression &&
           (fC->Type(expression) != VObjectType::slVariable_dimension) &&
           (fC->Type(type) != VObjectType::slStringConst)) {
-        //value = m_exprBuilder.evalExpr(fC, expression, parent->getParent());
+        any* defvalue = compileExpression(component, fC, expression, compileDesign, parent, nullptr, false);
+        decl->Expr(defvalue);
       }
 
       tf_port_item = fC->Sibling(tf_port_item);

@@ -874,17 +874,18 @@ design: (work@simple_package)
     \_io_decl: (mName)
       |vpiName:mName
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (mName), line:12, col:19, parent:mName
-        |vpiFullName:mName
+      |vpiTypedef:
+      \_string_typespec: , line:12, col:19
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiIODecl:
     \_io_decl: (term)
       |vpiName:term
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (term.bit), line:12, col:33, parent:term
-        |vpiName:bit
-        |vpiFullName:term.bit
+      |vpiTypedef:
+      \_bit_typespec: , line:12, col:33
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (msgPkg::initMsgPkg), parent:msgPkg::initMsgPkg
       |vpiFullName:msgPkg::initMsgPkg
@@ -927,9 +928,10 @@ design: (work@simple_package)
     \_io_decl: (msg)
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (msg), line:19, col:18, parent:msg
-        |vpiFullName:msg
+      |vpiTypedef:
+      \_string_typespec: , line:19, col:18
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_sys_func_call: ($display), line:20, col:4, parent:msgPkg::msg_info
       |vpiName:$display
@@ -961,9 +963,10 @@ design: (work@simple_package)
     \_io_decl: (msg)
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (msg), line:25, col:18, parent:msg
-        |vpiFullName:msg
+      |vpiTypedef:
+      \_string_typespec: , line:25, col:18
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (msgPkg::msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:msgPkg::msg_warn
@@ -1005,9 +1008,10 @@ design: (work@simple_package)
     \_io_decl: (msg)
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (msg), line:32, col:19, parent:msg
-        |vpiFullName:msg
+      |vpiTypedef:
+      \_string_typespec: , line:32, col:19
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (msgPkg::msg_error), parent:msgPkg::msg_error
       |vpiFullName:msgPkg::msg_error
@@ -1058,9 +1062,10 @@ design: (work@simple_package)
     \_io_decl: (msg)
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (msg), line:40, col:19, parent:msg
-        |vpiFullName:msg
+      |vpiTypedef:
+      \_string_typespec: , line:40, col:19
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (msgPkg::msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:msgPkg::msg_fatal
@@ -1199,9 +1204,14 @@ design: (work@simple_package)
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
-        |vpiFullName:work@mailbox::new::bound
+      \_constant: , line:6, col:28, parent:bound
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
@@ -1393,9 +1403,14 @@ design: (work@simple_package)
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
-        |vpiFullName:work@semaphore::new::keyCount
+      \_constant: , line:60, col:30, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1406,9 +1421,14 @@ design: (work@simple_package)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::put::keyCount
+      \_constant: , line:63, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1419,9 +1439,14 @@ design: (work@simple_package)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::get::keyCount
+      \_constant: , line:66, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -1434,9 +1459,14 @@ design: (work@simple_package)
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
-        |vpiFullName:work@semaphore::try_get::keyCount
+      \_constant: , line:69, col:38, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
 |uhdmallModules:
 \_module: work@simple_package (work@simple_package) simple_pkg.sv:11: , endline:30:9: , parent:work@simple_package
   |vpiDefName:work@simple_package
@@ -1601,9 +1631,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:19, col:18, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:19, col:18
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_sys_func_call: ($display), line:20, col:4, parent:msgPkg::msg_info
           |vpiName:$display
@@ -1635,9 +1666,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:25, col:18, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:25, col:18
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_warn), parent:msgPkg::msg_warn
           |vpiFullName:msgPkg::msg_warn
@@ -1679,9 +1711,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:32, col:19, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:32, col:19
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_error), parent:msgPkg::msg_error
           |vpiFullName:msgPkg::msg_error
@@ -1732,9 +1765,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:40, col:19, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:40, col:19
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_fatal), parent:msgPkg::msg_fatal
           |vpiFullName:msgPkg::msg_fatal
@@ -1859,17 +1893,18 @@ design: (work@simple_package)
     \_io_decl: (mName)
       |vpiName:mName
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (mName), line:12, col:19, parent:mName
-        |vpiFullName:mName
+      |vpiTypedef:
+      \_string_typespec: , line:12, col:19
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiIODecl:
     \_io_decl: (term)
       |vpiName:term
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (term.bit), line:12, col:33, parent:term
-        |vpiName:bit
-        |vpiFullName:term.bit
+      |vpiTypedef:
+      \_bit_typespec: , line:12, col:33
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (msgPkg::initMsgPkg), parent:msgPkg::initMsgPkg
       |vpiFullName:msgPkg::initMsgPkg
@@ -2279,17 +2314,18 @@ design: (work@simple_package)
         \_io_decl: (mName)
           |vpiName:mName
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (mName), line:12, col:19, parent:mName
-            |vpiFullName:mName
+          |vpiTypedef:
+          \_string_typespec: , line:12, col:19
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiIODecl:
         \_io_decl: (term)
           |vpiName:term
           |vpiDirection:1
-          |vpiExpr:
-          \_chandle_var: (term.bit), line:12, col:33, parent:term
-            |vpiName:bit
-            |vpiFullName:term.bit
+          |vpiTypedef:
+          \_bit_typespec: , line:12, col:33
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::initMsgPkg), parent:msgPkg::initMsgPkg
           |vpiFullName:msgPkg::initMsgPkg
@@ -2332,9 +2368,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:19, col:18, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:19, col:18
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_sys_func_call: ($display), line:20, col:4, parent:msgPkg::msg_info
           |vpiName:$display
@@ -2366,9 +2403,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:25, col:18, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:25, col:18
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_warn), parent:msgPkg::msg_warn
           |vpiFullName:msgPkg::msg_warn
@@ -2410,9 +2448,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:32, col:19, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:32, col:19
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_error), parent:msgPkg::msg_error
           |vpiFullName:msgPkg::msg_error
@@ -2463,9 +2502,10 @@ design: (work@simple_package)
         \_io_decl: (msg)
           |vpiName:msg
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (msg), line:40, col:19, parent:msg
-            |vpiFullName:msg
+          |vpiTypedef:
+          \_string_typespec: , line:40, col:19
+            |vpiInstance:
+            \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
         |vpiStmt:
         \_begin: (msgPkg::msg_fatal), parent:msgPkg::msg_fatal
           |vpiFullName:msgPkg::msg_fatal
@@ -2590,17 +2630,18 @@ design: (work@simple_package)
     \_io_decl: (mName), parent:msgPkg::initMsgPkg
       |vpiName:mName
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@simple_package.initMsgPkg.mName), line:12, col:19, parent:mName
-        |vpiFullName:work@simple_package.initMsgPkg.mName
+      |vpiTypedef:
+      \_string_typespec: , line:12, col:19, parent:mName
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiIODecl:
     \_io_decl: (term), parent:msgPkg::initMsgPkg
       |vpiName:term
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (work@simple_package.initMsgPkg.term.bit), line:12, col:33, parent:term
-        |vpiName:bit
-        |vpiFullName:work@simple_package.initMsgPkg.term.bit
+      |vpiTypedef:
+      \_bit_typespec: , line:12, col:33, parent:term
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package.initMsgPkg), parent:msgPkg::initMsgPkg
       |vpiFullName:work@simple_package.initMsgPkg
@@ -2616,8 +2657,6 @@ design: (work@simple_package)
         \_ref_obj: (work@simple_package.initMsgPkg.term), line:13, col:25
           |vpiName:term
           |vpiFullName:work@simple_package.initMsgPkg.term
-          |vpiActual:
-          \_chandle_var: (term.bit), line:12, col:33, parent:term
       |vpiStmt:
       \_assignment: , line:14, col:4, parent:work@simple_package.initMsgPkg
         |vpiOpType:82
@@ -2630,8 +2669,6 @@ design: (work@simple_package)
         \_ref_obj: (work@simple_package.initMsgPkg.mName), line:14, col:14
           |vpiName:mName
           |vpiFullName:work@simple_package.initMsgPkg.mName
-          |vpiActual:
-          \_string_var: (mName), line:12, col:19, parent:mName
   |vpiTaskFunc:
   \_task: (msgPkg::msg_info), line:19, col:2, parent:work@simple_package
     |vpiVisibility:1
@@ -2643,9 +2680,10 @@ design: (work@simple_package)
     \_io_decl: (msg), parent:msgPkg::msg_info
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@simple_package.msg_info.msg), line:19, col:18, parent:msg
-        |vpiFullName:work@simple_package.msg_info.msg
+      |vpiTypedef:
+      \_string_typespec: , line:19, col:18, parent:msg
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_sys_func_call: ($display), line:20, col:4, parent:msgPkg::msg_info
       |vpiName:$display
@@ -2666,8 +2704,6 @@ design: (work@simple_package)
       \_ref_obj: (work@simple_package.msg_info.msg), line:20, col:50, parent:$display
         |vpiName:msg
         |vpiFullName:work@simple_package.msg_info.msg
-        |vpiActual:
-        \_string_var: (msg), line:19, col:18, parent:msg
   |vpiTaskFunc:
   \_task: (msgPkg::msg_warn), line:25, col:2, parent:work@simple_package
     |vpiVisibility:1
@@ -2679,9 +2715,10 @@ design: (work@simple_package)
     \_io_decl: (msg), parent:msgPkg::msg_warn
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@simple_package.msg_warn.msg), line:25, col:18, parent:msg
-        |vpiFullName:work@simple_package.msg_warn.msg
+      |vpiTypedef:
+      \_string_typespec: , line:25, col:18, parent:msg
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package.msg_warn), parent:msgPkg::msg_warn
       |vpiFullName:work@simple_package.msg_warn
@@ -2705,8 +2742,6 @@ design: (work@simple_package)
         \_ref_obj: (work@simple_package.msg_warn.msg), line:26, col:50, parent:$display
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_warn.msg
-          |vpiActual:
-          \_string_var: (msg), line:25, col:18, parent:msg
       |vpiStmt:
       \_operation: , line:27, col:4, parent:work@simple_package.msg_warn
         |vpiOpType:62
@@ -2725,9 +2760,10 @@ design: (work@simple_package)
     \_io_decl: (msg), parent:msgPkg::msg_error
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@simple_package.msg_error.msg), line:32, col:19, parent:msg
-        |vpiFullName:work@simple_package.msg_error.msg
+      |vpiTypedef:
+      \_string_typespec: , line:32, col:19, parent:msg
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package.msg_error), parent:msgPkg::msg_error
       |vpiFullName:work@simple_package.msg_error
@@ -2751,8 +2787,6 @@ design: (work@simple_package)
         \_ref_obj: (work@simple_package.msg_error.msg), line:33, col:51, parent:$display
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_error.msg
-          |vpiActual:
-          \_string_var: (msg), line:32, col:19, parent:msg
       |vpiStmt:
       \_operation: , line:34, col:4, parent:work@simple_package.msg_error
         |vpiOpType:62
@@ -2780,9 +2814,10 @@ design: (work@simple_package)
     \_io_decl: (msg), parent:msgPkg::msg_fatal
       |vpiName:msg
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@simple_package.msg_fatal.msg), line:40, col:19, parent:msg
-        |vpiFullName:work@simple_package.msg_fatal.msg
+      |vpiTypedef:
+      \_string_typespec: , line:40, col:19, parent:msg
+        |vpiInstance:
+        \_package: msgPkg (msgPkg::) msgPkg.pkg:4: , parent:work@simple_package
     |vpiStmt:
     \_begin: (work@simple_package.msg_fatal), parent:msgPkg::msg_fatal
       |vpiFullName:work@simple_package.msg_fatal
@@ -2806,8 +2841,6 @@ design: (work@simple_package)
         \_ref_obj: (work@simple_package.msg_fatal.msg), line:41, col:51, parent:$display
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_fatal.msg
-          |vpiActual:
-          \_string_var: (msg), line:40, col:19, parent:msg
       |vpiStmt:
       \_sys_func_call: ($finish), line:42, col:4, parent:work@simple_package.msg_fatal
         |vpiName:$finish
