@@ -168,9 +168,14 @@ design: (work@dut)
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_int_var: (work@mailbox::new::bound), line:6, col:16, parent:bound
-        |vpiFullName:work@mailbox::new::bound
+      \_constant: , line:6, col:28, parent:bound
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_function: (work@mailbox::num), line:9, col:2, parent:work@mailbox
     |vpiMethod:1
@@ -362,9 +367,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::new::keyCount), line:60, col:15, parent:keyCount
-        |vpiFullName:work@semaphore::new::keyCount
+      \_constant: , line:60, col:30, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiMethod:
   \_task: (work@semaphore::put), line:63, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -375,9 +385,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::put::keyCount), line:63, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::put::keyCount
+      \_constant: , line:63, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_task: (work@semaphore::get), line:66, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -388,9 +403,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::get::keyCount), line:66, col:11, parent:keyCount
-        |vpiFullName:work@semaphore::get::keyCount
+      \_constant: , line:66, col:26, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69, col:2, parent:work@semaphore
     |vpiMethod:1
@@ -403,9 +423,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_int_var: (work@semaphore::try_get::keyCount), line:69, col:23, parent:keyCount
-        |vpiFullName:work@semaphore::try_get::keyCount
+      \_constant: , line:69, col:38, parent:keyCount
+        |vpiConstType:9
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1: , endline:18:10: , parent:work@dut
   |vpiDefName:work@dut
@@ -441,38 +466,33 @@ design: (work@dut)
     \_io_decl: (type_name)
       |vpiName:type_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (type_name), line:3, col:41, parent:type_name
-        |vpiFullName:type_name
+      |vpiTypedef:
+      \_string_typespec: , line:3, col:41
     |vpiIODecl:
     \_io_decl: (contxt)
       |vpiName:contxt
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (contxt), line:4, col:6, parent:contxt
-        |vpiFullName:contxt
+      |vpiTypedef:
+      \_string_typespec: , line:4, col:6
     |vpiIODecl:
     \_io_decl: (inst_name)
       |vpiName:inst_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (inst_name), line:5, col:6, parent:inst_name
-        |vpiFullName:inst_name
+      |vpiTypedef:
+      \_string_typespec: , line:5, col:6
     |vpiIODecl:
     \_io_decl: (field_name)
       |vpiName:field_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (field_name), line:6, col:6, parent:field_name
-        |vpiFullName:field_name
+      |vpiTypedef:
+      \_string_typespec: , line:6, col:6
     |vpiIODecl:
     \_io_decl: (value)
       |vpiName:value
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (value.bits_t), line:7, col:6, parent:value
+      |vpiTypedef:
+      \_unsupported_typespec: (bits_t), line:7, col:6
         |vpiName:bits_t
-        |vpiFullName:value.bits_t
     |vpiStmt:
     \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
@@ -555,38 +575,33 @@ design: (work@dut)
         \_io_decl: (type_name)
           |vpiName:type_name
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (type_name), line:3, col:41, parent:type_name
-            |vpiFullName:type_name
+          |vpiTypedef:
+          \_string_typespec: , line:3, col:41
         |vpiIODecl:
         \_io_decl: (contxt)
           |vpiName:contxt
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (contxt), line:4, col:6, parent:contxt
-            |vpiFullName:contxt
+          |vpiTypedef:
+          \_string_typespec: , line:4, col:6
         |vpiIODecl:
         \_io_decl: (inst_name)
           |vpiName:inst_name
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (inst_name), line:5, col:6, parent:inst_name
-            |vpiFullName:inst_name
+          |vpiTypedef:
+          \_string_typespec: , line:5, col:6
         |vpiIODecl:
         \_io_decl: (field_name)
           |vpiName:field_name
           |vpiDirection:1
-          |vpiExpr:
-          \_string_var: (field_name), line:6, col:6, parent:field_name
-            |vpiFullName:field_name
+          |vpiTypedef:
+          \_string_typespec: , line:6, col:6
         |vpiIODecl:
         \_io_decl: (value)
           |vpiName:value
           |vpiDirection:1
-          |vpiExpr:
-          \_chandle_var: (value.bits_t), line:7, col:6, parent:value
+          |vpiTypedef:
+          \_unsupported_typespec: (bits_t), line:7, col:6
             |vpiName:bits_t
-            |vpiFullName:value.bits_t
         |vpiStmt:
         \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
           |vpiFullName:work@dut.UVMC_set_config_object
@@ -609,38 +624,33 @@ design: (work@dut)
     \_io_decl: (type_name), parent:work@dut.UVMC_set_config_object
       |vpiName:type_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@dut.UVMC_set_config_object.type_name), line:3, col:41, parent:type_name
-        |vpiFullName:work@dut.UVMC_set_config_object.type_name
+      |vpiTypedef:
+      \_string_typespec: , line:3, col:41, parent:type_name
     |vpiIODecl:
     \_io_decl: (contxt), parent:work@dut.UVMC_set_config_object
       |vpiName:contxt
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@dut.UVMC_set_config_object.contxt), line:4, col:6, parent:contxt
-        |vpiFullName:work@dut.UVMC_set_config_object.contxt
+      |vpiTypedef:
+      \_string_typespec: , line:4, col:6, parent:contxt
     |vpiIODecl:
     \_io_decl: (inst_name), parent:work@dut.UVMC_set_config_object
       |vpiName:inst_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@dut.UVMC_set_config_object.inst_name), line:5, col:6, parent:inst_name
-        |vpiFullName:work@dut.UVMC_set_config_object.inst_name
+      |vpiTypedef:
+      \_string_typespec: , line:5, col:6, parent:inst_name
     |vpiIODecl:
     \_io_decl: (field_name), parent:work@dut.UVMC_set_config_object
       |vpiName:field_name
       |vpiDirection:1
-      |vpiExpr:
-      \_string_var: (work@dut.UVMC_set_config_object.field_name), line:6, col:6, parent:field_name
-        |vpiFullName:work@dut.UVMC_set_config_object.field_name
+      |vpiTypedef:
+      \_string_typespec: , line:6, col:6, parent:field_name
     |vpiIODecl:
     \_io_decl: (value), parent:work@dut.UVMC_set_config_object
       |vpiName:value
       |vpiDirection:1
-      |vpiExpr:
-      \_chandle_var: (work@dut.UVMC_set_config_object.value.bits_t), line:7, col:6, parent:value
+      |vpiTypedef:
+      \_unsupported_typespec: (bits_t), line:7, col:6, parent:value
         |vpiName:bits_t
-        |vpiFullName:work@dut.UVMC_set_config_object.value.bits_t
     |vpiStmt:
     \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
