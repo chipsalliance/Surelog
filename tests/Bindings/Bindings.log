@@ -1143,13 +1143,17 @@ design: (work@dut1)
       |vpiInstance:
       \_package: pack1 (pack1::) dut.sv:3: , parent:work@dut1
     |vpiEnumConst:
-    \_enum_const: (Off), line:10
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:9
+    \_enum_const: (On), line:9, col:6
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:10, col:6
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
   |vpiTypedef:
   \_enum_typespec: (pack1::lc_tx_t), line:11, col:6
     |vpiName:pack1::lc_tx_t
@@ -1179,13 +1183,17 @@ design: (work@dut1)
       |vpiInstance:
       \_package: pack1 (pack1::) dut.sv:3: , parent:work@dut1
     |vpiEnumConst:
-    \_enum_const: (Off), line:10, parent:pack1::lc_tx_t
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:9, parent:pack1::lc_tx_t
+    \_enum_const: (On), line:9, col:6, parent:pack1::lc_tx_t
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:10, col:6, parent:pack1::lc_tx_t
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
     |vpiTypedefAlias:
     \_enum_typespec: (pack1::lc_tx_e), line:11, col:6
   |vpiParamAssign:
@@ -1344,25 +1352,35 @@ design: (work@dut1)
       \_enum_typespec: (state), line:35, col:65
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35
+        \_enum_const: (FINISHED), line:35, col:17
           |vpiName:FINISHED
+          |vpiDecompile:0
           |INT:0
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35
-          |vpiName:KILLED
-          |INT:4
-        |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35
+        \_enum_const: (RUNNING), line:35, col:27
           |vpiName:RUNNING
+          |vpiDecompile:1
           |INT:1
+          |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35
-          |vpiName:SUSPENDED
-          |INT:3
-        |vpiEnumConst:
-        \_enum_const: (WAITING), line:35
+        \_enum_const: (WAITING), line:35, col:36
           |vpiName:WAITING
+          |vpiDecompile:2
           |INT:2
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (SUSPENDED), line:35, col:45
+          |vpiName:SUSPENDED
+          |vpiDecompile:3
+          |INT:3
+          |vpiSize:64
+        |vpiEnumConst:
+        \_enum_const: (KILLED), line:35, col:56
+          |vpiName:KILLED
+          |vpiDecompile:4
+          |INT:4
+          |vpiSize:64
   |vpiMethod:
   \_task: (work@process::kill), line:43, col:2, parent:work@process
     |vpiMethod:1
@@ -1403,25 +1421,35 @@ design: (work@dut1)
   \_enum_typespec: (state), line:35, col:65, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35, parent:state
+    \_enum_const: (FINISHED), line:35, col:17, parent:state
       |vpiName:FINISHED
+      |vpiDecompile:0
       |INT:0
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35, parent:state
-      |vpiName:KILLED
-      |INT:4
-    |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35, parent:state
+    \_enum_const: (RUNNING), line:35, col:27, parent:state
       |vpiName:RUNNING
+      |vpiDecompile:1
       |INT:1
+      |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35, parent:state
-      |vpiName:SUSPENDED
-      |INT:3
-    |vpiEnumConst:
-    \_enum_const: (WAITING), line:35, parent:state
+    \_enum_const: (WAITING), line:35, col:36, parent:state
       |vpiName:WAITING
+      |vpiDecompile:2
       |INT:2
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (SUSPENDED), line:35, col:45, parent:state
+      |vpiName:SUSPENDED
+      |vpiDecompile:3
+      |INT:3
+      |vpiSize:64
+    |vpiEnumConst:
+    \_enum_const: (KILLED), line:35, col:56, parent:state
+      |vpiName:KILLED
+      |vpiDecompile:4
+      |INT:4
+      |vpiSize:64
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@dut1
   |vpiName:work@semaphore
@@ -1907,13 +1935,17 @@ design: (work@dut1)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (Off), line:89
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:88
+    \_enum_const: (On), line:88, col:6
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:89, col:6
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
   |vpiTypedef:
   \_enum_typespec: (lc_tx_t), line:90, col:6
     |vpiName:lc_tx_t
@@ -1941,13 +1973,17 @@ design: (work@dut1)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (Off), line:89, parent:lc_tx_t
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:88, parent:lc_tx_t
+    \_enum_const: (On), line:88, col:6, parent:lc_tx_t
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:89, col:6, parent:lc_tx_t
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
     |vpiTypedefAlias:
     \_enum_typespec: (lc_tx_e), line:90, col:6
   |vpiParamAssign:
@@ -2645,13 +2681,17 @@ design: (work@dut1)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (Off), line:89, parent:lc_tx_e
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:88, parent:lc_tx_e
+    \_enum_const: (On), line:88, col:6, parent:lc_tx_e
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:89, col:6, parent:lc_tx_e
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
   |vpiTypedef:
   \_enum_typespec: (lc_tx_t), line:90, col:6, parent:work@dut5
     |vpiName:lc_tx_t
@@ -2681,13 +2721,17 @@ design: (work@dut1)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (Off), line:89, parent:lc_tx_t
-      |vpiName:Off
-      |UINT:5
-    |vpiEnumConst:
-    \_enum_const: (On), line:88, parent:lc_tx_t
+    \_enum_const: (On), line:88, col:6, parent:lc_tx_t
       |vpiName:On
+      |vpiDecompile:4'b1010
       |UINT:10
+      |vpiSize:4
+    |vpiEnumConst:
+    \_enum_const: (Off), line:89, col:6, parent:lc_tx_t
+      |vpiName:Off
+      |vpiDecompile:4'b0101
+      |UINT:5
+      |vpiSize:4
     |vpiTypedefAlias:
     \_enum_typespec: (lc_tx_e), line:90, col:6, parent:lc_tx_t
       |vpiName:lc_tx_e
@@ -2717,13 +2761,17 @@ design: (work@dut1)
             |vpiSize:64
             |UINT:0
       |vpiEnumConst:
-      \_enum_const: (Off), line:89, parent:lc_tx_e
-        |vpiName:Off
-        |UINT:5
-      |vpiEnumConst:
-      \_enum_const: (On), line:88, parent:lc_tx_e
+      \_enum_const: (On), line:88, col:6, parent:lc_tx_e
         |vpiName:On
+        |vpiDecompile:4'b1010
         |UINT:10
+        |vpiSize:4
+      |vpiEnumConst:
+      \_enum_const: (Off), line:89, col:6, parent:lc_tx_e
+        |vpiName:Off
+        |vpiDecompile:4'b0101
+        |UINT:5
+        |vpiSize:4
   |vpiParamAssign:
   \_param_assign: , line:83, col:13, parent:work@dut5
     |vpiRhs:
@@ -2813,13 +2861,17 @@ design: (work@dut1)
               |vpiSize:64
               |UINT:0
         |vpiEnumConst:
-        \_enum_const: (Off), line:89, parent:lc_tx_t
-          |vpiName:Off
-          |UINT:5
-        |vpiEnumConst:
-        \_enum_const: (On), line:88, parent:lc_tx_t
+        \_enum_const: (On), line:88, col:6, parent:lc_tx_t
           |vpiName:On
+          |vpiDecompile:4'b1010
           |UINT:10
+          |vpiSize:4
+        |vpiEnumConst:
+        \_enum_const: (Off), line:89, col:6, parent:lc_tx_t
+          |vpiName:Off
+          |vpiDecompile:4'b0101
+          |UINT:5
+          |vpiSize:4
         |vpiTypedefAlias:
         \_enum_typespec: (lc_tx_e), line:90, col:6, parent:lc_tx_t
           |vpiName:lc_tx_e
@@ -2847,13 +2899,17 @@ design: (work@dut1)
                 |vpiSize:64
                 |UINT:0
           |vpiEnumConst:
-          \_enum_const: (Off), line:89, parent:lc_tx_e
-            |vpiName:Off
-            |UINT:5
-          |vpiEnumConst:
-          \_enum_const: (On), line:88, parent:lc_tx_e
+          \_enum_const: (On), line:88, col:6, parent:lc_tx_e
             |vpiName:On
+            |vpiDecompile:4'b1010
             |UINT:10
+            |vpiSize:4
+          |vpiEnumConst:
+          \_enum_const: (Off), line:89, col:6, parent:lc_tx_e
+            |vpiName:Off
+            |vpiDecompile:4'b0101
+            |UINT:5
+            |vpiSize:4
   |vpiParameter:
   \_parameter: (work@dut5.inputs_p), line:83, col:13, parent:work@dut5
   |vpiParameter:

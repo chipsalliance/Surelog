@@ -527,6 +527,21 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
     the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, false));
+
+    UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
+    if (typespecs)
+      typespecs->push_back(enum_t);
+    the_enum->setTypespec(enum_t);
+    enum_t->VpiName(name);
+    enum_t->VpiFile(the_enum->getFileContent()->getFileName());
+    enum_t->VpiLineNo(the_enum->getFileContent()->Line(the_enum->getDefinitionId()));
+    enum_t->VpiColumnNo(the_enum->getFileContent()->Column(the_enum->getDefinitionId()));
+    // Enum basetype
+    enum_t->Base_typespec(the_enum->getBaseTypespec());
+    // Enum values
+    VectorOfenum_const* econsts = s.MakeEnum_constVec();
+    enum_t->Enum_consts(econsts);
+
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -546,30 +561,24 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Variable* variable = new Variable(type, fC, enumValueId, 0, enumName);
       if (scope)
         scope->addVariable(variable);
-    }
-
-    UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
-    if (typespecs)
-      typespecs->push_back(enum_t);
-    the_enum->setTypespec(enum_t);
-    enum_t->VpiName(name);
-    enum_t->VpiFile(the_enum->getFileContent()->getFileName());
-    enum_t->VpiLineNo(the_enum->getFileContent()->Line(the_enum->getDefinitionId()));
-    enum_t->VpiColumnNo(the_enum->getFileContent()->Column(the_enum->getDefinitionId()));
-    // Enum basetype
-    enum_t->Base_typespec(the_enum->getBaseTypespec());
-    // Enum values
-    VectorOfenum_const* econsts = s.MakeEnum_constVec();
-    enum_t->Enum_consts(econsts);
-    for (std::map<std::string, std::pair<unsigned int, Value*>>::iterator
-         enum_val = the_enum->getValues().begin();
-         enum_val != the_enum->getValues().end(); enum_val++) {
+    
       enum_const* econst = s.MakeEnum_const();
-      econst->VpiName((*enum_val).first);
+      econst->VpiName(enumName);
       econst->VpiFile(the_enum->getFileContent()->getFileName());
-      econst->VpiLineNo((*enum_val).second.first);
-      econst->VpiColumnNo(0);
-      econst->VpiValue((*enum_val).second.second->uhdmValue());
+      econst->VpiLineNo(fC->Line(enumNameId));
+      econst->VpiColumnNo(fC->Column(enumNameId));
+      econst->VpiValue(value->uhdmValue());
+      if (enumValueId) {
+        std::vector<VObjectType> stopPoints = {slIntConst, slStringConst};
+        std::vector<NodeId> nodes = fC->sl_collect_all(enumValueId, stopPoints, true);
+        if (nodes.size()) {
+          NodeId c = nodes[0];
+          econst->VpiDecompile(fC->SymName(c));
+        }
+      } else {
+        econst->VpiDecompile(value->decompiledValue());
+      }
+      econst->VpiSize(value->getSize());
       econsts->push_back(econst);
     }
 
