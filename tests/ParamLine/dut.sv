@@ -24,4 +24,10 @@ module top();
    if (p == 0) begin
       GOOD_0 good();
    end
+   if (p == "STR.WITH.DOT") begin
+      GOOD_STR_WITH_DOT good();
+   end
+   if (p == "-STR") begin
+      GOOD_MINUS_STR good();
+   end
 endmodule
