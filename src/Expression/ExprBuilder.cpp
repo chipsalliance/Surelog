@@ -862,22 +862,26 @@ Value* ExprBuilder::fromString(const std::string& value) {
         break;
       }
     }
-  } else if (strstr(value_ptr, ".")) {
-    long double v = std::strtold(value_ptr, 0);
-    val = m_valueFactory.newLValue();
-    val->set((double) v);  
-  } else if (value.size() && value[0] == '-') {
-    int64_t v = std::strtoll(value_ptr, 0, 10);
-    val = m_valueFactory.newLValue();
-    val->set(v);  
   } else {
-    uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
-    if (value_ptr != end_parse_ptr) {
+    long double v = std::strtold(value_ptr, &end_parse_ptr);
+    if (value_ptr != end_parse_ptr && strstr(value_ptr, ".")) {
       val = m_valueFactory.newLValue();
-      val->set(v);
+      val->set((double) v);
     } else {
-      val = m_valueFactory.newStValue();
-      val->set(value);
+      int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
+      if (value_ptr != end_parse_ptr && value.size() && value[0] == '-') {
+        val = m_valueFactory.newLValue();
+        val->set(v);
+      } else {
+        uint64_t v = std::strtoull(value_ptr, &end_parse_ptr, 10);
+        if (value_ptr != end_parse_ptr) {
+          val = m_valueFactory.newLValue();
+          val->set(v);
+        } else {
+          val = m_valueFactory.newStValue();
+          val->set(value);
+        }
+      }
     }
   }
   return val;
