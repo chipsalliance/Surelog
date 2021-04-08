@@ -1151,11 +1151,14 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
           nets = s.MakeNetVec();
           netlist->nets(nets);
         }
-        if (obj->UhdmType() == uhdmenum_net) {
+        UHDM_OBJECT_TYPE nettype = obj->UhdmType();
+        if (nettype == uhdmenum_net) {
           ((enum_net*)obj)->VpiName(signame);
-        } else if (obj->UhdmType() == uhdmstruct_net) {
+        } else if (nettype == uhdmstruct_net) {
           ((struct_net*)obj)->VpiName(signame);
-        }
+        } else if (nettype == uhdmpacked_array_net) {
+          ((packed_array_net*)obj)->VpiName(signame);
+        } 
         nets->push_back((net*)obj);
       }
     } else if (subnettype == slStruct_union) {
