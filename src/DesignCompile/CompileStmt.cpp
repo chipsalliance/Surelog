@@ -1068,11 +1068,12 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
       }
       NodeId type = fC->Child(tf_data_type);
 
-      std::vector<UHDM::range*>* unpackedDimensions = nullptr;
-      NodeId varDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+      NodeId unpackedDimension = fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
+      if (fC->Type(unpackedDimension) != slVariable_dimension)
+        unpackedDimension = fC->Sibling(unpackedDimension);
       int size;
-      unpackedDimensions =
-          compileRanges(component, fC, varDimension, compileDesign, nullptr,
+      std::vector<UHDM::range*>* unpackedDimensions =
+          compileRanges(component, fC, unpackedDimension, compileDesign, nullptr,
                         nullptr, false, size, false);
       if (UHDM::typespec* tempts =
         compileTypespec(component, fC, type,

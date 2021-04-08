@@ -1014,7 +1014,10 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Ranges(ranges);
             result = pats;
           } else if (result->UhdmType() == uhdmlogic_typespec) {
-            ((logic_typespec*) result)->Ranges(ranges);
+            logic_typespec* pats = s.MakeLogic_typespec();
+            pats->Logic_typespec((logic_typespec*)result);
+            pats->Ranges(ranges);
+            result = pats;
           } 
         }
       }
