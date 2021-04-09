@@ -36,6 +36,7 @@
 #include <regex>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 #if defined(_MSC_VER)
   #include <direct.h>
@@ -244,6 +245,23 @@ std::string FileUtils::basename(const std::string& str) {
 
 std::string FileUtils::getPreferredPath(const std::string& path) {
   return fs::path(path).make_preferred().string();
+}
+
+std::string FileUtils::hashPath(const std::string& path) {
+  const std::string separator(1, fs::path::preferred_separator);
+  std::string hashedpath;
+  std::size_t val = std::filesystem::hash_value(path);
+  std::string last_dir = path;
+  if (last_dir.size())
+    last_dir.erase(last_dir.end()-1);
+  char c = separator[0];
+  auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
+                          [c](char ch) { return (ch == c); });
+  if (it1 != last_dir.rend())
+    last_dir.erase(last_dir.begin(), it1.base());
+
+  hashedpath = std::to_string(val) + "_" + last_dir + separator;
+  return hashedpath;
 }
 
 std::string FileUtils::makeRelativePath(const std::string& in_path) {

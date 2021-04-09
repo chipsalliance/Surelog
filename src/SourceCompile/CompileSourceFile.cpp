@@ -261,7 +261,13 @@ bool CompileSourceFile::postPreprocess_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    std::string fileName = FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
+    //std::string fileName = FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
+    std::string fullFileName = symbolTable->getSymbol(m_fileId);
+    std::string baseFileName = FileUtils::basename(fullFileName);
+    std::string filePath = FileUtils::getPathName(fullFileName);
+    std::string hashedPath = FileUtils::hashPath(filePath);
+    std::string fileName = hashedPath + baseFileName;
+
     const std::string& writePpOutputFileName =
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName() + "/";

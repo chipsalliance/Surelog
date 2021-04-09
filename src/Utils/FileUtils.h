@@ -46,6 +46,7 @@ class FileUtils final {
   static std::string getPathName(const std::string& path);
   static std::string basename(const std::string& str);
   static unsigned long fileSize(const std::string& name);
+  static std::string hashPath(const std::string& path);
   static std::vector<SymbolId> collectFiles(const std::string& dirPath,
                                             const std::string& extension,
                                             SymbolTable* symbols);
