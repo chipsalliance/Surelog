@@ -1503,8 +1503,7 @@ cover_cross : ( identifier COLUMN )? CROSS list_of_cross_items ( IFF OPEN_PARENS
 list_of_cross_items : cross_item COMMA cross_item ( COMMA cross_item )* ; 
 
 cross_item  
-    : identifier 
-    | identifier    
+    : identifier     
     ; 
 
 cross_body  
