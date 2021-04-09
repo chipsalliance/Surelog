@@ -72,6 +72,30 @@ bool CompileHelper::substituteAssignedValue(const any* oper, CompileDesign* comp
   return substitute;
 }
 
+expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val, bool& invalidValue, DesignComponent* component,
+                CompileDesign* compileDesign, ValuedComponentI* instance,
+                const std::string& fileName, int lineNumber, 
+                any* pexpr, bool muteErrors) {
+  Serializer& s = compileDesign->getSerializer();
+  expr* result = nullptr;
+  expr* exp = reduceExpr(op, invalidValue, component, compileDesign, instance,
+                         fileName, lineNumber, pexpr, muteErrors);
+  if (exp && (exp->UhdmType() == uhdmconstant)) {
+    int64_t val = get_value(invalidValue, exp);
+    std::string binary = NumUtils::toBinary(exp->VpiSize(), val);
+    constant* c = s.MakeConstant();
+    c->VpiSize(1);
+    char bitv = binary[index_val];
+    int v = bitv - '0';
+    c->VpiValue("BIN:" + std::to_string(v));
+    c->VpiDecompile("1'b" + std::to_string(v));
+    c->VpiFile(fileName);
+    c->VpiLineNo(lineNumber);
+    c->VpiColumnNo(op->VpiColumnNo());
+    result = c;
+  }
+  return result;
+}
 
 any* CompileHelper::getObject(const std::string& name, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const any* pexpr) {
@@ -1743,11 +1767,16 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue, DesignComponent
               }
               if (object)
                 result = object;
+            } else if (opType == vpiMultiConcatOp) {
+              result = reduceBitSelect(op, index_val, invalidValue, component, compileDesign, instance, 
+                                       fileName, lineNumber, pexpr, muteErrors);
             }
           } else if (otype == uhdmconstant) {
-            if (index_val == 0) {
-              result = object;
-            }
+            result = reduceBitSelect((constant*) object, index_val, invalidValue, component, compileDesign, instance, 
+                                       fileName, lineNumber, pexpr, muteErrors);
+            //if (index_val == 0) {
+            //  result = object;
+            //}
           }
         }
       }

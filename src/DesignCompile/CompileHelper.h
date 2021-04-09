@@ -315,6 +315,11 @@ public:
                            const std::string& fileName, int lineNumber,
                            UHDM::any* pexpr, bool muteErrors);
 
+  UHDM::expr* reduceBitSelect(UHDM::expr* op, unsigned int index_val, bool& invalidValue, DesignComponent* component,
+                CompileDesign* compileDesign, ValuedComponentI* instance,
+                const std::string& fileName, int lineNumber, 
+                UHDM::any* pexpr, bool muteErrors);
+
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue, DesignComponent* component,
                CompileDesign* compileDesign, ValuedComponentI* instance, const std::string& fileName, int lineNumber, bool reduce, bool sizeMode);         
 
