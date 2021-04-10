@@ -1116,6 +1116,9 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
           if (fC->Type(unpacked_dimension) == slUnpacked_dimension) {
             port->setUnpackedDimension(unpacked_dimension);
           }
+          if (fC->Type(unpacked_dimension) == slConstant_expression) {
+            port->setDefaultValue(unpacked_dimension);
+          }
           port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit) {

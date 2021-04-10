@@ -1063,7 +1063,9 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
     }
   } else {
     expression = fC->Sibling(id);
-    if (fC->Type(expression) != VObjectType::slExpression) expression = 0;
+    if ((fC->Type(expression) != VObjectType::slExpression) &&
+        (fC->Type(expression) != VObjectType::slConstant_expression))
+      expression = 0;
   }
 
   expr* exp = nullptr;

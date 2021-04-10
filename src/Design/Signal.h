@@ -76,6 +76,7 @@ class Signal final {
   bool isRandc() { return m_randc; }
   void setDelay(NodeId id) { m_delay = id; }
   void setDriveStrength(NodeId id) { m_drive_strength = id; }
+  void setDefaultValue(NodeId id) { m_default_value = id; }
 
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
@@ -85,6 +86,7 @@ class Signal final {
   NodeId getTypeSpecId() const { return m_typeSpecId; }
   NodeId getDelay() const { return m_delay; }
   NodeId getDriveStrength() const { return m_drive_strength; }
+  NodeId getDefaultValue() const { return m_default_value; }
   const DataType* getDataType() { return m_dataType; }
 
  private:
@@ -102,6 +104,7 @@ class Signal final {
   NodeId m_unpackedDimension = 0;
   NodeId m_delay = 0;
   NodeId m_drive_strength = 0;
+  NodeId m_default_value = 0;
   bool m_const = false;
   bool m_var = false;
   bool m_signed = false;
