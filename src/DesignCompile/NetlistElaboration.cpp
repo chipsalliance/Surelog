@@ -1245,6 +1245,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
 
     if (exp) {
       cont_assign* assign = s.MakeCont_assign();
+      assign->VpiNetDeclAssign(true);
       assign->VpiFile(fC->getFileName());
       assign->VpiLineNo(fC->Line(id));
       assign->VpiColumnNo(fC->Column(id));
