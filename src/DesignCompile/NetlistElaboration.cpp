@@ -1051,7 +1051,9 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
 
   // Assignment to a default value
   expr* exp = exprFromAssign_(comp, fC, id, unpackedDimension, child);
-
+  if ((exp == nullptr) && sig->getDefaultValue()) {
+    exp = (expr*) m_helper.compileExpression(comp, fC, sig->getDefaultValue(), m_compileDesign, nullptr, child, true);
+  }
   if (isNet) {
     // Nets
     if (dtype) {
@@ -1457,7 +1459,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         // Nets pass
         if (do_ports)
           continue;
-        if (portInterf.find(sig->getName()) == portInterf.end())
+        const std::string& signame = sig->getName();
+        if (portInterf.find(signame) == portInterf.end())
           elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);   
 
       } else if (pass == 2) {
