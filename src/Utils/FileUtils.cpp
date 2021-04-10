@@ -246,6 +246,23 @@ std::string FileUtils::getPreferredPath(const std::string& path) {
   return fs::path(path).make_preferred().string();
 }
 
+std::string FileUtils::hashPath(const std::string& path) {
+  const std::string separator(1, fs::path::preferred_separator);
+  std::string hashedpath;
+  std::size_t val = std::hash<std::string>{}(path);
+  std::string last_dir = path;
+  if (last_dir.size())
+    last_dir.erase(last_dir.end()-1);
+  char c = separator[0];
+  auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
+                          [c](char ch) { return (ch == c); });
+  if (it1 != last_dir.rend())
+    last_dir.erase(last_dir.begin(), it1.base());
+
+  hashedpath = last_dir + "_" + std::to_string(val)  + separator;
+  return hashedpath;
+}
+
 std::string FileUtils::makeRelativePath(const std::string& in_path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
