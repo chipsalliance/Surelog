@@ -615,8 +615,11 @@ void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Se
     if (fC) {
       // Builtin classes have no file
       c->VpiFile(fC->getFileName());
-      c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
-      c->VpiColumnNo(fC->Column(classDef->getNodeIds()[0]));
+      NodeId modId = classDef->getNodeIds()[0];
+      c->VpiLineNo(fC->Line(modId));
+      c->VpiColumnNo(fC->Column(modId));
+      c->VpiEndLineNo(fC->EndLine(modId));
+      c->VpiEndColumnNo(fC->EndColumn(modId));
     }
 
     for (auto& nested : classDef->getClassMap()) {
@@ -1847,8 +1850,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         if (fC) {
           // Builtin package has no file
           p->VpiFile(fC->getFileName());
-          p->VpiLineNo(fC->Line(pack->getNodeIds()[0]));
-          p->VpiColumnNo(fC->Column(pack->getNodeIds()[0]));
+          NodeId modId = pack->getNodeIds()[0];
+          p->VpiLineNo(fC->Line(modId));
+          p->VpiColumnNo(fC->Column(modId));
+          p->VpiEndLineNo(fC->EndLine(modId));
+          p->VpiEndColumnNo(fC->EndColumn(modId));
         }
         v2->push_back(p);
       }
@@ -1868,8 +1874,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         p->VpiParent(d);
         p->VpiDefName(prog->getName());
         p->VpiFile(fC->getFileName());
-        p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
-        p->VpiColumnNo(fC->Column(prog->getNodeIds()[0]));
+        NodeId modId = prog->getNodeIds()[0];
+        p->VpiLineNo(fC->Line(modId));
+        p->VpiColumnNo(fC->Column(modId));
+        p->VpiEndLineNo(fC->EndLine(modId));
+        p->VpiEndColumnNo(fC->EndColumn(modId));
         p->Attributes(prog->Attributes());
         writeProgram(prog, p, s, componentMap,modPortMap);
         uhdm_programs->push_back(p);
@@ -1891,8 +1900,11 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m->VpiParent(d);
         m->VpiDefName(mod->getName());
         m->VpiFile(fC->getFileName());
-        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        m->VpiColumnNo(fC->Column(mod->getNodeIds()[0]));
+        NodeId modId = mod->getNodeIds()[0];
+        m->VpiLineNo(fC->Line(modId));
+        m->VpiColumnNo(fC->Column(modId));
+        m->VpiEndLineNo(fC->EndLine(modId));
+        m->VpiEndColumnNo(fC->EndColumn(modId));
         m->Attributes(mod->Attributes());
         uhdm_interfaces->push_back(m);
         writeInterface(mod, m, s, componentMap, modPortMap);
