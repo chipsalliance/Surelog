@@ -387,7 +387,9 @@ if (APPLE)
   # if you installed python with hombrew. Or if you install python with Xcode:
   # set_target_properties(surelog-bin PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE
   # INSTALL_RPATH "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/")
-  target_link_options(surelog-bin PRIVATE ${Python3_LINK_OPTIONS})
+  if (SURELOG_WITH_PYTHON)
+    target_link_options(surelog-bin PRIVATE ${Python3_LINK_OPTIONS})
+  endif()
 endif()
 
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
@@ -413,7 +415,10 @@ add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
-target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
+if (SURELOG_WITH_PYTHON)
+  target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
+endif()
+
 if($<BOOL:${TCMALLOC_LIBRARY}>)
   target_link_libraries(surelog PRIVATE tcmalloc)
 endif()
@@ -489,18 +494,30 @@ add_custom_command(
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
 if (WIN32)
-  add_custom_command(
-    TARGET surelog-bin
-    POST_BUILD
-    COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${Python3_RUNTIME_LIBRARY_DIRS}/python3${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
-            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-    COMMAND echo "       Platform depdendent staging completed"
-    WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+  if (SURELOG_WITH_PYTHON)
+    add_custom_command(
+      TARGET surelog-bin
+      POST_BUILD
+      COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
+              ${Python3_RUNTIME_LIBRARY_DIRS}/python3${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
+              ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+      COMMAND echo "       Platform depdendent staging completed"
+      WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+  else()
+    add_custom_command(
+      TARGET surelog-bin
+      POST_BUILD
+      COMMAND echo "       Creating platform depdendent 'WIN32' staging for precompiled packages"
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
+      COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
+      COMMAND echo "       Platform depdendent staging completed"
+      WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+  endif()
 else()
   add_custom_command(
     TARGET surelog-bin
@@ -637,10 +654,12 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
 
 if (WIN32 AND $<CONFIG:Debug>)
-  install(
-    FILES $<TARGET_PDB_FILE:surelog-bin>
-          ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
-    DESTINATION ${CMAKE_INSTALL_BINDIR})
+  if (SURELOG_WITH_PYTHON)
+    install(
+      FILES $<TARGET_PDB_FILE:surelog-bin>
+            ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
+      DESTINATION ${CMAKE_INSTALL_BINDIR})
+  endif()    
   install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
           ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb

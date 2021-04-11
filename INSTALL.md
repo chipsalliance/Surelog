@@ -36,4 +36,5 @@ Executable: `surelog`
 
 * Build
   * `make`
+  * `make debug`
   * or see [`src/README`](./src/README.md)

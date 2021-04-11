@@ -38,7 +38,9 @@ We started maintaning a list of ideas for contribution under [Help Wanted](https
  * Read [`INSTALL`](INSTALL.md)
 
 ```bash
-make
+  make
+or
+  make debug
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
 ```
 
@@ -93,6 +95,7 @@ For more build/test options and system requirements for building see
    -pythonevalscriptperfile <script.py>  Eval the Python script on each source file (Multithreaded)
    -pythonevalscript <script.py> Eval the Python script at the design level
    -nopython             Turns off all Python features, including waivers
+   -withpython           Turns on all Python features, including waivers (Requires to build with python (SURELOG_WITH_PYTHON=1)
    -strictpythoncheck    Turns on strict Python checks
    -mt/--threads <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
    -mp <nb_max_processes> 0 up to 512 max processes, 0 or 1 being single process
