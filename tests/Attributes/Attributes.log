@@ -677,7 +677,7 @@ design: (work@foo)
     |vpiName:system
     |vpiFullName:builtin::system
 |uhdmallPackages:
-\_package: myPackage (myPackage::) test_attributes.sv:2: , parent:work@foo
+\_package: myPackage (myPackage::) test_attributes.sv:2: , endline:4:10: , parent:work@foo
   |vpiDefName:myPackage
   |vpiName:myPackage
   |vpiFullName:myPackage::
@@ -685,7 +685,7 @@ design: (work@foo)
   \_attribute: (myPackageAttribute1)
     |vpiName:myPackageAttribute1
 |uhdmallClasses:
-\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@foo
+\_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endline:30:8: , parent:work@foo
   |vpiName:work@mailbox
   |vpiMethod:
   \_function: (work@mailbox::new), line:6, col:2, parent:work@mailbox
@@ -697,7 +697,7 @@ design: (work@foo)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , parent:work@foo
+        \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endline:30:8: , parent:work@foo
     |vpiIODecl:
     \_io_decl: (bound), parent:work@mailbox::new
       |vpiName:bound
@@ -783,7 +783,7 @@ design: (work@foo)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
-\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , parent:work@foo
+\_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endline:55:8: , parent:work@foo
   |vpiName:work@process
   |vpiMethod:
   \_function: (work@process::self), line:37, col:2, parent:work@process
@@ -904,7 +904,7 @@ design: (work@foo)
       |INT:4
       |vpiSize:64
 |uhdmallClasses:
-\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@foo
+\_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endline:72:8: , parent:work@foo
   |vpiName:work@semaphore
   |vpiMethod:
   \_function: (work@semaphore::new), line:60, col:2, parent:work@semaphore
@@ -916,7 +916,7 @@ design: (work@foo)
       |vpiTypespec:
       \_class_typespec: 
         |vpiClassDefn:
-        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , parent:work@foo
+        \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endline:72:8: , parent:work@foo
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::new
       |vpiName:keyCount
@@ -986,10 +986,10 @@ design: (work@foo)
         |vpiSize:64
         |UINT:1
 |uhdmallClasses:
-\_class_defn: (work@toto) test_attributes.sv:42:22: , parent:work@foo
+\_class_defn: (work@toto) test_attributes.sv:42:22: , endline:49:8: , parent:work@foo
   |vpiName:work@toto
   |vpiInternalScope:
-  \_class_defn: (work@toto::tata) test_attributes.sv:45:30: , parent:work@toto
+  \_class_defn: (work@toto::tata) test_attributes.sv:45:30: , endline:45:34: , parent:work@toto
     |vpiName:tata
     |vpiFullName:work@toto::tata
     |vpiAttribute:
@@ -999,14 +999,14 @@ design: (work@foo)
   \_attribute: (class_attribute), parent:work@toto
     |vpiName:class_attribute
 |uhdmallInterfaces:
-\_interface: work@itf (work@itf) test_attributes.sv:52: , parent:work@foo
+\_interface: work@itf (work@itf) test_attributes.sv:52: , endline:57:12: , parent:work@foo
   |vpiDefName:work@itf
   |vpiFullName:work@itf
   |vpiAttribute:
   \_attribute: (test_interface)
     |vpiName:test_interface
 |uhdmallInterfaces:
-\_interface: work@itf2 (work@itf2) test_attributes.sv:54:2: , parent:work@foo
+\_interface: work@itf2 (work@itf2) test_attributes.sv:54:2: , endline:55:14: , parent:work@foo
   |vpiDefName:work@itf2
   |vpiFullName:work@itf2
   |vpiAttribute:
