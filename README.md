@@ -170,6 +170,7 @@ For more build/test options and system requirements for building see
 
 ### Python API
 
+ * By default Surelog does not build the Python API, See  [`src/README`](src/README.md) 
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
    * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
 
