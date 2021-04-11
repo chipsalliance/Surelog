@@ -20,6 +20,9 @@
  *
  * Created on Mar 1, 2020, 6:36 PM
  */
+
+#include <string.h>
+
 #include "Utils/StringUtils.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/VObject.h"

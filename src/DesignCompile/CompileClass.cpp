@@ -20,6 +20,7 @@
  *
  * Created on June 7, 2018, 10:26 PM
  */
+#include <string.h>
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/VObject.h"
 #include "Library/Library.h"

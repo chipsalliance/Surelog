@@ -23,7 +23,7 @@
 
 #ifndef COMPILESOURCEFILE_H
 #define COMPILESOURCEFILE_H
-#include "Python.h"
+#include "API/PythonAPI.h"
 #include <string>
 #include <vector>
 

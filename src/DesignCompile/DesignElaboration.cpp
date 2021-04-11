@@ -20,6 +20,7 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
+#include <string.h>
 #include <queue>
 #include <unordered_set>
 

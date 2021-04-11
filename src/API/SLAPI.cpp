@@ -20,10 +20,10 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
-#include "Python.h"
+#include "API/PythonAPI.h"
 #include <string>
 #include <vector>
-
+#include <string.h>
 #include "antlr4-runtime.h"
 using namespace antlr4;
 

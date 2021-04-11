@@ -20,7 +20,7 @@
  *
  * Created on March 5, 2017, 11:12 PM
  */
-#include "Python.h"
+
 #include "ErrorReporting/ErrorContainer.h"
 #include <mutex>
 #include <iostream>
@@ -31,7 +31,6 @@
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
-
 #include "API/PythonAPI.h"
 
 using namespace SURELOG;
