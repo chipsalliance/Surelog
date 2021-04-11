@@ -705,7 +705,7 @@ design: (work@foo)
       |vpiTypedef:
       \_int_typespec: , line:6, col:16, parent:bound
       |vpiExpr:
-      \_constant: , line:6, col:28, parent:bound
+      \_constant: , line:6, col:28, endline:6:29: , parent:bound
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
@@ -924,7 +924,7 @@ design: (work@foo)
       |vpiTypedef:
       \_int_typespec: , line:60, col:15, parent:keyCount
       |vpiExpr:
-      \_constant: , line:60, col:30, parent:keyCount
+      \_constant: , line:60, col:30, endline:60:31: , parent:keyCount
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
@@ -942,7 +942,7 @@ design: (work@foo)
       |vpiTypedef:
       \_int_typespec: , line:63, col:11, parent:keyCount
       |vpiExpr:
-      \_constant: , line:63, col:26, parent:keyCount
+      \_constant: , line:63, col:26, endline:63:27: , parent:keyCount
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
@@ -960,7 +960,7 @@ design: (work@foo)
       |vpiTypedef:
       \_int_typespec: , line:66, col:11, parent:keyCount
       |vpiExpr:
-      \_constant: , line:66, col:26, parent:keyCount
+      \_constant: , line:66, col:26, endline:66:27: , parent:keyCount
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
@@ -980,7 +980,7 @@ design: (work@foo)
       |vpiTypedef:
       \_int_typespec: , line:69, col:23, parent:keyCount
       |vpiExpr:
-      \_constant: , line:69, col:38, parent:keyCount
+      \_constant: , line:69, col:38, endline:69:39: , parent:keyCount
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
@@ -1116,10 +1116,10 @@ design: (work@foo)
     |vpiStmt:
     \_event_control: , line:7, col:9
       |vpiCondition:
-      \_operation: , line:7, col:11
+      \_operation: , line:7, col:11, endline:7:18: 
         |vpiOpType:39
         |vpiOperand:
-        \_ref_obj: (work@bar.clk), line:7, col:19
+        \_ref_obj: (work@bar.clk), line:7, col:19, endline:7:22: 
           |vpiName:clk
           |vpiFullName:work@bar.clk
           |vpiActual:
@@ -1130,7 +1130,7 @@ design: (work@foo)
       |vpiStmt:
       \_if_else: , line:8, col:4
         |vpiCondition:
-        \_ref_obj: (work@bar.rst), line:8, col:8
+        \_ref_obj: (work@bar.rst), line:8, col:8, endline:8:11: 
           |vpiName:rst
           |vpiFullName:work@bar.rst
           |vpiActual:
@@ -1142,7 +1142,7 @@ design: (work@foo)
         \_assignment: , line:8, col:13
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (work@bar.out), line:8, col:13
+          \_ref_obj: (work@bar.out), line:8, col:13, endline:8:16: 
             |vpiName:out
             |vpiFullName:work@bar.out
             |vpiActual:
@@ -1151,7 +1151,7 @@ design: (work@foo)
               |vpiFullName:work@foo.bar_instance.out
               |vpiNetType:48
           |vpiRhs:
-          \_constant: , line:8, col:20
+          \_constant: , line:8, col:20, endline:8:24: 
             |vpiConstType:1
             |vpiDecompile:1'd0
             |vpiSize:1
@@ -1160,16 +1160,16 @@ design: (work@foo)
         \_assignment: , line:9, col:13
           |vpiOpType:82
           |vpiLhs:
-          \_ref_obj: (work@bar.out), line:9, col:13
+          \_ref_obj: (work@bar.out), line:9, col:13, endline:9:16: 
             |vpiName:out
             |vpiFullName:work@bar.out
             |vpiActual:
             \_logic_net: (work@foo.bar_instance.out), line:1, col:26, parent:work@foo.bar_instance
           |vpiRhs:
-          \_operation: , line:9, col:20
+          \_operation: , line:9, col:20, endline:9:21: 
             |vpiOpType:4
             |vpiOperand:
-            \_ref_obj: (work@bar.inp), line:9, col:21
+            \_ref_obj: (work@bar.inp), line:9, col:21, endline:9:24: 
               |vpiName:inp
               |vpiFullName:work@bar.inp
               |vpiActual:
@@ -1242,13 +1242,13 @@ design: (work@foo)
       \_case_stmt: , line:29, col:4, parent:work@foo
         |vpiCaseType:1
         |vpiCondition:
-        \_ref_obj: (work@foo.a), line:29, col:10, parent:work@foo
+        \_ref_obj: (work@foo.a), line:29, col:10, endline:29:11: , parent:work@foo
           |vpiName:a
           |vpiFullName:work@foo.a
         |vpiCaseItem:
         \_case_item: , line:30, col:6
           |vpiExpr:
-          \_constant: , line:30, col:6
+          \_constant: , line:30, col:6, endline:30:11: 
             |vpiConstType:3
             |vpiDecompile:2'b00
             |vpiSize:2
@@ -1258,11 +1258,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:31, col:8
+            \_ref_obj: (work@foo.b), line:31, col:8, endline:31:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:31, col:12
+            \_constant: , line:31, col:12, endline:31:13: 
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
@@ -1270,13 +1270,13 @@ design: (work@foo)
         |vpiCaseItem:
         \_case_item: , line:32, col:6
           |vpiExpr:
-          \_constant: , line:32, col:6
+          \_constant: , line:32, col:6, endline:32:11: 
             |vpiConstType:3
             |vpiDecompile:2'b01
             |vpiSize:2
             |BIN:01
           |vpiExpr:
-          \_constant: , line:32, col:13
+          \_constant: , line:32, col:13, endline:32:18: 
             |vpiConstType:3
             |vpiDecompile:2'b10
             |vpiSize:2
@@ -1286,11 +1286,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:33, col:8
+            \_ref_obj: (work@foo.b), line:33, col:8, endline:33:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:33, col:12
+            \_constant: , line:33, col:12, endline:33:13: 
               |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
@@ -1302,11 +1302,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:35, col:8
+            \_ref_obj: (work@foo.b), line:35, col:8, endline:35:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:35, col:12
+            \_constant: , line:35, col:12, endline:35:13: 
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
@@ -1366,45 +1366,45 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:22, col:9, parent:work@foo
     |vpiRhs:
-    \_operation: , line:22, col:17
+    \_operation: , line:22, col:17, endline:22:24: 
       |vpiOpType:28
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
         |STRING:attacks-qbb.py:34
       |vpiOperand:
-      \_ref_obj: (work@foo.pieces0), line:22, col:17
+      \_ref_obj: (work@foo.pieces0), line:22, col:17, endline:22:24: 
         |vpiName:pieces0
         |vpiFullName:work@foo.pieces0
       |vpiOperand:
-      \_ref_obj: (work@foo.b), line:22, col:60
+      \_ref_obj: (work@foo.b), line:22, col:60, endline:22:61: 
         |vpiName:b
         |vpiFullName:work@foo.b
     |vpiLhs:
-    \_ref_obj: (work@foo.blah), line:22, col:9
+    \_ref_obj: (work@foo.blah), line:22, col:9, endline:22:13: 
       |vpiName:blah
       |vpiFullName:work@foo.blah
   |vpiContAssign:
   \_cont_assign: , line:24, col:9, parent:work@foo
     |vpiRhs:
-    \_operation: , line:24, col:21
+    \_operation: , line:24, col:21, endline:24:27: 
       |vpiOpType:41
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
         |STRING:attacks-qbb.py:38
       |vpiOperand:
-      \_ref_obj: (work@foo.empty2), line:24, col:21
+      \_ref_obj: (work@foo.empty2), line:24, col:21, endline:24:27: 
         |vpiName:empty2
         |vpiFullName:work@foo.empty2
       |vpiOperand:
-      \_constant: , line:24, col:64
+      \_constant: , line:24, col:64, endline:24:68: 
         |vpiConstType:5
         |vpiDecompile:4'h9
         |vpiSize:4
         |HEX:9
     |vpiLhs:
-    \_ref_obj: (work@foo.$37 ), line:24, col:9
+    \_ref_obj: (work@foo.$37 ), line:24, col:9, endline:24:19: 
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
   |vpiNet:
@@ -1442,13 +1442,13 @@ design: (work@foo)
       \_case_stmt: , line:29, col:4, parent:work@foo
         |vpiCaseType:1
         |vpiCondition:
-        \_ref_obj: (work@foo.a), line:29, col:10
+        \_ref_obj: (work@foo.a), line:29, col:10, endline:29:11: 
           |vpiName:a
           |vpiFullName:work@foo.a
         |vpiCaseItem:
         \_case_item: , line:30, col:6
           |vpiExpr:
-          \_constant: , line:30, col:6
+          \_constant: , line:30, col:6, endline:30:11: 
             |vpiConstType:3
             |vpiDecompile:2'b00
             |vpiSize:2
@@ -1458,11 +1458,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:31, col:8
+            \_ref_obj: (work@foo.b), line:31, col:8, endline:31:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:31, col:12
+            \_constant: , line:31, col:12, endline:31:13: 
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
@@ -1470,13 +1470,13 @@ design: (work@foo)
         |vpiCaseItem:
         \_case_item: , line:32, col:6
           |vpiExpr:
-          \_constant: , line:32, col:6
+          \_constant: , line:32, col:6, endline:32:11: 
             |vpiConstType:3
             |vpiDecompile:2'b01
             |vpiSize:2
             |BIN:01
           |vpiExpr:
-          \_constant: , line:32, col:13
+          \_constant: , line:32, col:13, endline:32:18: 
             |vpiConstType:3
             |vpiDecompile:2'b10
             |vpiSize:2
@@ -1486,11 +1486,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:33, col:8
+            \_ref_obj: (work@foo.b), line:33, col:8, endline:33:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:33, col:12
+            \_constant: , line:33, col:12, endline:33:13: 
               |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
@@ -1502,11 +1502,11 @@ design: (work@foo)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (work@foo.b), line:35, col:8
+            \_ref_obj: (work@foo.b), line:35, col:8, endline:35:9: 
               |vpiName:b
               |vpiFullName:work@foo.b
             |vpiRhs:
-            \_constant: , line:35, col:12
+            \_constant: , line:35, col:12, endline:35:13: 
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
@@ -1566,45 +1566,45 @@ design: (work@foo)
   |vpiContAssign:
   \_cont_assign: , line:22, col:9, parent:work@foo
     |vpiRhs:
-    \_operation: , line:22, col:17
+    \_operation: , line:22, col:17, endline:22:24: 
       |vpiOpType:28
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
         |STRING:attacks-qbb.py:34
       |vpiOperand:
-      \_ref_obj: (work@foo.pieces0), line:22, col:17
+      \_ref_obj: (work@foo.pieces0), line:22, col:17, endline:22:24: 
         |vpiName:pieces0
         |vpiFullName:work@foo.pieces0
       |vpiOperand:
-      \_ref_obj: (work@foo.b), line:22, col:60
+      \_ref_obj: (work@foo.b), line:22, col:60, endline:22:61: 
         |vpiName:b
         |vpiFullName:work@foo.b
     |vpiLhs:
-    \_ref_obj: (work@foo.blah), line:22, col:9
+    \_ref_obj: (work@foo.blah), line:22, col:9, endline:22:13: 
       |vpiName:blah
       |vpiFullName:work@foo.blah
   |vpiContAssign:
   \_cont_assign: , line:24, col:9, parent:work@foo
     |vpiRhs:
-    \_operation: , line:24, col:21
+    \_operation: , line:24, col:21, endline:24:27: 
       |vpiOpType:41
       |vpiAttribute:
       \_attribute: (src)
         |vpiName:src
         |STRING:attacks-qbb.py:38
       |vpiOperand:
-      \_ref_obj: (work@foo.empty2), line:24, col:21
+      \_ref_obj: (work@foo.empty2), line:24, col:21, endline:24:27: 
         |vpiName:empty2
         |vpiFullName:work@foo.empty2
       |vpiOperand:
-      \_constant: , line:24, col:64
+      \_constant: , line:24, col:64, endline:24:68: 
         |vpiConstType:5
         |vpiDecompile:4'h9
         |vpiSize:4
         |HEX:9
     |vpiLhs:
-    \_ref_obj: (work@foo.$37 ), line:24, col:9
+    \_ref_obj: (work@foo.$37 ), line:24, col:9, endline:24:19: 
       |vpiName:$37 
       |vpiFullName:work@foo.$37 
   |vpiModule:
@@ -1618,10 +1618,10 @@ design: (work@foo)
       |vpiStmt:
       \_event_control: , line:7, col:9
         |vpiCondition:
-        \_operation: , line:7, col:11
+        \_operation: , line:7, col:11, endline:7:18: 
           |vpiOpType:39
           |vpiOperand:
-          \_ref_obj: (work@foo.bar_instance.clk), line:7, col:19
+          \_ref_obj: (work@foo.bar_instance.clk), line:7, col:19, endline:7:22: 
             |vpiName:clk
             |vpiFullName:work@foo.bar_instance.clk
             |vpiActual:
@@ -1632,7 +1632,7 @@ design: (work@foo)
         |vpiStmt:
         \_if_else: , line:8, col:4
           |vpiCondition:
-          \_ref_obj: (work@foo.bar_instance.rst), line:8, col:8
+          \_ref_obj: (work@foo.bar_instance.rst), line:8, col:8, endline:8:11: 
             |vpiName:rst
             |vpiFullName:work@foo.bar_instance.rst
             |vpiActual:
@@ -1644,7 +1644,7 @@ design: (work@foo)
           \_assignment: , line:8, col:13
             |vpiOpType:82
             |vpiLhs:
-            \_ref_obj: (work@foo.bar_instance.out), line:8, col:13
+            \_ref_obj: (work@foo.bar_instance.out), line:8, col:13, endline:8:16: 
               |vpiName:out
               |vpiFullName:work@foo.bar_instance.out
               |vpiActual:
@@ -1653,7 +1653,7 @@ design: (work@foo)
                 |vpiFullName:work@foo.bar_instance.out
                 |vpiNetType:48
             |vpiRhs:
-            \_constant: , line:8, col:20
+            \_constant: , line:8, col:20, endline:8:24: 
               |vpiConstType:1
               |vpiDecompile:1'd0
               |vpiSize:1
@@ -1662,16 +1662,16 @@ design: (work@foo)
           \_assignment: , line:9, col:13
             |vpiOpType:82
             |vpiLhs:
-            \_ref_obj: (work@foo.bar_instance.out), line:9, col:13
+            \_ref_obj: (work@foo.bar_instance.out), line:9, col:13, endline:9:16: 
               |vpiName:out
               |vpiFullName:work@foo.bar_instance.out
               |vpiActual:
               \_logic_net: (work@foo.bar_instance.out), line:1, col:26, parent:work@foo.bar_instance
             |vpiRhs:
-            \_operation: , line:9, col:20
+            \_operation: , line:9, col:20, endline:9:21: 
               |vpiOpType:4
               |vpiOperand:
-              \_ref_obj: (work@foo.bar_instance.inp), line:9, col:21
+              \_ref_obj: (work@foo.bar_instance.inp), line:9, col:21, endline:9:24: 
                 |vpiName:inp
                 |vpiFullName:work@foo.bar_instance.inp
                 |vpiActual:
@@ -1688,7 +1688,7 @@ design: (work@foo)
         |vpiName:clock_connected
         |BIN:1
       |vpiHighConn:
-      \_ref_obj: (clk), line:19, col:51
+      \_ref_obj: (clk), line:19, col:51, endline:19:54: 
         |vpiName:clk
         |vpiActual:
         \_logic_net: (work@foo.clk), line:13, col:11, parent:work@foo
@@ -1701,7 +1701,7 @@ design: (work@foo)
       |vpiName:rst
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (rst), line:19, col:56
+      \_ref_obj: (rst), line:19, col:56, endline:19:59: 
         |vpiName:rst
         |vpiActual:
         \_logic_net: (work@foo.rst), line:13, col:16, parent:work@foo
@@ -1718,7 +1718,7 @@ design: (work@foo)
         |vpiName:this_is_the_input
         |STRING:foo
       |vpiHighConn:
-      \_ref_obj: (inp), line:19, col:94
+      \_ref_obj: (inp), line:19, col:94, endline:19:97: 
         |vpiName:inp
         |vpiActual:
         \_logic_net: (work@foo.inp), line:13, col:21, parent:work@foo
@@ -1733,7 +1733,7 @@ design: (work@foo)
       |vpiTypedef:
       \_logic_typespec: , line:5, col:9
       |vpiHighConn:
-      \_ref_obj: (out), line:19, col:99
+      \_ref_obj: (out), line:19, col:99, endline:19:102: 
         |vpiName:out
         |vpiActual:
         \_logic_net: (work@foo.out), line:13, col:26, parent:work@foo
