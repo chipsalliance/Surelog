@@ -1,5 +1,5 @@
 # SURELOG project
-# Executable: surelog
+## Executable: surelog
 
 ## Dependancies Install 
 
@@ -9,7 +9,10 @@ Please see [`INSTALL`](../INSTALL.md)
  * cd Surelog
 ```bash
 make
+make debug
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
+
+To make with Python you have to add the option to build/cmake:  -DSURELOG_WITH_PYTHON=1
 ```
 
 ## Run a test
