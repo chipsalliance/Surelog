@@ -44,11 +44,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 find_package(SWIG 3.0 REQUIRED)
 
 # Python
+if (SURELOG_WITH_PYTHON)
 find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
 message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
 message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
 message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
+endif()
 
 # Includes
 include_directories("${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src/")
@@ -61,7 +63,10 @@ include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/third_party/capnprot
 include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/third_party/UHDM/src/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googlemock/include/")
+
+if (SURELOG_WITH_PYTHON)
 include_directories(${Python3_INCLUDE_DIRS}) # Keep this at the end
+endif()
 
 # Use tcmalloc if installed and not NO_TCMALLOC is on. TODO: don't use negative
 # names, but positive. -DWITH_TCMALLOC=Off is easier to understand than
@@ -209,6 +214,7 @@ add_custom_command(
   COMMAND tclsh SourceCompile/generate_parser_listener.tcl out_dir=${PROJECT_SOURCE_DIR}/src
 )
 
+if (SURELOG_WITH_PYTHON)
 add_custom_command(
   OUTPUT  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
           ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
@@ -227,6 +233,7 @@ add_custom_command(
   COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i
   COMMAND tclsh API/embed_python_api.tcl
 )
+endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 

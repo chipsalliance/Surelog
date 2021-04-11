@@ -20,6 +20,9 @@
  *
  * Created on July 29, 2017, 5:32 PM
  */
+
+#include <string.h>
+
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 using namespace std;

@@ -20,6 +20,9 @@
  *
  * Created on January 17, 2020, 9:13 PM
  */
+
+#include <string.h>
+
 #include <map>
 #include <sstream>
 #include "uhdm.h"

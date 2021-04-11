@@ -14,17 +14,18 @@
  limitations under the License.
  */
 
-#include "SourceCompile/Compiler.h"
-
 /*
  * File:   Compiler.cpp
  * Author: alain
  *
  * Created on March 4, 2017, 5:16 PM
  */
+
+#include <string.h>
 #include <stdint.h>
 #include <cstdlib>
 
+#include "SourceCompile/Compiler.h"
 #include "CommandLine/CommandLineParser.h"
 #include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/ErrorContainer.h"

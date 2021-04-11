@@ -22,6 +22,8 @@
  */
 #include <iostream>
 #include <bitset> 
+#include <string.h>
+#include <math.h>
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
 #include "Expression/Value.h"

@@ -21,6 +21,7 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
+#include <string.h>
 #include "ParserRuleContext.h"
 
 #include "SourceCompile/SymbolTable.h"
@@ -49,7 +50,6 @@ using namespace SURELOG;
 #include <fstream>
 #include <iostream>
 #include <cstdio>
-#include "Python.h"
 
 #include "API/PythonAPI.h"
 
@@ -57,9 +57,12 @@ using namespace SURELOG;
 
 #include "ParserRuleContext.h"
 
+#ifdef SURELOG_WITH_PYTHON
 #include "API/slapi_wrap.cxx"
 #include "API/slapi_scripts.h"
 #include "API/vobjecttypes_py.h"
+#endif
+
 #include <cstdlib>
 #include "SourceCompile/PythonListen.h"
 
@@ -83,6 +86,7 @@ PythonAPI::PythonAPI(const PythonAPI& orig) {}
 
 PythonAPI::~PythonAPI() {}
 
+#ifdef SURELOG_WITH_PYTHON
 static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
                                           "slapi",
                                           NULL,
@@ -94,20 +98,28 @@ static struct PyModuleDef SLAPI_module = {PyModuleDef_HEAD_INIT,
                                           NULL};
 
 static PyObject* PyInit_slapi(void) { return PyModule_Create(&SLAPI_module); }
+#endif
 
 void PythonAPI::shutdown() {
+  #ifdef SURELOG_WITH_PYTHON
   PyEval_RestoreThread(m_mainThreadState);
   Py_Finalize();
+  #endif
 }
 
 bool PythonAPI::loadScript(std::string name, bool check) {
+  #ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   bool status = loadScript_(name, check);
   PyEval_ReleaseThread(m_mainThreadState);
   return status;
+  #else
+  return false;
+  #endif
 }
 
 bool PythonAPI::loadScript_(std::string name, bool check) {
+#ifdef SURELOG_WITH_PYTHON  
   if (FileUtils::fileExists(name)) {
     FILE* fp = fopen(name.c_str(), "r");
     PyRun_SimpleFile(fp, name.c_str());
@@ -119,10 +131,12 @@ bool PythonAPI::loadScript_(std::string name, bool check) {
       std::cout << "PYTHON API ERROR: Script \"" << name
                 << "\" does not exist.\n";
   }
+#endif
   return false;
 }
 
 PyThreadState* PythonAPI::initNewInterp() {
+#ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   PyThreadState* interpState = Py_NewInterpreter();
 
@@ -134,14 +148,19 @@ PyThreadState* PythonAPI::initNewInterp() {
 
   PyEval_ReleaseThread(interpState);
   return interpState;
+#else
+  return nullptr;
+#endif
 }
 
 void PythonAPI::shutdown(PyThreadState* interp) {
+#ifdef SURELOG_WITH_PYTHON
   if (interp != m_mainThreadState) {
     PyEval_AcquireThread(interp);
     Py_EndInterpreter(interp);
     PyEval_ReleaseLock();
   }
+#endif
 }
 
 void PythonAPI::loadScriptsInInterp_() {
@@ -198,15 +217,17 @@ void PythonAPI::loadScriptsInInterp_() {
 }
 
 void PythonAPI::loadScripts () {
+#ifdef SURELOG_WITH_PYTHON  
   PyEval_AcquireThread(m_mainThreadState);
 
   loadScriptsInInterp_();
 
   PyEval_ReleaseThread(m_mainThreadState);
+#endif  
 }
 
 void PythonAPI::initInterp_ () {
-
+ #ifdef SURELOG_WITH_PYTHON
   // Loads the python SWIG generated defs
   std::string script;
   for (auto s : slapi_scripts) {
@@ -221,6 +242,7 @@ void PythonAPI::initInterp_ () {
   PyRun_SimpleString("sys.path.append(\".\")");
   PyRun_SimpleString(
       std::string("sys.path.append(\"" + m_programPath + "\")").c_str());
+#endif      
 }
 
 void PythonAPI::init(int argc, const char** argv) {
@@ -236,7 +258,9 @@ void PythonAPI::init(int argc, const char** argv) {
   }
   // Before Python 3.7, the parameter to SetProgramName() was not a
   // const wchar_t* but a wchar_t (even though never written to).
+#ifdef SURELOG_WITH_PYTHON   
   static wchar_t progname[] = L"surelog";
+
   Py_SetProgramName(progname);
 
   PyImport_AppendInittab("slapi", &PyInit_slapi);
@@ -249,10 +273,12 @@ void PythonAPI::init(int argc, const char** argv) {
   initInterp_();
 
   PyEval_ReleaseThread(m_mainThreadState);
+#endif  
 }
 
 void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
                            parser_rule_context* ctx1) {
+#ifdef SURELOG_WITH_PYTHON                               
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*) ctx1;
   PyEval_AcquireThread(listener->getPyThreadState());
   PyObject *pModuleName, *pModule, *pFunc;
@@ -281,11 +307,13 @@ void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
   Py_XDECREF(pFunc);
   Py_DECREF(pModule);
   PyEval_ReleaseThread(listener->getPyThreadState());
+#endif  
 }
 
 std::string PythonAPI::evalScript(std::string module, std::string function,
                                   std::vector<std::string> args,
                                   PyThreadState* interp) {
+#ifdef SURELOG_WITH_PYTHON                                    
   PyEval_AcquireThread(interp);
 
   std::string result;
@@ -350,10 +378,14 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
 
   PyEval_ReleaseThread(interp);
   return result;
+#else
+  return "";
+#endif
 }
 
 bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
                                   FileContent* fC, PyThreadState* interp) {
+#ifdef SURELOG_WITH_PYTHON                                    
   PyEval_AcquireThread(interp);
   loadScript_(script);
   std::string function = "slUserCallbackPerFile";
@@ -385,9 +417,13 @@ bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
 
   PyEval_ReleaseThread(interp);
   return true;
+#else
+  return false;
+#endif  
 }
 
 bool PythonAPI::evalScript(std::string script, Design* design) {
+#ifdef SURELOG_WITH_PYTHON  
   PyEval_AcquireThread(m_mainThreadState);
   loadScript_(script);
   std::string function = "slUserCallbackPerDesign";
@@ -419,4 +455,7 @@ bool PythonAPI::evalScript(std::string script, Design* design) {
 
   PyEval_ReleaseThread(m_mainThreadState);
   return true;
+#else
+  return false;
+#endif    
 }

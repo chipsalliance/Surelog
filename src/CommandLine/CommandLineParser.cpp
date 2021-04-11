@@ -126,6 +126,7 @@ const std::vector<std::string> helpText = {
     "  -pythonevalscript <script.py> Eval the Python script at the design "
     "level",
     "  -nopython             Turns off all Python features, including waivers",
+    "  -withpython           Turns on all Python features, including waivers",
     "  -strictpythoncheck    Turns on strict Python checks",
     "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being single "
     "threaded,",
@@ -208,6 +209,12 @@ std::string printStringArray(const std::vector<std::string>& array) {
   return report;
 }
 
+void CommandLineParser::withPython() {
+#ifdef SURELOG_WITH_PYTHON
+ m_pythonAllowed = true;  
+#endif 
+}
+
 const std::string CommandLineParser::currentDateTime() {
   time_t now = time(0);
   struct tm tstruct;
@@ -284,7 +291,11 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_debugInstanceTree(false),
       m_debugLibraryDef(false),
       m_useTbb(false),
+#ifdef SURELOG_WITH_PYTHON      
       m_pythonAllowed(true),
+#else
+      m_pythonAllowed(false),
+#endif
       m_nbLinesForFileSplitting(500),
       m_pythonEvalScriptPerFile(false),
       m_pythonEvalScript(false),
@@ -544,6 +555,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_muteStdout = true;
     } else if (all_arguments[i] == "-nopython") {
       m_pythonAllowed = false;
+    } else if (all_arguments[i] == "-withpython") {
+      withPython();
     }
   }
 
@@ -907,6 +920,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::cout << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nopython") {
       m_pythonAllowed = false;
+    } else if (all_arguments[i] == "-withpython") {
+      withPython();
     } else if (all_arguments[i] == "-pythonevalscriptperfile") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));

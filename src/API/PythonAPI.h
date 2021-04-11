@@ -20,10 +20,17 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
+#include <string>
+#include <vector>
+#include "ErrorReporting/ErrorContainer.h"
 
 #ifndef PYTHONAPI_H
 #define PYTHONAPI_H
+#ifdef SURELOG_WITH_PYTHON
 #include "Python.h"
+#else
+#define PyThreadState void
+#endif
 
 namespace SURELOG {
 

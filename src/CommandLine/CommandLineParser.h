@@ -125,6 +125,7 @@ class CommandLineParser final {
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
   void noPython() { m_pythonAllowed = false; }
+  void withPython();
   bool pythonEvalScriptPerFile() {
     return m_pythonEvalScriptPerFile && m_pythonAllowed;
   }

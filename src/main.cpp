@@ -21,6 +21,8 @@
  * Created on January 15, 2017, 12:15 AM
  */
 
+#include <string.h>
+
 #include <iostream>
 #include <string>
 #include <vector>
