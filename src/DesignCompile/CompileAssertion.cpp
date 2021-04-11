@@ -90,6 +90,8 @@ UHDM::property_inst* createPropertyInst(any* property_expr, UHDM::Serializer& s)
     real_property_expr->VpiFile(call->VpiFile());
     real_property_expr->VpiLineNo(call->VpiLineNo());
     real_property_expr->VpiColumnNo(call->VpiColumnNo());
+    real_property_expr->VpiEndLineNo(call->VpiEndLineNo());
+    real_property_expr->VpiEndColumnNo(call->VpiEndColumnNo());
     inst = real_property_expr;
   }
   return inst;

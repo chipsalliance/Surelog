@@ -174,6 +174,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
     inst_assign->VpiFile(mod_assign->VpiFile());
     inst_assign->VpiLineNo(mod_assign->VpiLineNo());
     inst_assign->VpiColumnNo(mod_assign->VpiColumnNo());
+    inst_assign->VpiEndLineNo(mod_assign->VpiEndLineNo());
+    inst_assign->VpiEndColumnNo(mod_assign->VpiEndColumnNo());
     inst_assign->Lhs((any*) mod_assign->Lhs());
     const std::string& paramName = assign->getFileContent()->SymName(assign->getParamId());
 
@@ -244,6 +246,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         c->VpiConstType(value->vpiValType());
         c->VpiLineNo(assign->getFileContent()->Line(assign->getAssignId()));
         c->VpiColumnNo(assign->getFileContent()->Column(assign->getAssignId()));
+        c->VpiEndLineNo(assign->getFileContent()->EndLine(assign->getAssignId()));
+        c->VpiEndColumnNo(assign->getFileContent()->EndColumn(assign->getAssignId()));
         inst_assign->Rhs(c);
         
         if (en_replay && m_helper.errorOnNegativeConstant(mod, c, m_compileDesign, instance)) {
@@ -453,6 +457,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiFile(fC->getFileName());
               ref->VpiLineNo(fC->Line(sigId));
               ref->VpiColumnNo(fC->Column(sigId));
+              ref->VpiEndLineNo(fC->EndLine(sigId));
+              ref->VpiEndColumnNo(fC->EndColumn(sigId));
               p->High_conn(ref);
               ref->VpiName(sigName);
               any* net = bind_net_(parent, sigName);
@@ -478,11 +484,15 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           p->VpiFile(fC->getFileName());
           p->VpiLineNo(fC->Line(Net_lvalue));
           p->VpiColumnNo(fC->Column(Net_lvalue));
+          p->VpiEndLineNo(fC->EndLine(Net_lvalue));
+          p->VpiEndColumnNo(fC->EndColumn(Net_lvalue));
           if (fC->Type(sigId) == slStringConst) {
             ref_obj* ref = s.MakeRef_obj();
             ref->VpiFile(fC->getFileName());
             ref->VpiLineNo(fC->Line(sigId));
             ref->VpiColumnNo(fC->Column(sigId));
+            ref->VpiEndLineNo(fC->EndLine(sigId));
+            ref->VpiEndColumnNo(fC->EndColumn(sigId));
             p->High_conn(ref);
             ref->VpiName(sigName);
             any* net = bind_net_(parent, sigName);
@@ -596,7 +606,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               op->VpiOpType(vpiNullOp);
               op->VpiFile(fC->getFileName());
               op->VpiLineNo(fC->Line(tmp));
-              op->VpiColumnNo(fC->Column(tmp));
+              op->VpiColumnNo(fC->EndColumn(tmp));
+              op->VpiEndLineNo(fC->EndLine(tmp));
+              op->VpiEndColumnNo(fC->Column(tmp));
               p->High_conn(op);
               index++;
               continue;
@@ -669,6 +681,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));
           ref->VpiColumnNo(fC->Column(sigId));
+          ref->VpiEndLineNo(fC->EndLine(sigId));
+          ref->VpiEndColumnNo(fC->EndColumn(sigId));
           ref->VpiName(sigName);
           p->High_conn(ref);
           ref->Actual_group(net);
@@ -779,6 +793,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiFile(fC->getFileName());
               ref->VpiLineNo(wildcardLineNumber);
               ref->VpiColumnNo(wildcardColumnNumber);
+              ref->VpiEndLineNo(wildcardLineNumber);
+              ref->VpiEndColumnNo(wildcardColumnNumber + 1);
               ref->VpiName(sigName);
               pp->High_conn(ref);
               UHDM::any* net = bind_net_(parent, sigName);
@@ -904,10 +920,14 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
       gen_scope->VpiFile(fC->getFileName());
       gen_scope->VpiLineNo(fC->Line(mm->getGenBlockId()));
       gen_scope->VpiColumnNo(fC->Column(mm->getGenBlockId()));
+      gen_scope->VpiEndLineNo(fC->EndLine(mm->getGenBlockId()));
+      gen_scope->VpiEndColumnNo(fC->EndColumn(mm->getGenBlockId()));
       gen_scope->VpiName(instance->getInstanceName());
       gen_scope_array->VpiFile(fC->getFileName());
       gen_scope_array->VpiLineNo(fC->Line(mm->getGenBlockId()));
       gen_scope_array->VpiColumnNo(fC->Column(mm->getGenBlockId()));
+      gen_scope_array->VpiEndLineNo(fC->EndLine(mm->getGenBlockId()));
+      gen_scope_array->VpiEndColumnNo(fC->EndColumn(mm->getGenBlockId()));
       gen_scopes->push_back(gen_scope_array);
 
       if (mm->getContAssigns())
@@ -1254,6 +1274,8 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
       assign->VpiFile(fC->getFileName());
       assign->VpiLineNo(fC->Line(id));
       assign->VpiColumnNo(fC->Column(id));
+      assign->VpiEndLineNo(fC->EndLine(id));
+      assign->VpiEndColumnNo(fC->EndColumn(id));
       assign->Lhs((expr*)obj);
       assign->Rhs(exp);
       m_helper.setParentNoOverride((expr*)obj, assign);
@@ -1278,6 +1300,8 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   if (obj) {
     obj->VpiLineNo(fC->Line(id));
     obj->VpiColumnNo(fC->Column(id));
+    obj->VpiEndLineNo(fC->EndLine(id));
+    obj->VpiEndColumnNo(fC->EndColumn(id));
     obj->VpiFile(fC->getFileName());
     if (parentNetlist)
       parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
@@ -1340,6 +1364,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         dest_port->VpiName(signame);
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiColumnNo(fC->Column(id));
+        dest_port->VpiEndLineNo(fC->EndLine(id));
+        dest_port->VpiEndColumnNo(fC->EndColumn(id));
         dest_port->VpiFile(fC->getFileName());
         if (ports == nullptr) {
           ports = s.MakePortVec();

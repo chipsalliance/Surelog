@@ -926,7 +926,7 @@ design: (work@test)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@test
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:2, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6:2, endln:7:13, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -941,7 +941,7 @@ design: (work@test)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:6:16, parent:bound
+      \_int_typespec: , line:6:16, endln:6:19, parent:bound
       |vpiExpr:
       \_constant: , line:6:28, endln:6:29, parent:bound
         |vpiConstType:9
@@ -949,15 +949,15 @@ design: (work@test)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:2, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9:2, endln:10:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:11
+    \_int_var: , line:9:11, endln:9:14
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:2, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12:2, endln:13:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -967,7 +967,7 @@ design: (work@test)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:2, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15:2, endln:16:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -977,7 +977,7 @@ design: (work@test)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:2, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18:2, endln:19:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -987,19 +987,19 @@ design: (work@test)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:2, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21:2, endln:22:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:11
+    \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:2, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24:2, endln:25:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -1009,13 +1009,13 @@ design: (work@test)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:2, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27:2, endln:28:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:11
+    \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -1024,56 +1024,56 @@ design: (work@test)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endln:55:8, parent:work@test
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:2, parent:work@process
+  \_function: (work@process::self), line:37:2, endln:37:8, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:18
+    \_chandle_var: , line:37:18, endln:37:25
   |vpiMethod:
-  \_function: (work@process::status), line:40:2, parent:work@process
+  \_function: (work@process::status), line:40:2, endln:41:13, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40:11
+    \_int_var: , line:40:11, endln:40:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:65
+      \_enum_typespec: (state), line:35:65, endln:35:70
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:17
+        \_enum_const: (FINISHED), line:35:17, endln:35:25
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:27
+        \_enum_const: (RUNNING), line:35:27, endln:35:34
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:36
+        \_enum_const: (WAITING), line:35:36, endln:35:43
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:45
+        \_enum_const: (SUSPENDED), line:35:45, endln:35:54
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:56
+        \_enum_const: (KILLED), line:35:56, endln:35:62
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:2, parent:work@process
+  \_task: (work@process::kill), line:43:2, endln:44:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -1082,7 +1082,7 @@ design: (work@test)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:2, parent:work@process
+  \_task: (work@process::await), line:46:2, endln:47:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -1091,7 +1091,7 @@ design: (work@test)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:2, parent:work@process
+  \_task: (work@process::suspend), line:49:2, endln:50:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -1100,7 +1100,7 @@ design: (work@test)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:2, parent:work@process
+  \_task: (work@process::resume), line:52:2, endln:53:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -1109,34 +1109,34 @@ design: (work@test)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:65, parent:work@process
+  \_enum_typespec: (state), line:35:65, endln:35:70, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35:17, parent:state
+    \_enum_const: (FINISHED), line:35:17, endln:35:25, parent:state
       |vpiName:FINISHED
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35:27, parent:state
+    \_enum_const: (RUNNING), line:35:27, endln:35:34, parent:state
       |vpiName:RUNNING
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35:36, parent:state
+    \_enum_const: (WAITING), line:35:36, endln:35:43, parent:state
       |vpiName:WAITING
       |vpiDecompile:2
       |INT:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35:45, parent:state
+    \_enum_const: (SUSPENDED), line:35:45, endln:35:54, parent:state
       |vpiName:SUSPENDED
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35:56, parent:state
+    \_enum_const: (KILLED), line:35:56, endln:35:62, parent:state
       |vpiName:KILLED
       |vpiDecompile:4
       |INT:4
@@ -1145,7 +1145,7 @@ design: (work@test)
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@test
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:2, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60:2, endln:61:13, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -1160,7 +1160,7 @@ design: (work@test)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:60:15, parent:keyCount
+      \_int_typespec: , line:60:15, endln:60:18, parent:keyCount
       |vpiExpr:
       \_constant: , line:60:30, endln:60:31, parent:keyCount
         |vpiConstType:9
@@ -1168,7 +1168,7 @@ design: (work@test)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:2, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63:2, endln:64:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -1178,7 +1178,7 @@ design: (work@test)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:63:11, parent:keyCount
+      \_int_typespec: , line:63:11, endln:63:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:63:26, endln:63:27, parent:keyCount
         |vpiConstType:9
@@ -1186,7 +1186,7 @@ design: (work@test)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:2, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66:2, endln:67:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -1196,7 +1196,7 @@ design: (work@test)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:66:11, parent:keyCount
+      \_int_typespec: , line:66:11, endln:66:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:66:26, endln:66:27, parent:keyCount
         |vpiConstType:9
@@ -1204,19 +1204,19 @@ design: (work@test)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:2, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69:2, endln:70:13, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:11
+    \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:69:23, parent:keyCount
+      \_int_typespec: , line:69:23, endln:69:26, parent:keyCount
       |vpiExpr:
       \_constant: , line:69:38, endln:69:39, parent:keyCount
         |vpiConstType:9
@@ -1228,10 +1228,10 @@ design: (work@test)
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiProcess:
-  \_always: , line:37:4, parent:work@test
+  \_always: , line:37:4, endln:83:7, parent:work@test
     |vpiAlwaysType:1
     |vpiStmt:
-    \_event_control: , line:37:11
+    \_event_control: , line:37:11, endln:83:7
       |vpiCondition:
       \_operation: , line:37:14, endln:37:28
         |vpiOpType:35
@@ -1242,7 +1242,7 @@ design: (work@test)
           \_ref_obj: (RAMRST), line:37:22, endln:37:28
             |vpiName:RAMRST
             |vpiActual:
-            \_logic_net: (work@test.RAMRST), line:12:9, parent:work@test
+            \_logic_net: (work@test.RAMRST), line:12:9, endln:12:15, parent:work@test
               |vpiName:RAMRST
               |vpiFullName:work@test.RAMRST
               |vpiNetType:1
@@ -1253,14 +1253,14 @@ design: (work@test)
           \_ref_obj: (CLK), line:37:40, endln:37:43
             |vpiName:CLK
             |vpiActual:
-            \_logic_net: (work@test.CLK), line:6:10, parent:work@test
+            \_logic_net: (work@test.CLK), line:6:10, endln:6:13, parent:work@test
               |vpiName:CLK
               |vpiFullName:work@test.CLK
       |vpiStmt:
-      \_begin: (work@test), line:37:45
+      \_begin: (work@test), line:37:45, endln:83:7
         |vpiFullName:work@test
         |vpiStmt:
-        \_if_else: , line:38:8, parent:work@test
+        \_if_else: , line:38:8, endln:82:11, parent:work@test
           |vpiCondition:
           \_operation: , line:38:12, endln:38:21
             |vpiOpType:14
@@ -1269,7 +1269,7 @@ design: (work@test)
               |vpiName:RAMRST
               |vpiFullName:work@test.RAMRST
               |vpiActual:
-              \_logic_net: (work@test.RAMRST), line:12:9, parent:work@test
+              \_logic_net: (work@test.RAMRST), line:12:9, endln:12:15, parent:work@test
             |vpiOperand:
             \_constant: , line:38:20, endln:38:21
               |vpiConstType:9
@@ -1277,22 +1277,22 @@ design: (work@test)
               |vpiSize:64
               |UINT:1
           |vpiStmt:
-          \_begin: (work@test), line:38:23
+          \_begin: (work@test), line:38:23, endln:46:11
             |vpiFullName:work@test
             |vpiStmt:
-            \_assignment: , line:39:12, parent:work@test
+            \_assignment: , line:39:12, endln:39:40, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.UserState), line:39:12, endln:39:21, parent:work@test
                 |vpiName:UserState
                 |vpiFullName:work@test.UserState
                 |vpiActual:
-                \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                   |vpiName:UserState
                   |vpiFullName:work@test.UserState
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:17:9
+                  \_range: , line:17:9, endln:17:13
                     |vpiLeftRange:
                     \_constant: , line:17:9, endln:17:11
                       |vpiConstType:9
@@ -1310,25 +1310,25 @@ design: (work@test)
                 |vpiName:USER_DELAY_INIT
                 |vpiFullName:work@test.USER_DELAY_INIT
                 |vpiActual:
-                \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+                \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
                   |vpiLocalParam:1
                   |UINT:1
             |vpiStmt:
-            \_assignment: , line:40:12, parent:work@test
+            \_assignment: , line:40:12, endln:40:22, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.Delay), line:40:12, endln:40:17, parent:work@test
                 |vpiName:Delay
                 |vpiFullName:work@test.Delay
                 |vpiActual:
-                \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                   |vpiName:Delay
                   |vpiFullName:work@test.Delay
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:16:9
+                  \_range: , line:16:9, endln:16:13
                     |vpiLeftRange:
                     \_constant: , line:16:9, endln:16:11
                       |vpiConstType:9
@@ -1348,19 +1348,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:41:12, parent:work@test
+            \_assignment: , line:41:12, endln:41:31, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.UserValidCount), line:41:12, endln:41:26, parent:work@test
                 |vpiName:UserValidCount
                 |vpiFullName:work@test.UserValidCount
                 |vpiActual:
-                \_logic_net: (work@test.UserValidCount), line:18:15, parent:work@test
+                \_logic_net: (work@test.UserValidCount), line:18:15, endln:18:29, parent:work@test
                   |vpiName:UserValidCount
                   |vpiFullName:work@test.UserValidCount
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:18:9
+                  \_range: , line:18:9, endln:18:13
                     |vpiLeftRange:
                     \_constant: , line:18:9, endln:18:11
                       |vpiConstType:9
@@ -1380,19 +1380,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:42:12, parent:work@test
+            \_assignment: , line:42:12, endln:42:32, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.ConnectionState), line:42:12, endln:42:27, parent:work@test
                 |vpiName:ConnectionState
                 |vpiFullName:work@test.ConnectionState
                 |vpiActual:
-                \_logic_net: (work@test.ConnectionState), line:19:14, parent:work@test
+                \_logic_net: (work@test.ConnectionState), line:19:14, endln:19:29, parent:work@test
                   |vpiName:ConnectionState
                   |vpiFullName:work@test.ConnectionState
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:19:9
+                  \_range: , line:19:9, endln:19:12
                     |vpiLeftRange:
                     \_constant: , line:19:9, endln:19:10
                       |vpiConstType:9
@@ -1412,19 +1412,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:43:12, parent:work@test
+            \_assignment: , line:43:12, endln:43:32, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.InterruptStatus), line:43:12, endln:43:27, parent:work@test
                 |vpiName:InterruptStatus
                 |vpiFullName:work@test.InterruptStatus
                 |vpiActual:
-                \_logic_net: (work@test.InterruptStatus), line:20:15, parent:work@test
+                \_logic_net: (work@test.InterruptStatus), line:20:15, endln:20:30, parent:work@test
                   |vpiName:InterruptStatus
                   |vpiFullName:work@test.InterruptStatus
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:20:9
+                  \_range: , line:20:9, endln:20:13
                     |vpiLeftRange:
                     \_constant: , line:20:9, endln:20:11
                       |vpiConstType:9
@@ -1444,19 +1444,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:44:12, parent:work@test
+            \_assignment: , line:44:12, endln:44:28, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.FrameLength), line:44:12, endln:44:23, parent:work@test
                 |vpiName:FrameLength
                 |vpiFullName:work@test.FrameLength
                 |vpiActual:
-                \_logic_net: (work@test.FrameLength), line:21:15, parent:work@test
+                \_logic_net: (work@test.FrameLength), line:21:15, endln:21:26, parent:work@test
                   |vpiName:FrameLength
                   |vpiFullName:work@test.FrameLength
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:21:9
+                  \_range: , line:21:9, endln:21:13
                     |vpiLeftRange:
                     \_constant: , line:21:9, endln:21:11
                       |vpiConstType:9
@@ -1476,19 +1476,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:45:12, parent:work@test
+            \_assignment: , line:45:12, endln:45:29, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.LatencyDelay), line:45:12, endln:45:24, parent:work@test
                 |vpiName:LatencyDelay
                 |vpiFullName:work@test.LatencyDelay
                 |vpiActual:
-                \_logic_net: (work@test.LatencyDelay), line:22:14, parent:work@test
+                \_logic_net: (work@test.LatencyDelay), line:22:14, endln:22:26, parent:work@test
                   |vpiName:LatencyDelay
                   |vpiFullName:work@test.LatencyDelay
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:22:9
+                  \_range: , line:22:9, endln:22:12
                     |vpiLeftRange:
                     \_constant: , line:22:9, endln:22:10
                       |vpiConstType:9
@@ -1508,37 +1508,37 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
           |vpiElseStmt:
-          \_begin: (work@test), line:46:17
+          \_begin: (work@test), line:46:17, endln:82:11
             |vpiFullName:work@test
             |vpiStmt:
-            \_case_stmt: , line:48:12, parent:work@test
+            \_case_stmt: , line:48:12, endln:81:19, parent:work@test
               |vpiCaseType:1
               |vpiCondition:
               \_ref_obj: (work@test.UserState), line:48:18, endln:48:27, parent:work@test
                 |vpiName:UserState
                 |vpiFullName:work@test.UserState
                 |vpiActual:
-                \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
               |vpiCaseItem:
-              \_case_item: , line:50:16
+              \_case_item: , line:50:16, endln:55:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_DELAY_INIT), line:50:16, endln:50:31, parent:work@test
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
                   |vpiActual:
-                  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+                  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:50:33
+                \_begin: (work@test), line:50:33, endln:55:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_assignment: , line:51:20, parent:work@test
+                  \_assignment: , line:51:20, endln:51:38, parent:work@test
                     |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (work@test.Delay), line:51:20, endln:51:25, parent:work@test
                       |vpiName:Delay
                       |vpiFullName:work@test.Delay
                       |vpiActual:
-                      \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                      \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                     |vpiRhs:
                     \_operation: , line:51:29, endln:51:34, parent:work@test
                       |vpiOpType:24
@@ -1547,7 +1547,7 @@ design: (work@test)
                         |vpiName:Delay
                         |vpiFullName:work@test.Delay
                         |vpiActual:
-                        \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                        \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                       |vpiOperand:
                       \_constant: , line:51:37, endln:51:38
                         |vpiConstType:9
@@ -1555,7 +1555,7 @@ design: (work@test)
                         |vpiSize:64
                         |UINT:1
                   |vpiStmt:
-                  \_if_stmt: , line:52:20, parent:work@test
+                  \_if_stmt: , line:52:20, endln:54:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:52:24, endln:52:41
                       |vpiOpType:14
@@ -1564,7 +1564,7 @@ design: (work@test)
                         |vpiName:Delay
                         |vpiFullName:work@test.Delay
                         |vpiActual:
-                        \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                        \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                       |vpiOperand:
                       \_constant: , line:52:31, endln:52:41
                         |vpiConstType:5
@@ -1572,40 +1572,40 @@ design: (work@test)
                         |vpiSize:24
                         |HEX:ffffff
                     |vpiStmt:
-                    \_begin: (work@test), line:52:43
+                    \_begin: (work@test), line:52:43, endln:54:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:53:24, parent:work@test
+                      \_assignment: , line:53:24, endln:53:53, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:53:24, endln:53:33, parent:work@test
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_CHECK_STATE), line:53:37, endln:53:53, parent:work@test
                           |vpiName:USER_CHECK_STATE
                           |vpiFullName:work@test.USER_CHECK_STATE
                           |vpiActual:
-                          \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+                          \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
                             |vpiName:USER_CHECK_STATE
                             |vpiFullName:work@test.USER_CHECK_STATE
                             |vpiLocalParam:1
                             |UINT:64
               |vpiCaseItem:
-              \_case_item: , line:57:16
+              \_case_item: , line:57:16, endln:70:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_CHECK_STATE), line:57:16, endln:57:32, parent:work@test
                   |vpiName:USER_CHECK_STATE
                   |vpiFullName:work@test.USER_CHECK_STATE
                   |vpiActual:
-                  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+                  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:57:34
+                \_begin: (work@test), line:57:34, endln:70:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_if_stmt: , line:59:20, parent:work@test
+                  \_if_stmt: , line:59:20, endln:69:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:59:24, endln:59:65
                       |vpiOpType:26
@@ -1617,7 +1617,7 @@ design: (work@test)
                           |vpiName:UserReadDataValid
                           |vpiFullName:work@test.UserReadDataValid
                           |vpiActual:
-                          \_logic_net: (work@test.UserReadDataValid), line:14:9, parent:work@test
+                          \_logic_net: (work@test.UserReadDataValid), line:14:9, endln:14:26, parent:work@test
                             |vpiName:UserReadDataValid
                             |vpiFullName:work@test.UserReadDataValid
                             |vpiNetType:1
@@ -1635,7 +1635,7 @@ design: (work@test)
                           |vpiName:UserValidCount
                           |vpiFullName:work@test.UserValidCount
                           |vpiActual:
-                          \_logic_net: (work@test.UserValidCount), line:18:15, parent:work@test
+                          \_logic_net: (work@test.UserValidCount), line:18:15, endln:18:29, parent:work@test
                         |vpiOperand:
                         \_constant: , line:59:64, endln:59:65
                           |vpiConstType:9
@@ -1643,17 +1643,17 @@ design: (work@test)
                           |vpiSize:64
                           |UINT:1
                     |vpiStmt:
-                    \_begin: (work@test), line:59:67
+                    \_begin: (work@test), line:59:67, endln:69:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:61:24, parent:work@test
+                      \_assignment: , line:61:24, endln:61:60, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.ConnectionState), line:61:24, endln:61:39, parent:work@test
                           |vpiName:ConnectionState
                           |vpiFullName:work@test.ConnectionState
                           |vpiActual:
-                          \_logic_net: (work@test.ConnectionState), line:19:14, parent:work@test
+                          \_logic_net: (work@test.ConnectionState), line:19:14, endln:19:29, parent:work@test
                         |vpiRhs:
                         \_part_select: , line:61:43, endln:61:60, parent:work@test.UserReadData
                           |vpiConstantSelect:1
@@ -1672,7 +1672,7 @@ design: (work@test)
                             |vpiSize:64
                             |UINT:0
                       |vpiStmt:
-                      \_if_else: , line:63:24, parent:work@test
+                      \_if_else: , line:63:24, endln:68:27, parent:work@test
                         |vpiCondition:
                         \_operation: , line:63:28, endln:63:68
                           |vpiOpType:27
@@ -1684,7 +1684,7 @@ design: (work@test)
                               |vpiName:LatencyDelay
                               |vpiFullName:work@test.LatencyDelay
                               |vpiActual:
-                              \_logic_net: (work@test.LatencyDelay), line:22:14, parent:work@test
+                              \_logic_net: (work@test.LatencyDelay), line:22:14, endln:22:26, parent:work@test
                             |vpiOperand:
                             \_constant: , line:63:42, endln:63:43
                               |vpiConstType:9
@@ -1711,39 +1711,39 @@ design: (work@test)
                               |vpiSize:64
                               |UINT:0
                         |vpiStmt:
-                        \_begin: (work@test), line:63:70
+                        \_begin: (work@test), line:63:70, endln:65:27
                           |vpiFullName:work@test
                           |vpiStmt:
-                          \_assignment: , line:64:28, parent:work@test
+                          \_assignment: , line:64:28, endln:64:57, parent:work@test
                             |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (work@test.UserState), line:64:28, endln:64:37, parent:work@test
                               |vpiName:UserState
                               |vpiFullName:work@test.UserState
                               |vpiActual:
-                              \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                              \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                             |vpiRhs:
                             \_ref_obj: (work@test.USER_CHECK_SPACE), line:64:41, endln:64:57, parent:work@test
                               |vpiName:USER_CHECK_SPACE
                               |vpiFullName:work@test.USER_CHECK_SPACE
                               |vpiActual:
-                              \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+                              \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
                                 |vpiName:USER_CHECK_SPACE
                                 |vpiFullName:work@test.USER_CHECK_SPACE
                                 |vpiLocalParam:1
                                 |UINT:128
                         |vpiElseStmt:
-                        \_begin: (work@test), line:65:33
+                        \_begin: (work@test), line:65:33, endln:68:27
                           |vpiFullName:work@test
                           |vpiStmt:
-                          \_assignment: , line:66:28, parent:work@test
+                          \_assignment: , line:66:28, endln:67:76, parent:work@test
                             |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (work@test.UserState), line:66:28, endln:66:37, parent:work@test
                               |vpiName:UserState
                               |vpiFullName:work@test.UserState
                               |vpiActual:
-                              \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                              \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                             |vpiRhs:
                             \_operation: , line:66:41, endln:66:55, parent:work@test
                               |vpiOpType:32
@@ -1755,7 +1755,7 @@ design: (work@test)
                                   |vpiName:FrameLength
                                   |vpiFullName:work@test.FrameLength
                                   |vpiActual:
-                                  \_logic_net: (work@test.FrameLength), line:21:15, parent:work@test
+                                  \_logic_net: (work@test.FrameLength), line:21:15, endln:21:26, parent:work@test
                                 |vpiOperand:
                                 \_constant: , line:66:54, endln:66:55
                                   |vpiConstType:9
@@ -1767,7 +1767,7 @@ design: (work@test)
                                 |vpiName:USER_READ_LENGTH
                                 |vpiFullName:work@test.USER_READ_LENGTH
                                 |vpiActual:
-                                \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+                                \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
                                   |vpiName:USER_READ_LENGTH
                                   |vpiFullName:work@test.USER_READ_LENGTH
                                   |vpiLocalParam:1
@@ -1777,24 +1777,24 @@ design: (work@test)
                                 |vpiName:USER_READ_DATA
                                 |vpiFullName:work@test.USER_READ_DATA
                                 |vpiActual:
-                                \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+                                \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
                                   |vpiName:USER_READ_DATA
                                   |vpiFullName:work@test.USER_READ_DATA
                                   |vpiLocalParam:1
                                   |UINT:1024
               |vpiCaseItem:
-              \_case_item: , line:72:16
+              \_case_item: , line:72:16, endln:79:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_CHECK_SPACE), line:72:16, endln:72:32, parent:work@test
                   |vpiName:USER_CHECK_SPACE
                   |vpiFullName:work@test.USER_CHECK_SPACE
                   |vpiActual:
-                  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+                  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:72:34
+                \_begin: (work@test), line:72:34, endln:79:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_if_else: , line:73:20, parent:work@test
+                  \_if_else: , line:73:20, endln:78:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:73:24, endln:73:57
                       |vpiOpType:15
@@ -1820,51 +1820,51 @@ design: (work@test)
                         |vpiName:ESTABLISHED
                         |vpiFullName:work@test.ESTABLISHED
                         |vpiActual:
-                        \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+                        \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
                           |vpiName:ESTABLISHED
                           |vpiFullName:work@test.ESTABLISHED
                           |vpiLocalParam:1
                           |UINT:3
                     |vpiStmt:
-                    \_begin: (work@test), line:73:59
+                    \_begin: (work@test), line:73:59, endln:75:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:74:24, parent:work@test
+                      \_assignment: , line:74:24, endln:74:46, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:74:24, endln:74:33, parent:work@test
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_IDLE), line:74:37, endln:74:46, parent:work@test
                           |vpiName:USER_IDLE
                           |vpiFullName:work@test.USER_IDLE
                           |vpiActual:
-                          \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+                          \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
                             |vpiName:USER_IDLE
                             |vpiFullName:work@test.USER_IDLE
                             |vpiLocalParam:1
                             |UINT:32
                     |vpiElseStmt:
-                    \_begin: (work@test), line:75:29
+                    \_begin: (work@test), line:75:29, endln:78:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:77:24, parent:work@test
+                      \_assignment: , line:77:24, endln:77:52, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:77:24, endln:77:33, parent:work@test
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_WRITE_DATA), line:77:37, endln:77:52, parent:work@test
                           |vpiName:USER_WRITE_DATA
                           |vpiFullName:work@test.USER_WRITE_DATA
                           |vpiActual:
-                          \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+                          \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
                             |vpiName:USER_WRITE_DATA
                             |vpiFullName:work@test.USER_WRITE_DATA
                             |vpiLocalParam:1
@@ -1932,7 +1932,7 @@ design: (work@test)
     |vpiFullName:work@test.LatencyDelay
     |vpiNetType:48
   |vpiParamAssign:
-  \_param_assign: , line:9:15, parent:work@test
+  \_param_assign: , line:9:15, endln:9:32, parent:work@test
     |vpiRhs:
     \_constant: , line:9:30, endln:9:32
       |vpiConstType:9
@@ -1940,12 +1940,12 @@ design: (work@test)
       |vpiSize:64
       |UINT:15
     |vpiLhs:
-    \_parameter: (work@test.FRAME_LENGTH), line:9:15, parent:work@test
+    \_parameter: (work@test.FRAME_LENGTH), line:9:15, endln:9:32, parent:work@test
       |vpiName:FRAME_LENGTH
       |vpiFullName:work@test.FRAME_LENGTH
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:10:15, parent:work@test
+  \_param_assign: , line:10:15, endln:10:38, parent:work@test
     |vpiRhs:
     \_constant: , line:10:30, endln:10:38
       |vpiConstType:5
@@ -1953,12 +1953,12 @@ design: (work@test)
       |vpiSize:16
       |HEX:0003
     |vpiLhs:
-    \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+    \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
       |vpiName:ESTABLISHED
       |vpiFullName:work@test.ESTABLISHED
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:24:15, parent:work@test
+  \_param_assign: , line:24:15, endln:24:41, parent:work@test
     |vpiRhs:
     \_constant: , line:24:34, endln:24:41
       |vpiConstType:5
@@ -1966,12 +1966,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:001
     |vpiLhs:
-    \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+    \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
       |vpiName:USER_DELAY_INIT
       |vpiFullName:work@test.USER_DELAY_INIT
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:25:15, parent:work@test
+  \_param_assign: , line:25:15, endln:25:41, parent:work@test
     |vpiRhs:
     \_constant: , line:25:34, endln:25:41
       |vpiConstType:5
@@ -1979,12 +1979,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:002
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAN), line:25:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAN), line:25:15, endln:25:41, parent:work@test
       |vpiName:USER_CLEAN
       |vpiFullName:work@test.USER_CLEAN
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:26:15, parent:work@test
+  \_param_assign: , line:26:15, endln:26:41, parent:work@test
     |vpiRhs:
     \_constant: , line:26:34, endln:26:41
       |vpiConstType:5
@@ -1992,12 +1992,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:004
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, endln:26:41, parent:work@test
       |vpiName:USER_CLEAN_CHECK
       |vpiFullName:work@test.USER_CLEAN_CHECK
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:27:15, parent:work@test
+  \_param_assign: , line:27:15, endln:27:41, parent:work@test
     |vpiRhs:
     \_constant: , line:27:34, endln:27:41
       |vpiConstType:5
@@ -2005,12 +2005,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:008
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, endln:27:41, parent:work@test
       |vpiName:USER_CLEAR_INTS
       |vpiFullName:work@test.USER_CLEAR_INTS
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:28:15, parent:work@test
+  \_param_assign: , line:28:15, endln:28:41, parent:work@test
     |vpiRhs:
     \_constant: , line:28:34, endln:28:41
       |vpiConstType:5
@@ -2018,12 +2018,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:010
     |vpiLhs:
-    \_parameter: (work@test.USER_INIT), line:28:15, parent:work@test
+    \_parameter: (work@test.USER_INIT), line:28:15, endln:28:41, parent:work@test
       |vpiName:USER_INIT
       |vpiFullName:work@test.USER_INIT
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:29:15, parent:work@test
+  \_param_assign: , line:29:15, endln:29:41, parent:work@test
     |vpiRhs:
     \_constant: , line:29:34, endln:29:41
       |vpiConstType:5
@@ -2031,12 +2031,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:020
     |vpiLhs:
-    \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+    \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
       |vpiName:USER_IDLE
       |vpiFullName:work@test.USER_IDLE
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:30:15, parent:work@test
+  \_param_assign: , line:30:15, endln:30:41, parent:work@test
     |vpiRhs:
     \_constant: , line:30:34, endln:30:41
       |vpiConstType:5
@@ -2044,12 +2044,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:040
     |vpiLhs:
-    \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+    \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
       |vpiName:USER_CHECK_STATE
       |vpiFullName:work@test.USER_CHECK_STATE
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:31:15, parent:work@test
+  \_param_assign: , line:31:15, endln:31:41, parent:work@test
     |vpiRhs:
     \_constant: , line:31:34, endln:31:41
       |vpiConstType:5
@@ -2057,12 +2057,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:080
     |vpiLhs:
-    \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+    \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
       |vpiName:USER_CHECK_SPACE
       |vpiFullName:work@test.USER_CHECK_SPACE
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:32:15, parent:work@test
+  \_param_assign: , line:32:15, endln:32:41, parent:work@test
     |vpiRhs:
     \_constant: , line:32:34, endln:32:41
       |vpiConstType:5
@@ -2070,12 +2070,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:100
     |vpiLhs:
-    \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+    \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
       |vpiName:USER_WRITE_DATA
       |vpiFullName:work@test.USER_WRITE_DATA
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:33:15, parent:work@test
+  \_param_assign: , line:33:15, endln:33:41, parent:work@test
     |vpiRhs:
     \_constant: , line:33:34, endln:33:41
       |vpiConstType:5
@@ -2083,12 +2083,12 @@ design: (work@test)
       |vpiSize:11
       |HEX:200
     |vpiLhs:
-    \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+    \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
       |vpiName:USER_READ_LENGTH
       |vpiFullName:work@test.USER_READ_LENGTH
       |vpiLocalParam:1
   |vpiParamAssign:
-  \_param_assign: , line:34:15, parent:work@test
+  \_param_assign: , line:34:15, endln:34:41, parent:work@test
     |vpiRhs:
     \_constant: , line:34:34, endln:34:41
       |vpiConstType:5
@@ -2096,45 +2096,45 @@ design: (work@test)
       |vpiSize:11
       |HEX:400
     |vpiLhs:
-    \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+    \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
       |vpiName:USER_READ_DATA
       |vpiFullName:work@test.USER_READ_DATA
       |vpiLocalParam:1
   |vpiParameter:
-  \_parameter: (work@test.FRAME_LENGTH), line:9:15, parent:work@test
+  \_parameter: (work@test.FRAME_LENGTH), line:9:15, endln:9:32, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+  \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN), line:25:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAN), line:25:15, endln:25:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, endln:26:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, endln:27:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_INIT), line:28:15, parent:work@test
+  \_parameter: (work@test.USER_INIT), line:28:15, endln:28:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+  \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+  \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+  \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+  \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
 |uhdmtopModules:
 \_module: work@test (work@test) top.sv:3: , endln:85:9
   |vpiDefName:work@test
   |vpiName:work@test
   |vpiProcess:
-  \_always: , line:37:4, parent:work@test
+  \_always: , line:37:4, endln:83:7, parent:work@test
     |vpiAlwaysType:1
     |vpiStmt:
-    \_event_control: , line:37:11
+    \_event_control: , line:37:11, endln:83:7
       |vpiCondition:
       \_operation: , line:37:14, endln:37:28
         |vpiOpType:35
@@ -2146,7 +2146,7 @@ design: (work@test)
             |vpiName:RAMRST
             |vpiFullName:work@test.RAMRST
             |vpiActual:
-            \_logic_net: (work@test.RAMRST), line:12:9, parent:work@test
+            \_logic_net: (work@test.RAMRST), line:12:9, endln:12:15, parent:work@test
               |vpiName:RAMRST
               |vpiFullName:work@test.RAMRST
               |vpiNetType:1
@@ -2158,14 +2158,14 @@ design: (work@test)
             |vpiName:CLK
             |vpiFullName:work@test.CLK
             |vpiActual:
-            \_logic_net: (work@test.CLK), line:6:10, parent:work@test
+            \_logic_net: (work@test.CLK), line:6:10, endln:6:13, parent:work@test
               |vpiName:CLK
               |vpiFullName:work@test.CLK
       |vpiStmt:
-      \_begin: (work@test), line:37:45
+      \_begin: (work@test), line:37:45, endln:83:7
         |vpiFullName:work@test
         |vpiStmt:
-        \_if_else: , line:38:8, parent:work@test
+        \_if_else: , line:38:8, endln:82:11, parent:work@test
           |vpiCondition:
           \_operation: , line:38:12, endln:38:21
             |vpiOpType:14
@@ -2174,7 +2174,7 @@ design: (work@test)
               |vpiName:RAMRST
               |vpiFullName:work@test.RAMRST
               |vpiActual:
-              \_logic_net: (work@test.RAMRST), line:12:9, parent:work@test
+              \_logic_net: (work@test.RAMRST), line:12:9, endln:12:15, parent:work@test
             |vpiOperand:
             \_constant: , line:38:20, endln:38:21
               |vpiConstType:9
@@ -2182,22 +2182,22 @@ design: (work@test)
               |vpiSize:64
               |UINT:1
           |vpiStmt:
-          \_begin: (work@test), line:38:23
+          \_begin: (work@test), line:38:23, endln:46:11
             |vpiFullName:work@test
             |vpiStmt:
-            \_assignment: , line:39:12, parent:work@test
+            \_assignment: , line:39:12, endln:39:40, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.UserState), line:39:12, endln:39:21
                 |vpiName:UserState
                 |vpiFullName:work@test.UserState
                 |vpiActual:
-                \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                   |vpiName:UserState
                   |vpiFullName:work@test.UserState
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:17:9
+                  \_range: , line:17:9, endln:17:13
                     |vpiLeftRange:
                     \_constant: , line:17:9, endln:17:11
                       |vpiConstType:9
@@ -2215,25 +2215,25 @@ design: (work@test)
                 |vpiName:USER_DELAY_INIT
                 |vpiFullName:work@test.USER_DELAY_INIT
                 |vpiActual:
-                \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+                \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
                   |vpiLocalParam:1
                   |UINT:1
             |vpiStmt:
-            \_assignment: , line:40:12, parent:work@test
+            \_assignment: , line:40:12, endln:40:22, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.Delay), line:40:12, endln:40:17
                 |vpiName:Delay
                 |vpiFullName:work@test.Delay
                 |vpiActual:
-                \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                   |vpiName:Delay
                   |vpiFullName:work@test.Delay
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:16:9
+                  \_range: , line:16:9, endln:16:13
                     |vpiLeftRange:
                     \_constant: , line:16:9, endln:16:11
                       |vpiConstType:9
@@ -2253,19 +2253,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:41:12, parent:work@test
+            \_assignment: , line:41:12, endln:41:31, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.UserValidCount), line:41:12, endln:41:26
                 |vpiName:UserValidCount
                 |vpiFullName:work@test.UserValidCount
                 |vpiActual:
-                \_logic_net: (work@test.UserValidCount), line:18:15, parent:work@test
+                \_logic_net: (work@test.UserValidCount), line:18:15, endln:18:29, parent:work@test
                   |vpiName:UserValidCount
                   |vpiFullName:work@test.UserValidCount
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:18:9
+                  \_range: , line:18:9, endln:18:13
                     |vpiLeftRange:
                     \_constant: , line:18:9, endln:18:11
                       |vpiConstType:9
@@ -2285,19 +2285,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:42:12, parent:work@test
+            \_assignment: , line:42:12, endln:42:32, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.ConnectionState), line:42:12, endln:42:27
                 |vpiName:ConnectionState
                 |vpiFullName:work@test.ConnectionState
                 |vpiActual:
-                \_logic_net: (work@test.ConnectionState), line:19:14, parent:work@test
+                \_logic_net: (work@test.ConnectionState), line:19:14, endln:19:29, parent:work@test
                   |vpiName:ConnectionState
                   |vpiFullName:work@test.ConnectionState
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:19:9
+                  \_range: , line:19:9, endln:19:12
                     |vpiLeftRange:
                     \_constant: , line:19:9, endln:19:10
                       |vpiConstType:9
@@ -2317,19 +2317,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:43:12, parent:work@test
+            \_assignment: , line:43:12, endln:43:32, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.InterruptStatus), line:43:12, endln:43:27
                 |vpiName:InterruptStatus
                 |vpiFullName:work@test.InterruptStatus
                 |vpiActual:
-                \_logic_net: (work@test.InterruptStatus), line:20:15, parent:work@test
+                \_logic_net: (work@test.InterruptStatus), line:20:15, endln:20:30, parent:work@test
                   |vpiName:InterruptStatus
                   |vpiFullName:work@test.InterruptStatus
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:20:9
+                  \_range: , line:20:9, endln:20:13
                     |vpiLeftRange:
                     \_constant: , line:20:9, endln:20:11
                       |vpiConstType:9
@@ -2349,19 +2349,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:44:12, parent:work@test
+            \_assignment: , line:44:12, endln:44:28, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.FrameLength), line:44:12, endln:44:23
                 |vpiName:FrameLength
                 |vpiFullName:work@test.FrameLength
                 |vpiActual:
-                \_logic_net: (work@test.FrameLength), line:21:15, parent:work@test
+                \_logic_net: (work@test.FrameLength), line:21:15, endln:21:26, parent:work@test
                   |vpiName:FrameLength
                   |vpiFullName:work@test.FrameLength
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:21:9
+                  \_range: , line:21:9, endln:21:13
                     |vpiLeftRange:
                     \_constant: , line:21:9, endln:21:11
                       |vpiConstType:9
@@ -2381,19 +2381,19 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
             |vpiStmt:
-            \_assignment: , line:45:12, parent:work@test
+            \_assignment: , line:45:12, endln:45:29, parent:work@test
               |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (work@test.LatencyDelay), line:45:12, endln:45:24
                 |vpiName:LatencyDelay
                 |vpiFullName:work@test.LatencyDelay
                 |vpiActual:
-                \_logic_net: (work@test.LatencyDelay), line:22:14, parent:work@test
+                \_logic_net: (work@test.LatencyDelay), line:22:14, endln:22:26, parent:work@test
                   |vpiName:LatencyDelay
                   |vpiFullName:work@test.LatencyDelay
                   |vpiNetType:48
                   |vpiRange:
-                  \_range: , line:22:9
+                  \_range: , line:22:9, endln:22:12
                     |vpiLeftRange:
                     \_constant: , line:22:9, endln:22:10
                       |vpiConstType:9
@@ -2413,37 +2413,37 @@ design: (work@test)
                 |vpiSize:64
                 |UINT:0
           |vpiElseStmt:
-          \_begin: (work@test), line:46:17
+          \_begin: (work@test), line:46:17, endln:82:11
             |vpiFullName:work@test
             |vpiStmt:
-            \_case_stmt: , line:48:12, parent:work@test
+            \_case_stmt: , line:48:12, endln:81:19, parent:work@test
               |vpiCaseType:1
               |vpiCondition:
               \_ref_obj: (work@test.UserState), line:48:18, endln:48:27
                 |vpiName:UserState
                 |vpiFullName:work@test.UserState
                 |vpiActual:
-                \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
               |vpiCaseItem:
-              \_case_item: , line:50:16
+              \_case_item: , line:50:16, endln:55:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_DELAY_INIT), line:50:16, endln:50:31
                   |vpiName:USER_DELAY_INIT
                   |vpiFullName:work@test.USER_DELAY_INIT
                   |vpiActual:
-                  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+                  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:50:33
+                \_begin: (work@test), line:50:33, endln:55:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_assignment: , line:51:20, parent:work@test
+                  \_assignment: , line:51:20, endln:51:38, parent:work@test
                     |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (work@test.Delay), line:51:20, endln:51:25
                       |vpiName:Delay
                       |vpiFullName:work@test.Delay
                       |vpiActual:
-                      \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                      \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                     |vpiRhs:
                     \_operation: , line:51:29, endln:51:34
                       |vpiOpType:24
@@ -2452,7 +2452,7 @@ design: (work@test)
                         |vpiName:Delay
                         |vpiFullName:work@test.Delay
                         |vpiActual:
-                        \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                        \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                       |vpiOperand:
                       \_constant: , line:51:37, endln:51:38
                         |vpiConstType:9
@@ -2460,7 +2460,7 @@ design: (work@test)
                         |vpiSize:64
                         |UINT:1
                   |vpiStmt:
-                  \_if_stmt: , line:52:20, parent:work@test
+                  \_if_stmt: , line:52:20, endln:54:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:52:24, endln:52:41
                       |vpiOpType:14
@@ -2469,7 +2469,7 @@ design: (work@test)
                         |vpiName:Delay
                         |vpiFullName:work@test.Delay
                         |vpiActual:
-                        \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+                        \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
                       |vpiOperand:
                       \_constant: , line:52:31, endln:52:41
                         |vpiConstType:5
@@ -2477,40 +2477,40 @@ design: (work@test)
                         |vpiSize:24
                         |HEX:ffffff
                     |vpiStmt:
-                    \_begin: (work@test), line:52:43
+                    \_begin: (work@test), line:52:43, endln:54:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:53:24, parent:work@test
+                      \_assignment: , line:53:24, endln:53:53, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:53:24, endln:53:33
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_CHECK_STATE), line:53:37, endln:53:53
                           |vpiName:USER_CHECK_STATE
                           |vpiFullName:work@test.USER_CHECK_STATE
                           |vpiActual:
-                          \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+                          \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
                             |vpiName:USER_CHECK_STATE
                             |vpiFullName:work@test.USER_CHECK_STATE
                             |vpiLocalParam:1
                             |UINT:64
               |vpiCaseItem:
-              \_case_item: , line:57:16
+              \_case_item: , line:57:16, endln:70:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_CHECK_STATE), line:57:16, endln:57:32
                   |vpiName:USER_CHECK_STATE
                   |vpiFullName:work@test.USER_CHECK_STATE
                   |vpiActual:
-                  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+                  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:57:34
+                \_begin: (work@test), line:57:34, endln:70:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_if_stmt: , line:59:20, parent:work@test
+                  \_if_stmt: , line:59:20, endln:69:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:59:24, endln:59:65
                       |vpiOpType:26
@@ -2522,7 +2522,7 @@ design: (work@test)
                           |vpiName:UserReadDataValid
                           |vpiFullName:work@test.UserReadDataValid
                           |vpiActual:
-                          \_logic_net: (work@test.UserReadDataValid), line:14:9, parent:work@test
+                          \_logic_net: (work@test.UserReadDataValid), line:14:9, endln:14:26, parent:work@test
                             |vpiName:UserReadDataValid
                             |vpiFullName:work@test.UserReadDataValid
                             |vpiNetType:1
@@ -2540,7 +2540,7 @@ design: (work@test)
                           |vpiName:UserValidCount
                           |vpiFullName:work@test.UserValidCount
                           |vpiActual:
-                          \_logic_net: (work@test.UserValidCount), line:18:15, parent:work@test
+                          \_logic_net: (work@test.UserValidCount), line:18:15, endln:18:29, parent:work@test
                         |vpiOperand:
                         \_constant: , line:59:64, endln:59:65
                           |vpiConstType:9
@@ -2548,17 +2548,17 @@ design: (work@test)
                           |vpiSize:64
                           |UINT:1
                     |vpiStmt:
-                    \_begin: (work@test), line:59:67
+                    \_begin: (work@test), line:59:67, endln:69:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:61:24, parent:work@test
+                      \_assignment: , line:61:24, endln:61:60, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.ConnectionState), line:61:24, endln:61:39
                           |vpiName:ConnectionState
                           |vpiFullName:work@test.ConnectionState
                           |vpiActual:
-                          \_logic_net: (work@test.ConnectionState), line:19:14, parent:work@test
+                          \_logic_net: (work@test.ConnectionState), line:19:14, endln:19:29, parent:work@test
                         |vpiRhs:
                         \_part_select: , line:61:43, endln:61:60, parent:work@test.UserReadData
                           |vpiConstantSelect:1
@@ -2577,7 +2577,7 @@ design: (work@test)
                             |vpiSize:64
                             |UINT:0
                       |vpiStmt:
-                      \_if_else: , line:63:24, parent:work@test
+                      \_if_else: , line:63:24, endln:68:27, parent:work@test
                         |vpiCondition:
                         \_operation: , line:63:28, endln:63:68
                           |vpiOpType:27
@@ -2589,7 +2589,7 @@ design: (work@test)
                               |vpiName:LatencyDelay
                               |vpiFullName:work@test.LatencyDelay
                               |vpiActual:
-                              \_logic_net: (work@test.LatencyDelay), line:22:14, parent:work@test
+                              \_logic_net: (work@test.LatencyDelay), line:22:14, endln:22:26, parent:work@test
                             |vpiOperand:
                             \_constant: , line:63:42, endln:63:43
                               |vpiConstType:9
@@ -2616,39 +2616,39 @@ design: (work@test)
                               |vpiSize:64
                               |UINT:0
                         |vpiStmt:
-                        \_begin: (work@test), line:63:70
+                        \_begin: (work@test), line:63:70, endln:65:27
                           |vpiFullName:work@test
                           |vpiStmt:
-                          \_assignment: , line:64:28, parent:work@test
+                          \_assignment: , line:64:28, endln:64:57, parent:work@test
                             |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (work@test.UserState), line:64:28, endln:64:37
                               |vpiName:UserState
                               |vpiFullName:work@test.UserState
                               |vpiActual:
-                              \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                              \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                             |vpiRhs:
                             \_ref_obj: (work@test.USER_CHECK_SPACE), line:64:41, endln:64:57
                               |vpiName:USER_CHECK_SPACE
                               |vpiFullName:work@test.USER_CHECK_SPACE
                               |vpiActual:
-                              \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+                              \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
                                 |vpiName:USER_CHECK_SPACE
                                 |vpiFullName:work@test.USER_CHECK_SPACE
                                 |vpiLocalParam:1
                                 |UINT:128
                         |vpiElseStmt:
-                        \_begin: (work@test), line:65:33
+                        \_begin: (work@test), line:65:33, endln:68:27
                           |vpiFullName:work@test
                           |vpiStmt:
-                          \_assignment: , line:66:28, parent:work@test
+                          \_assignment: , line:66:28, endln:67:76, parent:work@test
                             |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (work@test.UserState), line:66:28, endln:66:37
                               |vpiName:UserState
                               |vpiFullName:work@test.UserState
                               |vpiActual:
-                              \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                              \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                             |vpiRhs:
                             \_operation: , line:66:41, endln:66:55
                               |vpiOpType:32
@@ -2660,7 +2660,7 @@ design: (work@test)
                                   |vpiName:FrameLength
                                   |vpiFullName:work@test.FrameLength
                                   |vpiActual:
-                                  \_logic_net: (work@test.FrameLength), line:21:15, parent:work@test
+                                  \_logic_net: (work@test.FrameLength), line:21:15, endln:21:26, parent:work@test
                                 |vpiOperand:
                                 \_constant: , line:66:54, endln:66:55
                                   |vpiConstType:9
@@ -2672,7 +2672,7 @@ design: (work@test)
                                 |vpiName:USER_READ_LENGTH
                                 |vpiFullName:work@test.USER_READ_LENGTH
                                 |vpiActual:
-                                \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+                                \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
                                   |vpiName:USER_READ_LENGTH
                                   |vpiFullName:work@test.USER_READ_LENGTH
                                   |vpiLocalParam:1
@@ -2682,24 +2682,24 @@ design: (work@test)
                                 |vpiName:USER_READ_DATA
                                 |vpiFullName:work@test.USER_READ_DATA
                                 |vpiActual:
-                                \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+                                \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
                                   |vpiName:USER_READ_DATA
                                   |vpiFullName:work@test.USER_READ_DATA
                                   |vpiLocalParam:1
                                   |UINT:1024
               |vpiCaseItem:
-              \_case_item: , line:72:16
+              \_case_item: , line:72:16, endln:79:19
                 |vpiExpr:
                 \_ref_obj: (work@test.USER_CHECK_SPACE), line:72:16, endln:72:32
                   |vpiName:USER_CHECK_SPACE
                   |vpiFullName:work@test.USER_CHECK_SPACE
                   |vpiActual:
-                  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+                  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
                 |vpiStmt:
-                \_begin: (work@test), line:72:34
+                \_begin: (work@test), line:72:34, endln:79:19
                   |vpiFullName:work@test
                   |vpiStmt:
-                  \_if_else: , line:73:20, parent:work@test
+                  \_if_else: , line:73:20, endln:78:23, parent:work@test
                     |vpiCondition:
                     \_operation: , line:73:24, endln:73:57
                       |vpiOpType:15
@@ -2725,74 +2725,74 @@ design: (work@test)
                         |vpiName:ESTABLISHED
                         |vpiFullName:work@test.ESTABLISHED
                         |vpiActual:
-                        \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+                        \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
                           |vpiName:ESTABLISHED
                           |vpiFullName:work@test.ESTABLISHED
                           |vpiLocalParam:1
                           |UINT:3
                     |vpiStmt:
-                    \_begin: (work@test), line:73:59
+                    \_begin: (work@test), line:73:59, endln:75:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:74:24, parent:work@test
+                      \_assignment: , line:74:24, endln:74:46, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:74:24, endln:74:33
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_IDLE), line:74:37, endln:74:46
                           |vpiName:USER_IDLE
                           |vpiFullName:work@test.USER_IDLE
                           |vpiActual:
-                          \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+                          \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
                             |vpiName:USER_IDLE
                             |vpiFullName:work@test.USER_IDLE
                             |vpiLocalParam:1
                             |UINT:32
                     |vpiElseStmt:
-                    \_begin: (work@test), line:75:29
+                    \_begin: (work@test), line:75:29, endln:78:23
                       |vpiFullName:work@test
                       |vpiStmt:
-                      \_assignment: , line:77:24, parent:work@test
+                      \_assignment: , line:77:24, endln:77:52, parent:work@test
                         |vpiOpType:82
                         |vpiLhs:
                         \_ref_obj: (work@test.UserState), line:77:24, endln:77:33
                           |vpiName:UserState
                           |vpiFullName:work@test.UserState
                           |vpiActual:
-                          \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+                          \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (work@test.USER_WRITE_DATA), line:77:37, endln:77:52
                           |vpiName:USER_WRITE_DATA
                           |vpiFullName:work@test.USER_WRITE_DATA
                           |vpiActual:
-                          \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+                          \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
                             |vpiName:USER_WRITE_DATA
                             |vpiFullName:work@test.USER_WRITE_DATA
                             |vpiLocalParam:1
                             |UINT:256
   |vpiPort:
-  \_port: (CLK), line:6:10, parent:work@test
+  \_port: (CLK), line:6:10, endln:6:13, parent:work@test
     |vpiName:CLK
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@test.CLK), line:6:10, parent:work@test
+      \_logic_net: (work@test.CLK), line:6:10, endln:6:13, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.CLK), line:6:10, parent:work@test
+  \_logic_net: (work@test.CLK), line:6:10, endln:6:13, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.RAMRST), line:12:9, parent:work@test
+  \_logic_net: (work@test.RAMRST), line:12:9, endln:12:15, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.UserReadData), line:13:16, parent:work@test
+  \_logic_net: (work@test.UserReadData), line:13:16, endln:13:28, parent:work@test
     |vpiName:UserReadData
     |vpiFullName:work@test.UserReadData
     |vpiNetType:1
     |vpiRange:
-    \_range: , line:13:10
+    \_range: , line:13:10, endln:13:14
       |vpiLeftRange:
       \_constant: , line:13:10, endln:13:12
         |vpiConstType:9
@@ -2806,197 +2806,197 @@ design: (work@test)
         |vpiSize:64
         |UINT:0
   |vpiNet:
-  \_logic_net: (work@test.UserReadDataValid), line:14:9, parent:work@test
+  \_logic_net: (work@test.UserReadDataValid), line:14:9, endln:14:26, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.Delay), line:16:15, parent:work@test
+  \_logic_net: (work@test.Delay), line:16:15, endln:16:20, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.UserState), line:17:15, parent:work@test
+  \_logic_net: (work@test.UserState), line:17:15, endln:17:24, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.UserValidCount), line:18:15, parent:work@test
+  \_logic_net: (work@test.UserValidCount), line:18:15, endln:18:29, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.ConnectionState), line:19:14, parent:work@test
+  \_logic_net: (work@test.ConnectionState), line:19:14, endln:19:29, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.InterruptStatus), line:20:15, parent:work@test
+  \_logic_net: (work@test.InterruptStatus), line:20:15, endln:20:30, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.FrameLength), line:21:15, parent:work@test
+  \_logic_net: (work@test.FrameLength), line:21:15, endln:21:26, parent:work@test
   |vpiNet:
-  \_logic_net: (work@test.LatencyDelay), line:22:14, parent:work@test
+  \_logic_net: (work@test.LatencyDelay), line:22:14, endln:22:26, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:9:15, parent:work@test
+  \_param_assign: , line:9:15, endln:9:32, parent:work@test
     |vpiRhs:
-    \_constant: , line:9:30
+    \_constant: , line:9:30, endln:9:32
       |vpiConstType:9
       |vpiDecompile:15
       |vpiSize:64
       |UINT:15
     |vpiLhs:
-    \_parameter: (work@test.FRAME_LENGTH), line:9:15, parent:work@test
+    \_parameter: (work@test.FRAME_LENGTH), line:9:15, endln:9:32, parent:work@test
       |vpiName:FRAME_LENGTH
       |vpiFullName:work@test.FRAME_LENGTH
       |vpiLocalParam:1
       |UINT:15
   |vpiParamAssign:
-  \_param_assign: , line:10:15, parent:work@test
+  \_param_assign: , line:10:15, endln:10:38, parent:work@test
     |vpiRhs:
-    \_constant: , line:10:30
+    \_constant: , line:10:30, endln:10:38
       |vpiConstType:9
       |vpiDecompile:3
       |vpiSize:16
       |UINT:3
     |vpiLhs:
-    \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+    \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:24:15, parent:work@test
+  \_param_assign: , line:24:15, endln:24:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:24:34
+    \_constant: , line:24:34, endln:24:41
       |vpiConstType:9
       |vpiDecompile:1
       |vpiSize:12
       |UINT:1
     |vpiLhs:
-    \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+    \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:25:15, parent:work@test
+  \_param_assign: , line:25:15, endln:25:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:25:34
+    \_constant: , line:25:34, endln:25:41
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:12
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAN), line:25:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAN), line:25:15, endln:25:41, parent:work@test
       |vpiName:USER_CLEAN
       |vpiFullName:work@test.USER_CLEAN
       |vpiLocalParam:1
       |UINT:2
   |vpiParamAssign:
-  \_param_assign: , line:26:15, parent:work@test
+  \_param_assign: , line:26:15, endln:26:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:26:34
+    \_constant: , line:26:34, endln:26:41
       |vpiConstType:9
       |vpiDecompile:4
       |vpiSize:12
       |UINT:4
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, endln:26:41, parent:work@test
       |vpiName:USER_CLEAN_CHECK
       |vpiFullName:work@test.USER_CLEAN_CHECK
       |vpiLocalParam:1
       |UINT:4
   |vpiParamAssign:
-  \_param_assign: , line:27:15, parent:work@test
+  \_param_assign: , line:27:15, endln:27:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:27:34
+    \_constant: , line:27:34, endln:27:41
       |vpiConstType:9
       |vpiDecompile:8
       |vpiSize:12
       |UINT:8
     |vpiLhs:
-    \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, parent:work@test
+    \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, endln:27:41, parent:work@test
       |vpiName:USER_CLEAR_INTS
       |vpiFullName:work@test.USER_CLEAR_INTS
       |vpiLocalParam:1
       |UINT:8
   |vpiParamAssign:
-  \_param_assign: , line:28:15, parent:work@test
+  \_param_assign: , line:28:15, endln:28:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:28:34
+    \_constant: , line:28:34, endln:28:41
       |vpiConstType:9
       |vpiDecompile:16
       |vpiSize:12
       |UINT:16
     |vpiLhs:
-    \_parameter: (work@test.USER_INIT), line:28:15, parent:work@test
+    \_parameter: (work@test.USER_INIT), line:28:15, endln:28:41, parent:work@test
       |vpiName:USER_INIT
       |vpiFullName:work@test.USER_INIT
       |vpiLocalParam:1
       |UINT:16
   |vpiParamAssign:
-  \_param_assign: , line:29:15, parent:work@test
+  \_param_assign: , line:29:15, endln:29:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:29:34
+    \_constant: , line:29:34, endln:29:41
       |vpiConstType:9
       |vpiDecompile:32
       |vpiSize:12
       |UINT:32
     |vpiLhs:
-    \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+    \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:30:15, parent:work@test
+  \_param_assign: , line:30:15, endln:30:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:30:34
+    \_constant: , line:30:34, endln:30:41
       |vpiConstType:9
       |vpiDecompile:64
       |vpiSize:12
       |UINT:64
     |vpiLhs:
-    \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+    \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:31:15, parent:work@test
+  \_param_assign: , line:31:15, endln:31:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:31:34
+    \_constant: , line:31:34, endln:31:41
       |vpiConstType:9
       |vpiDecompile:128
       |vpiSize:12
       |UINT:128
     |vpiLhs:
-    \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+    \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:32:15, parent:work@test
+  \_param_assign: , line:32:15, endln:32:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:32:34
+    \_constant: , line:32:34, endln:32:41
       |vpiConstType:9
       |vpiDecompile:256
       |vpiSize:12
       |UINT:256
     |vpiLhs:
-    \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+    \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:33:15, parent:work@test
+  \_param_assign: , line:33:15, endln:33:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:33:34
+    \_constant: , line:33:34, endln:33:41
       |vpiConstType:9
       |vpiDecompile:512
       |vpiSize:12
       |UINT:512
     |vpiLhs:
-    \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+    \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
   |vpiParamAssign:
-  \_param_assign: , line:34:15, parent:work@test
+  \_param_assign: , line:34:15, endln:34:41, parent:work@test
     |vpiRhs:
-    \_constant: , line:34:34
+    \_constant: , line:34:34, endln:34:41
       |vpiConstType:9
       |vpiDecompile:1024
       |vpiSize:12
       |UINT:1024
     |vpiLhs:
-    \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+    \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.FRAME_LENGTH), line:9:15, parent:work@test
+  \_parameter: (work@test.FRAME_LENGTH), line:9:15, endln:9:32, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.ESTABLISHED), line:10:15, parent:work@test
+  \_parameter: (work@test.ESTABLISHED), line:10:15, endln:10:38, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, parent:work@test
+  \_parameter: (work@test.USER_DELAY_INIT), line:24:15, endln:24:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN), line:25:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAN), line:25:15, endln:25:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAN_CHECK), line:26:15, endln:26:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, parent:work@test
+  \_parameter: (work@test.USER_CLEAR_INTS), line:27:15, endln:27:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_INIT), line:28:15, parent:work@test
+  \_parameter: (work@test.USER_INIT), line:28:15, endln:28:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_IDLE), line:29:15, parent:work@test
+  \_parameter: (work@test.USER_IDLE), line:29:15, endln:29:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, parent:work@test
+  \_parameter: (work@test.USER_CHECK_STATE), line:30:15, endln:30:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, parent:work@test
+  \_parameter: (work@test.USER_CHECK_SPACE), line:31:15, endln:31:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_WRITE_DATA), line:32:15, parent:work@test
+  \_parameter: (work@test.USER_WRITE_DATA), line:32:15, endln:32:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_READ_LENGTH), line:33:15, parent:work@test
+  \_parameter: (work@test.USER_READ_LENGTH), line:33:15, endln:33:41, parent:work@test
   |vpiParameter:
-  \_parameter: (work@test.USER_READ_DATA), line:34:15, parent:work@test
+  \_parameter: (work@test.USER_READ_DATA), line:34:15, endln:34:41, parent:work@test
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

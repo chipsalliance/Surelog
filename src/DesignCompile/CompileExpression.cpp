@@ -94,6 +94,8 @@ expr* CompileHelper::reduceBitSelect(expr* op, unsigned int index_val, bool& inv
     c->VpiFile(fileName);
     c->VpiLineNo(lineNumber);
     c->VpiColumnNo(op->VpiColumnNo());
+    c->VpiEndLineNo(lineNumber);
+    c->VpiEndColumnNo(op->VpiColumnNo()+1);
     result = c;
   }
   return result;
@@ -2264,6 +2266,8 @@ UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
       path->VpiFile(fC->getFileName());
       path->VpiLineNo(fC->Line(Bit_select));
       path->VpiColumnNo(fC->Column(Bit_select));
+      path->VpiEndLineNo(fC->EndLine(Bit_select));
+      path->VpiEndColumnNo(fC->EndColumn(Bit_select));
       result = path;
       break;
     }
@@ -2330,11 +2334,15 @@ UHDM::any* CompileHelper::compileExpression(
       list_op->VpiFile(fC->getFileName());
       list_op->VpiLineNo(fC->Line(child));
       list_op->VpiColumnNo(fC->Column(child));
+      list_op->VpiEndLineNo(fC->EndLine(child));
+      list_op->VpiEndColumnNo(fC->EndColumn(child));
       list_op->Attributes(attributes);
       result = list_op;
       result->VpiFile(fC->getFileName(parent));
       result->VpiLineNo(fC->Line(parent));
       result->VpiColumnNo(fC->Column(parent));
+      result->VpiEndLineNo(fC->EndLine(parent));
+      result->VpiEndColumnNo(fC->EndColumn(parent));
       return result;
     }
     case VObjectType::slNet_lvalue: {
@@ -2348,6 +2356,8 @@ UHDM::any* CompileHelper::compileExpression(
       result->VpiFile(fC->getFileName(parent));
       result->VpiLineNo(fC->Line(parent));
       result->VpiColumnNo(fC->Column(parent));
+      result->VpiEndLineNo(fC->EndLine(parent));
+      result->VpiEndColumnNo(fC->EndColumn(parent));
       NodeId Expression = parent;
       while (Expression) {
         UHDM::any* exp =
@@ -2442,6 +2452,8 @@ UHDM::any* CompileHelper::compileExpression(
     result->VpiFile(fC->getFileName(child));
     result->VpiLineNo(fC->Line(child));
     result->VpiColumnNo(fC->Column(child));
+    result->VpiEndLineNo(fC->EndLine(child));
+    result->VpiEndColumnNo(fC->EndColumn(child));
     NodeId Expression = child;
     while (Expression) {
       UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
@@ -2514,6 +2526,8 @@ UHDM::any* CompileHelper::compileExpression(
         result->VpiFile(fC->getFileName(child));
         result->VpiLineNo(fC->Line(child));
         result->VpiColumnNo(fC->Column(child));
+        result->VpiEndLineNo(fC->EndLine(child));
+        result->VpiEndColumnNo(fC->EndColumn(child));
         NodeId Expression = child;
         bool odd = true;
         while (Expression) {
@@ -3618,6 +3632,8 @@ UHDM::any* CompileHelper::compileExpression(
       exp->VpiFile(fC->getFileName(the_node));
       exp->VpiLineNo(fC->Line(the_node));
       exp->VpiColumnNo(fC->Column(the_node));
+      exp->VpiEndLineNo(fC->EndLine(the_node));
+      exp->VpiEndColumnNo(fC->EndColumn(the_node));
       exp->VpiParent(pexpr);
       result = exp;
     }
@@ -3726,6 +3742,8 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
             tps->VpiFile(fC->getFileName());
             tps->VpiLineNo(fC->Line(Constant_expression));
             tps->VpiColumnNo(fC->Column(Constant_expression));
+            tps->VpiEndLineNo(fC->EndLine(Constant_expression));
+            tps->VpiEndColumnNo(fC->EndColumn(Constant_expression));
             pattern->Typespec(tps);
           } else {
             NodeId Primary_literal = Constant_primary;
@@ -3895,6 +3913,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         range->VpiColumnNo(fC->Column(Constant_range));
+        range->VpiEndLineNo(fC->EndLine(Constant_range));
+        range->VpiEndColumnNo(fC->EndColumn(Constant_range));
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(Constant_range) == VObjectType::slConstant_expression) {
@@ -3910,6 +3930,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         lexpc->VpiFile(fC->getFileName());
         lexpc->VpiLineNo(fC->Line(rexpr));
         lexpc->VpiColumnNo(fC->Column(rexpr));
+        lexpc->VpiEndLineNo(fC->EndLine(rexpr));
+        lexpc->VpiEndColumnNo(fC->Column(rexpr)+1);
         expr* lexp = lexpc;
 
         range->Left_expr(lexp);
@@ -3949,6 +3971,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         range->VpiColumnNo(fC->Column(Constant_range));
+        range->VpiEndLineNo(fC->EndLine(Constant_range));
+        range->VpiEndColumnNo(fC->EndColumn(Constant_range));
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(fC->Child(Packed_dimension)) == VObjectType::slUnsized_dimension) {

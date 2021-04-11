@@ -244,16 +244,16 @@ design: (work@dut)
   |vpiName:pkg1
   |vpiFullName:pkg1::
   |vpiTypedef:
-  \_struct_typespec: (pkg1::struct1), line:2:12
+  \_struct_typespec: (pkg1::struct1), line:2:12, endln:2:18
     |vpiPacked:1
     |vpiName:pkg1::struct1
     |vpiTypespecMember:
-    \_typespec_member: (first), line:3:20
+    \_typespec_member: (first), line:3:20, endln:3:25
       |vpiName:first
       |vpiTypespec:
-      \_logic_typespec: , line:3:8
+      \_logic_typespec: , line:3:8, endln:3:13
         |vpiRange:
-        \_range: , line:3:15, parent:pkg1::struct1
+        \_range: , line:3:15, endln:3:18, parent:pkg1::struct1
           |vpiLeftRange:
           \_constant: , line:3:15, endln:3:16
             |vpiConstType:9
@@ -274,16 +274,16 @@ design: (work@dut)
   |vpiName:pkg2
   |vpiFullName:pkg2::
   |vpiTypedef:
-  \_struct_typespec: (pkg2::struct1), line:8:12
+  \_struct_typespec: (pkg2::struct1), line:8:12, endln:8:18
     |vpiPacked:1
     |vpiName:pkg2::struct1
     |vpiTypespecMember:
-    \_typespec_member: (second), line:9:20
+    \_typespec_member: (second), line:9:20, endln:9:26
       |vpiName:second
       |vpiTypespec:
-      \_logic_typespec: , line:9:8
+      \_logic_typespec: , line:9:8, endln:9:13
         |vpiRange:
-        \_range: , line:9:15, parent:pkg2::struct1
+        \_range: , line:9:15, endln:9:18, parent:pkg2::struct1
           |vpiLeftRange:
           \_constant: , line:9:15, endln:9:16
             |vpiConstType:9
@@ -335,7 +335,7 @@ design: (work@dut)
         |vpiName:var3
         |vpiFullName:work@dut.var3
   |vpiContAssign:
-  \_cont_assign: , line:22:11, parent:work@dut
+  \_cont_assign: , line:22:11, endln:22:27, parent:work@dut
     |vpiRhs:
     \_constant: , line:22:24, endln:22:27
       |vpiConstType:9
@@ -352,7 +352,7 @@ design: (work@dut)
       \_ref_obj: (first)
         |vpiName:first
   |vpiContAssign:
-  \_cont_assign: , line:23:11, parent:work@dut
+  \_cont_assign: , line:23:11, endln:23:28, parent:work@dut
     |vpiRhs:
     \_constant: , line:23:25, endln:23:28
       |vpiConstType:9
@@ -369,7 +369,7 @@ design: (work@dut)
       \_ref_obj: (second)
         |vpiName:second
   |vpiContAssign:
-  \_cont_assign: , line:24:11, parent:work@dut
+  \_cont_assign: , line:24:11, endln:24:26, parent:work@dut
     |vpiRhs:
     \_constant: , line:24:24, endln:24:26
       |vpiConstType:9
@@ -392,16 +392,16 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.var3), line:13:23, parent:work@dut
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:14:12
+  \_struct_typespec: (struct2), line:14:12, endln:14:18
     |vpiPacked:1
     |vpiName:struct2
     |vpiTypespecMember:
-    \_typespec_member: (third), line:15:20
+    \_typespec_member: (third), line:15:20, endln:15:25
       |vpiName:third
       |vpiTypespec:
-      \_logic_typespec: , line:15:8
+      \_logic_typespec: , line:15:8, endln:15:13
         |vpiRange:
-        \_range: , line:15:15, parent:struct2
+        \_range: , line:15:15, endln:15:18, parent:struct2
           |vpiLeftRange:
           \_constant: , line:15:15, endln:15:16
             |vpiConstType:9
@@ -419,20 +419,20 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiName:work@dut
   |vpiPort:
-  \_port: (var1), line:13:11, parent:work@dut
+  \_port: (var1), line:13:11, endln:13:15, parent:work@dut
     |vpiName:var1
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (pkg1::struct1), line:2:12
+    \_struct_typespec: (pkg1::struct1), line:2:12, endln:2:18
       |vpiPacked:1
       |vpiName:pkg1::struct1
       |vpiTypespecMember:
-      \_typespec_member: (first), line:3:20
+      \_typespec_member: (first), line:3:20, endln:3:25
         |vpiName:first
         |vpiTypespec:
-        \_logic_typespec: , line:3:8
+        \_logic_typespec: , line:3:8, endln:3:13
           |vpiRange:
-          \_range: , line:3:15, parent:pkg1::struct1
+          \_range: , line:3:15, endln:3:18, parent:pkg1::struct1
             |vpiLeftRange:
             \_constant: , line:3:15, endln:3:16
               |vpiConstType:9
@@ -451,30 +451,30 @@ design: (work@dut)
             |vpiName:pkg1
             |vpiFullName:pkg1::
             |vpiTypedef:
-            \_struct_typespec: (pkg1::struct1), line:2:12
+            \_struct_typespec: (pkg1::struct1), line:2:12, endln:2:18
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_struct_net: (work@dut.var1), line:13:11, parent:work@dut
+      \_struct_net: (work@dut.var1), line:13:11, endln:13:15, parent:work@dut
         |vpiName:var1
         |vpiFullName:work@dut.var1
         |vpiTypespec:
-        \_struct_typespec: (pkg1::struct1), line:2:12
+        \_struct_typespec: (pkg1::struct1), line:2:12, endln:2:18
   |vpiPort:
-  \_port: (var2), line:13:17, parent:work@dut
+  \_port: (var2), line:13:17, endln:13:21, parent:work@dut
     |vpiName:var2
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (pkg2::struct1), line:8:12
+    \_struct_typespec: (pkg2::struct1), line:8:12, endln:8:18
       |vpiPacked:1
       |vpiName:pkg2::struct1
       |vpiTypespecMember:
-      \_typespec_member: (second), line:9:20
+      \_typespec_member: (second), line:9:20, endln:9:26
         |vpiName:second
         |vpiTypespec:
-        \_logic_typespec: , line:9:8
+        \_logic_typespec: , line:9:8, endln:9:13
           |vpiRange:
-          \_range: , line:9:15, parent:pkg2::struct1
+          \_range: , line:9:15, endln:9:18, parent:pkg2::struct1
             |vpiLeftRange:
             \_constant: , line:9:15, endln:9:16
               |vpiConstType:9
@@ -493,30 +493,30 @@ design: (work@dut)
             |vpiName:pkg2
             |vpiFullName:pkg2::
             |vpiTypedef:
-            \_struct_typespec: (pkg2::struct1), line:8:12
+            \_struct_typespec: (pkg2::struct1), line:8:12, endln:8:18
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_struct_net: (work@dut.var2), line:13:17, parent:work@dut
+      \_struct_net: (work@dut.var2), line:13:17, endln:13:21, parent:work@dut
         |vpiName:var2
         |vpiFullName:work@dut.var2
         |vpiTypespec:
-        \_struct_typespec: (pkg2::struct1), line:8:12
+        \_struct_typespec: (pkg2::struct1), line:8:12, endln:8:18
   |vpiPort:
-  \_port: (var3), line:13:23, parent:work@dut
+  \_port: (var3), line:13:23, endln:13:27, parent:work@dut
     |vpiName:var3
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (struct2), line:14:12
+    \_struct_typespec: (struct2), line:14:12, endln:14:18
       |vpiPacked:1
       |vpiName:struct2
       |vpiTypespecMember:
-      \_typespec_member: (third), line:15:20
+      \_typespec_member: (third), line:15:20, endln:15:25
         |vpiName:third
         |vpiTypespec:
-        \_logic_typespec: , line:15:8
+        \_logic_typespec: , line:15:8, endln:15:13
           |vpiRange:
-          \_range: , line:15:15, parent:struct2
+          \_range: , line:15:15, endln:15:18, parent:struct2
             |vpiLeftRange:
             \_constant: , line:15:15, endln:15:16
               |vpiConstType:9
@@ -532,19 +532,19 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_struct_net: (work@dut.var3), line:13:23, parent:work@dut
+      \_struct_net: (work@dut.var3), line:13:23, endln:13:27, parent:work@dut
         |vpiName:var3
         |vpiFullName:work@dut.var3
         |vpiTypespec:
-        \_struct_typespec: (struct2), line:14:12
+        \_struct_typespec: (struct2), line:14:12, endln:14:18
   |vpiNet:
-  \_struct_net: (work@dut.var1), line:13:11, parent:work@dut
+  \_struct_net: (work@dut.var1), line:13:11, endln:13:15, parent:work@dut
   |vpiNet:
-  \_struct_net: (work@dut.var2), line:13:17, parent:work@dut
+  \_struct_net: (work@dut.var2), line:13:17, endln:13:21, parent:work@dut
   |vpiNet:
-  \_struct_net: (work@dut.var3), line:13:23, parent:work@dut
+  \_struct_net: (work@dut.var3), line:13:23, endln:13:27, parent:work@dut
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:14:12
+  \_struct_typespec: (struct2), line:14:12, endln:14:18
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

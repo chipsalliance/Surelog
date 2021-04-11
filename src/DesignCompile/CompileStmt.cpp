@@ -283,6 +283,8 @@ VectorOfany* CompileHelper::compileStmt(
       param->VpiFile(fC->getFileName());
       param->VpiLineNo(fC->Line(Param_assignment));
       param->VpiColumnNo(fC->Column(Param_assignment));
+      param->VpiEndLineNo(fC->EndLine(Param_assignment));
+      param->VpiEndColumnNo(fC->EndColumn(Param_assignment));
       // Unpacked dimensions
       if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         int unpackedSize;
@@ -300,6 +302,8 @@ VectorOfany* CompileHelper::compileStmt(
       param_assign->VpiFile(fC->getFileName());
       param_assign->VpiLineNo(fC->Line(Param_assignment));
       param_assign->VpiColumnNo(fC->Column(Param_assignment));
+      param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
+      param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
       param_assigns->push_back(param_assign);
       param->VpiName(fC->SymName(name));
       param->Typespec(ts);
@@ -533,6 +537,8 @@ VectorOfany* CompileHelper::compileStmt(
     stmt->VpiFile(fC->getFileName(the_stmt));
     stmt->VpiLineNo(fC->Line(the_stmt));
     stmt->VpiColumnNo(fC->Column(the_stmt));
+    stmt->VpiEndLineNo(fC->EndLine(the_stmt));
+    stmt->VpiEndColumnNo(fC->EndColumn(the_stmt));
     stmt->VpiParent(pstmt);
     results = s.MakeAnyVec();
     results->push_back(stmt);
@@ -567,6 +573,8 @@ VectorOfany* CompileHelper::compileStmt(
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
       ustmt->VpiColumnNo(fC->Column(the_stmt));
+      ustmt->VpiEndLineNo(fC->EndLine(the_stmt));
+      ustmt->VpiEndColumnNo(fC->EndColumn(the_stmt));
       ustmt->VpiParent(pstmt);
       stmt = ustmt;
       // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt)
@@ -838,6 +846,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(
       case_item->VpiFile(fC->getFileName());
       case_item->VpiLineNo(fC->Line(Case_item));
       case_item->VpiColumnNo(fC->Column(Case_item));
+      case_item->VpiEndLineNo(fC->EndLine(Case_item));
+      case_item->VpiEndColumnNo(fC->EndColumn(Case_item));
       case_item->VpiParent(case_stmt);
     }
     bool isDefault = false;
@@ -966,6 +976,8 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           decl->VpiFile(fC->getFileName());
           decl->VpiLineNo(fC->Line(nameId));
           decl->VpiColumnNo(fC->Column(nameId));
+          decl->VpiEndLineNo(fC->EndLine(nameId));
+          decl->VpiEndColumnNo(fC->EndColumn(nameId));
           decl->Ranges(ranges);
           List_of_tf_variable_identifiers =
               fC->Sibling(List_of_tf_variable_identifiers);
@@ -1261,6 +1273,8 @@ bool CompileHelper::compileTask(
   task->VpiFile(fC->getFileName());
   task->VpiLineNo(fC->Line(nodeId));
   task->VpiColumnNo(fC->Column(nodeId));
+  task->VpiEndLineNo(fC->EndLine(nodeId));
+  task->VpiEndColumnNo(fC->EndColumn(nodeId));
   NodeId Tf_port_list = fC->Sibling(task_name);
   NodeId Statement_or_null = 0;
   if (fC->Type(Tf_port_list) == slTf_port_list) {
@@ -1391,6 +1405,8 @@ bool CompileHelper::compileClassConstructorDeclaration(
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
   func->VpiColumnNo(fC->Column(nodeId));
+  func->VpiEndLineNo(fC->EndLine(nodeId));
+  func->VpiEndColumnNo(fC->EndColumn(nodeId));
   std::string name = "new";
   std::string className;
   NodeId Tf_port_list = 0;
@@ -1571,6 +1587,8 @@ bool CompileHelper::compileFunction(
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
   func->VpiColumnNo(fC->Column(nodeId));
+  func->VpiEndLineNo(fC->EndLine(nodeId));
+  func->VpiEndColumnNo(fC->EndColumn(nodeId));
   if (constructor) {
     UHDM::class_var* var = s.MakeClass_var();
     func->Return(var);
@@ -1758,6 +1776,8 @@ Function* CompileHelper::compileFunctionPrototype(
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(id));
   func->VpiColumnNo(fC->Column(id));
+  func->VpiEndLineNo(fC->EndLine(id));
+  func->VpiEndColumnNo(fC->EndColumn(id));
   func->Return(dynamic_cast<variables*>(
         compileVariable(scope, fC, type, compileDesign, nullptr,
                         nullptr, true, false)));

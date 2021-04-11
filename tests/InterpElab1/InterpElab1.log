@@ -63,7 +63,7 @@ design: (work@dut)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@dut
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:2, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6:2, endln:7:13, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -78,7 +78,7 @@ design: (work@dut)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:6:16
+      \_int_typespec: , line:6:16, endln:6:19
       |vpiExpr:
       \_constant: , line:6:28, endln:6:29
         |vpiConstType:9
@@ -86,15 +86,15 @@ design: (work@dut)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:2, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9:2, endln:10:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:11
+    \_int_var: , line:9:11, endln:9:14
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:2, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12:2, endln:13:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -104,7 +104,7 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:2, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15:2, endln:16:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -114,7 +114,7 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:2, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18:2, endln:19:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -124,19 +124,19 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:2, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21:2, endln:22:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:11
+    \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:2, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24:2, endln:25:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -146,13 +146,13 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:2, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27:2, endln:28:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:11
+    \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
     \_io_decl: (message)
       |vpiName:message
@@ -161,56 +161,56 @@ design: (work@dut)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endln:55:8, parent:work@dut
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:2, parent:work@process
+  \_function: (work@process::self), line:37:2, endln:37:8, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:18
+    \_chandle_var: , line:37:18, endln:37:25
   |vpiMethod:
-  \_function: (work@process::status), line:40:2, parent:work@process
+  \_function: (work@process::status), line:40:2, endln:41:13, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40:11
+    \_int_var: , line:40:11, endln:40:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:65
+      \_enum_typespec: (state), line:35:65, endln:35:70
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:17
+        \_enum_const: (FINISHED), line:35:17, endln:35:25
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:27
+        \_enum_const: (RUNNING), line:35:27, endln:35:34
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:36
+        \_enum_const: (WAITING), line:35:36, endln:35:43
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:45
+        \_enum_const: (SUSPENDED), line:35:45, endln:35:54
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:56
+        \_enum_const: (KILLED), line:35:56, endln:35:62
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:2, parent:work@process
+  \_task: (work@process::kill), line:43:2, endln:44:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -219,7 +219,7 @@ design: (work@dut)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:2, parent:work@process
+  \_task: (work@process::await), line:46:2, endln:47:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -228,7 +228,7 @@ design: (work@dut)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:2, parent:work@process
+  \_task: (work@process::suspend), line:49:2, endln:50:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -237,7 +237,7 @@ design: (work@dut)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:2, parent:work@process
+  \_task: (work@process::resume), line:52:2, endln:53:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -246,12 +246,12 @@ design: (work@dut)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:65
+  \_enum_typespec: (state), line:35:65, endln:35:70
 |uhdmallClasses:
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@dut
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:2, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60:2, endln:61:13, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -266,7 +266,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:60:15
+      \_int_typespec: , line:60:15, endln:60:18
       |vpiExpr:
       \_constant: , line:60:30, endln:60:31
         |vpiConstType:9
@@ -274,7 +274,7 @@ design: (work@dut)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:2, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63:2, endln:64:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -284,7 +284,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:63:11
+      \_int_typespec: , line:63:11, endln:63:14
       |vpiExpr:
       \_constant: , line:63:26, endln:63:27
         |vpiConstType:9
@@ -292,7 +292,7 @@ design: (work@dut)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:2, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66:2, endln:67:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -302,7 +302,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:66:11
+      \_int_typespec: , line:66:11, endln:66:14
       |vpiExpr:
       \_constant: , line:66:26, endln:66:27
         |vpiConstType:9
@@ -310,19 +310,19 @@ design: (work@dut)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:2, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69:2, endln:70:13, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:11
+    \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:69:23
+      \_int_typespec: , line:69:23, endln:69:26
       |vpiExpr:
       \_constant: , line:69:38, endln:69:39
         |vpiConstType:9
@@ -334,12 +334,12 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiFullName:work@dut
   |vpiTypedef:
-  \_enum_typespec: (dummy_instr_e), line:11:6
+  \_enum_typespec: (dummy_instr_e), line:11:6, endln:11:19
     |vpiName:dummy_instr_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:6:17
+    \_logic_typespec: , line:6:17, endln:6:22
       |vpiRange:
-      \_range: , line:6:24
+      \_range: , line:6:24, endln:6:27
         |vpiLeftRange:
         \_constant: , line:6:24, endln:6:25
           |vpiConstType:9
@@ -353,45 +353,45 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (DUMMY_ADD), line:7:6
+    \_enum_const: (DUMMY_ADD), line:7:6, endln:7:15
       |vpiName:DUMMY_ADD
       |vpiDecompile:2'b00
       |UINT:0
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_MUL), line:8:6
+    \_enum_const: (DUMMY_MUL), line:8:6, endln:8:15
       |vpiName:DUMMY_MUL
       |vpiDecompile:2'b01
       |UINT:1
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_DIV), line:9:6
+    \_enum_const: (DUMMY_DIV), line:9:6, endln:9:15
       |vpiName:DUMMY_DIV
       |vpiDecompile:2'b10
       |UINT:2
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_AND), line:10:6
+    \_enum_const: (DUMMY_AND), line:10:6, endln:10:15
       |vpiName:DUMMY_AND
       |vpiDecompile:2'b11
       |UINT:3
       |vpiSize:2
   |vpiTypedef:
-  \_struct_typespec: (lfsr_data_t), line:13:12
+  \_struct_typespec: (lfsr_data_t), line:13:12, endln:13:18
     |vpiPacked:1
     |vpiName:lfsr_data_t
     |vpiTypespecMember:
-    \_typespec_member: (instr_type), line:14:32
+    \_typespec_member: (instr_type), line:14:32, endln:14:42
       |vpiName:instr_type
       |vpiTypespec:
-      \_enum_typespec: (dummy_instr_e), line:11:6
+      \_enum_typespec: (dummy_instr_e), line:11:6, endln:11:19
     |vpiTypespecMember:
-    \_typespec_member: (op_b), line:15:32
+    \_typespec_member: (op_b), line:15:32, endln:15:36
       |vpiName:op_b
       |vpiTypespec:
-      \_logic_typespec: , line:15:6
+      \_logic_typespec: , line:15:6, endln:15:11
         |vpiRange:
-        \_range: , line:15:13, parent:lfsr_data_t
+        \_range: , line:15:13, endln:15:21, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:15:13, endln:15:17
             |vpiOpType:11
@@ -400,13 +400,13 @@ design: (work@dut)
               |vpiName:OP_W
               |vpiFullName:lfsr_data_t.OP_W
               |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+              \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
                 |vpiName:OP_W
                 |vpiFullName:work@dut.OP_W
                 |vpiLocalParam:1
                 |UINT:5
                 |vpiTypespec:
-                \_int_typespec: (OP_W), line:4:14, parent:work@dut.OP_W
+                \_int_typespec: (OP_W), line:4:14, endln:4:17, parent:work@dut.OP_W
                   |vpiName:OP_W
             |vpiOperand:
             \_constant: , line:15:18, endln:15:19
@@ -421,12 +421,12 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
     |vpiTypespecMember:
-    \_typespec_member: (op_a), line:16:32
+    \_typespec_member: (op_a), line:16:32, endln:16:36
       |vpiName:op_a
       |vpiTypespec:
-      \_logic_typespec: , line:16:6
+      \_logic_typespec: , line:16:6, endln:16:11
         |vpiRange:
-        \_range: , line:16:13, parent:lfsr_data_t
+        \_range: , line:16:13, endln:16:21, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:16:13, endln:16:17
             |vpiOpType:11
@@ -435,7 +435,7 @@ design: (work@dut)
               |vpiName:OP_W
               |vpiFullName:lfsr_data_t.OP_W
               |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+              \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
             |vpiOperand:
             \_constant: , line:16:18, endln:16:19
               |vpiConstType:9
@@ -449,12 +449,12 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
     |vpiTypespecMember:
-    \_typespec_member: (cnt), line:17:32
+    \_typespec_member: (cnt), line:17:32, endln:17:35
       |vpiName:cnt
       |vpiTypespec:
-      \_logic_typespec: , line:17:6
+      \_logic_typespec: , line:17:6, endln:17:11
         |vpiRange:
-        \_range: , line:17:13, parent:lfsr_data_t
+        \_range: , line:17:13, endln:17:30, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:17:13, endln:17:26
             |vpiOpType:11
@@ -463,13 +463,13 @@ design: (work@dut)
               |vpiName:TIMEOUT_CNT_W
               |vpiFullName:lfsr_data_t.TIMEOUT_CNT_W
               |vpiActual:
-              \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+              \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
                 |vpiName:TIMEOUT_CNT_W
                 |vpiFullName:work@dut.TIMEOUT_CNT_W
                 |vpiLocalParam:1
                 |UINT:5
                 |vpiTypespec:
-                \_int_typespec: (TIMEOUT_CNT_W), line:3:14, parent:work@dut.TIMEOUT_CNT_W
+                \_int_typespec: (TIMEOUT_CNT_W), line:3:14, endln:3:17, parent:work@dut.TIMEOUT_CNT_W
                   |vpiName:TIMEOUT_CNT_W
             |vpiOperand:
             \_constant: , line:17:27, endln:17:28
@@ -484,7 +484,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:3:27, parent:work@dut
+  \_param_assign: , line:3:27, endln:3:44, parent:work@dut
     |vpiRhs:
     \_constant: , line:3:43, endln:3:44
       |vpiConstType:9
@@ -492,15 +492,15 @@ design: (work@dut)
       |vpiSize:64
       |UINT:5
     |vpiLhs:
-    \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+    \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
       |vpiName:TIMEOUT_CNT_W
       |vpiFullName:work@dut.TIMEOUT_CNT_W
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: (TIMEOUT_CNT_W), line:3:14, parent:work@dut.TIMEOUT_CNT_W
+      \_int_typespec: (TIMEOUT_CNT_W), line:3:14, endln:3:17, parent:work@dut.TIMEOUT_CNT_W
         |vpiName:TIMEOUT_CNT_W
   |vpiParamAssign:
-  \_param_assign: , line:4:27, parent:work@dut
+  \_param_assign: , line:4:27, endln:4:44, parent:work@dut
     |vpiRhs:
     \_constant: , line:4:43, endln:4:44
       |vpiConstType:9
@@ -508,15 +508,15 @@ design: (work@dut)
       |vpiSize:64
       |UINT:5
     |vpiLhs:
-    \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+    \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
       |vpiName:OP_W
       |vpiFullName:work@dut.OP_W
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: (OP_W), line:4:14, parent:work@dut.OP_W
+      \_int_typespec: (OP_W), line:4:14, endln:4:17, parent:work@dut.OP_W
         |vpiName:OP_W
   |vpiParamAssign:
-  \_param_assign: , line:19:28, parent:work@dut
+  \_param_assign: , line:19:28, endln:19:59, parent:work@dut
     |vpiRhs:
     \_sys_func_call: ($bits), line:19:41, endln:19:59
       |vpiName:$bits
@@ -524,30 +524,30 @@ design: (work@dut)
       \_ref_obj: (lfsr_data_t), line:19:47, endln:19:58, parent:$bits
         |vpiName:lfsr_data_t
     |vpiLhs:
-    \_parameter: (work@dut.LFSR_OUT_W), line:19:28, parent:work@dut
+    \_parameter: (work@dut.LFSR_OUT_W), line:19:28, endln:19:59, parent:work@dut
       |vpiName:LFSR_OUT_W
       |vpiFullName:work@dut.LFSR_OUT_W
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: (LFSR_OUT_W), line:19:15, parent:work@dut.LFSR_OUT_W
+      \_int_typespec: (LFSR_OUT_W), line:19:15, endln:19:18, parent:work@dut.LFSR_OUT_W
         |vpiName:LFSR_OUT_W
   |vpiParameter:
-  \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+  \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+  \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.LFSR_OUT_W), line:19:28, parent:work@dut
+  \_parameter: (work@dut.LFSR_OUT_W), line:19:28, endln:19:59, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1: , endln:21:9
   |vpiDefName:work@dut
   |vpiName:work@dut
   |vpiTypedef:
-  \_enum_typespec: (dummy_instr_e), line:11:6
+  \_enum_typespec: (dummy_instr_e), line:11:6, endln:11:19
     |vpiName:dummy_instr_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:6:17
+    \_logic_typespec: , line:6:17, endln:6:22
       |vpiRange:
-      \_range: , line:6:24
+      \_range: , line:6:24, endln:6:27
         |vpiLeftRange:
         \_constant: , line:6:24, endln:6:25
           |vpiConstType:9
@@ -561,45 +561,45 @@ design: (work@dut)
           |vpiSize:64
           |UINT:0
     |vpiEnumConst:
-    \_enum_const: (DUMMY_ADD), line:7:6
+    \_enum_const: (DUMMY_ADD), line:7:6, endln:7:15
       |vpiName:DUMMY_ADD
       |vpiDecompile:2'b00
       |UINT:0
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_MUL), line:8:6
+    \_enum_const: (DUMMY_MUL), line:8:6, endln:8:15
       |vpiName:DUMMY_MUL
       |vpiDecompile:2'b01
       |UINT:1
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_DIV), line:9:6
+    \_enum_const: (DUMMY_DIV), line:9:6, endln:9:15
       |vpiName:DUMMY_DIV
       |vpiDecompile:2'b10
       |UINT:2
       |vpiSize:2
     |vpiEnumConst:
-    \_enum_const: (DUMMY_AND), line:10:6
+    \_enum_const: (DUMMY_AND), line:10:6, endln:10:15
       |vpiName:DUMMY_AND
       |vpiDecompile:2'b11
       |UINT:3
       |vpiSize:2
   |vpiTypedef:
-  \_struct_typespec: (lfsr_data_t), line:13:12
+  \_struct_typespec: (lfsr_data_t), line:13:12, endln:13:18
     |vpiPacked:1
     |vpiName:lfsr_data_t
     |vpiTypespecMember:
-    \_typespec_member: (instr_type), line:14:32
+    \_typespec_member: (instr_type), line:14:32, endln:14:42
       |vpiName:instr_type
       |vpiTypespec:
-      \_enum_typespec: (dummy_instr_e), line:11:6
+      \_enum_typespec: (dummy_instr_e), line:11:6, endln:11:19
     |vpiTypespecMember:
-    \_typespec_member: (op_b), line:15:32
+    \_typespec_member: (op_b), line:15:32, endln:15:36
       |vpiName:op_b
       |vpiTypespec:
-      \_logic_typespec: , line:15:6
+      \_logic_typespec: , line:15:6, endln:15:11
         |vpiRange:
-        \_range: , line:15:13, parent:lfsr_data_t
+        \_range: , line:15:13, endln:15:21, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:15:13, endln:15:17
             |vpiOpType:11
@@ -608,13 +608,13 @@ design: (work@dut)
               |vpiName:OP_W
               |vpiFullName:lfsr_data_t.OP_W
               |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+              \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
                 |vpiName:OP_W
                 |vpiFullName:work@dut.OP_W
                 |vpiLocalParam:1
                 |UINT:5
                 |vpiTypespec:
-                \_int_typespec: (OP_W), line:4:14, parent:work@dut.OP_W
+                \_int_typespec: (OP_W), line:4:14, endln:4:17, parent:work@dut.OP_W
                   |vpiName:OP_W
             |vpiOperand:
             \_constant: , line:15:18, endln:15:19
@@ -629,12 +629,12 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
     |vpiTypespecMember:
-    \_typespec_member: (op_a), line:16:32
+    \_typespec_member: (op_a), line:16:32, endln:16:36
       |vpiName:op_a
       |vpiTypespec:
-      \_logic_typespec: , line:16:6
+      \_logic_typespec: , line:16:6, endln:16:11
         |vpiRange:
-        \_range: , line:16:13, parent:lfsr_data_t
+        \_range: , line:16:13, endln:16:21, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:16:13, endln:16:17
             |vpiOpType:11
@@ -643,7 +643,7 @@ design: (work@dut)
               |vpiName:OP_W
               |vpiFullName:lfsr_data_t.OP_W
               |vpiActual:
-              \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+              \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
             |vpiOperand:
             \_constant: , line:16:18, endln:16:19
               |vpiConstType:9
@@ -657,12 +657,12 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
     |vpiTypespecMember:
-    \_typespec_member: (cnt), line:17:32
+    \_typespec_member: (cnt), line:17:32, endln:17:35
       |vpiName:cnt
       |vpiTypespec:
-      \_logic_typespec: , line:17:6
+      \_logic_typespec: , line:17:6, endln:17:11
         |vpiRange:
-        \_range: , line:17:13, parent:lfsr_data_t
+        \_range: , line:17:13, endln:17:30, parent:lfsr_data_t
           |vpiLeftRange:
           \_operation: , line:17:13, endln:17:26
             |vpiOpType:11
@@ -671,13 +671,13 @@ design: (work@dut)
               |vpiName:TIMEOUT_CNT_W
               |vpiFullName:lfsr_data_t.TIMEOUT_CNT_W
               |vpiActual:
-              \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+              \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
                 |vpiName:TIMEOUT_CNT_W
                 |vpiFullName:work@dut.TIMEOUT_CNT_W
                 |vpiLocalParam:1
                 |UINT:5
                 |vpiTypespec:
-                \_int_typespec: (TIMEOUT_CNT_W), line:3:14, parent:work@dut.TIMEOUT_CNT_W
+                \_int_typespec: (TIMEOUT_CNT_W), line:3:14, endln:3:17, parent:work@dut.TIMEOUT_CNT_W
                   |vpiName:TIMEOUT_CNT_W
             |vpiOperand:
             \_constant: , line:17:27, endln:17:28
@@ -692,48 +692,48 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:3:27, parent:work@dut
+  \_param_assign: , line:3:27, endln:3:44, parent:work@dut
     |vpiRhs:
-    \_constant: , line:3:43
+    \_constant: , line:3:43, endln:3:44
       |vpiConstType:9
       |vpiDecompile:5
       |vpiSize:64
       |UINT:5
     |vpiLhs:
-    \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+    \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:4:27, parent:work@dut
+  \_param_assign: , line:4:27, endln:4:44, parent:work@dut
     |vpiRhs:
-    \_constant: , line:4:43
+    \_constant: , line:4:43, endln:4:44
       |vpiConstType:9
       |vpiDecompile:5
       |vpiSize:64
       |UINT:5
     |vpiLhs:
-    \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+    \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:19:28, parent:work@dut
+  \_param_assign: , line:19:28, endln:19:59, parent:work@dut
     |vpiRhs:
-    \_constant: , line:19:41
+    \_constant: , line:19:41, endln:19:59
       |vpiConstType:9
       |vpiDecompile:17
       |vpiSize:64
       |UINT:17
     |vpiLhs:
-    \_parameter: (work@dut.LFSR_OUT_W), line:19:28, parent:work@dut
+    \_parameter: (work@dut.LFSR_OUT_W), line:19:28, endln:19:59, parent:work@dut
       |vpiName:LFSR_OUT_W
       |vpiFullName:work@dut.LFSR_OUT_W
       |vpiLocalParam:1
       |UINT:17
       |vpiTypespec:
-      \_int_typespec: (LFSR_OUT_W), line:19:15, parent:work@dut.LFSR_OUT_W
+      \_int_typespec: (LFSR_OUT_W), line:19:15, endln:19:18, parent:work@dut.LFSR_OUT_W
         |vpiName:LFSR_OUT_W
   |vpiParameter:
-  \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, parent:work@dut
+  \_parameter: (work@dut.TIMEOUT_CNT_W), line:3:27, endln:3:44, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.OP_W), line:4:27, parent:work@dut
+  \_parameter: (work@dut.OP_W), line:4:27, endln:4:44, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.LFSR_OUT_W), line:19:28, parent:work@dut
+  \_parameter: (work@dut.LFSR_OUT_W), line:19:28, endln:19:59, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

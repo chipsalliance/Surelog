@@ -204,6 +204,8 @@ UHDM::any* CompileHelper::compileVariable(
     result->VpiFile(fC->getFileName());
     result->VpiLineNo(fC->Line(variable));
     result->VpiColumnNo(fC->Column(variable));
+    result->VpiEndLineNo(fC->EndLine(variable));
+    result->VpiEndColumnNo(fC->EndColumn(variable));
   } else if (the_type == VObjectType::slIntVec_TypeLogic ||
              the_type == VObjectType::slIntVec_TypeReg) {
     logic_var* var = s.MakeLogic_var();
@@ -211,36 +213,48 @@ UHDM::any* CompileHelper::compileVariable(
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Int) {
     int_var* var = s.MakeInt_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Byte) {
     byte_var* var = s.MakeByte_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_LongInt) {
     long_int_var* var = s.MakeLong_int_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Shortint) {
     short_int_var* var = s.MakeShort_int_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Time) {
     time_var* var = s.MakeTime_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slIntVec_TypeBit) {
     bit_var* var = s.MakeBit_var();
@@ -248,18 +262,24 @@ UHDM::any* CompileHelper::compileVariable(
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slNonIntType_ShortReal) {
     short_real_var* var = s.MakeShort_real_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slNonIntType_Real) {
     real_var* var = s.MakeReal_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slClass_scope) {
     std::string typeName;
@@ -274,12 +294,16 @@ UHDM::any* CompileHelper::compileVariable(
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(variable));
     ref->VpiColumnNo(fC->Column(variable));
+    ref->VpiEndLineNo(fC->EndLine(variable));
+    ref->VpiEndColumnNo(fC->EndColumn(variable));
     result = ref;
   } else if (the_type == VObjectType::slString_type) {
     string_var* var = s.MakeString_var();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   } else if (the_type == VObjectType::slVariable_lvalue) {
     NodeId hier_ident = fC->Child(variable);
@@ -288,6 +312,8 @@ UHDM::any* CompileHelper::compileVariable(
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     var->VpiName(fC->SymName(nameid));
     result = var;
   } else {
@@ -297,6 +323,8 @@ UHDM::any* CompileHelper::compileVariable(
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(variable));
     var->VpiColumnNo(fC->Column(variable));
+    var->VpiEndLineNo(fC->EndLine(variable));
+    var->VpiEndColumnNo(fC->EndColumn(variable));
     result = var;
   }
   return result;
@@ -385,6 +413,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
               tps->VpiFile(fC->getFileName());
               tps->VpiLineNo(fC->Line(type));
               tps->VpiColumnNo(fC->Column(type));
+              tps->VpiEndLineNo(fC->EndLine(type));
+              tps->VpiEndColumnNo(fC->EndColumn(type));
               result = tps;
             }
             return result;
@@ -438,6 +468,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
         ref->VpiFile(fC->getFileName());
         ref->VpiLineNo(fC->Line(type));
         ref->VpiColumnNo(fC->Column(type));
+        ref->VpiEndLineNo(fC->EndLine(type));
+        ref->VpiEndColumnNo(fC->EndColumn(type));
         result = ref;
 
         const FileContent* actualFC = fC;
@@ -535,6 +567,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
           tps->VpiFile(fC->getFileName());
           tps->VpiLineNo(fC->Line(type));
           tps->VpiColumnNo(fC->Column(type));
+          tps->VpiEndLineNo(fC->EndLine(type));
+          tps->VpiEndColumnNo(fC->EndColumn(type));
           result = tps;
           if (NodeId sub = fC->Sibling(type)) {
             const std::string& name = fC->SymName(sub);
@@ -544,6 +578,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
               mptps->VpiFile(fC->getFileName());
               mptps->VpiLineNo(fC->Line(type));
               mptps->VpiColumnNo(fC->Column(type));
+              mptps->VpiEndLineNo(fC->EndLine(type));
+              mptps->VpiEndColumnNo(fC->EndColumn(type));
               mptps->VpiParent(tps);
               mptps->VpiIsModPort(true);
               result = mptps;
@@ -559,6 +595,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
       result = tps;
     }
   } else {
@@ -567,6 +605,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
     tps->VpiFile(fC->getFileName());
     tps->VpiLineNo(fC->Line(type));
     tps->VpiColumnNo(fC->Column(type));
+    tps->VpiEndLineNo(fC->EndLine(type));
+    tps->VpiEndColumnNo(fC->EndColumn(type));
     result = tps;
   }
   return result;
@@ -612,12 +652,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       } else {
         unsupported_typespec* tps = s.MakeUnsupported_typespec();
         tps->VpiFile(fC->getFileName());
         tps->VpiLineNo(fC->Line(type));
         tps->VpiColumnNo(fC->Column(type));
+        tps->VpiEndLineNo(fC->EndLine(type));
+        tps->VpiEndColumnNo(fC->EndColumn(type));
         result = tps;
       }
       break;
@@ -630,6 +674,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
       result = tps;
       break;
     }
@@ -638,6 +684,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
       tps->Ranges(ranges);
       result = tps;
       break;
@@ -665,6 +713,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       }
       break;
@@ -676,6 +726,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -684,6 +736,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -692,6 +746,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -700,6 +756,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -707,6 +765,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       short_int_typespec* var = s.MakeShort_int_typespec();
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -715,6 +775,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -724,6 +786,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -732,6 +796,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -740,6 +806,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       var->VpiColumnNo(fC->Column(type));
+      var->VpiEndLineNo(fC->EndLine(type));
+      var->VpiEndColumnNo(fC->EndColumn(type));
       result = var;
       break;
     }
@@ -748,6 +816,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
       result = tps;
       break;
     }
@@ -779,6 +849,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
             ref->VpiFile(fC->getFileName());
             ref->VpiLineNo(fC->Line(type));
             ref->VpiColumnNo(fC->Column(type));
+            ref->VpiEndLineNo(fC->EndLine(type));
+            ref->VpiEndColumnNo(fC->EndColumn(type));
             result = ref;
             break;
           }
@@ -834,6 +906,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ref->VpiFile(fC->getFileName());
         ref->VpiLineNo(fC->Line(type));
         ref->VpiColumnNo(fC->Column(type));
+        ref->VpiEndLineNo(fC->EndLine(type));
+        ref->VpiEndColumnNo(fC->EndColumn(type));
         result = ref;
       }
       break;
@@ -858,6 +932,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->VpiFile(fC->getFileName());
         ts->VpiLineNo(fC->Line(type));
         ts->VpiColumnNo(fC->Column(type));
+        ts->VpiEndLineNo(fC->EndLine(type));
+        ts->VpiEndColumnNo(fC->EndColumn(type));
       } else {
         union_typespec* ts = s.MakeUnion_typespec();
         ts->VpiPacked(packed);
@@ -866,6 +942,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         ts->VpiFile(fC->getFileName());
         ts->VpiLineNo(fC->Line(type));
         ts->VpiColumnNo(fC->Column(type));
+        ts->VpiEndLineNo(fC->EndLine(type));
+        ts->VpiEndColumnNo(fC->EndColumn(type));
       }
 
       while (struct_or_union_member) {
@@ -882,6 +960,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
             tps->VpiFile(fC->getFileName());
             tps->VpiLineNo(fC->Line(Data_type_or_void));
             tps->VpiColumnNo(fC->Column(Variable_decl_assignment));
+            tps->VpiEndLineNo(fC->EndLine(Data_type_or_void));
+            tps->VpiEndColumnNo(fC->EndColumn(Variable_decl_assignment));
             member_ts = tps;
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
@@ -895,6 +975,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
           m->VpiFile(fC->getFileName());
           m->VpiLineNo(fC->Line(member_name));
           m->VpiColumnNo(fC->Column(member_name));
+          m->VpiEndLineNo(fC->EndLine(member_name));
+          m->VpiEndColumnNo(fC->EndColumn(member_name));
           members->push_back(m);
           Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
         }
@@ -915,6 +997,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       } else if (typeName == "bit") {
         bit_typespec* var = s.MakeBit_typespec();
@@ -922,12 +1006,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       } else if (typeName == "byte") {
         byte_typespec* var = s.MakeByte_typespec();
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       } else if (reduce) {
         if (any* cast_to = getValue(typeName, component, compileDesign, instance, fC->getFileName(), fC->Line(type), nullptr, !reduce)) {
@@ -938,12 +1026,16 @@ UHDM::typespec* CompileHelper::compileTypespec(
             var->VpiFile(fC->getFileName());
             var->VpiLineNo(fC->Line(type));
             var->VpiColumnNo(fC->Column(type));
+            var->VpiEndLineNo(fC->EndLine(type));
+            var->VpiEndColumnNo(fC->EndColumn(type));
             result = var;
           } else {
             void_typespec* tps = s.MakeVoid_typespec();
             tps->VpiFile(fC->getFileName());
             tps->VpiLineNo(fC->Line(type));
             tps->VpiColumnNo(fC->Column(type));
+            tps->VpiEndLineNo(fC->EndLine(type));
+            tps->VpiEndColumnNo(fC->EndColumn(type));
             result = tps;
           }
         }
@@ -963,6 +1055,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
                 its->VpiFile(param->VpiFile());
                 its->VpiLineNo(param->VpiLineNo());
                 its->VpiColumnNo(param->VpiColumnNo());
+                its->VpiEndLineNo(param->VpiLineNo());
+                its->VpiEndColumnNo(param->VpiColumnNo());
                 result = its;
               } else {
                 result = (UHDM::typespec*)rhs;
@@ -990,6 +1084,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
                         its->VpiFile(param->VpiFile());
                         its->VpiLineNo(param->VpiLineNo());
                         its->VpiColumnNo(param->VpiColumnNo());
+                        its->VpiEndLineNo(param->VpiLineNo());
+                        its->VpiEndColumnNo(param->VpiColumnNo());
                         result = its;
                       } else {
                         result = (UHDM::typespec*)rhs;
@@ -1035,6 +1131,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
         var->VpiFile(fC->getFileName());
         var->VpiLineNo(fC->Line(type));
         var->VpiColumnNo(fC->Column(type));
+        var->VpiEndLineNo(fC->EndLine(type));
+        var->VpiEndColumnNo(fC->EndColumn(type));
         result = var;
       }
       break;

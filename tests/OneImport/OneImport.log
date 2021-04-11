@@ -253,12 +253,12 @@ design: (work@dut)
   |vpiName:my_pkg
   |vpiFullName:my_pkg::
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::opcode_e), line:5:4
+  \_enum_typespec: (my_pkg::opcode_e), line:5:4, endln:5:12
     |vpiName:my_pkg::opcode_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:15
+    \_logic_typespec: , line:2:15, endln:2:20
       |vpiRange:
-      \_range: , line:2:22
+      \_range: , line:2:22, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
           |vpiConstType:9
@@ -274,19 +274,19 @@ design: (work@dut)
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
     |vpiEnumConst:
-    \_enum_const: (OPCODE_LOAD), line:3:4
+    \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15
       |vpiName:OPCODE_LOAD
       |vpiDecompile:6'h03
       |UINT:3
       |vpiSize:6
     |vpiEnumConst:
-    \_enum_const: (OPCODE_STORE), line:4:4
+    \_enum_const: (OPCODE_STORE), line:4:4, endln:4:16
       |vpiName:OPCODE_STORE
       |vpiDecompile:6'h13
       |UINT:19
       |vpiSize:6
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:my_pkg::
+  \_param_assign: , line:7:23, endln:7:36, parent:my_pkg::
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
@@ -294,16 +294,16 @@ design: (work@dut)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+    \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
       |vpiName:PMP_CFG_W
       |vpiFullName:my_pkg::PMP_CFG_W
       |vpiTypespec:
-      \_int_typespec: (PMP_CFG_W), line:7:10, parent:my_pkg::PMP_CFG_W
+      \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:my_pkg::PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParameter:
-  \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+  \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:11: , endln:20:9, parent:work@dut
   |vpiDefName:work@dut
@@ -331,7 +331,7 @@ design: (work@dut)
         |vpiFullName:work@dut.b
         |vpiNetType:48
   |vpiContAssign:
-  \_cont_assign: , line:18:9, parent:work@dut
+  \_cont_assign: , line:18:9, endln:19:34, parent:work@dut
     |vpiRhs:
     \_operation: , line:18:13, endln:18:34
       |vpiOpType:29
@@ -345,7 +345,7 @@ design: (work@dut)
           |vpiSize:64
           |UINT:2
         |vpiTypespec:
-        \_integer_typespec: , line:18:13
+        \_integer_typespec: , line:18:13, endln:18:14
           |INT:3
       |vpiOperand:
       \_operation: , line:19:14, endln:19:34
@@ -362,13 +362,13 @@ design: (work@dut)
             |vpiName:OPCODE_LOAD
             |vpiFullName:work@dut.OPCODE_LOAD
             |vpiActual:
-            \_enum_const: (OPCODE_LOAD), line:3:4
+            \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15
               |vpiName:OPCODE_LOAD
               |vpiDecompile:6'h03
               |UINT:3
               |vpiSize:6
         |vpiTypespec:
-        \_integer_typespec: , line:19:14
+        \_integer_typespec: , line:19:14, endln:19:15
           |INT:3
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:18:9, endln:18:10
@@ -379,12 +379,12 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.b), line:17:12, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::opcode_e), line:5:4
+  \_enum_typespec: (my_pkg::opcode_e), line:5:4, endln:5:12
     |vpiName:my_pkg::opcode_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:15
+    \_logic_typespec: , line:2:15, endln:2:20
       |vpiRange:
-      \_range: , line:2:22
+      \_range: , line:2:22, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
           |vpiConstType:9
@@ -403,9 +403,9 @@ design: (work@dut)
         |vpiName:my_pkg
         |vpiFullName:my_pkg::
         |vpiTypedef:
-        \_enum_typespec: (my_pkg::opcode_e), line:5:4
+        \_enum_typespec: (my_pkg::opcode_e), line:5:4, endln:5:12
         |vpiParamAssign:
-        \_param_assign: , line:7:23, parent:my_pkg::
+        \_param_assign: , line:7:23, endln:7:36, parent:my_pkg::
           |vpiRhs:
           \_constant: , line:7:35, endln:7:36
             |vpiConstType:9
@@ -413,34 +413,34 @@ design: (work@dut)
             |vpiSize:64
             |UINT:2
           |vpiLhs:
-          \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+          \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
             |vpiName:PMP_CFG_W
             |vpiFullName:my_pkg::PMP_CFG_W
             |vpiTypespec:
-            \_int_typespec: (PMP_CFG_W), line:7:10, parent:my_pkg::PMP_CFG_W
+            \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:my_pkg::PMP_CFG_W
               |vpiName:PMP_CFG_W
               |vpiInstance:
               \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
         |vpiParameter:
-        \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+        \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
     |vpiEnumConst:
-    \_enum_const: (OPCODE_LOAD), line:3:4
+    \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15
     |vpiEnumConst:
-    \_enum_const: (OPCODE_STORE), line:4:4
+    \_enum_const: (OPCODE_STORE), line:4:4, endln:4:16
       |vpiName:OPCODE_STORE
       |vpiDecompile:6'h13
       |UINT:19
       |vpiSize:6
   |vpiTypedef:
-  \_import: (my_pkg), line:12:9
+  \_import: (my_pkg), line:12:9, endln:12:18
   |vpiTypedef:
-  \_import: (my_pkg), line:13:9
+  \_import: (my_pkg), line:13:9, endln:13:25
   |vpiTypedef:
-  \_import: (my_pkg), line:13:27
+  \_import: (my_pkg), line:13:27, endln:13:46
   |vpiTypedef:
-  \_import: (my_pkg), line:13:27
+  \_import: (my_pkg), line:13:27, endln:13:46
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
@@ -448,17 +448,17 @@ design: (work@dut)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36
       |vpiName:PMP_CFG_W
       |vpiFullName:work@dut.PMP_CFG_W
       |vpiImported:my_pkg
       |vpiTypespec:
-      \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+      \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
@@ -466,17 +466,17 @@ design: (work@dut)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36
       |vpiName:PMP_CFG_W
       |vpiFullName:work@dut.PMP_CFG_W
       |vpiImported:my_pkg
       |vpiTypespec:
-      \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+      \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
     \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
@@ -484,42 +484,42 @@ design: (work@dut)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36
       |vpiName:PMP_CFG_W
       |vpiFullName:work@dut.PMP_CFG_W
       |vpiImported:my_pkg
       |vpiTypespec:
-      \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+      \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
     |vpiTypespec:
-    \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+    \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
       |vpiName:PMP_CFG_W
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
     |vpiTypespec:
-    \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+    \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
       |vpiName:PMP_CFG_W
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
     |vpiTypespec:
-    \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+    \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
       |vpiName:PMP_CFG_W
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
@@ -528,18 +528,18 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiName:work@dut
   |vpiPort:
-  \_port: (a), line:11:12, parent:work@dut
+  \_port: (a), line:11:12, endln:11:13, parent:work@dut
     |vpiName:a
     |vpiDirection:1
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.a), line:16:13, parent:work@dut
+      \_logic_net: (work@dut.a), line:16:13, endln:16:14, parent:work@dut
         |vpiName:a
         |vpiFullName:work@dut.a
         |vpiNetType:1
         |vpiRange:
-        \_range: , line:16:8
+        \_range: , line:16:8, endln:16:11
           |vpiLeftRange:
           \_constant: , line:16:8, endln:16:9
             |vpiConstType:9
@@ -553,18 +553,18 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
   |vpiPort:
-  \_port: (b), line:11:15, parent:work@dut
+  \_port: (b), line:11:15, endln:11:16, parent:work@dut
     |vpiName:b
     |vpiDirection:2
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@dut.b), line:17:12, parent:work@dut
+      \_logic_net: (work@dut.b), line:17:12, endln:17:13, parent:work@dut
         |vpiName:b
         |vpiFullName:work@dut.b
         |vpiNetType:48
         |vpiRange:
-        \_range: , line:17:7
+        \_range: , line:17:7, endln:17:10
           |vpiLeftRange:
           \_constant: , line:17:7, endln:17:8
             |vpiConstType:9
@@ -578,7 +578,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
   |vpiContAssign:
-  \_cont_assign: , line:18:9, parent:work@dut
+  \_cont_assign: , line:18:9, endln:19:34, parent:work@dut
     |vpiRhs:
     \_operation: , line:18:13, endln:18:34
       |vpiOpType:29
@@ -592,7 +592,7 @@ design: (work@dut)
           |vpiSize:64
           |UINT:2
         |vpiTypespec:
-        \_integer_typespec: , line:18:13
+        \_integer_typespec: , line:18:13, endln:18:14
           |INT:3
       |vpiOperand:
       \_operation: , line:19:14, endln:19:34
@@ -605,37 +605,37 @@ design: (work@dut)
             |vpiName:a
             |vpiFullName:work@dut.a
             |vpiActual:
-            \_logic_net: (work@dut.a), line:16:13, parent:work@dut
+            \_logic_net: (work@dut.a), line:16:13, endln:16:14, parent:work@dut
           |vpiOperand:
           \_ref_obj: (work@dut.OPCODE_LOAD), line:19:22, endln:19:33
             |vpiName:OPCODE_LOAD
             |vpiFullName:work@dut.OPCODE_LOAD
             |vpiActual:
-            \_enum_const: (OPCODE_LOAD), line:3:4
+            \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15
               |vpiName:OPCODE_LOAD
               |vpiDecompile:6'h03
               |UINT:3
               |vpiSize:6
         |vpiTypespec:
-        \_integer_typespec: , line:19:14
+        \_integer_typespec: , line:19:14, endln:19:15
           |INT:3
     |vpiLhs:
     \_ref_obj: (work@dut.b), line:18:9, endln:18:10
       |vpiName:b
       |vpiFullName:work@dut.b
       |vpiActual:
-      \_logic_net: (work@dut.b), line:17:12, parent:work@dut
+      \_logic_net: (work@dut.b), line:17:12, endln:17:13, parent:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.a), line:16:13, parent:work@dut
+  \_logic_net: (work@dut.a), line:16:13, endln:16:14, parent:work@dut
   |vpiNet:
-  \_logic_net: (work@dut.b), line:17:12, parent:work@dut
+  \_logic_net: (work@dut.b), line:17:12, endln:17:13, parent:work@dut
   |vpiTypedef:
-  \_enum_typespec: (my_pkg::opcode_e), line:5:4, parent:work@dut
+  \_enum_typespec: (my_pkg::opcode_e), line:5:4, endln:5:12, parent:work@dut
     |vpiName:my_pkg::opcode_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:2:15, parent:my_pkg::opcode_e
+    \_logic_typespec: , line:2:15, endln:2:20, parent:my_pkg::opcode_e
       |vpiRange:
-      \_range: , line:2:22
+      \_range: , line:2:22, endln:2:25
         |vpiLeftRange:
         \_constant: , line:2:22, endln:2:23
           |vpiConstType:9
@@ -654,12 +654,12 @@ design: (work@dut)
         |vpiName:my_pkg
         |vpiFullName:my_pkg::
         |vpiTypedef:
-        \_enum_typespec: (my_pkg::opcode_e), line:5:4
+        \_enum_typespec: (my_pkg::opcode_e), line:5:4, endln:5:12
           |vpiName:my_pkg::opcode_e
           |vpiBaseTypespec:
-          \_logic_typespec: , line:2:15
+          \_logic_typespec: , line:2:15, endln:2:20
             |vpiRange:
-            \_range: , line:2:22
+            \_range: , line:2:22, endln:2:25
               |vpiLeftRange:
               \_constant: , line:2:22, endln:2:23
                 |vpiConstType:9
@@ -675,15 +675,15 @@ design: (work@dut)
             |vpiInstance:
             \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
           |vpiEnumConst:
-          \_enum_const: (OPCODE_LOAD), line:3:4
+          \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15
           |vpiEnumConst:
-          \_enum_const: (OPCODE_STORE), line:4:4
+          \_enum_const: (OPCODE_STORE), line:4:4, endln:4:16
             |vpiName:OPCODE_STORE
             |vpiDecompile:6'h13
             |UINT:19
             |vpiSize:6
         |vpiParamAssign:
-        \_param_assign: , line:7:23, parent:my_pkg::
+        \_param_assign: , line:7:23, endln:7:36, parent:my_pkg::
           |vpiRhs:
           \_constant: , line:7:35, endln:7:36
             |vpiConstType:9
@@ -691,96 +691,96 @@ design: (work@dut)
             |vpiSize:64
             |UINT:2
           |vpiLhs:
-          \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+          \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
             |vpiName:PMP_CFG_W
             |vpiFullName:my_pkg::PMP_CFG_W
             |vpiTypespec:
-            \_int_typespec: (PMP_CFG_W), line:7:10, parent:my_pkg::PMP_CFG_W
+            \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:my_pkg::PMP_CFG_W
               |vpiName:PMP_CFG_W
               |vpiInstance:
               \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
         |vpiParameter:
-        \_parameter: (my_pkg::PMP_CFG_W), line:7:23, parent:my_pkg::
+        \_parameter: (my_pkg::PMP_CFG_W), line:7:23, endln:7:36, parent:my_pkg::
     |vpiEnumConst:
-    \_enum_const: (OPCODE_LOAD), line:3:4, parent:my_pkg::opcode_e
+    \_enum_const: (OPCODE_LOAD), line:3:4, endln:3:15, parent:my_pkg::opcode_e
       |vpiName:OPCODE_LOAD
       |vpiDecompile:6'h03
       |UINT:3
       |vpiSize:6
     |vpiEnumConst:
-    \_enum_const: (OPCODE_STORE), line:4:4, parent:my_pkg::opcode_e
+    \_enum_const: (OPCODE_STORE), line:4:4, endln:4:16, parent:my_pkg::opcode_e
       |vpiName:OPCODE_STORE
       |vpiDecompile:6'h13
       |UINT:19
       |vpiSize:6
   |vpiTypedef:
-  \_import: (my_pkg), line:12:9, parent:work@dut
+  \_import: (my_pkg), line:12:9, endln:12:18, parent:work@dut
   |vpiTypedef:
-  \_import: (my_pkg), line:13:9, parent:work@dut
+  \_import: (my_pkg), line:13:9, endln:13:25, parent:work@dut
   |vpiTypedef:
-  \_import: (my_pkg), line:13:27, parent:work@dut
+  \_import: (my_pkg), line:13:27, endln:13:46, parent:work@dut
   |vpiTypedef:
-  \_import: (my_pkg), line:13:27, parent:work@dut
+  \_import: (my_pkg), line:13:27, endln:13:46, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
-    \_constant: , line:7:35
+    \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
       |vpiName:PMP_CFG_W
       |vpiFullName:work@dut.PMP_CFG_W
       |vpiImported:my_pkg
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+      \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
         |vpiName:PMP_CFG_W
         |vpiInstance:
         \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
-    \_constant: , line:7:35
+    \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
   |vpiParamAssign:
-  \_param_assign: , line:7:23, parent:work@dut
+  \_param_assign: , line:7:23, endln:7:36, parent:work@dut
     |vpiRhs:
-    \_constant: , line:7:35
+    \_constant: , line:7:35, endln:7:36
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+    \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+    \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
       |vpiName:PMP_CFG_W
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
   |vpiParameter:
-  \_parameter: (work@dut.PMP_CFG_W), line:7:23, parent:work@dut
+  \_parameter: (work@dut.PMP_CFG_W), line:7:23, endln:7:36, parent:work@dut
     |vpiName:PMP_CFG_W
     |vpiFullName:work@dut.PMP_CFG_W
     |vpiImported:my_pkg
     |UINT:2
     |vpiTypespec:
-    \_int_typespec: (PMP_CFG_W), line:7:10, parent:work@dut.PMP_CFG_W
+    \_int_typespec: (PMP_CFG_W), line:7:10, endln:7:13, parent:work@dut.PMP_CFG_W
       |vpiName:PMP_CFG_W
       |vpiInstance:
       \_package: my_pkg (my_pkg::) dut.sv:1: , endln:9:10, parent:work@dut
