@@ -39,6 +39,16 @@ To make with Python you have to add the option to build/cmake:  -DSURELOG_WITH_P
 
 * Edit the grammar file in the G4 directory, test the grammar locally with the java targets: 
   * cd Surelog/grammar;
+  * Edit the following section in SV3_1aLexer.g4 for the C++ (Surelog build) or Java target (Java grammar development):
+```
+@lexer::members {
+// C++ target:
+   bool sverilog;
+// Java target:
+// Boolean sverilog = true;
+}
+```
+
   * ant compile_java;
   * ant javac;
   * ant test_pp_tokens or
