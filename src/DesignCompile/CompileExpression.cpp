@@ -3656,10 +3656,14 @@ UHDM::any* CompileHelper::compileExpression(
       result->VpiFile(fC->getFileName(child));
       result->VpiLineNo(fC->Line(child));
       result->VpiColumnNo(fC->Column(child));
+      result->VpiEndLineNo(fC->EndLine(child));
+      result->VpiEndColumnNo(fC->EndColumn(child));
     } else {
       result->VpiFile(fC->getFileName(parent));
       result->VpiLineNo(fC->Line(parent));
       result->VpiColumnNo(fC->Column(parent));
+      result->VpiEndLineNo(fC->EndLine(parent));
+      result->VpiEndColumnNo(fC->EndColumn(parent));
     }
   }
 
