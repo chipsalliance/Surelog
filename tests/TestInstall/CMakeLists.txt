@@ -22,11 +22,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Python
+if (SURELOG_WITH_PYTHON)
 find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
 message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
 message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
 message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
+endif()
 
 if(NOT NO_TCMALLOC)
   find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
@@ -61,7 +63,8 @@ target_link_directories(test_hellosureworld
     PRIVATE ${INSTALL_DIR}/lib/uhdm
 )
 
-target_link_libraries(test_hellosureworld
+if (SURELOG_WITH_PYTHON)
+  target_link_libraries(test_hellosureworld
     surelog
     antlr4-runtime$<$<CXX_COMPILER_ID:MSVC>:-static>
     flatbuffers
@@ -71,6 +74,17 @@ target_link_libraries(test_hellosureworld
     ${Python3_LIBRARIES}
     $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>
 )
+else()
+  target_link_libraries(test_hellosureworld
+    surelog
+    antlr4-runtime$<$<CXX_COMPILER_ID:MSVC>:-static>
+    flatbuffers
+    uhdm
+    capnp
+    kj
+    $<$<BOOL:${TCMALLOC_LIBRARY}>:tcmalloc>
+)
+endif()
 
 if (UNIX)
   target_link_libraries(test_hellosureworld
@@ -84,12 +98,19 @@ if (UNIX)
 endif()
 
 if (WIN32)
-  add_custom_command(
-    TARGET test_hellosureworld
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+  if (SURELOG_WITH_PYTHON)
+    add_custom_command(
+      TARGET test_hellosureworld
+      POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_if_different
             ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
             $<TARGET_FILE_DIR:test_hellosureworld>)
+    else()
+   add_custom_command(
+      TARGET test_hellosureworld
+      POST_BUILD
+            $<TARGET_FILE_DIR:test_hellosureworld>)    
+    endif()
 endif()
 
 add_custom_target(RunInstallTest ALL
