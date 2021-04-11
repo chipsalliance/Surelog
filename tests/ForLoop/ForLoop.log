@@ -846,7 +846,7 @@ design: (work@t)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@t
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:2, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6:2, endln:7:13, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -861,7 +861,7 @@ design: (work@t)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:6:16, parent:bound
+      \_int_typespec: , line:6:16, endln:6:19, parent:bound
       |vpiExpr:
       \_constant: , line:6:28, endln:6:29, parent:bound
         |vpiConstType:9
@@ -869,15 +869,15 @@ design: (work@t)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:2, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9:2, endln:10:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:11
+    \_int_var: , line:9:11, endln:9:14
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:2, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12:2, endln:13:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -887,7 +887,7 @@ design: (work@t)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:2, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15:2, endln:16:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -897,7 +897,7 @@ design: (work@t)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:2, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18:2, endln:19:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -907,19 +907,19 @@ design: (work@t)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:2, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21:2, endln:22:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:11
+    \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:2, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24:2, endln:25:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -929,13 +929,13 @@ design: (work@t)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:2, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27:2, endln:28:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:11
+    \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -944,56 +944,56 @@ design: (work@t)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endln:55:8, parent:work@t
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:2, parent:work@process
+  \_function: (work@process::self), line:37:2, endln:37:8, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:18
+    \_chandle_var: , line:37:18, endln:37:25
   |vpiMethod:
-  \_function: (work@process::status), line:40:2, parent:work@process
+  \_function: (work@process::status), line:40:2, endln:41:13, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40:11
+    \_int_var: , line:40:11, endln:40:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:65
+      \_enum_typespec: (state), line:35:65, endln:35:70
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:17
+        \_enum_const: (FINISHED), line:35:17, endln:35:25
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:27
+        \_enum_const: (RUNNING), line:35:27, endln:35:34
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:36
+        \_enum_const: (WAITING), line:35:36, endln:35:43
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:45
+        \_enum_const: (SUSPENDED), line:35:45, endln:35:54
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:56
+        \_enum_const: (KILLED), line:35:56, endln:35:62
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:2, parent:work@process
+  \_task: (work@process::kill), line:43:2, endln:44:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -1002,7 +1002,7 @@ design: (work@t)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:2, parent:work@process
+  \_task: (work@process::await), line:46:2, endln:47:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -1011,7 +1011,7 @@ design: (work@t)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:2, parent:work@process
+  \_task: (work@process::suspend), line:49:2, endln:50:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -1020,7 +1020,7 @@ design: (work@t)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:2, parent:work@process
+  \_task: (work@process::resume), line:52:2, endln:53:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -1029,34 +1029,34 @@ design: (work@t)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:65, parent:work@process
+  \_enum_typespec: (state), line:35:65, endln:35:70, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35:17, parent:state
+    \_enum_const: (FINISHED), line:35:17, endln:35:25, parent:state
       |vpiName:FINISHED
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35:27, parent:state
+    \_enum_const: (RUNNING), line:35:27, endln:35:34, parent:state
       |vpiName:RUNNING
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35:36, parent:state
+    \_enum_const: (WAITING), line:35:36, endln:35:43, parent:state
       |vpiName:WAITING
       |vpiDecompile:2
       |INT:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35:45, parent:state
+    \_enum_const: (SUSPENDED), line:35:45, endln:35:54, parent:state
       |vpiName:SUSPENDED
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35:56, parent:state
+    \_enum_const: (KILLED), line:35:56, endln:35:62, parent:state
       |vpiName:KILLED
       |vpiDecompile:4
       |INT:4
@@ -1065,7 +1065,7 @@ design: (work@t)
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@t
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:2, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60:2, endln:61:13, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -1080,7 +1080,7 @@ design: (work@t)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:60:15, parent:keyCount
+      \_int_typespec: , line:60:15, endln:60:18, parent:keyCount
       |vpiExpr:
       \_constant: , line:60:30, endln:60:31, parent:keyCount
         |vpiConstType:9
@@ -1088,7 +1088,7 @@ design: (work@t)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:2, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63:2, endln:64:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -1098,7 +1098,7 @@ design: (work@t)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:63:11, parent:keyCount
+      \_int_typespec: , line:63:11, endln:63:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:63:26, endln:63:27, parent:keyCount
         |vpiConstType:9
@@ -1106,7 +1106,7 @@ design: (work@t)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:2, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66:2, endln:67:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -1116,7 +1116,7 @@ design: (work@t)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:66:11, parent:keyCount
+      \_int_typespec: , line:66:11, endln:66:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:66:26, endln:66:27, parent:keyCount
         |vpiConstType:9
@@ -1124,19 +1124,19 @@ design: (work@t)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:2, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69:2, endln:70:13, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:11
+    \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:69:23, parent:keyCount
+      \_int_typespec: , line:69:23, endln:69:26, parent:keyCount
       |vpiExpr:
       \_constant: , line:69:38, endln:69:39, parent:keyCount
         |vpiConstType:9
@@ -1150,16 +1150,16 @@ design: (work@t)
   |vpiProcess:
   \_initial: , parent:work@t
     |vpiStmt:
-    \_begin: (work@t), line:5:10
+    \_begin: (work@t), line:5:10, endln:26:5
       |vpiFullName:work@t
       |vpiStmt:
-      \_for_stmt: (work@t), line:6:5, parent:work@t
+      \_for_stmt: (work@t), line:6:5, endln:6:8, parent:work@t
         |vpiFullName:work@t
       |vpiStmt:
-      \_for_stmt: (work@t), line:7:5, parent:work@t
+      \_for_stmt: (work@t), line:7:5, endln:7:8, parent:work@t
         |vpiFullName:work@t
         |vpiForIncStmt:
-        \_assignment: , line:7:14, parent:work@t
+        \_assignment: , line:7:14, endln:7:19, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1167,7 +1167,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiAutomatic:1
@@ -1180,7 +1180,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:7:18, endln:7:19
               |vpiConstType:9
@@ -1188,10 +1188,10 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:8:5, parent:work@t
+      \_for_stmt: (work@t), line:8:5, endln:8:8, parent:work@t
         |vpiFullName:work@t
         |vpiForIncStmt:
-        \_assignment: , line:8:14, parent:work@t
+        \_assignment: , line:8:14, endln:8:19, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1199,7 +1199,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:8:16, endln:8:17, parent:work@t
             |vpiOpType:24
@@ -1208,7 +1208,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:8:18, endln:8:19
               |vpiConstType:9
@@ -1216,7 +1216,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:8:21, parent:work@t
+        \_assignment: , line:8:21, endln:8:26, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1224,7 +1224,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiAutomatic:1
@@ -1237,7 +1237,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:8:25, endln:8:26
               |vpiConstType:9
@@ -1245,7 +1245,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:9:5, parent:work@t
+      \_for_stmt: (work@t), line:9:5, endln:9:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:9:12, endln:9:13, parent:work@t
@@ -1261,7 +1261,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:10:5, parent:work@t
+      \_for_stmt: (work@t), line:10:5, endln:10:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:10:12, endln:10:13, parent:work@t
@@ -1277,7 +1277,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:10:17, parent:work@t
+        \_assignment: , line:10:17, endln:10:22, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1285,7 +1285,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:10:19, endln:10:20, parent:work@t
             |vpiOpType:24
@@ -1294,7 +1294,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:10:21, endln:10:22
               |vpiConstType:9
@@ -1302,7 +1302,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:11:5, parent:work@t
+      \_for_stmt: (work@t), line:11:5, endln:11:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:11:12, endln:11:13, parent:work@t
@@ -1318,7 +1318,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:11:17, parent:work@t
+        \_assignment: , line:11:17, endln:11:22, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1326,7 +1326,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:11:19, endln:11:20, parent:work@t
             |vpiOpType:24
@@ -1335,7 +1335,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:11:21, endln:11:22
               |vpiConstType:9
@@ -1343,7 +1343,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:11:24, parent:work@t
+        \_assignment: , line:11:24, endln:11:29, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1351,7 +1351,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:11:26, endln:11:27, parent:work@t
             |vpiOpType:24
@@ -1360,7 +1360,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:11:28, endln:11:29
               |vpiConstType:9
@@ -1368,7 +1368,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:12:5, parent:work@t
+      \_for_stmt: (work@t), line:12:5, endln:12:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:12:15, endln:12:16, parent:work@t
@@ -1392,11 +1392,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:12:10
+          \_int_var: (work@t.a), line:12:10, endln:12:11
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:13:5, parent:work@t
+      \_for_stmt: (work@t), line:13:5, endln:13:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:13:15, endln:13:16, parent:work@t
@@ -1420,11 +1420,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:13:10
+          \_int_var: (work@t.a), line:13:10, endln:13:11
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:13:20, parent:work@t
+        \_assignment: , line:13:20, endln:13:25, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1432,7 +1432,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:13:22, endln:13:23, parent:work@t
             |vpiOpType:24
@@ -1441,7 +1441,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:13:24, endln:13:25
               |vpiConstType:9
@@ -1449,7 +1449,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:14:5, parent:work@t
+      \_for_stmt: (work@t), line:14:5, endln:14:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:14:15, endln:14:16, parent:work@t
@@ -1473,11 +1473,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:14:10
+          \_int_var: (work@t.a), line:14:10, endln:14:11
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:14:20, parent:work@t
+        \_assignment: , line:14:20, endln:14:25, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1485,7 +1485,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:14:22, endln:14:23, parent:work@t
             |vpiOpType:24
@@ -1494,7 +1494,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:14:24, endln:14:25
               |vpiConstType:9
@@ -1502,7 +1502,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:14:27, parent:work@t
+        \_assignment: , line:14:27, endln:14:32, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1510,7 +1510,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:14:29, endln:14:30, parent:work@t
             |vpiOpType:24
@@ -1519,7 +1519,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:14:31, endln:14:32
               |vpiConstType:9
@@ -1527,7 +1527,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:15:5, parent:work@t
+      \_for_stmt: (work@t), line:15:5, endln:15:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:15:23, endln:15:24, parent:work@t
@@ -1551,11 +1551,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:15:10
+          \_int_var: (work@t.a), line:15:10, endln:15:17
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:16:5, parent:work@t
+      \_for_stmt: (work@t), line:16:5, endln:16:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:16:23, endln:16:24, parent:work@t
@@ -1579,11 +1579,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:16:10
+          \_int_var: (work@t.a), line:16:10, endln:16:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:16:28, parent:work@t
+        \_assignment: , line:16:28, endln:16:33, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1591,7 +1591,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:16:30, endln:16:31, parent:work@t
             |vpiOpType:24
@@ -1600,7 +1600,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:16:32, endln:16:33
               |vpiConstType:9
@@ -1608,7 +1608,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:17:5, parent:work@t
+      \_for_stmt: (work@t), line:17:5, endln:17:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:17:23, endln:17:24, parent:work@t
@@ -1632,11 +1632,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:17:10
+          \_int_var: (work@t.a), line:17:10, endln:17:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:17:28, parent:work@t
+        \_assignment: , line:17:28, endln:17:33, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1644,7 +1644,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:17:30, endln:17:31, parent:work@t
             |vpiOpType:24
@@ -1653,7 +1653,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:17:32, endln:17:33
               |vpiConstType:9
@@ -1661,7 +1661,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:17:35, parent:work@t
+        \_assignment: , line:17:35, endln:17:40, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1669,7 +1669,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:17:37, endln:17:38, parent:work@t
             |vpiOpType:24
@@ -1678,7 +1678,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:17:39, endln:17:40
               |vpiConstType:9
@@ -1686,7 +1686,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:18:5, parent:work@t
+      \_for_stmt: (work@t), line:18:5, endln:18:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:18:27, endln:18:28, parent:work@t
@@ -1710,11 +1710,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:18:14
+          \_int_var: (work@t.a), line:18:14, endln:18:21
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:19:5, parent:work@t
+      \_for_stmt: (work@t), line:19:5, endln:19:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:19:27, endln:19:28, parent:work@t
@@ -1738,11 +1738,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:19:14
+          \_int_var: (work@t.a), line:19:14, endln:19:21
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:19:32, parent:work@t
+        \_assignment: , line:19:32, endln:19:37, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1750,7 +1750,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:19:34, endln:19:35, parent:work@t
             |vpiOpType:24
@@ -1759,7 +1759,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:19:36, endln:19:37
               |vpiConstType:9
@@ -1767,7 +1767,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:20:5, parent:work@t
+      \_for_stmt: (work@t), line:20:5, endln:20:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:20:27, endln:20:28, parent:work@t
@@ -1791,11 +1791,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:20:14
+          \_int_var: (work@t.a), line:20:14, endln:20:21
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:20:32, parent:work@t
+        \_assignment: , line:20:32, endln:20:37, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1803,7 +1803,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:20:34, endln:20:35, parent:work@t
             |vpiOpType:24
@@ -1812,7 +1812,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:20:36, endln:20:37
               |vpiConstType:9
@@ -1820,7 +1820,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:20:39, parent:work@t
+        \_assignment: , line:20:39, endln:20:44, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1828,7 +1828,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:20:41, endln:20:42, parent:work@t
             |vpiOpType:24
@@ -1837,7 +1837,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:20:43, endln:20:44
               |vpiConstType:9
@@ -1845,7 +1845,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:21:5, parent:work@t
+      \_for_stmt: (work@t), line:21:5, endln:21:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:21:36, endln:21:37, parent:work@t
@@ -1869,7 +1869,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:21:10
+          \_int_var: (work@t.a), line:21:10, endln:21:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -1881,11 +1881,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:21:23
+          \_int_var: (work@t.b), line:21:23, endln:21:30
             |vpiName:b
             |vpiFullName:work@t.b
       |vpiStmt:
-      \_for_stmt: (work@t), line:22:5, parent:work@t
+      \_for_stmt: (work@t), line:22:5, endln:22:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:22:36, endln:22:37, parent:work@t
@@ -1909,7 +1909,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:22:10
+          \_int_var: (work@t.a), line:22:10, endln:22:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -1921,11 +1921,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:22:23
+          \_int_var: (work@t.b), line:22:23, endln:22:30
             |vpiName:b
             |vpiFullName:work@t.b
         |vpiForIncStmt:
-        \_assignment: , line:22:41, parent:work@t
+        \_assignment: , line:22:41, endln:22:46, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1933,7 +1933,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:22:43, endln:22:44, parent:work@t
             |vpiOpType:24
@@ -1942,7 +1942,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:22:45, endln:22:46
               |vpiConstType:9
@@ -1950,7 +1950,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:23:5, parent:work@t
+      \_for_stmt: (work@t), line:23:5, endln:23:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:23:36, endln:23:37, parent:work@t
@@ -1974,7 +1974,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:23:10
+          \_int_var: (work@t.a), line:23:10, endln:23:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -1986,11 +1986,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:23:23
+          \_int_var: (work@t.b), line:23:23, endln:23:30
             |vpiName:b
             |vpiFullName:work@t.b
         |vpiForIncStmt:
-        \_assignment: , line:23:41, parent:work@t
+        \_assignment: , line:23:41, endln:23:46, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -1998,7 +1998,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:23:43, endln:23:44, parent:work@t
             |vpiOpType:24
@@ -2007,7 +2007,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:23:45, endln:23:46
               |vpiConstType:9
@@ -2015,7 +2015,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:23:48, parent:work@t
+        \_assignment: , line:23:48, endln:23:53, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2023,7 +2023,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:23:50, endln:23:51, parent:work@t
             |vpiOpType:24
@@ -2032,7 +2032,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:23:52, endln:23:53
               |vpiConstType:9
@@ -2040,7 +2040,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_sys_func_call: ($write), line:24:5, parent:work@t
+      \_sys_func_call: ($write), line:24:5, endln:24:38, parent:work@t
         |vpiName:$write
         |vpiArgument:
         \_constant: , line:24:12, endln:24:36
@@ -2049,7 +2049,7 @@ design: (work@t)
           |vpiSize:22
           |STRING:*-* All Finished *-*\n
       |vpiStmt:
-      \_sys_func_call: ($finish), line:25:5, parent:work@t
+      \_sys_func_call: ($finish), line:25:5, endln:25:13, parent:work@t
         |vpiName:$finish
   |vpiNet:
   \_logic_net: (work@t.a), line:3:10, parent:work@t
@@ -2066,16 +2066,16 @@ design: (work@t)
   |vpiProcess:
   \_initial: , parent:work@t
     |vpiStmt:
-    \_begin: (work@t), line:5:10
+    \_begin: (work@t), line:5:10, endln:26:5
       |vpiFullName:work@t
       |vpiStmt:
-      \_for_stmt: (work@t), line:6:5, parent:work@t
+      \_for_stmt: (work@t), line:6:5, endln:6:8, parent:work@t
         |vpiFullName:work@t
       |vpiStmt:
-      \_for_stmt: (work@t), line:7:5, parent:work@t
+      \_for_stmt: (work@t), line:7:5, endln:7:8, parent:work@t
         |vpiFullName:work@t
         |vpiForIncStmt:
-        \_assignment: , line:7:14, parent:work@t
+        \_assignment: , line:7:14, endln:7:19, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2083,7 +2083,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiAutomatic:1
@@ -2096,7 +2096,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:7:18, endln:7:19
               |vpiConstType:9
@@ -2104,10 +2104,10 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:8:5, parent:work@t
+      \_for_stmt: (work@t), line:8:5, endln:8:8, parent:work@t
         |vpiFullName:work@t
         |vpiForIncStmt:
-        \_assignment: , line:8:14, parent:work@t
+        \_assignment: , line:8:14, endln:8:19, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2115,7 +2115,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:8:16, endln:8:17
             |vpiOpType:24
@@ -2124,7 +2124,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:8:18, endln:8:19
               |vpiConstType:9
@@ -2132,7 +2132,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:8:21, parent:work@t
+        \_assignment: , line:8:21, endln:8:26, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2140,7 +2140,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiAutomatic:1
@@ -2153,7 +2153,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:8:25, endln:8:26
               |vpiConstType:9
@@ -2161,7 +2161,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:9:5, parent:work@t
+      \_for_stmt: (work@t), line:9:5, endln:9:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:9:12, endln:9:13, parent:work@t
@@ -2171,7 +2171,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:9:14, endln:9:15
             |vpiConstType:9
@@ -2179,7 +2179,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:10:5, parent:work@t
+      \_for_stmt: (work@t), line:10:5, endln:10:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:10:12, endln:10:13, parent:work@t
@@ -2189,7 +2189,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:10:14, endln:10:15
             |vpiConstType:9
@@ -2197,7 +2197,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:10:17, parent:work@t
+        \_assignment: , line:10:17, endln:10:22, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2205,7 +2205,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:10:19, endln:10:20
             |vpiOpType:24
@@ -2214,7 +2214,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:10:21, endln:10:22
               |vpiConstType:9
@@ -2222,7 +2222,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:11:5, parent:work@t
+      \_for_stmt: (work@t), line:11:5, endln:11:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:11:12, endln:11:13, parent:work@t
@@ -2232,7 +2232,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:11:14, endln:11:15
             |vpiConstType:9
@@ -2240,7 +2240,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:11:17, parent:work@t
+        \_assignment: , line:11:17, endln:11:22, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2248,7 +2248,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:11:19, endln:11:20
             |vpiOpType:24
@@ -2257,7 +2257,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:11:21, endln:11:22
               |vpiConstType:9
@@ -2265,7 +2265,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:11:24, parent:work@t
+        \_assignment: , line:11:24, endln:11:29, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2273,7 +2273,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:11:26, endln:11:27
             |vpiOpType:24
@@ -2282,7 +2282,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:11:28, endln:11:29
               |vpiConstType:9
@@ -2290,7 +2290,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:12:5, parent:work@t
+      \_for_stmt: (work@t), line:12:5, endln:12:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:12:15, endln:12:16, parent:work@t
@@ -2300,7 +2300,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:12:17, endln:12:18
             |vpiConstType:9
@@ -2316,11 +2316,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:12:10
+          \_int_var: (work@t.a), line:12:10, endln:12:11
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:13:5, parent:work@t
+      \_for_stmt: (work@t), line:13:5, endln:13:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:13:15, endln:13:16, parent:work@t
@@ -2330,7 +2330,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:13:17, endln:13:18
             |vpiConstType:9
@@ -2346,11 +2346,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:13:10
+          \_int_var: (work@t.a), line:13:10, endln:13:11
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:13:20, parent:work@t
+        \_assignment: , line:13:20, endln:13:25, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2358,7 +2358,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:13:22, endln:13:23
             |vpiOpType:24
@@ -2367,7 +2367,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:13:24, endln:13:25
               |vpiConstType:9
@@ -2375,7 +2375,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:14:5, parent:work@t
+      \_for_stmt: (work@t), line:14:5, endln:14:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:14:15, endln:14:16, parent:work@t
@@ -2385,7 +2385,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:14:17, endln:14:18
             |vpiConstType:9
@@ -2401,11 +2401,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:14:10
+          \_int_var: (work@t.a), line:14:10, endln:14:11
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:14:20, parent:work@t
+        \_assignment: , line:14:20, endln:14:25, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2413,7 +2413,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:14:22, endln:14:23
             |vpiOpType:24
@@ -2422,7 +2422,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:14:24, endln:14:25
               |vpiConstType:9
@@ -2430,7 +2430,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:14:27, parent:work@t
+        \_assignment: , line:14:27, endln:14:32, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2438,7 +2438,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:14:29, endln:14:30
             |vpiOpType:24
@@ -2447,7 +2447,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:14:31, endln:14:32
               |vpiConstType:9
@@ -2455,7 +2455,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:15:5, parent:work@t
+      \_for_stmt: (work@t), line:15:5, endln:15:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:15:23, endln:15:24, parent:work@t
@@ -2465,7 +2465,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:15:25, endln:15:26
             |vpiConstType:9
@@ -2481,11 +2481,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:15:10
+          \_int_var: (work@t.a), line:15:10, endln:15:17
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:16:5, parent:work@t
+      \_for_stmt: (work@t), line:16:5, endln:16:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:16:23, endln:16:24, parent:work@t
@@ -2495,7 +2495,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:16:25, endln:16:26
             |vpiConstType:9
@@ -2511,11 +2511,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:16:10
+          \_int_var: (work@t.a), line:16:10, endln:16:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:16:28, parent:work@t
+        \_assignment: , line:16:28, endln:16:33, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2523,7 +2523,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:16:30, endln:16:31
             |vpiOpType:24
@@ -2532,7 +2532,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:16:32, endln:16:33
               |vpiConstType:9
@@ -2540,7 +2540,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:17:5, parent:work@t
+      \_for_stmt: (work@t), line:17:5, endln:17:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:17:23, endln:17:24, parent:work@t
@@ -2550,7 +2550,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:17:25, endln:17:26
             |vpiConstType:9
@@ -2566,11 +2566,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:17:10
+          \_int_var: (work@t.a), line:17:10, endln:17:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:17:28, parent:work@t
+        \_assignment: , line:17:28, endln:17:33, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2578,7 +2578,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:17:30, endln:17:31
             |vpiOpType:24
@@ -2587,7 +2587,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:17:32, endln:17:33
               |vpiConstType:9
@@ -2595,7 +2595,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:17:35, parent:work@t
+        \_assignment: , line:17:35, endln:17:40, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2603,7 +2603,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:17:37, endln:17:38
             |vpiOpType:24
@@ -2612,7 +2612,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:17:39, endln:17:40
               |vpiConstType:9
@@ -2620,7 +2620,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:18:5, parent:work@t
+      \_for_stmt: (work@t), line:18:5, endln:18:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:18:27, endln:18:28, parent:work@t
@@ -2630,7 +2630,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:18:29, endln:18:30
             |vpiConstType:9
@@ -2646,11 +2646,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:18:14
+          \_int_var: (work@t.a), line:18:14, endln:18:21
             |vpiName:a
             |vpiFullName:work@t.a
       |vpiStmt:
-      \_for_stmt: (work@t), line:19:5, parent:work@t
+      \_for_stmt: (work@t), line:19:5, endln:19:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:19:27, endln:19:28, parent:work@t
@@ -2660,7 +2660,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:19:29, endln:19:30
             |vpiConstType:9
@@ -2676,11 +2676,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:19:14
+          \_int_var: (work@t.a), line:19:14, endln:19:21
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:19:32, parent:work@t
+        \_assignment: , line:19:32, endln:19:37, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2688,7 +2688,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:19:34, endln:19:35
             |vpiOpType:24
@@ -2697,7 +2697,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:19:36, endln:19:37
               |vpiConstType:9
@@ -2705,7 +2705,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:20:5, parent:work@t
+      \_for_stmt: (work@t), line:20:5, endln:20:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:20:27, endln:20:28, parent:work@t
@@ -2715,7 +2715,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:20:29, endln:20:30
             |vpiConstType:9
@@ -2731,11 +2731,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:20:14
+          \_int_var: (work@t.a), line:20:14, endln:20:21
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForIncStmt:
-        \_assignment: , line:20:32, parent:work@t
+        \_assignment: , line:20:32, endln:20:37, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2743,7 +2743,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:20:34, endln:20:35
             |vpiOpType:24
@@ -2752,7 +2752,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:20:36, endln:20:37
               |vpiConstType:9
@@ -2760,7 +2760,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:20:39, parent:work@t
+        \_assignment: , line:20:39, endln:20:44, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2768,7 +2768,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:20:41, endln:20:42
             |vpiOpType:24
@@ -2777,7 +2777,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:20:43, endln:20:44
               |vpiConstType:9
@@ -2785,7 +2785,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:21:5, parent:work@t
+      \_for_stmt: (work@t), line:21:5, endln:21:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:21:36, endln:21:37, parent:work@t
@@ -2795,7 +2795,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:21:38, endln:21:39
             |vpiConstType:9
@@ -2811,7 +2811,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:21:10
+          \_int_var: (work@t.a), line:21:10, endln:21:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -2823,11 +2823,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:21:23
+          \_int_var: (work@t.b), line:21:23, endln:21:30
             |vpiName:b
             |vpiFullName:work@t.b
       |vpiStmt:
-      \_for_stmt: (work@t), line:22:5, parent:work@t
+      \_for_stmt: (work@t), line:22:5, endln:22:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:22:36, endln:22:37, parent:work@t
@@ -2837,7 +2837,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:22:38, endln:22:39
             |vpiConstType:9
@@ -2853,7 +2853,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:22:10
+          \_int_var: (work@t.a), line:22:10, endln:22:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -2865,11 +2865,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:22:23
+          \_int_var: (work@t.b), line:22:23, endln:22:30
             |vpiName:b
             |vpiFullName:work@t.b
         |vpiForIncStmt:
-        \_assignment: , line:22:41, parent:work@t
+        \_assignment: , line:22:41, endln:22:46, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2877,7 +2877,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:22:43, endln:22:44
             |vpiOpType:24
@@ -2886,7 +2886,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:22:45, endln:22:46
               |vpiConstType:9
@@ -2894,7 +2894,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_for_stmt: (work@t), line:23:5, parent:work@t
+      \_for_stmt: (work@t), line:23:5, endln:23:8, parent:work@t
         |vpiFullName:work@t
         |vpiCondition:
         \_operation: , line:23:36, endln:23:37, parent:work@t
@@ -2904,7 +2904,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiOperand:
           \_constant: , line:23:38, endln:23:39
             |vpiConstType:9
@@ -2920,7 +2920,7 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.a), line:23:10
+          \_int_var: (work@t.a), line:23:10, endln:23:17
             |vpiName:a
             |vpiFullName:work@t.a
         |vpiForInitStmt:
@@ -2932,11 +2932,11 @@ design: (work@t)
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_int_var: (work@t.b), line:23:23
+          \_int_var: (work@t.b), line:23:23, endln:23:30
             |vpiName:b
             |vpiFullName:work@t.b
         |vpiForIncStmt:
-        \_assignment: , line:23:41, parent:work@t
+        \_assignment: , line:23:41, endln:23:46, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2944,7 +2944,7 @@ design: (work@t)
             |vpiName:a
             |vpiFullName:work@t.a
             |vpiActual:
-            \_int_var: (work@t.a), line:3:10, parent:work@t
+            \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
           |vpiRhs:
           \_operation: , line:23:43, endln:23:44
             |vpiOpType:24
@@ -2953,7 +2953,7 @@ design: (work@t)
               |vpiName:a
               |vpiFullName:work@t.a
               |vpiActual:
-              \_int_var: (work@t.a), line:3:10, parent:work@t
+              \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
             |vpiOperand:
             \_constant: , line:23:45, endln:23:46
               |vpiConstType:9
@@ -2961,7 +2961,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
         |vpiForIncStmt:
-        \_assignment: , line:23:48, parent:work@t
+        \_assignment: , line:23:48, endln:23:53, parent:work@t
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
@@ -2969,7 +2969,7 @@ design: (work@t)
             |vpiName:b
             |vpiFullName:work@t.b
             |vpiActual:
-            \_int_var: (work@t.b), line:3:13, parent:work@t
+            \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
           |vpiRhs:
           \_operation: , line:23:50, endln:23:51
             |vpiOpType:24
@@ -2978,7 +2978,7 @@ design: (work@t)
               |vpiName:b
               |vpiFullName:work@t.b
               |vpiActual:
-              \_int_var: (work@t.b), line:3:13, parent:work@t
+              \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
             |vpiOperand:
             \_constant: , line:23:52, endln:23:53
               |vpiConstType:9
@@ -2986,7 +2986,7 @@ design: (work@t)
               |vpiSize:64
               |UINT:1
       |vpiStmt:
-      \_sys_func_call: ($write), line:24:5, parent:work@t
+      \_sys_func_call: ($write), line:24:5, endln:24:38, parent:work@t
         |vpiName:$write
         |vpiArgument:
         \_constant: , line:24:12, endln:24:36, parent:$write
@@ -2995,12 +2995,12 @@ design: (work@t)
           |vpiSize:22
           |STRING:*-* All Finished *-*\n
       |vpiStmt:
-      \_sys_func_call: ($finish), line:25:5, parent:work@t
+      \_sys_func_call: ($finish), line:25:5, endln:25:13, parent:work@t
         |vpiName:$finish
   |vpiVariables:
-  \_int_var: (work@t.a), line:3:10, parent:work@t
+  \_int_var: (work@t.a), line:3:10, endln:3:11, parent:work@t
   |vpiVariables:
-  \_int_var: (work@t.b), line:3:13, parent:work@t
+  \_int_var: (work@t.b), line:3:13, endln:3:14, parent:work@t
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

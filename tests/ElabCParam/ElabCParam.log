@@ -641,7 +641,7 @@ design: (work@socket_1n)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@socket_1n
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:2, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6:2, endln:7:13, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -656,7 +656,7 @@ design: (work@socket_1n)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:6:16, parent:bound
+      \_int_typespec: , line:6:16, endln:6:19, parent:bound
       |vpiExpr:
       \_constant: , line:6:28, endln:6:29, parent:bound
         |vpiConstType:9
@@ -664,15 +664,15 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:2, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9:2, endln:10:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:11
+    \_int_var: , line:9:11, endln:9:14
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:2, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12:2, endln:13:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -682,7 +682,7 @@ design: (work@socket_1n)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:2, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15:2, endln:16:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -692,7 +692,7 @@ design: (work@socket_1n)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:2, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18:2, endln:19:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -702,19 +702,19 @@ design: (work@socket_1n)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:2, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21:2, endln:22:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:11
+    \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:2, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24:2, endln:25:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -724,13 +724,13 @@ design: (work@socket_1n)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:2, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27:2, endln:28:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:11
+    \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -739,56 +739,56 @@ design: (work@socket_1n)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endln:55:8, parent:work@socket_1n
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:2, parent:work@process
+  \_function: (work@process::self), line:37:2, endln:37:8, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:18
+    \_chandle_var: , line:37:18, endln:37:25
   |vpiMethod:
-  \_function: (work@process::status), line:40:2, parent:work@process
+  \_function: (work@process::status), line:40:2, endln:41:13, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40:11
+    \_int_var: , line:40:11, endln:40:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:65
+      \_enum_typespec: (state), line:35:65, endln:35:70
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:17
+        \_enum_const: (FINISHED), line:35:17, endln:35:25
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:27
+        \_enum_const: (RUNNING), line:35:27, endln:35:34
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:36
+        \_enum_const: (WAITING), line:35:36, endln:35:43
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:45
+        \_enum_const: (SUSPENDED), line:35:45, endln:35:54
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:56
+        \_enum_const: (KILLED), line:35:56, endln:35:62
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:2, parent:work@process
+  \_task: (work@process::kill), line:43:2, endln:44:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -797,7 +797,7 @@ design: (work@socket_1n)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:2, parent:work@process
+  \_task: (work@process::await), line:46:2, endln:47:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -806,7 +806,7 @@ design: (work@socket_1n)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:2, parent:work@process
+  \_task: (work@process::suspend), line:49:2, endln:50:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -815,7 +815,7 @@ design: (work@socket_1n)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:2, parent:work@process
+  \_task: (work@process::resume), line:52:2, endln:53:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -824,34 +824,34 @@ design: (work@socket_1n)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:65, parent:work@process
+  \_enum_typespec: (state), line:35:65, endln:35:70, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35:17, parent:state
+    \_enum_const: (FINISHED), line:35:17, endln:35:25, parent:state
       |vpiName:FINISHED
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35:27, parent:state
+    \_enum_const: (RUNNING), line:35:27, endln:35:34, parent:state
       |vpiName:RUNNING
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35:36, parent:state
+    \_enum_const: (WAITING), line:35:36, endln:35:43, parent:state
       |vpiName:WAITING
       |vpiDecompile:2
       |INT:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35:45, parent:state
+    \_enum_const: (SUSPENDED), line:35:45, endln:35:54, parent:state
       |vpiName:SUSPENDED
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35:56, parent:state
+    \_enum_const: (KILLED), line:35:56, endln:35:62, parent:state
       |vpiName:KILLED
       |vpiDecompile:4
       |INT:4
@@ -860,7 +860,7 @@ design: (work@socket_1n)
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@socket_1n
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:2, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60:2, endln:61:13, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -875,7 +875,7 @@ design: (work@socket_1n)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:60:15, parent:keyCount
+      \_int_typespec: , line:60:15, endln:60:18, parent:keyCount
       |vpiExpr:
       \_constant: , line:60:30, endln:60:31, parent:keyCount
         |vpiConstType:9
@@ -883,7 +883,7 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:2, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63:2, endln:64:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -893,7 +893,7 @@ design: (work@socket_1n)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:63:11, parent:keyCount
+      \_int_typespec: , line:63:11, endln:63:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:63:26, endln:63:27, parent:keyCount
         |vpiConstType:9
@@ -901,7 +901,7 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:2, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66:2, endln:67:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -911,7 +911,7 @@ design: (work@socket_1n)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:66:11, parent:keyCount
+      \_int_typespec: , line:66:11, endln:66:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:66:26, endln:66:27, parent:keyCount
         |vpiConstType:9
@@ -919,19 +919,19 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:2, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69:2, endln:70:13, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:11
+    \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:69:23, parent:keyCount
+      \_int_typespec: , line:69:23, endln:69:26, parent:keyCount
       |vpiExpr:
       \_constant: , line:69:38, endln:69:39, parent:keyCount
         |vpiConstType:9
@@ -943,7 +943,7 @@ design: (work@socket_1n)
   |vpiDefName:work@all_zero
   |vpiFullName:work@all_zero
   |vpiParamAssign:
-  \_param_assign: , line:55:26, parent:work@all_zero
+  \_param_assign: , line:55:26, endln:55:39, parent:work@all_zero
     |vpiRhs:
     \_constant: , line:55:38, endln:55:39
       |vpiConstType:9
@@ -951,14 +951,14 @@ design: (work@socket_1n)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@all_zero.N), line:55:26, parent:work@all_zero
+    \_parameter: (work@all_zero.N), line:55:26, endln:55:39, parent:work@all_zero
       |vpiName:N
       |vpiFullName:work@all_zero.N
       |vpiTypespec:
-      \_int_typespec: (N), line:55:12, parent:work@all_zero.N
+      \_int_typespec: (N), line:55:12, endln:55:15, parent:work@all_zero.N
         |vpiName:N
   |vpiParamAssign:
-  \_param_assign: , line:56:22, parent:work@all_zero
+  \_param_assign: , line:56:22, endln:56:43, parent:work@all_zero
     |vpiRhs:
     \_operation: , line:56:34, endln:56:43
       |vpiOpType:34
@@ -975,14 +975,14 @@ design: (work@socket_1n)
         |vpiSize:4
         |HEX:0
     |vpiLhs:
-    \_parameter: (work@all_zero.DReqDepth), line:56:22, parent:work@all_zero
+    \_parameter: (work@all_zero.DReqDepth), line:56:22, endln:56:43, parent:work@all_zero
       |vpiName:DReqDepth
       |vpiFullName:work@all_zero.DReqDepth
       |vpiTypespec:
-      \_bit_typespec: (DReqDepth), line:56:12, parent:work@all_zero.DReqDepth
+      \_bit_typespec: (DReqDepth), line:56:12, endln:56:15, parent:work@all_zero.DReqDepth
         |vpiName:DReqDepth
         |vpiRange:
-        \_range: , line:56:17
+        \_range: , line:56:17, endln:56:20
           |vpiLeftRange:
           \_constant: , line:56:17, endln:56:18
             |vpiConstType:9
@@ -996,7 +996,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:57:22, parent:work@all_zero
+  \_param_assign: , line:57:22, endln:57:40, parent:work@all_zero
     |vpiRhs:
     \_operation: , line:57:27, endln:57:40
       |vpiOpType:25
@@ -1010,14 +1010,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:2
     |vpiLhs:
-    \_parameter: (work@all_zero.AA), line:57:22, parent:work@all_zero
+    \_parameter: (work@all_zero.AA), line:57:22, endln:57:40, parent:work@all_zero
       |vpiName:AA
       |vpiFullName:work@all_zero.AA
       |vpiTypespec:
-      \_bit_typespec: (AA), line:57:12, parent:work@all_zero.AA
+      \_bit_typespec: (AA), line:57:12, endln:57:15, parent:work@all_zero.AA
         |vpiName:AA
         |vpiRange:
-        \_range: , line:57:17
+        \_range: , line:57:17, endln:57:20
           |vpiLeftRange:
           \_constant: , line:57:17, endln:57:18
             |vpiConstType:9
@@ -1031,7 +1031,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:58:22, parent:work@all_zero
+  \_param_assign: , line:58:22, endln:58:44, parent:work@all_zero
     |vpiRhs:
     \_indexed_part_select: , line:58:27, endln:58:44, parent:DReqDepth
       |vpiConstantSelect:1
@@ -1058,14 +1058,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:4
     |vpiLhs:
-    \_parameter: (work@all_zero.BB), line:58:22, parent:work@all_zero
+    \_parameter: (work@all_zero.BB), line:58:22, endln:58:44, parent:work@all_zero
       |vpiName:BB
       |vpiFullName:work@all_zero.BB
       |vpiTypespec:
-      \_bit_typespec: (BB), line:58:12, parent:work@all_zero.BB
+      \_bit_typespec: (BB), line:58:12, endln:58:15, parent:work@all_zero.BB
         |vpiName:BB
         |vpiRange:
-        \_range: , line:58:17
+        \_range: , line:58:17, endln:58:20
           |vpiLeftRange:
           \_constant: , line:58:17, endln:58:18
             |vpiConstType:9
@@ -1079,19 +1079,19 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParameter:
-  \_parameter: (work@all_zero.N), line:55:26, parent:work@all_zero
+  \_parameter: (work@all_zero.N), line:55:26, endln:55:39, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.DReqDepth), line:56:22, parent:work@all_zero
+  \_parameter: (work@all_zero.DReqDepth), line:56:22, endln:56:43, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.AA), line:57:22, parent:work@all_zero
+  \_parameter: (work@all_zero.AA), line:57:22, endln:57:40, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.BB), line:58:22, parent:work@all_zero
+  \_parameter: (work@all_zero.BB), line:58:22, endln:58:44, parent:work@all_zero
 |uhdmallModules:
 \_module: work@fifo_sync (work@fifo_sync) dut.sv:24: , endln:33:9, parent:work@socket_1n
   |vpiDefName:work@fifo_sync
   |vpiFullName:work@fifo_sync
   |vpiParamAssign:
-  \_param_assign: , line:25:25, parent:work@fifo_sync
+  \_param_assign: , line:25:25, endln:25:37, parent:work@fifo_sync
     |vpiRhs:
     \_constant: , line:25:36, endln:25:37
       |vpiConstType:9
@@ -1099,20 +1099,20 @@ design: (work@socket_1n)
       |vpiSize:64
       |UINT:6
     |vpiLhs:
-    \_parameter: (work@fifo_sync.ReqDepth), line:25:25, parent:work@fifo_sync
+    \_parameter: (work@fifo_sync.ReqDepth), line:25:25, endln:25:37, parent:work@fifo_sync
       |vpiName:ReqDepth
       |vpiFullName:work@fifo_sync.ReqDepth
       |vpiTypespec:
-      \_int_typespec: (ReqDepth), line:25:12, parent:work@fifo_sync.ReqDepth
+      \_int_typespec: (ReqDepth), line:25:12, endln:25:15, parent:work@fifo_sync.ReqDepth
         |vpiName:ReqDepth
   |vpiParameter:
-  \_parameter: (work@fifo_sync.ReqDepth), line:25:25, parent:work@fifo_sync
+  \_parameter: (work@fifo_sync.ReqDepth), line:25:25, endln:25:37, parent:work@fifo_sync
 |uhdmallModules:
 \_module: work@prim_fifo_sync (work@prim_fifo_sync) dut.sv:2: , endln:21:9, parent:work@socket_1n
   |vpiDefName:work@prim_fifo_sync
   |vpiFullName:work@prim_fifo_sync
   |vpiParamAssign:
-  \_param_assign: , line:3:25, parent:work@prim_fifo_sync
+  \_param_assign: , line:3:25, endln:3:40, parent:work@prim_fifo_sync
     |vpiRhs:
     \_constant: , line:3:39, endln:3:40
       |vpiConstType:9
@@ -1120,20 +1120,20 @@ design: (work@socket_1n)
       |vpiSize:64
       |UINT:4
     |vpiLhs:
-    \_parameter: (work@prim_fifo_sync.Depth), line:3:25, parent:work@prim_fifo_sync
+    \_parameter: (work@prim_fifo_sync.Depth), line:3:25, endln:3:40, parent:work@prim_fifo_sync
       |vpiName:Depth
       |vpiFullName:work@prim_fifo_sync.Depth
       |vpiTypespec:
-      \_int_typespec: (Depth), line:3:12, parent:work@prim_fifo_sync.Depth
+      \_int_typespec: (Depth), line:3:12, endln:3:15, parent:work@prim_fifo_sync.Depth
         |vpiName:Depth
   |vpiParameter:
-  \_parameter: (work@prim_fifo_sync.Depth), line:3:25, parent:work@prim_fifo_sync
+  \_parameter: (work@prim_fifo_sync.Depth), line:3:25, endln:3:40, parent:work@prim_fifo_sync
 |uhdmallModules:
 \_module: work@socket_1n (work@socket_1n) dut.sv:38: , endln:51:9, parent:work@socket_1n
   |vpiDefName:work@socket_1n
   |vpiFullName:work@socket_1n
   |vpiParamAssign:
-  \_param_assign: , line:39:26, parent:work@socket_1n
+  \_param_assign: , line:39:26, endln:39:39, parent:work@socket_1n
     |vpiRhs:
     \_constant: , line:39:38, endln:39:39
       |vpiConstType:9
@@ -1141,14 +1141,14 @@ design: (work@socket_1n)
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@socket_1n.N), line:39:26, parent:work@socket_1n
+    \_parameter: (work@socket_1n.N), line:39:26, endln:39:39, parent:work@socket_1n
       |vpiName:N
       |vpiFullName:work@socket_1n.N
       |vpiTypespec:
-      \_int_typespec: (N), line:39:12, parent:work@socket_1n.N
+      \_int_typespec: (N), line:39:12, endln:39:15, parent:work@socket_1n.N
         |vpiName:N
   |vpiParamAssign:
-  \_param_assign: , line:40:22, parent:work@socket_1n
+  \_param_assign: , line:40:22, endln:40:43, parent:work@socket_1n
     |vpiRhs:
     \_operation: , line:40:34, endln:40:43
       |vpiOpType:34
@@ -1162,14 +1162,14 @@ design: (work@socket_1n)
         |vpiSize:4
         |HEX:2
     |vpiLhs:
-    \_parameter: (work@socket_1n.DReqDepth), line:40:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.DReqDepth), line:40:22, endln:40:43, parent:work@socket_1n
       |vpiName:DReqDepth
       |vpiFullName:work@socket_1n.DReqDepth
       |vpiTypespec:
-      \_bit_typespec: (DReqDepth), line:40:12, parent:work@socket_1n.DReqDepth
+      \_bit_typespec: (DReqDepth), line:40:12, endln:40:15, parent:work@socket_1n.DReqDepth
         |vpiName:DReqDepth
         |vpiRange:
-        \_range: , line:40:17
+        \_range: , line:40:17, endln:40:20
           |vpiLeftRange:
           \_constant: , line:40:17, endln:40:18
             |vpiConstType:9
@@ -1183,7 +1183,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:41:22, parent:work@socket_1n
+  \_param_assign: , line:41:22, endln:41:40, parent:work@socket_1n
     |vpiRhs:
     \_operation: , line:41:27, endln:41:40
       |vpiOpType:25
@@ -1197,14 +1197,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:2
     |vpiLhs:
-    \_parameter: (work@socket_1n.AA), line:41:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.AA), line:41:22, endln:41:40, parent:work@socket_1n
       |vpiName:AA
       |vpiFullName:work@socket_1n.AA
       |vpiTypespec:
-      \_bit_typespec: (AA), line:41:12, parent:work@socket_1n.AA
+      \_bit_typespec: (AA), line:41:12, endln:41:15, parent:work@socket_1n.AA
         |vpiName:AA
         |vpiRange:
-        \_range: , line:41:17
+        \_range: , line:41:17, endln:41:20
           |vpiLeftRange:
           \_constant: , line:41:17, endln:41:18
             |vpiConstType:9
@@ -1218,7 +1218,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:42:22, parent:work@socket_1n
+  \_param_assign: , line:42:22, endln:42:44, parent:work@socket_1n
     |vpiRhs:
     \_indexed_part_select: , line:42:27, endln:42:44, parent:DReqDepth
       |vpiConstantSelect:1
@@ -1245,14 +1245,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:4
     |vpiLhs:
-    \_parameter: (work@socket_1n.BB), line:42:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.BB), line:42:22, endln:42:44, parent:work@socket_1n
       |vpiName:BB
       |vpiFullName:work@socket_1n.BB
       |vpiTypespec:
-      \_bit_typespec: (BB), line:42:12, parent:work@socket_1n.BB
+      \_bit_typespec: (BB), line:42:12, endln:42:15, parent:work@socket_1n.BB
         |vpiName:BB
         |vpiRange:
-        \_range: , line:42:17
+        \_range: , line:42:17, endln:42:20
           |vpiLeftRange:
           \_constant: , line:42:17, endln:42:18
             |vpiConstType:9
@@ -1266,13 +1266,13 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParameter:
-  \_parameter: (work@socket_1n.N), line:39:26, parent:work@socket_1n
+  \_parameter: (work@socket_1n.N), line:39:26, endln:39:39, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.DReqDepth), line:40:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.DReqDepth), line:40:22, endln:40:43, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.AA), line:41:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.AA), line:41:22, endln:41:40, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.BB), line:42:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.BB), line:42:22, endln:42:44, parent:work@socket_1n
 |uhdmtopModules:
 \_module: work@socket_1n (work@socket_1n) dut.sv:38: , endln:51:9
   |vpiDefName:work@socket_1n
@@ -1302,7 +1302,7 @@ design: (work@socket_1n)
             \_gen_scope: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
               |vpiFullName:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
               |vpiContAssign:
-              \_cont_assign: , line:11:11, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
+              \_cont_assign: , line:11:11, endln:11:23, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
                 |vpiRhs:
                 \_constant: , line:11:19, endln:11:23
                   |vpiConstType:3
@@ -1316,41 +1316,41 @@ design: (work@socket_1n)
           |vpiInstance:
           \_module: work@fifo_sync (work@socket_1n.gen_dfifo[0].fifo_d) dut.sv:45: , parent:work@socket_1n.gen_dfifo[0]
           |vpiParamAssign:
-          \_param_assign: , line:3:25, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
+          \_param_assign: , line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
             |vpiRhs:
-            \_constant: , line:3:39
+            \_constant: , line:3:39, endln:3:40
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
             |vpiLhs:
-            \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
+            \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
               |vpiName:Depth
               |vpiFullName:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth
               |UINT:0
               |vpiTypespec:
-              \_int_typespec: (Depth), line:3:12, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth
+              \_int_typespec: (Depth), line:3:12, endln:3:15, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth
                 |vpiName:Depth
           |vpiParameter:
-          \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
+          \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[0].fifo_d.reqfifo
         |vpiParamAssign:
-        \_param_assign: , line:25:25, parent:work@socket_1n.gen_dfifo[0].fifo_d
+        \_param_assign: , line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[0].fifo_d
           |vpiRhs:
-          \_constant: , line:25:36
+          \_constant: , line:25:36, endln:25:37
             |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, parent:work@socket_1n.gen_dfifo[0].fifo_d
+          \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[0].fifo_d
             |vpiName:ReqDepth
             |vpiFullName:work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth
             |UINT:0
             |vpiTypespec:
-            \_int_typespec: (ReqDepth), line:25:12, parent:work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth
+            \_int_typespec: (ReqDepth), line:25:12, endln:25:15, parent:work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth
               |vpiName:ReqDepth
         |vpiParameter:
-        \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, parent:work@socket_1n.gen_dfifo[0].fifo_d
+        \_parameter: (work@socket_1n.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[0].fifo_d
       |vpiParameter:
       \_parameter: (work@socket_1n.gen_dfifo[0].i), line:44, parent:work@socket_1n.gen_dfifo[0]
         |vpiName:i
@@ -1381,85 +1381,85 @@ design: (work@socket_1n)
             \_gen_scope: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal), parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
               |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
               |vpiParamAssign:
-              \_param_assign: , line:18:28, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+              \_param_assign: , line:18:28, endln:18:71, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
                 |vpiRhs:
-                \_constant: , line:18:40
+                \_constant: , line:18:40, endln:18:71
                   |vpiConstType:7
                   |vpiDecompile:1
                   |vpiSize:64
                   |INT:1
                 |vpiLhs:
-                \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W), line:18:28, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+                \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W), line:18:28, endln:18:71, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
                   |vpiName:PTRV_W
                   |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W
                   |vpiLocalParam:1
                   |INT:1
                   |vpiTypespec:
-                  \_int_typespec: (PTRV_W), line:18:15, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W
+                  \_int_typespec: (PTRV_W), line:18:15, endln:18:18, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W
                     |vpiName:PTRV_W
               |vpiParameter:
-              \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W), line:18:28, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
+              \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal.PTRV_W), line:18:28, endln:18:71, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.gen_normal
           |vpiInstance:
           \_module: work@fifo_sync (work@socket_1n.gen_dfifo[1].fifo_d) dut.sv:45: , parent:work@socket_1n.gen_dfifo[1]
           |vpiParamAssign:
-          \_param_assign: , line:3:25, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
+          \_param_assign: , line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
             |vpiRhs:
-            \_constant: , line:3:39
+            \_constant: , line:3:39, endln:3:40
               |vpiConstType:9
               |vpiDecompile:2
               |vpiSize:64
               |UINT:2
             |vpiLhs:
-            \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
+            \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
               |vpiName:Depth
               |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth
               |UINT:2
               |vpiTypespec:
-              \_int_typespec: (Depth), line:3:12, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth
+              \_int_typespec: (Depth), line:3:12, endln:3:15, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth
                 |vpiName:Depth
           |vpiParameter:
-          \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
+          \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@socket_1n.gen_dfifo[1].fifo_d.reqfifo
         |vpiParamAssign:
-        \_param_assign: , line:25:25, parent:work@socket_1n.gen_dfifo[1].fifo_d
+        \_param_assign: , line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[1].fifo_d
           |vpiRhs:
-          \_constant: , line:25:36
+          \_constant: , line:25:36, endln:25:37
             |vpiConstType:9
             |vpiDecompile:2
             |vpiSize:64
             |UINT:2
           |vpiLhs:
-          \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, parent:work@socket_1n.gen_dfifo[1].fifo_d
+          \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[1].fifo_d
             |vpiName:ReqDepth
             |vpiFullName:work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth
             |UINT:2
             |vpiTypespec:
-            \_int_typespec: (ReqDepth), line:25:12, parent:work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth
+            \_int_typespec: (ReqDepth), line:25:12, endln:25:15, parent:work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth
               |vpiName:ReqDepth
         |vpiParameter:
-        \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, parent:work@socket_1n.gen_dfifo[1].fifo_d
+        \_parameter: (work@socket_1n.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@socket_1n.gen_dfifo[1].fifo_d
       |vpiParameter:
       \_parameter: (work@socket_1n.gen_dfifo[1].i), line:44, parent:work@socket_1n.gen_dfifo[1]
         |vpiName:i
         |vpiFullName:work@socket_1n.gen_dfifo[1].i
         |UINT:1
   |vpiParamAssign:
-  \_param_assign: , line:39:26, parent:work@socket_1n
+  \_param_assign: , line:39:26, endln:39:39, parent:work@socket_1n
     |vpiRhs:
-    \_constant: , line:39:38
+    \_constant: , line:39:38, endln:39:39
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@socket_1n.N), line:39:26, parent:work@socket_1n
+    \_parameter: (work@socket_1n.N), line:39:26, endln:39:39, parent:work@socket_1n
       |vpiName:N
       |vpiFullName:work@socket_1n.N
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: (N), line:39:12, parent:work@socket_1n.N
+      \_int_typespec: (N), line:39:12, endln:39:15, parent:work@socket_1n.N
         |vpiName:N
   |vpiParamAssign:
-  \_param_assign: , line:40:22, parent:work@socket_1n
+  \_param_assign: , line:40:22, endln:40:43, parent:work@socket_1n
     |vpiRhs:
     \_constant: 
       |vpiConstType:5
@@ -1467,14 +1467,14 @@ design: (work@socket_1n)
       |vpiSize:8
       |HEX:22
     |vpiLhs:
-    \_parameter: (work@socket_1n.DReqDepth), line:40:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.DReqDepth), line:40:22, endln:40:43, parent:work@socket_1n
       |vpiName:DReqDepth
       |vpiFullName:work@socket_1n.DReqDepth
       |vpiTypespec:
-      \_bit_typespec: (DReqDepth), line:40:12, parent:work@socket_1n.DReqDepth
+      \_bit_typespec: (DReqDepth), line:40:12, endln:40:15, parent:work@socket_1n.DReqDepth
         |vpiName:DReqDepth
         |vpiRange:
-        \_range: , line:40:17, parent:DReqDepth
+        \_range: , line:40:17, endln:40:20, parent:DReqDepth
           |vpiLeftRange:
           \_constant: , line:40:17, endln:40:18
             |vpiConstType:9
@@ -1488,7 +1488,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:41:22, parent:work@socket_1n
+  \_param_assign: , line:41:22, endln:41:40, parent:work@socket_1n
     |vpiRhs:
     \_operation: , line:41:27, endln:41:40
       |vpiOpType:25
@@ -1496,7 +1496,7 @@ design: (work@socket_1n)
       \_ref_obj: (DReqDepth), line:41:27, endln:41:36
         |vpiName:DReqDepth
         |vpiActual:
-        \_parameter: (work@socket_1n.DReqDepth), line:40:22, parent:work@socket_1n
+        \_parameter: (work@socket_1n.DReqDepth), line:40:22, endln:40:43, parent:work@socket_1n
       |vpiOperand:
       \_constant: , line:41:39, endln:41:40
         |vpiConstType:9
@@ -1504,14 +1504,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:2
     |vpiLhs:
-    \_parameter: (work@socket_1n.AA), line:41:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.AA), line:41:22, endln:41:40, parent:work@socket_1n
       |vpiName:AA
       |vpiFullName:work@socket_1n.AA
       |vpiTypespec:
-      \_bit_typespec: (AA), line:41:12, parent:work@socket_1n.AA
+      \_bit_typespec: (AA), line:41:12, endln:41:15, parent:work@socket_1n.AA
         |vpiName:AA
         |vpiRange:
-        \_range: , line:41:17, parent:AA
+        \_range: , line:41:17, endln:41:20, parent:AA
           |vpiLeftRange:
           \_constant: , line:41:17, endln:41:18
             |vpiConstType:9
@@ -1525,7 +1525,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:42:22, parent:work@socket_1n
+  \_param_assign: , line:42:22, endln:42:44, parent:work@socket_1n
     |vpiRhs:
     \_indexed_part_select: , line:42:27, endln:42:44, parent:DReqDepth
       |vpiConstantSelect:1
@@ -1552,14 +1552,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:4
     |vpiLhs:
-    \_parameter: (work@socket_1n.BB), line:42:22, parent:work@socket_1n
+    \_parameter: (work@socket_1n.BB), line:42:22, endln:42:44, parent:work@socket_1n
       |vpiName:BB
       |vpiFullName:work@socket_1n.BB
       |vpiTypespec:
-      \_bit_typespec: (BB), line:42:12, parent:work@socket_1n.BB
+      \_bit_typespec: (BB), line:42:12, endln:42:15, parent:work@socket_1n.BB
         |vpiName:BB
         |vpiRange:
-        \_range: , line:42:17, parent:BB
+        \_range: , line:42:17, endln:42:20, parent:BB
           |vpiLeftRange:
           \_constant: , line:42:17, endln:42:18
             |vpiConstType:9
@@ -1573,13 +1573,13 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParameter:
-  \_parameter: (work@socket_1n.N), line:39:26, parent:work@socket_1n
+  \_parameter: (work@socket_1n.N), line:39:26, endln:39:39, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.DReqDepth), line:40:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.DReqDepth), line:40:22, endln:40:43, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.AA), line:41:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.AA), line:41:22, endln:41:40, parent:work@socket_1n
   |vpiParameter:
-  \_parameter: (work@socket_1n.BB), line:42:22, parent:work@socket_1n
+  \_parameter: (work@socket_1n.BB), line:42:22, endln:42:44, parent:work@socket_1n
 |uhdmtopModules:
 \_module: work@all_zero (work@all_zero) dut.sv:54: , endln:67:9
   |vpiDefName:work@all_zero
@@ -1609,7 +1609,7 @@ design: (work@socket_1n)
             \_gen_scope: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru), parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
               |vpiFullName:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
               |vpiContAssign:
-              \_cont_assign: , line:11:11, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
+              \_cont_assign: , line:11:11, endln:11:23, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.gen_passthru
                 |vpiRhs:
                 \_constant: , line:11:19, endln:11:23
                   |vpiConstType:3
@@ -1623,41 +1623,41 @@ design: (work@socket_1n)
           |vpiInstance:
           \_module: work@fifo_sync (work@all_zero.gen_dfifo[0].fifo_d) dut.sv:61: , parent:work@all_zero.gen_dfifo[0]
           |vpiParamAssign:
-          \_param_assign: , line:3:25, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
+          \_param_assign: , line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
             |vpiRhs:
-            \_constant: , line:3:39
+            \_constant: , line:3:39, endln:3:40
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
             |vpiLhs:
-            \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
+            \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
               |vpiName:Depth
               |vpiFullName:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth
               |UINT:0
               |vpiTypespec:
-              \_int_typespec: (Depth), line:3:12, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth
+              \_int_typespec: (Depth), line:3:12, endln:3:15, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth
                 |vpiName:Depth
           |vpiParameter:
-          \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
+          \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[0].fifo_d.reqfifo
         |vpiParamAssign:
-        \_param_assign: , line:25:25, parent:work@all_zero.gen_dfifo[0].fifo_d
+        \_param_assign: , line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[0].fifo_d
           |vpiRhs:
-          \_constant: , line:25:36
+          \_constant: , line:25:36, endln:25:37
             |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, parent:work@all_zero.gen_dfifo[0].fifo_d
+          \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[0].fifo_d
             |vpiName:ReqDepth
             |vpiFullName:work@all_zero.gen_dfifo[0].fifo_d.ReqDepth
             |UINT:0
             |vpiTypespec:
-            \_int_typespec: (ReqDepth), line:25:12, parent:work@all_zero.gen_dfifo[0].fifo_d.ReqDepth
+            \_int_typespec: (ReqDepth), line:25:12, endln:25:15, parent:work@all_zero.gen_dfifo[0].fifo_d.ReqDepth
               |vpiName:ReqDepth
         |vpiParameter:
-        \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, parent:work@all_zero.gen_dfifo[0].fifo_d
+        \_parameter: (work@all_zero.gen_dfifo[0].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[0].fifo_d
       |vpiParameter:
       \_parameter: (work@all_zero.gen_dfifo[0].i), line:60, parent:work@all_zero.gen_dfifo[0]
         |vpiName:i
@@ -1688,7 +1688,7 @@ design: (work@socket_1n)
             \_gen_scope: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru), parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
               |vpiFullName:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
               |vpiContAssign:
-              \_cont_assign: , line:11:11, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
+              \_cont_assign: , line:11:11, endln:11:23, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.gen_passthru
                 |vpiRhs:
                 \_constant: , line:11:19, endln:11:23
                   |vpiConstType:3
@@ -1702,64 +1702,64 @@ design: (work@socket_1n)
           |vpiInstance:
           \_module: work@fifo_sync (work@all_zero.gen_dfifo[1].fifo_d) dut.sv:61: , parent:work@all_zero.gen_dfifo[1]
           |vpiParamAssign:
-          \_param_assign: , line:3:25, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
+          \_param_assign: , line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
             |vpiRhs:
-            \_constant: , line:3:39
+            \_constant: , line:3:39, endln:3:40
               |vpiConstType:9
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
             |vpiLhs:
-            \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
+            \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
               |vpiName:Depth
               |vpiFullName:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth
               |UINT:0
               |vpiTypespec:
-              \_int_typespec: (Depth), line:3:12, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth
+              \_int_typespec: (Depth), line:3:12, endln:3:15, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth
                 |vpiName:Depth
           |vpiParameter:
-          \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
+          \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.reqfifo.Depth), line:3:25, endln:3:40, parent:work@all_zero.gen_dfifo[1].fifo_d.reqfifo
         |vpiParamAssign:
-        \_param_assign: , line:25:25, parent:work@all_zero.gen_dfifo[1].fifo_d
+        \_param_assign: , line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[1].fifo_d
           |vpiRhs:
-          \_constant: , line:25:36
+          \_constant: , line:25:36, endln:25:37
             |vpiConstType:9
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
           |vpiLhs:
-          \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, parent:work@all_zero.gen_dfifo[1].fifo_d
+          \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[1].fifo_d
             |vpiName:ReqDepth
             |vpiFullName:work@all_zero.gen_dfifo[1].fifo_d.ReqDepth
             |UINT:0
             |vpiTypespec:
-            \_int_typespec: (ReqDepth), line:25:12, parent:work@all_zero.gen_dfifo[1].fifo_d.ReqDepth
+            \_int_typespec: (ReqDepth), line:25:12, endln:25:15, parent:work@all_zero.gen_dfifo[1].fifo_d.ReqDepth
               |vpiName:ReqDepth
         |vpiParameter:
-        \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, parent:work@all_zero.gen_dfifo[1].fifo_d
+        \_parameter: (work@all_zero.gen_dfifo[1].fifo_d.ReqDepth), line:25:25, endln:25:37, parent:work@all_zero.gen_dfifo[1].fifo_d
       |vpiParameter:
       \_parameter: (work@all_zero.gen_dfifo[1].i), line:60, parent:work@all_zero.gen_dfifo[1]
         |vpiName:i
         |vpiFullName:work@all_zero.gen_dfifo[1].i
         |UINT:1
   |vpiParamAssign:
-  \_param_assign: , line:55:26, parent:work@all_zero
+  \_param_assign: , line:55:26, endln:55:39, parent:work@all_zero
     |vpiRhs:
-    \_constant: , line:55:38
+    \_constant: , line:55:38, endln:55:39
       |vpiConstType:9
       |vpiDecompile:2
       |vpiSize:64
       |UINT:2
     |vpiLhs:
-    \_parameter: (work@all_zero.N), line:55:26, parent:work@all_zero
+    \_parameter: (work@all_zero.N), line:55:26, endln:55:39, parent:work@all_zero
       |vpiName:N
       |vpiFullName:work@all_zero.N
       |UINT:2
       |vpiTypespec:
-      \_int_typespec: (N), line:55:12, parent:work@all_zero.N
+      \_int_typespec: (N), line:55:12, endln:55:15, parent:work@all_zero.N
         |vpiName:N
   |vpiParamAssign:
-  \_param_assign: , line:56:22, parent:work@all_zero
+  \_param_assign: , line:56:22, endln:56:43, parent:work@all_zero
     |vpiRhs:
     \_constant: 
       |vpiConstType:5
@@ -1767,14 +1767,14 @@ design: (work@socket_1n)
       |vpiSize:8
       |HEX:00
     |vpiLhs:
-    \_parameter: (work@all_zero.DReqDepth), line:56:22, parent:work@all_zero
+    \_parameter: (work@all_zero.DReqDepth), line:56:22, endln:56:43, parent:work@all_zero
       |vpiName:DReqDepth
       |vpiFullName:work@all_zero.DReqDepth
       |vpiTypespec:
-      \_bit_typespec: (DReqDepth), line:56:12, parent:work@all_zero.DReqDepth
+      \_bit_typespec: (DReqDepth), line:56:12, endln:56:15, parent:work@all_zero.DReqDepth
         |vpiName:DReqDepth
         |vpiRange:
-        \_range: , line:56:17, parent:DReqDepth
+        \_range: , line:56:17, endln:56:20, parent:DReqDepth
           |vpiLeftRange:
           \_constant: , line:56:17, endln:56:18
             |vpiConstType:9
@@ -1788,7 +1788,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:57:22, parent:work@all_zero
+  \_param_assign: , line:57:22, endln:57:40, parent:work@all_zero
     |vpiRhs:
     \_operation: , line:57:27, endln:57:40
       |vpiOpType:25
@@ -1796,7 +1796,7 @@ design: (work@socket_1n)
       \_ref_obj: (DReqDepth), line:57:27, endln:57:36
         |vpiName:DReqDepth
         |vpiActual:
-        \_parameter: (work@all_zero.DReqDepth), line:56:22, parent:work@all_zero
+        \_parameter: (work@all_zero.DReqDepth), line:56:22, endln:56:43, parent:work@all_zero
       |vpiOperand:
       \_constant: , line:57:39, endln:57:40
         |vpiConstType:9
@@ -1804,14 +1804,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:2
     |vpiLhs:
-    \_parameter: (work@all_zero.AA), line:57:22, parent:work@all_zero
+    \_parameter: (work@all_zero.AA), line:57:22, endln:57:40, parent:work@all_zero
       |vpiName:AA
       |vpiFullName:work@all_zero.AA
       |vpiTypespec:
-      \_bit_typespec: (AA), line:57:12, parent:work@all_zero.AA
+      \_bit_typespec: (AA), line:57:12, endln:57:15, parent:work@all_zero.AA
         |vpiName:AA
         |vpiRange:
-        \_range: , line:57:17, parent:AA
+        \_range: , line:57:17, endln:57:20, parent:AA
           |vpiLeftRange:
           \_constant: , line:57:17, endln:57:18
             |vpiConstType:9
@@ -1825,7 +1825,7 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParamAssign:
-  \_param_assign: , line:58:22, parent:work@all_zero
+  \_param_assign: , line:58:22, endln:58:44, parent:work@all_zero
     |vpiRhs:
     \_indexed_part_select: , line:58:27, endln:58:44, parent:DReqDepth
       |vpiConstantSelect:1
@@ -1852,14 +1852,14 @@ design: (work@socket_1n)
         |vpiSize:64
         |UINT:4
     |vpiLhs:
-    \_parameter: (work@all_zero.BB), line:58:22, parent:work@all_zero
+    \_parameter: (work@all_zero.BB), line:58:22, endln:58:44, parent:work@all_zero
       |vpiName:BB
       |vpiFullName:work@all_zero.BB
       |vpiTypespec:
-      \_bit_typespec: (BB), line:58:12, parent:work@all_zero.BB
+      \_bit_typespec: (BB), line:58:12, endln:58:15, parent:work@all_zero.BB
         |vpiName:BB
         |vpiRange:
-        \_range: , line:58:17, parent:BB
+        \_range: , line:58:17, endln:58:20, parent:BB
           |vpiLeftRange:
           \_constant: , line:58:17, endln:58:18
             |vpiConstType:9
@@ -1873,13 +1873,13 @@ design: (work@socket_1n)
             |vpiSize:64
             |UINT:0
   |vpiParameter:
-  \_parameter: (work@all_zero.N), line:55:26, parent:work@all_zero
+  \_parameter: (work@all_zero.N), line:55:26, endln:55:39, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.DReqDepth), line:56:22, parent:work@all_zero
+  \_parameter: (work@all_zero.DReqDepth), line:56:22, endln:56:43, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.AA), line:57:22, parent:work@all_zero
+  \_parameter: (work@all_zero.AA), line:57:22, endln:57:40, parent:work@all_zero
   |vpiParameter:
-  \_parameter: (work@all_zero.BB), line:58:22, parent:work@all_zero
+  \_parameter: (work@all_zero.BB), line:58:22, endln:58:44, parent:work@all_zero
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -253,6 +253,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
         extends->VpiFile(fCDef->getFileName());
         extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
         extends->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
+        extends->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
+        extends->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
         UHDM::class_typespec* tps = s.MakeClass_typespec();
         extends->Class_typespec(tps);
         tps->Class_defn(parent);
@@ -281,6 +283,8 @@ bool TestbenchElaboration::bindBaseClasses_() {
           extends->VpiFile(fCDef->getFileName());
           extends->VpiLineNo(fCDef->Line(placeHolder->getNodeId()));
           extends->VpiColumnNo(fCDef->Column(placeHolder->getNodeId()));
+          extends->VpiEndLineNo(fCDef->EndLine(placeHolder->getNodeId()));
+          extends->VpiEndColumnNo(fCDef->EndColumn(placeHolder->getNodeId()));
           UHDM::class_typespec* tps = s.MakeClass_typespec();
           tps->VpiName(class_def.second->getName());
           extends->Class_typespec(tps);
@@ -758,6 +762,8 @@ bool TestbenchElaboration::bindProperties_() {
       if (obj) {
         obj->VpiLineNo(fC->Line(id));
         obj->VpiColumnNo(fC->Column(id));
+        obj->VpiEndLineNo(fC->EndLine(id));
+        obj->VpiEndColumnNo(fC->EndColumn(id));
         obj->VpiFile(fC->getFileName());
         obj->VpiParent(defn);
       } else {

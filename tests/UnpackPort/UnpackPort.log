@@ -184,7 +184,7 @@ design: (work@dut)
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@dut
   |vpiName:work@mailbox
   |vpiMethod:
-  \_function: (work@mailbox::new), line:6:2, parent:work@mailbox
+  \_function: (work@mailbox::new), line:6:2, endln:7:13, parent:work@mailbox
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@mailbox::new
@@ -199,7 +199,7 @@ design: (work@dut)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:6:16, parent:bound
+      \_int_typespec: , line:6:16, endln:6:19, parent:bound
       |vpiExpr:
       \_constant: , line:6:28, endln:6:29, parent:bound
         |vpiConstType:9
@@ -207,15 +207,15 @@ design: (work@dut)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_function: (work@mailbox::num), line:9:2, parent:work@mailbox
+  \_function: (work@mailbox::num), line:9:2, endln:10:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:num
     |vpiFullName:work@mailbox::num
     |vpiReturn:
-    \_int_var: , line:9:11
+    \_int_var: , line:9:11, endln:9:14
   |vpiMethod:
-  \_task: (work@mailbox::put), line:12:2, parent:work@mailbox
+  \_task: (work@mailbox::put), line:12:2, endln:13:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -225,7 +225,7 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_function: (work@mailbox::try_put), line:15:2, parent:work@mailbox
+  \_function: (work@mailbox::try_put), line:15:2, endln:16:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_put
@@ -235,7 +235,7 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
-  \_task: (work@mailbox::get), line:18:2, parent:work@mailbox
+  \_task: (work@mailbox::get), line:18:2, endln:19:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -245,19 +245,19 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_get), line:21:2, parent:work@mailbox
+  \_function: (work@mailbox::try_get), line:21:2, endln:22:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@mailbox::try_get
     |vpiReturn:
-    \_int_var: , line:21:11
+    \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_get
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_task: (work@mailbox::peek), line:24:2, parent:work@mailbox
+  \_task: (work@mailbox::peek), line:24:2, endln:25:9, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:peek
@@ -267,13 +267,13 @@ design: (work@dut)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
-  \_function: (work@mailbox::try_peek), line:27:2, parent:work@mailbox
+  \_function: (work@mailbox::try_peek), line:27:2, endln:28:13, parent:work@mailbox
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_peek
     |vpiFullName:work@mailbox::try_peek
     |vpiReturn:
-    \_int_var: , line:27:11
+    \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
     \_io_decl: (message), parent:work@mailbox::try_peek
       |vpiName:message
@@ -282,56 +282,56 @@ design: (work@dut)
 \_class_defn: (work@process) ${SURELOG_DIR}/build/bin/sv/builtin.sv:33: , endln:55:8, parent:work@dut
   |vpiName:work@process
   |vpiMethod:
-  \_function: (work@process::self), line:37:2, parent:work@process
+  \_function: (work@process::self), line:37:2, endln:37:8, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:18
+    \_chandle_var: , line:37:18, endln:37:25
   |vpiMethod:
-  \_function: (work@process::status), line:40:2, parent:work@process
+  \_function: (work@process::status), line:40:2, endln:41:13, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:status
     |vpiFullName:work@process::status
     |vpiReturn:
-    \_int_var: , line:40:11
+    \_int_var: , line:40:11, endln:40:16
       |vpiTypespec:
-      \_enum_typespec: (state), line:35:65
+      \_enum_typespec: (state), line:35:65, endln:35:70
         |vpiName:state
         |vpiEnumConst:
-        \_enum_const: (FINISHED), line:35:17
+        \_enum_const: (FINISHED), line:35:17, endln:35:25
           |vpiName:FINISHED
           |vpiDecompile:0
           |INT:0
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (RUNNING), line:35:27
+        \_enum_const: (RUNNING), line:35:27, endln:35:34
           |vpiName:RUNNING
           |vpiDecompile:1
           |INT:1
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (WAITING), line:35:36
+        \_enum_const: (WAITING), line:35:36, endln:35:43
           |vpiName:WAITING
           |vpiDecompile:2
           |INT:2
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (SUSPENDED), line:35:45
+        \_enum_const: (SUSPENDED), line:35:45, endln:35:54
           |vpiName:SUSPENDED
           |vpiDecompile:3
           |INT:3
           |vpiSize:64
         |vpiEnumConst:
-        \_enum_const: (KILLED), line:35:56
+        \_enum_const: (KILLED), line:35:56, endln:35:62
           |vpiName:KILLED
           |vpiDecompile:4
           |INT:4
           |vpiSize:64
   |vpiMethod:
-  \_task: (work@process::kill), line:43:2, parent:work@process
+  \_task: (work@process::kill), line:43:2, endln:44:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:kill
@@ -340,7 +340,7 @@ design: (work@dut)
     \_begin: (work@process::kill), parent:work@process::kill
       |vpiFullName:work@process::kill
   |vpiMethod:
-  \_task: (work@process::await), line:46:2, parent:work@process
+  \_task: (work@process::await), line:46:2, endln:47:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:await
@@ -349,7 +349,7 @@ design: (work@dut)
     \_begin: (work@process::await), parent:work@process::await
       |vpiFullName:work@process::await
   |vpiMethod:
-  \_task: (work@process::suspend), line:49:2, parent:work@process
+  \_task: (work@process::suspend), line:49:2, endln:50:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:suspend
@@ -358,7 +358,7 @@ design: (work@dut)
     \_begin: (work@process::suspend), parent:work@process::suspend
       |vpiFullName:work@process::suspend
   |vpiMethod:
-  \_task: (work@process::resume), line:52:2, parent:work@process
+  \_task: (work@process::resume), line:52:2, endln:53:9, parent:work@process
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:resume
@@ -367,34 +367,34 @@ design: (work@dut)
     \_begin: (work@process::resume), parent:work@process::resume
       |vpiFullName:work@process::resume
   |vpiTypedef:
-  \_enum_typespec: (state), line:35:65, parent:work@process
+  \_enum_typespec: (state), line:35:65, endln:35:70, parent:work@process
     |vpiName:state
     |vpiEnumConst:
-    \_enum_const: (FINISHED), line:35:17, parent:state
+    \_enum_const: (FINISHED), line:35:17, endln:35:25, parent:state
       |vpiName:FINISHED
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (RUNNING), line:35:27, parent:state
+    \_enum_const: (RUNNING), line:35:27, endln:35:34, parent:state
       |vpiName:RUNNING
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (WAITING), line:35:36, parent:state
+    \_enum_const: (WAITING), line:35:36, endln:35:43, parent:state
       |vpiName:WAITING
       |vpiDecompile:2
       |INT:2
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (SUSPENDED), line:35:45, parent:state
+    \_enum_const: (SUSPENDED), line:35:45, endln:35:54, parent:state
       |vpiName:SUSPENDED
       |vpiDecompile:3
       |INT:3
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (KILLED), line:35:56, parent:state
+    \_enum_const: (KILLED), line:35:56, endln:35:62, parent:state
       |vpiName:KILLED
       |vpiDecompile:4
       |INT:4
@@ -403,7 +403,7 @@ design: (work@dut)
 \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@dut
   |vpiName:work@semaphore
   |vpiMethod:
-  \_function: (work@semaphore::new), line:60:2, parent:work@semaphore
+  \_function: (work@semaphore::new), line:60:2, endln:61:13, parent:work@semaphore
     |vpiMethod:1
     |vpiName:new
     |vpiFullName:work@semaphore::new
@@ -418,7 +418,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:60:15, parent:keyCount
+      \_int_typespec: , line:60:15, endln:60:18, parent:keyCount
       |vpiExpr:
       \_constant: , line:60:30, endln:60:31, parent:keyCount
         |vpiConstType:9
@@ -426,7 +426,7 @@ design: (work@dut)
         |vpiSize:64
         |UINT:0
   |vpiMethod:
-  \_task: (work@semaphore::put), line:63:2, parent:work@semaphore
+  \_task: (work@semaphore::put), line:63:2, endln:64:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:put
@@ -436,7 +436,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:63:11, parent:keyCount
+      \_int_typespec: , line:63:11, endln:63:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:63:26, endln:63:27, parent:keyCount
         |vpiConstType:9
@@ -444,7 +444,7 @@ design: (work@dut)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_task: (work@semaphore::get), line:66:2, parent:work@semaphore
+  \_task: (work@semaphore::get), line:66:2, endln:67:9, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:get
@@ -454,7 +454,7 @@ design: (work@dut)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:66:11, parent:keyCount
+      \_int_typespec: , line:66:11, endln:66:14, parent:keyCount
       |vpiExpr:
       \_constant: , line:66:26, endln:66:27, parent:keyCount
         |vpiConstType:9
@@ -462,19 +462,19 @@ design: (work@dut)
         |vpiSize:64
         |UINT:1
   |vpiMethod:
-  \_function: (work@semaphore::try_get), line:69:2, parent:work@semaphore
+  \_function: (work@semaphore::try_get), line:69:2, endln:70:13, parent:work@semaphore
     |vpiMethod:1
     |vpiVisibility:1
     |vpiName:try_get
     |vpiFullName:work@semaphore::try_get
     |vpiReturn:
-    \_int_var: , line:69:11
+    \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
     \_io_decl: (keyCount), parent:work@semaphore::try_get
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
-      \_int_typespec: , line:69:23, parent:keyCount
+      \_int_typespec: , line:69:23, endln:69:26, parent:keyCount
       |vpiExpr:
       \_constant: , line:69:38, endln:69:39, parent:keyCount
         |vpiConstType:9
@@ -498,16 +498,16 @@ design: (work@dut)
   |vpiNet:
   \_logic_net: (work@dut.var3), line:1:11, parent:work@dut
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:2:10
+  \_struct_typespec: (struct2), line:2:10, endln:2:16
     |vpiPacked:1
     |vpiName:struct2
     |vpiTypespecMember:
-    \_typespec_member: (third), line:3:18
+    \_typespec_member: (third), line:3:18, endln:3:23
       |vpiName:third
       |vpiTypespec:
-      \_logic_typespec: , line:3:6
+      \_logic_typespec: , line:3:6, endln:3:11
         |vpiRange:
-        \_range: , line:3:13, parent:struct2
+        \_range: , line:3:13, endln:3:16, parent:struct2
           |vpiLeftRange:
           \_constant: , line:3:13, endln:3:14
             |vpiConstType:9
@@ -525,20 +525,20 @@ design: (work@dut)
   |vpiDefName:work@dut
   |vpiName:work@dut
   |vpiPort:
-  \_port: (var3), line:1:11, parent:work@dut
+  \_port: (var3), line:1:11, endln:1:15, parent:work@dut
     |vpiName:var3
     |vpiDirection:2
     |vpiTypedef:
-    \_struct_typespec: (struct2), line:2:10
+    \_struct_typespec: (struct2), line:2:10, endln:2:16
       |vpiPacked:1
       |vpiName:struct2
       |vpiTypespecMember:
-      \_typespec_member: (third), line:3:18
+      \_typespec_member: (third), line:3:18, endln:3:23
         |vpiName:third
         |vpiTypespec:
-        \_logic_typespec: , line:3:6
+        \_logic_typespec: , line:3:6, endln:3:11
           |vpiRange:
-          \_range: , line:3:13, parent:struct2
+          \_range: , line:3:13, endln:3:16, parent:struct2
             |vpiLeftRange:
             \_constant: , line:3:13, endln:3:14
               |vpiConstType:9
@@ -554,10 +554,10 @@ design: (work@dut)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_struct_net: (work@dut.var3), line:1:11, parent:work@dut.var3
+      \_struct_net: (work@dut.var3), line:1:11, endln:1:15, parent:work@dut.var3
         |vpiFullName:work@dut.var3
         |vpiTypespec:
-        \_struct_typespec: (struct2), line:2:10
+        \_struct_typespec: (struct2), line:2:10, endln:2:16
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[0]), line:8, parent:work@dut
     |vpiName:g_fill[0]
@@ -566,7 +566,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[0]), parent:work@dut.g_fill[0]
       |vpiFullName:work@dut.g_fill[0]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[0]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[0]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -577,7 +577,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[0].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -601,7 +601,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[1]), parent:work@dut.g_fill[1]
       |vpiFullName:work@dut.g_fill[1]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[1]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[1]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -612,7 +612,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[1].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -636,7 +636,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[2]), parent:work@dut.g_fill[2]
       |vpiFullName:work@dut.g_fill[2]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[2]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[2]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -647,7 +647,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[2].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -671,7 +671,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[3]), parent:work@dut.g_fill[3]
       |vpiFullName:work@dut.g_fill[3]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[3]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[3]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -682,7 +682,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[3].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -706,7 +706,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[4]), parent:work@dut.g_fill[4]
       |vpiFullName:work@dut.g_fill[4]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[4]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[4]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -717,7 +717,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[4].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -741,7 +741,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[5]), parent:work@dut.g_fill[5]
       |vpiFullName:work@dut.g_fill[5]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[5]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[5]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -752,7 +752,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[5].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -776,7 +776,7 @@ design: (work@dut)
     \_gen_scope: (work@dut.g_fill[6]), parent:work@dut.g_fill[6]
       |vpiFullName:work@dut.g_fill[6]
       |vpiContAssign:
-      \_cont_assign: , line:9:13, parent:work@dut.g_fill[6]
+      \_cont_assign: , line:9:13, endln:9:36, parent:work@dut.g_fill[6]
         |vpiRhs:
         \_operation: , line:9:23, endln:9:36
           |vpiOpType:67
@@ -787,7 +787,7 @@ design: (work@dut)
             |vpiSize:64
             |UINT:127
           |vpiTypespec:
-          \_struct_typespec: (struct2), line:2:10
+          \_struct_typespec: (struct2), line:2:10, endln:2:16
         |vpiLhs:
         \_bit_select: (work@dut.g_fill[6].var3), line:9:13, endln:9:17
           |vpiName:var3
@@ -809,11 +809,11 @@ design: (work@dut)
     |vpiFullName:work@dut.var3
     |vpiSize:7
     |vpiNet:
-    \_struct_net: (work@dut.var3), line:1:11, parent:work@dut.var3
+    \_struct_net: (work@dut.var3), line:1:11, endln:1:15, parent:work@dut.var3
     |vpiRange:
-    \_range: , line:6:23
+    \_range: , line:6:23, endln:6:24
       |vpiLeftRange:
-      \_constant: , line:6:23
+      \_constant: , line:6:23, endln:6:24
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
@@ -833,16 +833,16 @@ design: (work@dut)
           |vpiSize:64
           |INT:1
   |vpiTypedef:
-  \_struct_typespec: (struct2), line:2:10, parent:work@dut
+  \_struct_typespec: (struct2), line:2:10, endln:2:16, parent:work@dut
     |vpiPacked:1
     |vpiName:struct2
     |vpiTypespecMember:
-    \_typespec_member: (third), line:3:18, parent:struct2
+    \_typespec_member: (third), line:3:18, endln:3:23, parent:struct2
       |vpiName:third
       |vpiTypespec:
-      \_logic_typespec: , line:3:6, parent:third
+      \_logic_typespec: , line:3:6, endln:3:11, parent:third
         |vpiRange:
-        \_range: , line:3:13
+        \_range: , line:3:13, endln:3:16
           |vpiLeftRange:
           \_constant: , line:3:13, endln:3:14
             |vpiConstType:9
