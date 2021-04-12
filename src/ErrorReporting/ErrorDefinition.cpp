@@ -375,5 +375,11 @@ bool ErrorDefinition::init() {
   rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");  
   rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
   rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
+  rec(UHDM_CREATING_MODEL, INFO, UHDM, "Creating UHDM Model..");
+  rec(UHDM_ELABORATION, INFO, UHDM, "Elaborating UHDM..");
+  rec(UHDM_WRITE_DB, INFO, UHDM, "Writing UHDM DB: %s..");
+  rec(UHDM_WRITE_HTML_COVERAGE, INFO, UHDM, "Writing UHDM Html Coverage: %s..");
+  rec(UHDM_LOAD_DB, INFO, UHDM, "Loading UHDM DB: %s..");
+  rec(UHDM_VISITOR, INFO, UHDM, "Decompling UHDM..");
   return true;
 }

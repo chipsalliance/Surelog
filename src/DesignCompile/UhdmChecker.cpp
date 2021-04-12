@@ -392,7 +392,6 @@ void collectUsedFileContents(std::set<const FileContent*>& files, std::set<std::
 bool UhdmChecker::check(const std::string& reportFile) {
   // Register all objects location in file content
   CommandLineParser* clp = m_compileDesign->getCompiler()->getCommandLineParser();
-  std::cout << "UHDM HTML COVERAGE REPORT: " << std::string(reportFile + ".html") << std::endl;
   std::set<const FileContent*> files;
   std::set<std::string> moduleNames;
   for (ModuleInstance* top : m_design->getTopLevelModuleInstances()) {

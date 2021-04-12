@@ -1809,6 +1809,12 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   ExprBuilder exprBuilder;
   exprBuilder.seterrorReporting(m_compileDesign->getCompiler()->getErrorContainer(), 
      m_compileDesign->getCompiler()->getSymbolTable());
+
+  Location loc(m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(uhdmFile));
+  Error err(ErrorDefinition::UHDM_CREATING_MODEL, loc);
+  m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+  m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
   vpiHandle designHandle = 0;
   std::vector<vpiHandle> designs;
   if (m_design) {
@@ -1998,22 +2004,49 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   // ----------------------------------
   // Fully elaborated model
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getElabUhdm()) {
-      ElaboratorListener* listener = new ElaboratorListener(&s, false);
-      listen_designs(designs,listener);
+    Error err(ErrorDefinition::UHDM_ELABORATION, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
+    ElaboratorListener* listener = new ElaboratorListener(&s, false);
+    listen_designs(designs,listener);
   }
 
+  {
+    Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+  }
   s.Save(uhdmFile);
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm() ||
       m_compileDesign->getCompiler()->getCommandLineParser()->getCoverUhdm()) {
     // Check before restore
+    Location loc(
+        m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
+            std::string(uhdmFile) + ".chk.html"));
+    Error err(ErrorDefinition::UHDM_WRITE_HTML_COVERAGE, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
     UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
     uhdmchecker->check(std::string(uhdmFile) + ".chk");
     delete uhdmchecker;
   }
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
-    std::cout << "====== UHDM =======\n";
+    Location loc(m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(uhdmFile));
+    Error err1(ErrorDefinition::UHDM_LOAD_DB, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err1);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
+
+    Error err2(ErrorDefinition::UHDM_VISITOR, loc);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err2);
+    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+
+    std::cout << "====== UHDM =======\n";
     if (restoredDesigns.size()) {
       designHandle = restoredDesigns[0];
     }
