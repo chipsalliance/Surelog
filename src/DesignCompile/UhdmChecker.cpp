@@ -68,6 +68,7 @@ using namespace UHDM;
 bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& moduleNames) {
   VObject current = fC->Object(fC->getSize() - 2);
   NodeId id = current.m_child;
+  SymbolId fileId = fC->getSymbolId();
   if (!id) id = current.m_sibling;
   if (!id) return false;
   std::stack<NodeId> stack;
@@ -89,9 +90,16 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
     bool skip = false;
     VObjectType type = (VObjectType) current.m_type;
     if ( type == VObjectType::slEnd) 
-       skip = true;
-
+      skip = true;
     
+    // Skip macro expansion which resides in another file (header)
+    SymbolId fid = fC->getFileId(id);
+    if (fid != fileId) {
+      if (current.m_sibling)
+        stack.push(current.m_sibling);
+      continue;
+    }
+      
     if (type == VObjectType::slModule_declaration) {
       NodeId stId = fC->sl_collect(id, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
@@ -143,6 +151,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
       skip = true; // Only skip the item itself
 
     }
+ 
     if (((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slModule_declaration)) || // endmodule : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slPackage_declaration)) || // endpackage : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slFunction_body_declaration)) || // endfunction  : name
