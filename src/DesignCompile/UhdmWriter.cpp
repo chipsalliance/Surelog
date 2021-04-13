@@ -1575,7 +1575,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           subModules = s.MakeModuleVec();
         module* sm = s.MakeModule();
         if (childDef && childDef->getFileContents().size() &&
-            compileDesign->getCompiler()->isLibraryFile(childDef->getFileContents()[0]->getNodeId())) {
+            compileDesign->getCompiler()->isLibraryFile(childDef->getFileContents()[0]->getSymbolId())) {
           sm->VpiCellInstance(true);
         }
         sm->VpiName(child->getInstanceName());
@@ -1929,7 +1929,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
       } else if (mod->getType() == VObjectType::slModule_declaration) {
         const FileContent* fC = mod->getFileContents()[0];
         module* m = s.MakeModule();
-        if (m_compileDesign->getCompiler()->isLibraryFile(mod->getFileContents()[0]->getNodeId())) {
+        if (m_compileDesign->getCompiler()->isLibraryFile(mod->getFileContents()[0]->getSymbolId())) {
           m->VpiCellInstance(true);
         }
         componentMap.insert(std::make_pair(mod, m));

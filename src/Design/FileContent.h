@@ -212,7 +212,7 @@ class FileContent : public DesignComponent {
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
                 std::string *diff_out) const;
 
-  NodeId getNodeId() const { return m_fileId; }
+  SymbolId getSymbolId() const { return m_fileId; }
 
  protected:
   std::vector<DesignElement> m_elements;

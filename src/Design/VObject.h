@@ -63,7 +63,7 @@ class VObject final {
   static std::string getTypeName(unsigned short type);
 
   std::string print(SymbolTable* symbols, unsigned int uniqueId,
-                    NodeId definitionFile) const;
+                    NodeId definitionFile, SymbolId printedFile) const;
   SymbolId m_name;
   SymbolId m_fileId;
   unsigned short m_type;
