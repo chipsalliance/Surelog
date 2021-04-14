@@ -442,7 +442,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       emptyMacroBody = true;
       for (int i = 0; i < nbCRinArgs; i++)
         macroBody += "\n";
-    }
+    } 
 
     m_pp->append(pre + macroBody + post);
     
@@ -466,10 +466,15 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       if (emptyMacroBody) {
         if (nbCRinArgs)
           totalLineCount -= nbCRinArgs;
+      
+        IncludeFileInfo infop(origLine, fileId, totalLineCount, 2);
+        infop.m_indexOpening = openingIndex;
+        m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
+      } else {
+        IncludeFileInfo infop(origLine + nbCRinArgs, fileId, totalLineCount, 2);
+        infop.m_indexOpening = openingIndex;
+        m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       }
-      IncludeFileInfo infop(origLine, fileId, totalLineCount, 2);
-      infop.m_indexOpening = openingIndex;
-      m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       if (openingIndex >= 0)
         m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
             m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
