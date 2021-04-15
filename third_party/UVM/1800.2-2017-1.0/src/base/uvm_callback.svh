@@ -1204,7 +1204,7 @@ endclass
 //------------------------------------------------------------------------------
 
 // @uvm-ieee 1800.2-2017 auto 10.7.1.1
-class uvm_callback extends uvm_object;
+q class uvm_callback extends uvm_object;
   protected bit m_enabled = 1;
 
   `uvm_object_utils(uvm_callback)

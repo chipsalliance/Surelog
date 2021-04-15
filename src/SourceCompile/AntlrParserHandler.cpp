@@ -32,7 +32,7 @@ using namespace antlr4;
 using namespace SURELOG;
 
 AntlrParserHandler::~AntlrParserHandler() {
-  //  delete m_tree; // INVALID MEMORY READ can be seen in AdvancedDebug
+  // delete m_tree; // INVALID MEMORY READ can be seen in AdvancedDebug
   delete m_parser;
   delete m_tokens;
   delete m_lexer;

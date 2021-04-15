@@ -328,6 +328,10 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
       tmr.reset();
     }
   }
+  /* Failed attempt to minimize memory usage:
+  m_antlrParserHandler->m_parser->getInterpreter<atn::ParserATNSimulator>()->clearDFA();
+  SV3_1aParser::_sharedContextCache.clear();
+  */
   stream.close();
   return true;
 }

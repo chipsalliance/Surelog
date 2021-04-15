@@ -1,4 +1,4 @@
-//
+ //
 //------------------------------------------------------------------------------
 // Copyright 2007-2014 Mentor Graphics Corporation
 // Copyright 2018 Qualcomm, Inc.
