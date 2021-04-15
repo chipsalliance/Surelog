@@ -286,7 +286,7 @@ PreprocessFile::~PreprocessFile() {
 
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
   delete m_errorListener;
-  // delete m_pptree;  // INVALID MEMORY READ can be seen in AdvancedDebug
+  //delete m_pptree;  // INVALID MEMORY READ can be seen in AdvancedDebug
   delete m_ppparser;
   delete m_pptokens;
   delete m_pplexer;

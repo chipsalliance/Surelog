@@ -217,7 +217,7 @@ endclass
 //----------------------------------------------------------------------
 
 // @uvm-ieee 1800.2-2017 auto 12.3.5.3.1
-class uvm_tlm_nb_target_socket #(type IMP=int,
+ class uvm_tlm_nb_target_socket #(type IMP=int,
                                  type T=uvm_tlm_generic_payload,
                                  type P=uvm_tlm_phase_e)
   extends uvm_tlm_nb_target_socket_base #(T,P);
