@@ -313,6 +313,27 @@
             ]
         },
         {
+            "name": "BuildUVMPkg",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-nobuiltin", "-createcache", 
+                "+incdir+.+1800.2-2017-1.0/src/", "1800.2-2017-1.0/src/uvm_pkg.sv", "-writepp", 
+                "-parse", "-nocomp", "-noelab", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/dbuild/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "TestBatchMode",
             "type": "cppdbg",
             "request": "launch",
