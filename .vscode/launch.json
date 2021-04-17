@@ -294,6 +294,25 @@
             ]
         },
         {
+            "name": "EarlgreyScratch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-DSURELOG_DIR=/home/alain/Surelog", "-DFPGA_XILINX=1", "-DPRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx", "-DSYNTHESIS", "ibex_core.sv", "-parse", "-d", "uhdm", "-nobuiltin", "-d", "ast", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Earlgrey_nexysvideo/scratch",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "SimpleParserTest",
             "type": "cppdbg",
             "request": "launch",

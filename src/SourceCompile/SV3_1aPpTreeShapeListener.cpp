@@ -479,6 +479,12 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
             m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
     }
+  } else if ((!m_inActiveBranch) && (!m_inMacroDefinitionParsing)) {
+    std::string macroArgs = ctx->macro_actual_args()->getText();
+    int nbCRinArgs = std::count(macroArgs.begin(), macroArgs.end(),'\n');
+    for (int i = 0; i < nbCRinArgs; i++) {
+      m_pp->append("\n");
+    } 
   }
 }
 
