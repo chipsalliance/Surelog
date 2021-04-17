@@ -1027,6 +1027,9 @@ void SV3_1aPpTreeShapeListener::enterEndif_directive(SV3_1aPpParser::Endif_direc
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   if (stack.size()) {
     bool unroll = true;
+    if (ctx->One_line_comment()) {
+      addLineFiller(ctx);
+    }
     while (unroll) {
       PreprocessFile::IfElseItem& item = stack.back();
       switch (item.m_type) {
