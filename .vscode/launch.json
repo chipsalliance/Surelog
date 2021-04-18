@@ -294,6 +294,25 @@
             ]
         },
         {
+            "name": "HelloDesign",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/hellodesign",
+            "args": ["tests/ScratchPad.sv", "-parse", "-d", "uhdm", "-nobuiltin", "-d", "ast", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "EarlgreyScratch",
             "type": "cppdbg",
             "request": "launch",
