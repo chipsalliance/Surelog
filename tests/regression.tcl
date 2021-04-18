@@ -160,7 +160,12 @@ set EXE_PATH "[pwd]/bin"
 if [regexp {path=([A-Za-z0-9_/\.\-\:]+)} $argv tmp EXE_PATH] {
 }
 
-set SURELOG_VERSION "$EXE_PATH/surelog"
+set EXE_NAME "surelog"
+
+if [regexp {exe_name=([A-Za-z0-9_/\.\-\:]+)} $argv tmp EXE_NAME] {
+}
+
+set SURELOG_VERSION "$EXE_PATH/$EXE_NAME"
 set UHDM_DUMP_COMMAND "[pwd]/third_party/UHDM/bin/uhdm-dump"
 #This condition is not compatible across platforms. 
 #if ![file exist $SURELOG_VERSION] {

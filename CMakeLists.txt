@@ -394,6 +394,7 @@ endif()
 
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
 add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
+add_executable(hellodesign ${PROJECT_SOURCE_DIR}/src/hellodesign.cpp)
 
 if(MSVC OR WIN32)
   # We have two files named "surelog.lib" and both getting generated in the lib folder
@@ -402,6 +403,7 @@ if(MSVC OR WIN32)
   # way to disable the latter in CMake. So, moving the library to the bin directory (right next to the exe)
   set_target_properties(surelog-bin PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
   set_target_properties(hellouhdm PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+  set_target_properties(hellodesign PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
   set_target_properties(hellosureworld PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 endif()
 
@@ -472,6 +474,7 @@ register_gtests(
 
 target_link_libraries(hellosureworld surelog)
 target_link_libraries(hellouhdm surelog)
+target_link_libraries(hellodesign surelog)
 
 # Creation of the distribution directory, Precompiled package creation
 add_custom_command(
