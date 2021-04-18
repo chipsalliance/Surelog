@@ -42,10 +42,14 @@ test-parallel: release test/unittest
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
+hellodesign: release
+	pushd build && tclsh ../tests/regression.tcl exe_name=hellodesign test=Inverter && popd
+
 regression: release
 	cmake -E make_directory build/tests
 	cmake -E remove_directory build/test
 	cmake -E make_directory build/test
+	pushd build && tclsh ../tests/regression.tcl exe_name=hellodesign test=Inverter && popd
 	tclsh tests/cmake_gen.tcl . build/test
 	cmake -S build/test -B build/test/build
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
