@@ -76,11 +76,11 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
 
   FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
   if (fileItr == fileNodeCoverMap.end()) {
-    std::map<unsigned int, int> uhdmCover;
+    RangesMap uhdmCover;
     fileNodeCoverMap.insert(std::make_pair(fC, uhdmCover));
     fileItr = fileNodeCoverMap.find(fC);
   }
-  std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
+  RangesMap& uhdmCover = (*fileItr).second;
   bool skipModule = false;
   NodeId endModuleNode = 0;
   while (stack.size()) {
@@ -144,7 +144,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
         type == VObjectType::slGenerate_interface_loop_statement ||
         ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ;
         type == VObjectType::slGenerate_block) {
-      std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
@@ -160,12 +160,36 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slName_of_instance)) || // instance name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slType_declaration)) // struct name
         ) {
-      std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
+      RangesMap::iterator lineItr =  uhdmCover.find(current.m_line);
       if (skipModule == false) {
+        unsigned short from = fC->Column(id);
+        unsigned short to = fC->EndColumn(id);
         if (lineItr != uhdmCover.end()) {
-          (*lineItr).second = 1;
+          bool found = false;
+          for (ColRange& crange : (*lineItr).second) {
+            if ((crange.from >= from) && (crange.to <= to)) {
+              found = true;
+              crange.from = from;
+              crange.to = to;
+              crange.covered = Status::COVERED;
+              break;
+            }
+          }
+          if (found == false) {
+            ColRange crange;
+            crange.from = from;
+            crange.to = to;
+            crange.covered = Status::COVERED;
+            (*lineItr).second.push_back(crange);
+          }
         } else {
-          uhdmCover.insert(std::make_pair(current.m_line, 1));
+          Ranges ranges;
+          ColRange crange;
+          crange.from = from;
+          crange.to = to;
+          crange.covered = Status::COVERED;
+          ranges.push_back(crange);
+          uhdmCover.insert(std::make_pair(current.m_line, ranges));
         }
       }
       skip = true; // Only skip the item itself
@@ -175,9 +199,38 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
       stack.push(current.m_sibling);
     if (current.m_child)
        stack.push(current.m_child);
-    if (skip == false && skipModule == false)
-      uhdmCover.insert(std::make_pair(current.m_line, 0)); 
-
+    if (skip == false && skipModule == false) {
+      unsigned short from = fC->Column(id);
+      unsigned short to = fC->EndColumn(id);
+      RangesMap::iterator lineItr =  uhdmCover.find(current.m_line);
+      if (lineItr != uhdmCover.end()) {
+        bool found = false;
+        for (ColRange& crange : (*lineItr).second) {
+          if ((crange.from >= from) && (crange.to <= to)) {
+            found = true;
+            crange.from = from;
+            crange.to = to;
+            crange.covered = Status::EXIST;
+            break;
+          }
+        }
+        if (found == false) {
+          ColRange crange;
+          crange.from = from;
+          crange.to = to;
+          crange.covered = Status::EXIST;
+          (*lineItr).second.push_back(crange);
+        }
+      } else {
+        Ranges ranges;
+        ColRange crange;
+        crange.from = from;
+        crange.to = to;
+        crange.covered = Status::EXIST;
+        ranges.push_back(crange);
+        uhdmCover.insert(std::make_pair(current.m_line, ranges));
+      }
+    }
     if (id == endModuleNode) {
       skipModule = false;
     }  
@@ -215,7 +268,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
       if (str[i] == '\n') count++;
     }
 
-    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
+    RangesMap& uhdmCover = (*fileItr).second;
     float cov = 0.0f;
     std::map<std::string, float>::iterator itr = fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
@@ -236,17 +289,35 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
       std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\r\n", "");
       lineText = StringUtils::replaceAll(lineText, "\n", "");
-      std::map<unsigned int, int>::iterator cItr = uhdmCover.find(line);
+      RangesMap::iterator cItr = uhdmCover.find(line);
 
       if (cItr == uhdmCover.end()) {
           reportF << "<pre style=\"margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // white
       } else {
+        Ranges& ranges = (*cItr).second;
+        bool covered = false;
+        bool exist = false;
+        bool unsupported = false;
+        for (ColRange& crange : ranges) {
+          switch (crange.covered) {  
+            case EXIST: 
+              exist = true; break;
+            case COVERED:
+              covered = true; break;
+            case UNSUPPORTED:
+              unsupported = true; break;
+          }
+        }
+
         if (lineText.empty()) {
           Location loc (symbols->registerSymbol(fC->getFileName()), line, 0, 0);
           Error err(ErrorDefinition::UHDM_WRONG_COVERAGE_LINE, loc);
           errors->addError(err);
         }
-        if ((*cItr).second == 0) {
+        if (exist && covered && (!unsupported)) {
+          //reportF << "<pre style=\"background-color: #FFFFE0; margin:0; padding:0; display: inline-block\">" << std::setw (4) << std::to_string(line) << ": " << "</pre> <pre style=\"background-color: #C0C0C0; margin:0; padding:0; display: inline-block \">" << lineText << "</pre>\n";  // grey
+          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // grey
+        } else if (exist && (!unsupported)) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
@@ -256,7 +327,7 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
           }
           pinkCoverage = fileStatPink;
           allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
-        } else if ((*cItr).second == -1) {
+        } else if (unsupported) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // red
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
@@ -296,6 +367,25 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
   return true;
 }
 
+void UhdmChecker::mergeColumnCoverage() {
+  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin();
+       fileItr != fileNodeCoverMap.end(); fileItr++) {
+    RangesMap& uhdmCover = (*fileItr).second;
+    for (RangesMap::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end();
+         cItr++) {
+      Ranges& ranges = (*cItr).second;
+      Ranges merged;
+      for (ColRange& crange : ranges) {
+        if (crange.from >= crange.to) {
+        } else {
+          merged.push_back(crange);
+        }
+      }
+      (*cItr).second = merged;
+    }
+  }
+}
+
 float UhdmChecker::reportCoverage(const std::string& reportFile) {
   std::ofstream report;
   report.open(reportFile);
@@ -305,15 +395,33 @@ float UhdmChecker::reportCoverage(const std::string& reportFile) {
   int overallLineNb = 0;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     const FileContent* fC = (*fileItr).first;
-    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
+    RangesMap& uhdmCover = (*fileItr).second;
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;
     int firstUncoveredLine = 0;
-    for (std::map<unsigned int, int>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+    for (RangesMap::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+      Ranges& ranges = (*cItr).second;
+      bool exist = false;
+      bool covered = false;
+      bool unsupported = false;
+      for (ColRange& crange : ranges) {
+        switch (crange.covered) {
+          case EXIST:
+            exist = true;
+            break;
+          case COVERED:
+            covered = true;
+            break;
+          case UNSUPPORTED:
+            unsupported = true;
+            break;
+        }
+      }
+
       lineNb++;
       overallLineNb++;
-      if ((*cItr).second <= 0) {
+      if ((exist && (!covered)) || unsupported) {
         if (fileNamePrinted == false) {
           firstUncoveredLine = (*cItr).first;
           report << "\n\n" << fC->getFileName() << ":" << (*cItr).first << ": " << " Missing models\n";
@@ -368,13 +476,74 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
       const FileContent* fC = (*fItr).second;
       FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
       if (fileItr != fileNodeCoverMap.end()) {
-        std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
-        std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(bc->VpiLineNo());
-        if (lineItr != uhdmCover.end()) {
-          if ((*lineItr).second == 0)
-            (*lineItr).second = 1;
-          if (unsupported)
-            (*lineItr).second = -1;
+        RangesMap& uhdmCover = (*fileItr).second;
+        RangesMap::iterator cItr = uhdmCover.find(bc->VpiLineNo());
+
+        unsigned short from = bc->VpiColumnNo();
+        unsigned short to = bc->VpiEndColumnNo();
+        
+        if (cItr != uhdmCover.end()) {
+          bool found = false;
+          
+          for (ColRange& crange : (*cItr).second) {
+          //  if ((crange.from >= from) && (crange.to <= to)) {
+          //    found = true;
+          //    crange.from = from;
+          //    crange.to = to;
+              if (unsupported)
+                crange.covered = Status::UNSUPPORTED;
+              else
+                crange.covered = Status::COVERED;
+        /*    } else if ((crange.from <= from) && (crange.to >= to)) {
+              if (crange.from < from) {
+                ColRange crange1;
+                crange1.from = crange.from;
+                crange1.to = from;
+                crange1.covered = Status::EXIST;
+                (*cItr).second.push_back(crange1);
+              }
+              if (crange.to > to) {
+                ColRange crange1;
+                crange1.from = to;
+                crange1.to = crange.to;
+                crange1.covered = Status::EXIST;
+                (*cItr).second.push_back(crange1);
+              }
+              found = true;
+              crange.from = from;
+              crange.to = to;
+              if (unsupported)
+                crange.covered = Status::UNSUPPORTED;
+              else
+                crange.covered = Status::COVERED;
+            } else if ((from < crange.from) && (to > crange.from) && (to < crange.to)) {
+              crange.from = to;
+              ColRange crange1;
+              crange1.from = from;
+              crange1.to = to;
+              crange1.covered = Status::COVERED;
+              (*cItr).second.push_back(crange1);
+            } else if ((from < crange.to) && (from > crange.from) && (to > crange.to)) {
+              crange.to = from;
+              ColRange crange1;
+              crange1.from = from;
+              crange1.to = to;
+              crange1.covered = Status::COVERED;
+              (*cItr).second.push_back(crange1);
+            } */
+          }
+/*          
+          if (found == false) {
+            ColRange crange;
+            crange.from = from;
+            crange.to = to;
+            if (unsupported)
+              crange.covered = Status::UNSUPPORTED;
+            else
+              crange.covered = Status::COVERED;
+            (*cItr).second.push_back(crange);
+          }
+*/          
         }
       }
     }
@@ -429,6 +598,8 @@ bool UhdmChecker::check(const std::string& reportFile) {
 
   // Annotate UHDM object coverage
   annotate(m_compileDesign);
+
+  mergeColumnCoverage();
 
   // Report uncovered objects
   float overallCoverage = reportCoverage(reportFile);
