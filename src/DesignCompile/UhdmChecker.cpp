@@ -479,11 +479,11 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
         RangesMap& uhdmCover = (*fileItr).second;
         RangesMap::iterator cItr = uhdmCover.find(bc->VpiLineNo());
 
-        unsigned short from = bc->VpiColumnNo();
-        unsigned short to = bc->VpiEndColumnNo();
+        //unsigned short from = bc->VpiColumnNo();
+        //unsigned short to = bc->VpiEndColumnNo();
         
         if (cItr != uhdmCover.end()) {
-          bool found = false;
+          //bool found = false;
           
           for (ColRange& crange : (*cItr).second) {
           //  if ((crange.from >= from) && (crange.to <= to)) {
