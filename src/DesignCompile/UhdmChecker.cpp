@@ -315,7 +315,8 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
           errors->addError(err);
         }
         if (exist && covered && (!unsupported)) {
-          reportF << "<pre style=\"background-color: #FFFFE0; margin:0; padding:0; display: inline-block\">" << std::setw (4) << std::to_string(line) << ": " << "</pre> <pre style=\"background-color: #C0C0C0; margin:0; padding:0; display: inline-block \">" << lineText << "</pre>\n";  // grey
+          //reportF << "<pre style=\"background-color: #FFFFE0; margin:0; padding:0; display: inline-block\">" << std::setw (4) << std::to_string(line) << ": " << "</pre> <pre style=\"background-color: #C0C0C0; margin:0; padding:0; display: inline-block \">" << lineText << "</pre>\n";  // grey
+          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // grey
         } else if (exist && (!unsupported)) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
@@ -480,20 +481,20 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
 
         unsigned short from = bc->VpiColumnNo();
         unsigned short to = bc->VpiEndColumnNo();
-        /*
+        
         if (cItr != uhdmCover.end()) {
           bool found = false;
           
           for (ColRange& crange : (*cItr).second) {
-            if ((crange.from >= from) && (crange.to <= to)) {
-              found = true;
-              crange.from = from;
-              crange.to = to;
+          //  if ((crange.from >= from) && (crange.to <= to)) {
+          //    found = true;
+          //    crange.from = from;
+          //    crange.to = to;
               if (unsupported)
                 crange.covered = Status::UNSUPPORTED;
               else
                 crange.covered = Status::COVERED;
-            } else if ((crange.from <= from) && (crange.to >= to)) {
+        /*    } else if ((crange.from <= from) && (crange.to >= to)) {
               if (crange.from < from) {
                 ColRange crange1;
                 crange1.from = crange.from;
@@ -529,8 +530,9 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
               crange1.to = to;
               crange1.covered = Status::COVERED;
               (*cItr).second.push_back(crange1);
-            }
+            } */
           }
+/*          
           if (found == false) {
             ColRange crange;
             crange.from = from;
@@ -541,8 +543,8 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
               crange.covered = Status::COVERED;
             (*cItr).second.push_back(crange);
           }
+*/          
         }
-        */
       }
     }
   }
