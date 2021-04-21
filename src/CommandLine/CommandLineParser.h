@@ -121,7 +121,7 @@ class CommandLineParser final {
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setCompile(bool val) { m_compile = val; }
   void setElaborate(bool val) { m_elaborate = val; }
-  void setElabUhdm(bool val) { m_elabUhdm = val; }
+  void setElabUhdm(bool val) { m_elaborate = val; m_elabUhdm = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
