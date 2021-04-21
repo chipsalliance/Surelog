@@ -28,6 +28,8 @@
 #include <functional>
 #include "uhdm.h"
 #include "surelog.h"
+#include "headers/ElaboratorListener.h"
+#include "headers/vpi_listener.h"
 
 int main(int argc, const char** argv) {
   // Read command line, compile a design, use -parse argument
@@ -40,7 +42,8 @@ int main(int argc, const char** argv) {
   clp->setParse(true);
   clp->setwritePpOutput(true);
   clp->setCompile(true);
-  clp->setElaborate(true);
+  clp->setElaborate(true); // Request Surelog instance tree Elaboration
+  //clp->setElabUhdm(true);  // Request UHDM Uniquification/Elaboration
   bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
   vpiHandle the_design = 0;
@@ -56,6 +59,14 @@ int main(int argc, const char** argv) {
   delete errors;
 
   std::string result;
+
+  // If UHDM is not already elaborated/uniquified (uhdm db was saved by a different process pre-elaboration), then optionally elaborate it:
+  if (the_design && (!vpi_get(vpiElaborated, the_design))) {
+    std::cout << "UHDM Elaboration...\n";
+    UHDM::Serializer serializer;
+    UHDM::ElaboratorListener* listener = new UHDM::ElaboratorListener(&serializer, true);
+    listen_designs({the_design},listener);
+  }
 
   // Browse the UHDM Data Model using the IEEE VPI API.
   // See third_party/Verilog_Object_Model.pdf

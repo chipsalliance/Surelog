@@ -85,8 +85,8 @@ int main(int argc, char *argv[])
   SURELOG::CommandLineParser *const clp = new SURELOG::CommandLineParser(errors, symbolTable, false, false);
   clp->setParse(true);
   clp->setCompile(true);
-  clp->setElaborate(true);
-  clp->setElabUhdm(true);
+  clp->setElaborate(true); // Request Surelog instance tree elaboration
+  clp->setElabUhdm(true);  // Request UHDM Uniquification/Elaboration
   bool success = clp->parseCommandLine(argc, const_cast<const char **>(argv));
   errors->printMessages(clp->muteStdout());
 
