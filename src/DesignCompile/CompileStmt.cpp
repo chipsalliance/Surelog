@@ -27,6 +27,7 @@
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
+#include "Design/BindStmt.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
@@ -2176,4 +2177,49 @@ UHDM::any* CompileHelper::compileConstraintBlock(DesignComponent* component,
   UHDM::constraint* cons = s.MakeConstraint();
   result = cons;
   return result;
+}
+
+
+void CompileHelper::compileBindStmt(DesignComponent* component, const FileContent* fC, NodeId Bind_directive,
+			       	CompileDesign* compileDesign, ValuedComponentI* instance) {
+/*
+n<bp_lce> u<46> t<StringConst> p<65> s<64> l<9:5> el<9:11>
+n<bp_me_nonsynth_lce_tracer> u<47> t<StringConst> p<63> s<57> l<10:12> el<10:37>
+n<sets_p> u<48> t<StringConst> p<55> s<54> l<11:17> el<11:23>
+n<sets_p> u<49> t<StringConst> p<50> l<11:24> el<11:30>
+n<> u<50> t<Primary_literal> p<51> c<49> l<11:24> el<11:30>
+n<> u<51> t<Primary> p<52> c<50> l<11:24> el<11:30>
+n<> u<52> t<Expression> p<53> c<51> l<11:24> el<11:30>
+n<> u<53> t<Mintypmax_expression> p<54> c<52> l<11:24> el<11:30>
+n<> u<54> t<Param_expression> p<55> c<53> l<11:24> el<11:30>
+n<> u<55> t<Named_parameter_assignment> p<56> c<48> l<11:16> el<11:31>
+n<> u<56> t<List_of_parameter_assignments> p<57> c<55> l<11:16> el<11:31>
+n<> u<57> t<Parameter_value_assignment> p<63> c<56> s<62> l<11:14> el<11:32>
+n<lce_tracer1> u<58> t<StringConst> p<59> l<12:14> el<12:25>
+n<> u<59> t<Name_of_instance> p<62> c<58> s<61> l<12:14> el<12:25>
+n<> u<60> t<Ordered_port_connection> p<61> l<12:26> el<12:26>
+n<> u<61> t<List_of_port_connections> p<62> c<60> l<12:26> el<12:26>
+n<> u<62> t<Hierarchical_instance> p<63> c<59> l<12:14> el<12:27>
+n<> u<63> t<Module_instantiation> p<64> c<47> l<10:12> el<12:28>
+n<> u<64> t<Bind_instantiation> p<65> c<63> l<10:12> el<12:28>
+n<> u<65> t<Bind_directive> p<66> c<46> l<9:0> el<12:28>
+*/
+/*
+  bind_directive:
+  bind bind_target_scope [ : bind_target_instance_list ] bind_instantiation ;
+| bind bind_target_instance bind_instantiation ;
+*/
+  NodeId Target_scope = fC->Child(Bind_directive);
+  const std::string& targetName = fC->SymName(Target_scope);
+  NodeId Bind_instantiation = fC->Sibling(Target_scope);
+  NodeId Module_instantiation = fC->Child(Bind_instantiation);
+  NodeId Source_scope = fC->Child(Module_instantiation);
+  NodeId tmp = fC->Sibling(Source_scope);
+  if (fC->Type(tmp) == slParameter_value_assignment) {
+    tmp = fC->Sibling(tmp);
+  }
+  NodeId Instance_name = tmp;
+  BindStmt* bind = new BindStmt(fC, Target_scope, Source_scope, Instance_name);
+  compileDesign->getCompiler()->getDesign()->addBindStmt(targetName, bind);
+
 }

@@ -30,6 +30,7 @@
 #include "Config/ConfigSet.h"
 #include "Package/Package.h"
 #include "Testbench/Program.h"
+#include "Design/BindStmt.h"
 
 namespace SURELOG {
 
@@ -131,6 +132,14 @@ class Design final {
 
   ErrorContainer* getErrorContainer() { return m_errors; }
 
+  typedef std::map<const std::string, BindStmt*> BindMap;
+
+  BindMap& getBindMap() { return m_bindMap; }
+ 
+  BindStmt* getBindStmt(const std::string& targetName);
+ 
+  void addBindStmt(const std::string& targetName, BindStmt* stmt);
+
  protected:
 
   // Thread-safe
@@ -204,6 +213,8 @@ class Design final {
   ClassNameClassDefinitionMap m_uniqueClassDefinitions;
 
   std::vector<std::string> m_orderedPackageNames;
+
+  BindMap m_bindMap;
 };
 
 }  // namespace SURELOG

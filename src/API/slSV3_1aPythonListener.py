@@ -4149,28 +4149,6 @@ def enterNamed_port_connection(prog, ctx):
 def exitNamed_port_connection(prog, ctx):
 	pass
 
-def enterInterface_instantiation(prog, ctx):
-	if trace:
-		print("enterInterface_instantiation")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitInterface_instantiation(prog, ctx):
-	pass
-
-def enterProgram_instantiation(prog, ctx):
-	if trace:
-		print("enterProgram_instantiation")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitProgram_instantiation(prog, ctx):
-	pass
-
 def enterChecker_instantiation(prog, ctx):
 	if trace:
 		print("enterChecker_instantiation")
