@@ -1145,12 +1145,6 @@ public:
   virtual void enterNamed_port_connection(SV3_1aParser::Named_port_connectionContext *ctx) = 0;
   virtual void exitNamed_port_connection(SV3_1aParser::Named_port_connectionContext *ctx) = 0;
 
-  virtual void enterInterface_instantiation(SV3_1aParser::Interface_instantiationContext *ctx) = 0;
-  virtual void exitInterface_instantiation(SV3_1aParser::Interface_instantiationContext *ctx) = 0;
-
-  virtual void enterProgram_instantiation(SV3_1aParser::Program_instantiationContext *ctx) = 0;
-  virtual void exitProgram_instantiation(SV3_1aParser::Program_instantiationContext *ctx) = 0;
-
   virtual void enterChecker_instantiation(SV3_1aParser::Checker_instantiationContext *ctx) = 0;
   virtual void exitChecker_instantiation(SV3_1aParser::Checker_instantiationContext *ctx) = 0;
 

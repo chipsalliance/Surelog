@@ -661,7 +661,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       VObjectType::slGenerate_interface_loop_statement,
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
-      VObjectType::slModule_declaration};
+      VObjectType::slModule_declaration,
+      VObjectType::slBind_directive};
 
   std::vector<NodeId> subInstances =
       fC->sl_collect_all(nodeId, types, stopPoints);

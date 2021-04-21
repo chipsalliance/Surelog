@@ -247,9 +247,8 @@ elaboration_system_task
     ;
     
 module_common_item  
-    : module_or_generate_item_declaration 
-    | interface_instantiation             
-    | program_instantiation               
+    : module_or_generate_item_declaration
+    | module_instantiation
     | assertion_item                      
     | bind_directive                      
     | continuous_assign                   
@@ -299,18 +298,12 @@ non_port_module_item
     | pragma_directive
     ; 
 
-
 parameter_override : DEFPARAM list_of_defparam_assignments SEMICOLUMN ; 
 
-
-bind_directive : BIND  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* constant_select  
-                 bind_instantiation ; 
-
+bind_directive : BIND identifier (COLUMN? identifier constant_bit_select (COMMA identifier constant_bit_select)*)? bind_instantiation ; 
 
 bind_instantiation  
-    : program_instantiation    
-    | module_instantiation     
-    | interface_instantiation  
+    : module_instantiation     
     | checker_instantiation    
     ; 
 
@@ -1690,12 +1683,6 @@ named_port_connection
     : ( attribute_instance )* ( DOT identifier ( OPEN_PARENS ( expression )? CLOSE_PARENS )? 
                               | DOTSTAR )                            
     ; 
-
-interface_instantiation : interface_identifier ( parameter_value_assignment )?  
-                          hierarchical_instance ( COMMA hierarchical_instance )* SEMICOLUMN ; 
-
-program_instantiation : identifier ( parameter_value_assignment )?  
-                        hierarchical_instance ( COMMA hierarchical_instance )* SEMICOLUMN ; 
 
 checker_instantiation : 
       ps_identifier name_of_instance OPEN_PARENS list_of_checker_port_connections CLOSE_PARENS ; 

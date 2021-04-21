@@ -256,6 +256,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DefParam.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Design.cpp
+  ${PROJECT_SOURCE_DIR}/src/Design/BindStmt.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Enum.cpp
@@ -603,6 +604,7 @@ install(FILES ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Design/ClockingBlock.h
         ${PROJECT_SOURCE_DIR}/src/Design/Design.h
+	${PROJECT_SOURCE_DIR}/src/Design/BindStmt.h
         ${PROJECT_SOURCE_DIR}/src/Design/Instance.h
         ${PROJECT_SOURCE_DIR}/src/Design/Signal.h
         ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.h

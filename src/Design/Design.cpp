@@ -501,3 +501,15 @@ void Design::clearContainers() {
 
   m_orderedPackageNames.clear();
 }
+
+BindStmt* Design::getBindStmt(const std::string& targetName) {
+  BindMap::iterator itr = m_bindMap.find(targetName);
+  if (itr == m_bindMap.end())
+    return nullptr;
+  else 
+    return (*itr).second;
+}
+ 
+void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
+  m_bindMap.insert(std::make_pair(targetName, stmt));
+}

@@ -554,6 +554,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
+      bool skipChildren = false;
       switch (type) {
         case VObjectType::slPackage_import_item: {
           if (collectType != CollectType::FUNCTION) break;
@@ -706,6 +707,12 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
                                                       m_compileDesign);
           break;
         }
+        case VObjectType::slBind_directive: {
+          skipChildren = true;
+          if (collectType != CollectType::OTHER) break; 
+          m_helper.compileBindStmt(m_module, fC, id, m_compileDesign, m_instance);
+          break;
+        }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
@@ -740,7 +747,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       }
 
       if (current.m_sibling) stack.push(current.m_sibling);
-      if (current.m_child) {
+      if (current.m_child && (!skipChildren) ) {
         if (stopPoints.size()) {
           bool stop = false;
           for (auto t : stopPoints) {
@@ -1016,6 +1023,11 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
                 m_module, fC, id, m_compileDesign, true, m_instance,
                 ParameterPortListId != 0, m_instance != nullptr, false);
           }
+          break;
+        }
+        case VObjectType::slBind_directive: {
+          if (collectType != CollectType::OTHER) break; 
+          m_helper.compileBindStmt(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }
         case VObjectType::slConditional_generate_construct:

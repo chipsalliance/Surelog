@@ -804,10 +804,6 @@ namespace SURELOG {
    void exitOrdered_port_connection(SV3_1aParser::Ordered_port_connectionContext * ctx) final { addVObject (ctx, VObjectType::slOrdered_port_connection); }
    void enterNamed_port_connection(SV3_1aParser::Named_port_connectionContext * /*ctx*/) final { }
    void exitNamed_port_connection(SV3_1aParser::Named_port_connectionContext * /*ctx*/) final ;
-   void enterInterface_instantiation(SV3_1aParser::Interface_instantiationContext * /*ctx*/) final { }
-   void exitInterface_instantiation(SV3_1aParser::Interface_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slInterface_instantiation); }
-   void enterProgram_instantiation(SV3_1aParser::Program_instantiationContext * /*ctx*/) final { }
-   void exitProgram_instantiation(SV3_1aParser::Program_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slProgram_instantiation); }
    void enterChecker_instantiation(SV3_1aParser::Checker_instantiationContext * /*ctx*/) final { }
    void exitChecker_instantiation(SV3_1aParser::Checker_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slChecker_instantiation); }
    void enterList_of_checker_port_connections(SV3_1aParser::List_of_checker_port_connectionsContext * /*ctx*/) final { }

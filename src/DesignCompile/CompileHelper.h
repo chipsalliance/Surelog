@@ -192,6 +192,10 @@ public:
   bool compileFinalBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);      
 
+  void compileBindStmt(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+			       	CompileDesign* compileDesign,
+                              ValuedComponentI* instance = NULL);
+
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
   UHDM::any* compileExpression(DesignComponent* component, const FileContent* fC, NodeId nodeId,

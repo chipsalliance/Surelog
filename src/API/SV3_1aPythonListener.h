@@ -3053,22 +3053,6 @@ PythonAPI::evalScript("enterNamed_port_connection", this, (parser_rule_context*)
 PythonAPI::evalScript("exitNamed_port_connection", this, (parser_rule_context*) ctx);
 }
 
-   void enterInterface_instantiation(SV3_1aParser::Interface_instantiationContext * ctx)   {
-PythonAPI::evalScript("enterInterface_instantiation", this, (parser_rule_context*) ctx);
-}
-
-   void exitInterface_instantiation(SV3_1aParser::Interface_instantiationContext * ctx)   {
-PythonAPI::evalScript("exitInterface_instantiation", this, (parser_rule_context*) ctx);
-}
-
-   void enterProgram_instantiation(SV3_1aParser::Program_instantiationContext * ctx)   {
-PythonAPI::evalScript("enterProgram_instantiation", this, (parser_rule_context*) ctx);
-}
-
-   void exitProgram_instantiation(SV3_1aParser::Program_instantiationContext * ctx)   {
-PythonAPI::evalScript("exitProgram_instantiation", this, (parser_rule_context*) ctx);
-}
-
    void enterChecker_instantiation(SV3_1aParser::Checker_instantiationContext * ctx)   {
 PythonAPI::evalScript("enterChecker_instantiation", this, (parser_rule_context*) ctx);
 }
