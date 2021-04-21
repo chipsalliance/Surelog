@@ -259,12 +259,14 @@ UHDM::task_func* CompileHelper::getTaskFunc(const std::string& name, DesignCompo
     }
     comp = dynamic_cast<DesignComponent*> ((DesignComponent*) comp->getParentScope());
   }
-  for (const FileContent* cfC : component->getFileContents()) {
-    FileContent* fC = (FileContent*) cfC;
-    if (fC->getTask_funcs()) {
-      for (UHDM::task_func* tf : *fC->getTask_funcs()) {
-        if (tf->VpiName() == name) {
-          return tf;
+  if (component) {
+    for (const FileContent* cfC : component->getFileContents()) {
+      FileContent* fC = (FileContent*) cfC;
+      if (fC->getTask_funcs()) {
+        for (UHDM::task_func* tf : *fC->getTask_funcs()) {
+          if (tf->VpiName() == name) {
+            return tf;
+          }
         }
       }
     }
