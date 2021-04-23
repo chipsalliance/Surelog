@@ -32,6 +32,8 @@ Executable: `surelog`
   git clone https://github.com/alainmarcel/Surelog.git
   cd Surelog
   git submodule update --init --recursive
+  cd third_party/UHDM/third_party/capnproto
+  git reset --hard d4a3770
   ```
 
 * Build
