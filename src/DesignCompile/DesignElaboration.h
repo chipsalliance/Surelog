@@ -59,7 +59,7 @@ class DesignElaboration : public TestbenchElaboration {
   void collectParams_(std::vector<std::string>& params, const FileContent* fC,
                       NodeId nodeId, ModuleInstance* instance,
                       NodeId parentParamOverride);
-  void elaborateInstance_(const FileContent* fC, NodeId nodeId,
+  ModuleInstance* elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,
                           ModuleInstance* parent, Config* config);
@@ -73,6 +73,7 @@ class DesignElaboration : public TestbenchElaboration {
                             std::vector<ModuleInstance*>& allSubInstances);
   void recurseBuildInstanceClause_(std::string parentPath, Config* config,
                                    std::set<Config*>& stack);
+  ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent, ModuleInstanceFactory* factory, Config* config); 
   void reduceUnnamedBlocks_();
   void checkConfigurations_();
   Config* getInstConfig(std::string name);

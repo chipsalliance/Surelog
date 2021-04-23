@@ -2219,7 +2219,9 @@ n<> u<65> t<Bind_directive> p<66> c<46> l<9:0> el<12:28>
     tmp = fC->Sibling(tmp);
   }
   NodeId Instance_name = tmp;
-  BindStmt* bind = new BindStmt(fC, Target_scope, Source_scope, Instance_name);
-  compileDesign->getCompiler()->getDesign()->addBindStmt(targetName, bind);
+  Instance_name = fC->Child(fC->Child(Instance_name));
+  std::string fullName = fC->getLibrary()->getName() + "@" + targetName;
+  BindStmt* bind = new BindStmt(fC, Module_instantiation, Target_scope, Source_scope, Instance_name);
+  compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);
 
 }
