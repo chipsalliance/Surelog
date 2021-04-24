@@ -3088,7 +3088,7 @@ UHDM::any* CompileHelper::compileExpression(
           }
           if (result)
             break;
-          if (instance)
+          if (reduce && instance)
             sval = instance->getValue(name);
         }
         if (result)

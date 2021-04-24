@@ -2413,7 +2413,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Hierarchical_identifier = Variable_lvalue;
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
        Hierarchical_identifier = fC->Child(Hierarchical_identifier);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt, instance));
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign, pstmt, instance, false));
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
@@ -2425,7 +2425,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     } else {
       Expression = fC->Sibling(AssignOp_Assign);
     }
-    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt, instance);
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign, pstmt, instance , false);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
     //  = new ...
     NodeId Hierarchical_identifier = Operator_assignment;

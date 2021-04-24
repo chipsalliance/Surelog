@@ -10,5 +10,7 @@ module top ();
   if (coh_noc_cord_width_p != 30) begin
      BAD bad();
   end
-     
+ if (coh_noc_cord_width_p == 30) begin
+     GOOD good();
+  end      
 endmodule
