@@ -987,19 +987,17 @@ design: (work@test)
             \_operation: , line:61:23, endln:61:24
               |vpiOpType:4
               |vpiOperand:
-              \_hier_path: (pmp_cfg[0].lock), line:61:24, endln:61:39
-                |vpiName:pmp_cfg[0].lock
+              \_hier_path: (pmp_cfg[i].lock), line:61:24, endln:61:39
+                |vpiName:pmp_cfg[i].lock
                 |vpiActual:
-                \_bit_select: (pmp_cfg)
+                \_bit_select: (pmp_cfg), parent:pmp_cfg[i].lock
                   |vpiName:pmp_cfg
                   |vpiIndex:
-                  \_constant: , line:61:32, endln:61:33
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
+                  \_ref_obj: (work@test.u3.g_pmp_csrs[0].pmp_cfg[i].lock.pmp_cfg.i), line:61:32, endln:61:33, parent:pmp_cfg
+                    |vpiName:i
+                    |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_cfg[i].lock.pmp_cfg.i
                 |vpiActual:
-                \_ref_obj: (lock)
+                \_ref_obj: (lock), parent:pmp_cfg[i].lock
                   |vpiName:lock
             |vpiOperand:
             \_operation: , line:62:3, endln:62:36
@@ -1008,17 +1006,15 @@ design: (work@test)
               \_hier_path: (pmp_cfg.mode), line:62:3, endln:62:20
                 |vpiName:pmp_cfg.mode
                 |vpiActual:
-                \_bit_select: (pmp_cfg)
+                \_bit_select: (pmp_cfg), parent:pmp_cfg.mode
                   |vpiName:pmp_cfg
                   |vpiIndex:
-                  \_operation: , line:62:11, endln:62:12
+                  \_operation: , line:62:11, endln:62:12, parent:pmp_cfg
                     |vpiOpType:24
                     |vpiOperand:
-                    \_constant: , line:62:11, endln:62:12
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
+                    \_ref_obj: (work@test.u3.g_pmp_csrs[0].pmp_cfg.mode.pmp_cfg.i), line:62:11, endln:62:12
+                      |vpiName:i
+                      |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_cfg.mode.pmp_cfg.i
                     |vpiOperand:
                     \_constant: , line:62:13, endln:62:14
                       |vpiConstType:9
@@ -1026,14 +1022,18 @@ design: (work@test)
                       |vpiSize:64
                       |UINT:1
                 |vpiActual:
-                \_ref_obj: (mode)
+                \_ref_obj: (mode), parent:pmp_cfg.mode
                   |vpiName:mode
               |vpiOperand:
-              \_constant: , line:62:24, endln:62:36
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:2
-                |UINT:1
+              \_ref_obj: (work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR), line:62:24, endln:62:36
+                |vpiName:PMP_MODE_TOR
+                |vpiFullName:work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR
+                |vpiActual:
+                \_enum_const: (PMP_MODE_TOR), line:50:4, endln:50:16
+                  |vpiName:PMP_MODE_TOR
+                  |vpiDecompile:2'b01
+                  |UINT:1
+                  |vpiSize:2
           |vpiLhs:
           \_ref_obj: (work@test.u3.g_pmp_csrs[0].pmp_addr_we), line:61:9, endln:61:20
             |vpiName:pmp_addr_we
@@ -1059,19 +1059,17 @@ design: (work@test)
             \_operation: , line:61:23, endln:61:24
               |vpiOpType:4
               |vpiOperand:
-              \_hier_path: (pmp_cfg[1].lock), line:61:24, endln:61:39
-                |vpiName:pmp_cfg[1].lock
+              \_hier_path: (pmp_cfg[i].lock), line:61:24, endln:61:39
+                |vpiName:pmp_cfg[i].lock
                 |vpiActual:
-                \_bit_select: (pmp_cfg)
+                \_bit_select: (pmp_cfg), parent:pmp_cfg[i].lock
                   |vpiName:pmp_cfg
                   |vpiIndex:
-                  \_constant: , line:61:32, endln:61:33
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
+                  \_ref_obj: (work@test.u3.g_pmp_csrs[1].pmp_cfg[i].lock.pmp_cfg.i), line:61:32, endln:61:33, parent:pmp_cfg
+                    |vpiName:i
+                    |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_cfg[i].lock.pmp_cfg.i
                 |vpiActual:
-                \_ref_obj: (lock)
+                \_ref_obj: (lock), parent:pmp_cfg[i].lock
                   |vpiName:lock
             |vpiOperand:
             \_operation: , line:62:3, endln:62:36
@@ -1080,17 +1078,15 @@ design: (work@test)
               \_hier_path: (pmp_cfg.mode), line:62:3, endln:62:20
                 |vpiName:pmp_cfg.mode
                 |vpiActual:
-                \_bit_select: (pmp_cfg)
+                \_bit_select: (pmp_cfg), parent:pmp_cfg.mode
                   |vpiName:pmp_cfg
                   |vpiIndex:
-                  \_operation: , line:62:11, endln:62:12
+                  \_operation: , line:62:11, endln:62:12, parent:pmp_cfg
                     |vpiOpType:24
                     |vpiOperand:
-                    \_constant: , line:62:11, endln:62:12
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
+                    \_ref_obj: (work@test.u3.g_pmp_csrs[1].pmp_cfg.mode.pmp_cfg.i), line:62:11, endln:62:12
+                      |vpiName:i
+                      |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_cfg.mode.pmp_cfg.i
                     |vpiOperand:
                     \_constant: , line:62:13, endln:62:14
                       |vpiConstType:9
@@ -1098,14 +1094,14 @@ design: (work@test)
                       |vpiSize:64
                       |UINT:1
                 |vpiActual:
-                \_ref_obj: (mode)
+                \_ref_obj: (mode), parent:pmp_cfg.mode
                   |vpiName:mode
               |vpiOperand:
-              \_constant: , line:62:24, endln:62:36
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:2
-                |UINT:1
+              \_ref_obj: (work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR), line:62:24, endln:62:36
+                |vpiName:PMP_MODE_TOR
+                |vpiFullName:work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR
+                |vpiActual:
+                \_enum_const: (PMP_MODE_TOR), line:50:4, endln:50:16
           |vpiLhs:
           \_ref_obj: (work@test.u3.g_pmp_csrs[1].pmp_addr_we), line:61:9, endln:61:20
             |vpiName:pmp_addr_we
@@ -1163,10 +1159,6 @@ design: (work@test)
                     |UINT:0
               |vpiEnumConst:
               \_enum_const: (PMP_MODE_TOR), line:50:4, endln:50:16
-                |vpiName:PMP_MODE_TOR
-                |vpiDecompile:2'b01
-                |UINT:1
-                |vpiSize:2
       |vpiRange:
       \_range: , line:57:26, endln:57:27
         |vpiLeftRange:
