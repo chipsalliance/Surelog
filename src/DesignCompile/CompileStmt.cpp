@@ -2229,5 +2229,4 @@ n<> u<65> t<Bind_directive> p<66> c<46> l<9:0> el<12:28>
   std::string fullName = fC->getLibrary()->getName() + "@" + targetName;
   BindStmt* bind = new BindStmt(fC, Module_instantiation, Target_scope, Instance_target, Source_scope, Instance_name);
   compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);
-
 }

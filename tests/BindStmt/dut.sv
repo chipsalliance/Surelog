@@ -10,13 +10,13 @@ module testbench ();
 
   bind bp_lce
             bp_me_nonsynth_lce_tracer
-              #(.sets_p(sets_p))
+              #(.sets_p(sets_p+1))
               lce_tracer1();
 
 
   bind bp_lce:u1
             bp_me_nonsynth_lce_tracer
-              #(.sets_p(sets_p))
+              #(.sets_p(sets_p+2))
               lce_tracer2();            
 
   bind bp_lce:u1

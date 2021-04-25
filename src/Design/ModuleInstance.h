@@ -40,6 +40,7 @@ class ModuleInstance : public ValuedComponentI {
   ~ModuleInstance() override;
   void addSubInstances(ModuleInstance** subInstances,
                        unsigned int nbSubInstances);
+  void setInstanceBinding(ModuleInstance* boundToInstance) { m_boundInstance = boundToInstance; }
   DesignComponent* getDefinition() { return m_definition; }
   unsigned int getNbChildren() { return m_nbChildren; }
   ModuleInstance* getChildren(unsigned int i) {
@@ -74,7 +75,8 @@ class ModuleInstance : public ValuedComponentI {
   std::vector<Parameter*>& getTypeParams() { return m_typeParams; }   
 
   Value* getValue(const std::string& name, ExprBuilder& exprBuilder) const override;
-
+  
+  ModuleInstance* getInstanceBinding() { return m_boundInstance; }
  private:
   DesignComponent* m_definition;
   ModuleInstance** m_children;
@@ -86,6 +88,7 @@ class ModuleInstance : public ValuedComponentI {
                            // module is undefined
   std::vector<Parameter*> m_typeParams;                         
   Netlist* m_netlist;
+  ModuleInstance* m_boundInstance = nullptr;
 };
 
 class ModuleInstanceFactory {
