@@ -36,17 +36,19 @@ class FileContent;
 
 class BindStmt {
  public:
-  BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetId, NodeId bindId, NodeId instanceId);
+  BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId, NodeId targetInstId, NodeId bindId, NodeId instanceId);
   ~BindStmt();
   const FileContent* getFileContent() { return m_fC; }
-  NodeId getStmtNode() { return m_stmtId; }
-  NodeId getTargetNode() { return m_targetId;}
-  NodeId getBindNode() { return m_bindId;}
-  NodeId getInstanceNode() { return m_instanceId;}
+  NodeId getStmtId() { return m_stmtId; }
+  NodeId getTargetModId() { return m_targetModId;}
+  NodeId getTargetInstId() { return m_targetInstId;}
+  NodeId getBindId() { return m_bindId;}
+  NodeId getInstanceId() { return m_instanceId;}
  private:
   const FileContent* m_fC;
   const NodeId m_stmtId;
-  const NodeId m_targetId;
+  const NodeId m_targetModId;
+  const NodeId m_targetInstId;
   const NodeId m_bindId;
   const NodeId m_instanceId;
 };

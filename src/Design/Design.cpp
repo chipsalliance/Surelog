@@ -502,12 +502,17 @@ void Design::clearContainers() {
   m_orderedPackageNames.clear();
 }
 
-BindStmt* Design::getBindStmt(const std::string& targetName) {
+std::vector<BindStmt*> Design::getBindStmts(const std::string& targetName) {
+  std::vector<BindStmt*> results;
   BindMap::iterator itr = m_bindMap.find(targetName);
-  if (itr == m_bindMap.end())
-    return nullptr;
-  else 
-    return (*itr).second;
+  while (itr != m_bindMap.end()) {
+    if ((*itr).first != targetName) {
+      break;
+    }
+    results.push_back((*itr).second);
+    itr++;
+  }
+  return results;
 }
  
 void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
