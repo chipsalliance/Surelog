@@ -685,6 +685,7 @@ proc run_regression { } {
 	if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
             file delete -force slpp_all slpp_unit
             file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit
+	    file delete -force $testdir/slpp_all $testdir/slpp_unit
         }
 	
         cd $REGRESSION_PATH/tests
