@@ -558,9 +558,11 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
         design->addTopLevelModuleInstance(instance);
       } else {
         ModuleInstance* instance = design->findInstance(moduleName);
-        for (unsigned int i = 0; i < def->getFileContents().size(); i++)
+        for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
+          std::vector<ModuleInstance*> parentSubInstances;
           elaborateInstance_(def->getFileContents()[i], def->getNodeIds()[i], 0,
-                             m_moduleInstFactory, instance, config);
+                             m_moduleInstFactory, instance, config, parentSubInstances);
+        }
       }
       break;
     }
@@ -585,10 +587,8 @@ void DesignElaboration::recurseInstanceLoop_(
     VObjectType type = fC->Type(subInstanceId);
     if (def && (type != VObjectType::slGate_instantiation)) {
       for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
-        ModuleInstance* bindInstance = elaborateInstance_(def->getFileContents()[i], def->getNodeIds()[i],
-                           paramOverride, factory, child, config);
-        if (bindInstance) 
-          allSubInstances.push_back(bindInstance);
+        elaborateInstance_(def->getFileContents()[i], def->getNodeIds()[i],
+                           paramOverride, factory, child, config, allSubInstances);
       }
     }
     allSubInstances.push_back(child);
@@ -609,34 +609,50 @@ ModuleInstance* DesignElaboration::createBindInstance_(
   ModuleInstance* instance = nullptr;
   const FileContent* fC = bind->getFileContent();
   Library* lib = fC->getLibrary();
-  NodeId bindNodeId = bind->getBindNode();
+  NodeId bindNodeId = bind->getBindId();
   const std::string bindModName = lib->getName() + "@" + fC->SymName(bindNodeId);
-  NodeId instNameId = bind->getInstanceNode();
+  NodeId instNameId = bind->getInstanceId();
   const std::string& instName = fC->SymName(instNameId);
-  NodeId targetId = bind->getTargetNode();
-  const std::string targetName = lib->getName() + "@" + fC->SymName(targetId);
+  NodeId targetModId = bind->getTargetModId();
+  NodeId targetInstId = bind->getTargetInstId();
+  const std::string targetName = lib->getName() + "@" + fC->SymName(targetModId);
   DesignComponent* def = parent->getDefinition();
   Design* design = m_compileDesign->getCompiler()->getDesign();
-  if (def && (def->getName() == targetName)) {
+  bool instanceMatch = true;
+  if (targetInstId) {
+    const std::string& targetInstName = fC->SymName(targetInstId);
+    instanceMatch = (targetInstName == parent->getInstanceName());
+  }
+  if (def && (def->getName() == targetName) && instanceMatch) {
     DesignComponent* targetDef = design->getModuleDefinition(bindModName);
     if (targetDef) {
       instance = factory->newModuleInstance(
-          targetDef, fC, bind->getStmtNode(), parent->getParent(), instName, bindModName);
+          targetDef, fC, bind->getStmtId(), parent->getParent(), instName, bindModName);
+    } else {
+      SymbolTable* st =
+          m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
+      Location loc(st->registerSymbol(fC->getFileName(bind->getStmtId())),
+                   fC->Line(bind->getStmtId()), 0, st->registerSymbol(bindModName));
+      Error err(ErrorDefinition::ELAB_NO_MODULE_DEFINITION, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err, false,
+                                                                    false);
     }
   }
   if (instance) {
     /* return value ignored, no binding in binding */ 
-    elaborateInstance_(fC, bind->getStmtNode(), 0, factory, instance, config);
+    std::vector<ModuleInstance*> parentSubInstances;
+    elaborateInstance_(fC, bind->getStmtId(), 0, factory, instance, config, parentSubInstances);
   }
   return instance;
 }
 
-ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
+void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                                            NodeId parentParamOverride,
                                            ModuleInstanceFactory* factory,
                                            ModuleInstance* parent,
-                                           Config* config) {
-  if (!parent) return nullptr;
+                                           Config* config, 
+                                           std::vector<ModuleInstance*>& parentSubInstances) {
+  if (!parent) return;
   std::vector<ModuleInstance*> allSubInstances;
   std::string genBlkBaseName = "genblk";
   unsigned int genBlkIndex = 1;
@@ -667,11 +683,12 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
   delete nelab;
 
   // Bind stmt
-  ModuleInstance* bindInstance = nullptr;
   DesignComponent* def = parent->getDefinition();
   if (def) {
-    if (BindStmt* bind = design->getBindStmt(def->getName())) {
-      bindInstance = createBindInstance_(bind, parent, factory, config);
+    for (BindStmt* bind : design->getBindStmts(def->getName())) {
+      ModuleInstance* bindInstance = createBindInstance_(bind, parent, factory, config);
+      if (bindInstance)
+        parentSubInstances.push_back(bindInstance);
     }
   }
 
@@ -849,10 +866,8 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
           ModuleInstance* child = factory->newModuleInstance(
               def, fC, genBlock, parent, instName, indexedModName);
           child->setValue(name, m_exprBuilder.clone(currentIndexValue), m_exprBuilder, fC->Line(varId));
-          ModuleInstance* bindInstance = elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
-                             child, config);
-          if (bindInstance) 
-            allSubInstances.push_back(bindInstance);                    
+          elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
+                             child, config, allSubInstances);                
           allSubInstances.push_back(child);
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
@@ -1036,10 +1051,8 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
 
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, indexedModName);
-      ModuleInstance* bindInstance = elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
-                         factory, child, config);
-      if (bindInstance) 
-        allSubInstances.push_back(bindInstance);
+      elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
+                         factory, child, config, allSubInstances);
       allSubInstances.push_back(child);
 
     }
@@ -1057,10 +1070,8 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
 
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
-      ModuleInstance* bindInstance = elaborateInstance_(def->getFileContents()[0], subInstanceId,
-                         paramOverride, factory, child, config);
-      if (bindInstance) 
-        allSubInstances.push_back(bindInstance);                   
+      elaborateInstance_(def->getFileContents()[0], subInstanceId,
+                         paramOverride, factory, child, config, allSubInstances);                  
       allSubInstances.push_back(child);
 
     }
@@ -1274,10 +1285,8 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
                                                  instName, modName);
             }
             if (def && (type != VObjectType::slGate_instantiation)) {
-              ModuleInstance* bindInstance = elaborateInstance_(def->getFileContents()[0], childId,
-                                 paramOverride, factory, child, subConfig);
-              if (bindInstance) 
-                allSubInstances.push_back(bindInstance);                   
+              elaborateInstance_(def->getFileContents()[0], childId,
+                                 paramOverride, factory, child, subConfig, allSubInstances);               
             } else {
               // Build black box model
               NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
@@ -1302,7 +1311,6 @@ ModuleInstance* DesignElaboration::elaborateInstance_(const FileContent* fC, Nod
     }
     parent->addSubInstances(children, allSubInstances.size());
   }
-  return bindInstance;
 }
 
 void DesignElaboration::reportElaboration_() {

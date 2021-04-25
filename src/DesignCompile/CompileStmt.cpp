@@ -2212,6 +2212,12 @@ n<> u<65> t<Bind_directive> p<66> c<46> l<9:0> el<12:28>
   NodeId Target_scope = fC->Child(Bind_directive);
   const std::string& targetName = fC->SymName(Target_scope);
   NodeId Bind_instantiation = fC->Sibling(Target_scope);
+  NodeId Instance_target = 0;
+  if (fC->Type(Bind_instantiation) == slStringConst) {
+    Instance_target = Bind_instantiation;
+    NodeId Constant_bit_select = fC->Sibling(Bind_instantiation);
+    Bind_instantiation = fC->Sibling(Constant_bit_select);
+  }
   NodeId Module_instantiation = fC->Child(Bind_instantiation);
   NodeId Source_scope = fC->Child(Module_instantiation);
   NodeId tmp = fC->Sibling(Source_scope);
@@ -2221,7 +2227,7 @@ n<> u<65> t<Bind_directive> p<66> c<46> l<9:0> el<12:28>
   NodeId Instance_name = tmp;
   Instance_name = fC->Child(fC->Child(Instance_name));
   std::string fullName = fC->getLibrary()->getName() + "@" + targetName;
-  BindStmt* bind = new BindStmt(fC, Module_instantiation, Target_scope, Source_scope, Instance_name);
+  BindStmt* bind = new BindStmt(fC, Module_instantiation, Target_scope, Instance_target, Source_scope, Instance_name);
   compileDesign->getCompiler()->getDesign()->addBindStmt(fullName, bind);
 
 }

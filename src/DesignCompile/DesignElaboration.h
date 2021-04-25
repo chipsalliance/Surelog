@@ -59,10 +59,10 @@ class DesignElaboration : public TestbenchElaboration {
   void collectParams_(std::vector<std::string>& params, const FileContent* fC,
                       NodeId nodeId, ModuleInstance* instance,
                       NodeId parentParamOverride);
-  ModuleInstance* elaborateInstance_(const FileContent* fC, NodeId nodeId,
+  void elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,
-                          ModuleInstance* parent, Config* config);
+                          ModuleInstance* parent, Config* config, std::vector<ModuleInstance*>& parentSubInstances);
   void recurseInstanceLoop_(std::vector<int>& from, std::vector<int>& to,
                             std::vector<int>& indexes, unsigned int pos,
                             DesignComponent* def, const FileContent* fC,
