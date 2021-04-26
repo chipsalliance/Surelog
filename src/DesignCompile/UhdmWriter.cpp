@@ -2009,6 +2009,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
     ElaboratorListener* listener = new ElaboratorListener(&s, false);
+    listener->uniquifyTypespec(false);
     listen_designs(designs,listener);
   }
 

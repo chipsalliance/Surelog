@@ -1602,23 +1602,15 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
   |vpiTypedef:
-  \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:51:4, endln:51:15, parent:work@top
+  \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:51:4, endln:51:15, parent:work@top.bp_params_p
     |vpiName:bp_common_aviary_pkg::bp_params_e
     |vpiBaseTypespec:
-    \_bit_typespec: , line:48:14, endln:48:17, parent:bp_common_aviary_pkg::bp_params_e
+    \_bit_typespec: , line:48:14, endln:48:17
       |vpiRange:
       \_range: , line:48:19, endln:48:29
         |vpiLeftRange:
-        \_ref_obj: (work@top.bp_common_aviary_pkg::bp_params_e.max_cfgs), line:48:19, endln:48:27
+        \_ref_obj: (max_cfgs), line:48:19, endln:48:27
           |vpiName:max_cfgs
-          |vpiFullName:work@top.bp_common_aviary_pkg::bp_params_e.max_cfgs
-          |vpiActual:
-          \_parameter: (work@top.max_cfgs), line:3:13, endln:3:28, parent:work@top
-            |vpiName:max_cfgs
-            |vpiFullName:work@top.max_cfgs
-            |vpiImported:bp_common_aviary_pkg
-            |vpiLocalParam:1
-            |UINT:1
         |vpiRightRange:
         \_constant: , line:48:28, endln:48:29
           |vpiConstType:9
@@ -1632,28 +1624,6 @@ design: (work@top)
         |vpiFullName:bp_common_aviary_pkg::
         |vpiTypedef:
         \_enum_typespec: (bp_common_aviary_pkg::bp_params_e), line:51:4, endln:51:15, parent:work@top.bp_params_p
-          |vpiName:bp_common_aviary_pkg::bp_params_e
-          |vpiBaseTypespec:
-          \_bit_typespec: , line:48:14, endln:48:17
-            |vpiRange:
-            \_range: , line:48:19, endln:48:29
-              |vpiLeftRange:
-              \_ref_obj: (max_cfgs), line:48:19, endln:48:27
-                |vpiName:max_cfgs
-              |vpiRightRange:
-              \_constant: , line:48:28, endln:48:29
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-            |vpiInstance:
-            \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1: , endln:53:10, parent:work@top
-          |vpiEnumConst:
-          \_enum_const: (e_bp_default_cfg), line:50:4, endln:50:20
-            |vpiName:e_bp_default_cfg
-            |vpiDecompile:0
-            |UINT:0
-            |vpiSize:64
         |vpiTypedef:
         \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:8, endln:5:14, parent:work@top.proc_param_lp
           |vpiPacked:1
@@ -1830,24 +1800,15 @@ design: (work@top)
         |vpiParameter:
         \_parameter: (bp_common_aviary_pkg::all_cfgs_gp), line:42:40, endln:46:3, parent:bp_common_aviary_pkg::
     |vpiEnumConst:
-    \_enum_const: (e_bp_default_cfg), line:50:4, endln:50:20, parent:bp_common_aviary_pkg::bp_params_e
+    \_enum_const: (e_bp_default_cfg), line:50:4, endln:50:20
       |vpiName:e_bp_default_cfg
       |vpiDecompile:0
       |UINT:0
       |vpiSize:64
   |vpiTypedef:
-  \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:8, endln:5:14, parent:work@top
-    |vpiPacked:1
-    |vpiName:bp_common_aviary_pkg::bp_proc_param_s
-    |vpiTypespecMember:
-    \_typespec_member: (cc_x_dim), line:7:12, endln:7:20, parent:bp_common_aviary_pkg::bp_proc_param_s
-      |vpiName:cc_x_dim
-      |vpiTypespec:
-      \_int_typespec: , line:7:4, endln:7:11, parent:cc_x_dim
-        |vpiInstance:
-        \_package: bp_common_aviary_pkg (bp_common_aviary_pkg::) dut.sv:1: , endln:53:10, parent:work@top
+  \_struct_typespec: (bp_common_aviary_pkg::bp_proc_param_s), line:5:8, endln:5:14, parent:work@top.proc_param_lp
   |vpiTypedef:
-  \_import: (bp_common_aviary_pkg), line:55:18, endln:55:41, parent:work@top
+  \_import: (bp_common_aviary_pkg), line:55:18, endln:55:41
   |vpiParamAssign:
   \_param_assign: , line:56:24, endln:56:54, parent:work@top
     |vpiRhs:
@@ -1937,6 +1898,11 @@ design: (work@top)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@top.max_cfgs), line:3:13, endln:3:28, parent:work@top
+      |vpiName:max_cfgs
+      |vpiFullName:work@top.max_cfgs
+      |vpiImported:bp_common_aviary_pkg
+      |vpiLocalParam:1
+      |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:10:29, endln:13:7, parent:work@top
     |vpiRhs:
