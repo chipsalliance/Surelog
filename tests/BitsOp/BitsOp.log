@@ -1502,17 +1502,16 @@ design: (work@dut)
           |vpiSize:64
           |UINT:1
   |vpiTypedef:
-  \_bit_typespec: (MyBits), line:97:10, endln:97:13, parent:work@dut
+  \_bit_typespec: (MyBits), line:97:10, endln:97:13
     |vpiName:MyBits
     |vpiRange:
-    \_range: , line:97:14, endln:97:29, parent:MyBits
+    \_range: , line:97:14, endln:97:29
       |vpiLeftRange:
       \_sys_func_call: ($bits), line:97:14, endln:97:27
         |vpiName:$bits
         |vpiArgument:
-        \_ref_obj: (work@dut.MyBits.MyType), line:97:20, endln:97:26, parent:$bits
+        \_ref_obj: (MyType), line:97:20, endln:97:26, parent:$bits
           |vpiName:MyType
-          |vpiFullName:work@dut.MyBits.MyType
       |vpiRightRange:
       \_constant: , line:97:28, endln:97:29
         |vpiConstType:9
@@ -1520,20 +1519,20 @@ design: (work@dut)
         |vpiSize:64
         |UINT:1
   |vpiTypedef:
-  \_struct_typespec: (MyType), line:92:10, endln:92:16, parent:work@dut
+  \_struct_typespec: (MyType), line:92:10, endln:92:16
     |vpiName:MyType
     |vpiTypespecMember:
-    \_typespec_member: (valid), line:93:10, endln:93:15, parent:MyType
+    \_typespec_member: (valid), line:93:10, endln:93:15
       |vpiName:valid
       |vpiTypespec:
-      \_logic_typespec: , line:93:4, endln:93:9, parent:valid
+      \_logic_typespec: , line:93:4, endln:93:9
     |vpiTypespecMember:
-    \_typespec_member: (data), line:94:14, endln:94:18, parent:MyType
+    \_typespec_member: (data), line:94:14, endln:94:18
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , line:94:4, endln:94:7, parent:data
+      \_bit_typespec: , line:94:4, endln:94:7
         |vpiRange:
-        \_range: , line:94:9, endln:94:12
+        \_range: , line:94:9, endln:94:12, parent:MyType
           |vpiLeftRange:
           \_constant: , line:94:9, endln:94:10
             |vpiConstType:9
@@ -1547,10 +1546,10 @@ design: (work@dut)
             |vpiSize:64
             |UINT:1
   |vpiTypedef:
-  \_enum_typespec: (flash_ctrl_pkg::flash_erase_op_e), line:69:2, endln:69:18, parent:work@dut
+  \_enum_typespec: (flash_ctrl_pkg::flash_erase_op_e), line:69:2, endln:69:18
     |vpiName:flash_ctrl_pkg::flash_erase_op_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:66:13, endln:66:18, parent:flash_ctrl_pkg::flash_erase_op_e
+    \_logic_typespec: , line:66:13, endln:66:18
       |vpiInstance:
       \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65: , endln:72:10, parent:work@dut
         |vpiDefName:flash_ctrl_pkg
@@ -1558,23 +1557,6 @@ design: (work@dut)
         |vpiFullName:flash_ctrl_pkg::
         |vpiTypedef:
         \_enum_typespec: (flash_ctrl_pkg::flash_erase_op_e), line:69:2, endln:69:18
-          |vpiName:flash_ctrl_pkg::flash_erase_op_e
-          |vpiBaseTypespec:
-          \_logic_typespec: , line:66:13, endln:66:18
-            |vpiInstance:
-            \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65: , endln:72:10, parent:work@dut
-          |vpiEnumConst:
-          \_enum_const: (PageErase), line:67:2, endln:67:11
-            |vpiName:PageErase
-            |vpiDecompile:0
-            |UINT:0
-            |vpiSize:64
-          |vpiEnumConst:
-          \_enum_const: (BankErase), line:68:2, endln:68:11
-            |vpiName:BankErase
-            |vpiDecompile:1
-            |UINT:1
-            |vpiSize:64
         |vpiTypedef:
         \_logic_typespec: (flash_ctrl_pkg::sha_word_t), line:71:8, endln:71:13
           |vpiName:flash_ctrl_pkg::sha_word_t
@@ -1595,38 +1577,21 @@ design: (work@dut)
           |vpiInstance:
           \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65: , endln:72:10, parent:work@dut
     |vpiEnumConst:
-    \_enum_const: (PageErase), line:67:2, endln:67:11, parent:flash_ctrl_pkg::flash_erase_op_e
+    \_enum_const: (PageErase), line:67:2, endln:67:11
       |vpiName:PageErase
       |vpiDecompile:0
       |UINT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (BankErase), line:68:2, endln:68:11, parent:flash_ctrl_pkg::flash_erase_op_e
+    \_enum_const: (BankErase), line:68:2, endln:68:11
       |vpiName:BankErase
       |vpiDecompile:1
       |UINT:1
       |vpiSize:64
   |vpiTypedef:
-  \_logic_typespec: (flash_ctrl_pkg::sha_word_t), line:71:8, endln:71:13, parent:work@dut
-    |vpiName:flash_ctrl_pkg::sha_word_t
-    |vpiRange:
-    \_range: , line:71:15, endln:71:19, parent:flash_ctrl_pkg::sha_word_t
-      |vpiLeftRange:
-      \_constant: , line:71:15, endln:71:17
-        |vpiConstType:9
-        |vpiDecompile:31
-        |vpiSize:64
-        |UINT:31
-      |vpiRightRange:
-      \_constant: , line:71:18, endln:71:19
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
-    |vpiInstance:
-    \_package: flash_ctrl_pkg (flash_ctrl_pkg::) dut.sv:65: , endln:72:10, parent:work@dut
+  \_logic_typespec: (flash_ctrl_pkg::sha_word_t), line:71:8, endln:71:13
   |vpiTypedef:
-  \_import: (flash_ctrl_pkg), line:76:9, endln:76:26, parent:work@dut
+  \_import: (flash_ctrl_pkg), line:76:9, endln:76:26
   |vpiParamAssign:
   \_param_assign: , line:78:17, endln:78:47, parent:work@dut
     |vpiRhs:
@@ -1998,66 +1963,7 @@ design: (work@dut)
   |vpiNet:
   \_struct_net: (work@dmi_jtag.dmi), line:114:9, endln:114:12, parent:work@dmi_jtag
   |vpiTypedef:
-  \_struct_typespec: (dmi_t), line:106:10, endln:106:16, parent:work@dmi_jtag
-    |vpiPacked:1
-    |vpiName:dmi_t
-    |vpiTypespecMember:
-    \_typespec_member: (address), line:107:17, endln:107:24, parent:dmi_t
-      |vpiName:address
-      |vpiTypespec:
-      \_logic_typespec: , line:107:4, endln:107:9, parent:address
-        |vpiRange:
-        \_range: , line:107:11, endln:107:14
-          |vpiLeftRange:
-          \_constant: , line:107:11, endln:107:12
-            |vpiConstType:9
-            |vpiDecompile:6
-            |vpiSize:64
-            |UINT:6
-          |vpiRightRange:
-          \_constant: , line:107:13, endln:107:14
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiTypespecMember:
-    \_typespec_member: (data), line:108:17, endln:108:21, parent:dmi_t
-      |vpiName:data
-      |vpiTypespec:
-      \_logic_typespec: , line:108:4, endln:108:9, parent:data
-        |vpiRange:
-        \_range: , line:108:11, endln:108:15
-          |vpiLeftRange:
-          \_constant: , line:108:11, endln:108:13
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:108:14, endln:108:15
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-    |vpiTypespecMember:
-    \_typespec_member: (op), line:109:17, endln:109:19, parent:dmi_t
-      |vpiName:op
-      |vpiTypespec:
-      \_logic_typespec: , line:109:4, endln:109:9, parent:op
-        |vpiRange:
-        \_range: , line:109:11, endln:109:14
-          |vpiLeftRange:
-          \_constant: , line:109:11, endln:109:12
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:109:13, endln:109:14
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
+  \_struct_typespec: (dmi_t), line:106:10, endln:106:16
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

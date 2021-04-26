@@ -1455,16 +1455,16 @@ design: (work@top)
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:50: , endln:70:9
     |vpiTypedef:
-    \_struct_typespec: (otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t), line:2:10, endln:2:16, parent:work@top.u_otp_ctrl_lci
+    \_struct_typespec: (otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t), line:2:10, endln:2:16, parent:work@otp_ctrl_lci.Info
       |vpiPacked:1
       |vpiName:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
       |vpiTypespecMember:
-      \_typespec_member: (size), line:3:17, endln:3:21, parent:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
+      \_typespec_member: (size), line:3:17, endln:3:21
         |vpiName:size
         |vpiTypespec:
-        \_logic_typespec: , line:3:4, endln:3:9, parent:size
+        \_logic_typespec: , line:3:4, endln:3:9
           |vpiRange:
-          \_range: , line:3:11, endln:3:15
+          \_range: , line:3:11, endln:3:15, parent:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
             |vpiLeftRange:
             \_constant: , line:3:11, endln:3:13
               |vpiConstType:9
@@ -1484,29 +1484,6 @@ design: (work@top)
             |vpiFullName:otp_ctrl_pkg::
             |vpiTypedef:
             \_struct_typespec: (otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t), line:2:10, endln:2:16, parent:work@otp_ctrl_lci.Info
-              |vpiPacked:1
-              |vpiName:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
-              |vpiTypespecMember:
-              \_typespec_member: (size), line:3:17, endln:3:21
-                |vpiName:size
-                |vpiTypespec:
-                \_logic_typespec: , line:3:4, endln:3:9
-                  |vpiRange:
-                  \_range: , line:3:11, endln:3:15, parent:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
-                    |vpiLeftRange:
-                    \_constant: , line:3:11, endln:3:13
-                      |vpiConstType:9
-                      |vpiDecompile:10
-                      |vpiSize:64
-                      |UINT:10
-                    |vpiRightRange:
-                    \_constant: , line:3:14, endln:3:15
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiInstance:
-                  \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1: , endln:6:10, parent:work@top
             |vpiParamAssign:
             \_param_assign: , line:5:16, endln:5:27, parent:otp_ctrl_pkg::
               |vpiRhs:
@@ -1527,7 +1504,7 @@ design: (work@top)
             |vpiParameter:
             \_parameter: (otp_ctrl_pkg::NumPart), line:5:16, endln:5:27, parent:otp_ctrl_pkg::
     |vpiTypedef:
-    \_import: (otp_ctrl_pkg), line:33:9, endln:33:24, parent:work@top.u_otp_ctrl_lci
+    \_import: (otp_ctrl_pkg), line:33:9, endln:33:24
     |vpiParamAssign:
     \_param_assign: , line:36:24, endln:36:46, parent:work@top.u_otp_ctrl_lci
       |vpiRhs:
@@ -1882,47 +1859,24 @@ design: (work@top)
         |vpiSize:64
         |UINT:0
   |vpiTypedef:
-  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:27:4, endln:27:14, parent:work@top
+  \_enum_typespec: (otp_ctrl_part_pkg::part_idx_e), line:27:4, endln:27:14
     |vpiName:otp_ctrl_part_pkg::part_idx_e
     |vpiEnumConst:
-    \_enum_const: (CreatorSwCfgIdx), line:25:4, endln:25:19, parent:otp_ctrl_part_pkg::part_idx_e
+    \_enum_const: (CreatorSwCfgIdx), line:25:4, endln:25:19
       |vpiName:CreatorSwCfgIdx
       |vpiDecompile:0
       |INT:0
       |vpiSize:64
     |vpiEnumConst:
-    \_enum_const: (LifeCycleIdx), line:26:4, endln:26:16, parent:otp_ctrl_part_pkg::part_idx_e
+    \_enum_const: (LifeCycleIdx), line:26:4, endln:26:16
       |vpiName:LifeCycleIdx
       |vpiDecompile:1
       |INT:1
       |vpiSize:64
   |vpiTypedef:
-  \_struct_typespec: (otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t), line:2:10, endln:2:16, parent:work@top
-    |vpiPacked:1
-    |vpiName:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
-    |vpiTypespecMember:
-    \_typespec_member: (size), line:3:17, endln:3:21, parent:otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t
-      |vpiName:size
-      |vpiTypespec:
-      \_logic_typespec: , line:3:4, endln:3:9, parent:size
-        |vpiRange:
-        \_range: , line:3:11, endln:3:15
-          |vpiLeftRange:
-          \_constant: , line:3:11, endln:3:13
-            |vpiConstType:9
-            |vpiDecompile:10
-            |vpiSize:64
-            |UINT:10
-          |vpiRightRange:
-          \_constant: , line:3:14, endln:3:15
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiInstance:
-        \_package: otp_ctrl_pkg (otp_ctrl_pkg::) dut.sv:1: , endln:6:10, parent:work@top
+  \_struct_typespec: (otp_ctrl_pkg::otp_ctrl_part_pkg::part_info_t), line:2:10, endln:2:16, parent:work@otp_ctrl_lci.Info
   |vpiTypedef:
-  \_import: (otp_ctrl_part_pkg), line:51:9, endln:51:29, parent:work@top
+  \_import: (otp_ctrl_part_pkg), line:51:9, endln:51:29
   |vpiParamAssign:
   \_param_assign: , line:5:16, endln:5:27, parent:work@top
     |vpiRhs:
