@@ -1802,7 +1802,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
 }
 
 void printUhdmStats(Serializer& s) {
-  std::cout << "Stats:\n";
+  std::cout << "UHDM Objects Stats:\n";
   std::map<std::string, unsigned long> stats = s.ObjectStats();
   std::multimap<unsigned long, std::string> rstats;
   for (auto stat : stats) {
@@ -2014,7 +2014,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     d->TopModules(uhdm_top_modules);
   }
 
-  printUhdmStats(s); 
+  //printUhdmStats(s); 
 
   // ----------------------------------
   // Fully elaborated model
@@ -2028,8 +2028,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     listen_designs(designs,listener);
   }
 
-  printUhdmStats(s); 
-  
+  //printUhdmStats(s); 
+
   {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);

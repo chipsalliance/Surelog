@@ -407,7 +407,7 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
             result = (typespec*) lhs->Typespec();
             if (result == nullptr) {
-              int_typespec* tps = buildIntTypespec(compileDesign, fC->getFileName(), "", "", fC->Line(type), fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
+              int_typespec* tps = buildIntTypespec(compileDesign, fC->getFileName(), typeName, "", fC->Line(type), fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
               lhs->Typespec(tps);
               result = tps;
             }
