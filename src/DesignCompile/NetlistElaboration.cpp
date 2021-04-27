@@ -461,7 +461,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndColumnNo(fC->EndColumn(sigId));
               p->High_conn(ref);
               ref->VpiName(sigName);
-              any* net = bind_net_(parent, sigName);
+              any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
             } else {
               any* exp = nullptr; 
@@ -495,7 +495,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiEndColumnNo(fC->EndColumn(sigId));
             p->High_conn(ref);
             ref->VpiName(sigName);
-            any* net = bind_net_(parent, sigName);
+            any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
             ref->Actual_group(net);
           } else { 
             any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
@@ -673,7 +673,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         any* net = nullptr;
         if (!sigName.empty()) {
-          net = bind_net_(parent, sigName);
+          net = bind_net_(parent, instance->getInstanceBinding(), sigName);
         }
 
         if ((!sigName.empty()) && (hexpr == nullptr)) {
@@ -797,7 +797,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndColumnNo(wildcardColumnNumber + 1);
               ref->VpiName(sigName);
               pp->High_conn(ref);
-              UHDM::any* net = bind_net_(parent, sigName);
+              UHDM::any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
             }  
           }
@@ -1515,6 +1515,17 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   }
 
   return true;
+}
+
+UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance, ModuleInstance* boundInstance, const std::string& name) {
+  UHDM::any* result = nullptr;
+  if (boundInstance) {
+    result = bind_net_(boundInstance, name);
+  }
+  if (result == nullptr) {
+    result = bind_net_(instance, name);
+  }
+  return result;
 }
 
 any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& name) {

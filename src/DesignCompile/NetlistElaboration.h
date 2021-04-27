@@ -61,6 +61,7 @@ class NetlistElaboration : public TestbenchElaboration {
    bool elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, Netlist* netlist,
                          DesignComponent* comp, const std::string& prefix, bool ports);
 
+  UHDM::any* bind_net_(ModuleInstance* instance, ModuleInstance* boundInstance, const std::string& name);
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
 
 };
