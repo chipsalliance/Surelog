@@ -210,8 +210,11 @@ if { $tcl_platform(platform) == "windows" } {
     set BLACK_LIST $UNIX_BLACK_LIST
 }
 
-proc findFiles { basedir pattern } {
+proc findFiles { basedir pattern {level 0}} {
 
+    if {$level > 3} {
+      return
+    }
     # Fix the directory name, this ensures the directory name is in the
     # native format for the platform and contains a final directory seperator
     set basedir [string trimright [file join [file normalize $basedir] { }]]
@@ -228,7 +231,7 @@ proc findFiles { basedir pattern } {
     foreach dirName [glob -nocomplain -type {d  r} -path $basedir *] {
         # Recusively call the routine on the sub directory and append any
         # new files to the results
-        set subDirList [findFiles $dirName $pattern]
+        set subDirList [findFiles $dirName $pattern [expr $level +1]]
         if { [llength $subDirList] > 0 } {
             foreach subDirFile $subDirList {
                 lappend fileList $subDirFile
