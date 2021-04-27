@@ -46,6 +46,7 @@
 #include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
+#include "Serializer.h"
 #include "ElaboratorListener.h"
 #include "clone_tree.h"
 

@@ -407,14 +407,8 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
             UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
             result = (typespec*) lhs->Typespec();
             if (result == nullptr) {
-              int_typespec* tps = s.MakeInt_typespec();
-              tps->VpiName(typeName);
+              int_typespec* tps = buildIntTypespec(compileDesign, fC->getFileName(), typeName, "", fC->Line(type), fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
               lhs->Typespec(tps);
-              tps->VpiFile(fC->getFileName());
-              tps->VpiLineNo(fC->Line(type));
-              tps->VpiColumnNo(fC->Column(type));
-              tps->VpiEndLineNo(fC->EndLine(type));
-              tps->VpiEndColumnNo(fC->EndColumn(type));
               result = tps;
             }
             return result;
@@ -612,6 +606,63 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
   return result;
 }
 
+UHDM::typespec_member* CompileHelper::buildTypespecMember(
+      CompileDesign* compileDesign, const std::string& fileName, const std::string& name,
+      const std::string& value, unsigned int line, unsigned short column,
+      unsigned int eline, unsigned short ecolumn) {
+  /*      
+  std::string hash = fileName + ":" + name + ":" + value + ":" + std::to_string(line) + ":" +
+                     std::to_string(column) + ":" + std::to_string(eline) + ":" +
+                     std::to_string(ecolumn);
+  std::unordered_map<std::string, UHDM::typespec_member*>::iterator itr =
+      m_cache_typespec_member.find(hash);
+  */    
+  typespec_member* var = nullptr;
+  //if (itr == m_cache_typespec_member.end()) {
+    Serializer& s = compileDesign->getSerializer();
+    var = s.MakeTypespec_member();
+    var->VpiName(name);
+    var->VpiFile(fileName);
+    var->VpiLineNo(line);
+    var->VpiColumnNo(column);
+    var->VpiEndLineNo(eline);
+    var->VpiEndColumnNo(ecolumn);
+  //  m_cache_typespec_member.insert(std::make_pair(hash, var));
+  //} else {
+  //  var = (*itr).second;
+  //}
+  return var;
+}
+
+int_typespec* CompileHelper::buildIntTypespec(
+    CompileDesign* compileDesign, const std::string& fileName,
+    const std::string& name, const std::string& value, unsigned int line,
+    unsigned short column, unsigned int eline, unsigned short ecolumn) {
+  /*
+  std::string hash = fileName + ":" + name + ":" + value + ":" + std::to_string(line)  + ":" +
+                     std::to_string(column) + ":" + std::to_string(eline) + ":" +
+                     std::to_string(ecolumn);
+  std::unordered_map<std::string, UHDM::int_typespec*>::iterator itr =
+      m_cache_int_typespec.find(hash);
+  */    
+  int_typespec* var = nullptr;
+  //if (itr == m_cache_int_typespec.end()) {
+    Serializer& s = compileDesign->getSerializer();
+    var = s.MakeInt_typespec();
+    var->VpiValue(value);
+    var->VpiName(name);
+    var->VpiFile(fileName);
+    var->VpiLineNo(line);
+    var->VpiColumnNo(column);
+    var->VpiEndLineNo(eline);
+    var->VpiEndColumnNo(ecolumn);
+  //  m_cache_int_typespec.insert(std::make_pair(hash, var));
+  //} else {
+  //  var = (*itr).second;
+  //}
+  return var;
+}
+
 UHDM::typespec* CompileHelper::compileTypespec(
   DesignComponent* component,
   const FileContent* fC, NodeId type,
@@ -732,12 +783,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slIntegerAtomType_Int: {
-      int_typespec* var = s.MakeInt_typespec();
-      var->VpiFile(fC->getFileName());
-      var->VpiLineNo(fC->Line(type));
-      var->VpiColumnNo(fC->Column(type));
-      var->VpiEndLineNo(fC->EndLine(type));
-      var->VpiEndColumnNo(fC->EndColumn(type));
+      int_typespec* var = buildIntTypespec(compileDesign, fC->getFileName(), "", "", fC->Line(type), fC->Column(type), fC->EndLine(type), fC->EndColumn(type));
       result = var;
       break;
     }
@@ -965,18 +1011,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
             member_ts = tps;
           }
           NodeId member_name = fC->Child(Variable_decl_assignment);
-          typespec_member* m = s.MakeTypespec_member();
           const std::string& mem_name = fC->SymName(member_name);
-          m->VpiName(mem_name);
+          typespec_member* m = buildTypespecMember(compileDesign, fC->getFileName(),
+                              mem_name, "",
+                              fC->Line(member_name),
+                              fC->Column(member_name),
+                              fC->EndLine(member_name),
+                              fC->EndColumn(member_name));
           m->Typespec(member_ts);
           if (member_ts && (member_ts->UhdmType() == uhdmunsupported_typespec)) {
             component->needLateTypedefBinding(m);
           }
-          m->VpiFile(fC->getFileName());
-          m->VpiLineNo(fC->Line(member_name));
-          m->VpiColumnNo(fC->Column(member_name));
-          m->VpiEndLineNo(fC->EndLine(member_name));
-          m->VpiEndColumnNo(fC->EndColumn(member_name));
           members->push_back(m);
           Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
         }
@@ -1048,15 +1093,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
             if (param_name == typeName) {
               const any* rhs = param->Rhs();
               if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
-                UHDM::int_typespec* its = s.MakeInt_typespec();
-                its->VpiParent((any*) param->Lhs());
-                its->VpiValue(exp->VpiValue());
-                its->VpiName(typeName);
-                its->VpiFile(param->VpiFile());
-                its->VpiLineNo(param->VpiLineNo());
-                its->VpiColumnNo(param->VpiColumnNo());
-                its->VpiEndLineNo(param->VpiLineNo());
-                its->VpiEndColumnNo(param->VpiColumnNo());
+                int_typespec* its = buildIntTypespec(compileDesign, param->VpiFile(), typeName, exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(), param->VpiLineNo(), param->VpiColumnNo());
+               // its->VpiParent((any*) param->Lhs());
                 result = its;
               } else {
                 result = (UHDM::typespec*)rhs;
@@ -1077,15 +1115,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
                     if (param_name == typeName) {
                       const any* rhs = param->Rhs();
                       if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
-                        UHDM::int_typespec* its = s.MakeInt_typespec();
-                        its->VpiParent((any*) param->Lhs());
-                        its->VpiValue(exp->VpiValue());
-                        its->VpiName(typeName);
-                        its->VpiFile(param->VpiFile());
-                        its->VpiLineNo(param->VpiLineNo());
-                        its->VpiColumnNo(param->VpiColumnNo());
-                        its->VpiEndLineNo(param->VpiLineNo());
-                        its->VpiEndColumnNo(param->VpiColumnNo());
+                        int_typespec* its = buildIntTypespec(compileDesign, param->VpiFile(), typeName, exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(), param->VpiLineNo(), param->VpiColumnNo());
+                        //its->VpiParent((any*) param->Lhs());
                         result = its;
                       } else {
                         result = (UHDM::typespec*)rhs;

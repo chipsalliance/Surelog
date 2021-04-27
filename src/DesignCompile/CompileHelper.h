@@ -375,6 +375,18 @@ public:
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;
   ExprBuilder m_exprBuilder;
+
+  // Caches
+  UHDM::int_typespec* buildIntTypespec(
+      CompileDesign* compileDesign, const std::string& fileName, const std::string& name,
+      const std::string& value, unsigned int line, unsigned short column,
+      unsigned int eline, unsigned short ecolumn);
+  UHDM::typespec_member* buildTypespecMember(
+      CompileDesign* compileDesign, const std::string& fileName, const std::string& name,
+      const std::string& value, unsigned int line, unsigned short column,
+      unsigned int eline, unsigned short ecolumn);   
+  std::unordered_map<std::string, UHDM::int_typespec*> m_cache_int_typespec;
+  std::unordered_map<std::string, UHDM::typespec_member*> m_cache_typespec_member;
 };
 
 }  // namespace SURELOG
