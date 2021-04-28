@@ -100,6 +100,7 @@ class CommandLineParser final {
   int  getDebugLevel() { return m_debugLevel; }
   bool getDebugAstModel() { return m_debugAstModel; }
   bool getDebugUhdm() { return m_dumpUhdm; }
+  bool getUhdmStats() { return m_uhdmStats; }
   bool getElabUhdm() { return m_elabUhdm; }
   bool getCoverUhdm() { return m_coverUhdm; }
   bool getParametersSubstitution() { return m_parametersubstitution; }
@@ -253,6 +254,7 @@ class CommandLineParser final {
   bool m_coverUhdm;
   bool m_showVpiIDs;
   bool m_replay;
+  bool m_uhdmStats;
 };
 
 }  // namespace SURELOG

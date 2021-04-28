@@ -2014,7 +2014,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     d->TopModules(uhdm_top_modules);
   }
 
-  //printUhdmStats(s); 
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
+    printUhdmStats(s); 
 
   // ----------------------------------
   // Fully elaborated model
@@ -2028,7 +2029,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     listen_designs(designs,listener);
   }
 
-  //printUhdmStats(s); 
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
+    printUhdmStats(s); 
 
   {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);

@@ -313,7 +313,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_elabUhdm(false),
       m_coverUhdm(false),
       m_showVpiIDs(false), 
-      m_replay(false) {
+      m_replay(false),
+      m_uhdmStats(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -596,6 +597,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_debugIncludeFileInfo = true;
       } else if (all_arguments[i] == "uhdm") {
         m_dumpUhdm = true;
+      } else if (all_arguments[i] == "uhdmstats") {
+        m_uhdmStats = true;
       } else if (all_arguments[i] == "coveruhdm") {
         m_coverUhdm = true;
       } else if (all_arguments[i] == "vpi_ids") {
