@@ -193,10 +193,10 @@ int main(int argc, const char ** argv) {
   std::string batch_opt     = "-batch";
   for (int i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
-      int ret = chdir("..");
-      if (ret < 0) {
-        std::cout << "Could not change directory to ../\n" << std::endl;
-      }
+     // int ret = chdir("..");
+     // if (ret < 0) {
+     //   std::cout << "Could not change directory to ../\n" << std::endl;
+     // }
     } else if (diff_unit_opt == argv[i]) {
       mode = DIFF;
     } else if (nopython_opt == argv[i]) {

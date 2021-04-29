@@ -21,10 +21,18 @@
  * Created on March 4, 2017, 5:16 PM
  */
 
+#if defined(_MSC_VER)
+  #include <direct.h>
+  #include <process.h>
+#else
+  #include <sys/param.h>
+  #include <unistd.h>
+#endif
+
 #include <string.h>
 #include <stdint.h>
 #include <cstdlib>
-
+#include <sys/stat.h>
 #include "SourceCompile/Compiler.h"
 #include "CommandLine/CommandLineParser.h"
 #include "DesignCompile/CompileDesign.h"
@@ -292,7 +300,13 @@ bool Compiler::createMultiProcess_() {
       std::cout << "LARGE JOB THREASHOLD: " << bigJobThreashold << std::endl;
       std::vector<CompileSourceFile*> bigJobs;
       for (unsigned short i = 0; i < nbProcesses; i++) jobSize[i] = 0;
+      bool forcedSVMode = m_commandLineParser->fullSVMode();
+      std::string sverilog = (forcedSVMode) ? " -sverilog " : "";
       Precompiled* prec = Precompiled::getSingleton();
+
+      char path [10000];
+      char* p = getcwd(path, 9999);
+      std::string outputPath = std::string(p) + "/" + directory + "../";
       for (unsigned int i = 0; i < m_compilers.size(); i++) {
         std::string root = m_compilers[i]->getSymbolTable()->getSymbol(m_compilers[i]->getFileId());
         root = FileUtils::basename(root);
@@ -334,12 +348,13 @@ bool Compiler::createMultiProcess_() {
         absoluteIndex++;
         std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
+        fileName = StringUtils::replaceAll(fileName, directory, "");                                
         std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::basename(fileName);
         targets.push_back(targetname);
         ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
-        ofs <<"  COMMAND " << full_exe_path << fileUnit <<
-                            " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
-                           <<  directory + FileUtils::basename(targetname) + ".log" << " " << fileName << std::endl;
+        ofs <<"  COMMAND " << full_exe_path << fileUnit << sverilog << 
+                            " -parseonly -nostdout -mt 0 -mp 0 -o " << outputPath << " -nobuiltin -l "
+                           << FileUtils::basename(targetname) + ".log" << " " << fileName << std::endl;
         ofs << ")" << std::endl;
       }
 
@@ -352,6 +367,7 @@ bool Compiler::createMultiProcess_() {
           CompileSourceFile* compiler = jobArray[i][j];
           std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
+          fileName = StringUtils::replaceAll(fileName, directory, "");                                          
           fileList += " " + fileName;
           lastFile = fileName;
         }
@@ -359,9 +375,9 @@ bool Compiler::createMultiProcess_() {
           std::string targetname = std::to_string(absoluteIndex) + "_" + FileUtils::basename(lastFile);
           targets.push_back(targetname);
           ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
-          ofs << "  COMMAND " << full_exe_path << fileUnit <<
-                  " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
-                  << directory + FileUtils::basename(targetname) + ".log" << " " << fileList << std::endl;
+          ofs << "  COMMAND " << full_exe_path << fileUnit << sverilog << 
+                  " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -o " << outputPath << " -l "
+                  << FileUtils::basename(targetname) + ".log" << " " << fileList << std::endl;
           ofs << ")" << std::endl;
         }
       }
