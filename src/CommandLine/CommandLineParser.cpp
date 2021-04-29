@@ -713,6 +713,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-exe") {
       i++;
       m_exeCommand = all_arguments[i];
+    } else if (all_arguments[i] == "-lowmem") {
+      m_nbMaxProcesses = 1;
+      m_writePpOutput = true;
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
       bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
@@ -756,10 +759,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
             m_nbMaxTreads = maxMT;
             if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
           } else {
-            m_nbMaxTreads = maxMT;
-            if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
             m_nbMaxProcesses = maxMT;
-            if (m_nbMaxProcesses < 2) m_nbMaxProcesses = 2;
           }
           Location loc(
               mutableSymbolTable()->registerSymbol(std::to_string(maxMT)));

@@ -547,7 +547,26 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-parse", "tests/ScratchPad.sv","-d", "inst" ,"-d", "ast", "-d", "uhdm","-nobuiltin", "-nocache", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm", "-replay"],
+            "args": ["-parse", "tests/ScratchPad.sv","-d", "inst" ,"-d", "ast", "-d", "uhdm","-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm", "-replay", "-writepp", "-lowmem", "-o", "ccc"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "ParseOnly",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parseonly", "tests/ScratchPad.sv","-d", "inst", "-d", "uhdm","-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm", "-replay"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

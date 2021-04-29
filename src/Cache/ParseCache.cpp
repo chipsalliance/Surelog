@@ -21,6 +21,16 @@
  * Created on April 29, 2017, 4:20 PM
  */
 
+
+#if defined(_MSC_VER)
+  #include <direct.h>
+  #include <process.h>
+#else
+  #include <sys/param.h>
+  #include <unistd.h>
+#endif
+
+
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -165,12 +175,16 @@ bool ParseCache::isValid() {
 }
 
 bool ParseCache::restore() {
-  bool cacheAllowed =
-      m_parse->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
+  char path [10000];
+  char* p = getcwd(path, 9999);
+  CommandLineParser* clp = m_parse->getCompileSourceFile()->getCommandLineParser();
+  bool cacheAllowed = clp->cacheAllowed();
   if (!cacheAllowed) return false;
 
   std::string cacheFileName = getCacheFileName_();
   if (!checkCacheIsValid_(cacheFileName)) {
+    if (!clp->parseOnly())
+      std::cout << "Cache miss for: " << cacheFileName << " pwd: " << p << "\n";
     return false;
   }
 
@@ -178,12 +192,18 @@ bool ParseCache::restore() {
 }
 
 bool ParseCache::save() {
-  bool cacheAllowed =
-      m_parse->getCompileSourceFile()->getCommandLineParser()->cacheAllowed();
+  CommandLineParser* clp = m_parse->getCompileSourceFile()->getCommandLineParser();
+  bool cacheAllowed = clp->cacheAllowed();
+  bool parseOnly = clp->parseOnly();
+
   if (!cacheAllowed) return true;
   std::string svFileName = m_parse->getPpFileName();
   std::string origFileName = svFileName;
-
+  if (parseOnly) {
+    SymbolId cacheDirId = clp->getCacheDir();
+    std::string cacheDirName = m_parse->getSymbol(cacheDirId);
+    origFileName = cacheDirName + "../" + origFileName;
+  }
   std::string cacheFileName = getCacheFileName_();
 
   flatbuffers::FlatBufferBuilder builder(1024);
