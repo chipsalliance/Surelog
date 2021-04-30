@@ -20,13 +20,15 @@
  *
  * Created on April 28, 2017, 9:32 PM
  */
-
 #ifndef CACHE_H
 #define CACHE_H
 
 #include "flatbuffers/flatbuffers.h"
+
 #include "Cache/header_generated.h"
-#include <cstdio>  // For printing and file access.
+#include "Design/FileContent.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

@@ -250,7 +250,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
-  ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
@@ -664,7 +663,7 @@ if (WIN32 AND $<CONFIG:Debug>)
       FILES $<TARGET_PDB_FILE:surelog-bin>
             ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
       DESTINATION ${CMAKE_INSTALL_BINDIR})
-  endif()    
+  endif()
   install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
           ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb

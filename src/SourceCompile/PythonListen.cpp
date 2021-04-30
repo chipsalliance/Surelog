@@ -26,9 +26,9 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
+
 #include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
+
 #include "SourceCompile/AntlrParserHandler.h"
 #include <cstdlib>
 #include <iostream>

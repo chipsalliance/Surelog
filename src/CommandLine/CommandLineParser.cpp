@@ -23,8 +23,6 @@
 #include "CommandLine/CommandLineParser.h"
 
 #include <limits.h>
-#include <sstream>
-#include <cstdlib>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -37,45 +35,44 @@
   #include <unistd.h>
 #endif
 
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <sstream>
 #include <string>
+#include <thread>
 #include <vector>
 
-#include "Utils/StringUtils.h"
+#include "API/PythonAPI.h"
 #include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 
 #include "antlr4-runtime.h"
-using namespace antlr4;
-
-#include "API/PythonAPI.h"
-
-#include <ctime>
-#include <thread>
 
 using namespace SURELOG;
 
-std::string defaultLogFileName = "surelog.log";
+static std::string defaultLogFileName = "surelog.log";
 std::string CommandLineParser::m_versionNumber = "1.01";
 
-const std::vector<std::string> copyright = {
+static const std::vector<std::string> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
-const std::vector<std::string> banner = {
+static const std::vector<std::string> banner = {
     "********************************************",
     "*  SURELOG SystemVerilog  Compiler/Linter  *",
     "********************************************",
 };
 
-const std::vector<std::string> footer = {
+static const std::vector<std::string> footer = {
     "********************************************",
     "*   End SURELOG SVerilog Compiler/Linter   *",
     "********************************************",
 };
 
-const std::vector<std::string> helpText = {
+static const std::vector<std::string> helpText = {
     "  ------------ SURELOG HELP --------------", "",
     "STANDARD VERILOG COMMAND LINE:",
     "  -f <file>             Accepts a file containing command line arguments",
@@ -211,8 +208,8 @@ std::string printStringArray(const std::vector<std::string>& array) {
 
 void CommandLineParser::withPython() {
 #ifdef SURELOG_WITH_PYTHON
- m_pythonAllowed = true;  
-#endif 
+ m_pythonAllowed = true;
+#endif
 }
 
 const std::string CommandLineParser::currentDateTime() {
@@ -291,7 +288,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_debugInstanceTree(false),
       m_debugLibraryDef(false),
       m_useTbb(false),
-#ifdef SURELOG_WITH_PYTHON      
+#ifdef SURELOG_WITH_PYTHON
       m_pythonAllowed(true),
 #else
       m_pythonAllowed(false),
@@ -312,7 +309,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_dumpUhdm(false),
       m_elabUhdm(false),
       m_coverUhdm(false),
-      m_showVpiIDs(false), 
+      m_showVpiIDs(false),
       m_replay(false),
       m_uhdmStats(false) {
   m_errors->regiterCmdLine(this);
@@ -839,7 +836,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       i++;
       m_cacheDirId = m_symbolTable->registerSymbol(all_arguments[i]);
     } else if (all_arguments[i] == "-replay") {
-      m_replay = true; 
+      m_replay = true;
     } else if (all_arguments[i] == "-writepp") {
       m_writePpOutput = true;
     } else if (all_arguments[i] == "-noinfo") {
@@ -994,7 +991,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i].size() && all_arguments[i] == "--x-initial") {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
-      m_errors->addError(err);      
+      m_errors->addError(err);
       i++;
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
@@ -1172,4 +1169,3 @@ bool CommandLineParser::cleanCache() {
 
   return noError;
 }
-

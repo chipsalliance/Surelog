@@ -21,6 +21,8 @@
  * Created on January 30, 2020, 8:31 PM
  */
 
+#include <vector>
+
 #include "headers/uhdm_forward_decl.h"
 
 #ifndef PORTNETHOLDER_H
@@ -31,7 +33,7 @@ class Signal;
 
 class PortNetHolder {
 public:
-  virtual ~PortNetHolder();  // virtual as used as interface
+  virtual ~PortNetHolder() {}  // virtual as used as interface
 
   std::vector<Signal*>& getPorts() { return m_ports;  }
   std::vector<Signal*>& getSignals() {return m_signals;  }

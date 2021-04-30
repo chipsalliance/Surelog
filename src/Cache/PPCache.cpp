@@ -20,26 +20,28 @@
  *
  * Created on April 23, 2017, 8:49 PM
  */
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Utils/StringUtils.h"
-#include "Utils/FileUtils.h"
-#include "Cache/Cache.h"
 #include "Cache/PPCache.h"
-#include "flatbuffers/util.h"
+
+#include <algorithm>
 #include <cstdio>
 #include <ctime>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <algorithm>
-#include "Package/Precompiled.h"
-using namespace SURELOG;
 
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include "Cache/Cache.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Package/Precompiled.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
+
+#include "flatbuffers/util.h"
+
+namespace SURELOG {
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
 static std::string FlbSchemaVersion = "1.0";
@@ -415,3 +417,4 @@ bool PPCache::save() {
 
   return status;
 }
+}  // namespace SURELOG

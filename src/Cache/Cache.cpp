@@ -20,21 +20,20 @@
  *
  * Created on April 28, 2017, 9:32 PM
  */
+#include "Cache/Cache.h"
+
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include <cstdio>
 #include <ctime>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <iostream>
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Design/FileContent.h"
-#include "Cache/Cache.h"
+
 #include "CommandLine/CommandLineParser.h"
+
 #include "flatbuffers/util.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 std::string Cache::getExecutableTimeStamp() {
   static const std::string sExecTstamp = std::string(__DATE__) + "-" + __TIME__;
   return sExecTstamp;
@@ -67,7 +66,7 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
 
 bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string schemaVersion,
-                                std::string cacheFileName) {                                
+                                std::string cacheFileName) {
   /* Schema version */
   if (schemaVersion != header->m_flb_version()->c_str()) {
     return false;
@@ -243,7 +242,7 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     field3 |= (uint64_t)object.m_fileId;
     field3 |= (((uint64_t)object.m_line) << (32));
     field4 |= ((uint64_t)object.m_endLine);
-    field4 |= (((uint64_t)object.m_endColumn) << (32)); 
+    field4 |= (((uint64_t)object.m_endColumn) << (32));
     SURELOG::CACHE::VObject vostruct(field1, field2, field3, field4);
     object_vec.push_back(vostruct);
   }
@@ -299,3 +298,4 @@ void Cache::restoreVObjects(
     fileContent->getVObjects().push_back(object);
   }
 }
+}  // namespace SURELOG
