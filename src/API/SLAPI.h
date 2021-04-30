@@ -24,6 +24,12 @@
 #ifndef SLAPI_H
 #define SLAPI_H
 
+#include <string>
+#include <vector>
+
+#include "ParserRuleContext.h"  // Antlr runtime
+#include "SourceCompile/VObjectTypes.h"
+
 typedef unsigned int NodeId;
 namespace SURELOG {
 

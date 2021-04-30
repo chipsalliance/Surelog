@@ -41,17 +41,21 @@ puts $oid " WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or impl
 puts $oid " See the License for the specific language governing permissions and"
 puts $oid " limitations under the License."
 puts $oid " */"
-
-puts $oid "#include \"PythonAPI.h\""
 puts $oid "#ifndef SV3_1APYTHONLISTENER_H"
 puts $oid "#define SV3_1APYTHONLISTENER_H"
+puts $oid ""
+puts $oid "#include \"PythonAPI.h\""
+puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
+puts $oid "#include \"SourceCompile/ParseFile.h\""
+puts $oid "#include \"SourceCompile/PythonListen.h\""
+puts $oid "#include \"parser/SV3_1aParserBaseListener.h\""
 puts $oid ""
 puts $oid "namespace SURELOG {"
 puts $oid ""
 puts $oid ""
 puts $oid "class SV3_1aPythonListener : public SV3_1aParserBaseListener {"
 puts $oid "private:"
-puts $oid "    PythonListen* m_pl;"      
+puts $oid "    PythonListen* m_pl;"
 puts $oid "    PyThreadState* m_interpState;"
 puts $oid "    antlr4::CommonTokenStream* m_tokens;"
 puts $oid "    unsigned int               m_lineOffset;"
@@ -65,8 +69,8 @@ puts $oid "    ~SV3_1aPythonListener();"
 puts $oid ""
 puts $oid " void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, std::string object, bool printColumn = false);"
 puts $oid " void logError(ErrorDefinition::ErrorType, Location& loc, bool showDuplicates = false);"
-puts $oid " void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);"      
-    
+puts $oid " void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);"
+
 
 puts $pid "# This is a SURELOG Python API Listener"
 puts $pid ""
@@ -96,10 +100,10 @@ foreach line $lines {
 	if [regexp {enter} $ruleName] {
 	    if ![regexp {enterEveryRule} $ruleName] {
 		puts $pid "\tif trace:"
-		puts $pid "\t\tprint(\"$ruleName\")" 
+		puts $pid "\t\tprint(\"$ruleName\")"
 		puts $pid "\t\tprint(\"  File:\",SLgetFile(prog, ctx),\",\",SLgetLine(prog, ctx))"
 		puts $pid "\t\ttext = SLgetText(prog, ctx)"
-		puts $pid "\t\tprint(\"  Text:\",text\[:20\],\"...\")" 
+		puts $pid "\t\tprint(\"  Text:\",text\[:20\],\"...\")"
 	    }
 	}
 	puts $pid "\tpass"
@@ -123,6 +127,3 @@ flush $pid
 close $pid
 
 flush stdout
-
-
-

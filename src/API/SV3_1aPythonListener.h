@@ -13,9 +13,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-#include "PythonAPI.h"
 #ifndef SV3_1APYTHONLISTENER_H
 #define SV3_1APYTHONLISTENER_H
+
+#include "PythonAPI.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PythonListen.h"
+#include "parser/SV3_1aParserBaseListener.h"
 
 namespace SURELOG {
 

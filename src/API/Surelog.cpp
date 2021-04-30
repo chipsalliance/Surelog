@@ -14,7 +14,8 @@
  limitations under the License.
  */
 
-#include "CommandLine/CommandLineParser.h"
+#include "API/Surelog.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
@@ -23,8 +24,6 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/Report.h"
 #include "ErrorReporting/Waiver.h"
-#include "Surelog.h"
-
 
 SURELOG::scompiler* SURELOG::start_compiler (SURELOG::CommandLineParser* clp) {
   Compiler* the_compiler = new SURELOG::Compiler(clp, clp->getErrorContainer(),
