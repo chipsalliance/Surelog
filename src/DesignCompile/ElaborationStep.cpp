@@ -1247,6 +1247,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       var = int_var;
     } else if (subnettype == slIntVec_TypeBit) {
       UHDM::bit_var* int_var = s.MakeBit_var();
+      int_var->Ranges(packedDimensions);
       var = int_var;
     } else if (subnettype == slIntegerAtomType_Byte) {
       UHDM::byte_var* int_var = s.MakeByte_var();
@@ -1299,7 +1300,9 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
     obj->VpiParent(array_var);
     UHDM::VectorOfvariables* array_vars = array_var->Variables();
     array_vars->push_back((variables*)obj);
+    ((variables*)obj)->VpiName("");
     array_var->Expr(assignExp);
+    obj = array_var;
   } else {
     if (obj->UhdmType() == uhdmenum_var) {
       ((enum_var*)obj)->VpiName(signame);
