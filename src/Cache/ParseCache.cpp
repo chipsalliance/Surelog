@@ -173,16 +173,16 @@ bool ParseCache::isValid() {
 }
 
 bool ParseCache::restore() {
-  char path [10000];
-  char* p = getcwd(path, 9999);
   CommandLineParser* clp = m_parse->getCompileSourceFile()->getCommandLineParser();
   bool cacheAllowed = clp->cacheAllowed();
   if (!cacheAllowed) return false;
 
   std::string cacheFileName = getCacheFileName_();
   if (!checkCacheIsValid_(cacheFileName)) {
-    if (!clp->parseOnly())
-      std::cout << "Cache miss for: " << cacheFileName << " pwd: " << p << "\n";
+    // char path [10000];
+    // char* p = getcwd(path, 9999);
+    // if (!clp->parseOnly())
+    //   std::cout << "Cache miss for: " << cacheFileName << " pwd: " << p << "\n";
     return false;
   }
 

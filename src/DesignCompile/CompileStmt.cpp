@@ -20,6 +20,7 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
+#include "uhdm.h"
 #include <iostream>
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
@@ -38,7 +39,6 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
-#include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -956,16 +956,39 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         NodeId TfPortDir = fC->Child(Tf_port_declaration);
         VObjectType tf_port_direction_type = fC->Type(TfPortDir);
         NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
-        NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
-        int size;
-        VectorOfrange* ranges =
-            compileRanges(component, fC, Packed_dimension, compileDesign,
+        NodeId Data_type = fC->Child(Data_type_or_implicit);
+        typespec* ts = nullptr;
+        if (fC->Type(Data_type) == slData_type) {
+          ts = compileTypespec(
+              component, fC, Data_type, compileDesign, parent, nullptr, true);
+        } else if (fC->Type(Data_type) == slPacked_dimension) {
+          // Implicit type
+          int size;
+          VectorOfrange* ranges = compileRanges(component, fC, Data_type, compileDesign,
                           nullptr, nullptr, true, size, false);
+          packed_array_typespec* pts = s.MakePacked_array_typespec();
+          pts->VpiFile(fC->getFileName());
+          pts->VpiLineNo(fC->Line(Data_type));
+          pts->VpiColumnNo(fC->Column(Data_type));
+          pts->VpiEndLineNo(fC->EndLine(Data_type));
+          pts->VpiEndColumnNo(fC->EndColumn(Data_type));
+          pts->Ranges(ranges);
+          int_typespec* its = s.MakeInt_typespec();
+          pts->Typespec(its);
+          ts = pts; 
+        }
 
         NodeId List_of_tf_variable_identifiers =
             fC->Sibling(Data_type_or_implicit);
         while (List_of_tf_variable_identifiers) {
+          VectorOfrange* ranges = nullptr;
           NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
+          NodeId Variable_dimension = fC->Sibling(nameId);
+          if (fC->Type(Variable_dimension) == slVariable_dimension) {
+            int size;
+            ranges = compileRanges(component, fC, Variable_dimension, compileDesign,
+                          nullptr, nullptr, true, size, false);
+          }
           const std::string& name = fC->SymName(nameId);
           io_decl* decl = s.MakeIo_decl();
           ios->push_back(decl);
@@ -976,6 +999,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           ioMap.insert(std::make_pair(name, decl));
           decl->VpiFile(fC->getFileName());
           decl->VpiLineNo(fC->Line(nameId));
+          decl->Typespec(ts);
           decl->VpiColumnNo(fC->Column(nameId));
           decl->VpiEndLineNo(fC->EndLine(nameId));
           decl->VpiEndColumnNo(fC->EndColumn(nameId));
