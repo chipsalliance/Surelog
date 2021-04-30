@@ -24,8 +24,8 @@
 #ifndef DESIGNELABORATION_H
 #define DESIGNELABORATION_H
 
-#include "DesignCompile/ElaborationStep.h"
-#include "TestbenchElaboration.h"
+#include "DesignCompile/TestbenchElaboration.h"
+#include "DesignCompile/CompileDesign.h"
 #include "Expression/ExprBuilder.h"
 
 namespace SURELOG {
@@ -73,7 +73,7 @@ class DesignElaboration : public TestbenchElaboration {
                             std::vector<ModuleInstance*>& allSubInstances);
   void recurseBuildInstanceClause_(std::string parentPath, Config* config,
                                    std::set<Config*>& stack);
-  ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent, ModuleInstanceFactory* factory, Config* config); 
+  ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent, ModuleInstanceFactory* factory, Config* config);
   void reduceUnnamedBlocks_();
   void checkConfigurations_();
   Config* getInstConfig(std::string name);

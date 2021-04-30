@@ -20,44 +20,44 @@
  *
  * Created on January 17, 2020, 9:13 PM
  */
+#include "DesignCompile/UhdmChecker.h"
 
 #include <string.h>
 
 #include <map>
 #include <sstream>
-#include "uhdm.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/StringUtils.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
+
 #include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/ParseFile.h"
-#include "Testbench/ClassDefinition.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/ResolveSymbols.h"
-#include "DesignCompile/DesignElaboration.h"
-#include "DesignCompile/UVMElaboration.h"
-#include "DesignCompile/CompilePackage.h"
-#include "DesignCompile/CompileModule.h"
-#include "DesignCompile/CompileFileContent.h"
-#include "DesignCompile/CompileProgram.h"
-#include "DesignCompile/CompileClass.h"
-#include "DesignCompile/Builtin.h"
-#include "DesignCompile/PackageAndRootElaboration.h"
+#include "Design/FileContent.h"
 #include "Design/ModuleInstance.h"
 #include "Design/Netlist.h"
+#include "DesignCompile/Builtin.h"
+#include "DesignCompile/CompileClass.h"
+#include "DesignCompile/CompileFileContent.h"
+#include "DesignCompile/CompileModule.h"
+#include "DesignCompile/CompilePackage.h"
+#include "DesignCompile/CompileProgram.h"
+#include "DesignCompile/DesignElaboration.h"
+#include "DesignCompile/PackageAndRootElaboration.h"
+#include "DesignCompile/ResolveSymbols.h"
+#include "DesignCompile/UVMElaboration.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Testbench/ClassDefinition.h"
 #include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "surelog.h"
-#include "UhdmChecker.h"
+
+#include "uhdm.h"
 #include "vpi_visitor.h"
 #include "Serializer.h"
 #include "module.h"
@@ -89,9 +89,9 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
     current = fC->Object(id);
     bool skip = false;
     VObjectType type = (VObjectType) current.m_type;
-    if ( type == VObjectType::slEnd) 
+    if ( type == VObjectType::slEnd)
       skip = true;
-    
+
     // Skip macro expansion which resides in another file (header)
     SymbolId fid = fC->getFileId(id);
     if (fid != fileId) {
@@ -99,7 +99,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
         stack.push(current.m_sibling);
       continue;
     }
-      
+
     if (type == VObjectType::slModule_declaration) {
       NodeId stId = fC->sl_collect(id, VObjectType::slStringConst,
                                          VObjectType::slAttr_spec);
@@ -112,7 +112,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
       endModuleNode = fC->Parent(id);
       endModuleNode = fC->Sibling(endModuleNode);
     }
-    if ( type == VObjectType::slDescription || 
+    if ( type == VObjectType::slDescription ||
         type == VObjectType::slEndcase ||
         type == VObjectType::slEndtask ||
         type == VObjectType::slEndfunction||
@@ -151,7 +151,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
       skip = true; // Only skip the item itself
 
     }
- 
+
     if (((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slModule_declaration)) || // endmodule : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slPackage_declaration)) || // endpackage : name
         ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slFunction_body_declaration)) || // endfunction  : name
@@ -194,7 +194,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
       }
       skip = true; // Only skip the item itself
     }
-    
+
     if (current.m_sibling)
       stack.push(current.m_sibling);
     if (current.m_child)
@@ -233,7 +233,7 @@ bool UhdmChecker::registerFile(const FileContent* fC, std::set<std::string>& mod
     }
     if (id == endModuleNode) {
       skipModule = false;
-    }  
+    }
   }
   return true;
 }
@@ -299,8 +299,8 @@ bool UhdmChecker::reportHtml(CompileDesign* compileDesign, const std::string& re
         bool exist = false;
         bool unsupported = false;
         for (ColRange& crange : ranges) {
-          switch (crange.covered) {  
-            case EXIST: 
+          switch (crange.covered) {
+            case EXIST:
               exist = true; break;
             case COVERED:
               covered = true; break;
@@ -466,8 +466,8 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
       continue;
     bool unsupported = false;
     UHDM_OBJECT_TYPE ot = bc->UhdmType();
-    if ((ot == uhdmunsupported_expr) || 
-        (ot == uhdmunsupported_stmt) || 
+    if ((ot == uhdmunsupported_expr) ||
+        (ot == uhdmunsupported_stmt) ||
         (ot == uhdmunsupported_typespec))
       unsupported  = true;
     const std::string& fn = bc->VpiFile();
@@ -481,10 +481,10 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
 
         //unsigned short from = bc->VpiColumnNo();
         //unsigned short to = bc->VpiEndColumnNo();
-        
+
         if (cItr != uhdmCover.end()) {
           //bool found = false;
-          
+
           for (ColRange& crange : (*cItr).second) {
           //  if ((crange.from >= from) && (crange.to <= to)) {
           //    found = true;
@@ -532,7 +532,7 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
               (*cItr).second.push_back(crange1);
             } */
           }
-/*          
+/*
           if (found == false) {
             ColRange crange;
             crange.from = from;
@@ -543,7 +543,7 @@ void UhdmChecker::annotate(CompileDesign* m_compileDesign) {
               crange.covered = Status::COVERED;
             (*cItr).second.push_back(crange);
           }
-*/          
+*/
         }
       }
     }

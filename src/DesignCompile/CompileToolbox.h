@@ -24,6 +24,10 @@
 #ifndef COMPILETOOLBOX_H
 #define COMPILETOOLBOX_H
 
+#include "Design/DesignComponent.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 // TODO: this looks like not really used or at least should be provided

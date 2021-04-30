@@ -20,28 +20,32 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "uhdm.h"
+#include "DesignCompile/CompileHelper.h"
+
 #include <iostream>
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
-#include "Expression/Value.h"
-#include "Expression/ExprBuilder.h"
+
+#include "Design/BindStmt.h"
+#include "Design/Design.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
-#include "Design/BindStmt.h"
-#include "Testbench/Property.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/CompileHelper.h"
-#include "CompileDesign.h"
-#include "expr.h"
-#include "UhdmWriter.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/UhdmWriter.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "Expression/ExprBuilder.h"
+#include "Expression/Value.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "Testbench/ClassDefinition.h"
+#include "Testbench/Property.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
+
+// UHDM
+#include "uhdm.h"
+#include "expr.h"
 #include "ElaboratorListener.h"
 
 using namespace SURELOG;
@@ -99,7 +103,7 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = assign;
     break;
   }
-  case VObjectType::slBlocking_assignment: 
+  case VObjectType::slBlocking_assignment:
   case VObjectType::slOperator_assignment: {
     NodeId Operator_assignment = fC->Child(the_stmt);
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
@@ -297,7 +301,7 @@ VectorOfany* CompileHelper::compileStmt(
         while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
           value = fC->Sibling(value);
         }
-      }    
+      }
       param->VpiLocalParam(true);
       UHDM::param_assign* param_assign = s.MakeParam_assign();
       param_assign->VpiFile(fC->getFileName());
@@ -975,7 +979,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
           pts->Ranges(ranges);
           int_typespec* its = s.MakeInt_typespec();
           pts->Typespec(its);
-          ts = pts; 
+          ts = pts;
         }
 
         NodeId List_of_tf_variable_identifiers =
@@ -1025,7 +1029,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
               variables* var = (variables*)compileVariable(
                   component, fC, Data_type, compileDesign,
                   nullptr, nullptr, true, false);
-              if (var) {    
+              if (var) {
                 var->VpiName(name);
                 vars->push_back(var);
                 var->Typespec(ts);
@@ -1144,7 +1148,7 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
   if (func_type == slFunction_declaration) {
     func_decl = fC->Child(nodeId);
     func_type = fC->Type(func_decl);
-  } 
+  }
   if (func_type == slTask_declaration) {
     func_decl = fC->Child(nodeId);
     func_type = fC->Type(func_decl);
@@ -1192,7 +1196,7 @@ NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId, task_func* fu
         if (func) func->VpiDPICStr(vpiDPIC);
       } else if (ctype == "DPI") {
         if (func) func->VpiDPICStr(vpiDPI);
-      }        
+      }
       func_decl = fC->Sibling(func_decl);
       func_type = fC->Type(func_decl);
     }
@@ -1267,7 +1271,7 @@ bool CompileHelper::compileTask(
   NodeId Task_body_declaration = 0;
   if (fC->Type(task_decl) == slTask_body_declaration)
     Task_body_declaration = task_decl;
-  else 
+  else
     Task_body_declaration = fC->Child(task_decl);
   NodeId task_name = fC->Child(Task_body_declaration);
   if (fC->Type(task_name) == VObjectType::slStringConst)
@@ -1313,8 +1317,8 @@ bool CompileHelper::compileTask(
       task->Variables(results.second);
       while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
         NodeId Tf_port_declaration = fC->Child(Tf_port_list);
-        if (fC->Type(Tf_port_declaration) == slTf_port_declaration) { 
-        } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) { 
+        if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
+        } else if (fC->Type(Tf_port_declaration) == slBlock_item_declaration) {
           NodeId ItemNode = fC->Child(Tf_port_declaration);
           if (fC->Type(ItemNode) != slData_declaration)
             break;
@@ -1403,7 +1407,7 @@ bool CompileHelper::compileTask(
               vars->push_back((variables*)stmt->Lhs());
             } else {
               task->Stmt(st);
-            }  
+            }
           } else {
             task->Stmt(st);
           }
@@ -1464,7 +1468,7 @@ bool CompileHelper::compileClassConstructorDeclaration(
         tps->VpiName(name);
       }
     }
-  }  
+  }
 
   func->VpiName(name);
   func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
@@ -1576,9 +1580,9 @@ bool CompileHelper::compileFunction(
     name = "new";
   } else {
     NodeId Function_body_declaration = 0;
-    if (fC->Type(func_decl) == slFunction_body_declaration) 
+    if (fC->Type(func_decl) == slFunction_body_declaration)
       Function_body_declaration = func_decl;
-    else 
+    else
       Function_body_declaration = fC->Child(func_decl);
     NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
     NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
@@ -1624,9 +1628,9 @@ bool CompileHelper::compileFunction(
     tps->VpiName(cdef->getUhdmDefinition()->VpiFullName());
   } else {
     NodeId Function_body_declaration = 0;
-    if (fC->Type(func_decl) == slFunction_body_declaration) 
+    if (fC->Type(func_decl) == slFunction_body_declaration)
       Function_body_declaration = func_decl;
-    else 
+    else
       Function_body_declaration = fC->Child(func_decl);
     NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
     NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
@@ -1636,10 +1640,10 @@ bool CompileHelper::compileFunction(
                         nullptr, true, false));
     if (var) {
       var->VpiName("");
-    }                    
+    }
     func->Return(var);
   }
-  
+
   NodeId Function_statement_or_null = Tf_port_list;
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
@@ -1686,7 +1690,7 @@ bool CompileHelper::compileFunction(
                 VectorOfvariables* vars = func->Variables();
                 if (vars == nullptr) {
                   func->Variables(s.MakeVariablesVec());
-                  vars = func->Variables(); 
+                  vars = func->Variables();
                 }
                 vars->push_back((variables*) stmt->Lhs());
               } else {
@@ -1734,7 +1738,7 @@ bool CompileHelper::compileFunction(
           func->Stmt(st);
         }
         st->VpiParent(func);
-       
+
       }
     }
   }
@@ -1743,7 +1747,7 @@ bool CompileHelper::compileFunction(
 
 Function* CompileHelper::compileFunctionPrototype(
     DesignComponent* scope, const FileContent* fC,
-    NodeId id, CompileDesign* compileDesign) {   
+    NodeId id, CompileDesign* compileDesign) {
   std::string funcName;
   NodeId function_name = 0;
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1826,7 +1830,7 @@ Function* CompileHelper::compileFunctionPrototype(
     func->Io_decls(results.first);
   }
 
-  DataType* returnType = new DataType(); 
+  DataType* returnType = new DataType();
   returnType->init(fC, type, typeName, fC->Type(type));
   Function* result = new Function(scope, fC, id, funcName, returnType);
   Variable* variable = new Variable(returnType, fC, id, 0, funcName);
@@ -2171,7 +2175,7 @@ UHDM::method_func_call* CompileHelper::compileRandomizeCall(DesignComponent* com
                                   const FileContent* fC, NodeId Identifier_list,
                                   CompileDesign* compileDesign, UHDM::any* pexpr) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  method_func_call* func_call = s.MakeMethod_func_call();  
+  method_func_call* func_call = s.MakeMethod_func_call();
   method_func_call* result = func_call;
   func_call->VpiName("randomize");
   NodeId With = 0;

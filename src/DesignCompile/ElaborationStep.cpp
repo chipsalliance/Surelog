@@ -20,31 +20,39 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
-#include <string.h>
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Utils/StringUtils.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/ElaborationStep.h"
+
+#include <string.h>
+
+#include <string>
+#include <vector>
+#include <map>
+
 #include "Design/Enum.h"
+#include "Design/FileContent.h"
 #include "Design/Netlist.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
+#include "Design/VObject.h"
+#include "DesignCompile/CompileDesign.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
+#include "Utils/StringUtils.h"
+
+// UHDM
 #include "headers/uhdm.h"
 #include "headers/Serializer.h"
 #include "headers/ElaboratorListener.h"
@@ -125,7 +133,7 @@ bool ElaborationStep::bindTypedefs_() {
       prevDef = prevDef->getActual();
       if (prevDef->getTypespec() == nullptr)
         noTypespec = true;
-      else 
+      else
         specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(), prevDef->getTypespec()));
     }
 
@@ -234,7 +242,7 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
         orig = ex->Typespec();
-      } 
+      }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
@@ -270,7 +278,7 @@ bool ElaborationStep::bindTypedefs_() {
         orig = ex->Typespec();
       } else if (type_parameter* ex = dynamic_cast<type_parameter*>(var)) {
         orig = ex->Typespec();
-      } 
+      }
       if (orig->UhdmType() == uhdmunsupported_typespec) {
         const std::string& need = orig->VpiName();
         std::map<std::string, typespec*>::iterator itr = specs.find(need);
@@ -754,7 +762,7 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC, N
   }
 }
 
-bool bindStructInPackage(Design* design, Signal* signal, 
+bool bindStructInPackage(Design* design, Signal* signal,
                       const std::string& packageName, const std::string& structName) {
   Package* p = design->getPackage(packageName);
   if (p) {
@@ -912,7 +920,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
           interfName = fC->SymName(typespecId);
         }
       }
-    }  
+    }
     std::string baseName = interfName;
     std::string modPort;
     if (strstr(interfName.c_str(),".")) {
@@ -997,7 +1005,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
             signal->setType(slIntVec_TypeReg);
           } else if (t == slNetType_Wire) {
             signal->setType(slNetType_Wire);
-          } 
+          }
         } else if (cat == DataType::Category::REF) {
           // Should not arrive here, there should always be an actual definition
         }
@@ -1030,7 +1038,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
   return true;
 }
 
-UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id, 
+UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id,
                                              NodeId unpackedDimension, ModuleInstance* instance) {
   // Assignment section
   NodeId assignment = 0;
@@ -1114,7 +1122,7 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
 
       if (override_spec == nullptr) {
         ModuleInstance* parent = instance;
-        if (ModuleInstance* pinst = instance->getParent()) 
+        if (ModuleInstance* pinst = instance->getParent())
           parent = pinst;
         override_spec = m_helper.compileTypespec(
             component, param->getFileContent(), param->getNodeType(),
@@ -1135,15 +1143,15 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
   return spec;
 }
 
-any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
-                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
+any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize,
+                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance,
                 UHDM::VectorOfvariables* vars, UHDM::expr* assignExp, UHDM::typespec* tps) {
   Serializer& s = m_compileDesign->getSerializer();
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
 
   std::string signame = sig->getName();
-  
+
   variables* obj = nullptr;
 
   if (dtype) {
@@ -1180,7 +1188,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       stv->Expr(assignExp);
     } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
       UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
-      
+
       variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
@@ -1326,7 +1334,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       obj->VpiRandType(vpiRandC);
     if (sig->isStatic()) {
       obj->VpiAutomatic(false);
-    } else { 
+    } else {
       obj->VpiAutomatic(true);
     }
     if (sig->isProtected()) {
@@ -1335,8 +1343,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       obj->VpiVisibility(vpiLocalVis);
     } else {
       obj->VpiVisibility(vpiPublicVis);
-    }      
+    }
   }
   return obj;
 }
-

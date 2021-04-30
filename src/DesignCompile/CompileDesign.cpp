@@ -20,36 +20,38 @@
  *
  * Created on July 1, 2017, 1:11 PM
  */
+#include "DesignCompile/CompileDesign.h"
+
 #include <stdint.h>
 
-#include "SourceCompile/SymbolTable.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
 #include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/ParseFile.h"
-#include "Testbench/ClassDefinition.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/ResolveSymbols.h"
+#include "Design/FileContent.h"
+#include "DesignCompile/Builtin.h"
+#include "DesignCompile/CompileClass.h"
+#include "DesignCompile/CompileFileContent.h"
+#include "DesignCompile/CompileModule.h"
+#include "DesignCompile/CompilePackage.h"
+#include "DesignCompile/CompileProgram.h"
 #include "DesignCompile/DesignElaboration.h"
 #include "DesignCompile/NetlistElaboration.h"
-#include "DesignCompile/UVMElaboration.h"
-#include "DesignCompile/CompilePackage.h"
-#include "DesignCompile/CompileModule.h"
-#include "DesignCompile/CompileFileContent.h"
-#include "DesignCompile/CompileProgram.h"
-#include "DesignCompile/CompileClass.h"
-#include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
+#include "DesignCompile/ResolveSymbols.h"
+#include "DesignCompile/UVMElaboration.h"
 #include "DesignCompile/UhdmWriter.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Testbench/ClassDefinition.h"
+
 #include "vpi_visitor.h"
 
 #ifdef USETBB
@@ -72,7 +74,7 @@ CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 
 bool CompileDesign::compile() {
   ExprBuilder::unitTest();
-  
+
   // Handle UHDM Internal errors
   UHDM::ErrorHandler errHandler = [=](const std::string& msg) {
      ErrorContainer* errors = m_compiler->getErrorContainer();
@@ -95,7 +97,7 @@ bool CompileDesign::compile() {
 }
 
 template <class ObjectType, class ObjectMapType, typename FunctorType>
-void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) { 
+void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
   if (maxThreadCount == 0) {
     for (auto itr : objects) {
       FunctorType funct(this, itr.second, m_compiler->getDesign(),
@@ -269,7 +271,7 @@ bool CompileDesign::compilation_() {
 
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
 
-  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation 
+  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation
   maxThreadCount = 0;
 
   int index = 0;

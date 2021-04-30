@@ -20,28 +20,25 @@
  *
  * Created on June 7, 2018, 10:26 PM
  */
-#include <string.h>
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/Signal.h"
-#include "Design/FileContent.h"
-#include "Design/ClockingBlock.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/CompileClass.h"
+
+#include <string.h>
+
+#include <stack>
+#include <string>
+#include <vector>
+
+#include "CommandLine/CommandLineParser.h"
+#include "Design/FileContent.h"
+#include "Design/VObject.h"
+#include "DesignCompile/CompileDesign.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/Location.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
+
 #include "headers/uhdm.h"
 
 using namespace SURELOG;
@@ -63,7 +60,7 @@ bool CompileClass::compile() {
     fileName = "builtin.sv";
   }
   std::string fullName;
-  
+
   std::vector<std::string> names;
   ClassDefinition* parent = m_class;
   DesignComponent* tmp_container = nullptr;
@@ -102,7 +99,7 @@ bool CompileClass::compile() {
   delete errors;
   if (fC->getSize() == 0) return true;
 
-  
+
   NodeId classId = m_class->m_nodeIds[0];
 
   do {
@@ -122,7 +119,7 @@ bool CompileClass::compile() {
       m_class->Attributes(attributes);
     }
   }
-  
+
 
   // Package imports
   std::vector<FileCNodeId> pack_imports;
@@ -206,7 +203,7 @@ bool CompileClass::compile() {
       case VObjectType::slClass_declaration:
         if (id != nodeId) {
           compile_class_declaration_(fC, id);
-          if (current.m_sibling) 
+          if (current.m_sibling)
             stack.push(current.m_sibling);
           continue;
         }
@@ -346,7 +343,7 @@ bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
 
         variable_decl_assignment = fC->Sibling(variable_decl_assignment);
       }
-    } 
+    }
   }
 
   return true;
@@ -449,7 +446,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     NodeId task_body_decl = fC->Child(func_decl);
     NodeId task_name = fC->Child(task_body_decl);
     taskName = fC->SymName(task_name);
-  
+
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
 
@@ -502,7 +499,7 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
 
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
-    
+
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
   }
@@ -797,7 +794,7 @@ bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
 
   */
   UHDM::class_defn* defn = m_class->getUhdmDefinition();
- 
+
   NodeId className = fC->Child(id);
   if (fC->Type(className) == slVirtual) {
     className = fC->Sibling(className);

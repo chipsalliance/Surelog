@@ -20,35 +20,38 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
+#include "DesignCompile/CompileHelper.h"
+
 #include <iostream>
-#include <vector>
 #include <string>
-#include "Expression/Value.h"
-#include "Expression/ExprBuilder.h"
+#include <vector>
+
+#include "Design/Design.h"
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
+#include "Design/Function.h"
+#include "Design/ParamAssign.h"
+#include "Design/Parameter.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/Function.h"
-#include "Testbench/Property.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/UhdmWriter.h"
+#include "Expression/ExprBuilder.h"
+#include "Expression/Value.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "Design/SimpleType.h"
-#include "Design/DummyType.h"
-#include "Design/Parameter.h"
-#include "Design/ParamAssign.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
 #include "Testbench/ClassDefinition.h"
-#include "DesignCompile/CompileHelper.h"
-#include "CompileDesign.h"
-#include "uhdm.h"
-#include "expr.h"
-#include "UhdmWriter.h"
-#include "Serializer.h"
+#include "Testbench/Property.h"
+
 #include "ElaboratorListener.h"
+#include "Serializer.h"
 #include "clone_tree.h"
+#include "expr.h"
+#include "uhdm.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -564,7 +567,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       Variable* variable = new Variable(type, fC, enumValueId, 0, enumName);
       if (scope)
         scope->addVariable(variable);
-    
+
       enum_const* econst = s.MakeEnum_const();
       econst->VpiName(enumName);
       econst->VpiFile(the_enum->getFileContent()->getFileName());
@@ -604,7 +607,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       DummyType* dummy = new DummyType(fC, type_name, stype);
       newTypeDef->setDataType(dummy);
       newTypeDef->setDefinition(dummy);
-      
+
       // Don't create the typespec here, as it is most likely going to be incomplete at compilation time
       /*
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, false);
@@ -614,8 +617,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
         tpclone->VpiName(name);
         if (typespecs)
           typespecs->push_back(tpclone);
-          newTypeDef->setTypespec(tpclone); 
-        dummy->setTypespec(tpclone);   
+          newTypeDef->setTypespec(tpclone);
+        dummy->setTypespec(tpclone);
       }
       */
 
@@ -1067,14 +1070,14 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
                 the_type =  VObjectType::slIntVec_TypeBit;
               } else if (tname == "byte") {
                 the_type =  VObjectType::slIntegerAtomType_Byte;
-              } 
-            }   
+              }
+            }
             signal_type = the_type;
             nodeType = integer_vector_type;
             if (the_type != VObjectType::slClass_scope)
               Packed_dimension = fC->Sibling(integer_vector_type);
-            else 
-              Packed_dimension = fC->Sibling(fC->Sibling(integer_vector_type)); 
+            else
+              Packed_dimension = fC->Sibling(fC->Sibling(integer_vector_type));
           }
         } else if (the_type == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(data_type);
@@ -1085,7 +1088,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
         } else if (the_type == VObjectType::slPacked_dimension) {
           Packed_dimension = data_type;
         }
-        
+
         if (fC->Type(Packed_dimension) == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(Packed_dimension);
           is_signed = true;
@@ -1480,7 +1483,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       List_of_net_decl_assignments = net;
     }
   }
-  
+
   NodeId delay = 0;
   if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
     delay = List_of_net_decl_assignments;
@@ -1659,7 +1662,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       packedDimension = fC->Sibling(packedDimension);
     } else if (fC->Type(packedDimension) == slSigning_Unsigned) {
       packedDimension = fC->Sibling(packedDimension);
-    }  
+    }
     NodeId unpackedDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
@@ -1684,7 +1687,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       VObjectType sigType = fC->Type(intVec_TypeReg);
       if (sigType == slClass_scope || sigType == slStringConst || sigType == slStruct_union) {
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension, VObjectType::slNoType, intVec_TypeReg,
-               unpackedDimension, false); 
+               unpackedDimension, false);
       } else {
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
               packedDimension, VObjectType::slNoType, unpackedDimension, false);
@@ -1860,7 +1863,7 @@ UHDM::atomic_stmt* CompileHelper::compileDelayControl(DesignComponent* component
         NodeId Procedural_timing_control,
         CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
- 
+
   NodeId Delay_control = fC->Child(Procedural_timing_control);
   if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
     return compileEventControlStmt(component, fC, Procedural_timing_control, compileDesign, pexpr, instance);
@@ -1993,7 +1996,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       parameters->push_back(p);
       Parameter* param =
           new Parameter(fC, typeNameId, fC->SymName(typeNameId), ntype, port_param);
-      param->setTypeParam();    
+      param->setTypeParam();
       param->setUhdmParam(p);
       component->insertParameter(param);
       typeNameId = fC->Sibling(typeNameId);
@@ -2026,7 +2029,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       parameters->push_back(p);
       Parameter* param =
           new Parameter(fC, Identifier, fC->SymName(Identifier), Constant_param_expression, port_param);
-      param->setTypeParam();        
+      param->setTypeParam();
       param->setUhdmParam(p);
       component->insertParameter(param);
       Param_assignment = fC->Sibling(Param_assignment);
@@ -2041,7 +2044,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       Data_type_or_implicit = fC->Child(nodeId);
       List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
     }
- 
+
     NodeId Param_assignment = fC->Child(List_of_param_assignments);
     while (Param_assignment) {
 
@@ -2056,7 +2059,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       if (the_type == VObjectType::slData_type) {
         Data_type = fC->Child(Data_type);
         NodeId Signage = fC->Sibling(Data_type);
-        if (fC->Type(Signage) == slSigning_Signed) 
+        if (fC->Type(Signage) == slSigning_Signed)
           isSigned = true;
       }
 
@@ -2085,12 +2088,12 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
             UHDM::constant* c = (UHDM::constant*)expr;
             val = m_exprBuilder.fromVpiValue(c->VpiValue());
             component->setValue(the_name, val, m_exprBuilder);
-          } else if (reduce && (!isMultiDimension)) {  
+          } else if (reduce && (!isMultiDimension)) {
             UHDM::expr* the_expr = (UHDM::expr*) expr;
-            ExprEval expr_eval (the_expr, instance, fC->getFileName(), fC->Line(name), nullptr); 
+            ExprEval expr_eval (the_expr, instance, fC->getFileName(), fC->Line(name), nullptr);
             component->scheduleParamExprEval(the_name, expr_eval);
           } else if (expr && ((exprtype == uhdmoperation) ||
-                             (exprtype == uhdmfunc_call) || 
+                             (exprtype == uhdmfunc_call) ||
                              (exprtype == uhdmsys_func_call))) {
             component->setComplexValue(the_name, (UHDM::expr*) expr);
           } else {
@@ -2195,7 +2198,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component, const FileCo
                                   compileDesign,
                                   nullptr,
                                   nullptr,
-                                  false, 
+                                  false,
                                   false);
   } else if (leaf_type == slDollar_root_keyword) {
     NodeId Dollar_root_keyword = dollar_or_string;

@@ -23,9 +23,13 @@
 
 #ifndef RESOLVESYMBOLS_H
 #define RESOLVESYMBOLS_H
+
 #include "Design/TimeInfo.h"
 #include "Design/FileContent.h"
+#include "Design/Design.h"
+#include "SourceCompile/SymbolTable.h"
 #include "DesignCompile/CompileStep.h"
+#include "DesignCompile/CompileDesign.h"
 
 namespace SURELOG {
 

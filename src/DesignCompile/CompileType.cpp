@@ -20,38 +20,42 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
+#include "DesignCompile/CompileHelper.h"
+
 #include <iostream>
-#include "Expression/Value.h"
-#include "Expression/ExprBuilder.h"
+
+#include "CompileDesign.h"
+#include "Design/Design.h"
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
+#include "Design/Function.h"
+#include "Design/ParamAssign.h"
+#include "Design/Parameter.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
-#include "Design/DummyType.h"
-#include "Design/Function.h"
-#include "Testbench/Property.h"
+#include "DesignCompile/UhdmWriter.h"
+#include "Expression/ExprBuilder.h"
+#include "Expression/Value.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "Design/Parameter.h"
-#include "Design/ParamAssign.h"
-#include "DesignCompile/CompileHelper.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
 #include "Testbench/ClassDefinition.h"
-#include "CompileDesign.h"
+#include "Testbench/Property.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
+
+
+// UHDM
 #include "uhdm.h"
 #include "clone_tree.h"
 #include "ElaboratorListener.h"
 #include "expr.h"
-#include "UhdmWriter.h"
 
 using namespace SURELOG;
 using namespace UHDM;
-
 
 variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
                                     std::vector<UHDM::range*>* packedDimensions,
@@ -64,7 +68,7 @@ variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
     UHDM::int_var* int_var = s.MakeInt_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmlong_int_typespec: {
     UHDM::long_int_var* int_var = s.MakeLong_int_var();
     var = int_var;
@@ -74,38 +78,38 @@ variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
     UHDM::string_var* int_var = s.MakeString_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmshort_int_typespec: {
     UHDM::short_int_var* int_var = s.MakeShort_int_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmbyte_typespec: {
     UHDM::byte_var* int_var = s.MakeByte_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmreal_typespec: {
     UHDM::real_var* int_var = s.MakeReal_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmshort_real_typespec: {
     UHDM::short_real_var* int_var = s.MakeShort_real_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmtime_typespec: {
     UHDM::time_var* int_var = s.MakeTime_var();
     var = int_var;
     break;
-  } 
+  }
   case uhdmbit_typespec: {
     UHDM::bit_var* int_var = s.MakeBit_var();
     int_var->Ranges(packedDimensions);
     var = int_var;
     break;
-  } 
+  }
   case uhdmenum_typespec: {
     enum_typespec* etps = (enum_typespec*) spec;
     typespec* base = (typespec*) etps->Base_typespec();
@@ -126,13 +130,13 @@ variables* CompileHelper::getSimpleVarFromTypespec(UHDM::typespec* spec,
       var = int_var;
     }
     break;
-  } 
+  }
   case uhdmlogic_typespec: {
     logic_var* logicv = s.MakeLogic_var();
     logicv->Ranges(packedDimensions);
     var = logicv;
     break;
-  } 
+  }
   case uhdmvoid_typespec: {
     UHDM::logic_var* logicv = s.MakeLogic_var();
     logicv->Ranges(packedDimensions);
@@ -181,11 +185,11 @@ UHDM::any* CompileHelper::compileVariable(
   }
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size, muteErrors);
-  
+
   if (the_type == VObjectType::slStringConst ||
       the_type == VObjectType::slChandle_type) {
     const std::string& typeName = fC->SymName(variable);
-   
+
     if (const DataType* dt = component->getDataType(typeName)) {
       dt = dt->getActual();
       typespec* tps = dt->getTypespec();
@@ -193,7 +197,7 @@ UHDM::any* CompileHelper::compileVariable(
         variables* var = getSimpleVarFromTypespec(tps, ranges, compileDesign);
         if (var) var->VpiName(fC->SymName(variable));
         result = var;
-      } 
+      }
     }
     if (result == nullptr) {
       chandle_var* ref = s.MakeChandle_var();
@@ -396,12 +400,12 @@ typespec* CompileHelper::compileDatastructureTypespec(DesignComponent* component
       }
       if (dt == nullptr) {
         Parameter* p = component->getParameter(typeName);
-        if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter)) 
+        if (p && p->getUhdmParam() && (p->getUhdmParam()->UhdmType() == uhdmtype_parameter))
           dt = p;
       }
       if (dt == nullptr) {
         for (ParamAssign* passign : component->getParamAssignVec()) {
-          const FileContent* fCP = passign->getFileContent(); 
+          const FileContent* fCP = passign->getFileContent();
           if (fCP->SymName(passign->getParamId()) == typeName) {
             UHDM::param_assign* param_assign = passign->getUhdmParamAssign();
             UHDM::parameter* lhs = (UHDM::parameter*) param_assign->Lhs();
@@ -610,13 +614,13 @@ UHDM::typespec_member* CompileHelper::buildTypespecMember(
       CompileDesign* compileDesign, const std::string& fileName, const std::string& name,
       const std::string& value, unsigned int line, unsigned short column,
       unsigned int eline, unsigned short ecolumn) {
-  /*      
+  /*
   std::string hash = fileName + ":" + name + ":" + value + ":" + std::to_string(line) + ":" +
                      std::to_string(column) + ":" + std::to_string(eline) + ":" +
                      std::to_string(ecolumn);
   std::unordered_map<std::string, UHDM::typespec_member*>::iterator itr =
       m_cache_typespec_member.find(hash);
-  */    
+  */
   typespec_member* var = nullptr;
   //if (itr == m_cache_typespec_member.end()) {
     Serializer& s = compileDesign->getSerializer();
@@ -644,7 +648,7 @@ int_typespec* CompileHelper::buildIntTypespec(
                      std::to_string(ecolumn);
   std::unordered_map<std::string, UHDM::int_typespec*>::iterator itr =
       m_cache_int_typespec.find(hash);
-  */    
+  */
   int_typespec* var = nullptr;
   //if (itr == m_cache_int_typespec.end()) {
     Serializer& s = compileDesign->getSerializer();
@@ -672,7 +676,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
-  if ((the_type == VObjectType::slData_type_or_implicit) ||  
+  if ((the_type == VObjectType::slData_type_or_implicit) ||
       (the_type == VObjectType::slData_type)) {
     type = fC->Child(type);
     the_type = fC->Type(type);
@@ -691,7 +695,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size, false);
   switch (the_type) {
-    case VObjectType::slConstant_mintypmax_expression: 
+    case VObjectType::slConstant_mintypmax_expression:
     case VObjectType::slConstant_primary: {
       return compileTypespec(component, fC, fC->Child(type), compileDesign, result, instance, reduce);
     }
@@ -1145,7 +1149,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
             pats->Logic_typespec((logic_typespec*)result);
             pats->Ranges(ranges);
             result = pats;
-          } 
+          }
         }
       }
       break;
@@ -1203,7 +1207,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
 UHDM::typespec* CompileHelper::elabTypespec(DesignComponent* component, UHDM::typespec* spec, CompileDesign* compileDesign, UHDM::any* pexpr,
                     ValuedComponentI* instance) {
   Serializer& s = compileDesign->getSerializer();
-  typespec* result = spec;                    
+  typespec* result = spec;
   UHDM_OBJECT_TYPE type = spec->UhdmType();
   VectorOfrange* ranges = nullptr;
   switch (type) {

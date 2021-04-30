@@ -20,13 +20,13 @@
  *
  * Created on May 30, 2019, 6:36 PM
  */
-
 #ifndef BUILTIN_H
 #define BUILTIN_H
 
-namespace SURELOG {
+#include "Design/Design.h"
+#include "DesignCompile/CompileDesign.h"
 
-class Design;
+namespace SURELOG {
 
 // TODO: this looks like it should probably be more a
 // function ? Something like
@@ -38,8 +38,8 @@ public:
   void addBuiltins();
 
 private:
-  CompileDesign* m_compiler;
-  Design* m_design;
+  CompileDesign* const m_compiler;
+  Design* const m_design;
 };
 
 };  // namespace SURELOG

@@ -24,6 +24,7 @@
 #ifndef PACKAGEANDROOTELABORATION_H
 #define PACKAGEANDROOTELABORATION_H
 
+#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/ElaborationStep.h"
 
 namespace SURELOG {
@@ -38,7 +39,7 @@ class PackageAndRootElaboration : public ElaborationStep {
   bool elaborate() override;
 
  private:
- 
+
 };
 
 };  // namespace SURELOG

@@ -20,29 +20,28 @@
  *
  * Created on March 22, 2018, 9:43 PM
  */
-
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/Signal.h"
-#include "Design/FileContent.h"
-#include "Design/ClockingBlock.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/CompileHelper.h"
-#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileModule.h"
+
+#include "CommandLine/CommandLineParser.h"
+#include "Design/ClockingBlock.h"
+#include "Design/FileContent.h"
+#include "Design/Signal.h"
+#include "Design/VObject.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
 
 using namespace SURELOG;
 
@@ -214,11 +213,11 @@ bool CompileModule::collectUdpObjects_() {
           io->VpiName(name);
           io->VpiParent(defn);
           ios->push_back(io);
-          port = fC->Sibling(port); 
+          port = fC->Sibling(port);
         }
         break;
       }
-      case slUdp_output_declaration: 
+      case slUdp_output_declaration:
       case slUdp_reg_declaration: {
         NodeId Output = fC->Child(id);
         UHDM::VectorOfattribute* attributes = nullptr;
@@ -241,7 +240,7 @@ bool CompileModule::collectUdpObjects_() {
         if (ios) {
           for (auto io : *ios) {
             if (io->VpiName() == outputname) {
-              if (io->Expr() == nullptr) 
+              if (io->Expr() == nullptr)
                 io->Expr(net); //reg def do not override output def
               net->VpiName(io->VpiName());
               io->VpiDirection(vpiOutput);
@@ -367,7 +366,7 @@ bool CompileModule::collectUdpObjects_() {
               nbSymb = 1;
             } else if (fC->Type(Symbol) == slBinOp_Mult) {
               ventry += "* ";
-              nbSymb = 1;  
+              nbSymb = 1;
             } else {
               const std::string& symb = fC->SymName(Symbol);
               nbSymb = symb.size();
@@ -402,7 +401,7 @@ bool CompileModule::collectUdpObjects_() {
 
         ventry += ": ";
         Symbol = fC->Child(Next_state);
-       
+
         if (fC->Type(Symbol) == slOutput_symbol) {
           Symbol = fC->Child(Symbol);
           const std::string& symb = fC->SymName(Symbol);
@@ -512,10 +511,10 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
       while (endOfBlockId) {
         VObjectType type = fC->Type(endOfBlockId);
         if (type == VObjectType::slEnd)
-          break; 
+          break;
         endOfBlockId = fC->Sibling(endOfBlockId);
         if (type == VObjectType::slGenerate_module_item)
-          break; 
+          break;
       }
       if (fC->Type(id) == VObjectType::slGenerate_item) {
         id = fC->Parent(id);
@@ -646,7 +645,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-              slList_of_type_assignments || 
+              slList_of_type_assignments ||
               fC->Type(list_of_type_assignments) ==
               slType) {
             // Type param
@@ -685,7 +684,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slClass_declaration: {
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           NodeId nameId = fC->Child(id);
           if (fC->Type(nameId) == slVirtual) {
              nameId = fC->Sibling(nameId);
@@ -702,14 +701,14 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slClass_constructor_declaration: {
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileClassConstructorDeclaration(m_module, fC, id,
                                                       m_compileDesign);
           break;
         }
         case VObjectType::slBind_directive: {
           skipChildren = true;
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileBindStmt(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }
@@ -741,7 +740,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slFinal_construct:
           if (collectType != CollectType::OTHER) break;
           m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
-          break; 
+          break;
         default:
           break;
       }
@@ -1026,7 +1025,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slBind_directive: {
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileBindStmt(m_module, fC, id, m_compileDesign, m_instance);
           break;
         }

@@ -20,46 +20,49 @@
  *
  * Created on Mar 1, 2020, 6:36 PM
  */
+#include "DesignCompile/NetlistElaboration.h"
 
 #include <string.h>
 
-#include "Utils/StringUtils.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Config/ConfigSet.h"
+#include <algorithm>
+#include <queue>
+#include <string>
+#include <vector>
+
 #include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "Testbench/Property.h"
-#include "Design/Function.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/NetlistElaboration.h"
 #include "Common/PortNetHolder.h"
+#include "Config/ConfigSet.h"
 #include "Design/Enum.h"
+#include "Design/FileContent.h"
+#include "Design/Function.h"
 #include "Design/Netlist.h"
+#include "Design/ParamAssign.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
-#include "Design/ParamAssign.h"
+#include "Design/VObject.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/UhdmWriter.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
+#include "Testbench/Property.h"
+#include "Utils/StringUtils.h"
+
 #include "ElaboratorListener.h"
-#include "clone_tree.h"
-#include <queue>
-#include <algorithm>
-#include "uhdm.h"
 #include "Serializer.h"
-#include "UhdmWriter.h"
+#include "clone_tree.h"
+#include "uhdm.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -126,7 +129,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
       elabTypeParameter_(mod, sit, instance);
     }
   }
-  // Regular 
+  // Regular
   Netlist* netlist = instance->getNetlist();
   if (netlist == nullptr) return true;
   VectorOfparam_assign* assigns = netlist->param_assigns();
@@ -157,13 +160,13 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
           ElaboratorListener listener(&s);
           param_assign* pclone = (param_assign*) UHDM::clone_tree(mod_assign, s, &listener);
           pclone->VpiParent((any*) mod_assign->VpiParent());
-          
+
           if (opType == vpiAssignmentPatternOp) {
             const any* lhs = pclone->Lhs();
             any* rhs = (any*) pclone->Rhs();
             m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign, instance, 0);
           }
-          
+
           assigns->push_back(pclone);
           continue;
         }
@@ -191,7 +194,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
           expr* rhs = (expr*)m_helper.compileExpression(
               pmod, tpm->getFileContent(), tpm->getNodeId(), m_compileDesign,
               nullptr, pinst, !isMultidimensional);
-          
+
           if (en_replay && m_helper.errorOnNegativeConstant(pmod, rhs, m_compileDesign, pinst)) {
             bool replay = false;
             // GDB: p replay=true
@@ -201,7 +204,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                                          nullptr, pinst, !isMultidimensional);
             }
           }
-          
+
           // If it is a complex expression (! constant)...
           if ((!rhs) || (rhs && (rhs->UhdmType() != uhdmconstant))) {
             // But if this value can be reduced to a constant then take the
@@ -210,7 +213,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                 mod, assign->getFileContent(), assign->getAssignId(),
                 m_compileDesign, nullptr, instance, true);
             if (crhs && crhs->UhdmType() == uhdmconstant) {
-              
+
               if (en_replay && m_helper.errorOnNegativeConstant(mod, crhs, m_compileDesign, instance)) {
                 bool replay = false;
                 // GDB: p replay=true
@@ -220,7 +223,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
                       m_compileDesign, nullptr, instance, true);
                 }
               }
-              
+
               constant* ccrhs = (constant*)crhs;
               const std::string& s = ccrhs->VpiValue();
               Value* v1 = m_exprBuilder.fromVpiValue(s);
@@ -249,7 +252,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
         c->VpiEndLineNo(assign->getFileContent()->EndLine(assign->getAssignId()));
         c->VpiEndColumnNo(assign->getFileContent()->EndColumn(assign->getAssignId()));
         inst_assign->Rhs(c);
-        
+
         if (en_replay && m_helper.errorOnNegativeConstant(mod, c, m_compileDesign, instance)) {
           bool replay = false;
           //GDB: p replay=true
@@ -257,7 +260,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             instance->getValue(paramName, m_exprBuilder);
           }
         }
-        
+
         override = true;
       }
     }
@@ -271,7 +274,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             exp = tmp;
         }
         inst_assign->Rhs(exp);
-        
+
         if (en_replay && m_helper.errorOnNegativeConstant(mod, exp, m_compileDesign, instance)) {
           bool replay = false;
           //GDB: p replay=true
@@ -288,7 +291,7 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance, bool param_p
             }
           }
         }
-        
+
         override = true;
       }
     }
@@ -410,7 +413,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       expr* delay_expr = (expr*) m_helper.compileExpression(comp, fC, Udp_instance, m_compileDesign);
       VectorOfexpr* delays = s.MakeExprVec();
       netlist->delays(delays);
-      delays->push_back(delay_expr);     
+      delays->push_back(delay_expr);
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
@@ -432,7 +435,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       unsigned int index = 0;
       while (Net_lvalue) {
         std::string sigName;
-        NodeId sigId = 0; 
+        NodeId sigId = 0;
         bool bit_or_part_select = false;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
@@ -464,7 +467,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
             } else {
-              any* exp = nullptr; 
+              any* exp = nullptr;
               if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
                 NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
                 exp = m_helper.compileExpression(comp, fC, Ps_or_hierarchical_identifier, m_compileDesign, nullptr, instance);
@@ -497,7 +500,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiName(sigName);
             any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
             ref->Actual_group(net);
-          } else { 
+          } else {
             any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
             p->High_conn(exp);
           }
@@ -799,7 +802,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               pp->High_conn(ref);
               UHDM::any* net = bind_net_(parent, instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
-            }  
+            }
           }
           netlist->ports(newPorts);
         }
@@ -980,8 +983,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, bool ports) 
   return elab_ports_nets_(instance, instance, netlist, netlist, comp, "", ports);
 }
 
-void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child, 
-                                    Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, 
+void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, ModuleInstance* child,
+                                    Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp,
                                     const std::string& prefix) {
   Serializer& s = m_compileDesign->getSerializer();
   std::vector<net*>* nets = netlist->nets();
@@ -1029,7 +1032,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
     } else if (ttmp == uhdmstruct_typespec) {
       struct_typespec* the_tps = (struct_typespec*)tmp;
       if (the_tps->Members()) {
-        isNet = true; 
+        isNet = true;
         for (typespec_member* member : *the_tps->Members()) {
           const typespec* mtps = member->Typespec();
           if (mtps) {
@@ -1131,13 +1134,13 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
           logicn->Ranges(packedDimensions);
           logicn->VpiName(signame);
           obj = logicn;
-          logicn->Typespec(spec);  
+          logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmbyte_typespec) {
           byte_var* logicn = s.MakeByte_var();
           logicn->VpiSigned(sig->isSigned());
           logicn->VpiName(signame);
           obj = logicn;
-          logicn->Typespec(spec);  
+          logicn->Typespec(spec);
         } else {
           variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
           var->Expr(exp);
@@ -1183,7 +1186,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
           ((struct_net*)obj)->VpiName(signame);
         } else if (nettype == uhdmpacked_array_net) {
           ((packed_array_net*)obj)->VpiName(signame);
-        } 
+        }
         nets->push_back((net*)obj);
       }
     } else if (subnettype == slStruct_union) {
@@ -1265,7 +1268,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
     }
     if (parentNetlist)
       parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
-    if (netlist)  
+    if (netlist)
       netlist->getSymbolTable().insert(std::make_pair(signame, obj));
 
     if (exp) {
@@ -1318,7 +1321,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance, Modul
   }
 }
 
-bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, 
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist,
      Netlist* netlist, DesignComponent* comp, const std::string& prefix, bool do_ports) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
@@ -1490,7 +1493,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           continue;
         const std::string& signame = sig->getName();
         if (portInterf.find(signame) == portInterf.end())
-          elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);   
+          elabSignal(sig, instance, child, parentNetlist, netlist, comp, prefix);
 
       } else if (pass == 2) {
         // Port low conn pass
@@ -1498,7 +1501,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           continue;
         const std::string& signame = sig->getName();
         port* dest_port = (*netlist->ports())[portIndex];
-     
+
         if (sig->getModPort() || sig->getInterfaceDef()) {
           // No rebind
         } else {

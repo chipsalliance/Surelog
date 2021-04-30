@@ -24,6 +24,9 @@
 #ifndef COMPILEDESIGN_H
 #define COMPILEDESIGN_H
 
+#include <mutex>
+
+#include "SourceCompile/Compiler.h"
 #include "Serializer.h"
 #include "sv_vpi_user.h"
 

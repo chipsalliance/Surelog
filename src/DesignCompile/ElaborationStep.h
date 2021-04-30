@@ -24,7 +24,15 @@
 #ifndef ELABORATIONSTEP_H
 #define ELABORATIONSTEP_H
 
+#include <string>
+#include <vector>
+
+#include "Design/DesignComponent.h"
+#include "Design/Scope.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
+#include "ErrorReporting/ErrorDefinition.h"
+
 #include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
@@ -40,7 +48,7 @@ class ElaborationStep {
 
  protected:
   bool bindTypedefs_();
-  
+
   const DataType* bindTypeDef_(TypeDef* typd,
                                const DesignComponent* parent,
                                ErrorDefinition::ErrorType errtype);
@@ -76,8 +84,8 @@ class ElaborationStep {
 
   UHDM::typespec* elabTypeParameter_(DesignComponent* component, Parameter* typeParam, ModuleInstance* instance);
 
-  UHDM::any* makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize, 
-                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance, 
+  UHDM::any* makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize,
+                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance,
                 UHDM::VectorOfvariables* vars, UHDM::expr* assignExp, UHDM::typespec* tps);
 
   CompileDesign* m_compileDesign;
