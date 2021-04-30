@@ -20,9 +20,10 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Design/Struct.h"
+
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "uhdm.h"
 
 using namespace SURELOG;
@@ -34,7 +35,7 @@ Struct::Struct(const FileContent* fC, NodeId nameId, NodeId structId)
 
 Struct::~Struct() {}
 
-bool Struct::isNet() {
+bool Struct::isNet() const {
   if (!m_typespec) {
     return false;
   }

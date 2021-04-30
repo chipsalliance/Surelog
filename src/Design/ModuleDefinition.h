@@ -27,14 +27,15 @@
 #include <string_view>
 #include <vector>
 
-#include "Design/DesignComponent.h"
-#include "Design/ValuedComponentI.h"
-#include "Design/Signal.h"
+#include "Common/ClockingBlockHolder.h"
 #include "Design/ClockingBlock.h"
 #include "Design/DataType.h"
-#include "Common/ClockingBlockHolder.h"
-#include "ModPort.h"
+#include "Design/DesignComponent.h"
+#include "Design/ModPort.h"
+#include "Design/Signal.h"
+#include "Design/ValuedComponentI.h"
 #include "uhdm.h"
+
 namespace UHDM {
   class udp_defn;
 }

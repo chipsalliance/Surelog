@@ -20,17 +20,19 @@
  *
  * Created on June 8, 2017, 8:22 PM
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "Design/TimeInfo.h"
-#include "Design/DesignElement.h"
-#include "Library/Library.h"
-#include "ErrorReporting/ErrorContainer.h"
 #include "Design/FileContent.h"
-#include <queue>
-#include <iostream>
-#include <stack>
+
 #include <string.h>
+
+#include <iostream>
+#include <queue>
+#include <stack>
+
+#include "Design/DesignElement.h"
+#include "Design/TimeInfo.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 
@@ -222,7 +224,7 @@ unsigned int FileContent::Line(NodeId index) const {
     Location loc(this->m_fileId);
     Error err (ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";  
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_line;
   }
   return m_objects[index].m_line;
@@ -233,7 +235,7 @@ unsigned short FileContent::Column(NodeId index) const {
     Location loc(this->m_fileId);
     Error err (ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";  
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_column;
   }
   return m_objects[index].m_column;
@@ -244,7 +246,7 @@ unsigned int FileContent::EndLine(NodeId index) const {
     Location loc(this->m_fileId);
     Error err (ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";  
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_endLine;
   }
   return m_objects[index].m_endLine;
@@ -255,7 +257,7 @@ unsigned short FileContent::EndColumn(NodeId index) const {
     Location loc(this->m_fileId);
     Error err (ErrorDefinition::COMP_INTERNAL_ERROR_OUT_OF_BOUND, loc);
     m_errors->addError(err);
-    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";  
+    std::cout << "\nINTERNAL OUT OF BOUND ERROR\n\n";
     return m_objects[0].m_endColumn;
   }
   return m_objects[index].m_endColumn;

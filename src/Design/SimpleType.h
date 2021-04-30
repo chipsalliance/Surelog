@@ -25,6 +25,7 @@
 #define SIMPLE_TYPE_H
 #include <string>
 #include <map>
+
 #include "Design/DataType.h"
 
 namespace SURELOG {
@@ -36,10 +37,10 @@ class SimpleType : public DataType {
   SimpleType(const FileContent* fC, NodeId nameId, NodeId structId);
   ~SimpleType() override;
 
-  NodeId getNameId() { return m_nameId; }
+  NodeId getNameId() const { return m_nameId; }
 
  private:
-  NodeId m_nameId;
+  const NodeId m_nameId;
 };
 
 }  // namespace SURELOG

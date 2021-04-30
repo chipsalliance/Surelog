@@ -29,8 +29,8 @@
 #include <string_view>
 #include <vector>
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

@@ -23,8 +23,10 @@
 
 #ifndef ENUM_H
 #define ENUM_H
+
 #include <string>
 #include <map>
+
 #include "Design/DataType.h"
 
 namespace UHDM {

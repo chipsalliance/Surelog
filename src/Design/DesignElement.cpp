@@ -20,12 +20,9 @@
  *
  * Created on June 8, 2017, 8:05 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/TimeInfo.h"
 #include "Design/DesignElement.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
                              SymbolId uniqueId, unsigned int line, unsigned short column,
                              unsigned int endLine, unsigned short endColumn,
@@ -41,3 +38,4 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_parent(parent),
       m_node(0),
       m_context(NULL) {}
+}  // namespace SURELOG

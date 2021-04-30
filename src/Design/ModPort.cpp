@@ -20,11 +20,9 @@
  *
  * Created on January 31, 2020, 9:46 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Signal.h"
-#include "ModPort.h"
+#include "Design/ModPort.h"
 
-using namespace SURELOG;
+namespace SURELOG {
 
 const Signal* ModPort::getPort(const std::string& name) const {
   for (const Signal& sig : m_ports) {
@@ -34,3 +32,4 @@ const Signal* ModPort::getPort(const std::string& name) const {
   }
   return NULL;
 }
+}  // namespace SURELOG

@@ -20,15 +20,17 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Design/SimpleType.h"
+
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "uhdm.h"
+
 using namespace SURELOG;
 
 SimpleType::SimpleType(const FileContent* fC, NodeId nameId, NodeId structId)
-    : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {
-         m_category = DataType::Category::SIMPLE_TYPEDEF;
+  : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {
+  m_category = DataType::Category::SIMPLE_TYPEDEF;
 }
 
 SimpleType::~SimpleType() {}

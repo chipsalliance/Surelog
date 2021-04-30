@@ -25,8 +25,9 @@
 #define DATATYPE_H
 
 #include <string_view>
-#include "SourceCompile/VObjectTypes.h"
+
 #include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace UHDM {
   class typespec;
@@ -106,7 +107,7 @@ public:
 
   UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
-  
+
 protected:
   const FileContent* m_fileContent = nullptr;
   NodeId m_id = 0;

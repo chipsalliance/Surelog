@@ -25,6 +25,7 @@
 #define STRUCT_H
 #include <string>
 #include <map>
+
 #include "Design/DataType.h"
 
 namespace SURELOG {
@@ -36,11 +37,12 @@ class Struct : public DataType {
   Struct(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;
 
-  NodeId getNameId() { return m_nameId; }
+  NodeId getNameId() const { return m_nameId; }
 
-  bool isNet();
+  bool isNet() const;
+
  private:
-  NodeId m_nameId;
+  const NodeId m_nameId;
 };
 
 };  // namespace SURELOG

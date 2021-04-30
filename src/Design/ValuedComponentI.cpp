@@ -20,10 +20,11 @@
  *
  * Created on May 20, 2019, 21:03 PM
  */
+#include "Design/ValuedComponentI.h"
 
 #include <string>
+
 #include "Expression/ExprBuilder.h"
-#include "Design/ValuedComponentI.h"
 
 using namespace SURELOG;
 
@@ -66,7 +67,7 @@ void ValuedComponentI::forgetValue(const std::string& name) {
 }
 
 void ValuedComponentI::setValue(const std::string& name, Value* val,
-                                ExprBuilder& exprBuilder, int lineNb) {                            
+                                ExprBuilder& exprBuilder, int lineNb) {
   deleteValue(name, exprBuilder);
   m_paramMap.insert(std::make_pair(name, std::make_pair(exprBuilder.clone(val), lineNb)));
   forgetComplexValue(name);
@@ -91,6 +92,6 @@ UHDM::expr* ValuedComponentI::getComplexValue(const std::string& name) const {
 void ValuedComponentI::forgetComplexValue(const std::string& name) {
   auto itr = m_complexValues.find(name);
   if (itr != m_complexValues.end()) {
-    m_complexValues.erase(itr); 
+    m_complexValues.erase(itr);
   }
 }

@@ -23,7 +23,7 @@
 
 #include "Design/Function.h"
 
-using namespace SURELOG;
+namespace SURELOG {
 
 Function::~Function() {}
 
@@ -62,3 +62,4 @@ bool Function::compile(CompileHelper& compile_helper) {
                                             function_statement_or_null);
   return result;
 }
+}  // namespace SURELOG

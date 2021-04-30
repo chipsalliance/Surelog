@@ -20,13 +20,12 @@
  *
  * Created on January 7, 2018, 8:55 PM
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
 #include "Design/DefParam.h"
 
-using namespace SURELOG;
+#include "Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
+
+namespace SURELOG {
 
 std::string DefParam::getFullName() const {
   std::string name;
@@ -42,3 +41,4 @@ std::string DefParam::getFullName() const {
   }
   return name;
 }
+}  // namespace SURELOG

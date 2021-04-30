@@ -20,11 +20,12 @@
  *
  * Created on May 19, 2019, 11:55 AM
  */
+#include "Design/Enum.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Design/Enum.h"
-using namespace SURELOG;
 
+namespace SURELOG {
 Enum::Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId)
     : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId),
       m_baseTypespec(nullptr) {
@@ -41,3 +42,4 @@ Value* Enum::getValue(const std::string& name) {
     return (*itr).second.second;
   }
 }
+}  // namespace SURELOG

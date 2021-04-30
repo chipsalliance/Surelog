@@ -39,7 +39,7 @@ namespace SURELOG {
 class Procedure : public Scope, public Statement {
  public:
   Procedure(DesignComponent* parent, const FileContent* fC, NodeId id,
-            std::string name)
+            const std::string& name)
       : Scope(name, NULL),
         Statement(this, NULL, fC, id,
                   fC ? fC->Type(id) : VObjectType::slFunction_prototype),
@@ -64,13 +64,13 @@ class Procedure : public Scope, public Statement {
   DesignComponent* m_parent;
   const FileContent* m_fileContent;
   NodeId m_nodeId;
-  std::string m_name;
+  const std::string m_name;
   TfPortList m_params;
 };
 
 class SeqBlock : public Scope, public Statement {
  public:
-  SeqBlock(std::string name, Scope* parent, Statement* parentStmt,
+  SeqBlock(const std::string& name, Scope* parent, Statement* parentStmt,
            const FileContent* fC, NodeId id)
       : Scope(name, parent),
         Statement(this, parentStmt, fC, id,

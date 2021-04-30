@@ -23,11 +23,16 @@
 
 #ifndef VALUEDCOMPONENTI_H
 #define VALUEDCOMPONENTI_H
+#include <string>
+#include <map>
+
+namespace UHDM {
+class expr;
+}
 
 namespace SURELOG {
-
 class ExprBuilder;
-
+class Value;
 class ValuedComponentI {
  public:
   ValuedComponentI(const ValuedComponentI* parentScope,
@@ -35,6 +40,7 @@ class ValuedComponentI {
     : m_parentScope(parentScope), m_definition(definition) {};
 
   virtual ~ValuedComponentI(){};
+
   virtual Value* getValue(const std::string& name) const;
   virtual Value* getValue(const std::string& name, ExprBuilder& exprBuilder) const;
   virtual void setValue(const std::string& name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
@@ -48,9 +54,10 @@ class ValuedComponentI {
   virtual UHDM::expr* getComplexValue(const std::string& name) const;
   virtual void forgetComplexValue(const std::string& name);
   std::map<std::string, UHDM::expr*>& getComplexValues() { return m_complexValues; }
+
  private:
   const ValuedComponentI* m_parentScope;
-  ValuedComponentI* m_definition; // Module def for an instance
+  ValuedComponentI* const m_definition; // Module def for an instance
   std::map<std::string, std::pair<Value*, int>> m_paramMap;
   std::map<std::string, UHDM::expr*> m_complexValues;
 };

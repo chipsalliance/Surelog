@@ -23,12 +23,14 @@
 
 #ifndef STATEMENT_H
 #define STATEMENT_H
+
 #include <string>
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/VObjectTypes.h"
+
 #include "Design/DataType.h"
+#include "Design/FileContent.h"
 #include "Design/Scope.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
@@ -64,20 +66,20 @@ class Statement {
   Scope* m_scope;
   Statement* m_parent;
   const FileContent* m_fileContent;
-  NodeId m_nodeId;
-  VObjectType m_type;
+  const NodeId m_nodeId;
+  const VObjectType m_type;
   StatementVector m_statements;
 };
 
 class SubRoutineArg {
  public:
   SubRoutineArg(NodeId node, Value* value) : m_nodeId(node), m_value(value) {}
-  NodeId getNodeId() { return m_nodeId; }
+  NodeId getNodeId() const { return m_nodeId; }
   Value* getValue() { return m_value; }
 
  private:
-  NodeId m_nodeId;
-  Value* m_value;
+  const NodeId m_nodeId;
+  Value* const m_value;
 };
 
 class SubRoutineCallStmt : public Statement {
@@ -95,22 +97,22 @@ class SubRoutineCallStmt : public Statement {
         m_static(static_call),
         m_system(system_call) {
     m_function = NULL;
-  };
+  }
   std::vector<NodeId>& getVarChain() { return m_var_chain; }
-  std::string getVarName(NodeId base_name);
-  std::vector<std::string> getVarChainNames();
-  std::string getFunc() { return m_func; }
-  bool isStatic() { return m_static; }
-  bool isSystemCall() { return m_system; }
+  std::string getVarName(NodeId base_name) const;
+  std::vector<std::string> getVarChainNames() const;
+  const std::string& getFunc() const { return m_func; }
+  bool isStatic() const { return m_static; }
+  bool isSystemCall() const { return m_system; }
   Function* getFunction() override { return m_function; }
   void setFunction(Function* function) override { m_function = function; }
 
  private:
   std::vector<NodeId> m_var_chain;
-  std::string m_func;
+  const std::string m_func;
   std::vector<SubRoutineArg*> m_args;
-  bool m_static;
-  bool m_system;
+  const bool m_static;
+  const bool m_system;
   Function* m_function;
 };
 
@@ -130,11 +132,11 @@ class ForLoopStmt : public Scope, public Statement {
     return m_iteratorIds;
   }
   void setIteratorType(VObjectType type) { m_iteratorType = type; }
-  VObjectType getIteratorType() { return m_iteratorType; }
+  VObjectType getIteratorType() const { return m_iteratorType; }
   void addIteratorStepId(NodeId itrId) { m_stepIds.push_back(itrId); }
   std::vector<NodeId>& getIteratorStepIds() { return m_stepIds; }
   void setConditionId(NodeId id) { m_conditionId = id; }
-  NodeId getConditionId() { return m_conditionId; }
+  NodeId getConditionId() const { return m_conditionId; }
 
  private:
   std::vector<std::pair<NodeId, NodeId>> m_iteratorIds;
@@ -153,13 +155,13 @@ class ForeachLoopStmt : public Scope, public Statement {
         Statement(scope, parentStmt, fileContent, node, type),
         m_arrayId(arrayId) {}
 
-  NodeId getArrayId() { return m_arrayId; }
+  NodeId getArrayId() const { return m_arrayId; }
 
   void addIteratorId(NodeId itrId) { m_iteratorIds.push_back(itrId); }
   std::vector<NodeId>& getIteratorIds() { return m_iteratorIds; }
 
  private:
-  NodeId m_arrayId;
+  const NodeId m_arrayId;
   std::vector<NodeId> m_iteratorIds;
 };
 

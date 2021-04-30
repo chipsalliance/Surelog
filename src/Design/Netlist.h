@@ -23,12 +23,14 @@
 
 #ifndef NETLIST_H
 #define NETLIST_H
+
 #include <string>
 #include <vector>
 #include <map>
-#include "SourceCompile/SymbolTable.h"
+
 #include "Design/FileContent.h"
 #include "Design/ModPort.h"
+#include "SourceCompile/SymbolTable.h"
 #include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
@@ -37,10 +39,7 @@ class ModuleInstance;
 
 class Netlist {
  public:
-  Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(nullptr), m_interface_arrays(nullptr), m_nets(nullptr), 
-                                    m_ports(nullptr), m_gen_scope_arrays(nullptr), m_variables(nullptr), 
-                                    m_array_vars(nullptr), m_array_nets(nullptr), m_delays(nullptr), 
-                                    m_ranges(nullptr), m_assign_stmts(nullptr), m_param_assigns(nullptr) {}
+  Netlist(ModuleInstance* parent) : m_parent(parent) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -64,10 +63,10 @@ class Netlist {
   void interface_arrays(std::vector<UHDM::interface_array*>* interfaces) { m_interface_arrays = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
   void nets(std::vector<UHDM::net*>* nets) { m_nets = nets;}
-  void gen_scopes(std::vector<UHDM::gen_scope_array*>* gen_scopes) {m_gen_scope_arrays = gen_scopes; } 
-  void variables(std::vector<UHDM::variables*>* variables) {m_variables = variables; } 
-  void array_vars(std::vector<UHDM::array_var*>* array_vars) {m_array_vars = array_vars; } 
-  void array_nets(std::vector<UHDM::array_net*>* array_nets) {m_array_nets = array_nets; } 
+  void gen_scopes(std::vector<UHDM::gen_scope_array*>* gen_scopes) {m_gen_scope_arrays = gen_scopes; }
+  void variables(std::vector<UHDM::variables*>* variables) {m_variables = variables; }
+  void array_vars(std::vector<UHDM::array_var*>* array_vars) {m_array_vars = array_vars; }
+  void array_nets(std::vector<UHDM::array_net*>* array_nets) {m_array_nets = array_nets; }
   void delays(std::vector<UHDM::expr*>* delay) { m_delays = delay; }
   void ranges(std::vector<UHDM::range*>* range) { m_ranges = range; }
   void cont_assigns(std::vector<UHDM::cont_assign*>* assigns) { m_assign_stmts = assigns; }
@@ -78,22 +77,25 @@ class Netlist {
   ModPortMap& getModPortMap() { return m_modPortMap; }
   InstanceMap& getInstanceMap() { return m_instanceMap; }
   ModuleInstance* getParent() { return m_parent; }
+
  private:
-  ModuleInstance*                  m_parent;
+  ModuleInstance* const m_parent;
+
   // members of the netlist
-  std::vector<UHDM::interface*>*   m_interfaces;
-  std::vector<UHDM::interface_array*>*  m_interface_arrays;
-  std::vector<UHDM::net*>*         m_nets;
-  std::vector<UHDM::port*>*        m_ports;
-  std::vector<UHDM::gen_scope_array*>* m_gen_scope_arrays;
-  std::vector<UHDM::variables*>* m_variables;
-  std::vector<UHDM::array_var*>* m_array_vars;
-  std::vector<UHDM::array_net*>* m_array_nets;
+  std::vector<UHDM::interface*>*   m_interfaces = nullptr;
+  std::vector<UHDM::interface_array*>*  m_interface_arrays  = nullptr;
+  std::vector<UHDM::net*>*         m_nets  = nullptr;
+  std::vector<UHDM::port*>*        m_ports  = nullptr;
+  std::vector<UHDM::gen_scope_array*>* m_gen_scope_arrays  = nullptr;
+  std::vector<UHDM::variables*>* m_variables  = nullptr;
+  std::vector<UHDM::array_var*>* m_array_vars  = nullptr;
+  std::vector<UHDM::array_net*>* m_array_nets  = nullptr;
   // properties of the netlist itself (gate)
-  std::vector<UHDM::expr*>*      m_delays;
-  std::vector<UHDM::range*>*     m_ranges;
-  std::vector<UHDM::cont_assign*>* m_assign_stmts;
-  std::vector<UHDM::param_assign*>* m_param_assigns;
+  std::vector<UHDM::expr*>*      m_delays  = nullptr;
+  std::vector<UHDM::range*>*     m_ranges  = nullptr;
+  std::vector<UHDM::cont_assign*>* m_assign_stmts  = nullptr;
+  std::vector<UHDM::param_assign*>* m_param_assigns  = nullptr;
+
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

@@ -20,13 +20,9 @@
  *
  * Created on May 12, 2019, 9:06 PM
  */
+#include "Design/TfPortItem.h"
 
 #include <string>
-#include "SourceCompile/SymbolTable.h"
-#include "Expression/Value.h"
-#include "Design/DesignComponent.h"
-#include "Design/FileContent.h"
-#include "Design/TfPortItem.h"
 
 using namespace SURELOG;
 

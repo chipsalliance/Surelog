@@ -25,7 +25,7 @@
 
 using namespace SURELOG;
 
-Variable* Scope::getVariable(std::string name) {
+Variable* Scope::getVariable(const std::string& name) {
   VariableMap::iterator itr = m_variables.find(name);
   if (itr == m_variables.end()) {
     if (m_parentScope) {
