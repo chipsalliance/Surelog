@@ -20,44 +20,47 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
+#include "DesignCompile/CompileHelper.h"
+
 #include <iostream>
-#include <bitset> 
-#include "Utils/FileUtils.h"
-#include "Utils/StringUtils.h"
-#include "Expression/Value.h"
-#include "Expression/ExprBuilder.h"
+#include <bitset>
+
+#include "CommandLine/CommandLineParser.h"
+#include "Design/Design.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
-#include "Testbench/Property.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "Testbench/TypeDef.h"
+#include "Design/ParamAssign.h"
+#include "Design/Parameter.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
-#include "DesignCompile/CompileHelper.h"
-#include "CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/UhdmWriter.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Expression/ExprBuilder.h"
+#include "Expression/Value.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "Testbench/Property.h"
+#include "Testbench/TypeDef.h"
+#include "Utils/FileUtils.h"
+#include "Utils/NumUtils.h"
+#include "Utils/StringUtils.h"
+
+// UHDM
 #include "uhdm.h"
 #include "clone_tree.h"
 #include "ElaboratorListener.h"
 #include "expr.h"
-#include "UhdmWriter.h"
-#include "Utils/StringUtils.h"
-#include "Utils/NumUtils.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "DesignCompile/CompileDesign.h"
-#include "CommandLine/CommandLineParser.h"
-#include "Design/Parameter.h"
-#include "Design/ParamAssign.h"
+
 
 using namespace SURELOG;
 using namespace UHDM;
 
-void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, bool& continue_flag, bool& break_flag, 
+void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& invalidValue, bool& continue_flag, bool& break_flag,
                              DesignComponent* component, CompileDesign* compileDesign,
               ValuedComponentI* instance, const std::string& fileName, int lineNumber, const any* stmt) {
   if (invalidValue) {
@@ -68,24 +71,24 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
     case uhdmif_else: {
       if_else* st = (if_else*) stmt;
       expr* cond = (expr*) st->VpiCondition();
-      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component,
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       if (val > 0) {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
       } else {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiElseStmt());
-      }                                   
-      break;  
+      }
+      break;
     }
     case uhdmif_stmt: {
       if_stmt* st = (if_stmt*) stmt;
       expr* cond = (expr*) st->VpiCondition();
-      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component, 
+      int64_t val = get_value(invalidValue, reduceExpr(cond, invalidValue, component,
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr));
       if (val > 0) {
         EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
-      }                                  
-      break;  
+      }
+      break;
     }
     case uhdmbegin: {
       begin* st = (begin*) stmt;
@@ -121,7 +124,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       assignment* st = (assignment*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      expr* rhsexp = reduceExpr(rhs, invalidValue, component, 
+      expr* rhsexp = reduceExpr(rhs, invalidValue, component,
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr);
 
       bool invalidValueI = false;
@@ -150,7 +153,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       assign_stmt* st = (assign_stmt*) stmt;
       const std::string lhs = st->Lhs()->VpiName();
       expr* rhs = (expr*) st->Rhs();
-      expr* rhsexp = reduceExpr(rhs, invalidValue, component, 
+      expr* rhsexp = reduceExpr(rhs, invalidValue, component,
                                           compileDesign, scopes.back(), fileName, lineNumber, nullptr);
       bool invalidValueI = false;
       bool invalidValueD = false;
@@ -262,13 +265,13 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
               invalidValue,
               reduceExpr(cond, invalidValue, component, compileDesign,
                          scopes.back(), fileName, lineNumber, nullptr));
-          if (invalidValue) 
+          if (invalidValue)
             break;
           if (val == 0) {
             break;
           }
           EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
-          if (invalidValue) 
+          if (invalidValue)
             break;
           if (continue_flag) {
             continue_flag = false;
@@ -277,7 +280,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
           if (break_flag) {
             break_flag = false;
             break;
-          }  
+          }
         }
       }
       break;
@@ -288,7 +291,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
       if (cond) {
         while (1) {
           EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag, component, compileDesign, scopes.back(), fileName, lineNumber, st->VpiStmt());
-          if (invalidValue) 
+          if (invalidValue)
             break;
           if (continue_flag) {
             continue_flag = false;
@@ -302,8 +305,8 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes, bool& i
               invalidValue,
               reduceExpr(cond, invalidValue, component, compileDesign,
                          scopes.back(), fileName, lineNumber, nullptr));
-         if (invalidValue) 
-            break;               
+         if (invalidValue)
+            break;
           if (val == 0) {
             break;
           }
@@ -360,14 +363,14 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args, boo
   Value* defaultV = m_exprBuilder.fromVpiValue("INT:0");
   defaultV->setInvalid();
   scope->setValue(name,defaultV, m_exprBuilder);
-  // set args 
+  // set args
   if (func->Io_decls()) {
-    unsigned int index = 0;  
+    unsigned int index = 0;
     for (auto io : *func->Io_decls()) {
       if (args && (index < args->size())) {
         const std::string ioname = io->VpiName();
         expr* ioexp = (expr*) args->at(index);
-        expr* exparg = reduceExpr(ioexp, invalidValue, component, 
+        expr* exparg = reduceExpr(ioexp, invalidValue, component,
                                           compileDesign, instance, fileName, lineNumber, pexpr);
         bool invalidValueI = false;
         bool invalidValueD = false;

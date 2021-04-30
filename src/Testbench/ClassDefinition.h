@@ -24,16 +24,17 @@
 #ifndef CLASSDEFINITION_H
 #define CLASSDEFINITION_H
 
-#include "Design/DesignComponent.h"
-#include "Design/ValuedComponentI.h"
 #include "Design/DataType.h"
-#include "Property.h"
-#include "FunctionMethod.h"
-#include "TaskMethod.h"
-#include "Constraint.h"
-#include "TypeDef.h"
-#include "CoverGroupDefinition.h"
+#include "Design/DesignComponent.h"
 #include "Design/Parameter.h"
+#include "Design/ValuedComponentI.h"
+#include "Testbench/Constraint.h"
+#include "Testbench/CoverGroupDefinition.h"
+#include "Testbench/FunctionMethod.h"
+#include "Testbench/Property.h"
+#include "Testbench/TaskMethod.h"
+#include "Testbench/TypeDef.h"
+
 #include "headers/uhdm_forward_decl.h"
 #include "uhdm.h"
 

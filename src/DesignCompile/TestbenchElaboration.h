@@ -24,6 +24,7 @@
 #ifndef TESTBENCHELABORATION_H
 #define TESTBENCHELABORATION_H
 
+#include "Design/Statement.h"
 #include "DesignCompile/ElaborationStep.h"
 
 namespace SURELOG {

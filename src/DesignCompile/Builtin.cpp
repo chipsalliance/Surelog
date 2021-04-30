@@ -20,35 +20,20 @@
  *
  * Created on May 30, 2019, 6:36 PM
  */
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/Signal.h"
-#include "Design/FileContent.h"
-#include "Design/ClockingBlock.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
-#include "headers/Serializer.h"
-#include "headers/class_defn.h"
 
 #include <string_view>
 
-using namespace SURELOG;
+#include "Design/DataType.h"
+#include "Package/Package.h"
+#include "Testbench/ClassDefinition.h"
+#include "Testbench/FunctionMethod.h"
 
+// UHDM
+#include "headers/Serializer.h"
+#include "headers/class_defn.h"
+
+namespace SURELOG {
 static VObjectType convert(std::string_view type) {
   VObjectType result = VObjectType::slNoType;
   if (type == "int")
@@ -232,3 +217,4 @@ void Builtin::addBuiltins() {
     classDef->insertFunction(method);
   }
 }
+}  // namespace SURELOG

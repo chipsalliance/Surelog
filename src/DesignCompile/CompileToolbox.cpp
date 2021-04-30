@@ -20,29 +20,9 @@
  *
  * Created on June 13, 2018, 9:36 PM
  */
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/Signal.h"
-#include "Design/FileContent.h"
-#include "Design/ClockingBlock.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileToolbox.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 CompileToolbox::CompileToolbox() {}
 
 CompileToolbox::~CompileToolbox() {}
@@ -51,3 +31,4 @@ bool CompileToolbox::compileInitialBlock_(FileContent* fC, NodeId nodeId,
                                           DesignComponent* component) {
   return true;
 }
+}  // namespace SURELOG

@@ -26,6 +26,10 @@
 
 #include <string>
 
+#include "Design/Design.h"
+#include "DesignCompile/CompileDesign.h"
+#include "SourceCompile/VObjectTypes.h"
+
 namespace SURELOG {
 
 class UhdmWriter final {

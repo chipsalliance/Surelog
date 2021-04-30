@@ -20,49 +20,50 @@
  *
  * Created on January 17, 2020, 9:13 PM
  */
+#include "DesignCompile/UhdmWriter.h"
+
 #include <map>
-#include "headers/uhdm.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/StringUtils.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
+
 #include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/ParseFile.h"
-#include "Testbench/ClassDefinition.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/ResolveSymbols.h"
-#include "DesignCompile/DesignElaboration.h"
-#include "DesignCompile/UVMElaboration.h"
-#include "DesignCompile/CompilePackage.h"
-#include "DesignCompile/CompileModule.h"
-#include "DesignCompile/CompileFileContent.h"
-#include "DesignCompile/CompileProgram.h"
-#include "DesignCompile/CompileClass.h"
-#include "DesignCompile/Builtin.h"
-#include "DesignCompile/PackageAndRootElaboration.h"
+#include "Design/FileContent.h"
 #include "Design/ModuleInstance.h"
 #include "Design/Netlist.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
+#include "DesignCompile/Builtin.h"
+#include "DesignCompile/CompileClass.h"
+#include "DesignCompile/CompileFileContent.h"
+#include "DesignCompile/CompileModule.h"
+#include "DesignCompile/CompilePackage.h"
+#include "DesignCompile/CompileProgram.h"
+#include "DesignCompile/DesignElaboration.h"
+#include "DesignCompile/PackageAndRootElaboration.h"
+#include "DesignCompile/ResolveSymbols.h"
+#include "DesignCompile/UVMElaboration.h"
+#include "DesignCompile/UhdmChecker.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Testbench/ClassDefinition.h"
+#include "Utils/StringUtils.h"
 #include "surelog.h"
-#include "UhdmWriter.h"
-#include "headers/vpi_visitor.h"
+
+#include "headers/ElaboratorListener.h"
 #include "headers/Serializer.h"
 #include "headers/module.h"
-#include "DesignCompile/UhdmChecker.h"
+#include "headers/uhdm.h"
 #include "headers/vpi_listener.h"
-#include "headers/ElaboratorListener.h"
 #include "headers/vpi_uhdm.h"
+#include "headers/vpi_visitor.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -127,7 +128,7 @@ unsigned int getBuiltinType(VObjectType type) {
   case VObjectType::slPullup:
     return vpiPullupPrim;
   case VObjectType::slPulldown:
-    return vpiPulldownPrim;    
+    return vpiPulldownPrim;
   default:
     return 0;
   }
@@ -284,7 +285,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_WildcardEqual:
   case VObjectType::slBinOp_WildEqual:
     return vpiWildEqOp;
-  case VObjectType::slBinOp_WildcardNotEqual: 
+  case VObjectType::slBinOp_WildcardNotEqual:
   case VObjectType::slBinOp_WildNotEqual:
     return vpiWildNeqOp;
   case VObjectType::slIff:
@@ -309,7 +310,7 @@ bool isMultidimensional(const UHDM::typespec* ts) {
     } else if (ts->UhdmType() == uhdmbit_typespec) {
       bit_typespec* lts = (bit_typespec*)ts;
       if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
-    } 
+    }
   }
   return isMultiDimension;
 }
@@ -377,7 +378,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance, UHDM::scope* m
           if (((parameter*)pclone)->Ranges() && ((parameter*)pclone)->Ranges()->size() > 1)
             multi = true;
           if (instance->getComplexValue(name)) {
-          } else { 
+          } else {
             Value* val = instance->getValue(name, exprBuilder);
             if (val && val->isValid() && (!multi)) {
               ((parameter*)pclone)->VpiValue(val->uhdmValue());
@@ -489,7 +490,7 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
     }
     typespec* tps = dtype->getTypespec();
     if (parent->UhdmType() == uhdmpackage) {
-      if (tps) 
+      if (tps)
         tps->VpiName(parent->VpiName() + "::" + tps->VpiName());
     }
     if (tps) {
@@ -610,7 +611,7 @@ void writeClass (ClassDefinition* classDef, VectorOfclass_defn* dest_classes, Se
     if (c->VpiName() == "")
       c->VpiName(name);
     if (c->VpiFullName() == "")
-      c->VpiFullName(name);  
+      c->VpiFullName(name);
     c->Attributes(classDef->Attributes());
     if (fC) {
       // Builtin classes have no file
@@ -786,7 +787,7 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
     for (auto ps : *m->Parameters()) {
       ps->VpiParent(m);
     }
-  }  
+  }
   // Param_assigns
   if (mod->getParam_assigns()) {
     m->Param_assigns(mod->getParam_assigns());
@@ -826,7 +827,7 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
          cblocks->push_back(cblock.getActual());
          break;
       }
-    }  
+    }
   }
 
   // Assertions
@@ -889,7 +890,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
       if (tf->VpiParent() == 0)
         tf->VpiParent(m);
       if (tf->Instance() == 0)
-        tf->Instance(m);  
+        tf->Instance(m);
     }
   }
 
@@ -914,7 +915,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
          cblocks->push_back(cblock.getActual());
          break;
       }
-    }  
+    }
   }
 
 }
@@ -988,7 +989,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
       }
       default:
         break;
-    }  
+    }
   }
 
 }
@@ -1212,7 +1213,7 @@ bool writeElabGenScope(Serializer& s, ModuleInstance* instance, gen_scope* m, Ex
       }
       default:
         break;
-    }  
+    }
   }
 
 
@@ -1366,7 +1367,7 @@ bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m, ExprBui
               }
             }
           }
-          if (ref->Actual_group()) 
+          if (ref->Actual_group())
             break;
         }
         if (ref->Actual_group()) continue;
@@ -1442,7 +1443,7 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m, E
       assigns->push_back(obj);
     }
   }
- 
+
   // Modports
   ModuleDefinition* module = (ModuleDefinition*) mod;
   ModuleDefinition::ModPortSignalMap& orig_modports = module->getModPortSignalMap();
@@ -1465,7 +1466,7 @@ bool writeElabInterface(Serializer& s, ModuleInstance* instance, interface* m, E
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
- 
+
 
   if (mod) {
     for (UHDM::ref_obj* ref : mod->getLateBinding()) {
@@ -1523,14 +1524,14 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType, 
       } else if (vpiGateType == vpiTranif1Prim ||
                  vpiGateType == vpiTranif0Prim ||
                  vpiGateType == vpiRtranif1Prim ||
-                 vpiGateType == vpiRtranif0Prim || 
+                 vpiGateType == vpiRtranif0Prim ||
                  vpiGateType == vpiTranPrim ||
                  vpiGateType == vpiRtranPrim) {
         if (index < ports->size() -1) {
           term->VpiDirection(vpiInout);
         } else {
           term->VpiDirection(vpiInput);
-        }           
+        }
       } else {
         if (index == 0) {
           term->VpiDirection(vpiOutput);
@@ -1549,14 +1550,14 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         ModPortMap& modPortMap,
         InstanceMap& instanceMap,
         ExprBuilder& exprBuilder) {
-  Serializer& s = compileDesign->getSerializer();        
+  Serializer& s = compileDesign->getSerializer();
   VectorOfmodule* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
   VectorOfprimitive* subPrimitives = nullptr;
   VectorOfprimitive_array* subPrimitiveArrays = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
-  
+
   if (m->UhdmType() == uhdmmodule) {
     writeElabModule(s, instance, (module*) m, exprBuilder);
   } else if (m->UhdmType() == uhdmgen_scope) {
@@ -1684,11 +1685,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
             prims->push_back(gate);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);  
+            subPrimitiveArrays->push_back(gate_array);
           } else {
             if (subPrimitives == nullptr)
               subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);  
+            subPrimitives->push_back(gate);
           }
         } else if (vpiGateType == vpiPmosPrim || vpiGateType == vpiRpmosPrim ||
             vpiGateType == vpiNmosPrim || vpiGateType == vpiRnmosPrim ||
@@ -1705,11 +1706,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
             prims->push_back(gate);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);  
+            subPrimitiveArrays->push_back(gate_array);
           } else {
             if (subPrimitives == nullptr)
               subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);  
+            subPrimitives->push_back(gate);
           }
           gate->VpiPrimType(vpiGateType);
         } else {
@@ -1722,11 +1723,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
             prims->push_back(gate);
             if (subPrimitiveArrays == nullptr)
               subPrimitiveArrays = s.MakePrimitive_arrayVec();
-            subPrimitiveArrays->push_back(gate_array);    
+            subPrimitiveArrays->push_back(gate_array);
           } else {
             if (subPrimitives == nullptr)
               subPrimitives = s.MakePrimitiveVec();
-            subPrimitives->push_back(gate);  
+            subPrimitives->push_back(gate);
           }
           gate->VpiPrimType(vpiGateType);
         }
@@ -1735,7 +1736,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
             gate->Delay((*delays)[0]);
           }
         }
-        
+
         gate->VpiName(child->getInstanceName());
         gate->VpiDefName(child->getModuleName());
         gate->VpiFullName(child->getFullPathName());
@@ -1820,7 +1821,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   InstanceMap instanceMap;
   Serializer& s = m_compileDesign->getSerializer();
   ExprBuilder exprBuilder;
-  exprBuilder.seterrorReporting(m_compileDesign->getCompiler()->getErrorContainer(), 
+  exprBuilder.seterrorReporting(m_compileDesign->getCompiler()->getErrorContainer(),
      m_compileDesign->getCompiler()->getSymbolTable());
 
   Location loc(m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(uhdmFile));
@@ -2015,7 +2016,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
-    printUhdmStats(s); 
+    printUhdmStats(s);
 
   // ----------------------------------
   // Fully elaborated model
@@ -2030,7 +2031,7 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   }
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
-    printUhdmStats(s); 
+    printUhdmStats(s);
 
   {
     Error err(ErrorDefinition::UHDM_WRITE_DB, loc);

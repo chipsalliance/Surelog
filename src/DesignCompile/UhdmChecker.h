@@ -24,7 +24,14 @@
 #ifndef UHDMCHECKER_H
 #define UHDMCHECKER_H
 
+#include <map>
+#include <set>
 #include <string>
+#include <vector>
+
+#include "Design/Design.h"
+#include "Design/FileContent.h"
+#include "DesignCompile/CompileDesign.h"
 
 namespace SURELOG {
 
@@ -41,7 +48,7 @@ private:
     bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage);
     float reportCoverage(const std::string& reportFile);
     void annotate(CompileDesign* m_compileDesign);
-    void mergeColumnCoverage(); 
+    void mergeColumnCoverage();
     CompileDesign* const m_compileDesign;
     Design* const m_design;
     typedef unsigned int LineNb;
@@ -51,14 +58,14 @@ private:
       UNSUPPORTED
     };
     class ColRange {
-      public:
+    public:
       unsigned short from;
-      unsigned short to; 
+      unsigned short to;
       Status         covered;
     };
-    typedef std::vector<ColRange> Ranges; 
+    typedef std::vector<ColRange> Ranges;
     typedef std::map<LineNb, Ranges> RangesMap;
-    typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;  
+    typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
     FileNodeCoverMap fileNodeCoverMap;
     std::map<std::string, const FileContent*> fileMap;
     std::multimap<float, std::pair<std::string, float>> coverageMap;

@@ -20,27 +20,22 @@
  *
  * Created on March 22, 2018, 9:57 PM
  */
-
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Design/Statement.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/CompilePackage.h"
+
+#include "CommandLine/CommandLineParser.h"
+#include "Design/FileContent.h"
+#include "Design/Statement.h"
+#include "Design/VObject.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/VObjectTypes.h"
 
 using namespace SURELOG;
 
@@ -135,13 +130,13 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
       VObjectType type = fC->Type(id);
       switch (type) {
         case VObjectType::slPackage_import_item: {
-          if (collectType != CollectType::FUNCTION) break; 
+          if (collectType != CollectType::FUNCTION) break;
           m_helper.importPackage(m_package, m_design, fC, id, m_compileDesign);
           m_helper.compileImportDeclaration(m_package, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParameter_declaration: {
-          if (collectType != CollectType::DEFINITION) break; 
+          if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments||
@@ -159,7 +154,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          if (collectType != CollectType::DEFINITION) break; 
+          if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
               slList_of_type_assignments||
@@ -189,13 +184,13 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slParam_assignment: {
-          if (collectType != CollectType::DEFINITION) break; 
+          if (collectType != CollectType::DEFINITION) break;
           FileCNodeId fnid(fC, id);
           m_package->addObject(type, fnid);
           break;
         }
         case VObjectType::slClass_declaration: {
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           NodeId nameId = fC->Child(id);
           if (fC->Type(nameId) == slVirtual) {
              nameId = fC->Sibling(nameId);
@@ -212,25 +207,25 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slClass_constructor_declaration: {
-          if (collectType != CollectType::OTHER) break; 
+          if (collectType != CollectType::OTHER) break;
           m_helper.compileClassConstructorDeclaration(m_package, fC, id,
                                                       m_compileDesign);
           break;
         }
          case VObjectType::slNet_declaration: {
-          if (collectType != CollectType::DEFINITION) break; 
-          // In a package this is certainly a var that the parser mis-interpreted 
+          if (collectType != CollectType::DEFINITION) break;
+          // In a package this is certainly a var that the parser mis-interpreted
           m_helper.compileNetDeclaration(m_package, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
-          if (collectType != CollectType::DEFINITION) break; 
+          if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_package, fC, id, false,
                                           m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {
-          if (collectType != CollectType::FUNCTION) break; 
+          if (collectType != CollectType::FUNCTION) break;
           Function* func = m_helper.compileFunctionPrototype(m_package, fC, id, m_compileDesign);
           m_package->insertFunction(func);
           break;

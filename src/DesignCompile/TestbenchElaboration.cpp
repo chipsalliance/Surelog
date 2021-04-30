@@ -21,29 +21,20 @@
  * Created on February 6, 2019, 9:01 PM
  */
 
-#include <queue>
-
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "Testbench/Property.h"
-#include "Design/Function.h"
-#include "Design/SimpleType.h"
-#include "Testbench/ClassDefinition.h"
 #include "DesignCompile/TestbenchElaboration.h"
+
+
+#include <queue>
+#include <string>
+#include <vector>
+
+#include "Design/DataType.h"
+#include "Design/VObject.h"
+#include "ErrorReporting/Location.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
+#include "Testbench/Property.h"
+
 #include "headers/uhdm.h"
 
 using namespace SURELOG;
@@ -84,8 +75,8 @@ bool checkValidFunction(const DataType* dtype, const std::string& function,
         datatypeName = "string";
         validFunction = false;
       }
-    } else 
-     validFunction = false;   
+    } else
+     validFunction = false;
   } else
     validFunction = false;
   return validFunction;
@@ -235,7 +226,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
           bindDataType_(class_def.first, class_def.second->getFileContent(),
                         class_def.second->getNodeId(), classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_BASE_CLASS);
-      const ClassDefinition* bdef = dynamic_cast<const ClassDefinition*>(the_def);            
+      const ClassDefinition* bdef = dynamic_cast<const ClassDefinition*>(the_def);
       class_def.second = bdef;
       if (class_def.second) {
         // Super
@@ -755,8 +746,8 @@ bool TestbenchElaboration::bindProperties_() {
       UHDM::expr* exp =
           exprFromAssign_(classDefinition, fC, id, unpackedDimension, nullptr);
 
-      UHDM::any* obj = makeVar_(classDefinition, sig, packedDimensions, packedSize, 
-                unpackedDimensions, unpackedSize, nullptr, 
+      UHDM::any* obj = makeVar_(classDefinition, sig, packedDimensions, packedSize,
+                unpackedDimensions, unpackedSize, nullptr,
                 vars, exp, tps);
 
       if (obj) {

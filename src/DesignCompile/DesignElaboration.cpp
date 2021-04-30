@@ -20,36 +20,39 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
+#include "DesignCompile/DesignElaboration.h"
+
 #include <string.h>
+
 #include <queue>
+#include <string>
 #include <unordered_set>
 
-#include "Utils/StringUtils.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Config/ConfigSet.h"
 #include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "DesignCompile/CompileDesign.h"
-#include "DesignCompile/CompileModule.h"
-#include "Testbench/Property.h"
+#include "Config/ConfigSet.h"
+#include "Design/FileContent.h"
 #include "Design/Function.h"
 #include "Design/Parameter.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/DesignElaboration.h"
+#include "Design/VObject.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileModule.h"
 #include "DesignCompile/NetlistElaboration.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/ClassDefinition.h"
+#include "Testbench/Property.h"
+#include "Utils/StringUtils.h"
+
 #include "vpi_visitor.h"
 #include "clone_tree.h"
 #include "ElaboratorListener.h"
@@ -496,7 +499,7 @@ bool DesignElaboration::createBuiltinPrimitives_() {
         "notif1",   "nmos",     "pmos",   "rnmos",   "rpmos",
         "and",      "or",       "nand",   "nor",     "xor",
         "xnor",     "buf",      "not",    "tranif0", "tranif1",
-        "rtranif0", "rtranif1", "tran",   "rtran"  , "pullup",  
+        "rtranif0", "rtranif1", "tran",   "rtran"  , "pullup",
         "pulldown", "UnsupportedPrimitive"}) {
     std::string name = std::string("work@") + type;
     design->addModuleDefinition(name,
@@ -639,7 +642,7 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     }
   }
   if (instance) {
-    /* return value ignored, no binding in binding */ 
+    /* return value ignored, no binding in binding */
     std::vector<ModuleInstance*> parentSubInstances;
     instance->setInstanceBinding(parent);
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
@@ -652,7 +655,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                                            NodeId parentParamOverride,
                                            ModuleInstanceFactory* factory,
                                            ModuleInstance* parent,
-                                           Config* config, 
+                                           Config* config,
                                            std::vector<ModuleInstance*>& parentSubInstances) {
   if (!parent) return;
   std::vector<ModuleInstance*> allSubInstances;
@@ -784,8 +787,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       modName = genBlkBaseName + std::to_string(genBlkIndex);
 
       std::vector<VObjectType> btypes = {
-          VObjectType::slGenerate_module_block, 
-          VObjectType::slGenerate_interface_block, 
+          VObjectType::slGenerate_module_block,
+          VObjectType::slGenerate_interface_block,
           VObjectType::slGenerate_block,
           VObjectType::slGenerate_module_named_block,
           VObjectType::slGenerate_interface_named_block};
@@ -839,7 +842,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         NodeId genBlock = fC->Sibling(iteration);
 
         bool validValue;
-        int64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false);
         bool cont = (validValue && (condVal > 0));
 
         while (cont) {
@@ -854,7 +857,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
             def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
             if (DesignComponent* defParent = parent->getDefinition())
-              def->setParentScope(defParent);                                           
+              def->setParentScope(defParent);
             design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
 
           }
@@ -870,13 +873,13 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               def, fC, genBlock, parent, instName, indexedModName);
           child->setValue(name, m_exprBuilder.clone(currentIndexValue), m_exprBuilder, fC->Line(varId));
           elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
-                             child, config, allSubInstances);                
+                             child, config, allSubInstances);
           allSubInstances.push_back(child);
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
           parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
-          
-          condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false); 
+
+          condVal = m_helper.getValue(validValue, def, fC, endLoopTest, m_compileDesign, nullptr, parent, true, false);
           cont = (validValue && (condVal > 0));
 
           if (!newVal->isValid()) {
@@ -900,7 +903,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           conditionId = fC->Child(conditionId);
         }
         bool validValue;
-        int64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent, true, false); 
+        int64_t condVal = m_helper.getValue(validValue, def, fC, conditionId, m_compileDesign, nullptr, parent, true, false);
 
         NodeId tmp = fC->Sibling(conditionId);
 
@@ -916,8 +919,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               // Find if one of the case expr matches the case expr
               if (fC->Type(exprItem) == VObjectType::slConstant_expression) {
                 bool validValue;
-                int64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent, true, false); 
-                
+                int64_t caseVal = m_helper.getValue(validValue, def, fC, exprItem, m_compileDesign, nullptr, parent, true, false);
+
                 if (condVal == caseVal) {
                   nomatch = false;
                   break;
@@ -974,7 +977,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                 NodeId Cond = fC->Child(If_generate_construct);
                 if (fC->Type(Cond) == VObjectType::slConstant_expression) {
                   bool validValue;
-                  condVal  = m_helper.getValue(validValue, def, fC, Cond, m_compileDesign, nullptr, parent, true, false); 
+                  condVal  = m_helper.getValue(validValue, def, fC, Cond, m_compileDesign, nullptr, parent, true, false);
                 } else {
                   // It is not an else-if
                   condVal = true;
@@ -1036,7 +1039,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
         if (DesignComponent* defParent = parent->getDefinition())
-          def->setParentScope(defParent);    
+          def->setParentScope(defParent);
         design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
       }
 
@@ -1074,7 +1077,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
       elaborateInstance_(def->getFileContents()[0], subInstanceId,
-                         paramOverride, factory, child, config, allSubInstances);                  
+                         paramOverride, factory, child, config, allSubInstances);
       allSubInstances.push_back(child);
 
     }
@@ -1139,7 +1142,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
 
       NodeId tmpId = fC->Sibling(moduleName);
       VObjectType tmpType = fC->Type(tmpId);
-      if (tmpType == VObjectType::slParameter_value_assignment || 
+      if (tmpType == VObjectType::slParameter_value_assignment ||
           tmpType == slDelay2) {
         paramOverride = tmpId;
       }
@@ -1172,8 +1175,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
         std::vector<VObjectType> insttypes = {
             VObjectType::slHierarchical_instance,
             VObjectType::slN_input_gate_instance,
-            VObjectType::slN_output_gate_instance, 
-            VObjectType::slPull_gate_instance, 
+            VObjectType::slN_output_gate_instance,
+            VObjectType::slPull_gate_instance,
             VObjectType::slUdp_instance};
 
         std::vector<NodeId> hierInstIds =
@@ -1289,7 +1292,7 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
             }
             if (def && (type != VObjectType::slGate_instantiation)) {
               elaborateInstance_(def->getFileContents()[0], childId,
-                                 paramOverride, factory, child, subConfig, allSubInstances);               
+                                 paramOverride, factory, child, subConfig, allSubInstances);
             } else {
               // Build black box model
               NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
@@ -1511,7 +1514,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           }
         }
         if (complex == false) {
-          
+
           if (value == nullptr) {
             Parameter* p =  module->getParameter(name);
             bool isTypeParam = false;
@@ -1523,9 +1526,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               // GDB: p replay=true
               if (replay) {
                 m_exprBuilder.evalExpr(parentFile, expr,
-                                                parentInstance, isTypeParam);    
-              }   
-            }                                
+                                                parentInstance, isTypeParam);
+              }
+            }
           }
           if (value == nullptr || (value && !value->isValid())) {
             bool replay = false;
@@ -1553,7 +1556,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         }
       } else {
         // Index param
-        NodeId expr = child;        
+        NodeId expr = child;
         const DesignComponent::ParameterVec& params =  module->getOrderedParameters();
         Parameter* p = nullptr;
         bool isTypeParam = false;
@@ -1561,8 +1564,8 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           p = params.at(index);
           isTypeParam = p->isTypeParam();
         }
-          
-        UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(parentDefinition, 
+
+        UHDM::expr* complexV = (UHDM::expr*)m_helper.compileExpression(parentDefinition,
             parentFile, expr, m_compileDesign,
             nullptr, parentInstance, true, false);
 
@@ -1623,7 +1626,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         instance->setValue(name, val, m_exprBuilder, 0);
         overridenParams.insert(name);
       }
-    } 
+    }
   }
 
   // Defparams
@@ -1827,7 +1830,7 @@ bool DesignElaboration::bindDataTypes_(DesignComponent* component) {
   if (component == nullptr)
     return true;
   if (component->getFileContents().empty())
-    return true;  
+    return true;
   const FileContent* fC = component->getFileContents()[0];
   std::vector<Signal*>& ports = component->getPorts();      // Always empty
   std::vector<Signal*>& signals = component->getSignals();  // Variables actually

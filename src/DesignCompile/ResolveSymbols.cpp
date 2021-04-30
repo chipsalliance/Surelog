@@ -20,25 +20,14 @@
  *
  * Created on July 1, 2017, 12:38 PM
  */
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/Error.h"
-#include "ErrorReporting/ErrorDefinition.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Testbench/Program.h"
-#include "Testbench/ClassDefinition.h"
-#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/ResolveSymbols.h"
+
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
+#include "Testbench/ClassDefinition.h"
+
 #include "headers/uhdm.h"
 
 using namespace SURELOG;

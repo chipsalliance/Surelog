@@ -20,42 +20,44 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
+#include "DesignCompile/CompileHelper.h"
+
 #include <iostream>
-#include "Expression/Value.h"
-#include "Expression/ExprBuilder.h"
+
+#include "CompileDesign.h"
+#include "Design/Design.h"
 #include "Design/Enum.h"
+#include "Design/Function.h"
+#include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/SimpleType.h"
-#include "Design/Function.h"
-#include "Testbench/Property.h"
+#include "Expression/ExprBuilder.h"
+#include "Expression/Value.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "DesignCompile/CompileHelper.h"
-#include "CompileDesign.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "Testbench/Property.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include "uhdm.h"
-#include "clone_tree.h"
-#include "ElaboratorListener.h"
-#include "expr.h"
-#include "UhdmWriter.h"
 
-using namespace SURELOG;
-using namespace UHDM;
+#include "ElaboratorListener.h"
+#include "UhdmWriter.h"
+#include "clone_tree.h"
+#include "expr.h"
+#include "uhdm.h"
+
+namespace SURELOG {
 
 bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign) {
-  UHDM::Serializer& s = compileDesign->getSerializer();        
+  UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId item = fC->Child(nodeId);
   if (fC->Type(item) == slConcurrent_assertion_item) {
     NodeId Concurrent_assertion_statement = fC->Child(item);
-    VectorOfany* stmts = compileStmt(component, fC, Concurrent_assertion_statement, compileDesign, nullptr); 
-    VectorOfany* assertions = component->getAssertions();
+    UHDM::VectorOfany* stmts = compileStmt(component, fC, Concurrent_assertion_statement, compileDesign, nullptr);
+    UHDM::VectorOfany* assertions = component->getAssertions();
     if (assertions == nullptr) {
       component->setAssertions(s.MakeAnyVec());
       assertions = component->getAssertions();
@@ -80,10 +82,10 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileC
   return true;
 }
 
-UHDM::property_inst* createPropertyInst(any* property_expr, UHDM::Serializer& s) {
+UHDM::property_inst* createPropertyInst(UHDM::any* property_expr, UHDM::Serializer& s) {
   UHDM::property_inst* inst = (UHDM::property_inst*) property_expr;
-  if (property_expr->UhdmType() == uhdmfunc_call) {
-    func_call* call = (func_call*)property_expr;
+  if (property_expr->UhdmType() == UHDM::uhdmfunc_call) {
+    UHDM::func_call* call = (UHDM::func_call*)property_expr;
     UHDM::property_inst* real_property_expr = s.MakeProperty_inst();
     real_property_expr->VpiArguments(call->Tf_call_args());
     real_property_expr->VpiName(call->VpiName());
@@ -117,16 +119,16 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
       NodeId else_keyword = fC->Sibling(if_stmt_id);
       if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
     }
-    VectorOfany* if_stmts = nullptr;
+    UHDM::VectorOfany* if_stmts = nullptr;
     if (if_stmt_id)
       if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-    if (if_stmts) 
+    if (if_stmts)
       if_stmt = (*if_stmts)[0];
-    VectorOfany* else_stmts = nullptr;
+    UHDM::VectorOfany* else_stmts = nullptr;
     if (else_stmt_id)
       else_stmts =
           compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
-    if (else_stmts) 
+    if (else_stmts)
       else_stmt = (*else_stmts)[0];
   }
 
@@ -226,13 +228,13 @@ UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
       else_stmt_id = fC->Sibling(else_keyword);
   }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
-  VectorOfany* if_stmts = nullptr;
+  UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
   UHDM::any* if_stmt  = nullptr;
   if (if_stmts)
     if_stmt = (*if_stmts)[0];
-  VectorOfany* else_stmts = nullptr;
+  UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
     else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* else_stmt = nullptr;
@@ -324,13 +326,13 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
       else_stmt_id = fC->Sibling(else_keyword);
   }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
-  VectorOfany* if_stmts = nullptr;
+  UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
   UHDM::any* if_stmt  = nullptr;
   if (if_stmts)
     if_stmt = (*if_stmts)[0];
-  VectorOfany* else_stmts = nullptr;
+  UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
     else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* else_stmt = nullptr;
@@ -391,3 +393,4 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   }
   return stmt;
 }
+}  // namespace SURELOG

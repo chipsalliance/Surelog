@@ -24,6 +24,13 @@
 #ifndef COMPILEPACKAGE_H
 #define COMPILEPACKAGE_H
 
+#include "DesignCompile/CompileDesign.h"
+#include "Package/Package.h"
+#include "Design/Design.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "DesignCompile/CompileHelper.h"
+
 namespace SURELOG {
 
 struct FunctorCompilePackage {
@@ -63,7 +70,7 @@ class CompilePackage final {
   enum CollectType { FUNCTION, DEFINITION, OTHER };
   bool collectObjects_(CollectType collectType);
 
-  CompileDesign* m_compileDesign;
+  CompileDesign* const m_compileDesign;
   Package* const m_package;
   Design* const m_design;
   SymbolTable* const m_symbols;

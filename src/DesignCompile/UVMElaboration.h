@@ -24,6 +24,7 @@
 #ifndef UVMELABORATION_H
 #define UVMELABORATION_H
 
+#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/TestbenchElaboration.h"
 
 namespace SURELOG {
