@@ -24,10 +24,9 @@
 #ifndef PYTHONAPICACHE_H
 #define PYTHONAPICACHE_H
 
-#include "flatbuffers/flatbuffers.h"
-#include "Cache/python_api_generated.h"
-#include <cstdio>
 #include "Cache/Cache.h"
+#include "Cache/python_api_generated.h"
+#include "SourceCompile/PythonListen.h"
 
 namespace SURELOG {
 

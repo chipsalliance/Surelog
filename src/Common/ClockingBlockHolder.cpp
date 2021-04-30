@@ -23,8 +23,7 @@
 
 #include "Common/ClockingBlockHolder.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 void ClockingBlockHolder::addClockingBlock(SymbolId blockId,
                                            ClockingBlock& block) {
   m_clockingBlockMap.insert(std::make_pair(blockId, block));
@@ -38,3 +37,4 @@ ClockingBlock* ClockingBlockHolder::getClockingBlock(SymbolId blockId) {
     return NULL;
   }
 }
+}  // namespace SURELOG

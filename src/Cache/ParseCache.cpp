@@ -20,7 +20,7 @@
  *
  * Created on April 29, 2017, 4:20 PM
  */
-
+#include "Cache/ParseCache.h"
 
 #if defined(_MSC_VER)
   #include <direct.h>
@@ -30,29 +30,27 @@
   #include <unistd.h>
 #endif
 
-
-#include <stdint.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
+#include <cstdint>
 #include <cstdio>
 #include <ctime>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include "Cache/Cache.h"
 #include "CommandLine/CommandLineParser.h"
+#include "Design/FileContent.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Package/Precompiled.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "Utils/StringUtils.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Utils/FileUtils.h"
-#include "Cache/Cache.h"
+#include "Utils/StringUtils.h"
+
 #include "flatbuffers/util.h"
-#include "Cache/ParseCache.h"
-#include "Design/FileContent.h"
-#include "Package/Precompiled.h"
 
 using namespace SURELOG;
 

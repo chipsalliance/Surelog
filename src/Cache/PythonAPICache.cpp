@@ -20,33 +20,31 @@
  *
  * Created on May 28, 2017, 10:49 PM
  */
+#include "Cache/PythonAPICache.h"
 
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
-#include "Utils/StringUtils.h"
-#include "Utils/FileUtils.h"
-#include "Cache/Cache.h"
-#include "flatbuffers/util.h"
 #include <cstdio>
 #include <ctime>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "antlr4-runtime.h"
-using namespace antlr4;
-
 #include "API/PythonAPI.h"
-#include "Cache/PythonAPICache.h"
-#include "SourceCompile/PythonListen.h"
+#include "Cache/Cache.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
+#include "antlr4-runtime.h"
 
-using namespace SURELOG;
+#include "flatbuffers/util.h"
 
+namespace SURELOG {
 static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
@@ -173,3 +171,4 @@ bool PythonAPICache::save() {
 
   return status;
 }
+}  // namespace SURELOG
