@@ -20,41 +20,33 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
+#include "API/PythonAPI.h"
 
 #include <string.h>
-#include "ParserRuleContext.h"
 
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/StringUtils.h"
-#include "Utils/FileUtils.h"
+#include <cstdio>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "ParserRuleContext.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "antlr4-runtime.h"
-
-using namespace std;
-using namespace antlr4;
-
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/PythonListen.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "parser/SV3_1aParserBaseListener.h"
 
-#include "API/SV3_1aPythonListener.h"
-
-using namespace SURELOG;
-
-#include <sstream>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <cstdio>
-
-#include "API/PythonAPI.h"
-
-#include "API/SLAPI.h"
-
+// Antlr runtime. TODO: add proper prefix.
+#include "antlr4-runtime.h"
 #include "ParserRuleContext.h"
 
 #ifdef SURELOG_WITH_PYTHON
@@ -63,9 +55,10 @@ using namespace SURELOG;
 #include "API/vobjecttypes_py.h"
 #endif
 
-#include <cstdlib>
-#include "SourceCompile/PythonListen.h"
+#include "API/SLAPI.h"
+#include "API/SV3_1aPythonListener.h"
 
+namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
 
 PyThreadState* PythonAPI::m_mainThreadState = NULL;
@@ -119,7 +112,7 @@ bool PythonAPI::loadScript(std::string name, bool check) {
 }
 
 bool PythonAPI::loadScript_(std::string name, bool check) {
-#ifdef SURELOG_WITH_PYTHON  
+#ifdef SURELOG_WITH_PYTHON
   if (FileUtils::fileExists(name)) {
     FILE* fp = fopen(name.c_str(), "r");
     PyRun_SimpleFile(fp, name.c_str());
@@ -217,13 +210,13 @@ void PythonAPI::loadScriptsInInterp_() {
 }
 
 void PythonAPI::loadScripts () {
-#ifdef SURELOG_WITH_PYTHON  
+#ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
 
   loadScriptsInInterp_();
 
   PyEval_ReleaseThread(m_mainThreadState);
-#endif  
+#endif
 }
 
 void PythonAPI::initInterp_ () {
@@ -242,7 +235,7 @@ void PythonAPI::initInterp_ () {
   PyRun_SimpleString("sys.path.append(\".\")");
   PyRun_SimpleString(
       std::string("sys.path.append(\"" + m_programPath + "\")").c_str());
-#endif      
+#endif
 }
 
 void PythonAPI::init(int argc, const char** argv) {
@@ -258,7 +251,7 @@ void PythonAPI::init(int argc, const char** argv) {
   }
   // Before Python 3.7, the parameter to SetProgramName() was not a
   // const wchar_t* but a wchar_t (even though never written to).
-#ifdef SURELOG_WITH_PYTHON   
+#ifdef SURELOG_WITH_PYTHON
   static wchar_t progname[] = L"surelog";
 
   Py_SetProgramName(progname);
@@ -273,12 +266,12 @@ void PythonAPI::init(int argc, const char** argv) {
   initInterp_();
 
   PyEval_ReleaseThread(m_mainThreadState);
-#endif  
+#endif
 }
 
 void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
                            parser_rule_context* ctx1) {
-#ifdef SURELOG_WITH_PYTHON                               
+#ifdef SURELOG_WITH_PYTHON
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*) ctx1;
   PyEval_AcquireThread(listener->getPyThreadState());
   PyObject *pModuleName, *pModule, *pFunc;
@@ -307,13 +300,13 @@ void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
   Py_XDECREF(pFunc);
   Py_DECREF(pModule);
   PyEval_ReleaseThread(listener->getPyThreadState());
-#endif  
+#endif
 }
 
 std::string PythonAPI::evalScript(std::string module, std::string function,
                                   std::vector<std::string> args,
                                   PyThreadState* interp) {
-#ifdef SURELOG_WITH_PYTHON                                    
+#ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(interp);
 
   std::string result;
@@ -385,7 +378,7 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
 
 bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
                                   FileContent* fC, PyThreadState* interp) {
-#ifdef SURELOG_WITH_PYTHON                                    
+#ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(interp);
   loadScript_(script);
   std::string function = "slUserCallbackPerFile";
@@ -419,11 +412,11 @@ bool PythonAPI::evalScriptPerFile(std::string script, ErrorContainer* errors,
   return true;
 #else
   return false;
-#endif  
+#endif
 }
 
 bool PythonAPI::evalScript(std::string script, Design* design) {
-#ifdef SURELOG_WITH_PYTHON  
+#ifdef SURELOG_WITH_PYTHON
   PyEval_AcquireThread(m_mainThreadState);
   loadScript_(script);
   std::string function = "slUserCallbackPerDesign";
@@ -457,5 +450,7 @@ bool PythonAPI::evalScript(std::string script, Design* design) {
   return true;
 #else
   return false;
-#endif    
+#endif
 }
+
+}  // namespace SURELOG

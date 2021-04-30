@@ -20,31 +20,30 @@
  *
  * Created on April 16, 2017, 8:28 PM
  */
-#include "SourceCompile/SymbolTable.h"
+#include "API/SV3_1aPythonListener.h"
+
+#include <cstdlib>
+#include <iostream>
+
+#include "API/PythonAPI.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/PythonListen.h"
-#include <cstdlib>
-#include <iostream>
-#include "antlr4-runtime.h"
-using namespace std;
-using namespace antlr4;
-using namespace SURELOG;
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
 
+#include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "API/SV3_1aPythonListener.h"
-using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "Utils/FileUtils.h"
-#include "API/PythonAPI.h"
 
+namespace SURELOG {
 SV3_1aPythonListener::SV3_1aPythonListener (PythonListen* pl, PyThreadState* interpState, antlr4::CommonTokenStream* tokens, unsigned int lineOffset) :
 m_pl(pl), m_interpState(interpState), m_tokens(tokens), m_lineOffset(lineOffset) { }
 
@@ -57,7 +56,9 @@ SV3_1aPythonListener::logError (ErrorDefinition::ErrorType error, antlr4::Parser
 {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn (getTokenStream (), ctx);
 
-  Location loc (m_pl->getParseFile()->getFileId (lineCol.first + m_lineOffset), m_pl->getParseFile()->getLineNb (lineCol.first + m_lineOffset), printColumn ? lineCol.second : 0,
+  Location loc (m_pl->getParseFile()->getFileId (lineCol.first + m_lineOffset),
+                m_pl->getParseFile()->getLineNb (lineCol.first + m_lineOffset),
+                printColumn ? lineCol.second : 0,
                 m_pl->getCompileSourceFile()->getSymbolTable ()->registerSymbol(object));
   Error err (error, loc);
   m_pl->addError (err);
@@ -79,3 +80,4 @@ SV3_1aPythonListener::logError (ErrorDefinition::ErrorType error, Location& loc,
   Error err (error, loc, &extras);
   m_pl->getCompileSourceFile ()->getErrorContainer ()->addError (err, showDuplicates);
 }
+}  // namespace SURELOG

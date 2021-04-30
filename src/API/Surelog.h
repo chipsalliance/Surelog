@@ -20,15 +20,17 @@
  *
  * Created on November 21, 2019, 10:09 PM
  */
-
 #ifndef SURELOG_H
 #define SURELOG_H
+
 #include "sv_vpi_user.h"
+#include "CommandLine/CommandLineParser.h"
+#include "Design/Design.h"
 
 namespace SURELOG {
   struct scompiler;
   // Create a compiler session based on the command line options
-  SURELOG::scompiler* start_compiler (SURELOG::CommandLineParser* clp); 
+  SURELOG::scompiler* start_compiler (SURELOG::CommandLineParser* clp);
 
   // Surelog internal design representation and AST access
   SURELOG::Design*    get_design(SURELOG::scompiler* compiler);
@@ -39,9 +41,9 @@ namespace SURELOG {
   //      third_party/UHDM/headers/
   vpiHandle get_uhdm_design(SURELOG::scompiler* compiler);
 
-  // Terminate the compiler session, cleanup internal datastructures, 
-  // the design persists post this operation 
+  // Terminate the compiler session, cleanup internal datastructures,
+  // the design persists post this operation
   void       shutdown_compiler(SURELOG::scompiler* compiler);
-}  
+}
 
 #endif
