@@ -23,14 +23,16 @@
 
 #ifndef DESIGNCOMPONENT_H
 #define DESIGNCOMPONENT_H
+
 #include <vector>
 #include <map>
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/FileCNodeId.h"
-#include "Design/DataType.h"
-#include "Testbench/TypeDef.h"
+
 #include "Common/PortNetHolder.h"
+#include "Design/DataType.h"
+#include "Design/FileCNodeId.h"
 #include "Design/ValuedComponentI.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Testbench/TypeDef.h"
 
 namespace SURELOG {
 
@@ -42,13 +44,13 @@ class ParamAssign;
 
 class ExprEval {
   public:
-  ExprEval(UHDM::expr* expr, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr) : 
+  ExprEval(UHDM::expr* expr, ValuedComponentI* instance, const std::string& fileName, int lineNumber, UHDM::any* pexpr) :
                m_expr(expr), m_instance(instance), m_fileName(fileName), m_lineNumber(lineNumber), m_pexpr(pexpr) {}
-  UHDM::expr* m_expr; 
-  ValuedComponentI* m_instance; 
+  UHDM::expr* m_expr;
+  ValuedComponentI* m_instance;
   std::string m_fileName;
   int m_lineNumber;
-  UHDM::any* m_pexpr; 
+  UHDM::any* m_pexpr;
 };
 
 
@@ -146,9 +148,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>
       m_namedObjects;
   std::vector<FileCNodeId> m_empty;
- protected: 
+ protected:
   DataTypeMap m_dataTypes;
- private: 
+ private:
   DataTypeMap m_usedDataTypes;
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;

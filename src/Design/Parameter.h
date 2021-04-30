@@ -24,8 +24,9 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 #include <string>
-#include "SourceCompile/SymbolTable.h"
+
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
@@ -41,14 +42,14 @@ class Parameter : public DataType {
 
   void setUhdmParam(UHDM::any* param) { m_param = param; }
   UHDM::any* getUhdmParam() const { return m_param; }
-  bool isPortParam() { return m_port_param; }
+  bool isPortParam() const { return m_port_param; }
   void setImportedPackage(const std::string& package) {m_importedPackage = package; }
   std::string importedPackage() { return m_importedPackage; }
-  bool isTypeParam() { return type_param; }
+  bool isTypeParam() const { return type_param; }
   void setTypeParam() { type_param = true; }
-  bool isMultidimension() { return multi_dimension; }
+  bool isMultidimension() const { return multi_dimension; }
   void setMultidimension() { multi_dimension  = true; }
-  
+
  private:
   NodeId m_ntype;
   UHDM::any* m_param;

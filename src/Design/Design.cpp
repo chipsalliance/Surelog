@@ -20,29 +20,30 @@
  *
  * Created on July 1, 2017, 1:23 PM
  */
+#include "Design/Design.h"
+
 #include <queue>
 #include <set>
-#include "Utils/StringUtils.h"
-#include "SourceCompile/VObjectTypes.h"
-#include "Design/VObject.h"
+
+#include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
-#include "SourceCompile/SymbolTable.h"
+#include "Design/VObject.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
-#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "Utils/FileUtils.h"
-#include "Design/Design.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 
-using namespace SURELOG;
-
-static std::mutex m;
+namespace SURELOG {
+static std::mutex m;  // Why this is a global mutex, not instance mutex ?
 void Design::addFileContent(SymbolId fileId, FileContent* content) {
   m.lock();
   m_fileContents.push_back(std::make_pair(fileId, content));
@@ -514,7 +515,8 @@ std::vector<BindStmt*> Design::getBindStmts(const std::string& targetName) {
   }
   return results;
 }
- 
+
 void Design::addBindStmt(const std::string& targetName, BindStmt* stmt) {
   m_bindMap.insert(std::make_pair(targetName, stmt));
 }
+}  // namespace SURELOG

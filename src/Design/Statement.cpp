@@ -22,30 +22,25 @@
  */
 
 #include "Design/Statement.h"
+
 using namespace SURELOG;
 
 Statement::~Statement() {}
 
-std::string SubRoutineCallStmt::getVarName(NodeId base_name) {
+std::string SubRoutineCallStmt::getVarName(NodeId base_name) const {
   const FileContent* const fC = getFileContent();
-  std::string baseName;
-  VObjectType type = fC->Type(base_name);
-  if (type == VObjectType::slSuper_keyword)
-    baseName = "super";
-  else if (type == VObjectType::slThis_keyword)
-    baseName = "this";
-  else if (type == VObjectType::slThis_dot_super)
-    baseName = "super";
-  else if (type == VObjectType::slSuper_dot_new)
-    baseName = "super";
-  else if (type == VObjectType::slStringConst)
-    baseName = fC->SymName(base_name);
-  else
-    baseName = "UNKNOWN_VAR_NAME";
-  return baseName;
+  switch (fC->Type(base_name)) {
+  case VObjectType::slSuper_keyword:
+  case VObjectType::slThis_dot_super:
+  case VObjectType::slSuper_dot_new:
+    return "super";
+  case VObjectType::slThis_keyword: return "this";
+  case VObjectType::slStringConst: return fC->SymName(base_name);
+  default:  return "UNKNOWN_VAR_NAME";
+  }
 }
 
-std::vector<std::string> SubRoutineCallStmt::getVarChainNames() {
+std::vector<std::string> SubRoutineCallStmt::getVarChainNames() const {
   std::vector<std::string> result;
   for (auto node : m_var_chain) {
     result.push_back(getVarName(node));

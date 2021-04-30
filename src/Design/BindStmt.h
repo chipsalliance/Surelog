@@ -23,9 +23,11 @@
 
 #ifndef BindStmt_H
 #define BindStmt_H
+
 #include <string>
 #include <map>
-#include "FileContent.h"
+
+#include "Design/FileContent.h"
 
 namespace UHDM {
   class typespec;
@@ -38,12 +40,14 @@ class BindStmt {
  public:
   BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId, NodeId targetInstId, NodeId bindId, NodeId instanceId);
   ~BindStmt();
-  const FileContent* getFileContent() { return m_fC; }
-  NodeId getStmtId() { return m_stmtId; }
-  NodeId getTargetModId() { return m_targetModId;}
-  NodeId getTargetInstId() { return m_targetInstId;}
-  NodeId getBindId() { return m_bindId;}
-  NodeId getInstanceId() { return m_instanceId;}
+
+  const FileContent* getFileContent() const { return m_fC; }
+  NodeId getStmtId() const { return m_stmtId; }
+  NodeId getTargetModId() const { return m_targetModId;}
+  NodeId getTargetInstId() const { return m_targetInstId;}
+  NodeId getBindId() const { return m_bindId;}
+  NodeId getInstanceId() const { return m_instanceId;}
+
  private:
   const FileContent* m_fC;
   const NodeId m_stmtId;

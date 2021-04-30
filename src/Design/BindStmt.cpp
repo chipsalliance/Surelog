@@ -20,9 +20,8 @@
  *
  * Created on May 19, 2019, 11:55 AM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Design/BindStmt.h"
+
 using namespace SURELOG;
 
 BindStmt::BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId, NodeId targetInstId, NodeId bindId, NodeId instanceId)

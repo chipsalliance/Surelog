@@ -20,16 +20,18 @@
  *
  * Created on October 16, 2017, 10:48 PM
  */
+#include "Design/ModuleInstance.h"
+
 #include <string>
 #include <iostream>
-#include "SourceCompile/SymbolTable.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
 
-#include "Design/ModuleInstance.h"
-#include "uhdm.h"
+#include "Design/FileContent.h"
+#include "Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
+
 #include "clone_tree.h"
 #include "ElaboratorListener.h"
+#include "uhdm.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -107,7 +109,7 @@ Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilde
       }
     }
   }
-  
+
   return sval;
 }
 

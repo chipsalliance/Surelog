@@ -23,8 +23,10 @@
 
 #ifndef DUMMY_TYPE_H
 #define DUMMY_TYPE_H
+
 #include <string>
 #include <map>
+
 #include "Design/DataType.h"
 
 namespace SURELOG {
@@ -36,10 +38,10 @@ class DummyType : public DataType {
   DummyType(const FileContent* fC, NodeId nameId, NodeId structId);
   ~DummyType() override;
 
-  NodeId getNameId() { return m_nameId; }
+  NodeId getNameId() const { return m_nameId; }
 
  private:
-  NodeId m_nameId;
+  const NodeId m_nameId;
 };
 
 }  // namespace SURELOG

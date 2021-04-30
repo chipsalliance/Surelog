@@ -22,9 +22,9 @@
  */
 #include "Design/DataType.h"
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Expression/Value.h"
+#include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

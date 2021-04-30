@@ -23,14 +23,17 @@
 
 #ifndef DEFPARAM_H
 #define DEFPARAM_H
-#include "Expression/Value.h"
+
 #include <map>
+
+#include "Expression/Value.h"
+#include "Design/FileContent.h"
 
 namespace SURELOG {
 
 class DefParam final {
  public:
-  DefParam(std::string name, DefParam* parent = NULL)
+  DefParam(const std::string& name, DefParam* parent = NULL)
       : m_name(name),
         m_value(NULL),
         m_used(false),
@@ -59,7 +62,7 @@ class DefParam final {
   DefParam* getParent() { return m_parent; }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   std::map<std::string, DefParam*> m_children;
   Value* m_value;
   bool m_used;

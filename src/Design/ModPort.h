@@ -20,13 +20,14 @@
  *
  * Created on January 31, 2020, 9:46 PM
  */
+#ifndef MODPORT_H
+#define MODPORT_H
+
 #include <vector>
 
 #include "SourceCompile/SymbolTable.h"
 #include "Signal.h"
 
-#ifndef MODPORT_H
-#define MODPORT_H
 namespace SURELOG {
 
 class ModuleDefinition;

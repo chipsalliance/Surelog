@@ -20,9 +20,11 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Design/Union.h"
+
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+
 using namespace SURELOG;
 
 Union::Union(const FileContent* fC, NodeId nameId, NodeId structId)

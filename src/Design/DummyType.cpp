@@ -20,12 +20,13 @@
  *
  * Created on May 19, 2020, 11:55 AM
  */
+#include "Design/DummyType.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Design/DummyType.h"
 #include "uhdm.h"
-using namespace SURELOG;
 
+namespace SURELOG {
 DummyType::DummyType(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)),
       m_nameId(nameId) {
@@ -33,3 +34,4 @@ DummyType::DummyType(const FileContent* fC, NodeId nameId, NodeId structId)
 }
 
 DummyType::~DummyType() {}
+}  // namespace SURELOG

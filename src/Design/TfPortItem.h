@@ -24,6 +24,10 @@
 #ifndef TFPORTITEM_H
 #define TFPORTITEM_H
 
+#include "Design/DesignComponent.h"
+#include "Design/FileContent.h"
+#include "Expression/Value.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Testbench/Variable.h"
 
 namespace SURELOG {
@@ -33,7 +37,7 @@ class Value;
 class TfPortItem : public Variable {
  public:
   TfPortItem(Procedure* parent, const FileContent* fc, NodeId id, NodeId range,
-             std::string name, DataType* type, Value* default_value,
+             const std::string& name, DataType* type, Value* default_value,
              VObjectType direction)
       : Variable(type, fc, id, range, name),
         m_parent(parent),
@@ -43,12 +47,12 @@ class TfPortItem : public Variable {
 
   Procedure* getParent() { return m_parent; }
   Value* getDefault() { return m_default; }
-  VObjectType getDirection() { return m_direction; }
+  VObjectType getDirection() const { return m_direction; }
 
  private:
   Procedure* m_parent;
   Value* m_default;
-  VObjectType m_direction;
+  const VObjectType m_direction;
 };
 
 };  // namespace SURELOG

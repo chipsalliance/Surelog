@@ -20,11 +20,11 @@
  *
  * Created on October 20, 2017, 10:29 PM
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "Library/Library.h"
-#include "Design/FileContent.h"
 #include "Design/ModuleDefinition.h"
+
+#include "Design/FileContent.h"
+#include "Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 
@@ -38,7 +38,7 @@ ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
 }
 
 bool ModuleDefinition::isInstance() const {
-  VObjectType type = getType();
+  const VObjectType type = getType();
   return ((type == VObjectType::slN_input_gate_instance) ||
           (type == VObjectType::slModule_declaration) ||
           (type == VObjectType::slUdp_declaration));

@@ -23,14 +23,15 @@
 
 #ifndef DESIGN_H
 #define DESIGN_H
+
+#include "Config/ConfigSet.h"
+#include "Design/BindStmt.h"
+#include "Design/DefParam.h"
 #include "Design/ModuleDefinition.h"
 #include "Design/ModuleInstance.h"
-#include "Design/DefParam.h"
 #include "Library/LibrarySet.h"
-#include "Config/ConfigSet.h"
 #include "Package/Package.h"
 #include "Testbench/Program.h"
-#include "Design/BindStmt.h"
 
 namespace SURELOG {
 
@@ -135,9 +136,9 @@ class Design final {
   typedef std::multimap<const std::string, BindStmt*> BindMap;
 
   BindMap& getBindMap() { return m_bindMap; }
- 
+
   std::vector<BindStmt*> getBindStmts(const std::string& targetName);
- 
+
   void addBindStmt(const std::string& targetName, BindStmt* stmt);
 
  protected:

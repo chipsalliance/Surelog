@@ -23,35 +23,40 @@
 
 #ifndef PARAM_ASSIGN_H
 #define PARAM_ASSIGN_H
+
 #include <string>
-#include "SourceCompile/SymbolTable.h"
+
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
 class ParamAssign {
  public:
   ParamAssign(const FileContent* fC, NodeId paramId, NodeId assignId, bool isMultidimensional, bool port_param)
-      : m_fileContent(fC), m_paramId(paramId), m_assignId(assignId), m_param_assign(nullptr), 
+      : m_fileContent(fC), m_paramId(paramId), m_assignId(assignId),
         m_is_multidimensional(isMultidimensional), m_port_param(port_param) {}
 
   ~ParamAssign();
-  const FileContent* getFileContent() { return m_fileContent; }
-  NodeId getParamId() { return m_paramId; }
-  NodeId getAssignId() { return m_assignId; }
-  bool isPortParam() { return m_port_param; }
+
+  const FileContent* getFileContent() const { return m_fileContent; }
+  NodeId getParamId() const { return m_paramId; }
+  NodeId getAssignId() const { return m_assignId; }
+  bool isPortParam() const { return m_port_param; }
   void setUhdmParamAssign(UHDM::param_assign* assign) {
     m_param_assign = assign;
   }
   UHDM::param_assign* getUhdmParamAssign() const { return m_param_assign; }
-  bool isMultidimensional() { return m_is_multidimensional; }
+  bool isMultidimensional() const { return m_is_multidimensional; }
+
  private:
-  const FileContent* m_fileContent;
-  NodeId m_paramId;
-  NodeId m_assignId;
-  UHDM::param_assign* m_param_assign;
-  bool m_is_multidimensional;
-  bool m_port_param;
+  const FileContent* const m_fileContent;
+  const NodeId m_paramId;
+  const NodeId m_assignId;
+  const bool m_is_multidimensional;
+  const bool m_port_param;
+
+  UHDM::param_assign* m_param_assign = nullptr;
 };
 
 }  // namespace SURELOG

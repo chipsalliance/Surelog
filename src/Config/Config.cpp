@@ -20,9 +20,11 @@
  *
  * Created on February 10, 2018, 11:09 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Config/Config.h"
+
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+
 using namespace SURELOG;
 
 UseClause* Config::getInstanceUseClause(const std::string& instance) {

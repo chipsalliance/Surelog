@@ -24,11 +24,12 @@
 #ifndef SCOPE_H
 #define SCOPE_H
 #include <string>
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
-#include "SourceCompile/VObjectTypes.h"
+
 #include "Design/DataType.h"
+#include "Design/FileContent.h"
 #include "Design/TfPortItem.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "Testbench/Variable.h"
 
 namespace SURELOG {
@@ -42,7 +43,7 @@ class Scope {
   typedef std::vector<Statement*> StmtVector;
   typedef std::vector<Scope*> ScopeVector;
 
-  Scope(std::string name, Scope* parent)
+  Scope(const std::string& name, Scope* parent)
       : m_name(name), m_parentScope(parent) {}
   virtual ~Scope() {}
 
@@ -54,7 +55,7 @@ class Scope {
   }
 
   VariableMap& getVariables() { return m_variables; }
-  Variable* getVariable(std::string name);
+  Variable* getVariable(const std::string& name);
 
   DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
   DataType* getUsedDataType(const std::string& name);
@@ -69,8 +70,8 @@ class Scope {
   ScopeVector& getScopes() { return m_scopes; }
 
  private:
-  std::string m_name;
-  Scope* m_parentScope;
+  const std::string m_name;
+  Scope* const m_parentScope;
   VariableMap m_variables;
   DataTypeMap m_usedDataTypes;
   StmtVector m_statements;
