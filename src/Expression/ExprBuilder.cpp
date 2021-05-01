@@ -20,6 +20,10 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
+#include "Expression/ExprBuilder.h"
+
+#include <assert.h>
+#include <math.h>
 #include <string.h>
 #if defined(_MSC_VER)
   #define strcasecmp _stricmp
@@ -27,18 +31,16 @@
 #else
   #include <strings.h>
 #endif
-#include <bitset> 
-#include <stdint.h>
+
+#include <bitset>
 #include <iostream>
 #include <sstream>
-#include <math.h>
-#include <assert.h>
-#include "Utils/StringUtils.h"
-#include "Utils/NumUtils.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "Expression/ExprBuilder.h"
-#include "SourceCompile/VObjectTypes.h"
+#include <stdint.h>
+
 #include "Design/Design.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Utils/NumUtils.h"
 #include "Utils/StringUtils.h"
 
 using namespace SURELOG;
@@ -362,7 +364,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string size = val;
         StringUtils::rtrim(size, '\'');
         int64_t intsize = 0;
-        if (size != "") 
+        if (size != "")
           intsize = std::strtoull(size.c_str(), 0, 10);
         if (strstr(val.c_str(), "'")) {
           uint64_t hex_value = 0;
@@ -411,8 +413,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           if (intformat) {
             if (size == "")
               value->set(hex_value, Value::Type::Integer, 0);
-            else 
-              value->set(hex_value, Value::Type::Unsigned, intsize); 
+            else
+              value->set(hex_value, Value::Type::Unsigned, intsize);
           }
         } else {
           if (val.size() && (val[0] == '-')) {
@@ -638,7 +640,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             unsigned int vsize = v.size();
             if (isize) {
-              for (unsigned int i = 0; i < isize - vsize; i++) 
+              for (unsigned int i = 0; i < isize - vsize; i++)
                 v = "0" + v;
             }
             svalue += v;
@@ -726,7 +728,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
 Value* ExprBuilder::fromVpiValue(const std::string& s) {
   Value* val = nullptr;
   size_t pos;
-  if ((pos = s.find("UINT:")) != std::string::npos) {  
+  if ((pos = s.find("UINT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0 , 10);
     val->set(v);
@@ -734,7 +736,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0 , 10);
     val->set(v);
-  } else if ((pos = s.find("DEC:")) != std::string::npos) {  
+  } else if ((pos = s.find("DEC:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0 , 10);
     val->set(v);
@@ -742,27 +744,27 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
     switch (parse_pos[0]) {
       case 'Z':
-       
+
         break;
       case 'X':
-       
+
         break;
       case 'H':
-        
+
         break;
       case 'L':
-       
+
         break;
         // Not really clear what the difference between X and DontCare is.
         // Let's parse 'W'eak don't care as this one.
       case 'W':
-        
+
         break;
       default:
         if (strcasecmp(parse_pos, "DontCare") == 0) {
-        
+
         } else if (strcasecmp(parse_pos, "NoChange") == 0) {
-         
+
         } else {
           int64_t v = std::strtoull(parse_pos, 0, 10);
           val = m_valueFactory.newLValue();
@@ -772,7 +774,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);  
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
     val->set(v, Value::Type::Unsigned,  s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) { // HEX:FFFFFFFFFFFFFFFF
@@ -781,12 +783,12 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
-      uint64_t v = std::strtoull(s.c_str() + pos + strlen("HEX:"), 0, 16);  
+      uint64_t v = std::strtoull(s.c_str() + pos + strlen("HEX:"), 0, 16);
       val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
     }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("OCT:"), 0, 8);  
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("OCT:"), 0, 8);
     val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();

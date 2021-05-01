@@ -24,9 +24,12 @@
 #ifndef MACROINFO_H
 #define MACROINFO_H
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
+
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 class MacroInfo {

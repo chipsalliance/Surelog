@@ -20,6 +20,7 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
+#include "SourceCompile/Compiler.h"
 
 #if defined(_MSC_VER)
   #include <direct.h>
@@ -29,11 +30,24 @@
   #include <unistd.h>
 #endif
 
-#include <string.h>
+
+#include <math.h>
 #include <stdint.h>
-#include <cstdlib>
+#include <string.h>
 #include <sys/stat.h>
-#include "SourceCompile/Compiler.h"
+
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#  include <process.h>  // Has to be included before <thread>
+#endif
+
+#include <mutex>
+#include <thread>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
+#include <cstdlib>
+
 #include "CommandLine/CommandLineParser.h"
 #include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -52,23 +66,10 @@
 #include "Utils/Timer.h"
 #include "antlr4-runtime.h"
 
-#include <math.h>
-using namespace antlr4;
-
 #include "API/PythonAPI.h"
 #include "SourceCompile/CheckCompile.h"
 
-#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#  include <process.h>  // Has to be included before <thread>
-#endif
-
-#include <mutex>
-#include <thread>
-#include <vector>
-#include <iostream>
-#include <fstream>
-using namespace SURELOG;
-
+namespace SURELOG {
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
                    SymbolTable* symbolTable)
     : m_commandLineParser(commandLineParser),
@@ -348,11 +349,11 @@ bool Compiler::createMultiProcess_() {
         absoluteIndex++;
         std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
-        fileName = StringUtils::replaceAll(fileName, directory, "");                                
+        fileName = StringUtils::replaceAll(fileName, directory, "");
         std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::basename(fileName);
         targets.push_back(targetname);
         ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
-        ofs <<"  COMMAND " << full_exe_path << fileUnit << sverilog << 
+        ofs <<"  COMMAND " << full_exe_path << fileUnit << sverilog <<
                             " -parseonly -nostdout -mt 0 -mp 0 -o " << outputPath << " -nobuiltin -l "
                            << FileUtils::basename(targetname) + ".log" << " " << fileName << std::endl;
         ofs << ")" << std::endl;
@@ -367,7 +368,7 @@ bool Compiler::createMultiProcess_() {
           CompileSourceFile* compiler = jobArray[i][j];
           std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
-          fileName = StringUtils::replaceAll(fileName, directory, "");                                          
+          fileName = StringUtils::replaceAll(fileName, directory, "");
           fileList += " " + fileName;
           lastFile = fileName;
         }
@@ -375,7 +376,7 @@ bool Compiler::createMultiProcess_() {
           std::string targetname = std::to_string(absoluteIndex) + "_" + FileUtils::basename(lastFile);
           targets.push_back(targetname);
           ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
-          ofs << "  COMMAND " << full_exe_path << fileUnit << sverilog << 
+          ofs << "  COMMAND " << full_exe_path << fileUnit << sverilog <<
                   " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -o " << outputPath << " -l "
                   << FileUtils::basename(targetname) + ".log" << " " << fileList << std::endl;
           ofs << ")" << std::endl;
@@ -862,3 +863,4 @@ bool Compiler::parseLibrariesDef_() {
       m_commandLineParser, m_errors, m_symbolTable, m_librarySet, m_configSet);
   return libParser->parseLibrariesDefinition();
 }
+}  // namespace SURELOG

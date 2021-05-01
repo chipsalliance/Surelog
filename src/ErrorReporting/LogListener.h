@@ -24,8 +24,6 @@
 #ifndef LOGLISTENER_H
 #define LOGLISTENER_H
 
-#pragma once
-
 #include <deque>
 #include <fstream>
 #include <mutex>

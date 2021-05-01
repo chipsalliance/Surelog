@@ -24,7 +24,12 @@
 #ifndef ANALYZEFILE_H
 #define ANALYZEFILE_H
 #include <stack>
+
+#include "CommandLine/CommandLineParser.h"
+#include "Design/Design.h"
+#include "Design/DesignElement.h"
 #include "SourceCompile/IncludeFileInfo.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 class Design;
@@ -51,8 +56,8 @@ class AnalyzeFile {
     unsigned long m_endChar;
   };
 
-  AnalyzeFile(CommandLineParser* clp, Design* design, std::string ppFileName,
-              std::string fileName, int nbChunks)
+  AnalyzeFile(CommandLineParser* clp, Design* design, const std::string& ppFileName,
+              const std::string& fileName, int nbChunks)
       : m_clp(clp),
         m_design(design),
         m_ppFileName(ppFileName),

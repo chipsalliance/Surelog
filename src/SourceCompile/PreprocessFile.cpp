@@ -20,38 +20,38 @@
  *
  * Created on February 24, 2017, 9:38 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Utils/StringUtils.h"
-#include "Cache/PPCache.h"
-#include "ErrorReporting/Waiver.h"
+
+#include <algorithm>
+#include <cctype>
 #include <cstdlib>
 #include <iostream>
 #include <regex>
-#include <algorithm>
-#include <cctype>
 
-using namespace std;
-using namespace SURELOG;
-
+#include "Cache/PPCache.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/Waiver.h"
+#include "Package/Precompiled.h"
+#include "Parser.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
+#include "antlr4-runtime.h"
+#include "atn/ParserATNSimulator.h"
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
 #include "parser/SV3_1aPpParserBaseListener.h"
-using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "Utils/FileUtils.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-#include "Parser.h"
-#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
-#include "Utils/Timer.h"
-#include "Package/Precompiled.h"
 
+using namespace antlr4;
+
+namespace SURELOG {
 std::string PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 std::string PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 std::string PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
@@ -321,11 +321,11 @@ bool PreprocessFile::preprocess() {
     m_antlrParserHandler = new AntlrParserHandler();
     if (!m_macroBody.empty()) {
       if (m_debugPP) {
-        std::cout << "PP PREPROCESS MACRO: " << m_macroBody << endl;
+        std::cout << "PP PREPROCESS MACRO: " << m_macroBody << std::endl;
       }
       m_antlrParserHandler->m_inputStream = new ANTLRInputStream(m_macroBody);
     } else {
-      if (m_debugPP) std::cout << "PP PREPROCESS FILE: " << fileName << endl;
+      if (m_debugPP) std::cout << "PP PREPROCESS FILE: " << fileName << std::endl;
       std::ifstream stream;
       stream.open(fileName);
       if (!stream.good()) {
@@ -463,7 +463,7 @@ static unsigned int LinesCount(const std::string& s) {
 
 unsigned int PreprocessFile::getSumLineCount() {
   unsigned int total = LinesCount(m_result);
-  if (m_includer) 
+  if (m_includer)
     total += m_includer->getSumLineCount();
   return total;
 }
@@ -483,12 +483,12 @@ void PreprocessFile::recordMacro(const std::string name, unsigned int line,
   std::string arguments_short = arguments;
   // Remove (
   size_t p = arguments_short.find('(');
-  if (p != string::npos) {
+  if (p != std::string::npos) {
     arguments_short.erase(p, 1);
   }
   // Remove )
   p = arguments_short.find(')');
-  if (p != string::npos) {
+  if (p != std::string::npos) {
     arguments_short.erase(p, 1);
   }
   // Tokenize args
@@ -501,11 +501,11 @@ void PreprocessFile::recordMacro(const std::string name, unsigned int line,
       body += token;
     }
     std::cout << "PP RECORDING MACRO: " << name << ": | " << body << " | "
-              << endl;
+              << std::endl;
   }
 
   // std::cout << "PP RECORDING MACRO: " << name  << ", FILE: " <<
-  // getSymbol(getFileId(line)) << "" << endl;
+  // getSymbol(getFileId(line)) << "" << std::endl;
 
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.size() ? MacroInfo::WITH_ARGS : MacroInfo::NO_ARGS,
@@ -842,7 +842,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
 
   // If it is a Multiline macro, insert a \n at the end
 
-  if (body_short.find('\n') != string::npos) {
+  if (body_short.find('\n') != std::string::npos) {
     body_short.push_back('\n');
   }
 
@@ -1135,3 +1135,4 @@ void PreprocessFile::saveCache() {
      (*itr)->saveCache();
    }
 }
+}  // namespace SURELOG

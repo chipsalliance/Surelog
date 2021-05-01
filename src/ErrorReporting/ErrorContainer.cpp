@@ -22,15 +22,16 @@
  */
 
 #include "ErrorReporting/ErrorContainer.h"
+
 #include <mutex>
 #include <iostream>
 #include <fstream>
+
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
 #include "LogListener.h"
 
 #include "antlr4-runtime.h"
-using namespace antlr4;
 #include "API/PythonAPI.h"
 
 using namespace SURELOG;

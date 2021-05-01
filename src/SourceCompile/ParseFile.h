@@ -31,6 +31,7 @@
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "SourceCompile/CompilationUnit.h"
+#include "ErrorReporting/Error.h"
 
 namespace SURELOG {
 

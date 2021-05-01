@@ -24,8 +24,7 @@
 
 #include <queue>
 
-using namespace SURELOG;
-
+namespace SURELOG {
 LoopCheck::LoopCheck() {}
 
 LoopCheck::~LoopCheck() {
@@ -94,3 +93,4 @@ std::vector<SymbolId> LoopCheck::reportLoop() const {
   }
   return loop;
 }
+}  // namespace SURELOG

@@ -20,7 +20,7 @@
  *
  * Created on March 10, 2021, 9:30 PM
  */
-#include "LogListener.h"
+#include "ErrorReporting/LogListener.h"
 
 using namespace SURELOG;
 

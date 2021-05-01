@@ -122,6 +122,7 @@ proc generate_header { listener } {
         puts $oid "#include \"SourceCompile/CompilationUnit.h\""
         puts $oid "#include \"Design/TimeInfo.h\""
         puts $oid "#include \"SourceCompile/SV3_1aPpTreeListenerHelper.h\""
+        puts $oid "#include \"parser/SV3_1aPpParserBaseListener.h\""
         puts $oid ""
         puts $oid "namespace SURELOG \{"
         puts $oid ""
@@ -360,20 +361,20 @@ set TYPES(slAssignOp_ArithShiftRight) 1
 set TYPES(slIncDec_PlusPlus) 1
 set TYPES(slIncDec_MinusMinus) 1
 
-set TYPES(slNetType_Supply0) 1 
-set TYPES(slNetType_Supply1) 1 
-set TYPES(slNetType_Tri) 1 
-set TYPES(slNetType_TriAnd) 1 
-set TYPES(slNetType_TriOr) 1 
-set TYPES(slNetType_TriReg) 1 
-set TYPES(slNetType_Tri0) 1 
-set TYPES(slNetType_Tri1) 1 
-set TYPES(slNetType_Uwire) 1 
+set TYPES(slNetType_Supply0) 1
+set TYPES(slNetType_Supply1) 1
+set TYPES(slNetType_Tri) 1
+set TYPES(slNetType_TriAnd) 1
+set TYPES(slNetType_TriOr) 1
+set TYPES(slNetType_TriReg) 1
+set TYPES(slNetType_Tri0) 1
+set TYPES(slNetType_Tri1) 1
+set TYPES(slNetType_Uwire) 1
 set TYPES(slNetType_Wire) 1
-set TYPES(slNetType_Wand) 1 
-set TYPES(slNetType_Wor) 1 
-set TYPES(slPulldown) 1 
-set TYPES(slPullup) 1 
+set TYPES(slNetType_Wand) 1
+set TYPES(slNetType_Wor) 1
+set TYPES(slPulldown) 1
+set TYPES(slPullup) 1
 
 set TYPES(slDefault) 1
 set TYPES(slGlobal) 1
@@ -382,18 +383,18 @@ set TYPES(slGlobal) 1
 set TYPES(slOR) 1
 set TYPES(slAND) 1
 set TYPES(slIF) 1
-set TYPES(slSTRONG) 1 
-set TYPES(slWEAK) 1   
+set TYPES(slSTRONG) 1
+set TYPES(slWEAK) 1
 set TYPES(slNOT) 1
 set TYPES(slOVERLAP_IMPLY) 1
-set TYPES(slNON_OVERLAP_IMPLY) 1   
+set TYPES(slNON_OVERLAP_IMPLY) 1
 set TYPES(slOVERLAPPED) 1
 set TYPES(slNONOVERLAPPED) 1
 set TYPES(slS_NEXTTIME) 1
-set TYPES(slALWAYS) 1   
+set TYPES(slALWAYS) 1
 set TYPES(slS_ALWAYS) 1
 set TYPES(slS_EVENTUALLY) 1
-set TYPES(slEVENTUALLY) 1  
+set TYPES(slEVENTUALLY) 1
 set TYPES(slUNTIL) 1
 set TYPES(slS_UNTIL) 1
 set TYPES(slIMPLIES) 1
@@ -401,7 +402,7 @@ set TYPES(slIFF) 1
 set TYPES(slACCEPT_ON) 1
 set TYPES(slREJECT_ON) 1
 set TYPES(slSYNC_ACCEPT_ON) 1
-set TYPES(slSYNC_REJECT_ON) 1    
+set TYPES(slSYNC_REJECT_ON) 1
 
 set TYPES(slType) 1
 

@@ -20,13 +20,13 @@
  *
  * Created on March 18, 2018, 7:58 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Expression/ExprBuilder.h"
 #include "Package/Package.h"
+
+#include "Expression/ExprBuilder.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Testbench/ClassDefinition.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 Package::~Package() {}
 
 unsigned int Package::getSize() const {
@@ -56,3 +56,4 @@ void Package::append(Package* package) {
     classDef.second->setContainer(this);
   }
 }
+}  // namespace SURELOG

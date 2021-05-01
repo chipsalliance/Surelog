@@ -24,6 +24,7 @@
 #ifndef LIBRARYSET_H
 #define LIBRARYSET_H
 
+#include "ErrorReporting/ErrorContainer.h"
 #include "Library/Library.h"
 
 #include <vector>

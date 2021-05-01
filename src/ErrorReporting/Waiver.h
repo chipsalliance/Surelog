@@ -51,10 +51,10 @@ public:
         m_fileName(fileName),
         m_line(line),
         m_objectId(objectName) {}
-    ErrorDefinition::ErrorType m_messageId;
-    std::string m_fileName;
-    unsigned int m_line;
-    std::string m_objectId;
+    const ErrorDefinition::ErrorType m_messageId;
+    const std::string m_fileName;
+    const unsigned int m_line;
+    const std::string m_objectId;
   };
 
   static std::multimap<ErrorDefinition::ErrorType, WaiverData>& getWaivers() {

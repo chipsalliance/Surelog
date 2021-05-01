@@ -20,22 +20,24 @@
  *
  * Created on March 16, 2017, 11:02 PM
  */
+#include "Utils/FileUtils.h"
+
+#include <errno.h>
+#include <limits.h> /* PATH_MAX */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <sstream>
+#include <string>
 
 #include "SourceCompile/SymbolTable.h"
-#include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include <sys/stat.h>
-#include <string.h>
-#include <limits.h> /* PATH_MAX */
-#include <errno.h>
-#include <stdlib.h>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <stdio.h>
-#include <regex>
-#include <fstream>
-#include <sstream>
 
 #if defined(_MSC_VER)
   #include <direct.h>

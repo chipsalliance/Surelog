@@ -20,11 +20,9 @@
  *
  * Created on April 5, 2017, 9:16 PM
  */
-#include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 CompilationUnit::CompilationUnit(bool fileunit)
     : m_fileunit(fileunit),
       m_inDesignElement(false),
@@ -83,3 +81,4 @@ void CompilationUnit::setCurrentTimeInfo(SymbolId fileId) {
   info.m_line = 1;
   m_timeInfo.push_back(info);
 }
+}  // namespace SURELOG

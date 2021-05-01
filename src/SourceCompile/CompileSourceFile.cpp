@@ -20,39 +20,35 @@
  *
  * Created on February 20, 2017, 9:54 PM
  */
+#include "SourceCompile/CompileSourceFile.h"
 
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompilationUnit.h"
-
-#include "antlr4-runtime.h"
-using namespace antlr4;
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
-
-#include "SourceCompile/AntlrParserHandler.h"
-
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "Utils/StringUtils.h"
-#include "Utils/FileUtils.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
-#include <sys/types.h>
-#include <sys/stat.h>
-using namespace std;
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/ParseFile.h"
-#include "API/PythonAPI.h"
-#include "SourceCompile/PythonListen.h"
-#include "Package/Precompiled.h"
 
+#include "API/PythonAPI.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Package/Precompiled.h"
+#include "SourceCompile/AntlrParserHandler.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/PythonListen.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
+#include "antlr4-runtime.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+
+using namespace antlr4;
 using namespace SURELOG;
 
 CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
@@ -274,7 +270,7 @@ bool CompileSourceFile::postPreprocess_() {
     const std::string& writePpOutputFileName =
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName() + "/";
-    string ppFileName = m_commandLineParser->writePpOutput()
+    std::string ppFileName = m_commandLineParser->writePpOutput()
                             ? directory + libName + fileName
                             : writePpOutputFileName;
     std::string dirPpFile = FileUtils::getPathName(ppFileName);
@@ -289,7 +285,7 @@ bool CompileSourceFile::postPreprocess_() {
       return false;
     }
     if ((!m_pp->usingCachedVersion()) || (!FileUtils::fileExists(ppFileName))) {
-      ofstream ofs;
+      std::ofstream ofs;
       ofs.open(ppFileName);
       if (ofs.good()) {
         ofs << m_pp_result;

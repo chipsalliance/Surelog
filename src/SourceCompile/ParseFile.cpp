@@ -1,18 +1,18 @@
 /*
- Copyright 2019 Alain Dargelas
+  Copyright 2019 Alain Dargelas
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
- http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 
 /*
  * File:   ParseFile.cpp
@@ -20,98 +20,95 @@
  *
  * Created on February 24, 2017, 10:03 PM
  */
+#include "SourceCompile/ParseFile.h"
 
-#include "SourceCompile/SymbolTable.h"
+#include <cstdlib>
+#include <iostream>
+
+#include "API/SV3_1aPythonListener.h"
+#include "Cache/ParseCache.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "Package/Precompiled.h"
+#include "SourceCompile/AntlrParserErrorListener.h"
+#include "SourceCompile/AntlrParserHandler.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "SourceCompile/AntlrParserHandler.h"
-#include <cstdlib>
-#include <iostream>
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SV3_1aTreeShapeListener.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
-
-using namespace std;
-using namespace antlr4;
-using namespace SURELOG;
-
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "SourceCompile/SV3_1aTreeShapeListener.h"
-#include "API/SV3_1aPythonListener.h"
-using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "Utils/FileUtils.h"
-#include "Cache/ParseCache.h"
-#include "SourceCompile/AntlrParserErrorListener.h"
-#include "Package/Precompiled.h"
-#include "Utils/StringUtils.h"
-#include "Utils/Timer.h"
 
+namespace SURELOG {
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
-    : m_fileId(fileId),
-      m_ppFileId(0),
-      m_compileSourceFile(NULL),
-      m_compilationUnit(NULL),
-      m_library(NULL),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
-      m_usingCachedVersion(false),
-      m_keepParserHandler(false),
-      m_fileContent(NULL),
-      debug_AstModel(false),
-      m_parent(NULL),
-      m_offsetLine(0),
-      m_symbolTable(symbolTable),
-      m_errors(errors) {
+  : m_fileId(fileId),
+    m_ppFileId(0),
+    m_compileSourceFile(NULL),
+    m_compilationUnit(NULL),
+    m_library(NULL),
+    m_antlrParserHandler(NULL),
+    m_listener(NULL),
+    m_usingCachedVersion(false),
+    m_keepParserHandler(false),
+    m_fileContent(NULL),
+    debug_AstModel(false),
+    m_parent(NULL),
+    m_offsetLine(0),
+    m_symbolTable(symbolTable),
+    m_errors(errors) {
   debug_AstModel = false;
 }
 
 ParseFile::ParseFile(SymbolId fileId, CompileSourceFile* csf,
                      CompilationUnit* compilationUnit, Library* library,
                      SymbolId ppFileId, bool keepParserHandler)
-    : m_fileId(fileId),
-      m_ppFileId(ppFileId),
-      m_compileSourceFile(csf),
-      m_compilationUnit(compilationUnit),
-      m_library(library),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
-      m_usingCachedVersion(false),
-      m_keepParserHandler(keepParserHandler),
-      m_fileContent(NULL),
-      debug_AstModel(false),
-      m_parent(NULL),
-      m_offsetLine(0),
-      m_symbolTable(NULL),
-      m_errors(NULL) {
+  : m_fileId(fileId),
+    m_ppFileId(ppFileId),
+    m_compileSourceFile(csf),
+    m_compilationUnit(compilationUnit),
+    m_library(library),
+    m_antlrParserHandler(NULL),
+    m_listener(NULL),
+    m_usingCachedVersion(false),
+    m_keepParserHandler(keepParserHandler),
+    m_fileContent(NULL),
+    debug_AstModel(false),
+    m_parent(NULL),
+    m_offsetLine(0),
+    m_symbolTable(NULL),
+    m_errors(NULL) {
   debug_AstModel =
-      m_compileSourceFile->getCommandLineParser()->getDebugAstModel();
+    m_compileSourceFile->getCommandLineParser()->getDebugAstModel();
 }
 
 ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
                      SymbolId chunkFileId, unsigned int offsetLine)
-    : m_fileId(parent->m_fileId),
-      m_ppFileId(chunkFileId),
-      m_compileSourceFile(compileSourceFile),
-      m_compilationUnit(parent->m_compilationUnit),
-      m_library(parent->m_library),
-      m_antlrParserHandler(NULL),
-      m_listener(NULL),
-      m_usingCachedVersion(false),
-      m_keepParserHandler(parent->m_keepParserHandler),
-      m_fileContent(parent->m_fileContent),
-      debug_AstModel(false),
-      m_parent(parent),
-      m_offsetLine(offsetLine),
-      m_symbolTable(NULL),
-      m_errors(NULL) {
+  : m_fileId(parent->m_fileId),
+    m_ppFileId(chunkFileId),
+    m_compileSourceFile(compileSourceFile),
+    m_compilationUnit(parent->m_compilationUnit),
+    m_library(parent->m_library),
+    m_antlrParserHandler(NULL),
+    m_listener(NULL),
+    m_usingCachedVersion(false),
+    m_keepParserHandler(parent->m_keepParserHandler),
+    m_fileContent(parent->m_fileContent),
+    debug_AstModel(false),
+    m_parent(parent),
+    m_offsetLine(offsetLine),
+    m_symbolTable(NULL),
+    m_errors(NULL) {
   parent->m_children.push_back(this);
 }
 
@@ -241,11 +238,11 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
     return false;
   }
 
-  antlrParserHandler->m_inputStream = new ANTLRInputStream(stream);
+  antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(stream);
   antlrParserHandler->m_errorListener =
-      new AntlrParserErrorListener(this, false, lineOffset, fileName);
+    new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
-      new SV3_1aLexer(antlrParserHandler->m_inputStream);
+    new SV3_1aLexer(antlrParserHandler->m_inputStream);
   std::string suffix = StringUtils::leaf(fileName);
   VerilogVersion version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
@@ -279,9 +276,9 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
 
   antlrParserHandler->m_lexer->removeErrorListeners();
   antlrParserHandler->m_lexer->addErrorListener(
-      antlrParserHandler->m_errorListener);
+    antlrParserHandler->m_errorListener);
   antlrParserHandler->m_tokens =
-      new CommonTokenStream(antlrParserHandler->m_lexer);
+    new antlr4::CommonTokenStream(antlrParserHandler->m_lexer);
   antlrParserHandler->m_tokens->fill();
 
   if (getCompileSourceFile()->getCommandLineParser()->profile()) {
@@ -292,45 +289,45 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
 
   antlrParserHandler->m_parser = new SV3_1aParser(antlrParserHandler->m_tokens);
 
-  m_antlrParserHandler->m_parser->getInterpreter<atn::ParserATNSimulator>()
-      ->setPredictionMode(atn::PredictionMode::SLL);
+  m_antlrParserHandler->m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()
+    ->setPredictionMode(antlr4::atn::PredictionMode::SLL);
   m_antlrParserHandler->m_parser->setErrorHandler(
-      std::make_shared<BailErrorStrategy>());
+    std::make_shared<antlr4::BailErrorStrategy>());
   m_antlrParserHandler->m_parser->removeErrorListeners();
 
   try {
     m_antlrParserHandler->m_tree =
-        m_antlrParserHandler->m_parser->top_level_rule();
+      m_antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
-          "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          "s " + fileName + "\n";
+        "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+        "s " + fileName + "\n";
       tmr.reset();
     }
-  } catch (ParseCancellationException& pex) {
+  } catch (antlr4::ParseCancellationException& pex) {
     m_antlrParserHandler->m_tokens->reset();
     m_antlrParserHandler->m_parser->reset();
 
     m_antlrParserHandler->m_parser->setErrorHandler(
-        std::make_shared<DefaultErrorStrategy>());
+      std::make_shared<antlr4::DefaultErrorStrategy>());
     antlrParserHandler->m_parser->removeErrorListeners();
     antlrParserHandler->m_parser->addErrorListener(
-        antlrParserHandler->m_errorListener);
-    antlrParserHandler->m_parser->getInterpreter<atn::ParserATNSimulator>()
-        ->setPredictionMode(atn::PredictionMode::LL);
+      antlrParserHandler->m_errorListener);
+    antlrParserHandler->m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()
+      ->setPredictionMode(antlr4::atn::PredictionMode::LL);
     antlrParserHandler->m_tree = antlrParserHandler->m_parser->top_level_rule();
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
-          "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          " " + fileName + "\n";
+        "LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+        " " + fileName + "\n";
       tmr.reset();
     }
   }
   /* Failed attempt to minimize memory usage:
-  m_antlrParserHandler->m_parser->getInterpreter<atn::ParserATNSimulator>()->clearDFA();
-  SV3_1aParser::_sharedContextCache.clear();
+     m_antlrParserHandler->m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
+     SV3_1aParser::_sharedContextCache.clear();
   */
   stream.close();
   return true;
@@ -360,7 +357,7 @@ bool ParseFile::parse() {
         std::cout << m_fileContent->printObjects();
       return true;
     }
- } else {
+  } else {
     bool ok = true;
     for (unsigned int i = 0; i < m_children.size(); i++) {
       ParseCache cache(m_children[i]);
@@ -400,9 +397,9 @@ bool ParseFile::parse() {
       Timer tmr;
 
       m_listener = new SV3_1aTreeShapeListener(
-          this, m_antlrParserHandler->m_tokens, m_offsetLine);
-      tree::ParseTreeWalker::DEFAULT.walk(m_listener,
-                                          m_antlrParserHandler->m_tree);
+        this, m_antlrParserHandler->m_tokens, m_offsetLine);
+      antlr4::tree::ParseTreeWalker::DEFAULT.walk(m_listener,
+                                                  m_antlrParserHandler->m_tree);
 
       if (debug_AstModel && !precompiled)
         std::cout << m_fileContent->printObjects();
@@ -432,13 +429,13 @@ bool ParseFile::parse() {
           // TODO: Incrementally regenerate the FileContent
           m_children[i]->m_fileContent->setParent(m_fileContent);
           m_children[i]->m_listener = new SV3_1aTreeShapeListener(
-              m_children[i], m_children[i]->m_antlrParserHandler->m_tokens,
-              m_children[i]->m_offsetLine);
+            m_children[i], m_children[i]->m_antlrParserHandler->m_tokens,
+            m_children[i]->m_offsetLine);
 
           Timer tmr;
-          tree::ParseTreeWalker::DEFAULT.walk(
-              m_children[i]->m_listener,
-              m_children[i]->m_antlrParserHandler->m_tree);
+          antlr4::tree::ParseTreeWalker::DEFAULT.walk(
+            m_children[i]->m_listener,
+            m_children[i]->m_antlrParserHandler->m_tree);
 
           if (getCompileSourceFile()->getCommandLineParser()->profile()) {
             // m_profileInfo += "For file " + getSymbol
@@ -460,3 +457,4 @@ bool ParseFile::parse() {
   }
   return true;
 }
+}  // namespace SURELOG

@@ -20,30 +20,31 @@
  *
  * Created on July 23, 2017, 11:05 PM
  */
-#include "SourceCompile/SymbolTable.h"
-#include "Design/TimeInfo.h"
+#include "SourceCompile/AnalyzeFile.h"
+
+#include "Design/Design.h"
 #include "Design/DesignElement.h"
-#include "CommandLine/CommandLineParser.h"
+#include "Design/TimeInfo.h"
 #include "ErrorReporting/Error.h"
-#include "ErrorReporting/Location.h"
-#include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/IncludeFileInfo.h"
-#include "Utils/StringUtils.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Location.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
-#include "Design/Design.h"
-#include "SourceCompile/AnalyzeFile.h"
-#include <fstream>
-#include <stdio.h>
+#include "SourceCompile/IncludeFileInfo.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "Utils/StringUtils.h"
+
 #include <ctype.h>
-#include <string.h>
+#include <fstream>
 #include <iostream>
+#include <regex>
 #include <sstream>
 #include <stack>
-#include <regex>
+#include <stdio.h>
+#include <string.h>
+
 using namespace SURELOG;
 
 static void saveContent(const std::string& fileName,
