@@ -20,11 +20,8 @@
  *
  * Created on April 10, 2017, 8:56 PM
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Report.h"
+
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -36,6 +33,8 @@
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
   #include <unistd.h>
 #endif
+
+#include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
 

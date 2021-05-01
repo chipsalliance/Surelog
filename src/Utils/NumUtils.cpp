@@ -22,16 +22,15 @@
  */
 
 #include "Utils/NumUtils.h"
+
 #include <algorithm>
+#include <bitset>
+#include <iostream>
 #include <locale>
 #include <regex>
 #include <sstream>
-#include <iostream>
-#include <bitset> 
 
-using namespace SURELOG;
-
-
+namespace SURELOG {
 std::string NumUtils::hexToBin(const std::string &s){
     std::string out;
     for(auto i: s){
@@ -83,4 +82,4 @@ std::string NumUtils::toBinary(unsigned int size, uint64_t val) {
     result += tmp[i];
   return result;
 }
-
+}  // namespace SURELOG

@@ -23,18 +23,20 @@
 
 #ifndef PREPROCESSFILE_H
 #define PREPROCESSFILE_H
-#include <string>
-#include <vector>
+
 #include <map>
 #include <set>
 #include <stack>
+#include <string>
+#include <vector>
 
+#include "ErrorReporting/Error.h"
+#include "Library/Library.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/IncludeFileInfo.h"
+#include "SourceCompile/LoopCheck.h"
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "Library/Library.h"
-#include "SourceCompile/LoopCheck.h"
-#include "SourceCompile/IncludeFileInfo.h"
 
 namespace SURELOG {
 

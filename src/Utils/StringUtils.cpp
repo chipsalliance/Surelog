@@ -22,11 +22,12 @@
  */
 
 #include "Utils/StringUtils.h"
+
 #include <algorithm>
+#include <iostream>
 #include <locale>
 #include <regex>
 #include <sstream>
-#include <iostream>
 
 using namespace SURELOG;
 
@@ -347,7 +348,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
     }
     if (var.empty() && s)
       var = s;
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)      
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
     if (var.size() && (var[var.size()-1] != '\\'))
       var += "\\";
 #else

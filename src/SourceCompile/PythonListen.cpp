@@ -20,33 +20,27 @@
  *
  * Created on June 4, 2017, 8:09 PM
  */
+#include "SourceCompile/PythonListen.h"
 
-#include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-
-#include "SourceCompile/Compiler.h"
-
-#include "SourceCompile/AntlrParserHandler.h"
 #include <cstdlib>
 #include <iostream>
-#include "antlr4-runtime.h"
-using namespace std;
-using namespace antlr4;
-using namespace SURELOG;
 
+#include "API/SV3_1aPythonListener.h"
+#include "Cache/PythonAPICache.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/AntlrParserHandler.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+
+#include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "API/SV3_1aPythonListener.h"
 
-#include "SourceCompile/PythonListen.h"
-#include "Cache/PythonAPICache.h"
-
-using namespace SURELOG;
-
+namespace SURELOG {
 PythonListen::PythonListen(ParseFile* parse,
                            CompileSourceFile* compileSourceFile)
     : m_parse(parse),
@@ -75,7 +69,7 @@ bool PythonListen::listen() {
           new SV3_1aPythonListener(this, m_compileSourceFile->getPythonInterp(),
                                    m_parse->m_antlrParserHandler->m_tokens, 0);
       m_pythonListeners.push_back(pythonListener);
-      tree::ParseTreeWalker::DEFAULT.walk(
+      antlr4::tree::ParseTreeWalker::DEFAULT.walk(
           pythonListener, m_parse->m_antlrParserHandler->m_tree);
     }
 
@@ -90,7 +84,7 @@ bool PythonListen::listen() {
               m_parse->m_children[i]->m_antlrParserHandler->m_tokens,
               m_parse->m_children[i]->m_offsetLine);
           m_pythonListeners.push_back(pythonListener);
-          tree::ParseTreeWalker::DEFAULT.walk(
+          antlr4::tree::ParseTreeWalker::DEFAULT.walk(
               pythonListener,
               m_parse->m_children[i]->m_antlrParserHandler->m_tree);
         }
@@ -104,3 +98,4 @@ bool PythonListen::listen() {
 
   return true;
 }
+}  // namespace SURELOG

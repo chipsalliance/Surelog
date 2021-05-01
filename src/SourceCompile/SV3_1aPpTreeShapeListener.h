@@ -37,6 +37,7 @@
 #include "SourceCompile/CompilationUnit.h"
 #include "Design/TimeInfo.h"
 #include "SourceCompile/SV3_1aPpTreeListenerHelper.h"
+#include "parser/SV3_1aPpParserBaseListener.h"
 
 namespace SURELOG {
 

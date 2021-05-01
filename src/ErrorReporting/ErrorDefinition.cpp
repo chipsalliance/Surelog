@@ -20,8 +20,9 @@
  *
  * Created on March 5, 2017, 11:25 PM
  */
-#include "Utils/StringUtils.h"
 #include "ErrorReporting/ErrorDefinition.h"
+
+#include "Utils/StringUtils.h"
 
 using namespace SURELOG;
 
@@ -223,7 +224,7 @@ bool ErrorDefinition::init() {
   rec(PP_RECURSIVE_MACRO_DEFINITION, ERROR, PP,
       "Recursive macro definition for \"%s\"",
       "%exloc macro used in macro \"%exobj\"");
-  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<", 
+  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<",
       "%exloc macro instance");
   rec(PP_UNESCAPED_CHARACTER_IN_STRING, ERROR, PP,
       "Illegal un-escaped character '%s' in string");
@@ -313,7 +314,7 @@ bool ErrorDefinition::init() {
   rec(COMP_UNDEFINED_SYSTEM_FUNCTION, ERROR, COMP,
       "Undefined system task/function \"$%s\"");
   rec(COMP_UNDEFINED_USER_FUNCTION, ERROR, COMP,
-      "Undefined user task/function \"%s\"");    
+      "Undefined user task/function \"%s\"");
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
@@ -365,15 +366,15 @@ bool ErrorDefinition::init() {
       "Out of range parameter index: \"%s\"");
   rec(ELAB_NEGATIVE_VALUE, NOTE, ELAB,
       "Negative value in instance %s");
-  rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB, 
-      "Division by zero in instance \"%s\"");    
+  rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB,
+      "Division by zero in instance \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
-  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
-  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");  
-  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
-  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");  
-  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
+  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
+  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");
+  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");
+  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");
+  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line");
   rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   rec(UHDM_CREATING_MODEL, INFO, UHDM, "Creating UHDM Model..");
   rec(UHDM_ELABORATION, INFO, UHDM, "Elaborating UHDM..");

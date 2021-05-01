@@ -20,12 +20,14 @@
  *
  * Created on January 27, 2018, 5:28 PM
  */
+#include "Library/LibrarySet.h"
+
 #include <vector>
 #include <set>
 #include <iostream>
-#include "SourceCompile/SymbolTable.h"
+
 #include "ErrorReporting/ErrorContainer.h"
-#include "Library/LibrarySet.h"
+#include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;
 

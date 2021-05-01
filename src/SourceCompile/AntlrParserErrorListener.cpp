@@ -20,28 +20,24 @@
  *
  * Created on July 29, 2017, 5:32 PM
  */
+#include "SourceCompile/AntlrParserErrorListener.h"
 
 #include <string.h>
 
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-using namespace std;
-using namespace antlr4;
-#include "SourceCompile/SymbolTable.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
-#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include "SourceCompile/AntlrParserErrorListener.h"
-using namespace SURELOG;
+#include "atn/ParserATNSimulator.h"
 
-void AntlrParserErrorListener::syntaxError(Recognizer *recognizer,
-                                           Token *offendingSymbol, size_t line,
+namespace SURELOG {
+void AntlrParserErrorListener::syntaxError(antlr4::Recognizer *recognizer,
+                                           antlr4::Token *offendingSymbol, size_t line,
                                            size_t charPositionInLine,
                                            const std::string &msg,
                                            std::exception_ptr e) {
@@ -78,15 +74,16 @@ void AntlrParserErrorListener::syntaxError(Recognizer *recognizer,
 }
 
 void AntlrParserErrorListener::reportAmbiguity(
-    Parser *recognizer, const dfa::DFA &dfa, size_t startIndex,
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
     size_t stopIndex, bool exact, const antlrcpp::BitSet &ambigAlts,
-    atn::ATNConfigSet *configs) {}
+    antlr4::atn::ATNConfigSet *configs) {}
 
 void AntlrParserErrorListener::reportAttemptingFullContext(
-    Parser *recognizer, const dfa::DFA &dfa, size_t startIndex,
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
     size_t stopIndex, const antlrcpp::BitSet &conflictingAlts,
-    atn::ATNConfigSet *configs) {}
+    antlr4::atn::ATNConfigSet *configs) {}
 
 void AntlrParserErrorListener::reportContextSensitivity(
-    Parser *recognizer, const dfa::DFA &dfa, size_t startIndex,
-    size_t stopIndex, size_t prediction, atn::ATNConfigSet *configs) {}
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
+    size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) {}
+}  // namespace SURELOG

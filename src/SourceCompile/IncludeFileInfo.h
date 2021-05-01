@@ -24,10 +24,12 @@
 #ifndef INCLUDEFILEINFO_H
 #define INCLUDEFILEINFO_H
 
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 class IncludeFileInfo {
- public:
+public:
   IncludeFileInfo()
       : m_sectionStartLine(0),
         m_sectionFile(0),
@@ -50,6 +52,7 @@ class IncludeFileInfo {
         m_type(i.m_type),
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
+
   unsigned int m_sectionStartLine;
   SymbolId m_sectionFile;
   unsigned int m_originalLine;
@@ -58,6 +61,6 @@ class IncludeFileInfo {
   int m_indexClosing;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* INCLUDEFILEINFO_H */

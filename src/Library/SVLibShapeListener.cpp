@@ -20,22 +20,22 @@
  *
  * Created on January 28, 2018, 10:17 PM
  */
+#include "Library/SVLibShapeListener.h"
+
+#include <regex>
+
 #include "CommandLine/CommandLineParser.h"
+#include "Library/ParseLibraryDef.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "Library/ParseLibraryDef.h"
-#include "Utils/FileUtils.h"
-#include "antlr4-runtime.h"
-#include "atn/ParserATNSimulator.h"
-using namespace antlr4;
-#include "Library/ParseLibraryDef.h"
-#include "Library/SVLibShapeListener.h"
+#include "SourceCompile/PreprocessFile.h"
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
-#include <regex>
+#include "antlr4-runtime.h"
+#include "atn/ParserATNSimulator.h"
+
 using namespace SURELOG;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
@@ -183,9 +183,9 @@ void SVLibShapeListener::exitIdentifier(
 void SVLibShapeListener::exitHierarchical_identifier(
     SV3_1aParser::Hierarchical_identifierContext *ctx) {
   std::string ident;
-  ParserRuleContext *childCtx = NULL;
+  antlr4::ParserRuleContext *childCtx = NULL;
 
-  childCtx = (ParserRuleContext *)ctx->children[0];
+  childCtx = (antlr4::ParserRuleContext *)ctx->children[0];
   ident = ctx->getText();
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addVObject(childCtx, ident, VObjectType::slStringConst);

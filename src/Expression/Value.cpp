@@ -20,13 +20,17 @@
  *
  * Created on October 29, 2017, 10:33 PM
  */
-#include <string>
+#include "Expression/Value.h"
+
+#include <math.h>
+
 #include <cmath>
 #include <cstdint>
 #include <cstring>
-#include "Expression/Value.h"
-#include <math.h>    
+#include <string>
+
 #include "vpi_user.h"
+
 using namespace SURELOG;
 
 unsigned int Value::nbWords_(unsigned int size) {
@@ -64,14 +68,14 @@ bool LValue::operator<(const Value& rhs) const {
 }
 
 bool LValue::operator==(const Value& rhs) const {
-  if (!isValid() || !rhs.isValid()) 
-    return false;  
+  if (!isValid() || !rhs.isValid())
+    return false;
   if (getNbWords() != rhs.getNbWords())
     return false;
   for (unsigned int i = 0; i < m_nbWords; i++) {
     if (getValueL(i) != rhs.getValueL(i))
       return false;
-  }  
+  }
   return true;
 }
 
@@ -274,7 +278,7 @@ std::string SValue::uhdmValue() {
     case Value::Type::Unsigned:
       result = "UINT:";
       result += std::to_string(m_value.u_int);
-      break;     
+      break;
     default:
       result = "INT:";
       result += std::to_string(m_value.u_int);
@@ -317,7 +321,7 @@ int SValue::vpiValType() {
       break;
     case Value::Type::Unsigned:
       return vpiUIntConst;
-      break;  
+      break;
     default:
       return vpiIntConst;
       break;
@@ -345,14 +349,14 @@ void SValue::u_not(const Value* a) {
       m_value.u_int = !aval->m_value.u_int;
       m_negative = 0;
       break;
-  }  
+  }
   m_valid = a->isValid();
 }
 
 void SValue::u_tilda(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = aval->m_type;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
       m_value.u_int = ~aval->m_value.u_int;
@@ -370,14 +374,14 @@ void SValue::u_tilda(const Value* a) {
       m_value.u_int = ~aval->m_value.u_int;
       m_negative = 0;
       break;
-  }  
+  }
   m_valid = a->isValid();
 }
 
 void SValue::u_bitwAnd(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -391,7 +395,7 @@ void SValue::u_bitwAnd(const Value* a) {
 void SValue::u_bitwNand(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   uint64_t res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -405,7 +409,7 @@ void SValue::u_bitwNand(const Value* a) {
 void SValue::u_bitwOr(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -419,7 +423,7 @@ void SValue::u_bitwOr(const Value* a) {
 void SValue::u_bitwNor(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -433,7 +437,7 @@ void SValue::u_bitwNor(const Value* a) {
 void SValue::u_bitwXor(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -447,7 +451,7 @@ void SValue::u_bitwXor(const Value* a) {
 void SValue::u_bitwXnor(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_type = Value::Type::Unsigned;
-  m_size = aval->m_size; 
+  m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
   for (unsigned int i = 1; i <  m_size; i++) {
@@ -464,26 +468,26 @@ void SValue::plus(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int + bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((aval->m_value.d_int + bval->m_value.d_int) < 0); 
+      m_negative = ((aval->m_value.d_int + bval->m_value.d_int) < 0);
       m_value.d_int = aval->m_value.d_int + bval->m_value.d_int;
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((aval->m_value.s_int + bval->m_value.s_int) < 0); 
+      m_negative = ((aval->m_value.s_int + bval->m_value.s_int) < 0);
       m_value.s_int = aval->m_value.s_int + bval->m_value.s_int;
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int + bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -493,26 +497,26 @@ void SValue::minus(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int - bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((aval->m_value.d_int - bval->m_value.d_int) < 0); 
+      m_negative = ((aval->m_value.d_int - bval->m_value.d_int) < 0);
       m_value.d_int = aval->m_value.d_int - bval->m_value.d_int;
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((aval->m_value.s_int - bval->m_value.s_int) < 0); 
+      m_negative = ((aval->m_value.s_int - bval->m_value.s_int) < 0);
       m_value.s_int = aval->m_value.s_int - bval->m_value.s_int;
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int - bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -522,26 +526,26 @@ void SValue::mult(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int * bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((aval->m_value.d_int * bval->m_value.d_int) < 0); 
+      m_negative = ((aval->m_value.d_int * bval->m_value.d_int) < 0);
       m_value.d_int = aval->m_value.d_int * bval->m_value.d_int;
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((aval->m_value.s_int * bval->m_value.s_int) < 0); 
+      m_negative = ((aval->m_value.s_int * bval->m_value.s_int) < 0);
       m_value.s_int = aval->m_value.s_int * bval->m_value.s_int;
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int * bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -586,26 +590,26 @@ void SValue::mod(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int % bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = (((int64_t) aval->m_value.d_int % (int64_t)bval->m_value.d_int) < 0); 
+      m_negative = (((int64_t) aval->m_value.d_int % (int64_t)bval->m_value.d_int) < 0);
       m_value.s_int = (int64_t)aval->m_value.d_int % (int64_t)bval->m_value.d_int;
       m_type = Value::Type::Integer;
       break;
     case Value::Type::Integer:
-      m_negative = ((aval->m_value.s_int % bval->m_value.s_int) < 0); 
+      m_negative = ((aval->m_value.s_int % bval->m_value.s_int) < 0);
       m_value.s_int = aval->m_value.s_int % bval->m_value.s_int;
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = aval->m_value.u_int % bval->m_value.u_int;
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -615,26 +619,26 @@ void SValue::power(const Value* a, const Value* b) {
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   switch (aval->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = pow(aval->m_value.u_int , bval->m_value.u_int);
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = pow(aval->m_value.d_int , bval->m_value.d_int) < 0; 
+      m_negative = pow(aval->m_value.d_int , bval->m_value.d_int) < 0;
       m_value.d_int = pow(aval->m_value.d_int , bval->m_value.d_int);
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = pow(aval->m_value.s_int , bval->m_value.s_int) < 0; 
+      m_negative = pow(aval->m_value.s_int , bval->m_value.s_int) < 0;
       m_value.s_int = pow(aval->m_value.s_int , bval->m_value.s_int);
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_value.u_int = pow(aval->m_value.u_int , bval->m_value.u_int);
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -642,7 +646,7 @@ void SValue::greater(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_type = Value::Type::Unsigned;
-  m_negative = 0; 
+  m_negative = 0;
   m_size = 1;
   switch (aval->getType()) {
     case Value::Type::Scalar:
@@ -657,7 +661,7 @@ void SValue::greater(const Value* a, const Value* b) {
     default:
       m_value.u_int = aval->m_value.u_int > bval->m_value.u_int;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -665,7 +669,7 @@ void SValue::greater_equal(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_type = Value::Type::Unsigned;
-  m_negative = 0; 
+  m_negative = 0;
   m_size = 1;
   switch (aval->getType()) {
     case Value::Type::Scalar:
@@ -680,7 +684,7 @@ void SValue::greater_equal(const Value* a, const Value* b) {
     default:
       m_value.u_int = aval->m_value.u_int >= bval->m_value.u_int;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -688,7 +692,7 @@ void SValue::lesser(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_type = Value::Type::Unsigned;
-  m_negative = 0; 
+  m_negative = 0;
   m_size = 1;
   switch (aval->getType()) {
     case Value::Type::Scalar:
@@ -703,7 +707,7 @@ void SValue::lesser(const Value* a, const Value* b) {
     default:
       m_value.u_int = aval->m_value.u_int < bval->m_value.u_int;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -711,7 +715,7 @@ void SValue::lesser_equal(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_type = Value::Type::Unsigned;
-  m_negative = 0; 
+  m_negative = 0;
   m_size = 1;
   switch (aval->getType()) {
     case Value::Type::Scalar:
@@ -726,7 +730,7 @@ void SValue::lesser_equal(const Value* a, const Value* b) {
     default:
       m_value.u_int = aval->m_value.u_int <= bval->m_value.u_int;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -734,7 +738,7 @@ void SValue::equiv(const Value* a, const Value* b) {
   const SValue* aval = (const SValue*)a;
   const SValue* bval = (const SValue*)b;
   m_type = Value::Type::Unsigned;
-  m_negative = 0; 
+  m_negative = 0;
   m_size = 1;
   switch (aval->getType()) {
     case Value::Type::Scalar:
@@ -749,7 +753,7 @@ void SValue::equiv(const Value* a, const Value* b) {
     default:
       m_value.u_int = aval->m_value.u_int == bval->m_value.u_int;
       break;
-  }  
+  }
   m_valid = a->isValid() && b->isValid();
 }
 
@@ -875,7 +879,7 @@ std::string LValue::uhdmValue() {
       for (int i = 0; i < m_nbWords; i++) {
         result += std::to_string(m_valueArray[i].m_value.u_int);
       }
-      break;  
+      break;
     default:
       result = "INT:";
       for (int i = 0; i < m_nbWords; i++) {
@@ -955,7 +959,7 @@ LValue::LValue(const LValue& val)
 LValue::LValue(uint64_t val)
   : m_type(Type::Unsigned), m_nbWords(1),
     m_valueArray(new SValue[1]), m_valid(1), m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_type = m_type;    
+  m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.u_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = 0;
@@ -966,7 +970,7 @@ LValue::LValue(uint64_t val)
 LValue::LValue(int64_t val)
   : m_type(Type::Integer), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1),
     m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_type = m_type;    
+  m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
@@ -977,7 +981,7 @@ LValue::LValue(int64_t val)
 LValue::LValue(double val)
   : m_type(Type::Double), m_nbWords(1), m_valueArray(new SValue[1]), m_valid(1),
     m_prev(nullptr), m_next(nullptr) {
-  m_valueArray[0].m_type = m_type;    
+  m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_value.d_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
@@ -1064,7 +1068,7 @@ void LValue::adjust(const Value* a) {
     }
     m_nbWords = a->getNbWords();
     if (m_nbWords)
-      m_valueArray = new SValue[m_nbWords];  
+      m_valueArray = new SValue[m_nbWords];
   }
   if (m_valueArray == nullptr) {
     m_valueArray = new SValue[1];
@@ -1314,26 +1318,26 @@ void LValue::plus(const Value* a, const Value* b) {
 
   switch (a->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) + b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((a->getValueD(0) + b->getValueD(0)) < 0); 
+      m_negative = ((a->getValueD(0) + b->getValueD(0)) < 0);
       m_valueArray[0].m_value.d_int = a->getValueD(0) + b->getValueD(0);
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((a->getValueL(0) + b->getValueL(0)) < 0); 
+      m_negative = ((a->getValueL(0) + b->getValueL(0)) < 0);
       m_valueArray[0].m_value.s_int = a->getValueL(0) + b->getValueL(0);
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) + b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
 }
@@ -1346,26 +1350,26 @@ void LValue::minus(const Value* a, const Value* b) {
   if (!m_valid) return;
   switch (a->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) - b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((a->getValueD(0) - b->getValueD(0)) < 0); 
+      m_negative = ((a->getValueD(0) - b->getValueD(0)) < 0);
       m_valueArray[0].m_value.d_int = a->getValueD(0) - b->getValueD(0);
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((a->getValueL(0) - b->getValueL(0)) < 0); 
+      m_negative = ((a->getValueL(0) - b->getValueL(0)) < 0);
       m_valueArray[0].m_value.s_int = a->getValueL(0) - b->getValueL(0);
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) - b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
 }
@@ -1379,26 +1383,26 @@ void LValue::mult(const Value* a, const Value* b) {
 
   switch (a->getType()) {
     case Value::Type::Scalar:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) * b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
     case Value::Type::Double:
-      m_negative = ((a->getValueD(0) * b->getValueD(0)) < 0); 
+      m_negative = ((a->getValueD(0) * b->getValueD(0)) < 0);
       m_valueArray[0].m_value.d_int = a->getValueD(0) * b->getValueD(0);
       m_type = Value::Type::Double;
       break;
     case Value::Type::Integer:
-      m_negative = ((a->getValueL(0) * b->getValueL(0)) < 0); 
+      m_negative = ((a->getValueL(0) * b->getValueL(0)) < 0);
       m_valueArray[0].m_value.s_int = a->getValueL(0) * b->getValueL(0);
       m_type = Value::Type::Integer;
       break;
     default:
-      m_negative = 0; 
+      m_negative = 0;
       m_valueArray[0].m_value.u_int = a->getValueUL(0) * b->getValueUL(0);
       m_type = Value::Type::Unsigned;
       break;
-  }  
+  }
   m_valueArray[0].m_negative = m_negative;
   m_valueArray[0].m_type = m_type;
 }
@@ -1525,7 +1529,7 @@ void LValue::greater(const Value* a, const Value* b) {
     default:
       m_valueArray[0].m_value.u_int = a->getValueUL(0) > b->getValueUL(0);
       break;
-  }  
+  }
   m_valueArray[0].m_size = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
@@ -1550,7 +1554,7 @@ void LValue::greater_equal(const Value* a, const Value* b) {
     default:
       m_valueArray[0].m_value.u_int = a->getValueUL(0) >= b->getValueUL(0);
       break;
-  }  
+  }
   m_valueArray[0].m_size = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
@@ -1575,7 +1579,7 @@ void LValue::lesser(const Value* a, const Value* b) {
     default:
       m_valueArray[0].m_value.u_int = a->getValueUL(0) < b->getValueUL(0);
       break;
-  }  
+  }
   m_valueArray[0].m_size = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;
@@ -1600,7 +1604,7 @@ void LValue::lesser_equal(const Value* a, const Value* b) {
     default:
       m_valueArray[0].m_value.u_int = a->getValueUL(0) <= b->getValueUL(0);
       break;
-  }  
+  }
   m_valueArray[0].m_size = 1;
   m_valueArray[0].m_negative = 0;
   m_negative = 0;

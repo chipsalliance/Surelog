@@ -28,7 +28,6 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "ErrorReporting/Error.h"
-#include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"

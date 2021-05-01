@@ -29,6 +29,8 @@
 #include <string>
 #include <vector>
 
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 class ModuleDefinition;
@@ -37,6 +39,7 @@ class Library final {
 public:
   Library(std::string_view name, SymbolTable* symbols)
       : m_name(name), m_symbols(symbols) {}
+
   void addFileId(SymbolId fid) {
     m_fileIds.push_back(fid);
     m_fileIdsSet.insert(fid);

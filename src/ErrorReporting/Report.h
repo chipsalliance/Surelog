@@ -23,6 +23,12 @@
 
 #ifndef REPORT_H
 #define REPORT_H
+
+#include <utility>
+
+#include "SourceCompile/SymbolTable.h"
+#include "CommandLine/CommandLineParser.h"
+
 namespace SURELOG {
 
 class Report final {

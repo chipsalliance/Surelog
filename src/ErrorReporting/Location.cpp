@@ -20,7 +20,6 @@
  *
  * Created on March 6, 2017, 6:48 PM
  */
-#include <string>
 #include "ErrorReporting/Location.h"
 
 using namespace SURELOG;

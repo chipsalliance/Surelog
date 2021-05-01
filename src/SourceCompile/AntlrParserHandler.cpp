@@ -20,17 +20,13 @@
  *
  * Created on June 4, 2017, 4:21 PM
  */
+#include "SourceCompile/AntlrParserHandler.h"
 
 #include "antlr4-runtime.h"
-using namespace std;
-using namespace antlr4;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 
-#include "SourceCompile/AntlrParserHandler.h"
-
-using namespace SURELOG;
-
+namespace SURELOG {
 AntlrParserHandler::~AntlrParserHandler() {
   // delete m_tree; // INVALID MEMORY READ can be seen in AdvancedDebug
   delete m_parser;
@@ -38,3 +34,4 @@ AntlrParserHandler::~AntlrParserHandler() {
   delete m_lexer;
   delete m_inputStream;
 }
+}  // namespace SURELOG
