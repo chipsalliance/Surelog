@@ -20,13 +20,13 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
+#include "Testbench/Program.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Design/DesignComponent.h"
-#include "Program.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 Program::~Program() {}
 
 unsigned int Program::getSize() const {
@@ -45,3 +45,4 @@ ClassDefinition* Program::getClassDefinition(const std::string& name) {
     return (*itr).second;
   }
 }
+}  // namespace SURELOG

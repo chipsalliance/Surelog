@@ -20,12 +20,12 @@
  *
  * Created on March 24, 2019, 7:38 PM
  */
+#include "Testbench/ClassObject.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "ClassObject.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 bool ClassObject::setValue(const std::string& property, Value* value) {
   PropertyValueMap::iterator itr = m_properties.find(property);
   if (itr == m_properties.end()) {
@@ -44,3 +44,4 @@ Value* ClassObject::getValue(const std::string& property) const {
   auto found = m_properties.find(property);
   return found == m_properties.end() ? nullptr : found->second.second;
 }
+}  // namespace SURELOG

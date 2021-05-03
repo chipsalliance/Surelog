@@ -26,6 +26,10 @@
 
 #include <string_view>
 
+#include "Design/DataType.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 class Variable {

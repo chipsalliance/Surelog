@@ -21,13 +21,13 @@
  * Created on February 21, 2019, 8:20 PM
  */
 
-#include "FunctionMethod.h"
+#include "Testbench/FunctionMethod.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 FunctionMethod::~FunctionMethod() {}
 
 bool FunctionMethod::compile(CompileHelper& compile_helper) {
   bool result = Function::compile(compile_helper);
   return result;
 }
+}  // namespace SURELOG

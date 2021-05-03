@@ -39,6 +39,7 @@
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/SV3_1aTreeShapeHelper.h"
+#include "parser/SV3_1aParserBaseListener.h"
 
 namespace SURELOG {
 
