@@ -196,7 +196,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
     while (1) {
 
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
-        return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
+        unsigned int l = infos[index].m_sectionStartLine + (line - infos[index].m_originalLine);
+        return l;
       }
 
       if (infos[index].m_type == 2) {
@@ -211,7 +212,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
       }
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
           (infos[index].m_indexClosing > -1) && (line < infos[infos[index].m_indexClosing].m_originalLine)) {
-        return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
+        unsigned int l = infos[index].m_sectionStartLine + (line - infos[index].m_originalLine);
+        return l;
       }
       if (index == 0) break;
       index --;
