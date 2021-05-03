@@ -140,10 +140,13 @@ bool PPCache::restore_(std::string cacheFileName) {
   for (unsigned int i = 0; i < incinfos->size(); i++) {
     const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
     std::string sectionFileName = incinfo->m_sectionFile()->c_str();
+    //std::cout << "read sectionFile: " << sectionFileName << " s:" << incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() << " t:" << incinfo->m_type() << "\n";
     IncludeFileInfo inf (incinfo->m_sectionStartLine(),
         m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(sectionFileName),
         incinfo->m_originalLine(),
-        incinfo->m_type());
+        incinfo->m_type(),
+        incinfo->m_indexOpening(), 
+        incinfo->m_indexClosing());
     m_pp->getIncludeFileInfo().push_back(inf);
   }
 
@@ -394,6 +397,7 @@ bool PPCache::save() {
     info.m_type,
     info.m_indexOpening,
     info.m_indexClosing);
+    //std::cout << "save sectionFile: " << sectionFileName << " s:" << info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" << info.m_type << "\n";
     lineinfo_vec.push_back(incInfo);
   }
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);

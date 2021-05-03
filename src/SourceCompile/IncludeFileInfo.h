@@ -52,7 +52,14 @@ public:
         m_type(i.m_type),
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
-
+  IncludeFileInfo(unsigned int sectionStartLine, SymbolId sectionFile,
+                  unsigned int originalLine, unsigned int type, int indexOpening, int indexClosing)
+      : m_sectionStartLine(sectionStartLine),
+        m_sectionFile(sectionFile),
+        m_originalLine(originalLine),
+        m_type(type),
+        m_indexOpening(indexOpening),
+        m_indexClosing(indexClosing) {}   
   unsigned int m_sectionStartLine;
   SymbolId m_sectionFile;
   unsigned int m_originalLine;

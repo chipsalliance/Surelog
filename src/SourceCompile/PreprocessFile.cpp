@@ -215,10 +215,12 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_fileContent(NULL),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
-  IncludeFileInfo info(0, m_fileId, 0, 2);
-  info.m_indexClosing = 0;
-  info.m_indexOpening = 0;
-  getIncludeFileInfo().push_back(info);
+  if (!m_compileSourceFile->m_commandLineParser->parseOnly()) {
+    IncludeFileInfo info(0, m_fileId, 0, 2);
+    info.m_indexClosing = 0;
+    info.m_indexOpening = 0;
+    getIncludeFileInfo().push_back(info);
+  }
 }
 
 PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
