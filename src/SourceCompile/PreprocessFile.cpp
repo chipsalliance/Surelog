@@ -215,7 +215,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_fileContent(NULL),
       m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
-  if (!m_compileSourceFile->m_commandLineParser->parseOnly()) {
+  if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) && (!m_compileSourceFile->m_commandLineParser->lowMem())) {
     IncludeFileInfo info(0, m_fileId, 0, 2);
     info.m_indexClosing = 0;
     info.m_indexOpening = 0;
@@ -302,7 +302,7 @@ bool PreprocessFile::preprocess() {
   std::string root = FileUtils::basename(fileName);
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
-
+  CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
   Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
@@ -313,7 +313,7 @@ bool PreprocessFile::preprocess() {
     if (precompiled)
       return true;
   }
-  if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+  if (clp->parseOnly() || clp->lowMem())
     return true;
 
   m_antlrParserHandler = getCompileSourceFile()->getAntlrPpHandlerForId(
@@ -1124,7 +1124,8 @@ void PreprocessFile::collectIncludedFiles(std::set<PreprocessFile*>& included) {
 }
 
 void PreprocessFile::saveCache() {
-   if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+   CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
+   if (clp->parseOnly() || clp->lowMem())
     return;
    if (m_macroBody.empty()) {
      if (!m_usingCachedVersion) {

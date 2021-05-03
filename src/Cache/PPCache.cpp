@@ -183,6 +183,7 @@ bool PPCache::restore_(std::string cacheFileName) {
 }
 
 bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
+  CommandLineParser* clp = m_pp->getCompileSourceFile()->getCommandLineParser();
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
   if (buffer_pointer == NULL) {
     delete[] buffer_pointer;
@@ -193,7 +194,10 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     return false;
   }
 
-  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+  if (clp->parseOnly()) {
+    return true;
+  }
+  if (clp->lowMem()) {
     return true;
   }
 

@@ -64,7 +64,8 @@ void SV3_1aTreeShapeListener::enterTop_level_rule(
   } else {
     m_fileContent = m_pf->getFileContent();
   }
-  if (!m_pf->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+  CommandLineParser* clp = m_pf->getCompileSourceFile()->getCommandLineParser();
+  if ((!clp->parseOnly()) && (!clp->lowMem())) {
     IncludeFileInfo info(1, m_pf->getFileId(0), 0, 1);
     m_includeFileInfo.push(info);
   }

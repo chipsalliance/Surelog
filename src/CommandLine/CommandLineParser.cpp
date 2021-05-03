@@ -109,6 +109,7 @@ static const std::vector<std::string> helpText = {
     "                        separate compilation units to perform diffs",
     "  -parse                Parse/Compile/Elaborate the files after "
     "pre-processing step",
+    "  -noparse              Turns off Parsing & Compilation & Elaboration",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model",
@@ -130,6 +131,7 @@ static const std::vector<std::string> helpText = {
     "                        if \"max\" is given, the program will use one ",
     "                        thread per core on the host",
     "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single process",
+    "  -lowmem               Minimizes memory high water mark (use multiple stagerred processes)",
     "  -split <line number>  Split files or modules larger than specified line "
     "number for multi thread compilation",
     "  -timescale=<timescale> Specifies the overall timescale",
@@ -168,7 +170,7 @@ static const std::vector<std::string> helpText = {
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
-    "  -o <path>             Turns on all compilation stages, produces all ",
+    "  -o <path>             Turns on all compilation stages, produces all",
     "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
@@ -311,7 +313,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_coverUhdm(false),
       m_showVpiIDs(false),
       m_replay(false),
-      m_uhdmStats(false) {
+      m_uhdmStats(false),
+      m_lowMem (false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -713,6 +716,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-lowmem") {
       m_nbMaxProcesses = 1;
       m_writePpOutput = true;
+      m_lowMem = true;
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
       bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
@@ -900,6 +904,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = false;
       m_elaborate = false;
       m_parseOnly = true;
+    } else if (all_arguments[i] == "-noparse") {
+      m_parse = false;
+      m_compile = false;
+      m_elaborate = false;
     } else if (all_arguments[i] == "-nocomp") {
       m_compile = false;
       m_elaborate = false;
