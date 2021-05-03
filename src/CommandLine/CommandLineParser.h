@@ -116,10 +116,12 @@ class CommandLineParser final {
   /* Core functions options */
   bool parse() { return m_parse; }
   bool parseOnly() { return m_parseOnly; }
+  bool lowMem() { return m_lowMem; }
   bool compile() { return m_compile; }
   bool elaborate() { return m_elaborate; }
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
+  void setLowMem(bool val) { m_lowMem = val; }
   void setCompile(bool val) { m_compile = val; }
   void setElaborate(bool val) { m_elaborate = val; }
   void setElabUhdm(bool val) { m_elaborate = val; m_elabUhdm = val; }
@@ -255,6 +257,7 @@ class CommandLineParser final {
   bool m_showVpiIDs;
   bool m_replay;
   bool m_uhdmStats;
+  bool m_lowMem;
 };
 
 }  // namespace SURELOG
