@@ -397,4 +397,4 @@
 +incdir+../src/lowrisc_dv_verilator_memutil_dpi_0/cpp+../src/lowrisc_prim_assert_0.1/rtl+../src/lowrisc_prim_util_memload_0/rtl+../src/lowrisc_ip_otbn_tracer_0/cpp+../src/lowrisc_dv_otbn_model_0.1+.
 -top top_earlgrey_nexysvideo
 
--parse -verbose -elabuhdm -d coveruhdm
+-parse -verbose -elabuhdm -d coveruhdm 

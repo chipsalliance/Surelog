@@ -86,8 +86,10 @@ For more build/test options and system requirements for building see
    -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
    -parse                Parse/Compile/Elaborate the files after pre-processing step
    -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
+   -noparse              Turns off Parsing & Compilation & Elaboration
    -nocomp               Turns off Compilation & Elaboration
    -noelab               Turns off Elaboration
+   -parseonly            Only Parses, reloads Preprocessor saved db
    -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
    -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
    -pythonlistener       Enables the Parser Python Listener
@@ -99,6 +101,7 @@ For more build/test options and system requirements for building see
    -strictpythoncheck    Turns on strict Python checks
    -mt/--threads <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
    -mp <nb_max_processes> 0 up to 512 max processes, 0 or 1 being single process
+   -lowmem               Minimizes memory high water mark (uses multiple staggered processes for preproc, parsing and elaboration)
    -split <line number>  Split files or modules larger than specified line number for multi thread compilation
    -timescale=<timescale> Specifies the overall timescale
    -nobuiltin            Do not parse SV builtin classes (array...)

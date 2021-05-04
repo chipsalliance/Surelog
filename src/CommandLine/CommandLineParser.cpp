@@ -112,6 +112,7 @@ static const std::vector<std::string> helpText = {
     "  -noparse              Turns off Parsing & Compilation & Elaboration",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
+    "  -parseonly            Only Parses, reloads Preprocessor saved db",
     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model",
     "  -top/--top-module <module> Top level module for elaboration (multiple cmds ok)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
@@ -131,7 +132,7 @@ static const std::vector<std::string> helpText = {
     "                        if \"max\" is given, the program will use one ",
     "                        thread per core on the host",
     "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single process",
-    "  -lowmem               Minimizes memory high water mark (use multiple stagerred processes)",
+    "  -lowmem               Minimizes memory high water mark (uses multiple staggered processes for preproc, parsing and elaboration)",
     "  -split <line number>  Split files or modules larger than specified line "
     "number for multi thread compilation",
     "  -timescale=<timescale> Specifies the overall timescale",

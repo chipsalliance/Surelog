@@ -350,10 +350,16 @@ bool Compiler::createMultiProcessParser_() {
         fileName = StringUtils::replaceAll(fileName, directory, "");
         std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::basename(fileName);
         targets.push_back(targetname);
+        std::string svFile;
+        std::string baseFileName = FileUtils::basename(fileName);
+        if (m_commandLineParser->isSVFile(baseFileName)) {
+          svFile = " -sv ";
+        }
+
         ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
         ofs <<"  COMMAND " << full_exe_path << fileUnit << sverilog <<
                             " -parseonly -nostdout -mt 0 -mp 0 -o " << outputPath << " -nobuiltin -l "
-                           << FileUtils::basename(targetname) + ".log" << " " << fileName << std::endl;
+                           << FileUtils::basename(targetname) + ".log" << " " << svFile << fileName << std::endl;
         ofs << ")" << std::endl;
       }
 
@@ -366,8 +372,13 @@ bool Compiler::createMultiProcessParser_() {
           CompileSourceFile* compiler = jobArray[i][j];
           std::string fileName = compiler->getSymbolTable()->getSymbol(
                                         compiler->getPpOutputFileId());
+          std::string svFile;
+          std::string baseFileName = FileUtils::basename(fileName);
+          if (m_commandLineParser->isSVFile(baseFileName)) {
+            svFile = " -sv ";
+          }
           fileName = StringUtils::replaceAll(fileName, directory, "");
-          fileList += " " + fileName;
+          fileList += " " + svFile + fileName;
           lastFile = fileName;
         }
         if (!fileList.empty()) {
@@ -375,7 +386,7 @@ bool Compiler::createMultiProcessParser_() {
           targets.push_back(targetname);
           ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
           ofs << "  COMMAND " << full_exe_path << fileUnit << sverilog <<
-                  " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -o " << outputPath << " -l "
+                  " -parseonly -nostdout -mt 0 -mp 0 -nobuiltin -o " << outputPath << " -l "
                   << FileUtils::basename(targetname) + ".log" << " " << fileList << std::endl;
           ofs << ")" << std::endl;
         }
@@ -446,23 +457,25 @@ bool Compiler::createMultiProcessPreProcessor_() {
            m_commandLineParser->getSourceFiles()) {
         const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
-        const std::string fullPath = FileUtils::getFullPath(fileName);
-        fileList += " " + fullPath;
+        std::string svFile;
+        std::string baseFileName = FileUtils::basename(fileName);
+        if (m_commandLineParser->isSVFile(baseFileName)) {
+          svFile = " -sv ";
+        }
+        fileList += " " + svFile + fileName;
       }
       // Library files
       // (-v <file>)
       for (const SymbolId id : m_commandLineParser->getLibraryFiles()) {
         const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        const std::string fullPath = FileUtils::getFullPath(fileName);
-        fileList += " -v " + fullPath;
+        fileList += " -v " + fileName;
       }
       // (-y <path> +libext+<ext>)
       for (auto id : m_commandLineParser->getLibraryPaths()) {
         const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        const std::string fullPath = FileUtils::getFullPath(fileName);
-        fileList += " -y " + fullPath; 
+        fileList += " -y " + fileName; 
       }
       // +libext+
       for (auto id : m_commandLineParser->getLibraryExtensions()) {
@@ -471,19 +484,16 @@ bool Compiler::createMultiProcessPreProcessor_() {
         fileList += " +libext+" + extName; 
       }
       // Include dirs
-      fileList += " -I" + std::string(p);
       for (const SymbolId id : m_commandLineParser->getIncludePaths()) {
         const std::string fileName =
             m_commandLineParser->getSymbolTable().getSymbol(id);
-        const std::string fullPath = FileUtils::getFullPath(fileName);
-        fileList += " -I" + fullPath;
+        fileList += " -I" + fileName;
       }
     
-      std::cout << "FileList: " << fileList << "\n";
       ofs << "add_custom_command(OUTPUT preprocessing" << std::endl;
       ofs << "  COMMAND " << full_exe_path << fileUnit << sverilog
-          << " -write_pp -nostdout -mt 0 -mp 0 -o " << outputPath
-          << " -nobuiltin -l preprocessing.log"
+          << " -write_pp -mt 0 -mp 0 -o " << outputPath
+          << " -nobuiltin -noparse -nostdout -cd " << std::string(p) << " -l preprocessing.log"
           << " " << fileList << std::endl;
       ofs << ")" << std::endl;
 
@@ -793,8 +803,7 @@ bool Compiler::compile() {
   createMultiProcessPreProcessor_();
   if (!compileFileSet_(CompileSourceFile::Preprocess,
                        m_commandLineParser->fileunit(), m_compilers))
-    return false;
-
+    return false;   
   // Single thread post Preprocess
   if (!compileFileSet_(CompileSourceFile::PostPreprocess, false, m_compilers))
     return false;
