@@ -20,13 +20,13 @@
  *
  * Created on March 6, 2019, 9:14 PM
  */
+#include "Testbench/TypeDef.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/FileContent.h"
-#include "TypeDef.h"
 
-using namespace SURELOG;
-
+namespace SURELOG {
 TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
                  const std::string& name)
     : DataType(fC, id, name, fC->Type(id)), m_the_def(the_def), m_datatype(NULL) {
@@ -34,3 +34,4 @@ TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
 }
 
 TypeDef::~TypeDef() {}
+}  // namespace SURELOG

@@ -13,34 +13,27 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "Utils/StringUtils.h"
+#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 #include <cstdlib>
 #include <iostream>
 #include <regex>
 
-using namespace std;
-using namespace SURELOG;
-
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/StringUtils.h"
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
 #include "parser/SV3_1aPpParserBaseListener.h"
-using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "Utils/FileUtils.h"
 
-#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
-
+namespace SURELOG {
 SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(PreprocessFile* pp,
         antlr4::CommonTokenStream* tokens,
         PreprocessFile::SpecialInstructions& instructions) :
@@ -310,13 +303,13 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
   std::string text;
   if (ctx->Escaped_identifier()) {
     text = ctx->Escaped_identifier()->getText();
-    addVObject((ParserRuleContext*) ctx->Escaped_identifier(), text, VObjectType::slEscaped_identifier);
+    addVObject((antlr4::ParserRuleContext*) ctx->Escaped_identifier(), text, VObjectType::slEscaped_identifier);
   } else if (ctx->Simple_identifier()) {
     text = ctx->Simple_identifier()->getText();
-    addVObject((ParserRuleContext*) ctx->Simple_identifier(), text, VObjectType::slPs_identifier);
+    addVObject((antlr4::ParserRuleContext*) ctx->Simple_identifier(), text, VObjectType::slPs_identifier);
   } else if (ctx->String()) {
     text = ctx->String()->getText();
-    addVObject((ParserRuleContext*) ctx->String(), text, VObjectType::slString);
+    addVObject((antlr4::ParserRuleContext*) ctx->String(), text, VObjectType::slString);
   }
   addVObject(ctx, VObjectType::slInclude_statement);
 
@@ -341,7 +334,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     std::pair<int, int> lineCol = ParseUtils::getLineColumn(
             ctx->Simple_identifier() ? ctx->Simple_identifier()
             : ctx->Escaped_identifier());
-    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
@@ -378,7 +371,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     }
     std::string macroArgs = ctx->macro_actual_args()->getText();
     int nbCRinArgs = std::count(macroArgs.begin(), macroArgs.end(),'\n');
-    std::vector<tree::ParseTree*> tokens =
+    std::vector<antlr4::tree::ParseTree*> tokens =
             ParseUtils::getTopTokenList(ctx->macro_actual_args());
     std::vector<std::string> actualArgs;
     ParseUtils::tokenizeAtComma(actualArgs, tokens);
@@ -442,15 +435,15 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       emptyMacroBody = true;
       for (int i = 0; i < nbCRinArgs; i++)
         macroBody += "\n";
-    } 
+    }
 
     m_pp->append(pre + macroBody + post);
-    
+
     if (m_append_paused_context == NULL) {
       m_append_paused_context = ctx;
       m_pp->pauseAppend();
     }
-    
+
     if (openingIndex >= 0) {
       SymbolId fileId = 0;
       unsigned int line = 0;
@@ -466,7 +459,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       if (emptyMacroBody) {
         if (nbCRinArgs)
           totalLineCount -= nbCRinArgs;
-      
+
         IncludeFileInfo infop(origLine, fileId, totalLineCount, 2);
         infop.m_indexOpening = openingIndex;
         m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
@@ -484,7 +477,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     int nbCRinArgs = std::count(macroArgs.begin(), macroArgs.end(),'\n');
     for (int i = 0; i < nbCRinArgs; i++) {
       m_pp->append("\n");
-    } 
+    }
   }
 }
 
@@ -1276,7 +1269,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(SV3_1aPp
     if (m_pp->m_debugMacro) std::cout << "Defining macro:" << macroName << std::endl;
     m_inMacroDefinitionParsing = true;
     SV3_1aPpParser::Escaped_macro_definition_bodyContext* cBody = ctx->escaped_macro_definition_body();
-    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
@@ -1312,7 +1305,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(SV3_1aPpPar
     m_inMacroDefinitionParsing = true;
     SV3_1aPpParser::Escaped_macro_definition_bodyContext* cBody = ctx->escaped_macro_definition_body();
     std::string arguments = ctx->macro_arguments()->getText();
-    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
@@ -1349,7 +1342,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(SV3_1aPpParser
     //std::string wholeMacro = ctx->getText();
     SV3_1aPpParser::Simple_macro_definition_bodyContext* cBody = ctx->simple_macro_definition_body();
     std::string arguments = ctx->macro_arguments()->getText();
-    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
@@ -1574,3 +1567,4 @@ void SV3_1aPpTreeShapeListener::enterEveryRule(antlr4::ParserRuleContext *ctx) {
 void SV3_1aPpTreeShapeListener::exitEveryRule(antlr4::ParserRuleContext *ctx) {}
 void SV3_1aPpTreeShapeListener::visitTerminal(antlr4::tree::TerminalNode *node) {}
 void SV3_1aPpTreeShapeListener::visitErrorNode(antlr4::tree::ErrorNode *node) {}
+}  // namespace SURELOG

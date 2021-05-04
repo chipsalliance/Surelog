@@ -98,6 +98,7 @@ proc generate_header { listener } {
         puts $oid "#include \"SourceCompile/CompilationUnit.h\""
         puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
         puts $oid "#include \"SourceCompile/SV3_1aTreeShapeHelper.h\""
+        puts $oid "#include \"parser/SV3_1aParserBaseListener.h\""
         puts $oid ""
         puts $oid "namespace SURELOG \{"
         puts $oid ""

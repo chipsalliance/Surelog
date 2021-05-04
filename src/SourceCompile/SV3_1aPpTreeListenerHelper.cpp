@@ -20,33 +20,30 @@
  *
  * Created on December 4, 2019, 8:17 PM
  */
-
-#include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "Utils/StringUtils.h"
+#include "SourceCompile/SV3_1aPpTreeListenerHelper.h"
 
 #include <cstdlib>
 #include <iostream>
 #include <regex>
 
-using namespace std;
-using namespace SURELOG;
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/StringUtils.h"
 
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
 #include "parser/SV3_1aPpParserBaseListener.h"
-using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "Utils/FileUtils.h"
 
-#include "SV3_1aPpTreeListenerHelper.h"
+using namespace SURELOG;
 
 SV3_1aPpTreeListenerHelper::~SV3_1aPpTreeListenerHelper()
 {
@@ -56,8 +53,8 @@ SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(const std::string &symbol) {
   return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
 }
 
-std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> SV3_1aPpTreeListenerHelper::getFileLine(ParserRuleContext* ctx,
-                                                SymbolId& fileId) {                                                
+std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> SV3_1aPpTreeListenerHelper::getFileLine(antlr4::ParserRuleContext* ctx,
+                                                SymbolId& fileId) {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
   std::pair<int, int> endLineCol = ParseUtils::getEndLineColumn(m_tokens, ctx);
   unsigned int line = 0;
@@ -127,7 +124,7 @@ void SV3_1aPpTreeListenerHelper::init() {
 
 
 void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
-                                         ParserRuleContext* ctx,
+                                          antlr4::ParserRuleContext* ctx,
                                          std::string object, bool printColumn) {
   if (m_instructions.m_mute) return;
   std::pair<int, int> lineCol =
@@ -169,7 +166,7 @@ void SV3_1aPpTreeListenerHelper::logError(ErrorDefinition::ErrorType error,
 }
 
 
-void SV3_1aPpTreeListenerHelper::forwardToParser(ParserRuleContext* ctx) {
+void SV3_1aPpTreeListenerHelper::forwardToParser(antlr4::ParserRuleContext* ctx) {
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing) &&
       (!m_pp->getCompileSourceFile()
             ->getCommandLineParser()
@@ -182,7 +179,7 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(ParserRuleContext* ctx) {
   }
 }
 
-void SV3_1aPpTreeListenerHelper::addLineFiller(ParserRuleContext* ctx) {
+void SV3_1aPpTreeListenerHelper::addLineFiller(antlr4::ParserRuleContext* ctx) {
   if (m_pp->isMacroBody())
     return;
   const std::string& text = ctx->getText();
@@ -193,7 +190,7 @@ void SV3_1aPpTreeListenerHelper::addLineFiller(ParserRuleContext* ctx) {
 }
 
 void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
-    const std::string &macroName, ParserRuleContext* ctx) {
+  const std::string &macroName, antlr4::ParserRuleContext* ctx) {
   std::set<PreprocessFile*> visited;
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {
