@@ -201,7 +201,7 @@ dict set UNIX_BLACK_LIST UnitElabExternNested 1
 
 # RAM size in CI machines
 dict set UNIX_BLACK_LIST Earlgrey_nexysvideo 1
-dict set UNIX_BLACK_LIST BlackParrot 1
+#dict set UNIX_BLACK_LIST BlackParrot 1
 dict set UNIX_BLACK_LIST BlackPBe 1
 
 if { $tcl_platform(platform) == "windows" } {
