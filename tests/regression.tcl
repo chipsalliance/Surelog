@@ -472,6 +472,9 @@ proc run_regression { } {
                 if {$MP_MAX > 0} {
                     regsub -all {\-nocache} $command "" command
                 }
+		if [regexp {\-lowmem} $command] {
+		    set MP_MAX 1
+		}
                 set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
 
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
