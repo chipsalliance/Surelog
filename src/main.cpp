@@ -21,14 +21,6 @@
  * Created on January 15, 2017, 12:15 AM
  */
 
-#include <string.h>
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <sys/stat.h>
-#include <fstream>
-
 #if defined(_MSC_VER)
   #include <direct.h>
   #include <process.h>
@@ -36,6 +28,14 @@
   #include <sys/param.h>
   #include <unistd.h>
 #endif
+
+#include <string.h>
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sys/stat.h>
+#include <fstream>
 
 #include "surelog.h"
 #include "ErrorReporting/Report.h"
