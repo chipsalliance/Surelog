@@ -129,7 +129,7 @@ enum COMP_MODE {
     BATCH,
 };
 
-int batchCompilation(const char* argv0, std::string batchFile)
+int batchCompilation(const char* argv0, std::string batchFile, bool nostdout)
 {
   char path [10000];
   int returnCode = 0;
@@ -146,7 +146,7 @@ int batchCompilation(const char* argv0, std::string batchFile)
   std::string line;
   int count = 0;
   while (std::getline(stream, line)) {
-    std::cout << "Processing: " << line << std::endl << std::flush;
+    if (!nostdout) std::cout << "Processing: " << line << std::endl << std::flush;
     std::vector<std::string> args;
     SURELOG::StringUtils::tokenize(line, " ", args);
     int argc = args.size() + 1;
@@ -165,14 +165,14 @@ int batchCompilation(const char* argv0, std::string batchFile)
     count++;
     int ret = chdir(path);
     if (ret < 0) {
-      std::cout << "Could not change directory to " << path << "\n" << std::endl;
+      std::cout << "FATAL: Could not change directory to " << path << "\n" << std::endl;
       returnCode |= 1;
     }
   }
-  std::cout << "Processed " << count << " tests." << std::endl << std::flush;
+  if (!nostdout) std::cout << "Processed " << count << " tests." << std::endl << std::flush;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
-  errors->printStats (overallStats);
+  if (!nostdout) errors->printStats (overallStats);
   delete errors;
   delete symbolTable;
   stream.close();
@@ -185,18 +185,15 @@ int main(int argc, const char ** argv) {
   unsigned int codedReturn = 0;
   COMP_MODE mode = NORMAL;
   bool python_mode = true;
-
+  bool nostdout = false;
   std::string batchFile;
   std::string diff_unit_opt = "-diffcompunit";
   std::string nopython_opt  = "-nopython";
   std::string parseonly_opt = "-parseonly";
   std::string batch_opt     = "-batch";
+  std::string nostdout_opt  = "-nostdout";
   for (int i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
-     // int ret = chdir("..");
-     // if (ret < 0) {
-     //   std::cout << "Could not change directory to ../\n" << std::endl;
-     // }
     } else if (diff_unit_opt == argv[i]) {
       mode = DIFF;
     } else if (nopython_opt == argv[i]) {
@@ -205,6 +202,8 @@ int main(int argc, const char ** argv) {
       batchFile = argv[i+1];
       i++;
       mode = BATCH;
+    } else if (nostdout_opt == argv[i]) {
+      nostdout = true;
     }
   }
 
@@ -241,7 +240,7 @@ int main(int argc, const char ** argv) {
     codedReturn = executeCompilation(argc, argv, false, false);
     break;
   case BATCH:
-    codedReturn = batchCompilation(argv[0], batchFile);
+    codedReturn = batchCompilation(argv[0], batchFile, nostdout);
     break;
   }
 
