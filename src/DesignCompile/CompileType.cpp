@@ -1090,20 +1090,26 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if (!result) {
-        UHDM::VectorOfparam_assign* param_assigns = component->getParam_assigns();
-        if (param_assigns) {
-          for (param_assign* param : *param_assigns) {
-            const std::string& param_name = param->Lhs()->VpiName();
-            if (param_name == typeName) {
-              const any* rhs = param->Rhs();
-              if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
-                int_typespec* its = buildIntTypespec(compileDesign, param->VpiFile(), typeName, exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(), param->VpiLineNo(), param->VpiColumnNo());
-               // its->VpiParent((any*) param->Lhs());
-                result = its;
-              } else {
-                result = (UHDM::typespec*)rhs;
+        if (component) {
+          UHDM::VectorOfparam_assign* param_assigns =
+              component->getParam_assigns();
+          if (param_assigns) {
+            for (param_assign* param : *param_assigns) {
+              const std::string& param_name = param->Lhs()->VpiName();
+              if (param_name == typeName) {
+                const any* rhs = param->Rhs();
+                if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                  int_typespec* its = buildIntTypespec(
+                      compileDesign, param->VpiFile(), typeName,
+                      exp->VpiValue(), param->VpiLineNo(), param->VpiColumnNo(),
+                      param->VpiLineNo(), param->VpiColumnNo());
+                  // its->VpiParent((any*) param->Lhs());
+                  result = its;
+                } else {
+                  result = (UHDM::typespec*)rhs;
+                }
+                break;
               }
-              break;
             }
           }
         }
