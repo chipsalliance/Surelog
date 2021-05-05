@@ -25,6 +25,10 @@
 #define CLOCKINGBLOCK_H
 
 #include <vector>
+
+#include "Design/FileContent.h"
+#include "Design/Signal.h"
+#include "SourceCompile/SymbolTable.h"
 #include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
