@@ -30,9 +30,8 @@
 #include "ParserRuleContext.h"  // Antlr runtime
 #include "SourceCompile/VObjectTypes.h"
 
-typedef unsigned int NodeId;
 namespace SURELOG {
-
+typedef uint32_t NodeId;  // as defined in SourceCompile/SymbolTable.h
 class ModuleDefinition;
 class FileContent;
 class SV3_1aPythonListener;

@@ -118,6 +118,7 @@ static const std::vector<std::string> helpText = {
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
     "                        Tests are expressed as one full command line per line.",
     "  -parametersubstitution Enables substitution of assignment patterns in parameters",
+#ifdef SURELOG_WITH_PYTHON
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
     "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
@@ -127,6 +128,7 @@ static const std::vector<std::string> helpText = {
     "  -nopython             Turns off all Python features, including waivers",
     "  -withpython           Turns on all Python features, including waivers",
     "  -strictpythoncheck    Turns on strict Python checks",
+#endif
     "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being single "
     "threaded,",
     "                        if \"max\" is given, the program will use one ",

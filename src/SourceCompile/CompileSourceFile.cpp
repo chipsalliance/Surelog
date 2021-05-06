@@ -60,15 +60,10 @@ CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
       m_commandLineParser(clp),
       m_errors(errors),
       m_compiler(compiler),
-      m_pp(NULL),
       m_symbolTable(symbols),
-      m_parser(NULL),
       m_compilationUnit(compilationUnit),
       m_action(Preprocess),
       m_ppResultFileId(0),
-      m_interpState(NULL),
-      m_pythonListener(NULL),
-      m_fileAnalyzer(NULL),
       m_library(library) {}
 
 CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
@@ -79,13 +74,12 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
       m_errors(parent->m_errors),
       m_compiler(parent->m_compiler),
       m_pp(parent->m_pp),
-      m_symbolTable(NULL),
-      m_parser(NULL),
       m_compilationUnit(parent->m_compilationUnit),
       m_action(Parse),
       m_ppResultFileId(ppResultFileId),
+#ifdef SURELOG_WITH_PYTHON
       m_interpState(parent->m_interpState),
-      m_pythonListener(NULL),
+#endif
       m_fileAnalyzer(parent->m_fileAnalyzer),
       m_library(parent->m_library) {
   m_parser =
@@ -145,10 +139,10 @@ CompileSourceFile::~CompileSourceFile() {
     delete *itr;
   }
 
-  if (m_parser) delete m_parser;
-
-  if (m_pythonListener) delete m_pythonListener;
-
+  delete m_parser;
+#ifdef SURELOG_WITH_PYTHON
+  delete m_pythonListener;
+#endif
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr2;
   for (itr2 = m_antlrPpMap.begin(); itr2 != m_antlrPpMap.end(); itr2++) {
     delete (*itr2).second;
@@ -175,6 +169,7 @@ unsigned int CompileSourceFile::getJobSize(Action action) {
 }
 
 bool CompileSourceFile::pythonAPI_() {
+#ifdef SURELOG_WITH_PYTHON
   if (getCommandLineParser()->pythonListener()) {
     m_pythonListener = new PythonListen(m_parser, this);
     if (!m_pythonListener->listen()) {
@@ -185,6 +180,7 @@ bool CompileSourceFile::pythonAPI_() {
       return false;
     }
   }
+
   if (getCommandLineParser()->pythonEvalScriptPerFile()) {
     PythonAPI::evalScriptPerFile(
         getCommandLineParser()->getSymbolTable().getSymbol(
@@ -192,6 +188,9 @@ bool CompileSourceFile::pythonAPI_() {
         m_errors, m_parser->getFileContent(), m_interpState);
   }
   return true;
+#else
+  return false;
+#endif
 }
 
 bool CompileSourceFile::initParser() {
@@ -329,6 +328,7 @@ void CompileSourceFile::setSymbolTable(SymbolTable* symbols) {
   m_symbolTable = symbols;
 }
 
+#ifdef SURELOG_WITH_PYTHON
 void CompileSourceFile::setPythonInterp(PyThreadState* interpState) {
   m_interpState = interpState;
   m_errors->setPythonInterp(interpState);
@@ -339,3 +339,4 @@ void CompileSourceFile::shutdownPythonInterp() {
   PythonAPI::shutdown(m_interpState);
   m_interpState = NULL;
 }
+#endif

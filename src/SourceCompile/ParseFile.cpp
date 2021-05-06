@@ -25,7 +25,6 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "API/SV3_1aPythonListener.h"
 #include "Cache/ParseCache.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"

@@ -28,7 +28,9 @@
 #include <iostream>
 
 #include "API/PythonAPI.h"
+#ifdef SURELOG_WITH_PYTHON
 #include "API/SV3_1aPythonListener.h"
+#endif
 
 #include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
@@ -131,6 +133,7 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
                        antlr4::ParserRuleContext* context,
                        const char* messageId, const char* objectName,
                        bool printColumn) {
+#ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   ErrorContainer* errors =
@@ -149,6 +152,9 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
     ->registerSymbol(objectName));
   Error err(type, loc);
   errors->addError(err, false, false);
+#else
+  std::cerr << "SLaddErrorContext(): Python support not compiled in\n";
+#endif
 }
 
 void SLaddMLErrorContext(SV3_1aPythonListener* prog,
@@ -157,6 +163,7 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
                          const char* messageId,
                          const char* objectName1,
                          const char* objectName2, bool printColumn) {
+#ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx1 = (antlr4::ParserRuleContext*)context1;
   antlr4::ParserRuleContext* ctx2 = (antlr4::ParserRuleContext*)context2;
@@ -187,31 +194,49 @@ void SLaddMLErrorContext(SV3_1aPythonListener* prog,
     ->registerSymbol(objectName2));
   Error err(type, loc1, loc2);
   errors->addError(err, false, false);
+#else
+    std::cerr << "SLaddMLErrorContext(): Python support not compiled in\n";
+#endif
 }
 
 std::string SLgetFile(SV3_1aPythonListener* prog,
                       antlr4::ParserRuleContext* context) {
+#ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   std::string file =
     listener->getPythonListen()->getParseFile()->getFileName(0);
   return file;
+#else
+  std::cerr << "SLgetFile(): Python support not compiled in\n";
+  return "";
+#endif
 }
 
 int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
+#ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
     ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.first;
+#else
+  std::cerr << "SLgetLine(): Python support not compiled in\n";
+  return 0;
+#endif
 }
 
 int SLgetColumn(SV3_1aPythonListener* prog,
                 antlr4::ParserRuleContext* context) {
+#ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
     ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.second;
+#else
+  std::cerr << "SLgetColumn(): Python support not compiled in\n";
+  return 0;
+#endif
 }
 
 std::string SLgetText(SV3_1aPythonListener* /*prog*/,
@@ -225,7 +250,7 @@ std::string SLgetText(SV3_1aPythonListener* /*prog*/,
   return text;
 }
 
-std::vector<std::string> SLgetTokens(SV3_1aPythonListener* prog,
+std::vector<std::string> SLgetTokens(SV3_1aPythonListener* /*prog*/,
                                      antlr4::ParserRuleContext* context) {
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<antlr4::Token*> tokens = ParseUtils::getFlatTokenList(ctx);
@@ -236,14 +261,14 @@ std::vector<std::string> SLgetTokens(SV3_1aPythonListener* prog,
   return body_tokens;
 }
 
-antlr4::ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* prog,
+antlr4::ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* /*prog*/,
                                               antlr4::ParserRuleContext* context) {
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   return (antlr4::ParserRuleContext*)ctx->parent;
 }
 
 std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
-  SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
+  SV3_1aPythonListener* /*prog*/, antlr4::ParserRuleContext* context) {
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<antlr4::ParserRuleContext*> children;
 

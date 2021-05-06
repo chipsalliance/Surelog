@@ -34,15 +34,14 @@
 
 namespace SURELOG {
 
-class SV3_1aPythonListener; 
+class SV3_1aPythonListener;
 class FileContent;
 class Design;
 struct parser_rule_context;
- 
+
 class PythonAPI {
  public:
   PythonAPI();
-  PythonAPI(const PythonAPI& orig);
   virtual ~PythonAPI();
   /* Main interpreter (in main thread) */
   static void init(int argc, const char** argv);
@@ -71,6 +70,8 @@ class PythonAPI {
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:
+  PythonAPI(const PythonAPI& orig) = delete;
+
   static void initInterp_();
   static void loadScriptsInInterp_();
   static bool loadScript_(std::string name, bool check = false);

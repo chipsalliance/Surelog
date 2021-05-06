@@ -24,15 +24,16 @@
 #ifndef PYTHONLISTEN_H
 #define PYTHONLISTEN_H
 
+#ifdef SURELOG_WITH_PYTHON
+
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 
 namespace SURELOG {
-
+class SV3_1aPythonListener;
 class PythonListen {
 public:
     PythonListen(ParseFile* parse, CompileSourceFile* m_compileSourceFile);
-    PythonListen(const PythonListen& orig);
     bool listen();
 
     virtual ~PythonListen();
@@ -43,12 +44,15 @@ public:
     void addError(Error& error);
 
 private:
-   ParseFile*            m_parse;
-   CompileSourceFile*    m_compileSourceFile;
+  PythonListen(const PythonListen& orig) = delete;
+
+   ParseFile* const m_parse;
+   CompileSourceFile* const m_compileSourceFile;
    std::vector<SV3_1aPythonListener*> m_pythonListeners;
    bool m_usingCachedVersion;
 };
 
-};
+}  // namespace SURELOG
 
+#endif  // SURELOG_WITH_PYTHON
 #endif /* PYTHONLISTEN_H */
