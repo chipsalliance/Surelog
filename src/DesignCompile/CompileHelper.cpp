@@ -2165,6 +2165,10 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
         expr* rhs = (expr*)compileExpression(
             component, fC, value, compileDesign, nullptr, instance, reduce && (!isMultiDimension));
         param_assign->Rhs(rhs);
+        if (rhs && (rhs->UhdmType() == uhdmconstant)) {
+          constant* c = (constant*) rhs;
+          param->VpiValue(c->VpiValue());
+        }
       }
       Param_assignment = fC->Sibling(Param_assignment);
     }

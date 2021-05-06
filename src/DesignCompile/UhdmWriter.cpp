@@ -373,10 +373,15 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance, UHDM::scope* m
           any* pclone = UHDM::clone_tree(orig, s, &listener);
           pclone->VpiParent(m);
           paramSet.insert(std::make_pair(name, pclone));
+          /* 
+          
+            Keep the value of the parameter used during definition. The param_assign contains the actual value useful for elaboration
+
           const typespec* ts = ((parameter*)pclone)->Typespec();
           bool multi = isMultidimensional(ts);
           if (((parameter*)pclone)->Ranges() && ((parameter*)pclone)->Ranges()->size() > 1)
             multi = true;
+           
           if (instance->getComplexValue(name)) {
           } else {
             Value* val = instance->getValue(name, exprBuilder);
@@ -384,6 +389,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance, UHDM::scope* m
               ((parameter*)pclone)->VpiValue(val->uhdmValue());
             }
           }
+          */
           params->push_back(pclone);
         }
       }
