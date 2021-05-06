@@ -176,8 +176,6 @@ n<> u<161> t<Top_level_rule> l<1:0> el<20:0>
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
-[NTE:CP0309] dut.sv:3: Implicit port type (wire) for "count".
-
 [INF:EL0526] Design Elaboration...
 
 [NTE:EL0503] dut.sv:1: Top level module "work@conditional_Fsm".
@@ -847,15 +845,17 @@ design: (work@conditional_Fsm)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (work@conditional_Fsm.count), line:3:13, endln:3:18, parent:work@conditional_Fsm
+      \_int_var: (work@conditional_Fsm.count), line:3:13, endln:3:18, parent:work@conditional_Fsm
         |vpiName:count
         |vpiFullName:work@conditional_Fsm.count
-  |vpiNet:
-  \_logic_net: (work@conditional_Fsm.count), line:3:13, endln:3:18, parent:work@conditional_Fsm
+        |vpiAutomatic:1
+        |vpiVisibility:1
   |vpiVariables:
   \_bit_var: (work@conditional_Fsm.reset), line:1:35, endln:1:40, parent:work@conditional_Fsm
   |vpiVariables:
   \_bit_var: (work@conditional_Fsm.increment), line:2:12, endln:2:21, parent:work@conditional_Fsm
+  |vpiVariables:
+  \_int_var: (work@conditional_Fsm.count), line:3:13, endln:3:18, parent:work@conditional_Fsm
   |vpiVariables:
   \_bit_var: (work@conditional_Fsm.clock), line:5:6, endln:5:11, parent:work@conditional_Fsm
   |vpiVariables:
@@ -875,5 +875,5 @@ design: (work@conditional_Fsm)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 1
-[   NOTE] : 6
+[   NOTE] : 5
 

@@ -1061,7 +1061,10 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
               the_type == VObjectType::slIntVec_TypeLogic ||
               the_type == VObjectType::slIntVec_TypeReg ||
               the_type == VObjectType::slStringConst ||
-              the_type == VObjectType::slClass_scope) {
+              the_type == VObjectType::slClass_scope ||
+              the_type == VObjectType::slIntegerAtomType_Int ||
+              the_type == VObjectType::slIntegerAtomType_Shortint ||
+              the_type == VObjectType::slIntegerAtomType_LongInt) {
             if (the_type == VObjectType::slStringConst) {
               const std::string& tname = fC->SymName(integer_vector_type);
               if (tname == "logic") {
