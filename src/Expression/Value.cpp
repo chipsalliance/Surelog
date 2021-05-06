@@ -29,7 +29,7 @@
 #include <cstring>
 #include <string>
 
-#include "vpi_user.h"
+#include "include/vpi_user.h"
 
 using namespace SURELOG;
 
