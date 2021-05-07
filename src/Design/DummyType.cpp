@@ -22,8 +22,8 @@
  */
 #include "Design/DummyType.h"
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "uhdm.h"
 
 namespace SURELOG {

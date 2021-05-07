@@ -43,7 +43,8 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_signed(is_signed) {}
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId, VObjectType subnettype, NodeId unpackedDimension, bool is_signed)
+               NodeId interfaceTypeNameId, VObjectType subnettype,
+               NodeId unpackedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(subnettype),
@@ -61,7 +62,8 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId,
       m_signed(is_signed) {}
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-         NodeId packedDimension, VObjectType direction, NodeId typeSpecId, NodeId unpackedDimension, bool is_signed)
+               NodeId packedDimension, VObjectType direction, NodeId typeSpecId,
+               NodeId unpackedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -79,7 +81,8 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_signed(is_signed) {}
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-               NodeId packedDimension, VObjectType direction, NodeId unpackedDimension, bool is_signed)
+               NodeId packedDimension, VObjectType direction,
+               NodeId unpackedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -100,7 +103,7 @@ std::string Signal::getInterfaceTypeName() const {
   std::string type_name;
   if (m_fileContent->Type(m_interfaceTypeNameId) == slClass_scope) {
     NodeId Class_type = m_fileContent->Child(m_interfaceTypeNameId);
-    NodeId Pack_name =  m_fileContent->Child(Class_type);
+    NodeId Pack_name = m_fileContent->Child(Class_type);
     type_name = m_fileContent->SymName(Pack_name) + "::";
     NodeId Struct_name = m_fileContent->Sibling(m_interfaceTypeNameId);
     type_name += m_fileContent->SymName(Struct_name);

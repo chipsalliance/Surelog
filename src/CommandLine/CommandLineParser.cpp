@@ -28,18 +28,17 @@
 #include <sys/types.h>
 
 #if defined(_MSC_VER)
-  #include <direct.h>
-  #define PATH_MAX _MAX_PATH
+#include <direct.h>
+#define PATH_MAX _MAX_PATH
 #else
-  #include <sys/param.h>
-  #include <unistd.h>
+#include <sys/param.h>
+#include <unistd.h>
 #endif
 
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -73,7 +72,8 @@ static const std::vector<std::string> footer = {
 };
 
 static const std::vector<std::string> helpText = {
-    "  ------------ SURELOG HELP --------------", "",
+    "  ------------ SURELOG HELP --------------",
+    "",
     "STANDARD VERILOG COMMAND LINE:",
     "  -f <file>             Accepts a file containing command line arguments",
     "  -v <file>             Library file",
@@ -96,13 +96,16 @@ static const std::vector<std::string> helpText = {
     "options supported)",
     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
     "options supported)",
-    "  -Dvar=value           Same as env var definition for -f files var substitution",
+    "  -Dvar=value           Same as env var definition for -f files var "
+    "substitution",
     "  -Pparameter=value     Top level parameter override",
     "  -pvalue+parameter=value Top level parameter override",
-    "  -sverilog             Forces all files to be parsed as SystemVerilog files",
-    "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
+    "  -sverilog             Forces all files to be parsed as SystemVerilog "
+    "files",
+    "  -sv <file>            Forces the following file to be parsed as "
+    "SystemVerilog file",
     "FLOWS OPTIONS:",
-   "  -fileunit             Compiles each Verilog file as an independent",
+    "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
     "used)",
     "  -diffcompunit         Compiles both all files as a whole unit and",
@@ -113,11 +116,16 @@ static const std::vector<std::string> helpText = {
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
-    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model",
-    "  -top/--top-module <module> Top level module for elaboration (multiple cmds ok)",
-    "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
-    "                        Tests are expressed as one full command line per line.",
-    "  -parametersubstitution Enables substitution of assignment patterns in parameters",
+    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
+    "Folded Model",
+    "  -top/--top-module <module> Top level module for elaboration (multiple "
+    "cmds ok)",
+    "  -batch <batch.txt>    Runs all the tests specified in the file in batch "
+    "mode",
+    "                        Tests are expressed as one full command line per "
+    "line.",
+    "  -parametersubstitution Enables substitution of assignment patterns in "
+    "parameters",
 #ifdef SURELOG_WITH_PYTHON
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
@@ -129,25 +137,31 @@ static const std::vector<std::string> helpText = {
     "  -withpython           Turns on all Python features, including waivers",
     "  -strictpythoncheck    Turns on strict Python checks",
 #endif
-    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being single "
+    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being "
+    "single "
     "threaded,",
     "                        if \"max\" is given, the program will use one ",
     "                        thread per core on the host",
-    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single process",
-    "  -lowmem               Minimizes memory high water mark (uses multiple staggered processes for preproc, parsing and elaboration)",
+    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single "
+    "process",
+    "  -lowmem               Minimizes memory high water mark (uses multiple "
+    "staggered processes for preproc, parsing and elaboration)",
     "  -split <line number>  Split files or modules larger than specified line "
     "number for multi thread compilation",
     "  -timescale=<timescale> Specifies the overall timescale",
-    "  -nobuiltin            Do not parse SV builtin classes (array...)", "",
+    "  -nobuiltin            Do not parse SV builtin classes (array...)",
+    "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm, vpi_ids",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, "
+    "coveruhdm, vpi_ids",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
     "  -replay               Enables replay of internal elaboration errors",
     "  -l <file>             Specifies log file, default is surelog.log under "
     "output dir",
-    "", "OUTPUT OPTIONS:",
+    "",
+    "OUTPUT OPTIONS:",
     "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
     "  -writeppfile <file>   Writes out Preprocessor output in file",
     "                        (all compilation units will override this file)",
@@ -174,10 +188,12 @@ static const std::vector<std::string> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -o <path>             Turns on all compilation stages, produces all",
-    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",
+    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ "
+    "dirs",
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
-    "  -exe <command>        Post execute a system call <command>, passes it the ",
+    "  -exe <command>        Post execute a system call <command>, passes it "
+    "the ",
     "                        preprocessor file list.",
     "  --help                This help",
     "  --version             Surelog version",
@@ -186,19 +202,15 @@ static const std::vector<std::string> helpText = {
     "   0   - No issues",
     "   0x1 - Fatal error(s)",
     "   0x2 - Syntax error(s)",
-    "   0x4 - Error(s)"
-};
+    "   0x4 - Error(s)"};
 
-bool is_number(const std::string& s)
-{
-    return( strspn( s.c_str(), "-.0123456789" ) == s.size() );
+bool is_number(const std::string& s) {
+  return (strspn(s.c_str(), "-.0123456789") == s.size());
 }
 
-bool is_c_file(const std::string& s)
-{
+bool is_c_file(const std::string& s) {
   std::string ext = StringUtils::leaf(s);
-  if (ext == "c" || ext == "cpp" || ext == "cc")
-    return true;
+  if (ext == "c" || ext == "cpp" || ext == "cc") return true;
   return false;
 }
 
@@ -213,7 +225,7 @@ std::string printStringArray(const std::vector<std::string>& array) {
 
 void CommandLineParser::withPython() {
 #ifdef SURELOG_WITH_PYTHON
- m_pythonAllowed = true;
+  m_pythonAllowed = true;
 #endif
 }
 
@@ -234,7 +246,7 @@ void CommandLineParser::logBanner(int argc, const char** argv) {
   std::string copyrights = printStringArray(copyright);
   m_errors->printToLogFile(banners);
   m_errors->printToLogFile(copyrights);
-  std::string version = "VERSION: " + m_versionNumber +"\n" +
+  std::string version = "VERSION: " + m_versionNumber + "\n" +
                         "BUILT  : " + std::string(__DATE__) + "\n";
   std::string date = "DATE   : " + currentDateTime() + "\n";
   std::string cmd = "COMMAND:";
@@ -317,7 +329,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_showVpiIDs(false),
       m_replay(false),
       m_uhdmStats(false),
-      m_lowMem (false) {
+      m_lowMem(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -406,7 +418,7 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
         ifs.close();
         std::string fileContent = ss.str();
         fileContent = StringUtils::removeComments(fileContent);
-        fileContent = StringUtils::evaluateEnvVars (fileContent);
+        fileContent = StringUtils::evaluateEnvVars(fileContent);
         std::vector<std::string> argsInFile;
         StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
         processArgs_(argsInFile, container);
@@ -419,7 +431,7 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
 }
 
 // Try to find the full absolute path of the program currently running.
-static std::string GetProgramNameAbsolutePath(const char *progname) {
+static std::string GetProgramNameAbsolutePath(const char* progname) {
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
   const char PATH_DELIMITER = ';';
 #else
@@ -429,15 +441,15 @@ static std::string GetProgramNameAbsolutePath(const char *progname) {
   // In Linux, the current running binary is symbolically linked from
   // /proc/self/exe which we can resolve.
   // It won't resolve anything on other platforms, but doesnt harm either.
-  for (const char *testpath : { progname, "/proc/self/exe" }) {
-    const char *const program_name = realpath(testpath, buf);
+  for (const char* testpath : {progname, "/proc/self/exe"}) {
+    const char* const program_name = realpath(testpath, buf);
     if (program_name) return program_name;
   }
   const char PATH_DELIMITER = ':';
 #endif
 
   // Still not found, let's go through the $PATH and see what comes up first.
-  const char *const path = std::getenv("PATH");
+  const char* const path = std::getenv("PATH");
   if (path) {
     std::stringstream search_path(path);
     std::string path_element;
@@ -450,20 +462,19 @@ static std::string GetProgramNameAbsolutePath(const char *progname) {
     }
   }
 
-  return progname; // Didn't find anything, return progname as-is.
+  return progname;  // Didn't find anything, return progname as-is.
 }
 
 bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   const std::string exe_name = GetProgramNameAbsolutePath(argv[0]);
   m_exePath = exe_name;
   const std::string exe_path = FileUtils::getPathName(exe_name);
-  const std::vector<std::string> search_path = { exe_path,
-                                                 exe_path + "../lib/surelog/",
-                                                 "/usr/lib/surelog/",
-                                                 "/usr/local/lib/surelog/" };
+  const std::vector<std::string> search_path = {
+      exe_path, exe_path + "../lib/surelog/", "/usr/lib/surelog/",
+      "/usr/local/lib/surelog/"};
 
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
-  for (const std::string &dir : search_path) {
+  for (const std::string& dir : search_path) {
     const std::string pkg_dir = dir + "pkg/";
     if (FileUtils::fileExists(pkg_dir)) {
       m_precompiledDirId = m_symbolTable->registerSymbol(pkg_dir);
@@ -472,10 +483,9 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   std::string built_in_verilog;
-  for (const std::string &dir : search_path) {
+  for (const std::string& dir : search_path) {
     built_in_verilog = dir + "sv/builtin.sv";
-    if (FileUtils::fileExists(built_in_verilog))
-      break;
+    if (FileUtils::fileExists(built_in_verilog)) break;
   }
 
   std::vector<std::string> all_arguments;
@@ -486,10 +496,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       std::string newDir = argv[i + 1];
       int ret = chdir(newDir.c_str());
       if (ret < 0) {
-        std::cout << "Could not change directory to " << newDir << "\n" << std::endl;
+        std::cout << "Could not change directory to " << newDir << "\n"
+                  << std::endl;
       }
-    } else
-      if (!strcmp(argv[i], "-builtin")) {
+    } else if (!strcmp(argv[i], "-builtin")) {
       if (i < argc - 1) {
         m_builtinPath = argv[i + 1];
         built_in_verilog = m_builtinPath + "/builtin.sv";
@@ -507,13 +517,13 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       if (loc == std::string::npos) {
         def = tmp.substr(2);
         StringUtils::registerEnvVar(def, "");
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(2, loc - 2);
         value = tmp.substr(loc + 1);
         StringUtils::registerEnvVar(def, value);
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, value));
       }
     }
@@ -538,8 +548,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       return true;
     }
     if (all_arguments[i] == "--version") {
-      std::string version = "VERSION: " + m_versionNumber +"\n" +
-                        "BUILT  : " + std::string(__DATE__) + "\n";
+      std::string version = "VERSION: " + m_versionNumber + "\n" +
+                            "BUILT  : " + std::string(__DATE__) + "\n";
       std::cout << version << std::flush;
       m_help = true;
       return true;
@@ -565,8 +575,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-odir" || all_arguments[i] == "-o"
-    || all_arguments[i] == "--Mdir"){
+    if (all_arguments[i] == "-odir" || all_arguments[i] == "-o" ||
+        all_arguments[i] == "--Mdir") {
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
@@ -648,48 +658,48 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       m_timescale = timescale;
-    } else if (strstr (all_arguments[i].c_str(), "-D")) {
+    } else if (strstr(all_arguments[i].c_str(), "-D")) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
         StringUtils::registerEnvVar(def, "");
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(2, loc - 2);
         value = tmp.substr(loc + 1);
         StringUtils::registerEnvVar(def, value);
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_defineList.insert(std::make_pair(id, value));
       }
-    } else if (strstr (all_arguments[i].c_str(), "-P")) {
+    } else if (strstr(all_arguments[i].c_str(), "-P")) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(2, loc - 2);
         value = tmp.substr(loc + 1);
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, value));
       }
-    } else if (strstr (all_arguments[i].c_str(), "-pvalue+")) {
+    } else if (strstr(all_arguments[i].c_str(), "-pvalue+")) {
       std::string def;
       std::string value;
       std::string tmp = all_arguments[i];
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(8, loc - 2);
         value = tmp.substr(loc + 1);
-	      SymbolId id = m_symbolTable->registerSymbol(def);
+        SymbolId id = m_symbolTable->registerSymbol(def);
         m_paramList.insert(std::make_pair(id, value));
       }
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
@@ -722,7 +732,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_lowMem = true;
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
-      bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
+      bool mt =
+          ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
       if (i == all_arguments.size() - 1) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_MISSING_LEVEL, loc);
@@ -775,7 +786,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       PythonAPI::setStrictMode(true);
     } else if (all_arguments[i] == "-tbb") {
       m_useTbb = true;
-    } else if ((all_arguments[i] == "--top-module") || (all_arguments[i] == "-top")) {
+    } else if ((all_arguments[i] == "--top-module") ||
+               (all_arguments[i] == "-top")) {
       i++;
       m_topLevelModules.insert(all_arguments[i]);
     } else if (all_arguments[i] == "-createcache") {
@@ -1014,13 +1026,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_errors->addError(err);
     } else {
       if (!all_arguments[i].empty()) {
-        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i]) || strstr(all_arguments[i].c_str(), ".vlt")) {
+        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i]) ||
+            strstr(all_arguments[i].c_str(), ".vlt")) {
           Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
           m_errors->addError(err);
         } else {
           m_sourceFiles.push_back(
-            m_symbolTable->registerSymbol(all_arguments[i]));
+              m_symbolTable->registerSymbol(all_arguments[i]));
         }
       }
     }
@@ -1112,9 +1125,7 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
   return noError;
 }
 
-bool CommandLineParser::parseBuiltIn () {
-  return m_parseBuiltIn;
-}
+bool CommandLineParser::parseBuiltIn() { return m_parseBuiltIn; }
 
 bool CommandLineParser::setupCache_() {
   bool noError = true;
@@ -1174,7 +1185,8 @@ bool CommandLineParser::cleanCache() {
   if (!m_cacheAllowed) {
     int status = FileUtils::rmDir(cachedir.c_str());
     if (status != 0) {
-      std::cout << "ERROR: Cannot delete " << cachedir << " status: " << status << std::endl;
+      std::cout << "ERROR: Cannot delete " << cachedir << " status: " << status
+                << std::endl;
     }
   }
 

@@ -33,9 +33,13 @@ namespace SURELOG {
 
 class ParamAssign {
  public:
-  ParamAssign(const FileContent* fC, NodeId paramId, NodeId assignId, bool isMultidimensional, bool port_param)
-      : m_fileContent(fC), m_paramId(paramId), m_assignId(assignId),
-        m_is_multidimensional(isMultidimensional), m_port_param(port_param) {}
+  ParamAssign(const FileContent* fC, NodeId paramId, NodeId assignId,
+              bool isMultidimensional, bool port_param)
+      : m_fileContent(fC),
+        m_paramId(paramId),
+        m_assignId(assignId),
+        m_is_multidimensional(isMultidimensional),
+        m_port_param(port_param) {}
 
   ~ParamAssign();
 

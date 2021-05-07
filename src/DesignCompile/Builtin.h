@@ -32,12 +32,13 @@ namespace SURELOG {
 // function ? Something like
 // SURELOG::addBuiltinsTo(Design *design);
 class Builtin final {
-public:
-  Builtin(CompileDesign* compiler, Design* design) : m_compiler(compiler), m_design(design) {}
+ public:
+  Builtin(CompileDesign* compiler, Design* design)
+      : m_compiler(compiler), m_design(design) {}
 
   void addBuiltins();
 
-private:
+ private:
   CompileDesign* const m_compiler;
   Design* const m_design;
 };

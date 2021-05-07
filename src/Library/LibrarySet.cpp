@@ -22,9 +22,9 @@
  */
 #include "Library/LibrarySet.h"
 
-#include <vector>
-#include <set>
 #include <iostream>
+#include <set>
+#include <vector>
 
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"

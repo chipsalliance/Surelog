@@ -30,7 +30,7 @@
 namespace SURELOG {
 
 class ClassObject final {
-public:
+ public:
   typedef std::map<std::string, std::pair<Property*, Value*>> PropertyValueMap;
 
   ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
@@ -40,7 +40,7 @@ public:
   bool setValue(const std::string& property, Value* value);
   Value* getValue(const std::string& property) const;
 
-private:
+ private:
   ClassObject(const ClassObject& orig) = delete;
 
   ClassDefinition* const m_class;

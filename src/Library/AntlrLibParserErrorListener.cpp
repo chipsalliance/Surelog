@@ -30,8 +30,8 @@
 namespace SURELOG {
 
 void AntlrLibParserErrorListener::syntaxError(
-  antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
-  size_t charPositionInLine, const std::string &msg, std::exception_ptr e) {
+    antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
+    size_t charPositionInLine, const std::string &msg, std::exception_ptr e) {
   SymbolId msgId = m_parser->getSymbolTable()->registerSymbol(msg);
   Location loc(m_parser->getFileId(), line, charPositionInLine, msgId);
   Error err(ErrorDefinition::PA_SYNTAX_ERROR, loc);
@@ -39,16 +39,16 @@ void AntlrLibParserErrorListener::syntaxError(
 }
 
 void AntlrLibParserErrorListener::reportAmbiguity(
-  antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-  size_t stopIndex, bool exact, const antlrcpp::BitSet &ambigAlts,
-  antlr4::atn::ATNConfigSet *configs) {}
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
+    size_t stopIndex, bool exact, const antlrcpp::BitSet &ambigAlts,
+    antlr4::atn::ATNConfigSet *configs) {}
 
 void AntlrLibParserErrorListener::reportAttemptingFullContext(
-  antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-  size_t stopIndex, const antlrcpp::BitSet &conflictingAlts,
-  antlr4::atn::ATNConfigSet *configs) {}
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
+    size_t stopIndex, const antlrcpp::BitSet &conflictingAlts,
+    antlr4::atn::ATNConfigSet *configs) {}
 
 void AntlrLibParserErrorListener::reportContextSensitivity(
-  antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
-  size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) {}
+    antlr4::Parser *recognizer, const antlr4::dfa::DFA &dfa, size_t startIndex,
+    size_t stopIndex, size_t prediction, antlr4::atn::ATNConfigSet *configs) {}
 }  // namespace SURELOG

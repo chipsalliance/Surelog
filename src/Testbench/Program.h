@@ -23,8 +23,8 @@
 
 #ifndef PROGRAM_H
 #define PROGRAM_H
-#include "Design/DesignComponent.h"
 #include "Common/ClockingBlockHolder.h"
+#include "Design/DesignComponent.h"
 #include "uhdm.h"
 
 namespace SURELOG {
@@ -70,7 +70,6 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
-
 };
 
 };  // namespace SURELOG

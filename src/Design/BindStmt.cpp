@@ -24,8 +24,13 @@
 
 using namespace SURELOG;
 
-BindStmt::BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId, NodeId targetInstId, NodeId bindId, NodeId instanceId)
-    : m_fC(fC), m_stmtId(stmtId), m_targetModId(targetModId),  m_targetInstId(targetInstId), m_bindId(bindId), m_instanceId(instanceId) {
-}
+BindStmt::BindStmt(const FileContent* fC, NodeId stmtId, NodeId targetModId,
+                   NodeId targetInstId, NodeId bindId, NodeId instanceId)
+    : m_fC(fC),
+      m_stmtId(stmtId),
+      m_targetModId(targetModId),
+      m_targetInstId(targetInstId),
+      m_bindId(bindId),
+      m_instanceId(instanceId) {}
 
 BindStmt::~BindStmt() {}

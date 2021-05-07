@@ -25,7 +25,7 @@
 using namespace SURELOG;
 
 Config* ConfigSet::getMutableConfigByName(std::string_view configName) {
-  for (auto &config : m_configs) {
+  for (auto& config : m_configs) {
     if (config.getName() == configName) return &config;
   }
   return nullptr;

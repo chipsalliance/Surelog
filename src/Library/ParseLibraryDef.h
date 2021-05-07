@@ -34,7 +34,7 @@
 namespace SURELOG {
 
 class ParseLibraryDef final {
-public:
+ public:
   ParseLibraryDef(CommandLineParser* commandLineParser, ErrorContainer* errors,
                   SymbolTable* symbolTable, LibrarySet* librarySet,
                   ConfigSet* configSet);
@@ -54,7 +54,7 @@ public:
 
   ConfigSet* getConfigSet() { return m_configSet; }
 
-private:
+ private:
   ParseLibraryDef(const ParseLibraryDef& orig) = delete;
 
   SymbolId m_fileId;

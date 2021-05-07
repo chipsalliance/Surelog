@@ -24,8 +24,8 @@
 #ifndef DESIGNELABORATION_H
 #define DESIGNELABORATION_H
 
-#include "DesignCompile/TestbenchElaboration.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/TestbenchElaboration.h"
 #include "Expression/ExprBuilder.h"
 
 namespace SURELOG {
@@ -45,8 +45,7 @@ class DesignElaboration : public TestbenchElaboration {
   bool bindPackagesDataTypes_();
   bool bindDataTypes_(DesignComponent* component);
   void bind_ports_nets_(std::vector<Signal*>& ports,
-                        std::vector<Signal*>& signals,
-                        const FileContent* fC,
+                        std::vector<Signal*>& signals, const FileContent* fC,
                         DesignComponent* mod);
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
@@ -62,7 +61,8 @@ class DesignElaboration : public TestbenchElaboration {
   void elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,
-                          ModuleInstance* parent, Config* config, std::vector<ModuleInstance*>& parentSubInstances);
+                          ModuleInstance* parent, Config* config,
+                          std::vector<ModuleInstance*>& parentSubInstances);
   void recurseInstanceLoop_(std::vector<int>& from, std::vector<int>& to,
                             std::vector<int>& indexes, unsigned int pos,
                             DesignComponent* def, const FileContent* fC,
@@ -73,7 +73,9 @@ class DesignElaboration : public TestbenchElaboration {
                             std::vector<ModuleInstance*>& allSubInstances);
   void recurseBuildInstanceClause_(std::string parentPath, Config* config,
                                    std::set<Config*>& stack);
-  ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent, ModuleInstanceFactory* factory, Config* config);
+  ModuleInstance* createBindInstance_(BindStmt* bind, ModuleInstance* parent,
+                                      ModuleInstanceFactory* factory,
+                                      Config* config);
   void reduceUnnamedBlocks_();
   void checkConfigurations_();
   Config* getInstConfig(std::string name);

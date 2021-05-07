@@ -22,14 +22,14 @@
  */
 #include "Testbench/ClassDefinition.h"
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 ClassDefinition::ClassDefinition(std::string name, Library* library,
                                  DesignComponent* container,
-                                 const FileContent* fC,
-                                 NodeId nodeId, ClassDefinition* parent,
+                                 const FileContent* fC, NodeId nodeId,
+                                 ClassDefinition* parent,
                                  UHDM::class_defn* uhdm_definition)
     : DesignComponent(container ? container : fC, NULL),
       DataType(fC, nodeId, name,
@@ -83,8 +83,8 @@ Function* ClassDefinition::getFunction(const std::string& name) const {
 
   for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
-      const ClassDefinition* cparent
-        = dynamic_cast<const ClassDefinition*>(parent.second);
+      const ClassDefinition* cparent =
+          dynamic_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         Function* d = cparent->getFunction(name);
         if (d) return d;
@@ -174,8 +174,8 @@ void ClassDefinition::insertBaseClass(DataType* p) {
   m_baseclasses.insert(std::make_pair(p->getName(), p));
 }
 
-const DataType* ClassDefinition::getBaseDataType(const std::string& name)
-  const {
+const DataType* ClassDefinition::getBaseDataType(
+    const std::string& name) const {
   const DataTypeMap& dataTypes = getDataTypeMap();
   DataTypeMap::const_iterator itr = dataTypes.find(name);
   if (itr == dataTypes.end()) {
@@ -198,8 +198,8 @@ const DataType* ClassDefinition::getBaseDataType(const std::string& name)
 bool ClassDefinition::hasCompleteBaseSpecification() const {
   for (const auto& parent : getBaseClassMap()) {
     if (parent.second) {
-      const ClassDefinition* cparent
-        = dynamic_cast<const ClassDefinition*>(parent.second);
+      const ClassDefinition* cparent =
+          dynamic_cast<const ClassDefinition*>(parent.second);
       if (cparent) {
         return cparent->hasCompleteBaseSpecification();
       }

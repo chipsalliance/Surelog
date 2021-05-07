@@ -318,7 +318,8 @@ bool ErrorDefinition::init() {
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
-  rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP, "Internal out of bound error");
+  rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP,
+      "Internal out of bound error");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
@@ -364,17 +365,16 @@ bool ErrorDefinition::init() {
       "Undefined imported package: \"%s\"");
   rec(ELAB_OUT_OF_RANGE_PARAM_INDEX, ERROR, ELAB,
       "Out of range parameter index: \"%s\"");
-  rec(ELAB_NEGATIVE_VALUE, NOTE, ELAB,
-      "Negative value in instance %s");
-  rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB,
-      "Division by zero in instance \"%s\"");
+  rec(ELAB_NEGATIVE_VALUE, NOTE, ELAB, "Negative value in instance %s");
+  rec(ELAB_DIVIDE_BY_ZERO, ERROR, ELAB, "Division by zero in instance \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
   rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");
   rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");
   rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");
-  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line");
+  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM,
+      "UHDM coverage pointing to empty source line");
   rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   rec(UHDM_CREATING_MODEL, INFO, UHDM, "Creating UHDM Model..");
   rec(UHDM_ELABORATION, INFO, UHDM, "Elaborating UHDM..");

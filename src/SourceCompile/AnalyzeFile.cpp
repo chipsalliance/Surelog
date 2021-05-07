@@ -37,18 +37,18 @@
 #include "Utils/StringUtils.h"
 
 #include <ctype.h>
+#include <stdio.h>
+#include <string.h>
 #include <fstream>
 #include <iostream>
 #include <regex>
 #include <sstream>
 #include <stack>
-#include <stdio.h>
-#include <string.h>
 
 using namespace SURELOG;
 
 static void saveContent(const std::string& fileName,
-			const std::string& content) {
+                        const std::string& content) {
   std::ifstream ifs;
   ifs.open(fileName);
   bool save = true;
@@ -420,7 +420,8 @@ void AnalyzeFile::analyze() {
   if (inComment || inString) {
     m_splitFiles.clear();
     m_lineOffsets.clear();
-    Location loc(0, 0, 0, m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
+    Location loc(0, 0, 0,
+                 m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
     Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
     m_clp->getErrorContainer()->addError(err);
     m_clp->getErrorContainer()->printMessages();
@@ -434,8 +435,8 @@ void AnalyzeFile::analyze() {
 
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
-  IncludeFileInfo info(1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName),
-                       1, 1);
+  IncludeFileInfo info(
+      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName), 1, 1);
   m_includeFileInfo.push(info);
   unsigned int linesWriten = 0;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {
@@ -583,8 +584,9 @@ void AnalyzeFile::analyze() {
           if (chunkNb > 1000) {
             m_splitFiles.clear();
             m_lineOffsets.clear();
-            Location loc(0, 0, 0,
-                         m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
+            Location loc(
+                0, 0, 0,
+                m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
             Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
             m_clp->getErrorContainer()->addError(err);
             m_clp->getErrorContainer()->printMessages();

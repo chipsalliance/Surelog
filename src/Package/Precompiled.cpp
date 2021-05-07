@@ -51,5 +51,5 @@ bool Precompiled::isFilePrecompiled(const std::string& fileName) const {
 
 bool Precompiled::isPackagePrecompiled(const std::string& packageName) const {
   auto found = m_packageMap.find(packageName);
-  return(found != m_packageMap.end());
+  return (found != m_packageMap.end());
 }

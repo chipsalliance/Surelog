@@ -47,12 +47,15 @@ Value* ValuedComponentI::getValue(const std::string& name) const {
   }
 }
 
-Value* ValuedComponentI::getValue(const std::string& name, ExprBuilder& exprBuilder) const {
+Value* ValuedComponentI::getValue(const std::string& name,
+                                  ExprBuilder& exprBuilder) const {
   return getValue(name);
 }
 
-void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBuilder) {
-  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
+void ValuedComponentI::deleteValue(const std::string& name,
+                                   ExprBuilder& exprBuilder) {
+  std::map<std::string, std::pair<Value*, int>>::iterator itr =
+      m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
     exprBuilder.deleteValue((*itr).second.first);
     m_paramMap.erase(itr);
@@ -60,7 +63,8 @@ void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBui
 }
 
 void ValuedComponentI::forgetValue(const std::string& name) {
-  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
+  std::map<std::string, std::pair<Value*, int>>::iterator itr =
+      m_paramMap.find(name);
   if (itr != m_paramMap.end()) {
     m_paramMap.erase(itr);
   }
@@ -69,7 +73,8 @@ void ValuedComponentI::forgetValue(const std::string& name) {
 void ValuedComponentI::setValue(const std::string& name, Value* val,
                                 ExprBuilder& exprBuilder, int lineNb) {
   deleteValue(name, exprBuilder);
-  m_paramMap.insert(std::make_pair(name, std::make_pair(exprBuilder.clone(val), lineNb)));
+  m_paramMap.insert(
+      std::make_pair(name, std::make_pair(exprBuilder.clone(val), lineNb)));
   forgetComplexValue(name);
 }
 

@@ -22,21 +22,21 @@
  */
 #include "Library/ParseLibraryDef.h"
 
-#include "Utils/StringUtils.h"
 #include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "Utils/StringUtils.h"
 
+#include "Library/AntlrLibParserErrorListener.h"
+#include "Library/SVLibShapeListener.h"
 #include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
-#include "Library/SVLibShapeListener.h"
-#include "Library/AntlrLibParserErrorListener.h"
 
 using namespace antlr4;
 using namespace SURELOG;

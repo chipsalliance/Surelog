@@ -123,29 +123,32 @@ bool PPCache::restore_(std::string cacheFileName) {
   }
 
   /* Restore file line info */
-  const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::LineTranslationInfo>>*lineinfos =
-          ppcache->m_lineTranslationVec();
+  const flatbuffers::Vector<
+      flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>* lineinfos =
+      ppcache->m_lineTranslationVec();
   for (unsigned int i = 0; i < lineinfos->size(); i++) {
     const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
     std::string pretendFileName = lineinfo->m_pretendFile()->c_str();
     PreprocessFile::LineTranslationInfo lineFileInfo(
-            m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(pretendFileName),
-            lineinfo->m_originalLine(),
-            lineinfo->m_pretendLine());
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            pretendFileName),
+        lineinfo->m_originalLine(), lineinfo->m_pretendLine());
     m_pp->addLineTranslationInfo(lineFileInfo);
   }
   /* Restore include file info */
-  const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::IncludeFileInfo>>*incinfos =
-          ppcache->m_includeFileInfo();
+  const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>>*
+      incinfos = ppcache->m_includeFileInfo();
   for (unsigned int i = 0; i < incinfos->size(); i++) {
     const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
     std::string sectionFileName = incinfo->m_sectionFile()->c_str();
-    //std::cout << "read sectionFile: " << sectionFileName << " s:" << incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() << " t:" << incinfo->m_type() << "\n";
-    IncludeFileInfo inf (incinfo->m_sectionStartLine(),
-        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(sectionFileName),
-        incinfo->m_originalLine(),
-        incinfo->m_type(),
-        incinfo->m_indexOpening(), 
+    // std::cout << "read sectionFile: " << sectionFileName << " s:" <<
+    // incinfo->m_sectionStartLine() << " o:" << incinfo->m_originalLine() << "
+    // t:" << incinfo->m_type() << "\n";
+    IncludeFileInfo inf(
+        incinfo->m_sectionStartLine(),
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
+            sectionFileName),
+        incinfo->m_originalLine(), incinfo->m_type(), incinfo->m_indexOpening(),
         incinfo->m_indexClosing());
     m_pp->getIncludeFileInfo().push_back(inf);
   }
@@ -163,20 +166,18 @@ bool PPCache::restore_(std::string cacheFileName) {
   FileContent* fileContent = m_pp->getFileContent();
   if (fileContent == NULL) {
     fileContent = new FileContent(
-            m_pp->getFileId(0), m_pp->getLibrary(),
-            m_pp->getCompileSourceFile()->getSymbolTable(),
-            m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+        m_pp->getFileId(0), m_pp->getLibrary(),
+        m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
     m_pp->setFileContent(fileContent);
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
-                                              m_pp->getFileId(0), fileContent);
+        m_pp->getFileId(0), fileContent);
   }
 
   auto objects = ppcache->m_objects();
-  restoreVObjects(objects,
-        canonicalSymbols,
-        *m_pp->getCompileSourceFile()->getSymbolTable(),
-        m_pp->getFileId(0),
-        fileContent);
+  restoreVObjects(objects, canonicalSymbols,
+                  *m_pp->getCompileSourceFile()->getSymbolTable(),
+                  m_pp->getFileId(0), fileContent);
 
   delete[] buffer_pointer;
   return true;
@@ -220,8 +221,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     }
 
     std::vector<std::string> cache_include_path_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_include_paths()->size();
-         i++) {
+    for (unsigned int i = 0; i < ppcache->m_cmd_include_paths()->size(); i++) {
       const std::string path = ppcache->m_cmd_include_paths()->Get(i)->c_str();
       cache_include_path_vec.push_back(path);
     }
@@ -241,8 +241,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     }
 
     std::vector<std::string> cache_define_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->size();
-         i++) {
+    for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->size(); i++) {
       const std::string path = ppcache->m_cmd_define_options()->Get(i)->c_str();
       cache_define_vec.push_back(path);
     }
@@ -363,26 +362,28 @@ bool PPCache::save() {
   for (auto info : timeinfoList) {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
     auto timeInfo = CACHE::CreateTimeInfo(
-      builder, static_cast<uint16_t>(info.m_type),
-      canonicalSymbols.getId(
-        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-          info.m_fileId)),
-      info.m_line, static_cast<uint16_t>(info.m_timeUnit), info.m_timeUnitValue,
-      static_cast<uint16_t>(info.m_timePrecision), info.m_timePrecisionValue);
+        builder, static_cast<uint16_t>(info.m_type),
+        canonicalSymbols.getId(
+            m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                info.m_fileId)),
+        info.m_line, static_cast<uint16_t>(info.m_timeUnit),
+        info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
+        info.m_timePrecisionValue);
     timeinfo_vec.push_back(timeInfo);
   }
   auto timeinfoFBList = builder.CreateVector(timeinfo_vec);
 
   /* Cache the fileline info*/
   auto lineTranslationVec = m_pp->getLineTranslationInfo();
-  std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>> linetrans_vec;
+  std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>>
+      linetrans_vec;
   for (auto info : lineTranslationVec) {
-    std::string pretendFileName = m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_pretendFileId);
+    std::string pretendFileName =
+        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+            info.m_pretendFileId);
     auto lineInfo = MACROCACHE::CreateLineTranslationInfo(
-    builder,
-    builder.CreateString(pretendFileName),
-    info.m_originalLine,info.m_pretendLine);
+        builder, builder.CreateString(pretendFileName), info.m_originalLine,
+        info.m_pretendLine);
     linetrans_vec.push_back(lineInfo);
   }
   auto lineinfoFBList = builder.CreateVector(linetrans_vec);
@@ -391,27 +392,26 @@ bool PPCache::save() {
   auto includeInfo = m_pp->getIncludeFileInfo();
   std::vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>> lineinfo_vec;
   for (IncludeFileInfo& info : includeInfo) {
-    std::string sectionFileName = m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_sectionFile);
+    std::string sectionFileName =
+        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+            info.m_sectionFile);
     auto incInfo = MACROCACHE::CreateIncludeFileInfo(
-    builder,
-    info.m_sectionStartLine,
-    builder.CreateString(sectionFileName),
-    info.m_originalLine,
-    info.m_type,
-    info.m_indexOpening,
-    info.m_indexClosing);
-    //std::cout << "save sectionFile: " << sectionFileName << " s:" << info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" << info.m_type << "\n";
+        builder, info.m_sectionStartLine, builder.CreateString(sectionFileName),
+        info.m_originalLine, info.m_type, info.m_indexOpening,
+        info.m_indexClosing);
+    // std::cout << "save sectionFile: " << sectionFileName << " s:" <<
+    // info.m_sectionStartLine << " o:" << info.m_originalLine << " t:" <<
+    // info.m_type << "\n";
     lineinfo_vec.push_back(incInfo);
   }
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
 
   /* Cache the design objects */
-   FileContent* fcontent = m_pp->getFileContent();
-  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols,
-          *m_pp->getCompileSourceFile()->getSymbolTable(),
-          m_pp->getFileId(0));
-   auto objectList = builder.CreateVectorOfStructs(object_vec);
+  FileContent* fcontent = m_pp->getFileContent();
+  std::vector<CACHE::VObject> object_vec = cacheVObjects(
+      fcontent, canonicalSymbols,
+      *m_pp->getCompileSourceFile()->getSymbolTable(), m_pp->getFileId(0));
+  auto objectList = builder.CreateVectorOfStructs(object_vec);
 
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(

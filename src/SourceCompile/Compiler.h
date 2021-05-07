@@ -24,9 +24,9 @@ limitations under the License.
 #ifndef COMPILER_H
 #define COMPILER_H
 
-#include <string>
-#include <set>
 #include <map>
+#include <set>
+#include <string>
 #include <thread>
 
 #include "Config/ConfigSet.h"
@@ -39,9 +39,9 @@ limitations under the License.
 #include "sv_vpi_user.h"
 
 #ifdef USETBB
-#  include <tbb/task.h>
-#  include <tbb/task_group.h>
-#  include "tbb/task_scheduler_init.h"
+#include <tbb/task.h>
+#include <tbb/task_group.h>
+#include "tbb/task_scheduler_init.h"
 #endif
 
 namespace SURELOG {

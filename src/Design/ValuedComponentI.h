@@ -23,8 +23,8 @@
 
 #ifndef VALUEDCOMPONENTI_H
 #define VALUEDCOMPONENTI_H
-#include <string>
 #include <map>
+#include <string>
 
 namespace UHDM {
 class expr;
@@ -37,27 +37,33 @@ class ValuedComponentI {
  public:
   ValuedComponentI(const ValuedComponentI* parentScope,
                    ValuedComponentI* definition)
-    : m_parentScope(parentScope), m_definition(definition) {};
+      : m_parentScope(parentScope), m_definition(definition){};
 
   virtual ~ValuedComponentI(){};
 
   virtual Value* getValue(const std::string& name) const;
-  virtual Value* getValue(const std::string& name, ExprBuilder& exprBuilder) const;
-  virtual void setValue(const std::string& name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
+  virtual Value* getValue(const std::string& name,
+                          ExprBuilder& exprBuilder) const;
+  virtual void setValue(const std::string& name, Value* val,
+                        ExprBuilder& exprBuilder, int lineNb = 0);
   virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
   virtual void forgetValue(const std::string& name);
-  std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }
+  std::map<std::string, std::pair<Value*, int>>& getMappedValues() {
+    return m_paramMap;
+  }
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
   void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
 
   virtual void setComplexValue(const std::string& name, UHDM::expr* val);
   virtual UHDM::expr* getComplexValue(const std::string& name) const;
   virtual void forgetComplexValue(const std::string& name);
-  std::map<std::string, UHDM::expr*>& getComplexValues() { return m_complexValues; }
+  std::map<std::string, UHDM::expr*>& getComplexValues() {
+    return m_complexValues;
+  }
 
  private:
   const ValuedComponentI* m_parentScope;
-  ValuedComponentI* const m_definition; // Module def for an instance
+  ValuedComponentI* const m_definition;  // Module def for an instance
   std::map<std::string, std::pair<Value*, int>> m_paramMap;
   std::map<std::string, UHDM::expr*> m_complexValues;
 };

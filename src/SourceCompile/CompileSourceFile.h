@@ -23,12 +23,12 @@
 
 #ifndef COMPILESOURCEFILE_H
 #define COMPILESOURCEFILE_H
-#include "API/PythonAPI.h"
 #include <string>
 #include <vector>
+#include "API/PythonAPI.h"
 
-#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/AnalyzeFile.h"
+#include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"
 
 namespace SURELOG {
@@ -100,10 +100,10 @@ class CompileSourceFile {
 
   SymbolId m_fileId;
   CommandLineParser* m_commandLineParser = nullptr;
-  ErrorContainer* m_errors  = nullptr;
+  ErrorContainer* m_errors = nullptr;
   Compiler* m_compiler = nullptr;
-  PreprocessFile* m_pp  = nullptr;
-  SymbolTable* m_symbolTable  = nullptr;
+  PreprocessFile* m_pp = nullptr;
+  SymbolTable* m_symbolTable = nullptr;
   std::vector<PreprocessFile*> m_ppIncludeVec;
   ParseFile* m_parser = nullptr;
   CompilationUnit* m_compilationUnit;

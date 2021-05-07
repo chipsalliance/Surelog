@@ -24,12 +24,12 @@
 #ifndef COMPILEPACKAGE_H
 #define COMPILEPACKAGE_H
 
-#include "DesignCompile/CompileDesign.h"
-#include "Package/Package.h"
 #include "Design/Design.h"
-#include "ErrorReporting/ErrorContainer.h"
-#include "SourceCompile/SymbolTable.h"
+#include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileHelper.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Package/Package.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

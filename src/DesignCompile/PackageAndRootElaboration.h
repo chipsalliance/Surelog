@@ -39,7 +39,6 @@ class PackageAndRootElaboration : public ElaborationStep {
   bool elaborate() override;
 
  private:
-
 };
 
 };  // namespace SURELOG

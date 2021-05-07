@@ -44,9 +44,9 @@ bool DataType::isInteger_type(VObjectType type) {
 
 bool DataType::isInteger_atom_type(VObjectType type) {
   return (type == slIntegerAtomType_Byte ||
-          type == slIntegerAtomType_Shortint ||
-          type == slIntegerAtomType_Int || type == slIntegerAtomType_LongInt ||
-          type == slIntegerAtomType_Int || type == slIntegerAtomType_Time);
+          type == slIntegerAtomType_Shortint || type == slIntegerAtomType_Int ||
+          type == slIntegerAtomType_LongInt || type == slIntegerAtomType_Int ||
+          type == slIntegerAtomType_Time);
 }
 
 bool DataType::isInteger_vector_type(VObjectType type) {
@@ -82,14 +82,14 @@ bool DataType::isString_type(VObjectType type) {
 
 bool DataType::isNumber(VObjectType type) {
   return (type == VObjectType::slRealConst ||
-          type == VObjectType::slInteger_type ||
-          type == slNumber_1Tickb0 || type == slNumber_1Tickb1 ||
-          type == slNumber_1TickB0 || type == slNumber_1TickB1 ||
-          type == slNumber_Tickb0 || type == slNumber_Tickb1 ||
-          type == slNumber_TickB0 || type == slNumber_TickB1 ||
-          type == slNumber_Tick0 || type == slNumber_Tick1 ||
-          type == slNumber_1Tickbx || type == slNumber_1TickbX ||
-          type == slNumber_1TickBx || type == slNumber_1TickBX);
+          type == VObjectType::slInteger_type || type == slNumber_1Tickb0 ||
+          type == slNumber_1Tickb1 || type == slNumber_1TickB0 ||
+          type == slNumber_1TickB1 || type == slNumber_Tickb0 ||
+          type == slNumber_Tickb1 || type == slNumber_TickB0 ||
+          type == slNumber_TickB1 || type == slNumber_Tick0 ||
+          type == slNumber_Tick1 || type == slNumber_1Tickbx ||
+          type == slNumber_1TickbX || type == slNumber_1TickBx ||
+          type == slNumber_1TickBX);
 }
 
 bool DataType::isCompatible(const Value* value) const {

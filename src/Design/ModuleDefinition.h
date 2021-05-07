@@ -37,7 +37,7 @@
 #include "uhdm.h"
 
 namespace UHDM {
-  class udp_defn;
+class udp_defn;
 }
 namespace SURELOG {
 class CompileModule;
@@ -73,12 +73,14 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
   ModPort* getModPort(const std::string& modport);
 
-  ClockingBlock* getModPortClockingBlock(const std::string& modport, NodeId port);
+  ClockingBlock* getModPortClockingBlock(const std::string& modport,
+                                         NodeId port);
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(const std::string &className, ClassDefinition* classDef) {
+  void addClassDefinition(const std::string& className,
+                          ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
   ClassDefinition* getClassDefinition(const std::string& name);
@@ -100,7 +102,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
   NodeId m_gen_block_id;
-  UHDM::udp_defn*  m_udpDefn;
+  UHDM::udp_defn* m_udpDefn;
 
   UHDM::VectorOfattribute* attributes_ = nullptr;
 };
@@ -108,8 +110,7 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
 class ModuleDefinitionFactory {
  public:
   ModuleDefinition* newModuleDefinition(const FileContent* fileContent,
-                                        NodeId nodeId,
-                                        std::string_view name);
+                                        NodeId nodeId, std::string_view name);
 };
 
 };  // namespace SURELOG

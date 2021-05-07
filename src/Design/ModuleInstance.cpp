@@ -22,15 +22,15 @@
  */
 #include "Design/ModuleInstance.h"
 
-#include <string>
 #include <iostream>
+#include <string>
 
 #include "Design/FileContent.h"
 #include "Library/Library.h"
 #include "SourceCompile/SymbolTable.h"
 
-#include "clone_tree.h"
 #include "ElaboratorListener.h"
+#include "clone_tree.h"
 #include "uhdm.h"
 
 using namespace SURELOG;
@@ -54,17 +54,19 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
   }
 }
 
-Value* ModuleInstance::getValue(const std::string& name, ExprBuilder& exprBuilder) const {
+Value* ModuleInstance::getValue(const std::string& name,
+                                ExprBuilder& exprBuilder) const {
   Value* sval = nullptr;
 
   if (getComplexValue(name)) {
     return nullptr;
   }
 
-  ModuleInstance* instance = (ModuleInstance*) this;
+  ModuleInstance* instance = (ModuleInstance*)this;
   while (instance) {
     if (instance->m_netlist) {
-      UHDM::VectorOfparam_assign* param_assigns = instance->m_netlist->param_assigns();
+      UHDM::VectorOfparam_assign* param_assigns =
+          instance->m_netlist->param_assigns();
       if (param_assigns) {
         for (param_assign* param : *param_assigns) {
           if (param && param->Lhs()) {
@@ -123,8 +125,8 @@ void ModuleInstance::addSubInstances(ModuleInstance** subInstances,
 
 ModuleInstance* ModuleInstanceFactory::newModuleInstance(
     DesignComponent* moduleDefinition, const FileContent* fileContent,
-    NodeId nodeId,
-    ModuleInstance* parent, std::string instName, std::string modName) {
+    NodeId nodeId, ModuleInstance* parent, std::string instName,
+    std::string modName) {
   return new ModuleInstance(moduleDefinition, fileContent, nodeId, parent,
                             instName, modName);
 }

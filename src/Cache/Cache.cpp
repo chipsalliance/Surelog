@@ -22,8 +22,8 @@
  */
 #include "Cache/Cache.h"
 
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include <cstdio>
 #include <ctime>
@@ -103,8 +103,8 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
 }
 
 const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-  flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
-  std::string origFileName) {
+    flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+    std::string origFileName) {
   auto fName = builder.CreateString(origFileName);
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
@@ -121,7 +121,7 @@ bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
   const unsigned char* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
   bool status =
-    flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
+      flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
   return status;
 }
 
@@ -149,12 +149,12 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
         for (unsigned int j = 0; j < locs.size(); j++) {
           Location& loc = locs[j];
           SymbolId canonicalFileId =
-            canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
+              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
           SymbolId canonicalObjectId =
-            canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_object));
+              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_object));
           auto locflb =
-            CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
-                                  loc.m_column, canonicalObjectId);
+              CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
+                                    loc.m_column, canonicalObjectId);
           location_vec.push_back(locflb);
         }
         auto locvec = builder.CreateVector(location_vec);
@@ -175,11 +175,11 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
   return std::make_pair(errvec, symbolVec);
 }
 
-void Cache::restoreErrors(
-  const VectorOffsetError* errorsBuf,
-  const VectorOffsetString* symbolsBuf,
-  SymbolTable& canonicalSymbols, ErrorContainer* errorContainer,
-  SymbolTable* symbols) {
+void Cache::restoreErrors(const VectorOffsetError* errorsBuf,
+                          const VectorOffsetString* symbolsBuf,
+                          SymbolTable& canonicalSymbols,
+                          ErrorContainer* errorContainer,
+                          SymbolTable* symbols) {
   for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
     const std::string symbol = symbolsBuf->Get(i)->c_str();
     canonicalSymbols.registerSymbol(symbol);
@@ -190,9 +190,9 @@ void Cache::restoreErrors(
     for (unsigned int j = 0; j < errorFlb->m_locations()->size(); j++) {
       auto locFlb = errorFlb->m_locations()->Get(j);
       SymbolId translFileId = symbols->registerSymbol(
-        canonicalSymbols.getSymbol(locFlb->m_fileId()));
+          canonicalSymbols.getSymbol(locFlb->m_fileId()));
       SymbolId translObjectId = symbols->registerSymbol(
-        canonicalSymbols.getSymbol(locFlb->m_object()));
+          canonicalSymbols.getSymbol(locFlb->m_object()));
       Location loc(translFileId, locFlb->m_line(), locFlb->m_column(),
                    translObjectId);
       locs.push_back(loc);
@@ -202,15 +202,14 @@ void Cache::restoreErrors(
   }
 }
 
-std::vector<CACHE::VObject>
-Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
-                     SymbolTable& fileTable, SymbolId fileId) {
-
+std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
+                                                 SymbolTable& canonicalSymbols,
+                                                 SymbolTable& fileTable,
+                                                 SymbolId fileId) {
   /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
-  if (!fcontent)
-    return object_vec;
+  if (!fcontent) return object_vec;
   for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
     VObject& object = fcontent->getVObjects()[i];
 
@@ -232,13 +231,21 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
     uint64_t field4 = 0;
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
     field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
-    field1 |= (((uint64_t)object.m_type) << (20));  // 12 Bits => Filled 32 Bits (Of 64)
-    field1 |= (((uint64_t) object.m_column)   << (20 + 12)); // 16 Bits => Filled 48 Bits (Of 64)
-    field1 |= ((uint64_t)object.m_parent << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
+    field1 |= (((uint64_t)object.m_type)
+               << (20));  // 12 Bits => Filled 32 Bits (Of 64)
+    field1 |= (((uint64_t)object.m_column)
+               << (20 + 12));  // 16 Bits => Filled 48 Bits (Of 64)
+    field1 |=
+        ((uint64_t)object.m_parent
+         << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
     field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_definition) << (4));  // 20 Bits => Filled 24 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_child) << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_sibling) << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
+    field2 |= (((uint64_t)object.m_definition)
+               << (4));  // 20 Bits => Filled 24 Bits (Of 64)
+    field2 |= (((uint64_t)object.m_child)
+               << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
+    field2 |=
+        (((uint64_t)object.m_sibling)
+         << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
     field3 |= (uint64_t)object.m_fileId;
     field3 |= (((uint64_t)object.m_line) << (32));
     field4 |= ((uint64_t)object.m_endLine);
@@ -255,20 +262,18 @@ Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
 }
 
 void Cache::restoreVObjects(
-  const flatbuffers::Vector<const SURELOG::CACHE::VObject *> * objects,
-  SymbolTable& canonicalSymbols,
-  SymbolTable& fileTable,
-  SymbolId fileId,
-  FileContent* fileContent) {
+    const flatbuffers::Vector<const SURELOG::CACHE::VObject*>* objects,
+    SymbolTable& canonicalSymbols, SymbolTable& fileTable, SymbolId fileId,
+    FileContent* fileContent) {
   /* Restore design objects */
   for (unsigned int i = 0; i < objects->size(); i++) {
     auto objectc = objects->Get(i);
 
     // VObject object
     // (m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(canonicalSymbols.getSymbol(objectc->m_name())),
-    //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(), objectc->m_column(),
-    //                objectc->m_line(), objectc->m_parent(),
-    //                objectc->m_definition(),
+    //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(),
+    //                objectc->m_column(), objectc->m_line(),
+    //                objectc->m_parent(), objectc->m_definition(),
     //               objectc->m_child(),  objectc->m_sibling());
 
     uint64_t field1 = objectc->m_field1();
@@ -278,7 +283,7 @@ void Cache::restoreVObjects(
     // Decode compression done when saving cache (see below)
     SymbolId name = (field1 & 0x00000000000FFFFF);
     unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
-    unsigned short column  = (field1 & 0x0000FFFF00000000) >> (20 + 12);
+    unsigned short column = (field1 & 0x0000FFFF00000000) >> (20 + 12);
     NodeId parent = (field1 & 0xFFFF000000000000) >> (20 + 12 + 16);
     parent |= (field2 & 0x000000000000000F) << (16);
     NodeId definition = (field2 & 0x0000000000FFFFF0) >> (4);
@@ -288,12 +293,10 @@ void Cache::restoreVObjects(
     unsigned int line = (field3 & 0xFFFFFFFF00000000) >> (32);
     unsigned int endLine = (field4 & 0x00000000FFFFFFFF);
     unsigned short endColumn = (field4 & 0xFFFFFFFF00000000) >> (32);
-    VObject object(
-      fileTable.registerSymbol(
-        canonicalSymbols.getSymbol(name)),
-      fileTable.registerSymbol(
-        canonicalSymbols.getSymbol(fileId)),
-      (VObjectType)type, line, column, endLine, endColumn, parent, definition, child, sibling);
+    VObject object(fileTable.registerSymbol(canonicalSymbols.getSymbol(name)),
+                   fileTable.registerSymbol(canonicalSymbols.getSymbol(fileId)),
+                   (VObjectType)type, line, column, endLine, endColumn, parent,
+                   definition, child, sibling);
 
     fileContent->getVObjects().push_back(object);
   }

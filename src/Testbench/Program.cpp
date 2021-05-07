@@ -22,9 +22,9 @@
  */
 #include "Testbench/Program.h"
 
-#include "SourceCompile/SymbolTable.h"
-#include "Design/FileContent.h"
 #include "Design/DesignComponent.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 Program::~Program() {}

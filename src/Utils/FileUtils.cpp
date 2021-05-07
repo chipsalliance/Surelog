@@ -40,19 +40,19 @@
 #include "Utils/StringUtils.h"
 
 #if defined(_MSC_VER)
-  #include <direct.h>
-  #define PATH_MAX _MAX_PATH
+#include <direct.h>
+#define PATH_MAX _MAX_PATH
 #else
-  #include <dirent.h>
-  #include <unistd.h>
+#include <dirent.h>
+#include <unistd.h>
 #endif
 
 #if (__cplusplus >= 201703L) && __has_include(<filesystem>)
-  #include <filesystem>
-  namespace fs = std::filesystem;
+#include <filesystem>
+namespace fs = std::filesystem;
 #else
-  #include <experimental/filesystem>
-  namespace fs = std::experimental::filesystem;
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 #endif
 
 using namespace SURELOG;
@@ -160,8 +160,8 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
   // ..  specifies the parent directory
   // .   specifies the directory containing the lib.map
   // Paths that end in / shall include all files in the specified directory.
-  // Identical to / * Paths that do not begin with / are relative to the directory
-  // in which the current lib.map file is located.
+  // Identical to / * Paths that do not begin with / are relative to the
+  // directory in which the current lib.map file is located.
 
   std::vector<SymbolId> result;
 
@@ -175,8 +175,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
 
   fs::path prefix;
   fs::path suffix;
-  for (const fs::path &subpath : path)
-  {
+  for (const fs::path& subpath : path) {
     const std::string substr = subpath.string();
     if (substr.compare(".") == 0)
       continue;
@@ -195,14 +194,20 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
   const std::string separator(1, fs::path::preferred_separator);
   const std::string escaped = "\\" + separator;
   std::string regexp = suffix.string();
-  regexp = StringUtils::replaceAll(regexp, separator, escaped); // escape separators
-  regexp = StringUtils::replaceAll(regexp, "..." + escaped,
+  regexp =
+      StringUtils::replaceAll(regexp, separator, escaped);  // escape separators
+  regexp = StringUtils::replaceAll(
+      regexp, "..." + escaped,
       R"([a-zA-Z0-9_\-.)" + escaped + R"(]+)" + escaped);  // separator allowed
   regexp = StringUtils::replaceAll(regexp, ".." + escaped,
-      R"([a-zA-Z0-9_\-.]+)" + escaped + R"([a-zA-Z0-9_\-.]+)" + escaped);  // separator NOT allowed
+                                   R"([a-zA-Z0-9_\-.]+)" + escaped +
+                                       R"([a-zA-Z0-9_\-.]+)" +
+                                       escaped);  // separator NOT allowed
   regexp = StringUtils::replaceAll(regexp, ".", "\\.");  // escape it
-  regexp = StringUtils::replaceAll(regexp, "?", R"([a-zA-Z0-9_\-\.])"); // at most one
-  regexp = StringUtils::replaceAll(regexp, "*", "[^" + escaped + "]*"); // free for all
+  regexp = StringUtils::replaceAll(regexp, "?",
+                                   R"([a-zA-Z0-9_\-\.])");  // at most one
+  regexp = StringUtils::replaceAll(regexp, "*",
+                                   "[^" + escaped + "]*");  // free for all
 
   const std::regex regex(regexp);
   const fs::directory_options options =
@@ -237,7 +242,10 @@ std::string FileUtils::getFileContent(const std::string& filename) {
 
 std::string FileUtils::getPathName(const std::string& path) {
   fs::path fs_path(path);
-  return fs_path.has_parent_path() ? (fs::path(path).parent_path() += fs::path::preferred_separator).string() : "";
+  return fs_path.has_parent_path()
+             ? (fs::path(path).parent_path() += fs::path::preferred_separator)
+                   .string()
+             : "";
 }
 
 std::string FileUtils::basename(const std::string& str) {
@@ -253,15 +261,13 @@ std::string FileUtils::hashPath(const std::string& path) {
   std::string hashedpath;
   std::size_t val = std::hash<std::string>{}(path);
   std::string last_dir = path;
-  if (last_dir.size())
-    last_dir.erase(last_dir.end()-1);
+  if (last_dir.size()) last_dir.erase(last_dir.end() - 1);
   char c = separator[0];
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
                           [c](char ch) { return (ch == c); });
-  if (it1 != last_dir.rend())
-    last_dir.erase(last_dir.begin(), it1.base());
+  if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
 
-  hashedpath = last_dir + "_" + std::to_string(val)  + separator;
+  hashedpath = last_dir + "_" + std::to_string(val) + separator;
   return hashedpath;
 }
 

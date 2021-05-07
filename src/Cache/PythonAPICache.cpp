@@ -25,8 +25,8 @@
 #include <cstdio>
 #include <ctime>
 
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include "API/PythonAPI.h"
 #include "Cache/Cache.h"

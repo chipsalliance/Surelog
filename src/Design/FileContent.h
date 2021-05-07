@@ -24,9 +24,9 @@
 #ifndef FILECONTENT_H
 #define FILECONTENT_H
 
-#include <vector>
 #include <map>
 #include <unordered_set>
+#include <vector>
 
 #include "Design/DesignComponent.h"
 #include "Design/DesignElement.h"
@@ -89,7 +89,7 @@ class FileContent : public DesignComponent {
 
   NodeId sl_collect(
       NodeId parent,
-      VObjectType type) const ;  // Recursively search for first item of type
+      VObjectType type) const;  // Recursively search for first item of type
 
   NodeId sl_collect(
       NodeId parent, VObjectType type,
@@ -194,9 +194,11 @@ class FileContent : public DesignComponent {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
 
-  const ModuleDefinition* getModuleDefinition(const std::string& moduleName) const;
+  const ModuleDefinition* getModuleDefinition(
+      const std::string& moduleName) const;
 
-  DesignComponent* getComponentDefinition(const std::string& componentName) const;
+  DesignComponent* getComponentDefinition(
+      const std::string& componentName) const;
 
   Package* getPackage(const std::string& name);
 
@@ -212,7 +214,7 @@ class FileContent : public DesignComponent {
   }
 
   bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
-                std::string *diff_out) const;
+                std::string* diff_out) const;
 
   SymbolId getSymbolId() const { return m_fileId; }
 

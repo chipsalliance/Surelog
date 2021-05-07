@@ -24,13 +24,13 @@
 #ifndef ERRORDEFINITION_H
 #define ERRORDEFINITION_H
 
-#include <string>
 #include <map>
+#include <string>
 
 namespace SURELOG {
 
 class ErrorDefinition {
-public:
+ public:
   enum ErrorSeverity { FATAL, SYNTAX, ERROR, WARNING, INFO, NOTE };
 
   enum ErrorCategory {
@@ -203,9 +203,9 @@ public:
   };
 
   class ErrorInfo {
-  public:
-    ErrorInfo(ErrorSeverity severity, ErrorCategory category, const std::string& s,
-              const std::string& extra)
+   public:
+    ErrorInfo(ErrorSeverity severity, ErrorCategory category,
+              const std::string& s, const std::string& extra)
         : m_severity(severity),
           m_category(category),
           m_errorText(s),

@@ -47,8 +47,8 @@ class ClassDefinition : public DesignComponent, public DataType {
  public:
   ClassDefinition(std::string name, Library* library,
                   DesignComponent* container, const FileContent* fC,
-                  NodeId nodeId,
-                  ClassDefinition* parent, UHDM::class_defn* uhdm_definition);
+                  NodeId nodeId, ClassDefinition* parent,
+                  UHDM::class_defn* uhdm_definition);
 
   ~ClassDefinition() override;
 

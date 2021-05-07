@@ -31,7 +31,7 @@
 namespace SURELOG {
 
 class TimeInfo final {
-public:
+ public:
   enum class Type { None, Timescale, TimeUnitTimePrecision };
   enum class Unit {
     Second,

@@ -43,8 +43,8 @@ void DesignComponent::addFileContent(const FileContent* fileContent,
   }
 }
 
-const std::vector<FileCNodeId>& DesignComponent::getObjects(VObjectType type)
-  const {
+const std::vector<FileCNodeId>& DesignComponent::getObjects(
+    VObjectType type) const {
   auto itr = m_objects.find(type);
   if (itr == m_objects.end()) {
     return m_empty;
@@ -127,7 +127,8 @@ DataType* DesignComponent::getUsedDataType(const std::string& name) {
 const TypeDef* DesignComponent::getTypeDef(const std::string& name) const {
   TypeDefMap::const_iterator itr = m_typedefs.find(name);
   if (itr == m_typedefs.end()) {
-    const DesignComponent* parent = dynamic_cast<const DesignComponent*>(getParentScope());
+    const DesignComponent* parent =
+        dynamic_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getTypeDef(name);
     } else
@@ -144,7 +145,8 @@ void DesignComponent::insertTypeDef(TypeDef* p) {
 Function* DesignComponent::getFunction(const std::string& name) const {
   FunctionMap::const_iterator itr = m_functions.find(name);
   if (itr == m_functions.end()) {
-    const DesignComponent* parent = dynamic_cast<const DesignComponent*>(getParentScope());
+    const DesignComponent* parent =
+        dynamic_cast<const DesignComponent*>(getParentScope());
     if (parent) {
       return parent->getFunction(name);
     } else

@@ -26,14 +26,14 @@
 
 #include <string_view>
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
 class CoverGroupDefinition final {
-public:
+ public:
   CoverGroupDefinition(const FileContent* fC, NodeId id, std::string_view name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
 
@@ -43,7 +43,7 @@ public:
 
   NodeId getNodeId() const { return m_nodeId; }
 
-private:
+ private:
   CoverGroupDefinition(const CoverGroupDefinition&) = delete;
 
   // Set in constructor, never updated, no copy constructor. Can be const.

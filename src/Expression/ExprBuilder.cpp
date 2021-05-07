@@ -26,16 +26,16 @@
 #include <math.h>
 #include <string.h>
 #if defined(_MSC_VER)
-  #define strcasecmp _stricmp
-  #define strdup _strdup
+#define strcasecmp _stricmp
+#define strdup _strdup
 #else
-  #include <strings.h>
+#include <strings.h>
 #endif
 
+#include <stdint.h>
 #include <bitset>
 #include <iostream>
 #include <sstream>
-#include <stdint.h>
 
 #include "Design/Design.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -64,7 +64,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
-      case VObjectType::slIncDec_PlusPlus:  {
+      case VObjectType::slIncDec_PlusPlus: {
         // Pre increment
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
@@ -73,7 +73,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(tmp);
         break;
       }
-      case VObjectType::slIncDec_MinusMinus:  {
+      case VObjectType::slIncDec_MinusMinus: {
         // Pre decrement
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
@@ -164,7 +164,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slHierarchical_identifier:  {
+      case VObjectType::slHierarchical_identifier: {
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
@@ -268,7 +268,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Equiv: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
-            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+            if ((valueL->getType() == Value::Type::String) &&
+                (valueR->getType() == Value::Type::String)) {
               m_valueFactory.deleteValue(value);
               value = m_valueFactory.newStValue();
             }
@@ -280,7 +281,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Not: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
-            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+            if ((valueL->getType() == Value::Type::String) &&
+                (valueR->getType() == Value::Type::String)) {
               m_valueFactory.deleteValue(value);
               value = m_valueFactory.newStValue();
             }
@@ -364,8 +366,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         std::string size = val;
         StringUtils::rtrim(size, '\'');
         int64_t intsize = 0;
-        if (size != "")
-          intsize = std::strtoull(size.c_str(), 0, 10);
+        if (size != "") intsize = std::strtoull(size.c_str(), 0, 10);
         if (strstr(val.c_str(), "'")) {
           uint64_t hex_value = 0;
           char base = 'h';
@@ -383,7 +384,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             case 'h': {
               if (intsize > 64) {
                 m_valueFactory.deleteValue(value);
-                StValue* stval = (StValue*) m_valueFactory.newStValue();
+                StValue* stval = (StValue*)m_valueFactory.newStValue();
                 stval->set(v, Value::Type::Hexadecimal, intsize);
                 value = stval;
               } else {
@@ -462,8 +463,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               }
             }
           }
-          if (sval == NULL)
-            fullName = packageName + "::" + name;
+          if (sval == NULL) fullName = packageName + "::" + name;
         } else {
           const std::string& name = fC->SymName(child);
           if (instance) {
@@ -475,8 +475,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               sval = instance->getValue(name, *this);
             }
           }
-          if (sval == NULL)
-            fullName = name;
+          if (sval == NULL) fullName = name;
         }
 
         if (sval == NULL) {
@@ -513,7 +512,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slInitVal_1TickB0:
       case VObjectType::slScalar_1Tickb0:
       case VObjectType::slScalar_1TickB0: {
-        value->set(0,Value::Type::Scalar, 1);
+        value->set(0, Value::Type::Scalar, 1);
         break;
       }
       case VObjectType::slNumber_Tickb0:
@@ -522,7 +521,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slScalar_Tickb0:
       case VObjectType::slScalar_TickB0:
       case VObjectType::sl0: {
-        value->set(0,Value::Type::Scalar, 0);
+        value->set(0, Value::Type::Scalar, 0);
         break;
       }
       case VObjectType::slNumber_1Tickb1:
@@ -531,7 +530,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
       case VObjectType::slScalar_1TickB1: {
-        value->set(1,Value::Type::Scalar, 1);
+        value->set(1, Value::Type::Scalar, 1);
         break;
       }
       case VObjectType::slNumber_Tickb1:
@@ -540,7 +539,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slScalar_Tickb1:
       case VObjectType::slScalar_TickB1:
       case VObjectType::sl1: {
-        value->set(1,Value::Type::Scalar, 0);
+        value->set(1, Value::Type::Scalar, 0);
         break;
       }
       case VObjectType::slVariable_lvalue: {
@@ -564,38 +563,38 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         NodeId Expression = fC->Child(List_of_arguments);
         std::vector<Value*> args;
         while (Expression) {
-           args.push_back( evalExpr(fC, Expression, instance, muteErrors));
-           Expression = fC->Sibling(Expression);
+          args.push_back(evalExpr(fC, Expression, instance, muteErrors));
+          Expression = fC->Sibling(Expression);
         }
         std::string funcName = fC->SymName(function);
         if (funcName == "clog2") {
           int val = args[0]->getValueL();
-          val = val-1;
+          val = val - 1;
           if (val < 0) {
-            value->set((int64_t) 0);
+            value->set((int64_t)0);
             value->setInvalid();
             break;
           }
-          int clog2=0;
-          for (; val>0; clog2=clog2+1) {
-            val = val>>1;
+          int clog2 = 0;
+          for (; val > 0; clog2 = clog2 + 1) {
+            val = val >> 1;
           }
-          value->set((int64_t) clog2);
+          value->set((int64_t)clog2);
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log(val));
+          value->set((int64_t)log(val));
         } else if (funcName == "clog") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log10(val));
+          value->set((int64_t)log10(val));
         } else if (funcName == "exp") {
           int val = args[0]->getValueL();
-          value->set((int64_t) exp2(val));
+          value->set((int64_t)exp2(val));
         } else if (funcName == "bits") {
           // $bits is implemented in compileExpression.cpp
-          value->set((int64_t) 0);
+          value->set((int64_t)0);
           value->setInvalid();
         } else {
-          value->set((int64_t) 0);
+          value->set((int64_t)0);
           value->setInvalid();
         }
         break;
@@ -612,7 +611,8 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
           if (fC->Type(ConstVal) == slIntConst) {
             token = fC->SymName(ConstVal);
           } else {
-            Value* constVal = evalExpr(fC, Primary_literal, instance, muteErrors);
+            Value* constVal =
+                evalExpr(fC, Primary_literal, instance, muteErrors);
             unsigned long long v = constVal->getValueUL();
             token = NumUtils::toBinary(constVal->getSize(), v);
           }
@@ -640,8 +640,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
             unsigned int vsize = v.size();
             if (isize) {
-              for (unsigned int i = 0; i < isize - vsize; i++)
-                v = "0" + v;
+              for (unsigned int i = 0; i < isize - vsize; i++) v = "0" + v;
             }
             svalue += v;
           } else {
@@ -653,18 +652,20 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         base = 'b';
         if (svalue == "") {
-          value->set((int64_t) 0);
+          value->set((int64_t)0);
         } else {
           m_valueFactory.deleteValue(value);
           value = m_valueFactory.newStValue();
           value->set(svalue, Value::Type::Binary);
         }
-        value->setInvalid(); // We can't distinguish in between concatenation or array initialization in this context
-        // so we mark the value as invalid for most purposes. Enum value can still use it as concatenation
+        value->setInvalid();  // We can't distinguish in between concatenation
+                              // or array initialization in this context
+        // so we mark the value as invalid for most purposes. Enum value can
+        // still use it as concatenation
         break;
       }
       default:
-        value->set((int64_t) 0);
+        value->set((int64_t)0);
         value->setInvalid();
         break;
     }
@@ -730,15 +731,15 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
   size_t pos;
   if ((pos = s.find("UINT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0 , 10);
+    uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0, 10);
     val->set(v);
   } else if ((pos = s.find("INT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0 , 10);
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0, 10);
     val->set(v);
   } else if ((pos = s.find("DEC:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
-    int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0 , 10);
+    int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0, 10);
     val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
@@ -762,9 +763,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
         break;
       default:
         if (strcasecmp(parse_pos, "DontCare") == 0) {
-
         } else if (strcasecmp(parse_pos, "NoChange") == 0) {
-
         } else {
           int64_t v = std::strtoull(parse_pos, 0, 10);
           val = m_valueFactory.newLValue();
@@ -775,11 +774,12 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
-    val->set(v, Value::Type::Unsigned,  s.size() - 4);
+    val->set(v, Value::Type::Unsigned, s.size() - 4);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
-    if (s.size() > 20) { // HEX:FFFFFFFFFFFFFFFF
-      StValue* sval = (StValue*) m_valueFactory.newStValue();
-      sval->set(s.c_str() + pos + strlen("HEX:"), Value::Type::Hexadecimal, (s.size() - 4) * 4);
+    if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
+      StValue* sval = (StValue*)m_valueFactory.newStValue();
+      sval->set(s.c_str() + pos + strlen("HEX:"), Value::Type::Hexadecimal,
+                (s.size() - 4) * 4);
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
@@ -804,8 +804,8 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
 Value* ExprBuilder::fromString(const std::string& value) {
   Value* val = nullptr;
   std::string sval;
-  const char *value_ptr = value.c_str();
-  char *end_parse_ptr;
+  const char* value_ptr = value.c_str();
+  char* end_parse_ptr;
   if (strstr(value_ptr, "'")) {
     char base = 'b';
     unsigned int i = 0;
@@ -822,7 +822,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Hexadecimal, s);
         val = stval;
         break;
@@ -831,7 +831,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
         break;
@@ -840,7 +840,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Octal, s);
         val = stval;
         break;
@@ -849,7 +849,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Integer, s);
         val = stval;
         break;
@@ -858,7 +858,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
         std::string size = value;
         StringUtils::rtrim(size, '\'');
         int s = atoi(size.c_str());
-        StValue* stval = (StValue*) m_valueFactory.newStValue();
+        StValue* stval = (StValue*)m_valueFactory.newStValue();
         stval->set(sval, Value::Type::Binary, s);
         val = stval;
         break;
@@ -868,7 +868,7 @@ Value* ExprBuilder::fromString(const std::string& value) {
     long double v = std::strtold(value_ptr, &end_parse_ptr);
     if (value_ptr != end_parse_ptr && strstr(value_ptr, ".")) {
       val = m_valueFactory.newLValue();
-      val->set((double) v);
+      val->set((double)v);
     } else {
       int64_t v = std::strtoll(value_ptr, &end_parse_ptr, 10);
       if (value_ptr != end_parse_ptr && value.size() && value[0] == '-') {
@@ -893,13 +893,15 @@ bool ExprBuilder::unitTest() {
   bool result = true;
   {
     LValue v0, v1, v2;
-    v1.set((int64_t)1); v2.set((int64_t)0);
+    v1.set((int64_t)1);
+    v2.set((int64_t)0);
     v0.bitwAnd(&v1, &v2);
     assert(v0.getValueL() == 0 && "bitwAnd failed");
   }
   {
     LValue v0, v1, v2;
-    v1.set((int64_t)1); v2.set((int64_t)0);
+    v1.set((int64_t)1);
+    v2.set((int64_t)0);
     v0.bitwOr(&v1, &v2);
     assert(v0.getValueL() == 1 && "bitwOr failed");
   }
@@ -911,13 +913,15 @@ bool ExprBuilder::unitTest() {
   }
   {
     LValue v0, v1, v2;
-    v1.set((int64_t)-1); v2.set((int64_t)1);
+    v1.set((int64_t)-1);
+    v2.set((int64_t)1);
     v0.plus(&v1, &v2);
     assert(v0.getValueL() == 0 && "plus failed");
   }
   {
     LValue v0, v1, v2;
-    v1.set((int64_t)-10); v2.set((int64_t)9);
+    v1.set((int64_t)-10);
+    v2.set((int64_t)9);
     v0.plus(&v1, &v2);
     assert(v0.getValueL() == -1 && "plus failed");
     assert(v0.uhdmValue() == "INT:-1" && "plus failed");
@@ -933,7 +937,7 @@ bool ExprBuilder::unitTest() {
     Value* v1 = builder.fromVpiValue("HEX:A");
     Value* v2 = builder.fromVpiValue("INT:10");
     LValue v0;
-    v0.equiv(v1,v2);
+    v0.equiv(v1, v2);
     assert(v1->uhdmValue() == "UINT:10" && "hex convertion failed");
     assert(v0.getValueL() == 1 && "hex convertion failed");
   }

@@ -26,8 +26,8 @@
 
 #include <map>
 
-#include "Expression/Value.h"
 #include "Design/FileContent.h"
+#include "Expression/Value.h"
 
 namespace SURELOG {
 

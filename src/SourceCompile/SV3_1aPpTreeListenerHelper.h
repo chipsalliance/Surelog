@@ -21,7 +21,6 @@
  * Created on December 4, 2019, 8:17 PM
  */
 
-
 #ifndef SV3_1APPTREELISTENERHELPER_H
 #define SV3_1APPTREELISTENERHELPER_H
 
@@ -39,7 +38,7 @@
 namespace SURELOG {
 
 class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
-protected:
+ protected:
   PreprocessFile* m_pp;
   bool m_inActiveBranch;
   bool m_inMacroDefinitionParsing;
@@ -50,11 +49,17 @@ protected:
   antlr4::ParserRuleContext* m_append_paused_context;
   PreprocessFile::SpecialInstructions m_instructions;
 
-public:
-  SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :
-    CommonListenerHelper(), m_pp(pp), m_inActiveBranch(true), m_inMacroDefinitionParsing(false),
-    m_inProtectedRegion(false), m_filterProtectedRegions(false), m_append_paused_context(NULL), m_instructions(instructions)
-  {
+ public:
+  SV3_1aPpTreeListenerHelper(PreprocessFile* pp,
+                             PreprocessFile::SpecialInstructions& instructions)
+      : CommonListenerHelper(),
+        m_pp(pp),
+        m_inActiveBranch(true),
+        m_inMacroDefinitionParsing(false),
+        m_inProtectedRegion(false),
+        m_filterProtectedRegions(false),
+        m_append_paused_context(NULL),
+        m_instructions(instructions) {
     init();
   }
 
@@ -63,10 +68,15 @@ public:
   // Helper function if-else
   bool isPreviousBranchActive();
   // Helper function to log errors
-  void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, std::string object, bool printColumn = false);
-  void logError(ErrorDefinition::ErrorType, Location& loc, bool showDuplicates = false);
-  void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);
-  void checkMultiplyDefinedMacro(const std::string &macroName, antlr4::ParserRuleContext* ctx);
+  void logError(ErrorDefinition::ErrorType error,
+                antlr4::ParserRuleContext* ctx, std::string object,
+                bool printColumn = false);
+  void logError(ErrorDefinition::ErrorType, Location& loc,
+                bool showDuplicates = false);
+  void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc,
+                bool showDuplicates = false);
+  void checkMultiplyDefinedMacro(const std::string& macroName,
+                                 antlr4::ParserRuleContext* ctx);
   void forwardToParser(antlr4::ParserRuleContext* ctx);
   void init();
   void addLineFiller(antlr4::ParserRuleContext* ctx);
@@ -75,9 +85,10 @@ public:
     return m_pp->getCompileSourceFile()->getSymbolTable();
   }
 
-  SymbolId registerSymbol(const std::string &symbol) final;
+  SymbolId registerSymbol(const std::string& symbol) final;
 
-  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
+  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
 
   ~SV3_1aPpTreeListenerHelper() override;
 };

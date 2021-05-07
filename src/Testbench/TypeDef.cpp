@@ -22,14 +22,16 @@
  */
 #include "Testbench/TypeDef.h"
 
+#include "Design/FileContent.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
-#include "Design/FileContent.h"
 
 namespace SURELOG {
 TypeDef::TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
                  const std::string& name)
-    : DataType(fC, id, name, fC->Type(id)), m_the_def(the_def), m_datatype(NULL) {
+    : DataType(fC, id, name, fC->Type(id)),
+      m_the_def(the_def),
+      m_datatype(NULL) {
   m_category = DataType::Category::TYPEDEF;
 }
 

@@ -24,8 +24,8 @@
 #ifndef DUMMY_TYPE_H
 #define DUMMY_TYPE_H
 
-#include <string>
 #include <map>
+#include <string>
 
 #include "Design/DataType.h"
 

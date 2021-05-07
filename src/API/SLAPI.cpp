@@ -51,8 +51,8 @@
 #include "parser/SV3_1aParser.h"
 
 namespace SURELOG {
-void SLsetWaiver(const char* messageId, const char* fileName,
-                 unsigned int line, const char* objectName) {
+void SLsetWaiver(const char* messageId, const char* fileName, unsigned int line,
+                 const char* objectName) {
   if (fileName == 0 && line == 0 && objectName == 0) {
     Waiver::setWaiver(messageId, "", 0, "");
   } else if (line == 0 && objectName == 0) {
@@ -72,9 +72,9 @@ void SLregisterNewErrorType(const char* messageId, const char* text,
   errorId = StringUtils::ltrim(errorId, '[');
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
   ErrorDefinition::ErrorSeverity severity =
-    ErrorDefinition::getErrorSeverity(errorId.substr(0, 5));
+      ErrorDefinition::getErrorSeverity(errorId.substr(0, 5));
   ErrorDefinition::ErrorCategory category =
-    ErrorDefinition::getCategory(errorId.substr(6, 2));
+      ErrorDefinition::getCategory(errorId.substr(6, 2));
   ErrorDefinition::rec(type, severity, category, text, secondLine);
 }
 
@@ -84,8 +84,8 @@ void SLoverrideSeverity(const char* messageId, const char* severity) {
 }
 
 void SLaddError(ErrorContainer* errors, const char* messageId,
-                const char* fileName, unsigned int line,
-                unsigned int col, const char* objectName) {
+                const char* fileName, unsigned int line, unsigned int col,
+                const char* objectName) {
   if (errors == NULL) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   SymbolId fileId = 0;
@@ -102,10 +102,10 @@ void SLaddError(ErrorContainer* errors, const char* messageId,
 }
 
 void SLaddMLError(ErrorContainer* errors, const char* messageId,
-                  const char* fileName1, unsigned int line1,
-                  unsigned int col1, const char* objectName1,
-                  const char* fileName2, unsigned int line2,
-                  unsigned int col2, const char* objectName2) {
+                  const char* fileName1, unsigned int line1, unsigned int col1,
+                  const char* objectName1, const char* fileName2,
+                  unsigned int line2, unsigned int col2,
+                  const char* objectName2) {
   if (errors == NULL) return;
   SymbolTable* symbolTable = errors->getSymbolTable();
   SymbolId fileId1 = 0;
@@ -137,19 +137,19 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   ErrorContainer* errors =
-    listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
+      listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
   std::pair<int, int> lineCol =
-    ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
+      ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
   Location loc(
-    listener->getPythonListen()->getParseFile()->getFileId(lineCol.first),
-    listener->getPythonListen()->getParseFile()->getLineNb(lineCol.first),
-    printColumn ? lineCol.second : 0,
-    listener->getPythonListen()
-    ->getCompileSourceFile()
-    ->getSymbolTable()
-    ->registerSymbol(objectName));
+      listener->getPythonListen()->getParseFile()->getFileId(lineCol.first),
+      listener->getPythonListen()->getParseFile()->getLineNb(lineCol.first),
+      printColumn ? lineCol.second : 0,
+      listener->getPythonListen()
+          ->getCompileSourceFile()
+          ->getSymbolTable()
+          ->registerSymbol(objectName));
   Error err(type, loc);
   errors->addError(err, false, false);
 #else
@@ -160,42 +160,41 @@ void SLaddErrorContext(SV3_1aPythonListener* prog,
 void SLaddMLErrorContext(SV3_1aPythonListener* prog,
                          antlr4::ParserRuleContext* context1,
                          antlr4::ParserRuleContext* context2,
-                         const char* messageId,
-                         const char* objectName1,
+                         const char* messageId, const char* objectName1,
                          const char* objectName2, bool printColumn) {
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx1 = (antlr4::ParserRuleContext*)context1;
   antlr4::ParserRuleContext* ctx2 = (antlr4::ParserRuleContext*)context2;
   ErrorContainer* errors =
-    listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
+      listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
   std::pair<int, int> lineCol1 =
-    ParseUtils::getLineColumn(listener->getTokenStream(), ctx1);
+      ParseUtils::getLineColumn(listener->getTokenStream(), ctx1);
   std::pair<int, int> lineCol2 =
-    ParseUtils::getLineColumn(listener->getTokenStream(), ctx2);
+      ParseUtils::getLineColumn(listener->getTokenStream(), ctx2);
   ErrorDefinition::ErrorType type = ErrorDefinition::getErrorType(messageId);
 
   Location loc1(
-    listener->getPythonListen()->getParseFile()->getFileId(lineCol1.first),
-    listener->getPythonListen()->getParseFile()->getLineNb(lineCol1.first),
-    printColumn ? lineCol1.second : 0,
-    listener->getPythonListen()
-    ->getCompileSourceFile()
-    ->getSymbolTable()
-    ->registerSymbol(objectName1));
+      listener->getPythonListen()->getParseFile()->getFileId(lineCol1.first),
+      listener->getPythonListen()->getParseFile()->getLineNb(lineCol1.first),
+      printColumn ? lineCol1.second : 0,
+      listener->getPythonListen()
+          ->getCompileSourceFile()
+          ->getSymbolTable()
+          ->registerSymbol(objectName1));
 
   Location loc2(
-    listener->getPythonListen()->getParseFile()->getFileId(lineCol2.first),
-    listener->getPythonListen()->getParseFile()->getLineNb(lineCol2.first),
-    printColumn ? lineCol2.second : 0,
-    listener->getPythonListen()
-    ->getCompileSourceFile()
-    ->getSymbolTable()
-    ->registerSymbol(objectName2));
+      listener->getPythonListen()->getParseFile()->getFileId(lineCol2.first),
+      listener->getPythonListen()->getParseFile()->getLineNb(lineCol2.first),
+      printColumn ? lineCol2.second : 0,
+      listener->getPythonListen()
+          ->getCompileSourceFile()
+          ->getSymbolTable()
+          ->registerSymbol(objectName2));
   Error err(type, loc1, loc2);
   errors->addError(err, false, false);
 #else
-    std::cerr << "SLaddMLErrorContext(): Python support not compiled in\n";
+  std::cerr << "SLaddMLErrorContext(): Python support not compiled in\n";
 #endif
 }
 
@@ -204,7 +203,7 @@ std::string SLgetFile(SV3_1aPythonListener* prog,
 #ifdef SURELOG_WITH_PYTHON
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   std::string file =
-    listener->getPythonListen()->getParseFile()->getFileName(0);
+      listener->getPythonListen()->getParseFile()->getFileName(0);
   return file;
 #else
   std::cerr << "SLgetFile(): Python support not compiled in\n";
@@ -217,7 +216,7 @@ int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
-    ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
+      ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.first;
 #else
   std::cerr << "SLgetLine(): Python support not compiled in\n";
@@ -231,7 +230,7 @@ int SLgetColumn(SV3_1aPythonListener* prog,
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
-    ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
+      ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.second;
 #else
   std::cerr << "SLgetColumn(): Python support not compiled in\n";
@@ -261,21 +260,22 @@ std::vector<std::string> SLgetTokens(SV3_1aPythonListener* /*prog*/,
   return body_tokens;
 }
 
-antlr4::ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* /*prog*/,
-                                              antlr4::ParserRuleContext* context) {
+antlr4::ParserRuleContext* SLgetParentContext(
+    SV3_1aPythonListener* /*prog*/, antlr4::ParserRuleContext* context) {
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   return (antlr4::ParserRuleContext*)ctx->parent;
 }
 
 std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
-  SV3_1aPythonListener* /*prog*/, antlr4::ParserRuleContext* context) {
+    SV3_1aPythonListener* /*prog*/, antlr4::ParserRuleContext* context) {
   antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<antlr4::ParserRuleContext*> children;
 
   for (unsigned int i = 0; i < ctx->children.size(); i++) {
     // Get the i-th child node of `parent`.
     antlr4::tree::ParseTree* child = ctx->children[i];
-    antlr4::tree::TerminalNode* node = dynamic_cast<antlr4::tree::TerminalNode*>(child);
+    antlr4::tree::TerminalNode* node =
+        dynamic_cast<antlr4::tree::TerminalNode*>(child);
     if (node) {
       // Terminal node
     } else {
@@ -372,9 +372,10 @@ std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
   return fC->sl_collect_all(parent, vtypes, first);
 }
 
-std::vector<unsigned int> SLcollectAll(
-  FileContent* fC, NodeId parent, std::vector<unsigned int> types,
-  std::vector<unsigned int> stopPoints, bool first) {
+std::vector<unsigned int> SLcollectAll(FileContent* fC, NodeId parent,
+                                       std::vector<unsigned int> types,
+                                       std::vector<unsigned int> stopPoints,
+                                       bool first) {
   if (!fC) return {};
   std::vector<VObjectType> vtypes;
   for (auto type : types) vtypes.push_back((VObjectType)type);
@@ -408,11 +409,10 @@ unsigned int SLgetnTopModuleInstance(Design* design) {
   return design->getTopLevelModuleInstances().size();
 }
 
-ModuleDefinition* SLgetModuleDefinition(Design* design,
-                                        unsigned int index) {
+ModuleDefinition* SLgetModuleDefinition(Design* design, unsigned int index) {
   if (!design) return 0;
   ModuleNameModuleDefinitionMap::iterator itr =
-    design->getModuleDefinitions().begin();
+      design->getModuleDefinitions().begin();
   for (unsigned int i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
@@ -420,7 +420,7 @@ ModuleDefinition* SLgetModuleDefinition(Design* design,
 Program* SLgetProgramDefinition(Design* design, unsigned int index) {
   if (!design) return 0;
   ProgramNameProgramDefinitionMap::iterator itr =
-    design->getProgramDefinitions().begin();
+      design->getProgramDefinitions().begin();
   for (unsigned int i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
@@ -428,22 +428,20 @@ Program* SLgetProgramDefinition(Design* design, unsigned int index) {
 Package* SLgetPackageDefinition(Design* design, unsigned int index) {
   if (!design) return 0;
   PackageNamePackageDefinitionMultiMap::iterator itr =
-    design->getPackageDefinitions().begin();
+      design->getPackageDefinitions().begin();
   for (unsigned int i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-ClassDefinition* SLgetClassDefinition(Design* design,
-                                      unsigned int index) {
+ClassDefinition* SLgetClassDefinition(Design* design, unsigned int index) {
   if (!design) return 0;
   ClassNameClassDefinitionMap::iterator itr =
-    design->getUniqueClassDefinitions().begin();
+      design->getUniqueClassDefinitions().begin();
   for (unsigned int i = 0; i < index; i++) itr++;
   return (*itr).second;
 }
 
-ModuleInstance* SLgetTopModuleInstance(Design* design,
-                                       unsigned int index) {
+ModuleInstance* SLgetTopModuleInstance(Design* design, unsigned int index) {
   if (!design) return 0;
   return design->getTopLevelModuleInstances()[index];
 }

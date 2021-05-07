@@ -72,7 +72,8 @@ std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
   text += "l<" + std::to_string(m_line) + ":" + std::to_string(m_column) + ">";
   if (m_endLine) {
     text += " ";
-    text += "el<" + std::to_string(m_endLine) + ":" + std::to_string(m_endColumn) + ">";
+    text += "el<" + std::to_string(m_endLine) + ":" +
+            std::to_string(m_endColumn) + ">";
   }
   return text;
 }

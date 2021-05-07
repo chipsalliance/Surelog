@@ -33,16 +33,15 @@ namespace SURELOG {
 
 class NumUtils {
  public:
-
   static std::string hexToBin(const std::string &s);
-  
+
   static std::string binToHex(const std::string &s);
 
   static std::string toBinary(unsigned int size, uint64_t val);
 
  private:
   NumUtils() = delete;
-  NumUtils(const NumUtils& orig) = delete;
+  NumUtils(const NumUtils &orig) = delete;
   ~NumUtils() = delete;
 
  private:

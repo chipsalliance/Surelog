@@ -24,13 +24,13 @@
 #ifndef ENUM_H
 #define ENUM_H
 
-#include <string>
 #include <map>
+#include <string>
 
 #include "Design/DataType.h"
 
 namespace UHDM {
-  class typespec;
+class typespec;
 };
 namespace SURELOG {
 
@@ -48,8 +48,8 @@ class Enum : public DataType {
     m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
   }
   Value* getValue(const std::string& name);
-  NodeId getDefinitionId() const { return m_nameId;}
-  NameValueMap& getValues() { return  m_values;}
+  NodeId getDefinitionId() const { return m_nameId; }
+  NameValueMap& getValues() { return m_values; }
 
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }

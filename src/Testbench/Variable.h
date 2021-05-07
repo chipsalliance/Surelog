@@ -33,7 +33,7 @@
 namespace SURELOG {
 
 class Variable {
-public:
+ public:
   Variable(const DataType* dataType, const FileContent* fc, NodeId varId,
            NodeId range, std::string_view name)
       : m_dataType(dataType),
@@ -49,7 +49,7 @@ public:
   NodeId getNodeId() const { return m_nodeId; }
   NodeId getRange() const { return m_range; }
 
-private:
+ private:
   Variable(const Variable&) = delete;
 
   // All of these values are only set in the constructor and we never

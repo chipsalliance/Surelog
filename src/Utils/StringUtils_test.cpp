@@ -16,12 +16,12 @@
 
 #include "Utils/StringUtils.h"
 
-#include <vector>
 #include <string>
 #include <string_view>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 using ::testing::ElementsAre;
 
@@ -43,13 +43,14 @@ TEST(StringUtilsTest, TokenizeMulti) {
 
 TEST(StringUtilsTest, TokenizeBalanced) {
   std::vector<std::string> tok_result;
-  StringUtils::tokenizeBalanced("\"some text\" (that has) {multiple clusters} "
-                                "[that shall not break]", " ", tok_result);
+  StringUtils::tokenizeBalanced(
+      "\"some text\" (that has) {multiple clusters} "
+      "[that shall not break]",
+      " ", tok_result);
   EXPECT_EQ(tok_result.size(), size_t(4));
-  EXPECT_THAT(tok_result, ElementsAre("\"some text\"",
-                                      "(that has)",
-                                      "{multiple clusters}",
-                                      "[that shall not break]"));
+  EXPECT_THAT(tok_result,
+              ElementsAre("\"some text\"", "(that has)", "{multiple clusters}",
+                          "[that shall not break]"));
 }
 
 // TODO: tests needed for replaceInTokenVector()
@@ -116,8 +117,7 @@ TEST(StringUtilsTest, Leaf) {
 
 TEST(StringUtilsTest, ReplaceAll) {
   EXPECT_EQ("The String With Space",
-            StringUtils::replaceAll("TheFOOStringFOOWithFOOSpace",
-                                    "FOO", " "));
+            StringUtils::replaceAll("TheFOOStringFOOWithFOOSpace", "FOO", " "));
 
   // Various substring situations.
   EXPECT_EQ("xABCyABCzABC", StringUtils::replaceAll("xAyAzA", "A", "ABC"));

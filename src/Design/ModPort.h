@@ -25,25 +25,25 @@
 
 #include <vector>
 
-#include "SourceCompile/SymbolTable.h"
 #include "Signal.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
 class ModuleDefinition;
 
 class ModPort final {
-public:
+ public:
   ModPort(ModuleDefinition* parent, const std::string_view name)
-    : m_parent(parent), m_name(name) {}
+      : m_parent(parent), m_name(name) {}
 
   const std::string& getName() const { return m_name; }
   void addSignal(const Signal& sig) { m_ports.push_back(sig); }
   const std::vector<Signal>& getPorts() const { return m_ports; }
   const Signal* getPort(const std::string& name) const;
-  ModuleDefinition* getParent () { return m_parent; }
+  ModuleDefinition* getParent() { return m_parent; }
 
-private:
+ private:
   ModuleDefinition* const m_parent;
   const std::string m_name;
 

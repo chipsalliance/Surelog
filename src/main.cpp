@@ -22,76 +22,71 @@
  */
 
 #if defined(_MSC_VER)
-  #include <direct.h>
-  #include <process.h>
+#include <direct.h>
+#include <process.h>
 #else
-  #include <sys/param.h>
-  #include <unistd.h>
+#include <sys/param.h>
+#include <unistd.h>
 #endif
 
 #include <string.h>
 
+#include <sys/stat.h>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <sys/stat.h>
-#include <fstream>
 
-#include "surelog.h"
-#include "ErrorReporting/Report.h"
 #include "API/PythonAPI.h"
+#include "ErrorReporting/Report.h"
 #include "Utils/StringUtils.h"
+#include "surelog.h"
 
-unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode,
-                                bool fileunit, SURELOG::ErrorContainer::Stats* overallStats = NULL)
-{
+unsigned int executeCompilation(
+    int argc, const char** argv, bool diff_comp_mode, bool fileunit,
+    SURELOG::ErrorContainer::Stats* overallStats = NULL) {
   bool success = true;
   bool noFatalErrors = true;
   unsigned int codedReturn = 0;
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
-  SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser (errors, symbolTable, diff_comp_mode, fileunit);
-  success = clp->parseCommandLine (argc, argv);
+  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
+  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
+  SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser(
+      errors, symbolTable, diff_comp_mode, fileunit);
+  success = clp->parseCommandLine(argc, argv);
   bool parseOnly = clp->parseOnly();
-  errors->printMessages (clp->muteStdout ());
-  if (success && (!clp->help()))
-    {
-      // Load Python scripts in the interpreter
-      if (clp->pythonListener() || clp->pythonEvalScriptPerFile() ||
-          clp->pythonEvalScript())
-        {
-          SURELOG::PythonAPI::loadScripts ();
+  errors->printMessages(clp->muteStdout());
+  if (success && (!clp->help())) {
+    // Load Python scripts in the interpreter
+    if (clp->pythonListener() || clp->pythonEvalScriptPerFile() ||
+        clp->pythonEvalScript()) {
+      SURELOG::PythonAPI::loadScripts();
 
-          if (!SURELOG::PythonAPI::isListenerLoaded()) {
-            SURELOG::Location loc(0);
-            SURELOG::Error err(SURELOG::ErrorDefinition::PY_NO_PYTHON_LISTENER_FOUND, loc);
-            errors->addError(err);
-          }
-        }
-
-      SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
-      if (!compiler)
-        codedReturn |= 1;
-      SURELOG::shutdown_compiler(compiler);
+      if (!SURELOG::PythonAPI::isListenerLoaded()) {
+        SURELOG::Location loc(0);
+        SURELOG::Error err(
+            SURELOG::ErrorDefinition::PY_NO_PYTHON_LISTENER_FOUND, loc);
+        errors->addError(err);
+      }
     }
+
+    SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
+    if (!compiler) codedReturn |= 1;
+    SURELOG::shutdown_compiler(compiler);
+  }
   SURELOG::ErrorContainer::Stats stats;
   if (!clp->help()) {
-    stats = errors->getErrorStats ();
-    if (overallStats)
-      (*overallStats) += stats;
-    if (stats.nbFatal)
-      codedReturn |= 1;
-    if (stats.nbSyntax)
-      codedReturn |= 2;
+    stats = errors->getErrorStats();
+    if (overallStats) (*overallStats) += stats;
+    if (stats.nbFatal) codedReturn |= 1;
+    if (stats.nbSyntax) codedReturn |= 2;
     // Only return non-zero for fatal and syntax errors
-    //if (stats.nbError)
+    // if (stats.nbError)
     //  codedReturn |= 4;
   }
   bool noFErrors = true;
-  if (!clp->help())
-     noFErrors = errors->printStats (stats,clp->muteStdout ());
+  if (!clp->help()) noFErrors = errors->printStats(stats, clp->muteStdout());
   if (noFErrors == false) {
-     noFatalErrors = false;
+    noFatalErrors = false;
   }
 
   std::string ext_command = clp->getExeCommand();
@@ -104,39 +99,36 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
     std::cout << "Command result: " << result << std::endl;
   }
   clp->logFooter();
-  if (diff_comp_mode && fileunit)
-    {
-       SURELOG::Report* report = new SURELOG::Report();
-       std::pair<bool, bool> results = report->makeDiffCompUnitReport(clp, symbolTable );
-       success = results.first;
-       noFatalErrors = results.second;
-       delete report;
-    }
-  clp->cleanCache(); // only if -nocache
+  if (diff_comp_mode && fileunit) {
+    SURELOG::Report* report = new SURELOG::Report();
+    std::pair<bool, bool> results =
+        report->makeDiffCompUnitReport(clp, symbolTable);
+    success = results.first;
+    noFatalErrors = results.second;
+    delete report;
+  }
+  clp->cleanCache();  // only if -nocache
   delete clp;
   delete symbolTable;
   delete errors;
-  if ((!noFatalErrors) || (!success))
-    codedReturn |= 1;
+  if ((!noFatalErrors) || (!success)) codedReturn |= 1;
   if (parseOnly)
     return 0;
   else
     return codedReturn;
 }
 enum COMP_MODE {
-    NORMAL,
-    DIFF,
-    BATCH,
+  NORMAL,
+  DIFF,
+  BATCH,
 };
 
-int batchCompilation(const char* argv0, std::string batchFile, bool nostdout)
-{
-  char path [10000];
+int batchCompilation(const char* argv0, std::string batchFile, bool nostdout) {
+  char path[10000];
   int returnCode = 0;
   SURELOG::ErrorContainer::Stats overallStats;
   char* p = getcwd(path, 9999);
-  if (!p)
-    returnCode |= 1;
+  if (!p) returnCode |= 1;
   std::ifstream stream;
   stream.open(batchFile);
   if (!stream.good()) {
@@ -146,40 +138,44 @@ int batchCompilation(const char* argv0, std::string batchFile, bool nostdout)
   std::string line;
   int count = 0;
   while (std::getline(stream, line)) {
-    if (!nostdout) std::cout << "Processing: " << line << std::endl << std::flush;
+    if (!nostdout)
+      std::cout << "Processing: " << line << std::endl << std::flush;
     std::vector<std::string> args;
     SURELOG::StringUtils::tokenize(line, " ", args);
     int argc = args.size() + 1;
     char** argv = new char*[argc];
-    argv[0] = new char [strlen(argv0) + 1];
+    argv[0] = new char[strlen(argv0) + 1];
     strcpy(argv[0], argv0);
-    for (int i = 0; i < argc-1; i++) {
-      argv[i+1] = new char [args[i].length() + 1];
-      strcpy(argv[i+1], args[i].c_str());
+    for (int i = 0; i < argc - 1; i++) {
+      argv[i + 1] = new char[args[i].length() + 1];
+      strcpy(argv[i + 1], args[i].c_str());
     }
-    returnCode |= executeCompilation(argc, (const char**) argv, false, false, &overallStats);
+    returnCode |= executeCompilation(argc, (const char**)argv, false, false,
+                                     &overallStats);
     for (int i = 0; i < argc; i++) {
-      delete [] argv[i];
+      delete[] argv[i];
     }
-    delete [] argv;
+    delete[] argv;
     count++;
     int ret = chdir(path);
     if (ret < 0) {
-      std::cout << "FATAL: Could not change directory to " << path << "\n" << std::endl;
+      std::cout << "FATAL: Could not change directory to " << path << "\n"
+                << std::endl;
       returnCode |= 1;
     }
   }
-  if (!nostdout) std::cout << "Processed " << count << " tests." << std::endl << std::flush;
-  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
-  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
-  if (!nostdout) errors->printStats (overallStats);
+  if (!nostdout)
+    std::cout << "Processed " << count << " tests." << std::endl << std::flush;
+  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
+  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
+  if (!nostdout) errors->printStats(overallStats);
   delete errors;
   delete symbolTable;
   stream.close();
   return returnCode;
 }
 
-int main(int argc, const char ** argv) {
+int main(int argc, const char** argv) {
   SURELOG::Waiver::initWaivers();
 
   unsigned int codedReturn = 0;
@@ -188,10 +184,10 @@ int main(int argc, const char ** argv) {
   bool nostdout = false;
   std::string batchFile;
   std::string diff_unit_opt = "-diffcompunit";
-  std::string nopython_opt  = "-nopython";
+  std::string nopython_opt = "-nopython";
   std::string parseonly_opt = "-parseonly";
-  std::string batch_opt     = "-batch";
-  std::string nostdout_opt  = "-nostdout";
+  std::string batch_opt = "-batch";
+  std::string nostdout_opt = "-nostdout";
   for (int i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
     } else if (diff_unit_opt == argv[i]) {
@@ -199,7 +195,7 @@ int main(int argc, const char ** argv) {
     } else if (nopython_opt == argv[i]) {
       python_mode = false;
     } else if (batch_opt == argv[i]) {
-      batchFile = argv[i+1];
+      batchFile = argv[i + 1];
       i++;
       mode = BATCH;
     } else if (nostdout_opt == argv[i]) {
@@ -207,44 +203,41 @@ int main(int argc, const char ** argv) {
     }
   }
 
-  if (python_mode)
-    SURELOG::PythonAPI::init(argc, argv);
+  if (python_mode) SURELOG::PythonAPI::init(argc, argv);
 
   switch (mode) {
-  case DIFF:
-  {
-  #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-    // REVISIT: Windows doesn't have the concept of forks!
-    // Implement it sequentially for now and optimize it if this
-    // proves to be a bottleneck (preferably, implemented as a
-    // cross platform solution).
-    executeCompilation(argc, argv, true, false);
-    codedReturn = executeCompilation(argc, argv, true, true);
-  #else
-    pid_t pid = fork();
-    if (pid == 0) {
-      // child process
+    case DIFF: {
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+      // REVISIT: Windows doesn't have the concept of forks!
+      // Implement it sequentially for now and optimize it if this
+      // proves to be a bottleneck (preferably, implemented as a
+      // cross platform solution).
       executeCompilation(argc, argv, true, false);
-    } else if (pid > 0) {
-      // parent process
       codedReturn = executeCompilation(argc, argv, true, true);
-    } else {
-      // fork failed
-      printf("fork() failed!\n");
-      return 1;
+#else
+      pid_t pid = fork();
+      if (pid == 0) {
+        // child process
+        executeCompilation(argc, argv, true, false);
+      } else if (pid > 0) {
+        // parent process
+        codedReturn = executeCompilation(argc, argv, true, true);
+      } else {
+        // fork failed
+        printf("fork() failed!\n");
+        return 1;
+      }
+#endif
+      break;
     }
-  #endif
-    break;
-  }
-  case NORMAL:
-    codedReturn = executeCompilation(argc, argv, false, false);
-    break;
-  case BATCH:
-    codedReturn = batchCompilation(argv[0], batchFile, nostdout);
-    break;
+    case NORMAL:
+      codedReturn = executeCompilation(argc, argv, false, false);
+      break;
+    case BATCH:
+      codedReturn = batchCompilation(argv[0], batchFile, nostdout);
+      break;
   }
 
-  if (python_mode)
-    SURELOG::PythonAPI::shutdown();
+  if (python_mode) SURELOG::PythonAPI::shutdown();
   return codedReturn;
 }
