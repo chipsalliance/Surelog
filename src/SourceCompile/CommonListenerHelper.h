@@ -24,8 +24,8 @@
 #ifndef COMMONLISTENERHELPER_H
 #define COMMONLISTENERHELPER_H
 
-#include <stack>
 #include <map>
+#include <stack>
 #include <unordered_map>
 
 #include "Design/FileContent.h"
@@ -38,12 +38,12 @@ namespace SURELOG {
 static std::string EscapeSequence = "#~@";
 
 class CommonListenerHelper {
-public:
-  CommonListenerHelper() : m_fileContent(NULL), m_tokens(NULL){}
+ public:
+  CommonListenerHelper() : m_fileContent(NULL), m_tokens(NULL) {}
 
   virtual ~CommonListenerHelper();
 
-  virtual SymbolId registerSymbol(const std::string &symbol) = 0;
+  virtual SymbolId registerSymbol(const std::string& symbol) = 0;
 
   int registerObject(VObject& object);
 
@@ -71,8 +71,8 @@ public:
 
   unsigned int& Line(NodeId index);
 
-  int addVObject(antlr4::ParserRuleContext* ctx,
-                 const std::string &name, VObjectType objtype);
+  int addVObject(antlr4::ParserRuleContext* ctx, const std::string& name,
+                 VObjectType objtype);
 
   int addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
 
@@ -82,21 +82,21 @@ public:
 
   FileContent* getFileContent() { return m_fileContent; }
 
-  virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx,
-                                   SymbolId& fileId) = 0;
+  virtual std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) = 0;
 
-private:
-  int addVObject(antlr4::ParserRuleContext* ctx,
-                 SymbolId sym, VObjectType objtype);
+ private:
+  int addVObject(antlr4::ParserRuleContext* ctx, SymbolId sym,
+                 VObjectType objtype);
 
-protected:
+ protected:
   FileContent* m_fileContent;
-  typedef std::unordered_map<const antlr4::tree::ParseTree*, NodeId> ContextToObjectMap;
+  typedef std::unordered_map<const antlr4::tree::ParseTree*, NodeId>
+      ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
   antlr4::CommonTokenStream* m_tokens;
 };
 
-};
-
+};  // namespace SURELOG
 
 #endif /* COMMONLISTENERHELPER_H */

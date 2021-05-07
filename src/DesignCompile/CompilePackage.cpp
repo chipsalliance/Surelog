@@ -83,7 +83,7 @@ bool CompilePackage::compile() {
   } while (packId && (fC->Type(packId) != VObjectType::slAttribute_instance));
   if (packId) {
     UHDM::VectorOfattribute* attributes =
-    m_helper.compileAttributes(m_package, fC, packId, m_compileDesign);
+        m_helper.compileAttributes(m_package, fC, packId, m_compileDesign);
     m_package->Attributes(attributes);
   }
 
@@ -139,17 +139,17 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-              slList_of_type_assignments||
-              fC->Type(list_of_type_assignments) ==
-                  slType) {
+                  slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, false,
                 nullptr, false, true, false);
 
           } else {
-            m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, false, nullptr, false, true, false);
+            m_helper.compileParameterDeclaration(m_package, fC, id,
+                                                 m_compileDesign, false,
+                                                 nullptr, false, true, false);
           }
           break;
         }
@@ -157,17 +157,17 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           if (collectType != CollectType::DEFINITION) break;
           NodeId list_of_type_assignments = fC->Child(id);
           if (fC->Type(list_of_type_assignments) ==
-              slList_of_type_assignments||
-              fC->Type(list_of_type_assignments) ==
-                  slType) {
+                  slList_of_type_assignments ||
+              fC->Type(list_of_type_assignments) == slType) {
             // Type param
             m_helper.compileParameterDeclaration(
                 m_package, fC, list_of_type_assignments, m_compileDesign, true,
                 nullptr, false, true, false);
 
           } else {
-            m_helper.compileParameterDeclaration(
-                m_package, fC, id, m_compileDesign, true, nullptr, false, true, false);
+            m_helper.compileParameterDeclaration(m_package, fC, id,
+                                                 m_compileDesign, true, nullptr,
+                                                 false, true, false);
           }
           break;
         }
@@ -193,7 +193,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           if (collectType != CollectType::OTHER) break;
           NodeId nameId = fC->Child(id);
           if (fC->Type(nameId) == slVirtual) {
-             nameId = fC->Sibling(nameId);
+            nameId = fC->Sibling(nameId);
           }
           std::string name = fC->SymName(nameId);
           FileCNodeId fnid(fC, nameId);
@@ -212,10 +212,12 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
                                                       m_compileDesign);
           break;
         }
-         case VObjectType::slNet_declaration: {
+        case VObjectType::slNet_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          // In a package this is certainly a var that the parser mis-interpreted
-          m_helper.compileNetDeclaration(m_package, fC, id, false, m_compileDesign);
+          // In a package this is certainly a var that the parser
+          // mis-interpreted
+          m_helper.compileNetDeclaration(m_package, fC, id, false,
+                                         m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
@@ -226,7 +228,8 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
         }
         case VObjectType::slDpi_import_export: {
           if (collectType != CollectType::FUNCTION) break;
-          Function* func = m_helper.compileFunctionPrototype(m_package, fC, id, m_compileDesign);
+          Function* func = m_helper.compileFunctionPrototype(m_package, fC, id,
+                                                             m_compileDesign);
           m_package->insertFunction(func);
           break;
         }

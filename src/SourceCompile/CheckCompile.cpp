@@ -53,8 +53,7 @@ bool CheckCompile::check() {
 bool CheckCompile::checkSyntaxErrors_() {
   ErrorContainer* errors = m_compiler->getErrorContainer();
   const SURELOG::ErrorContainer::Stats& stats = errors->getErrorStats();
-  if (stats.nbSyntax)
-    return false;
+  if (stats.nbSyntax) return false;
   return true;
 }
 
@@ -66,8 +65,9 @@ bool CheckCompile::mergeSymbolTables_() {
     m_compiler->getSymbolTable()->registerSymbol(fileContent->getFileName());
     for (NodeId id : fileContent->getNodeIds()) {
       *fileContent->getMutableFileId(id) =
-        m_compiler->getSymbolTable()->registerSymbol(
-          fileContent->getSymbolTable()->getSymbol(fileContent->getFileId(id)));
+          m_compiler->getSymbolTable()->registerSymbol(
+              fileContent->getSymbolTable()->getSymbol(
+                  fileContent->getFileId(id)));
     }
     for (DesignElement& elem : fileContent->getDesignElements()) {
       elem.m_name = m_compiler->getSymbolTable()->registerSymbol(

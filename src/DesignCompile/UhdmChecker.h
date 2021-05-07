@@ -36,43 +36,39 @@
 namespace SURELOG {
 
 class UhdmChecker final {
-public:
+ public:
   UhdmChecker(CompileDesign* compiler, Design* design)
-    : m_compileDesign(compiler), m_design(design) {}
+      : m_compileDesign(compiler), m_design(design) {}
 
   // Technically not a const method as it modifies some static values.
   bool check(const std::string& reportFile);
 
-private:
-    bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
-    bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage);
-    float reportCoverage(const std::string& reportFile);
-    void annotate(CompileDesign* m_compileDesign);
-    void mergeColumnCoverage();
-    CompileDesign* const m_compileDesign;
-    Design* const m_design;
-    typedef unsigned int LineNb;
-    enum Status {
-      EXIST,
-      COVERED,
-      UNSUPPORTED
-    };
-    class ColRange {
-    public:
-      unsigned short from;
-      unsigned short to;
-      Status         covered;
-    };
-    typedef std::vector<ColRange> Ranges;
-    typedef std::map<LineNb, Ranges> RangesMap;
-    typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
-    FileNodeCoverMap fileNodeCoverMap;
-    std::map<std::string, const FileContent*> fileMap;
-    std::multimap<float, std::pair<std::string, float>> coverageMap;
-    std::map<std::string, float> fileCoverageMap;
-
+ private:
+  bool registerFile(const FileContent* fC, std::set<std::string>& moduleNames);
+  bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile,
+                  float overallCoverage);
+  float reportCoverage(const std::string& reportFile);
+  void annotate(CompileDesign* m_compileDesign);
+  void mergeColumnCoverage();
+  CompileDesign* const m_compileDesign;
+  Design* const m_design;
+  typedef unsigned int LineNb;
+  enum Status { EXIST, COVERED, UNSUPPORTED };
+  class ColRange {
+   public:
+    unsigned short from;
+    unsigned short to;
+    Status covered;
+  };
+  typedef std::vector<ColRange> Ranges;
+  typedef std::map<LineNb, Ranges> RangesMap;
+  typedef std::map<const FileContent*, RangesMap> FileNodeCoverMap;
+  FileNodeCoverMap fileNodeCoverMap;
+  std::map<std::string, const FileContent*> fileMap;
+  std::multimap<float, std::pair<std::string, float>> coverageMap;
+  std::map<std::string, float> fileCoverageMap;
 };
 
-} // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* UHDMCHECKER_H */

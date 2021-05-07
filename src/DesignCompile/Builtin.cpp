@@ -203,8 +203,8 @@ void Builtin::addBuiltins() {
     const std::string fullClassName = packageName + "::" + className;
     ClassDefinition* classDef = m_design->getClassDefinition(fullClassName);
     if (classDef == NULL) {
-      classDef =
-          new ClassDefinition(className, NULL, package, NULL, 0, NULL, s.MakeClass_defn());
+      classDef = new ClassDefinition(className, NULL, package, NULL, 0, NULL,
+                                     s.MakeClass_defn());
       m_design->addClassDefinition(fullClassName, classDef);
       package->addClassDefinition(className, classDef);
     }

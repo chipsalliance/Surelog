@@ -23,12 +23,12 @@
 #include "SourceCompile/CompileSourceFile.h"
 
 #include <string.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 #include <cstdlib>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "API/PythonAPI.h"
 #include "CommandLine/CommandLineParser.h"
@@ -38,7 +38,6 @@
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/PythonListen.h"
 #include "SourceCompile/SymbolTable.h"
@@ -251,7 +250,8 @@ bool CompileSourceFile::preprocess_() {
 bool CompileSourceFile::postPreprocess_() {
   SymbolTable* symbolTable = getCompiler()->getSymbolTable();
   if (m_commandLineParser->parseOnly()) {
-    m_ppResultFileId = m_symbolTable->registerSymbol(symbolTable->getSymbol(m_fileId));
+    m_ppResultFileId =
+        m_symbolTable->registerSymbol(symbolTable->getSymbol(m_fileId));
     return true;
   }
   std::string m_pp_result = m_pp->getPreProcessedFileContent();
@@ -259,7 +259,8 @@ bool CompileSourceFile::postPreprocess_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    //std::string fileName = FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
+    // std::string fileName =
+    // FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
     std::string fullFileName = symbolTable->getSymbol(m_fileId);
     std::string baseFileName = FileUtils::basename(fullFileName);
     std::string filePath = FileUtils::getPathName(fullFileName);
@@ -270,8 +271,8 @@ bool CompileSourceFile::postPreprocess_() {
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName() + "/";
     std::string ppFileName = m_commandLineParser->writePpOutput()
-                            ? directory + libName + fileName
-                            : writePpOutputFileName;
+                                 ? directory + libName + fileName
+                                 : writePpOutputFileName;
     std::string dirPpFile = FileUtils::getPathName(ppFileName);
     SymbolId ppOutId = symbolTable->registerSymbol(ppFileName);
     m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName);

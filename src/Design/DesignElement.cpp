@@ -24,9 +24,9 @@
 
 namespace SURELOG {
 DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                             SymbolId uniqueId, unsigned int line, unsigned short column,
-                             unsigned int endLine, unsigned short endColumn,
-                             SymbolId parent)
+                             SymbolId uniqueId, unsigned int line,
+                             unsigned short column, unsigned int endLine,
+                             unsigned short endColumn, SymbolId parent)
     : m_name(name),
       m_fileId(fileId),
       m_type(type),

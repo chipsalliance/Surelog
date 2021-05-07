@@ -31,8 +31,8 @@ namespace SURELOG {
 
 class VObject final {
  public:
-  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line, unsigned short column,
-          unsigned int endLine, unsigned short endColumn,
+  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
+          unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent = 0)
       : m_name(name),
         m_fileId(fileId),
@@ -45,8 +45,8 @@ class VObject final {
         m_definition(0),
         m_child(0),
         m_sibling(0) {}
-  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line, unsigned short column,
-          unsigned int endLine, unsigned short endColumn,
+  VObject(SymbolId name, SymbolId fileId, VObjectType type, unsigned int line,
+          unsigned short column, unsigned int endLine, unsigned short endColumn,
           NodeId parent, NodeId definition, NodeId child, NodeId sibling)
       : m_name(name),
         m_fileId(fileId),

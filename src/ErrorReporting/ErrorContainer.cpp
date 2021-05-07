@@ -23,16 +23,16 @@
 
 #include "ErrorReporting/ErrorContainer.h"
 
-#include <mutex>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <mutex>
 
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
 #include "LogListener.h"
 
-#include "antlr4-runtime.h"
 #include "API/PythonAPI.h"
+#include "antlr4-runtime.h"
 
 using namespace SURELOG;
 
@@ -52,7 +52,7 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
 }
 
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <unistd.h>
+#include <unistd.h>
 #endif
 #include <stdio.h>
 
@@ -191,8 +191,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         location = fileName;
         if (loc.m_line > 0) {
           location += ":" + std::to_string(loc.m_line) + ":";
-          if (loc.m_column > 0)
-            location += std::to_string (loc.m_column) + ":";
+          if (loc.m_column > 0) location += std::to_string(loc.m_column) + ":";
         }
         location += " ";
       }
@@ -209,7 +208,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           if (extraLoc.m_line > 0) {
             extraLocation += ":" + std::to_string(extraLoc.m_line) + ":";
             if (extraLoc.m_column > 0)
-              extraLocation += std::to_string (extraLoc.m_column) + ":";
+              extraLocation += std::to_string(extraLoc.m_column) + ":";
           }
           size_t objectOffset = text.find("%exloc");
           if (objectOffset != std::string::npos) {
@@ -258,7 +257,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         args.push_back(location);
         args.push_back(text);
         tmp = PythonAPI::evalScript("__main__", "SLformatMsg", args,
-                                    (PyThreadState*) m_interpState);
+                                    (PyThreadState*)m_interpState);
       }
     }
   }
@@ -371,13 +370,14 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() {
   return stats;
 }
 
-bool ErrorContainer::printToLogFile(const std::string &report) {
+bool ErrorContainer::printToLogFile(const std::string& report) {
   LogListener::LogResult result;
   if (LogListener::failed(result = m_logListener->log(report))) {
-      if (!m_reportedFatalErrorLogFile && (result == LogListener::LogResult::FailedToOpenFileForWrite)) {
-        std::cerr << "[FTL:LG0002] Cannot open log file \""
-                  << m_logListener->getLogFilename() << "\" in append mode"
-                  << std::endl;
+    if (!m_reportedFatalErrorLogFile &&
+        (result == LogListener::LogResult::FailedToOpenFileForWrite)) {
+      std::cerr << "[FTL:LG0002] Cannot open log file \""
+                << m_logListener->getLogFilename() << "\" in append mode"
+                << std::endl;
       m_reportedFatalErrorLogFile = true;
     }
     return false;

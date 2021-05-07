@@ -18,7 +18,7 @@
 #define CONTAINER_UTILS_H_
 
 // Delete all pointers in a sequence container and clear()'s it.
-template<typename Container>
+template <typename Container>
 void DeleteContainerPointersAndClear(Container *c) {
   for (auto &item : *c) delete item;
   c->clear();

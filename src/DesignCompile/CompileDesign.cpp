@@ -23,7 +23,7 @@
 #include "DesignCompile/CompileDesign.h"
 
 #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <process.h>  // Has to be included before <thread>
+#include <process.h>  // Has to be included before <thread>
 #endif
 
 #include <stdint.h>
@@ -42,7 +42,6 @@
 #include "DesignCompile/ResolveSymbols.h"
 #include "DesignCompile/UVMElaboration.h"
 #include "DesignCompile/UhdmWriter.h"
-#include "ErrorReporting/Error.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
@@ -64,24 +63,23 @@
 #include "tbb/task_scheduler_init.h"
 #endif
 
-#include <vector>
 #include <thread>
+#include <vector>
 
 using namespace SURELOG;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
-
 
 bool CompileDesign::compile() {
   ExprBuilder::unitTest();
 
   // Handle UHDM Internal errors
   UHDM::ErrorHandler errHandler = [=](const std::string& msg) {
-     ErrorContainer* errors = m_compiler->getErrorContainer();
-     SymbolTable* symbols = m_compiler->getSymbolTable();
-     Location loc(symbols->registerSymbol(msg));
-     Error err (ErrorDefinition::UHDM_WRONG_OBJECT_TYPE, loc);
-     errors->addError(err);
+    ErrorContainer* errors = m_compiler->getErrorContainer();
+    SymbolTable* symbols = m_compiler->getSymbolTable();
+    Location loc(symbols->registerSymbol(msg));
+    Error err(ErrorDefinition::UHDM_WRONG_OBJECT_TYPE, loc);
+    errors->addError(err);
   };
   m_serializer.SetErrorHandler(errHandler);
 
@@ -271,13 +269,14 @@ bool CompileDesign::compilation_() {
 
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
 
-  // The Actual Module... Compilation is not Multithread safe anymore due to the UHDM model creation
+  // The Actual Module... Compilation is not Multithread safe anymore due to the
+  // UHDM model creation
   maxThreadCount = 0;
 
   int index = 0;
   do {
-    SymbolTable* symbols = new SymbolTable(
-            m_compiler->getCommandLineParser()->getSymbolTable());
+    SymbolTable* symbols =
+        new SymbolTable(m_compiler->getCommandLineParser()->getSymbolTable());
     m_symbolTables.push_back(symbols);
     ErrorContainer* errors = new ErrorContainer(symbols);
     errors->regiterCmdLine(m_compiler->getCommandLineParser());
@@ -335,8 +334,7 @@ bool CompileDesign::compilation_() {
   return true;
 }
 
-bool CompileDesign::elaboration_()
-{
+bool CompileDesign::elaboration_() {
   PackageAndRootElaboration* packEl = new PackageAndRootElaboration(this);
   packEl->elaborate();
   delete packEl;

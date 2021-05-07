@@ -70,8 +70,7 @@ void StringUtils::tokenizeMulti(std::string_view str,
   }
 }
 
-void StringUtils::tokenize(std::string_view str,
-                           std::string_view separator,
+void StringUtils::tokenize(std::string_view str, std::string_view separator,
                            std::vector<std::string>& result) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
@@ -198,8 +197,8 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
   for (unsigned int i = 0; i < tokensSize; i++) {
     std::string actual(news.begin(), news.end());
     if (tokens[i] == pattern) {
-      if (i > 0 && (tokens[i-1] == "\"")) {
-        if ((i < tokensSize-1) && (tokens[i+1] == "\""))
+      if (i > 0 && (tokens[i - 1] == "\"")) {
+        if ((i < tokensSize - 1) && (tokens[i + 1] == "\""))
           actual = removeCR(news);
       }
       tokens[i] = actual;
@@ -259,13 +258,11 @@ std::string StringUtils::leaf(std::string str) {
   char c = '.';
   auto it1 = std::find_if(str.rbegin(), str.rend(),
                           [c](char ch) { return (ch == c); });
-  if (it1 != str.rend())
-    str.erase(str.begin(), it1.base());
+  if (it1 != str.rend()) str.erase(str.begin(), it1.base());
   return str;
 }
 
-std::string StringUtils::replaceAll(std::string_view str,
-                                    std::string_view from,
+std::string StringUtils::replaceAll(std::string_view str, std::string_view from,
                                     std::string_view to) {
   size_t start_pos = 0;
   std::string result(str);
@@ -299,69 +296,57 @@ std::string StringUtils::removeComments(std::string_view text) {
   std::string result;
   char c1 = '\0';
   bool inComment = 0;
-  for (unsigned int i = 0; i < text.size(); i++)
-    {
-      char c2 = text[i];
-      if ((c2 == '/') && (c1 == '/')) {
-          inComment = true;
-          result.erase(result.end()-1);
-        }
-      if (c2 == '#')
-         inComment = true;
-      if (c2 == '\n')
-        inComment = false;
-      if (!inComment)
-        result +=c2;
-      c1 = c2;
+  for (unsigned int i = 0; i < text.size(); i++) {
+    char c2 = text[i];
+    if ((c2 == '/') && (c1 == '/')) {
+      inComment = true;
+      result.erase(result.end() - 1);
     }
+    if (c2 == '#') inComment = true;
+    if (c2 == '\n') inComment = false;
+    if (!inComment) result += c2;
+    c1 = c2;
+  }
 
   return result;
 }
 
-
 // Update the input string.
 
-void StringUtils::autoExpandEnvironmentVariables(std::string & text)
-{
+void StringUtils::autoExpandEnvironmentVariables(std::string& text) {
   static std::regex env("\\$\\{([^}]+)\\}");
   std::smatch match;
   while (std::regex_search(text, match, env)) {
     std::string var;
-    const char * s = getenv(match[1].str().c_str());
+    const char* s = getenv(match[1].str().c_str());
     if (s == NULL) {
       auto itr = envVars.find(match[1].str());
-      if (itr != envVars.end())
-        var = (*itr).second;
+      if (itr != envVars.end()) var = (*itr).second;
     }
-    if (var.empty() && s)
-      var = s;
-    text.replace( match.position(0), match.length(0), var );
+    if (var.empty() && s) var = s;
+    text.replace(match.position(0), match.length(0), var);
   }
   static std::regex env2("\\$([a-zA-Z0-9_]+)/");
   while (std::regex_search(text, match, env2)) {
     std::string var;
-    const char * s = getenv(match[1].str().c_str());
+    const char* s = getenv(match[1].str().c_str());
     if (s == NULL) {
       auto itr = envVars.find(match[1].str());
-      if (itr != envVars.end())
-        var = (*itr).second;
+      if (itr != envVars.end()) var = (*itr).second;
     }
-    if (var.empty() && s)
-      var = s;
+    if (var.empty() && s) var = s;
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
-    if (var.size() && (var[var.size()-1] != '\\'))
-      var += "\\";
+    if (var.size() && (var[var.size() - 1] != '\\')) var += "\\";
 #else
-    if (var.size() && (var[var.size()-1] != '/'))
-      var += "/";
+    if (var.size() && (var[var.size() - 1] != '/')) var += "/";
 #endif
-    text.replace( match.position(0), match.length(0), var );
+    text.replace(match.position(0), match.length(0), var);
   }
 }
 
 // Leave input alone and return new string.
 std::string StringUtils::evaluateEnvVars(std::string_view text) {
   std::string input(text.begin(), text.end());
-  autoExpandEnvironmentVariables( input );
+  autoExpandEnvironmentVariables(input);
   return input;
 }

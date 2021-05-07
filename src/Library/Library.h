@@ -36,7 +36,7 @@ namespace SURELOG {
 class ModuleDefinition;
 
 class Library final {
-public:
+ public:
   Library(std::string_view name, SymbolTable* symbols)
       : m_name(name), m_symbols(symbols) {}
 
@@ -56,7 +56,7 @@ public:
   ModuleDefinition* getModule(const std::string& name);
   SymbolTable* getSymbols() { return m_symbols; }
 
-private:
+ private:
   std::string m_name;
   std::vector<SymbolId> m_fileIds;
   std::set<SymbolId> m_fileIdsSet;

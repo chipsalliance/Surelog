@@ -36,24 +36,22 @@
 namespace SURELOG {
 
 class Design final {
- friend class CompileDesign;
- friend class AnalyzeFile;
- friend class PreprocessFile;
- friend class ParseFile;
- friend class Compiler;
- friend class PPCache;
- friend class ParseCache;
- friend class SV3_1aPpTreeShapeListener;
- friend class SV3_1aTreeShapeListener;
- friend class Builtin;
- friend class DesignElaboration;
- friend class SVLibShapeListener;
+  friend class CompileDesign;
+  friend class AnalyzeFile;
+  friend class PreprocessFile;
+  friend class ParseFile;
+  friend class Compiler;
+  friend class PPCache;
+  friend class ParseCache;
+  friend class SV3_1aPpTreeShapeListener;
+  friend class SV3_1aTreeShapeListener;
+  friend class Builtin;
+  friend class DesignElaboration;
+  friend class SVLibShapeListener;
 
  public:
   Design(ErrorContainer* errors, LibrarySet* librarySet, ConfigSet* configSet)
-      : m_errors(errors),
-        m_librarySet(librarySet),
-        m_configSet(configSet) {}
+      : m_errors(errors), m_librarySet(librarySet), m_configSet(configSet) {}
 
   Design(const Design& orig) = delete;
 
@@ -142,7 +140,6 @@ class Design final {
   void addBindStmt(const std::string& targetName, BindStmt* stmt);
 
  protected:
-
   // Thread-safe
   void addFileContent(SymbolId fileId, FileContent* content);
 
@@ -184,8 +181,7 @@ class Design final {
                                 ModuleInstance* scope);
   void addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);
-  DefParam* getDefParam_(std::vector<std::string>& path,
-                         DefParam* parent);
+  DefParam* getDefParam_(std::vector<std::string>& path, DefParam* parent);
 
   ErrorContainer* m_errors;
 

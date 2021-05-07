@@ -31,46 +31,43 @@
 #include <sstream>
 
 namespace SURELOG {
-std::string NumUtils::hexToBin(const std::string &s){
-    std::string out;
-    for(auto i: s){
-        uint8_t n;
-        if((i <= '9') && (i >= '0'))
-            n = i - '0';
-        else
-            n = 10 + i - 'A';
-        for(int8_t j = 3; j >= 0; --j)
-            out.push_back((n & (1<<j))? '1':'0');
-    }
+std::string NumUtils::hexToBin(const std::string &s) {
+  std::string out;
+  for (auto i : s) {
+    uint8_t n;
+    if ((i <= '9') && (i >= '0'))
+      n = i - '0';
+    else
+      n = 10 + i - 'A';
+    for (int8_t j = 3; j >= 0; --j) out.push_back((n & (1 << j)) ? '1' : '0');
+  }
 
-    return out;
+  return out;
 }
 
-std::string NumUtils::binToHex(const std::string &s){
-    std::string out;
-    for(unsigned int i = 0; i < s.size(); i += 4){
-        int8_t n = 0;
-        for(unsigned int j = i; j < i + 4; ++j){
-            n <<= 1;
-            if(s[j] == '1')
-                n |= 1;
-        }
-
-        if(n<=9)
-            out.push_back('0' + n);
-        else
-            out.push_back('A' + n - 10);
+std::string NumUtils::binToHex(const std::string &s) {
+  std::string out;
+  for (unsigned int i = 0; i < s.size(); i += 4) {
+    int8_t n = 0;
+    for (unsigned int j = i; j < i + 4; ++j) {
+      n <<= 1;
+      if (s[j] == '1') n |= 1;
     }
 
-    return out;
-}
+    if (n <= 9)
+      out.push_back('0' + n);
+    else
+      out.push_back('A' + n - 10);
+  }
 
+  return out;
+}
 
 std::string NumUtils::toBinary(unsigned int size, uint64_t val) {
   int constexpr bitFieldSize = 100;
   std::string tmp = std::bitset<bitFieldSize>(val).to_string();
   if (size == 0) {
-    for (unsigned int i = 0; i < bitFieldSize ; i++) {
+    for (unsigned int i = 0; i < bitFieldSize; i++) {
       if (tmp[i] == '1') {
         size = bitFieldSize - i;
         break;

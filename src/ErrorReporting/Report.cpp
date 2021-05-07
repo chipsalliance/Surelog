@@ -22,16 +22,16 @@
  */
 #include "ErrorReporting/Report.h"
 
-#include <iostream>
+#include <chrono>
 #include <fstream>
 #include <iomanip>
-#include <regex>
+#include <iostream>
 #include <mutex>
-#include <chrono>
+#include <regex>
 #include <thread>
 
 #if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <unistd.h>
+#include <unistd.h>
 #endif
 
 #include "ErrorReporting/ErrorContainer.h"
@@ -160,7 +160,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   int nbFatal = atoi(readUnitResult.m_nbFatal.c_str()) +
                 atoi(readAllResult.m_nbFatal.c_str());
   int nbSyntax = atoi(readUnitResult.m_nbSyntax.c_str()) +
-                atoi(readAllResult.m_nbSyntax.c_str());
+                 atoi(readAllResult.m_nbSyntax.c_str());
 
   // m.unlock();
   return std::make_pair(retval != -1, (!nbFatal) && (!nbSyntax));

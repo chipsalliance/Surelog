@@ -23,9 +23,9 @@
 
 #ifndef ERROR_H
 #define ERROR_H
-#include "ErrorReporting/ErrorDefinition.h"
 #include <string>
 #include <vector>
+#include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 
 namespace SURELOG {

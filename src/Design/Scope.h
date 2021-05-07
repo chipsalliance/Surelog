@@ -47,7 +47,7 @@ class Scope {
       : m_name(name), m_parentScope(parent) {}
   virtual ~Scope() {}
 
-  const std::string &getName() const { return m_name; }
+  const std::string& getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }
 
   void addVariable(Variable* var) {

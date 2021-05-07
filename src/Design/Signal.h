@@ -32,10 +32,16 @@ class ModuleDefinition;
 
 class Signal final {
  public:
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension, bool is_signed);
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension, bool is_signed);
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId typeSpecId, NodeId unpackedDimension, bool is_signed);
-  Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type,
+         VObjectType direction, NodeId packedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type,
+         NodeId packedDimension, VObjectType direction,
+         NodeId unpackedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type,
+         NodeId packedDimension, VObjectType direction, NodeId typeSpecId,
+         NodeId unpackedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName,
+         VObjectType subnettype, NodeId unpackedDimension, bool is_signed);
 
   VObjectType getType() const { return m_type; }
   VObjectType getDirection() const { return m_direction; }
@@ -68,7 +74,7 @@ class Signal final {
   void setSigned() { m_signed = true; }
   bool isConst() { return m_const; }
   bool isVar() { return m_var; }
-  bool isSigned() { return m_signed; } 
+  bool isSigned() { return m_signed; }
   bool isLocal() { return m_local; }
   bool isStatic() { return m_static; }
   bool isProtected() { return m_protected; }
@@ -81,7 +87,9 @@ class Signal final {
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
-  NodeId getModPortId() const { return m_fileContent->Sibling(m_interfaceTypeNameId);}
+  NodeId getModPortId() const {
+    return m_fileContent->Sibling(m_interfaceTypeNameId);
+  }
   NodeId getInterfaceTypeNameId() const { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() const { return m_typeSpecId; }
   NodeId getDelay() const { return m_delay; }
@@ -95,9 +103,9 @@ class Signal final {
   VObjectType m_type = VObjectType::slNoType;
   VObjectType m_direction = VObjectType::slNoType;
   ModuleDefinition* m_interfaceDef = nullptr;
-  ModPort*          m_modPort = nullptr;
-  const DataType*   m_dataType = nullptr;
-  Signal*           m_lowConn = nullptr; // for ports
+  ModPort* m_modPort = nullptr;
+  const DataType* m_dataType = nullptr;
+  Signal* m_lowConn = nullptr;  // for ports
   NodeId m_interfaceTypeNameId = 0;
   NodeId m_packedDimension = 0;
   NodeId m_typeSpecId = 0;

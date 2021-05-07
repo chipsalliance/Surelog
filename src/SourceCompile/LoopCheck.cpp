@@ -60,7 +60,7 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
   }
   nodeFrom->m_toList.insert(nodeTo);
 
-  for (auto &itr : m_nodes) {
+  for (auto& itr : m_nodes) {
     itr.second->m_visited = false;
   }
 
@@ -86,7 +86,7 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
 
 std::vector<SymbolId> LoopCheck::reportLoop() const {
   std::vector<SymbolId> loop;
-  for (const auto &itr : m_nodes) {
+  for (const auto& itr : m_nodes) {
     if (itr.second->m_visited) {
       loop.push_back(itr.first);
     }

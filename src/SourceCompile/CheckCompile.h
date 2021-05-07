@@ -40,7 +40,7 @@ class CheckCompile {
   bool checkTimescale_();
 
   bool checkSyntaxErrors_();
-  
+
   Compiler* m_compiler;
 };
 

@@ -50,13 +50,15 @@
 
 namespace SURELOG {
 
-bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign) {
+bool CompileHelper::compileAssertionItem(DesignComponent* component,
+                                         const FileContent* fC, NodeId nodeId,
+                                         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId item = fC->Child(nodeId);
   if (fC->Type(item) == slConcurrent_assertion_item) {
     NodeId Concurrent_assertion_statement = fC->Child(item);
-    UHDM::VectorOfany* stmts = compileStmt(component, fC, Concurrent_assertion_statement, compileDesign, nullptr);
+    UHDM::VectorOfany* stmts = compileStmt(
+        component, fC, Concurrent_assertion_statement, compileDesign, nullptr);
     UHDM::VectorOfany* assertions = component->getAssertions();
     if (assertions == nullptr) {
       component->setAssertions(s.MakeAnyVec());
@@ -82,8 +84,9 @@ bool CompileHelper::compileAssertionItem(DesignComponent* component, const FileC
   return true;
 }
 
-UHDM::property_inst* createPropertyInst(UHDM::any* property_expr, UHDM::Serializer& s) {
-  UHDM::property_inst* inst = (UHDM::property_inst*) property_expr;
+UHDM::property_inst* createPropertyInst(UHDM::any* property_expr,
+                                        UHDM::Serializer& s) {
+  UHDM::property_inst* inst = (UHDM::property_inst*)property_expr;
   if (property_expr->UhdmType() == UHDM::uhdmfunc_call) {
     UHDM::func_call* call = (UHDM::func_call*)property_expr;
     UHDM::property_inst* real_property_expr = s.MakeProperty_inst();
@@ -100,9 +103,9 @@ UHDM::property_inst* createPropertyInst(UHDM::any* property_expr, UHDM::Serializ
 }
 
 UHDM::any* CompileHelper::compileConcurrentAssertion(
-  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
-  CompileDesign* compileDesign, UHDM::any* pstmt,
-  SURELOG::ValuedComponentI *instance) {
+    DesignComponent* component, const FileContent* fC, NodeId the_stmt,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    SURELOG::ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Property_spec = fC->Child(the_stmt);
 
@@ -122,170 +125,164 @@ UHDM::any* CompileHelper::compileConcurrentAssertion(
     UHDM::VectorOfany* if_stmts = nullptr;
     if (if_stmt_id)
       if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-    if (if_stmts)
-      if_stmt = (*if_stmts)[0];
+    if (if_stmts) if_stmt = (*if_stmts)[0];
     UHDM::VectorOfany* else_stmts = nullptr;
     if (else_stmt_id)
       else_stmts =
           compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
-    if (else_stmts)
-      else_stmt = (*else_stmts)[0];
+    if (else_stmts) else_stmt = (*else_stmts)[0];
   }
 
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-  case VObjectType::slAssert_property_statement: {
-    NodeId Property_expr = fC->Child(Property_spec);
-    UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-    property_expr = createPropertyInst(property_expr, s);
-    prop_spec->VpiPropertyExpr(property_expr);
-    assert_stmt->VpiProperty(prop_spec);
-    assert_stmt->Stmt(if_stmt);
-    assert_stmt->Else_stmt(else_stmt);
-    stmt = assert_stmt;
-    break;
-  }
-  case VObjectType::slAssume_property_statement: {
-    NodeId Property_expr = fC->Child(Property_spec);
-    UHDM::expr* clocking_event = nullptr;
-    if (fC->Type(Property_expr) == slClocking_event) {
-      clocking_event = (UHDM::expr*) compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-      Property_expr = fC->Sibling(Property_expr);
+    case VObjectType::slAssert_property_statement: {
+      NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      UHDM::any* property_expr = compileExpression(
+          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      property_expr = createPropertyInst(property_expr, s);
+      prop_spec->VpiPropertyExpr(property_expr);
+      assert_stmt->VpiProperty(prop_spec);
+      assert_stmt->Stmt(if_stmt);
+      assert_stmt->Else_stmt(else_stmt);
+      stmt = assert_stmt;
+      break;
     }
-    UHDM::assume* assume_stmt = s.MakeAssume();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-    property_expr = createPropertyInst(property_expr, s);
-    prop_spec->VpiClockingEvent(clocking_event);
-    prop_spec->VpiPropertyExpr(property_expr);
-    assume_stmt->VpiProperty(prop_spec);
-    assume_stmt->Stmt(if_stmt);
-    stmt = assume_stmt;
-    break;
-  }
-  case VObjectType::slCover_property_statement: {
-    NodeId Property_expr = fC->Child(Property_spec);
-    UHDM::cover* cover_stmt = s.MakeCover();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-    property_expr = createPropertyInst(property_expr, s);
-    prop_spec->VpiPropertyExpr(property_expr);
-    cover_stmt->VpiProperty(prop_spec);
-    cover_stmt->Stmt(if_stmt);
-    stmt = cover_stmt;
-    break;
-  }
-  case VObjectType::slCover_sequence_statement: {
-    NodeId Property_expr = fC->Child(Property_spec);
-    UHDM::cover* cover_stmt = s.MakeCover();
-    cover_stmt->VpiIsCoverSequence();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-    property_expr = createPropertyInst(property_expr, s);
-    prop_spec->VpiPropertyExpr(property_expr);
-    cover_stmt->VpiProperty(prop_spec);
-    cover_stmt->Stmt(if_stmt);
-    stmt = cover_stmt;
-    break;
-  }
-  case VObjectType::slRestrict_property_statement: {
-    NodeId Property_expr = fC->Child(Property_spec);
-    UHDM::restrict* restrict_stmt = s.MakeRestrict();
-    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
-    UHDM::any* property_expr = compileExpression(component, fC, Property_expr, compileDesign, pstmt, instance, false);
-    property_expr = createPropertyInst(property_expr, s);
-    prop_spec->VpiPropertyExpr(property_expr);
-    restrict_stmt->VpiProperty(prop_spec);
-    restrict_stmt->Stmt(if_stmt);
-    stmt = restrict_stmt;
-    break;
-  }
-  default:
-    break;
+    case VObjectType::slAssume_property_statement: {
+      NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::expr* clocking_event = nullptr;
+      if (fC->Type(Property_expr) == slClocking_event) {
+        clocking_event = (UHDM::expr*)compileExpression(
+            component, fC, Property_expr, compileDesign, pstmt, instance,
+            false);
+        Property_expr = fC->Sibling(Property_expr);
+      }
+      UHDM::assume* assume_stmt = s.MakeAssume();
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      UHDM::any* property_expr = compileExpression(
+          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      property_expr = createPropertyInst(property_expr, s);
+      prop_spec->VpiClockingEvent(clocking_event);
+      prop_spec->VpiPropertyExpr(property_expr);
+      assume_stmt->VpiProperty(prop_spec);
+      assume_stmt->Stmt(if_stmt);
+      stmt = assume_stmt;
+      break;
+    }
+    case VObjectType::slCover_property_statement: {
+      NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::cover* cover_stmt = s.MakeCover();
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      UHDM::any* property_expr = compileExpression(
+          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      property_expr = createPropertyInst(property_expr, s);
+      prop_spec->VpiPropertyExpr(property_expr);
+      cover_stmt->VpiProperty(prop_spec);
+      cover_stmt->Stmt(if_stmt);
+      stmt = cover_stmt;
+      break;
+    }
+    case VObjectType::slCover_sequence_statement: {
+      NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::cover* cover_stmt = s.MakeCover();
+      cover_stmt->VpiIsCoverSequence();
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      UHDM::any* property_expr = compileExpression(
+          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      property_expr = createPropertyInst(property_expr, s);
+      prop_spec->VpiPropertyExpr(property_expr);
+      cover_stmt->VpiProperty(prop_spec);
+      cover_stmt->Stmt(if_stmt);
+      stmt = cover_stmt;
+      break;
+    }
+    case VObjectType::slRestrict_property_statement: {
+      NodeId Property_expr = fC->Child(Property_spec);
+      UHDM::restrict* restrict_stmt = s.MakeRestrict();
+      UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+      UHDM::any* property_expr = compileExpression(
+          component, fC, Property_expr, compileDesign, pstmt, instance, false);
+      property_expr = createPropertyInst(property_expr, s);
+      prop_spec->VpiPropertyExpr(property_expr);
+      restrict_stmt->VpiProperty(prop_spec);
+      restrict_stmt->Stmt(if_stmt);
+      stmt = restrict_stmt;
+      break;
+    }
+    default:
+      break;
   }
 
   return stmt;
 }
 
-
 UHDM::any* CompileHelper::compileSimpleImmediateAssertion(
-  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
-  CompileDesign* compileDesign, UHDM::any* pstmt,
-  SURELOG::ValuedComponentI *instance) {
+    DesignComponent* component, const FileContent* fC, NodeId the_stmt,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    SURELOG::ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Expression = fC->Child(the_stmt);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id = 0;
   if (fC->Type(if_stmt_id) == slElse) {
-    else_stmt_id =  fC->Sibling(if_stmt_id);
+    else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = 0;
   } else {
     NodeId else_keyword = fC->Sibling(if_stmt_id);
-    if (else_keyword)
-      else_stmt_id = fC->Sibling(else_keyword);
+    if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
   }
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign,
+                                      pstmt, instance, false);
   UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-  UHDM::any* if_stmt  = nullptr;
-  if (if_stmts)
-    if_stmt = (*if_stmts)[0];
+  UHDM::any* if_stmt = nullptr;
+  if (if_stmts) if_stmt = (*if_stmts)[0];
   UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
     else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* else_stmt = nullptr;
-  if (else_stmts)
-    else_stmt = (*else_stmts)[0];
+  if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-  case VObjectType::slSimple_immediate_assert_statement: {
-    UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slSimple_immediate_assume_statement: {
-    UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slSimple_immediate_cover_statement: {
-    UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    stmt = astmt;
-    break;
-  }
-  default:
-    break;
+    case VObjectType::slSimple_immediate_assert_statement: {
+      UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      astmt->Else_stmt(else_stmt);
+      if (else_stmt) else_stmt->VpiParent(astmt);
+      stmt = astmt;
+      break;
+    }
+    case VObjectType::slSimple_immediate_assume_statement: {
+      UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      astmt->Else_stmt(else_stmt);
+      if (else_stmt) else_stmt->VpiParent(astmt);
+      stmt = astmt;
+      break;
+    }
+    case VObjectType::slSimple_immediate_cover_statement: {
+      UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      stmt = astmt;
+      break;
+    }
+    default:
+      break;
   }
 
   /*
@@ -307,9 +304,9 @@ n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
 }
 
 UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
-  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
-  CompileDesign* compileDesign, UHDM::any* pstmt,
-  SURELOG::ValuedComponentI *instance) {
+    DesignComponent* component, const FileContent* fC, NodeId the_stmt,
+    CompileDesign* compileDesign, UHDM::any* pstmt,
+    SURELOG::ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId the_stmt_child = fC->Child(the_stmt);
   int isFinal = fC->Type(the_stmt_child) == slPound_delay ? 0 : 1;
@@ -318,78 +315,68 @@ UHDM::any* CompileHelper::compileDeferredImmediateAssertion(
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id = 0;
   if (fC->Type(if_stmt_id) == slElse) {
-    else_stmt_id =  fC->Sibling(if_stmt_id);
+    else_stmt_id = fC->Sibling(if_stmt_id);
     if_stmt_id = 0;
   } else {
     NodeId else_keyword = fC->Sibling(if_stmt_id);
-    if (else_keyword)
-      else_stmt_id = fC->Sibling(else_keyword);
+    if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
   }
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, false);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign,
+                                      pstmt, instance, false);
   UHDM::VectorOfany* if_stmts = nullptr;
   if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
-  UHDM::any* if_stmt  = nullptr;
-  if (if_stmts)
-    if_stmt = (*if_stmts)[0];
+  UHDM::any* if_stmt = nullptr;
+  if (if_stmts) if_stmt = (*if_stmts)[0];
   UHDM::VectorOfany* else_stmts = nullptr;
   if (else_stmt_id)
     else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* else_stmt = nullptr;
-  if (else_stmts)
-    else_stmt = (*else_stmts)[0];
+  if (else_stmts) else_stmt = (*else_stmts)[0];
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
-  case VObjectType::slDeferred_immediate_assert_statement: {
-    UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    astmt->VpiIsDeferred(1);
-    astmt->VpiIsFinal(isFinal);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slDeferred_immediate_assume_statement: {
-    UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->Else_stmt(else_stmt);
-    if (else_stmt)
-      else_stmt->VpiParent(astmt);
-    astmt->VpiIsDeferred(1);
-    astmt->VpiIsFinal(isFinal);
-    stmt = astmt;
-    break;
-  }
-  case VObjectType::slDeferred_immediate_cover_statement: {
-    UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
-    astmt->VpiParent(pstmt);
-    astmt->Expr((UHDM::expr*) expr);
-    if (expr)
-      expr->VpiParent(astmt);
-    astmt->Stmt(if_stmt);
-    if (if_stmt)
-      if_stmt->VpiParent(astmt);
-    astmt->VpiIsDeferred(1);
-    astmt->VpiIsFinal(isFinal);
-    stmt = astmt;
-    break;
-  }
-  default:
-    break;
+    case VObjectType::slDeferred_immediate_assert_statement: {
+      UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      astmt->Else_stmt(else_stmt);
+      if (else_stmt) else_stmt->VpiParent(astmt);
+      astmt->VpiIsDeferred(1);
+      astmt->VpiIsFinal(isFinal);
+      stmt = astmt;
+      break;
+    }
+    case VObjectType::slDeferred_immediate_assume_statement: {
+      UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      astmt->Else_stmt(else_stmt);
+      if (else_stmt) else_stmt->VpiParent(astmt);
+      astmt->VpiIsDeferred(1);
+      astmt->VpiIsFinal(isFinal);
+      stmt = astmt;
+      break;
+    }
+    case VObjectType::slDeferred_immediate_cover_statement: {
+      UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+      astmt->VpiParent(pstmt);
+      astmt->Expr((UHDM::expr*)expr);
+      if (expr) expr->VpiParent(astmt);
+      astmt->Stmt(if_stmt);
+      if (if_stmt) if_stmt->VpiParent(astmt);
+      astmt->VpiIsDeferred(1);
+      astmt->VpiIsFinal(isFinal);
+      stmt = astmt;
+      break;
+    }
+    default:
+      break;
   }
   return stmt;
 }

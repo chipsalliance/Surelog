@@ -42,7 +42,7 @@ class FileUtils final {
   static int mkDir(const char* path);
   static int rmDir(const char* path);
   static std::string getFullPath(const std::string& path);
-  static bool getFullPath(const std::string& path, std::string *result);
+  static bool getFullPath(const std::string& path, std::string* result);
   static std::string getPathName(const std::string& path);
   static std::string basename(const std::string& str);
   static unsigned long fileSize(const std::string& name);
@@ -53,8 +53,8 @@ class FileUtils final {
   static std::vector<SymbolId> collectFiles(SymbolId dirPath,
                                             SymbolId extension,
                                             SymbolTable* symbols);
-  static std::vector<SymbolId> collectFiles(const std::string &pathSpec,
-                                            SymbolTable *const symbols);
+  static std::vector<SymbolId> collectFiles(const std::string& pathSpec,
+                                            SymbolTable* const symbols);
   static std::string getFileContent(const std::string& name);
   static std::string getPreferredPath(const std::string& path);
   static std::string makeRelativePath(const std::string& path);

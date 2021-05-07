@@ -16,37 +16,35 @@
 
 #include "API/Surelog.h"
 
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/Report.h"
 #include "ErrorReporting/Waiver.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/SymbolTable.h"
 
-SURELOG::scompiler* SURELOG::start_compiler (SURELOG::CommandLineParser* clp) {
+SURELOG::scompiler* SURELOG::start_compiler(SURELOG::CommandLineParser* clp) {
   Compiler* the_compiler = new SURELOG::Compiler(clp, clp->getErrorContainer(),
-						 clp->mutableSymbolTable());
+                                                 clp->mutableSymbolTable());
   bool status = the_compiler->compile();
-  if (!status)
-    return nullptr;
-  return (SURELOG::scompiler*) the_compiler;
+  if (!status) return nullptr;
+  return (SURELOG::scompiler*)the_compiler;
 }
 
 SURELOG::Design* SURELOG::get_design(SURELOG::scompiler* the_compiler) {
-  if (the_compiler)
-    return ((SURELOG::Compiler*) the_compiler)->getDesign();
+  if (the_compiler) return ((SURELOG::Compiler*)the_compiler)->getDesign();
   return nullptr;
 }
 
 void SURELOG::shutdown_compiler(SURELOG::scompiler* the_compiler) {
-  delete (SURELOG::Compiler*) the_compiler;
+  delete (SURELOG::Compiler*)the_compiler;
 }
 
 vpiHandle SURELOG::get_uhdm_design(SURELOG::scompiler* compiler) {
   vpiHandle design_handle = 0;
-  SURELOG::Compiler* the_compiler = (SURELOG::Compiler*) compiler;
+  SURELOG::Compiler* the_compiler = (SURELOG::Compiler*)compiler;
   if (the_compiler) {
     design_handle = the_compiler->getUhdmDesign();
   }

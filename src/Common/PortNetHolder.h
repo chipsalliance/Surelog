@@ -32,18 +32,18 @@ namespace SURELOG {
 class Signal;
 
 class PortNetHolder {
-public:
+ public:
   virtual ~PortNetHolder() {}  // virtual as used as interface
 
-  std::vector<Signal*>& getPorts() { return m_ports;  }
-  std::vector<Signal*>& getSignals() {return m_signals;  }
+  std::vector<Signal*>& getPorts() { return m_ports; }
+  std::vector<Signal*>& getSignals() { return m_signals; }
   std::vector<UHDM::cont_assign*>* getContAssigns() { return m_contAssigns; }
 
   void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns) {
     m_contAssigns = cont_assigns;
   }
 
-  std::vector<UHDM::process_stmt*>* getProcesses() { return m_processes;  }
+  std::vector<UHDM::process_stmt*>* getProcesses() { return m_processes; }
   void setProcesses(std::vector<UHDM::process_stmt*>* processes) {
     m_processes = processes;
   }
@@ -65,15 +65,13 @@ public:
     m_param_assigns = param_assigns;
   }
 
-  std::vector<UHDM::task_func*>* getTask_funcs() {
-    return m_task_funcs;
-  }
+  std::vector<UHDM::task_func*>* getTask_funcs() { return m_task_funcs; }
 
   void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs) {
     m_task_funcs = task_funcs;
   }
 
-protected:
+ protected:
   std::vector<Signal*> m_ports;
   std::vector<Signal*> m_signals;
   std::vector<UHDM::cont_assign*>* m_contAssigns = nullptr;

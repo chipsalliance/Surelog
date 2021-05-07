@@ -25,9 +25,9 @@
 #define CLOCKINGBLOCKHOLDER_H
 
 #include <map>
-#include "SourceCompile/SymbolTable.h"
-#include "Design/Signal.h"
 #include "Design/ClockingBlock.h"
+#include "Design/Signal.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

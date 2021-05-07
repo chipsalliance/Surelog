@@ -52,13 +52,14 @@ class ExprBuilder final {
   void deleteValue(Value* value) { m_valueFactory.deleteValue(value); }
   ValueFactory& getValueFactory() { return m_valueFactory; }
   static bool unitTest();
+
  private:
   ExprBuilder(const ExprBuilder& orig) = delete;
 
   ValueFactory m_valueFactory;
   ErrorContainer* m_errors = nullptr;
   SymbolTable* m_symbols = nullptr;
-  Design*      m_design = nullptr;
+  Design* m_design = nullptr;
 };
 
 }  // namespace SURELOG

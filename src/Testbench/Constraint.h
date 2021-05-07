@@ -26,8 +26,8 @@
 
 #include <string_view>
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {

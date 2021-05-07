@@ -52,9 +52,10 @@ struct FunctorCompileModule {
 };
 
 class CompileModule final {
-public:
+ public:
   CompileModule(CompileDesign* compiler, ModuleDefinition* module,
-                Design* design, SymbolTable* symbols, ErrorContainer* errors, ValuedComponentI* instance = nullptr)
+                Design* design, SymbolTable* symbols, ErrorContainer* errors,
+                ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
         m_module(module),
         m_design(design),
@@ -66,9 +67,9 @@ public:
 
   bool compile();
 
-private:
+ private:
   CompileModule(const CompileModule&) = delete;
-  enum CollectType { FUNCTION, DEFINITION, OTHER};
+  enum CollectType { FUNCTION, DEFINITION, OTHER };
   bool collectModuleObjects_(CollectType collectType);
   bool checkModule_();
   bool collectInterfaceObjects_(CollectType collectType);

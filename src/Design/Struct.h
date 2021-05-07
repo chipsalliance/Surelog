@@ -23,8 +23,8 @@
 
 #ifndef STRUCT_H
 #define STRUCT_H
-#include <string>
 #include <map>
+#include <string>
 
 #include "Design/DataType.h"
 

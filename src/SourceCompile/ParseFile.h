@@ -27,11 +27,11 @@
 #include <string>
 
 #include "Design/FileContent.h"
+#include "ErrorReporting/Error.h"
 #include "SourceCompile/AntlrParserHandler.h"
+#include "SourceCompile/CompilationUnit.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "ErrorReporting/Error.h"
 
 namespace SURELOG {
 

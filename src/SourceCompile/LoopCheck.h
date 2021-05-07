@@ -23,15 +23,15 @@
 #ifndef LOOPCHECK_H
 #define LOOPCHECK_H
 
-#include <set>
 #include <map>
+#include <set>
 #include <vector>
 
 #include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 class LoopCheck {
-public:
+ public:
   LoopCheck();
   ~LoopCheck();
 
@@ -42,11 +42,11 @@ public:
 
   std::vector<SymbolId> reportLoop() const;
 
-private:
+ private:
   LoopCheck(const LoopCheck& orig) = delete;
 
   class Node {
-  public:
+   public:
     Node(SymbolId objId) : m_objId(objId), m_visited(false) {}
     const SymbolId m_objId;
     std::set<Node*> m_toList;

@@ -51,7 +51,7 @@ class PythonAPI {
   static PyThreadState* initNewInterp();
   static void shutdown(PyThreadState* interp);
 
-  static void loadScripts ();
+  static void loadScripts();
   static bool loadScript(std::string name, bool check = false);
   static std::string evalScript(std::string module, std::string function,
                                 std::vector<std::string> args,

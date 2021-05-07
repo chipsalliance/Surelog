@@ -24,9 +24,9 @@
 
 #include <string.h>
 
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
 
 #include "Design/Enum.h"
 #include "Design/FileContent.h"
@@ -36,7 +36,6 @@
 #include "Design/Union.h"
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
-#include "ErrorReporting/Error.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
@@ -53,10 +52,10 @@
 #include "Utils/StringUtils.h"
 
 // UHDM
-#include "headers/uhdm.h"
-#include "headers/Serializer.h"
 #include "headers/ElaboratorListener.h"
+#include "headers/Serializer.h"
 #include "headers/clone_tree.h"
+#include "headers/uhdm.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -134,7 +133,8 @@ bool ElaborationStep::bindTypedefs_() {
       if (prevDef->getTypespec() == nullptr)
         noTypespec = true;
       else
-        specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(), prevDef->getTypespec()));
+        specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(),
+                                    prevDef->getTypespec()));
     }
 
     if (noTypespec == true) {
@@ -214,10 +214,11 @@ bool ElaborationStep::bindTypedefs_() {
         if (orig->UhdmType() == uhdmunsupported_typespec) {
           const std::string& need = orig->VpiName();
           if (need == tps->VpiName()) {
-            s.unsupported_typespecMaker.Erase((unsupported_typespec*) orig);
+            s.unsupported_typespecMaker.Erase((unsupported_typespec*)orig);
             if (expr* ex = dynamic_cast<expr*>(var)) {
               ex->Typespec(tps);
-            } else if (typespec_member* ex = dynamic_cast<typespec_member*>(var)) {
+            } else if (typespec_member* ex =
+                           dynamic_cast<typespec_member*>(var)) {
               ex->Typespec(tps);
             } else if (parameter* ex = dynamic_cast<parameter*>(var)) {
               ex->Typespec(tps);
@@ -261,7 +262,7 @@ bool ElaborationStep::bindTypedefs_() {
           }
         } else {
           int setBreakpointHere = 0;
-          setBreakpointHere ++;
+          setBreakpointHere++;
         }
       }
     }
@@ -297,7 +298,7 @@ bool ElaborationStep::bindTypedefs_() {
           }
         } else {
           int setBreakpointHere = 0;
-          setBreakpointHere ++;
+          setBreakpointHere++;
         }
       }
     }
@@ -305,12 +306,9 @@ bool ElaborationStep::bindTypedefs_() {
   return true;
 }
 
-
-
 const DataType* ElaborationStep::bindTypeDef_(
-  TypeDef* typd,
-  const DesignComponent* parent,
-  ErrorDefinition::ErrorType errtype) {
+    TypeDef* typd, const DesignComponent* parent,
+    ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   SymbolTable* symbols = compiler->getSymbolTable();
   NodeId defNode = typd->getDefinitionNode();
@@ -336,10 +334,8 @@ const DataType* ElaborationStep::bindTypeDef_(
 }
 
 const DataType* ElaborationStep::bindDataType_(
-  const std::string& type_name,
-  const FileContent* fC,
-  NodeId id, const DesignComponent* parent,
-  ErrorDefinition::ErrorType errtype) {
+    const std::string& type_name, const FileContent* fC, NodeId id,
+    const DesignComponent* parent, ErrorDefinition::ErrorType errtype) {
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
   SymbolTable* symbols = compiler->getSymbolTable();
@@ -425,7 +421,8 @@ const DataType* ElaborationStep::bindDataType_(
     }
   }
   if (found == false) {
-    const ClassDefinition* classDefinition = dynamic_cast<const ClassDefinition*>(parent);
+    const ClassDefinition* classDefinition =
+        dynamic_cast<const ClassDefinition*>(parent);
     if (classDefinition) {
       if (classDefinition->getName() == type_name) {
         result = classDefinition;
@@ -561,7 +558,8 @@ Variable* ElaborationStep::bindVariable_(std::string var_name, Scope* scope,
   SymbolTable* symbols = compiler->getSymbolTable();
   Variable* result = NULL;
 
-  const ClassDefinition* classDefinition = dynamic_cast<const ClassDefinition*>(parent);
+  const ClassDefinition* classDefinition =
+      dynamic_cast<const ClassDefinition*>(parent);
   if (classDefinition) result = classDefinition->getProperty(var_name);
 
   if (result == NULL) {
@@ -634,7 +632,7 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
           dynamic_cast<const ClassDefinition*>(currentComponent);
       if (classDefinition) {
         currentComponent = NULL;
-        for (const auto &cc : classDefinition->getBaseClassMap()) {
+        for (const auto& cc : classDefinition->getBaseClassMap()) {
           currentComponent = dynamic_cast<const ClassDefinition*>(cc.second);
           var = "this";
           break;
@@ -653,7 +651,8 @@ Variable* ElaborationStep::locateVariable_(std::vector<std::string>& var_chain,
       while (dtype && dtype->getDefinition()) {
         dtype = dtype->getDefinition();
       }
-      const ClassDefinition* tmpClass = dynamic_cast<const ClassDefinition*>(dtype);
+      const ClassDefinition* tmpClass =
+          dynamic_cast<const ClassDefinition*>(dtype);
       if (tmpClass) {
         currentComponent = tmpClass;
       }
@@ -718,10 +717,9 @@ Variable* ElaborationStep::locateStaticVariable_(
           std::vector<std::string> tmp;
           tmp.push_back(var_chain[1]);
 
-          const DataType* dtype = bindDataType_(
-            var_chain[1], fC, id,
-            classDefinition,
-            ErrorDefinition::NO_ERROR_MESSAGE);
+          const DataType* dtype =
+              bindDataType_(var_chain[1], fC, id, classDefinition,
+                            ErrorDefinition::NO_ERROR_MESSAGE);
           if (dtype) {
             result = new Variable(dtype, dtype->getFileContent(),
                                   dtype->getNodeId(), 0, dtype->getName());
@@ -746,8 +744,11 @@ Variable* ElaborationStep::locateStaticVariable_(
   return result;
 }
 
-void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC, NodeId id, const DataType* type,
-                                  const std::string& interfName, ErrorContainer* errors, SymbolTable* symbols) {
+void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC,
+                                  NodeId id, const DataType* type,
+                                  const std::string& interfName,
+                                  ErrorContainer* errors,
+                                  SymbolTable* symbols) {
   if (def == NULL && type == NULL && (interfName != "logic") &&
       (interfName != "byte") && (interfName != "bit") &&
       (interfName != "new") && (interfName != "expect") &&
@@ -763,7 +764,8 @@ void checkIfBuiltInTypeOrErrorOut(DesignComponent* def, const FileContent* fC, N
 }
 
 bool bindStructInPackage(Design* design, Signal* signal,
-                      const std::string& packageName, const std::string& structName) {
+                         const std::string& packageName,
+                         const std::string& structName) {
   Package* p = design->getPackage(packageName);
   if (p) {
     const DataType* dtype = p->getDataType(structName);
@@ -771,15 +773,14 @@ bool bindStructInPackage(Design* design, Signal* signal,
       signal->setDataType(dtype);
       const DataType* actual = dtype->getActual();
       if (actual->getCategory() == DataType::Category::STRUCT) {
-        Struct* st = (Struct*) actual;
+        Struct* st = (Struct*)actual;
         if (st->isNet()) {
           signal->setType(slNetType_Wire);
         }
       }
       return true;
     } else {
-      const DataType* dtype =
-          p->getClassDefinition(structName);
+      const DataType* dtype = p->getClassDefinition(structName);
       if (dtype) {
         signal->setDataType(dtype);
         return true;
@@ -789,12 +790,12 @@ bool bindStructInPackage(Design* design, Signal* signal,
   return false;
 }
 
-bool ElaborationStep::bindPortType_(Signal* signal,
-        const FileContent* fC, NodeId id, Scope* scope,
-        DesignComponent* parentComponent,
-        ErrorDefinition::ErrorType errtype)
-{
-  if (signal->getDataType() || signal->getInterfaceDef() || signal->getModPort())
+bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
+                                    NodeId id, Scope* scope,
+                                    DesignComponent* parentComponent,
+                                    ErrorDefinition::ErrorType errtype) {
+  if (signal->getDataType() || signal->getInterfaceDef() ||
+      signal->getModPort())
     return true;
   Compiler* compiler = m_compileDesign->getCompiler();
   ErrorContainer* errors = compiler->getErrorContainer();
@@ -803,243 +804,246 @@ bool ElaborationStep::bindPortType_(Signal* signal,
   std::string libName = fC->getLibrary()->getName();
   VObjectType type = fC->Type(id);
   switch (type) {
-  case VObjectType::slPort:
-    /*
-      n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
-      n<> u<4> t<Constant_bit_select> p<5> l<1>
-      n<> u<5> t<Constant_select> p<6> c<4> l<1>
-      n<> u<6> t<Port_reference> p<11> c<3> s<10> l<1>
-      n<mif> u<7> t<StringConst> p<10> s<9> l<1>
-      n<> u<8> t<Constant_bit_select> p<9> l<1>
-      n<> u<9> t<Constant_select> p<10> c<8> l<1>
-      n<> u<10> t<Port_reference> p<11> c<7> l<1>
-      n<> u<11> t<Port_expression> p<12> c<6> l<1>
-      n<> u<12> t<Port> p<13> c<11> l<1>
-     */
-  {
-    NodeId Port_expression = fC->Child(id);
-    if (Port_expression &&
+    case VObjectType::slPort:
+      /*
+        n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
+        n<> u<4> t<Constant_bit_select> p<5> l<1>
+        n<> u<5> t<Constant_select> p<6> c<4> l<1>
+        n<> u<6> t<Port_reference> p<11> c<3> s<10> l<1>
+        n<mif> u<7> t<StringConst> p<10> s<9> l<1>
+        n<> u<8> t<Constant_bit_select> p<9> l<1>
+        n<> u<9> t<Constant_select> p<10> c<8> l<1>
+        n<> u<10> t<Port_reference> p<11> c<7> l<1>
+        n<> u<11> t<Port_expression> p<12> c<6> l<1>
+        n<> u<12> t<Port> p<13> c<11> l<1>
+       */
+      {
+        NodeId Port_expression = fC->Child(id);
+        if (Port_expression &&
             (fC->Type(Port_expression) == VObjectType::slPort_expression)) {
-      NodeId if_type = fC->Child(Port_expression);
-      if (fC->Type(if_type) == VObjectType::slPort_reference) {
-        NodeId if_type_name_s = fC->Child(if_type);
-        NodeId if_name = fC->Sibling(if_type);
-        if (if_name) {
-          std::string interfaceName =
+          NodeId if_type = fC->Child(Port_expression);
+          if (fC->Type(if_type) == VObjectType::slPort_reference) {
+            NodeId if_type_name_s = fC->Child(if_type);
+            NodeId if_name = fC->Sibling(if_type);
+            if (if_name) {
+              std::string interfaceName =
                   libName + "@" + fC->SymName(if_type_name_s);
-          ModuleDefinition* interface =
+              ModuleDefinition* interface =
                   design->getModuleDefinition(interfaceName);
-          if (interface) {
-            signal->setInterfaceDef(interface);
-          } else {
-            Location loc(symbols->registerSymbol(
-                    fC->getFileName(if_type_name_s)),
+              if (interface) {
+                signal->setInterfaceDef(interface);
+              } else {
+                Location loc(
+                    symbols->registerSymbol(fC->getFileName(if_type_name_s)),
                     fC->Line(if_type_name_s), 0,
                     symbols->registerSymbol(interfaceName));
-            Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
-            errors->addError(err);
+                Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
+                errors->addError(err);
+              }
+            }
+          }
+        }
+        break;
+      }
+    case VObjectType::slInput_declaration:
+    case VObjectType::slOutput_declaration:
+    case VObjectType::slInout_declaration: {
+      break;
+    }
+    case VObjectType::slPort_declaration: {
+      /*
+       n<Configuration> u<21> t<StringConst> p<22> l<7>
+       n<> u<22> t<Interface_identifier> p<26> c<21> s<25> l<7>
+       n<cfg> u<23> t<StringConst> p<24> l<7>
+       n<> u<24> t<Interface_identifier> p<25> c<23> l<7>
+       n<> u<25> t<List_of_interface_identifiers> p<26> c<24> l<7>
+       n<> u<26> t<Interface_port_declaration> p<27> c<22> l<7>
+       n<> u<27> t<Port_declaration> p<28> c<26> l<7>
+       */
+      NodeId subNode = fC->Child(id);
+      VObjectType subType = fC->Type(subNode);
+      switch (subType) {
+        case VObjectType::slInterface_port_declaration: {
+          NodeId interface_identifier = fC->Child(subNode);
+          NodeId interfIdName = fC->Child(interface_identifier);
+          std::string interfName = fC->SymName(interfIdName);
+
+          DesignComponent* def = nullptr;
+          const DataType* type = nullptr;
+
+          const std::pair<FileCNodeId, DesignComponent*>* datatype =
+              parentComponent->getNamedObject(interfName);
+          if (!datatype) {
+            def = design->getClassDefinition(parentComponent->getName() +
+                                             "::" + interfName);
+          }
+          if (datatype) {
+            def = datatype->second;
+          }
+          if (def == NULL) {
+            def = design->getComponentDefinition(libName + "@" + interfName);
+          }
+          if (def == NULL) {
+            type = parentComponent->getDataType(interfName);
+          }
+          checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors,
+                                       symbols);
+          break;
+        }
+        case VObjectType::slInput_declaration:
+        case VObjectType::slOutput_declaration:
+        case VObjectType::slInout_declaration: {
+          break;
+        }
+        default:
+          break;
+      }
+      break;
+    }
+    case slStringConst: {
+      std::string interfName;
+      if (signal->getInterfaceTypeNameId()) {
+        interfName = signal->getInterfaceTypeName();
+      } else {
+        if (NodeId typespecId = signal->getTypeSpecId()) {
+          if (fC->Type(typespecId) == slClass_scope) {
+            NodeId Class_type = fC->Child(typespecId);
+            NodeId Class_type_name = fC->Child(Class_type);
+            NodeId Class_scope_name = fC->Sibling(typespecId);
+            if (bindStructInPackage(design, signal,
+                                    fC->SymName(Class_type_name),
+                                    fC->SymName(Class_scope_name)))
+              return true;
+          } else if (fC->Type(typespecId) == slStringConst) {
+            interfName = fC->SymName(typespecId);
           }
         }
       }
-    }
-    break;
-  }
-  case VObjectType::slInput_declaration:
-  case VObjectType::slOutput_declaration:
-  case VObjectType::slInout_declaration:
-  {
-    break;
-  }
-  case VObjectType::slPort_declaration:
-  {
-    /*
-     n<Configuration> u<21> t<StringConst> p<22> l<7>
-     n<> u<22> t<Interface_identifier> p<26> c<21> s<25> l<7>
-     n<cfg> u<23> t<StringConst> p<24> l<7>
-     n<> u<24> t<Interface_identifier> p<25> c<23> l<7>
-     n<> u<25> t<List_of_interface_identifiers> p<26> c<24> l<7>
-     n<> u<26> t<Interface_port_declaration> p<27> c<22> l<7>
-     n<> u<27> t<Port_declaration> p<28> c<26> l<7>
-     */
-    NodeId subNode = fC->Child(id);
-    VObjectType subType = fC->Type(subNode);
-    switch (subType) {
-    case VObjectType::slInterface_port_declaration:
-    {
-      NodeId interface_identifier = fC->Child(subNode);
-      NodeId interfIdName = fC->Child(interface_identifier);
-      std::string interfName = fC->SymName(interfIdName);
+      std::string baseName = interfName;
+      std::string modPort;
+      if (strstr(interfName.c_str(), ".")) {
+        modPort = interfName;
+        StringUtils::ltrim(modPort, '.');
+        StringUtils::rtrim(baseName, '.');
+      } else if (strstr(interfName.c_str(), "::")) {
+        std::vector<std::string> result;
+        StringUtils::tokenizeMulti(interfName, "::", result);
+        if (result.size() > 1) {
+          const std::string& packName = result[0];
+          const std::string& structName = result[1];
+          if (bindStructInPackage(design, signal, packName, structName))
+            return true;
+        }
+      }
 
       DesignComponent* def = nullptr;
       const DataType* type = nullptr;
 
       const std::pair<FileCNodeId, DesignComponent*>* datatype =
-              parentComponent->getNamedObject(interfName);
-      if (!datatype) {
-        def = design->getClassDefinition(parentComponent->getName() +
-                "::" + interfName);
-      }
+          parentComponent->getNamedObject(interfName);
       if (datatype) {
         def = datatype->second;
+        DataType* dt = dynamic_cast<DataType*>(def);
+        if (dt) {
+          signal->setDataType(dt);
+        }
+      } else {
+        std::string name = parentComponent->getName() + "::" + interfName;
+        def = design->getClassDefinition(name);
+        DataType* dt = dynamic_cast<DataType*>(def);
+        if (dt) {
+          signal->setDataType(dt);
+        }
       }
       if (def == NULL) {
-        def = design->getComponentDefinition(libName + "@" +
-                interfName);
+        def = design->getComponentDefinition(libName + "@" + baseName);
+        if (def) {
+          ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(def);
+          ClassDefinition* cl = dynamic_cast<ClassDefinition*>(def);
+          if (module) {
+            signal->setInterfaceDef(module);
+          } else if (cl) {
+            signal->setDataType(cl);
+            return true;
+          } else {
+            def = NULL;
+          }
+          if (!modPort.empty()) {
+            if (module) {
+              if (ModPort* modport = module->getModPort(modPort)) {
+                signal->setModPort(modport);
+              } else {
+                def = NULL;
+              }
+            }
+          }
+        }
+      }
+      if (def == NULL) {
+        def = design->getComponentDefinition(libName + "@" + baseName);
+        ClassDefinition* c = dynamic_cast<ClassDefinition*>(def);
+        if (c) {
+          Variable* var =
+              new Variable(c, fC, signal->getNodeId(), 0, signal->getName());
+          parentComponent->addVariable(var);
+          return false;
+        } else {
+          def = NULL;
+        }
       }
       if (def == NULL) {
         type = parentComponent->getDataType(interfName);
+        if (type) {
+          const DataType* def = type->getActual();
+          DataType::Category cat = def->getCategory();
+          if (cat == DataType::Category::SIMPLE_TYPEDEF) {
+            VObjectType t = def->getType();
+            if (t == slIntVec_TypeLogic) {  // Make "net types" explicit (vs
+                                            // variable types) for elab.
+              signal->setType(slIntVec_TypeLogic);
+            } else if (t == slIntVec_TypeReg) {
+              signal->setType(slIntVec_TypeReg);
+            } else if (t == slNetType_Wire) {
+              signal->setType(slNetType_Wire);
+            }
+          } else if (cat == DataType::Category::REF) {
+            // Should not arrive here, there should always be an actual
+            // definition
+          }
+          signal->setDataType(type);
+        }
       }
-      checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors, symbols);
-      break;
-    }
-    case VObjectType::slInput_declaration:
-    case VObjectType::slOutput_declaration:
-    case VObjectType::slInout_declaration:
-    {
+      if (signal->getType() != slNoType) {
+        return true;
+      }
+      if (def == NULL) {
+        if (parentComponent->getParameters()) {
+          for (auto param : *parentComponent->getParameters()) {
+            if (param->UhdmType() == uhdmtype_parameter) {
+              if (param->VpiName() == interfName) {
+                Parameter* p = parentComponent->getParameter(interfName);
+                type = p;
+                signal->setDataType(type);
+                break;
+              }
+            }
+          }
+        }
+      }
+      checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors,
+                                   symbols);
       break;
     }
     default:
       break;
-    }
-    break;
-  }
-  case slStringConst:
-  {
-    std::string interfName;
-    if (signal->getInterfaceTypeNameId()) {
-      interfName = signal->getInterfaceTypeName();
-    } else {
-      if (NodeId typespecId = signal->getTypeSpecId()) {
-        if (fC->Type(typespecId) == slClass_scope) {
-          NodeId Class_type = fC->Child(typespecId);
-          NodeId Class_type_name = fC->Child(Class_type);
-          NodeId Class_scope_name = fC->Sibling(typespecId);
-          if (bindStructInPackage(design, signal, fC->SymName(Class_type_name), fC->SymName(Class_scope_name)))
-            return true;
-        } else if (fC->Type(typespecId) == slStringConst) {
-          interfName = fC->SymName(typespecId);
-        }
-      }
-    }
-    std::string baseName = interfName;
-    std::string modPort;
-    if (strstr(interfName.c_str(),".")) {
-      modPort = interfName;
-      StringUtils::ltrim(modPort,'.');
-      StringUtils::rtrim(baseName,'.');
-    } else if (strstr(interfName.c_str(),"::")) {
-      std::vector<std::string> result;
-      StringUtils::tokenizeMulti(interfName, "::", result);
-      if (result.size() > 1) {
-        const std::string& packName = result[0];
-        const std::string& structName = result[1];
-        if (bindStructInPackage(design, signal, packName, structName))
-          return true;
-      }
-    }
-
-    DesignComponent* def = nullptr;
-    const DataType* type = nullptr;
-
-    const std::pair<FileCNodeId, DesignComponent*>* datatype =
-            parentComponent->getNamedObject(interfName);
-    if (datatype) {
-      def = datatype->second;
-      DataType* dt = dynamic_cast<DataType*> (def);
-      if (dt) {
-        signal->setDataType(dt);
-      }
-    } else {
-      std::string name = parentComponent->getName() + "::" + interfName;
-      def = design->getClassDefinition(name);
-      DataType* dt = dynamic_cast<DataType*> (def);
-      if (dt) {
-        signal->setDataType(dt);
-      }
-    }
-    if (def == NULL) {
-      def = design->getComponentDefinition(libName + "@" + baseName);
-      if (def) {
-        ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (def);
-        ClassDefinition* cl = dynamic_cast<ClassDefinition*>(def);
-        if (module) {
-          signal->setInterfaceDef(module);
-        } else if (cl) {
-          signal->setDataType(cl);
-          return true;
-        } else {
-          def = NULL;
-        }
-        if (!modPort.empty()) {
-          if (module) {
-            if (ModPort* modport = module->getModPort(modPort)) {
-              signal->setModPort(modport);
-            } else {
-              def = NULL;
-            }
-          }
-        }
-      }
-    }
-    if (def == NULL) {
-      def = design->getComponentDefinition(libName + "@" + baseName);
-      ClassDefinition * c = dynamic_cast<ClassDefinition*> (def);
-      if (c) {
-        Variable* var = new Variable(c, fC, signal->getNodeId(), 0, signal->getName());
-        parentComponent->addVariable(var);
-        return false;
-      } else {
-        def = NULL;
-      }
-    }
-    if (def == NULL) {
-      type = parentComponent->getDataType(interfName);
-      if (type) {
-        const DataType* def = type->getActual();
-        DataType::Category cat = def->getCategory();
-        if (cat == DataType::Category::SIMPLE_TYPEDEF) {
-          VObjectType t = def->getType();
-          if (t == slIntVec_TypeLogic) { // Make "net types" explicit (vs variable types) for elab.
-            signal->setType(slIntVec_TypeLogic);
-          } else if (t == slIntVec_TypeReg) {
-            signal->setType(slIntVec_TypeReg);
-          } else if (t == slNetType_Wire) {
-            signal->setType(slNetType_Wire);
-          }
-        } else if (cat == DataType::Category::REF) {
-          // Should not arrive here, there should always be an actual definition
-        }
-        signal->setDataType(type);
-      }
-    }
-    if (signal->getType() != slNoType) {
-      return true;
-    }
-    if (def == NULL) {
-      if (parentComponent->getParameters()) {
-        for (auto param : *parentComponent->getParameters()) {
-          if (param->UhdmType() == uhdmtype_parameter) {
-            if (param->VpiName() == interfName) {
-              Parameter* p = parentComponent->getParameter(interfName);
-              type = p;
-              signal->setDataType(type);
-              break;
-            }
-          }
-        }
-      }
-    }
-    checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors, symbols);
-    break;
-  }
-  default:
-    break;
   }
   return true;
 }
 
-UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const FileContent* fC, NodeId id,
-                                             NodeId unpackedDimension, ModuleInstance* instance) {
+UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component,
+                                             const FileContent* fC, NodeId id,
+                                             NodeId unpackedDimension,
+                                             ModuleInstance* instance) {
   // Assignment section
   NodeId assignment = 0;
   NodeId Assign = fC->Sibling(id);
@@ -1084,7 +1088,9 @@ UHDM::expr* ElaborationStep::exprFromAssign_(DesignComponent* component, const F
   return exp;
 }
 
-UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, Parameter* sit, ModuleInstance* instance) {
+UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component,
+                                                    Parameter* sit,
+                                                    ModuleInstance* instance) {
   Serializer& s = m_compileDesign->getSerializer();
   UHDM::any* uparam = sit->getUhdmParam();
   UHDM::typespec* spec = nullptr;
@@ -1122,8 +1128,7 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
 
       if (override_spec == nullptr) {
         ModuleInstance* parent = instance;
-        if (ModuleInstance* pinst = instance->getParent())
-          parent = pinst;
+        if (ModuleInstance* pinst = instance->getParent()) parent = pinst;
         override_spec = m_helper.compileTypespec(
             component, param->getFileContent(), param->getNodeType(),
             m_compileDesign, nullptr, parent, true);
@@ -1143,9 +1148,13 @@ UHDM::typespec* ElaborationStep::elabTypeParameter_(DesignComponent* component, 
   return spec;
 }
 
-any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vector<UHDM::range*>* packedDimensions, int packedSize,
-                std::vector<UHDM::range*>* unpackedDimensions, int unpackedSize, ModuleInstance* instance,
-                UHDM::VectorOfvariables* vars, UHDM::expr* assignExp, UHDM::typespec* tps) {
+any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
+                               std::vector<UHDM::range*>* packedDimensions,
+                               int packedSize,
+                               std::vector<UHDM::range*>* unpackedDimensions,
+                               int unpackedSize, ModuleInstance* instance,
+                               UHDM::VectorOfvariables* vars,
+                               UHDM::expr* assignExp, UHDM::typespec* tps) {
   Serializer& s = m_compileDesign->getSerializer();
   const DataType* dtype = sig->getDataType();
   VObjectType subnettype = sig->getType();
@@ -1173,23 +1182,28 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig, std::vec
       stv->Expr(assignExp);
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
-      spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr, instance);
-      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
+      spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr,
+                                   instance);
+      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
+                                                         m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
       var->VpiSigned(sig->isSigned());
       var->VpiName(signame);
       var->Typespec(spec);
       obj = var;
-    } else if (/*const ClassDefinition* cl = */dynamic_cast<const ClassDefinition*>(dtype)) {
+    } else if (/*const ClassDefinition* cl = */ dynamic_cast<
+               const ClassDefinition*>(dtype)) {
       class_var* stv = s.MakeClass_var();
       stv->Typespec(tps);
       obj = stv;
       stv->Expr(assignExp);
-    } else if (Parameter* sit = (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
+    } else if (Parameter* sit =
+                   (Parameter*)dynamic_cast<const Parameter*>(dtype)) {
       UHDM::typespec* spec = elabTypeParameter_(component, sit, instance);
 
-      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions, m_compileDesign);
+      variables* var = m_helper.getSimpleVarFromTypespec(spec, packedDimensions,
+                                                         m_compileDesign);
       var->Expr(assignExp);
       var->VpiConstantVariable(sig->isConst());
       var->VpiSigned(sig->isSigned());

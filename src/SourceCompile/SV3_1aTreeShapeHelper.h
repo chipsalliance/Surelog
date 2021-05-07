@@ -24,8 +24,8 @@
 #ifndef SV3_1ATREESHAPEHELPER_H
 #define SV3_1ATREESHAPEHELPER_H
 
-#include <stack>
 #include <map>
+#include <stack>
 #include <unordered_map>
 
 #include "Design/DesignElement.h"
@@ -48,15 +48,15 @@ namespace SURELOG {
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:
-
   SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
                         unsigned int lineOffset);
   SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
 
   ~SV3_1aTreeShapeHelper() override;
 
-  void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx,
-                std::string object, bool printColumn = false);
+  void logError(ErrorDefinition::ErrorType error,
+                antlr4::ParserRuleContext* ctx, std::string object,
+                bool printColumn = false);
 
   void logError(ErrorDefinition::ErrorType, Location& loc,
                 bool showDuplicates = false);
@@ -68,7 +68,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   NodeId generateNodeId();
 
-  SymbolId registerSymbol(const std::string &symbol) override;
+  SymbolId registerSymbol(const std::string& symbol) override;
 
   void addNestedDesignElement(antlr4::ParserRuleContext* ctx, std::string name,
                               DesignElement::ElemType elemtype,
@@ -80,7 +80,8 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short> getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
+  std::tuple<unsigned int, unsigned short, unsigned int, unsigned short>
+  getFileLine(antlr4::ParserRuleContext* ctx, SymbolId& fileId) override;
 
  protected:
   ParseFile* m_pf;

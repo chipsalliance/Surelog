@@ -23,8 +23,8 @@
 
 #ifndef SIMPLE_TYPE_H
 #define SIMPLE_TYPE_H
-#include <string>
 #include <map>
+#include <string>
 
 #include "Design/DataType.h"
 

@@ -48,7 +48,7 @@ struct FunctorCompileFileContent {
 };
 
 class CompileFileContent final {
-public:
+ public:
   CompileFileContent(CompileDesign* compiler, FileContent* file, Design* design,
                      SymbolTable* symbols, ErrorContainer* errors)
       : m_compileDesign(compiler),
@@ -61,7 +61,7 @@ public:
 
   bool compile();
 
-private:
+ private:
   CompileFileContent(const CompileFileContent&) = delete;
 
   bool collectObjects_();

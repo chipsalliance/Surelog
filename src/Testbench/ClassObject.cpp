@@ -22,8 +22,8 @@
  */
 #include "Testbench/ClassObject.h"
 
-#include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 bool ClassObject::setValue(const std::string& property, Value* value) {

@@ -33,9 +33,7 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-CommonListenerHelper::~CommonListenerHelper()
-{
-}
+CommonListenerHelper::~CommonListenerHelper() {}
 
 int CommonListenerHelper::registerObject(VObject& object) {
   m_fileContent->getVObjects().push_back(object);
@@ -47,7 +45,7 @@ int CommonListenerHelper::LastObjIndex() {
 }
 
 int CommonListenerHelper::ObjectIndexFromContext(
-  const antlr4::tree::ParseTree* ctx) const {
+    const antlr4::tree::ParseTree* ctx) const {
   auto found = m_contextToObjectMap.find(ctx);
   return (found == m_contextToObjectMap.end()) ? -1 : found->second;
 }
@@ -56,9 +54,7 @@ VObject& CommonListenerHelper::Object(NodeId index) {
   return m_fileContent->getVObjects()[index];
 }
 
-NodeId CommonListenerHelper::UniqueId(NodeId index) {
-  return index;
-}
+NodeId CommonListenerHelper::UniqueId(NodeId index) { return index; }
 
 SymbolId& CommonListenerHelper::Name(NodeId index) {
   return m_fileContent->getVObjects()[index].m_name;
@@ -92,15 +88,17 @@ unsigned int& CommonListenerHelper::Line(NodeId index) {
   return m_fileContent->getVObjects()[index].m_line;
 }
 
-int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype) {
+int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym,
+                                     VObjectType objtype) {
   SymbolId fileId;
   auto [line, column, endLine, endColumn] = getFileLine(ctx, fileId);
 
-  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column, endLine, endColumn, 0);
+  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, column,
+                                            endLine, endColumn, 0);
   int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
-  auto &delements = m_fileContent->getDesignElements();
+  auto& delements = m_fileContent->getDesignElements();
   for (auto it = delements.rbegin(); it != delements.rend(); ++it) {
     if (it->m_context == ctx) {
       // Use the file and line number of the design object (package, module),
@@ -115,7 +113,7 @@ int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym, VObje
 }
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                     const std::string &name,
+                                     const std::string& name,
                                      VObjectType objtype) {
   return addVObject(ctx, registerSymbol(name), objtype);
 }

@@ -35,7 +35,7 @@ class Parameter : public DataType {
   Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
             NodeId node_type, bool port_param);
 
- ~Parameter() override;
+  ~Parameter() override;
 
   VObjectType getType() const override;
   NodeId getNodeType() const { return m_ntype; }
@@ -43,12 +43,14 @@ class Parameter : public DataType {
   void setUhdmParam(UHDM::any* param) { m_param = param; }
   UHDM::any* getUhdmParam() const { return m_param; }
   bool isPortParam() const { return m_port_param; }
-  void setImportedPackage(const std::string& package) {m_importedPackage = package; }
+  void setImportedPackage(const std::string& package) {
+    m_importedPackage = package;
+  }
   std::string importedPackage() { return m_importedPackage; }
   bool isTypeParam() const { return type_param; }
   void setTypeParam() { type_param = true; }
   bool isMultidimension() const { return multi_dimension; }
-  void setMultidimension() { multi_dimension  = true; }
+  void setMultidimension() { multi_dimension = true; }
 
  private:
   NodeId m_ntype;

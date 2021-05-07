@@ -31,7 +31,7 @@ namespace SURELOG {
 
 class DesignElement final {
  public:
-   enum ElemType {
+  enum ElemType {
     Module,
     Primitive,
     Interface,
@@ -48,7 +48,9 @@ class DesignElement final {
   };
 
   DesignElement(SymbolId name, SymbolId fileId, ElemType type,
-                SymbolId uniqueId, unsigned int line, unsigned short column, unsigned int endLine, unsigned short endColumn, SymbolId parent);
+                SymbolId uniqueId, unsigned int line, unsigned short column,
+                unsigned int endLine, unsigned short endColumn,
+                SymbolId parent);
 
   SymbolId m_name;
   SymbolId m_fileId;

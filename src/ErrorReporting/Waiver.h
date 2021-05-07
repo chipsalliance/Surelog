@@ -24,33 +24,33 @@
 #ifndef WAIVER_H
 #define WAIVER_H
 
+#include <map>
+#include <set>
 #include <string>
 #include <string_view>
-#include <set>
 #include <vector>
-#include <map>
 #include "ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 
 class Waiver final {
-public:
+ public:
   static void initWaivers();
 
   static bool macroArgCheck(const std::string& name);
 
   static void setWaiver(const std::string& messageId,
-                        const std::string& fileName,
-                        unsigned int line, const std::string& objectName);
+                        const std::string& fileName, unsigned int line,
+                        const std::string& objectName);
 
   class WaiverData {
    public:
     WaiverData(ErrorDefinition::ErrorType messageId, std::string_view fileName,
                unsigned int line, std::string_view objectName)
-      : m_messageId(messageId),
-        m_fileName(fileName),
-        m_line(line),
-        m_objectId(objectName) {}
+        : m_messageId(messageId),
+          m_fileName(fileName),
+          m_line(line),
+          m_objectId(objectName) {}
     const ErrorDefinition::ErrorType m_messageId;
     const std::string m_fileName;
     const unsigned int m_line;
@@ -61,7 +61,7 @@ public:
     return m_waivers;
   }
 
-private:
+ private:
   Waiver() = delete;
   Waiver(const Waiver& orig) = delete;
 

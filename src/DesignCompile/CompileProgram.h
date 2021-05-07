@@ -24,8 +24,8 @@
 #ifndef COMPILEPROGRAM_H
 #define COMPILEPROGRAM_H
 
-#include "DesignCompile/CompileToolbox.h"
 #include "DesignCompile/CompileHelper.h"
+#include "DesignCompile/CompileToolbox.h"
 
 namespace SURELOG {
 
@@ -49,7 +49,7 @@ struct FunctorCompileProgram {
 };
 
 class CompileProgram : public CompileToolbox {
-public:
+ public:
   CompileProgram(CompileDesign* compiler, Program* program, Design* design,
                  SymbolTable* symbols, ErrorContainer* errors)
       : m_compileDesign(compiler),
@@ -64,10 +64,10 @@ public:
 
   ~CompileProgram() override;
 
-private:
+ private:
   enum CollectType { FUNCTION, DEFINITION, OTHER };
   bool collectObjects_(CollectType collectType);
-  
+
   CompileDesign* const m_compileDesign;
   Program* const m_program;
   Design* const m_design;

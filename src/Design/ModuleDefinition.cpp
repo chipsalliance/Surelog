@@ -29,9 +29,11 @@
 using namespace SURELOG;
 
 ModuleDefinition::ModuleDefinition(const FileContent* fileContent,
-                                   NodeId nodeId,
-                                   const std::string_view name)
-    : DesignComponent(fileContent, NULL), m_name(name), m_gen_block_id(0), m_udpDefn(nullptr) {
+                                   NodeId nodeId, const std::string_view name)
+    : DesignComponent(fileContent, NULL),
+      m_name(name),
+      m_gen_block_id(0),
+      m_udpDefn(nullptr) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }
@@ -47,7 +49,7 @@ bool ModuleDefinition::isInstance() const {
 ModuleDefinition::~ModuleDefinition() {}
 
 ModuleDefinition* ModuleDefinitionFactory::newModuleDefinition(
-  const FileContent* fileContent, NodeId nodeId, std::string_view name) {
+    const FileContent* fileContent, NodeId nodeId, std::string_view name) {
   return new ModuleDefinition(fileContent, nodeId, name);
 }
 
@@ -64,7 +66,8 @@ unsigned int ModuleDefinition::getSize() const {
   return size;
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal) {
+void ModuleDefinition::insertModPort(const std::string& modport,
+                                     Signal& signal) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     ModPort modp(this, modport);
@@ -75,7 +78,8 @@ void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal)
   }
 }
 
-const Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) const {
+const Signal* ModuleDefinition::getModPortSignal(const std::string& modport,
+                                                 NodeId port) const {
   ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return NULL;
@@ -91,14 +95,15 @@ const Signal* ModuleDefinition::getModPortSignal(const std::string& modport, Nod
 
 ModPort* ModuleDefinition::getModPort(const std::string& modport) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
-   if (itr == m_modportSignalMap.end()) {
+  if (itr == m_modportSignalMap.end()) {
     return NULL;
   } else {
-     return &(*itr).second;
+    return &(*itr).second;
   }
 }
 
-void ModuleDefinition::insertModPort(const std::string& modport, ClockingBlock& cb) {
+void ModuleDefinition::insertModPort(const std::string& modport,
+                                     ClockingBlock& cb) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {
@@ -110,8 +115,8 @@ void ModuleDefinition::insertModPort(const std::string& modport, ClockingBlock& 
   }
 }
 
-ClockingBlock* ModuleDefinition::getModPortClockingBlock(const std::string& modport,
-                                                         NodeId port) {
+ClockingBlock* ModuleDefinition::getModPortClockingBlock(
+    const std::string& modport, NodeId port) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {

@@ -33,12 +33,12 @@ namespace SURELOG {
 // TODO: this looks like not really used or at least should be provided
 // as standalone function ?
 class CompileToolbox {
-public:
+ public:
   CompileToolbox();
 
   virtual ~CompileToolbox();  // Used as inheritance functionality provider.
 
-protected:
+ protected:
   virtual bool compileInitialBlock_(FileContent* fC, NodeId nodeId,
                                     DesignComponent* component);
 };

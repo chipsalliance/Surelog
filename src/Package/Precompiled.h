@@ -21,14 +21,14 @@
  * Created on April 28, 2018, 10:27 AM
  */
 #include <string>
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 
 #ifndef PRECOMPILED_H
 #define PRECOMPILED_H
 
 class Precompiled final {
-public:
+ public:
   static Precompiled* getSingleton();
 
   void addPrecompiled(const std::string& package_name,
@@ -38,7 +38,7 @@ public:
   bool isFilePrecompiled(const std::string& fileName) const;
   bool isPackagePrecompiled(const std::string& package) const;
 
-private:
+ private:
   Precompiled();  // Only accessed via singleton.
   Precompiled(const Precompiled&) = delete;
 

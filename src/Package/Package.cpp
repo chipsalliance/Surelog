@@ -50,7 +50,8 @@ void Package::append(Package* package) {
   for (auto& type : package->m_dataTypes)
     insertDataType(type.first, type.second);
   for (auto& param : package->getMappedValues())
-    setValue(param.first, param.second.first, m_exprBuilder, param.second.second);
+    setValue(param.first, param.second.first, m_exprBuilder,
+             param.second.second);
   for (auto& classDef : package->m_classDefinitions) {
     addClassDefinition(classDef.first, classDef.second);
     classDef.second->setContainer(this);

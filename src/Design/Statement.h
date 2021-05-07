@@ -37,8 +37,7 @@ namespace SURELOG {
 class Statement {
  public:
   typedef std::vector<Statement*> StatementVector;
-  Statement(Scope* scope, Statement* parentStmt,
-            const FileContent* fileContent,
+  Statement(Scope* scope, Statement* parentStmt, const FileContent* fileContent,
             NodeId node, VObjectType type)
       : m_scope(scope),
         m_parent(parentStmt),
@@ -85,11 +84,10 @@ class SubRoutineArg {
 class SubRoutineCallStmt : public Statement {
  public:
   SubRoutineCallStmt(Scope* scope, Statement* parentStmt,
-                     const FileContent* fileContent,
-                     NodeId node, VObjectType type,
-                     std::vector<NodeId>& var_chain, std::string funcName,
-                     std::vector<SubRoutineArg*>& args, bool static_call,
-                     bool system_call)
+                     const FileContent* fileContent, NodeId node,
+                     VObjectType type, std::vector<NodeId>& var_chain,
+                     std::string funcName, std::vector<SubRoutineArg*>& args,
+                     bool static_call, bool system_call)
       : Statement(scope, parentStmt, fileContent, node, type),
         m_var_chain(var_chain),
         m_func(funcName),
@@ -149,8 +147,7 @@ class ForeachLoopStmt : public Scope, public Statement {
  public:
   ForeachLoopStmt(std::string name, NodeId arrayId, Scope* scope,
                   Statement* parentStmt, const FileContent* fileContent,
-                  NodeId node,
-                  VObjectType type)
+                  NodeId node, VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),
         m_arrayId(arrayId) {}

@@ -23,11 +23,11 @@
 
 #ifndef ERRORCONTAINER_H
 #define ERRORCONTAINER_H
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
-#include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 
@@ -37,7 +37,7 @@ class LogListener;
 class ErrorContainer {
  public:
   class Stats {
-  public:
+   public:
     Stats& operator+=(const Stats& r) {
       nbFatal += r.nbFatal;
       nbSyntax += r.nbSyntax;
@@ -56,7 +56,8 @@ class ErrorContainer {
     int nbInfo = 0;
   };
 
-  ErrorContainer(SymbolTable* symbolTable, LogListener *const logListener = nullptr);
+  ErrorContainer(SymbolTable* symbolTable,
+                 LogListener* const logListener = nullptr);
   void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
@@ -67,16 +68,14 @@ class ErrorContainer {
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
   bool printStats(Stats stats, bool muteStdout = false);
-  bool printToLogFile(const std::string &report);
+  bool printToLogFile(const std::string& report);
   bool hasFatalErrors();
   Stats getErrorStats();
   void appendErrors(ErrorContainer&);
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   std::tuple<std::string, bool, bool> createErrorMessage(
       Error& error, bool reentrantPython = true);
-  void setPythonInterp(void* interpState) {
-    m_interpState = interpState;
-  }
+  void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
   std::pair<std::string, bool> createReport_();

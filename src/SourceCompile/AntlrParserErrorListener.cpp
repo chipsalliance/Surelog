@@ -36,11 +36,9 @@
 #include "atn/ParserATNSimulator.h"
 
 namespace SURELOG {
-void AntlrParserErrorListener::syntaxError(antlr4::Recognizer *recognizer,
-                                           antlr4::Token *offendingSymbol, size_t line,
-                                           size_t charPositionInLine,
-                                           const std::string &msg,
-                                           std::exception_ptr e) {
+void AntlrParserErrorListener::syntaxError(
+    antlr4::Recognizer *recognizer, antlr4::Token *offendingSymbol, size_t line,
+    size_t charPositionInLine, const std::string &msg, std::exception_ptr e) {
   if (m_watchDogOn) {
     m_barked = true;
     return;
@@ -57,8 +55,8 @@ void AntlrParserErrorListener::syntaxError(antlr4::Recognizer *recognizer,
         lineText += "\n";
       }
       for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
-      lineText += "^-- " + m_fileName + ":" + std::to_string(line) +
-                  ":" + std::to_string(charPositionInLine) + ":";
+      lineText += "^-- " + m_fileName + ":" + std::to_string(line) + ":" +
+                  std::to_string(charPositionInLine) + ":";
     }
   }
   if (m_reportedSyntaxError == false) {

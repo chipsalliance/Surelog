@@ -203,9 +203,9 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
               nullptr, ParameterPortListId != 0, false, false);
 
         } else {
-          m_helper.compileParameterDeclaration(m_program, fC, id,
-                                               m_compileDesign, false, nullptr,
-                                               ParameterPortListId != 0, false, false);
+          m_helper.compileParameterDeclaration(
+              m_program, fC, id, m_compileDesign, false, nullptr,
+              ParameterPortListId != 0, false, false);
         }
         break;
       }
@@ -220,9 +220,9 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
               nullptr, ParameterPortListId != 0, false, false);
 
         } else {
-          m_helper.compileParameterDeclaration(m_program, fC, id,
-                                               m_compileDesign, true, nullptr,
-                                               ParameterPortListId != 0, false, false);
+          m_helper.compileParameterDeclaration(
+              m_program, fC, id, m_compileDesign, true, nullptr,
+              ParameterPortListId != 0, false, false);
         }
         break;
       }

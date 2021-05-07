@@ -30,7 +30,7 @@
 #include "SourceCompile/VObjectTypes.h"
 
 namespace UHDM {
-  class typespec;
+class typespec;
 };
 
 namespace SURELOG {
@@ -38,33 +38,32 @@ class FileContent;
 class Value;
 
 class DataType {
-public:
+ public:
   enum class Category {
     STRUCT,
     UNION,
     ENUM,
-    SIMPLE_TYPEDEF, // typedef int
-    BUILTIN, // int, logic
+    SIMPLE_TYPEDEF,  // typedef int
+    BUILTIN,         // int, logic
     CLASS,
-    REF, // points to actual definition
+    REF,  // points to actual definition
     PARAMETER,
     TYPEDEF,
-    DUMMY, // placeholder for later binding
+    DUMMY,  // placeholder for later binding
   };
 
-  DataType(){}
+  DataType() {}
   DataType(const FileContent* fC, NodeId id, std::string_view name,
            VObjectType type, bool isParameter = false)
-    : m_fileContent(fC),
-      m_id(id),
-      m_name(name),
-      m_definition(NULL),
-      m_type(type),
-      m_is_parameter(isParameter) {}
+      : m_fileContent(fC),
+        m_id(id),
+        m_name(name),
+        m_definition(NULL),
+        m_type(type),
+        m_is_parameter(isParameter) {}
 
   void init(const FileContent* fC, NodeId id, std::string name,
-            VObjectType type,
-            bool isParameter = false) {
+            VObjectType type, bool isParameter = false) {
     m_fileContent = fC;
     m_id = id;
     m_name = name;
@@ -108,7 +107,7 @@ public:
   UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
 
-protected:
+ protected:
   const FileContent* m_fileContent = nullptr;
   NodeId m_id = 0;
   std::string m_name;

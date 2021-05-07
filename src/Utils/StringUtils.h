@@ -34,8 +34,7 @@ namespace SURELOG {
 class StringUtils {
  public:
   // Tokenize "str" at "any_of_separator", store in "result" array.
-  static void tokenize(std::string_view str,
-                       std::string_view any_of_separator,
+  static void tokenize(std::string_view str, std::string_view any_of_separator,
                        std::vector<std::string>& result);
 
   // Tokenize "str" at "multichar_separator"; store in "result" array.
@@ -45,8 +44,7 @@ class StringUtils {
 
   // Tokenizes "str" at "separator", but leaves 'bracketed' areas
   // intact: "double quoted" (parenthesized) [foo] {bar}
-  static void tokenizeBalanced(std::string_view str,
-                               std::string_view separator,
+  static void tokenizeBalanced(std::string_view str, std::string_view separator,
                                std::vector<std::string>& result);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::vector<std::string> pattern,
@@ -59,7 +57,7 @@ class StringUtils {
   // (unlike the name implies, it does not look for empty but space. TODO
   //  rename)
   static std::string getFirstNonEmptyToken(
-    const std::vector<std::string>& tokens);
+      const std::vector<std::string>& tokens);
 
   // TODO: these should not modify strings, but rather return trimmed
   // std::string_views.
@@ -92,8 +90,7 @@ class StringUtils {
   static std::string leaf(std::string str);
 
   // In given string "str", replace all occurences of "from" with "to"
-  static std::string replaceAll(std::string_view str,
-                                std::string_view from,
+  static std::string replaceAll(std::string_view str, std::string_view from,
                                 std::string_view to);
 
   // Given a large input, return the content of line number "line". Lines
@@ -106,9 +103,9 @@ class StringUtils {
   static std::string removeComments(std::string_view text);
 
   static std::string evaluateEnvVars(std::string_view text);
-  static void autoExpandEnvironmentVariables( std::string & text );
+  static void autoExpandEnvironmentVariables(std::string& text);
   static void registerEnvVar(std::string var, std::string value) {
-      envVars.insert(std::make_pair(var, value));
+    envVars.insert(std::make_pair(var, value));
   }
 
  private:

@@ -63,7 +63,7 @@ class CompileClass final {
   bool compile();
 
  private:
-  CompileClass(const CompileClass &) = delete;
+  CompileClass(const CompileClass&) = delete;
 
   CompileDesign* const m_compileDesign;
   ClassDefinition* const m_class;

@@ -48,9 +48,7 @@ class LogListener {
     return static_cast<int>(result) >= 0;
   }
 
-  static bool failed(LogResult result) {
-    return static_cast<int>(result) < 0;
-  }
+  static bool failed(LogResult result) { return static_cast<int>(result) < 0; }
 
  public:
   LogListener() = default;

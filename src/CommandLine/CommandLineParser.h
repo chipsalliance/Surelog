@@ -23,11 +23,11 @@
 
 #ifndef COMMANDLINEPARSER_HPP
 #define COMMANDLINEPARSER_HPP
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
@@ -56,9 +56,7 @@ class CommandLineParser final {
   const std::map<SymbolId, std::string>& getDefineList() {
     return m_defineList;
   }
-  const std::map<SymbolId, std::string>& getParamList() {
-    return m_paramList;
-  }
+  const std::map<SymbolId, std::string>& getParamList() { return m_paramList; }
   bool fileunit() { return m_fileunit; }  // File or all compilation semantic
   void setFileUnit() { m_fileunit = true; }
   /* PP Output file/dir options */
@@ -97,7 +95,7 @@ class CommandLineParser final {
   void setMuteStdout() { m_muteStdout = true; }
   bool verbose() { return m_verbose; }
   bool profile() { return m_profile; }
-  int  getDebugLevel() { return m_debugLevel; }
+  int getDebugLevel() { return m_debugLevel; }
   bool getDebugAstModel() { return m_debugAstModel; }
   bool getDebugUhdm() { return m_dumpUhdm; }
   bool getUhdmStats() { return m_uhdmStats; }
@@ -124,7 +122,10 @@ class CommandLineParser final {
   void setLowMem(bool val) { m_lowMem = val; }
   void setCompile(bool val) { m_compile = val; }
   void setElaborate(bool val) { m_elaborate = val; }
-  void setElabUhdm(bool val) { m_elaborate = val; m_elabUhdm = val; }
+  void setElabUhdm(bool val) {
+    m_elaborate = val;
+    m_elabUhdm = val;
+  }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
@@ -161,6 +162,7 @@ class CommandLineParser final {
   bool fullSVMode() const { return m_sverilog; }
   bool isSVFile(const std::string& fileName) const;
   bool cleanCache();
+
  private:
   CommandLineParser(const CommandLineParser& orig) = delete;
 
@@ -186,7 +188,7 @@ class CommandLineParser final {
   std::vector<SymbolId> m_configFiles;           // -cfgFile <config file>
   std::vector<SymbolId> m_useConfigs;            // -cfg <configName>
   std::map<SymbolId, std::string> m_defineList;  // +define+
-  std::map<SymbolId, std::string> m_paramList;  // -Pparameter=value
+  std::map<SymbolId, std::string> m_paramList;   // -Pparameter=value
   SymbolId m_writePpOutputFileId;
   bool m_writePpOutput;
   bool m_filterFileLine;

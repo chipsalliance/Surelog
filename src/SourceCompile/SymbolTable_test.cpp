@@ -16,12 +16,12 @@
 
 #include "SourceCompile/SymbolTable.h"
 
-#include <vector>
 #include <string>
 #include <string_view>
+#include <vector>
 
-#include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 using testing::ElementsAre;
 
