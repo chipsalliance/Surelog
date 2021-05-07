@@ -211,3 +211,21 @@ jobs:
         make test_install
         make test/unittest
         make regression
+
+  CodeFormatting:
+    runs-on: ubuntu-20.04
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get install clang-format
+        clang-format --version
+
+    - name: Run formatting style check
+      run: ./.github/bin/run-clang-format.sh
