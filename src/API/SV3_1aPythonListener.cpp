@@ -37,7 +37,6 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
-
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"

@@ -25,6 +25,7 @@
 #define VALUE_H
 
 #include <stdint.h>
+
 #include <iostream>
 #include <string>
 namespace SURELOG {

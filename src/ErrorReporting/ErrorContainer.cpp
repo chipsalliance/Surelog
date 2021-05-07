@@ -27,11 +27,10 @@
 #include <iostream>
 #include <mutex>
 
+#include "API/PythonAPI.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
 #include "LogListener.h"
-
-#include "API/PythonAPI.h"
 #include "antlr4-runtime.h"
 
 using namespace SURELOG;

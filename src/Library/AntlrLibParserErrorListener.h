@@ -25,6 +25,7 @@
 #define ANTLRLIBPARSERERRORLISTENER_H
 
 #include <stddef.h>
+
 #include <exception>
 
 #include "Library/ParseLibraryDef.h"

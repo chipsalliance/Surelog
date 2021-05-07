@@ -22,11 +22,11 @@
  */
 #include "Cache/PythonAPICache.h"
 
-#include <cstdio>
-#include <ctime>
-
 #include <sys/stat.h>
 #include <sys/types.h>
+
+#include <cstdio>
+#include <ctime>
 
 #include "API/PythonAPI.h"
 #include "Cache/Cache.h"
@@ -41,7 +41,6 @@
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
 #include "antlr4-runtime.h"
-
 #include "flatbuffers/util.h"
 
 namespace SURELOG {

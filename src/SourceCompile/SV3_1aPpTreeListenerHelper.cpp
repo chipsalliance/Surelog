@@ -36,7 +36,6 @@
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
 #include "Utils/StringUtils.h"
-
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
 #include "parser/SV3_1aPpParserBaseListener.h"

@@ -24,10 +24,10 @@
 #ifndef CONFIGSET_H
 #define CONFIGSET_H
 
-#include "Config/Config.h"
-
 #include <string_view>
 #include <vector>
+
+#include "Config/Config.h"
 
 namespace SURELOG {
 

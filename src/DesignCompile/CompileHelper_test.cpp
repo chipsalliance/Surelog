@@ -44,7 +44,6 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Testbench/ClassDefinition.h"
-
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "vpi_visitor.h"

@@ -33,18 +33,16 @@
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/SymbolTable.h"
-#include "Utils/StringUtils.h"
-#include "antlr4-runtime.h"
-
 #include "SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "SourceCompile/SV3_1aTreeShapeHelper.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
+#include "Utils/StringUtils.h"
+#include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-
-#include "SourceCompile/SV3_1aTreeShapeHelper.h"
 
 namespace SURELOG {
 void SV3_1aTreeShapeListener::enterTop_level_rule(

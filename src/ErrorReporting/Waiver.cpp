@@ -22,12 +22,12 @@
  */
 #include "ErrorReporting/Waiver.h"
 
-#include "ErrorReporting/ErrorDefinition.h"
-
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
+
+#include "ErrorReporting/ErrorDefinition.h"
 
 using namespace SURELOG;
 

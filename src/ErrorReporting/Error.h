@@ -25,6 +25,7 @@
 #define ERROR_H
 #include <string>
 #include <vector>
+
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 

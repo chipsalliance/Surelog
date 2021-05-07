@@ -30,12 +30,12 @@
 #include <unistd.h>
 #endif
 
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include <cstdint>
 #include <cstdio>
 #include <ctime>
-
-#include <sys/stat.h>
-#include <sys/types.h>
 
 #include "Cache/Cache.h"
 #include "CommandLine/CommandLineParser.h"
@@ -49,7 +49,6 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-
 #include "flatbuffers/util.h"
 
 using namespace SURELOG;

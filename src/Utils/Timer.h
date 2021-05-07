@@ -24,6 +24,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 #include <math.h>
+
 #include <chrono>
 #include <iostream>
 

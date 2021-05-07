@@ -259,8 +259,6 @@ bool CompileSourceFile::postPreprocess_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    // std::string fileName =
-    // FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
     std::string fullFileName = symbolTable->getSymbol(m_fileId);
     std::string baseFileName = FileUtils::basename(fullFileName);
     std::string filePath = FileUtils::getPathName(fullFileName);
@@ -277,7 +275,9 @@ bool CompileSourceFile::postPreprocess_() {
     SymbolId ppOutId = symbolTable->registerSymbol(ppFileName);
     m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName);
     SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile);
-
+    if (m_commandLineParser->lowMem()) {
+      return true;
+    }
     if (FileUtils::mkDir(dirPpFile.c_str()) != 0) {
       Location loc(ppDirId);
       Error err(ErrorDefinition::PP_CANNOT_CREATE_DIRECTORY, loc);

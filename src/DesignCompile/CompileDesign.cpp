@@ -54,12 +54,12 @@
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Testbench/ClassDefinition.h"
-
 #include "vpi_visitor.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
 #include <tbb/task_group.h>
+
 #include "tbb/task_scheduler_init.h"
 #endif
 

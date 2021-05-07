@@ -47,7 +47,6 @@
 #include "API/PythonAPI.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-
 #include "antlr4-runtime.h"
 
 using namespace SURELOG;

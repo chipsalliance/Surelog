@@ -26,10 +26,9 @@
 #include <string>
 
 #include "Design/FileContent.h"
+#include "ElaboratorListener.h"
 #include "Library/Library.h"
 #include "SourceCompile/SymbolTable.h"
-
-#include "ElaboratorListener.h"
 #include "clone_tree.h"
 #include "uhdm.h"
 

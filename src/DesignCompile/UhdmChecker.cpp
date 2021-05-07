@@ -46,6 +46,7 @@
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Library/Library.h"
+#include "Serializer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
@@ -55,10 +56,8 @@
 #include "Testbench/ClassDefinition.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include "surelog.h"
-
-#include "Serializer.h"
 #include "module.h"
+#include "surelog.h"
 #include "uhdm.h"
 #include "vpi_visitor.h"
 
