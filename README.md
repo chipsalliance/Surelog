@@ -90,7 +90,8 @@ For more build/test options and system requirements for building see
    -nocomp               Turns off Compilation & Elaboration
    -noelab               Turns off Elaboration
    -parseonly            Only Parses, reloads Preprocessor saved db
-   -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
+   -elabuhdm             Forces UHDM/VPI Full Elaboration/Uniquification, default is the Folded Model.
+                         A client application can elect to perform the full elaboration after reading back the UHDM db by invoking the Elaborator listener.
    -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
    -pythonlistener       Enables the Parser Python Listener
    -pythonlistenerfile <script.py> Specifies the AST python listener file
@@ -130,7 +131,7 @@ For more build/test options and system requirements for building see
 ```
  * OUTPUT OPTIONS:
 ``` 
-  -l <file>             Specifies log file, default is surelog.log under output dir
+   -l <file>             Specifies log file, default is surelog.log under output dir
    -odir/--Mdir <dir>    Specifies the output directory, default is ./
    -writeppfile <file>   Writes out Preprocessor output in file (all compilation units will override this file)
    -writepp              Writes out Preprocessor output (all compilation units will generate files under slpp_all/ or slpp_unit/)
@@ -187,6 +188,13 @@ For more build/test options and system requirements for building see
  * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
 
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
+
+### Large design compilation on Linux
+ * It is recommanded to use the -lowmem -mp <nb processor> options in conjunction for large designs.
+ * The preprocessing will occur using one process, but the parsing will occur using multiple processes.
+ * The elaboration and UHDM creation will use a single process.
+ * Surelog spawns sub-Surelog processes to achieve the overall compilation.
+ * Or course don't use the -nocache option to benefit from incremental compilation and reuse cached parsed files 
 
 ### Batch mode operations
 
