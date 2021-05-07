@@ -49,14 +49,14 @@
 #include "antlr4-runtime.h"
 #include "ParserRuleContext.h"
 
+#include "API/SLAPI.h"
+
 #ifdef SURELOG_WITH_PYTHON
 #include "API/slapi_wrap.cxx"
 #include "API/slapi_scripts.h"
 #include "API/vobjecttypes_py.h"
-#endif
-
-#include "API/SLAPI.h"
 #include "API/SV3_1aPythonListener.h"
+#endif
 
 namespace SURELOG {
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
@@ -74,8 +74,6 @@ bool PythonAPI::m_strictMode = false;
 std::string PythonAPI::m_builtinPath;
 
 PythonAPI::PythonAPI() {}
-
-PythonAPI::PythonAPI(const PythonAPI& orig) {}
 
 PythonAPI::~PythonAPI() {}
 

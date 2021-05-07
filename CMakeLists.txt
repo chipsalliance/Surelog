@@ -41,11 +41,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
-find_package(SWIG 3.0 REQUIRED)
 
 # Python
 if (SURELOG_WITH_PYTHON)
 find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
+find_package(SWIG 3.0 REQUIRED)
 message(STATUS "Python3_LIBRARIES = ${Python3_LIBRARIES}")
 message(STATUS "Python3_EXECUTABLE = ${Python3_EXECUTABLE}")
 message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
@@ -149,8 +149,7 @@ set(ANTLR_JAR_LOCATION
 
 add_custom_target(GenerateParser DEPENDS
   ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/slapi.py)
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 
 set(surelog_grammars
   ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
@@ -212,12 +211,14 @@ add_custom_command(
 )
 
 if (SURELOG_WITH_PYTHON)
+set(surelog_python-GENERATED_SRC
+  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
+  ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
+  ${PROJECT_SOURCE_DIR}/src/API/slapi_wrap.cxx
+  ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.h
+  ${PROJECT_SOURCE_DIR}/src/API/slapi.py)
 add_custom_command(
-  OUTPUT  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
-          ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
-          ${PROJECT_SOURCE_DIR}/src/API/slapi_wrap.cxx
-          ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.h
-          ${PROJECT_SOURCE_DIR}/src/API/slapi.py
+  OUTPUT  ${surelog_python-GENERATED_SRC}
   DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
           ${PROJECT_SOURCE_DIR}/src/API/vobjecttypes_py.h
           ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
@@ -237,14 +238,12 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 # Put source code here, files that are generated at build time in
 # surelog_generated_SRC
 set(surelog_SRC
-  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
   ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/Cache.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/PPCache.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.cpp
-  ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
@@ -328,7 +327,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeListenerHelper.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
@@ -348,6 +346,15 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Utils/NumUtils.cpp
   ${PROJECT_SOURCE_DIR}/src/Utils/Timer.cpp
 )
+
+if (SURELOG_WITH_PYTHON)
+list(APPEND surelog_SRC
+  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
+  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
+  ${PROJECT_SOURCE_DIR}/src/Cache/PythonAPICache.cpp
+)
+endif()
 
 # TODO: these generated sources should go to a directory that
 # does not mess with the original source, e.g.
@@ -369,7 +376,9 @@ set(SURELOG_PUBLIC_HEADERS ${PROJECT_SOURCE_DIR}/src/surelog.h)
 
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER "${SURELOG_PUBLIC_HEADERS}")
-
+if (SURELOG_WITH_PYTHON)
+  target_compile_definitions(surelog PUBLIC SURELOG_WITH_PYTHON)
+endif()
 add_executable(surelog-bin ${PROJECT_SOURCE_DIR}/src/main.cpp)
 set_target_properties(surelog-bin PROPERTIES OUTPUT_NAME surelog)
 
@@ -482,16 +491,23 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
   COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_all
   COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/slpp_unit
-  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/builtin.sv
-          ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sv/builtin.sv
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/builtin.sv ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sv/builtin.sv
+  COMMAND echo "       Platform independent staging completed"
+  WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
+)
+
+if (SURELOG_WITH_PYTHON)
+add_custom_command(
+  TARGET surelog-bin
+  POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slSV3_1aPythonListener.py
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slformatmsg.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slformatmsg.py
   COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_SOURCE_DIR}/src/API/slwaivers.py
           ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python/slwaivers.py
-  COMMAND echo "       Platform independent staging completed"
-  WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+)
+endif()
 
 if (WIN32)
   if (SURELOG_WITH_PYTHON)

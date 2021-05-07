@@ -47,8 +47,6 @@ PythonListen::PythonListen(ParseFile* parse,
       m_compileSourceFile(compileSourceFile),
       m_usingCachedVersion(false) {}
 
-PythonListen::PythonListen(const PythonListen& orig) {}
-
 PythonListen::~PythonListen() {}
 
 void PythonListen::addError(Error& error) {

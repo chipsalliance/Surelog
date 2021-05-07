@@ -100,12 +100,14 @@ struct FunctorCompileOneFile {
       : m_compileSourceFile(compileSource), m_action(action) {}
 
   int operator()() const {
+#ifdef SURELOG_WITH_PYTHON
     if (m_compileSourceFile->getCommandLineParser()->pythonListener() ||
         m_compileSourceFile->getCommandLineParser()
             ->pythonEvalScriptPerFile()) {
       PyThreadState* interpState = PythonAPI::initNewInterp();
       m_compileSourceFile->setPythonInterp(interpState);
     }
+#endif
     return m_compileSourceFile->compile(m_action);
   }
 
@@ -685,7 +687,9 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
   if (maxThreadCount == 0) {
     // Single thread
     for (CompileSourceFile *const source : container) {
+#ifdef SURELOG_WITH_PYTHON
       source->setPythonInterp(PythonAPI::getMainInterp());
+#endif
       bool status = compileOneFile_(source, action);
       m_errors->appendErrors(*source->getErrorContainer());
       m_errors->printMessages(m_commandLineParser->muteStdout());
@@ -781,18 +785,20 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
     for (unsigned short i = 0; i < maxThreadCount; i++) {
       std::thread* th = new std::thread([=] {
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
+#ifdef SURELOG_WITH_PYTHON
           if (getCommandLineParser()->pythonListener() ||
               getCommandLineParser()->pythonEvalScriptPerFile()) {
             PyThreadState* interpState = PythonAPI::initNewInterp();
             jobArray[i][j]->setPythonInterp(interpState);
           }
-
+#endif
           jobArray[i][j]->compile(action);
-
+#ifdef SURELOG_WITH_PYTHON
           if (getCommandLineParser()->pythonListener() ||
               getCommandLineParser()->pythonEvalScriptPerFile()) {
             jobArray[i][j]->shutdownPythonInterp();
           }
+#endif
         }
       });
       threads.push_back(th);
