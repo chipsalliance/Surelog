@@ -29,6 +29,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
+
 #include "ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {

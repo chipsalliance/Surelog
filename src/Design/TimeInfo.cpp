@@ -20,9 +20,10 @@
  *
  * Created on June 8, 2017, 8:27 PM
  */
+#include "Design/TimeInfo.h"
+
 #include <string>
 
-#include "Design/TimeInfo.h"
 #include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;

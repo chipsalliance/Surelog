@@ -22,6 +22,7 @@
  */
 #include <string>
 #include <vector>
+
 #include "ErrorReporting/ErrorContainer.h"
 
 #ifndef PYTHONAPI_H

@@ -38,14 +38,14 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <mutex>
 #include <thread>
 #include <vector>
 
-#include <cstdlib>
-
+#include "API/PythonAPI.h"
 #include "CommandLine/CommandLineParser.h"
 #include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -62,9 +62,6 @@
 #include "Utils/StringUtils.h"
 #include "Utils/Timer.h"
 #include "antlr4-runtime.h"
-
-#include "API/PythonAPI.h"
-#include "SourceCompile/CheckCompile.h"
 
 namespace SURELOG {
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,

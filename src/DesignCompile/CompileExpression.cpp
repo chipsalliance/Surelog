@@ -20,8 +20,6 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
-
 #include <math.h>
 #include <string.h>
 
@@ -37,7 +35,9 @@
 #include "Design/Struct.h"
 #include "Design/Union.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
+#include "ElaboratorListener.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "Expression/Value.h"
@@ -51,8 +51,6 @@
 #include "Utils/FileUtils.h"
 #include "Utils/NumUtils.h"
 #include "Utils/StringUtils.h"
-
-#include "ElaboratorListener.h"
 #include "clone_tree.h"
 #include "expr.h"
 #include "uhdm.h"
@@ -1549,7 +1547,9 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           case vpiAssignmentPatternOp:
             // Don't reduce these ops
             break;
-          default: { invalidValue = true; }
+          default: {
+            invalidValue = true;
+          }
         }
       }
     }

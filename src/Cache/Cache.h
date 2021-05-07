@@ -23,12 +23,11 @@
 #ifndef CACHE_H
 #define CACHE_H
 
-#include "flatbuffers/flatbuffers.h"
-
 #include "Cache/header_generated.h"
 #include "Design/FileContent.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
+#include "flatbuffers/flatbuffers.h"
 
 namespace SURELOG {
 

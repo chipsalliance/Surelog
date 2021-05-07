@@ -30,7 +30,6 @@
 #include <iostream>
 
 #include "CommandLine/CommandLineParser.h"
-
 #include "flatbuffers/util.h"
 
 namespace SURELOG {

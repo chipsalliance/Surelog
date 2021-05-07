@@ -22,6 +22,7 @@
  */
 
 #include "SourceCompile/MacroInfo.h"
+
 #include "SourceCompile/SymbolTable.h"
 
 using namespace SURELOG;

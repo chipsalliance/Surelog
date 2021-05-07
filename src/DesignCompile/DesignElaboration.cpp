@@ -37,6 +37,7 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileModule.h"
 #include "DesignCompile/NetlistElaboration.h"
+#include "ElaboratorListener.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/ErrorDefinition.h"
@@ -52,8 +53,6 @@
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
 #include "Utils/StringUtils.h"
-
-#include "ElaboratorListener.h"
 #include "clone_tree.h"
 #include "vpi_visitor.h"
 

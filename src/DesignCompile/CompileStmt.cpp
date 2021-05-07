@@ -20,8 +20,6 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
-
 #include <iostream>
 
 #include "Design/BindStmt.h"
@@ -29,6 +27,7 @@
 #include "Design/Enum.h"
 #include "Design/Function.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"

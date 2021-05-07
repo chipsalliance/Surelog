@@ -20,8 +20,6 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
-
 #include <bitset>
 #include <iostream>
 
@@ -35,6 +33,7 @@
 #include "Design/Struct.h"
 #include "Design/Union.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"

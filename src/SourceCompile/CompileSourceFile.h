@@ -25,8 +25,8 @@
 #define COMPILESOURCEFILE_H
 #include <string>
 #include <vector>
-#include "API/PythonAPI.h"
 
+#include "API/PythonAPI.h"
 #include "SourceCompile/AnalyzeFile.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"

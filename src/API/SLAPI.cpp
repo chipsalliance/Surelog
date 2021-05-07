@@ -45,7 +45,6 @@
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
 #include "Utils/StringUtils.h"
-
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"

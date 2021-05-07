@@ -25,6 +25,7 @@
 #define TYPEDEF_H
 
 #include <string>
+
 #include "Design/DataType.h"
 #include "SourceCompile/SymbolTable.h"
 

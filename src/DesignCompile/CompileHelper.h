@@ -24,6 +24,7 @@
 #ifndef COMPILEHELPER_H
 #define COMPILEHELPER_H
 #include <string>
+
 #include "Design/DataType.h"
 #include "Design/DesignComponent.h"
 #include "Design/FileContent.h"

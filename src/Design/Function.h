@@ -24,6 +24,7 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include <string>
+
 #include "Design/DataType.h"
 #include "Design/FileContent.h"
 #include "Design/Scope.h"

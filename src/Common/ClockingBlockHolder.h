@@ -25,6 +25,7 @@
 #define CLOCKINGBLOCKHOLDER_H
 
 #include <map>
+
 #include "Design/ClockingBlock.h"
 #include "Design/Signal.h"
 #include "SourceCompile/SymbolTable.h"

@@ -22,6 +22,16 @@
  */
 #include "SourceCompile/AnalyzeFile.h"
 
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <sstream>
+#include <stack>
+
 #include "Design/Design.h"
 #include "Design/DesignElement.h"
 #include "Design/TimeInfo.h"
@@ -35,15 +45,6 @@
 #include "SourceCompile/IncludeFileInfo.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "Utils/StringUtils.h"
-
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-#include <fstream>
-#include <iostream>
-#include <regex>
-#include <sstream>
-#include <stack>
 
 using namespace SURELOG;
 

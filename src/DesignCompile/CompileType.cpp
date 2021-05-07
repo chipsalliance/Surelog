@@ -20,8 +20,6 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
-
 #include <iostream>
 
 #include "CompileDesign.h"
@@ -34,6 +32,7 @@
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
+#include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
 #include "Expression/ExprBuilder.h"
 #include "Expression/Value.h"

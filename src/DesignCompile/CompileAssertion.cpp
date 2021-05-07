@@ -20,8 +20,6 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-#include "DesignCompile/CompileHelper.h"
-
 #include <iostream>
 
 #include "CompileDesign.h"
@@ -31,6 +29,8 @@
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
+#include "DesignCompile/CompileHelper.h"
+#include "ElaboratorListener.h"
 #include "Expression/ExprBuilder.h"
 #include "Expression/Value.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -39,11 +39,9 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "Testbench/Property.h"
+#include "UhdmWriter.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-
-#include "ElaboratorListener.h"
-#include "UhdmWriter.h"
 #include "clone_tree.h"
 #include "expr.h"
 #include "uhdm.h"

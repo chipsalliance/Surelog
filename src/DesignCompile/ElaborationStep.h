@@ -32,7 +32,6 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "ErrorReporting/ErrorDefinition.h"
-
 #include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {

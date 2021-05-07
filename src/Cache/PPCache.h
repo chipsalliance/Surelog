@@ -36,14 +36,14 @@ class PPCache : Cache {
  public:
   PPCache(PreprocessFile* pp);
 
-  bool restore();
+  bool restore(bool errorsOnly);
   bool save();
 
  private:
   PPCache(const PPCache& orig) = delete;
 
   std::string getCacheFileName_(std::string fileName = "");
-  bool restore_(std::string cacheFileName);
+  bool restore_(std::string cacheFileName, bool errorsOnly);
   bool checkCacheIsValid_(std::string cacheFileName);
 
   PreprocessFile* m_pp;

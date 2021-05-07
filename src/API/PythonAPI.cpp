@@ -46,10 +46,9 @@
 #include "parser/SV3_1aParserBaseListener.h"
 
 // Antlr runtime. TODO: add proper prefix.
+#include "API/SLAPI.h"
 #include "ParserRuleContext.h"
 #include "antlr4-runtime.h"
-
-#include "API/SLAPI.h"
 
 #ifdef SURELOG_WITH_PYTHON
 #include "API/SV3_1aPythonListener.h"

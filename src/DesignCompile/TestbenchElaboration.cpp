@@ -33,7 +33,6 @@
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/ClassDefinition.h"
 #include "Testbench/Property.h"
-
 #include "headers/uhdm.h"
 
 using namespace SURELOG;

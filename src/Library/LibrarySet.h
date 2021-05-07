@@ -24,11 +24,11 @@
 #ifndef LIBRARYSET_H
 #define LIBRARYSET_H
 
-#include "ErrorReporting/ErrorContainer.h"
-#include "Library/Library.h"
-
 #include <string_view>
 #include <vector>
+
+#include "ErrorReporting/ErrorContainer.h"
+#include "Library/Library.h"
 
 namespace SURELOG {
 

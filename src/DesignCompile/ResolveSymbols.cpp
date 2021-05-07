@@ -27,7 +27,6 @@
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Location.h"
 #include "Testbench/ClassDefinition.h"
-
 #include "headers/uhdm.h"
 
 using namespace SURELOG;
