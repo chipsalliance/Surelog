@@ -131,7 +131,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -169,7 +169,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -191,7 +191,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -213,7 +213,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -352,7 +352,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -408,7 +408,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -466,40 +466,7 @@ design: (work@top)
     |vpiName:task_1
     |vpiFullName:work@top.task_1
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1: , endln:8:9, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiTaskFunc:
-      \_function: (work@top.task_1), line:4:2, endln:6:9, parent:work@top
-        |vpiAccessType:3
-        |vpiVisibility:1
-        |vpiDPICStr:2
-        |vpiName:task_1
-        |vpiFullName:work@top.task_1
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:1: , endln:8:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (ret)
-          |vpiName:ret
-          |vpiDirection:2
-          |vpiTypedef:
-          \_int_typespec: , line:4:21, endln:4:24
-        |vpiStmt:
-        \_assignment: , line:5:4, endln:5:11, parent:work@top.task_1
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@top.task_1.ret), line:5:4, endln:5:7, parent:work@top.task_1
-            |vpiName:ret
-            |vpiFullName:work@top.task_1.ret
-            |vpiActual:
-            \_io_decl: (ret)
-          |vpiRhs:
-          \_constant: , line:5:10, endln:5:11
-            |vpiConstType:9
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
+    \_module: work@top (work@top) dut.sv:1: , endln:8:9
     |vpiIODecl:
     \_io_decl: (ret), parent:work@top.task_1
       |vpiName:ret
@@ -518,6 +485,10 @@ design: (work@top)
         \_io_decl: (ret), parent:work@top.task_1
       |vpiRhs:
       \_constant: , line:5:10, endln:5:11
+        |vpiConstType:9
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -373,7 +373,7 @@ design: (work@t)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@t
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -411,7 +411,7 @@ design: (work@t)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -433,7 +433,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -455,7 +455,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -594,7 +594,7 @@ design: (work@t)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@t
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -650,7 +650,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -1017,227 +1017,7 @@ design: (work@t)
     |vpiReturn:
     \_int_var: , line:20:12, endln:20:19
     |vpiInstance:
-    \_module: work@t (work@t) dut.sv:8: , endln:35:9, parent:work@t
-      |vpiDefName:work@t
-      |vpiFullName:work@t
-      |vpiProcess:
-      \_initial: , parent:work@t
-        |vpiStmt:
-        \_begin: (work@t), line:29:11, endln:34:6
-          |vpiFullName:work@t
-          |vpiStmt:
-          \_if_stmt: , line:30:6, endln:30:30, parent:work@t
-            |vpiCondition:
-            \_operation: , line:30:10, endln:30:22
-              |vpiOpType:15
-              |vpiOperand:
-              \_ref_obj: (work@t.NUM_OUT), line:30:10, endln:30:17, parent:work@t
-                |vpiName:NUM_OUT
-                |vpiFullName:work@t.NUM_OUT
-                |vpiActual:
-                \_parameter: (work@t.NUM_OUT), line:16:14, endln:16:38, parent:work@t
-              |vpiOperand:
-              \_constant: , line:30:21, endln:30:22
-            |vpiStmt:
-            \_sys_func_call: ($stop), line:30:24, endln:30:30
-              |vpiName:$stop
-          |vpiStmt:
-          \_if_stmt: , line:31:6, endln:31:31, parent:work@t
-            |vpiCondition:
-            \_operation: , line:31:10, endln:31:23
-              |vpiOpType:15
-              |vpiOperand:
-              \_sys_func_call: ($bits), line:31:10, endln:31:18
-                |vpiName:$bits
-                |vpiArgument:
-                \_ref_obj: (work@t.z), line:31:16, endln:31:17, parent:$bits
-                  |vpiName:z
-                  |vpiFullName:work@t.z
-                  |vpiActual:
-                  \_logic_net: (work@t.z), line:18:22, endln:18:23, parent:work@t
-              |vpiOperand:
-              \_constant: , line:31:22, endln:31:23
-            |vpiStmt:
-            \_sys_func_call: ($stop), line:31:25, endln:31:31
-              |vpiName:$stop
-          |vpiStmt:
-          \_sys_func_call: ($write), line:32:6, endln:32:39, parent:work@t
-            |vpiName:$write
-            |vpiArgument:
-            \_constant: , line:32:13, endln:32:37
-          |vpiStmt:
-          \_sys_func_call: ($finish), line:33:6, endln:33:14, parent:work@t
-            |vpiName:$finish
-      |vpiPort:
-      \_port: (clk), line:10:3, parent:work@t
-        |vpiName:clk
-        |vpiDirection:1
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@t.clk), line:10:3, parent:work@t
-            |vpiName:clk
-            |vpiFullName:work@t.clk
-      |vpiTaskFunc:
-      \_function: (work@t.num_out), line:20:3, endln:27:14, parent:work@t
-        |vpiVisibility:1
-        |vpiName:num_out
-        |vpiFullName:work@t.num_out
-        |vpiReturn:
-        \_int_var: , line:20:12, endln:20:19
-        |vpiInstance:
-        \_module: work@t (work@t) dut.sv:8: , endln:35:9, parent:work@t
-        |vpiIODecl:
-        \_io_decl: (width), line:21:20, endln:21:25, parent:work@t.num_out
-          |vpiName:width
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:21:12, endln:21:19
-        |vpiStmt:
-        \_begin: (work@t.num_out), parent:work@t.num_out
-          |vpiFullName:work@t.num_out
-          |vpiStmt:
-          \_assignment: , line:22:6, endln:22:17, parent:work@t.num_out
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@t.num_out.num_out), line:22:6, endln:22:13, parent:work@t.num_out
-              |vpiName:num_out
-              |vpiFullName:work@t.num_out.num_out
-            |vpiRhs:
-            \_constant: , line:22:16, endln:22:17
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiStmt:
-          \_while_stmt: , line:23:6, endln:23:11, parent:work@t.num_out
-            |vpiCondition:
-            \_operation: , line:23:13, endln:23:44
-              |vpiOpType:18
-              |vpiOperand:
-              \_operation: , line:23:13, endln:23:34
-                |vpiOpType:12
-                |vpiOperand:
-                \_operation: , line:23:14, endln:23:33
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_operation: , line:23:14, endln:23:19
-                    |vpiOpType:24
-                    |vpiOperand:
-                    \_ref_obj: (work@t.num_out.width), line:23:14, endln:23:19
-                      |vpiName:width
-                      |vpiFullName:work@t.num_out.width
-                    |vpiOperand:
-                    \_ref_obj: (work@t.num_out.num_out), line:23:22, endln:23:29
-                      |vpiName:num_out
-                      |vpiFullName:work@t.num_out.num_out
-                  |vpiOperand:
-                  \_constant: , line:23:32, endln:23:33
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-                |vpiOperand:
-                \_ref_obj: (work@t.num_out.num_out), line:23:37, endln:23:44
-                  |vpiName:num_out
-                  |vpiFullName:work@t.num_out.num_out
-              |vpiOperand:
-              \_ref_obj: (work@t.num_out.MAX_WIDTH), line:23:47, endln:23:56
-                |vpiName:MAX_WIDTH
-                |vpiFullName:work@t.num_out.MAX_WIDTH
-                |vpiActual:
-                \_parameter: (work@t.MAX_WIDTH), line:15:14, endln:15:28, parent:work@t
-                  |vpiName:MAX_WIDTH
-                  |vpiFullName:work@t.MAX_WIDTH
-                  |vpiLocalParam:1
-                  |UINT:11
-            |vpiStmt:
-            \_begin: (work@t.num_out), line:23:58, endln:26:9
-              |vpiFullName:work@t.num_out
-              |vpiStmt:
-              \_assignment: , line:24:8, endln:24:29, parent:work@t.num_out
-                |vpiOpType:82
-                |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@t.num_out.num_out), line:24:8, endln:24:15, parent:work@t.num_out
-                  |vpiName:num_out
-                  |vpiFullName:work@t.num_out.num_out
-                |vpiRhs:
-                \_operation: , line:24:18, endln:24:25, parent:work@t.num_out
-                  |vpiOpType:25
-                  |vpiOperand:
-                  \_ref_obj: (work@t.num_out.num_out), line:24:18, endln:24:25, parent:work@t.num_out
-                    |vpiName:num_out
-                    |vpiFullName:work@t.num_out.num_out
-                  |vpiOperand:
-                  \_constant: , line:24:28, endln:24:29
-                    |vpiConstType:9
-                    |vpiDecompile:2
-                    |vpiSize:64
-                    |UINT:2
-              |vpiStmt:
-              \_continue_stmt: , line:25:8, endln:25:16, parent:work@t.num_out
-      |vpiNet:
-      \_logic_net: (work@t.z), line:18:22, parent:work@t
-        |vpiName:z
-        |vpiFullName:work@t.z
-        |vpiNetType:1
-      |vpiNet:
-      \_logic_net: (work@t.clk), line:10:3, parent:work@t
-      |vpiParamAssign:
-      \_param_assign: , line:14:14, endln:14:24, parent:work@t
-        |vpiRhs:
-        \_constant: , line:14:22, endln:14:24
-          |vpiConstType:9
-          |vpiDecompile:33
-          |vpiSize:64
-          |UINT:33
-        |vpiLhs:
-        \_parameter: (work@t.WIDTH), line:14:14, endln:14:24, parent:work@t
-          |vpiName:WIDTH
-          |vpiFullName:work@t.WIDTH
-          |UINT:33
-      |vpiParamAssign:
-      \_param_assign: , line:15:14, endln:15:28, parent:work@t
-        |vpiRhs:
-        \_constant: , line:15:26, endln:15:28
-          |vpiConstType:9
-          |vpiDecompile:11
-          |vpiSize:64
-          |UINT:11
-        |vpiLhs:
-        \_parameter: (work@t.MAX_WIDTH), line:15:14, endln:15:28, parent:work@t
-          |vpiName:MAX_WIDTH
-          |vpiFullName:work@t.MAX_WIDTH
-          |vpiLocalParam:1
-          |UINT:11
-      |vpiParamAssign:
-      \_param_assign: , line:16:14, endln:16:38, parent:work@t
-        |vpiRhs:
-        \_func_call: (num_out), line:16:24, endln:16:38
-          |vpiName:num_out
-          |vpiFunction:
-          \_function: (work@t.num_out), line:20:3, endln:27:14, parent:work@t
-          |vpiArgument:
-          \_ref_obj: (WIDTH), line:16:32, endln:16:37, parent:num_out
-            |vpiName:WIDTH
-            |vpiActual:
-            \_parameter: (work@t.WIDTH), line:14:14, endln:14:24, parent:work@t
-              |vpiName:WIDTH
-              |vpiFullName:work@t.WIDTH
-              |UINT:33
-        |vpiLhs:
-        \_parameter: (work@t.NUM_OUT), line:16:14, endln:16:38, parent:work@t
-          |vpiName:NUM_OUT
-          |vpiFullName:work@t.NUM_OUT
-          |vpiLocalParam:1
-      |vpiParameter:
-      \_parameter: (work@t.WIDTH), line:14:14, endln:14:24, parent:work@t
-      |vpiParameter:
-      \_parameter: (work@t.MAX_WIDTH), line:15:14, endln:15:28, parent:work@t
-      |vpiParameter:
-      \_parameter: (work@t.NUM_OUT), line:16:14, endln:16:38, parent:work@t
+    \_module: work@t (work@t) dut.sv:8: , endln:35:9
     |vpiIODecl:
     \_io_decl: (width), line:21:20, endln:21:25, parent:work@t.num_out
       |vpiName:width
@@ -1257,6 +1037,10 @@ design: (work@t)
           |vpiFullName:work@t.num_out.num_out
         |vpiRhs:
         \_constant: , line:22:16, endln:22:17
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
       |vpiStmt:
       \_while_stmt: , line:23:6, endln:23:11, parent:work@t.num_out
         |vpiCondition:
@@ -1283,6 +1067,10 @@ design: (work@t)
                   |vpiFullName:work@t.num_out.num_out
               |vpiOperand:
               \_constant: , line:23:32, endln:23:33
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
             |vpiOperand:
             \_ref_obj: (work@t.num_out.num_out), line:23:37, endln:23:44
               |vpiName:num_out
@@ -1293,6 +1081,10 @@ design: (work@t)
             |vpiFullName:work@t.num_out.MAX_WIDTH
             |vpiActual:
             \_parameter: (work@t.MAX_WIDTH), line:15:14, endln:15:28, parent:work@t
+              |vpiName:MAX_WIDTH
+              |vpiFullName:work@t.MAX_WIDTH
+              |vpiLocalParam:1
+              |UINT:11
         |vpiStmt:
         \_begin: (work@t.num_out), line:23:58, endln:26:9
           |vpiFullName:work@t.num_out
@@ -1313,6 +1105,10 @@ design: (work@t)
                 |vpiFullName:work@t.num_out.num_out
               |vpiOperand:
               \_constant: , line:24:28, endln:24:29
+                |vpiConstType:9
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
           |vpiStmt:
           \_continue_stmt: , line:25:8, endln:25:16, parent:work@t.num_out
   |vpiNet:
@@ -1329,6 +1125,9 @@ design: (work@t)
       |UINT:33
     |vpiLhs:
     \_parameter: (work@t.WIDTH), line:14:14, endln:14:24, parent:work@t
+      |vpiName:WIDTH
+      |vpiFullName:work@t.WIDTH
+      |UINT:33
   |vpiParamAssign:
   \_param_assign: , line:15:14, endln:15:28, parent:work@t
     |vpiRhs:

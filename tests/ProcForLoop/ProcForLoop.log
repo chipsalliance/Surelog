@@ -215,7 +215,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -253,7 +253,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -275,7 +275,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -297,7 +297,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -436,7 +436,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -492,7 +492,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -646,136 +646,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1: , endln:11:9, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiTaskFunc:
-      \_function: (work@top.foo), line:2:4, endln:9:15, parent:work@top
-        |vpiVisibility:1
-        |vpiName:foo
-        |vpiFullName:work@top.foo
-        |vpiReturn:
-        \_logic_var: 
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:1: , endln:11:9, parent:work@top
-        |vpiStmt:
-        \_begin: (work@top.foo), parent:work@top.foo
-          |vpiFullName:work@top.foo
-          |vpiStmt:
-          \_for_stmt: (work@top.foo), line:3:6, endln:3:9, parent:work@top.foo
-            |vpiFullName:work@top.foo
-            |vpiCondition:
-            \_operation: , line:3:20, endln:3:21, parent:work@top.foo
-              |vpiOpType:20
-              |vpiOperand:
-              \_ref_obj: (work@top.foo.i), line:3:20, endln:3:21
-                |vpiName:i
-                |vpiFullName:work@top.foo.i
-              |vpiOperand:
-              \_constant: , line:3:22, endln:3:23
-                |vpiConstType:9
-                |vpiDecompile:4
-                |vpiSize:64
-                |UINT:4
-            |vpiForInitStmt:
-            \_assign_stmt: , parent:work@top.foo
-              |vpiRhs:
-              \_constant: , line:3:18, endln:3:19
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-              |vpiLhs:
-              \_int_var: (work@top.foo.i), line:3:12, endln:3:15
-                |vpiName:i
-                |vpiFullName:work@top.foo.i
-            |vpiForIncStmt:
-            \_assignment: , line:3:25, endln:3:32, parent:work@top.foo
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@top.foo.i), line:3:25, endln:3:26, parent:work@top.foo
-                |vpiName:i
-                |vpiFullName:work@top.foo.i
-              |vpiRhs:
-              \_operation: , line:3:29, endln:3:30, parent:work@top.foo
-                |vpiOpType:24
-                |vpiOperand:
-                \_ref_obj: (work@top.foo.i), line:3:29, endln:3:30, parent:work@top.foo
-                  |vpiName:i
-                  |vpiFullName:work@top.foo.i
-                |vpiOperand:
-                \_constant: , line:3:31, endln:3:32
-                  |vpiConstType:9
-                  |vpiDecompile:1
-                  |vpiSize:64
-                  |UINT:1
-            |vpiStmt:
-            \_begin: (work@top.foo), line:3:34, endln:5:9, parent:work@top.foo
-              |vpiFullName:work@top.foo
-              |vpiStmt:
-              \_func_call: (f2), line:4:9, endln:4:17, parent:work@top.foo
-                |vpiName:f2
-                |vpiArgument:
-                \_ref_obj: (work@top.foo.i), line:4:12, endln:4:13, parent:f2
-                  |vpiName:i
-                  |vpiFullName:work@top.foo.i
-                |vpiArgument:
-                \_constant: , line:4:14, endln:4:15
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-          |vpiStmt:
-          \_for_stmt: (work@top.foo), line:6:6, endln:6:9, parent:work@top.foo
-            |vpiFullName:work@top.foo
-            |vpiCondition:
-            \_operation: , line:6:21, endln:6:22, parent:work@top.foo
-              |vpiOpType:20
-              |vpiOperand:
-              \_ref_obj: (work@top.foo.j), line:6:21, endln:6:22
-                |vpiName:j
-                |vpiFullName:work@top.foo.j
-              |vpiOperand:
-              \_constant: , line:6:23, endln:6:24
-                |vpiConstType:9
-                |vpiDecompile:4
-                |vpiSize:64
-                |UINT:4
-            |vpiForInitStmt:
-            \_assign_stmt: , parent:work@top.foo
-              |vpiRhs:
-              \_constant: , line:6:19, endln:6:20
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-              |vpiLhs:
-              \_int_var: (work@top.foo.j), line:6:12, endln:6:15
-                |vpiName:j
-                |vpiFullName:work@top.foo.j
-            |vpiForIncStmt:
-            \_operation: , line:6:26, endln:6:27, parent:work@top.foo
-              |vpiOpType:62
-              |vpiOperand:
-              \_ref_obj: (j), line:6:26, endln:6:27
-                |vpiName:j
-            |vpiStmt:
-            \_begin: (work@top.foo), line:6:31, endln:8:9, parent:work@top.foo
-              |vpiFullName:work@top.foo
-              |vpiStmt:
-              \_func_call: (f2), line:7:9, endln:7:17, parent:work@top.foo
-                |vpiName:f2
-                |vpiArgument:
-                \_ref_obj: (work@top.foo.j), line:7:12, endln:7:13, parent:f2
-                  |vpiName:j
-                  |vpiFullName:work@top.foo.j
-                |vpiArgument:
-                \_constant: , line:7:14, endln:7:15
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
+    \_module: work@top (work@top) dut.sv:1: , endln:11:9
     |vpiStmt:
     \_begin: (work@top.foo), parent:work@top.foo
       |vpiFullName:work@top.foo
@@ -791,10 +662,18 @@ design: (work@top)
             |vpiFullName:work@top.foo.i
           |vpiOperand:
           \_constant: , line:3:22, endln:3:23
+            |vpiConstType:9
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:3:18, endln:3:19
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
           |vpiLhs:
           \_int_var: (work@top.foo.i), line:3:12, endln:3:15
             |vpiName:i
@@ -816,6 +695,10 @@ design: (work@top)
               |vpiFullName:work@top.foo.i
             |vpiOperand:
             \_constant: , line:3:31, endln:3:32
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
         |vpiStmt:
         \_begin: (work@top.foo), line:3:34, endln:5:9, parent:work@top.foo
           |vpiFullName:work@top.foo
@@ -828,6 +711,10 @@ design: (work@top)
               |vpiFullName:work@top.foo.i
             |vpiArgument:
             \_constant: , line:4:14, endln:4:15
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
       |vpiStmt:
       \_for_stmt: (work@top.foo), line:6:6, endln:6:9, parent:work@top.foo
         |vpiFullName:work@top.foo
@@ -840,10 +727,18 @@ design: (work@top)
             |vpiFullName:work@top.foo.j
           |vpiOperand:
           \_constant: , line:6:23, endln:6:24
+            |vpiConstType:9
+            |vpiDecompile:4
+            |vpiSize:64
+            |UINT:4
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@top.foo
           |vpiRhs:
           \_constant: , line:6:19, endln:6:20
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
           |vpiLhs:
           \_int_var: (work@top.foo.j), line:6:12, endln:6:15
             |vpiName:j
@@ -867,6 +762,10 @@ design: (work@top)
               |vpiFullName:work@top.foo.j
             |vpiArgument:
             \_constant: , line:7:14, endln:7:15
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

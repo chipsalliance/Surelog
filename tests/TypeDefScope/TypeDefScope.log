@@ -177,7 +177,7 @@ design: (work@dut)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@dut
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -215,7 +215,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -237,7 +237,7 @@ design: (work@dut)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -259,7 +259,7 @@ design: (work@dut)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -398,7 +398,7 @@ design: (work@dut)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@dut
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -454,7 +454,7 @@ design: (work@dut)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -579,87 +579,7 @@ design: (work@dut)
     |vpiReturn:
     \_logic_var: 
     |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1: , endln:18:10, parent:work@dut
-      |vpiDefName:work@dut
-      |vpiFullName:work@dut
-      |vpiPort:
-      \_port: (a), line:1:12, parent:work@dut
-        |vpiName:a
-        |vpiDirection:5
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@dut.a), line:1:12, parent:work@dut
-            |vpiName:a
-            |vpiFullName:work@dut.a
-      |vpiPort:
-      \_port: (b), line:1:15, parent:work@dut
-        |vpiName:b
-        |vpiDirection:5
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@dut.b), line:1:15, parent:work@dut
-            |vpiName:b
-            |vpiFullName:work@dut.b
-      |vpiTaskFunc:
-      \_function: (work@dut.UVMC_set_config_object), line:3:3, endln:15:14, parent:work@dut
-        |vpiVisibility:1
-        |vpiName:UVMC_set_config_object
-        |vpiFullName:work@dut.UVMC_set_config_object
-        |vpiReturn:
-        \_logic_var: 
-        |vpiInstance:
-        \_module: work@dut (work@dut) dut.sv:1: , endln:18:10, parent:work@dut
-        |vpiIODecl:
-        \_io_decl: (type_name)
-          |vpiName:type_name
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:3:41, endln:3:47
-        |vpiIODecl:
-        \_io_decl: (contxt)
-          |vpiName:contxt
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:4:6, endln:4:12
-        |vpiIODecl:
-        \_io_decl: (inst_name)
-          |vpiName:inst_name
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:5:6, endln:5:12
-        |vpiIODecl:
-        \_io_decl: (field_name)
-          |vpiName:field_name
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:6:6, endln:6:12
-        |vpiIODecl:
-        \_io_decl: (value)
-          |vpiName:value
-          |vpiDirection:1
-          |vpiTypedef:
-          \_unsupported_typespec: (bits_t), line:7:6, endln:7:12
-            |vpiName:bits_t
-        |vpiStmt:
-        \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
-          |vpiFullName:work@dut.UVMC_set_config_object
-          |vpiTypedef:
-          \_logic_typespec: (converter2), line:9:8, endln:9:13
-            |vpiName:converter2
-        |vpiVariables:
-        \_chandle_var: (work@dut.UVMC_set_config_object.obj), line:11, endln:11:10
-          |vpiName:obj
-          |vpiFullName:work@dut.UVMC_set_config_object.obj
-        |vpiVariables:
-        \_chandle_var: (work@dut.UVMC_set_config_object.comp), line:12, endln:12:13
-          |vpiName:comp
-          |vpiFullName:work@dut.UVMC_set_config_object.comp
-      |vpiNet:
-      \_logic_net: (work@dut.a), line:1:12, parent:work@dut
-      |vpiNet:
-      \_logic_net: (work@dut.b), line:1:15, parent:work@dut
+    \_module: work@dut (work@dut) dut.sv:1: , endln:18:10
     |vpiIODecl:
     \_io_decl: (type_name), parent:work@dut.UVMC_set_config_object
       |vpiName:type_name
@@ -690,11 +610,13 @@ design: (work@dut)
       |vpiDirection:1
       |vpiTypedef:
       \_unsupported_typespec: (bits_t), line:7:6, endln:7:12
+        |vpiName:bits_t
     |vpiStmt:
     \_begin: (work@dut.UVMC_set_config_object), parent:work@dut.UVMC_set_config_object
       |vpiFullName:work@dut.UVMC_set_config_object
       |vpiTypedef:
       \_logic_typespec: (converter2), line:9:8, endln:9:13
+        |vpiName:converter2
     |vpiVariables:
     \_chandle_var: (work@dut.UVMC_set_config_object.obj), line:11, endln:11:10, parent:work@dut.UVMC_set_config_object
       |vpiName:obj
