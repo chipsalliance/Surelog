@@ -983,7 +983,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -1021,7 +1021,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -1043,7 +1043,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -1065,7 +1065,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -1204,7 +1204,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -1260,7 +1260,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -1770,491 +1770,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:24:19, endln:24:26
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiTaskFunc:
-      \_function: (work@top.vbits), line:24, endln:26:11, parent:work@top
-        |vpiVisibility:1
-        |vpiAutomatic:1
-        |vpiName:vbits
-        |vpiFullName:work@top.vbits
-        |vpiReturn:
-        \_int_var: , line:24:19, endln:24:26
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (value)
-          |vpiName:value
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:24:33, endln:24:40
-        |vpiStmt:
-        \_return_stmt: , line:25:2, endln:25:8, parent:work@top.vbits
-          |vpiCondition:
-          \_operation: , line:25:9, endln:25:21
-            |vpiOpType:32
-            |vpiOperand:
-            \_operation: , line:25:10, endln:25:20
-              |vpiOpType:14
-              |vpiOperand:
-              \_ref_obj: (work@top.vbits.value), line:25:10, endln:25:15
-                |vpiName:value
-                |vpiFullName:work@top.vbits.value
-              |vpiOperand:
-              \_constant: , line:25:19, endln:25:20
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-            |vpiOperand:
-            \_constant: , line:25:24, endln:25:25
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-            |vpiOperand:
-            \_sys_func_call: ($clog2), line:25:28, endln:25:41
-              |vpiName:$clog2
-              |vpiArgument:
-              \_ref_obj: (work@top.vbits.value), line:25:35, endln:25:40, parent:$clog2
-                |vpiName:value
-                |vpiFullName:work@top.vbits.value
-      |vpiTaskFunc:
-      \_function: (work@top.foo), line:28, endln:31:11, parent:work@top
-        |vpiVisibility:1
-        |vpiName:foo
-        |vpiFullName:work@top.foo
-        |vpiReturn:
-        \_int_var: , line:28:9, endln:28:16
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (value), line:29:14, endln:29:19, parent:work@top.foo
-          |vpiName:value
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:29:6, endln:29:13
-        |vpiStmt:
-        \_return_stmt: , line:30, endln:30:6, parent:work@top.foo
-          |vpiCondition:
-          \_ref_obj: (work@top.foo.value), line:30:7, endln:30:12
-            |vpiName:value
-            |vpiFullName:work@top.foo.value
-      |vpiTaskFunc:
-      \_function: (work@top.log2), line:33, endln:48:11, parent:work@top
-        |vpiVisibility:1
-        |vpiName:log2
-        |vpiFullName:work@top.log2
-        |vpiReturn:
-        \_int_var: , line:33:9, endln:33:16
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (value), line:34:14, endln:34:19, parent:work@top.log2
-          |vpiName:value
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:34:6, endln:34:13
-        |vpiStmt:
-        \_begin: (work@top.log2), line:37, endln:47:3, parent:work@top.log2
-          |vpiFullName:work@top.log2
-          |vpiStmt:
-          \_if_else: , line:38:1, endln:46:4, parent:work@top.log2
-            |vpiCondition:
-            \_operation: , line:38:5, endln:38:14
-              |vpiOpType:20
-              |vpiOperand:
-              \_ref_obj: (work@top.log2.value), line:38:5, endln:38:10, parent:work@top.log2
-                |vpiName:value
-                |vpiFullName:work@top.log2.value
-                |vpiActual:
-                \_io_decl: (value), line:34:14, endln:34:19, parent:work@top.log2
-              |vpiOperand:
-              \_constant: , line:38:13, endln:38:14
-                |vpiConstType:9
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-            |vpiStmt:
-            \_assignment: , line:39:2, endln:39:14
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@top.log2.log2), line:39:2, endln:39:6
-                |vpiName:log2
-                |vpiFullName:work@top.log2.log2
-              |vpiRhs:
-              \_ref_obj: (work@top.log2.value), line:39:9, endln:39:14
-                |vpiName:value
-                |vpiFullName:work@top.log2.value
-            |vpiElseStmt:
-            \_begin: (work@top.log2), line:41:1, endln:46:4
-              |vpiFullName:work@top.log2
-              |vpiStmt:
-              \_assignment: , line:42:2, endln:42:19, parent:work@top.log2
-                |vpiOpType:82
-                |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@top.log2.shifted), line:42:2, endln:42:9, parent:work@top.log2
-                  |vpiName:shifted
-                  |vpiFullName:work@top.log2.shifted
-                |vpiRhs:
-                \_operation: , line:42:12, endln:42:17, parent:work@top.log2
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (work@top.log2.value), line:42:12, endln:42:17, parent:work@top.log2
-                    |vpiName:value
-                    |vpiFullName:work@top.log2.value
-                  |vpiOperand:
-                  \_constant: , line:42:18, endln:42:19
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-              |vpiStmt:
-              \_for_stmt: (work@top.log2), line:43:2, endln:43:5, parent:work@top.log2
-                |vpiFullName:work@top.log2
-                |vpiCondition:
-                \_operation: , line:43:14, endln:43:21, parent:work@top.log2
-                  |vpiOpType:18
-                  |vpiOperand:
-                  \_ref_obj: (work@top.log2.shifted), line:43:14, endln:43:21
-                    |vpiName:shifted
-                    |vpiFullName:work@top.log2.shifted
-                  |vpiOperand:
-                  \_constant: , line:43:22, endln:43:23
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                |vpiForInitStmt:
-                \_assign_stmt: , parent:work@top.log2
-                  |vpiRhs:
-                  \_constant: , line:43:11, endln:43:12
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                  |vpiLhs:
-                  \_int_var: (work@top.log2.res), line:43:7, endln:43:10
-                    |vpiName:res
-                    |vpiFullName:work@top.log2.res
-                |vpiForIncStmt:
-                \_assignment: , line:43:25, endln:43:34, parent:work@top.log2
-                  |vpiOpType:82
-                  |vpiBlocking:1
-                  |vpiLhs:
-                  \_ref_obj: (work@top.log2.res), line:43:25, endln:43:28, parent:work@top.log2
-                    |vpiName:res
-                    |vpiFullName:work@top.log2.res
-                  |vpiRhs:
-                  \_operation: , line:43:29, endln:43:32, parent:work@top.log2
-                    |vpiOpType:24
-                    |vpiOperand:
-                    \_ref_obj: (work@top.log2.res), line:43:29, endln:43:32, parent:work@top.log2
-                      |vpiName:res
-                      |vpiFullName:work@top.log2.res
-                    |vpiOperand:
-                    \_constant: , line:43:33, endln:43:34
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                |vpiStmt:
-                \_assignment: , line:44:3, endln:44:23, parent:work@top.log2
-                  |vpiOpType:82
-                  |vpiBlocking:1
-                  |vpiLhs:
-                  \_ref_obj: (work@top.log2.shifted), line:44:3, endln:44:10, parent:work@top.log2
-                    |vpiName:shifted
-                    |vpiFullName:work@top.log2.shifted
-                  |vpiRhs:
-                  \_operation: , line:44:13, endln:44:20, parent:work@top.log2
-                    |vpiOpType:23
-                    |vpiOperand:
-                    \_ref_obj: (work@top.log2.shifted), line:44:13, endln:44:20, parent:work@top.log2
-                      |vpiName:shifted
-                      |vpiFullName:work@top.log2.shifted
-                    |vpiOperand:
-                    \_constant: , line:44:22, endln:44:23
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-              |vpiStmt:
-              \_assignment: , line:45:2, endln:45:12, parent:work@top.log2
-                |vpiOpType:82
-                |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@top.log2.log2), line:45:2, endln:45:6, parent:work@top.log2
-                  |vpiName:log2
-                  |vpiFullName:work@top.log2.log2
-                |vpiRhs:
-                \_ref_obj: (work@top.log2.res), line:45:9, endln:45:12, parent:work@top.log2
-                  |vpiName:res
-                  |vpiFullName:work@top.log2.res
-        |vpiVariables:
-        \_logic_var: (shifted), line:35, endln:35:3
-          |vpiName:shifted
-          |vpiRange:
-          \_range: , line:35:5, endln:35:9
-            |vpiLeftRange:
-            \_constant: , line:35:5, endln:35:7
-              |vpiConstType:9
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-            |vpiRightRange:
-            \_constant: , line:35:8, endln:35:9
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiTypespec:
-          \_logic_typespec: , line:35, endln:35:3
-            |vpiRange:
-            \_range: , line:35:5, endln:35:9, parent:work@top.log2
-              |vpiLeftRange:
-              \_constant: , line:35:5, endln:35:7
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:35:8, endln:35:9
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-        |vpiVariables:
-        \_int_var: (res), line:36, endln:36:7
-          |vpiName:res
-          |vpiTypespec:
-          \_int_typespec: , line:36, endln:36:7
-      |vpiTaskFunc:
-      \_function: (work@top.log2_2), line:51, endln:61:11, parent:work@top
-        |vpiVisibility:1
-        |vpiName:log2_2
-        |vpiFullName:work@top.log2_2
-        |vpiReturn:
-        \_int_var: , line:51:9, endln:51:16
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
-          |vpiName:value
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:52:6, endln:52:13
-        |vpiStmt:
-        \_begin: (work@top.log2_2), line:53, endln:60:3, parent:work@top.log2_2
-          |vpiFullName:work@top.log2_2
-          |vpiStmt:
-          \_assignment: , line:54, endln:54:10, parent:work@top.log2_2
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@top.log2_2.log2_2), line:54, endln:54:6, parent:work@top.log2_2
-              |vpiName:log2_2
-              |vpiFullName:work@top.log2_2.log2_2
-            |vpiRhs:
-            \_constant: , line:54:9, endln:54:10
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-          |vpiStmt:
-          \_if_stmt: , line:55, endln:59:3, parent:work@top.log2_2
-            |vpiCondition:
-            \_ref_obj: (work@top.log2_2.value), line:55:4, endln:55:9
-              |vpiName:value
-              |vpiFullName:work@top.log2_2.value
-              |vpiActual:
-              \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
-            |vpiStmt:
-            \_begin: (work@top.log2_2), line:55:11, endln:59:3
-              |vpiFullName:work@top.log2_2
-              |vpiStmt:
-              \_assignment: , line:56:4, endln:56:26, parent:work@top.log2_2
-                |vpiOpType:82
-                |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@top.log2_2.value), line:56:4, endln:56:9, parent:work@top.log2_2
-                  |vpiName:value
-                  |vpiFullName:work@top.log2_2.value
-                |vpiRhs:
-                \_operation: , line:56:12, endln:56:22, parent:work@top.log2_2
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_func_call: (foo), line:56:12, endln:56:22
-                    |vpiName:foo
-                    |vpiFunction:
-                    \_function: (work@top.foo), line:28, endln:31:11, parent:work@top
-                    |vpiArgument:
-                    \_ref_obj: (work@top.log2_2.value), line:56:16, endln:56:21, parent:foo
-                      |vpiName:value
-                      |vpiFullName:work@top.log2_2.value
-                  |vpiOperand:
-                  \_constant: , line:56:25, endln:56:26
-                    |vpiConstType:9
-                    |vpiDecompile:1
-                    |vpiSize:64
-                    |UINT:1
-              |vpiStmt:
-              \_for_stmt: (work@top.log2_2), line:57:4, endln:57:7, parent:work@top.log2_2
-                |vpiFullName:work@top.log2_2
-                |vpiCondition:
-                \_operation: , line:57:11, endln:57:16, parent:work@top.log2_2
-                  |vpiOpType:18
-                  |vpiOperand:
-                  \_ref_obj: (work@top.log2_2.value), line:57:11, endln:57:16
-                    |vpiName:value
-                    |vpiFullName:work@top.log2_2.value
-                  |vpiOperand:
-                  \_constant: , line:57:19, endln:57:20
-                    |vpiConstType:9
-                    |vpiDecompile:0
-                    |vpiSize:64
-                    |UINT:0
-                |vpiForIncStmt:
-                \_assignment: , line:57:22, endln:57:41, parent:work@top.log2_2
-                  |vpiOpType:82
-                  |vpiBlocking:1
-                  |vpiLhs:
-                  \_ref_obj: (work@top.log2_2.log2_2), line:57:22, endln:57:28, parent:work@top.log2_2
-                    |vpiName:log2_2
-                    |vpiFullName:work@top.log2_2.log2_2
-                  |vpiRhs:
-                  \_operation: , line:57:31, endln:57:37, parent:work@top.log2_2
-                    |vpiOpType:24
-                    |vpiOperand:
-                    \_ref_obj: (work@top.log2_2.log2_2), line:57:31, endln:57:37, parent:work@top.log2_2
-                      |vpiName:log2_2
-                      |vpiFullName:work@top.log2_2.log2_2
-                    |vpiOperand:
-                    \_constant: , line:57:40, endln:57:41
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-                |vpiStmt:
-                \_assignment: , line:58:5, endln:58:23, parent:work@top.log2_2
-                  |vpiOpType:82
-                  |vpiBlocking:1
-                  |vpiLhs:
-                  \_ref_obj: (work@top.log2_2.value), line:58:5, endln:58:10, parent:work@top.log2_2
-                    |vpiName:value
-                    |vpiFullName:work@top.log2_2.value
-                  |vpiRhs:
-                  \_operation: , line:58:13, endln:58:18, parent:work@top.log2_2
-                    |vpiOpType:23
-                    |vpiOperand:
-                    \_ref_obj: (work@top.log2_2.value), line:58:13, endln:58:18, parent:work@top.log2_2
-                      |vpiName:value
-                      |vpiFullName:work@top.log2_2.value
-                    |vpiOperand:
-                    \_constant: , line:58:22, endln:58:23
-                      |vpiConstType:9
-                      |vpiDecompile:1
-                      |vpiSize:64
-                      |UINT:1
-      |vpiParamAssign:
-      \_param_assign: , line:63:11, endln:63:21, parent:work@top
-        |vpiRhs:
-        \_constant: , line:63:19, endln:63:21
-          |vpiConstType:9
-          |vpiDecompile:30
-          |vpiSize:64
-          |UINT:30
-        |vpiLhs:
-        \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-          |vpiName:RATIO
-          |vpiFullName:work@top.RATIO
-          |vpiLocalParam:1
-          |UINT:30
-      |vpiParamAssign:
-      \_param_assign: , line:64:11, endln:64:35, parent:work@top
-        |vpiRhs:
-        \_func_call: (log2), line:64:24, endln:64:35
-          |vpiName:log2
-          |vpiFunction:
-          \_function: (work@top.log2), line:33, endln:48:11, parent:work@top
-          |vpiArgument:
-          \_ref_obj: (RATIO), line:64:29, endln:64:34, parent:log2
-            |vpiName:RATIO
-            |vpiActual:
-            \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-              |vpiName:RATIO
-              |vpiFullName:work@top.RATIO
-              |vpiLocalParam:1
-              |UINT:30
-        |vpiLhs:
-        \_parameter: (work@top.log2RATIO1), line:64:11, endln:64:35, parent:work@top
-          |vpiName:log2RATIO1
-          |vpiFullName:work@top.log2RATIO1
-          |vpiLocalParam:1
-      |vpiParamAssign:
-      \_param_assign: , line:65:11, endln:65:36, parent:work@top
-        |vpiRhs:
-        \_func_call: (vbits), line:65:24, endln:65:36
-          |vpiName:vbits
-          |vpiFunction:
-          \_function: (work@top.vbits), line:24, endln:26:11, parent:work@top
-          |vpiArgument:
-          \_ref_obj: (RATIO), line:65:30, endln:65:35, parent:vbits
-            |vpiName:RATIO
-            |vpiActual:
-            \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-        |vpiLhs:
-        \_parameter: (work@top.log2RATIO2), line:65:11, endln:65:36, parent:work@top
-          |vpiName:log2RATIO2
-          |vpiFullName:work@top.log2RATIO2
-          |vpiLocalParam:1
-      |vpiParamAssign:
-      \_param_assign: , line:66:11, endln:66:37, parent:work@top
-        |vpiRhs:
-        \_func_call: (log2_2), line:66:24, endln:66:37
-          |vpiName:log2_2
-          |vpiFunction:
-          \_function: (work@top.log2_2), line:51, endln:61:11, parent:work@top
-          |vpiArgument:
-          \_ref_obj: (RATIO), line:66:31, endln:66:36, parent:log2_2
-            |vpiName:RATIO
-            |vpiActual:
-            \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-        |vpiLhs:
-        \_parameter: (work@top.log2RATIO3), line:66:11, endln:66:37, parent:work@top
-          |vpiName:log2RATIO3
-          |vpiFullName:work@top.log2RATIO3
-          |vpiLocalParam:1
-      |vpiParamAssign:
-      \_param_assign: , line:67:11, endln:67:51, parent:work@top
-        |vpiRhs:
-        \_func_call: (prim_util_pkg::vbits), line:67:24, endln:67:51
-          |vpiName:prim_util_pkg::vbits
-          |vpiFunction:
-          \_function: (prim_util_pkg::vbits), line:12:2, endln:16:13, parent:prim_util_pkg::
-          |vpiArgument:
-          \_ref_obj: (RATIO), line:67:45, endln:67:50, parent:prim_util_pkg::vbits
-            |vpiName:RATIO
-            |vpiActual:
-            \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-        |vpiLhs:
-        \_parameter: (work@top.log2RATIO4), line:67:11, endln:67:51, parent:work@top
-          |vpiName:log2RATIO4
-          |vpiFullName:work@top.log2RATIO4
-          |vpiLocalParam:1
-      |vpiParameter:
-      \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
-      |vpiParameter:
-      \_parameter: (work@top.log2RATIO1), line:64:11, endln:64:35, parent:work@top
-      |vpiParameter:
-      \_parameter: (work@top.log2RATIO2), line:65:11, endln:65:36, parent:work@top
-      |vpiParameter:
-      \_parameter: (work@top.log2RATIO3), line:66:11, endln:66:37, parent:work@top
-      |vpiParameter:
-      \_parameter: (work@top.log2RATIO4), line:67:11, endln:67:51, parent:work@top
+    \_module: work@top (work@top) dut.sv:22: , endln:68:9
     |vpiIODecl:
     \_io_decl: (value), parent:work@top.vbits
       |vpiName:value
@@ -2277,8 +1793,16 @@ design: (work@top)
             \_io_decl: (value), parent:work@top.vbits
           |vpiOperand:
           \_constant: , line:25:19, endln:25:20
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
         |vpiOperand:
         \_constant: , line:25:24, endln:25:25
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
         |vpiOperand:
         \_sys_func_call: ($clog2), line:25:28, endln:25:41
           |vpiName:$clog2
@@ -2296,7 +1820,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:28:9, endln:28:16
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
+    \_module: work@top (work@top) dut.sv:22: , endln:68:9
     |vpiIODecl:
     \_io_decl: (value), line:29:14, endln:29:19, parent:work@top.foo
       |vpiName:value
@@ -2319,7 +1843,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:33:9, endln:33:16
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
+    \_module: work@top (work@top) dut.sv:22: , endln:68:9
     |vpiIODecl:
     \_io_decl: (value), line:34:14, endln:34:19, parent:work@top.log2
       |vpiName:value
@@ -2342,6 +1866,10 @@ design: (work@top)
             \_io_decl: (value), line:34:14, endln:34:19, parent:work@top.log2
           |vpiOperand:
           \_constant: , line:38:13, endln:38:14
+            |vpiConstType:9
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
         |vpiStmt:
         \_assignment: , line:39:2, endln:39:14
           |vpiOpType:82
@@ -2375,10 +1903,32 @@ design: (work@top)
                 \_range: , line:35:5, endln:35:9, parent:work@top.log2.shifted
                   |vpiLeftRange:
                   \_constant: , line:35:5, endln:35:7
+                    |vpiConstType:9
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |UINT:31
                   |vpiRightRange:
                   \_constant: , line:35:8, endln:35:9
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
                 |vpiTypespec:
                 \_logic_typespec: , line:35, endln:35:3
+                  |vpiRange:
+                  \_range: , line:35:5, endln:35:9, parent:work@top.log2
+                    |vpiLeftRange:
+                    \_constant: , line:35:5, endln:35:7
+                      |vpiConstType:9
+                      |vpiDecompile:31
+                      |vpiSize:64
+                      |UINT:31
+                    |vpiRightRange:
+                    \_constant: , line:35:8, endln:35:9
+                      |vpiConstType:9
+                      |vpiDecompile:0
+                      |vpiSize:64
+                      |UINT:0
             |vpiRhs:
             \_operation: , line:42:12, endln:42:17
               |vpiOpType:11
@@ -2390,6 +1940,10 @@ design: (work@top)
                 \_io_decl: (value), line:34:14, endln:34:19, parent:work@top.log2
               |vpiOperand:
               \_constant: , line:42:18, endln:42:19
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
           |vpiStmt:
           \_for_stmt: (work@top.log2), line:43:2, endln:43:5, parent:work@top.log2
             |vpiFullName:work@top.log2
@@ -2404,10 +1958,18 @@ design: (work@top)
                 \_logic_var: (work@top.log2.shifted), line:35, endln:35:3, parent:work@top.log2
               |vpiOperand:
               \_constant: , line:43:22, endln:43:23
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@top.log2
               |vpiRhs:
               \_constant: , line:43:11, endln:43:12
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
               |vpiLhs:
               \_int_var: (work@top.log2.res), line:43:7, endln:43:10
                 |vpiName:res
@@ -2437,6 +1999,10 @@ design: (work@top)
                   \_int_var: (work@top.log2.res), line:36, endln:36:7, parent:work@top.log2
                 |vpiOperand:
                 \_constant: , line:43:33, endln:43:34
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
             |vpiStmt:
             \_assignment: , line:44:3, endln:44:23, parent:work@top.log2
               |vpiOpType:82
@@ -2458,6 +2024,10 @@ design: (work@top)
                   \_logic_var: (work@top.log2.shifted), line:35, endln:35:3, parent:work@top.log2
                 |vpiOperand:
                 \_constant: , line:44:22, endln:44:23
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
           |vpiStmt:
           \_assignment: , line:45:2, endln:45:12, parent:work@top.log2
             |vpiOpType:82
@@ -2484,7 +2054,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:51:9, endln:51:16
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:22: , endln:68:9, parent:work@top
+    \_module: work@top (work@top) dut.sv:22: , endln:68:9
     |vpiIODecl:
     \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
       |vpiName:value
@@ -2504,6 +2074,10 @@ design: (work@top)
           |vpiFullName:work@top.log2_2.log2_2
         |vpiRhs:
         \_constant: , line:54:9, endln:54:10
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
       |vpiStmt:
       \_if_stmt: , line:55, endln:59:3, parent:work@top.log2_2
         |vpiCondition:
@@ -2541,6 +2115,10 @@ design: (work@top)
                   \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
               |vpiOperand:
               \_constant: , line:56:25, endln:56:26
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
           |vpiStmt:
           \_for_stmt: (work@top.log2_2), line:57:4, endln:57:7, parent:work@top.log2_2
             |vpiFullName:work@top.log2_2
@@ -2555,6 +2133,10 @@ design: (work@top)
                 \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
               |vpiOperand:
               \_constant: , line:57:19, endln:57:20
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
             |vpiForIncStmt:
             \_assignment: , line:57:22, endln:57:41, parent:work@top.log2_2
               |vpiOpType:82
@@ -2572,6 +2154,10 @@ design: (work@top)
                   |vpiFullName:work@top.log2_2.log2_2
                 |vpiOperand:
                 \_constant: , line:57:40, endln:57:41
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
             |vpiStmt:
             \_assignment: , line:58:5, endln:58:23, parent:work@top.log2_2
               |vpiOpType:82
@@ -2593,6 +2179,10 @@ design: (work@top)
                   \_io_decl: (value), line:52:14, endln:52:19, parent:work@top.log2_2
                 |vpiOperand:
                 \_constant: , line:58:22, endln:58:23
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:63:11, endln:63:21, parent:work@top
     |vpiRhs:
@@ -2603,6 +2193,10 @@ design: (work@top)
       |UINT:30
     |vpiLhs:
     \_parameter: (work@top.RATIO), line:63:11, endln:63:21, parent:work@top
+      |vpiName:RATIO
+      |vpiFullName:work@top.RATIO
+      |vpiLocalParam:1
+      |UINT:30
   |vpiParamAssign:
   \_param_assign: , line:64:11, endln:64:35, parent:work@top
     |vpiRhs:

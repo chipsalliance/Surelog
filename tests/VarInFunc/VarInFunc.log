@@ -194,7 +194,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -232,7 +232,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -254,7 +254,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -276,7 +276,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -415,7 +415,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -471,7 +471,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -658,93 +658,7 @@ design: (work@top)
           |vpiSize:64
           |UINT:0
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1: , endln:9:9, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiPort:
-      \_port: (a), line:1:17, parent:work@top
-        |vpiName:a
-        |vpiDirection:1
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@top.a), line:1:17, parent:work@top
-            |vpiName:a
-            |vpiFullName:work@top.a
-      |vpiPort:
-      \_port: (b), line:1:33, parent:work@top
-        |vpiName:b
-        |vpiDirection:2
-        |vpiLowConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (work@top.b), line:1:33, parent:work@top
-            |vpiName:b
-            |vpiFullName:work@top.b
-      |vpiContAssign:
-      \_cont_assign: , line:7:9, endln:7:33, parent:work@top
-        |vpiRhs:
-        \_func_call: (compute_next_state), line:7:13, endln:7:33
-          |vpiName:compute_next_state
-          |vpiFunction:
-          \_function: (work@top.compute_next_state), line:2:2, endln:6:34, parent:work@top
-        |vpiLhs:
-        \_ref_obj: (work@top.b), line:7:9, endln:7:10
-          |vpiName:b
-          |vpiFullName:work@top.b
-      |vpiTaskFunc:
-      \_function: (work@top.compute_next_state), line:2:2, endln:6:34, parent:work@top
-        |vpiVisibility:1
-        |vpiAutomatic:1
-        |vpiName:compute_next_state
-        |vpiFullName:work@top.compute_next_state
-        |vpiReturn:
-        \_logic_var: , line:2:21, endln:2:26
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:1: , endln:9:9, parent:work@top
-        |vpiStmt:
-        \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
-          |vpiFullName:work@top.compute_next_state
-          |vpiStmt:
-          \_assign_stmt: , line:4:4, endln:4:35, parent:work@top.compute_next_state
-            |vpiRhs:
-            \_constant: , line:4:31, endln:4:35
-              |vpiConstType:3
-              |vpiDecompile:3'b1
-              |vpiSize:3
-              |BIN:1
-            |vpiLhs:
-            \_ref_obj: (work@top.compute_next_state.function_variable), line:4:11, endln:4:28
-              |vpiName:function_variable
-              |vpiFullName:work@top.compute_next_state.function_variable
-          |vpiStmt:
-          \_return_stmt: , line:5:4, endln:5:10, parent:work@top.compute_next_state
-            |vpiCondition:
-            \_ref_obj: (work@top.compute_next_state.function_variable), line:5:11, endln:5:28
-              |vpiName:function_variable
-              |vpiFullName:work@top.compute_next_state.function_variable
-        |vpiVariables:
-        \_logic_var: (work@top.compute_next_state.function_variable), line:3:4, endln:3:9
-          |vpiName:function_variable
-          |vpiFullName:work@top.compute_next_state.function_variable
-          |vpiRange:
-          \_range: , line:3:11, endln:3:14, parent:work@top.compute_next_state
-            |vpiLeftRange:
-            \_constant: , line:3:11, endln:3:12
-              |vpiConstType:9
-              |vpiDecompile:2
-              |vpiSize:64
-              |UINT:2
-            |vpiRightRange:
-            \_constant: , line:3:13, endln:3:14
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-      |vpiNet:
-      \_logic_net: (work@top.a), line:1:17, parent:work@top
-      |vpiNet:
-      \_logic_net: (work@top.b), line:1:33, parent:work@top
+    \_module: work@top (work@top) dut.sv:1: , endln:9:9
     |vpiStmt:
     \_begin: (work@top.compute_next_state), parent:work@top.compute_next_state
       |vpiFullName:work@top.compute_next_state
@@ -752,6 +666,10 @@ design: (work@top)
       \_assign_stmt: , line:4:4, endln:4:35, parent:work@top.compute_next_state
         |vpiRhs:
         \_constant: , line:4:31, endln:4:35
+          |vpiConstType:3
+          |vpiDecompile:3'b1
+          |vpiSize:3
+          |BIN:1
         |vpiLhs:
         \_ref_obj: (work@top.compute_next_state.function_variable), line:4:11, endln:4:28
           |vpiName:function_variable
@@ -764,8 +682,16 @@ design: (work@top)
             \_range: , line:3:11, endln:3:14, parent:work@top.compute_next_state.function_variable
               |vpiLeftRange:
               \_constant: , line:3:11, endln:3:12
+                |vpiConstType:9
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
               |vpiRightRange:
               \_constant: , line:3:13, endln:3:14
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
       |vpiStmt:
       \_return_stmt: , line:5:4, endln:5:10, parent:work@top.compute_next_state
         |vpiCondition:

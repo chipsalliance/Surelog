@@ -360,7 +360,7 @@ design: (work@gen_errors)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@gen_errors
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -398,7 +398,7 @@ design: (work@gen_errors)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -420,7 +420,7 @@ design: (work@gen_errors)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -442,7 +442,7 @@ design: (work@gen_errors)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -581,7 +581,7 @@ design: (work@gen_errors)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@gen_errors
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -637,7 +637,7 @@ design: (work@gen_errors)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -777,130 +777,29 @@ design: (work@gen_errors)
     |vpiName:A
     |vpiFullName:work@gen_errors.A
     |vpiInstance:
-    \_module: work@gen_errors (work@gen_errors) dut.sv:18: , endln:38:9, parent:work@gen_errors
-      |vpiDefName:work@gen_errors
-      |vpiFullName:work@gen_errors
-      |vpiTaskFunc:
-      \_task: (work@gen_errors.A), line:20:3, endln:35:10, parent:work@gen_errors
-        |vpiVisibility:1
-        |vpiName:A
-        |vpiFullName:work@gen_errors.A
-        |vpiInstance:
-        \_module: work@gen_errors (work@gen_errors) dut.sv:18: , endln:38:9, parent:work@gen_errors
-        |vpiIODecl:
-        \_io_decl: (l), line:21:25, endln:21:26, parent:work@gen_errors.A
-          |vpiName:l
-          |vpiDirection:1
-          |vpiTypedef:
-          \_packed_array_typespec: , line:21:11, endln:21:24
-            |vpiIndexTypespec:
-            \_int_typespec: 
-            |vpiRange:
-            \_range: , line:21:12, endln:21:23
-              |vpiLeftRange:
-              \_constant: , line:21:12, endln:21:19
-                |vpiConstType:7
-                |vpiDecompile:7
-                |vpiSize:64
-                |INT:7
-              |vpiRightRange:
-              \_constant: , line:21:22, endln:21:23
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-        |vpiIODecl:
-        \_io_decl: (B), line:23:12, endln:23:13, parent:work@gen_errors.A
-          |vpiName:B
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:24:5, endln:24:12
-        |vpiIODecl:
-        \_io_decl: (C), line:25:13, endln:25:14, parent:work@gen_errors.A
-          |vpiName:C
-          |vpiDirection:2
-          |vpiTypedef:
-          \_int_typespec: , line:26:5, endln:26:12
-        |vpiIODecl:
-        \_io_decl: (E), line:27:18, endln:27:19, parent:work@gen_errors.A
-          |vpiName:E
-          |vpiDirection:3
-          |vpiTypedef:
-          \_logic_typespec: , line:28:5, endln:28:8
-            |vpiRange:
-            \_range: , line:28:12, endln:28:16, parent:work@gen_errors.A
-              |vpiLeftRange:
-              \_constant: , line:28:12, endln:28:14
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:28:15, endln:28:16
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-        |vpiStmt:
-        \_begin: (work@gen_errors.A), parent:work@gen_errors.A
-          |vpiFullName:work@gen_errors.A
-          |vpiStmt:
-          \_begin: (work@gen_errors.A), line:31:5, endln:33:8, parent:work@gen_errors.A
-            |vpiFullName:work@gen_errors.A
-            |vpiStmt:
-            \_assignment: , line:32:7, endln:32:12, parent:work@gen_errors.A
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@gen_errors.A.C), line:32:7, endln:32:8, parent:work@gen_errors.A
-                |vpiName:C
-                |vpiFullName:work@gen_errors.A.C
-                |vpiActual:
-                \_io_decl: (C), line:25:13, endln:25:14, parent:work@gen_errors.A
-              |vpiRhs:
-              \_ref_obj: (work@gen_errors.A.B), line:32:11, endln:32:12, parent:work@gen_errors.A
-                |vpiName:B
-                |vpiFullName:work@gen_errors.A.B
-                |vpiActual:
-                \_io_decl: (B), line:23:12, endln:23:13, parent:work@gen_errors.A
-        |vpiVariables:
-        \_int_var: (internal), line:29:5, endln:29:12
-          |vpiName:internal
-          |vpiTypespec:
-          \_int_typespec: , line:29:5, endln:29:12
-        |vpiParamAssign:
-        \_param_assign: , line:30:15, endln:30:29, parent:work@gen_errors.A
-          |vpiRhs:
-          \_constant: , line:30:22, endln:30:29
-            |vpiConstType:9
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
-          |vpiLhs:
-          \_parameter: (llen), line:30:15, endln:30:29
-            |vpiName:llen
-            |vpiLocalParam:1
-      |vpiParamAssign:
-      \_param_assign: , line:19:11, endln:19:22, parent:work@gen_errors
-        |vpiRhs:
-        \_constant: , line:19:21, endln:19:22
-          |vpiConstType:9
-          |vpiDecompile:8
-          |vpiSize:64
-          |UINT:8
-        |vpiLhs:
-        \_parameter: (work@gen_errors.width_a), line:19:11, endln:19:22, parent:work@gen_errors
-          |vpiName:width_a
-          |vpiFullName:work@gen_errors.width_a
-          |UINT:8
-      |vpiParameter:
-      \_parameter: (work@gen_errors.width_a), line:19:11, endln:19:22, parent:work@gen_errors
+    \_module: work@gen_errors (work@gen_errors) dut.sv:18: , endln:38:9
     |vpiIODecl:
     \_io_decl: (l), line:21:25, endln:21:26, parent:work@gen_errors.A
       |vpiName:l
       |vpiDirection:1
       |vpiTypedef:
       \_packed_array_typespec: , line:21:11, endln:21:24
+        |vpiIndexTypespec:
+        \_int_typespec: 
+        |vpiRange:
+        \_range: , line:21:12, endln:21:23
+          |vpiLeftRange:
+          \_constant: , line:21:12, endln:21:19
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:64
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:21:22, endln:21:23
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
     |vpiIODecl:
     \_io_decl: (B), line:23:12, endln:23:13, parent:work@gen_errors.A
       |vpiName:B
@@ -919,6 +818,20 @@ design: (work@gen_errors)
       |vpiDirection:3
       |vpiTypedef:
       \_logic_typespec: , line:28:5, endln:28:8
+        |vpiRange:
+        \_range: , line:28:12, endln:28:16, parent:work@gen_errors.A
+          |vpiLeftRange:
+          \_constant: , line:28:12, endln:28:14
+            |vpiConstType:9
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+          |vpiRightRange:
+          \_constant: , line:28:15, endln:28:16
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
     |vpiStmt:
     \_begin: (work@gen_errors.A), parent:work@gen_errors.A
       |vpiFullName:work@gen_errors.A
@@ -935,12 +848,20 @@ design: (work@gen_errors)
             |vpiFullName:work@gen_errors.A.C
             |vpiActual:
             \_io_decl: (C), line:25:13, endln:25:14, parent:work@gen_errors.A
+              |vpiName:C
+              |vpiDirection:2
+              |vpiTypedef:
+              \_int_typespec: , line:26:5, endln:26:12
           |vpiRhs:
           \_ref_obj: (work@gen_errors.A.B), line:32:11, endln:32:12
             |vpiName:B
             |vpiFullName:work@gen_errors.A.B
             |vpiActual:
             \_io_decl: (B), line:23:12, endln:23:13, parent:work@gen_errors.A
+              |vpiName:B
+              |vpiDirection:1
+              |vpiTypedef:
+              \_int_typespec: , line:24:5, endln:24:12
     |vpiVariables:
     \_int_var: (work@gen_errors.A.internal), line:29:5, endln:29:12, parent:work@gen_errors.A
       |vpiName:internal
@@ -951,6 +872,10 @@ design: (work@gen_errors)
     \_param_assign: , line:30:15, endln:30:29, parent:work@gen_errors.A
       |vpiRhs:
       \_constant: , line:30:22, endln:30:29
+        |vpiConstType:9
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
       |vpiLhs:
       \_parameter: (work@gen_errors.A.llen), line:30:15, endln:30:29
         |vpiName:llen

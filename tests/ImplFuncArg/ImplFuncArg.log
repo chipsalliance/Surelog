@@ -133,7 +133,7 @@ design: (work@fsm_2_always_block)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@fsm_2_always_block
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -171,7 +171,7 @@ design: (work@fsm_2_always_block)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -193,7 +193,7 @@ design: (work@fsm_2_always_block)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -215,7 +215,7 @@ design: (work@fsm_2_always_block)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -354,7 +354,7 @@ design: (work@fsm_2_always_block)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@fsm_2_always_block
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -410,7 +410,7 @@ design: (work@fsm_2_always_block)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -488,66 +488,27 @@ design: (work@fsm_2_always_block)
     |vpiReturn:
     \_logic_var: 
     |vpiInstance:
-    \_module: work@fsm_2_always_block (work@fsm_2_always_block) dut.sv:1: , endln:8:9, parent:work@fsm_2_always_block
-      |vpiDefName:work@fsm_2_always_block
-      |vpiFullName:work@fsm_2_always_block
-      |vpiTaskFunc:
-      \_function: (work@fsm_2_always_block.stateAsmt), line:4, endln:6:11, parent:work@fsm_2_always_block
-        |vpiVisibility:1
-        |vpiName:stateAsmt
-        |vpiFullName:work@fsm_2_always_block.stateAsmt
-        |vpiReturn:
-        \_logic_var: 
-        |vpiInstance:
-        \_module: work@fsm_2_always_block (work@fsm_2_always_block) dut.sv:1: , endln:8:9, parent:work@fsm_2_always_block
-        |vpiIODecl:
-        \_io_decl: (curr_state)
-          |vpiName:curr_state
-          |vpiDirection:1
-          |vpiTypedef:
-          \_logic_typespec: , line:4:19, endln:4:22
-            |vpiRange:
-            \_range: , line:4:24, endln:4:27
-              |vpiLeftRange:
-              \_constant: , line:4:24, endln:4:25
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
-              |vpiRightRange:
-              \_constant: , line:4:26, endln:4:27
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-        |vpiIODecl:
-        \_io_decl: (next_state)
-          |vpiName:next_state
-          |vpiDirection:1
-          |vpiTypedef:
-          \_logic_typespec: , line:4:19, endln:4:22
-        |vpiStmt:
-        \_assignment: , line:5:5, endln:5:28, parent:work@fsm_2_always_block.stateAsmt
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@fsm_2_always_block.stateAsmt.curr_state), line:5:5, endln:5:15, parent:work@fsm_2_always_block.stateAsmt
-            |vpiName:curr_state
-            |vpiFullName:work@fsm_2_always_block.stateAsmt.curr_state
-            |vpiActual:
-            \_io_decl: (curr_state)
-          |vpiRhs:
-          \_ref_obj: (work@fsm_2_always_block.stateAsmt.next_state), line:5:18, endln:5:28, parent:work@fsm_2_always_block.stateAsmt
-            |vpiName:next_state
-            |vpiFullName:work@fsm_2_always_block.stateAsmt.next_state
-            |vpiActual:
-            \_io_decl: (next_state)
+    \_module: work@fsm_2_always_block (work@fsm_2_always_block) dut.sv:1: , endln:8:9
     |vpiIODecl:
     \_io_decl: (curr_state), parent:work@fsm_2_always_block.stateAsmt
       |vpiName:curr_state
       |vpiDirection:1
       |vpiTypedef:
       \_logic_typespec: , line:4:19, endln:4:22
+        |vpiRange:
+        \_range: , line:4:24, endln:4:27
+          |vpiLeftRange:
+          \_constant: , line:4:24, endln:4:25
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+          |vpiRightRange:
+          \_constant: , line:4:26, endln:4:27
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
     |vpiIODecl:
     \_io_decl: (next_state), parent:work@fsm_2_always_block.stateAsmt
       |vpiName:next_state

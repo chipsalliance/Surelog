@@ -174,7 +174,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4: , endln:30:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (bound), parent:work@mailbox::new
+    \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
       |vpiTypedef:
@@ -212,7 +212,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_put
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:1
   |vpiMethod:
@@ -234,7 +234,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:21:11, endln:21:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_get
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
   |vpiMethod:
@@ -256,7 +256,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:27:11, endln:27:14
     |vpiIODecl:
-    \_io_decl: (message), parent:work@mailbox::try_peek
+    \_io_decl: (message)
       |vpiName:message
       |vpiDirection:6
 |uhdmallClasses:
@@ -395,7 +395,7 @@ design: (work@top)
         |vpiClassDefn:
         \_class_defn: (work@semaphore) ${SURELOG_DIR}/build/bin/sv/builtin.sv:58: , endln:72:8, parent:work@top
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::new
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -451,7 +451,7 @@ design: (work@top)
     |vpiReturn:
     \_int_var: , line:69:11, endln:69:14
     |vpiIODecl:
-    \_io_decl: (keyCount), parent:work@semaphore::try_get
+    \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
       |vpiTypedef:
@@ -562,93 +562,7 @@ design: (work@top)
     |vpiReturn:
     \_bit_var: , line:3:12, endln:3:15
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1: , endln:18:9, parent:work@top
-      |vpiDefName:work@top
-      |vpiFullName:work@top
-      |vpiTaskFunc:
-      \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
-        |vpiVisibility:1
-        |vpiName:m_matches_type_pair
-        |vpiFullName:work@top.m_matches_type_pair
-        |vpiReturn:
-        \_bit_var: , line:3:12, endln:3:15
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:1: , endln:18:9, parent:work@top
-        |vpiIODecl:
-        \_io_decl: (match_type_pair)
-          |vpiName:match_type_pair
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:3:36, endln:3:42
-        |vpiIODecl:
-        \_io_decl: (requested_type)
-          |vpiName:requested_type
-          |vpiDirection:1
-          |vpiTypedef:
-          \_string_typespec: , line:4:6, endln:4:12
-      |vpiTaskFunc:
-      \_function: (work@top.func), line:7:3, endln:16:14, parent:work@top
-        |vpiVisibility:1
-        |vpiName:func
-        |vpiFullName:work@top.func
-        |vpiReturn:
-        \_logic_var: 
-        |vpiInstance:
-        \_module: work@top (work@top) dut.sv:1: , endln:18:9, parent:work@top
-        |vpiStmt:
-        \_begin: (work@top.func), parent:work@top.func
-          |vpiFullName:work@top.func
-          |vpiStmt:
-          \_func_call: (m_matches_type_pair), line:8:6, endln:9:51, parent:work@top.func
-            |vpiName:m_matches_type_pair
-            |vpiFunction:
-            \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
-            |vpiArgument:
-            \_constant: , line:8:43, endln:8:46
-              |vpiConstType:6
-              |vpiDecompile:a
-              |vpiSize:1
-              |STRING:a
-            |vpiArgument:
-            \_constant: , line:9:45, endln:9:48
-              |vpiConstType:6
-              |vpiDecompile:b
-              |vpiSize:1
-              |STRING:b
-          |vpiStmt:
-          \_func_call: (m_matches_type_pair), line:11:6, endln:11:36, parent:work@top.func
-            |vpiName:m_matches_type_pair
-            |vpiFunction:
-            \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
-            |vpiArgument:
-            \_constant: , line:11:26, endln:11:29
-              |vpiConstType:6
-              |vpiDecompile:c
-              |vpiSize:1
-              |STRING:c
-            |vpiArgument:
-            \_constant: , line:11:31, endln:11:34
-              |vpiConstType:6
-              |vpiDecompile:d
-              |vpiSize:1
-              |STRING:d
-          |vpiStmt:
-          \_func_call: (m_matches_type_pair), line:13:6, endln:14:52, parent:work@top.func
-            |vpiName:m_matches_type_pair
-            |vpiFunction:
-            \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
-            |vpiArgument:
-            \_constant: , line:14:46, endln:14:49
-              |vpiConstType:6
-              |vpiDecompile:f
-              |vpiSize:1
-              |STRING:f
-            |vpiArgument:
-            \_constant: , line:13:42, endln:13:45
-              |vpiConstType:6
-              |vpiDecompile:e
-              |vpiSize:1
-              |STRING:e
+    \_module: work@top (work@top) dut.sv:1: , endln:18:9
     |vpiIODecl:
     \_io_decl: (match_type_pair), parent:work@top.m_matches_type_pair
       |vpiName:match_type_pair
@@ -669,7 +583,7 @@ design: (work@top)
     |vpiReturn:
     \_logic_var: 
     |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1: , endln:18:9, parent:work@top
+    \_module: work@top (work@top) dut.sv:1: , endln:18:9
     |vpiStmt:
     \_begin: (work@top.func), parent:work@top.func
       |vpiFullName:work@top.func
@@ -680,8 +594,16 @@ design: (work@top)
         \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
         |vpiArgument:
         \_constant: , line:8:43, endln:8:46
+          |vpiConstType:6
+          |vpiDecompile:a
+          |vpiSize:1
+          |STRING:a
         |vpiArgument:
         \_constant: , line:9:45, endln:9:48
+          |vpiConstType:6
+          |vpiDecompile:b
+          |vpiSize:1
+          |STRING:b
       |vpiStmt:
       \_func_call: (m_matches_type_pair), line:11:6, endln:11:36, parent:work@top.func
         |vpiName:m_matches_type_pair
@@ -689,8 +611,16 @@ design: (work@top)
         \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
         |vpiArgument:
         \_constant: , line:11:26, endln:11:29
+          |vpiConstType:6
+          |vpiDecompile:c
+          |vpiSize:1
+          |STRING:c
         |vpiArgument:
         \_constant: , line:11:31, endln:11:34
+          |vpiConstType:6
+          |vpiDecompile:d
+          |vpiSize:1
+          |STRING:d
       |vpiStmt:
       \_func_call: (m_matches_type_pair), line:13:6, endln:14:52, parent:work@top.func
         |vpiName:m_matches_type_pair
@@ -698,8 +628,16 @@ design: (work@top)
         \_function: (work@top.m_matches_type_pair), line:3:3, endln:5:14, parent:work@top
         |vpiArgument:
         \_constant: , line:14:46, endln:14:49
+          |vpiConstType:6
+          |vpiDecompile:f
+          |vpiSize:1
+          |STRING:f
         |vpiArgument:
         \_constant: , line:13:42, endln:13:45
+          |vpiConstType:6
+          |vpiDecompile:e
+          |vpiSize:1
+          |STRING:e
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
