@@ -1680,6 +1680,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                         nullptr, true, false));
     if (var) {
       var->VpiName("");
+    } else {
+      var = s.MakeLogic_var();
     }
     func->Return(var);
   }
