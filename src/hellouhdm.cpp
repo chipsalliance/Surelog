@@ -142,8 +142,7 @@ int main(int argc, const char** argv) {
     vpi_release_handle(modItr);
 
     // Instance tree:
-    // Instance tree (all sizes evaluated) contains instances, elaborated nets
-    // (with ranges)
+    // Elaborated Instance tree
     result += "Instance Tree:\n";
     vpiHandle instItr = vpi_iterate(UHDM::uhdmtopModules, the_design);
     while (vpiHandle obj_h = vpi_scan(instItr)) {
@@ -161,19 +160,35 @@ int main(int argc, const char** argv) {
               }
               objectName = std::string("(") + s + std::string(")");
             }
+            std::string f;
+            if (const char* s = vpi_get_str(vpiFile, obj_h)) {
+              f = s;
+            }
             res += margin + "+ module: " + defName + objectName +
-                   ", file:" + std::string(vpi_get_str(vpiFile, obj_h)) +
+                   ", file:" + f +
                    ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h)) + "\n";
-            // ...
-            // Iterate thru ports/nets/low conn/high conn
-            // ...
 
             // Recursive tree traversal
-            vpiHandle subItr = vpi_iterate(vpiModule, obj_h);
             margin = "  " + margin;
+            vpiHandle subItr = vpi_iterate(vpiModule, obj_h);
             while (vpiHandle sub_h = vpi_scan(subItr)) {
               res += inst_visit(sub_h, margin);
+              vpi_release_handle(sub_h);
             }
+            vpi_release_handle(subItr);
+            subItr = vpi_iterate(vpiGenScopeArray, obj_h);
+            while (vpiHandle sub_h = vpi_scan(subItr)) {
+              res += inst_visit(sub_h, margin);
+              vpi_release_handle(sub_h);
+            }
+            vpi_release_handle(subItr);
+            subItr = vpi_iterate(vpiGenScope, obj_h);
+            while (vpiHandle sub_h = vpi_scan(subItr)) {
+              res += inst_visit(sub_h, margin);
+              vpi_release_handle(sub_h);
+            }
+            vpi_release_handle(subItr);
+
             return res;
           };
       result += inst_visit(obj_h, "");
