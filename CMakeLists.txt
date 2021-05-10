@@ -600,6 +600,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.h
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.h
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.h
+        ${PROJECT_SOURCE_DIR}/src/ErrorReporting/LogListener.h
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.h
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/ErrorReporting)
