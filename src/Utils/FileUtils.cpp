@@ -264,7 +264,7 @@ std::string FileUtils::hashPath(const std::string& path) {
   if (last_dir.size()) last_dir.erase(last_dir.end() - 1);
   char c = separator[0];
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
-                          [c](char ch) { return (ch == c); });
+                          [](char ch) { return (ch == '/' || ch == '\\'); });
   if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
 
   hashedpath = last_dir + "_" + std::to_string(val) + separator;
