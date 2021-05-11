@@ -262,7 +262,6 @@ std::string FileUtils::hashPath(const std::string& path) {
   std::size_t val = std::hash<std::string>{}(path);
   std::string last_dir = path;
   if (last_dir.size()) last_dir.erase(last_dir.end() - 1);
-  char c = separator[0];
   auto it1 = std::find_if(last_dir.rbegin(), last_dir.rend(),
                           [](char ch) { return (ch == '/' || ch == '\\'); });
   if (it1 != last_dir.rend()) last_dir.erase(last_dir.begin(), it1.base());
