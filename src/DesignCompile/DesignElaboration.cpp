@@ -652,7 +652,6 @@ ModuleInstance* DesignElaboration::createBindInstance_(
     }
   }
   if (instance) {
-    /* return value ignored, no binding in binding */
     std::vector<ModuleInstance*> parentSubInstances;
     instance->setInstanceBinding(parent);
     NodeId parameterOverloading = fC->Sibling(bindNodeId);
@@ -901,6 +900,7 @@ void DesignElaboration::elaborateInstance_(
           }
         }
         parent->deleteValue(name, m_exprBuilder);
+        /*
         if (allSubInstances.size()) {
           ModuleInstance** children =
               new ModuleInstance*[allSubInstances.size()];
@@ -910,6 +910,7 @@ void DesignElaboration::elaborateInstance_(
           }
           parent->addSubInstances(children, allSubInstances.size());
         }
+        */
         continue;
 
       } else {  // If-Else or Case stmt
@@ -1078,10 +1079,14 @@ void DesignElaboration::elaborateInstance_(
 
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, indexedModName);
-      elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
-                         factory, child, config, allSubInstances);
+      while (childId) {    
+        elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
+                           factory, child, config, allSubInstances);
+        childId = fC->Sibling(childId);
+        if (fC->Type(childId) == slEnd) break;
+      }
       allSubInstances.push_back(child);
-
+     
     }
     // Named blocks
     else if (type == slSeq_block || type == slPar_block) {
@@ -1338,11 +1343,16 @@ void DesignElaboration::elaborateInstance_(
   }
   // Record sub-scopes and sub-instances
   if (allSubInstances.size()) {
-    ModuleInstance** children = new ModuleInstance*[allSubInstances.size()];
-    for (unsigned int index = 0; index < allSubInstances.size(); index++) {
-      children[index] = allSubInstances[index];
+    unsigned int nbExisting = parent->getNbChildren(); 
+    ModuleInstance** children = new ModuleInstance*[allSubInstances.size() + nbExisting];
+    unsigned int index = 0;
+    for (; index < nbExisting; index++) {
+      children[index] = parent->getChildren(index);
     }
-    parent->addSubInstances(children, allSubInstances.size());
+    for (; index < allSubInstances.size() + nbExisting; index++) {
+      children[index] = allSubInstances[index - nbExisting];
+    }
+    parent->addSubInstances(children, allSubInstances.size() + nbExisting);
   }
 }
 

@@ -676,6 +676,10 @@ n<> u<631> t<Top_level_rule> l<1:0> el<118:0>
 
 [INF:CP0335] top.v:89: Compile generate block "work@test2.pp2.u1".
 
+[INF:CP0335] top.v:102: Compile generate block "work@test2.pp2.genblk1".
+
+[INF:CP0335] top.v:108: Compile generate block "work@test2.pp2.n5".
+
 Instance tree:
 [TOP] work@test1 work@test1
 [TOP] work@test2 work@test2
@@ -687,10 +691,14 @@ Instance tree:
 [SCO] work@test1.genblk1.genblk1.genblk1 work@test1.genblk1.genblk1
 [SCO] work@test1.genblk1.genblk1.n5 work@test1.genblk1.n5
 [SCO] work@test2.pp2.u1 work@test2.pp2.u1
+[SCO] work@test2.pp2.genblk1 work@test2.pp2.genblk1
+[SCO] work@test2.pp2.n5 work@test2.pp2.n5
 [GAT] work@xnor work@test1.genblk1.u1.g3
 [GAT] work@xnor work@test1.genblk1.genblk1.g4
 [GAT] work@xnor work@test1.genblk1.n5.g5
 [GAT] work@xnor work@test2.pp2.u1.g3
+[GAT] work@xnor work@test2.pp2.genblk1.g4
+[GAT] work@xnor work@test2.pp2.n5.g5
 
 [NTE:EL0503] top.v:1: Top level module "work@test1".
 
@@ -702,9 +710,9 @@ Instance tree:
 
 [NTE:EL0509] Max instance depth: 4.
 
-[NTE:EL0510] Nb instances: 8.
+[NTE:EL0510] Nb instances: 10.
 
-[NTE:EL0511] Nb leaf instances: 6.
+[NTE:EL0511] Nb leaf instances: 8.
 
 [NTE:EL0523] top.v:1: Instance "work@test1".
 
@@ -726,6 +734,10 @@ Instance tree:
 
 [NTE:EL0522] top.v:89: Scope "work@test2.pp2.u1".
 
+[NTE:EL0522] top.v:102: Scope "work@test2.pp2.genblk1".
+
+[NTE:EL0522] top.v:108: Scope "work@test2.pp2.n5".
+
 [NTE:EL0523] top.v:39: Instance "work@test1.genblk1.u1.g3".
 
 [NTE:EL0523] top.v:45: Instance "work@test1.genblk1.genblk1.g4".
@@ -733,6 +745,10 @@ Instance tree:
 [NTE:EL0523] top.v:51: Instance "work@test1.genblk1.n5.g5".
 
 [NTE:EL0523] top.v:98: Instance "work@test2.pp2.u1.g3".
+
+[NTE:EL0523] top.v:104: Instance "work@test2.pp2.genblk1.g4".
+
+[NTE:EL0523] top.v:110: Instance "work@test2.pp2.n5.g5".
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -1410,6 +1426,72 @@ design: (work@test1)
               |vpiExpr:
               \_ref_obj: (c), line:98:24, endln:98:25
                 |vpiName:c
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@test2.pp2.genblk1), line:102, parent:work@test2.pp2
+        |vpiName:genblk1
+        |vpiFullName:work@test2.pp2.genblk1
+        |vpiGenScope:
+        \_gen_scope: (work@test2.pp2.genblk1), parent:work@test2.pp2.genblk1
+          |vpiFullName:work@test2.pp2.genblk1
+          |vpiPrimitive:
+          \_gate: work@xnor (work@test2.pp2.genblk1.g4), line:104, parent:work@test2.pp2.genblk1
+            |vpiDefName:work@xnor
+            |vpiName:g4
+            |vpiFullName:work@test2.pp2.genblk1.g4
+            |vpiPrimType:6
+            |vpiPrimTerm:
+            \_prim_term: , line:104:16, parent:work@test2.pp2.genblk1.g4
+              |vpiDirection:2
+              |vpiExpr:
+              \_ref_obj: (a), line:104:16, endln:104:17
+                |vpiName:a
+            |vpiPrimTerm:
+            \_prim_term: , line:104:19, parent:work@test2.pp2.genblk1.g4
+              |vpiDirection:1
+              |vpiTermIndex:1
+              |vpiExpr:
+              \_ref_obj: (b), line:104:19, endln:104:20
+                |vpiName:b
+            |vpiPrimTerm:
+            \_prim_term: , line:104:22, parent:work@test2.pp2.genblk1.g4
+              |vpiDirection:1
+              |vpiTermIndex:2
+              |vpiExpr:
+              \_ref_obj: (c), line:104:22, endln:104:23
+                |vpiName:c
+      |vpiGenScopeArray:
+      \_gen_scope_array: (work@test2.pp2.n5), line:108, parent:work@test2.pp2
+        |vpiName:n5
+        |vpiFullName:work@test2.pp2.n5
+        |vpiGenScope:
+        \_gen_scope: (work@test2.pp2.n5), parent:work@test2.pp2.n5
+          |vpiFullName:work@test2.pp2.n5
+          |vpiPrimitive:
+          \_gate: work@xnor (work@test2.pp2.n5.g5), line:110, parent:work@test2.pp2.n5
+            |vpiDefName:work@xnor
+            |vpiName:g5
+            |vpiFullName:work@test2.pp2.n5.g5
+            |vpiPrimType:6
+            |vpiPrimTerm:
+            \_prim_term: , line:110:16, parent:work@test2.pp2.n5.g5
+              |vpiDirection:2
+              |vpiExpr:
+              \_ref_obj: (a), line:110:16, endln:110:17
+                |vpiName:a
+            |vpiPrimTerm:
+            \_prim_term: , line:110:19, parent:work@test2.pp2.n5.g5
+              |vpiDirection:1
+              |vpiTermIndex:1
+              |vpiExpr:
+              \_ref_obj: (b), line:110:19, endln:110:20
+                |vpiName:b
+            |vpiPrimTerm:
+            \_prim_term: , line:110:22, parent:work@test2.pp2.n5.g5
+              |vpiDirection:1
+              |vpiTermIndex:2
+              |vpiExpr:
+              \_ref_obj: (c), line:110:22, endln:110:23
+                |vpiName:c
   |vpiNet:
   \_logic_net: (work@test2.a), line:62:7, endln:62:8, parent:work@test2
   |vpiNet:
@@ -1451,5 +1533,5 @@ design: (work@test1)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 2
-[   NOTE] : 21
+[   NOTE] : 25
 
