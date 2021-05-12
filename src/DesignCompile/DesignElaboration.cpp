@@ -1079,14 +1079,14 @@ void DesignElaboration::elaborateInstance_(
 
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, indexedModName);
-      while (childId) {    
+      while (childId) {
         elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                            factory, child, config, allSubInstances);
         childId = fC->Sibling(childId);
         if (fC->Type(childId) == slEnd) break;
       }
       allSubInstances.push_back(child);
-     
+
     }
     // Named blocks
     else if (type == slSeq_block || type == slPar_block) {
@@ -1343,8 +1343,9 @@ void DesignElaboration::elaborateInstance_(
   }
   // Record sub-scopes and sub-instances
   if (allSubInstances.size()) {
-    unsigned int nbExisting = parent->getNbChildren(); 
-    ModuleInstance** children = new ModuleInstance*[allSubInstances.size() + nbExisting];
+    unsigned int nbExisting = parent->getNbChildren();
+    ModuleInstance** children =
+        new ModuleInstance*[allSubInstances.size() + nbExisting];
     unsigned int index = 0;
     for (; index < nbExisting; index++) {
       children[index] = parent->getChildren(index);

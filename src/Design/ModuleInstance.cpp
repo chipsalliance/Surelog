@@ -118,8 +118,7 @@ ModuleInstance::~ModuleInstance() {}
 
 void ModuleInstance::addSubInstances(ModuleInstance** subInstances,
                                      unsigned int nbSubInstances) {
-  if (m_children) 
-    delete [] m_children;
+  if (m_children) delete[] m_children;
   m_children = subInstances;
   m_nbChildren = nbSubInstances;
 }
