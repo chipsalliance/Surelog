@@ -567,7 +567,8 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
         ModuleInstance* instance = design->findInstance(moduleName);
         for (unsigned int i = 0; i < def->getFileContents().size(); i++) {
           std::vector<ModuleInstance*> parentSubInstances;
-          elaborateInstance_(def->getFileContents()[i], def->getNodeIds()[i], 0,
+          NodeId id = def->getNodeIds()[i];
+          elaborateInstance_(def->getFileContents()[i], id, 0,
                              m_moduleInstFactory, instance, config,
                              parentSubInstances);
         }
@@ -1083,6 +1084,7 @@ void DesignElaboration::elaborateInstance_(
         elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                            factory, child, config, allSubInstances);
         childId = fC->Sibling(childId);
+        if (fC->Type(childId) == slGenerate_block) break;
         if (fC->Type(childId) == slEnd) break;
       }
       allSubInstances.push_back(child);
