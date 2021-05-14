@@ -3801,23 +3801,49 @@ UHDM::any* CompileHelper::compileExpression(
               std::string ind;
               NodeId Bit_select = fC->Child(dotedName);
               NodeId Expression = fC->Child(Bit_select);
-              expr* index = nullptr;
+              if (Expression == 0) {
+                if (Bit_select)
+                  Expression = fC->Sibling(Bit_select);
+              }
+              
               is_hierarchical = true;
-              if (Expression)
-                index = (expr*)compileExpression(
-                    component, fC, Expression, compileDesign, pexpr, instance);
-              if (index) {
-                bit_select* select = s.MakeBit_select();
+              if (Expression && (fC->Type(Expression) == slPart_select_range) && fC->Child(Expression)) {                
+                expr* select = (expr*)compilePartSelectRange(
+                    component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT", compileDesign, nullptr,
+                    instance, reduce, muteErrors);
+                ref_obj* parent = (ref_obj*) select->VpiParent();
+                if (parent)
+                  parent->VpiDefName(tmpName);
                 elems->push_back(select);
-                select->VpiIndex(index);
-                select->VpiName(tmpName);
-                select->VpiFullName(tmpName);
-                if (index->UhdmType() == uhdmconstant) {
-                  ind = index->VpiDecompile();
-                  name += "[" + ind + "]";
-                } else if (index->UhdmType() == uhdmref_obj) {
-                  ind = index->VpiName();
-                  name += "[" + ind + "]";
+                if (part_select* pselect = dynamic_cast<part_select*> (select)) {
+                  std::string selectRange = "[" + pselect->Left_range()->VpiDecompile() + ":" + pselect->Right_range()->VpiDecompile() + "]";
+                  name += selectRange;
+                } else if (indexed_part_select* pselect = dynamic_cast<indexed_part_select*> (select)) {
+                  std::string selectRange =
+                      "[" + pselect->Base_expr()->VpiDecompile() +
+                      ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
+                           ? "+"
+                           : "-") +
+                      std::string(":") + pselect->Width_expr()->VpiDecompile() +
+                      "]";
+                  name += selectRange;
+                } 
+              } else if (Expression) {
+                expr* index = (expr*)compileExpression(
+                    component, fC, Expression, compileDesign, pexpr, instance);
+                if (index) {
+                  bit_select* select = s.MakeBit_select();
+                  elems->push_back(select);
+                  select->VpiIndex(index);
+                  select->VpiName(tmpName);
+                  select->VpiFullName(tmpName);
+                  if (index->UhdmType() == uhdmconstant) {
+                    ind = index->VpiDecompile();
+                    name += "[" + ind + "]";
+                  } else if (index->UhdmType() == uhdmref_obj) {
+                    ind = index->VpiName();
+                    name += "[" + ind + "]";
+                  }
                 }
               } else {
                 ref_obj* ref = s.MakeRef_obj();
@@ -4313,12 +4339,15 @@ UHDM::any* CompileHelper::compilePartSelectRange(
     UHDM::part_select* part_select = s.MakePart_select();
     part_select->Left_range(lexp);
     part_select->Right_range(rexp);
-    if (!name.empty()) {
+    if (name == "CREATE_UNNAMED_PARENT") {
+      UHDM::ref_obj* ref = s.MakeRef_obj();
+      part_select->VpiParent(ref);
+    } else if (!name.empty()) {
       UHDM::ref_obj* ref = s.MakeRef_obj();
       ref->VpiName(name);
       ref->VpiDefName(name);
       part_select->VpiParent(ref);
-    }
+    } 
     part_select->VpiConstantSelect(true);
     result = part_select;
   } else {
@@ -4403,7 +4432,10 @@ UHDM::any* CompileHelper::compilePartSelectRange(
         part_select->VpiIndexedPartSelectType(vpiPosIndexed);
       else
         part_select->VpiIndexedPartSelectType(vpiNegIndexed);
-      if (!name.empty()) {
+      if (name == "CREATE_UNNAMED_PARENT") {
+        UHDM::ref_obj* ref = s.MakeRef_obj();
+        part_select->VpiParent(ref);
+      } else if (!name.empty()) {
         UHDM::ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(name);
         part_select->VpiParent(ref);
