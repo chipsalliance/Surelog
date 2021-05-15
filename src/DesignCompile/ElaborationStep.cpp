@@ -1286,6 +1286,9 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     } else if (subnettype == slString_type) {
       UHDM::string_var* int_var = s.MakeString_var();
       var = int_var;
+    } else if (subnettype == slChandle_type) {
+      UHDM::chandle_var* chandle_var = s.MakeChandle_var();
+      var = chandle_var;
     } else {
       // default type (fallback)
       logic_var* logicv = s.MakeLogic_var();
