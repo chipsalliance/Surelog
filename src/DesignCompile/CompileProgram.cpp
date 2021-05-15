@@ -158,8 +158,13 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
         break;
       }
       case VObjectType::slPort: {
+        if (fC->Child(id)) {
+          m_hasNonNullPort = true;
+        }
+        if (collectType == CollectType::FUNCTION) m_nbPorts++;
         if (collectType != CollectType::DEFINITION) break;
-        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction,
+                                        m_hasNonNullPort || (m_nbPorts > 1));
         break;
       }
       case VObjectType::slTask_declaration: {
@@ -178,12 +183,14 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slOutput_declaration:
       case VObjectType::slInout_declaration: {
         if (collectType != CollectType::DEFINITION) break;
-        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction,
+                                        m_hasNonNullPort);
         break;
       }
       case VObjectType::slPort_declaration: {
         if (collectType != CollectType::DEFINITION) break;
-        m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+        m_helper.compilePortDeclaration(m_program, fC, id, port_direction,
+                                        m_hasNonNullPort);
         break;
       }
       case VObjectType::slContinuous_assign: {

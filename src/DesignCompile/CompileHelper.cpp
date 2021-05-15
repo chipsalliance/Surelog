@@ -1192,7 +1192,8 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
 
 bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                                            const FileContent* fC, NodeId id,
-                                           VObjectType& port_direction) {
+                                           VObjectType& port_direction,
+                                           bool hasNonNullPort) {
   VObjectType type = fC->Type(id);
   switch (type) {
     case VObjectType::slPort: {
@@ -1227,6 +1228,13 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                                         port_direction, 0, false);
             component->getPorts().push_back(signal);
           }
+        }
+      } else {
+        if (hasNonNullPort) {
+          // Null port
+          Signal* signal = new Signal(fC, id, VObjectType::slNoType,
+                                      VObjectType::slNoType, 0, false);
+          component->getPorts().push_back(signal);
         }
       }
       break;

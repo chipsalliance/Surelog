@@ -73,8 +73,9 @@ class CompileProgram : public CompileToolbox {
   Design* const m_design;
   SymbolTable* const m_symbols;
   ErrorContainer* const m_errors;
-
   CompileHelper m_helper;
+  uint32_t m_nbPorts = 0;
+  bool m_hasNonNullPort = false;
 };
 
 }  // namespace SURELOG

@@ -3802,23 +3802,26 @@ UHDM::any* CompileHelper::compileExpression(
               NodeId Bit_select = fC->Child(dotedName);
               NodeId Expression = fC->Child(Bit_select);
               if (Expression == 0) {
-                if (Bit_select)
-                  Expression = fC->Sibling(Bit_select);
+                if (Bit_select) Expression = fC->Sibling(Bit_select);
               }
-              
+
               is_hierarchical = true;
-              if (Expression && (fC->Type(Expression) == slPart_select_range) && fC->Child(Expression)) {                
+              if (Expression && (fC->Type(Expression) == slPart_select_range) &&
+                  fC->Child(Expression)) {
                 expr* select = (expr*)compilePartSelectRange(
-                    component, fC, fC->Child(Expression), "CREATE_UNNAMED_PARENT", compileDesign, nullptr,
-                    instance, reduce, muteErrors);
-                ref_obj* parent = (ref_obj*) select->VpiParent();
-                if (parent)
-                  parent->VpiDefName(tmpName);
+                    component, fC, fC->Child(Expression),
+                    "CREATE_UNNAMED_PARENT", compileDesign, nullptr, instance,
+                    reduce, muteErrors);
+                ref_obj* parent = (ref_obj*)select->VpiParent();
+                if (parent) parent->VpiDefName(tmpName);
                 elems->push_back(select);
-                if (part_select* pselect = dynamic_cast<part_select*> (select)) {
-                  std::string selectRange = "[" + pselect->Left_range()->VpiDecompile() + ":" + pselect->Right_range()->VpiDecompile() + "]";
+                if (part_select* pselect = dynamic_cast<part_select*>(select)) {
+                  std::string selectRange =
+                      "[" + pselect->Left_range()->VpiDecompile() + ":" +
+                      pselect->Right_range()->VpiDecompile() + "]";
                   name += selectRange;
-                } else if (indexed_part_select* pselect = dynamic_cast<indexed_part_select*> (select)) {
+                } else if (indexed_part_select* pselect =
+                               dynamic_cast<indexed_part_select*>(select)) {
                   std::string selectRange =
                       "[" + pselect->Base_expr()->VpiDecompile() +
                       ((pselect->VpiIndexedPartSelectType() == vpiPosIndexed)
@@ -3827,7 +3830,7 @@ UHDM::any* CompileHelper::compileExpression(
                       std::string(":") + pselect->Width_expr()->VpiDecompile() +
                       "]";
                   name += selectRange;
-                } 
+                }
               } else if (Expression) {
                 expr* index = (expr*)compileExpression(
                     component, fC, Expression, compileDesign, pexpr, instance);
@@ -4347,7 +4350,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
       ref->VpiName(name);
       ref->VpiDefName(name);
       part_select->VpiParent(ref);
-    } 
+    }
     part_select->VpiConstantSelect(true);
     result = part_select;
   } else {

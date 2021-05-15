@@ -545,6 +545,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
     std::stack<NodeId> stack;
     stack.push(id);
     VObjectType port_direction = VObjectType::slNoType;
+
     while (stack.size()) {
       id = stack.top();
       if (endOfBlockId && (id == endOfBlockId)) {
@@ -570,15 +571,21 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           break;
         }
         case VObjectType::slPort: {
+          if (fC->Child(id)) {
+            m_hasNonNullPort = true;
+          }
+          if (collectType == CollectType::FUNCTION) m_nbPorts++;
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
+          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
+                                          m_hasNonNullPort || (m_nbPorts > 1));
           break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
+          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
+                                          m_hasNonNullPort);
           break;
         }
         case VObjectType::slClocking_declaration: {
@@ -600,7 +607,8 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         }
         case VObjectType::slPort_declaration: {
           if (collectType != CollectType::DEFINITION) break;
-          m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
+          m_helper.compilePortDeclaration(m_module, fC, id, port_direction,
+                                          m_hasNonNullPort);
           break;
         }
         case VObjectType::slContinuous_assign: {
