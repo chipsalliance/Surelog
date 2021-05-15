@@ -453,7 +453,9 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     port* dest_port = s.MakePort();
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
     signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
-    dest_port->VpiName(orig_port->getName());
+    const FileContent* fC = orig_port->getFileContent();
+    if (fC->Type(orig_port->getNodeId()) == slStringConst)
+      dest_port->VpiName(orig_port->getName());
     unsigned int direction =
         UhdmWriter::getVpiDirection(orig_port->getDirection());
     dest_port->VpiDirection(direction);
@@ -528,32 +530,35 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
       dest_net = s.MakeLogic_net();
     }
     if (dest_net) {
-      SignalMap::iterator portItr = portMap.find(orig_net->getName());
-      if (portItr != portMap.end()) {
-        Signal* sig = (*portItr).second;
-        if (sig) {
-          SignalBaseClassMap::iterator itr = signalBaseMap.find(sig);
-          if (itr != signalBaseMap.end()) {
-            port* p = (port*)((*itr).second);
-            if (p->Low_conn() == nullptr) {
-              ref_obj* ref = s.MakeRef_obj();
-              ref->Actual_group(dest_net);
-              p->Low_conn(ref);
+      const FileContent* fC = orig_net->getFileContent();
+      if (fC->Type(orig_net->getNodeId()) == slStringConst) {
+        SignalMap::iterator portItr = portMap.find(orig_net->getName());
+        if (portItr != portMap.end()) {
+          Signal* sig = (*portItr).second;
+          if (sig) {
+            SignalBaseClassMap::iterator itr = signalBaseMap.find(sig);
+            if (itr != signalBaseMap.end()) {
+              port* p = (port*)((*itr).second);
+              if (p->Low_conn() == nullptr) {
+                ref_obj* ref = s.MakeRef_obj();
+                ref->Actual_group(dest_net);
+                p->Low_conn(ref);
+              }
             }
           }
         }
+        signalBaseMap.insert(std::make_pair(orig_net, dest_net));
+        signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
+        dest_net->VpiName(orig_net->getName());
+        dest_net->VpiLineNo(
+            orig_net->getFileContent()->Line(orig_net->getNodeId()));
+        dest_net->VpiColumnNo(
+            orig_net->getFileContent()->Column(orig_net->getNodeId()));
+        dest_net->VpiFile(orig_net->getFileContent()->getFileName());
+        dest_net->VpiNetType(UhdmWriter::getVpiNetType(orig_net->getType()));
+        dest_net->VpiParent(parent);
+        dest_nets->push_back(dest_net);
       }
-      signalBaseMap.insert(std::make_pair(orig_net, dest_net));
-      signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
-      dest_net->VpiName(orig_net->getName());
-      dest_net->VpiLineNo(
-          orig_net->getFileContent()->Line(orig_net->getNodeId()));
-      dest_net->VpiColumnNo(
-          orig_net->getFileContent()->Column(orig_net->getNodeId()));
-      dest_net->VpiFile(orig_net->getFileContent()->getFileName());
-      dest_net->VpiNetType(UhdmWriter::getVpiNetType(orig_net->getType()));
-      dest_net->VpiParent(parent);
-      dest_nets->push_back(dest_net);
     }
   }
 }

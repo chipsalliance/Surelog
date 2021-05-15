@@ -1401,8 +1401,11 @@ bool NetlistElaboration::elab_ports_nets_(
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(
             UhdmWriter::getVpiDirection(sig->getDirection()));
-        const std::string& signame = sig->getName();
-        dest_port->VpiName(signame);
+        std::string signame;
+        if (fC->Type(sig->getNodeId()) == slStringConst) {
+          signame = sig->getName();
+          dest_port->VpiName(signame);
+        }
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiColumnNo(fC->Column(id));
         dest_port->VpiEndLineNo(fC->EndLine(id));
@@ -1535,15 +1538,24 @@ bool NetlistElaboration::elab_ports_nets_(
       } else if (pass == 1) {
         // Nets pass
         if (do_ports) continue;
-        const std::string& signame = sig->getName();
-        if (portInterf.find(signame) == portInterf.end())
-          elabSignal(sig, instance, child, parentNetlist, netlist, comp,
-                     prefix);
+        if (fC->Type(sig->getNodeId()) == slStringConst) {
+          const std::string& signame = sig->getName();
+          if (portInterf.find(signame) == portInterf.end())
+            elabSignal(sig, instance, child, parentNetlist, netlist, comp,
+                       prefix);
+        }
 
       } else if (pass == 2) {
         // Port low conn pass
         if (do_ports) continue;
-        const std::string& signame = sig->getName();
+        std::string signame;
+        if (fC->Type(sig->getNodeId()) == slStringConst) {
+          signame = sig->getName();
+        } else {
+          portIndex++;
+          continue;
+        }
+
         port* dest_port = (*netlist->ports())[portIndex];
 
         if (sig->getModPort() || sig->getInterfaceDef()) {
