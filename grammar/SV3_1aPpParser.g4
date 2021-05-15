@@ -342,7 +342,7 @@ directive_in_macro :
 	    | pound_pound_delay
 	    ;
 
-macro_arguments : PARENS_OPEN ((Simple_identifier Spaces* (EQUAL_OP default_value*)*)
+macro_arguments : PARENS_OPEN ((Spaces* Simple_identifier Spaces* (EQUAL_OP default_value*)*)
                                (COMMA Spaces* (Simple_identifier Spaces* (EQUAL_OP default_value*)*))*)* PARENS_CLOSE ;
 
 escaped_macro_definition_body : escaped_macro_definition_body_alt1
