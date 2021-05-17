@@ -78,6 +78,8 @@ class DesignElaboration : public TestbenchElaboration {
                                       Config* config);
   void reduceUnnamedBlocks_();
   void checkConfigurations_();
+  bool bindAllInstances_(ModuleInstance*, ModuleInstanceFactory* factory,
+                         Config* config);
   Config* getInstConfig(std::string name);
   Config* getCellConfig(std::string name);
   std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
