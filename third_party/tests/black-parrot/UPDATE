@@ -1,3 +1,7 @@
+----------------------------------
+First copy:
+
+
 cd ~/black-parrot
 git pull
 git submodule update --init --recursive
@@ -28,3 +32,13 @@ Comment: ## VV_OPTS += --threads $(VERILATOR_THREADS)
 
 wrapper.sv:
 Remove carriage return: `declare_bp_bedrock_mem_if(paddr_width_p, uce_mem_data_width_lp, lce_id_width_p, lce_assoc_p,uce);
+
+
+-----------------------
+Subsequent updates:
+
+find . -name '*.v' | cpio -pdm /home/alain/Surelog/third_party/tests/black-parrot/
+find . -name '*.sv' | cpio -pdm /home/alain/Surelog/third_party/tests/black-parrot/
+find . -name '*.svh' | cpio -pdm /home/alain/Surelog/third_party/tests/black-parrot/
+find . -name '*.svi' | cpio -pdm /home/alain/Surelog/third_party/tests/black-parrot/
+find . -name '*.vcs' | cpio -pdm /home/alain/Surelog/third_party/tests/black-parrot/

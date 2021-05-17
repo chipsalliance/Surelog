@@ -1,0 +1,27 @@
+DEFAULT GLIBC_2.27
+ld=ld-linux-riscv64-lp64.so.1
+libm=6
+libc=6
+libpthread=0
+libthread_db=1
+ld=ld.so.1
+libdl=2
+libutil=1
+libresolv=2
+libnss_files=2
+libnss_dns=2
+libnss_compat=2
+libnss_nis=2
+libnss_nisplus=2
+libnss_ldap=2
+libnss_hesiod=2
+libnss_db=2
+libnss_test1=2
+libnss_test2=2
+libnsl=1
+libcrypt=1
+libBrokenLocale=1
+librt=1
+libanl=1
+libgcc_s=1
+libmvec=1
