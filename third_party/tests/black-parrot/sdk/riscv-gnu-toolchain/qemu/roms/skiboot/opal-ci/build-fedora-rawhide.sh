@@ -1,1 +1,0 @@
-build-fedora28.sh
