@@ -1,0 +1,392 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+# The interesting make targets are:
+#
+#   make version
+#      Force the version_tag.h file to be rebuilt. Otherwise, it will only
+#      be built if it is missing.
+#
+#   make all
+#   make install
+#
+# The "suffix" is used as an installation suffix. It modifies certain
+# key install paths/files such that a build and install of Icarus Verilog
+# with the same $(prefix) but a different $(suffix) will not interfere.
+# The normal configuration leaves suffix empty
+suffix = 
+
+prefix = /home/alain/black-parrot/tools/bsg_sv2v/tools/iverilog/install
+exec_prefix = ${prefix}
+srcdir = .
+datarootdir = ${prefix}/share
+
+SUBDIRS = ivlpp vhdlpp vvp vpi libveriuser cadpli tgt-null tgt-stub tgt-vvp \
+          tgt-vhdl tgt-vlog95 tgt-pcb tgt-blif tgt-sizer driver
+# Only run distclean for these directories.
+NOTUSED = tgt-fpga tgt-pal tgt-verilog
+
+ifeq (no,yes)
+SUBDIRS += driver-vpi
+else
+NOTUSED += driver-vpi
+endif
+
+# To get the version headers to build correctly we only want to look
+# for C++ files in the source directory. All other files will require
+# an explicit $(srcdir). The one exception to this is if we need to
+# rebuild the lexor_keyword.cc file. If we do, then we want to use the
+# local version instead of the one is $(srcdir).
+vpath lexor_keyword.cc .
+vpath %.cc $(srcdir)/libmisc
+vpath %.cc $(srcdir)
+
+bindir = ${exec_prefix}/bin
+libdir = ${exec_prefix}/lib
+# This is actually the directory where we install our own header files.
+# It is a little different from the generic includedir.
+includedir = ${prefix}/include/iverilog$(suffix)
+mandir = ${datarootdir}/man
+
+dllib=-ldl
+
+# For a cross compile these defines will need to be set accordingly.
+HOSTCC = gcc
+HOSTCFLAGS = -Wall -Wextra -Wshadow -Wstrict-prototypes  -g -O2
+
+CC = gcc
+CXX = g++
+DLLTOOL = false
+INSTALL = /usr/bin/install -c
+INSTALL_SCRIPT = ${INSTALL}
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+LEX = flex
+YACC = bison
+MAN = man
+PS2PDF = ps2pdf
+GIT = git
+
+ifeq (.,.)
+INCLUDE_PATH = -I. -Ilibmisc
+else
+INCLUDE_PATH = -I. -I$(srcdir) -I$(srcdir)/libmisc
+endif
+
+CPPFLAGS = -DHAVE_CONFIG_H $(INCLUDE_PATH) 
+CFLAGS = -Wall -Wextra -Wshadow -Wstrict-prototypes  -g -O2
+CXXFLAGS = -Wall -Wextra -Wshadow   -g -O2
+PICFLAGS = -fPIC
+LDFLAGS = -rdynamic  
+CTARGETFLAGS = 
+
+# Source files in the libmisc directory
+M = LineInfo.o StringHeap.o
+
+TT = t-dll.o t-dll-api.o t-dll-expr.o t-dll-proc.o t-dll-analog.o
+FF = cprop.o nodangle.o synth.o synth2.o syn-rules.o
+
+O = main.o async.o design_dump.o discipline.o dup_expr.o elaborate.o \
+    elab_expr.o elaborate_analog.o elab_lval.o elab_net.o \
+    elab_scope.o elab_sig.o elab_sig_analog.o elab_type.o \
+    emit.o eval.o eval_attrib.o \
+    eval_tree.o expr_synth.o functor.o lexor.o lexor_keyword.o link_const.o \
+    load_module.o netlist.o netmisc.o nettypes.o net_analog.o net_assign.o \
+    net_design.o netclass.o netdarray.o \
+    netenum.o netparray.o netqueue.o netscalar.o netstruct.o netvector.o \
+    net_event.o net_expr.o net_func.o \
+    net_func_eval.o net_link.o net_modulo.o \
+    net_nex_input.o net_nex_output.o net_proc.o net_scope.o net_tran.o \
+    net_udp.o pad_to_width.o parse.o parse_misc.o pform.o pform_analog.o \
+    pform_disciplines.o pform_dump.o pform_package.o pform_pclass.o \
+    pform_class_type.o pform_string_type.o pform_struct_type.o pform_types.o \
+    symbol_search.o sync.o sys_funcs.o verinum.o verireal.o target.o \
+    Attrib.o HName.o Module.o PClass.o PDelays.o PEvent.o PExpr.o PGate.o \
+    PGenerate.o PModport.o PPackage.o PScope.o PSpec.o PTask.o PUdp.o \
+    PFunction.o PWire.o Statement.o AStatement.o $M $(FF) $(TT)
+
+all: dep config.h _pli_types.h version_tag.h ivl version.exe iverilog-vpi.man
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+
+# In the windows world, the installer will need a dosify program to
+# dosify text files.
+ifeq (no,yes)
+all: dosify.exe
+dosify.exe: $(srcdir)/dosify.c
+	$(HOSTCC) $(HOSTCFLAGS) -o dosify.exe $(srcdir)/dosify.c
+endif
+
+# This rule rules the compiler in the trivial hello.vl program to make
+# sure the basics were compiled properly.
+check: all
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+	test -r check.conf || cp $(srcdir)/check.conf .
+	driver/iverilog -B. -BPivlpp -tcheck -ocheck.vvp $(srcdir)/examples/hello.vl
+ifeq (no,yes)
+ifeq (,)
+	vvp/vvp -M- -M./vpi ./check.vvp | grep 'Hello, World'
+else
+	# On Windows if we have a suffix we must run the vvp part of
+	# the test with a suffix since it was built/linked that way.
+	ln vvp/vvp.exe vvp/vvp$(suffix).exe
+	vvp/vvp$(suffix) -M- -M./vpi ./check.vvp | grep 'Hello, World'
+	rm vvp/vvp$(suffix).exe
+endif
+else
+	vvp/vvp -M- -M./vpi ./check.vvp | grep 'Hello, World'
+endif
+
+clean:
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+	rm -f *.o parse.cc parse.h lexor.cc
+	rm -f ivl.exp iverilog-vpi.man iverilog-vpi.pdf iverilog-vpi.ps
+	rm -f parse.output syn-rules.output dosify.exe ivl check.vvp
+	rm -f lexor_keyword.cc libivl.a libvpi.a iverilog-vpi syn-rules.cc
+	rm -rf dep
+	rm -f version.exe
+
+distclean: clean
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+	$(foreach dir,$(NOTUSED),$(MAKE) -C $(dir) $@ && ) true
+	rm -f Makefile config.status config.log config.cache
+	rm -f stamp-config-h config.h
+	rm -f stamp-_pli_types-h _pli_types.h
+ifneq (.,.)
+	rm -f version_tag.h check.conf
+	rmdir $(SUBDIRS) $(NOTUSED)
+endif
+	rm -rf autom4te.cache
+
+cppcheck: $(O:.o=.cc) $(srcdir)/dosify.c $(srcdir)/version.c
+	cppcheck --enable=all -f --suppressions-list=$(srcdir)/cppcheck.sup \
+	         -UYYPARSE_PARAM -UYYPRINT -Ushort -Usize_t -Uyyoverflow \
+	         -UYYTYPE_INT8 -UYYTYPE_INT16 -UYYTYPE_UINT8 -UYYTYPE_UINT16 \
+	         --relative-paths=$(srcdir) $(INCLUDE_PATH) $^
+
+cppcheck-all:
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) cppcheck && ) true
+	$(foreach dir,$(NOTUSED),$(MAKE) -C $(dir) cppcheck && ) true
+	$(MAKE) cppcheck
+
+Makefile: $(srcdir)/Makefile.in config.status
+	./config.status --file=$@
+
+dep:
+	mkdir dep
+
+stamp-config-h: $(srcdir)/config.h.in config.status
+	@rm -f $@
+	./config.status config.h
+config.h: stamp-config-h
+
+stamp-_pli_types-h: $(srcdir)/_pli_types.h.in config.status
+	@rm -f $@
+	./config.status _pli_types.h
+_pli_types.h: stamp-_pli_types-h
+
+$(srcdir)/configure: $(srcdir)/configure.in $(srcdir)/aclocal.m4
+	cd $(srcdir) && autoconf
+
+config.status: $(srcdir)/configure
+	./config.status --recheck
+	./config.status
+
+ifeq (no,yes)
+# Under Windows (mingw) I need to make the ivl.exe in two steps.
+# The first step makes an ivl.exe that dlltool can use to make an
+# export and import library, and the last link makes a, ivl.exe
+# that really exports the things that the import library imports.
+ivl: $O $(srcdir)/ivl.def
+	$(CXX) -o ivl $O $(dllib) 
+	$(DLLTOOL) --dllname ivl --def $(srcdir)/ivl.def \
+		--output-lib libivl.a --output-exp ivl.exp
+	$(CXX) $(LDFLAGS) -o ivl ivl.exp $O $(dllib) 
+else
+ivl: $O
+	$(CXX) $(LDFLAGS) -o ivl $O $(dllib)
+endif
+
+ifeq (no,no)
+all: iverilog-vpi
+
+iverilog-vpi: $(srcdir)/iverilog-vpi.sh Makefile
+	sed -e 's;@SHARED@;-shared;' -e 's;@PIC@;-fPIC;' \
+	    -e 's;@SUFFIX@;$(suffix);' \
+	    -e 's;@IVCC@;$(CC);' \
+	    -e 's;@IVCXX@;$(CXX);' \
+	    -e 's;@IVCFLAGS@;$(CFLAGS);' \
+	    -e 's;@IVCXXFLAGS@;$(CXXFLAGS);' \
+	    -e 's;@IVCTARGETFLAGS@;$(CTARGETFLAGS);' \
+	    -e 's;@INCLUDEDIR@;$(includedir);' \
+	    -e 's;@LIBDIR@;${exec_prefix}/lib;' $< > $@
+	chmod +x $@
+endif
+
+version.exe: $(srcdir)/version.c $(srcdir)/version_base.h version_tag.h
+	$(HOSTCC) $(HOSTCFLAGS) -o version.exe -I. -I$(srcdir) $(srcdir)/version.c
+
+%.o: %.cc config.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MD -c $< -o $*.o
+	mv $*.d dep/$*.d
+
+# Here are some explicit dependencies needed to get things going.
+main.o: main.cc version_tag.h
+
+lexor.o: lexor.cc parse.h
+
+parse.o: parse.cc
+
+# Build this in two steps to avoid parallel build issues (see pr3462585)
+parse.cc: $(srcdir)/parse.y
+	$(YACC) --verbose -t -p VL -d -o $@ $<
+parse.h: parse.cc
+	mv parse.cc.h $@ 2>/dev/null || mv parse.hh $@
+	touch $@
+
+syn-rules.cc: $(srcdir)/syn-rules.y
+	$(YACC) --verbose -t -p syn_ -o $@ $<
+
+lexor.cc: $(srcdir)/lexor.lex
+	$(LEX) -s -t $< > $@
+
+lexor_keyword.o: lexor_keyword.cc parse.h
+
+lexor_keyword.cc: $(srcdir)/lexor_keyword.gperf
+	gperf -o -i 7 -C -k 1-4,6,9,$$ -H keyword_hash -N check_identifier -t $(srcdir)/lexor_keyword.gperf > lexor_keyword.cc || (rm -f lexor_keyword.cc ; false)
+
+iverilog-vpi.man: $(srcdir)/iverilog-vpi.man.in version.exe
+	./version.exe `head -1 $(srcdir)/iverilog-vpi.man.in`'\n' > $@
+	tail -n +2 $(srcdir)/iverilog-vpi.man.in >> $@
+
+iverilog-vpi.ps: iverilog-vpi.man
+	$(MAN) -t ./iverilog-vpi.man > iverilog-vpi.ps
+
+iverilog-vpi.pdf: iverilog-vpi.ps
+	$(PS2PDF) iverilog-vpi.ps iverilog-vpi.pdf
+
+# For VERSION_TAG in driver/main.c, first try git-describe, then look for a
+# version_tag.h file in the source tree (included in snapshots and releases),
+# and finally use nothing.
+
+# "true" and "false" in the next few lines are Unix shell command names
+ifeq ($(GIT),none)
+GIT_PRESENT = false
+else
+GIT_PRESENT = true
+endif
+version_tag.h version:
+	@if $(GIT_PRESENT) && test -d $(srcdir)/.git; then \
+	    echo "Using git-describe for VERSION_TAG"; \
+	    tmp=`(cd $(srcdir) && $(GIT) describe --always --dirty) \
+		   | sed -e 's;\(.*\);#define VERSION_TAG "\1";'`; \
+	    echo "$$tmp" | diff - version_tag.h > /dev/null 2>&1 || echo "$$tmp" > version_tag.h || exit 1; \
+	elif test -r $(srcdir)/version_tag.h; then \
+	    echo "Using $(srcdir)/version_tag.h for VERSION_TAG"; \
+	    diff $(srcdir)/version_tag.h version_tag.h > /dev/null 2>&1 || cp $(srcdir)/version_tag.h version_tag.h; \
+	else \
+	    echo "Using empty VERSION_TAG"; \
+	    echo '#define VERSION_TAG ""' > version_tag.h; \
+	fi
+
+ifeq (no,yes)
+ifeq ($(MAN),none)
+INSTALL_DOC = $(mandir)/man1/iverilog-vpi$(suffix).1
+else
+ifeq ($(PS2PDF),none)
+INSTALL_DOC = $(mandir)/man1/iverilog-vpi$(suffix).1
+else
+INSTALL_DOC = $(prefix)/iverilog-vpi$(suffix).pdf $(mandir)/man1/iverilog-vpi$(suffix).1
+all: dep iverilog-vpi.pdf
+endif
+endif
+INSTALL_DOCDIR = $(mandir)/man1
+else
+INSTALL_DOC = $(mandir)/man1/iverilog-vpi$(suffix).1
+INSTALL_DOCDIR = $(mandir)/man1
+endif
+
+ifeq (no,yes)
+WIN32_INSTALL =
+else
+WIN32_INSTALL = $(bindir)/iverilog-vpi$(suffix)
+endif
+
+install: all installdirs $(libdir)/ivl$(suffix)/ivl  $(libdir)/ivl$(suffix)/include/constants.vams $(libdir)/ivl$(suffix)/include/disciplines.vams $(includedir)/ivl_target.h $(includedir)/_pli_types.h $(includedir)/sv_vpi_user.h $(includedir)/vpi_user.h $(includedir)/acc_user.h $(includedir)/veriuser.h $(WIN32_INSTALL) $(INSTALL_DOC)
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+
+$(bindir)/iverilog-vpi$(suffix): ./iverilog-vpi
+	$(INSTALL_SCRIPT) ./iverilog-vpi "$(DESTDIR)$(bindir)/iverilog-vpi$(suffix)"
+
+$(libdir)/ivl$(suffix)/ivl: ./ivl
+	$(INSTALL_PROGRAM) ./ivl "$(DESTDIR)$(libdir)/ivl$(suffix)/ivl"
+
+$(libdir)/ivl$(suffix)/include/constants.vams: $(srcdir)/constants.vams
+	$(INSTALL_DATA) $(srcdir)/constants.vams "$(DESTDIR)$(libdir)/ivl$(suffix)/include/constants.vams"
+
+$(libdir)/ivl$(suffix)/include/disciplines.vams: $(srcdir)/disciplines.vams
+	$(INSTALL_DATA) $(srcdir)/disciplines.vams "$(DESTDIR)$(libdir)/ivl$(suffix)/include/disciplines.vams"
+
+$(includedir)/ivl_target.h: $(srcdir)/ivl_target.h
+	$(INSTALL_DATA) $(srcdir)/ivl_target.h "$(DESTDIR)$(includedir)/ivl_target.h"
+
+$(includedir)/_pli_types.h: _pli_types.h
+	$(INSTALL_DATA) $< "$(DESTDIR)$(includedir)/_pli_types.h"
+
+$(includedir)/sv_vpi_user.h: $(srcdir)/sv_vpi_user.h
+	$(INSTALL_DATA) $(srcdir)/sv_vpi_user.h "$(DESTDIR)$(includedir)/sv_vpi_user.h"
+
+$(includedir)/vpi_user.h: $(srcdir)/vpi_user.h
+	$(INSTALL_DATA) $(srcdir)/vpi_user.h "$(DESTDIR)$(includedir)/vpi_user.h"
+
+$(includedir)/acc_user.h: $(srcdir)/acc_user.h
+	$(INSTALL_DATA) $(srcdir)/acc_user.h "$(DESTDIR)$(includedir)/acc_user.h"
+
+$(includedir)/veriuser.h: $(srcdir)/veriuser.h
+	$(INSTALL_DATA) $(srcdir)/veriuser.h "$(DESTDIR)$(includedir)/veriuser.h"
+
+$(mandir)/man1/iverilog-vpi$(suffix).1: iverilog-vpi.man
+	$(INSTALL_DATA) iverilog-vpi.man "$(DESTDIR)$(mandir)/man1/iverilog-vpi$(suffix).1"
+
+$(prefix)/iverilog-vpi$(suffix).pdf: iverilog-vpi.pdf
+	$(INSTALL_DATA) iverilog-vpi.pdf "$(DESTDIR)$(prefix)/iverilog-vpi$(suffix).pdf"
+
+
+installdirs: $(srcdir)/mkinstalldirs
+	$(srcdir)/mkinstalldirs "$(DESTDIR)$(bindir)" \
+	    "$(DESTDIR)$(includedir)" \
+	    "$(DESTDIR)$(libdir)/ivl$(suffix)" \
+	    "$(DESTDIR)$(libdir)/ivl$(suffix)/include" \
+	    "$(DESTDIR)$(mandir)" \
+	    "$(DESTDIR)$(mandir)/man1"
+
+uninstall:
+	$(foreach dir,$(SUBDIRS),$(MAKE) -C $(dir) $@ && ) true
+	for f in ivl include/constants.vams include/disciplines.vams; \
+	    do rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/$$f"; done
+	-rmdir "$(DESTDIR)$(libdir)/ivl$(suffix)/include"
+	-rmdir "$(DESTDIR)$(libdir)/ivl$(suffix)"
+	for f in verilog$(suffix) iverilog-vpi$(suffix) gverilog$(suffix); \
+	    do rm -f "$(DESTDIR)$(bindir)/$$f"; done
+	for f in ivl_target.h vpi_user.h _pli_types.h sv_vpi_user.h acc_user.h veriuser.h; \
+	    do rm -f "$(DESTDIR)$(includedir)/$$f"; done
+	-test X$(suffix) = X || rmdir "$(DESTDIR)$(includedir)"
+	rm -f "$(DESTDIR)$(mandir)/man1/iverilog-vpi$(suffix).1" "$(DESTDIR)$(prefix)/iverilog-vpi$(suffix).pdf"
+
+
+-include $(patsubst %.o, dep/%.d, $O)

@@ -1,0 +1,86 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version. In order to redistribute the software in
+#    binary form, you will need a Picture Elements Binary Software
+#    License.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+suffix = @install_suffix@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+srcdir = @srcdir@
+
+VPATH = $(srcdir)
+
+bindir = @bindir@
+libdir = @libdir@
+includedir = $(prefix)/include
+
+CC = @CC@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+LEX = @LEX@
+
+ifeq (@srcdir@,.)
+INCLUDE_PATH = -I. -I..
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/..
+endif
+
+CPPFLAGS = $(INCLUDE_PATH) @CPPFLAGS@ @DEFS@
+CFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CC@ @CFLAGS@
+LDFLAGS = @LDFLAGS@
+
+O = main.o lexor.o
+
+all: ivlpp@EXEEXT@
+
+check: all
+
+clean:
+	rm -f *.o lexor.c ivlpp@EXEEXT@
+
+distclean: clean
+	rm -f Makefile config.log
+
+cppcheck: $(O:.o=.c)
+	cppcheck --enable=all -f $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in ../config.status
+	cd ..; ./config.status --file=ivlpp/$@
+
+ivlpp@EXEEXT@: $O
+	$(CC) $(LDFLAGS) $O -o ivlpp@EXEEXT@ @EXTRALIBS@
+
+lexor.c: $(srcdir)/lexor.lex
+	$(LEX) -t $< > $@
+
+install: all installdirs $(libdir)/ivl$(suffix)/ivlpp@EXEEXT@
+
+$(libdir)/ivl$(suffix)/ivlpp@EXEEXT@: ivlpp@EXEEXT@
+	$(INSTALL_PROGRAM) ./ivlpp@EXEEXT@ "$(DESTDIR)$(libdir)/ivl$(suffix)/ivlpp@EXEEXT@"
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(DESTDIR)$(libdir)/ivl$(suffix)"
+
+uninstall:
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/ivlpp@EXEEXT@"
+
+lexor.o: lexor.c globals.h
+main.o: main.c globals.h $(srcdir)/../version_base.h ../version_tag.h

@@ -1,0 +1,105 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+suffix = @install_suffix@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+srcdir = @srcdir@
+datarootdir = @datarootdir@
+
+VPATH = $(srcdir)
+
+suffix = @install_suffix@
+
+bindir = $(exec_prefix)/bin
+libdir = $(exec_prefix)/lib
+includedir = $(prefix)/include
+mandir = @mandir@
+
+dllib=@DLLIB@
+
+CC = @CC@
+WINDRES = @WINDRES@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+ifeq (@srcdir@,.)
+INCLUDE_PATH = -I. -I..
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/..
+endif
+
+CPPFLAGS = $(INCLUDE_PATH) @CPPFLAGS@ @DEFS@
+CFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CC@ @CFLAGS@
+CXXFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CXX@ @CXXFLAGS@
+LDFLAGS = @LDFLAGS@
+
+O = main.o res.o
+
+all: iverilog-vpi@EXEEXT@
+
+check: all
+
+clean:
+	rm -f *.o config.h iverilog-vpi@EXEEXT@ res.rc
+
+distclean: clean
+	rm -f Makefile config.log
+
+cppcheck: main.c
+	cppcheck --enable=all -f $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in ../config.status
+	cd ..; ./config.status --file=driver-vpi/$@
+
+iverilog-vpi@EXEEXT@: $O
+	$(CC) $(LDFLAGS) $O -o iverilog-vpi@EXEEXT@ @EXTRALIBS@
+
+main.o: $(srcdir)/main.c config.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $(srcdir)/main.c
+
+
+config.h: $(srcdir)/config.h.in Makefile
+	sed -e 's;@IVLCC@;@CC@;' -e 's;@IVLCXX@;@CXX@;' \
+	    -e 's;@SUFFIX@;$(suffix);g' \
+	    -e 's;@IVLCFLAGS@;$(CFLAGS);' \
+	    -e 's;@IVLCXXFLAGS@;$(CXXFLAGS);' \
+	    -e 's;@SHARED@;@shared@;' $< > $@
+
+# Windows specific...
+res.rc: $(srcdir)/res.rc.in ../version.exe
+	sed -e 's;@PRODUCTVERSION@;'`../version.exe '%M,%n,0,0'`';' \
+	$(srcdir)/res.rc.in > $@
+
+res.o: res.rc
+	$(WINDRES) -i res.rc -o res.o
+#
+
+install: all installdirs $(bindir)/iverilog-vpi$(suffix)@EXEEXT@
+
+$(bindir)/iverilog-vpi$(suffix)@EXEEXT@: ./iverilog-vpi@EXEEXT@
+	$(INSTALL_PROGRAM) ./iverilog-vpi@EXEEXT@ "$(bindir)/iverilog-vpi$(suffix)@EXEEXT@"
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(bindir)"
+
+uninstall:
+	rm -f $(bindir)/iverilog-vpi$(suffix)@EXEEXT@

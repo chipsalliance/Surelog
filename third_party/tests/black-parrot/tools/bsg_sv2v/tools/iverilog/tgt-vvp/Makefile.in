@@ -1,0 +1,125 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+#ident "$Id: Makefile.in,v 1.26 2007/02/06 05:07:32 steve Exp $"
+#
+#
+SHELL = /bin/sh
+
+suffix = @install_suffix@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+srcdir = @srcdir@
+
+VPATH = $(srcdir)
+
+bindir = @bindir@
+libdir = @libdir@
+includedir = $(prefix)/include
+
+CC = @CC@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+ifeq (@srcdir@,.)
+INCLUDE_PATH = -I. -I..
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/..
+endif
+
+CPPFLAGS = $(INCLUDE_PATH) @CPPFLAGS@ @DEFS@ @PICFLAG@
+CFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CC@ @CFLAGS@
+LDFLAGS = @LDFLAGS@
+
+O = vvp.o draw_class.o draw_delay.o draw_enum.o draw_mux.o draw_net_input.o \
+    draw_substitute.o draw_switch.o draw_ufunc.o draw_vpi.o \
+    eval_bool.o \
+    eval_condit.o \
+    eval_expr.o eval_object.o eval_real.o eval_string.o \
+    eval_vec4.o \
+    modpath.o stmt_assign.o vector.o \
+    vvp_process.o vvp_scope.o
+
+all: dep vvp.tgt vvp.conf vvp-s.conf
+
+check: all
+
+clean:
+	rm -rf *.o dep vvp.tgt vvp.conf vvp-s.conf
+
+distclean: clean
+	rm -f Makefile config.log
+	rm -f stamp-vvp_config-h vvp_config.h
+
+cppcheck: $(O:.o=.c)
+	cppcheck --enable=all -f --suppressions-list=$(srcdir)/cppcheck.sup \
+	         --relative-paths=$(srcdir) $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in ../config.status
+	cd ..; ./config.status --file=tgt-vvp/$@
+
+dep:
+	mkdir dep
+
+%.o: %.c vvp_config.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) @DEPENDENCY_FLAG@ -c $< -o $*.o
+	mv $*.d dep
+
+ifeq (@WIN32@,yes)
+  TGTLDFLAGS=-L.. -livl
+  TGTDEPLIBS=../libivl.a
+else
+  TGTLDFLAGS=
+  TGTDEPLIBS=
+endif
+
+vvp.tgt: $O $(TGTDEPLIBS)
+	$(CC) @shared@ $(LDFLAGS) -o $@ $O $(TGTLDFLAGS)
+
+vvp.conf: $(srcdir)/vvp.conf.in Makefile
+	echo 'flag:VVP_EXECUTABLE=$(bindir)/vvp$(suffix)' | cat $(srcdir)/vvp.conf.in - > vvp.conf
+
+vvp-s.conf: $(srcdir)/vvp-s.conf.in Makefile
+	echo 'flag:VVP_EXECUTABLE=$(bindir)/vvp$(suffix)' | cat $(srcdir)/vvp-s.conf.in - > vvp-s.conf
+
+stamp-vvp_config-h: $(srcdir)/vvp_config.h.in ../config.status
+	@rm -f $@
+	cd ..; ./config.status --header=tgt-vvp/vvp_config.h
+vvp_config.h: stamp-vvp_config-h
+
+install: all installdirs $(libdir)/ivl$(suffix)/vvp.tgt $(libdir)/ivl$(suffix)/vvp.conf $(libdir)/ivl$(suffix)/vvp-s.conf
+
+$(libdir)/ivl$(suffix)/vvp.tgt: ./vvp.tgt
+	$(INSTALL_PROGRAM) ./vvp.tgt "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp.tgt"
+
+$(libdir)/ivl$(suffix)/vvp.conf: vvp.conf
+	$(INSTALL_DATA) $< "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp.conf"
+
+$(libdir)/ivl$(suffix)/vvp-s.conf: vvp-s.conf
+	$(INSTALL_DATA) $< "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp-s.conf"
+
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(DESTDIR)$(libdir)/ivl$(suffix)"
+
+uninstall:
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp.tgt" "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp.conf" "$(DESTDIR)$(libdir)/ivl$(suffix)/vvp-s.conf"
+
+
+-include $(patsubst %.o, dep/%.d, $O)

@@ -1,0 +1,10 @@
+include rules.mk
+GET_ARCH = common/get_arch.sh
+include common/rules.mk
+
+all: $(EXE)
+
+clean:
+	rm -f $(OBJS) *.o
+distclean: clean
+	rm -f $(EXE)

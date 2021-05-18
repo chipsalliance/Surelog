@@ -1,0 +1,95 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+suffix = @install_suffix@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+srcdir = @srcdir@
+
+VPATH = $(srcdir)
+
+bindir = @bindir@
+libdir = @libdir@
+includedir = $(prefix)/include
+
+vpidir = @libdir@/ivl$(suffix)
+
+CC = @CC@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+ifeq (@srcdir@,.)
+INCLUDE_PATH = -I. -I..
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/..
+endif
+
+CPPFLAGS = $(INCLUDE_PATH) @CPPFLAGS@ @DEFS@ @PICFLAG@
+CFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CC@ @CFLAGS@
+LDFLAGS = @LDFLAGS@
+
+O = cadpli.o
+
+all: dep cadpli.vpl $(ALL32)
+
+check: all
+
+clean:
+	rm -rf *.o dep cadpli.vpl
+
+distclean: clean
+	rm -f Makefile config.log
+
+cppcheck: $(O:.o=.c)
+	cppcheck --enable=all -f $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in ../config.status
+	cd ..; ./config.status --file=cadpli/$@
+
+dep:
+	mkdir dep
+
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) @DEPENDENCY_FLAG@ -c $<
+	mv $*.d dep
+
+SYSTEM_VPI_LDFLAGS = -L../vvp -lvpi
+ifeq (@MINGW32@,yes)
+    SYSTEM_VPI_LDFLAGS += @EXTRALIBS@
+endif
+
+cadpli.vpl: $O ../vvp/libvpi.a ../libveriuser/libveriuser.o
+	$(CC) @shared@ $(LDFLAGS) -o $@ $O ../libveriuser/libveriuser.o $(SYSTEM_VPI_LDFLAGS)
+
+install: all installdirs $(vpidir)/cadpli.vpl
+
+$(vpidir)/cadpli.vpl: ./cadpli.vpl
+	$(INSTALL_PROGRAM) ./cadpli.vpl "$(DESTDIR)$(vpidir)/cadpli.vpl"
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(DESTDIR)$(vpidir)"
+
+uninstall: $(UNINSTALL32)
+	rm -f "$(DESTDIR)$(vpidir)/cadpli.vpl"
+
+uninstall32:
+
+-include $(patsubst %.o, dep/%.d, $O)

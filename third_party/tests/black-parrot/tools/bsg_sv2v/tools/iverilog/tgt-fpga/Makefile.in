@@ -1,0 +1,130 @@
+#
+# Copyright 2003 Stephen Williams  (steve at icarus.com)
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+suffix = @install_suffix@
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+srcdir = @srcdir@
+mandir = @mandir@
+datarootdir = @datarootdir@
+
+VPATH = $(srcdir)
+
+bindir = @bindir@
+libdir = @libdir@
+includedir = $(prefix)/include
+
+CC = @CC@
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+ifeq (@srcdir@,.)
+INCLUDE_PATH = -I. -I..
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/..
+endif
+
+CPPFLAGS = $(INCLUDE_PATH) @CPPFLAGS@ @DEFS@ @PICFLAG@
+CFLAGS = @WARNING_FLAGS@ @WARNING_FLAGS_CC@ @CFLAGS@
+LDFLAGS = @LDFLAGS@
+
+D = d-generic.o d-generic-edif.o d-lpm.o d-virtex.o d-virtex2.o
+O = edif.o fpga.o gates.o mangle.o tables.o generic.o xilinx.o $D
+
+all: dep fpga.tgt
+
+check: all
+
+clean:
+	rm -rf *.o dep fpga.tgt
+
+distclean: clean
+	rm -f Makefile config.log
+
+cppcheck: $(O:.o=.c)
+	cppcheck --enable=all -f --suppressions-list=$(srcdir)/cppcheck.sup \
+	         --relative-paths=$(srcdir) $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in ../config.status
+	cd ..; ./config.status --file=tgt-fpga/$@
+
+dep:
+	mkdir dep
+
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) @DEPENDENCY_FLAG@ -c $< -o $*.o
+	mv $*.d dep
+
+ifeq (@WIN32@,yes)
+  TGTLDFLAGS=-L.. -livl
+  TGTDEPLIBS=../libivl.a
+else
+  TGTLDFLAGS=
+  TGTDEPLIBS=
+endif
+
+fpga.tgt: $O $(TGTDEPLIBS)
+	$(CC) @shared@ $(LDFLAGS) -o $@ $O $(TGTLDFLAGS)
+
+iverilog-fpga.ps: $(srcdir)/iverilog-fpga.man
+	man -t $(srcdir)/iverilog-fpga.man > iverilog-fpga.ps
+
+iverilog-fpga.pdf: iverilog-fpga.ps
+	ps2pdf iverilog-fpga.ps iverilog-fpga.pdf
+
+ifeq (@WIN32@,yes)
+INSTALL_DOC = $(prefix)/iverilog-fpga$(suffix).pdf $(mandir)/man1/iverilog-fpga$(suffix).1
+INSTALL_DOCDIR = $(mandir)/man1
+all: iverilog-fpga.pdf
+else
+INSTALL_DOC = $(mandir)/man1/iverilog-fpga$(suffix).1
+INSTALL_DOCDIR = $(mandir)/man1
+endif
+
+install: all installdirs $(libdir)/ivl$(suffix)/fpga.tgt $(INSTALL_DOC) $(libdir)/ivl$(suffix)/fpga.conf $(libdir)/ivl$(suffix)/fpga-s.conf
+
+$(libdir)/ivl$(suffix)/fpga.tgt: ./fpga.tgt
+	$(INSTALL_PROGRAM) ./fpga.tgt "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga.tgt"
+
+$(libdir)/ivl$(suffix)/fpga.conf: $(srcdir)/fpga.conf
+	$(INSTALL_DATA) $(srcdir)/fpga.conf "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga.conf"
+
+$(libdir)/ivl$(suffix)/fpga-s.conf: $(srcdir)/fpga-s.conf
+	$(INSTALL_DATA) $(srcdir)/fpga-s.conf "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga-s.conf"
+
+
+$(mandir)/man1/iverilog-fpga$(suffix).1: $(srcdir)/iverilog-fpga.man
+	$(INSTALL_DATA) $(srcdir)/iverilog-fpga.man "$(DESTDIR)$(mandir)/man1/iverilog-fpga$(suffix).1"
+
+$(prefix)/iverilog-fpga$(suffix).pdf: iverilog-fpga.pdf
+	$(INSTALL_DATA) iverilog-fpga.pdf "$(DESTDIR)$(prefix)/iverilog-fpga$(suffix).pdf"
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(DESTDIR)$(libdir)/ivl$(suffix)"
+
+uninstall:
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga.tgt"
+	rm -f "$(DESTDIR)$(INSTALL_DOC)"
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga-s.conf"
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/fpga.conf"
+
+-include $(patsubst %.o, dep/%.d, $O)

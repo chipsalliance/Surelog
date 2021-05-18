@@ -1,0 +1,12 @@
+## Set variables needed for building tools
+
+## Directories to install into
+
+## Setup CAD tools
+# If the machine you are working on is bsg_cadenv compliant, then you do not
+# need to setup the cad tools, simply put bsg_cadenv in the same root dir.
+BSG_CADENV_DIR ?= $(BP_SDK_DIR)/bsg_cadenv
+-include $(BSG_CADENV_DIR)/cadenv.mk
+
+export PATH := $(PATH)
+

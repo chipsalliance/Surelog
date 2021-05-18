@@ -1,0 +1,18 @@
+# -*-Makefile-*-
+HW_TEST := hw/test/phys-map-test
+
+.PHONY : hw-check
+hw-check: $(HW_TEST:%=%-check)
+
+check: hw-check
+
+$(HW_TEST:%=%-check) : %-check: %
+	$(call Q, RUN-TEST ,$(VALGRIND) $<, $<)
+
+$(HW_TEST) : % : %.c hw/phys-map.o
+	$(call Q, HOSTCC ,$(HOSTCC) $(HOSTCFLAGS) -O0 -g -I include -I . -o $@ $<, $<)
+
+clean: hw-clean
+
+hw-clean:
+	$(RM) -f hw/test/*.[od] $(HW_TEST)

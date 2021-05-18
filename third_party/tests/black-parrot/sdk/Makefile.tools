@@ -1,0 +1,48 @@
+gnu_dir      :=$(BP_SDK_DIR)/riscv-gnu-toolchain
+dromajo_dir  :=$(BP_SDK_DIR)/dromajo
+bedrock_dir  :=$(BP_SDK_DIR)/bedrock
+
+define submodule_tool_template
+$(1)_tag ?= $(addprefix $(1)., $(shell cd $(2); git rev-parse HEAD))
+$(BP_SDK_TOUCH_DIR)/$$($(1)_tag):
+	rm -rf $(BP_SDK_TOUCH_DIR)/$(1).*
+	cd $(BP_SDK_DIR); git submodule update --init $(SHALLOW_SUB) --recursive --checkout $$($(1)_dir)
+	+$(MAKE) $(1)_build
+	touch $(BP_SDK_TOUCH_DIR)/$$($(1)_tag)
+$(1): | $(BP_SDK_TOUCH_DIR)/$$($(1)_tag)
+$(1)_manual:
+	+$(MAKE) $(1)_build
+endef
+
+gnu_build:
+	cd $(gnu_dir); \
+		./configure --prefix=$(BP_SDK_INSTALL_DIR) --with-arch=rv64imafd --with-abi=lp64 --with-cmodel=medany
+	$(MAKE) -C $(gnu_dir)
+	$(MAKE) -C $(gnu_dir) linux
+	$(MAKE) -C $(gnu_dir) install
+	cp $(BP_SDK_INSTALL_DIR)/riscv64-unknown-elf-dramfs/bin/dramfs_mklfs $(BP_SDK_BIN_DIR)
+
+dromajo_build:
+	mkdir -p $(dromajo_dir)/build
+	$(CMAKE) -S $(dromajo_dir) -B $(dromajo_dir)/build
+	$(MAKE) -C $(dromajo_dir)/build
+	cp $(dromajo_dir)/build/dromajo $(BP_SDK_BIN_DIR)
+	cp $(dromajo_dir)/build/libdromajo_cosim.a $(BP_SDK_LIB_DIR)
+	cp $(dromajo_dir)/include/dromajo_cosim.h $(BP_SDK_INCLUDE_DIR)
+
+bedrock_build:
+	mkdir -p $(BP_UCODE_DIR)
+	$(MAKE) -C $(bedrock_dir) bins
+	cp $(bedrock_dir)/roms/*.bin $(BP_UCODE_DIR)/
+	cp $(bedrock_dir)/roms/*.addr $(BP_UCODE_DIR)/
+	cp $(bedrock_dir)/roms/*.mem $(BP_UCODE_DIR)/
+
+$(eval $(call submodule_tool_template,gnu,$(gnu_dir)))
+$(eval $(call submodule_tool_template,dromajo,$(dromajo_dir)))
+$(eval $(call submodule_tool_template,bedrock,$(bedrock_dir)))
+
+# This target cleans up the sdk build directories, saving significant space
+tidy_sdk:
+	cd $(BP_SDK_DIR); git submodule deinit -f $(gnu_dir)
+	cd $(BP_SDK_DIR); git submodule deinit -f $(dromajo_dir)
+

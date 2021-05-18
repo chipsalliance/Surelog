@@ -1,0 +1,147 @@
+#
+#    This source code is free software; you can redistribute it
+#    and/or modify it in source code form under the terms of the GNU
+#    Library General Public License as published by the Free Software
+#    Foundation; either version 2 of the License, or (at your option)
+#    any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Library General Public License for more details.
+#
+#    You should have received a copy of the GNU Library General Public
+#    License along with this program; if not, write to the Free
+#    Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+#    Boston, MA 02110-1301, USA.
+#
+SHELL = /bin/sh
+
+suffix = 
+
+prefix = /home/alain/black-parrot/tools/bsg_sv2v/tools/iverilog/install
+exec_prefix = ${prefix}
+srcdir = .
+
+# Look in the appropriate source directory for the C++ files. The one
+# exception to this is if we need to rebuild the lexor_keyword.cc file.
+# If we do, then we want to use the local version instead of the one is
+# $(srcdir).
+vpath lexor_keyword.cc .
+vpath %.cc $(srcdir)/../libmisc
+vpath %.cc $(srcdir)
+
+bindir = ${exec_prefix}/bin
+libdir = ${exec_prefix}/lib
+includedir = $(prefix)/include
+
+CC = gcc
+CXX = g++
+INSTALL = /usr/bin/install -c
+INSTALL_SCRIPT = ${INSTALL}
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+LEX = flex
+YACC = bison
+
+ifeq (.,.)
+INCLUDE_PATH = -I. -I.. -I../libmisc
+else
+INCLUDE_PATH = -I. -I.. -I$(srcdir) -I$(srcdir)/.. -I$(srcdir)/../libmisc
+endif
+
+CPPFLAGS = $(INCLUDE_PATH)  -DHAVE_CONFIG_H
+CXXFLAGS = -Wall -Wextra -Wshadow   -g -O2
+LDFLAGS =  
+LIBS = -lm -lz -lpthread  
+
+M = StringHeap.o LineInfo.o
+
+O = main.o architec.o compiler.o entity.o std_funcs.o std_types.o \
+    expression.o package.o scope.o sequential.o subprogram.o vsignal.o vtype.o \
+    vtype_match.o \
+    architec_elaborate.o entity_elaborate.o expression_elaborate.o \
+    expression_evaluate.o \
+    sequential_elaborate.o \
+    vtype_elaborate.o \
+    entity_stream.o expression_stream.o vtype_stream.o \
+    lexor.o lexor_keyword.o parse.o \
+    parse_misc.o library.o vhdlreal.o vhdlint.o \
+    architec_emit.o entity_emit.o expression_emit.o package_emit.o \
+    sequential_emit.o subprogram_emit.o vtype_emit.o \
+    debug.o architec_debug.o expression_debug.o sequential_debug.o \
+    $M
+
+all: dep vhdlpp
+
+check: all
+
+clean:
+	rm -f *.o *~ parse.cc parse.h lexor.cc parse.output lexor_keyword.cc
+	rm -rf dep vhdlpp
+
+distclean: clean
+	rm -f Makefile config.log
+	rm -f stamp-vhdlpp_config-h vhdlpp_config.h
+
+cppcheck: $(O:.o=.cc)
+	cppcheck --enable=all -f \
+	         -UYY_USER_INIT \
+	         -UYYPARSE_PARAM -UYYPRINT -Ushort -Usize_t -Uyyoverflow \
+	         -UYYTYPE_INT8 -UYYTYPE_INT16 -UYYTYPE_UINT8 -UYYTYPE_UINT16 \
+	         $(INCLUDE_PATH) $^
+
+Makefile: $(srcdir)/Makefile.in
+	cd ..; ./config.status --file=vhdlpp/$@
+
+dep:
+	mkdir dep
+
+vhdlpp: $O
+	$(CXX) -o vhdlpp $(LDFLAGS) $O $(LIBS)
+
+%.o: $(srcdir)/../libmisc/%.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MD -c $< -o $*.o
+	mv $*.d dep/$*.d
+
+%.o: %.cc vhdlpp_config.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -MD -c $< -o $*.o
+	mv $*.d dep/$*.d
+
+lexor.o: lexor.cc parse.h
+
+parse.o: parse.cc
+
+lexor.cc: $(srcdir)/lexor.lex
+	$(LEX) -s -olexor.cc $(srcdir)/lexor.lex
+
+# Build this in two steps to avoid parallel build issues (see pr3462585)
+parse.cc: $(srcdir)/parse.y
+	$(YACC) --verbose -t -d -o $@ $<
+parse.h: parse.cc
+	mv parse.cc.h $@ 2>/dev/null || mv parse.hh $@
+	touch $@
+
+lexor_keyword.o: lexor_keyword.cc parse.h
+
+lexor_keyword.cc: $(srcdir)/lexor_keyword.gperf
+	gperf -o -i 7 --ignore-case -C -k 1-4,6,9,$$ -H keyword_hash -N check_identifier -t $(srcdir)/lexor_keyword.gperf > lexor_keyword.cc || (rm -f lexor_keyword.cc ; false)
+
+install: all installdirs $(libdir)/ivl$(suffix)/vhdlpp
+
+$(libdir)/ivl$(suffix)/vhdlpp: vhdlpp
+	$(INSTALL_PROGRAM) ./vhdlpp "$(DESTDIR)$(libdir)/ivl$(suffix)/vhdlpp"
+
+installdirs: $(srcdir)/../mkinstalldirs
+	$(srcdir)/../mkinstalldirs "$(DESTDIR)$(libdir)/ivl$(suffix)"
+
+uninstall:
+	rm -f "$(DESTDIR)$(libdir)/ivl$(suffix)/vhdlpp"
+
+stamp-vhdlpp_config-h: $(srcdir)/vhdlpp_config.h.in ../config.status
+	@rm -f $@
+	cd ..; ./config.status --header=vhdlpp/vhdlpp_config.h
+vhplpp_config.h: stamp-vhdlpp_config-h
+
+
+-include $(patsubst %.o, dep/%.d, $O $M)
