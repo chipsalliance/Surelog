@@ -1,0 +1,23 @@
+-DBP_TOP_DIR=../bp_top/ -DHARDFLOAT_DIR=../external/HardFloat/ -DBP_ME_DIR=../bp_me/ -DBP_BE_DIR=../bp_be/ -DBP_FE_DIR=../bp_fe/ -DBP_COMMON_DIR=../bp_common/ -DBASEJUMP_STL_DIR=../external/basejump_stl/
+## Includes
+# BSG_IP_CORES includes
++incdir+$BASEJUMP_STL_DIR/bsg_dataflow
++incdir+$BASEJUMP_STL_DIR/bsg_mem
++incdir+$BASEJUMP_STL_DIR/bsg_misc
++incdir+$BASEJUMP_STL_DIR/bsg_test
++incdir+$BASEJUMP_STL_DIR/bsg_noc
+# HardFloat includes
++incdir+$HARDFLOAT_DIR/source
++incdir+$HARDFLOAT_DIR/source/RISCV
+# common includes
++incdir+$BP_COMMON_DIR/src/include
+# fe includes
++incdir+$BP_FE_DIR/src/include
+# be includes
++incdir+$BP_BE_DIR/src/include
+# me includes
++incdir+$BP_ME_DIR/src/include
+# top includes
++incdir+$BP_TOP_DIR/src/include
+-parse -elabuhdm -d coveruhdm
+dut.sv
