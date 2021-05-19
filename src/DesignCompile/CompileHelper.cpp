@@ -1073,7 +1073,8 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type,
               the_type == VObjectType::slClass_scope ||
               the_type == VObjectType::slIntegerAtomType_Int ||
               the_type == VObjectType::slIntegerAtomType_Shortint ||
-              the_type == VObjectType::slIntegerAtomType_LongInt) {
+              the_type == VObjectType::slIntegerAtomType_LongInt ||
+              the_type == VObjectType::slIntegerAtomType_Byte) {
             if (the_type == VObjectType::slStringConst) {
               const std::string& tname = fC->SymName(integer_vector_type);
               if (tname == "logic") {
@@ -1153,7 +1154,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
       }
       if (found == false) {
         Signal* sig =
-            new Signal(fC, signal, VObjectType::slData_type_or_implicit,
+            new Signal(fC, signal, signal_type,
                        dir_type, packed_dimension, is_signed);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
