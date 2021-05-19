@@ -1364,6 +1364,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
       }
     }
     Statement_or_null = Tf_port_list;
+  } else if (fC->Type(Tf_port_list) == VObjectType::slBlock_item_declaration) {
+    Statement_or_null = Tf_port_list;
   } else {
     if (fC->Type(Tf_port_list) == slStatement_or_null)
       Statement_or_null = Tf_port_list;
