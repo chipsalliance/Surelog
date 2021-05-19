@@ -1210,7 +1210,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slChandle_type: {
-      result = nullptr;
+      UHDM::chandle_typespec* tps = s.MakeChandle_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->VpiColumnNo(fC->Column(type));
+      tps->VpiEndLineNo(fC->EndLine(type));
+      tps->VpiEndColumnNo(fC->EndColumn(type));
+      result = tps;
       break;
     }
     case VObjectType::slSigning_Signed:
