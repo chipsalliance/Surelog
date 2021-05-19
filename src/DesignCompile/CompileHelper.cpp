@@ -1996,7 +1996,7 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
       }
     } else if (ttps == uhdmbit_typespec) {
       bit_typespec* lts = (bit_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() > 0) isMultiDimension = true;
+      if (lts->Ranges() && lts->Ranges()->size() > 1) isMultiDimension = true;
     } else if (ttps == uhdmstruct_typespec) {
       isMultiDimension = true;
     }
