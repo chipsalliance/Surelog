@@ -1153,9 +1153,8 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         }
       }
       if (found == false) {
-        Signal* sig =
-            new Signal(fC, signal, signal_type,
-                       dir_type, packed_dimension, is_signed);
+        Signal* sig = new Signal(fC, signal, signal_type, dir_type,
+                                 packed_dimension, is_signed);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
