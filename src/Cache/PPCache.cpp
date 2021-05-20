@@ -318,6 +318,17 @@ bool PPCache::save() {
                                      ? MACROCACHE::MacroType_WITH_ARGS
                                      : MACROCACHE::MacroType_NO_ARGS;
     auto args = builder.CreateVectorOfStrings(info->m_arguments);
+    /*
+    Debug code for a flatbuffer issue"
+    std::cout << "STRING VECTOR CONTENT:\n";
+    int index = 0;
+    std::cout << "VECTOR SIZE: " << info->m_tokens.size() << std::endl;
+    for (auto st : info->m_tokens) {
+      std::cout << index << " ST:" << st.size() << " >>>" << st << "<<<"
+                << std::endl;
+      index++;
+    }
+    */
     auto tokens = builder.CreateVectorOfStrings(info->m_tokens);
     macro_vec.push_back(MACROCACHE::CreateMacro(
         builder, name, type, info->m_line, info->m_column, args, tokens));

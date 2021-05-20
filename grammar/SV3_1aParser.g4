@@ -1361,7 +1361,9 @@ boolean_abbrev
     | goto_repetition            
     ; 
      
-consecutive_repetition : CONSECUTIVE_REP const_or_range_expression CLOSE_BRACKET ; 
+consecutive_repetition : CONSECUTIVE_REP const_or_range_expression CLOSE_BRACKET
+                       | ASSOCIATIVE_UNSPECIFIED 
+                       | OPEN_BRACKET PLUS CLOSE_BRACKET; 
 
 non_consecutive_repetition : NON_CONSECUTIVE_REP const_or_range_expression CLOSE_BRACKET ; 
                           
