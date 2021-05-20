@@ -288,6 +288,7 @@
 -sv ../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_pkg.sv
 -sv ../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_wkup.sv
 -sv ../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux.sv
+-sv ../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_strap_sampling.sv
 -sv ../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr.sv
 -sv ../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_cdc.sv
 -sv ../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_slow_fsm.sv

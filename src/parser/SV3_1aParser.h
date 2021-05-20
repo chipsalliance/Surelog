@@ -6148,6 +6148,9 @@ public:
     antlr4::tree::TerminalNode *CONSECUTIVE_REP();
     Const_or_range_expressionContext *const_or_range_expression();
     antlr4::tree::TerminalNode *CLOSE_BRACKET();
+    antlr4::tree::TerminalNode *ASSOCIATIVE_UNSPECIFIED();
+    antlr4::tree::TerminalNode *OPEN_BRACKET();
+    antlr4::tree::TerminalNode *PLUS();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
