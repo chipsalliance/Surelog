@@ -2271,8 +2271,7 @@ bool CompileHelper::compileParameterDeclaration(
           if (rhs->UhdmType() == uhdmoperation) {
             operation* op = (operation*)rhs;
             int optype = op->VpiOpType();
-            if (optype == vpiAssignmentPatternOp ||
-                optype == vpiConcatOp ) {
+            if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
               VectorOfany* operands = op->Operands();
               if (operands && operands->size()) {
                 if ((*operands)[0]->UhdmType() == uhdmref_obj) {
@@ -2282,7 +2281,7 @@ bool CompileHelper::compileParameterDeclaration(
               }
             }
           }
-        }                                     
+        }
         param_assign->Rhs(rhs);
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)rhs;
