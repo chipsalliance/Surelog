@@ -33,8 +33,8 @@
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
-#include "headers/uhdm_forward_decl.h"
-
+//#include "headers/uhdm_forward_decl.h"
+#include "headers/uhdm.h"
 namespace SURELOG {
 class Scope;
 class Statement;
@@ -381,6 +381,8 @@ class CompileHelper final {
   void setParentNoOverride(UHDM::any* obj, UHDM::any* parent);
 
   bool isMultidimensional(UHDM::typespec* ts, DesignComponent* component);
+
+  bool isDecreasingRange(UHDM::typespec* ts, DesignComponent* component);
 
   int64_t get_value(bool& invalidValue, const UHDM::expr* expr);
 

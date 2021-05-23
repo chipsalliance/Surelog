@@ -2004,6 +2004,44 @@ bool CompileHelper::isMultidimensional(UHDM::typespec* ts,
   return isMultiDimension;
 }
 
+bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
+                                      DesignComponent* component) {
+  if (ts) {
+    UHDM_OBJECT_TYPE ttps = ts->UhdmType();
+    range* r = nullptr;
+    if (ttps == uhdmlogic_typespec) {
+      logic_typespec* lts = (logic_typespec*)ts;
+      if (component && dynamic_cast<Package*>(component)) {
+        if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+          r = (*lts->Ranges())[0];
+        }
+      }
+    } else if (ttps == uhdmarray_typespec) {
+      array_typespec* lts = (array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+    } else if (ttps == uhdmpacked_array_typespec) {
+      packed_array_typespec* lts = (packed_array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+    } else if (ttps == uhdmbit_typespec) {
+      bit_typespec* lts = (bit_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+    }
+    if (r) {
+      bool invalidValue = false;
+      int64_t lv = get_value(invalidValue, r->Left_expr());
+      int64_t rv = get_value(invalidValue, r->Right_expr());
+      if ((invalidValue == false) && (lv > rv)) return true;
+    }
+  }
+  return false;
+}
+
 bool CompileHelper::compileParameterDeclaration(
     DesignComponent* component, const FileContent* fC, NodeId nodeId,
     CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance,
@@ -2114,6 +2152,7 @@ bool CompileHelper::compileParameterDeclaration(
       }
 
       bool isMultiDimension = isMultidimensional(ts, component);
+      bool isDecreasing = isDecreasingRange(ts, component);
 
       NodeId name = fC->Child(Param_assignment);
       NodeId value = fC->Sibling(name);
@@ -2147,6 +2186,21 @@ bool CompileHelper::compileParameterDeclaration(
                               (exprtype == uhdmfunc_call) ||
                               (exprtype == uhdmsys_func_call))) {
             component->setComplexValue(the_name, (UHDM::expr*)expr);
+            if (isDecreasing) {
+              if (expr->UhdmType() == uhdmoperation) {
+                operation* op = (operation*)expr;
+                int optype = op->VpiOpType();
+                if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
+                  VectorOfany* operands = op->Operands();
+                  if (operands && operands->size()) {
+                    if ((*operands)[0]->UhdmType() == uhdmref_obj) {
+                      op->VpiReordered(true);
+                      std::reverse(operands->begin(), operands->end());
+                    }
+                  }
+                }
+              }
+            }
           } else {
             val = m_exprBuilder.evalExpr(
                 fC, actual_value, component);  // This call to create an error
@@ -2213,6 +2267,21 @@ bool CompileHelper::compileParameterDeclaration(
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));
+        if (isDecreasing) {
+          if (rhs->UhdmType() == uhdmoperation) {
+            operation* op = (operation*)rhs;
+            int optype = op->VpiOpType();
+            if (optype == vpiAssignmentPatternOp || optype == vpiConcatOp) {
+              VectorOfany* operands = op->Operands();
+              if (operands && operands->size()) {
+                if ((*operands)[0]->UhdmType() == uhdmref_obj) {
+                  op->VpiReordered(true);
+                  std::reverse(operands->begin(), operands->end());
+                }
+              }
+            }
+          }
+        }
         param_assign->Rhs(rhs);
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
           constant* c = (constant*)rhs;
