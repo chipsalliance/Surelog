@@ -1547,9 +1547,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           case vpiAssignmentPatternOp:
             // Don't reduce these ops
             break;
-          default: {
-            invalidValue = true;
-          }
+          default: { invalidValue = true; }
         }
       }
     }
@@ -1922,26 +1920,26 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         }
       }
     }
-  } else if (objtype == uhdmpart_select) {  
-    part_select* sel = (part_select*) result;
-    ref_obj* parent = (ref_obj*) sel->VpiParent();
+  } else if (objtype == uhdmpart_select) {
+    part_select* sel = (part_select*)result;
+    ref_obj* parent = (ref_obj*)sel->VpiParent();
     const std::string& name = parent->VpiName();
     any* object = getObject(name, component, compileDesign, instance, pexpr);
     if (object == nullptr) {
       object = getValue(name, component, compileDesign, instance, fileName,
                         lineNumber, pexpr, true, muteErrors);
-      if ( object && (object->UhdmType() == uhdmconstant)) {
-        constant* co = (constant*) object;
+      if (object && (object->UhdmType() == uhdmconstant)) {
+        constant* co = (constant*)object;
         int64_t val = get_value(invalidValue, co);
         std::string binary = NumUtils::toBinary(co->VpiSize(), val);
         int64_t l = get_value(invalidValue, sel->Left_range());
         int64_t r = get_value(invalidValue, sel->Right_range());
         std::reverse(binary.begin(), binary.end());
         std::string sub;
-        if (l > r) 
+        if (l > r)
           sub = binary.substr(r, l - r + 1);
-        else 
-          sub = binary.substr(l, r - l + 1);  
+        else
+          sub = binary.substr(l, r - l + 1);
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("BIN:" + sub);
         c->VpiDecompile(sub);
@@ -3261,9 +3259,9 @@ UHDM::any* CompileHelper::compileExpression(
                 if (fC->Type(selectId) == slConstant_select) {
                   selectId = fC->Child(selectId);
                 }
-                result = compileSelectExpression(component, fC, selectId,
-                                                 name, compileDesign, pexpr,
-                                                 instance, reduce, muteErrors);
+                result = compileSelectExpression(component, fC, selectId, name,
+                                                 compileDesign, pexpr, instance,
+                                                 reduce, muteErrors);
               }
               if (result == nullptr) sval = pack->getValue(n);
             }
@@ -5252,11 +5250,10 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
             if (fC->Type(Bit_Select) == slConstant_select) {
               Bit_Select = fC->Child(Bit_Select);
             }
-            any* tmpResult = compileSelectExpression(component, fC, Bit_Select, basename,
-                                             compileDesign, pexpr, instance,
-                                             reduce, muteErrors);
-            if (tmpResult)
-              return tmpResult;
+            any* tmpResult = compileSelectExpression(
+                component, fC, Bit_Select, basename, compileDesign, pexpr,
+                instance, reduce, muteErrors);
+            if (tmpResult) return tmpResult;
           }
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(val->uhdmValue());
