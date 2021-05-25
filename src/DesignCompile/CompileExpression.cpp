@@ -1547,7 +1547,10 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           case vpiAssignmentPatternOp:
             // Don't reduce these ops
             break;
-          default: { invalidValue = true; }
+          default: {
+            invalidValue = true;
+            break;
+          }
         }
       }
     }
