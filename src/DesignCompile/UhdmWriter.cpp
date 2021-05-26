@@ -895,6 +895,21 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+  // Parameters
+  if (mod->getParameters()) {
+    m->Parameters(mod->getParameters());
+    for (auto ps : *m->Parameters()) {
+      ps->VpiParent(m);
+    }
+  }
+  // Param_assigns
+  if (mod->getParam_assigns()) {
+    m->Param_assigns(mod->getParam_assigns());
+    for (auto ps : *m->Param_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
+
   // Function and tasks
   m->Task_funcs(mod->getTask_funcs());
   if (m->Task_funcs()) {
@@ -955,6 +970,20 @@ void writeProgram(Program* mod, program* m, Serializer& s,
             instance);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
+  // Parameters
+  if (mod->getParameters()) {
+    m->Parameters(mod->getParameters());
+    for (auto ps : *m->Parameters()) {
+      ps->VpiParent(m);
+    }
+  }
+  // Param_assigns
+  if (mod->getParam_assigns()) {
+    m->Param_assigns(mod->getParam_assigns());
+    for (auto ps : *m->Param_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
