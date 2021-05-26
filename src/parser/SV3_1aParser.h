@@ -2288,7 +2288,8 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<Checker_port_itemContext *> checker_port_item();
     Checker_port_itemContext* checker_port_item(size_t i);
-    antlr4::tree::TerminalNode *COMMA();
+    std::vector<antlr4::tree::TerminalNode *> COMMA();
+    antlr4::tree::TerminalNode* COMMA(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

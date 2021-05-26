@@ -361,7 +361,7 @@ program_generate_item :
     ; 
 
 checker_port_list : 
-      checker_port_item ( COMMA checker_port_item )? ; 
+      checker_port_item ( COMMA checker_port_item )* ; 
 
 checker_port_item : 
       attribute_instance* (INPUT | OUTPUT)? property_formal_type identifier 
