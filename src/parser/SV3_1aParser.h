@@ -1340,6 +1340,8 @@ public:
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     LifetimeContext *lifetime();
+    std::vector<Package_import_declarationContext *> package_import_declaration();
+    Package_import_declarationContext* package_import_declaration(size_t i);
     Parameter_port_listContext *parameter_port_list();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1359,6 +1361,8 @@ public:
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     LifetimeContext *lifetime();
+    std::vector<Package_import_declarationContext *> package_import_declaration();
+    Package_import_declarationContext* package_import_declaration(size_t i);
     Parameter_port_listContext *parameter_port_list();
     List_of_port_declarationsContext *list_of_port_declarations();
 
@@ -1410,6 +1414,8 @@ public:
     antlr4::tree::TerminalNode *SEMICOLUMN();
     Attribute_instanceContext *attribute_instance();
     LifetimeContext *lifetime();
+    std::vector<Package_import_declarationContext *> package_import_declaration();
+    Package_import_declarationContext* package_import_declaration(size_t i);
     Parameter_port_listContext *parameter_port_list();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1429,6 +1435,8 @@ public:
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     LifetimeContext *lifetime();
+    std::vector<Package_import_declarationContext *> package_import_declaration();
+    Package_import_declarationContext* package_import_declaration(size_t i);
     Parameter_port_listContext *parameter_port_list();
     List_of_port_declarationsContext *list_of_port_declarations();
 
