@@ -52,7 +52,7 @@
 using namespace SURELOG;
 
 static std::string defaultLogFileName = "surelog.log";
-std::string CommandLineParser::m_versionNumber = "1.02";
+std::string CommandLineParser::m_versionNumber = "1.03";
 
 static const std::vector<std::string> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
