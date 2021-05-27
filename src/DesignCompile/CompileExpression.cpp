@@ -2432,10 +2432,15 @@ UHDM::any* CompileHelper::compileSelectExpression(
           NodeId tmp = fC->Sibling(Bit_select);
           if ((fC->Type(tmp) == slConstant_bit_select) &&
               (fC->Child(tmp) != 0)) {
-            any* sel =
-                compileExpression(component, fC, Bit_select, compileDesign,
-                                  pexpr, instance, reduce, muteErrors);
+            //const std::string& subname = fC->SymName(Bit_select);
+             any* sel =
+                 compileExpression(component, fC, Bit_select, compileDesign,
+                                    pexpr, instance, reduce, muteErrors);
+            //any* sel = compileSelectExpression(component, fC, Bit_select,
+            //                                   subname, compileDesign, pexpr,
+            //                                   instance, reduce, muteErrors);
             elems->push_back(sel);
+            //Bit_select = fC->Sibling(Bit_select);
           } else {
             ref_obj* r2 = s.MakeRef_obj();
             r2->VpiName(fC->SymName(Bit_select));
@@ -3297,7 +3302,7 @@ UHDM::any* CompileHelper::compileExpression(
               if (result == nullptr) sval = pack->getValue(n);
             }
           } else {
-            NodeId rhs;
+            NodeId rhs = 0;
             if (parentType == VObjectType::slHierarchical_identifier ||
                 parentType == VObjectType::slPs_or_hierarchical_identifier) {
               rhs = parent;
