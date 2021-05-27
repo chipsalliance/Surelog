@@ -2432,15 +2432,29 @@ UHDM::any* CompileHelper::compileSelectExpression(
           NodeId tmp = fC->Sibling(Bit_select);
           if ((fC->Type(tmp) == slConstant_bit_select) &&
               (fC->Child(tmp) != 0)) {
-            //const std::string& subname = fC->SymName(Bit_select);
-             any* sel =
-                 compileExpression(component, fC, Bit_select, compileDesign,
-                                    pexpr, instance, reduce, muteErrors);
-            //any* sel = compileSelectExpression(component, fC, Bit_select,
-            //                                   subname, compileDesign, pexpr,
-            //                                   instance, reduce, muteErrors);
-            elems->push_back(sel);
-            //Bit_select = fC->Sibling(Bit_select);
+            any* sel =
+                compileExpression(component, fC, Bit_select, compileDesign,
+                                  pexpr, instance, reduce, muteErrors);
+            if (sel) {
+              if (sel->UhdmType() == uhdmhier_path) {
+                hier_path* p = (hier_path*)sel;
+                for (auto el : *p->Path_elems()) {
+                  elems->push_back(el);
+                  std::string n = el->VpiName();
+                  if (el->UhdmType() == uhdmbit_select) {
+                    bit_select* s = (bit_select*)el;
+                    const expr* index = s->VpiIndex();
+                    std::string ind = index->VpiDecompile();
+                    if (ind.size() == 0) ind = index->VpiName();
+                    n += "[" + ind + "]";
+                  }
+                  hname += "." + n;
+                }
+                break;
+              } else {
+                elems->push_back(sel);
+              }
+            }
           } else {
             ref_obj* r2 = s.MakeRef_obj();
             r2->VpiName(fC->SymName(Bit_select));
