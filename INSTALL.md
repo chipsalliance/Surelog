@@ -37,4 +37,5 @@ Executable: `surelog`
 * Build
   * `make`
   * `make debug`
+  * make install (/usr/local/bin and /usr/local/lib/surelog by default, use PREFIX=<path> for alternative locations)
   * or see [`src/README`](./src/README.md)
