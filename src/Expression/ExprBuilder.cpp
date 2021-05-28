@@ -718,6 +718,42 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
         }
         break;
       }
+      case slIncDec_PlusPlus: {
+        std::string name;
+        name = fC->SymName(fC->Sibling(parent));
+        Value* sval = NULL;
+        if (instance) {
+          if (instance->getComplexValue(name)) {
+            muteErrors = true;
+            value->setInvalid();
+            break;
+          } else {
+            sval = instance->getValue(name);
+          }
+          value->u_plus(sval);
+          value->incr();
+          return value;
+        }
+        break;
+      }
+      case slIncDec_MinusMinus: {
+        std::string name;
+        name = fC->SymName(fC->Sibling(parent));
+        Value* sval = NULL;
+        if (instance) {
+          if (instance->getComplexValue(name)) {
+            muteErrors = true;
+            value->setInvalid();
+            break;
+          } else {
+            sval = instance->getValue(name);
+          }
+          value->u_plus(sval);
+          value->decr();
+          return value;
+        }
+        break;
+      }
       default:
         break;
     }
