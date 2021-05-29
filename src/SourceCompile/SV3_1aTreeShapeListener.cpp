@@ -1629,7 +1629,7 @@ void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {
   if (ctx->Simple_identifier()) {
     std::string text = ctx->Simple_identifier()->getText();
-    logError(ErrorDefinition::PA_UNCONNECTED_DRIVE_VALUE, ctx, text);       
+    logError(ErrorDefinition::PA_UNCONNECTED_DRIVE_VALUE, ctx, text);
   }
 }
 
