@@ -257,6 +257,8 @@ bool ErrorDefinition::init() {
   rec(PA_SYNTAX_ERROR, SYNTAX, PARSE, "Syntax error: %s", "%exobj");
   rec(PA_RESERVED_KEYWORD, ERROR, PARSE, "Reserved keyword: %s");
   rec(PA_UNSUPPORTED_KEYWORD_LIST, ERROR, PARSE, "Unsupported keyword set: %s");
+  rec(PA_UNCONNECTED_DRIVE_VALUE, ERROR, PARSE,
+      "Illegal unconnected_drive value: %s");
   rec(COMP_COMPILE, INFO, COMP, "Compilation..");
   rec(COMP_COMPILE_PACKAGE, INFO, COMP, "Compile package \"%s\"");
   rec(COMP_COMPILE_CLASS, INFO, COMP, "Compile class \"%s\"");
