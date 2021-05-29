@@ -687,7 +687,7 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   if (ctx->number().size()) number = ctx->number()[0]->getText();
   SymbolId newFileId = getSymbolTable()->registerSymbol(fileName);
   if (ctx->number().size() > 1) {
-    std::string type =  ctx->number()[1]->getText();
+    std::string type = ctx->number()[1]->getText();
     int newType = atoi(type.c_str());
     if (newType < 0 || newType > 2) {
       Location loc(m_pp->getFileId(lineCol.first),

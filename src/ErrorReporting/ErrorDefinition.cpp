@@ -244,7 +244,7 @@ bool ErrorDefinition::init() {
   rec(PP_RECURSIVE_INCLUDE_DIRECTIVE, FATAL, PP,
       "Recursive include directive for file \"%s\"");
   rec(PP_ILLEGAL_TICK_LINE_VALUE, ERROR, PP,
-      "Illegal type value for `line directive: %s, legal values are 0, 1, 2");     
+      "Illegal type value for `line directive: %s, legal values are 0, 1, 2");
   rec(PA_CANNOT_SPLIT_FILE, WARNING, PARSE, "Cannot split large file \"%s\"");
   rec(PA_PROCESSING_SOURCE_FILE, INFO, PARSE, "Parsing source file \"%s\"");
   rec(PA_CANNOT_OPEN_FILE, FATAL, PARSE, "Cannot open file \"%s\"");
