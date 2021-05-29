@@ -616,12 +616,28 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
     std::ssub_match base1_sub_match = base_match[1];
     std::string base1 = base1_sub_match.str();
     compUnitTimeInfo.m_timeUnitValue = atoi(base1.c_str());
+    if ((compUnitTimeInfo.m_timeUnitValue != 1) &&
+        (compUnitTimeInfo.m_timeUnitValue != 10) &&
+        (compUnitTimeInfo.m_timeUnitValue != 100)) {
+      logError(ErrorDefinition::PA_TIMESCALE_INVALID_VALUE, ctx, base1);
+    }
     compUnitTimeInfo.m_timeUnit = TimeInfo::unitFromString(base_match[2].str());
     std::ssub_match base2_sub_match = base_match[3];
     std::string base2 = base2_sub_match.str();
     compUnitTimeInfo.m_timePrecisionValue = atoi(base2.c_str());
+    if ((compUnitTimeInfo.m_timePrecisionValue != 1) &&
+        (compUnitTimeInfo.m_timePrecisionValue != 10) &&
+        (compUnitTimeInfo.m_timePrecisionValue != 100)) {
+      logError(ErrorDefinition::PA_TIMESCALE_INVALID_VALUE, ctx, base2);
+    }
+    uint64_t unitInFs = TimeInfo::femtoSeconds(compUnitTimeInfo.m_timeUnit, compUnitTimeInfo.m_timeUnitValue);
     compUnitTimeInfo.m_timePrecision =
         TimeInfo::unitFromString(base_match[4].str());
+    uint64_t precisionInFs = TimeInfo::femtoSeconds(compUnitTimeInfo.m_timePrecision, compUnitTimeInfo.m_timePrecisionValue);
+    if (unitInFs < precisionInFs) {
+      logError(ErrorDefinition::PA_TIMESCALE_INVALID_SCALE, ctx, "");
+    }
+
   }
   m_pf->getCompilationUnit()->recordTimeInfo(compUnitTimeInfo);
 }

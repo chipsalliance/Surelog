@@ -51,6 +51,7 @@ class TimeInfo final {
   double m_timePrecisionValue = 0.0;
 
   static Unit unitFromString(std::string_view s);
+  static uint64_t femtoSeconds(Unit unit, int value);
 };
 
 }  // namespace SURELOG
