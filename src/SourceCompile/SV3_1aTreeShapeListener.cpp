@@ -630,14 +630,16 @@ void SV3_1aTreeShapeListener::enterTimescale_directive(
         (compUnitTimeInfo.m_timePrecisionValue != 100)) {
       logError(ErrorDefinition::PA_TIMESCALE_INVALID_VALUE, ctx, base2);
     }
-    uint64_t unitInFs = TimeInfo::femtoSeconds(compUnitTimeInfo.m_timeUnit, compUnitTimeInfo.m_timeUnitValue);
+    uint64_t unitInFs = TimeInfo::femtoSeconds(
+        compUnitTimeInfo.m_timeUnit, compUnitTimeInfo.m_timeUnitValue);
     compUnitTimeInfo.m_timePrecision =
         TimeInfo::unitFromString(base_match[4].str());
-    uint64_t precisionInFs = TimeInfo::femtoSeconds(compUnitTimeInfo.m_timePrecision, compUnitTimeInfo.m_timePrecisionValue);
+    uint64_t precisionInFs =
+        TimeInfo::femtoSeconds(compUnitTimeInfo.m_timePrecision,
+                               compUnitTimeInfo.m_timePrecisionValue);
     if (unitInFs < precisionInFs) {
       logError(ErrorDefinition::PA_TIMESCALE_INVALID_SCALE, ctx, "");
     }
-
   }
   m_pf->getCompilationUnit()->recordTimeInfo(compUnitTimeInfo);
 }

@@ -908,7 +908,7 @@ void SV3_1aPpTreeShapeListener::enterUndef_directive(
         PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
   }
   if (m_reservedMacroNamesSet.find(macroName) !=
-        m_reservedMacroNamesSet.end()) {
+      m_reservedMacroNamesSet.end()) {
     logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
   }
   if (m_pp->m_debugMacro)
