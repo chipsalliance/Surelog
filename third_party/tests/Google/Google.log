@@ -68,9 +68,11 @@ Processing: -cd chapter-22 22.12--line-illegal-3.sv -parse -nocache -nobuiltin -
 `line -12 "somefile" 3
       ^-- 22.12--line-illegal-3.sv:8:6:.
 
+[ERR:PP0127] 22.12--line-illegal-3.sv:8: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
+
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.3--resetall_multiple.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.3--resetall_multiple.sv.log
@@ -491,9 +493,11 @@ Processing: -cd chapter-22 22.9--unconnected_drive-basic.sv -parse -nocache -nob
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.12--line-illegal-1.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.12--line-illegal-1.sv.log
+[ERR:PP0127] 22.12--line-illegal-1.sv:8: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_10.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_10.sv.log
@@ -5590,7 +5594,7 @@ Processing: -cd chapter-10 10.3.3--cont-assignment-delay.sv -parse -nocache -nob
 Processed 859 tests.
 [  FATAL] : 0
 [ SYNTAX] : 37
-[  ERROR] : 131
+[  ERROR] : 133
 [WARNING] : 8
 [   NOTE] : 0
 
