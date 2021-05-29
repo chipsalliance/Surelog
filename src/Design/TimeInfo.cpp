@@ -43,3 +43,27 @@ TimeInfo::Unit TimeInfo::unitFromString(std::string_view s) {
     return Unit::Femtosecond;
   return Unit::Picosecond;
 }
+
+uint64_t TimeInfo::femtoSeconds(Unit unit, int value) {
+  uint64_t result = value;
+  switch (unit) {
+    case Unit::Second:
+      result *= 1e+15;
+      break;
+    case Unit::Millisecond:
+      result *= 1e+12;
+      break;
+    case Unit::Microsecond:
+      result *= 1e+9;
+      break;
+    case Unit::Nanosecond:
+      result *= 1e+6;
+      break;
+    case Unit::Picosecond:
+      result *= 1e+3;
+      break;
+    default:
+      break;
+  }
+  return result;
+}

@@ -259,6 +259,10 @@ bool ErrorDefinition::init() {
   rec(PA_UNSUPPORTED_KEYWORD_LIST, ERROR, PARSE, "Unsupported keyword set: %s");
   rec(PA_UNCONNECTED_DRIVE_VALUE, ERROR, PARSE,
       "Illegal unconnected_drive value: %s");
+  rec(PA_TIMESCALE_INVALID_VALUE, ERROR, PARSE,
+      "Invalid timescale value: %s, legal values: 1, 10, 100");
+  rec(PA_TIMESCALE_INVALID_SCALE, ERROR, PARSE,
+      "Timescale precision less precise than timeunit");
   rec(COMP_COMPILE, INFO, COMP, "Compilation..");
   rec(COMP_COMPILE_PACKAGE, INFO, COMP, "Compile package \"%s\"");
   rec(COMP_COMPILE_CLASS, INFO, COMP, "Compile class \"%s\"");
