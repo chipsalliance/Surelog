@@ -58,6 +58,7 @@ class CompileClass final {
         m_symbols(symbols),
         m_errors(errors) {
     m_helper.seterrorReporting(errors, symbols);
+    builtins_ = { "constraint_mode", "randomize" };
   }
 
   bool compile();
@@ -82,6 +83,7 @@ class CompileClass final {
   bool compile_local_parameter_declaration_(const FileContent* fC, NodeId id);
   bool compile_parameter_declaration_(const FileContent* fC, NodeId id);
   bool compile_class_type_(const FileContent* fC, NodeId id);
+  std::set<std::string> builtins_;
 };
 
 }  // namespace SURELOG

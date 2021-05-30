@@ -423,7 +423,13 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
     returnType->init(fC, type, typeName, fC->Type(type));
     NodeId function_name = fC->Sibling(function_data_type_or_implicit);
     funcName = fC->SymName(function_name);
-
+    if (builtins_.find(funcName) != builtins_.end()) {
+      Location loc(m_symbols->registerSymbol(fC->getFileName()),
+                    fC->Line(function_name), fC->Column(function_name),
+                    m_symbols->registerSymbol(funcName));
+      Error err(ErrorDefinition::COMP_CANNOT_REDEFINE_BUILTIN_METHOD, loc);
+      m_errors->addError(err); 
+    }
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
     m_helper.compileFunction(m_class, fC, fC->Child(id), m_compileDesign, true);
 
