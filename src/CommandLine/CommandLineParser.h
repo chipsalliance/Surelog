@@ -118,6 +118,7 @@ class CommandLineParser final {
   bool lowMem() { return m_lowMem; }
   bool compile() { return m_compile; }
   bool elaborate() { return m_elaborate; }
+  bool writeUhdm() { return m_writeUhdm; }
   void setParse(bool val) { m_parse = val; }
   void setParseOnly(bool val) { m_parseOnly = val; }
   void setLowMem(bool val) { m_lowMem = val; }
@@ -127,6 +128,7 @@ class CommandLineParser final {
     m_elaborate = val;
     m_elabUhdm = val;
   }
+  void setWriteUhdm(bool val) { m_writeUhdm = val; }
   void setParametersSubstitution(bool val) { m_parametersubstitution = val; }
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
@@ -261,6 +263,7 @@ class CommandLineParser final {
   bool m_replay;
   bool m_uhdmStats;
   bool m_lowMem;
+  bool m_writeUhdm;
 };
 
 }  // namespace SURELOG

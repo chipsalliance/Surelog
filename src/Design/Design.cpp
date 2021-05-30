@@ -45,7 +45,25 @@
 namespace SURELOG {
 
 Design::~Design() {
+  for (auto elem :m_ppFileContents) {
+    delete elem.second;
+  }
   for (auto elem : m_fileContents) {
+    delete elem.second;
+  }
+  for (auto elem : m_moduleDefinitions) {
+    delete elem.second;
+  }
+  for (auto elem : m_topLevelModuleInstances) {
+    delete elem;
+  }
+  for (auto elem : m_orderedPackageDefinitions) {
+    delete elem;
+  }
+  for (auto elem : m_programDefinitions) {
+    delete elem.second;
+  }
+  for (auto elem : m_uniqueClassDefinitions) {
     delete elem.second;
   }
 }

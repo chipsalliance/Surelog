@@ -108,7 +108,7 @@ proc create_file_list {} {
 	}
 	set import_uvm ""
 	if [regexp {import[ ]+uvm_pkg} $content] {
-#	    set import_uvm "$uvm_dir/uvm_pkg.sv"
+	    set import_uvm "$uvm_dir/uvm_pkg.sv"
 	}
 	set cmd "-cd $dir_name -I$uvm_dir $import_uvm $SURELOG_OPTIONS [file tail $file] -l [file tail $file].log"
 	

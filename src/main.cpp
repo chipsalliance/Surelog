@@ -71,6 +71,8 @@ unsigned int executeCompilation(
 
     SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
     if (!compiler) codedReturn |= 1;
+    SURELOG::Design* design = SURELOG::get_design(compiler);
+    delete design;
     SURELOG::shutdown_compiler(compiler);
   }
   SURELOG::ErrorContainer::Stats stats;
@@ -117,6 +119,7 @@ unsigned int executeCompilation(
   else
     return codedReturn;
 }
+
 enum COMP_MODE {
   NORMAL,
   DIFF,

@@ -117,6 +117,7 @@ static const std::vector<std::string> helpText = {
     "  -parseonly            Only Parses, reloads Preprocessor saved db",
     "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the "
     "Folded Model",
+    "  -nouhdm               No UHDM db write",
     "  -top/--top-module <module> Top level module for elaboration (multiple "
     "cmds ok)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch "
@@ -328,7 +329,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_showVpiIDs(false),
       m_replay(false),
       m_uhdmStats(false),
-      m_lowMem(false) {
+      m_lowMem(false),
+      m_writeUhdm(true) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -729,6 +731,8 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_nbMaxProcesses = 1;
       m_writePpOutput = true;
       m_lowMem = true;
+    } else if (all_arguments[i] == "-nouhdm") {
+      m_writeUhdm = false;
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
       bool mt =
