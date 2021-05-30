@@ -1,7 +1,16 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: parameter_type_conflict_unresolved
 :description: superclass type declaration conflicts must be resolved in subclass
-:should_fail_because: the parameter T is inherited from both classess and creates a conflict 
+:should_fail_because: superclass type declaration conflicts must be resolved in subclass
 :tags: 8.26.6.2
 :type: simulation
 */

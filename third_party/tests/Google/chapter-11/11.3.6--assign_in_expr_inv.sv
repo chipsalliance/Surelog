@@ -1,7 +1,16 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: assign_in_expr_inv
 :description: invalid assignment in expression test
-:should_fail_because: such assignment shall use parantheses to avoid confusion
+:should_fail_because: blocking assignments within expression must be enclosed in parentheses
 :tags: 11.3.6
 */
 module top();

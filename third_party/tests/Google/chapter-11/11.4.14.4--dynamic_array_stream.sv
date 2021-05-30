@@ -1,3 +1,12 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: dynamic_array_unpack_stream
 :description: stream unpack test with dynamic array
@@ -23,9 +32,9 @@ initial begin
 	i_data = new[5];
 	i_crc = 42;
 
-	pkt = {<< byte{i_header, i_len, i_data, i_crc}};
+	pkt = {<< 8 {i_header, i_len, i_data, i_crc}};
 
-	{<< byte{o_header, o_len, o_data with [0 +: o_len], o_crc}} = pkt;
+	{<< 8 {o_header, o_len, o_data, o_crc}} = pkt;
 end
 
 endmodule

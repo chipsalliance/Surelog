@@ -1,14 +1,18 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: clocking_block_signals
 :description: clocking block with signals test
 :tags: 14.3
 */
-module top(input clk, input a, output b, output c);
-
-wire clk;
-wire a;
-wire b;
-wire c;
+module top(input clk, input a, output logic b, output logic c);
 
 clocking ck1 @(posedge clk);
 	default input #10ns output #5ns;
