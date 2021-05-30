@@ -291,8 +291,8 @@ bool ErrorDefinition::init() {
   rec(COMP_UNDEFINED_TYPE, ERROR, COMP, "Undefined type \"%s\"");
   rec(COMP_MULTIPLY_DEFINED_PROPERTY, WARNING, COMP,
       "Multiply defined property \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_CLASS, ERROR, COMP,
-      "Multiply defined class \"%s\"", "%exloc previous definition");
+  rec(COMP_MULTIPLY_DEFINED_CLASS, ERROR, COMP, "Multiply defined class \"%s\"",
+      "%exloc previous definition");
   rec(COMP_MULTIPLY_DEFINED_FUNCTION, ERROR, COMP,
       "Multiply defined function \"%s\"", "%exloc previous definition");
   rec(COMP_MULTIPLY_DEFINED_TASK, ERROR, COMP, "Multiply defined task \"%s\"",
@@ -328,6 +328,8 @@ bool ErrorDefinition::init() {
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
   rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP,
       "Internal out of bound error");
+  rec(COMP_CANNOT_REDEFINE_BUILTIN_METHOD, ERROR, COMP,
+      "Cannot override builtin method: %s");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
