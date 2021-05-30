@@ -1,7 +1,16 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: operations-on-arrays-variable-slice-zero-rw
 :description: Test packed arrays operations support (Variable slice)
-:should_fail_because: more info in comments
+:should_fail_because: slicing array with zero part width
 :tags: 7.4.3
 :type: simulation
 */

@@ -1,7 +1,16 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: parametrized_class_invalid_scope_resolution
 :description: parametrized class invalid scope resolution
-:should_fail_because: par_cls:: is not permitted in this context
+:should_fail_because: parametrized class invalid scope resolution
 :tags: 8.25.1
 :type: simulation
 */
@@ -16,7 +25,6 @@ module class_tb ();
 	initial begin
 		inst = new;
 
-		// par_cls:: is not permitted in this context
 		$display(par_cls::b);
 	end
 endmodule

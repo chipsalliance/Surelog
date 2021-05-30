@@ -1,3 +1,12 @@
+// Copyright (C) 2019-2021  The SymbiFlow Authors.
+//
+// Use of this source code is governed by a ISC-style
+// license that can be found in the LICENSE file or at
+// https://opensource.org/licenses/ISC
+//
+// SPDX-License-Identifier: ISC
+
+
 /*
 :name: associative-arrays-as-arguments
 :description: Test passing associative array as arugments support
@@ -9,7 +18,7 @@ module top ();
 string arraya[int];
 
 task fun (string arrayb[int]);
-	arrayb[ 2 ] = "d";
+	arrayb[ 1 ] = "d";
 	$display(":assert: (('%s' == 'a') and ('%s' == 'd') and ('%s' == 'c'))",
 		arrayb[0], arrayb[1], arrayb[2]);
 endtask
