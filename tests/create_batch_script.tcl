@@ -96,7 +96,21 @@ proc create_file_list {} {
 	if [regexp "slpp" $file] {
 	    continue
 	}
-	set cmd "-cd [file dirname $file] $SURELOG_OPTIONS [file tail $file] -l [file tail $file].log"
+	set fid1 [open $file]
+	set content [read $fid1]
+	close $fid1
+	set dir_name [file dirname $file]
+	set uvm_dir "../../../UVM/1800.2-2017-1.0/src/"
+	if {$dir_name == "."} {
+	    set uvm_dir "../../UVM/1800.2-2017-1.0/src/"
+	} elseif [regexp {/} $dir_name] {
+	    set uvm_dir "../../../../UVM/1800.2-2017-1.0/src/"
+	}
+	set import_uvm ""
+	if [regexp {import[ ]+uvm_pkg} $content] {
+#	    set import_uvm "$uvm_dir/uvm_pkg.sv"
+	}
+	set cmd "-cd $dir_name -I$uvm_dir $import_uvm $SURELOG_OPTIONS [file tail $file] -l [file tail $file].log"
 	
 	if {$EXECUTABLE != ""} {
 	    set cmd "$cmd -exe $EXECUTABLE"
