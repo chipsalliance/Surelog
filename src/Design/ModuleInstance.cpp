@@ -119,7 +119,7 @@ ModuleInstance::~ModuleInstance() {
   for (unsigned int index = 0; index < m_nbChildren; index++) {
     delete m_children[index];
   }
-  delete [] m_children;
+  delete[] m_children;
 }
 
 void ModuleInstance::addSubInstances(ModuleInstance** subInstances,

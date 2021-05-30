@@ -45,7 +45,7 @@
 namespace SURELOG {
 
 Design::~Design() {
-  for (auto elem :m_ppFileContents) {
+  for (auto elem : m_ppFileContents) {
     delete elem.second;
   }
   for (auto elem : m_fileContents) {
