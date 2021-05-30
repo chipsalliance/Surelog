@@ -216,7 +216,7 @@ bool ErrorDefinition::init() {
       "%exloc macro definition has arguments");
   rec(PP_MACRO_NAME_RESERVED, ERROR, PP,
       "Illegally redefining compiler directive \"`%s\" as a macro name");
-  rec(PP_MACRO_HAS_SPACE_BEFORE_ARGS, ERROR, PP,
+  rec(PP_MACRO_HAS_SPACE_BEFORE_ARGS, INFO, PP,
       "Illegal space in between macro name \"%s\" and open parenthesis");
   rec(PP_MACRO_UNUSED_ARGUMENT, WARNING, PP, "Unused macro argument \"%s\"");
   rec(PP_MACRO_UNDEFINED_ARGUMENT, WARNING, PP,
@@ -252,7 +252,7 @@ bool ErrorDefinition::init() {
   rec(PA_MAX_LENGTH_IDENTIFIER, ERROR, PARSE,
       "Indentifier exceeds max length \"%s\"");
   rec(PA_NOTIMESCALE_INFO, WARNING, PARSE, "No timescale set for \"%s\"");
-  rec(PA_MISSING_TIMEUNIT, ERROR, PARSE,
+  rec(PA_MISSING_TIMEUNIT, WARNING, PARSE,
       "Missing timeunit/timeprecision for \"%s\"");
   rec(PA_SYNTAX_ERROR, SYNTAX, PARSE, "Syntax error: %s", "%exobj");
   rec(PA_RESERVED_KEYWORD, ERROR, PARSE, "Reserved keyword: %s");
@@ -289,9 +289,9 @@ bool ErrorDefinition::init() {
   rec(COMP_UNDEFINED_CLASS, ERROR, COMP, "Undefined class \"%s\"");
   rec(COMP_UNDEFINED_PACKAGE, ERROR, COMP, "Undefined package \"%s\"");
   rec(COMP_UNDEFINED_TYPE, ERROR, COMP, "Undefined type \"%s\"");
-  rec(COMP_MULTIPLY_DEFINED_PROPERTY, ERROR, COMP,
+  rec(COMP_MULTIPLY_DEFINED_PROPERTY, WARNING, COMP,
       "Multiply defined property \"%s\"", "%exloc previous definition");
-  rec(COMP_MULTIPLY_DEFINED_CLASS, WARNING, COMP,
+  rec(COMP_MULTIPLY_DEFINED_CLASS, ERROR, COMP,
       "Multiply defined class \"%s\"", "%exloc previous definition");
   rec(COMP_MULTIPLY_DEFINED_FUNCTION, ERROR, COMP,
       "Multiply defined function \"%s\"", "%exloc previous definition");
@@ -342,7 +342,7 @@ bool ErrorDefinition::init() {
       "Multiple top level modules in design");
   rec(ELAB_MULTIPLY_DEFINED_MODULE, WARNING, ELAB,
       "Multiply defined module \"%s\"", "%exloc previous definition");
-  rec(ELAB_NO_TOP_LEVEL_MODULE, ERROR, ELAB, "No top level module in design");
+  rec(ELAB_NO_TOP_LEVEL_MODULE, WARNING, ELAB, "No top level module in design");
   rec(ELAB_INSTANTIATION_LOOP, ERROR, ELAB, "Instantiation loop for \"%s\"",
       "%exloc previous instantiation");
   rec(ELAB_NB_TOP_LEVEL_MODULES, NOTE, ELAB, "Nb Top level modules: %s");
