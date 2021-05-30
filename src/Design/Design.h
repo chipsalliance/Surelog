@@ -24,6 +24,8 @@
 #ifndef DESIGN_H
 #define DESIGN_H
 
+#include <mutex>
+
 #include "Config/ConfigSet.h"
 #include "Design/BindStmt.h"
 #include "Design/DefParam.h"
@@ -54,6 +56,8 @@ class Design final {
       : m_errors(errors), m_librarySet(librarySet), m_configSet(configSet) {}
 
   Design(const Design& orig) = delete;
+
+  ~Design();
 
   typedef std::vector<std::pair<SymbolId, FileContent*>> FileIdDesignContentMap;
 
@@ -212,6 +216,8 @@ class Design final {
   std::vector<std::string> m_orderedPackageNames;
 
   BindMap m_bindMap;
+
+  std::mutex m_mutex;
 };
 
 }  // namespace SURELOG
