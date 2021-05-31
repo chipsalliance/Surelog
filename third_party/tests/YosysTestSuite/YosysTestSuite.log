@@ -149,7 +149,7 @@ Processing: -cd asicworld code_hdl_models_lfsr.v -writepp -parse -nocache -nobui
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd asicworld code_verilog_tutorial_first_counter_tb.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_verilog_tutorial_first_counter_tb.v.log
-[ERR:PP0102] code_verilog_tutorial_first_counter_tb.v:9:16: Unknown macro "outfile".
+[ERR:PP0102] code_verilog_tutorial_first_counter_tb.v:9:17: Unknown macro "outfile".
 
 [SNT:PA0207] code_verilog_tutorial_first_counter_tb.v:9:16: Syntax error: no viable alternative at input 'module testbench();\n// Declare inputs as regs and outputs as wires\nreg clock = 1, reset = 0, enable = 0;\nwire [3:0] counter_out;\ninteger file;\n\n// Initialize all variables\ninitial begin        \n  file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!!',
   file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
@@ -215,7 +215,7 @@ Processing: -cd asicworld code_hdl_models_uart.v -writepp -parse -nocache -nobui
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd asicworld code_verilog_tutorial_fsm_full_tb.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_verilog_tutorial_fsm_full_tb.v.log
-[ERR:PP0102] code_verilog_tutorial_fsm_full_tb.v:10:16: Unknown macro "outfile".
+[ERR:PP0102] code_verilog_tutorial_fsm_full_tb.v:10:17: Unknown macro "outfile".
 
 [SNT:PA0207] code_verilog_tutorial_fsm_full_tb.v:10:16: Syntax error: no viable alternative at input 'module testbench();\nreg clock = 0 , reset ;\nreg req_0 , req_1 ,  req_2 , req_3; \nwire gnt_0 , gnt_1 , gnt_2 , gnt_3 ;\ninteger file;\n\ninitial begin\n  // $dumpfile("testbench.vcd");\n  // $dumpvars(0, testbench);\n  file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!!',
   file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
@@ -353,7 +353,7 @@ Processing: -cd asicworld code_verilog_tutorial_bus_con.v -writepp -parse -nocac
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd asicworld code_verilog_tutorial_counter_tb.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_verilog_tutorial_counter_tb.v.log
-[ERR:PP0102] code_verilog_tutorial_counter_tb.v:34:15: Unknown macro "outfile".
+[ERR:PP0102] code_verilog_tutorial_counter_tb.v:34:16: Unknown macro "outfile".
 
 [SNT:PA0207] code_verilog_tutorial_counter_tb.v:34:14: Syntax error: mismatched input '(' expecting ';',
  file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
@@ -529,7 +529,7 @@ Processing: -cd asicworld code_hdl_models_encoder_4to2_gates.v -writepp -parse -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd asicworld code_hdl_models_arbiter_tb.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_hdl_models_arbiter_tb.v.log
-[ERR:PP0102] code_hdl_models_arbiter_tb.v:22:16: Unknown macro "outfile".
+[ERR:PP0102] code_hdl_models_arbiter_tb.v:22:17: Unknown macro "outfile".
 
 [SNT:PA0207] code_hdl_models_arbiter_tb.v:22:16: Syntax error: no viable alternative at input 'module testbench ();\n\nreg             clk = 0;\nreg             rst = 1;\nreg             req3 = 0;\nreg             req2 = 0;\nreg             req1 = 0;\nreg             req0 = 0;\nwire            gnt3;   \nwire            gnt2;   \nwire            gnt1;   \nwire            gnt0;  \n\n// Clock generator\nalways #1 clk = ~clk;\ninteger file;\n\nalways @(posedge clk)\n  $fdisplay(file, "%b", {gnt3, gnt2, gnt1, gnt0});\n\ninitial begin\n  file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!!',
   file = $fopen(SURELOG_MACRO_NOT_DEFINED:outfile!!! );
@@ -1894,13 +1894,13 @@ Processing: -cd sva counter.sv -writepp -parse -nocache -nobuiltin -nonote -noin
 [ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a property_expr_group group!
 .
 
-[ERR:UH0700] counter.sv:16: Unsupported expression "<n<> u<264> t<Sequence_expr> p<273> c<263> s<266> l<16:18> el<16:20>> 	assert property (up ##1 up |=> cnt == $past(cnt, 2) + 8'd 2);
+[ERR:UH0700] counter.sv:16: Unsupported expression "<n<> u<264> t<Sequence_expr> p<273> c<263> s<266> l<16:19> el<16:21>> 	assert property (up ##1 up |=> cnt == $past(cnt, 2) + 8'd 2);
 ".
 
 [ERR:UH0703] Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!
 .
 
-[ERR:UH0700] counter.sv:21: Unsupported expression "<n<> u<347> t<Sequence_expr> p<356> c<346> s<349> l<21:18> el<21:20>> 	assert property (up ##1 down |=> cnt == $past(cnt, 2));
+[ERR:UH0700] counter.sv:21: Unsupported expression "<n<> u<347> t<Sequence_expr> p<356> c<346> s<349> l<21:19> el<21:21>> 	assert property (up ##1 down |=> cnt == $past(cnt, 2));
 ".
 
 [ERR:UH0703] Internal Error: adding wrong object type (constant) in a property_expr_named_event_group group!
@@ -1939,7 +1939,7 @@ Processing: -cd sva basic02.sv -writepp -parse -nocache -nobuiltin -nonote -noin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd sva sva_range.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l sva_range.sv.log
-[ERR:UH0700] sva_range.sv:8: Unsupported expression "<n<> u<68> t<Property_expr> p<77> c<59> s<76> l<8:2> el<8:17>> 		a ##[*] b |=> c until d
+[ERR:UH0700] sva_range.sv:8: Unsupported expression "<n<> u<68> t<Property_expr> p<77> c<59> s<76> l<8:3> el<8:18>> 		a ##[*] b |=> c until d
 ".
 
 [ERR:UH0703] Internal Error: adding wrong object type (unsupported_expr) in a property_expr_group group!
