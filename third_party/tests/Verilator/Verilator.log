@@ -409,7 +409,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_dpi_display.v -l t_dpi_display.v.log
-[ERR:PP0102] t_dpi_display.v:11:3: Unknown macro "error".
+[ERR:PP0102] t_dpi_display.v:11:4: Unknown macro "error".
 
 [SNT:PA0207] t_dpi_display.v:11:39: Syntax error: no viable alternative at input 'module t ();\n\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."
@@ -879,11 +879,11 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_pp_pragmas.v -l t_pp_pragmas.v.log
-[ERR:PP0102] t_pp_pragmas.v:7: Unknown macro "verilog".
+[ERR:PP0102] t_pp_pragmas.v:7:1: Unknown macro "verilog".
 
-[ERR:PP0102] t_pp_pragmas.v:40: Unknown macro "remove_gatenames".
+[ERR:PP0102] t_pp_pragmas.v:40:1: Unknown macro "remove_gatenames".
 
-[ERR:PP0102] t_pp_pragmas.v:42: Unknown macro "remove_netnames".
+[ERR:PP0102] t_pp_pragmas.v:42:1: Unknown macro "remove_netnames".
 
 [ERR:PA0203] t_pp_pragmas.v:7: Unknown macro "verilog".
 
@@ -937,7 +937,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_sys_file_basic.v -l t_sys_file_basic.v.log
 [ERR:PP0101] t_sys_file_basic.v:6: Cannot open include file "verilated.v".
 
-[ERR:PP0102] t_sys_file_basic.v:46:32: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_sys_file_basic.v:46:33: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1373,9 +1373,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_pp_misdef_bad.v -l t_pp_misdef_bad.v.log
-[ERR:PP0102] t_pp_misdef_bad.v:10:3: Unknown macro "NDEFINED".
+[ERR:PP0102] t_pp_misdef_bad.v:10:4: Unknown macro "NDEFINED".
 
-[ERR:PP0102] t_pp_misdef_bad.v:13:5: Unknown macro "imescale".
+[ERR:PP0102] t_pp_misdef_bad.v:13:6: Unknown macro "imescale".
 
 [ERR:PA0203] t_pp_misdef_bad.v:10: Unknown macro "NDEFINED".
 
@@ -1417,7 +1417,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_dpi_threads.v -l t_dpi_threads.v.log
-[ERR:PP0102] t_dpi_threads.v:19:3: Unknown macro "error".
+[ERR:PP0102] t_dpi_threads.v:19:4: Unknown macro "error".
 
 [SNT:PA0207] t_dpi_threads.v:19:39: Syntax error: extraneous input '"Only Verilator supports PLI-ish DPI calls."' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
@@ -1599,7 +1599,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_sys_fread.v -l t_sys_fread.v.log
-[ERR:PP0102] t_sys_fread.v:42:32: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_sys_fread.v:42:33: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1649,7 +1649,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_sys_file_scan.v -l t_sys_file_scan.v.log
 [ERR:PP0101] t_sys_file_scan.v:6: Cannot open include file "verilated.v".
 
-[ERR:PP0102] t_sys_file_scan.v:16:35: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_sys_file_scan.v:16:36: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -1808,9 +1808,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_unused.v -l t_lint_unused.v.log
-[ERR:PP0102] t_lint_unused.v:31:35: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_lint_unused.v:31:36: Unknown macro "TEST_OBJ_DIR".
 
-[ERR:PP0102] t_lint_unused.v:34:34: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_lint_unused.v:34:35: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -2172,7 +2172,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_dpi_sys.v -l t_dpi_sys.v.log
-[ERR:PP0102] t_dpi_sys.v:15:3: Unknown macro "error".
+[ERR:PP0102] t_dpi_sys.v:15:4: Unknown macro "error".
 
 [SNT:PA0207] t_dpi_sys.v:15:39: Syntax error: no viable alternative at input 'module t ();\n\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
@@ -3257,9 +3257,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_case_write1.v -l t_case_write1.v.log
 [ERR:PP0101] t_case_write1.v:6: Cannot open include file "verilated.v".
 
-[ERR:PP0102] t_case_write1.v:37:43: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_case_write1.v:37:44: Unknown macro "TEST_OBJ_DIR".
 
-[ERR:PP0102] t_case_write1.v:38:36: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_case_write1.v:38:37: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -3287,9 +3287,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_case_write2.v -l t_case_write2.v.log
 [ERR:PP0101] t_case_write2.v:6: Cannot open include file "verilated.v".
 
-[ERR:PP0102] t_case_write2.v:37:43: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_case_write2.v:37:44: Unknown macro "TEST_OBJ_DIR".
 
-[ERR:PP0102] t_case_write2.v:38:36: Unknown macro "TEST_OBJ_DIR".
+[ERR:PP0102] t_case_write2.v:38:37: Unknown macro "TEST_OBJ_DIR".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -3501,7 +3501,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_pp_lib_library.v -l t_pp_lib_library.v.log
-[ERR:PP0102] t_pp_lib_library.v:7:10: Unknown macro "WIDTH".
+[ERR:PP0102] t_pp_lib_library.v:7:11: Unknown macro "WIDTH".
 
 [SNT:PA0207] t_pp_lib_library.v:7:10: Syntax error: no viable alternative at input '[SURELOG_MACRO_NOT_DEFINED:WIDTH!!!',
    input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!! -1:0] a;
@@ -3602,9 +3602,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_display_esc_bad.v -l t_display_esc_bad.v.log
-[ERR:PP0118] t_display_esc_bad.v:8:19: Unknown escaped sequence '\y'.
+[ERR:PP0118] t_display_esc_bad.v:8:20: Unknown escaped sequence '\y'.
 
-[ERR:PP0118] t_display_esc_bad.v:8:21: Unknown escaped sequence '\z'.
+[ERR:PP0118] t_display_esc_bad.v:8:22: Unknown escaped sequence '\z'.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -3696,7 +3696,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_tri_gate.v -l t_tri_gate.v.log
-[ERR:PP0102] t_tri_gate.v:36:1: Unknown macro "error".
+[ERR:PP0102] t_tri_gate.v:36:2: Unknown macro "error".
 
 [SNT:PA0207] t_tri_gate.v:36:37: Syntax error: extraneous input '"Unknown test name"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Unknown test name"
@@ -3734,7 +3734,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_gen_missing.v -l t_gen_missing.v.log
-[ERR:PP0102] t_gen_missing.v:13:1: Unknown macro "error".
+[ERR:PP0102] t_gen_missing.v:13:2: Unknown macro "error".
 
 [SNT:PA0207] t_gen_missing.v:13:37: Syntax error: extraneous input '"Bad Test"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Bad Test"
@@ -3969,32 +3969,32 @@ Not a \`define
 [ERR:PP0109] t_preproc.v:110: Macro instantiation omits argument 1 (x) for "thru",
              t_preproc.v:97: No default value for argument 1 (x) in macro definition.
 
-[ERR:PP0116] t_preproc.v:158:17: Illegal unterminated string: >>"E@QZB\T)eU\pC#C|7=\$J$##A[@-@{Qk]
+[ERR:PP0116] t_preproc.v:158:18: Illegal unterminated string: >>"E@QZB\T)eU\pC#C|7=\$J$##A[@-@{Qk]
 <<.
 
 [WRN:PP0113] t_preproc.v:251:8: Unused macro argument "l".
 
-[ERR:PP0102] t_preproc.v:263:28: Unknown macro "error".
+[ERR:PP0102] t_preproc.v:263:29: Unknown macro "error".
 
-[ERR:PP0102] t_preproc.v:266:28: Unknown macro "error".
+[ERR:PP0102] t_preproc.v:266:29: Unknown macro "error".
 
-[ERR:PP0102] t_preproc.v:293: Unknown macro "bug202".
+[ERR:PP0102] t_preproc.v:293:1: Unknown macro "bug202".
 
 [WRN:PP0113] t_preproc.v:318:8: Unused macro argument "log".
 
 [WRN:PP0113] t_preproc.v:372:8: Unused macro argument "d".
 
-[ERR:PP0102] t_preproc.v:379:8: Unknown macro "REPEAT_".
+[ERR:PP0102] t_preproc.v:379:9: Unknown macro "REPEAT_".
 
 [WRN:PP0103] t_preproc.v:386: Undefining an unknown macro "T_PREPROC_INC4".
 
-[WRN:PP0103] t_preproc.v:396: Undefining an unknown macro "TEMP".
+[WRN:PP0103] t_preproc.v:396:1: Undefining an unknown macro "TEMP".
 
-[ERR:PP0102] t_preproc.v:400:13: Unknown macro "error".
+[ERR:PP0102] t_preproc.v:400:14: Unknown macro "error".
 
 [WRN:PP0114] t_preproc.v:418:8: Undefined macro argument "b".
 
-[ERR:PP0102] t_preproc.v:442: Unknown macro "QA".
+[ERR:PP0102] t_preproc.v:442:1: Unknown macro "QA".
 
 [WRN:PP0113] t_preproc.v:462:8: Unused macro argument "name".
 
@@ -4002,7 +4002,7 @@ Not a \`define
 
 [WRN:PP0113] t_preproc.v:469:8: Unused macro argument "name2".
 
-[ERR:PP0102] t_preproc.v:478:19: Unknown macro "ESC".
+[ERR:PP0102] t_preproc.v:478:20: Unknown macro "ESC".
 
 [WRN:PP0103] t_preproc.v:479: Undefining an unknown macro "ESC".
 
@@ -4010,13 +4010,13 @@ Not a \`define
 
 [WRN:PP0113] t_preproc.v:488:8: Unused macro argument "name".
 
-[ERR:PP0102] t_preproc.v:491:25: Unknown macro "zzz".
+[ERR:PP0102] t_preproc.v:491:26: Unknown macro "zzz".
 
 [WRN:PP0113] t_preproc.v:495:8: Unused macro argument "name".
 
 [WRN:PP0103] t_preproc.v:504: Undefining an unknown macro "UNKNOWN".
 
-[ERR:PP0102] t_preproc.v:505:20: Unknown macro "UNKNOWN".
+[ERR:PP0102] t_preproc.v:505:21: Unknown macro "UNKNOWN".
 
 [WRN:PP0113] t_preproc.v:514:8: Unused macro argument "name".
 
@@ -4032,39 +4032,39 @@ Not a \`define
 
 [WRN:PP0114] t_preproc.v:568:8: Undefined macro argument "XYS_".
 
-[ERR:PP0102] t_preproc.v:617: Unknown macro "dbg_hdl".
+[ERR:PP0102] t_preproc.v:617:1: Unknown macro "dbg_hdl".
 
 [WRN:PP0113] t_preproc.v:620:8: Unused macro argument "LVL".
 
-[ERR:PP0102] t_preproc.v:637:7: Unknown macro "SV_COV_START".
+[ERR:PP0102] t_preproc.v:637:8: Unknown macro "SV_COV_START".
 
-[ERR:PP0102] t_preproc.v:638:7: Unknown macro "SV_COV_STOP".
+[ERR:PP0102] t_preproc.v:638:8: Unknown macro "SV_COV_STOP".
 
-[ERR:PP0102] t_preproc.v:639:7: Unknown macro "SV_COV_RESET".
+[ERR:PP0102] t_preproc.v:639:8: Unknown macro "SV_COV_RESET".
 
-[ERR:PP0102] t_preproc.v:640:7: Unknown macro "SV_COV_CHECK".
+[ERR:PP0102] t_preproc.v:640:8: Unknown macro "SV_COV_CHECK".
 
-[ERR:PP0102] t_preproc.v:641:7: Unknown macro "SV_COV_MODULE".
+[ERR:PP0102] t_preproc.v:641:8: Unknown macro "SV_COV_MODULE".
 
-[ERR:PP0102] t_preproc.v:642:7: Unknown macro "SV_COV_HIER".
+[ERR:PP0102] t_preproc.v:642:8: Unknown macro "SV_COV_HIER".
 
-[ERR:PP0102] t_preproc.v:643:7: Unknown macro "SV_COV_ASSERTION".
+[ERR:PP0102] t_preproc.v:643:8: Unknown macro "SV_COV_ASSERTION".
 
-[ERR:PP0102] t_preproc.v:644:7: Unknown macro "SV_COV_FSM_STATE".
+[ERR:PP0102] t_preproc.v:644:8: Unknown macro "SV_COV_FSM_STATE".
 
-[ERR:PP0102] t_preproc.v:645:7: Unknown macro "SV_COV_STATEMENT".
+[ERR:PP0102] t_preproc.v:645:8: Unknown macro "SV_COV_STATEMENT".
 
-[ERR:PP0102] t_preproc.v:646:7: Unknown macro "SV_COV_TOGGLE".
+[ERR:PP0102] t_preproc.v:646:8: Unknown macro "SV_COV_TOGGLE".
 
-[ERR:PP0102] t_preproc.v:647:7: Unknown macro "SV_COV_OVERFLOW".
+[ERR:PP0102] t_preproc.v:647:8: Unknown macro "SV_COV_OVERFLOW".
 
-[ERR:PP0102] t_preproc.v:648:7: Unknown macro "SV_COV_ERROR".
+[ERR:PP0102] t_preproc.v:648:8: Unknown macro "SV_COV_ERROR".
 
-[ERR:PP0102] t_preproc.v:649:7: Unknown macro "SV_COV_NOCOV".
+[ERR:PP0102] t_preproc.v:649:8: Unknown macro "SV_COV_NOCOV".
 
-[ERR:PP0102] t_preproc.v:650:7: Unknown macro "SV_COV_OK".
+[ERR:PP0102] t_preproc.v:650:8: Unknown macro "SV_COV_OK".
 
-[ERR:PP0102] t_preproc.v:651:7: Unknown macro "SV_COV_PARTIAL".
+[ERR:PP0102] t_preproc.v:651:8: Unknown macro "SV_COV_PARTIAL".
 
 [SNT:PA0207] t_preproc.v:99:9: Syntax error: token recognition error at: '"twoline: \"first \n',
 $display("twoline: \"first 
@@ -4112,7 +4112,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_display.v -l t_display.v.log
-[ERR:PP0118] t_display.v:13:39: Unknown escaped sequence '\2'.
+[ERR:PP0118] t_display.v:13:40: Unknown escaped sequence '\2'.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -4529,9 +4529,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:PP0115] t_pp_circdef_bad.v:9: Recursive macro definition for "SEL_NUM_BITS",
              t_pp_circdef_bad.v:9: macro used in macro "SEL_NUM_BITS".
 
-[ERR:PP0102] t_pp_circdef_bad.v:9:7: Unknown macro "SEL_NUM_BITS".
+[ERR:PP0102] t_pp_circdef_bad.v:9:8: Unknown macro "SEL_NUM_BITS".
 
-[ERR:PP0102] t_pp_circdef_bad.v:9:24: Unknown macro "SEL_NUM_BITS".
+[ERR:PP0102] t_pp_circdef_bad.v:9:25: Unknown macro "SEL_NUM_BITS".
 
 [SNT:PA0207] t_pp_circdef_bad.v:13:14: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
 typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!! -1:0]  d_t;
@@ -4771,9 +4771,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_preproc_undefineall.v -l t_preproc_undefineall.v.log
-[ERR:PP0102] t_preproc_undefineall.v:9:28: Unknown macro "error".
+[ERR:PP0102] t_preproc_undefineall.v:9:29: Unknown macro "error".
 
-[ERR:PP0102] t_preproc_undefineall.v:14:28: Unknown macro "error".
+[ERR:PP0102] t_preproc_undefineall.v:14:29: Unknown macro "error".
 
 [SNT:PA0207] t_preproc_undefineall.v:9:37: Syntax error: extraneous input '"Test setup error, PREDEF_COMMAND_LINE pre-missing"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Test setup error, PREDEF_COMMAND_LINE pre-missing" 
@@ -4795,7 +4795,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_interface_down_gen.v -l t_interface_down_gen.v.log
-[ERR:PP0102] t_interface_down_gen.v:75: Unknown macro "error".
+[ERR:PP0102] t_interface_down_gen.v:75:1: Unknown macro "error".
 
 [SNT:PA0207] t_interface_down_gen.v:75:52: Syntax error: no viable alternative at input 'Commercial sims choke',
 SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
@@ -5322,15 +5322,15 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_extend_class.v -l t_extend_class.v.log
-[ERR:PP0102] t_extend_class.v:48:1: Unknown macro "systemc_header".
+[ERR:PP0102] t_extend_class.v:48:2: Unknown macro "systemc_header".
 
-[ERR:PP0102] t_extend_class.v:50:1: Unknown macro "systemc_interface".
+[ERR:PP0102] t_extend_class.v:50:2: Unknown macro "systemc_interface".
 
-[ERR:PP0102] t_extend_class.v:52:1: Unknown macro "systemc_ctor".
+[ERR:PP0102] t_extend_class.v:52:2: Unknown macro "systemc_ctor".
 
-[ERR:PP0102] t_extend_class.v:54:1: Unknown macro "systemc_dtor".
+[ERR:PP0102] t_extend_class.v:54:2: Unknown macro "systemc_dtor".
 
-[ERR:PP0102] t_extend_class.v:56:1: Unknown macro "verilog".
+[ERR:PP0102] t_extend_class.v:56:2: Unknown macro "verilog".
 
 [SNT:PA0207] t_extend_class.v:49: Syntax error: extraneous input '#' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 #include "t_extend_class_c.h"	// Header for contained object
@@ -5358,9 +5358,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_dpi_var.v -l t_dpi_var.v.log
-[ERR:PP0102] t_dpi_var.v:66: Unknown macro "systemc_imp_header".
+[ERR:PP0102] t_dpi_var.v:66:1: Unknown macro "systemc_imp_header".
 
-[ERR:PP0102] t_dpi_var.v:69: Unknown macro "verilog".
+[ERR:PP0102] t_dpi_var.v:69:1: Unknown macro "verilog".
 
 [SNT:PA0207] t_dpi_var.v:67:2: Syntax error: no viable alternative at input 'module sub (/*AUTOARG*/\n   // Outputs\n   fr_a, fr_b, fr_chk,\n   // Inputs\n   in\n   );\n\nSURELOG_MACRO_NOT_DEFINED:systemc_imp_header!!! \n  void',
   void mon_class_name(const char* namep);
@@ -5464,9 +5464,9 @@ Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nono
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns ports.sv -l ports.sv.log
-[ERR:PP0102] ports.sv:44:9: Unknown macro "PACKED".
+[ERR:PP0102] ports.sv:44:10: Unknown macro "PACKED".
 
-[ERR:PP0102] ports.sv:49:11: Unknown macro "PACKED".
+[ERR:PP0102] ports.sv:49:12: Unknown macro "PACKED".
 
 [SNT:PA0207] ports.sv:44:9: Syntax error: extraneous input 'SURELOG_MACRO_NOT_DEFINED:PACKED!!!' expecting {'{', 'packed'},
   struct SURELOG_MACRO_NOT_DEFINED:PACKED!!! 
@@ -5484,33 +5484,33 @@ Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nono
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd t_sv_cpu_code +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns rom.sv -l rom.sv.log
-[ERR:PP0102] rom.sv:18:6: Unknown macro "LDI".
+[ERR:PP0102] rom.sv:18:7: Unknown macro "LDI".
 
-[ERR:PP0102] rom.sv:19:6: Unknown macro "LDI".
+[ERR:PP0102] rom.sv:19:7: Unknown macro "LDI".
 
-[ERR:PP0102] rom.sv:20:6: Unknown macro "LDI".
+[ERR:PP0102] rom.sv:20:7: Unknown macro "LDI".
 
-[ERR:PP0102] rom.sv:21:6: Unknown macro "LDI".
+[ERR:PP0102] rom.sv:21:7: Unknown macro "LDI".
 
-[ERR:PP0102] rom.sv:23:6: Unknown macro "STS".
+[ERR:PP0102] rom.sv:23:7: Unknown macro "STS".
 
-[ERR:PP0102] rom.sv:24:6: Unknown macro "STS".
+[ERR:PP0102] rom.sv:24:7: Unknown macro "STS".
 
-[ERR:PP0102] rom.sv:25:6: Unknown macro "STS".
+[ERR:PP0102] rom.sv:25:7: Unknown macro "STS".
 
-[ERR:PP0102] rom.sv:26:6: Unknown macro "STS".
+[ERR:PP0102] rom.sv:26:7: Unknown macro "STS".
 
-[ERR:PP0102] rom.sv:28:6: Unknown macro "LDS".
+[ERR:PP0102] rom.sv:28:7: Unknown macro "LDS".
 
-[ERR:PP0102] rom.sv:29:6: Unknown macro "LDS".
+[ERR:PP0102] rom.sv:29:7: Unknown macro "LDS".
 
-[ERR:PP0102] rom.sv:30:6: Unknown macro "LDS".
+[ERR:PP0102] rom.sv:30:7: Unknown macro "LDS".
 
-[ERR:PP0102] rom.sv:31:6: Unknown macro "LDS".
+[ERR:PP0102] rom.sv:31:7: Unknown macro "LDS".
 
-[ERR:PP0102] rom.sv:33:6: Unknown macro "JMP".
+[ERR:PP0102] rom.sv:33:7: Unknown macro "JMP".
 
-[ERR:PP0102] rom.sv:35:6: Unknown macro "EOP".
+[ERR:PP0102] rom.sv:35:7: Unknown macro "EOP".
 
 [SNT:PA0207] rom.sv:18:6: Syntax error: no viable alternative at input ''{\n      SURELOG_MACRO_NOT_DEFINED:LDI!!!',
       SURELOG_MACRO_NOT_DEFINED:LDI!!! 
