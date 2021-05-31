@@ -64,7 +64,8 @@ std::pair<int, int> ParseUtils::getEndLineColumn(
   antlr4::Token* firstToken = stream->get(sourceInterval.b);
   int lineNb = firstToken->getLine();
   int columnNb = firstToken->getCharPositionInLine() +
-                 firstToken->getStopIndex() - firstToken->getStartIndex() + 1 + 1;
+                 firstToken->getStopIndex() - firstToken->getStartIndex() + 1 +
+                 1;
   return std::make_pair(lineNb, columnNb);
 }
 
