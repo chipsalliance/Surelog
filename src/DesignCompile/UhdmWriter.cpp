@@ -22,8 +22,10 @@
  */
 #include "DesignCompile/UhdmWriter.h"
 
-#include <map>
 #include <string.h>
+
+#include <map>
+
 #include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
 #include "Design/ModuleInstance.h"
