@@ -969,7 +969,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
         }
       }
       if (result == nullptr) {
-        class_typespec* ref = s.MakeClass_typespec();
+        unsupported_typespec* ref = s.MakeUnsupported_typespec();
         ref->VpiName(typeName);
         ref->VpiFile(fC->getFileName());
         ref->VpiLineNo(fC->Line(type));
