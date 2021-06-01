@@ -132,9 +132,15 @@ bool ElaborationStep::bindTypedefs_() {
       prevDef = prevDef->getActual();
       if (prevDef->getTypespec() == nullptr)
         noTypespec = true;
-      else
+      else {
         specs.insert(std::make_pair(prevDef->getTypespec()->VpiName(),
                                     prevDef->getTypespec()));
+        if (Package* pack = dynamic_cast<Package*>(comp)) {
+          std::string name =
+              pack->getName() + "::" + prevDef->getTypespec()->VpiName();
+          specs.insert(std::make_pair(name, prevDef->getTypespec()));
+        }
+      }
     }
 
     if (noTypespec == true) {
@@ -152,6 +158,10 @@ bool ElaborationStep::bindTypedefs_() {
             tpclone->VpiName(typd->getName());
             tpclone->Typedef_alias(tps);
             specs.insert(std::make_pair(typd->getName(), tpclone));
+            if (Package* pack = dynamic_cast<Package*>(comp)) {
+              std::string name = pack->getName() + "::" + typd->getName();
+              specs.insert(std::make_pair(name, tpclone));
+            }
           }
         }
       }
@@ -162,6 +172,10 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           ts->VpiName(typd->getName());
           specs.insert(std::make_pair(typd->getName(), ts));
+          if (Package* pack = dynamic_cast<Package*>(comp)) {
+            std::string name = pack->getName() + "::" + typd->getName();
+            specs.insert(std::make_pair(name, ts));
+          }
         }
         typd->setTypespec(ts);
       }
@@ -178,6 +192,10 @@ bool ElaborationStep::bindTypedefs_() {
         if (ts) {
           specs.insert(std::make_pair(typd->getName(), ts));
           ts->VpiName(typd->getName());
+          if (Package* pack = dynamic_cast<Package*>(comp)) {
+            std::string name = pack->getName() + "::" + typd->getName();
+            specs.insert(std::make_pair(name, ts));
+          }
         }
         typd->setTypespec(ts);
       } else {
