@@ -453,7 +453,10 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
 
   const NodeId type_name = fC->Sibling(data_type);
   const std::string name = fC->SymName(type_name);
-
+  std::string fullName = name;
+  if (Package* pack = dynamic_cast<Package*>(scope)) {
+    fullName = pack->getName() + "::" + name;
+  }
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef) {
@@ -503,7 +506,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
-      ts->VpiName(name);
+      ts->VpiName(fullName);
       st->setTypespec(ts);
       if (typespecs) typespecs->push_back(ts);
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
@@ -512,7 +515,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
-      ts->VpiName(name);
+      ts->VpiName(fullName);
       st->setTypespec(ts);
       if (typespecs) typespecs->push_back(ts);
     }

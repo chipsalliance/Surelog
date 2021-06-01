@@ -23,7 +23,7 @@
 #include "DesignCompile/UhdmWriter.h"
 
 #include <map>
-
+#include <string.h>
 #include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
 #include "Design/ModuleInstance.h"
@@ -499,7 +499,10 @@ void writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
     }
     typespec* tps = dtype->getTypespec();
     if (parent->UhdmType() == uhdmpackage) {
-      if (tps) tps->VpiName(parent->VpiName() + "::" + tps->VpiName());
+      if (tps && (!strstr(tps->VpiName().c_str(), "::"))) {
+        const std::string newName = parent->VpiName() + "::" + tps->VpiName();
+        tps->VpiName(newName);
+      }
     }
     if (tps) {
       if (ids.find(tps->UhdmId()) == ids.end()) {
