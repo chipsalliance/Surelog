@@ -28,6 +28,10 @@ test/unittest: run-cmake-release
 	cmake --build build --target UnitTests -j $(CPU_CORES)
 	pushd build && ctest --output-on-failure && popd
 
+test/unittest-d: run-cmake-debug
+	cmake --build dbuild --target UnitTests -j $(CPU_CORES)
+	pushd dbuild && ctest --output-on-failure && popd
+
 test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
 
