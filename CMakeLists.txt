@@ -327,6 +327,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessHarness.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeListenerHelper.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
@@ -477,6 +478,7 @@ register_gtests(
   src/DesignCompile/CompileHelper_test.cpp
   src/SourceCompile/SymbolTable_test.cpp
   src/Expression/ExprBuilder_test.cpp
+  src/SourceCompile/PreprocessFile_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)
