@@ -71,8 +71,6 @@ using namespace SURELOG;
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 
 bool CompileDesign::compile() {
-  ExprBuilder::unitTest();
-
   // Handle UHDM Internal errors
   UHDM::ErrorHandler errHandler = [=](const std::string& msg) {
     ErrorContainer* errors = m_compiler->getErrorContainer();
