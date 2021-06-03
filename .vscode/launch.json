@@ -562,6 +562,25 @@
             ]
         },
         {
+            "name": "EarlgreyPackParam",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/EarlgreyPackParam/dut.sv","-d", "inst" ,"-d", "ast", "-d", "uhdm","-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm", "-replay", "-writepp", "-o", "ccc"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "UnitTest",
             "type": "cppdbg",
             "request": "launch",
