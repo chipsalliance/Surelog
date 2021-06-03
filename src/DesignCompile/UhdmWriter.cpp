@@ -1896,10 +1896,15 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
 
     // Packages
-    auto packages = m_design->getPackageDefinitions();
+    SURELOG::PackageDefinitionVec packages = m_design->getOrderedPackageDefinitions();
+    for (auto& pack : m_design->getPackageDefinitions()) {
+      if (pack.first == "builtin") {
+        packages.insert(packages.begin(), pack.second);
+        break;
+      }
+    }
     VectorOfpackage* v2 = s.MakePackageVec();
-    for (auto packNamePair : packages) {
-      Package* pack = packNamePair.second;
+    for (Package* pack : packages) {
       if (pack->getFileContents().size() &&
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];

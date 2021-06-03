@@ -511,7 +511,9 @@ void Design::clearContainers() {
   m_defParams.clear();
 
   m_packageDefinitions.clear();
-  m_orderedPackageDefinitions.clear();
+
+  // Do not clear, this is computed in a specific pass once
+  //m_orderedPackageDefinitions.clear();
 
   m_programDefinitions.clear();
 
