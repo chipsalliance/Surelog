@@ -750,7 +750,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slPacked_dimension: {
-      bit_typespec* tps = s.MakeBit_typespec();
+      // 6.8 Variable declarations, implicit type
+      logic_typespec* tps = s.MakeLogic_typespec();
       tps->VpiFile(fC->getFileName());
       tps->VpiLineNo(fC->Line(type));
       tps->VpiColumnNo(fC->Column(type));
