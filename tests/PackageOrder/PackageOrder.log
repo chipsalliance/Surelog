@@ -1,0 +1,82 @@
+[INF:CM0023] Creating log file ../../build/tests/PackageOrder/slpp_unit/surelog.log.
+
+[INF:CM0020] Separate compilation-unit mode is on.
+
+[INF:PP0122] Preprocessing source file "dut.sv".
+
+[INF:PA0201] Parsing source file "dut.sv".
+
+[WRN:PA0205] dut.sv:1: No timescale set for "B".
+
+[WRN:PA0205] dut.sv:5: No timescale set for "D".
+
+[WRN:PA0205] dut.sv:10: No timescale set for "A".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0301] dut.sv:1: Compile package "B".
+
+[INF:CP0301] dut.sv:5: Compile package "D".
+
+[INF:CP0301] dut.sv:10: Compile package "A".
+
+[INF:EL0526] Design Elaboration...
+
+Instance tree:
+
+[NTE:EL0508] Nb Top level modules: 0.
+
+[NTE:EL0509] Max instance depth: 0.
+
+[NTE:EL0510] Nb instances: 0.
+
+[NTE:EL0511] Nb leaf instances: 0.
+
+[INF:UH0706] Creating UHDM Model...
+
+[INF:UH0708] Writing UHDM DB: ../../build/tests/PackageOrder/slpp_unit//surelog.uhdm...
+
+[INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/PackageOrder/slpp_unit//surelog.uhdm.chk.html...
+
+[INF:UH0710] Loading UHDM DB: ../../build/tests/PackageOrder/slpp_unit//surelog.uhdm...
+
+[INF:UH0711] Decompling UHDM...
+
+====== UHDM =======
+design: (unnamed)
+|vpiName:unnamed
+|uhdmallPackages:
+\_package: B (B::) dut.sv:1:1: , endln:3:11, parent:unnamed
+  |vpiDefName:B
+  |vpiName:B
+  |vpiFullName:B::
+  |vpiTypedef:
+  \_logic_typespec: (B::C), line:2:11, endln:2:16
+    |vpiName:B::C
+    |vpiInstance:
+    \_package: B (B::) dut.sv:1:1: , endln:3:11, parent:unnamed
+|uhdmallPackages:
+\_package: D (D::) dut.sv:5:1: , endln:7:11, parent:unnamed
+  |vpiDefName:D
+  |vpiName:D
+  |vpiFullName:D::
+  |vpiTypedef:
+  \_logic_typespec: (B::C), line:2:11, endln:2:16
+  |vpiTypedef:
+  \_import: (B), line:6:10, endln:6:14
+|uhdmallPackages:
+\_package: A (A::) dut.sv:10:1: , endln:12:11, parent:unnamed
+  |vpiDefName:A
+  |vpiName:A
+  |vpiFullName:A::
+  |vpiTypedef:
+  \_logic_typespec: (B::C), line:2:11, endln:2:16
+  |vpiTypedef:
+  \_import: (D), line:11:10, endln:11:14
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 4
+
