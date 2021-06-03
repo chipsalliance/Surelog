@@ -4783,7 +4783,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       if (sig->getTypeSpecId()) {
         result =
             compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign,
-                            nullptr, instance, true, suffixname);
+                            nullptr, instance, true, true, suffixname);
       } else {
         NodeId Packed_dimension = sig->getPackedDimension();
         if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
