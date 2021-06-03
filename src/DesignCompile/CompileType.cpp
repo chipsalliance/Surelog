@@ -682,7 +682,7 @@ int_typespec* CompileHelper::buildIntTypespec(
 UHDM::typespec* CompileHelper::compileTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, UHDM::any* pstmt,
-    SURELOG::ValuedComponentI* instance, bool reduce,
+    SURELOG::ValuedComponentI* instance, bool reduce, bool isVariable,
     const std::string& suffixname) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
@@ -750,15 +750,22 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slPacked_dimension: {
-      // 6.8 Variable declarations, implicit type
-      logic_typespec* tps = s.MakeLogic_typespec();
-      tps->VpiFile(fC->getFileName());
-      tps->VpiLineNo(fC->Line(type));
-      tps->VpiColumnNo(fC->Column(type));
-      tps->VpiEndLineNo(fC->EndLine(type));
-      tps->VpiEndColumnNo(fC->EndColumn(type));
-      tps->Ranges(ranges);
-      result = tps;
+      if (isVariable) {
+        // 6.8 Variable declarations, implicit type
+        logic_typespec* tps = s.MakeLogic_typespec();
+        tps->Ranges(ranges);
+        result = tps;
+      } else {
+        // Parameter implicit type is bit
+        bit_typespec* tps = s.MakeBit_typespec();
+        tps->Ranges(ranges);
+        result = tps;
+      }
+      result->VpiFile(fC->getFileName());
+      result->VpiLineNo(fC->Line(type));
+      result->VpiColumnNo(fC->Column(type));
+      result->VpiEndLineNo(fC->EndLine(type));
+      result->VpiEndColumnNo(fC->EndColumn(type));
       break;
     }
     case VObjectType::slExpression: {

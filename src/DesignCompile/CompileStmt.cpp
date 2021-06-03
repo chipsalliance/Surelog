@@ -1152,7 +1152,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
           compileRanges(component, fC, unpackedDimension, compileDesign,
                         nullptr, nullptr, false, size, false);
       if (UHDM::typespec* tempts = compileTypespec(
-              component, fC, type, compileDesign, nullptr, nullptr, false)) {
+              component, fC, type, compileDesign, nullptr, nullptr, false, true)) {
         ts = tempts;
       }
       decl->Typespec(ts);
