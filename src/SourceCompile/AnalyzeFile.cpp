@@ -198,11 +198,14 @@ void AnalyzeFile::analyze() {
 
           if (keyword == "package") {
             std::string packageName;
-            for (unsigned int j = i + 1; j < line.size(); j++) {
-              if (line[j] == ';') break;
-              if (line[j] != ' ') packageName += line[j];
+            if (line[i] == ' ') {
+              for (unsigned int j = i + 1; j < line.size(); j++) {
+                if (line[j] == ';') break;
+                if (line[j] == ':') break;
+                if (line[j] != ' ') packageName += line[j];
+              }
             }
-            m_design->addOrderedPackage(packageName);
+            if (!packageName.empty()) m_design->addOrderedPackage(packageName);
             inPackage = true;
             startLine = lineNb;
             startChar = charNb;
