@@ -89,10 +89,15 @@ expr* CompileHelper::reduceBitSelect(
     std::string binary = NumUtils::toBinary(exp->VpiSize(), val);
     constant* c = s.MakeConstant();
     c->VpiSize(1);
-    char bitv = binary[index_val];
-    int v = bitv - '0';
-    c->VpiValue("BIN:" + std::to_string(v));
-    c->VpiDecompile("1'b" + std::to_string(v));
+    if (index_val < binary.size()) {
+      char bitv = binary[index_val];
+      int v = bitv - '0';
+      c->VpiValue("BIN:" + std::to_string(v));
+      c->VpiDecompile("1'b" + std::to_string(v));
+    } else {
+      c->VpiValue("BIN:0");
+      c->VpiDecompile("1'b0");
+    }
     c->VpiFile(fileName);
     c->VpiLineNo(lineNumber);
     c->VpiColumnNo(op->VpiColumnNo());
