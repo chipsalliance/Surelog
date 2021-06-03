@@ -205,8 +205,7 @@ void AnalyzeFile::analyze() {
                 if (line[j] != ' ') packageName += line[j];
               }
             }
-            if (!packageName.empty())
-              m_design->addOrderedPackage(packageName);
+            if (!packageName.empty()) m_design->addOrderedPackage(packageName);
             inPackage = true;
             startLine = lineNb;
             startChar = charNb;

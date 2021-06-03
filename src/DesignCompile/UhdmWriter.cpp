@@ -1896,7 +1896,8 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     }
 
     // Packages
-    SURELOG::PackageDefinitionVec packages = m_design->getOrderedPackageDefinitions();
+    SURELOG::PackageDefinitionVec packages =
+        m_design->getOrderedPackageDefinitions();
     for (auto& pack : m_design->getPackageDefinitions()) {
       if (pack.first == "builtin") {
         packages.insert(packages.begin(), pack.second);

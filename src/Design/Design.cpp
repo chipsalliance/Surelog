@@ -513,7 +513,7 @@ void Design::clearContainers() {
   m_packageDefinitions.clear();
 
   // Do not clear, this is computed in a specific pass once
-  //m_orderedPackageDefinitions.clear();
+  // m_orderedPackageDefinitions.clear();
 
   m_programDefinitions.clear();
 
