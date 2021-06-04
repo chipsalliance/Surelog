@@ -70,6 +70,33 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes,
   }
   UHDM_OBJECT_TYPE stt = stmt->UhdmType();
   switch (stt) {
+    case uhdmcase_stmt: {
+      case_stmt* st = (case_stmt*)stmt;
+      expr* cond = (expr*)st->VpiCondition();
+      int64_t val =
+          get_value(invalidValue,
+                    reduceExpr(cond, invalidValue, component, compileDesign,
+                               scopes.back(), fileName, lineNumber, nullptr));
+      for (case_item* item : *st->Case_items()) {
+        VectorOfany* exprs = item->VpiExprs();
+        bool done = false;
+        for (any* exp : *exprs) {
+          int64_t vexp = get_value(
+              invalidValue,
+              reduceExpr(exp, invalidValue, component, compileDesign,
+                         scopes.back(), fileName, lineNumber, nullptr));
+          if (val == vexp) {
+            EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag,
+                     component, compileDesign, scopes.back(), fileName,
+                     lineNumber, item->Stmt());
+            done = true;
+            break;
+          }
+        }
+        if (done) break;
+      }
+      break;
+    }
     case uhdmif_else: {
       if_else* st = (if_else*)stmt;
       expr* cond = (expr*)st->VpiCondition();

@@ -462,7 +462,7 @@ class CompileHelper final {
 
   void reorderAssignmentPattern(DesignComponent* mod, const UHDM::any* lhs,
                                 UHDM::any* rhs, CompileDesign* compileDesign,
-                                ValuedComponentI* instance, int level);
+                                ValuedComponentI* instance, unsigned int level);
 
   bool errorOnNegativeConstant(DesignComponent* component, UHDM::expr* exp,
                                CompileDesign* compileDesign,

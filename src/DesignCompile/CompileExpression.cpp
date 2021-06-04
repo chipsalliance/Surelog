@@ -5553,9 +5553,12 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
   return result;
 }
 
-void CompileHelper::reorderAssignmentPattern(
-    DesignComponent* mod, const UHDM::any* lhs, UHDM::any* rhs,
-    CompileDesign* compileDesign, ValuedComponentI* instance, int level) {
+void CompileHelper::reorderAssignmentPattern(DesignComponent* mod,
+                                             const UHDM::any* lhs,
+                                             UHDM::any* rhs,
+                                             CompileDesign* compileDesign,
+                                             ValuedComponentI* instance,
+                                             unsigned int level) {
   if (rhs->UhdmType() != uhdmoperation) return;
   operation* op = (operation*)rhs;
   int optype = op->VpiOpType();
@@ -5597,20 +5600,22 @@ void CompileHelper::reorderAssignmentPattern(
         }
       }
       if (ranges) {
-        range* r = ranges->at(level);
-        expr* lr = (expr*)r->Left_expr();
-        expr* rr = (expr*)r->Right_expr();
-        bool invalidValue = false;
-        lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance, "", 0,
-                        nullptr, true);
-        int64_t lrv = get_value(invalidValue, lr);
-        rr = reduceExpr(rr, invalidValue, mod, compileDesign, instance, "", 0,
-                        nullptr, true);
-        int64_t rrv = get_value(invalidValue, rr);
-        if (lrv > rrv) {
-          op->VpiReordered(true);
-          std::reverse(operands->begin(), operands->end());
-          if (level == 0) instance->setComplexValue(p->VpiName(), op);
+        if (level < ranges->size()) {
+          range* r = ranges->at(level);
+          expr* lr = (expr*)r->Left_expr();
+          expr* rr = (expr*)r->Right_expr();
+          bool invalidValue = false;
+          lr = reduceExpr(lr, invalidValue, mod, compileDesign, instance, "", 0,
+                          nullptr, true);
+          int64_t lrv = get_value(invalidValue, lr);
+          rr = reduceExpr(rr, invalidValue, mod, compileDesign, instance, "", 0,
+                          nullptr, true);
+          int64_t rrv = get_value(invalidValue, rr);
+          if (lrv > rrv) {
+            op->VpiReordered(true);
+            std::reverse(operands->begin(), operands->end());
+            if (level == 0) instance->setComplexValue(p->VpiName(), op);
+          }
         }
       }
     }
