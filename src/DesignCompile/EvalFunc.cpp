@@ -22,6 +22,7 @@
  */
 #include <bitset>
 #include <iostream>
+
 #include "CommandLine/CommandLineParser.h"
 #include "Design/Design.h"
 #include "Design/Enum.h"
@@ -70,7 +71,7 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes,
   UHDM_OBJECT_TYPE stt = stmt->UhdmType();
   switch (stt) {
     case uhdmcase_stmt: {
-      case_stmt* st = (case_stmt*) stmt;
+      case_stmt* st = (case_stmt*)stmt;
       expr* cond = (expr*)st->VpiCondition();
       int64_t val =
           get_value(invalidValue,
@@ -80,20 +81,19 @@ void CompileHelper::EvalStmt(const std::string funcName, Scopes& scopes,
         VectorOfany* exprs = item->VpiExprs();
         bool done = false;
         for (any* exp : *exprs) {
-          int64_t vexp =
-          get_value(invalidValue,
-                    reduceExpr(exp, invalidValue, component, compileDesign,
-                               scopes.back(), fileName, lineNumber, nullptr));
+          int64_t vexp = get_value(
+              invalidValue,
+              reduceExpr(exp, invalidValue, component, compileDesign,
+                         scopes.back(), fileName, lineNumber, nullptr));
           if (val == vexp) {
             EvalStmt(funcName, scopes, invalidValue, continue_flag, break_flag,
-                 component, compileDesign, scopes.back(), fileName, lineNumber,
-                 item->Stmt());
+                     component, compileDesign, scopes.back(), fileName,
+                     lineNumber, item->Stmt());
             done = true;
             break;
           }
         }
-        if (done)
-          break;
+        if (done) break;
       }
       break;
     }

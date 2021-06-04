@@ -5553,9 +5553,12 @@ int64_t CompileHelper::getValue(bool& validValue, DesignComponent* component,
   return result;
 }
 
-void CompileHelper::reorderAssignmentPattern(
-    DesignComponent* mod, const UHDM::any* lhs, UHDM::any* rhs,
-    CompileDesign* compileDesign, ValuedComponentI* instance, unsigned int level) {
+void CompileHelper::reorderAssignmentPattern(DesignComponent* mod,
+                                             const UHDM::any* lhs,
+                                             UHDM::any* rhs,
+                                             CompileDesign* compileDesign,
+                                             ValuedComponentI* instance,
+                                             unsigned int level) {
   if (rhs->UhdmType() != uhdmoperation) return;
   operation* op = (operation*)rhs;
   int optype = op->VpiOpType();
