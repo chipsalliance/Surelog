@@ -46,8 +46,7 @@ class DesignElaboration : public TestbenchElaboration {
   bool bindDataTypes_(ModuleInstance* instance, DesignComponent* component);
   void bind_ports_nets_(std::vector<Signal*>& ports,
                         std::vector<Signal*>& signals, const FileContent* fC,
-                        ModuleInstance* instance,
-                        DesignComponent* mod);
+                        ModuleInstance* instance, DesignComponent* mod);
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();

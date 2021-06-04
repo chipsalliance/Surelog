@@ -1897,7 +1897,8 @@ void DesignElaboration::bind_ports_nets_(std::vector<Signal*>& ports,
   }
 }
 
-bool DesignElaboration::bindDataTypes_(ModuleInstance* instance, DesignComponent* component) {
+bool DesignElaboration::bindDataTypes_(ModuleInstance* instance,
+                                       DesignComponent* component) {
   if (component == nullptr) return true;
   if (component->getFileContents().empty()) return true;
   const FileContent* fC = component->getFileContents()[0];
