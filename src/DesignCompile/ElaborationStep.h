@@ -74,7 +74,8 @@ class ElaborationStep {
                                   ErrorDefinition::ErrorType errtype);
 
   bool bindPortType_(Signal* port, const FileContent* fC, NodeId id,
-                     Scope* scope, DesignComponent* parentComponent,
+                     Scope* scope, ModuleInstance* instance,
+                     DesignComponent* parentComponent,
                      ErrorDefinition::ErrorType errtype);
 
   UHDM::expr* exprFromAssign_(DesignComponent* component, const FileContent* fC,

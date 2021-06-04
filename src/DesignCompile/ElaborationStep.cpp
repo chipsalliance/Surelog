@@ -810,6 +810,7 @@ bool bindStructInPackage(Design* design, Signal* signal,
 
 bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
                                     NodeId id, Scope* scope,
+                                    ModuleInstance* instance,
                                     DesignComponent* parentComponent,
                                     ErrorDefinition::ErrorType errtype) {
   if (signal->getDataType() || signal->getInterfaceDef() ||
@@ -1045,6 +1046,26 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
                 break;
               }
             }
+          }
+        }
+      }
+      if (def == NULL) {
+        while (instance) {
+          DesignComponent* component = instance->getDefinition();
+          if (component) {
+            if (component->getParameters()) {
+              for (auto param : *component->getParameters()) {
+                if (param->UhdmType() == uhdmtype_parameter) {
+                  if (param->VpiName() == interfName) {
+                    Parameter* p = component->getParameter(interfName);
+                    type = p;
+                    signal->setDataType(type);
+                    break;
+                  }
+                }
+              }
+            }
+            instance = instance->getParent();
           }
         }
       }
