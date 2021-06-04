@@ -730,7 +730,7 @@ void DesignElaboration::elaborateInstance_(
       }
     }
   }
-  bindDataTypes_(parent->getDefinition());
+  bindDataTypes_(parent, parent->getDefinition());
   NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
   nelab->elaborateInstance(parent);
   delete nelab;
@@ -806,7 +806,7 @@ void DesignElaboration::elaborateInstance_(
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
       allSubInstances.push_back(child);
-      bindDataTypes_(def);
+      bindDataTypes_(parent, def);
       NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
       nelab->elaborateInstance(child);
       delete nelab;
@@ -1885,25 +1885,27 @@ void DesignElaboration::reduceUnnamedBlocks_() {
 void DesignElaboration::bind_ports_nets_(std::vector<Signal*>& ports,
                                          std::vector<Signal*>& signals,
                                          const FileContent* fC,
+                                         ModuleInstance* instance,
                                          DesignComponent* mod) {
   for (Signal* port : ports) {
-    bindPortType_(port, fC, port->getNodeId(), NULL, mod,
+    bindPortType_(port, fC, port->getNodeId(), nullptr, instance, mod,
                   ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
   for (Signal* signal : signals) {
-    bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
+    bindPortType_(signal, fC, signal->getNodeId(), nullptr, instance, mod,
                   ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
 }
 
-bool DesignElaboration::bindDataTypes_(DesignComponent* component) {
+bool DesignElaboration::bindDataTypes_(ModuleInstance* instance,
+                                       DesignComponent* component) {
   if (component == nullptr) return true;
   if (component->getFileContents().empty()) return true;
   const FileContent* fC = component->getFileContents()[0];
   std::vector<Signal*>& ports = component->getPorts();  // Always empty
   std::vector<Signal*>& signals =
       component->getSignals();  // Variables actually
-  bind_ports_nets_(ports, signals, fC, component);
+  bind_ports_nets_(ports, signals, fC, instance, component);
   return true;
 }
 
@@ -1916,7 +1918,7 @@ bool DesignElaboration::bindPackagesDataTypes_() {
     std::vector<Signal*>& ports = package->getPorts();  // Always empty
     std::vector<Signal*>& signals =
         package->getSignals();  // Variables actually
-    bind_ports_nets_(ports, signals, fC, package);
+    bind_ports_nets_(ports, signals, fC, nullptr, package);
   }
   return true;
 }
@@ -1930,7 +1932,7 @@ bool DesignElaboration::bindDataTypes_() {
     std::vector<Signal*>& ports = package->getPorts();  // Always empty
     std::vector<Signal*>& signals =
         package->getSignals();  // Variables actually
-    bind_ports_nets_(ports, signals, fC, package);
+    bind_ports_nets_(ports, signals, fC, nullptr, package);
   }
 
   auto modules = design->getModuleDefinitions();
@@ -1960,7 +1962,7 @@ bool DesignElaboration::bindDataTypes_() {
       const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
       std::vector<Signal*>& signals = mod->getSignals();
-      bind_ports_nets_(ports, signals, fC, mod);
+      bind_ports_nets_(ports, signals, fC, nullptr, mod);
     }
   }
   auto programs = design->getProgramDefinitions();
@@ -1969,7 +1971,7 @@ bool DesignElaboration::bindDataTypes_() {
     const FileContent* fC = prog->getFileContents()[0];
     std::vector<Signal*>& ports = prog->getPorts();
     std::vector<Signal*>& signals = prog->getSignals();
-    bind_ports_nets_(ports, signals, fC, prog);
+    bind_ports_nets_(ports, signals, fC, nullptr, prog);
   }
   return true;
 }
