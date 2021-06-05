@@ -335,7 +335,8 @@ UHDM::any* CompileHelper::compileVariable(
 }
 
 const UHDM::typespec* bindTypespec(const std::string& name,
-                                   SURELOG::ValuedComponentI* instance, Serializer& s) {
+                                   SURELOG::ValuedComponentI* instance,
+                                   Serializer& s) {
   const typespec* result = nullptr;
   ModuleInstance* modInst = dynamic_cast<ModuleInstance*>(instance);
   while (modInst) {
@@ -376,7 +377,7 @@ const UHDM::typespec* bindTypespec(const std::string& name,
           dt = dt->getActual();
           result = dt->getTypespec();
           ElaboratorListener listener(&s);
-          result  = dynamic_cast<typespec*>(
+          result = dynamic_cast<typespec*>(
               UHDM::clone_tree((any*)result, s, &listener));
         }
       }

@@ -1051,14 +1051,14 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       if (def == NULL) {
         while (instance) {
-          for (Parameter* p  : instance->getTypeParams()) {
+          for (Parameter* p : instance->getTypeParams()) {
             if (p->getName() == interfName) {
               type = p;
               signal->setDataType(type);
               return true;
             }
           }
-          
+
           DesignComponent* component = instance->getDefinition();
           if (component) {
             if (component->getParameters()) {
