@@ -150,13 +150,24 @@ bool ElaborationStep::bindTypedefs_() {
         if (def && (typd != def)) {
           typd->setDefinition(def);
           typd->setDataType((DataType*)def);
-          if (typespec* tps = def->getTypespec()) {
+          NodeId id = typd->getDefinitionNode();
+          const FileContent* fC = typd->getFileContent();
+          NodeId Packed_dimension = fC->Sibling(id);
+          typespec* tpclone = nullptr;
+          if (Packed_dimension &&
+              fC->Type(Packed_dimension) == slPacked_dimension) {
+            tpclone = m_helper.compileTypespec(
+                defTuple.second, typd->getFileContent(),
+                typd->getDefinitionNode(), m_compileDesign, nullptr, nullptr,
+                true);
+          } else if (typespec* tps = def->getTypespec()) {
             ElaboratorListener listener(&s);
-            typespec* tpclone =
-                (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
+            tpclone = (typespec*)UHDM::clone_tree((any*)tps, s, &listener);
+            tpclone->Typedef_alias(tps);
+          }
+          if (tpclone) {
             typd->setTypespec(tpclone);
             tpclone->VpiName(typd->getName());
-            tpclone->Typedef_alias(tps);
             specs.insert(std::make_pair(typd->getName(), tpclone));
             if (Package* pack = dynamic_cast<Package*>(comp)) {
               std::string name = pack->getName() + "::" + typd->getName();
