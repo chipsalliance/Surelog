@@ -1043,7 +1043,7 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
                 Parameter* p = parentComponent->getParameter(interfName);
                 type = p;
                 signal->setDataType(type);
-                break;
+                return true;
               }
             }
           }
@@ -1051,6 +1051,14 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
       }
       if (def == NULL) {
         while (instance) {
+          for (Parameter* p  : instance->getTypeParams()) {
+            if (p->getName() == interfName) {
+              type = p;
+              signal->setDataType(type);
+              return true;
+            }
+          }
+          
           DesignComponent* component = instance->getDefinition();
           if (component) {
             if (component->getParameters()) {
@@ -1060,13 +1068,13 @@ bool ElaborationStep::bindPortType_(Signal* signal, const FileContent* fC,
                     Parameter* p = component->getParameter(interfName);
                     type = p;
                     signal->setDataType(type);
-                    break;
+                    return true;
                   }
                 }
               }
             }
-            instance = instance->getParent();
           }
+          instance = instance->getParent();
         }
       }
       checkIfBuiltInTypeOrErrorOut(def, fC, id, type, interfName, errors,

@@ -335,11 +335,10 @@ UHDM::any* CompileHelper::compileVariable(
 }
 
 const UHDM::typespec* bindTypespec(const std::string& name,
-                                   SURELOG::ValuedComponentI* instance) {
+                                   SURELOG::ValuedComponentI* instance, Serializer& s) {
   const typespec* result = nullptr;
   ModuleInstance* modInst = dynamic_cast<ModuleInstance*>(instance);
-  modInst = modInst->getParent();
-  if (modInst) {
+  while (modInst) {
     for (Parameter* param : modInst->getTypeParams()) {
       const std::string& pname = param->getName();
       if (pname == name) {
@@ -348,6 +347,9 @@ const UHDM::typespec* bindTypespec(const std::string& name,
           type_parameter* tparam = dynamic_cast<type_parameter*>(uparam);
           if (tparam) {
             result = tparam->Typespec();
+            ElaboratorListener listener(&s);
+            result = dynamic_cast<typespec*>(
+                UHDM::clone_tree((any*)result, s, &listener));
           }
         }
         break;
@@ -363,11 +365,23 @@ const UHDM::typespec* bindTypespec(const std::string& name,
             type_parameter* tparam = dynamic_cast<type_parameter*>(uparam);
             if (tparam) {
               result = tparam->Typespec();
+              ElaboratorListener listener(&s);
+              result = dynamic_cast<typespec*>(
+                  UHDM::clone_tree((any*)result, s, &listener));
             }
           }
         }
+        const DataType* dt = mod->getDataType(name);
+        if (dt) {
+          dt = dt->getActual();
+          result = dt->getTypespec();
+          ElaboratorListener listener(&s);
+          result  = dynamic_cast<typespec*>(
+              UHDM::clone_tree((any*)result, s, &listener));
+        }
       }
     }
+    modInst = modInst->getParent();
   }
   return result;
 }
@@ -774,7 +788,7 @@ UHDM::typespec* CompileHelper::compileTypespec(
       NodeId Name = fC->Child(Primary_literal);
       const std::string& name = fC->SymName(Name);
       if (instance) {
-        result = (typespec*)bindTypespec(name, instance);
+        result = (typespec*)bindTypespec(name, instance, s);
       }
       break;
     }
