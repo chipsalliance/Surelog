@@ -111,6 +111,28 @@ ParseFile::ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
   parent->m_children.push_back(this);
 }
 
+ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
+                     CompilationUnit* compilationUnit, Library* library)
+    : m_fileId(0),
+      m_ppFileId(0),
+      m_compileSourceFile(csf),
+      m_compilationUnit(compilationUnit),
+      m_library(library),
+      m_antlrParserHandler(NULL),
+      m_listener(NULL),
+      m_usingCachedVersion(false),
+      m_keepParserHandler(false),
+      m_fileContent(NULL),
+      debug_AstModel(false),
+      m_parent(NULL),
+      m_offsetLine(0),
+      m_symbolTable(csf->getSymbolTable()),
+      m_errors(csf->getErrorContainer()),
+      m_sourceText(text) {
+  debug_AstModel =
+      m_compileSourceFile->getCommandLineParser()->getDebugAstModel();
+}
+
 ParseFile::~ParseFile() {
   if (!m_keepParserHandler) delete m_antlrParserHandler;
 }
@@ -148,6 +170,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
     return m_fileId;
   }
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
+  if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
     bool inRange = false;
@@ -188,6 +211,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
 unsigned int ParseFile::getLineNb(unsigned int line) {
   if (!getCompileSourceFile()) return line;
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
+  if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
     bool inRange = false;
@@ -233,22 +257,29 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   AntlrParserHandler* antlrParserHandler = new AntlrParserHandler();
   m_antlrParserHandler = antlrParserHandler;
   std::ifstream stream;
-  stream.open(fileName);
-  if (!stream.good()) {
-    SymbolId fileId = registerSymbol(fileName);
-    Location ppfile(fileId);
-    Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
-    addError(err);
-    return false;
+  std::stringstream ss(m_sourceText);
+  if (m_sourceText.empty()) {
+    stream.open(fileName);
+    if (!stream.good()) {
+      SymbolId fileId = registerSymbol(fileName);
+      Location ppfile(fileId);
+      Error err(ErrorDefinition::PA_CANNOT_OPEN_FILE, ppfile);
+      addError(err);
+      return false;
+    }
+    antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(stream);
+    stream.close();
+  } else {
+    antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(ss);
   }
 
-  antlrParserHandler->m_inputStream = new antlr4::ANTLRInputStream(stream);
   antlrParserHandler->m_errorListener =
       new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
   std::string suffix = StringUtils::leaf(fileName);
-  VerilogVersion version = pp->getVerilogVersion();
+  VerilogVersion version = VerilogVersion::SystemVerilog;
+  if (pp) version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
     switch (version) {
       case VerilogVersion::NoVersion:
@@ -336,7 +367,9 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
      m_antlrParserHandler->m_parser->getInterpreter<antlr4::atn::ParserATNSimulator>()->clearDFA();
      SV3_1aParser::_sharedContextCache.clear();
   */
-  stream.close();
+  if (m_sourceText.empty()) {
+    stream.close();
+  }
   return true;
 }
 
