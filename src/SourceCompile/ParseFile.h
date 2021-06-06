@@ -56,6 +56,10 @@ class ParseFile {
   ParseFile(CompileSourceFile* compileSourceFile, ParseFile* parent,
             SymbolId chunkFileId, unsigned int offsetLine);
 
+  // Unit test constructor
+  ParseFile(const std::string& text, CompileSourceFile* csf,
+            CompilationUnit* compilationUnit, Library* library);
+
   bool parse();
 
   virtual ~ParseFile();
@@ -123,6 +127,7 @@ class ParseFile {
   SymbolTable* m_symbolTable;
   ErrorContainer* m_errors;
   std::string m_profileInfo;
+  std::string m_sourceText;  // For Unit tests
 };
 
 };  // namespace SURELOG
