@@ -20,6 +20,7 @@
 #include <string_view>
 #include <vector>
 
+#include "SourceCompile/ParserHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -88,6 +89,49 @@ TEST(ExprBuilderTest, BuildFrom) {
     EXPECT_EQ(v4->uhdmValue(), "HEX:FFFF");
     EXPECT_EQ(v5->getValueD(), -0.6);
     EXPECT_EQ(v6->uhdmValue(), "UINT:11");
+  }
+}
+TEST(ExprBuilderTest, ExprFromParseTree1) {
+  ExprBuilder builder;
+  ParserHarness harness;
+  // Cannot use parameters assignments in next expression, there is no
+  // elaboration performed here!
+  FileContent* fC = harness.parse(
+      "module top();"
+      "parameter p1 = 5 + 5;"
+      "parameter p2 = 2 * 5;"
+      "parameter p3 = -2 * -5;"
+      "endmodule");
+  NodeId root = fC->getRootNode();
+  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  for (NodeId param_assign : assigns) {
+    NodeId param = fC->Child(param_assign);
+    NodeId rhs = fC->Sibling(param);
+    Value* val = builder.evalExpr(fC, rhs);
+    EXPECT_EQ(val->isValid(), true);
+    EXPECT_EQ(val->getValueUL(), 10);
+  }
+}
+TEST(ExprBuilderTest, ExprFromParseTree2) {
+  ExprBuilder builder;
+  ParserHarness harness;
+  // Cannot use parameters assignments in next expression, there is no
+  // elaboration performed here!
+  FileContent* fC = harness.parse(
+      "module top();"
+      "parameter p1 = 1 << 4;"
+      "parameter p2 = (1 << 8) >> 4;"
+      "parameter p3 = (16 * 4) / 4;"
+      "parameter p4 = 32 - 16;"
+      "endmodule");
+  NodeId root = fC->getRootNode();
+  std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  for (NodeId param_assign : assigns) {
+    NodeId param = fC->Child(param_assign);
+    NodeId rhs = fC->Sibling(param);
+    Value* val = builder.evalExpr(fC, rhs);
+    EXPECT_EQ(val->isValid(), true);
+    EXPECT_EQ(val->getValueUL(), 16);
   }
 }
 }  // namespace
