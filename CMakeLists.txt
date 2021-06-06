@@ -279,6 +279,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileAssertion.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileClass.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilerHarness.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileFileContent.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.cpp
@@ -481,6 +482,7 @@ register_gtests(
   src/Expression/ExprBuilder_test.cpp
   src/SourceCompile/PreprocessFile_test.cpp
   src/SourceCompile/ParseFile_test.cpp
+  src/DesignCompile/CompileExpression_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)
