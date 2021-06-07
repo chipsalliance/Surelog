@@ -20,8 +20,8 @@
 
 #include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/CompilerHarness.h"
-#include "SourceCompile/PreprocessHarness.h"
 #include "SourceCompile/ParserHarness.h"
+#include "SourceCompile/PreprocessHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -44,7 +44,7 @@ TEST(CompileExpression, ExprFromParseTree1) {
       "parameter p4 = 32 - 16;"
       "parameter p5 = 2 ** 4;"
       "parameter p6 = (1'b1) ? 16 : 15;"
-      "parameter p7 = (1'b0) ? 15 : 16;" 
+      "parameter p7 = (1'b0) ? 15 : 16;"
       "endmodule");
   NodeId root = fC->getRootNode();
   std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
@@ -103,7 +103,7 @@ TEST(CompileExpression, ExprFromParseTree3) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param); 
+    const std::string& name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
         nullptr, fC, rhs, compileDesign, nullptr, nullptr, false, true);
@@ -140,7 +140,7 @@ TEST(CompileExpression, ExprFromPpTree) {
   EXPECT_EQ(assigns.size(), 2);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
-    const std::string& name = fC->SymName(param); 
+    const std::string& name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
         nullptr, fC, rhs, compileDesign, nullptr, nullptr, false, true);
