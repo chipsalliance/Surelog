@@ -1001,10 +1001,21 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
           }
           case vpiBitNegOp: {
             if (operands.size() == 1) {
-              uint64_t val = ~((uint64_t)get_value(
-                  invalidValue, reduceExpr(operands[0], invalidValue, component,
+              expr* operand = reduceExpr(operands[0], invalidValue, component,
                                            compileDesign, instance, fileName,
-                                           lineNumber, pexpr, muteErrors)));
+                                           lineNumber, pexpr, muteErrors);
+              uint64_t val = (uint64_t)get_value(invalidValue, operand);
+              if (operand->UhdmType() == uhdmconstant) {
+                constant* c = (constant*) operand;
+                if (c->VpiSize() == 1) {
+                  val = !val;
+                } else {
+                  val = ~val;
+                }
+              } else {
+                val = ~val;
+              }
+
               UHDM::constant* c = s.MakeConstant();
               c->VpiValue("UINT:" + std::to_string(val));
               c->VpiDecompile(std::to_string(val));
