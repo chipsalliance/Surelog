@@ -223,7 +223,7 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_package, fC, id, false,
-                                          m_compileDesign);
+                                          m_compileDesign, true);
           break;
         }
         case VObjectType::slDpi_import_export: {

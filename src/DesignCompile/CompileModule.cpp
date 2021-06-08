@@ -602,7 +602,7 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, false,
-                                          m_compileDesign);
+                                          m_compileDesign, false);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -862,7 +862,7 @@ bool CompileModule::collectInterfaceObjects_(CollectType collectType) {
         case VObjectType::slData_declaration: {
           if (collectType != CollectType::DEFINITION) break;
           m_helper.compileDataDeclaration(m_module, fC, id, true,
-                                          m_compileDesign);
+                                          m_compileDesign, false);
           break;
         }
         case VObjectType::slContinuous_assign: {

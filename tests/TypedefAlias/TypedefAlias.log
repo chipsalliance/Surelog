@@ -72,31 +72,31 @@ design: (work@test)
           |vpiInstance:
           \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
       |vpiInstance:
-      \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
+      \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
+        |vpiDefName:package2
+        |vpiName:package2
+        |vpiFullName:package2::
+        |vpiTypedef:
+        \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17
+          |vpiPacked:1
+          |vpiName:package2::type_alias
+          |vpiTypespecMember:
+          \_typespec_member: (q), line:3:20, endln:3:21, parent:package2::type_alias
+            |vpiName:q
+            |vpiTypespec:
+            \_logic_typespec: , line:3:7, endln:3:12, parent:q
+              |vpiInstance:
+              \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
+          |vpiTypedefAlias:
+          \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
+          |vpiInstance:
+          \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
     |vpiInstance:
     \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
   |vpiTypedef:
   \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
 |uhdmallPackages:
 \_package: package2 (package2::) dut.sv:9:1: , endln:11:22, parent:work@test
-  |vpiDefName:package2
-  |vpiName:package2
-  |vpiFullName:package2::
-  |vpiTypedef:
-  \_struct_typespec: (package2::type_alias), line:2:11, endln:2:17
-    |vpiPacked:1
-    |vpiName:package2::type_alias
-    |vpiTypespecMember:
-    \_typespec_member: (q), line:3:20, endln:3:21, parent:package2::type_alias
-      |vpiName:q
-      |vpiTypespec:
-      \_logic_typespec: , line:3:7, endln:3:12, parent:q
-        |vpiInstance:
-        \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
-    |vpiTypedefAlias:
-    \_struct_typespec: (package1::type_t), line:2:11, endln:2:17
-    |vpiInstance:
-    \_package: package1 (package1::) dut.sv:1:1: , endln:7:22, parent:work@test
 |uhdmallModules:
 \_module: work@test (work@test) dut.sv:15:1: , endln:20:10, parent:work@test
   |vpiDefName:work@test

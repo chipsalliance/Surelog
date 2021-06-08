@@ -259,7 +259,7 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       case VObjectType::slData_declaration: {
         if (collectType != CollectType::DEFINITION) break;
         m_helper.compileDataDeclaration(m_program, fC, id, false,
-                                        m_compileDesign);
+                                        m_compileDesign, false);
         break;
       }
       case VObjectType::slInitial_construct:

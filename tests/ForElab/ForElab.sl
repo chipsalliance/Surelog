@@ -1,1 +1,1 @@
-top.v -writepp  -parse -verbose -d inst -fileunit -d uhdm -d coveruhdm
+-sverilog top.v -writepp  -parse -verbose -d inst -nobuiltin -d uhdm -d coveruhdm

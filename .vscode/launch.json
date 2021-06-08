@@ -490,7 +490,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/dbuild/bin/surelog",
-            "args": ["-f", "ForElab.sl", "-elabuhdm", "-d", "uhdm"],
+            "args": ["-sverilog", "-f", "ForElab.sl", "-elabuhdm", "-d", "uhdm"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/tests/ForElab",
             "environment": [],
@@ -550,6 +550,25 @@
             "args": ["-parse", "tests/ScratchPad.sv","-d", "inst" ,"-d", "ast", "-d", "uhdm", "-nobuiltin", "-d", "vpi_ids", "-elabuhdm", "-d", "coveruhdm", "-replay", "-writepp", "-o", "ccc"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "ForElab",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "ForElab.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/ForElab",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -912,6 +931,25 @@
             "args": ["+incdir+.+../../third_party/UVM/uvm-1.2/src/", "../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv", "-sverilog", "-parse", "top.v", "-d", "0"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/tests/SimpleClass1",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleClass2",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["+incdir+.+../../third_party/UVM/uvm-1.2/src/", "../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv", "-sverilog", "-parse", "top.v", "-d", "0"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleClass2",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

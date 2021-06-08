@@ -28,6 +28,7 @@
 #include <string>
 #include <vector>
 
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/FileContent.h"
 #include "Design/Netlist.h"
@@ -1238,6 +1239,11 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       stv->Typespec(un->getTypespec());
       obj = stv;
       stv->Expr(assignExp);
+    } else if (const DummyType* un = dynamic_cast<const DummyType*>(dtype)) {
+      logic_var* stv = s.MakeLogic_var();
+      stv->Typespec(un->getTypespec());
+      obj = stv;
+      stv->Expr(assignExp);
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
       spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr,
@@ -1274,6 +1280,13 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       struct_var* stv = s.MakeStruct_var();
       stv->Typespec(tps);
       stv->VpiName(signame);
+      obj = stv;
+      stv->Expr(assignExp);
+    } else if (tpstype == uhdmlogic_typespec) {
+      logic_var* stv = s.MakeLogic_var();
+      stv->Typespec(tps);
+      stv->VpiName(signame);
+      stv->Ranges(packedDimensions);
       obj = stv;
       stv->Expr(assignExp);
     } else if (tpstype == uhdmenum_typespec) {
@@ -1358,7 +1371,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
     var->VpiName(signame);
     var->Expr(assignExp);
     obj = var;
-  } else if (packedDimensions) {
+  } else if (packedDimensions && (obj->UhdmType() != uhdmlogic_var)) {
     // packed struct array ...
     UHDM::packed_array_var* parray = s.MakePacked_array_var();
     parray->Ranges(packedDimensions);
@@ -1395,6 +1408,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       ((union_var*)obj)->VpiName(signame);
     } else if (obj->UhdmType() == uhdmclass_var) {
       ((class_var*)obj)->VpiName(signame);
+    } else if (obj->UhdmType() == uhdmlogic_var) {
+      ((logic_var*)obj)->VpiName(signame);
     }
     vars->push_back((variables*)obj);
   }

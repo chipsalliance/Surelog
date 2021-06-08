@@ -951,20 +951,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
           const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
           if (typed) {
             const DataType* dt = typed->getDataType();
-            const Enum* en = dynamic_cast<const Enum*>(dt);
-            if (en) {
+            if (const Enum* en = dynamic_cast<const Enum*>(dt)) {
               result = en->getTypespec();
-            }
-            const Struct* st = dynamic_cast<const Struct*>(dt);
-            if (st) {
+            } else if (const Struct* st = dynamic_cast<const Struct*>(dt)) {
               result = st->getTypespec();
-            }
-            const Union* un = dynamic_cast<const Union*>(dt);
-            if (un) {
+            } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
               result = un->getTypespec();
-            }
-            const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
-            if (sit) {
+            } else if (const SimpleType* sit =
+                           dynamic_cast<const SimpleType*>(dt)) {
+              result = sit->getTypespec();
+            } else if (const DummyType* sit =
+                           dynamic_cast<const DummyType*>(dt)) {
               result = sit->getTypespec();
             }
           }
