@@ -383,7 +383,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
                                               const FileContent* fC,
                                               NodeId data_declaration,
                                               CompileDesign* compileDesign,
-                                              UHDM::any* pstmt) {
+                                              UHDM::any* pstmt, bool reduce) {
   DataType* newType = NULL;
   Serializer& s = compileDesign->getSerializer();
   UHDM::VectorOftypespec* typespecs = nullptr;
@@ -505,7 +505,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
-          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
+          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
       ts->VpiName(fullName);
       st->setTypespec(ts);
       if (typespecs) typespecs->push_back(ts);
@@ -514,7 +514,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
-          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, false);
+          scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
       ts->VpiName(fullName);
       st->setTypespec(ts);
       if (typespecs) typespecs->push_back(ts);
@@ -541,7 +541,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
     newTypeDef->setDefinition(the_enum);
     the_enum->setBaseTypespec(
         compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign,
-                        nullptr, nullptr, false));
+                        nullptr, nullptr, reduce));
 
     UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
     if (typespecs) typespecs->push_back(enum_t);
@@ -620,17 +620,22 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(dummy);
 
       // Don't create the typespec here, as it is most likely going to be
-      // incomplete at compilation time
-      /*
-      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
-      nullptr, nullptr, false); if (ts) { ElaboratorListener listener(&s);
-        typespec* tpclone = (typespec*) UHDM::clone_tree((any*) ts, s,
-      &listener); tpclone->VpiName(name); if (typespecs)
-          typespecs->push_back(tpclone);
+      // incomplete at compilation time, except for packages
+      if (reduce && (dynamic_cast<Package*>(scope))) {
+        UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
+                                             nullptr, nullptr, reduce);
+        if (ts && (ts->UhdmType() != uhdmclass_typespec)) {
+          ElaboratorListener listener(&s);
+          typespec* tpclone =
+              (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
+          tpclone->VpiName(name);
+          tpclone->Typedef_alias(ts);
+          if (typespecs) typespecs->push_back(tpclone);
           newTypeDef->setTypespec(tpclone);
-        dummy->setTypespec(tpclone);
+          dummy->setTypespec(tpclone);
+        }
       }
-      */
+      
 
       if (scope) scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
@@ -1616,7 +1621,7 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
 bool CompileHelper::compileDataDeclaration(DesignComponent* component,
                                            const FileContent* fC, NodeId id,
                                            bool interface,
-                                           CompileDesign* compileDesign) {
+                                           CompileDesign* compileDesign, bool reduce) {
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
   switch (subType) {
@@ -1629,7 +1634,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         n<> u<17> t<Type_declaration> p<18> c<15> l<13>
         n<> u<18> t<Data_declaration> p<19> c<17> l<13>
        */
-      compileTypeDef(component, fC, id, compileDesign);
+      compileTypeDef(component, fC, id, compileDesign, nullptr, reduce);
       break;
     }
     default:

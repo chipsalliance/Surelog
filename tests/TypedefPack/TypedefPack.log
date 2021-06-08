@@ -181,6 +181,8 @@ design: (work@prim_lc_sender)
       |vpiDecompile:4'b0101
       |UINT:5
       |vpiSize:4
+    |vpiInstance:
+    \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:8:25, parent:work@prim_lc_sender
   |vpiTypedef:
   \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
     |vpiName:lc_ctrl_pkg::lc_tx_t
@@ -306,6 +308,8 @@ design: (work@prim_lc_sender)
                 |vpiDecompile:4'b0101
                 |UINT:5
                 |vpiSize:4
+              |vpiInstance:
+              \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:8:25, parent:work@prim_lc_sender
             |vpiTypedef:
             \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
         |vpiEnumConst:
@@ -363,10 +367,10 @@ design: (work@prim_lc_sender)
     |vpiName:lc_en_o
     |vpiDirection:2
     |vpiTypedef:
-    \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:5, endln:5:12
-      |vpiName:lc_ctrl_pkg::lc_tx_e
+    \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
+      |vpiName:lc_ctrl_pkg::lc_tx_t
       |vpiBaseTypespec:
-      \_logic_typespec: , line:2:16, endln:2:21
+      \_logic_typespec: , line:2:16, endln:2:21, parent:lc_ctrl_pkg::lc_tx_t
         |vpiRange:
         \_range: , line:2:23, endln:2:26
           |vpiLeftRange:
@@ -388,11 +392,9 @@ design: (work@prim_lc_sender)
           |vpiFullName:lc_ctrl_pkg::
           |vpiTypedef:
           \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:5, endln:5:12
-          |vpiTypedef:
-          \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
-            |vpiName:lc_ctrl_pkg::lc_tx_t
+            |vpiName:lc_ctrl_pkg::lc_tx_e
             |vpiBaseTypespec:
-            \_logic_typespec: , line:2:16, endln:2:21, parent:lc_ctrl_pkg::lc_tx_t
+            \_logic_typespec: , line:2:16, endln:2:21
               |vpiRange:
               \_range: , line:2:23, endln:2:26
                 |vpiLeftRange:
@@ -410,41 +412,45 @@ design: (work@prim_lc_sender)
               |vpiInstance:
               \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:8:25, parent:work@prim_lc_sender
             |vpiEnumConst:
-            \_enum_const: (On), line:3:5, endln:3:7, parent:lc_ctrl_pkg::lc_tx_t
+            \_enum_const: (On), line:3:5, endln:3:7
               |vpiName:On
               |vpiDecompile:4'b1010
               |UINT:10
               |vpiSize:4
             |vpiEnumConst:
-            \_enum_const: (Off), line:4:5, endln:4:8, parent:lc_ctrl_pkg::lc_tx_t
+            \_enum_const: (Off), line:4:5, endln:4:8
               |vpiName:Off
               |vpiDecompile:4'b0101
               |UINT:5
               |vpiSize:4
-            |vpiTypedefAlias:
-            \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:5, endln:5:12
+            |vpiInstance:
+            \_package: lc_ctrl_pkg (lc_ctrl_pkg::) dut.sv:1:1: , endln:8:25, parent:work@prim_lc_sender
+          |vpiTypedef:
+          \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
       |vpiEnumConst:
-      \_enum_const: (On), line:3:5, endln:3:7
+      \_enum_const: (On), line:3:5, endln:3:7, parent:lc_ctrl_pkg::lc_tx_t
         |vpiName:On
         |vpiDecompile:4'b1010
         |UINT:10
         |vpiSize:4
       |vpiEnumConst:
-      \_enum_const: (Off), line:4:5, endln:4:8
+      \_enum_const: (Off), line:4:5, endln:4:8, parent:lc_ctrl_pkg::lc_tx_t
         |vpiName:Off
         |vpiDecompile:4'b0101
         |UINT:5
         |vpiSize:4
+      |vpiTypedefAlias:
+      \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:5, endln:5:12
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_enum_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
+      \_logic_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
         |vpiName:lc_en_o
         |vpiFullName:work@prim_lc_sender.lc_en_o
         |vpiAutomatic:1
         |vpiVisibility:1
         |vpiTypespec:
-        \_enum_typespec: (lc_ctrl_pkg::lc_tx_e), line:5:5, endln:5:12
+        \_enum_typespec: (lc_ctrl_pkg::lc_tx_t), line:5:5, endln:5:12
   |vpiContAssign:
   \_cont_assign: , line:14:10, endln:14:50, parent:work@prim_lc_sender
     |vpiRhs:
@@ -463,11 +469,11 @@ design: (work@prim_lc_sender)
       |vpiName:lc_en_o
       |vpiFullName:work@prim_lc_sender.lc_en_o
       |vpiActual:
-      \_enum_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
+      \_logic_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
   |vpiNet:
   \_logic_net: (work@prim_lc_sender.lc_en_i), line:11:16, endln:11:23, parent:work@prim_lc_sender
   |vpiVariables:
-  \_enum_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
+  \_logic_var: (work@prim_lc_sender.lc_en_o), line:12:31, endln:12:38, parent:work@prim_lc_sender
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -75,7 +75,7 @@ class CompileHelper final {
 
   const DataType* compileTypeDef(DesignComponent* scope, const FileContent* fC,
                                  NodeId id, CompileDesign* compileDesign,
-                                 UHDM::any* pstmt = nullptr);
+                                 UHDM::any* pstmt = nullptr, bool reduce = false);
 
   bool compileScopeBody(Scope* parent, Statement* parentStmt,
                         const FileContent* fC, NodeId id);
@@ -115,7 +115,7 @@ class CompileHelper final {
 
   bool compileDataDeclaration(DesignComponent* component, const FileContent* fC,
                               NodeId id, bool interface,
-                              CompileDesign* compileDesign);
+                              CompileDesign* compileDesign, bool reduce);
 
   // ------------------------------------------------------------------------------------------
   // UHDM modeling
