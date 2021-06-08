@@ -75,7 +75,8 @@ class CompileHelper final {
 
   const DataType* compileTypeDef(DesignComponent* scope, const FileContent* fC,
                                  NodeId id, CompileDesign* compileDesign,
-                                 UHDM::any* pstmt = nullptr, bool reduce = false);
+                                 UHDM::any* pstmt = nullptr,
+                                 bool reduce = false);
 
   bool compileScopeBody(Scope* parent, Statement* parentStmt,
                         const FileContent* fC, NodeId id);

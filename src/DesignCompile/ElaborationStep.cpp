@@ -28,13 +28,13 @@
 #include <string>
 #include <vector>
 
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/FileContent.h"
 #include "Design/Netlist.h"
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/DummyType.h"
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
 #include "ErrorReporting/Error.h"

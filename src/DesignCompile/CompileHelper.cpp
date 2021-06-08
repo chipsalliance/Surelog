@@ -635,7 +635,6 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           dummy->setTypespec(tpclone);
         }
       }
-      
 
       if (scope) scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
@@ -1621,7 +1620,8 @@ void CompileHelper::compileImportDeclaration(DesignComponent* component,
 bool CompileHelper::compileDataDeclaration(DesignComponent* component,
                                            const FileContent* fC, NodeId id,
                                            bool interface,
-                                           CompileDesign* compileDesign, bool reduce) {
+                                           CompileDesign* compileDesign,
+                                           bool reduce) {
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
   switch (subType) {

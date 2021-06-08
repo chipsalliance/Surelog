@@ -957,11 +957,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
               result = st->getTypespec();
             } else if (const Union* un = dynamic_cast<const Union*>(dt)) {
               result = un->getTypespec();
-            } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dt)) {
+            } else if (const SimpleType* sit =
+                           dynamic_cast<const SimpleType*>(dt)) {
               result = sit->getTypespec();
-            } else if (const DummyType* sit = dynamic_cast<const DummyType*>(dt)) {
+            } else if (const DummyType* sit =
+                           dynamic_cast<const DummyType*>(dt)) {
               result = sit->getTypespec();
-            } 
+            }
           }
           dtype = dtype->getDefinition();
           if (result) break;
