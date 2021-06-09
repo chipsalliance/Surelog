@@ -452,6 +452,16 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
   }
 
   const NodeId type_name = fC->Sibling(data_type);
+  const NodeId Variable_dimension = fC->Sibling(type_name);
+  array_typespec* array_tps = nullptr;
+  if (Variable_dimension) {
+    array_tps = s.MakeArray_typespec();
+    int size;
+    VectorOfrange* ranges =
+        compileRanges(scope, fC, Variable_dimension, compileDesign, nullptr,
+                      nullptr, reduce, size, false);
+    array_tps->Ranges(ranges);
+  }
   const std::string name = fC->SymName(type_name);
   std::string fullName = name;
   if (Package* pack = dynamic_cast<Package*>(scope)) {
@@ -506,18 +516,32 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      ts->VpiName(fullName);
-      st->setTypespec(ts);
-      if (typespecs) typespecs->push_back(ts);
+      if (array_tps) {
+        st->setTypespec(array_tps);
+        array_tps->Elem_typespec(ts);
+        array_tps->VpiName(fullName);
+        if (typespecs) typespecs->push_back(array_tps);
+      } else {
+        ts->VpiName(fullName);
+        st->setTypespec(ts);
+        if (typespecs) typespecs->push_back(ts);
+      }
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
-      ts->VpiName(fullName);
-      st->setTypespec(ts);
-      if (typespecs) typespecs->push_back(ts);
+      if (array_tps) {
+        st->setTypespec(array_tps);
+        array_tps->Elem_typespec(ts);
+        array_tps->VpiName(fullName);
+        if (typespecs) typespecs->push_back(array_tps);
+      } else {
+        ts->VpiName(fullName);
+        st->setTypespec(ts);
+        if (typespecs) typespecs->push_back(ts);
+      }
     }
 
     if (scope) {
@@ -628,11 +652,21 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
           ElaboratorListener listener(&s);
           typespec* tpclone =
               (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
-          tpclone->VpiName(name);
-          tpclone->Typedef_alias(ts);
-          if (typespecs) typespecs->push_back(tpclone);
-          newTypeDef->setTypespec(tpclone);
-          dummy->setTypespec(tpclone);
+
+          if (array_tps) {
+            array_tps->VpiName(name);
+            array_tps->Elem_typespec(tpclone);
+            tpclone->Typedef_alias(ts);
+            if (typespecs) typespecs->push_back(array_tps);
+            newTypeDef->setTypespec(array_tps);
+            dummy->setTypespec(array_tps);
+          } else {
+            tpclone->VpiName(name);
+            tpclone->Typedef_alias(ts);
+            if (typespecs) typespecs->push_back(tpclone);
+            newTypeDef->setTypespec(tpclone);
+            dummy->setTypespec(tpclone);
+          }
         }
       }
 
