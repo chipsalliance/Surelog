@@ -294,6 +294,7 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaboratorHarness.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/PackageAndRootElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ResolveSymbols.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/TestbenchElaboration.cpp
@@ -483,6 +484,7 @@ register_gtests(
   src/SourceCompile/PreprocessFile_test.cpp
   src/SourceCompile/ParseFile_test.cpp
   src/DesignCompile/CompileExpression_test.cpp
+  src/DesignCompile/Elaboration_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)

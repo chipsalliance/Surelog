@@ -55,6 +55,7 @@ FileContent* ParserHarness::parse(const std::string& content) {
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);
   CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
+  clp->setCacheAllowed(false);
   Library* lib = new Library("work", symbols);
   Compiler* compiler = new Compiler(clp, errors, symbols);
   CompileSourceFile* csf =

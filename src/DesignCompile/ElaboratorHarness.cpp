@@ -15,23 +15,39 @@
 */
 
 /*
- * File:   CompilerHarness.cpp
+ * File:   ElaboratorHarness.cpp
  * Author: alain
  *
- * Created on June 05, 2021, 90:03 AM
+ * Created on June 08, 2021, 10:03 PM
  */
-#include "DesignCompile/CompilerHarness.h"
+#include "DesignCompile/ElaboratorHarness.h"
 
 namespace SURELOG {
 
-CompileDesign* CompilerHarness::getCompileDesign() {
+std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
+    const std::string& content) {
+  std::tuple<Design*, FileContent*, CompileDesign*> result;
+  Design* design = nullptr;
+  CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);
   CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
   clp->setCacheAllowed(false);
+  Library* lib = new Library("work", symbols);
   Compiler* compiler = new Compiler(clp, errors, symbols);
+  CompileSourceFile* csf =
+      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
+  ParseFile* pf = new ParseFile(content, csf, unit, lib);
+  if (!pf->parse()) {
+    return result;
+  }
+  FileContent* fC = pf->getFileContent();
   CompileDesign* compileDesign = new CompileDesign(compiler);
-  return compileDesign;
+  design = compileDesign->getCompiler()->getDesign();
+  compileDesign->compile();
+  compileDesign->elaborate();
+  result = std::make_tuple(design, fC, compileDesign);
+  return result;
 }
 
 }  // namespace SURELOG
