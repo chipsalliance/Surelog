@@ -16,13 +16,13 @@
 
 #include <string>
 #include <string_view>
-#include <vector>
 #include <tuple>
+#include <vector>
 
 #include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/CompilerHarness.h"
-#include "SourceCompile/PreprocessHarness.h"
 #include "DesignCompile/ElaboratorHarness.h"
+#include "SourceCompile/PreprocessHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -46,7 +46,7 @@ TEST(Elaboration, ExprFromPpTree) {
       "parameter p2 = `B;\n"
       "endmodule\n");
 
-  // Parse, Compile, Elaborate    
+  // Parse, Compile, Elaborate
   Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;

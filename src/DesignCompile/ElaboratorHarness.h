@@ -33,7 +33,8 @@ namespace SURELOG {
 
 class ElaboratorHarness {
  public:
-  std::tuple<Design*, FileContent*, CompileDesign*> elaborate(const std::string& text);
+  std::tuple<Design*, FileContent*, CompileDesign*> elaborate(
+      const std::string& text);
 
  public:
  private:
