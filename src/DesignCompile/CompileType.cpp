@@ -966,7 +966,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
             }
           }
           dtype = dtype->getDefinition();
-          if (result) break;
+          if (result) {
+            break;
+          }
         }
         if (!result) {
           UHDM::VectorOfparam_assign* param_assigns = pack->getParam_assigns();
@@ -1262,7 +1264,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
   };
   if (result && component) {
-    result->Instance(component->getUhdmInstance());
+    if (!result->Instance()) {
+      result->Instance(component->getUhdmInstance());
+    }
   }
   return result;
 }
