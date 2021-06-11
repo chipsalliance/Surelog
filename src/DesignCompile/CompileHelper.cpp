@@ -516,6 +516,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
+      if (reduce && (dynamic_cast<Package*>(scope))) {
+        ts->Instance(scope->getUhdmInstance());
+      }
       if (array_tps) {
         st->setTypespec(array_tps);
         array_tps->Elem_typespec(ts);
@@ -532,6 +535,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(
           scope, fC, enum_base_type, compileDesign, nullptr, nullptr, reduce);
+      if (reduce && (dynamic_cast<Package*>(scope))) {
+        ts->Instance(scope->getUhdmInstance());
+      }
       if (array_tps) {
         st->setTypespec(array_tps);
         array_tps->Elem_typespec(ts);
@@ -582,6 +588,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
         the_enum->getFileContent()->EndColumn(the_enum->getDefinitionId()));
     // Enum basetype
     enum_t->Base_typespec(the_enum->getBaseTypespec());
+    if (reduce && (dynamic_cast<Package*>(scope))) {
+      enum_t->Instance(scope->getUhdmInstance());
+    }
     // Enum values
     VectorOfenum_const* econsts = s.MakeEnum_constVec();
     enum_t->Enum_consts(econsts);
@@ -654,6 +663,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               (typespec*)UHDM::clone_tree((any*)ts, s, &listener);
 
           if (array_tps) {
+            array_tps->Instance(scope->getUhdmInstance());
             array_tps->VpiName(name);
             array_tps->Elem_typespec(tpclone);
             tpclone->Typedef_alias(ts);
@@ -661,6 +671,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
             newTypeDef->setTypespec(array_tps);
             dummy->setTypespec(array_tps);
           } else {
+            tpclone->Instance(scope->getUhdmInstance());
             tpclone->VpiName(name);
             tpclone->Typedef_alias(ts);
             if (typespecs) typespecs->push_back(tpclone);
@@ -682,6 +693,9 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign,
                                            nullptr, nullptr, false);
       if (ts) {
+        if (reduce && (dynamic_cast<Package*>(scope))) {
+          ts->Instance(scope->getUhdmInstance());
+        }
         ts->VpiName(name);
         if (typespecs) typespecs->push_back(ts);
       }
