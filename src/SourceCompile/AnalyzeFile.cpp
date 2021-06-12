@@ -130,14 +130,27 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
 }
 
 void AnalyzeFile::analyze() {
-  std::ifstream ifs;
-  ifs.open(m_ppFileName);
-  if (!ifs.good()) {
-    return;
+  std::string line;
+  std::vector<std::string> allLines;
+  allLines.emplace_back("FILLER LINE");
+  if (m_text.empty()) {
+    std::ifstream ifs;
+    ifs.open(m_ppFileName);
+    if (!ifs.good()) {
+      return;
+    }
+    while (std::getline(ifs, line)) {
+      allLines.push_back(line);
+    }
+    ifs.close();
+  } else {
+    std::stringstream ss(m_text);
+    while (std::getline(ss, line)) {
+      allLines.push_back(line);
+    }
   }
   unsigned int minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
   std::vector<FileChunk> fileChunks;
-  std::string line;
   bool inPackage = false;
   int inClass = 0;
   int inModule = 0;
@@ -159,17 +172,14 @@ void AnalyzeFile::analyze() {
   int nbPackage = 0, nbClass = 0, nbModule = 0, nbProgram = 0, nbInterface = 0,
       nbConfig = 0, nbChecker = 0,
       nbPrimitive = 0 /*./re   , nbFunction = 0, nbTask = 0*/;
-  std::vector<std::string> allLines;
   std::string prev_keyword;
   std::string prev_prev_keyword;
-  allLines.emplace_back("FILLER LINE");
   const std::regex import_regex("import[ ]+[a-zA-Z_0-9:\\*]+[ ]*;");
   std::smatch pieces_match;
   std::string fileLevelImportSection;
   // Parse the file
-  while (std::getline(ifs, line)) {
+  for (auto& line : allLines) {
     bool inLineComment = false;
-    allLines.push_back(line);
     lineNb++;
     char c = 0;
     char cp = 0;
@@ -400,7 +410,6 @@ void AnalyzeFile::analyze() {
       }
     }
   }
-  ifs.close();
 
   unsigned int lineSize = lineNb;
 

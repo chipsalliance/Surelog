@@ -54,7 +54,7 @@ CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
                                      ErrorContainer* errors, Compiler* compiler,
                                      SymbolTable* symbols,
                                      CompilationUnit* compilationUnit,
-                                     Library* library)
+                                     Library* library, const std::string& text)
     : m_fileId(fileId),
       m_commandLineParser(clp),
       m_errors(errors),
@@ -63,7 +63,8 @@ CompileSourceFile::CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
       m_compilationUnit(compilationUnit),
       m_action(Preprocess),
       m_ppResultFileId(0),
-      m_library(library) {}
+      m_library(library),
+      m_text(text) {}
 
 CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
                                      SymbolId ppResultFileId,
@@ -225,8 +226,14 @@ bool CompileSourceFile::preprocess_() {
           : PreprocessFile::SpecialInstructions::DontFilter,
       PreprocessFile::SpecialInstructions::CheckLoop,
       PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
-  m_pp = new PreprocessFile(m_fileId, this, instructions, m_compilationUnit,
-                            m_library);
+  if (m_text.empty()) {
+    m_pp = new PreprocessFile(m_fileId, this, instructions, m_compilationUnit,
+                              m_library);
+  } else {
+    m_pp =
+        new PreprocessFile(0, nullptr, 0, this, instructions, m_compilationUnit,
+                           m_library, m_text, nullptr, 0, 0);
+  }
   registerPP(m_pp);
 
   if (!m_pp->preprocess()) {
@@ -255,6 +262,10 @@ bool CompileSourceFile::postPreprocess_() {
     return true;
   }
   std::string m_pp_result = m_pp->getPreProcessedFileContent();
+  if (m_text.size()) {
+    m_parser = new ParseFile(m_pp_result, this, m_compilationUnit,
+                             m_library);  // unit test
+  }
   if (m_commandLineParser->writePpOutput() ||
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     const std::string& directory =
