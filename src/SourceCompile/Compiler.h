@@ -54,13 +54,17 @@ class Compiler {
  public:
   Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
            SymbolTable* symbolTable);
+  Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
+           SymbolTable* symbolTable, const std::string& text);
   virtual ~Compiler();
 
   bool compile();
   CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   ErrorContainer* getErrorContainer() { return m_errors; }
-
+  std::vector<CompileSourceFile*>& getCompileSourceFiles() {
+    return m_compilers;
+  }
   const std::map<SymbolId, PreprocessFile::AntlrParserHandler*>&
   getPpAntlrHandlerMap() {
     return m_antlrPpMap;
@@ -112,7 +116,7 @@ class Compiler {
   Design* m_design;
   vpiHandle m_uhdmDesign;
   std::set<SymbolId> m_libraryFiles;  // -v <file>
-
+  std::string m_text;                 // unit tests
 #ifdef USETBB
   tbb::task_group m_taskGroup;
 #endif

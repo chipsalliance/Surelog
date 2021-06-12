@@ -58,12 +58,13 @@ class AnalyzeFile {
 
   AnalyzeFile(CommandLineParser* clp, Design* design,
               const std::string& ppFileName, const std::string& fileName,
-              int nbChunks)
+              int nbChunks, const std::string& text = "")
       : m_clp(clp),
         m_design(design),
         m_ppFileName(ppFileName),
         m_fileName(fileName),
-        m_nbChunks(nbChunks) {}
+        m_nbChunks(nbChunks),
+        m_text(text) {}
 
   void analyze();
   std::vector<std::string>& getSplitFiles() { return m_splitFiles; }
@@ -86,6 +87,7 @@ class AnalyzeFile {
   std::vector<unsigned int> m_lineOffsets;
   int m_nbChunks;
   std::stack<IncludeFileInfo> m_includeFileInfo;
+  std::string m_text;  // unit test
 };
 
 };  // namespace SURELOG
