@@ -20,9 +20,7 @@
 #include <vector>
 
 #include "DesignCompile/CompileHelper.h"
-#include "DesignCompile/CompilerHarness.h"
 #include "DesignCompile/ElaboratorHarness.h"
-#include "SourceCompile/PreprocessHarness.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -30,13 +28,16 @@ using ::testing::ElementsAre;
 
 namespace SURELOG {
 namespace {
+
 TEST(Elaboration, ExprFromPpTree) {
   CompileHelper helper;
-  PreprocessHarness ppharness;
   ElaboratorHarness eharness;
 
-  // Preprocess
-  const std::string text = ppharness.preprocess(
+  // Preprocess, Parse, Compile, Elaborate
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  std::tie(design, fC, compileDesign) = eharness.elaborate(
       "`define A {1'b1, 2'b10}\n"
       "\n"
       "`define B '{1'b1, 2'b10}\n"
@@ -45,12 +46,6 @@ TEST(Elaboration, ExprFromPpTree) {
       "parameter p1 = `A;\n"
       "parameter p2 = `B;\n"
       "endmodule\n");
-
-  // Parse, Compile, Elaborate
-  Design* design;
-  FileContent* fC;
-  CompileDesign* compileDesign;
-  std::tie(design, fC, compileDesign) = eharness.elaborate(text);
 
   // Get handles
   auto insts = design->getTopLevelModuleInstances();
@@ -87,16 +82,16 @@ TEST(Elaboration, ExprFromText) {
   CompileHelper helper;
   ElaboratorHarness eharness;
 
-  // Parse, Compile, Elaborate
+  // Preprocess, Parse, Compile, Elaborate
   Design* design;
   FileContent* fC;
   CompileDesign* compileDesign;
   std::tie(design, fC, compileDesign) = eharness.elaborate(
-      "module top();"
-      "parameter p1 = 1 << 4;"
-      "parameter p2 = (p1 >> 2) << 2;"
-      "parameter p3 = (p2 * 2) / 2;"
-      "endmodule");
+      "module top();\n"
+      "parameter p1 = 1 << 4;\n"
+      "parameter p2 = (p1 >> 2) << 2;\n"
+      "parameter p3 = (p2 * 2) / 2;\n"
+      "endmodule\n");
 
   // Get handles
   auto insts = design->getTopLevelModuleInstances();
@@ -110,6 +105,53 @@ TEST(Elaboration, ExprFromText) {
   EXPECT_NE(top, nullptr);
 
   std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
+  EXPECT_EQ(assigns.size(), 3);
+  for (NodeId param_assign : assigns) {
+    NodeId param = fC->Child(param_assign);
+    NodeId rhs = fC->Sibling(param);
+    // Reduced
+    UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
+        component, fC, rhs, compileDesign, nullptr, top, true, true);
+    EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
+    bool invalidValue = false;
+    EXPECT_EQ(helper.get_value(invalidValue, exp), 16);
+  }
+}
+
+TEST(Elaboration, ExprUsePackage) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate
+  std::tie(design, fC, compileDesign) = eharness.elaborate(
+      "`define FOO 4\n"
+      "package pkg;\n"
+      "  parameter p0 = `FOO;\n"
+      "endpackage\n"
+      "module top();\n"
+      "  parameter p1 = 1 << pkg::p0;\n"
+      "  parameter p2 = (p1 >> 2) << 2;\n"
+      "  parameter p3 = (p2 * 2) / 2;\n"
+      "endmodule\n");
+
+  // Get handles
+  auto insts = design->getTopLevelModuleInstances();
+  ModuleInstance* top = nullptr;
+  DesignComponent* component = nullptr;
+  if (insts.size()) {
+    top = insts.at(0);
+    component = top->getDefinition();
+  }
+  EXPECT_NE(top, nullptr);
+  NodeId root = fC->getRootNode();
+  NodeId moduleRoot = fC->sl_collect(root, slModule_declaration);
+  EXPECT_NE(moduleRoot, 0);
+
+  std::vector<NodeId> assigns =
+      fC->sl_collect_all(moduleRoot, slParam_assignment);
   EXPECT_EQ(assigns.size(), 3);
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);

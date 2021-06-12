@@ -3297,9 +3297,10 @@ UHDM::any* CompileHelper::compileExpression(
                 if (fC->Type(selectId) == slConstant_select) {
                   selectId = fC->Child(selectId);
                 }
-                result = compileSelectExpression(component, fC, selectId, name,
-                                                 compileDesign, pexpr, instance,
-                                                 reduce, muteErrors);
+                if (fC->Child(selectId) || fC->Sibling(selectId))
+                  result = compileSelectExpression(
+                      component, fC, selectId, name, compileDesign, pexpr,
+                      instance, reduce, muteErrors);
               }
               if (result == nullptr) sval = pack->getValue(n);
             }

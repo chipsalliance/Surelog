@@ -45,7 +45,7 @@ class CompileSourceFile {
   CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
                     ErrorContainer* errors, Compiler* compiler,
                     SymbolTable* symbols, CompilationUnit* comp_unit,
-                    Library* library);
+                    Library* library, const std::string& = "");
 
   // Chunk File:
   CompileSourceFile(CompileSourceFile* parent, SymbolId ppResultFileId,
@@ -117,6 +117,7 @@ class CompileSourceFile {
 #endif
   AnalyzeFile* m_fileAnalyzer = nullptr;
   Library* m_library = nullptr;
+  std::string m_text;  // unit test
 };
 
 };  // namespace SURELOG

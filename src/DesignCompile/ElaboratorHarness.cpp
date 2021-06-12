@@ -27,25 +27,26 @@ namespace SURELOG {
 std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
     const std::string& content) {
   std::tuple<Design*, FileContent*, CompileDesign*> result;
-  Design* design = nullptr;
-  CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);
   CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
   clp->setCacheAllowed(false);
-  Library* lib = new Library("work", symbols);
-  Compiler* compiler = new Compiler(clp, errors, symbols);
-  CompileSourceFile* csf =
-      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
-  ParseFile* pf = new ParseFile(content, csf, unit, lib);
-  if (!pf->parse()) {
-    return result;
-  }
-  FileContent* fC = pf->getFileContent();
+  clp->setParse(true);
+  clp->setElabUhdm(true);
+  Compiler* compiler = new Compiler(clp, errors, symbols, content);
+  compiler->compile();
+  auto compilers = compiler->getCompileSourceFiles();
   CompileDesign* compileDesign = new CompileDesign(compiler);
-  design = compileDesign->getCompiler()->getDesign();
   compileDesign->compile();
   compileDesign->elaborate();
+
+  Design* design = compileDesign->getCompiler()->getDesign();
+  FileContent* fC = nullptr;
+  if (compilers.size()) {
+    CompileSourceFile* csf = compilers.at(0);
+    ParseFile* pf = csf->getParser();
+    fC = pf->getFileContent();
+  }
   result = std::make_tuple(design, fC, compileDesign);
   return result;
 }

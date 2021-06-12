@@ -81,6 +81,19 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
 #endif
 }
 
+Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
+                   SymbolTable* symbolTable, const std::string& text)
+    : m_commandLineParser(commandLineParser),
+      m_errors(errors),
+      m_symbolTable(symbolTable),
+      m_commonCompilationUnit(NULL),
+      m_text(text) {
+  m_uhdmDesign = 0;
+  m_librarySet = new LibrarySet();
+  m_configSet = new ConfigSet();
+  m_design = new Design(getErrorContainer(), m_librarySet, m_configSet);
+}
+
 Compiler::~Compiler() {
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr;
   for (itr = m_antlrPpMap.begin(); itr != m_antlrPpMap.end(); itr++) {
@@ -155,6 +168,14 @@ bool Compiler::ppinit_() {
     CompileSourceFile* compiler =
         new CompileSourceFile(source_file_id, m_commandLineParser, errors, this,
                               symbols, comp_unit, library);
+    m_compilers.push_back(compiler);
+  }
+
+  if (m_text.size()) {
+    Library* library = new Library("UnitTest", m_symbolTable);
+    CompileSourceFile* compiler =
+        new CompileSourceFile(0, m_commandLineParser, m_errors, this,
+                              m_symbolTable, comp_unit, library, m_text);
     m_compilers.push_back(compiler);
   }
 
@@ -593,8 +614,9 @@ bool Compiler::parseinit_() {
 
     const int effectiveNbThreads = calculateEffectiveThreads(nbThreads);
 
-    AnalyzeFile* const fileAnalyzer = new AnalyzeFile(
-        m_commandLineParser, m_design, fileName, origFile, effectiveNbThreads);
+    AnalyzeFile* const fileAnalyzer =
+        new AnalyzeFile(m_commandLineParser, m_design, fileName, origFile,
+                        effectiveNbThreads, m_text);
     fileAnalyzer->analyze();
     compiler->setFileAnalyzer(fileAnalyzer);
     if (fileAnalyzer->getSplitFiles().size() > 1) {
@@ -648,7 +670,7 @@ bool Compiler::parseinit_() {
         j++;
       }
     } else {
-      if (!m_commandLineParser->fileunit()) {
+      if ((!m_commandLineParser->fileunit()) && m_text.empty()) {
         SymbolTable* symbols =
             new SymbolTable(m_commandLineParser->getSymbolTable());
         m_symbolTables.push_back(symbols);

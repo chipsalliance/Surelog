@@ -33,6 +33,7 @@ namespace SURELOG {
 
 class ElaboratorHarness {
  public:
+  // Preprocess, Parse, Compile, Elaborate (All in one)
   std::tuple<Design*, FileContent*, CompileDesign*> elaborate(
       const std::string& text);
 
