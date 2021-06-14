@@ -452,9 +452,14 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         bool bit_or_part_select = false;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+          if (fC->Type(Ps_or_hierarchical_identifier) !=
+              slPs_or_hierarchical_identifier) {
+            Ps_or_hierarchical_identifier = Net_lvalue;
+          }
           if (m_helper.isSelected(fC, Ps_or_hierarchical_identifier))
             bit_or_part_select = true;
-          sigId = fC->Child(Ps_or_hierarchical_identifier);
+          NodeId Complex_func_call = fC->Child(Ps_or_hierarchical_identifier);
+          sigId = Complex_func_call;
           sigName = fC->SymName(sigId);
         } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
@@ -519,9 +524,22 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                 bind_net_(parent, instance->getInstanceBinding(), sigName);
             ref->Actual_group(net);
           } else {
-            any* exp = m_helper.compileExpression(
-                comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+            NodeId n = Net_lvalue;
+            if (fC->Type(Net_lvalue) == slNet_lvalue) {
+              n = fC->Child(Net_lvalue);
+            }
+            if (fC->Type(n) != slPs_or_hierarchical_identifier) {
+              n = Net_lvalue;
+            }
+            any* exp = m_helper.compileExpression(comp, fC, n, m_compileDesign,
+                                                  nullptr, instance);
             p->High_conn(exp);
+            if (exp->UhdmType() == uhdmref_obj) {
+              ref_obj* ref = (ref_obj*)exp;
+              const std::string& n = ref->VpiName();
+              any* net = bind_net_(parent, instance->getInstanceBinding(), n);
+              ref->Actual_group(net);
+            }
           }
           ports->push_back(p);
         }
