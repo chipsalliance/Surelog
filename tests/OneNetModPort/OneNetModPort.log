@@ -147,9 +147,14 @@ design: (work@TOP)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (work@TESTBENCH.intf.drive), line:6:5, endln:6:15, parent:work@TESTBENCH
+        \_hier_path: (intf.drive), line:6:5, endln:6:15, parent:work@TESTBENCH
           |vpiName:intf.drive
-          |vpiFullName:work@TESTBENCH.intf.drive
+          |vpiActual:
+          \_ref_obj: (intf)
+            |vpiName:intf
+          |vpiActual:
+          \_ref_obj: (drive)
+            |vpiName:drive
         |vpiRhs:
         \_constant: , line:6:18, endln:6:19
           |vpiConstType:9
@@ -214,9 +219,14 @@ design: (work@TOP)
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (work@TESTBENCH.intf.drive), line:8:10, endln:8:20
+          \_hier_path: (intf.drive), line:8:10, endln:8:20
             |vpiName:intf.drive
-            |vpiFullName:work@TESTBENCH.intf.drive
+            |vpiActual:
+            \_ref_obj: (intf)
+              |vpiName:intf
+            |vpiActual:
+            \_ref_obj: (drive)
+              |vpiName:drive
           |vpiRhs:
           \_constant: , line:8:23, endln:8:24
             |vpiConstType:9
@@ -362,7 +372,7 @@ design: (work@TOP)
       |vpiName:i
       |vpiFullName:work@dut.i
     |vpiLhs:
-    \_hier_path: (conntb.drive), line:3:10, endln:3:16
+    \_hier_path: (conntb.drive), line:3:10, endln:3:22
       |vpiName:conntb.drive
       |vpiActual:
       \_ref_obj: (conntb)
@@ -467,34 +477,14 @@ design: (work@TOP)
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (conntb), line:17:12, endln:17:18
-        |vpiName:conntb
+      \_hier_path: (conntb.drive), line:17:12, endln:17:24
+        |vpiName:conntb.drive
         |vpiActual:
-        \_interface: work@ConnectTB (conntb) tb.v:16: 
-          |vpiDefName:work@ConnectTB
+        \_ref_obj: (conntb)
           |vpiName:conntb
-          |vpiModport:
-          \_modport: (dut), parent:conntb
-            |vpiName:dut
-            |vpiIODecl:
-            \_io_decl: (drive)
-              |vpiName:drive
-              |vpiDirection:1
-            |vpiIODecl:
-            \_io_decl: (observe)
-              |vpiName:observe
-              |vpiDirection:2
-          |vpiModport:
-          \_modport: (tb), parent:conntb
-            |vpiName:tb
-            |vpiIODecl:
-            \_io_decl: (drive)
-              |vpiName:drive
-              |vpiDirection:2
-            |vpiIODecl:
-            \_io_decl: (observe)
-              |vpiName:observe
-              |vpiDirection:1
+        |vpiActual:
+        \_ref_obj: (drive)
+          |vpiName:drive
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -685,6 +675,30 @@ design: (work@TOP)
         |vpiName:conntb
         |vpiActual:
         \_interface: work@ConnectTB (conntb) tb.v:16: 
+          |vpiDefName:work@ConnectTB
+          |vpiName:conntb
+          |vpiModport:
+          \_modport: (dut), parent:conntb
+            |vpiName:dut
+            |vpiIODecl:
+            \_io_decl: (drive)
+              |vpiName:drive
+              |vpiDirection:1
+            |vpiIODecl:
+            \_io_decl: (observe)
+              |vpiName:observe
+              |vpiDirection:2
+          |vpiModport:
+          \_modport: (tb), parent:conntb
+            |vpiName:tb
+            |vpiIODecl:
+            \_io_decl: (drive)
+              |vpiName:drive
+              |vpiDirection:2
+            |vpiIODecl:
+            \_io_decl: (observe)
+              |vpiName:observe
+              |vpiDirection:1
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:

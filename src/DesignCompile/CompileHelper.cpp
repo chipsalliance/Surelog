@@ -2596,9 +2596,12 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     }
   } else if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
-    NodeId Hierarchical_identifier = Variable_lvalue;
+    NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
+    if (fC->Type(Hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+      Hierarchical_identifier = Variable_lvalue;
+    }
     lhs_rf = dynamic_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
                           pstmt, instance, false));

@@ -3139,7 +3139,7 @@ net_lvalue
 
 variable_lvalue  
     : ( implicit_class_handle DOT | package_scope )?  
-      hierarchical_identifier select                           
+      ps_or_hierarchical_identifier select                           
     | OPEN_CURLY variable_lvalue ( COMMA variable_lvalue )* CLOSE_CURLY 
     | ( assignment_pattern_expression_type )? assignment_pattern_variable_lvalue 
     | streaming_concatenation                                           
@@ -3338,7 +3338,10 @@ ps_identifier : ( Simple_identifier
     | RANDOMIZE           
     | SAMPLE  ))?;
 
-ps_or_hierarchical_identifier : ( package_scope )? identifier | hierarchical_identifier ; 
+ps_or_hierarchical_identifier
+    : complex_func_call
+    | ( package_scope )? identifier
+    | hierarchical_identifier ; 
 
 ps_or_hierarchical_array_identifier : ( implicit_class_handle DOT | class_scope | package_scope )?  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 
 

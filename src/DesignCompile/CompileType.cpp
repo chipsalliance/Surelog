@@ -168,11 +168,16 @@ UHDM::any* CompileHelper::compileVariable(
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
-  if (the_type == VObjectType::slData_type) {
+  if (the_type == VObjectType::slData_type ||
+      the_type == VObjectType::slPs_or_hierarchical_identifier) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
   } else if (the_type == VObjectType::slNull_rule) {
     return nullptr;
+  }
+  if (the_type == VObjectType::slComplex_func_call) {
+    variable = fC->Child(variable);
+    the_type = fC->Type(variable);
   }
   NodeId Packed_dimension = fC->Sibling(variable);
   if (Packed_dimension == 0) {
