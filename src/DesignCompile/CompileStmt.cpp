@@ -1901,9 +1901,13 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       assign_stmt* assign = s.MakeAssign_stmt();
       NodeId Variable_assignment = fC->Sibling(assigntypeid);
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Ps_or_hierarchical_identifier = fC->Child(Variable_lvalue);
+      if (fC->Type(Ps_or_hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+        Ps_or_hierarchical_identifier = Variable_lvalue;
+      }
       NodeId Expression = fC->Sibling(Variable_lvalue);
       expr* lhs = (expr*)compileExpression(
-          component, fC, fC->Child(Variable_lvalue), compileDesign);
+          component, fC, Ps_or_hierarchical_identifier, compileDesign);
       if (lhs) lhs->VpiParent(assign);
       expr* rhs =
           (expr*)compileExpression(component, fC, Expression, compileDesign);
@@ -1917,8 +1921,12 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       force* assign = s.MakeForce();
       NodeId Variable_assignment = fC->Sibling(assigntypeid);
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Ps_or_hierarchical_identifier = fC->Child(Variable_lvalue);
+      if (fC->Type(Ps_or_hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+        Ps_or_hierarchical_identifier = Variable_lvalue;
+      }
       NodeId Expression = fC->Sibling(Variable_lvalue);
-      expr* lhs = (expr*)compileExpression(component, fC, Variable_lvalue,
+      expr* lhs = (expr*)compileExpression(component, fC, Ps_or_hierarchical_identifier,
                                            compileDesign);
       if (lhs) lhs->VpiParent(assign);
       expr* rhs =
@@ -1933,7 +1941,11 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       deassign* assign = s.MakeDeassign();
       NodeId Variable_assignment = fC->Sibling(assigntypeid);
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
-      expr* lhs = (expr*)compileExpression(component, fC, Variable_lvalue,
+      NodeId Ps_or_hierarchical_identifier = fC->Child(Variable_lvalue);
+      if (fC->Type(Ps_or_hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+        Ps_or_hierarchical_identifier = Variable_lvalue;
+      }
+      expr* lhs = (expr*)compileExpression(component, fC, Ps_or_hierarchical_identifier,
                                            compileDesign);
       if (lhs) lhs->VpiParent(assign);
       assign->Lhs(lhs);
@@ -1944,7 +1956,11 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(
       release* assign = s.MakeRelease();
       NodeId Variable_assignment = fC->Sibling(assigntypeid);
       NodeId Variable_lvalue = fC->Child(Variable_assignment);
-      expr* lhs = (expr*)compileExpression(component, fC, Variable_lvalue,
+      NodeId Ps_or_hierarchical_identifier = fC->Child(Variable_lvalue);
+      if (fC->Type(Ps_or_hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+        Ps_or_hierarchical_identifier = Variable_lvalue;
+      }
+      expr* lhs = (expr*)compileExpression(component, fC, Ps_or_hierarchical_identifier,
                                            compileDesign);
       if (lhs) lhs->VpiParent(assign);
       assign->Lhs(lhs);
@@ -2020,6 +2036,10 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
       NodeId Variable_assignment = fC->Child(List_of_variable_assignments);
       while (Variable_assignment) {
         NodeId Variable_lvalue = fC->Child(Variable_assignment);
+        NodeId Ps_or_hierarchical_identifier = fC->Child(Variable_lvalue);
+        if (fC->Type(Ps_or_hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+          Ps_or_hierarchical_identifier = Variable_lvalue;
+        }
         NodeId Expression = fC->Sibling(Variable_lvalue);
         VectorOfany* stmts = for_stmt->VpiForInitStmts();
         if (stmts == nullptr) {
@@ -2031,7 +2051,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
         assign_stmt->VpiParent(for_stmt);
 
         variables* var = (variables*)compileVariable(
-            component, fC, Variable_lvalue, compileDesign, assign_stmt, nullptr,
+            component, fC, Ps_or_hierarchical_identifier, compileDesign, assign_stmt, nullptr,
             true, false);
         assign_stmt->Lhs(var);
         if (var) {

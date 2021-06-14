@@ -2680,8 +2680,12 @@ UHDM::any* CompileHelper::compileExpression(
     result->VpiEndColumnNo(fC->EndColumn(child));
     NodeId Expression = child;
     while (Expression) {
+      NodeId n = fC->Child(Expression);
+      if (fC->Type(n) == slVariable_lvalue) {
+        n = Expression;
+      }
       UHDM::any* exp =
-          compileExpression(component, fC, fC->Child(Expression), compileDesign,
+          compileExpression(component, fC, n, compileDesign,
                             pexpr, instance, reduce, muteErrors);
       if (exp) {
         operands->push_back(exp);
@@ -2802,8 +2806,12 @@ UHDM::any* CompileHelper::compileExpression(
             op->VpiParent(pexpr);
             op->Attributes(attributes);
             UHDM::VectorOfany* operands = s.MakeAnyVec();
+            NodeId var = fC->Sibling(child);
+            if (fC->Type(var) == slVariable_lvalue) {
+              var = fC->Child(var);
+            }
             if (UHDM::any* operand = compileExpression(
-                    component, fC, fC->Sibling(child), compileDesign, op,
+                    component, fC, var, compileDesign, op,
                     instance, reduce, muteErrors)) {
               operands->push_back(operand);
             }
@@ -3143,7 +3151,7 @@ UHDM::any* CompileHelper::compileExpression(
         }
         case VObjectType::slVariable_lvalue: {
           UHDM::any* variable =
-              compileExpression(component, fC, child, compileDesign, pexpr,
+              compileExpression(component, fC, fC->Child(child), compileDesign, pexpr,
                                 instance, reduce, muteErrors);
           NodeId op = fC->Sibling(child);
           if (op) {
@@ -5506,8 +5514,47 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
                                        compileDesign, pexpr, instance, reduce,
                                        muteErrors);
     }
-  } else {
+    if (result == nullptr) {
+      const std::string& n = fC->SymName(name);
+      ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(n);
+      ref->VpiParent(pexpr);
+      if (pexpr) {
+        UHDM::any* var = bindVariable(component, pexpr, n, compileDesign);
+        if (var)
+          ref->Actual_group(var);
+        else if (component)
+          component->needLateBinding(ref);
+      } else if (instance) {
+        UHDM::any* var = bindVariable(component, instance, n, compileDesign);
+        if (var)
+          ref->Actual_group(var);
+        else if (component)
+          component->needLateBinding(ref);
+      }
+      result = ref;
+    }
+  } else if (fC->Type(dotedName) == slList_of_arguments) {
     result = compileTfCall(component, fC, nodeId, compileDesign);
+  } else if (fC->Type(name) == VObjectType::slStringConst) {
+    const std::string& n = fC->SymName(name);
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(n);
+    ref->VpiParent(pexpr);
+    if (pexpr) {
+      UHDM::any* var = bindVariable(component, pexpr, n, compileDesign);
+      if (var)
+        ref->Actual_group(var);
+      else if (component)
+        component->needLateBinding(ref);
+    } else if (instance) {
+      UHDM::any* var = bindVariable(component, instance, n, compileDesign);
+      if (var)
+        ref->Actual_group(var);
+      else if (component)
+        component->needLateBinding(ref);
+    }
+    result = ref;
   }
   return result;
 }
