@@ -457,7 +457,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             Ps_or_hierarchical_identifier = Net_lvalue;
           }
           if (m_helper.isSelected(fC, Ps_or_hierarchical_identifier))
-            bit_or_part_select = true;            
+            bit_or_part_select = true;
           NodeId Complex_func_call = fC->Child(Ps_or_hierarchical_identifier);
           sigId = Complex_func_call;
           sigName = fC->SymName(sigId);
@@ -531,14 +531,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             if (fC->Type(n) != slPs_or_hierarchical_identifier) {
               n = Net_lvalue;
             }
-            any* exp = m_helper.compileExpression(
-                comp, fC, n, m_compileDesign, nullptr, instance);
+            any* exp = m_helper.compileExpression(comp, fC, n, m_compileDesign,
+                                                  nullptr, instance);
             p->High_conn(exp);
             if (exp->UhdmType() == uhdmref_obj) {
-              ref_obj* ref = (ref_obj*) exp;
+              ref_obj* ref = (ref_obj*)exp;
               const std::string& n = ref->VpiName();
-              any* net =
-                bind_net_(parent, instance->getInstanceBinding(), n);
+              any* net = bind_net_(parent, instance->getInstanceBinding(), n);
               ref->Actual_group(net);
             }
           }

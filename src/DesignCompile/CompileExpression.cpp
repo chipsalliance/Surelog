@@ -2684,9 +2684,8 @@ UHDM::any* CompileHelper::compileExpression(
       if (fC->Type(n) == slVariable_lvalue) {
         n = Expression;
       }
-      UHDM::any* exp =
-          compileExpression(component, fC, n, compileDesign,
-                            pexpr, instance, reduce, muteErrors);
+      UHDM::any* exp = compileExpression(component, fC, n, compileDesign, pexpr,
+                                         instance, reduce, muteErrors);
       if (exp) {
         operands->push_back(exp);
         exp->VpiParent(operation);
@@ -2810,9 +2809,9 @@ UHDM::any* CompileHelper::compileExpression(
             if (fC->Type(var) == slVariable_lvalue) {
               var = fC->Child(var);
             }
-            if (UHDM::any* operand = compileExpression(
-                    component, fC, var, compileDesign, op,
-                    instance, reduce, muteErrors)) {
+            if (UHDM::any* operand =
+                    compileExpression(component, fC, var, compileDesign, op,
+                                      instance, reduce, muteErrors)) {
               operands->push_back(operand);
             }
             op->Operands(operands);
@@ -3151,8 +3150,8 @@ UHDM::any* CompileHelper::compileExpression(
         }
         case VObjectType::slVariable_lvalue: {
           UHDM::any* variable =
-              compileExpression(component, fC, fC->Child(child), compileDesign, pexpr,
-                                instance, reduce, muteErrors);
+              compileExpression(component, fC, fC->Child(child), compileDesign,
+                                pexpr, instance, reduce, muteErrors);
           NodeId op = fC->Sibling(child);
           if (op) {
             VObjectType opType = fC->Type(op);

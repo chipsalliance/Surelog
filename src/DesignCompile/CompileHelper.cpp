@@ -2598,7 +2598,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
     NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
-      Hierarchical_identifier = fC->Child(Hierarchical_identifier);  
+      Hierarchical_identifier = fC->Child(Hierarchical_identifier);
     if (fC->Type(Hierarchical_identifier) != slPs_or_hierarchical_identifier) {
       Hierarchical_identifier = Variable_lvalue;
     }
