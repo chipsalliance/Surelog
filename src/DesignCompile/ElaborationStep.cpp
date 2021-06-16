@@ -1240,10 +1240,21 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       obj = stv;
       stv->Expr(assignExp);
     } else if (const DummyType* un = dynamic_cast<const DummyType*>(dtype)) {
-      logic_var* stv = s.MakeLogic_var();
-      stv->Typespec(un->getTypespec());
-      obj = stv;
-      stv->Expr(assignExp);
+      typespec* tps = un->getTypespec();
+      variables* var = nullptr;
+      UHDM_OBJECT_TYPE ttps = tps->UhdmType();
+      if (ttps == uhdmenum_typespec) {
+        var = s.MakeEnum_var();
+      } else if (ttps == uhdmstruct_typespec) {
+        var = s.MakeStruct_var();
+      } else if (ttps == uhdmunion_typespec) {
+        var = s.MakeUnion_var();
+      } else {
+        var = s.MakeLogic_var();
+      }
+      var->Typespec(tps);
+      var->Expr(assignExp);
+      obj = var;
     } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
       UHDM::typespec* spec = sit->getTypespec();
       spec = m_helper.elabTypespec(component, spec, m_compileDesign, nullptr,
