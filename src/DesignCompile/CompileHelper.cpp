@@ -1846,11 +1846,13 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     NodeId Expression = fC->Sibling(Net_lvalue);
     if (Expression && (fC->Type(Expression) != slUnpacked_dimension)) {
       // LHS
-      NodeId Ps_or_hierarchical_identifier = Net_lvalue;
-      if (fC->Child(Net_lvalue))
-        Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+      NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
+      if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+          slHierarchical_identifier) {
+        Hierarchical_identifier = fC->Child(fC->Child(Hierarchical_identifier));
+      }
       UHDM::any* lhs_exp =
-          compileExpression(component, fC, Ps_or_hierarchical_identifier,
+          compileExpression(component, fC, Hierarchical_identifier,
                             compileDesign, nullptr, instance);
 
       // RHS
@@ -2597,11 +2599,15 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(
   } else if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
     NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
-    if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
+    if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+        slHierarchical_identifier) {
       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
-    if (fC->Type(Hierarchical_identifier) != slPs_or_hierarchical_identifier) {
+      Hierarchical_identifier = fC->Child(Hierarchical_identifier);
+    } else if (fC->Type(Hierarchical_identifier) !=
+               slPs_or_hierarchical_identifier) {
       Hierarchical_identifier = Variable_lvalue;
     }
+
     lhs_rf = dynamic_cast<expr*>(
         compileExpression(component, fC, Hierarchical_identifier, compileDesign,
                           pstmt, instance, false));
