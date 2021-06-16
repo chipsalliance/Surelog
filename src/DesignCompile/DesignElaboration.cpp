@@ -1718,8 +1718,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     NodeId hIdent = fC->Child(defParam);
     NodeId var = fC->Child(hIdent);
     NodeId value = fC->Sibling(hIdent);
-    std::string fullPath = fC->SymName(var);
+    std::string fullPath;
     std::string path;
+    while (var) {
+      fullPath += fC->SymName(var);
+      var = fC->Sibling(var);
+      if (var) {
+        fullPath += ".";
+      }
+    }
     for (unsigned int i = 0; i < fullPath.size(); i++) {
       if (fullPath[i] == '.') break;
       path += fullPath[i];

@@ -14402,7 +14402,6 @@ public:
   public:
     Ps_or_hierarchical_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Complex_func_callContext *complex_func_call();
     IdentifierContext *identifier();
     Package_scopeContext *package_scope();
     Hierarchical_identifierContext *hierarchical_identifier();

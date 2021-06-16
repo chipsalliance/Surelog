@@ -1866,9 +1866,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mem_slice_bad.v -l t_mem_slice_bad.v.log
-[SNT:PA0207] t_mem_slice_bad.v:38:35: Syntax error: mismatched input '[' expecting '=',
+[SNT:PA0207] t_mem_slice_bad.v:38:30: Syntax error: mismatched input '[' expecting '=',
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
-                                   ^-- ./slpp_all/work/_6142509188972423790/t_mem_slice_bad.v:38:35:.
+                              ^-- ./slpp_all/work/_6142509188972423790/t_mem_slice_bad.v:38:30:.
 
 [  FATAL] : 0
 [ SYNTAX] : 1
@@ -1930,8 +1930,12 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_mem_multi_ref_bad.v -l t_mem_multi_ref_bad.v.log
+[SNT:PA0207] t_mem_multi_ref_bad.v:18:18: Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   reg       dimn;\n   reg [1:0] dim0;\n   reg [1:0] dim1 [1:0];\n   reg [1:0] dim2 [1:0][1:0];\n   reg       dim0nv[1:0];\n\n   initial begin\n      dimn[1:0] = 0;            // Bad: Not ranged\n      dim0[1][1] = 0;           // Bad: Not arrayed\n      dim1[1][1][1] = 0;        // Bad: Not arrayed to right depth\n      dim2[1][1][1] = 0;        // OK\n      dim2[0 +: 1][',
+      dim2[0 +: 1][1] = 0;      // Bad: Range on non-bits
+                  ^-- ./slpp_all/work/_6142509188972423790/t_mem_multi_ref_bad.v:18:18:.
+
 [  FATAL] : 0
-[ SYNTAX] : 0
+[ SYNTAX] : 1
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -5605,7 +5609,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 [   NOTE] : 0
 Processed 837 tests.
 [  FATAL] : 0
-[ SYNTAX] : 53
+[ SYNTAX] : 54
 [  ERROR] : 144
 [WARNING] : 37
 [   NOTE] : 0

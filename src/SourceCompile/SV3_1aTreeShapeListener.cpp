@@ -934,18 +934,29 @@ void SV3_1aTreeShapeListener::exitClass_type(
 void SV3_1aTreeShapeListener::exitHierarchical_identifier(
     SV3_1aParser::Hierarchical_identifierContext *ctx) {
   std::string ident;
-  antlr4::ParserRuleContext *childCtx = NULL;
-  if (ctx->dollar_root_keyword()) {
-    childCtx = (antlr4::ParserRuleContext *)ctx->children[1];
-    ident = ctx->getText();
-  } else {
-    childCtx = (antlr4::ParserRuleContext *)ctx->children[0];
-    ident = ctx->getText();
-  }
-  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
-  addVObject(childCtx, ident, VObjectType::slStringConst);
-  addVObject(ctx, VObjectType::slHierarchical_identifier);
 
+  for (auto &o : ctx->children) {
+    if (antlrcpp::is<antlr4::tree::TerminalNode *>(o)) {
+      antlr4::tree::TerminalNode *tnode =
+          dynamic_cast<antlr4::tree::TerminalNode *>(o);
+      antlr4::Token *symbol = tnode->getSymbol();
+      if (symbol->getType() == SV3_1aParser::Simple_identifier ||
+          symbol->getType() == SV3_1aParser::Escaped_identifier) {
+        ident = tnode->getText();
+        ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+        addVObject((antlr4::ParserRuleContext *)tnode, ident,
+                   VObjectType::slStringConst);
+      } else if (symbol->getType() == SV3_1aParser::THIS ||
+                 symbol->getType() == SV3_1aParser::RANDOMIZE ||
+                 symbol->getType() == SV3_1aParser::SAMPLE) {
+        ident = tnode->getText();
+        addVObject((antlr4::ParserRuleContext *)tnode, ident,
+                   VObjectType::slStringConst);
+      }
+    }
+  }
+
+  addVObject(ctx, VObjectType::slHierarchical_identifier);
   if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
     logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
   }

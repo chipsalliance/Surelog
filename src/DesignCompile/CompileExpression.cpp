@@ -2446,7 +2446,8 @@ UHDM::any* CompileHelper::compileSelectExpression(
       while (Bit_select) {
         if (fC->Type(Bit_select) == VObjectType::slStringConst) {
           NodeId tmp = fC->Sibling(Bit_select);
-          if ((fC->Type(tmp) == slConstant_bit_select) &&
+          if (((fC->Type(tmp) == slConstant_bit_select) ||
+               (fC->Type(tmp) == slBit_select)) &&
               (fC->Child(tmp) != 0)) {
             any* sel =
                 compileExpression(component, fC, Bit_select, compileDesign,
@@ -2469,6 +2470,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
                 break;
               } else {
                 elems->push_back(sel);
+                hname += "." + sel->VpiName();
               }
             }
           } else {
@@ -2488,6 +2490,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
       path->VpiColumnNo(fC->Column(Bit_select));
       path->VpiEndLineNo(fC->EndLine(Bit_select));
       path->VpiEndColumnNo(fC->EndColumn(Bit_select));
+      path->VpiParent(pexpr);
       result = path;
       break;
     }
@@ -3806,8 +3809,12 @@ UHDM::any* CompileHelper::compileExpression(
           result = compileConst(fC, parent, s);
           break;
         }
-        case VObjectType::slStringConst: {
+        case VObjectType::slStringConst:
+        case VObjectType::slDollar_root_keyword: {
           std::string name = fC->SymName(parent).c_str();
+          if (type == slDollar_root_keyword) {
+            name = "$root";
+          }
           NodeId dotedName = fC->Sibling(parent);
           bool hierPath = false;
           NodeId tmp = dotedName;
@@ -3826,7 +3833,9 @@ UHDM::any* CompileHelper::compileExpression(
               ref->VpiFullName(name);
               result = ref;
             } else if (dtype == VObjectType::slSelect ||
-                       dtype == VObjectType::slConstant_bit_select) {
+                       dtype == VObjectType::slConstant_bit_select ||
+                       dtype == VObjectType::slBit_select ||
+                       dtype == VObjectType::slConstant_select) {
               std::string ind;
               NodeId Bit_select = fC->Child(dotedName);
               NodeId Expression = fC->Child(Bit_select);
@@ -3837,8 +3846,6 @@ UHDM::any* CompileHelper::compileExpression(
               if (index) {
                 bit_select* select = s.MakeBit_select();
                 select->VpiIndex(index);
-                select->VpiName(name);
-                select->VpiFullName(name);
                 if (index->UhdmType() == uhdmconstant) {
                   ind = index->VpiDecompile();
                   name += "[" + ind + "]";
@@ -3846,6 +3853,8 @@ UHDM::any* CompileHelper::compileExpression(
                   ind = index->VpiName();
                   name += "[" + ind + "]";
                 }
+                select->VpiFullName(name);
+                select->VpiName(name);
                 result = select;
               } else {
                 ref_obj* ref = s.MakeRef_obj();
@@ -3945,6 +3954,7 @@ UHDM::any* CompileHelper::compileExpression(
               ref->VpiName(tmpName);
               ref->VpiFullName(tmpName);
               tmpName == "";
+              result = path;
             }
           } else {
             ref_obj* ref = s.MakeRef_obj();
@@ -3957,7 +3967,7 @@ UHDM::any* CompileHelper::compileExpression(
 
           path->VpiName(name);
           path->VpiFullName(name);
-
+          path->VpiParent(pexpr);
           Value* sval = NULL;
           if (instance) sval = instance->getValue(name);
           if (sval == NULL) {

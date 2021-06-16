@@ -3339,8 +3339,7 @@ ps_identifier : ( Simple_identifier
     | SAMPLE  ))?;
 
 ps_or_hierarchical_identifier
-    : complex_func_call
-    | ( package_scope )? identifier
+    : ( package_scope )? identifier
     | hierarchical_identifier ; 
 
 ps_or_hierarchical_array_identifier : ( implicit_class_handle DOT | class_scope | package_scope )?  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ; 
