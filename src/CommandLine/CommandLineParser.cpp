@@ -52,7 +52,9 @@
 using namespace SURELOG;
 
 static std::string defaultLogFileName = "surelog.log";
-std::string CommandLineParser::m_versionNumber = "1.05";
+// !!! Update this number when the grammar changes !!!
+//        This will render the cache invalid
+std::string CommandLineParser::m_versionNumber = "1.06";
 
 static const std::vector<std::string> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
