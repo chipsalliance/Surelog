@@ -32,6 +32,7 @@
 #include "CommandLine/CommandLineParser.h"
 #include "Common/PortNetHolder.h"
 #include "Config/ConfigSet.h"
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/FileContent.h"
 #include "Design/Function.h"
@@ -40,7 +41,6 @@
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
-#include "Design/DummyType.h"
 #include "Design/VObject.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/UhdmWriter.h"
@@ -1210,7 +1210,7 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           var->VpiName(signame);
           obj = var;
         }
-      
+
       } else if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
         enum_net* stv = s.MakeEnum_net();
         stv->Typespec(en->getTypespec());
