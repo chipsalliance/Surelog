@@ -477,14 +477,34 @@ design: (work@TOP)
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
-      \_hier_path: (conntb.drive), line:17:12, endln:17:18
-        |vpiName:conntb.drive
+      \_ref_obj: (conntb), line:17:12, endln:17:18
+        |vpiName:conntb
         |vpiActual:
-        \_ref_obj: (conntb)
+        \_interface: work@ConnectTB (conntb) tb.v:16: 
+          |vpiDefName:work@ConnectTB
           |vpiName:conntb
-        |vpiActual:
-        \_ref_obj: (drive)
-          |vpiName:drive
+          |vpiModport:
+          \_modport: (dut), parent:conntb
+            |vpiName:dut
+            |vpiIODecl:
+            \_io_decl: (drive)
+              |vpiName:drive
+              |vpiDirection:1
+            |vpiIODecl:
+            \_io_decl: (observe)
+              |vpiName:observe
+              |vpiDirection:2
+          |vpiModport:
+          \_modport: (tb), parent:conntb
+            |vpiName:tb
+            |vpiIODecl:
+            \_io_decl: (drive)
+              |vpiName:drive
+              |vpiDirection:2
+            |vpiIODecl:
+            \_io_decl: (observe)
+              |vpiName:observe
+              |vpiDirection:1
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -675,30 +695,6 @@ design: (work@TOP)
         |vpiName:conntb
         |vpiActual:
         \_interface: work@ConnectTB (conntb) tb.v:16: 
-          |vpiDefName:work@ConnectTB
-          |vpiName:conntb
-          |vpiModport:
-          \_modport: (dut), parent:conntb
-            |vpiName:dut
-            |vpiIODecl:
-            \_io_decl: (drive)
-              |vpiName:drive
-              |vpiDirection:1
-            |vpiIODecl:
-            \_io_decl: (observe)
-              |vpiName:observe
-              |vpiDirection:2
-          |vpiModport:
-          \_modport: (tb), parent:conntb
-            |vpiName:tb
-            |vpiIODecl:
-            \_io_decl: (drive)
-              |vpiName:drive
-              |vpiDirection:2
-            |vpiIODecl:
-            \_io_decl: (observe)
-              |vpiName:observe
-              |vpiDirection:1
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:

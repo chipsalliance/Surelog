@@ -246,14 +246,14 @@ design: (work@top)
       \_ref_obj: (a), line:3:15, endln:3:16
         |vpiName:a
         |vpiActual:
-        \_logic_net: (work@top.i1.a), line:8:13, endln:8:14, parent:work@top.i1
-          |vpiName:a
-          |vpiFullName:work@top.i1.a
-          |vpiNetType:1
+        \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
         \_logic_net: (work@top.i1.a), line:8:13, endln:8:14, parent:work@top.i1
+          |vpiName:a
+          |vpiFullName:work@top.i1.a
+          |vpiNetType:1
     |vpiPort:
     \_port: (b), line:9:14, endln:9:15, parent:work@top.i1
       |vpiName:b
@@ -261,6 +261,10 @@ design: (work@top)
       |vpiHighConn:
       \_ref_obj: (tmp), line:3:17, endln:3:20
         |vpiName:tmp
+        |vpiActual:
+        \_logic_net: (work@top.tmp), parent:work@top
+          |vpiName:tmp
+          |vpiFullName:work@top.tmp
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -286,6 +290,8 @@ design: (work@top)
       |vpiHighConn:
       \_ref_obj: (tmp), line:4:15, endln:4:18
         |vpiName:tmp
+        |vpiActual:
+        \_logic_net: (work@top.tmp), parent:work@top
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -319,6 +325,8 @@ design: (work@top)
   \_logic_net: (work@top.a), line:1:23, endln:1:24, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.b), line:2:14, endln:2:15, parent:work@top
+  |vpiNet:
+  \_logic_net: (work@top.tmp), parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
