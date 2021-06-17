@@ -32,6 +32,7 @@
 #include "CommandLine/CommandLineParser.h"
 #include "Common/PortNetHolder.h"
 #include "Config/ConfigSet.h"
+#include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/FileContent.h"
 #include "Design/Function.h"
@@ -1155,7 +1156,62 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
     // Nets
     if (dtype) {
       dtype = dtype->getActual();
-      if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
+      if (const DummyType* en = dynamic_cast<const DummyType*>(dtype)) {
+        UHDM::typespec* spec = en->getTypespec();
+        if (spec->UhdmType() == uhdmlogic_typespec) {
+          logic_net* logicn = s.MakeLogic_net();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);
+        } else if (spec->UhdmType() == uhdmstruct_typespec) {
+          struct_net* stv = s.MakeStruct_net();
+          stv->Typespec(spec);
+          obj = stv;
+          if (packedDimensions) {
+            packed_array_net* pnets = s.MakePacked_array_net();
+            pnets->Ranges(packedDimensions);
+            pnets->Elements(s.MakeAnyVec());
+            pnets->Elements()->push_back(stv);
+            obj = pnets;
+          }
+        } else if (spec->UhdmType() == uhdmenum_typespec) {
+          enum_net* stv = s.MakeEnum_net();
+          stv->Typespec(spec);
+          obj = stv;
+          if (packedDimensions) {
+            packed_array_net* pnets = s.MakePacked_array_net();
+            pnets->Ranges(packedDimensions);
+            pnets->Elements(s.MakeAnyVec());
+            pnets->Elements()->push_back(stv);
+            obj = pnets;
+          }
+        } else if (spec->UhdmType() == uhdmbit_typespec) {
+          bit_var* logicn = s.MakeBit_var();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->Ranges(packedDimensions);
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);
+        } else if (spec->UhdmType() == uhdmbyte_typespec) {
+          byte_var* logicn = s.MakeByte_var();
+          logicn->VpiSigned(sig->isSigned());
+          logicn->VpiName(signame);
+          obj = logicn;
+          logicn->Typespec(spec);
+        } else {
+          variables* var = m_helper.getSimpleVarFromTypespec(
+              spec, packedDimensions, m_compileDesign);
+          var->Expr(exp);
+          var->VpiConstantVariable(sig->isConst());
+          var->VpiSigned(sig->isSigned());
+          var->VpiName(signame);
+          obj = var;
+        }
+
+      } else if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
         enum_net* stv = s.MakeEnum_net();
         stv->Typespec(en->getTypespec());
         obj = stv;
@@ -1190,6 +1246,17 @@ void NetlistElaboration::elabSignal(Signal* sig, ModuleInstance* instance,
           logicn->Typespec(spec);
         } else if (spec->UhdmType() == uhdmstruct_typespec) {
           struct_net* stv = s.MakeStruct_net();
+          stv->Typespec(spec);
+          obj = stv;
+          if (packedDimensions) {
+            packed_array_net* pnets = s.MakePacked_array_net();
+            pnets->Ranges(packedDimensions);
+            pnets->Elements(s.MakeAnyVec());
+            pnets->Elements()->push_back(stv);
+            obj = pnets;
+          }
+        } else if (spec->UhdmType() == uhdmenum_typespec) {
+          enum_net* stv = s.MakeEnum_net();
           stv->Typespec(spec);
           obj = stv;
           if (packedDimensions) {
