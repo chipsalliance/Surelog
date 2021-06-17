@@ -463,6 +463,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           if (m_helper.isSelected(fC, Hierarchical_identifier))
             bit_or_part_select = true;
           sigId = Hierarchical_identifier;
+          if (fC->Type(fC->Child(sigId)) == slStringConst) {
+            sigId = fC->Child(sigId);
+          }
           sigName = fC->SymName(sigId);
         } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
@@ -1617,6 +1620,24 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
   }
   if (result == nullptr) {
     result = bind_net_(instance, name);
+  }
+
+  if (Netlist* netlist = instance->getNetlist()) {
+    if (result == nullptr) {
+      // Implicit net
+      Serializer& s = m_compileDesign->getSerializer();
+      logic_net* net = s.MakeLogic_net();
+      net->VpiName(name);
+      result = net;
+      Netlist::SymbolTable& symbols = netlist->getSymbolTable();
+      std::vector<UHDM::net*>* nets = netlist->nets();
+      if (nets == nullptr) {
+        nets = s.MakeNetVec();
+        netlist->nets(nets);
+      }
+      nets->push_back(net);
+      symbols.insert(std::make_pair(name, result));
+    }
   }
   return result;
 }
