@@ -17,7 +17,11 @@ module ariane_testharness #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
+`ifdef DROMAJO
+  parameter bit          InclSimDTM        = 1'b0,
+`else
   parameter bit          InclSimDTM        = 1'b1,
+`endif
   parameter int unsigned NUM_WORDS         = 2**25,         // memory size
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0
@@ -98,6 +102,7 @@ module ariane_testharness #(
 
   initial begin
     if (!$value$plusargs("jtag_rbb_enable=%b", jtag_enable)) jtag_enable = 'h0;
+    if (riscv::XLEN != 32 & riscv::XLEN != 64) $error("XLEN different from 32 and 64");
   end
 
   // debug if MUX
@@ -190,8 +195,8 @@ module ariane_testharness #(
     end
   end
 
-  ariane_axi::req_t    dm_axi_m_req;
-  ariane_axi::resp_t   dm_axi_m_resp;
+  ariane_axi_soc::req_t    dm_axi_m_req;
+  ariane_axi_soc::resp_t   dm_axi_m_resp;
 
   logic                dm_slave_req;
   logic                dm_slave_we;
@@ -319,13 +324,21 @@ module ariane_testharness #(
     .data_i ( rom_rdata               )
   );
 
+`ifdef DROMAJO
+  dromajo_bootrom i_bootrom (
+    .clk_i      ( clk_i     ),
+    .req_i      ( rom_req   ),
+    .addr_i     ( rom_addr  ),
+    .rdata_o    ( rom_rdata )
+  );
+`else
   bootrom i_bootrom (
     .clk_i      ( clk_i     ),
     .req_i      ( rom_req   ),
     .addr_i     ( rom_addr  ),
     .rdata_o    ( rom_rdata )
   );
-
+`endif
   // ------------------------------
   // Memory + Exclusive Access
   // ------------------------------
@@ -364,23 +377,23 @@ module ariane_testharness #(
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) dram_delayed();
 
-  ariane_axi::aw_chan_slv_t aw_chan_i;
-  ariane_axi::w_chan_t      w_chan_i;
-  ariane_axi::b_chan_slv_t  b_chan_o;
-  ariane_axi::ar_chan_slv_t ar_chan_i;
-  ariane_axi::r_chan_slv_t  r_chan_o;
-  ariane_axi::aw_chan_slv_t aw_chan_o;
-  ariane_axi::w_chan_t      w_chan_o;
-  ariane_axi::b_chan_slv_t  b_chan_i;
-  ariane_axi::ar_chan_slv_t ar_chan_o;
-  ariane_axi::r_chan_slv_t  r_chan_i;
+  ariane_axi_soc::aw_chan_slv_t aw_chan_i;
+  ariane_axi_soc::w_chan_t      w_chan_i;
+  ariane_axi_soc::b_chan_slv_t  b_chan_o;
+  ariane_axi_soc::ar_chan_slv_t ar_chan_i;
+  ariane_axi_soc::r_chan_slv_t  r_chan_o;
+  ariane_axi_soc::aw_chan_slv_t aw_chan_o;
+  ariane_axi_soc::w_chan_t      w_chan_o;
+  ariane_axi_soc::b_chan_slv_t  b_chan_i;
+  ariane_axi_soc::ar_chan_slv_t ar_chan_o;
+  ariane_axi_soc::r_chan_slv_t  r_chan_i;
 
   axi_delayer #(
-    .aw_t              ( ariane_axi::aw_chan_slv_t ),
-    .w_t               ( ariane_axi::w_chan_t      ),
-    .b_t               ( ariane_axi::b_chan_slv_t  ),
-    .ar_t              ( ariane_axi::ar_chan_slv_t ),
-    .r_t               ( ariane_axi::r_chan_slv_t  ),
+    .aw_t              ( ariane_axi_soc::aw_chan_slv_t ),
+    .w_t               ( ariane_axi_soc::w_chan_t      ),
+    .b_t               ( ariane_axi_soc::b_chan_slv_t  ),
+    .ar_t              ( ariane_axi_soc::ar_chan_slv_t ),
+    .r_t               ( ariane_axi_soc::r_chan_slv_t  ),
     .StallRandomOutput ( StallRandomOutput         ),
     .StallRandomInput  ( StallRandomInput          ),
     .FixedDelayInput   ( 0                         ),
@@ -514,6 +527,9 @@ module ariane_testharness #(
 
   sram #(
     .DATA_WIDTH ( AXI_DATA_WIDTH ),
+`ifdef DROMAJO
+    .DROMAJO_RAM (1),
+`endif
     .NUM_WORDS  ( NUM_WORDS      )
   ) i_sram (
     .clk_i      ( clk_i                                                                       ),
@@ -529,6 +545,8 @@ module ariane_testharness #(
   // ---------------
   // AXI Xbar
   // ---------------
+  typedef logic [ariane_soc::NrRegion-1:0][ariane_soc::NB_PERIPHERALS-1:0][AXI_ADDRESS_WIDTH-1:0] addr_map_t;
+  
   axi_node_intf_wrap #(
     .NB_SLAVE           ( ariane_soc::NrSlaves       ),
     .NB_MASTER          ( ariane_soc::NB_PERIPHERALS ),
@@ -551,6 +569,7 @@ module ariane_testharness #(
       ariane_soc::CLINTBase,
       ariane_soc::PLICBase,
       ariane_soc::UARTBase,
+      ariane_soc::TimerBase,
       ariane_soc::SPIBase,
       ariane_soc::EthernetBase,
       ariane_soc::GPIOBase,
@@ -562,6 +581,7 @@ module ariane_testharness #(
       ariane_soc::CLINTBase    + ariane_soc::CLINTLength - 1,
       ariane_soc::PLICBase     + ariane_soc::PLICLength - 1,
       ariane_soc::UARTBase     + ariane_soc::UARTLength - 1,
+      ariane_soc::TimerBase    + ariane_soc::TimerLength - 1,
       ariane_soc::SPIBase      + ariane_soc::SPILength - 1,
       ariane_soc::EthernetBase + ariane_soc::EthernetLength -1,
       ariane_soc::GPIOBase     + ariane_soc::GPIOLength - 1,
@@ -576,8 +596,8 @@ module ariane_testharness #(
   logic ipi;
   logic timer_irq;
 
-  ariane_axi::req_t    axi_clint_req;
-  ariane_axi::resp_t   axi_clint_resp;
+  ariane_axi_soc::req_t    axi_clint_req;
+  ariane_axi_soc::resp_t   axi_clint_resp;
 
   clint #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -630,6 +650,7 @@ module ariane_testharness #(
     .uart      ( master[ariane_soc::UART]     ),
     .spi       ( master[ariane_soc::SPI]      ),
     .ethernet  ( master[ariane_soc::Ethernet] ),
+    .timer     ( master[ariane_soc::Timer]    ),
     .irq_o     ( irqs                         ),
     .rx_i      ( rx                           ),
     .tx_o      ( tx                           ),
@@ -655,8 +676,8 @@ module ariane_testharness #(
   // ---------------
   // Core
   // ---------------
-  ariane_axi::req_t    axi_ariane_req;
-  ariane_axi::resp_t   axi_ariane_resp;
+  ariane_axi_soc::req_t    axi_ariane_req;
+  ariane_axi_soc::resp_t   axi_ariane_resp;
 
   ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
@@ -705,15 +726,15 @@ module ariane_testharness #(
   // AXI 4 Assertion IP integration - You will need to get your own copy of this IP if you want
   // to use it
   Axi4PC #(
-    .DATA_WIDTH(ariane_axi::DataWidth),
+    .DATA_WIDTH(ariane_axi_soc::DataWidth),
     .WID_WIDTH(ariane_soc::IdWidthSlave),
     .RID_WIDTH(ariane_soc::IdWidthSlave),
-    .AWUSER_WIDTH(ariane_axi::UserWidth),
-    .WUSER_WIDTH(ariane_axi::UserWidth),
-    .BUSER_WIDTH(ariane_axi::UserWidth),
-    .ARUSER_WIDTH(ariane_axi::UserWidth),
-    .RUSER_WIDTH(ariane_axi::UserWidth),
-    .ADDR_WIDTH(ariane_axi::AddrWidth)
+    .AWUSER_WIDTH(ariane_axi_soc::UserWidth),
+    .WUSER_WIDTH(ariane_axi_soc::UserWidth),
+    .BUSER_WIDTH(ariane_axi_soc::UserWidth),
+    .ARUSER_WIDTH(ariane_axi_soc::UserWidth),
+    .RUSER_WIDTH(ariane_axi_soc::UserWidth),
+    .ADDR_WIDTH(ariane_axi_soc::AddrWidth)
   ) i_Axi4PC (
     .ACLK(clk_i),
     .ARESETn(ndmreset_n),

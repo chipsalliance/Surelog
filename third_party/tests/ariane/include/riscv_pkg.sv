@@ -16,6 +16,35 @@
  */
 package riscv;
 
+    // ----------------------
+    // Data and Address length
+    // ----------------------
+    typedef enum logic [3:0] {
+       ModeOff  = 0,
+       ModeSv32 = 1,
+       ModeSv39 = 8,
+       ModeSv48 = 9,
+       ModeSv57 = 10,
+       ModeSv64 = 11
+    } vm_mode_t;
+
+    localparam XLEN = 64;
+
+    // Warning: When using STD_CACHE, configuration must be PLEN=56 and VLEN=64
+    // Warning: VLEN must be superior or equal to PLEN
+    localparam VLEN       = (XLEN == 32) ? 32 : 64;    // virtual address length
+    localparam PLEN       = (XLEN == 32) ? 32 : 56;    // physical address length
+
+    localparam IS_XLEN64  = (XLEN == 32) ? 1'b0 : 1'b1;
+    localparam ModeW      = (XLEN == 32) ? 1 : 4;
+    localparam ASIDW      = (XLEN == 32) ? 9 : 16;
+    localparam PPNW       = (XLEN == 32) ? 22 : 44;
+    localparam vm_mode_t MODE_SV = (XLEN == 32) ? ModeSv32 : ModeSv39;
+    localparam SV         = (MODE_SV == ModeSv32) ? 32 : 39;
+    localparam VPN2       = (VLEN-31 < 8) ? VLEN-31 : 8;
+
+    typedef logic [XLEN-1:0] xlen_t;
+
     // --------------------
     // Privilege Spec
     // --------------------
@@ -30,7 +59,7 @@ package riscv;
         XLEN_32  = 2'b01,
         XLEN_64  = 2'b10,
         XLEN_128 = 2'b11
-    } xlen_t;
+    } xlen_e;
 
     typedef enum logic [1:0] {
         Off     = 2'b00,
@@ -42,8 +71,8 @@ package riscv;
     typedef struct packed {
         logic         sd;     // signal dirty state - read-only
         logic [62:36] wpri4;  // writes preserved reads ignored
-        xlen_t        sxl;    // variable supervisor mode xlen - hardwired to zero
-        xlen_t        uxl;    // variable user mode xlen - hardwired to zero
+        xlen_e        sxl;    // variable supervisor mode xlen - hardwired to zero
+        xlen_e        uxl;    // variable user mode xlen - hardwired to zero
         logic [8:0]   wpri3;  // writes preserved reads ignored
         logic         tsr;    // trap sret
         logic         tw;     // time wait
@@ -64,36 +93,12 @@ package riscv;
         logic         wpri0;  // writes preserved reads ignored
         logic         sie;    // supervisor interrupts enable
         logic         uie;    // user interrupts enable - hardwired to zero
-    } status_rv64_t;
+    } status_rv_t;
 
     typedef struct packed {
-        logic         sd;     // signal dirty - read-only - hardwired zero
-        logic [7:0]   wpri3;  // writes preserved reads ignored
-        logic         tsr;    // trap sret
-        logic         tw;     // time wait
-        logic         tvm;    // trap virtual memory
-        logic         mxr;    // make executable readable
-        logic         sum;    // permit supervisor user memory access
-        logic         mprv;   // modify privilege - privilege level for ld/st
-        logic [1:0]   xs;     // extension register - hardwired to zero
-        logic [1:0]   fs;     // extension register - hardwired to zero
-        priv_lvl_t    mpp;    // holds the previous privilege mode up to machine
-        logic [1:0]   wpri2;  // writes preserved reads ignored
-        logic         spp;    // holds the previous privilege mode up to supervisor
-        logic         mpie;   // machine interrupts enable bit active prior to trap
-        logic         wpri1;  // writes preserved reads ignored
-        logic         spie;   // supervisor interrupts enable bit active prior to trap
-        logic         upie;   // user interrupts enable bit active prior to trap - hardwired to zero
-        logic         mie;    // machine interrupts enable
-        logic         wpri0;  // writes preserved reads ignored
-        logic         sie;    // supervisor interrupts enable
-        logic         uie;    // user interrupts enable - hardwired to zero
-    } status_rv32_t;
-
-    typedef struct packed {
-        logic [3:0]  mode;
-        logic [15:0] asid;
-        logic [43:0] ppn;
+        logic [ModeW-1:0] mode;
+        logic [ASIDW-1:0] asid;
+        logic [PPNW-1:0]  ppn;
     } satp_t;
 
     // --------------------
@@ -223,7 +228,7 @@ package riscv;
     localparam OpcodeRsrvd3    = 7'b11_101_11;
     localparam OpcodeCustom3   = 7'b11_110_11;
 
-    // RV64C listings:
+    // RV64C/RV32C listings:
     // Quadrant 0
     localparam OpcodeC0             = 2'b00;
     localparam OpcodeC0Addi4spn     = 3'b000;
@@ -237,7 +242,8 @@ package riscv;
     // Quadrant 1
     localparam OpcodeC1             = 2'b01;
     localparam OpcodeC1Addi         = 3'b000;
-    localparam OpcodeC1Addiw        = 3'b001;
+    localparam OpcodeC1Addiw        = 3'b001; //for RV64I only
+    localparam OpcodeC1Jal          = 3'b001; //for RV32I only
     localparam OpcodeC1Li           = 3'b010;
     localparam OpcodeC1LuiAddi16sp  = 3'b011;
     localparam OpcodeC1MiscAlu      = 3'b100;
@@ -261,7 +267,7 @@ package riscv;
     // memory management, pte
     typedef struct packed {
         logic [9:0]  reserved;
-        logic [43:0] ppn;
+        logic [PLEN-12-1:0] ppn;
         logic [1:0]  rsw;
         logic d;
         logic a;
@@ -276,21 +282,21 @@ package riscv;
     // ----------------------
     // Exception Cause Codes
     // ----------------------
-    localparam logic [63:0] INSTR_ADDR_MISALIGNED = 0;
-    localparam logic [63:0] INSTR_ACCESS_FAULT    = 1;
-    localparam logic [63:0] ILLEGAL_INSTR         = 2;
-    localparam logic [63:0] BREAKPOINT            = 3;
-    localparam logic [63:0] LD_ADDR_MISALIGNED    = 4;
-    localparam logic [63:0] LD_ACCESS_FAULT       = 5;
-    localparam logic [63:0] ST_ADDR_MISALIGNED    = 6;
-    localparam logic [63:0] ST_ACCESS_FAULT       = 7;
-    localparam logic [63:0] ENV_CALL_UMODE        = 8;  // environment call from user mode
-    localparam logic [63:0] ENV_CALL_SMODE        = 9;  // environment call from supervisor mode
-    localparam logic [63:0] ENV_CALL_MMODE        = 11; // environment call from machine mode
-    localparam logic [63:0] INSTR_PAGE_FAULT      = 12; // Instruction page fault
-    localparam logic [63:0] LOAD_PAGE_FAULT       = 13; // Load page fault
-    localparam logic [63:0] STORE_PAGE_FAULT      = 15; // Store page fault
-    localparam logic [63:0] DEBUG_REQUEST         = 24; // Debug request
+    localparam logic [XLEN-1:0] INSTR_ADDR_MISALIGNED = 0;
+    localparam logic [XLEN-1:0] INSTR_ACCESS_FAULT    = 1;  // Illegal access as governed by PMPs and PMAs
+    localparam logic [XLEN-1:0] ILLEGAL_INSTR         = 2;
+    localparam logic [XLEN-1:0] BREAKPOINT            = 3;
+    localparam logic [XLEN-1:0] LD_ADDR_MISALIGNED    = 4;
+    localparam logic [XLEN-1:0] LD_ACCESS_FAULT       = 5;  // Illegal access as governed by PMPs and PMAs
+    localparam logic [XLEN-1:0] ST_ADDR_MISALIGNED    = 6;
+    localparam logic [XLEN-1:0] ST_ACCESS_FAULT       = 7;  // Illegal access as governed by PMPs and PMAs
+    localparam logic [XLEN-1:0] ENV_CALL_UMODE        = 8;  // environment call from user mode
+    localparam logic [XLEN-1:0] ENV_CALL_SMODE        = 9;  // environment call from supervisor mode
+    localparam logic [XLEN-1:0] ENV_CALL_MMODE        = 11; // environment call from machine mode
+    localparam logic [XLEN-1:0] INSTR_PAGE_FAULT      = 12; // Instruction page fault
+    localparam logic [XLEN-1:0] LOAD_PAGE_FAULT       = 13; // Load page fault
+    localparam logic [XLEN-1:0] STORE_PAGE_FAULT      = 15; // Store page fault
+    localparam logic [XLEN-1:0] DEBUG_REQUEST         = 24; // Debug request
 
     localparam int unsigned IRQ_S_SOFT  = 1;
     localparam int unsigned IRQ_M_SOFT  = 3;
@@ -299,19 +305,19 @@ package riscv;
     localparam int unsigned IRQ_S_EXT   = 9;
     localparam int unsigned IRQ_M_EXT   = 11;
 
-    localparam logic [63:0] MIP_SSIP = 1 << IRQ_S_SOFT;
-    localparam logic [63:0] MIP_MSIP = 1 << IRQ_M_SOFT;
-    localparam logic [63:0] MIP_STIP = 1 << IRQ_S_TIMER;
-    localparam logic [63:0] MIP_MTIP = 1 << IRQ_M_TIMER;
-    localparam logic [63:0] MIP_SEIP = 1 << IRQ_S_EXT;
-    localparam logic [63:0] MIP_MEIP = 1 << IRQ_M_EXT;
+    localparam logic [XLEN-1:0] MIP_SSIP = 1 << IRQ_S_SOFT;
+    localparam logic [XLEN-1:0] MIP_MSIP = 1 << IRQ_M_SOFT;
+    localparam logic [XLEN-1:0] MIP_STIP = 1 << IRQ_S_TIMER;
+    localparam logic [XLEN-1:0] MIP_MTIP = 1 << IRQ_M_TIMER;
+    localparam logic [XLEN-1:0] MIP_SEIP = 1 << IRQ_S_EXT;
+    localparam logic [XLEN-1:0] MIP_MEIP = 1 << IRQ_M_EXT;
 
-    localparam logic [63:0] S_SW_INTERRUPT    = (1 << 63) | IRQ_S_SOFT;
-    localparam logic [63:0] M_SW_INTERRUPT    = (1 << 63) | IRQ_M_SOFT;
-    localparam logic [63:0] S_TIMER_INTERRUPT = (1 << 63) | IRQ_S_TIMER;
-    localparam logic [63:0] M_TIMER_INTERRUPT = (1 << 63) | IRQ_M_TIMER;
-    localparam logic [63:0] S_EXT_INTERRUPT   = (1 << 63) | IRQ_S_EXT;
-    localparam logic [63:0] M_EXT_INTERRUPT   = (1 << 63) | IRQ_M_EXT;
+    localparam logic [XLEN-1:0] S_SW_INTERRUPT    = (1 << (XLEN-1)) | IRQ_S_SOFT;
+    localparam logic [XLEN-1:0] M_SW_INTERRUPT    = (1 << (XLEN-1)) | IRQ_M_SOFT;
+    localparam logic [XLEN-1:0] S_TIMER_INTERRUPT = (1 << (XLEN-1)) | IRQ_S_TIMER;
+    localparam logic [XLEN-1:0] M_TIMER_INTERRUPT = (1 << (XLEN-1)) | IRQ_M_TIMER;
+    localparam logic [XLEN-1:0] S_EXT_INTERRUPT   = (1 << (XLEN-1)) | IRQ_S_EXT;
+    localparam logic [XLEN-1:0] M_EXT_INTERRUPT   = (1 << (XLEN-1)) | IRQ_M_EXT;
 
     // -----
     // CSRs
@@ -347,7 +353,25 @@ package riscv;
         CSR_MTVAL          = 12'h343,
         CSR_MIP            = 12'h344,
         CSR_PMPCFG0        = 12'h3A0,
+        CSR_PMPCFG1        = 12'h3A1,
+        CSR_PMPCFG2        = 12'h3A2,
+        CSR_PMPCFG3        = 12'h3A3,
         CSR_PMPADDR0       = 12'h3B0,
+        CSR_PMPADDR1       = 12'h3B1,
+        CSR_PMPADDR2       = 12'h3B2,
+        CSR_PMPADDR3       = 12'h3B3,
+        CSR_PMPADDR4       = 12'h3B4,
+        CSR_PMPADDR5       = 12'h3B5,
+        CSR_PMPADDR6       = 12'h3B6,
+        CSR_PMPADDR7       = 12'h3B7,
+        CSR_PMPADDR8       = 12'h3B8,
+        CSR_PMPADDR9       = 12'h3B9,
+        CSR_PMPADDR10      = 12'h3BA,
+        CSR_PMPADDR11      = 12'h3BB,
+        CSR_PMPADDR12      = 12'h3BC,
+        CSR_PMPADDR13      = 12'h3BD,
+        CSR_PMPADDR14      = 12'h3BE,
+        CSR_PMPADDR15      = 12'h3BF,
         CSR_MVENDORID      = 12'hF11,
         CSR_MARCHID        = 12'hF12,
         CSR_MIMPID         = 12'hF13,
@@ -434,42 +458,40 @@ package riscv;
         CSR_HPM_COUNTER_31 = 12'hC1F  // reserved
     } csr_reg_t;
 
-    localparam logic [63:0] SSTATUS_UIE  = 64'h00000001;
-    localparam logic [63:0] SSTATUS_SIE  = 64'h00000002;
-    localparam logic [63:0] SSTATUS_SPIE = 64'h00000020;
-    localparam logic [63:0] SSTATUS_SPP  = 64'h00000100;
-    localparam logic [63:0] SSTATUS_FS   = 64'h00006000;
-    localparam logic [63:0] SSTATUS_XS   = 64'h00018000;
-    localparam logic [63:0] SSTATUS_SUM  = 64'h00040000;
-    localparam logic [63:0] SSTATUS_MXR  = 64'h00080000;
-    localparam logic [63:0] SSTATUS_UPIE = 64'h00000010;
+    localparam logic [63:0] SSTATUS_UIE  = 'h00000001;
+    localparam logic [63:0] SSTATUS_SIE  = 'h00000002;
+    localparam logic [63:0] SSTATUS_SPIE = 'h00000020;
+    localparam logic [63:0] SSTATUS_SPP  = 'h00000100;
+    localparam logic [63:0] SSTATUS_FS   = 'h00006000;
+    localparam logic [63:0] SSTATUS_XS   = 'h00018000;
+    localparam logic [63:0] SSTATUS_SUM  = 'h00040000;
+    localparam logic [63:0] SSTATUS_MXR  = 'h00080000;
+    localparam logic [63:0] SSTATUS_UPIE = 'h00000010;
     localparam logic [63:0] SSTATUS_UXL  = 64'h0000000300000000;
-    localparam logic [63:0] SSTATUS64_SD = 64'h8000000000000000;
-    localparam logic [63:0] SSTATUS32_SD = 64'h80000000;
+    localparam logic [63:0] SSTATUS_SD   = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31'h00000000};
 
-    localparam logic [63:0] MSTATUS_UIE  = 64'h00000001;
-    localparam logic [63:0] MSTATUS_SIE  = 64'h00000002;
-    localparam logic [63:0] MSTATUS_HIE  = 64'h00000004;
-    localparam logic [63:0] MSTATUS_MIE  = 64'h00000008;
-    localparam logic [63:0] MSTATUS_UPIE = 64'h00000010;
-    localparam logic [63:0] MSTATUS_SPIE = 64'h00000020;
-    localparam logic [63:0] MSTATUS_HPIE = 64'h00000040;
-    localparam logic [63:0] MSTATUS_MPIE = 64'h00000080;
-    localparam logic [63:0] MSTATUS_SPP  = 64'h00000100;
-    localparam logic [63:0] MSTATUS_HPP  = 64'h00000600;
-    localparam logic [63:0] MSTATUS_MPP  = 64'h00001800;
-    localparam logic [63:0] MSTATUS_FS   = 64'h00006000;
-    localparam logic [63:0] MSTATUS_XS   = 64'h00018000;
-    localparam logic [63:0] MSTATUS_MPRV = 64'h00020000;
-    localparam logic [63:0] MSTATUS_SUM  = 64'h00040000;
-    localparam logic [63:0] MSTATUS_MXR  = 64'h00080000;
-    localparam logic [63:0] MSTATUS_TVM  = 64'h00100000;
-    localparam logic [63:0] MSTATUS_TW   = 64'h00200000;
-    localparam logic [63:0] MSTATUS_TSR  = 64'h00400000;
-    localparam logic [63:0] MSTATUS32_SD = 64'h80000000;
-    localparam logic [63:0] MSTATUS_UXL  = 64'h0000000300000000;
-    localparam logic [63:0] MSTATUS_SXL  = 64'h0000000C00000000;
-    localparam logic [63:0] MSTATUS64_SD = 64'h8000000000000000;
+    localparam logic [63:0] MSTATUS_UIE  = 'h00000001;
+    localparam logic [63:0] MSTATUS_SIE  = 'h00000002;
+    localparam logic [63:0] MSTATUS_HIE  = 'h00000004;
+    localparam logic [63:0] MSTATUS_MIE  = 'h00000008;
+    localparam logic [63:0] MSTATUS_UPIE = 'h00000010;
+    localparam logic [63:0] MSTATUS_SPIE = 'h00000020;
+    localparam logic [63:0] MSTATUS_HPIE = 'h00000040;
+    localparam logic [63:0] MSTATUS_MPIE = 'h00000080;
+    localparam logic [63:0] MSTATUS_SPP  = 'h00000100;
+    localparam logic [63:0] MSTATUS_HPP  = 'h00000600;
+    localparam logic [63:0] MSTATUS_MPP  = 'h00001800;
+    localparam logic [63:0] MSTATUS_FS   = 'h00006000;
+    localparam logic [63:0] MSTATUS_XS   = 'h00018000;
+    localparam logic [63:0] MSTATUS_MPRV = 'h00020000;
+    localparam logic [63:0] MSTATUS_SUM  = 'h00040000;
+    localparam logic [63:0] MSTATUS_MXR  = 'h00080000;
+    localparam logic [63:0] MSTATUS_TVM  = 'h00100000;
+    localparam logic [63:0] MSTATUS_TW   = 'h00200000;
+    localparam logic [63:0] MSTATUS_TSR  = 'h00400000;
+    localparam logic [63:0] MSTATUS_UXL  = {30'h0000000, IS_XLEN64, IS_XLEN64, 32'h00000000};
+    localparam logic [63:0] MSTATUS_SXL  = {28'h0000000, IS_XLEN64, IS_XLEN64, 34'h00000000};
+    localparam logic [63:0] MSTATUS_SD   = {IS_XLEN64, 31'h00000000, ~IS_XLEN64, 31'h00000000};
 
     typedef enum logic [2:0] {
         CSRRW  = 3'h1,
@@ -499,6 +521,36 @@ package riscv;
         logic [2:0]   frm;       // float rounding mode
         logic [4:0]   fflags;    // float exception flags
     } fcsr_t;
+
+    // PMP
+    typedef enum logic [1:0] {
+        OFF   = 2'b00,
+        TOR   = 2'b01,
+        NA4   = 2'b10,
+        NAPOT = 2'b11
+    } pmp_addr_mode_t;
+
+    // PMP Access Type
+    typedef enum logic [2:0] {
+        ACCESS_NONE  = 3'b000,
+        ACCESS_READ  = 3'b001,
+        ACCESS_WRITE = 3'b010,
+        ACCESS_EXEC  = 3'b100
+    } pmp_access_t;
+
+    typedef struct packed {
+        logic           x;
+        logic           w;
+        logic           r;
+    } pmpcfg_access_t;
+
+    // packed struct of a PMP configuration register (8bit)
+    typedef struct packed {
+        logic           locked;     // lock this configuration
+        logic [1:0]     reserved;
+        pmp_addr_mode_t addr_mode;  // Off, TOR, NA4, NAPOT
+        pmpcfg_access_t access_type;
+    } pmpcfg_t;
 
     // -----
     // Debug
@@ -620,9 +672,8 @@ package riscv;
             return $sformatf("%d 0x%h %s\n", priv_lvl, pc, instr_word);
         end
     endfunction
-    // pragma translate_on
 
-    typedef struct packed {
+    typedef struct {
         byte priv;
         longint unsigned pc;
         byte is_fp;
@@ -631,5 +682,6 @@ package riscv;
         int unsigned instr;
         byte was_exception;
     } commit_log_t;
+    // pragma translate_on
 
 endpackage

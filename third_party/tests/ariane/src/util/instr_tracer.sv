@@ -14,15 +14,13 @@
 
 `ifndef VERILATOR
 //pragma translate_off
-import uvm_pkg::*;
-`include "uvm_macros.svh"
 `include "ex_trace_item.svh"
 `include "instr_trace_item.svh"
 //pragma translate_on
 
 module instr_tracer (
   instr_tracer_if   tracer_if,
-  input logic[63:0] hart_id_i
+  input logic[riscv::XLEN-1:0] hart_id_i
 );
 
   // keep the decoded instructions in a queue
@@ -66,7 +64,11 @@ module instr_tracer (
     forever begin
       automatic ariane_pkg::bp_resolve_t bp_instruction = '0;
       // new cycle, we are only interested if reset is de-asserted
-      @(tracer_if.pck iff tracer_if.pck.rstn);
+      @(tracer_if.pck) if (tracer_if.pck.rstn !== 1'b1) begin
+        flush();
+        continue;
+      end
+
       // increment clock tick
       clk_ticks++;
 
@@ -186,21 +188,19 @@ module instr_tracer (
   endfunction
 
   // pragma translate_off
-  function void printInstr(ariane_pkg::scoreboard_entry_t sbe, logic [31:0] instr, logic [63:0] result, logic [63:0] paddr, riscv::priv_lvl_t priv_lvl, logic debug_mode, ariane_pkg::bp_resolve_t bp);
+  function void printInstr(ariane_pkg::scoreboard_entry_t sbe, logic [31:0] instr, logic [63:0] result, logic [riscv::PLEN-1:0] paddr, riscv::priv_lvl_t priv_lvl, logic debug_mode, ariane_pkg::bp_resolve_t bp);
     automatic instr_trace_item iti = new ($time, clk_ticks, sbe, instr, gp_reg_file, fp_reg_file, result, paddr, priv_lvl, debug_mode, bp);
     // print instruction to console
     automatic string print_instr = iti.printInstr();
     if (ariane_pkg::ENABLE_SPIKE_COMMIT_LOG && !debug_mode) begin
       $fwrite(commit_log, riscv::spikeCommitLog(sbe.pc, priv_lvl, instr, sbe.rd, result, ariane_pkg::is_rd_fpr(sbe.op)));
     end
-    uvm_report_info( "Tracer",  print_instr, UVM_HIGH);
     $fwrite(f, {print_instr, "\n"});
   endfunction
 
-  function void printException(logic [63:0] pc, logic [63:0] cause, logic [63:0] tval);
+  function void printException(logic [riscv::VLEN-1:0] pc, logic [63:0] cause, logic [63:0] tval);
     automatic ex_trace_item eti = new (pc, cause, tval);
     automatic string print_ex = eti.printException();
-    uvm_report_info( "Tracer",  print_ex, UVM_HIGH);
     $fwrite(f, {print_ex, "\n"});
   endfunction
 

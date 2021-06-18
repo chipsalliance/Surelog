@@ -23,7 +23,6 @@ sources:
     - src/register_interface/src/reg_intf.sv
     - src/register_interface/src/reg_intf_pkg.sv
     - include/axi_intf.sv
-    - tb/ariane_soc_pkg.sv
     - include/ariane_axi_pkg.sv
     - src/fpu/src/fpnew_pkg.sv
     - src/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv
@@ -60,6 +59,9 @@ sources:
     - src/mult.sv
     - src/load_unit.sv
     - src/issue_read_operands.sv
+    - src/pmp/src/pmp_entry.sv
+    - src/pmp/src/pmp.sv
+    - src/synopsys_sram.sv
     - src/fpu/src/fpnew_fma.sv
     - src/fpu/src/fpnew_opgroup_fmt_slice.sv
     - src/fpu/src/fpnew_divsqrt_multi.sv
@@ -91,11 +93,11 @@ sources:
     - src/cache_subsystem/wt_dcache_ctrl.sv
     - src/cache_subsystem/wt_cache_subsystem.sv
     - src/cache_subsystem/wt_dcache_missunit.sv
-    - src/cache_subsystem/wt_icache.sv
-    - src/cache_subsystem/std_icache.sv
+    - src/cache_subsystem/cva6_icache.sv
     - src/cache_subsystem/wt_dcache_wbuffer.sv
     - src/cache_subsystem/wt_l15_adapter.sv
     - src/cache_subsystem/wt_dcache_mem.sv
+    - src/cache_subsystem/cva6_icache_axi_wrapper.sv
     - src/cache_subsystem/std_cache_subsystem.sv
     - src/cache_subsystem/wt_dcache.sv
     - src/clint/axi_lite_interface.sv
@@ -111,6 +113,8 @@ sources:
     - fpga/src/axi_slice/src/axi_ar_buffer.sv
     - fpga/src/axi_slice/src/axi_r_buffer.sv
     - fpga/src/axi_slice/src/axi_aw_buffer.sv
+    - fpga/src/apb_timer/apb_timer.sv
+    - fpga/src/apb_timer/timer.sv
     - src/axi_node/src/axi_regs_top.sv
     - src/axi_node/src/axi_BR_allocator.sv
     - src/axi_node/src/axi_BW_allocator.sv
@@ -159,8 +163,8 @@ sources:
     - src/common_cells/src/rstgen.sv
     - src/common_cells/src/stream_mux.sv
     - src/common_cells/src/stream_demux.sv
-    - src/common_cells/src/deprecated/stream_arbiter.sv
-    - src/common_cells/src/deprecated/stream_arbiter_flushable.sv
+    - src/common_cells/src/stream_arbiter.sv
+    - src/common_cells/src/stream_arbiter_flushable.sv
     - src/util/axi_master_connect.sv
     - src/util/axi_slave_connect.sv
     - src/util/axi_master_connect_rev.sv
@@ -191,6 +195,8 @@ sources:
     - src/tech_cells_generic/src/pulp_clock_mux2.sv
     - target: test
       files:
+      - tb/ariane_soc_pkg.sv
+      - tb/ariane_axi_soc_pkg.sv
       - tb/ariane_testharness.sv
       - tb/ariane_peripherals.sv
       - tb/common/uart.sv

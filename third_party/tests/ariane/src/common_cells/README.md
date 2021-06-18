@@ -41,16 +41,19 @@ Please note that cells with status *deprecated* are not to be used for new desig
 |         Name        |                   Description                                     |    Status    | Superseded By |
 |---------------------|-------------------------------------------------------------------|--------------|---------------|
 | `counter`           | Generic up/down counter with overflow detection                   | active       |               |
+| `delta_counter`     | Up/down counter with variable delta and overflow detection        | active       |               |
 | `generic_LFSR_8bit` | 8-bit linear feedback shift register (LFSR)                       | *deprecated* | `lfsr_8bit`   |
 | `lfsr_8bit`         | 8-bit linear feedback shift register (LFSR)                       | active       |               |
 | `lfsr_16bit`        | 16-bit linear feedback shift register (LFSR)                      | active       |               |
 | `lfsr`              | 4...64-bit parametric Galois LFSR with optional whitening feature | active       |               |
+| `max_counter`       | Up/down counter with variable delta that tracks its maximum value | active       |               |
 | `mv_filter`         | **ZARUBAF ADD DESCRIPTION**                                       | active       |               |
 
 ### Data Path Elements
 
 | Name                         | Description                                                                    | Status         | Superseded By |
 | :--------------------------- | :----------------------------------------------------------------------------- | :------------- | :------------ |
+| `addr_decode   `             | Address map decoder                                                            | active         |               |
 | `binary_to_gray`             | Binary to gray code converter                                                  | active         |               |
 | `find_first_one`             | Leading-one finder / leading-zero counter                                      | *deprecated*   | `lzc`         |
 | `gray_to_binary`             | Gray code to binary converter                                                  | active         |               |
@@ -70,12 +73,14 @@ Please note that cells with status *deprecated* are not to be used for new desig
 | `stream_fork`                | Ready/valid fork                                                               | active         |               |
 | `stream_filter`              | Ready/valid filter                                                             | active         |               |
 | `stream_delay`               | Randomize or delay ready/valid interface                                       | active         |               |
+| `sub_per_hash`               | Substitution-permutation hash function                                         | active         |               |
 | `popcount`                   | Combinatorial popcount (hamming weight)                                        | active         |               |
 
 ### Data Structures
 
 | Name                 | Description                                     | Status         | Superseded By |
 | :------------------- | :---------------------------------------------- | :------------- | :------------ |
+| `cb_filter`          | Counting-Bloom-Filter with combinational lookup | active         |               |
 | `fifo`               | FIFO register with upper threshold              | *deprecated*   | `fifo_v3`     |
 | `fifo_v2`            | FIFO register with upper and lower threshold    | *deprecated*   | `fifo_v3`     |
 | `fifo_v3`            | FIFO register with generic fill counts          | active         |               |

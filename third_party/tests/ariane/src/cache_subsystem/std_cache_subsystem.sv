@@ -14,11 +14,9 @@
 // Description: Standard Ariane cache subsystem with instruction cache and
 //              write-back data cache.
 
-import ariane_pkg::*;
-import std_cache_pkg::*;
 
-module std_cache_subsystem #(
-  parameter logic [63:0] CACHE_START_ADDR = 64'h4000_0000
+module std_cache_subsystem import ariane_pkg::*; import std_cache_pkg::*; #(
+    parameter ariane_cfg_t ArianeCfg = ArianeDefaultConfig  // contains cacheable regions
 ) (
     input logic                            clk_i,
     input logic                            rst_ni,
@@ -60,7 +58,9 @@ module std_cache_subsystem #(
     ariane_axi::req_t  axi_req_data;
     ariane_axi::resp_t axi_resp_data;
 
-    std_icache i_icache (
+    cva6_icache_axi_wrapper #(
+        .ArianeCfg  ( ArianeCfg             )
+    ) i_cva6_icache_axi_wrapper (
         .clk_i      ( clk_i                 ),
         .rst_ni     ( rst_ni                ),
         .priv_lvl_i ( priv_lvl_i            ),
@@ -80,7 +80,7 @@ module std_cache_subsystem #(
    // Port 1: Load Unit
    // Port 2: Store Unit
    std_nbdcache #(
-      .CACHE_START_ADDR ( CACHE_START_ADDR )
+      .CACHE_START_ADDR ( ArianeCfg.CachedRegionAddrBase )
    ) i_nbdcache (
       .clk_i,
       .rst_ni,

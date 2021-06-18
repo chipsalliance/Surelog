@@ -13,9 +13,8 @@
 // Description: Issue stage dispatches instructions to the FUs and keeps track of them
 //              in a scoreboard like data-structure.
 
-import ariane_pkg::*;
 
-module issue_stage #(
+module issue_stage import ariane_pkg::*; #(
     parameter int unsigned NR_ENTRIES = 8,
     parameter int unsigned NR_WB_PORTS = 4,
     parameter int unsigned NR_COMMIT_PORTS = 2
@@ -32,8 +31,10 @@ module issue_stage #(
     input  logic                                     is_ctrl_flow_i,
     output logic                                     decoded_instr_ack_o,
     // to EX
+    output [riscv::VLEN-1:0]                         rs1_forwarding_o,  // unregistered version of fu_data_o.operanda
+    output [riscv::VLEN-1:0]                         rs2_forwarding_o, // unregistered version of fu_data_o.operandb
     output fu_data_t                                 fu_data_o,
-    output logic [63:0]                              pc_o,
+    output logic [riscv::VLEN-1:0]                   pc_o,
     output logic                                     is_compressed_instr_o,
     input  logic                                     flu_ready_i,
     output logic                                     alu_valid_o,
@@ -58,13 +59,13 @@ module issue_stage #(
     // write back port
     input logic [NR_WB_PORTS-1:0][TRANS_ID_BITS-1:0] trans_id_i,
     input bp_resolve_t                               resolved_branch_i,
-    input logic [NR_WB_PORTS-1:0][63:0]              wbdata_i,
+    input logic [NR_WB_PORTS-1:0][riscv::XLEN-1:0]   wbdata_i,
     input exception_t [NR_WB_PORTS-1:0]              ex_ex_i, // exception from execute stage
     input logic [NR_WB_PORTS-1:0]                    wt_valid_i,
 
     // commit port
     input  logic [NR_COMMIT_PORTS-1:0][4:0]          waddr_i,
-    input  logic [NR_COMMIT_PORTS-1:0][63:0]         wdata_i,
+    input  logic [NR_COMMIT_PORTS-1:0][riscv::XLEN-1:0] wdata_i,
     input  logic [NR_COMMIT_PORTS-1:0]               we_gpr_i,
     input  logic [NR_COMMIT_PORTS-1:0]               we_fpr_i,
 
@@ -78,11 +79,11 @@ module issue_stage #(
     fu_t  [2**REG_ADDR_SIZE-1:0] rd_clobber_fpr_sb_iro;
 
     logic [REG_ADDR_SIZE-1:0]  rs1_iro_sb;
-    logic [63:0]               rs1_sb_iro;
+    riscv::xlen_t              rs1_sb_iro;
     logic                      rs1_valid_sb_iro;
 
     logic [REG_ADDR_SIZE-1:0]  rs2_iro_sb;
-    logic [63:0]               rs2_sb_iro;
+    riscv::xlen_t              rs2_sb_iro;
     logic                      rs2_valid_iro_sb;
 
     logic [REG_ADDR_SIZE-1:0]  rs3_iro_sb;
@@ -118,7 +119,8 @@ module issue_stage #(
     // ---------------------------------------------------------
     scoreboard #(
         .NR_ENTRIES (NR_ENTRIES ),
-        .NR_WB_PORTS(NR_WB_PORTS)
+        .NR_WB_PORTS(NR_WB_PORTS),
+        .NR_COMMIT_PORTS(NR_COMMIT_PORTS)
     ) i_scoreboard (
         .sb_full_o             ( sb_full_o                                 ),
         .unresolved_branch_i   ( 1'b0                                      ),
@@ -151,7 +153,9 @@ module issue_stage #(
     // ---------------------------------------------------------
     // 3. Issue instruction and read operand, also commit
     // ---------------------------------------------------------
-    issue_read_operands i_issue_read_operands  (
+    issue_read_operands #(
+      .NR_COMMIT_PORTS ( NR_COMMIT_PORTS )
+    )i_issue_read_operands  (
         .flush_i             ( flush_unissued_instr_i          ),
         .issue_instr_i       ( issue_instr_sb_iro              ),
         .issue_instr_valid_i ( issue_instr_valid_sb_iro        ),
