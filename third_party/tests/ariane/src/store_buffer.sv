@@ -13,14 +13,14 @@
 // Description: Store queue persists store requests and pushes them to memory
 //              if they are no longer speculative
 
-import ariane_pkg::*;
 
-module store_buffer (
+module store_buffer import ariane_pkg::*; (
     input logic          clk_i,           // Clock
     input logic          rst_ni,          // Asynchronous reset active low
     input logic          flush_i,         // if we flush we need to pause the transactions on the memory
                                           // otherwise we will run in a deadlock with the memory arbiter
     output logic         no_st_pending_o, // non-speculative queue is empty (e.g.: everything is committed to the memory hierarchy)
+    output logic         store_buffer_empty_o, // there is no store pending in neither the speculative unit or the non-speculative queue
 
     input  logic [11:0]  page_offset_i,         // check for the page offset (the last 12 bit if the current load matches them)
     output logic         page_offset_matches_o, // the above input page offset matches -> let the store buffer drain
@@ -33,8 +33,8 @@ module store_buffer (
     input  logic         valid_i,         // this is a valid store
     input  logic         valid_without_flush_i, // just tell if the address is valid which we are current putting and do not take any further action
 
-    input  logic [63:0]  paddr_i,         // physical address of store which needs to be placed in the queue
-    input  logic [63:0]  data_i,          // data which is placed in the queue
+    input  logic [riscv::PLEN-1:0]  paddr_i,         // physical address of store which needs to be placed in the queue
+    input  riscv::xlen_t            data_i,          // data which is placed in the queue
     input  logic [7:0]   be_i,            // byte enable in
     input  logic [1:0]   data_size_i,     // type of request we are making (e.g.: bytes to write)
 
@@ -47,11 +47,11 @@ module store_buffer (
     // 1. Speculative queue
     // 2. Commit queue which is non-speculative, e.g.: the store will definitely happen.
     struct packed {
-        logic [63:0] address;
-        logic [63:0] data;
-        logic [7:0]  be;
-        logic [1:0]  data_size;
-        logic        valid;     // this entry is valid, we need this for checking if the address offset matches
+        logic [riscv::PLEN-1:0] address;
+        riscv::xlen_t           data;
+        logic [7:0]             be;
+        logic [1:0]             data_size;
+        logic                   valid;     // this entry is valid, we need this for checking if the address offset matches
     } speculative_queue_n [DEPTH_SPEC-1:0], speculative_queue_q [DEPTH_SPEC-1:0],
       commit_queue_n [DEPTH_COMMIT-1:0],    commit_queue_q [DEPTH_COMMIT-1:0];
 
@@ -65,7 +65,7 @@ module store_buffer (
     logic [$clog2(DEPTH_COMMIT)-1:0] commit_read_pointer_n,  commit_read_pointer_q;
     logic [$clog2(DEPTH_COMMIT)-1:0] commit_write_pointer_n, commit_write_pointer_q;
 
-
+    assign store_buffer_empty_o = (speculative_status_cnt_q == 0) & no_st_pending_o;
     // ----------------------------------------
     // Speculative Queue - Core Interface
     // ----------------------------------------
@@ -133,7 +133,8 @@ module store_buffer (
     assign req_port_o.address_tag   = commit_queue_q[commit_read_pointer_q].address[ariane_pkg::DCACHE_TAG_WIDTH     +
                                                                                     ariane_pkg::DCACHE_INDEX_WIDTH-1 :
                                                                                     ariane_pkg::DCACHE_INDEX_WIDTH];
-    assign req_port_o.data_wdata    = commit_queue_q[commit_read_pointer_q].data;
+    assign req_port_o.data_wdata    = (req_port_o.address_index[2] == 1'b0) ? {{64-riscv::XLEN{1'b0}}, commit_queue_q[commit_read_pointer_q].data} :
+                                                                              {commit_queue_q[commit_read_pointer_q].data, {64-riscv::XLEN{1'b0}}};
     assign req_port_o.data_be       = commit_queue_q[commit_read_pointer_q].be;
     assign req_port_o.data_size     = commit_queue_q[commit_read_pointer_q].data_size;
 

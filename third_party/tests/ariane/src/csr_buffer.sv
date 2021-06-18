@@ -13,9 +13,8 @@
 // Description: Buffer to hold CSR address, this acts like a functional unit
 //              to the scoreboard.
 
-import ariane_pkg::*;
 
-module csr_buffer (
+module csr_buffer import ariane_pkg::*; (
     input  logic                     clk_i,          // Clock
     input  logic                     rst_ni,         // Asynchronous reset active low
     input  logic                     flush_i,
@@ -24,7 +23,7 @@ module csr_buffer (
 
     output logic                     csr_ready_o,    // FU is ready e.g. not busy
     input  logic                     csr_valid_i,    // Input is valid
-    output logic [63:0]              csr_result_o,
+    output riscv::xlen_t             csr_result_o,
     input  logic                     csr_commit_i,   // commit the pending CSR OP
     // to CSR file
     output logic  [11:0]             csr_addr_o      // CSR address to commit stage

@@ -12,12 +12,12 @@
 // Date: 05.05.2017
 // Description: CSR Register File as specified by RISC-V
 
-import ariane_pkg::*;
 
-module csr_regfile #(
+module csr_regfile import ariane_pkg::*; #(
     parameter logic [63:0] DmBaseAddress   = 64'h0, // debug module base address
     parameter int          AsidWidth       = 1,
-    parameter int unsigned NrCommitPorts   = 2
+    parameter int unsigned NrCommitPorts   = 2,
+    parameter int unsigned NrPMPEntries    = 8
 ) (
     input  logic                  clk_i,                      // Clock
     input  logic                  rst_ni,                     // Asynchronous reset active low
@@ -29,25 +29,25 @@ module csr_regfile #(
     input  scoreboard_entry_t [NrCommitPorts-1:0] commit_instr_i, // the instruction we want to commit
     input  logic [NrCommitPorts-1:0]              commit_ack_i,   // Commit acknowledged a instruction -> increase instret CSR
     // Core and Cluster ID
-    input  logic  [63:0]          boot_addr_i,                // Address from which to start booting, mtvec is set to the same address
-    input  logic  [63:0]          hart_id_i,                  // Hart id in a multicore environment (reflected in a CSR)
+    input  logic[riscv::VLEN-1:0] boot_addr_i,                // Address from which to start booting, mtvec is set to the same address
+    input  logic[riscv::XLEN-1:0] hart_id_i,                  // Hart id in a multicore environment (reflected in a CSR)
     // we are taking an exception
     input exception_t             ex_i,                       // We've got an exception from the commit stage, take it
 
     input  fu_op                  csr_op_i,                   // Operation to perform on the CSR file
     input  logic  [11:0]          csr_addr_i,                 // Address of the register to read/write
-    input  logic  [63:0]          csr_wdata_i,                // Write data in
-    output logic  [63:0]          csr_rdata_o,                // Read data out
+    input  logic[riscv::XLEN-1:0] csr_wdata_i,                // Write data in
+    output logic[riscv::XLEN-1:0] csr_rdata_o,                // Read data out
     input  logic                  dirty_fp_state_i,           // Mark the FP sate as dirty
     input  logic                  csr_write_fflags_i,         // Write fflags register e.g.: we are retiring a floating point instruction
-    input  logic  [63:0]          pc_i,                       // PC of instruction accessing the CSR
+    input  logic  [riscv::VLEN-1:0]  pc_i,                    // PC of instruction accessing the CSR
     output exception_t            csr_exception_o,            // attempts to access a CSR without appropriate privilege
                                                               // level or to write  a read-only register also
                                                               // raises illegal instruction exceptions.
     // Interrupts/Exceptions
-    output logic  [63:0]          epc_o,                      // Output the exception PC to PC Gen, the correct CSR (mepc, sepc) is set accordingly
+    output logic  [riscv::VLEN-1:0] epc_o,                    // Output the exception PC to PC Gen, the correct CSR (mepc, sepc) is set accordingly
     output logic                  eret_o,                     // Return from exception, set the PC of epc_o
-    output logic  [63:0]          trap_vector_base_o,         // Output base of exception vector, correct CSR is output (mtvec, stvec)
+    output logic  [riscv::VLEN-1:0] trap_vector_base_o,       // Output base of exception vector, correct CSR is output (mtvec, stvec)
     output riscv::priv_lvl_t      priv_lvl_o,                 // Current privilege level the CPU is in
     // FPU
     output riscv::xs_t            fs_o,                       // Floating point extension status
@@ -62,7 +62,7 @@ module csr_regfile #(
     output riscv::priv_lvl_t      ld_st_priv_lvl_o,           // Privilege level at which load and stores should happen
     output logic                  sum_o,
     output logic                  mxr_o,
-    output logic [43:0]           satp_ppn_o,
+    output logic[riscv::PPNW-1:0] satp_ppn_o,
     output logic [AsidWidth-1:0] asid_o,
     // external interrupts
     input  logic [1:0]            irq_i,                      // external interrupt in
@@ -80,14 +80,17 @@ module csr_regfile #(
     output logic                  dcache_en_o,                // L1 DCache Enable
     // Performance Counter
     output logic  [4:0]           perf_addr_o,                // read/write address to performance counter module (up to 29 aux counters possible in riscv encoding.h)
-    output logic  [63:0]          perf_data_o,                // write data to performance counter module
-    input  logic  [63:0]          perf_data_i,                // read data from performance counter module
-    output logic                  perf_we_o
+    output logic[riscv::XLEN-1:0] perf_data_o,                // write data to performance counter module
+    input  logic[riscv::XLEN-1:0] perf_data_i,                // read data from performance counter module
+    output logic                  perf_we_o,
+    // PMPs
+    output riscv::pmpcfg_t [15:0] pmpcfg_o,   // PMP configuration containing pmpcfg for max 16 PMPs
+    output logic [15:0][riscv::PLEN-3:0] pmpaddr_o            // PMP addresses
 );
     // internal signal to keep track of access exceptions
     logic        read_access_exception, update_access_exception, privilege_violation;
     logic        csr_we, csr_read;
-    logic [63:0] csr_wdata, csr_rdata;
+    riscv::xlen_t csr_wdata, csr_rdata;
     riscv::priv_lvl_t   trap_to_priv_lvl;
     // register for enabling load store address translation, this is critical, hence the register
     logic        en_ld_st_translation_d, en_ld_st_translation_q;
@@ -97,7 +100,8 @@ module csr_regfile #(
     logic  dret;  // return from debug mode
     // CSR write causes us to mark the FPU state as dirty
     logic  dirty_fp_state_csr;
-    riscv::status_rv64_t  mstatus_q,  mstatus_d;
+    riscv::status_rv_t    mstatus_q,  mstatus_d;
+    riscv::xlen_t         mstatus_extended;
     riscv::satp_t         satp_q, satp_d;
     riscv::dcsr_t         dcsr_q,     dcsr_d;
     riscv::csr_t  csr_addr;
@@ -107,31 +111,40 @@ module csr_regfile #(
     logic        debug_mode_q, debug_mode_d;
     logic        mtvec_rst_load_q;// used to determine whether we came out of reset
 
-    logic [63:0] dpc_q,       dpc_d;
-    logic [63:0] dscratch0_q, dscratch0_d;
-    logic [63:0] dscratch1_q, dscratch1_d;
-    logic [63:0] mtvec_q,     mtvec_d;
-    logic [63:0] medeleg_q,   medeleg_d;
-    logic [63:0] mideleg_q,   mideleg_d;
-    logic [63:0] mip_q,       mip_d;
-    logic [63:0] mie_q,       mie_d;
-    logic [63:0] mscratch_q,  mscratch_d;
-    logic [63:0] mepc_q,      mepc_d;
-    logic [63:0] mcause_q,    mcause_d;
-    logic [63:0] mtval_q,     mtval_d;
+    riscv::xlen_t dpc_q,       dpc_d;
+    riscv::xlen_t dscratch0_q, dscratch0_d;
+    riscv::xlen_t dscratch1_q, dscratch1_d;
+    riscv::xlen_t mtvec_q,     mtvec_d;
+    riscv::xlen_t medeleg_q,   medeleg_d;
+    riscv::xlen_t mideleg_q,   mideleg_d;
+    riscv::xlen_t mip_q,       mip_d;
+    riscv::xlen_t mie_q,       mie_d;
+    riscv::xlen_t mcounteren_q,mcounteren_d;
+    riscv::xlen_t mscratch_q,  mscratch_d;
+    riscv::xlen_t mepc_q,      mepc_d;
+    riscv::xlen_t mcause_q,    mcause_d;
+    riscv::xlen_t mtval_q,     mtval_d;
 
-    logic [63:0] stvec_q,     stvec_d;
-    logic [63:0] sscratch_q,  sscratch_d;
-    logic [63:0] sepc_q,      sepc_d;
-    logic [63:0] scause_q,    scause_d;
-    logic [63:0] stval_q,     stval_d;
-    logic [63:0] dcache_q,    dcache_d;
-    logic [63:0] icache_q,    icache_d;
+    riscv::xlen_t stvec_q,     stvec_d;
+    riscv::xlen_t scounteren_q,scounteren_d;
+    riscv::xlen_t sscratch_q,  sscratch_d;
+    riscv::xlen_t sepc_q,      sepc_d;
+    riscv::xlen_t scause_q,    scause_d;
+    riscv::xlen_t stval_q,     stval_d;
+    riscv::xlen_t dcache_q,    dcache_d;
+    riscv::xlen_t icache_q,    icache_d;
 
     logic        wfi_d,       wfi_q;
 
-    logic [63:0] cycle_q,     cycle_d;
-    logic [63:0] instret_q,   instret_d;
+    riscv::xlen_t cycle_q,     cycle_d;
+    riscv::xlen_t instret_q,   instret_d;
+
+    riscv::pmpcfg_t [15:0]    pmpcfg_q,  pmpcfg_d;
+    logic [15:0][riscv::PLEN-3:0]        pmpaddr_q,  pmpaddr_d;
+
+
+    assign pmpcfg_o = pmpcfg_q[15:0];
+    assign pmpaddr_o = pmpaddr_q;
 
     riscv::fcsr_t fcsr_q, fcsr_d;
     // ----------------
@@ -142,11 +155,14 @@ module csr_regfile #(
     // ----------------
     // CSR Read logic
     // ----------------
+    assign mstatus_extended = riscv::IS_XLEN64 ? mstatus_q[riscv::XLEN-1:0] :
+                              {mstatus_q.sd, mstatus_q.wpri3[7:0], mstatus_q[22:0]};
+
     always_comb begin : csr_read_process
         // a read access exception can only occur if we attempt to read a CSR which does not exist
         read_access_exception = 1'b0;
-        csr_rdata = 64'b0;
-        perf_addr_o = csr_addr.address[4:0];;
+        csr_rdata = '0;
+        perf_addr_o = csr_addr.address[4:0];
 
         if (csr_read) begin
             unique case (csr_addr.address)
@@ -154,21 +170,21 @@ module csr_regfile #(
                     if (mstatus_q.fs == riscv::Off) begin
                         read_access_exception = 1'b1;
                     end else begin
-                        csr_rdata = {59'b0, fcsr_q.fflags};
+                        csr_rdata = {{riscv::XLEN-5{1'b0}}, fcsr_q.fflags};
                     end
                 end
                 riscv::CSR_FRM: begin
                     if (mstatus_q.fs == riscv::Off) begin
                         read_access_exception = 1'b1;
                     end else begin
-                        csr_rdata = {61'b0, fcsr_q.frm};
+                        csr_rdata = {{riscv::XLEN-3{1'b0}}, fcsr_q.frm};
                     end
                 end
                 riscv::CSR_FCSR: begin
                     if (mstatus_q.fs == riscv::Off) begin
                         read_access_exception = 1'b1;
                     end else begin
-                        csr_rdata = {56'b0, fcsr_q.frm, fcsr_q.fflags};
+                        csr_rdata = {{riscv::XLEN-8{1'b0}}, fcsr_q.frm, fcsr_q.fflags};
                     end
                 end
                 // non-standard extension
@@ -176,11 +192,11 @@ module csr_regfile #(
                     if (mstatus_q.fs == riscv::Off) begin
                         read_access_exception = 1'b1;
                     end else begin
-                        csr_rdata = {57'b0, fcsr_q.fprec};
+                        csr_rdata = {{riscv::XLEN-7{1'b0}}, fcsr_q.fprec};
                     end
                 end
                 // debug registers
-                riscv::CSR_DCSR:               csr_rdata = {32'b0, dcsr_q};
+                riscv::CSR_DCSR:               csr_rdata = {{riscv::XLEN-32{1'b0}}, dcsr_q};
                 riscv::CSR_DPC:                csr_rdata = dpc_q;
                 riscv::CSR_DSCRATCH0:          csr_rdata = dscratch0_q;
                 riscv::CSR_DSCRATCH1:          csr_rdata = dscratch1_q;
@@ -191,12 +207,12 @@ module csr_regfile #(
                 riscv::CSR_TDATA3:;  // not implemented
                 // supervisor registers
                 riscv::CSR_SSTATUS: begin
-                    csr_rdata = mstatus_q & ariane_pkg::SMODE_STATUS_READ_MASK;
+                    csr_rdata = mstatus_extended & ariane_pkg::SMODE_STATUS_READ_MASK[riscv::XLEN-1:0];
                 end
                 riscv::CSR_SIE:                csr_rdata = mie_q & mideleg_q;
                 riscv::CSR_SIP:                csr_rdata = mip_q & mideleg_q;
                 riscv::CSR_STVEC:              csr_rdata = stvec_q;
-                riscv::CSR_SCOUNTEREN:         csr_rdata = 64'b0; // not implemented
+                riscv::CSR_SCOUNTEREN:         csr_rdata = scounteren_q;
                 riscv::CSR_SSCRATCH:           csr_rdata = sscratch_q;
                 riscv::CSR_SEPC:               csr_rdata = sepc_q;
                 riscv::CSR_SCAUSE:             csr_rdata = scause_q;
@@ -210,25 +226,27 @@ module csr_regfile #(
                     end
                 end
                 // machine mode registers
-                riscv::CSR_MSTATUS:            csr_rdata = mstatus_q;
+                riscv::CSR_MSTATUS:            csr_rdata = mstatus_extended;
                 riscv::CSR_MISA:               csr_rdata = ISA_CODE;
                 riscv::CSR_MEDELEG:            csr_rdata = medeleg_q;
                 riscv::CSR_MIDELEG:            csr_rdata = mideleg_q;
                 riscv::CSR_MIE:                csr_rdata = mie_q;
                 riscv::CSR_MTVEC:              csr_rdata = mtvec_q;
-                riscv::CSR_MCOUNTEREN:         csr_rdata = 64'b0; // not implemented
+                riscv::CSR_MCOUNTEREN:         csr_rdata = mcounteren_q;
                 riscv::CSR_MSCRATCH:           csr_rdata = mscratch_q;
                 riscv::CSR_MEPC:               csr_rdata = mepc_q;
                 riscv::CSR_MCAUSE:             csr_rdata = mcause_q;
                 riscv::CSR_MTVAL:              csr_rdata = mtval_q;
                 riscv::CSR_MIP:                csr_rdata = mip_q;
-                riscv::CSR_MVENDORID:          csr_rdata = 64'b0; // not implemented
+                riscv::CSR_MVENDORID:          csr_rdata = '0; // not implemented
                 riscv::CSR_MARCHID:            csr_rdata = ARIANE_MARCHID;
-                riscv::CSR_MIMPID:             csr_rdata = 64'b0; // not implemented
+                riscv::CSR_MIMPID:             csr_rdata = '0; // not implemented
                 riscv::CSR_MHARTID:            csr_rdata = hart_id_i;
                 riscv::CSR_MCYCLE:             csr_rdata = cycle_q;
                 riscv::CSR_MINSTRET:           csr_rdata = instret_q;
                 // Counters and Timers
+                riscv::CSR_CYCLE:              csr_rdata = cycle_q;
+                riscv::CSR_INSTRET:            csr_rdata = instret_q;
                 riscv::CSR_ML1_ICACHE_MISS,
                 riscv::CSR_ML1_DCACHE_MISS,
                 riscv::CSR_MITLB_MISS,
@@ -259,8 +277,32 @@ module csr_regfile #(
                 riscv::CSR_MHPM_COUNTER_30,
                 riscv::CSR_MHPM_COUNTER_31:           csr_rdata   = perf_data_i;
                 // custom (non RISC-V) cache control
-                riscv::CSR_DCACHE:             csr_rdata = dcache_q;
-                riscv::CSR_ICACHE:             csr_rdata = icache_q;
+                riscv::CSR_DCACHE:           csr_rdata = dcache_q;
+                riscv::CSR_ICACHE:           csr_rdata = icache_q;
+                // PMPs
+                riscv::CSR_PMPCFG0:          csr_rdata = pmpcfg_q[7:0];
+                riscv::CSR_PMPCFG2:          csr_rdata = pmpcfg_q[15:8];
+                // PMPADDR
+                // Important: we only support granularity 8 bytes (G=2)
+                // -> last bit of pmpaddr must be set 0/1 based on the mode:
+                // NA4, NAPOT: 1
+                // TOR, OFF:   0
+                riscv::CSR_PMPADDR0:         csr_rdata = {10'b0, pmpaddr_q[0][riscv::PLEN-3:1], (pmpcfg_q[0].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR1:         csr_rdata = {10'b0, pmpaddr_q[1][riscv::PLEN-3:1], (pmpcfg_q[1].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR2:         csr_rdata = {10'b0, pmpaddr_q[2][riscv::PLEN-3:1], (pmpcfg_q[2].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR3:         csr_rdata = {10'b0, pmpaddr_q[3][riscv::PLEN-3:1], (pmpcfg_q[3].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR4:         csr_rdata = {10'b0, pmpaddr_q[4][riscv::PLEN-3:1], (pmpcfg_q[4].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR5:         csr_rdata = {10'b0, pmpaddr_q[5][riscv::PLEN-3:1], (pmpcfg_q[5].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR6:         csr_rdata = {10'b0, pmpaddr_q[6][riscv::PLEN-3:1], (pmpcfg_q[6].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR7:         csr_rdata = {10'b0, pmpaddr_q[7][riscv::PLEN-3:1], (pmpcfg_q[7].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR8:         csr_rdata = {10'b0, pmpaddr_q[8][riscv::PLEN-3:1], (pmpcfg_q[8].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR9:         csr_rdata = {10'b0, pmpaddr_q[9][riscv::PLEN-3:1], (pmpcfg_q[9].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR10:        csr_rdata = {10'b0, pmpaddr_q[10][riscv::PLEN-3:1], (pmpcfg_q[10].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR11:        csr_rdata = {10'b0, pmpaddr_q[11][riscv::PLEN-3:1], (pmpcfg_q[11].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR12:        csr_rdata = {10'b0, pmpaddr_q[12][riscv::PLEN-3:1], (pmpcfg_q[12].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR13:        csr_rdata = {10'b0, pmpaddr_q[13][riscv::PLEN-3:1], (pmpcfg_q[13].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR14:        csr_rdata = {10'b0, pmpaddr_q[14][riscv::PLEN-3:1], (pmpcfg_q[14].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
+                riscv::CSR_PMPADDR15:        csr_rdata = {10'b0, pmpaddr_q[15][riscv::PLEN-3:1], (pmpcfg_q[15].addr_mode[1] == 1'b1 ? 1'b1 : 1'b0)};
                 default: read_access_exception = 1'b1;
             endcase
         end
@@ -268,13 +310,13 @@ module csr_regfile #(
     // ---------------------------
     // CSR Write and update logic
     // ---------------------------
-    logic [63:0] mask;
+    riscv::xlen_t mask;
     always_comb begin : csr_update
-        automatic riscv::satp_t sapt;
-        automatic logic [63:0] instret;
+        automatic riscv::satp_t satp;
+        automatic riscv::xlen_t instret;
 
 
-        sapt = satp_q;
+        satp = satp_q;
         instret = instret_q;
 
         // --------------------
@@ -319,7 +361,7 @@ module csr_regfile #(
         // boot_addr_i will be assigned a constant
         // on the top-level.
         if (mtvec_rst_load_q) begin
-            mtvec_d             = boot_addr_i + 'h40;
+            mtvec_d             = {{riscv::XLEN-riscv::VLEN{1'b0}}, boot_addr_i} + 'h40;
         end else begin
             mtvec_d             = mtvec_q;
         end
@@ -330,6 +372,7 @@ module csr_regfile #(
         mie_d                   = mie_q;
         mepc_d                  = mepc_q;
         mcause_d                = mcause_q;
+        mcounteren_d            = mcounteren_q;
         mscratch_d              = mscratch_q;
         mtval_d                 = mtval_q;
         dcache_d                = dcache_q;
@@ -338,12 +381,16 @@ module csr_regfile #(
         sepc_d                  = sepc_q;
         scause_d                = scause_q;
         stvec_d                 = stvec_q;
+        scounteren_d            = scounteren_q;
         sscratch_d              = sscratch_q;
         stval_d                 = stval_q;
         satp_d                  = satp_q;
 
         en_ld_st_translation_d  = en_ld_st_translation_q;
         dirty_fp_state_csr      = 1'b0;
+
+        pmpcfg_d                = pmpcfg_q;
+        pmpaddr_d               = pmpaddr_q;
 
         // check for correct access rights and that we are writing
         if (csr_we) begin
@@ -394,8 +441,6 @@ module csr_regfile #(
                     dcsr_d = csr_wdata[31:0];
                     // debug is implemented
                     dcsr_d.xdebugver = 4'h4;
-                    // privilege level
-                    dcsr_d.prv = priv_lvl_q;
                     // currently not supported
                     dcsr_d.nmip      = 1'b0;
                     dcsr_d.stopcount = 1'b0;
@@ -411,8 +456,8 @@ module csr_regfile #(
                 riscv::CSR_TDATA3:;  // not implemented
                 // sstatus is a subset of mstatus - mask it accordingly
                 riscv::CSR_SSTATUS: begin
-                    mask = ariane_pkg::SMODE_STATUS_WRITE_MASK;
-                    mstatus_d = (mstatus_q & ~mask) | (csr_wdata & mask);
+                    mask = ariane_pkg::SMODE_STATUS_WRITE_MASK[riscv::XLEN-1:0];
+                    mstatus_d = (mstatus_q & ~{{64-riscv::XLEN{1'b0}}, mask}) | {{64-riscv::XLEN{1'b0}}, (csr_wdata & mask)};
                     // hardwire to zero if floating point extension is not present
                     if (!FP_PRESENT) begin
                         mstatus_d.fs = riscv::Off;
@@ -433,10 +478,10 @@ module csr_regfile #(
                     mip_d = (mip_q & ~mask) | (csr_wdata & mask);
                 end
 
-                riscv::CSR_SCOUNTEREN:;
-                riscv::CSR_STVEC:              stvec_d     = {csr_wdata[63:2], 1'b0, csr_wdata[0]};
+                riscv::CSR_STVEC:              stvec_d     = {csr_wdata[riscv::XLEN-1:2], 1'b0, csr_wdata[0]};
+                riscv::CSR_SCOUNTEREN:         scounteren_d = {{riscv::XLEN-32{1'b0}}, csr_wdata[31:0]};
                 riscv::CSR_SSCRATCH:           sscratch_d  = csr_wdata;
-                riscv::CSR_SEPC:               sepc_d      = {csr_wdata[63:1], 1'b0};
+                riscv::CSR_SEPC:               sepc_d      = {csr_wdata[riscv::XLEN-1:1], 1'b0};
                 riscv::CSR_SCAUSE:             scause_d    = csr_wdata;
                 riscv::CSR_STVAL:              stval_d     = csr_wdata;
                 // supervisor address translation and protection
@@ -445,11 +490,12 @@ module csr_regfile #(
                     if (priv_lvl_o == riscv::PRIV_LVL_S && mstatus_q.tvm)
                         update_access_exception = 1'b1;
                     else begin
-                        sapt      = riscv::satp_t'(csr_wdata);
+                        satp      = riscv::satp_t'(csr_wdata);
                         // only make ASID_LEN - 1 bit stick, that way software can figure out how many ASID bits are supported
-                        sapt.asid = sapt.asid & {{(16-AsidWidth){1'b0}}, {AsidWidth{1'b1}}};
+                        satp.asid = satp.asid & {{(riscv::ASIDW-AsidWidth){1'b0}}, {AsidWidth{1'b1}}};
                         // only update if we actually support this mode
-                        if (sapt.mode == MODE_OFF || sapt.mode == MODE_SV39) satp_d = sapt;
+                        if (riscv::vm_mode_t'(satp.mode) == riscv::ModeOff ||
+                            riscv::vm_mode_t'(satp.mode) == riscv::MODE_SV) satp_d = satp;
                     end
                     // changing the mode can have side-effects on address translation (e.g.: other instructions), re-fetch
                     // the next instruction by executing a flush
@@ -457,7 +503,7 @@ module csr_regfile #(
                 end
 
                 riscv::CSR_MSTATUS: begin
-                    mstatus_d      = csr_wdata;
+                    mstatus_d      = {{64-riscv::XLEN{1'b0}}, csr_wdata};
                     mstatus_d.xs   = riscv::Off;
                     if (!FP_PRESENT) begin
                         mstatus_d.fs = riscv::Off;
@@ -493,15 +539,15 @@ module csr_regfile #(
                 end
 
                 riscv::CSR_MTVEC: begin
-                    mtvec_d = {csr_wdata[63:2], 1'b0, csr_wdata[0]};
+                    mtvec_d = {csr_wdata[riscv::XLEN-1:2], 1'b0, csr_wdata[0]};
                     // we are in vector mode, this implementation requires the additional
                     // alignment constraint of 64 * 4 bytes
-                    if (csr_wdata[0]) mtvec_d = {csr_wdata[63:8], 7'b0, csr_wdata[0]};
+                    if (csr_wdata[0]) mtvec_d = {csr_wdata[riscv::XLEN-1:8], 7'b0, csr_wdata[0]};
                 end
-                riscv::CSR_MCOUNTEREN:;
+                riscv::CSR_MCOUNTEREN:         mcounteren_d = {{riscv::XLEN-32{1'b0}}, csr_wdata[31:0]};
 
                 riscv::CSR_MSCRATCH:           mscratch_d  = csr_wdata;
-                riscv::CSR_MEPC:               mepc_d      = {csr_wdata[63:1], 1'b0};
+                riscv::CSR_MEPC:               mepc_d      = {csr_wdata[riscv::XLEN-1:1], 1'b0};
                 riscv::CSR_MCAUSE:             mcause_d    = csr_wdata;
                 riscv::CSR_MTVAL:              mtval_d     = csr_wdata;
                 riscv::CSR_MIP: begin
@@ -544,8 +590,40 @@ module csr_regfile #(
                                         perf_we_o   = 1'b1;
                 end
 
-                riscv::CSR_DCACHE:             dcache_d    = csr_wdata[0]; // enable bit
-                riscv::CSR_ICACHE:             icache_d    = csr_wdata[0]; // enable bit
+                riscv::CSR_DCACHE:             dcache_d    = {{riscv::XLEN-1{1'b0}}, csr_wdata[0]}; // enable bit
+                riscv::CSR_ICACHE:             icache_d    = {{riscv::XLEN-1{1'b0}}, csr_wdata[0]}; // enable bit
+                // PMP locked logic
+                // 1. refuse to update any locked entry
+                // 2. also refuse to update the entry below a locked TOR entry
+                // Note that writes to pmpcfg below a locked TOR entry are valid
+                riscv::CSR_PMPCFG0:    for (int i = 0; i < (riscv::XLEN/8); i++) if (!pmpcfg_q[i].locked) pmpcfg_d[i]  = csr_wdata[i*8+:8];
+                riscv::CSR_PMPCFG1: begin
+                    if (riscv::XLEN == 32) begin
+                        for (int i = 0; i < 4; i++) if (!pmpcfg_q[i+4].locked) pmpcfg_d[i+4]  = csr_wdata[i*8+:8];
+                    end
+                end
+                riscv::CSR_PMPCFG2:    for (int i = 0; i < (riscv::XLEN/8); i++) if (!pmpcfg_q[i+8].locked) pmpcfg_d[i+8]  = csr_wdata[i*8+:8];
+                riscv::CSR_PMPCFG3: begin
+                    if (riscv::XLEN == 32) begin
+                        for (int i = 0; i < 4; i++) if (!pmpcfg_q[i+12].locked) pmpcfg_d[i+12]  = csr_wdata[i*8+:8];
+                    end
+                end
+                riscv::CSR_PMPADDR0:   if (!pmpcfg_q[ 0].locked && !(pmpcfg_q[ 1].locked && pmpcfg_q[ 1].addr_mode == riscv::TOR))  pmpaddr_d[0]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR1:   if (!pmpcfg_q[ 1].locked && !(pmpcfg_q[ 2].locked && pmpcfg_q[ 2].addr_mode == riscv::TOR))  pmpaddr_d[1]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR2:   if (!pmpcfg_q[ 2].locked && !(pmpcfg_q[ 3].locked && pmpcfg_q[ 3].addr_mode == riscv::TOR))  pmpaddr_d[2]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR3:   if (!pmpcfg_q[ 3].locked && !(pmpcfg_q[ 4].locked && pmpcfg_q[ 4].addr_mode == riscv::TOR))  pmpaddr_d[3]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR4:   if (!pmpcfg_q[ 4].locked && !(pmpcfg_q[ 5].locked && pmpcfg_q[ 5].addr_mode == riscv::TOR))  pmpaddr_d[4]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR5:   if (!pmpcfg_q[ 5].locked && !(pmpcfg_q[ 6].locked && pmpcfg_q[ 6].addr_mode == riscv::TOR))  pmpaddr_d[5]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR6:   if (!pmpcfg_q[ 6].locked && !(pmpcfg_q[ 7].locked && pmpcfg_q[ 7].addr_mode == riscv::TOR))  pmpaddr_d[6]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR7:   if (!pmpcfg_q[ 7].locked && !(pmpcfg_q[ 8].locked && pmpcfg_q[ 8].addr_mode == riscv::TOR))  pmpaddr_d[7]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR8:   if (!pmpcfg_q[ 8].locked && !(pmpcfg_q[ 9].locked && pmpcfg_q[ 9].addr_mode == riscv::TOR))  pmpaddr_d[8]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR9:   if (!pmpcfg_q[ 9].locked && !(pmpcfg_q[10].locked && pmpcfg_q[10].addr_mode == riscv::TOR))  pmpaddr_d[9]   = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR10:  if (!pmpcfg_q[10].locked && !(pmpcfg_q[11].locked && pmpcfg_q[11].addr_mode == riscv::TOR))  pmpaddr_d[10]  = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR11:  if (!pmpcfg_q[11].locked && !(pmpcfg_q[12].locked && pmpcfg_q[12].addr_mode == riscv::TOR))  pmpaddr_d[11]  = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR12:  if (!pmpcfg_q[12].locked && !(pmpcfg_q[13].locked && pmpcfg_q[13].addr_mode == riscv::TOR))  pmpaddr_d[12]  = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR13:  if (!pmpcfg_q[13].locked && !(pmpcfg_q[14].locked && pmpcfg_q[14].addr_mode == riscv::TOR))  pmpaddr_d[13]  = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR14:  if (!pmpcfg_q[14].locked && !(pmpcfg_q[15].locked && pmpcfg_q[15].addr_mode == riscv::TOR))  pmpaddr_d[14]  = csr_wdata[riscv::PLEN-3:0];
+                riscv::CSR_PMPADDR15:  if (!pmpcfg_q[15].locked)  pmpaddr_d[15]  = csr_wdata[riscv::PLEN-3:0];
                 default: update_access_exception = 1'b1;
             endcase
         end
@@ -587,10 +665,10 @@ module csr_regfile #(
             flush_o   = 1'b0;
             // figure out where to trap to
             // a m-mode trap might be delegated if we are taking it in S mode
-            // first figure out if this was an exception or an interrupt e.g.: look at bit 63
-            // the cause register can only be 6 bits long (as we only support 64 exceptions)
-            if ((ex_i.cause[63] && mideleg_q[ex_i.cause[5:0]]) ||
-                (~ex_i.cause[63] && medeleg_q[ex_i.cause[5:0]])) begin
+            // first figure out if this was an exception or an interrupt e.g.: look at bit (XLEN-1)
+            // the cause register can only be $clog2(riscv::XLEN) bits long (as we only support XLEN exceptions)
+            if ((ex_i.cause[riscv::XLEN-1] && mideleg_q[ex_i.cause[$clog2(riscv::XLEN)-1:0]]) ||
+                (~ex_i.cause[riscv::XLEN-1] && medeleg_q[ex_i.cause[$clog2(riscv::XLEN)-1:0]])) begin
                 // traps never transition from a more-privileged mode to a less privileged mode
                 // so if we are already in M mode, stay there
                 trap_to_priv_lvl = (priv_lvl_o == riscv::PRIV_LVL_M) ? riscv::PRIV_LVL_M : riscv::PRIV_LVL_S;
@@ -606,7 +684,7 @@ module csr_regfile #(
                 // set cause
                 scause_d       = ex_i.cause;
                 // set epc
-                sepc_d         = pc_i;
+                sepc_d         = {{riscv::XLEN-riscv::VLEN{pc_i[riscv::VLEN-1]}},pc_i};
                 // set mtval or stval
                 stval_d        = (ariane_pkg::ZERO_TVAL
                                   && (ex_i.cause inside {
@@ -615,7 +693,7 @@ module csr_regfile #(
                                     riscv::ENV_CALL_UMODE,
                                     riscv::ENV_CALL_SMODE,
                                     riscv::ENV_CALL_MMODE
-                                  } || ex_i.cause[63])) ? '0 : ex_i.tval;
+                                  } || ex_i.cause[riscv::XLEN-1])) ? '0 : ex_i.tval;
             // trap to machine mode
             end else begin
                 // update mstatus
@@ -625,7 +703,7 @@ module csr_regfile #(
                 mstatus_d.mpp  = priv_lvl_q;
                 mcause_d       = ex_i.cause;
                 // set epc
-                mepc_d         = pc_i;
+                mepc_d         = {{riscv::XLEN-riscv::VLEN{pc_i[riscv::VLEN-1]}},pc_i};
                 // set mtval or stval
                 mtval_d        = (ariane_pkg::ZERO_TVAL
                                   && (ex_i.cause inside {
@@ -634,7 +712,7 @@ module csr_regfile #(
                                     riscv::ENV_CALL_UMODE,
                                     riscv::ENV_CALL_SMODE,
                                     riscv::ENV_CALL_MMODE
-                                  } || ex_i.cause[63])) ? '0 : ex_i.tval;
+                                  } || ex_i.cause[riscv::XLEN-1])) ? '0 : ex_i.tval;
             end
 
             priv_lvl_d = trap_to_priv_lvl;
@@ -656,6 +734,7 @@ module csr_regfile #(
 
             // caused by a breakpoint
             if (ex_i.valid && ex_i.cause == riscv::BREAKPOINT) begin
+                dcsr_d.prv = priv_lvl_o;
                 // check that we actually want to enter debug depending on the privilege level we are currently in
                 unique case (priv_lvl_o)
                     riscv::PRIV_LVL_M: begin
@@ -673,14 +752,15 @@ module csr_regfile #(
                     default:;
                 endcase
                 // save PC of next this instruction e.g.: the next one to be executed
-                dpc_d = pc_i;
+                dpc_d = {{riscv::XLEN-riscv::VLEN{pc_i[riscv::VLEN-1]}},pc_i};
                 dcsr_d.cause = dm::CauseBreakpoint;
             end
 
             // we've got a debug request
             if (ex_i.valid && ex_i.cause == riscv::DEBUG_REQUEST) begin
+                dcsr_d.prv = priv_lvl_o;
                 // save the PC
-                dpc_d = pc_i;
+                dpc_d = {{riscv::XLEN-riscv::VLEN{pc_i[riscv::VLEN-1]}},pc_i};
                 // enter debug mode
                 debug_mode_d = 1'b1;
                 // jump to the base address
@@ -691,19 +771,20 @@ module csr_regfile #(
 
             // single step enable and we just retired an instruction
             if (dcsr_q.step && commit_ack_i[0]) begin
+                dcsr_d.prv = priv_lvl_o;
                 // valid CTRL flow change
                 if (commit_instr_i[0].fu == CTRL_FLOW) begin
                     // we saved the correct target address during execute
-                    dpc_d = commit_instr_i[0].bp.predict_address;
+                    dpc_d = {{riscv::XLEN-riscv::VLEN{commit_instr_i[0].bp.predict_address[riscv::VLEN-1]}}, commit_instr_i[0].bp.predict_address};
                 // exception valid
                 end else if (ex_i.valid) begin
-                    dpc_d = trap_vector_base_o;
+                    dpc_d = {{riscv::XLEN-riscv::VLEN{1'b0}},trap_vector_base_o};
                 // return from environment
                 end else if (eret_o) begin
-                    dpc_d = epc_o;
+                    dpc_d = {{riscv::XLEN-riscv::VLEN{1'b0}},epc_o};
                 // consecutive PC
                 end else begin
-                    dpc_d = commit_instr_i[0].pc + (commit_instr_i[0].is_compressed ? 'h2 : 'h4);
+                    dpc_d = {{riscv::XLEN-riscv::VLEN{commit_instr_i[0].pc[riscv::VLEN-1]}}, commit_instr_i[0].pc + (commit_instr_i[0].is_compressed ? 'h2 : 'h4)};
                 end
                 debug_mode_d = 1'b1;
                 set_debug_pc_o = 1'b1;
@@ -720,7 +801,7 @@ module csr_regfile #(
         // ------------------------------
         // Set the address translation at which the load and stores should occur
         // we can use the previous values since changing the address translation will always involve a pipeline flush
-        if (mprv && satp_q.mode == MODE_SV39 && (mstatus_q.mpp != riscv::PRIV_LVL_M))
+        if (mprv && riscv::vm_mode_t'(satp_q.mode) == riscv::MODE_SV && (mstatus_q.mpp != riscv::PRIV_LVL_M))
             en_ld_st_translation_d = 1'b1;
         else // otherwise we go with the regular settings
             en_ld_st_translation_d = en_translation_o;
@@ -841,6 +922,15 @@ module csr_regfile #(
             if (csr_addr_i[11:4] == 8'h7b && !debug_mode_q) begin
                 privilege_violation = 1'b1;
             end
+            // check counter-enabled counter CSR accesses
+            // counter address range is C00 to C1F
+            if (csr_addr_i inside {[riscv::CSR_CYCLE:riscv::CSR_HPM_COUNTER_31]}) begin
+                unique case (csr_addr.csr_decode.priv_lvl)
+                    riscv::PRIV_LVL_M: privilege_violation = 1'b0;
+                    riscv::PRIV_LVL_S: privilege_violation = ~mcounteren_q[csr_addr_i[4:0]];
+                    riscv::PRIV_LVL_U: privilege_violation = ~mcounteren_q[csr_addr_i[4:0]] & ~scounteren_q[csr_addr_i[4:0]];
+                endcase
+            end
         end
     end
     // ----------------------
@@ -848,7 +938,7 @@ module csr_regfile #(
     // ----------------------
     always_comb begin : exception_ctrl
         csr_exception_o = {
-            64'b0, 64'b0, 1'b0
+            '0, '0, 1'b0
         };
         // ----------------------------------
         // Illegal Access (decode exception)
@@ -887,32 +977,32 @@ module csr_regfile #(
 
     // output assignments dependent on privilege mode
     always_comb begin : priv_output
-        trap_vector_base_o = {mtvec_q[63:2], 2'b0};
+        trap_vector_base_o = {mtvec_q[riscv::VLEN-1:2], 2'b0};
         // output user mode stvec
         if (trap_to_priv_lvl == riscv::PRIV_LVL_S) begin
-            trap_vector_base_o = {stvec_q[63:2], 2'b0};
+            trap_vector_base_o = {stvec_q[riscv::VLEN-1:2], 2'b0};
         end
 
         // if we are in debug mode jump to a specific address
         if (debug_mode_q) begin
-            trap_vector_base_o = DmBaseAddress + dm::ExceptionAddress;
+            trap_vector_base_o = DmBaseAddress[riscv::VLEN-1:0] + dm::ExceptionAddress[riscv::VLEN-1:0];
         end
 
         // check if we are in vectored mode, if yes then do BASE + 4 * cause
         // we are imposing an additional alignment-constraint of 64 * 4 bytes since
         // we want to spare the costly addition
-        if ((mtvec_q[0] || stvec_q[0]) && ex_i.cause[63]) begin
+        if ((mtvec_q[0] || stvec_q[0]) && ex_i.cause[riscv::XLEN-1]) begin
             trap_vector_base_o[7:2] = ex_i.cause[5:0];
         end
 
-        epc_o = mepc_q;
+        epc_o = mepc_q[riscv::VLEN-1:0];
         // we are returning from supervisor mode, so take the sepc register
         if (sret) begin
-            epc_o = sepc_q;
+            epc_o = sepc_q[riscv::VLEN-1:0];
         end
         // we are returning from debug mode, to take the dpc register
         if (dret) begin
-            epc_o = dpc_q;
+            epc_o = dpc_q[riscv::VLEN-1:0];
         end
     end
 
@@ -947,7 +1037,8 @@ module csr_regfile #(
     assign asid_o           = satp_q.asid[AsidWidth-1:0];
     assign sum_o            = mstatus_q.sum;
     // we support bare memory addressing and SV39
-    assign en_translation_o = (satp_q.mode == 4'h8 && priv_lvl_o != riscv::PRIV_LVL_M)
+    assign en_translation_o = (riscv::vm_mode_t'(satp_q.mode) == riscv::MODE_SV &&
+                               priv_lvl_o != riscv::PRIV_LVL_M)
                               ? 1'b1
                               : 1'b0;
     assign mxr_o            = mstatus_q.mxr;
@@ -972,43 +1063,52 @@ module csr_regfile #(
         if (~rst_ni) begin
             priv_lvl_q             <= riscv::PRIV_LVL_M;
             // floating-point registers
-            fcsr_q                 <= 64'b0;
+            fcsr_q                 <= '0;
             // debug signals
+`ifdef DROMAJO
+            debug_mode_q           <= 1'b1;
+`else
             debug_mode_q           <= 1'b0;
+`endif
             dcsr_q                 <= '0;
             dcsr_q.prv             <= riscv::PRIV_LVL_M;
-            dpc_q                  <= 64'b0;
-            dscratch0_q            <= 64'b0;
-            dscratch1_q            <= 64'b0;
+            dpc_q                  <= '0;
+            dscratch0_q            <= {riscv::XLEN{1'b0}};
+            dscratch1_q            <= {riscv::XLEN{1'b0}};
             // machine mode registers
             mstatus_q              <= 64'b0;
             // set to boot address + direct mode + 4 byte offset which is the initial trap
             mtvec_rst_load_q       <= 1'b1;
             mtvec_q                <= '0;
-            medeleg_q              <= 64'b0;
-            mideleg_q              <= 64'b0;
-            mip_q                  <= 64'b0;
-            mie_q                  <= 64'b0;
-            mepc_q                 <= 64'b0;
-            mcause_q               <= 64'b0;
-            mscratch_q             <= 64'b0;
-            mtval_q                <= 64'b0;
-            dcache_q               <= 64'b1;
-            icache_q               <= 64'b1;
+            medeleg_q              <= {riscv::XLEN{1'b0}};
+            mideleg_q              <= {riscv::XLEN{1'b0}};
+            mip_q                  <= {riscv::XLEN{1'b0}};
+            mie_q                  <= {riscv::XLEN{1'b0}};
+            mepc_q                 <= {riscv::XLEN{1'b0}};
+            mcause_q               <= {riscv::XLEN{1'b0}};
+            mcounteren_q           <= {riscv::XLEN{1'b0}};
+            mscratch_q             <= {riscv::XLEN{1'b0}};
+            mtval_q                <= {riscv::XLEN{1'b0}};
+            dcache_q               <= {{riscv::XLEN-1{1'b0}}, 1'b1};
+            icache_q               <= {{riscv::XLEN-1{1'b0}}, 1'b1};
             // supervisor mode registers
-            sepc_q                 <= 64'b0;
-            scause_q               <= 64'b0;
-            stvec_q                <= 64'b0;
-            sscratch_q             <= 64'b0;
-            stval_q                <= 64'b0;
-            satp_q                 <= 64'b0;
+            sepc_q                 <= {riscv::XLEN{1'b0}};
+            scause_q               <= {riscv::XLEN{1'b0}};
+            stvec_q                <= {riscv::XLEN{1'b0}};
+            scounteren_q           <= {riscv::XLEN{1'b0}};
+            sscratch_q             <= {riscv::XLEN{1'b0}};
+            stval_q                <= {riscv::XLEN{1'b0}};
+            satp_q                 <= {riscv::XLEN{1'b0}};
             // timer and counters
-            cycle_q                <= 64'b0;
-            instret_q              <= 64'b0;
+            cycle_q                <= {riscv::XLEN{1'b0}};
+            instret_q              <= {riscv::XLEN{1'b0}};
             // aux registers
             en_ld_st_translation_q <= 1'b0;
             // wait for interrupt
             wfi_q                  <= 1'b0;
+            // pmp
+            pmpcfg_q               <= '0;
+            pmpaddr_q              <= '0;
         end else begin
             priv_lvl_q             <= priv_lvl_d;
             // floating-point registers
@@ -1029,6 +1129,7 @@ module csr_regfile #(
             mie_q                  <= mie_d;
             mepc_q                 <= mepc_d;
             mcause_q               <= mcause_d;
+            mcounteren_q           <= mcounteren_d;
             mscratch_q             <= mscratch_d;
             mtval_q                <= mtval_d;
             dcache_q               <= dcache_d;
@@ -1037,6 +1138,7 @@ module csr_regfile #(
             sepc_q                 <= sepc_d;
             scause_q               <= scause_d;
             stvec_q                <= stvec_d;
+            scounteren_q           <= scounteren_d;
             sscratch_q             <= sscratch_d;
             stval_q                <= stval_d;
             satp_q                 <= satp_d;
@@ -1047,6 +1149,16 @@ module csr_regfile #(
             en_ld_st_translation_q <= en_ld_st_translation_d;
             // wait for interrupt
             wfi_q                  <= wfi_d;
+            // pmp
+            for(int i = 0; i < 16; i++) begin
+                if(i < NrPMPEntries) begin
+                    pmpcfg_q[i] <= pmpcfg_d[i];
+                    pmpaddr_q[i] <= pmpaddr_d[i];
+                end else begin
+                    pmpcfg_q[i] <= '0;
+                    pmpaddr_q[i] <= '0;
+                end
+            end
         end
     end
 

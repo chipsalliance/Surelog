@@ -18,10 +18,8 @@
 //              with a standard 64 bit AXI interface instead of the OpenPiton
 //              L1.5 interface.
 
-import ariane_pkg::*;
-import wt_cache_pkg::*;
 
-module wt_cache_subsystem #(
+module wt_cache_subsystem import ariane_pkg::*; import wt_cache_pkg::*; #(
   parameter ariane_pkg::ariane_cfg_t ArianeCfg       = ariane_pkg::ArianeDefaultConfig  // contains cacheable regions
 ) (
   input logic                            clk_i,
@@ -50,6 +48,7 @@ module wt_cache_subsystem #(
   output dcache_req_o_t   [2:0]          dcache_req_ports_o,     // to/from LSU
   // writebuffer status
   output logic                           wbuffer_empty_o,
+  output logic                           wbuffer_not_ni_o,
 `ifdef PITON_ARIANE
   // L15 (memory side)
   output l15_req_t                       l15_req_o,
@@ -71,11 +70,11 @@ module wt_cache_subsystem #(
   wt_cache_pkg::dcache_req_t  dcache_adapter;
   wt_cache_pkg::dcache_rtrn_t adapter_dcache;
 
-  wt_icache #(
+  cva6_icache #(
     // use ID 0 for icache reads
     .RdTxId             ( 0             ),
     .ArianeCfg          ( ArianeCfg     )
-  ) i_wt_icache (
+  ) i_cva6_icache (
     .clk_i              ( clk_i                   ),
     .rst_ni             ( rst_ni                  ),
     .flush_i            ( icache_flush_i          ),
@@ -110,6 +109,7 @@ module wt_cache_subsystem #(
     .flush_ack_o     ( dcache_flush_ack_o      ),
     .miss_o          ( dcache_miss_o           ),
     .wbuffer_empty_o ( wbuffer_empty_o         ),
+    .wbuffer_not_ni_o ( wbuffer_not_ni_o       ),
     .amo_req_i       ( dcache_amo_req_i        ),
     .amo_resp_o      ( dcache_amo_resp_o       ),
     .req_ports_i     ( dcache_req_ports_i      ),
@@ -184,7 +184,7 @@ module wt_cache_subsystem #(
 
   for (genvar j=0; j<2; j++) begin : gen_assertion
     a_invalid_read_data: assert property (
-      @(posedge clk_i) disable iff (!rst_ni) dcache_req_ports_o[j].data_rvalid |-> (|dcache_req_ports_o[j].data_rdata) !== 1'hX)
+      @(posedge clk_i) disable iff (!rst_ni) dcache_req_ports_o[j].data_rvalid && ~dcache_req_ports_i[j].kill_req |-> (|dcache_req_ports_o[j].data_rdata) !== 1'hX)
     else $warning(1,"[l1 dcache] reading invalid data on port %01d: data=%016X",
       j, dcache_req_ports_o[j].data_rdata);
   end

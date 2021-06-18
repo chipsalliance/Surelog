@@ -1,10 +1,10 @@
 # Surelog
 
-SystemVerilog 2017 Pre-processor, Parser, UHDM Compiler. Provides IEEE Design/TB VPI and Python AST API. 
+SystemVerilog 2017 Pre-processor, Parser, Elaborator, UHDM Compiler. Provides IEEE Design/TB C/C++ VPI and Python AST API. 
 
 ## Goal
 This project aims at providing a complete SystemVerilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench. We are aiming at supporting all open-source cores.
-Current status: Surelog's elaboration trees for BlackParrot and Opentitan cores are equivalent with Verilator's elaboration tree.  
+Current status: Surelog's elaboration trees for BlackParrot and Opentitan cores are equivalent with Verilator's elaboration tree. Ibex completely Synthesizes and runs in Hardware with the Surelog/UHDM/Yosys flow. 
 
 ## Applications
 

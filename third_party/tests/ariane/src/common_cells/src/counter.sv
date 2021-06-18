@@ -12,7 +12,8 @@
 // Description: Generic up/down counter
 
 module counter #(
-    parameter int unsigned WIDTH = 4
+    parameter int unsigned WIDTH = 4,
+    parameter bit STICKY_OVERFLOW = 1'b0
 )(
     input  logic             clk_i,
     input  logic             rst_ni,
@@ -24,32 +25,19 @@ module counter #(
     output logic [WIDTH-1:0] q_o,
     output logic             overflow_o
 );
-    logic [WIDTH:0] counter_q, counter_d;
-    // counter overflowed if the MSB is set
-    assign overflow_o = counter_q[WIDTH];
-    assign q_o = counter_q[WIDTH-1:0];
-
-    always_comb begin
-        counter_d = counter_q;
-
-        if (clear_i) begin
-            counter_d = '0;
-        end else if (load_i) begin
-            counter_d = {1'b0, d_i};
-        end else if (en_i) begin
-            if (down_i) begin
-                counter_d = counter_q - 1;
-            end else begin
-                counter_d = counter_q + 1;
-            end
-        end
-    end
-
-    always_ff @(posedge clk_i or negedge rst_ni) begin
-        if (~rst_ni) begin
-           counter_q <= '0;
-        end else begin
-           counter_q <= counter_d;
-        end
-    end
+    delta_counter #(
+        .WIDTH          (WIDTH),
+        .STICKY_OVERFLOW (STICKY_OVERFLOW)
+    ) i_counter (
+        .clk_i,
+        .rst_ni,
+        .clear_i,
+        .en_i,
+        .load_i,
+        .down_i,
+        .delta_i({{WIDTH-1{1'b0}}, 1'b1}),
+        .d_i,
+        .q_o,
+        .overflow_o
+    );
 endmodule

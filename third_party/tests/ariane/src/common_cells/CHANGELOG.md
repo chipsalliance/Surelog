@@ -5,6 +5,51 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+### Fixed 
+
+## 1.16.4 - 2020-03-02
+### Fixed
+- id_queue: Fix generation of `head_tail_q` registers
+
+## 1.16.3 - 2020-02-11
+### Fixed
+- Handle degenerated `addr_decode` with `NoIndices == 1`, change default parameters to `32'd0`
+
+## 1.16.2 - 2020-02-04
+### Fixed
+- Fix author section in Bender.yml 
+
+## 1.16.1 - 2020-02-03
+### Fixed
+- `rr_arb_tree`: Add guard SVA statement for Verilator
+- Added missing sources in `Bender.yml` and `src_files.yml`
+
+## 1.16.0 - 2020-01-13
+### Fixed
+- Handle degenerated `onehot_to_bin` with `ONEHOT_WIDTH == 1`
+- Handle degenerated `id_queue` with `CAPACITY == 1` or `HT_CAPACITY == 1`
+- Fix `cdc_fifo_gray` to be a safe clock domain crossing (CDC)
+
+## 1.15.0 - 2019-12-09
+### Added
+- Added address map decoder module
+
+### Fixed
+- Handle degenerated `lzc` with `WIDTH == 1`
+
+## 1.14.0 - 2019-10-08
+
+### Added
+- Added spubstitution-permutation hash function module
+- Added couning-bloom-filter module
+- `spill_register`: Added Bypass parameter
+- `counter`: Added sticky overflow
+- Added counter with variable delta
+- Added counter that tracks its maximum value
+
+### Changed
+- Added formal testbench for `fifo` and `fall_through_regsiter`
 
 ## 1.13.1 - 2019-06-01
 
