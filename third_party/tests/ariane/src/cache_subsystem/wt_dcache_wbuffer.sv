@@ -48,10 +48,8 @@
 //    then, only the NC word is written into the write buffer and no further write requests are acknowledged until that
 //    word has been evicted from the write buffer.
 
-import ariane_pkg::*;
-import wt_cache_pkg::*;
 
-module wt_dcache_wbuffer #(
+module wt_dcache_wbuffer import ariane_pkg::*; import wt_cache_pkg::*; #(
   parameter ariane_pkg::ariane_cfg_t    ArianeCfg          = ariane_pkg::ArianeDefaultConfig     // contains cacheable regions
 ) (
   input  logic                               clk_i,          // Clock
@@ -59,12 +57,13 @@ module wt_dcache_wbuffer #(
 
   input  logic                               cache_en_i,     // writes are treated as NC if disabled
   output logic                               empty_o,        // asserted if no data is present in write buffer
+  output logic                               not_ni_o,    // asserted if no ni data is present in write buffer
    // core request ports
   input  dcache_req_i_t                      req_port_i,
   output dcache_req_o_t                      req_port_o,
   // interface to miss handler
   input  logic                               miss_ack_i,
-  output logic [63:0]                        miss_paddr_o,
+  output logic [riscv::PLEN-1:0]             miss_paddr_o,
   output logic                               miss_req_o,
   output logic                               miss_we_o,       // always 1 here
   output logic [63:0]                        miss_wdata_o,
@@ -97,7 +96,7 @@ module wt_dcache_wbuffer #(
   output logic [7:0]                         wr_data_be_o,
   // to forwarding logic and miss unit
   output wbuffer_t  [DCACHE_WBUF_DEPTH-1:0]  wbuffer_data_o,
-  output logic [DCACHE_MAX_TX-1:0][63:0]     tx_paddr_o,      // used to check for address collisions with read operations
+  output logic [DCACHE_MAX_TX-1:0][riscv::PLEN-1:0]     tx_paddr_o,      // used to check for address collisions with read operations
   output logic [DCACHE_MAX_TX-1:0]           tx_vld_o
 );
 
@@ -114,31 +113,34 @@ module wt_dcache_wbuffer #(
 
   logic [2:0] bdirty_off;
   logic [7:0] tx_be;
-  logic [63:0] wr_paddr, rd_paddr;
+  logic [riscv::PLEN-1:0] wr_paddr, rd_paddr;
   logic [DCACHE_TAG_WIDTH-1:0] rd_tag_d, rd_tag_q;
   logic [DCACHE_SET_ASSOC-1:0] rd_hit_oh_d, rd_hit_oh_q;
   logic check_en_d, check_en_q, check_en_q1;
   logic full, dirty_rd_en, rdy;
   logic rtrn_empty, evict;
-  logic nc_pending_d, nc_pending_q, addr_is_nc;
+  logic [DCACHE_WBUF_DEPTH-1:0] ni_pending_d, ni_pending_q;
   logic wbuffer_wren;
   logic free_tx_slots;
 
   logic wr_cl_vld_q, wr_cl_vld_d;
   logic [DCACHE_CL_IDX_WIDTH-1:0] wr_cl_idx_q, wr_cl_idx_d;
 
-  logic [63:0] debug_paddr [DCACHE_WBUF_DEPTH-1:0];
+  logic [riscv::PLEN-1:0] debug_paddr [DCACHE_WBUF_DEPTH-1:0];
 
   wbuffer_t wbuffer_check_mux, wbuffer_dirty_mux;
 
 ///////////////////////////////////////////////////////
 // misc
 ///////////////////////////////////////////////////////
-
-  assign miss_nc_o = nc_pending_q;
-
-  // noncacheable if request goes to I/O space, or if cache is disabled
-  assign addr_is_nc = (~cache_en_i) | (~ariane_pkg::is_inside_cacheable_regions(ArianeCfg, {req_port_i.address_tag, {DCACHE_INDEX_WIDTH{1'b0}}}));
+  logic [ariane_pkg::DCACHE_TAG_WIDTH-1:0] miss_tag;
+  logic is_nc_miss;
+  logic is_ni;
+  assign miss_tag = miss_paddr_o[ariane_pkg::DCACHE_INDEX_WIDTH+:ariane_pkg::DCACHE_TAG_WIDTH];
+  assign is_nc_miss = !ariane_pkg::is_inside_cacheable_regions(ArianeCfg, {{64-DCACHE_TAG_WIDTH{1'b0}}, miss_tag, {DCACHE_INDEX_WIDTH{1'b0}}});
+  assign miss_nc_o = !cache_en_i || is_nc_miss; 
+  // Non-idempotent if request goes to NI region
+  assign is_ni = ariane_pkg::is_inside_nonidempotent_regions(ArianeCfg, {{64-DCACHE_TAG_WIDTH{1'b0}}, req_port_i.address_tag, {DCACHE_INDEX_WIDTH{1'b0}}});
 
   assign miss_we_o       = 1'b1;
   assign miss_vld_bits_o = '0;
@@ -324,7 +326,6 @@ module wt_dcache_wbuffer #(
   end
 
   assign wr_ptr     = (|wbuffer_hit_oh) ? hit_ptr : next_ptr;
-  assign empty_o    = ~(|valid);
   assign rdy        = (|wbuffer_hit_oh) | (~full);
 
   // next free entry in the buffer
@@ -390,11 +391,17 @@ module wt_dcache_wbuffer #(
   assign req_port_o.data_rdata  = '0;
 
   assign rd_hit_oh_d = rd_hit_oh_i;
+ 
+  logic ni_inside,ni_conflict; 
+  assign ni_inside = |ni_pending_q;
+  assign ni_conflict = is_ni && ni_inside;
+  assign not_ni_o = !ni_inside;
+  assign empty_o    = !(|valid);
 
   // TODO: rewrite and separate into MUXES and write strobe logic
   always_comb begin : p_buffer
     wbuffer_d           = wbuffer_q;
-    nc_pending_d        = nc_pending_q;
+    ni_pending_d        = ni_pending_q;
     dirty_rd_en         = 1'b0;
     req_port_o.data_gnt = 1'b0;
     wbuffer_wren        = 1'b0;
@@ -433,6 +440,7 @@ module wt_dcache_wbuffer #(
       // if all bytes are evicted, clear the cache status flag
       if (wbuffer_d[rtrn_ptr].valid == 0) begin
         wbuffer_d[rtrn_ptr].checked = 1'b0;
+        ni_pending_d[rtrn_ptr] = 1'b0;
       end
     end
 
@@ -449,13 +457,13 @@ module wt_dcache_wbuffer #(
 
     // write new word into the buffer
     if (req_port_i.data_req && rdy) begin
-      // in case we have an NC address, need to drain the buffer first
-      // in case we are serving an NC address,  we block until it is written to memory
-      if (empty_o || !(addr_is_nc || nc_pending_q)) begin
+      // in case we have an NI address, need to drain the buffer first
+      // in case we are serving an NI address,  we block until it is written to memory
+      if (!ni_conflict) begin //empty of NI operations
         wbuffer_wren              = 1'b1;
 
         req_port_o.data_gnt       = 1'b1;
-        nc_pending_d              = addr_is_nc;
+        ni_pending_d[wr_ptr]      = is_ni;
 
         wbuffer_d[wr_ptr].checked = 1'b0;
         wbuffer_d[wr_ptr].wtag    = {req_port_i.address_tag, req_port_i.address_index[DCACHE_INDEX_WIDTH-1:3]};
@@ -481,7 +489,7 @@ module wt_dcache_wbuffer #(
     if (!rst_ni) begin
       wbuffer_q     <= '{default: '0};
       tx_stat_q     <= '{default: '0};
-      nc_pending_q  <= '0;
+      ni_pending_q  <= '0;
       check_ptr_q   <= '0;
       check_ptr_q1  <= '0;
       check_en_q    <= '0;
@@ -493,7 +501,7 @@ module wt_dcache_wbuffer #(
     end else begin
       wbuffer_q     <= wbuffer_d;
       tx_stat_q     <= tx_stat_d;
-      nc_pending_q  <= nc_pending_d;
+      ni_pending_q  <= ni_pending_d;
       check_ptr_q   <= check_ptr_d;
       check_ptr_q1  <= check_ptr_q;
       check_en_q    <= check_en_d;

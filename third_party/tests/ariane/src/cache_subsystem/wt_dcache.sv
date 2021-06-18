@@ -12,10 +12,8 @@
 // Date: 13.09.2018
 // Description: Instruction cache that is compatible with openpiton.
 
-import ariane_pkg::*;
-import wt_cache_pkg::*;
 
-module wt_dcache #(
+module wt_dcache import ariane_pkg::*; import wt_cache_pkg::*; #(
   // ID to be used for read and AMO transactions.
   // note that the write buffer uses all IDs up to DCACHE_MAX_TX-1 for write transactions
   parameter logic [CACHE_ID_WIDTH-1:0]   RdAmoTxId          = 1,
@@ -31,6 +29,7 @@ module wt_dcache #(
   output logic                           flush_ack_o, // send a single cycle acknowledge signal when the cache is flushed
   output logic                           miss_o,      // we missed on a ld/st
   output logic                           wbuffer_empty_o,
+  output logic                           wbuffer_not_ni_o,
 
   // AMO interface
   input  amo_req_t                       amo_req_i,
@@ -76,7 +75,7 @@ module wt_dcache #(
   logic [NumPorts-1:0]                          miss_nc;
   logic [NumPorts-1:0]                          miss_we;
   logic [NumPorts-1:0][63:0]                    miss_wdata;
-  logic [NumPorts-1:0][63:0]                    miss_paddr;
+  logic [NumPorts-1:0][riscv::PLEN-1:0]         miss_paddr;
   logic [NumPorts-1:0][DCACHE_SET_ASSOC-1:0]    miss_vld_bits;
   logic [NumPorts-1:0][2:0]                     miss_size;
   logic [NumPorts-1:0][CACHE_ID_WIDTH-1:0]      miss_id;
@@ -97,7 +96,7 @@ module wt_dcache #(
   logic [DCACHE_SET_ASSOC-1:0]                  rd_hit_oh;
 
   // miss unit <-> wbuffer
-  logic [DCACHE_MAX_TX-1:0][63:0]               tx_paddr;
+  logic [DCACHE_MAX_TX-1:0][riscv::PLEN-1:0]    tx_paddr;
   logic [DCACHE_MAX_TX-1:0]                     tx_vld;
 
   // wbuffer <-> memory
@@ -216,6 +215,7 @@ module wt_dcache #(
     .clk_i           ( clk_i               ),
     .rst_ni          ( rst_ni              ),
     .empty_o         ( wbuffer_empty_o     ),
+    .not_ni_o        ( wbuffer_not_ni_o    ),
     // TODO: fix this
     .cache_en_i      ( cache_en            ),
     // .cache_en_i      ( '0                  ),

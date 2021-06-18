@@ -34,15 +34,23 @@ BOARD          ?= genesys2
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
 
-#support_verilator_4 := $(shell ($(verilator) --version | grep '4\.') &> /dev/null; echo $$?)
-#ifeq ($(support_verilator_4), 0)
-#	verilator_threads := 2
-#endif
-
+support_verilator_4 := $(shell ($(verilator) --version | grep '4\.') > /dev/null 2>&1 ; echo $$?)
+ifeq ($(support_verilator_4), 0)
+	ifndef verilator_threads
+		ifeq ($(shell test `nproc` -ge 4; echo $$?),0)
+			verilator_threads := 4
+		else ifeq ($(shell test `nproc` -ge 2; echo $$?),0)
+			verilator_threads := 2
+		endif
+	endif
+endif
 
 ifndef RISCV
 $(error RISCV not set - please point your RISCV variable to your RISCV installation)
 endif
+
+# By default assume spike resides at the RISCV prefix.
+SPIKE_ROOT     ?= $(RISCV)
 
 # setting additional xilinx board parameters for the selected board
 ifeq ($(BOARD), genesys2)
@@ -81,6 +89,7 @@ ariane_pkg := include/riscv_pkg.sv                          \
               src/register_interface/src/reg_intf_pkg.sv    \
               include/axi_intf.sv                           \
               tb/ariane_soc_pkg.sv                          \
+              tb/ariane_axi_soc_pkg.sv                      \
               include/ariane_axi_pkg.sv                     \
               src/fpu/src/fpnew_pkg.sv                      \
               src/fpu/src/fpu_div_sqrt_mvp/hdl/defs_div_sqrt_mvp.sv
@@ -102,20 +111,33 @@ util := $(addprefix $(root-dir), $(util))
 # Test packages
 test_pkg := $(wildcard tb/test/*/*sequence_pkg.sv*) \
 			$(wildcard tb/test/*/*_pkg.sv*)
+
 # DPI
-dpi_list := $(patsubst tb/dpi/%.cc, ${dpi-library}/%.o, $(wildcard tb/dpi/*.cc))
+dpi := $(patsubst tb/dpi/%.cc, ${dpi-library}/%.o, $(wildcard tb/dpi/*.cc))
+
 # filter spike stuff if tandem is not activated
 ifndef spike-tandem
-    dpi = $(filter-out ${dpi-library}/spike.o ${dpi-library}/sim_spike.o, $(dpi_list))
-else
-    dpi = $(dpi_list)
+    dpi := $(filter-out ${dpi-library}/spike.o ${dpi-library}/sim_spike.o, $(dpi))
+endif
+
+# filter dromajo stuff if dromajo is not activated
+ifndef DROMAJO
+    dpi := $(filter-out ${dpi-library}/dromajo_cosim_dpi.o, $(dpi))
 endif
 
 dpi_hdr := $(wildcard tb/dpi/*.h)
 dpi_hdr := $(addprefix $(root-dir), $(dpi_hdr))
 CFLAGS := -I$(QUESTASIM_HOME)/include         \
           -I$(RISCV)/include                  \
-          -std=c++11 -I../tb/dpi
+          -I$(SPIKE_ROOT)/include             \
+          $(if $(DROMAJO), -I../tb/dromajo/src,) \
+          -std=c++11 -I../tb/dpi -O3
+
+ifdef XCELIUM_HOME
+CFLAGS += -I$(XCELIUM_HOME)/tools/include
+else
+$(warning XCELIUM_HOME not set which is necessary for compiling DPIs when using XCELIUM)
+endif
 
 ifdef spike-tandem
     CFLAGS += -Itb/riscv-isa-sim/install/include/spike
@@ -132,10 +154,12 @@ src :=  $(filter-out src/ariane_regfile.sv, $(wildcard src/*.sv))              \
         $(wildcard bootrom/*.sv)                                               \
         $(wildcard src/clint/*.sv)                                             \
         $(wildcard fpga/src/axi2apb/src/*.sv)                                  \
+        $(wildcard fpga/src/apb_timer/*.sv)                                    \
         $(wildcard fpga/src/axi_slice/src/*.sv)                                \
         $(wildcard src/axi_node/src/*.sv)                                      \
         $(wildcard src/axi_riscv_atomics/src/*.sv)                             \
         $(wildcard src/axi_mem_if/src/*.sv)                                    \
+        $(wildcard src/pmp/src/*.sv)                                           \
         src/rv_plic/rtl/rv_plic_target.sv                                      \
         src/rv_plic/rtl/rv_plic_gateway.sv                                     \
         src/rv_plic/rtl/plic_regmap.sv                                         \
@@ -157,7 +181,7 @@ src :=  $(filter-out src/ariane_regfile.sv, $(wildcard src/*.sv))              \
         src/common_cells/src/rstgen.sv                                         \
         src/common_cells/src/stream_mux.sv                                     \
         src/common_cells/src/stream_demux.sv                                   \
-	src/common_cells/src/exp_backoff.sv                                    \
+        src/common_cells/src/exp_backoff.sv                                    \
         src/util/axi_master_connect.sv                                         \
         src/util/axi_slave_connect.sv                                          \
         src/util/axi_master_connect_rev.sv                                     \
@@ -185,6 +209,7 @@ src :=  $(filter-out src/ariane_regfile.sv, $(wildcard src/*.sv))              \
         src/common_cells/src/stream_delay.sv                                   \
         src/common_cells/src/lfsr_8bit.sv                                      \
         src/common_cells/src/lfsr_16bit.sv                                     \
+        src/common_cells/src/delta_counter.sv                                  \
         src/common_cells/src/counter.sv                                        \
         src/common_cells/src/shift_reg.sv                                      \
         src/tech_cells_generic/src/pulp_clock_gating.sv                        \
@@ -297,40 +322,45 @@ $(dpi-library)/%.o: tb/dpi/%.cc $(dpi_hdr)
 $(dpi-library)/ariane_dpi.so: $(dpi)
 	mkdir -p $(dpi-library)
 	# Compile C-code and generate .so file
-	$(CXX) -shared -m64 -o $(dpi-library)/ariane_dpi.so $? -L$(RISCV)/lib -Wl,-rpath,$(RISCV)/lib -lfesvr
+	$(CXX) -shared -m64 -o $(dpi-library)/ariane_dpi.so $? -L$(RISCV)/lib -L$(SPIKE_ROOT)/lib -Wl,-rpath,$(RISCV)/lib -Wl,-rpath,$(SPIKE_ROOT)/lib -lfesvr
 
 # single test runs on Questa can be started by calling make <testname>, e.g. make towers.riscv
 # the test names are defined in ci/riscv-asm-tests.list, and in ci/riscv-benchmarks.list
 # if you want to run in batch mode, use make <testname> batch-mode=1
-# alternatively you can call make sim elf-bin=<path/to/elf-bin> in order to load an arbitrary binary
+# alternatively you can call make sim elf-bin=<path/to/elf-bin> in order to load an arbitrary binary		
+ 
+generate-trace-vsim:
+	make sim preload=$(preload) elf-bin= batch-mode=1
+	make generate-trace
+
 sim: build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) $(QUESTASIM_FLAGS) -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi  \
+	+BASEDIR=$(riscv-test-dir) $(uvm-flags) $(QUESTASIM_FLAGS) -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) | tee sim.log
 
 $(riscv-asm-tests): build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
+	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(riscv-test-dir)/$@ ++$(target-options) | tee tmp/riscv-asm-tests-$@.log
 
 $(riscv-amo-tests): build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
+	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(riscv-test-dir)/$@ ++$(target-options) | tee tmp/riscv-amo-tests-$@.log
 
 $(riscv-mul-tests): build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
+	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(riscv-test-dir)/$@ ++$(target-options) | tee tmp/riscv-mul-tests-$@.log
 
 $(riscv-fp-tests): build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
+	+BASEDIR=$(riscv-test-dir) $(uvm-flags) +jtag_rbb_enable=0  -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi        \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(riscv-test-dir)/$@ ++$(target-options) | tee tmp/riscv-fp-tests-$@.log
 
 $(riscv-benchmarks): build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) \
-	+BASEDIR=$(riscv-benchmarks-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi   \
+	+BASEDIR=$(riscv-benchmarks-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(riscv-benchmarks-dir)/$@ ++$(target-options) | tee tmp/riscv-benchmarks-$@.log
 
 # can use -jX to run ci tests in parallel using X processes
@@ -364,6 +394,147 @@ run-benchmarks: $(riscv-benchmarks)
 
 check-benchmarks:
 	ci/check-tests.sh tmp/riscv-benchmarks- $(shell wc -l $(riscv-benchmarks-list) | awk -F " " '{ print $1 }')
+#####################################
+# xrun-specific commands, variables
+#####################################
+XRUN               ?= xrun
+XRUN_WORK_DIR      ?= xrun_work
+XRUN_RESULTS_DIR   ?= xrun_results
+XRUN_UVMHOME_ARG   ?= CDNS-1.2-ML
+XRUN_COMPL_LOG     ?= xrun_compl.log
+XRUN_RUN_LOG       ?= xrun_run.log
+CVA6_HOME	   ?= $(realpath -s $(root-dir))
+
+XRUN_INCDIR :=+incdir+$(CVA6_HOME)/src/axi_node 	\
+	+incdir+$(CVA6_HOME)/src/common_cells/include 	\
+	+incdir+$(CVA6_HOME)/src/util
+XRUN_TB := $(addprefix $(CVA6_HOME)/, tb/ariane_tb.sv)
+
+XRUN_COMP_FLAGS  ?= -64bit -disable_sem2009 -access +rwc 			\
+		    -sv -v93 -uvm -uvmhome $(XRUN_UVMHOME_ARG) 			\
+		    -sv_lib $(CVA6_HOME)/$(dpi-library)/ariane_dpi.so		\
+		    -smartorder -sv -top worklib.$(top_level)			\
+		    -xceligen on=1903 +define+$(defines) -timescale 1ns/1ps	\
+
+XRUN_RUN_FLAGS := -R -64bit -disable_sem2009 -access +rwc -timescale 1ns/1ps		\
+		-sv_lib	$(CVA6_HOME)/$(dpi-library)/ariane_dpi.so -xceligen on=1903	\
+
+XRUN_DISABLED_WARNINGS := BIGWIX 	\
+			ZROMCW 		\
+			STRINT 		\
+			ENUMERR 	\
+			SPDUSD		\
+			RNDXCELON
+
+XRUN_DISABLED_WARNINGS 	:= $(patsubst %, -nowarn %, $(XRUN_DISABLED_WARNINGS))
+
+XRUN_COMP = $(XRUN_COMP_FLAGS)		\
+	$(XRUN_DISABLED_WARNINGS) 	\
+	$(XRUN_INCDIR)		      	\
+	$(filter %.sv, $(ariane_pkg)) 	\
+	$(filter %.sv, $(util))		\
+	$(filter %.vhd, $(uart_src))  	\
+	$(filter %.sv, $(src))	      	\
+	$(filter %.sv, $(XRUN_TB))	\
+
+XRUN_RUN = $(XRUN_RUN_FLAGS) 		\
+	$(XRUN_DISABLED_WARNINGS)	\
+
+xrun_clean:
+	@echo "[XRUN] clean up"
+	rm -rf $(XRUN_RESULTS_DIR)
+	rm -rf $(dpi-library)
+
+xrun_comp: $(dpi-library)/ariane_dpi.so
+	@echo "[XRUN] Building Model"
+	mkdir -p $(XRUN_RESULTS_DIR)
+	cd $(XRUN_RESULTS_DIR) && $(XRUN)   \
+		+permissive		    \
+		$(XRUN_COMP)                \
+		-l $(XRUN_COMPL_LOG)        \
+		+permissive-off		    \
+		-elaborate
+
+xrun_sim: xrun_comp
+	@echo "[XRUN] Simulating selected binary"
+	cd $(XRUN_RESULTS_DIR) && $(XRUN)	\
+		+permissive			\
+		$(XRUN_RUN)			\
+		+MAX_CYCLES=$(max_cycles)	\
+		+UVM_TESTNAME=$(test_case)	\
+		-l $(XRUN_RUN_LOG)		\
+		+permissive-off			\
+		++$(elf-bin)
+
+#-e "set_severity_pack_assert_off {warning}; set_pack_assert_off {numeric_std}" TODO: This will remove assertion warning at the beginning of the simulation.
+	 
+xrun_all: xrun_clean xrun_comp xrun_sim
+
+$(addprefix xrun_, $(riscv-asm-tests)): xrun_comp
+	cd $(XRUN_RESULTS_DIR); 								\
+	mkdir -p isa/asm/;									\
+	$(XRUN)	+permissive $(XRUN_RUN) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) 	\
+	-l isa/asm/$(notdir $@).log +permissive-off ++$(CVA6_HOME)/$(riscv-test-dir)/$(patsubst xrun_%,%,$@)
+
+$(addprefix xrun_, $(riscv-amo-tests)): xrun_comp
+	cd $(XRUN_RESULTS_DIR); 								\
+	mkdir -p isa/amo/;									\
+	$(XRUN)	+permissive $(XRUN_RUN) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) 	\
+	-l isa/amo/$(notdir $@).log +permissive-off ++$(CVA6_HOME)/$(riscv-test-dir)/$(patsubst xrun_%,%,$@)
+
+$(addprefix xrun_, $(riscv-mul-tests)): xrun_comp
+	cd $(XRUN_RESULTS_DIR); 								\
+	mkdir -p isa/mul/;									\
+	$(XRUN)	+permissive $(XRUN_RUN) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) 	\
+	-l isa/mul/$(notdir $@).log +permissive-off ++$(CVA6_HOME)/$(riscv-test-dir)/$(patsubst xrun_%,%,$@)
+
+$(addprefix xrun_, $(riscv-fp-tests)): xrun_comp
+	cd $(XRUN_RESULTS_DIR); 								\
+	mkdir -p isa/fp/;									\
+	$(XRUN)	+permissive $(XRUN_RUN) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) 	\
+	-l isa/fp/$(notdir $@).log +permissive-off ++$(CVA6_HOME)/$(riscv-test-dir)/$(patsubst xrun_%,%,$@)
+
+$(addprefix xrun_, $(riscv-benchmarks)): xrun_comp
+	cd $(XRUN_RESULTS_DIR);									\
+	mkdir -p benchmarks/;									\
+	$(XRUN)	+permissive $(XRUN_RUN) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) 	\
+	-l benchmarks/$(notdir $@).log +permissive-off ++$(CVA6_HOME)/$(riscv-benchmarks-dir)/$(patsubst xrun_%,%,$@)
+
+# can use -jX to run ci tests in parallel using X processes
+xrun-asm-tests: $(addprefix xrun_, $(riscv-asm-tests))
+	$(MAKE) xrun-check-asm-tests
+
+xrun-amo-tests: $(addprefix xrun_, $(riscv-amo-tests))
+	$(MAKE) xrun-check-amo-tests
+
+xrun-mul-tests: $(addprefix xrun_, $(riscv-mul-tests))
+	$(MAKE) xrun-check-mul-tests
+
+xrun-fp-tests: $(addprefix xrun_, $(riscv-fp-tests))
+	$(MAKE) xrun-check-fp-tests
+
+xrun-check-asm-tests:
+	ci/check-tests.sh $(XRUN_RESULTS_DIR)/isa/asm/ $(shell wc -l $(riscv-asm-tests-list) | awk -F " " '{ print $1 }') 
+
+xrun-check-amo-tests:
+	ci/check-tests.sh $(XRUN_RESULTS_DIR)/isa/amo/ $(shell wc -l $(riscv-amo-tests-list) | awk -F " " '{ print $1 }')
+
+xrun-check-mul-tests:
+	ci/check-tests.sh $(XRUN_RESULTS_DIR)/isa/mul/ $(shell wc -l $(riscv-mul-tests-list) | awk -F " " '{ print $1 }')
+
+xrun-check-fp-tests:
+	ci/check-tests.sh $(XRUN_RESULTS_DIR)/isa/fp/ $(shell wc -l $(riscv-fp-tests-list) | awk -F " " '{ print $1 }')
+
+
+# can use -jX to run ci tests in parallel using X processes
+xrun-benchmarks: $(addprefix xrun_, $(riscv-benchmarks))
+	$(MAKE) check-benchmarks
+
+
+xrun-check-benchmarks:
+	ci/check-tests.sh $(XRUN_RESULTS_DIR)/benchmarks/ $(shell wc -l $(riscv-benchmarks-list) | awk -F " " '{ print $1 }')
+
+xrun-ci: xrun-asm-tests xrun-amo-tests xrun-mul-tests xrun-fp-tests xrun-benchmarks
 
 # verilator-specific
 verilate_command := $(verilator)                                                                                 \
@@ -371,6 +542,7 @@ verilate_command := $(verilator)                                                
                     $(filter-out src/fpu_wrap.sv, $(filter-out %.vhd, $(src)))                                   \
                     +define+$(defines)                                                                           \
                     src/util/sram.sv                                                                             \
+                    tb/common/mock_uart.sv                                                                       \
                     +incdir+src/axi_node                                                                         \
                     $(if $(verilator_threads), --threads $(verilator_threads))                                   \
                     --unroll-count 256                                                                           \
@@ -384,17 +556,79 @@ verilate_command := $(verilator)                                                
                     -Wno-UNOPTFLAT                                                                               \
                     -Wno-BLKANDNBLK                                                                              \
                     -Wno-style                                                                                   \
+                    $(if $(DROMAJO), -DDROMAJO=1,)                                                               \
                     $(if $(PROFILE),--stats --stats-vars --profile-cfuncs,)                                      \
                     $(if $(DEBUG),--trace --trace-structs,)                                                      \
-                    -LDFLAGS "-L$(RISCV)/lib -Wl,-rpath,$(RISCV)/lib -lfesvr$(if $(PROFILE), -g -pg,) -lpthread" \
-                    -CFLAGS "$(CFLAGS)$(if $(PROFILE), -g -pg,)" -Wall --cc  --vpi                               \
+                    -LDFLAGS "-L$(RISCV)/lib -L$(SPIKE_ROOT)/lib -Wl,-rpath,$(RISCV)/lib -Wl,-rpath,$(SPIKE_ROOT)/lib -lfesvr$(if $(PROFILE), -g -pg,) $(if $(DROMAJO), -L../tb/dromajo/src -ldromajo_cosim,) -lpthread" \
+                    -CFLAGS "$(CFLAGS)$(if $(PROFILE), -g -pg,) $(if $(DROMAJO), -DDROMAJO=1,) -DVL_DEBUG"       \
+                    -Wall --cc  --vpi                                                                            \
                     $(list_incdir) --top-module ariane_testharness                                               \
                     --Mdir $(ver-library) -O3                                                                    \
                     --exe tb/ariane_tb.cpp tb/dpi/SimDTM.cc tb/dpi/SimJTAG.cc                                    \
-					tb/dpi/remote_bitbang.cc tb/dpi/msim_helper.cc
+					tb/dpi/remote_bitbang.cc tb/dpi/msim_helper.cc $(if $(DROMAJO), tb/dpi/dromajo_cosim_dpi.cc,)
+
+dromajo:
+	cd ./tb/dromajo/src && make
+
+run-dromajo-verilator:
+	$(if $(BIN), $(MAKE) checkpoint_dromajo, $(error "Please provide absolute path to the binary. Usage: make run_dromajo BIN=/absolute/path/to/binary"))
+
+checkpoint_dromajo:
+	cd ./tb/dromajo/run/checkpoints/ && \
+	rm -rf $(notdir $(BIN)) && mkdir $(notdir $(BIN)) && cd $(notdir $(BIN)) && \
+  cp $(BIN) . && \
+	echo -e "\
+	{\n\
+    \"version\":1,\n\
+    \"machine\":\"riscv64\",\n\
+    \"memory_size\":256,\n\
+    \"bios\":\"$(shell pwd)/tb/dromajo/run/checkpoints/$(notdir $(BIN))/$(notdir $(BIN))\",\n\
+    \"memory_base_addr\":0x80000000,\n\
+    \"missing_csrs\": [0x323, 0x324, 0x325, 0x326, //mhpmevent csrs\n\
+                     0x327, 0x328, 0x329, 0x32a,\n\
+                     0x32b, 0x32c, 0x32d, 0x32e,\n\
+                     0x32f, 0x330, 0x331, 0x332,\n\
+                     0x333, 0x334, 0x335, 0x336,\n\
+                     0x337, 0x338, 0x339, 0x33a,\n\
+                     0x33b, 0x33c, 0x33d, 0x33e,\n\
+                     0x33f,\n\
+                     0x3a0, 0x3a1, 0x3a2, 0x3a3, //pmp csrs\n\
+                     0x3b0, 0x3b1, 0x3b2, 0x3b3,\n\
+                     0x3b4, 0x3b5, 0x3b6, 0x3b7,\n\
+                     0x3b8, 0x3b9, 0x3ba, 0x3bb,\n\
+                     0x3bc, 0x3bd, 0x3be, 0x3bf,\n\
+                     0x320], //mcountinhibit\n\
+    \"maxinsns\": 100,\n\
+		\"clint_base_addr\": 0x02000000,\n\
+	  \"clint_size\": 0xC0000,\n\
+	  \"plic_base_addr\": 0x0C000000,\n\
+	  \"plic_size\": 0x3FFFFFF,\n\
+	  \"uart_base_addr\": 0x10000000,\n\
+	  \"uart_size\": 0x1000\n\
+  }" > "$(notdir $(BIN))_boot.cfg" && \
+	echo -e "\
+	{\n\
+    \"version\":1,\n\
+    \"machine\":\"riscv64\",\n\
+    \"memory_size\":256,\n\
+    \"bios\":\"$(shell pwd)/tb/dromajo/run/checkpoints/$(notdir $(BIN))/$(notdir $(BIN))\",\n\
+    \"load\":\"$(shell pwd)/tb/dromajo/run/checkpoints/$(notdir $(BIN))/$(notdir $(BIN))\",\n\
+    \"skip_commit\": [0x73, 0x9002, 0x100073],\n\
+    \"memory_base_addr\":0x80000000,\n\
+		\"clint_base_addr\": 0x02000000,\n\
+	  \"clint_size\": 0xC0000,\n\
+	  \"plic_base_addr\": 0x0C000000,\n\
+	  \"plic_size\": 0x3FFFFFF,\n\
+	  \"uart_base_addr\": 0x10000000,\n\
+	  \"uart_size\": 0x1000\n\
+  }" > "$(notdir $(BIN)).cfg" && \
+  ../../../src/dromajo --save=$(notdir $(BIN)) --save_format=1 ./$(notdir $(BIN))_boot.cfg && \
+  cd ../../../../../ && \
+	./work-ver/Variane_testharness +checkpoint=$(shell pwd)/tb/dromajo/run/checkpoints/$(notdir $(BIN))/$(notdir $(BIN))
+
 
 # User Verilator, at some point in the future this will be auto-generated
-verilate:
+verilate: $(if $(DROMAJO), dromajo,)
 	@echo "[Verilator] Building Model$(if $(PROFILE), for Profiling,)"
 	$(verilate_command)
 	cd $(ver-library) && $(MAKE) -j${NUM_JOBS} -f Variane_testharness.mk
@@ -417,40 +651,11 @@ $(addsuffix -verilator,$(riscv-fp-tests)): verilate
 $(addsuffix -verilator,$(riscv-benchmarks)): verilate
 	$(ver-library)/Variane_testharness $(riscv-benchmarks-dir)/$(subst -verilator,,$@)
 
-run-asm-tests-verilator: $(addsuffix -verilator, $(riscv-asm-tests)) $(addsuffix -verilator, $(riscv-amo-tests)) $(addsuffix -verilator, $(riscv-fp-tests)) $(addsuffix -verilator, $(riscv-fp-tests))
+run-all-tests-verilator: $(addsuffix -verilator, $(riscv-asm-tests)) $(addsuffix -verilator, $(riscv-amo-tests)) $(addsuffix -verilator, $(run-mul-verilator)) $(addsuffix -verilator, $(riscv-fp-tests))
 
-# split into smaller travis jobs (otherwise they will time out)
-riscv-asm-rv64ui-v := $(filter rv64ui-v-%, $(riscv-asm-tests))
-
-riscv-asm-rv64ui-p := $(filter rv64ui-p-%, $(riscv-asm-tests))
-
-riscv-asm-rv64mi-p := $(filter rv64mi-p-%, $(riscv-asm-tests))
-
-riscv-asm-rest := $(filter-out $(riscv-asm-rv64ui-v) $(riscv-asm-rv64ui-p) $(riscv-asm-rv64mi-p), $(riscv-asm-tests))
-
-run-asm-tests1-verilator: $(addsuffix -verilator, $(filter rv64ui-v-a% rv64ui-v-b%, $(riscv-asm-rv64ui-v)))
-
-run-asm-tests2-verilator: $(addsuffix -verilator, $(filter-out rv64ui-v-a% rv64ui-v-b%, $(riscv-asm-rv64ui-v)))
-
-run-asm-tests3-verilator: $(addsuffix -verilator, $(filter rv64ui-p-a% rv64ui-p-b%, $(riscv-asm-rv64ui-p)))
-
-run-asm-tests4-verilator: $(addsuffix -verilator, $(filter-out rv64ui-p-a% rv64ui-p-b%, $(riscv-asm-rv64ui-p)))
-
-run-asm-tests5-verilator: $(addsuffix -verilator, $(riscv-asm-rv64mi-p))
-
-run-asm-tests6-verilator: $(addsuffix -verilator, $(riscv-asm-rest))
+run-asm-tests-verilator: $(addsuffix -verilator, $(riscv-asm-tests))
 
 run-amo-verilator: $(addsuffix -verilator, $(riscv-amo-tests))
-
-riscv-amo-rv64ua-v := $(filter rv64ua-v-%, $(riscv-amo-tests))
-
-riscv-amo-rv64ua-p := $(filter rv64ua-p-%, $(riscv-amo-tests))
-
-run-amo-tests1-verilator: $(addsuffix -verilator, $(filter rv64ua-v-amom%, $(riscv-amo-rv64ua-v)))
-
-run-amo-tests2-verilator: $(addsuffix -verilator, $(filter-out rv64ua-v-amom%, $(riscv-amo-rv64ua-v)))
-
-run-amo-tests3-verilator: $(addsuffix -verilator, $(riscv-amo-rv64ua-p))
 
 run-mul-verilator: $(addsuffix -verilator, $(riscv-mul-tests))
 
@@ -489,12 +694,12 @@ torture-rtest-verilator: verilate
 
 run-torture: build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles)+UVM_TESTNAME=$(test_case)                                  \
-	+BASEDIR=$(riscv-torture-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi                                      \
+	+BASEDIR=$(riscv-torture-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi                                      \
 	${top_level}_optimized +permissive-off +signature=$(riscv-torture-dir)/$(test-location).rtlsim.sig ++$(riscv-torture-dir)/$(test-location) ++$(target-options)
 
 run-torture-log: build
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles)+UVM_TESTNAME=$(test_case)                                  \
-	+BASEDIR=$(riscv-torture-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(RISCV)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi                                      \
+	+BASEDIR=$(riscv-torture-dir) $(uvm-flags) +jtag_rbb_enable=0 -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi                                      \
 	${top_level}_optimized +permissive-off +signature=$(riscv-torture-dir)/$(test-location).rtlsim.sig ++$(riscv-torture-dir)/$(test-location) ++$(target-options)
 	cp vsim.wlf $(riscv-torture-dir)/$(test-location).wlf
 	cp trace_hart_0000.log $(riscv-torture-dir)/$(test-location).trace

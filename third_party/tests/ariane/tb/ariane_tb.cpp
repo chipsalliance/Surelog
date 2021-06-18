@@ -32,7 +32,10 @@
 #include <unistd.h>
 
 #include <fesvr/dtm.h>
+#include <fesvr/htif_hexwriter.h>
+#include <fesvr/elfloader.h>
 #include "remote_bitbang.h"
+
 // This software is heavily based on Rocket Chip
 // Checkout this awesome project:
 // https://github.com/freechipsproject/rocket-chip/
@@ -44,12 +47,14 @@ static vluint64_t main_time = 0;
 
 static const char *verilog_plusargs[] = {"jtag_rbb_enable"};
 
+#ifndef DROMAJO
 extern dtm_t* dtm;
 extern remote_bitbang_t * jtag;
 
 void handle_sigterm(int sig) {
   dtm->stop();
 }
+#endif
 
 // Called by $time in Verilog converts to double, to match what SystemC does
 double sc_time_stamp () {
@@ -99,6 +104,19 @@ EMULATOR DEBUG OPTIONS (only supported in debug build -- try `make debug`)\n",
 #endif
          );
 }
+
+// In case we use the DTM we do not want to use the JTAG
+// to preload the data but only use the DTM to host fesvr functionality.
+class preload_aware_dtm_t : public dtm_t {
+  public:
+    preload_aware_dtm_t(int argc, char **argv) : dtm_t(argc, argv) {}
+    bool is_address_preloaded(addr_t taddr, size_t len) override { return true; }
+    // We do not want to reset the hart here as the reset function in `dtm_t` seems to disregard
+    // the privilege level and in general does not perform propper reset (despite the name).
+    // As all our binaries in preloading will always start at the base of DRAM this should not
+    // be such a big problem.
+    void reset() {}
+};
 
 int main(int argc, char **argv) {
   std::clock_t c_start = std::clock();
@@ -150,6 +168,9 @@ int main(int argc, char **argv) {
       case 'r': rbb_port = atoi(optarg);    break;
       case 'V': verbose = true;             break;
       case 'p': perf = true;                break;
+#ifdef DROMAJO
+			case 'D': break;
+#endif
 #if VM_TRACE
       case 'v': {
         vcdfile = strcmp(optarg, "-") == 0 ? stdout : fopen(optarg, "w");
@@ -175,6 +196,12 @@ int main(int argc, char **argv) {
           c = 'm';
           optarg = optarg+12;
         }
+#ifdef DROMAJO
+        else if (arg.substr(0, 12) == "+checkpoint=") {
+          c = 'D';
+          optarg = optarg+12;
+        }
+#endif
 #if VM_TRACE
         else if (arg.substr(0, 12) == "+dump-start=") {
           c = 'x';
@@ -233,11 +260,15 @@ int main(int argc, char **argv) {
   }
 
 done_processing:
+// allow proceeding without a binary if DROMAJO set,
+// binary will be loaded through checkpoint
+#ifndef DROMAJO
   if (optind == argc) {
     std::cerr << "No binary specified for emulator\n";
     usage(argv[0]);
     return 1;
   }
+#endif
   int htif_argc = 1 + argc - optind;
   htif_argv = (char **) malloc((htif_argc) * sizeof (char *));
   htif_argv[0] = argv[0];
@@ -246,11 +277,19 @@ done_processing:
   const char *vcd_file = NULL;
   Verilated::commandArgs(argc, argv);
 
+#ifndef DROMAJO
   jtag = new remote_bitbang_t(rbb_port);
-  dtm = new dtm_t(htif_argc, htif_argv);
+  dtm = new preload_aware_dtm_t(htif_argc, htif_argv);
   signal(SIGTERM, handle_sigterm);
+#endif
 
   std::unique_ptr<Variane_testharness> top(new Variane_testharness);
+
+  // Use an hitf hexwriter to read the binary data.
+  htif_hexwriter_t htif(0x0, 1, -1);
+  memif_t memif(&htif);
+  reg_t entry;
+  load_elf(htif_argv[1], &memif, &entry);
 
 #if VM_TRACE
   Verilated::traceEverOn(true); // Verilator must compute traced signals
@@ -279,7 +318,16 @@ done_processing:
   }
   top->rst_ni = 1;
 
+  // Preload memory.
+  size_t mem_size = 0x100000;
+  memif.read(0x80000000, mem_size, (void *)top->ariane_testharness__DOT__i_sram__DOT__gen_cut__BRA__0__KET____DOT__gen_mem__DOT__i_ram__DOT__Mem_DP);
+
+#ifndef DROMAJO
   while (!dtm->done() && !jtag->done()) {
+#else
+  // the simulation gets killed by dromajo
+  while (true) {
+#endif
     top->clk_i = 0;
     top->eval();
 #if VM_TRACE
@@ -308,6 +356,7 @@ done_processing:
     fclose(vcdfile);
 #endif
 
+#ifndef DROMAJO
   if (dtm->exit_code()) {
     fprintf(stderr, "%s *** FAILED *** (code = %d) after %ld cycles\n", htif_argv[1], dtm->exit_code(), main_time);
     ret = dtm->exit_code();
@@ -320,6 +369,7 @@ done_processing:
 
   if (dtm) delete dtm;
   if (jtag) delete jtag;
+#endif
 
   std::clock_t c_end = std::clock();
   auto t_end = std::chrono::high_resolution_clock::now();
