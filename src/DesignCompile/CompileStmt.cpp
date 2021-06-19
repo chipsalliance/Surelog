@@ -2195,11 +2195,25 @@ UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
                                        const std::string& name,
                                        CompileDesign* compileDesign) {
   UHDM::any* result = nullptr;
-  /*
-  if (ModuleInstance* instance = dynamic_cast<ModuleInstance*> (instance)) {
-
+  if (ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance)) {
+    Netlist* netlist = inst->getNetlist();
+    if (netlist) {
+      if (std::vector<UHDM::net*>* nets = netlist->nets()) {
+        for (auto net : *nets) {
+          if (net->VpiName() == name) {
+            return net;
+          }
+        }
+      }
+      if (std::vector<UHDM::variables*>* vars = netlist->variables()) {
+        for (auto var : *vars) {
+          if (var->VpiName() == name) {
+            return var;
+          }
+        }
+      }
+    }
   }
-  */
   return result;
 }
 
