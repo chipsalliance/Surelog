@@ -4673,6 +4673,30 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
         bits = c->VpiSize();
         break;
       }
+      case uhdmref_obj: {
+        ref_obj* ref = (ref_obj*)typespec;
+        if (const any* act = ref->Actual_group()) {
+          bits = Bits(act, invalidValue, component, compileDesign, instance,
+                      fileName, lineNumber, reduce, sizeMode);
+        } else {
+          invalidValue = true;
+        }
+        break;
+      }
+      case uhdmoperation: {
+        operation* op = (operation*)typespec;
+        if (op->VpiOpType() == vpiConcatOp) {
+          if (auto ops = op->Operands()) {
+            for (auto op : *ops) {
+              bits += Bits(op, invalidValue, component, compileDesign, instance,
+                           fileName, lineNumber, reduce, sizeMode);
+            }
+          }
+        } else {
+          invalidValue = true;
+        }
+        break;
+      }
       default:
         invalidValue = true;
         break;
