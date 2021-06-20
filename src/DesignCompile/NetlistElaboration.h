@@ -72,6 +72,8 @@ class NetlistElaboration : public TestbenchElaboration {
   UHDM::any* bind_net_(ModuleInstance* instance, ModuleInstance* boundInstance,
                        const std::string& name);
   UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
+  ModuleInstance* getInterfaceInstance_(ModuleInstance* instance,
+                                        const std::string& sigName);
 };
 
 };  // namespace SURELOG

@@ -38,16 +38,18 @@ class ModuleInstance : public ValuedComponentI {
                  NodeId nodeId, ModuleInstance* parent, std::string instName,
                  std::string moduleName);
   ~ModuleInstance() override;
-  void addSubInstances(ModuleInstance** subInstances,
-                       unsigned int nbSubInstances);
+  void addSubInstance(ModuleInstance* subInstance);
+  std::vector<ModuleInstance*>& getAllSubInstances() {
+    return m_allSubInstances;
+  }
   void setInstanceBinding(ModuleInstance* boundToInstance) {
     m_boundInstance = boundToInstance;
   }
   DesignComponent* getDefinition() { return m_definition; }
-  unsigned int getNbChildren() { return m_nbChildren; }
+  unsigned int getNbChildren() { return m_allSubInstances.size(); }
   ModuleInstance* getChildren(unsigned int i) {
-    if (m_children != NULL) {
-      return m_children[i];
+    if (i < m_allSubInstances.size()) {
+      return m_allSubInstances[i];
     } else {
       return NULL;
     }
@@ -83,8 +85,7 @@ class ModuleInstance : public ValuedComponentI {
 
  private:
   DesignComponent* m_definition;
-  ModuleInstance** m_children;
-  unsigned int m_nbChildren;
+  std::vector<ModuleInstance*> m_allSubInstances;
   const FileContent* m_fileContent;
   NodeId m_nodeId;
   ModuleInstance* m_parent;

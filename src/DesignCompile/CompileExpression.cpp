@@ -4836,13 +4836,13 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       if (sig->getTypeSpecId()) {
         result =
             compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign,
-                            nullptr, instance, true, true, suffixname);
+                            nullptr, instance, reduce, true, suffixname);
       } else {
         NodeId Packed_dimension = sig->getPackedDimension();
         if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
           NodeId DataType = fC->Parent(Packed_dimension);
           result = compileTypespec(component, fC, DataType, compileDesign,
-                                   nullptr, instance, true);
+                                   nullptr, instance, reduce);
         }
       }
     }
@@ -4921,20 +4921,6 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       }
     }
   }
-
-  /*
-  if (result == nullptr) {
-    ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
-    SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
-    std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-    std::string lineText =
-        StringUtils::getLineInString(fileContent, fC->Line(id));
-    Location loc(symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0,
-                 symbols->registerSymbol(basename));
-    Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
-    errors->addError(err);
-  }
-  */
   return result;
 }
 
