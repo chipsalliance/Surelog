@@ -41,8 +41,6 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                std::string modName)
     : ValuedComponentI(parent, moduleDefinition),
       m_definition(moduleDefinition),
-      m_children(NULL),
-      m_nbChildren(0),
       m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_parent(parent),
@@ -116,17 +114,13 @@ Value* ModuleInstance::getValue(const std::string& name,
 
 ModuleInstance::~ModuleInstance() {
   delete m_netlist;
-  for (unsigned int index = 0; index < m_nbChildren; index++) {
-    delete m_children[index];
+  for (unsigned int index = 0; index < m_allSubInstances.size(); index++) {
+    delete m_allSubInstances[index];
   }
-  delete[] m_children;
 }
 
-void ModuleInstance::addSubInstances(ModuleInstance** subInstances,
-                                     unsigned int nbSubInstances) {
-  if (m_children) delete[] m_children;
-  m_children = subInstances;
-  m_nbChildren = nbSubInstances;
+void ModuleInstance::addSubInstance(ModuleInstance* subInstance) {
+  m_allSubInstances.push_back(subInstance);
 }
 
 ModuleInstance* ModuleInstanceFactory::newModuleInstance(
@@ -215,21 +209,15 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   child->m_parent = this;
   std::vector<ModuleInstance*> children;
 
-  for (unsigned int i = 0; i < m_nbChildren; i++) {
-    if (m_children[i] == interm) {
-      for (unsigned int j = 0; j < interm->m_nbChildren; j++) {
-        children.push_back(interm->m_children[j]);
+  for (unsigned int i = 0; i < m_allSubInstances.size(); i++) {
+    if (m_allSubInstances[i] == interm) {
+      for (unsigned int j = 0; j < interm->m_allSubInstances.size(); j++) {
+        children.push_back(interm->m_allSubInstances[j]);
       }
     } else {
-      children.push_back(m_children[i]);
+      children.push_back(m_allSubInstances[i]);
     }
   }
 
-  ModuleInstance** newChild = new ModuleInstance*[children.size()];
-  for (unsigned int i = 0; i < children.size(); i++) {
-    newChild[i] = children[i];
-  }
-  m_nbChildren = children.size();
-  delete[] m_children;
-  m_children = newChild;
+  m_allSubInstances = children;
 }

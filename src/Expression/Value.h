@@ -128,7 +128,7 @@ class Value {
   virtual void shiftLeft(const Value* a, const Value* b) = 0;
   virtual void shiftRight(const Value* a, const Value* b) = 0;
   void setValueFactory(ValueFactory* factory) { m_valueFactory = factory; }
-  ValueFactory* getValueFactgory() { return m_valueFactory; }
+  ValueFactory* getValueFactory() { return m_valueFactory; }
 
  protected:
   unsigned int nbWords_(unsigned int size);

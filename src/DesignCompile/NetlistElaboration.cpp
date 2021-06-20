@@ -379,6 +379,152 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
   return true;
 }
 
+ModuleInstance* NetlistElaboration::getInterfaceInstance_(
+    ModuleInstance* instance, const std::string& portName) {
+  ModuleInstance* parent = instance->getParent();
+  const FileContent* fC = instance->getFileContent();
+  NodeId Udp_instantiation = instance->getNodeId();
+  const std::string& instName = instance->getFullPathName();
+  VObjectType inst_type = fC->Type(Udp_instantiation);
+
+  if ((inst_type == VObjectType::slUdp_instantiation) ||
+      (inst_type == VObjectType::slModule_instantiation) ||
+      (inst_type == VObjectType::slProgram_instantiation) ||
+      (inst_type == VObjectType::slInterface_instantiation) ||
+      (inst_type == VObjectType::slGate_instantiation)) {
+    NodeId modId = fC->Child(Udp_instantiation);
+    NodeId Udp_instance = fC->Sibling(modId);
+    if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
+      Udp_instance = fC->Sibling(Udp_instance);
+    } else if (fC->Type(Udp_instance) == VObjectType::slDelay2 ||
+               fC->Type(Udp_instance) == VObjectType::slDelay3) {
+      Udp_instance = fC->Sibling(Udp_instance);
+    }
+    NodeId Name_of_instance = fC->Child(Udp_instance);
+    NodeId Net_lvalue = 0;
+    if (fC->Type(Name_of_instance) == slName_of_instance) {
+      Net_lvalue = fC->Sibling(Name_of_instance);
+    } else {
+      Net_lvalue = Name_of_instance;
+      Name_of_instance = 0;
+    }
+    if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+      unsigned int index = 0;
+      while (Net_lvalue) {
+        std::string sigName;
+        NodeId sigId = 0;
+        if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+          NodeId Hierarchical_identifier = fC->Child(Net_lvalue);
+          if (fC->Type(fC->Child(Hierarchical_identifier)) ==
+              slHierarchical_identifier) {
+            Hierarchical_identifier =
+                fC->Child(fC->Child(Hierarchical_identifier));
+          } else if (fC->Type(Hierarchical_identifier) !=
+                     slPs_or_hierarchical_identifier) {
+            Hierarchical_identifier = Net_lvalue;
+          }
+          sigId = Hierarchical_identifier;
+          if (fC->Type(fC->Child(sigId)) == slStringConst) {
+            sigId = fC->Child(sigId);
+          }
+          sigName = fC->SymName(sigId);
+        } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
+          NodeId Primary = fC->Child(Net_lvalue);
+          NodeId Primary_literal = fC->Child(Primary);
+          sigId = fC->Child(Primary_literal);
+          sigName = fC->SymName(sigId);
+        }
+        Net_lvalue = fC->Sibling(Net_lvalue);
+        index++;
+      }
+    } else if (fC->Type(Net_lvalue) ==
+               VObjectType::slList_of_port_connections) {
+      NodeId Named_port_connection = fC->Child(Net_lvalue);
+      unsigned int index = 0;
+      bool orderedConnection = false;
+      if (fC->Type(Named_port_connection) ==
+          VObjectType::slOrdered_port_connection) {
+        orderedConnection = true;
+      }
+
+      NodeId MemNamed_port_connection = Named_port_connection;
+      while (Named_port_connection) {
+        NodeId formalId = fC->Child(Named_port_connection);
+        if (fC->Type(formalId) == VObjectType::slDotStar) {
+          // .* connection
+          break;
+        }
+        Named_port_connection = fC->Sibling(Named_port_connection);
+      }
+
+      Named_port_connection = MemNamed_port_connection;
+      while (Named_port_connection) {
+        NodeId formalId = fC->Child(Named_port_connection);
+        if (formalId == 0) break;
+        if (fC->Type(formalId) == VObjectType::slDotStar) {
+          // .* connection
+          Named_port_connection = fC->Sibling(Named_port_connection);
+          continue;
+        }
+
+        std::string formalName = fC->SymName(formalId);
+        NodeId Expression = fC->Sibling(formalId);
+        if (orderedConnection) {
+          Expression = formalId;
+          NodeId Primary = fC->Child(Expression);
+          NodeId Primary_literal = fC->Child(Primary);
+          NodeId formalNameId = fC->Child(Primary_literal);
+          formalName = fC->SymName(formalNameId);
+        } else {
+          NodeId tmp = Expression;
+          if (fC->Type(tmp) == slOpenParens) {
+            tmp = fC->Sibling(tmp);
+            if (fC->Type(tmp) == slCloseParens) {  // .p()  explicit disconnect
+              Named_port_connection = fC->Sibling(Named_port_connection);
+              index++;
+              continue;
+            } else if (fC->Type(tmp) ==
+                       slExpression) {  // .p(s) connection by name
+              formalId = tmp;
+              Expression = tmp;
+            }
+          }  // else .p implicit connection
+        }
+        NodeId sigId = formalId;
+        if (fC->Type(Expression) == slAttribute_instance) {
+          while (fC->Type(Expression) == slAttribute_instance)
+            Expression = fC->Sibling(Expression);
+        }
+        if (Expression) {
+          NodeId Primary = fC->Child(Expression);
+          NodeId Primary_literal = fC->Child(Primary);
+          sigId = fC->Child(Primary_literal);
+        }
+        std::string sigName;
+        if (fC->Name(sigId)) sigName = fC->SymName(sigId);
+        std::string baseName = sigName;
+        std::string selectName;
+        if (NodeId subId = fC->Sibling(sigId)) {
+          if (fC->Name(subId)) {
+            selectName = fC->SymName(subId);
+            sigName += std::string(".") + selectName;
+          }
+        }
+        if (formalName == portName) {
+          for (auto inst : parent->getAllSubInstances()) {
+            if (inst->getInstanceName() == sigName) {
+              return inst;
+            }
+          }
+        }
+        Named_port_connection = fC->Sibling(Named_port_connection);
+        index++;
+      }
+    }
+  }
+  return nullptr;
+}
+
 bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   ModuleInstance* parent = instance->getParent();
   const FileContent* fC = instance->getFileContent();
@@ -927,6 +1073,9 @@ interface* NetlistElaboration::elab_interface_(
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       any* net = bind_net_(instance, sig.getName());
+      if (net == nullptr) {
+        net = bind_net_(interf_instance, sig.getName());
+      }
       io->Expr(net);
       ios->push_back(io);
     }
@@ -1559,11 +1708,26 @@ bool NetlistElaboration::elab_ports_nets_(
               array->push_back(array_int);
               ref->Actual_group(array_int);
             }
+
+            const std::string& sigName = sig->getName();
+            ModuleInstance* interfaceRefInstance =
+                getInterfaceInstance_(instance, sigName);
+
             ModuleInstance* interfaceInstance = new ModuleInstance(
                 orig_interf, sig->getFileContent(), sig->getNodeId(), instance,
                 signame, orig_interf->getName());
             Netlist* netlistInterf = new Netlist(interfaceInstance);
             interfaceInstance->setNetlist(netlistInterf);
+            if (interfaceRefInstance) {
+              for (std::map<std::string, std::pair<Value*, int>>::iterator itr =
+                       interfaceRefInstance->getMappedValues().begin();
+                   itr != interfaceRefInstance->getMappedValues().end();
+                   itr++) {
+                interfaceInstance->setValue((*itr).first, (*itr).second.first,
+                                            m_exprBuilder,
+                                            (*itr).second.second);
+              }
+            }
 
             modport* mp = elab_modport_(
                 instance, interfaceInstance, signame, orig_interf->getName(),

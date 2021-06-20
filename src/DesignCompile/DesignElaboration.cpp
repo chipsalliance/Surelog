@@ -561,18 +561,8 @@ bool DesignElaboration::bindAllInstances_(ModuleInstance* parent,
     ModuleInstance* child = parent->getChildren(i);
     bindAllInstances_(child, factory, config);
   }
-  if (parentSubInstances.size()) {
-    unsigned int nbExisting = parent->getNbChildren();
-    ModuleInstance** children =
-        new ModuleInstance*[parentSubInstances.size() + nbExisting];
-    unsigned int index = 0;
-    for (; index < nbExisting; index++) {
-      children[index] = parent->getChildren(index);
-    }
-    for (; index < parentSubInstances.size() + nbExisting; index++) {
-      children[index] = parentSubInstances[index - nbExisting];
-    }
-    parent->addSubInstances(children, parentSubInstances.size() + nbExisting);
+  for (auto inst : parentSubInstances) {
+    parent->addSubInstance(inst);
   }
   return true;
 }
@@ -706,7 +696,7 @@ void DesignElaboration::elaborateInstance_(
     ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config,
     std::vector<ModuleInstance*>& parentSubInstances) {
   if (!parent) return;
-  std::vector<ModuleInstance*> allSubInstances;
+  std::vector<ModuleInstance*>& allSubInstances = parent->getAllSubInstances();
   std::string genBlkBaseName = "genblk";
   unsigned int genBlkIndex = 1;
   bool reuseInstance = false;
@@ -805,7 +795,7 @@ void DesignElaboration::elaborateInstance_(
       childId = 0;
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
-      allSubInstances.push_back(child);
+      parent->addSubInstance(child);
       bindDataTypes_(parent, def);
       NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
       nelab->elaborateInstance(child);
@@ -913,7 +903,7 @@ void DesignElaboration::elaborateInstance_(
                           m_exprBuilder, fC->Line(varId));
           elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
                              child, config, allSubInstances);
-          allSubInstances.push_back(child);
+          parent->addSubInstance(child);
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
           parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
@@ -1103,8 +1093,7 @@ void DesignElaboration::elaborateInstance_(
         if (fC->Type(childId) == slGenerate_block) break;
         if (fC->Type(childId) == slEnd) break;
       }
-      allSubInstances.push_back(child);
-
+      parent->addSubInstance(child);
     }
     // Named blocks
     else if (type == slSeq_block || type == slPar_block) {
@@ -1123,7 +1112,7 @@ void DesignElaboration::elaborateInstance_(
       elaborateInstance_(def->getFileContents()[0], subInstanceId,
                          paramOverride, factory, child, config,
                          allSubInstances);
-      allSubInstances.push_back(child);
+      parent->addSubInstance(child);
 
     }
     // Regular module binding
@@ -1349,7 +1338,7 @@ void DesignElaboration::elaborateInstance_(
               nelab->elaborateInstance(child);
               delete nelab;
             }
-            if (!reuseInstance) allSubInstances.push_back(child);
+            if (!reuseInstance) parent->addSubInstance(child);
           }
 
           hierInstId = fC->Sibling(hierInstId);
@@ -1358,20 +1347,6 @@ void DesignElaboration::elaborateInstance_(
         // std::endl;
       }
     }
-  }
-  // Record sub-scopes and sub-instances
-  if (allSubInstances.size()) {
-    unsigned int nbExisting = parent->getNbChildren();
-    ModuleInstance** children =
-        new ModuleInstance*[allSubInstances.size() + nbExisting];
-    unsigned int index = 0;
-    for (; index < nbExisting; index++) {
-      children[index] = parent->getChildren(index);
-    }
-    for (; index < allSubInstances.size() + nbExisting; index++) {
-      children[index] = allSubInstances[index - nbExisting];
-    }
-    parent->addSubInstances(children, allSubInstances.size() + nbExisting);
   }
 }
 
