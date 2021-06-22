@@ -1547,7 +1547,7 @@ void writePrimTerms(ModuleInstance* instance, primitive* prim, int vpiGateType,
     for (auto port : *ports) {
       prim_term* term = s.MakePrim_term();
       terms->push_back(term);
-      expr* hconn = (expr*) port->High_conn();
+      expr* hconn = (expr*)port->High_conn();
       hconn->VpiParent(prim);
       term->Expr(hconn);
       term->VpiFile(port->VpiFile());
