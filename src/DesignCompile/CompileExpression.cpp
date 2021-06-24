@@ -5383,8 +5383,9 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     std::string functionname = fC->SymName(Class_scope_name);
     std::string basename = packagename + "::" + functionname;
     tf_call* call = nullptr;
-    auto [tf, actual_comp] =
+    std::pair<task_func*, DesignComponent*> ret =
         getTaskFunc(basename, component, compileDesign, pexpr);
+    task_func* tf = ret.first;
     if (tf) {
       if (tf->UhdmType() == uhdmfunction) {
         func_call* fcall = s.MakeFunc_call();
