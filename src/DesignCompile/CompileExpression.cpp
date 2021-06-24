@@ -25,12 +25,13 @@
 
 #include <bitset>
 #include <iostream>
-#include "Design/Parameter.h"
+
 #include "CommandLine/CommandLineParser.h"
 #include "Design/Design.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
 #include "Design/ParamAssign.h"
+#include "Design/Parameter.h"
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
@@ -262,10 +263,9 @@ UHDM::task_func* getFuncFromPackage(const std::string& name,
   return nullptr;
 }
 
-std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(const std::string& name,
-                                            DesignComponent* component,
-                                            CompileDesign* compileDesign,
-                                            any* pexpr) {
+std::pair<UHDM::task_func*, DesignComponent*> CompileHelper::getTaskFunc(
+    const std::string& name, DesignComponent* component,
+    CompileDesign* compileDesign, any* pexpr) {
   std::pair<UHDM::task_func*, DesignComponent*> result = {nullptr, nullptr};
   DesignComponent* comp = component;
   if (strstr(name.c_str(), "::")) {
@@ -1590,7 +1590,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                 c->VpiConstType(vpiUIntConst);
                 result = c;
               } else if (ttps == uhdmenum_typespec) {
-                // TODO: Should check the value is in range of the enum and issue error if not
+                // TODO: Should check the value is in range of the enum and
+                // issue error if not
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("UINT:" + std::to_string(val0));
                 c->VpiSize(64);
@@ -1715,7 +1716,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     func_call* scall = (func_call*)result;
     const std::string& name = scall->VpiName();
     std::vector<any*>* args = scall->Tf_call_args();
-    auto [func, actual_comp] = getTaskFunc(name, component, compileDesign, pexpr);
+    auto [func, actual_comp] =
+        getTaskFunc(name, component, compileDesign, pexpr);
     function* actual_func = nullptr;
     if (func) {
       actual_func = dynamic_cast<function*>(func);
@@ -1731,7 +1733,8 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
       errors->addError(err);
       invalidValue = true;
     }
-    expr* tmp = EvalFunc(actual_func, args, invalidValue, (instance) ? actual_comp : component, compileDesign,
+    expr* tmp = EvalFunc(actual_func, args, invalidValue,
+                         (instance) ? actual_comp : component, compileDesign,
                          instance, fileName, lineNumber, pexpr);
     if (tmp && (invalidValue == false)) {
       result = tmp;
@@ -1893,7 +1896,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                     }
                   } else if (operandType == uhdmconstant) {
                     if (selectIndex == opIndex) {
-                      return (expr*) operand;
+                      return (expr*)operand;
                     }
                   }
                   opIndex++;
@@ -3721,7 +3724,8 @@ UHDM::any* CompileHelper::compileExpression(
               UHDM::func_call* fcall = s.MakeFunc_call();
               fcall->VpiName(name);
 
-              auto [func, actual_comp] = getTaskFunc(name, component, compileDesign, pexpr);
+              auto [func, actual_comp] =
+                  getTaskFunc(name, component, compileDesign, pexpr);
               fcall->Function(dynamic_cast<function*>(func));
               VectorOfany* args = compileTfCallArguments(
                   component, fC, List_of_arguments, compileDesign, fcall,
@@ -3739,9 +3743,10 @@ UHDM::any* CompileHelper::compileExpression(
                   Error err(ErrorDefinition::COMP_UNDEFINED_USER_FUNCTION, loc);
                   errors->addError(err);
                 }
-                result =
-                    EvalFunc(dynamic_cast<function*>(func), args, invalidValue, (instance) ? actual_comp : component, compileDesign,
-                             instance, fileName, lineNumber, pexpr);
+                result = EvalFunc(
+                    dynamic_cast<function*>(func), args, invalidValue,
+                    (instance) ? actual_comp : component, compileDesign,
+                    instance, fileName, lineNumber, pexpr);
               }
               if (result == nullptr || invalidValue == true) {
                 fcall->Tf_call_args(args);
@@ -5378,7 +5383,8 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     std::string functionname = fC->SymName(Class_scope_name);
     std::string basename = packagename + "::" + functionname;
     tf_call* call = nullptr;
-    auto [tf, actual_comp] = getTaskFunc(basename, component, compileDesign, pexpr);
+    auto [tf, actual_comp] =
+        getTaskFunc(basename, component, compileDesign, pexpr);
     if (tf) {
       if (tf->UhdmType() == uhdmfunction) {
         func_call* fcall = s.MakeFunc_call();
