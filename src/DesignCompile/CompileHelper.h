@@ -419,7 +419,7 @@ class CompileHelper final {
       UHDM::typespec* spec, std::vector<UHDM::range*>* packedDimensions,
       CompileDesign* compileDesign);
 
-  UHDM::task_func* getTaskFunc(const std::string& name,
+  std::pair<UHDM::task_func*, DesignComponent*> getTaskFunc(const std::string& name,
                                DesignComponent* component,
                                CompileDesign* compileDesign, UHDM::any* pexpr);
 
