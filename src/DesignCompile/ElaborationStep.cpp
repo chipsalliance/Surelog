@@ -1249,6 +1249,8 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
         var = s.MakeStruct_var();
       } else if (ttps == uhdmunion_typespec) {
         var = s.MakeUnion_var();
+      } else if (ttps == uhdmpacked_array_typespec) {
+        var = s.MakePacked_array_var();
       } else {
         var = s.MakeLogic_var();
       }
