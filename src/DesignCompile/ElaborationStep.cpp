@@ -1254,6 +1254,7 @@ any* ElaborationStep::makeVar_(DesignComponent* component, Signal* sig,
       } else {
         var = s.MakeLogic_var();
       }
+      var->VpiName(signame);
       var->Typespec(tps);
       var->Expr(assignExp);
       obj = var;
