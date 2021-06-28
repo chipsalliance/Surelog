@@ -478,6 +478,15 @@ class CompileHelper final {
                                const std::string& fileName, unsigned int lineNo,
                                unsigned short columnNo);
 
+  UHDM::expr* hierarchicalSelector(std::vector<std::string>& select_path,
+                                   unsigned int level, UHDM::any* object,
+                                   bool& invalidValue,
+                                   DesignComponent* component,
+                                   CompileDesign* compileDesign,
+                                   ValuedComponentI* instance, UHDM::any* pexpr,
+                                   const std::string& fileName, int lineNumber,
+                                   bool muteErrors);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 
