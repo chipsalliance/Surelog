@@ -186,7 +186,6 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     inst_assign->Lhs((any*)mod_assign->Lhs());
     const std::string& paramName =
         assign->getFileContent()->SymName(assign->getParamId());
-
     bool override = false;
     for (Parameter* tpm :
          instance->getTypeParams()) {  // for parameters that do not resolve to

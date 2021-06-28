@@ -1750,30 +1750,17 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     return (expr*)result;
   } else if (objtype == uhdmhier_path) {
     hier_path* path = (hier_path*)result;
-    std::string base;
-    std::string select;
-    UHDM_OBJECT_TYPE baseType = uhdmunsupported_typespec;
-    uint64_t baseIndex = 0;
-    for (auto elem : *path->Path_elems()) {
-      if (base == "") {
-        base = elem->VpiName();
-        baseType = elem->UhdmType();
-        if (baseType == uhdmbit_select) {
-          bit_select* select = (bit_select*)elem;
-          baseIndex =
-              get_value(invalidValue,
-                        reduceExpr((any*)select->VpiIndex(), invalidValue,
-                                   component, compileDesign, instance, fileName,
-                                   lineNumber, pexpr, muteErrors));
-        }
-      } else if (select == "") {
-        select = elem->VpiName();
-      }
+
+    std::string baseObject;
+    if (path->Path_elems()->size()) {
+      any* firstElem = path->Path_elems()->at(0);
+      baseObject = firstElem->VpiName();
     }
-    any* object = getObject(base, component, compileDesign, instance, pexpr);
+    any* object =
+        getObject(baseObject, component, compileDesign, instance, pexpr);
     if (object == nullptr) {
-      object = getValue(base, component, compileDesign, instance, fileName,
-                        lineNumber, pexpr, true, muteErrors);
+      object = getValue(baseObject, component, compileDesign, instance,
+                        fileName, lineNumber, pexpr, true, muteErrors);
     }
     if (object) {
       // Substitution
@@ -1786,136 +1773,28 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
                             instance, fileName, lineNumber, pexpr, muteErrors);
       }
 
-      if (variables* var = dynamic_cast<variables*>(object)) {
-        UHDM_OBJECT_TYPE ttps = var->UhdmType();
-        if (ttps == uhdmstruct_var) {
-          struct_typespec* stpt =
-              (struct_typespec*)((struct_var*)var)->Typespec();
-          for (typespec_member* member : *stpt->Members()) {
-            if (member->VpiName() == select) {
-              return (expr*)member->Default_value();
-            }
-          }
-        }
-      } else if (io_decl* decl = dynamic_cast<io_decl*>(object)) {
-        const any* exp = decl->Expr();
-        if (exp) {
-          UHDM_OBJECT_TYPE ttps = exp->UhdmType();
-          if (ttps == uhdmstruct_var) {
-            struct_typespec* stpt =
-                (struct_typespec*)((struct_var*)exp)->Typespec();
-            for (typespec_member* member : *stpt->Members()) {
-              if (member->VpiName() == select) {
-                return (expr*)member->Default_value();
-              }
-            }
-          }
-        }
-      } else if (operation* oper = dynamic_cast<operation*>(object)) {
-        int opType = oper->VpiOpType();
-
-        if (opType == vpiAssignmentPatternOp) {
-          UHDM::VectorOfany* operands = oper->Operands();
-          unsigned int ind = 0;
-          any* defaultPattern = nullptr;
-          for (auto operand : *operands) {
-            UHDM_OBJECT_TYPE operandType = operand->UhdmType();
-            if (operandType == uhdmtagged_pattern) {
-              // PartInfo.select
-              tagged_pattern* tpatt = (tagged_pattern*)operand;
-              const typespec* tps = tpatt->Typespec();
-              if (tps->VpiName() == "default") {
-                defaultPattern = (any*)tpatt->Pattern();
-              }
-              if (tps->VpiName() == select) {
-                const any* patt = tpatt->Pattern();
-                if (patt->UhdmType() == uhdmconstant ||
-                    patt->UhdmType() == uhdmoperation) {
-                  expr* ex = reduceExpr((expr*)patt, invalidValue, component,
-                                        compileDesign, instance, fileName,
-                                        lineNumber, pexpr, muteErrors);
-                  return ex;
-                }
-              }
-            } else if (operandType == uhdmoperation) {
-              // PartInfo[k].select
-              operation* op = (operation*)operand;
-              if ((baseType == uhdmbit_select) && (ind == baseIndex)) {
-                UHDM::VectorOfany* operands = op->Operands();
-                int selectIndex = 0;
-                if (component) {
-                  Parameter* baseP = component->getParameter(base);
-                  if (baseP) {
-                    parameter* p =
-                        dynamic_cast<parameter*>(baseP->getUhdmParam());
-                    if (p) {
-                      const typespec* tps = p->Typespec();
-                      if (tps) {
-                        if (tps->UhdmType() == uhdmpacked_array_typespec) {
-                          packed_array_typespec* tmp =
-                              (packed_array_typespec*)tps;
-                          tps = (typespec*)tmp->Elem_typespec();
-                        }
-                        if (tps->UhdmType() == uhdmstruct_typespec) {
-                          struct_typespec* sts = (struct_typespec*)tps;
-                          UHDM::VectorOftypespec_member* members =
-                              sts->Members();
-                          if (members) {
-                            unsigned int i = 0;
-                            for (UHDM::typespec_member* member : *members) {
-                              if (member->VpiName() == select) {
-                                selectIndex = i;
-                                break;
-                              }
-                              i++;
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                int opIndex = 0;
-                for (auto operand : *operands) {
-                  UHDM_OBJECT_TYPE operandType = operand->UhdmType();
-                  if (operandType == uhdmtagged_pattern) {
-                    tagged_pattern* tpatt = (tagged_pattern*)operand;
-                    const typespec* tps = tpatt->Typespec();
-                    if (tps->VpiName() == "default") {
-                      defaultPattern = (any*)tpatt->Pattern();
-                    }
-                    if (tps->VpiName() == select) {
-                      const any* patt = tpatt->Pattern();
-                      if (patt->UhdmType() == uhdmconstant ||
-                          patt->UhdmType() == uhdmoperation) {
-                        expr* ex = reduceExpr(
-                            (expr*)patt, invalidValue, component, compileDesign,
-                            instance, fileName, lineNumber, pexpr, muteErrors);
-                        return ex;
-                      }
-                    }
-                  } else if (operandType == uhdmconstant) {
-                    if (selectIndex == opIndex) {
-                      return (expr*)operand;
-                    }
-                  }
-                  opIndex++;
-                }
-              }
-            }
-            ind++;
-          }
-          if (defaultPattern) {
-            expr* ex = dynamic_cast<expr*>(defaultPattern);
-            if (ex)
-              ex =
-                  reduceExpr(ex, invalidValue, component, compileDesign,
-                             instance, fileName, lineNumber, pexpr, muteErrors);
-            return ex;
-          }
+      std::vector<std::string> the_path;
+      for (auto elem : *path->Path_elems()) {
+        std::string elemName = elem->VpiName();
+        elemName = StringUtils::rtrim(elemName, '[');
+        the_path.push_back(elemName);
+        if (elem->UhdmType() == uhdmbit_select) {
+          bit_select* select = (bit_select*)elem;
+          uint64_t baseIndex =
+              get_value(invalidValue,
+                        reduceExpr((any*)select->VpiIndex(), invalidValue,
+                                   component, compileDesign, instance, fileName,
+                                   lineNumber, pexpr, muteErrors));
+          the_path.push_back("[" + std::to_string(baseIndex) + "]");
         }
       }
+
+      expr* res = hierarchicalSelector(the_path, 0, object, invalidValue,
+                                       component, compileDesign, instance,
+                                       pexpr, fileName, lineNumber, muteErrors);
+      return res;
     }
+
   } else if (objtype == uhdmbit_select) {
     bit_select* sel = (bit_select*)result;
     const std::string& name = sel->VpiName();
@@ -2123,6 +2002,159 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
     if (tmp && !invalidValueTmp) result = tmp;
   }
   return (expr*)result;
+}
+
+expr* CompileHelper::hierarchicalSelector(
+    std::vector<std::string>& select_path, unsigned int level,
+    UHDM::any* object, bool& invalidValue, DesignComponent* component,
+    CompileDesign* compileDesign, ValuedComponentI* instance, UHDM::any* pexpr,
+    const std::string& fileName, int lineNumber, bool muteErrors) {
+  if (level >= select_path.size()) {
+    return (expr*)object;
+  }
+  std::string elemName = select_path[level];
+  if (level > 0) {
+  } else if (level == 0) {
+    if (variables* var = dynamic_cast<variables*>(object)) {
+      UHDM_OBJECT_TYPE ttps = var->UhdmType();
+      if (ttps == uhdmstruct_var) {
+        struct_typespec* stpt =
+            (struct_typespec*)((struct_var*)var)->Typespec();
+        for (typespec_member* member : *stpt->Members()) {
+          if (member->VpiName() == elemName) {
+            return (expr*)member->Default_value();
+          }
+        }
+      }
+    } else if (io_decl* decl = dynamic_cast<io_decl*>(object)) {
+      const any* exp = decl->Expr();
+      if (exp) {
+        UHDM_OBJECT_TYPE ttps = exp->UhdmType();
+        if (ttps == uhdmstruct_var) {
+          struct_typespec* stpt =
+              (struct_typespec*)((struct_var*)exp)->Typespec();
+          for (typespec_member* member : *stpt->Members()) {
+            if (member->VpiName() == elemName) {
+              return (expr*)member->Default_value();
+            }
+          }
+        }
+      }
+    }
+  }
+
+  int selectIndex = -1;
+  if (strstr(elemName.c_str(), "[")) {
+    std::string indexName = StringUtils::ltrim(elemName, '[');
+    indexName = StringUtils::rtrim(elemName, ']');
+    selectIndex = std::strtoull(indexName.c_str(), 0, 10);
+    elemName = "";
+    if (operation* oper = dynamic_cast<operation*>(object)) {
+      int opType = oper->VpiOpType();
+      if (opType == vpiAssignmentPatternOp) {
+        UHDM::VectorOfany* operands = oper->Operands();
+        int sInd = 0;
+        for (auto operand : *operands) {
+          if ((selectIndex >= 0) && (sInd == selectIndex)) {
+            expr* ex = hierarchicalSelector(select_path, level + 1, operand,
+                                            invalidValue, component,
+                                            compileDesign, instance, pexpr,
+                                            fileName, lineNumber, muteErrors);
+            return ex;
+          }
+          sInd++;
+        }
+      }
+    }
+
+  } else if (level == 0) {
+    expr* ex = hierarchicalSelector(
+        select_path, level + 1, object, invalidValue, component, compileDesign,
+        instance, pexpr, fileName, lineNumber, muteErrors);
+    return ex;
+  }
+
+  if (operation* oper = dynamic_cast<operation*>(object)) {
+    int opType = oper->VpiOpType();
+
+    if (opType == vpiAssignmentPatternOp) {
+      UHDM::VectorOfany* operands = oper->Operands();
+      any* defaultPattern = nullptr;
+      int sInd = 0;
+
+      int bIndex = -1;
+      if (component) {
+        Parameter* baseP = component->getParameter(select_path[0]);
+        if (baseP) {
+          parameter* p = dynamic_cast<parameter*>(baseP->getUhdmParam());
+          if (p) {
+            const typespec* tps = p->Typespec();
+            if (tps) {
+              if (tps->UhdmType() == uhdmpacked_array_typespec) {
+                packed_array_typespec* tmp = (packed_array_typespec*)tps;
+                tps = (typespec*)tmp->Elem_typespec();
+              }
+              if (tps->UhdmType() == uhdmstruct_typespec) {
+                struct_typespec* sts = (struct_typespec*)tps;
+                UHDM::VectorOftypespec_member* members = sts->Members();
+                if (members) {
+                  unsigned int i = 0;
+                  for (UHDM::typespec_member* member : *members) {
+                    if (member->VpiName() == elemName) {
+                      bIndex = i;
+                      break;
+                    }
+                    i++;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      for (auto operand : *operands) {
+        UHDM_OBJECT_TYPE operandType = operand->UhdmType();
+        if (operandType == uhdmtagged_pattern) {
+          tagged_pattern* tpatt = (tagged_pattern*)operand;
+          const typespec* tps = tpatt->Typespec();
+          if (tps->VpiName() == "default") {
+            defaultPattern = (any*)tpatt->Pattern();
+          }
+          if (elemName.size() && (tps->VpiName() == elemName)) {
+            const any* patt = tpatt->Pattern();
+            UHDM_OBJECT_TYPE pattType = patt->UhdmType();
+            if (pattType == uhdmconstant) {
+              expr* ex = reduceExpr((expr*)patt, invalidValue, component,
+                                    compileDesign, instance, fileName,
+                                    lineNumber, pexpr, muteErrors);
+              return ex;
+            } else if (pattType == uhdmoperation) {
+              expr* ex = hierarchicalSelector(
+                  select_path, level + 1, (expr*)patt, invalidValue, component,
+                  compileDesign, instance, pexpr, fileName, lineNumber,
+                  muteErrors);
+              return ex;
+            }
+          }
+        } else if (operandType == uhdmconstant) {
+          if ((bIndex >= 0) && (bIndex == sInd)) {
+            return (expr*)operand;
+          }
+        }
+        sInd++;
+      }
+      if (defaultPattern) {
+        expr* ex = dynamic_cast<expr*>(defaultPattern);
+        if (ex)
+          ex = reduceExpr(ex, invalidValue, component, compileDesign, instance,
+                          fileName, lineNumber, pexpr, muteErrors);
+        return ex;
+      }
+    }
+  }
+
+  return nullptr;
 }
 
 long double CompileHelper::get_double(bool& invalidValue,
