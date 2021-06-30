@@ -167,6 +167,10 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
           if (opType == vpiAssignmentPatternOp) {
             const any* lhs = pclone->Lhs();
             any* rhs = (any*)pclone->Rhs();
+
+            rhs = m_helper.expandPatternAssignment((expr*)lhs, (expr*)rhs, mod,
+                                                   m_compileDesign, instance);
+
             m_helper.reorderAssignmentPattern(mod, lhs, rhs, m_compileDesign,
                                               instance, 0);
           }
