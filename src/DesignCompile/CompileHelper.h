@@ -410,6 +410,11 @@ class CompileHelper final {
                               const std::string& fileName, int lineNumber,
                               UHDM::any* pexpr, bool muteErrors);
 
+  UHDM::expr* expandPatternAssignment(UHDM::expr* lhs, UHDM::expr* rhs,
+                                      DesignComponent* component,
+                                      CompileDesign* compileDesign,
+                                      ValuedComponentI* instance);
+
   uint64_t Bits(const UHDM::any* typespec, bool& invalidValue,
                 DesignComponent* component, CompileDesign* compileDesign,
                 ValuedComponentI* instance, const std::string& fileName,

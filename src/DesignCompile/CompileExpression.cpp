@@ -1857,6 +1857,19 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
               UHDM::VectorOfany* ops = op->Operands();
               if (ops && (index_val < ops->size())) {
                 result = ops->at(index_val);
+              } else if (ops) {
+                bool defaultTaggedPattern = false;
+                for (auto op : *ops) {
+                  if (op->UhdmType() == uhdmtagged_pattern) {
+                    tagged_pattern* tp = (tagged_pattern*)op;
+                    const typespec* tps = tp->Typespec();
+                    if (tps->VpiName() == "default") {
+                      defaultTaggedPattern = true;
+                      break;
+                    }
+                  }
+                }
+                if (!defaultTaggedPattern) invalidValue = true;
               } else {
                 invalidValue = true;
               }

@@ -1977,6 +1977,7 @@ module fpnew_opgroup_block #(
     localparam logic IS_FIRST_MERGED =
         fpnew_pkg::is_first_enabled_multi(fpnew_pkg::fp_format_e'(fmt), FmtUnitTypes, FpFmtMask);
     localparam DEBUGME = FpFmtMask[fmt];
+    localparam DEBUGME2 = FmtUnitTypes[fmt];
 
     // Generate slice only if format enabled
     if (FpFmtMask[fmt] && (FmtUnitTypes[fmt] == fpnew_pkg::PARALLEL)) begin : active_format
