@@ -3061,39 +3061,77 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
                                                    DesignComponent* component,
                                                    CompileDesign* compileDesign,
                                                    ValuedComponentI* instance) {
-  // Serializer& s = compileDesign->getSerializer();
+  Serializer& s = compileDesign->getSerializer();
+  
+  uint64_t size = 1;
   expr* result = rhs;
-  /*
+  VectorOfany* vars = nullptr; 
   if (lhs->UhdmType() == uhdmparameter) {
     parameter* param = (parameter*) lhs;
     const typespec* tps = param->Typespec();
-    if (tps->UhdmType() == uhdmenum_typespec) {
-      const enum_typespec* etps = (const enum_typespec*) tps;
-      const typespec* basetps = etps->Base_typespec();
-      if (basetps->UhdmType() == uhdmlogic_typespec) {
-        logic_typespec* ltps = (logic_typespec*) basetps;
-        uint64_t size = 1;
-        if (ltps->Ranges()) {
-          for (auto range : *ltps->Ranges()) {
-            bool invalidValue = false;
-            uint64_t r1 = get_value(invalidValue, range->Left_expr());
-            uint64_t r2 = get_value(invalidValue, range->Right_expr());
-            size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
-          }
+    if (tps == nullptr) 
+      return result;
+    if (tps->UhdmType() == uhdmpacked_array_typespec) {
+      vars = s.MakeAnyVec();
+      const packed_array_typespec* atps = (const packed_array_typespec*) tps;
+      if (atps->Ranges()) {
+        for (auto range : *atps->Ranges()) {
+          bool invalidValue = false;
+          uint64_t r1 = get_value(invalidValue, reduceExpr((any*) range->Left_expr(), invalidValue, component, compileDesign,
+                               instance, range->Left_expr()->VpiFile(), range->Left_expr()->VpiLineNo(), nullptr));
+          uint64_t r2 = get_value(invalidValue, reduceExpr((any*) range->Right_expr(), invalidValue, component, compileDesign,
+                               instance, range->Right_expr()->VpiFile(), range->Right_expr()->VpiLineNo(), nullptr));
+          size *= (r1 > r2) ? (r1 - r2 + 1) : (r2 - r1 + 1);
         }
-        if (size > 1) {
-          array_var* array = s.MakeArray_var();
-          VectorOfvariables* vars = s.MakeVariablesVec();
-          array->Variables(vars);
+      }
+      typespec* etps = (typespec*) atps->Elem_typespec();
+      UHDM_OBJECT_TYPE etps_type = etps->UhdmType();      
+      if (size > 1) {
+        if (etps_type == uhdmenum_typespec) { 
+          packed_array_var* array = s.MakePacked_array_var();
+          array->VpiSize(size);
+          array->Ranges(atps->Ranges());
+          array->Elements(vars);
           for (unsigned int i = 0; i < size; i++) {
-            vars->push_back(s.MakeLogic_var());
+            vars->push_back(s.MakeEnum_var());
           }
           result = array;
         }
       }
-
     }
   }
-  */
+
+  std::vector<int> values(size);
+  for (unsigned int i = 0; i < size; i++) {
+    values[i] = 0;
+  }
+  if (rhs->UhdmType() == uhdmoperation) {
+    operation* op = (operation*)rhs;
+    int opType = op->VpiOpType();
+    if (opType == vpiAssignmentPatternOp) {
+      VectorOfany* operands = op->Operands();
+      if (operands) {
+        for (any* op : *operands) {
+          if (op->UhdmType() == uhdmtagged_pattern) {
+            tagged_pattern* tp = (tagged_pattern*)op;
+            const typespec* tps = tp->Typespec();
+            if (tps->VpiName() == "default") {
+              bool invalidValue = false;
+              int val = get_value(invalidValue, reduceExpr((any*) tp->Pattern(), invalidValue, component, compileDesign,
+                               instance, tp->Pattern()->VpiFile(), tp->Pattern()->VpiLineNo(), nullptr));
+              for (unsigned int i = 0; i < size; i++) {
+                values[i] = val;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  for (unsigned int i = 0; i < size; i++) {
+    if (vars && ((int)i < (int)(vars->size() - 1))) {
+      ((variables*)(*vars)[i])->VpiValue("UINT:" + std::to_string(values[i]));
+    }
+  }
   return result;
 }
