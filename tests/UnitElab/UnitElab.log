@@ -15648,14 +15648,6 @@ design: (work@bottom1)
     |vpiGenScope:
     \_gen_scope: (work@test.g1), parent:work@test.g1
       |vpiFullName:work@test.g1
-      |vpiNet:
-      \_logic_net: (work@test.g1.a), parent:work@test.g1
-        |vpiName:a
-        |vpiFullName:work@test.g1.a
-      |vpiNet:
-      \_logic_net: (work@test.g1.b), parent:work@test.g1
-        |vpiName:b
-        |vpiFullName:work@test.g1.b
       |vpiPrimitive:
       \_gate: work@and (work@test.g1.u2), line:44, parent:work@test.g1
         |vpiDefName:work@and
@@ -15670,7 +15662,7 @@ design: (work@bottom1)
             |vpiName:a
             |vpiFullName:work@test.g1.u2.a
             |vpiActual:
-            \_logic_net: (work@test.g1.a), parent:work@test.g1
+            \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
         |vpiPrimTerm:
         \_prim_term: , line:44:16, parent:work@test.g1.u2
           |vpiDirection:1
@@ -15680,7 +15672,7 @@ design: (work@bottom1)
             |vpiName:b
             |vpiFullName:work@test.g1.u2.b
             |vpiActual:
-            \_logic_net: (work@test.g1.b), parent:work@test.g1
+            \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.g1), line:51, parent:work@test
     |vpiName:g1
@@ -15695,14 +15687,6 @@ design: (work@bottom1)
         |vpiGenScope:
         \_gen_scope: (work@test.g1.g1), parent:work@test.g1.g1
           |vpiFullName:work@test.g1.g1
-          |vpiNet:
-          \_logic_net: (work@test.g1.g1.a), parent:work@test.g1.g1
-            |vpiName:a
-            |vpiFullName:work@test.g1.g1.a
-          |vpiNet:
-          \_logic_net: (work@test.g1.g1.b), parent:work@test.g1.g1
-            |vpiName:b
-            |vpiFullName:work@test.g1.g1.b
           |vpiPrimitive:
           \_gate: work@and (work@test.g1.g1.u4), line:53, parent:work@test.g1.g1
             |vpiDefName:work@and
@@ -15717,7 +15701,7 @@ design: (work@bottom1)
                 |vpiName:a
                 |vpiFullName:work@test.g1.g1.u4.a
                 |vpiActual:
-                \_logic_net: (work@test.g1.g1.a), parent:work@test.g1.g1
+                \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
             |vpiPrimTerm:
             \_prim_term: , line:53:19, parent:work@test.g1.g1.u4
               |vpiDirection:1
@@ -15727,7 +15711,7 @@ design: (work@bottom1)
                 |vpiName:b
                 |vpiFullName:work@test.g1.g1.u4.b
                 |vpiActual:
-                \_logic_net: (work@test.g1.g1.b), parent:work@test.g1.g1
+                \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.u1), line:62, parent:work@test
     |vpiName:u1
@@ -15735,18 +15719,6 @@ design: (work@bottom1)
     |vpiGenScope:
     \_gen_scope: (work@test.u1), parent:work@test.u1
       |vpiFullName:work@test.u1
-      |vpiNet:
-      \_logic_net: (work@test.u1.a), parent:work@test.u1
-        |vpiName:a
-        |vpiFullName:work@test.u1.a
-      |vpiNet:
-      \_logic_net: (work@test.u1.b), parent:work@test.u1
-        |vpiName:b
-        |vpiFullName:work@test.u1.b
-      |vpiNet:
-      \_logic_net: (work@test.u1.c), parent:work@test.u1
-        |vpiName:c
-        |vpiFullName:work@test.u1.c
       |vpiPrimitive:
       \_gate: work@xor (work@test.u1.g1), line:64, parent:work@test.u1
         |vpiDefName:work@xor
@@ -15761,7 +15733,7 @@ design: (work@bottom1)
             |vpiName:a
             |vpiFullName:work@test.u1.g1.a
             |vpiActual:
-            \_logic_net: (work@test.u1.a), parent:work@test.u1
+            \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
         |vpiPrimTerm:
         \_prim_term: , line:64:23, parent:work@test.u1.g1
           |vpiDirection:1
@@ -15771,7 +15743,7 @@ design: (work@bottom1)
             |vpiName:b
             |vpiFullName:work@test.u1.g1.b
             |vpiActual:
-            \_logic_net: (work@test.u1.b), parent:work@test.u1
+            \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
         |vpiPrimTerm:
         \_prim_term: , line:64:26, parent:work@test.u1.g1
           |vpiDirection:1
@@ -15781,11 +15753,15 @@ design: (work@bottom1)
             |vpiName:c
             |vpiFullName:work@test.u1.g1.c
             |vpiActual:
-            \_logic_net: (work@test.u1.c), parent:work@test.u1
+            \_logic_net: (work@test.c), parent:work@test
+              |vpiName:c
+              |vpiFullName:work@test.c
   |vpiNet:
   \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
+  |vpiNet:
+  \_logic_net: (work@test.c), parent:work@test
   |vpiParamAssign:
   \_param_assign: , line:37:13, endln:37:23, parent:work@test
     |vpiRhs:
