@@ -1852,8 +1852,32 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
   if (boundInstance) {
     result = bind_net_(boundInstance, name);
   }
-  if (result == nullptr) {
+  while (result == nullptr) {
+    if (instance == nullptr)
+      break;
+    const FileContent* fC = instance->getFileContent();
+    NodeId Udp_instantiation = instance->getNodeId();
+    VObjectType insttype = fC->Type(Udp_instantiation);
+
     result = bind_net_(instance, name);
+
+    if ((insttype != VObjectType::slConditional_generate_construct) &&
+      (insttype != VObjectType::slLoop_generate_construct) &&
+      (insttype != VObjectType::slGenerate_item) &&
+      (insttype != VObjectType::slGenerate_module_conditional_statement) &&
+      (insttype != VObjectType::slGenerate_interface_conditional_statement) &&
+      (insttype != VObjectType::slGenerate_module_loop_statement) &&
+      (insttype != VObjectType::slGenerate_interface_loop_statement) &&
+      (insttype != VObjectType::slGenerate_module_named_block) &&
+      (insttype != VObjectType::slGenerate_interface_named_block) &&
+      (insttype != VObjectType::slGenerate_module_block) &&
+      (insttype != VObjectType::slGenerate_interface_block) &&
+      (insttype != VObjectType::slGenerate_module_item) &&
+      (insttype != VObjectType::slGenerate_interface_item) &&
+      (insttype != VObjectType::slGenerate_block)) {
+      break;
+    }
+    instance = instance->getParent();
   }
 
   if (Netlist* netlist = instance->getNetlist()) {
