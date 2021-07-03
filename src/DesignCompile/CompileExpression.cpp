@@ -2783,6 +2783,28 @@ UHDM::any* CompileHelper::compileExpression(
       }
       return result;
     }
+    case VObjectType::slExpression: {
+      NodeId Iff = fC->Sibling(parent);
+      if (fC->Type(Iff) == slIff) {
+        operation* op = s.MakeOperation();
+        op->VpiOpType(vpiIffOp);
+        op->VpiParent(pexpr);
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        op->Operands(operands);
+        result = op;
+        expr* lExpr =
+            (expr*)compileExpression(component, fC, child, compileDesign,
+                                     op, instance, reduce, muteErrors);
+        if (lExpr) operands->push_back(lExpr);
+        NodeId Expr = fC->Sibling(Iff);
+        expr* rExpr =
+            (expr*)compileExpression(component, fC, Expr, compileDesign,
+                                     op, instance, reduce, muteErrors);
+        if (rExpr) operands->push_back(rExpr);
+        return result;
+      }
+      break;
+    }
     case VObjectType::slClass_new: {
       UHDM::method_func_call* sys = s.MakeMethod_func_call();
       sys->VpiName("new");
