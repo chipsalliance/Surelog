@@ -2793,13 +2793,13 @@ UHDM::any* CompileHelper::compileExpression(
         op->Operands(operands);
         result = op;
         expr* lExpr =
-            (expr*)compileExpression(component, fC, child, compileDesign,
-                                     op, instance, reduce, muteErrors);
+            (expr*)compileExpression(component, fC, child, compileDesign, op,
+                                     instance, reduce, muteErrors);
         if (lExpr) operands->push_back(lExpr);
         NodeId Expr = fC->Sibling(Iff);
         expr* rExpr =
-            (expr*)compileExpression(component, fC, Expr, compileDesign,
-                                     op, instance, reduce, muteErrors);
+            (expr*)compileExpression(component, fC, Expr, compileDesign, op,
+                                     instance, reduce, muteErrors);
         if (rExpr) operands->push_back(rExpr);
         return result;
       }
