@@ -202,7 +202,7 @@ For more build/test options and system requirements for building see
   * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See the script's internal help.
 
 ## Similar projects:
-
+* [Surelog/UHDM/Yosys/Verilator] (https://github.com/chipsalliance/UHDM-integration-tests) Full SystemVerilog Syntesis / Simulation flow
 * [UHDM](https://github.com/alainmarcel/UHDM/) - Full SystemVerilog (VHDL later) VPI API for interfacing with 3rd party tools
 * [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - SystemVerilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
 * [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions
