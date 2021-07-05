@@ -3138,7 +3138,7 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
     }
   }
   for (unsigned int i = 0; i < size; i++) {
-    if (vars && ((int)i < (int)(vars->size() - 1))) {
+    if (vars && ((int)i < (int)(vars->size()))) {
       ((variables*)(*vars)[i])->VpiValue("UINT:" + std::to_string(values[i]));
     }
   }
