@@ -54,6 +54,7 @@
 #include "Utils/StringUtils.h"
 #include "clone_tree.h"
 #include "expr.h"
+#include "headers/ExprEval.h"
 #include "uhdm.h"
 #include "vpi_visitor.h"
 
@@ -5114,6 +5115,12 @@ UHDM::any* CompileHelper::compileBits(
   const typespec* tps =
       getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
   any* exp = nullptr;
+  if (!reduce && tps) {
+    UHDM::ExprEval eval;
+    if (eval.isFullySpecified(tps)) {
+      reduce = true;
+    }
+  }
   if (reduce && tps)
     bits = Bits(tps, invalidValue, component, compileDesign, instance,
                 fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
