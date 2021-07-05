@@ -54,9 +54,9 @@
 #include "Utils/StringUtils.h"
 #include "clone_tree.h"
 #include "expr.h"
+#include "headers/ExprEval.h"
 #include "uhdm.h"
 #include "vpi_visitor.h"
-#include "headers/ExprEval.h"
 
 using namespace SURELOG;
 using namespace UHDM;
