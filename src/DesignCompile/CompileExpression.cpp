@@ -96,9 +96,11 @@ expr* CompileHelper::reduceBitSelect(
       int v = bitv - '0';
       c->VpiValue("BIN:" + std::to_string(v));
       c->VpiDecompile("1'b" + std::to_string(v));
+      c->VpiConstType(vpiBinaryConst);
     } else {
       c->VpiValue("BIN:0");
       c->VpiDecompile("1'b0");
+      c->VpiConstType(vpiBinaryConst);
     }
     c->VpiFile(fileName);
     c->VpiLineNo(lineNumber);
@@ -689,6 +691,7 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         } else if (optype == uhdmbit_select) {
         } else if (optype == uhdmhier_path) {
         } else if (optype == uhdmvar_select) {
+        } else if (optype == uhdmenum_var) {
         } else if (optype != uhdmconstant) {
           constantOperands = false;
           break;
@@ -1851,7 +1854,13 @@ expr* CompileHelper::reduceExpr(any* result, bool& invalidValue,
         }
         if (object) {
           UHDM_OBJECT_TYPE otype = object->UhdmType();
-          if (otype == uhdmoperation) {
+          if (otype == uhdmpacked_array_var) {
+            packed_array_var* array = (packed_array_var*)object;
+            VectorOfany* elems = array->Elements();
+            if (index_val < elems->size()) {
+              result = elems->at(index_val);
+            }
+          } else if (otype == uhdmoperation) {
             operation* op = (operation*)object;
             int opType = op->VpiOpType();
             if (opType == vpiAssignmentPatternOp) {
@@ -2195,9 +2204,21 @@ long double CompileHelper::get_double(bool& invalidValue,
 
 int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
   int64_t result = 0;
+  int type = 0;
+  std::string v;
   if (const UHDM::constant* c = dynamic_cast<const UHDM::constant*>(expr)) {
-    int type = c->VpiConstType();
-    std::string v = c->VpiValue();
+    type = c->VpiConstType();
+    v = c->VpiValue();
+  } else if (const UHDM::variables* c =
+                 dynamic_cast<const UHDM::variables*>(expr)) {
+    if (c->UhdmType() == uhdmenum_var) {
+      type = vpiUIntConst;
+      v = c->VpiValue();
+    }
+  } else {
+    invalidValue = true;
+  }
+  if (!invalidValue) {
     switch (type) {
       case vpiBinaryConst: {
         StringUtils::ltrim(v, '\'');
@@ -2283,8 +2304,6 @@ int64_t CompileHelper::get_value(bool& invalidValue, const UHDM::expr* expr) {
         break;
       }
     }
-  } else {
-    invalidValue = true;
   }
   return result;
 }
@@ -2437,6 +2456,7 @@ any* CompileHelper::getValue(const std::string& name,
             UHDM::constant* c = s.MakeConstant();
             c->VpiValue(n->VpiValue());
             c->VpiSize(64);
+            c->VpiConstType(vpiUIntConst);
             result = c;
           }
         }

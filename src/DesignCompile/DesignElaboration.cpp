@@ -1760,6 +1760,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               if (instance) {
                 complex = true;
                 instance->setComplexValue(name, expr);
+                UHDM::operation* op = (UHDM::operation*)expr;
+                int opType = op->VpiOpType();
+                if (opType == vpiAssignmentPatternOp) {
+                  expr = m_helper.expandPatternAssignment(
+                      (UHDM::expr*)p->getUhdmParam(), expr, module,
+                      m_compileDesign, instance);
+                  instance->setComplexValue(name, expr);
+                }
+
                 m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
                                                   expr, m_compileDesign,
                                                   instance, 0);
