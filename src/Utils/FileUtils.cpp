@@ -125,7 +125,7 @@ bool FileUtils::getFullPath(const std::string& path, std::string* result) {
   return found;
 }
 
-static bool has_suffix(const std::string& s, const std::string& suffix) {
+static bool has_suffix(std::string s, std::string suffix) {
   return (s.size() >= suffix.size()) &&
          equal(suffix.rbegin(), suffix.rend(), s.rbegin());
 }
@@ -136,8 +136,8 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
                       symbols);
 }
 
-std::vector<SymbolId> FileUtils::collectFiles(const std::string& dirPath,
-                                              const std::string& ext,
+std::vector<SymbolId> FileUtils::collectFiles(const std::string dirPath,
+                                              const std::string ext,
                                               SymbolTable* symbols) {
   std::vector<SymbolId> result;
   if (fileIsDirectory(dirPath)) {
