@@ -2873,8 +2873,8 @@ constant_expression
     | constant_expression BITW_OR ( attribute_instance )* constant_expression 
     | constant_expression LOGICAL_AND ( attribute_instance )* constant_expression 
     | constant_expression LOGICAL_OR ( attribute_instance )* constant_expression  
-    | constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN constant_expression 
-    | constant_expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* constant_expression
+    | <assoc=right> constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN constant_expression 
+    | <assoc=right> constant_expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* constant_expression
     | system_task
     ;
 
