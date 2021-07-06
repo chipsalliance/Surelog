@@ -207,7 +207,7 @@ UHDM::any* CompileHelper::compileVariable(
     }
     if (result == nullptr) {
       chandle_var* ref = s.MakeChandle_var();
-      if (the_type != slChandle_type) ref->VpiName(fC->SymName(variable));
+      if (the_type != slChandle_type) ref->VpiName(typeName);
       result = ref;
     }
     result->VpiFile(fC->getFileName());
