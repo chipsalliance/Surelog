@@ -82,7 +82,8 @@ class ModuleInstance : public ValuedComponentI {
                   ExprBuilder& exprBuilder) const override;
 
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
-
+  bool isElaborated() { return m_elaborated; }
+  void setElaborated() { m_elaborated = true; }
  private:
   DesignComponent* m_definition;
   std::vector<ModuleInstance*> m_allSubInstances;
@@ -94,6 +95,7 @@ class ModuleInstance : public ValuedComponentI {
   std::vector<Parameter*> m_typeParams;
   Netlist* m_netlist;
   ModuleInstance* m_boundInstance = nullptr;
+  bool m_elaborated = false;
 };
 
 class ModuleInstanceFactory {
