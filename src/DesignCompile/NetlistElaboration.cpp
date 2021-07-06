@@ -323,8 +323,9 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
 }
 
 bool NetlistElaboration::elaborate_(ModuleInstance* instance, bool recurse) {
+  if (instance->isElaborated()) return true;
+  instance->setElaborated();
   Netlist* netlist = instance->getNetlist();
-
   bool elabPortsNets = false;
   VObjectType insttype = instance->getType();
   if ((insttype != VObjectType::slInterface_instantiation) &&
