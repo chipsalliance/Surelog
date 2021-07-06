@@ -84,6 +84,7 @@ class ModuleInstance : public ValuedComponentI {
   ModuleInstance* getInstanceBinding() { return m_boundInstance; }
   bool isElaborated() { return m_elaborated; }
   void setElaborated() { m_elaborated = true; }
+
  private:
   DesignComponent* m_definition;
   std::vector<ModuleInstance*> m_allSubInstances;
