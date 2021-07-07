@@ -4639,9 +4639,12 @@ UHDM::any* CompileHelper::compilePartSelectRange(
                           pexpr, reduce, muteErrors);
         if (v && (v->UhdmType() == uhdmconstant)) {
           constant* cv = (constant*)v;
-          Value* cvv = m_exprBuilder.fromVpiValue(cv->VpiValue(), cv->VpiSize());
-          Value* left = m_exprBuilder.fromVpiValue(lexp->VpiValue(), lexp->VpiSize());
-          Value* range = m_exprBuilder.fromVpiValue(rexp->VpiValue(), rexp->VpiSize());
+          Value* cvv =
+              m_exprBuilder.fromVpiValue(cv->VpiValue(), cv->VpiSize());
+          Value* left =
+              m_exprBuilder.fromVpiValue(lexp->VpiValue(), lexp->VpiSize());
+          Value* range =
+              m_exprBuilder.fromVpiValue(rexp->VpiValue(), rexp->VpiSize());
           uint64_t l = left->getValueUL();
           uint64_t r = range->getValueUL();
           uint64_t res = 0;
