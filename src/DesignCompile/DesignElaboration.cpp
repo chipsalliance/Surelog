@@ -1532,7 +1532,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               }
             }
             const std::string& v = c->VpiValue();
-            value = m_exprBuilder.fromVpiValue(v);
+            value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if ((exprtype == UHDM::uhdmoperation) ||
                      (exprtype == UHDM::uhdmfunc_call) ||
                      (exprtype == UHDM::uhdmsys_func_call)) {
@@ -1629,7 +1629,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           if (complexV->UhdmType() == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)complexV;
             const std::string& v = c->VpiValue();
-            value = m_exprBuilder.fromVpiValue(v);
+            value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
           } else if (complexV->UhdmType() == UHDM::uhdmoperation) {
             if (instance) {
               complex = true;
@@ -1755,7 +1755,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (expr->UhdmType() == UHDM::uhdmconstant) {
               UHDM::constant* c = (UHDM::constant*)expr;
               const std::string& v = c->VpiValue();
-              value = m_exprBuilder.fromVpiValue(v);
+              value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
             } else if (expr->UhdmType() == UHDM::uhdmoperation) {
               if (instance) {
                 complex = true;

@@ -763,21 +763,30 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
   return value;
 }
 
-Value* ExprBuilder::fromVpiValue(const std::string& s) {
+Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
   Value* val = nullptr;
   size_t pos;
   if ((pos = s.find("UINT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(s.c_str() + pos + strlen("UINT:"), 0, 10);
-    val->set(v);
+    if (size)
+      val->set(v, Value::Type::Unsigned, size);
+    else 
+      val->set(v);
   } else if ((pos = s.find("INT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(s.c_str() + pos + strlen("INT:"), 0, 10);
-    val->set(v);
+    if (size)
+      val->set(v, Value::Type::Integer, size);
+    else 
+      val->set(v);
   } else if ((pos = s.find("DEC:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     int64_t v = std::strtoll(s.c_str() + pos + strlen("DEC:"), 0, 10);
-    val->set(v);
+    if (size)
+      val->set(v, Value::Type::Integer, size);
+    else 
+      val->set(v);
   } else if ((pos = s.find("SCAL:")) != std::string::npos) {
     const char* const parse_pos = s.c_str() + pos + strlen("SCAL:");
     switch (parse_pos[0]) {
@@ -821,12 +830,18 @@ Value* ExprBuilder::fromVpiValue(const std::string& s) {
     } else {
       val = m_valueFactory.newLValue();
       uint64_t v = std::strtoull(s.c_str() + pos + strlen("HEX:"), 0, 16);
-      val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
+      if (size)      
+        val->set(v, Value::Type::Unsigned, size);
+      else 
+        val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
     }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(s.c_str() + pos + strlen("OCT:"), 0, 8);
-    val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
+    if (size)
+      val->set(v, Value::Type::Unsigned, size);
+    else 
+      val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();
     val->set(s.c_str() + pos + strlen("STRING:"));

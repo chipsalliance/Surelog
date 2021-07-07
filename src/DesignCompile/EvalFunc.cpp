@@ -407,7 +407,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
   Scopes scopes;
   FScope* scope = new FScope((instance) ? instance : component, component);
   // default return value is invalid
-  Value* defaultV = m_exprBuilder.fromVpiValue("INT:0");
+  Value* defaultV = m_exprBuilder.fromVpiValue("INT:0", 64);
   defaultV->setInvalid();
   scope->setValue(name, defaultV, m_exprBuilder);
   // set args
@@ -548,7 +548,7 @@ void CompileHelper::evalScheduledExprs(DesignComponent* component,
                    expr_eval.m_lineNumber, expr_eval.m_pexpr);
     if (result && result->UhdmType() == uhdmconstant) {
       UHDM::constant* c = (UHDM::constant*)result;
-      Value* val = m_exprBuilder.fromVpiValue(c->VpiValue());
+      Value* val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
       component->setValue(name, val, m_exprBuilder);
       for (ParamAssign* pass : component->getParamAssignVec()) {
         if (param_assign* upass = pass->getUhdmParamAssign()) {
