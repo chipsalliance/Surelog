@@ -235,8 +235,8 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
 
               constant* ccrhs = (constant*)crhs;
               const std::string& s = ccrhs->VpiValue();
-              Value* v1 = m_exprBuilder.fromVpiValue(s);
-              Value* v2 = m_exprBuilder.fromVpiValue("INT:0");
+              Value* v1 = m_exprBuilder.fromVpiValue(s, ccrhs->VpiSize());
+              Value* v2 = m_exprBuilder.fromVpiValue("INT:0", 64);
               if (*v1 > *v2) {
                 rhs = crhs;
               }

@@ -2282,7 +2282,7 @@ bool CompileHelper::compileParameterDeclaration(
           UHDM::UHDM_OBJECT_TYPE exprtype = expr->UhdmType();
           if (expr && exprtype == UHDM::uhdmconstant) {
             UHDM::constant* c = (UHDM::constant*)expr;
-            val = m_exprBuilder.fromVpiValue(c->VpiValue());
+            val = m_exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
             component->setValue(the_name, val, m_exprBuilder);
           } else if (reduce && (!isMultiDimension)) {
             UHDM::expr* the_expr = (UHDM::expr*)expr;

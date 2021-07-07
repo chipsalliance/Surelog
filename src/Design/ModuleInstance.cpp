@@ -72,7 +72,7 @@ Value* ModuleInstance::getValue(const std::string& name,
               const any* exp = param->Rhs();
               if (exp && exp->UhdmType() == uhdmconstant) {
                 constant* c = (constant*)exp;
-                sval = exprBuilder.fromVpiValue(c->VpiValue());
+                sval = exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
               }
               break;
             }
@@ -101,7 +101,7 @@ Value* ModuleInstance::getValue(const std::string& name,
           const any* exp = param->Rhs();
           if (exp->UhdmType() == uhdmconstant) {
             constant* c = (constant*)exp;
-            sval = exprBuilder.fromVpiValue(c->VpiValue());
+            sval = exprBuilder.fromVpiValue(c->VpiValue(), c->VpiSize());
           }
           break;
         }
