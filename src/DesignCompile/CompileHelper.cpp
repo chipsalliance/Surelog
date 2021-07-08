@@ -711,13 +711,12 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope,
               newTypeDef->setTypespec(logic_array_tps);
               dummy->setTypespec(logic_array_tps);
             } else {
-              packed_array_tps->Instance(scope->getUhdmInstance());
-              packed_array_tps->VpiName(name);
-              packed_array_tps->Elem_typespec(tpclone);
+              tpclone->Instance(scope->getUhdmInstance());
+              tpclone->VpiName(name);
               tpclone->Typedef_alias(ts);
-              if (typespecs) typespecs->push_back(packed_array_tps);
-              newTypeDef->setTypespec(packed_array_tps);
-              dummy->setTypespec(packed_array_tps);
+              if (typespecs) typespecs->push_back(tpclone);
+              newTypeDef->setTypespec(tpclone);
+              dummy->setTypespec(tpclone);
             }
           } else {
             tpclone->Instance(scope->getUhdmInstance());
