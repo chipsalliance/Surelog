@@ -75,12 +75,12 @@ TEST(ExprBuilderTest, BasicValueOp) {
 TEST(ExprBuilderTest, BuildFrom) {
   {
     ExprBuilder builder;
-    Value* v1 = builder.fromVpiValue("HEX:A");
-    Value* v2 = builder.fromVpiValue("INT:10");
+    Value* v1 = builder.fromVpiValue("HEX:A",4);
+    Value* v2 = builder.fromVpiValue("INT:10",0);
     Value* v3 = builder.fromString("2'b11");
     Value* v4 = builder.fromString("4'hFF_FF");
     Value* v5 = builder.fromString("-0.6");
-    Value* v6 = builder.fromVpiValue("UINT:11");
+    Value* v6 = builder.fromVpiValue("UINT:11",0);
     LValue v0;
     v0.equiv(v1, v2);
     EXPECT_EQ(v1->uhdmValue(), "UINT:10");
