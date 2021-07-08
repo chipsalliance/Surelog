@@ -820,7 +820,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
     uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
-    val->set(v, Value::Type::Unsigned, s.size() - 4);
+    val->set(v, Value::Type::Unsigned, size ? size : 0);
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*)m_valueFactory.newStValue();

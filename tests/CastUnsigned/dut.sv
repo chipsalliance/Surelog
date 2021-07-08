@@ -10,4 +10,8 @@ module top();
       end 
   end
 
-endmodule  
+endmodule // top
+
+module M;
+   parameter logic [7:0] P = '0;
+endmodule

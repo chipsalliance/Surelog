@@ -2,7 +2,7 @@
 
 LIB:  work
 FILE: dut.sv
-n<> u<0> t<Null_rule> p<106> s<105> l<2:1> el<1:2>
+n<> u<0> t<Null_rule> p<139> s<138> l<2:1> el<1:2>
 n<> u<1> t<Module_keyword> p<5> s<2> l<2:1> el<2:7>
 n<top> u<2> t<StringConst> p<5> s<4> l<2:8> el<2:11>
 n<> u<3> t<Port> p<4> l<2:12> el<2:12>
@@ -106,12 +106,49 @@ n<> u<100> t<Module_or_generate_item> p<101> c<99> l<7:3> el<11:6>
 n<> u<101> t<Non_port_module_item> p<102> c<100> l<7:3> el<11:6>
 n<> u<102> t<Module_item> p<103> c<101> l<7:3> el<11:6>
 n<> u<103> t<Module_declaration> p<104> c<5> l<2:1> el<13:10>
-n<> u<104> t<Description> p<105> c<103> l<2:1> el<13:10>
-n<> u<105> t<Source_text> p<106> c<104> l<2:1> el<13:10>
-n<> u<106> t<Top_level_rule> l<2:1> el<14:1>
+n<> u<104> t<Description> p<138> c<103> s<137> l<2:1> el<13:10>
+n<> u<105> t<Module_keyword> p<107> s<106> l<15:1> el<15:7>
+n<M> u<106> t<StringConst> p<107> l<15:8> el<15:9>
+n<> u<107> t<Module_ansi_header> p<136> c<105> s<135> l<15:1> el<15:10>
+n<> u<108> t<IntVec_TypeLogic> p<119> s<118> l<16:14> el<16:19>
+n<7> u<109> t<IntConst> p<110> l<16:21> el<16:22>
+n<> u<110> t<Primary_literal> p<111> c<109> l<16:21> el<16:22>
+n<> u<111> t<Constant_primary> p<112> c<110> l<16:21> el<16:22>
+n<> u<112> t<Constant_expression> p<117> c<111> s<116> l<16:21> el<16:22>
+n<0> u<113> t<IntConst> p<114> l<16:23> el<16:24>
+n<> u<114> t<Primary_literal> p<115> c<113> l<16:23> el<16:24>
+n<> u<115> t<Constant_primary> p<116> c<114> l<16:23> el<16:24>
+n<> u<116> t<Constant_expression> p<117> c<115> l<16:23> el<16:24>
+n<> u<117> t<Constant_range> p<118> c<112> l<16:21> el<16:24>
+n<> u<118> t<Packed_dimension> p<119> c<117> l<16:20> el<16:25>
+n<> u<119> t<Data_type> p<120> c<108> l<16:14> el<16:25>
+n<> u<120> t<Data_type_or_implicit> p<130> c<119> s<129> l<16:14> el<16:25>
+n<P> u<121> t<StringConst> p<128> s<127> l<16:26> el<16:27>
+n<> u<122> t<Number_Tick0> p<123> l<16:30> el<16:32>
+n<> u<123> t<Primary_literal> p<124> c<122> l<16:30> el<16:32>
+n<> u<124> t<Constant_primary> p<125> c<123> l<16:30> el<16:32>
+n<> u<125> t<Constant_expression> p<126> c<124> l<16:30> el<16:32>
+n<> u<126> t<Constant_mintypmax_expression> p<127> c<125> l<16:30> el<16:32>
+n<> u<127> t<Constant_param_expression> p<128> c<126> l<16:30> el<16:32>
+n<> u<128> t<Param_assignment> p<129> c<121> l<16:26> el<16:32>
+n<> u<129> t<List_of_param_assignments> p<130> c<128> l<16:26> el<16:32>
+n<> u<130> t<Parameter_declaration> p<131> c<120> l<16:4> el<16:32>
+n<> u<131> t<Package_or_generate_item_declaration> p<132> c<130> l<16:4> el<16:33>
+n<> u<132> t<Module_or_generate_item_declaration> p<133> c<131> l<16:4> el<16:33>
+n<> u<133> t<Module_common_item> p<134> c<132> l<16:4> el<16:33>
+n<> u<134> t<Module_or_generate_item> p<135> c<133> l<16:4> el<16:33>
+n<> u<135> t<Non_port_module_item> p<136> c<134> l<16:4> el<16:33>
+n<> u<136> t<Module_declaration> p<137> c<107> l<15:1> el<17:10>
+n<> u<137> t<Description> p<138> c<136> l<15:1> el<17:10>
+n<> u<138> t<Source_text> p<139> c<104> l<2:1> el<17:10>
+n<> u<139> t<Top_level_rule> l<2:1> el<18:1>
 [WRN:PA0205] dut.sv:2: No timescale set for "top".
 
+[WRN:PA0205] dut.sv:15: No timescale set for "M".
+
 [INF:CP0300] Compilation...
+
+[INF:CP0303] dut.sv:15: Compile module "work@M".
 
 [INF:CP0303] dut.sv:2: Compile module "work@top".
 
@@ -125,13 +162,17 @@ n<> u<106> t<Top_level_rule> l<2:1> el<14:1>
 
 [NTE:EL0503] dut.sv:2: Top level module "work@top".
 
-[NTE:EL0508] Nb Top level modules: 1.
+[NTE:EL0503] dut.sv:15: Top level module "work@M".
+
+[NTE:EL0504] Multiple top level modules in design.
+
+[NTE:EL0508] Nb Top level modules: 2.
 
 [NTE:EL0509] Max instance depth: 1.
 
-[NTE:EL0510] Nb instances: 1.
+[NTE:EL0510] Nb instances: 2.
 
-[NTE:EL0511] Nb leaf instances: 0.
+[NTE:EL0511] Nb leaf instances: 1.
 
 [INF:UH0706] Creating UHDM Model...
 
@@ -474,6 +515,41 @@ design: (work@top)
         |vpiSize:64
         |UINT:1
 |uhdmallModules:
+\_module: work@M (work@M) dut.sv:15:1: , endln:17:10, parent:work@top
+  |vpiDefName:work@M
+  |vpiFullName:work@M
+  |vpiParamAssign:
+  \_param_assign: , line:16:26, endln:16:32, parent:work@M
+    |vpiRhs:
+    \_constant: , line:16:30, endln:16:32
+      |vpiConstType:3
+      |vpiDecompile:'b0
+      |BIN:0
+    |vpiLhs:
+    \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
+      |vpiName:P
+      |vpiFullName:work@M.P
+      |BIN:0
+      |vpiTypespec:
+      \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
+        |vpiName:P
+        |vpiRange:
+        \_range: , line:16:21, endln:16:24
+          |vpiLeftRange:
+          \_constant: , line:16:21, endln:16:22
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+          |vpiRightRange:
+          \_constant: , line:16:23, endln:16:24
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+  |vpiParameter:
+  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
+|uhdmallModules:
 \_module: work@top (work@top) dut.sv:2:1: , endln:13:10, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
@@ -603,7 +679,6 @@ design: (work@top)
     \_constant: , line:4:26, endln:4:28
       |vpiConstType:9
       |vpiDecompile:0
-      |vpiSize:1
       |UINT:0
     |vpiLhs:
     \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
@@ -612,10 +687,45 @@ design: (work@top)
       |BIN:0
   |vpiParameter:
   \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+|uhdmtopModules:
+\_module: work@M (work@M) dut.sv:15:1: , endln:17:10
+  |vpiDefName:work@M
+  |vpiName:work@M
+  |vpiParamAssign:
+  \_param_assign: , line:16:26, endln:16:32, parent:work@M
+    |vpiRhs:
+    \_constant: , line:16:30, endln:16:32
+      |vpiConstType:9
+      |vpiDecompile:0
+      |UINT:0
+    |vpiLhs:
+    \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
+      |vpiName:P
+      |vpiFullName:work@M.P
+      |BIN:0
+      |vpiTypespec:
+      \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
+        |vpiName:P
+        |vpiRange:
+        \_range: , line:16:21, endln:16:24, parent:P
+          |vpiLeftRange:
+          \_constant: , line:16:21, endln:16:22
+            |vpiConstType:9
+            |vpiDecompile:7
+            |vpiSize:64
+            |UINT:7
+          |vpiRightRange:
+          \_constant: , line:16:23, endln:16:24
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+  |vpiParameter:
+  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 1
-[   NOTE] : 5
+[WARNING] : 2
+[   NOTE] : 7
 
