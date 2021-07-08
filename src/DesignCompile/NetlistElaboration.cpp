@@ -119,11 +119,43 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
                                           bool param_port) {
   Serializer& s = m_compileDesign->getSerializer();
   if (!instance) return true;
+  Netlist* netlist = instance->getNetlist();
+  if (netlist == nullptr) return true;
   bool en_replay =
       m_compileDesign->getCompiler()->getCommandLineParser()->replay();
   ModuleDefinition* mod =
       dynamic_cast<ModuleDefinition*>(instance->getDefinition());
-  if (!mod) return true;
+  VectorOfparam_assign* assigns = netlist->param_assigns();
+  if (!mod) {
+    if (param_port) return true;
+    for (auto mv : instance->getMappedValues()) {
+      if (assigns == nullptr) {
+        netlist->param_assigns(s.MakeParam_assignVec());
+        assigns = netlist->param_assigns();
+      }
+      const std::string& paramName = mv.first;
+      Value* value = mv.second.first;
+      unsigned int line = mv.second.second;
+      const FileContent* instfC = instance->getFileContent();
+      if (value && value->isValid()) {
+        parameter* p = s.MakeParameter();
+        p->VpiName(paramName);
+        param_assign* inst_assign = s.MakeParam_assign();
+        constant* c = s.MakeConstant();
+        c->VpiValue(value->uhdmValue());
+        c->VpiDecompile(value->decompiledValue());
+        c->VpiFile(instfC->getFileName());
+        c->VpiSize(value->getSize());
+        c->VpiConstType(value->vpiValType());
+        c->VpiLineNo(line);
+        c->VpiEndLineNo(line);
+        inst_assign->Lhs(p);
+        inst_assign->Rhs(c);
+        assigns->push_back(inst_assign);
+      }
+    }
+    return true;
+  }
   if (mod->getParameters() != nullptr) {
     // Type params
     for (auto nameParam : mod->getParameterMap()) {
@@ -132,9 +164,6 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     }
   }
   // Regular
-  Netlist* netlist = instance->getNetlist();
-  if (netlist == nullptr) return true;
-  VectorOfparam_assign* assigns = netlist->param_assigns();
   bool isMultidimensional = false;
   for (ParamAssign* assign : mod->getParamAssignVec()) {
     if (param_port ^ assign->isPortParam()) {

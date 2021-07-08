@@ -2330,6 +2330,18 @@ design: (work@simple_package)
         |vpiDefName:work@simple_package.inst::M1
         |vpiName:u1
         |vpiFullName:work@simple_package.inst.u1
+        |vpiParamAssign:
+        \_param_assign: , parent:work@simple_package.inst.u1
+          |vpiRhs:
+          \_constant: , line:8, endln:8:0
+            |vpiConstType:9
+            |vpiDecompile:2
+            |vpiSize:64
+            |UINT:2
+          |vpiLhs:
+          \_parameter: (work@simple_package.inst.SIZE), parent:work@simple_package.inst
+            |vpiName:SIZE
+            |vpiFullName:work@simple_package.inst.SIZE
       |vpiTypedef:
       \_enum_typespec: (definesPkg::bool), line:10:31, endln:10:35
       |vpiTypedef:
@@ -2343,13 +2355,9 @@ design: (work@simple_package)
           |vpiSize:64
           |UINT:2
         |vpiLhs:
-        \_parameter: (work@simple_package.inst.SIZE), line:8:13, endln:8:21, parent:work@simple_package.inst
-          |vpiName:SIZE
-          |vpiFullName:work@simple_package.inst.SIZE
-          |vpiImported:definesPkg
-          |UINT:2
+        \_parameter: (work@simple_package.inst.SIZE), parent:work@simple_package.inst
       |vpiParameter:
-      \_parameter: (work@simple_package.inst.SIZE), line:8:13, endln:8:21, parent:work@simple_package.inst
+      \_parameter: (work@simple_package.inst.SIZE), parent:work@simple_package.inst
   |vpiTaskFunc:
   \_task: (msgPkg::initMsgPkg), line:12:3, endln:15:10, parent:work@simple_package
     |vpiVisibility:1
