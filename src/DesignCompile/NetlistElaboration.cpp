@@ -875,7 +875,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           sigId = fC->Child(Primary_literal);
         }
         std::string sigName;
-        if (fC->Name(sigId)) sigName = fC->SymName(sigId);
+        if (fC->Type(sigId) == slStringConst) sigName = fC->SymName(sigId);
         std::string baseName = sigName;
         std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
