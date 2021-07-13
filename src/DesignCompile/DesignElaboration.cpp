@@ -1548,9 +1548,26 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 complexV = (UHDM::expr*)m_helper.compileExpression(
                     parentDefinition, parentFile, expr, m_compileDesign,
                     nullptr, parentInstance, false, false);
+                if (complexV->UhdmType() == UHDM::uhdmref_obj) {
+                  UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
+                  if (ref->Actual_group() == nullptr) {
+                    ref->Actual_group(m_helper.bindParameter(
+                        parentDefinition, parentInstance, ref->VpiName(),
+                        m_compileDesign, true));
+                  }
+                }
                 instance->setComplexValue(name, complexV);
               }
             }
+          } else if (exprtype == UHDM::uhdmref_obj) {
+            complex = true;
+            UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
+            if (ref->Actual_group() == nullptr) {
+              ref->Actual_group(m_helper.bindParameter(
+                  parentDefinition, parentInstance, ref->VpiName(),
+                  m_compileDesign, true));
+            }
+            instance->setComplexValue(name, complexV);
           }
         }
         if (complex == false) {

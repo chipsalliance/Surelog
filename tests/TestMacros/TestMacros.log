@@ -1,18 +1,29 @@
 [INF:CM0023] Creating log file ../../build/tests/TestMacros/slpp_all/surelog.log.
 
+[INF:CM0024] Executing with 1 threads.
+
+Running: cd ../../build/tests/TestMacros/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 768
 [SNT:PP0106] TestMacros.v:14:7: Syntax error: no viable alternative at input '`define\n',
 `define
        ^-- TestMacros.v:14:7:.
 
 [ERR:PP0111] TestMacros.v:12: Illegally redefining compiler directive "`define" as a macro name.
 
-[SNT:PA0207] macros.inc:11:3: Syntax error: mismatched input 'begin' expecting <EOF>,
-   begin 
-   ^-- ../../build/tests/TestMacros/slpp_all/work/_6142509188972423790/TestMacros.v:3:3:.
+[NTE:PP0105] macros.inc:4: Multiply defined macro "uvm_file",
+             TestMacros.v:4: previous definition.
 
+[NTE:PP0105] macros.inc:7: Multiply defined macro "uvm_line",
+             TestMacros.v:7: previous definition.
+
+[NTE:PP0105] macros.inc:10: Multiply defined macro "uvm_info",
+             TestMacros.v:10: previous definition.
+
+Running: cd ../../build/tests/TestMacros/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 [  FATAL] : 0
-[ SYNTAX] : 2
+[ SYNTAX] : 1
 [  ERROR] : 1
 [WARNING] : 0
-[   NOTE] : 0
+[   NOTE] : 3
 

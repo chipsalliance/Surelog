@@ -3560,15 +3560,27 @@ UHDM::any* CompileHelper::compileExpression(
                   UHDM::VectorOfparam_assign* param_assigns =
                       netlist->param_assigns();
                   if (param_assigns) {
-                    for (param_assign* param : *param_assigns) {
-                      if (param && param->Lhs()) {
-                        const std::string& param_name = param->Lhs()->VpiName();
+                    for (param_assign* param_ass : *param_assigns) {
+                      if (param_ass && param_ass->Lhs()) {
+                        const std::string& param_name =
+                            param_ass->Lhs()->VpiName();
                         if (param_name == name) {
-                          if (substituteAssignedValue(param->Rhs(),
+                          if (substituteAssignedValue(param_ass->Rhs(),
                                                       compileDesign)) {
                             ElaboratorListener listener(&s);
-                            result = UHDM::clone_tree((any*)param->Rhs(), s,
+                            result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
                                                       &listener);
+                            const any* lhs = param_ass->Lhs();
+                            expr* res = (expr*)result;
+                            const typespec* tps = nullptr;
+                            if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
+                              tps = ((UHDM::type_parameter*)lhs)->Typespec();
+                            } else {
+                              tps = ((UHDM::parameter*)lhs)->Typespec();
+                            }
+                            if (tps) {
+                              res->Typespec((UHDM::typespec*)tps);
+                            }
                             break;
                           }
                         }
@@ -3582,15 +3594,26 @@ UHDM::any* CompileHelper::compileExpression(
               UHDM::VectorOfparam_assign* param_assigns =
                   component->getParam_assigns();
               if (param_assigns) {
-                for (param_assign* param : *param_assigns) {
-                  if (param && param->Lhs()) {
-                    const std::string& param_name = param->Lhs()->VpiName();
+                for (param_assign* param_ass : *param_assigns) {
+                  if (param_ass && param_ass->Lhs()) {
+                    const std::string& param_name = param_ass->Lhs()->VpiName();
                     if (param_name == name) {
-                      if (substituteAssignedValue(param->Rhs(),
+                      if (substituteAssignedValue(param_ass->Rhs(),
                                                   compileDesign)) {
                         ElaboratorListener listener(&s);
-                        result =
-                            UHDM::clone_tree((any*)param->Rhs(), s, &listener);
+                        result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
+                                                  &listener);
+                        const any* lhs = param_ass->Lhs();
+                        expr* res = (expr*)result;
+                        const typespec* tps = nullptr;
+                        if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
+                          tps = ((UHDM::type_parameter*)lhs)->Typespec();
+                        } else {
+                          tps = ((UHDM::parameter*)lhs)->Typespec();
+                        }
+                        if (tps) {
+                          res->Typespec((UHDM::typespec*)tps);
+                        }
                         break;
                       }
                     }

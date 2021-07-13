@@ -2,6 +2,8 @@
 
 [INF:CM0020] Separate compilation-unit mode is on.
 
+[INF:CM0024] Executing with 1 threads.
+
 LIB: work
      ${SURELOG_DIR}/build/bin/sv/builtin.sv
      ${SURELOG_DIR}/tests/UnitPackage/definesPkg.pkg
@@ -9,6 +11,8 @@ LIB: work
      ${SURELOG_DIR}/tests/UnitPackage/simple_pkg.sv
 
 
+Running: cd ../../build/tests/UnitPackage/slpp_unit/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
 [INF:PP0122] Preprocessing source file "builtin.sv".
 
 [INF:PP0122] Preprocessing source file "definesPkg.pkg".
@@ -17,6 +21,8 @@ LIB: work
 
 [INF:PP0122] Preprocessing source file "simple_pkg.sv".
 
+Running: cd ../../build/tests/UnitPackage/slpp_unit/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 [INF:PA0201] Parsing source file "builtin.sv".
 
 [INF:PA0201] Parsing source file "definesPkg.pkg".
@@ -2719,7 +2725,7 @@ design: (work@simple_package)
           |vpiName:term
           |vpiFullName:work@simple_package.initMsgPkg.term
           |vpiActual:
-          \_io_decl: (term)
+          \_io_decl: (term), parent:msgPkg::initMsgPkg
       |vpiStmt:
       \_assignment: , line:14:5, endln:14:20, parent:work@simple_package.initMsgPkg
         |vpiOpType:82
@@ -2733,7 +2739,7 @@ design: (work@simple_package)
           |vpiName:mName
           |vpiFullName:work@simple_package.initMsgPkg.mName
           |vpiActual:
-          \_io_decl: (mName)
+          \_io_decl: (mName), parent:msgPkg::initMsgPkg
   |vpiTaskFunc:
   \_task: (msgPkg::msg_info), line:19:3, endln:21:10, parent:work@simple_package
     |vpiVisibility:1
@@ -2764,7 +2770,7 @@ design: (work@simple_package)
         |vpiName:msg
         |vpiFullName:work@simple_package.msg_info.msg
         |vpiActual:
-        \_io_decl: (msg)
+        \_io_decl: (msg), parent:msgPkg::msg_info
   |vpiTaskFunc:
   \_task: (msgPkg::msg_warn), line:25:3, endln:28:10, parent:work@simple_package
     |vpiVisibility:1
@@ -2798,7 +2804,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_warn.msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), parent:msgPkg::msg_warn
       |vpiStmt:
       \_operation: , line:27:5, endln:27:15, parent:work@simple_package.msg_warn
         |vpiOpType:62
@@ -2839,7 +2845,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_error.msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), parent:msgPkg::msg_error
       |vpiStmt:
       \_operation: , line:34:5, endln:34:14, parent:work@simple_package.msg_error
         |vpiOpType:62
@@ -2889,7 +2895,7 @@ design: (work@simple_package)
           |vpiName:msg
           |vpiFullName:work@simple_package.msg_fatal.msg
           |vpiActual:
-          \_io_decl: (msg)
+          \_io_decl: (msg), parent:msgPkg::msg_fatal
       |vpiStmt:
       \_sys_func_call: ($finish), line:42:5, endln:42:13, parent:work@simple_package.msg_fatal
         |vpiName:$finish

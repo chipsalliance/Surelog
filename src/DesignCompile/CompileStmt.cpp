@@ -1400,7 +1400,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
               param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassign_stmt) {
             assign_stmt* stmt = (assign_stmt*)st;
-            if (stmt->Rhs() == nullptr) {
+            if (stmt->Rhs() == nullptr ||
+                dynamic_cast<variables*>((expr*)stmt->Lhs())) {
               // Declaration
               VectorOfvariables* vars = task->Variables();
               if (vars == nullptr) {
@@ -1408,6 +1409,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 vars = task->Variables();
               }
               vars->push_back((variables*)stmt->Lhs());
+              if (stmt->Rhs() != nullptr) {
+                stmts->push_back(st);
+              }
             } else {
               stmts->push_back(st);
             }
@@ -1437,7 +1441,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
               param_assigns->push_back(pst);
           } else if (stmt_type == uhdmassign_stmt) {
             assign_stmt* stmt = (assign_stmt*)st;
-            if (stmt->Rhs() == nullptr) {
+            if (stmt->Rhs() == nullptr ||
+                dynamic_cast<variables*>((expr*)stmt->Lhs())) {
               // Declaration
               VectorOfvariables* vars = task->Variables();
               if (vars == nullptr) {
@@ -1445,6 +1450,9 @@ bool CompileHelper::compileTask(DesignComponent* component,
                 vars = task->Variables();
               }
               vars->push_back((variables*)stmt->Lhs());
+              if (stmt->Rhs() != nullptr) {
+                task->Stmt(st);
+              }
             } else {
               task->Stmt(st);
             }
@@ -1734,7 +1742,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                 param_assigns->push_back(pst);
             } else if (stmt_type == uhdmassign_stmt) {
               assign_stmt* stmt = (assign_stmt*)st;
-              if (stmt->Rhs() == nullptr) {
+              if (stmt->Rhs() == nullptr ||
+                  dynamic_cast<variables*>((expr*)stmt->Lhs())) {
                 // Declaration
                 VectorOfvariables* vars = func->Variables();
                 if (vars == nullptr) {
@@ -1742,6 +1751,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
                   vars = func->Variables();
                 }
                 vars->push_back((variables*)stmt->Lhs());
+                if (stmt->Rhs() != nullptr) {
+                  stmts->push_back(st);
+                }
               } else {
                 stmts->push_back(st);
               }
@@ -1773,7 +1785,8 @@ bool CompileHelper::compileFunction(DesignComponent* component,
             param_assigns->push_back(pst);
         } else if (stmt_type == uhdmassign_stmt) {
           assign_stmt* stmt = (assign_stmt*)st;
-          if (stmt->Rhs() == nullptr) {
+          if (stmt->Rhs() == nullptr ||
+              dynamic_cast<variables*>((expr*)stmt->Lhs())) {
             // Declaration
             VectorOfvariables* vars = func->Variables();
             if (vars == nullptr) {
@@ -1781,6 +1794,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
               vars = func->Variables();
             }
             vars->push_back((variables*)stmt->Lhs());
+            if (stmt->Rhs() != nullptr) {
+              func->Stmt(st);
+            }
           } else {
             func->Stmt(st);
           }
@@ -2188,6 +2204,33 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component,
   */
 
   return for_stmt;
+}
+
+UHDM::any* CompileHelper::bindParameter(DesignComponent* component,
+                                        ValuedComponentI* instance,
+                                        const std::string& name,
+                                        CompileDesign* compileDesign,
+                                        bool crossHierarchy) {
+  if (instance) {
+    ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
+    while (inst) {
+      if (Netlist* netlist = inst->getNetlist()) {
+        if (netlist->param_assigns()) {
+          for (param_assign* pass : *netlist->param_assigns()) {
+            if (pass->Lhs()->VpiName() == name) {
+              return (any*)pass->Lhs();
+            }
+          }
+        }
+      }
+      if (crossHierarchy) {
+        inst = inst->getParent();
+      } else {
+        break;
+      }
+    }
+  }
+  return nullptr;
 }
 
 UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
