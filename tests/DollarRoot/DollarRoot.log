@@ -11128,6 +11128,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.translate_master_to_slave_address.slave_id), line:664:19, endln:664:27, parent:work@test_program.translate_master_to_slave_address
             |vpiName:slave_id
             |vpiFullName:work@test_program.translate_master_to_slave_address.slave_id
+            |vpiActual:
+            \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:7, endln:661:10
           |vpiOperand:
           \_ref_obj: (work@test_program.translate_master_to_slave_address.SLAVE_SPAN), line:664:30, endln:664:40
             |vpiName:SLAVE_SPAN
@@ -11199,6 +11201,8 @@ design: (work@top)
             |vpiFullName:work@test_program.translate_master_to_slave_address.NUM_SYMBOLS
             |vpiActual:
             \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
+    |vpiVariables:
+    \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:7, endln:661:10
     |vpiVariables:
     \_logic_var: (work@test_program.translate_master_to_slave_address.base_addr), line:662:7, endln:662:12
     |vpiVariables:
@@ -11606,6 +11610,8 @@ design: (work@top)
       |vpiFullName:work@test_program.get_expected_command_for_slave.exp_cmd
       |vpiTypespec:
       \_struct_typespec: (Command), line:45:12, endln:45:18
+    |vpiVariables:
+    \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10
   |vpiTaskFunc:
   \_task: (work@test_program.verify_command), line:719:4, endln:733:11, parent:work@test_program
     |vpiVisibility:1
@@ -12209,6 +12215,8 @@ design: (work@top)
             \_ref_obj: (work@test_program.get_expected_read_response.slave_id), line:781:39, endln:781:47, parent:work@test_program.get_expected_read_response
               |vpiName:slave_id
               |vpiFullName:work@test_program.get_expected_read_response.slave_id
+              |vpiActual:
+              \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:7, endln:779:10
           |vpiActual:
           \_ref_obj: (pop_front)
             |vpiName:pop_front
@@ -12220,6 +12228,8 @@ design: (work@top)
           |vpiFullName:work@test_program.get_expected_read_response.rsp
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:7, endln:778:15
+    |vpiVariables:
+    \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:7, endln:779:10
   |vpiTaskFunc:
   \_task: (work@test_program.verify_response), line:786:4, endln:795:11, parent:work@test_program
     |vpiVisibility:1
@@ -14194,11 +14204,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.addr
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
-              |vpiName:cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
           |vpiActual:
           \_ref_obj: (addr), parent:cmd.addr
             |vpiName:addr
@@ -14212,7 +14218,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.burstcount
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
           |vpiActual:
           \_ref_obj: (burstcount), parent:cmd.burstcount
             |vpiName:burstcount
@@ -14226,7 +14232,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.burstcount
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
           |vpiActual:
           \_ref_obj: (burstcount), parent:cmd.burstcount
             |vpiName:burstcount
@@ -14240,7 +14246,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.cmd_delay
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
           |vpiActual:
           \_ref_obj: (cmd_delay), parent:cmd.cmd_delay
             |vpiName:cmd_delay
@@ -14256,7 +14262,7 @@ design: (work@top)
             \_ref_obj: (cmd), parent:cmd.trans
               |vpiName:cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
             |vpiActual:
             \_ref_obj: (trans), parent:cmd.trans
               |vpiName:trans
@@ -14293,7 +14299,7 @@ design: (work@top)
                 \_ref_obj: (cmd), parent:cmd.burstcount
                   |vpiName:cmd
                   |vpiActual:
-                  \_io_decl: (cmd)
+                  \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
                 |vpiActual:
                 \_ref_obj: (burstcount), parent:cmd.burstcount
                   |vpiName:burstcount
@@ -14329,7 +14335,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.data[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
                   |vpiActual:
                   \_bit_select: (data), parent:cmd.data[i]
                     |vpiName:data
@@ -14351,7 +14357,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.byteenable[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
                   |vpiActual:
                   \_bit_select: (byteenable), parent:cmd.byteenable[i]
                     |vpiName:byteenable
@@ -14373,7 +14379,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.data_idles[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
                   |vpiActual:
                   \_bit_select: (data_idles), parent:cmd.data_idles[i]
                     |vpiName:data_idles
@@ -14405,7 +14411,7 @@ design: (work@top)
               \_ref_obj: (cmd), parent:cmd.data_idles[0]
                 |vpiName:cmd
                 |vpiActual:
-                \_io_decl: (cmd)
+                \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_0
               |vpiActual:
               \_bit_select: (data_idles), parent:cmd.data_idles[0]
                 |vpiName:data_idles
@@ -14900,11 +14906,7 @@ design: (work@top)
           \_ref_obj: (rsp), parent:rsp.burstcount
             |vpiName:rsp
             |vpiActual:
-            \_io_decl: (rsp)
-              |vpiName:rsp
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Response), line:56:12, endln:56:18
+            \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
           |vpiActual:
           \_ref_obj: (burstcount), parent:rsp.burstcount
             |vpiName:burstcount
@@ -14925,7 +14927,7 @@ design: (work@top)
             \_ref_obj: (rsp), parent:rsp.burstcount
               |vpiName:rsp
               |vpiActual:
-              \_io_decl: (rsp)
+              \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
             |vpiActual:
             \_ref_obj: (burstcount), parent:rsp.burstcount
               |vpiName:burstcount
@@ -14961,7 +14963,7 @@ design: (work@top)
               \_ref_obj: (rsp), parent:rsp.data[i]
                 |vpiName:rsp
                 |vpiActual:
-                \_io_decl: (rsp)
+                \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
               |vpiActual:
               \_bit_select: (data), parent:rsp.data[i]
                 |vpiName:data
@@ -15004,7 +15006,7 @@ design: (work@top)
                     \_ref_obj: (rsp), parent:rsp.latency[i]
                       |vpiName:rsp
                       |vpiActual:
-                      \_io_decl: (rsp)
+                      \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
                     |vpiActual:
                     \_bit_select: (latency), parent:rsp.latency[i]
                       |vpiName:latency
@@ -15031,7 +15033,7 @@ design: (work@top)
                   |vpiName:read_response_latency
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
                   |vpiActual:
-                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10, parent:work@test_program.configure_and_push_response_to_slave_0
                     |vpiName:read_response_latency
                     |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
                 |vpiRhs:
@@ -15041,7 +15043,7 @@ design: (work@top)
                   \_ref_obj: (rsp), parent:rsp.latency[i]
                     |vpiName:rsp
                     |vpiActual:
-                    \_io_decl: (rsp)
+                    \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
                   |vpiActual:
                   \_bit_select: (latency), parent:rsp.latency[i]
                     |vpiName:latency
@@ -15062,7 +15064,7 @@ design: (work@top)
                   \_ref_obj: (rsp), parent:rsp.latency[i]
                     |vpiName:rsp
                     |vpiActual:
-                    \_io_decl: (rsp)
+                    \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
                   |vpiActual:
                   \_bit_select: (latency), parent:rsp.latency[i]
                     |vpiName:latency
@@ -15083,7 +15085,7 @@ design: (work@top)
                   |vpiName:read_response_latency
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
                   |vpiActual:
-                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10, parent:work@test_program.configure_and_push_response_to_slave_0
                 |vpiRhs:
                 \_operation: , line:356:37, endln:356:51
                   |vpiOpType:24
@@ -15094,7 +15096,7 @@ design: (work@top)
                     \_ref_obj: (rsp), parent:rsp.latency[i]
                       |vpiName:rsp
                       |vpiActual:
-                      \_io_decl: (rsp)
+                      \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
                     |vpiActual:
                     \_bit_select: (latency), parent:rsp.latency[i]
                       |vpiName:latency
@@ -15107,7 +15109,7 @@ design: (work@top)
                     |vpiName:read_response_latency
                     |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
                     |vpiActual:
-                    \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10
+                    \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10, parent:work@test_program.configure_and_push_response_to_slave_0
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_0.push_response), line:360:7, endln:360:44, parent:work@test_program.configure_and_push_response_to_slave_0
         |vpiName:$root.tb.dut.slave_0.push_response
@@ -15141,7 +15143,7 @@ design: (work@top)
                 |vpiName:read_response_latency
                 |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
                 |vpiActual:
-                \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10
+                \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10, parent:work@test_program.configure_and_push_response_to_slave_0
             |vpiOperand:
             \_hier_path: (rsp.burstcount), line:361:91, endln:361:105
               |vpiName:rsp.burstcount
@@ -15149,7 +15151,7 @@ design: (work@top)
               \_ref_obj: (rsp), parent:rsp.burstcount
                 |vpiName:rsp
                 |vpiActual:
-                \_io_decl: (rsp)
+                \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_0
               |vpiActual:
               \_ref_obj: (burstcount), parent:rsp.burstcount
                 |vpiName:burstcount
@@ -15161,8 +15163,6 @@ design: (work@top)
             |UINT:1
     |vpiVariables:
     \_int_var: (work@test_program.configure_and_push_response_to_slave_0.read_response_latency), line:344:7, endln:344:10, parent:work@test_program.configure_and_push_response_to_slave_0
-      |vpiName:read_response_latency
-      |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.read_response_latency
   |vpiTaskFunc:
   \_task: (work@test_program.configure_and_push_command_to_master_1), line:367:4, endln:388:11, parent:work@test_program
     |vpiVisibility:1
@@ -15190,11 +15190,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.addr
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
-              |vpiName:cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
           |vpiActual:
           \_ref_obj: (addr), parent:cmd.addr
             |vpiName:addr
@@ -15208,7 +15204,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.burstcount
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
           |vpiActual:
           \_ref_obj: (burstcount), parent:cmd.burstcount
             |vpiName:burstcount
@@ -15222,7 +15218,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.burstcount
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
           |vpiActual:
           \_ref_obj: (burstcount), parent:cmd.burstcount
             |vpiName:burstcount
@@ -15236,7 +15232,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.cmd_delay
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
           |vpiActual:
           \_ref_obj: (cmd_delay), parent:cmd.cmd_delay
             |vpiName:cmd_delay
@@ -15252,7 +15248,7 @@ design: (work@top)
             \_ref_obj: (cmd), parent:cmd.trans
               |vpiName:cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
             |vpiActual:
             \_ref_obj: (trans), parent:cmd.trans
               |vpiName:trans
@@ -15289,7 +15285,7 @@ design: (work@top)
                 \_ref_obj: (cmd), parent:cmd.burstcount
                   |vpiName:cmd
                   |vpiActual:
-                  \_io_decl: (cmd)
+                  \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
                 |vpiActual:
                 \_ref_obj: (burstcount), parent:cmd.burstcount
                   |vpiName:burstcount
@@ -15325,7 +15321,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.data[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
                   |vpiActual:
                   \_bit_select: (data), parent:cmd.data[i]
                     |vpiName:data
@@ -15347,7 +15343,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.byteenable[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
                   |vpiActual:
                   \_bit_select: (byteenable), parent:cmd.byteenable[i]
                     |vpiName:byteenable
@@ -15369,7 +15365,7 @@ design: (work@top)
                   \_ref_obj: (cmd), parent:cmd.data_idles[i]
                     |vpiName:cmd
                     |vpiActual:
-                    \_io_decl: (cmd)
+                    \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
                   |vpiActual:
                   \_bit_select: (data_idles), parent:cmd.data_idles[i]
                     |vpiName:data_idles
@@ -15401,7 +15397,7 @@ design: (work@top)
               \_ref_obj: (cmd), parent:cmd.data_idles[0]
                 |vpiName:cmd
                 |vpiActual:
-                \_io_decl: (cmd)
+                \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master_1
               |vpiActual:
               \_bit_select: (data_idles), parent:cmd.data_idles[0]
                 |vpiName:data_idles
@@ -15896,11 +15892,7 @@ design: (work@top)
           \_ref_obj: (rsp), parent:rsp.burstcount
             |vpiName:rsp
             |vpiActual:
-            \_io_decl: (rsp)
-              |vpiName:rsp
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Response), line:56:12, endln:56:18
+            \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
           |vpiActual:
           \_ref_obj: (burstcount), parent:rsp.burstcount
             |vpiName:burstcount
@@ -15921,7 +15913,7 @@ design: (work@top)
             \_ref_obj: (rsp), parent:rsp.burstcount
               |vpiName:rsp
               |vpiActual:
-              \_io_decl: (rsp)
+              \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
             |vpiActual:
             \_ref_obj: (burstcount), parent:rsp.burstcount
               |vpiName:burstcount
@@ -15957,7 +15949,7 @@ design: (work@top)
               \_ref_obj: (rsp), parent:rsp.data[i]
                 |vpiName:rsp
                 |vpiActual:
-                \_io_decl: (rsp)
+                \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
               |vpiActual:
               \_bit_select: (data), parent:rsp.data[i]
                 |vpiName:data
@@ -16000,7 +15992,7 @@ design: (work@top)
                     \_ref_obj: (rsp), parent:rsp.latency[i]
                       |vpiName:rsp
                       |vpiActual:
-                      \_io_decl: (rsp)
+                      \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
                     |vpiActual:
                     \_bit_select: (latency), parent:rsp.latency[i]
                       |vpiName:latency
@@ -16027,7 +16019,7 @@ design: (work@top)
                   |vpiName:read_response_latency
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
                   |vpiActual:
-                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10, parent:work@test_program.configure_and_push_response_to_slave_1
                     |vpiName:read_response_latency
                     |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
                 |vpiRhs:
@@ -16037,7 +16029,7 @@ design: (work@top)
                   \_ref_obj: (rsp), parent:rsp.latency[i]
                     |vpiName:rsp
                     |vpiActual:
-                    \_io_decl: (rsp)
+                    \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
                   |vpiActual:
                   \_bit_select: (latency), parent:rsp.latency[i]
                     |vpiName:latency
@@ -16058,7 +16050,7 @@ design: (work@top)
                   \_ref_obj: (rsp), parent:rsp.latency[i]
                     |vpiName:rsp
                     |vpiActual:
-                    \_io_decl: (rsp)
+                    \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
                   |vpiActual:
                   \_bit_select: (latency), parent:rsp.latency[i]
                     |vpiName:latency
@@ -16079,7 +16071,7 @@ design: (work@top)
                   |vpiName:read_response_latency
                   |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
                   |vpiActual:
-                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10
+                  \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10, parent:work@test_program.configure_and_push_response_to_slave_1
                 |vpiRhs:
                 \_operation: , line:499:37, endln:499:51
                   |vpiOpType:24
@@ -16090,7 +16082,7 @@ design: (work@top)
                     \_ref_obj: (rsp), parent:rsp.latency[i]
                       |vpiName:rsp
                       |vpiActual:
-                      \_io_decl: (rsp)
+                      \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
                     |vpiActual:
                     \_bit_select: (latency), parent:rsp.latency[i]
                       |vpiName:latency
@@ -16103,7 +16095,7 @@ design: (work@top)
                     |vpiName:read_response_latency
                     |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
                     |vpiActual:
-                    \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10
+                    \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10, parent:work@test_program.configure_and_push_response_to_slave_1
       |vpiStmt:
       \_func_call: ($root.tb.dut.slave_1.push_response), line:503:7, endln:503:44, parent:work@test_program.configure_and_push_response_to_slave_1
         |vpiName:$root.tb.dut.slave_1.push_response
@@ -16137,7 +16129,7 @@ design: (work@top)
                 |vpiName:read_response_latency
                 |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
                 |vpiActual:
-                \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10
+                \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10, parent:work@test_program.configure_and_push_response_to_slave_1
             |vpiOperand:
             \_hier_path: (rsp.burstcount), line:504:91, endln:504:105
               |vpiName:rsp.burstcount
@@ -16145,7 +16137,7 @@ design: (work@top)
               \_ref_obj: (rsp), parent:rsp.burstcount
                 |vpiName:rsp
                 |vpiActual:
-                \_io_decl: (rsp)
+                \_io_decl: (rsp), parent:work@test_program.configure_and_push_response_to_slave_1
               |vpiActual:
               \_ref_obj: (burstcount), parent:rsp.burstcount
                 |vpiName:burstcount
@@ -16157,8 +16149,6 @@ design: (work@top)
             |UINT:1
     |vpiVariables:
     \_int_var: (work@test_program.configure_and_push_response_to_slave_1.read_response_latency), line:487:7, endln:487:10, parent:work@test_program.configure_and_push_response_to_slave_1
-      |vpiName:read_response_latency
-      |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.read_response_latency
   |vpiTaskFunc:
   \_task: (work@test_program.master_send_commands), line:544:4, endln:568:11, parent:work@test_program
     |vpiVisibility:1
@@ -16210,11 +16200,7 @@ design: (work@top)
             |vpiName:num_command
             |vpiFullName:work@test_program.master_send_commands.num_command
             |vpiActual:
-            \_io_decl: (num_command)
-              |vpiName:num_command
-              |vpiDirection:1
-              |vpiTypedef:
-              \_int_typespec: , line:545:7, endln:545:10
+            \_io_decl: (num_command), parent:work@test_program.master_send_commands
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@test_program.master_send_commands
           |vpiRhs:
@@ -16246,7 +16232,7 @@ design: (work@top)
               |vpiName:master_id
               |vpiFullName:work@test_program.master_send_commands.master_id
               |vpiActual:
-              \_int_var: (work@test_program.master_send_commands.master_id), line:552:7, endln:552:10
+              \_int_var: (work@test_program.master_send_commands.master_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
                 |vpiName:master_id
                 |vpiFullName:work@test_program.master_send_commands.master_id
             |vpiRhs:
@@ -16282,7 +16268,7 @@ design: (work@top)
               |vpiName:slave_id
               |vpiFullName:work@test_program.master_send_commands.slave_id
               |vpiActual:
-              \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10
+              \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
                 |vpiName:slave_id
                 |vpiFullName:work@test_program.master_send_commands.slave_id
             |vpiRhs:
@@ -16318,7 +16304,7 @@ design: (work@top)
               |vpiName:cmd
               |vpiFullName:work@test_program.master_send_commands.cmd
               |vpiActual:
-              \_struct_var: (work@test_program.master_send_commands.cmd), line:550:7, endln:550:14
+              \_struct_var: (work@test_program.master_send_commands.cmd), line:550:7, endln:550:14, parent:work@test_program.master_send_commands
                 |vpiName:cmd
                 |vpiFullName:work@test_program.master_send_commands.cmd
                 |vpiTypespec:
@@ -16333,27 +16319,19 @@ design: (work@top)
                 |vpiName:trans
                 |vpiFullName:work@test_program.master_send_commands.trans
                 |vpiActual:
-                \_io_decl: (trans)
-                  |vpiName:trans
-                  |vpiDirection:1
-                  |vpiTypedef:
-                  \_enum_typespec: (Transaction), line:37:6, endln:37:17
+                \_io_decl: (trans), parent:work@test_program.master_send_commands
               |vpiArgument:
               \_ref_obj: (work@test_program.master_send_commands.burstmode), line:562:24, endln:562:33, parent:create_command
                 |vpiName:burstmode
                 |vpiFullName:work@test_program.master_send_commands.burstmode
                 |vpiActual:
-                \_io_decl: (burstmode)
-                  |vpiName:burstmode
-                  |vpiDirection:1
-                  |vpiTypedef:
-                  \_enum_typespec: (Burstmode), line:43:6, endln:43:15
+                \_io_decl: (burstmode), parent:work@test_program.master_send_commands
               |vpiArgument:
               \_ref_obj: (work@test_program.master_send_commands.slave_id), line:563:23, endln:563:31, parent:create_command
                 |vpiName:slave_id
                 |vpiFullName:work@test_program.master_send_commands.slave_id
                 |vpiActual:
-                \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10
+                \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
           |vpiStmt:
           \_task_call: (queue_command), line:565:10, endln:565:50, parent:work@test_program.master_send_commands
             |vpiName:queue_command
@@ -16364,25 +16342,21 @@ design: (work@top)
               |vpiName:cmd
               |vpiFullName:work@test_program.master_send_commands.cmd
               |vpiActual:
-              \_struct_var: (work@test_program.master_send_commands.cmd), line:550:7, endln:550:14
+              \_struct_var: (work@test_program.master_send_commands.cmd), line:550:7, endln:550:14, parent:work@test_program.master_send_commands
             |vpiArgument:
             \_ref_obj: (work@test_program.master_send_commands.master_id), line:565:29, endln:565:38, parent:queue_command
               |vpiName:master_id
               |vpiFullName:work@test_program.master_send_commands.master_id
               |vpiActual:
-              \_int_var: (work@test_program.master_send_commands.master_id), line:552:7, endln:552:10
+              \_int_var: (work@test_program.master_send_commands.master_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
             |vpiArgument:
             \_ref_obj: (work@test_program.master_send_commands.slave_id), line:565:40, endln:565:48, parent:queue_command
               |vpiName:slave_id
               |vpiFullName:work@test_program.master_send_commands.slave_id
               |vpiActual:
-              \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10
+              \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.cmd), line:550:7, endln:550:14, parent:work@test_program.master_send_commands
-      |vpiName:cmd
-      |vpiFullName:work@test_program.master_send_commands.cmd
-      |vpiTypespec:
-      \_struct_typespec: (Command), line:45:12, endln:45:18
     |vpiVariables:
     \_struct_var: (work@test_program.master_send_commands.rsp), line:551:7, endln:551:15, parent:work@test_program.master_send_commands
       |vpiName:rsp
@@ -16397,12 +16371,8 @@ design: (work@top)
       \_struct_typespec: (Response), line:56:12, endln:56:18
     |vpiVariables:
     \_int_var: (work@test_program.master_send_commands.master_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
-      |vpiName:master_id
-      |vpiFullName:work@test_program.master_send_commands.master_id
     |vpiVariables:
     \_int_var: (work@test_program.master_send_commands.slave_id), line:552:7, endln:552:10, parent:work@test_program.master_send_commands
-      |vpiName:slave_id
-      |vpiFullName:work@test_program.master_send_commands.slave_id
   |vpiTaskFunc:
   \_function: (work@test_program.create_command), line:570:4, endln:599:15, parent:work@test_program
     |vpiVisibility:1
@@ -17062,21 +17032,13 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.queue_command.cmd
           |vpiActual:
-          \_io_decl: (cmd)
-            |vpiName:cmd
-            |vpiDirection:1
-            |vpiTypedef:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
+          \_io_decl: (cmd), parent:work@test_program.queue_command
         |vpiArgument:
         \_ref_obj: (work@test_program.queue_command.master_id), line:626:32, endln:626:41, parent:save_command_master
           |vpiName:master_id
           |vpiFullName:work@test_program.queue_command.master_id
           |vpiActual:
-          \_io_decl: (master_id)
-            |vpiName:master_id
-            |vpiDirection:1
-            |vpiTypedef:
-            \_int_typespec: , line:622:7, endln:622:10
+          \_io_decl: (master_id), parent:work@test_program.queue_command
       |vpiStmt:
       \_task_call: (save_command_slave), line:627:7, endln:627:41, parent:work@test_program.queue_command
         |vpiName:save_command_slave
@@ -17087,17 +17049,13 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.queue_command.cmd
           |vpiActual:
-          \_io_decl: (cmd)
+          \_io_decl: (cmd), parent:work@test_program.queue_command
         |vpiArgument:
         \_ref_obj: (work@test_program.queue_command.slave_id), line:627:31, endln:627:39, parent:save_command_slave
           |vpiName:slave_id
           |vpiFullName:work@test_program.queue_command.slave_id
           |vpiActual:
-          \_io_decl: (slave_id)
-            |vpiName:slave_id
-            |vpiDirection:1
-            |vpiTypedef:
-            \_int_typespec: , line:623:7, endln:623:10
+          \_io_decl: (slave_id), parent:work@test_program.queue_command
       |vpiStmt:
       \_task_call: (configure_and_push_command_to_master), line:628:7, endln:628:60, parent:work@test_program.queue_command
         |vpiName:configure_and_push_command_to_master
@@ -17108,13 +17066,13 @@ design: (work@top)
           |vpiName:cmd
           |vpiFullName:work@test_program.queue_command.cmd
           |vpiActual:
-          \_io_decl: (cmd)
+          \_io_decl: (cmd), parent:work@test_program.queue_command
         |vpiArgument:
         \_ref_obj: (work@test_program.queue_command.master_id), line:628:49, endln:628:58, parent:configure_and_push_command_to_master
           |vpiName:master_id
           |vpiFullName:work@test_program.queue_command.master_id
           |vpiActual:
-          \_io_decl: (master_id)
+          \_io_decl: (master_id), parent:work@test_program.queue_command
   |vpiTaskFunc:
   \_task: (work@test_program.save_command_master), line:631:4, endln:642:11, parent:work@test_program
     |vpiVisibility:1
@@ -17147,11 +17105,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.trans
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
-              |vpiName:cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (cmd), parent:work@test_program.save_command_master
           |vpiActual:
           \_ref_obj: (trans), parent:cmd.trans
             |vpiName:trans
@@ -17226,7 +17180,7 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.save_command_master.cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.save_command_master
       |vpiElseStmt:
       \_begin: (work@test_program.save_command_master), line:638:19, endln:640:13
         |vpiFullName:work@test_program.save_command_master
@@ -17292,7 +17246,7 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.save_command_master.cmd
             |vpiActual:
-            \_io_decl: (cmd)
+            \_io_decl: (cmd), parent:work@test_program.save_command_master
   |vpiTaskFunc:
   \_task: (work@test_program.save_command_slave), line:644:4, endln:656:11, parent:work@test_program
     |vpiVisibility:1
@@ -17327,11 +17281,7 @@ design: (work@top)
           \_ref_obj: (cmd), parent:cmd.addr
             |vpiName:cmd
             |vpiActual:
-            \_io_decl: (cmd)
-              |vpiName:cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (cmd), parent:work@test_program.save_command_slave
           |vpiActual:
           \_ref_obj: (addr), parent:cmd.addr
             |vpiName:addr
@@ -17347,7 +17297,7 @@ design: (work@top)
             \_ref_obj: (cmd), parent:cmd.addr
               |vpiName:cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.save_command_slave
             |vpiActual:
             \_ref_obj: (addr), parent:cmd.addr
               |vpiName:addr
@@ -17363,7 +17313,7 @@ design: (work@top)
             \_ref_obj: (cmd), parent:cmd.trans
               |vpiName:cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.save_command_slave
             |vpiActual:
             \_ref_obj: (trans), parent:cmd.trans
               |vpiName:trans
@@ -17438,7 +17388,7 @@ design: (work@top)
               |vpiName:cmd
               |vpiFullName:work@test_program.save_command_slave.cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.save_command_slave
         |vpiElseStmt:
         \_begin: (work@test_program.save_command_slave), line:652:16, endln:654:10
           |vpiFullName:work@test_program.save_command_slave
@@ -17504,7 +17454,7 @@ design: (work@top)
               |vpiName:cmd
               |vpiFullName:work@test_program.save_command_slave.cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.save_command_slave
   |vpiTaskFunc:
   \_function: (work@test_program.translate_master_to_slave_address), line:658:4, endln:668:15, parent:work@test_program
     |vpiVisibility:1
@@ -17621,6 +17571,10 @@ design: (work@top)
           \_ref_obj: (work@test_program.translate_master_to_slave_address.slave_id), line:664:19, endln:664:27
             |vpiName:slave_id
             |vpiFullName:work@test_program.translate_master_to_slave_address.slave_id
+            |vpiActual:
+            \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:7, endln:661:10, parent:work@test_program.translate_master_to_slave_address
+              |vpiName:slave_id
+              |vpiFullName:work@test_program.translate_master_to_slave_address.slave_id
           |vpiOperand:
           \_ref_obj: (work@test_program.translate_master_to_slave_address.SLAVE_SPAN), line:664:30, endln:664:40
             |vpiName:SLAVE_SPAN
@@ -17695,6 +17649,8 @@ design: (work@top)
             |vpiActual:
             \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
     |vpiVariables:
+    \_int_var: (work@test_program.translate_master_to_slave_address.slave_id), line:661:7, endln:661:10, parent:work@test_program.translate_master_to_slave_address
+    |vpiVariables:
     \_logic_var: (work@test_program.translate_master_to_slave_address.base_addr), line:662:7, endln:662:12, parent:work@test_program.translate_master_to_slave_address
     |vpiVariables:
     \_logic_var: (work@test_program.translate_master_to_slave_address.offset), line:662:7, endln:662:12, parent:work@test_program.translate_master_to_slave_address
@@ -17728,11 +17684,7 @@ design: (work@top)
           |vpiName:master_id
           |vpiFullName:work@test_program.configure_and_push_command_to_master.master_id
           |vpiActual:
-          \_io_decl: (master_id)
-            |vpiName:master_id
-            |vpiDirection:1
-            |vpiTypedef:
-            \_int_typespec: , line:672:7, endln:672:10
+          \_io_decl: (master_id), parent:work@test_program.configure_and_push_command_to_master
         |vpiOperand:
         \_constant: , line:674:24, endln:674:25
           |vpiConstType:9
@@ -17752,11 +17704,7 @@ design: (work@top)
             |vpiName:cmd
             |vpiFullName:work@test_program.configure_and_push_command_to_master.cmd
             |vpiActual:
-            \_io_decl: (cmd)
-              |vpiName:cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master
       |vpiElseStmt:
       \_if_stmt: , line:676:20, endln:676:34
         |vpiCondition:
@@ -17767,7 +17715,7 @@ design: (work@top)
             |vpiName:master_id
             |vpiFullName:work@test_program.configure_and_push_command_to_master.master_id
             |vpiActual:
-            \_io_decl: (master_id)
+            \_io_decl: (master_id), parent:work@test_program.configure_and_push_command_to_master
           |vpiOperand:
           \_constant: , line:676:33, endln:676:34
             |vpiConstType:9
@@ -17787,7 +17735,7 @@ design: (work@top)
               |vpiName:cmd
               |vpiFullName:work@test_program.configure_and_push_command_to_master.cmd
               |vpiActual:
-              \_io_decl: (cmd)
+              \_io_decl: (cmd), parent:work@test_program.configure_and_push_command_to_master
   |vpiTaskFunc:
   \_function: (work@test_program.get_expected_command_for_slave), line:682:4, endln:717:15, parent:work@test_program
     |vpiVisibility:1
@@ -17949,6 +17897,10 @@ design: (work@top)
                     \_ref_obj: (work@test_program.get_expected_command_for_slave.found), line:695:16, endln:695:21
                       |vpiName:found
                       |vpiFullName:work@test_program.get_expected_command_for_slave.found
+                      |vpiActual:
+                      \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10, parent:work@test_program.get_expected_command_for_slave
+                        |vpiName:found
+                        |vpiFullName:work@test_program.get_expected_command_for_slave.found
                     |vpiRhs:
                     \_constant: , line:695:24, endln:695:25
                       |vpiConstType:9
@@ -17966,6 +17918,8 @@ design: (work@top)
               \_ref_obj: (work@test_program.get_expected_command_for_slave.found), line:699:14, endln:699:19
                 |vpiName:found
                 |vpiFullName:work@test_program.get_expected_command_for_slave.found
+                |vpiActual:
+                \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10, parent:work@test_program.get_expected_command_for_slave
               |vpiOperand:
               \_constant: , line:699:23, endln:699:24
                 |vpiConstType:9
@@ -18096,6 +18050,8 @@ design: (work@top)
                     \_ref_obj: (work@test_program.get_expected_command_for_slave.found), line:707:16, endln:707:21
                       |vpiName:found
                       |vpiFullName:work@test_program.get_expected_command_for_slave.found
+                      |vpiActual:
+                      \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10, parent:work@test_program.get_expected_command_for_slave
                     |vpiRhs:
                     \_constant: , line:707:24, endln:707:25
                       |vpiConstType:9
@@ -18113,6 +18069,8 @@ design: (work@top)
               \_ref_obj: (work@test_program.get_expected_command_for_slave.found), line:711:14, endln:711:19
                 |vpiName:found
                 |vpiFullName:work@test_program.get_expected_command_for_slave.found
+                |vpiActual:
+                \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10, parent:work@test_program.get_expected_command_for_slave
               |vpiOperand:
               \_constant: , line:711:23, endln:711:24
                 |vpiConstType:9
@@ -18157,6 +18115,8 @@ design: (work@top)
           \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:7, endln:687:14, parent:work@test_program.get_expected_command_for_slave
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_command_for_slave.exp_cmd), line:687:7, endln:687:14, parent:work@test_program.get_expected_command_for_slave
+    |vpiVariables:
+    \_int_var: (work@test_program.get_expected_command_for_slave.found), line:688:7, endln:688:10, parent:work@test_program.get_expected_command_for_slave
   |vpiTaskFunc:
   \_task: (work@test_program.verify_command), line:719:4, endln:733:11, parent:work@test_program
     |vpiVisibility:1
@@ -18198,11 +18158,7 @@ design: (work@top)
           \_ref_obj: (exp_cmd), parent:exp_cmd.addr
             |vpiName:exp_cmd
             |vpiActual:
-            \_io_decl: (exp_cmd)
-              |vpiName:exp_cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (exp_cmd), parent:work@test_program.verify_command
           |vpiActual:
           \_ref_obj: (addr), parent:exp_cmd.addr
             |vpiName:addr
@@ -18213,11 +18169,7 @@ design: (work@top)
           \_ref_obj: (actual_cmd), parent:actual_cmd.addr
             |vpiName:actual_cmd
             |vpiActual:
-            \_io_decl: (actual_cmd)
-              |vpiName:actual_cmd
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Command), line:45:12, endln:45:18
+            \_io_decl: (actual_cmd), parent:work@test_program.verify_command
           |vpiActual:
           \_ref_obj: (addr), parent:actual_cmd.addr
             |vpiName:addr
@@ -18239,7 +18191,7 @@ design: (work@top)
           \_ref_obj: (exp_cmd), parent:exp_cmd.burstcount
             |vpiName:exp_cmd
             |vpiActual:
-            \_io_decl: (exp_cmd)
+            \_io_decl: (exp_cmd), parent:work@test_program.verify_command
           |vpiActual:
           \_ref_obj: (burstcount), parent:exp_cmd.burstcount
             |vpiName:burstcount
@@ -18250,7 +18202,7 @@ design: (work@top)
           \_ref_obj: (actual_cmd), parent:actual_cmd.burstcount
             |vpiName:actual_cmd
             |vpiActual:
-            \_io_decl: (actual_cmd)
+            \_io_decl: (actual_cmd), parent:work@test_program.verify_command
           |vpiActual:
           \_ref_obj: (burstcount), parent:actual_cmd.burstcount
             |vpiName:burstcount
@@ -18266,7 +18218,7 @@ design: (work@top)
             \_ref_obj: (actual_cmd), parent:actual_cmd.trans
               |vpiName:actual_cmd
               |vpiActual:
-              \_io_decl: (actual_cmd)
+              \_io_decl: (actual_cmd), parent:work@test_program.verify_command
             |vpiActual:
             \_ref_obj: (trans), parent:actual_cmd.trans
               |vpiName:trans
@@ -18296,7 +18248,7 @@ design: (work@top)
                 \_ref_obj: (actual_cmd), parent:actual_cmd.burstcount
                   |vpiName:actual_cmd
                   |vpiActual:
-                  \_io_decl: (actual_cmd)
+                  \_io_decl: (actual_cmd), parent:work@test_program.verify_command
                 |vpiActual:
                 \_ref_obj: (burstcount), parent:actual_cmd.burstcount
                   |vpiName:burstcount
@@ -18340,7 +18292,7 @@ design: (work@top)
                   \_ref_obj: (exp_cmd), parent:exp_cmd.data[i]
                     |vpiName:exp_cmd
                     |vpiActual:
-                    \_io_decl: (exp_cmd)
+                    \_io_decl: (exp_cmd), parent:work@test_program.verify_command
                   |vpiActual:
                   \_bit_select: (data), parent:exp_cmd.data[i]
                     |vpiName:data
@@ -18355,7 +18307,7 @@ design: (work@top)
                   \_ref_obj: (actual_cmd), parent:actual_cmd.data[i]
                     |vpiName:actual_cmd
                     |vpiActual:
-                    \_io_decl: (actual_cmd)
+                    \_io_decl: (actual_cmd), parent:work@test_program.verify_command
                   |vpiActual:
                   \_bit_select: (data), parent:actual_cmd.data[i]
                     |vpiName:data
@@ -18381,7 +18333,7 @@ design: (work@top)
                   \_ref_obj: (exp_cmd), parent:exp_cmd.byteenable[i]
                     |vpiName:exp_cmd
                     |vpiActual:
-                    \_io_decl: (exp_cmd)
+                    \_io_decl: (exp_cmd), parent:work@test_program.verify_command
                   |vpiActual:
                   \_bit_select: (byteenable), parent:exp_cmd.byteenable[i]
                     |vpiName:byteenable
@@ -18396,7 +18348,7 @@ design: (work@top)
                   \_ref_obj: (actual_cmd), parent:actual_cmd.byteenable[i]
                     |vpiName:actual_cmd
                     |vpiActual:
-                    \_io_decl: (actual_cmd)
+                    \_io_decl: (actual_cmd), parent:work@test_program.verify_command
                   |vpiActual:
                   \_bit_select: (byteenable), parent:actual_cmd.byteenable[i]
                     |vpiName:byteenable
@@ -18474,21 +18426,13 @@ design: (work@top)
               |vpiName:actual_obj
               |vpiFullName:work@test_program.assert_equals.actual_obj
               |vpiActual:
-              \_io_decl: (actual_obj)
-                |vpiName:actual_obj
-                |vpiDirection:1
-                |vpiTypedef:
-                \_logic_typespec: , line:738:7, endln:738:12
+              \_io_decl: (actual_obj), parent:work@test_program.assert_equals
             |vpiOperand:
             \_ref_obj: (work@test_program.assert_equals.expected_obj), line:743:28, endln:743:40
               |vpiName:expected_obj
               |vpiFullName:work@test_program.assert_equals.expected_obj
               |vpiActual:
-              \_io_decl: (expected_obj)
-                |vpiName:expected_obj
-                |vpiDirection:1
-                |vpiTypedef:
-                \_logic_typespec: , line:737:7, endln:737:12
+              \_io_decl: (expected_obj), parent:work@test_program.assert_equals
           |vpiStmt:
           \_begin: (work@test_program.assert_equals), line:743:42, endln:747:13
             |vpiFullName:work@test_program.assert_equals
@@ -18503,7 +18447,7 @@ design: (work@top)
                 |vpiName:data_comparison_msg
                 |vpiFullName:work@test_program.assert_equals.data_comparison_msg
                 |vpiActual:
-                \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:7, endln:740:13
+                \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:7, endln:740:13, parent:work@test_program.assert_equals
                   |vpiName:data_comparison_msg
                   |vpiFullName:work@test_program.assert_equals.data_comparison_msg
               |vpiArgument:
@@ -18517,23 +18461,19 @@ design: (work@top)
                 |vpiName:message
                 |vpiFullName:work@test_program.assert_equals.message
                 |vpiActual:
-                \_io_decl: (message)
-                  |vpiName:message
-                  |vpiDirection:1
-                  |vpiTypedef:
-                  \_string_typespec: , line:736:7, endln:736:13
+                \_io_decl: (message), parent:work@test_program.assert_equals
               |vpiArgument:
               \_ref_obj: (work@test_program.assert_equals.expected_obj), line:750:16, endln:750:28, parent:$sformat
                 |vpiName:expected_obj
                 |vpiFullName:work@test_program.assert_equals.expected_obj
                 |vpiActual:
-                \_io_decl: (expected_obj)
+                \_io_decl: (expected_obj), parent:work@test_program.assert_equals
               |vpiArgument:
               \_ref_obj: (work@test_program.assert_equals.actual_obj), line:751:16, endln:751:26, parent:$sformat
                 |vpiName:actual_obj
                 |vpiFullName:work@test_program.assert_equals.actual_obj
                 |vpiActual:
-                \_io_decl: (actual_obj)
+                \_io_decl: (actual_obj), parent:work@test_program.assert_equals
             |vpiStmt:
             \_func_call: (print), line:752:13, endln:752:57, parent:work@test_program.assert_equals
               |vpiName:print
@@ -18546,7 +18486,7 @@ design: (work@top)
                 |vpiName:data_comparison_msg
                 |vpiFullName:work@test_program.assert_equals.data_comparison_msg
                 |vpiActual:
-                \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:7, endln:740:13
+                \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:7, endln:740:13, parent:work@test_program.assert_equals
             |vpiStmt:
             \_assignment: , line:753:13, endln:753:29, parent:work@test_program.assert_equals
               |vpiOpType:82
@@ -18579,8 +18519,6 @@ design: (work@top)
               |vpiName:assert_fail
     |vpiVariables:
     \_string_var: (work@test_program.assert_equals.data_comparison_msg), line:740:7, endln:740:13, parent:work@test_program.assert_equals
-      |vpiName:data_comparison_msg
-      |vpiFullName:work@test_program.assert_equals.data_comparison_msg
   |vpiTaskFunc:
   \_function: (work@test_program.create_response), line:759:4, endln:772:15, parent:work@test_program
     |vpiVisibility:1
@@ -18828,6 +18766,10 @@ design: (work@top)
             \_ref_obj: (work@test_program.get_expected_read_response.read_response_queue_slave[slave_id].pop_front.slave_id), line:781:39, endln:781:47, parent:read_response_queue_slave
               |vpiName:slave_id
               |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave[slave_id].pop_front.slave_id
+              |vpiActual:
+              \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:7, endln:779:10, parent:work@test_program.get_expected_read_response
+                |vpiName:slave_id
+                |vpiFullName:work@test_program.get_expected_read_response.slave_id
           |vpiActual:
           \_ref_obj: (pop_front), parent:read_response_queue_slave[slave_id].pop_front
             |vpiName:pop_front
@@ -18841,6 +18783,8 @@ design: (work@top)
           \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:7, endln:778:15, parent:work@test_program.get_expected_read_response
     |vpiVariables:
     \_struct_var: (work@test_program.get_expected_read_response.rsp), line:778:7, endln:778:15, parent:work@test_program.get_expected_read_response
+    |vpiVariables:
+    \_int_var: (work@test_program.get_expected_read_response.slave_id), line:779:7, endln:779:10, parent:work@test_program.get_expected_read_response
   |vpiTaskFunc:
   \_task: (work@test_program.verify_response), line:786:4, endln:795:11, parent:work@test_program
     |vpiVisibility:1
@@ -18882,11 +18826,7 @@ design: (work@top)
           \_ref_obj: (exp_rsp), parent:exp_rsp.burstcount
             |vpiName:exp_rsp
             |vpiActual:
-            \_io_decl: (exp_rsp)
-              |vpiName:exp_rsp
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Response), line:56:12, endln:56:18
+            \_io_decl: (exp_rsp), parent:work@test_program.verify_response
           |vpiActual:
           \_ref_obj: (burstcount), parent:exp_rsp.burstcount
             |vpiName:burstcount
@@ -18897,11 +18837,7 @@ design: (work@top)
           \_ref_obj: (actual_rsp), parent:actual_rsp.burstcount
             |vpiName:actual_rsp
             |vpiActual:
-            \_io_decl: (actual_rsp)
-              |vpiName:actual_rsp
-              |vpiDirection:1
-              |vpiTypedef:
-              \_struct_typespec: (Response), line:56:12, endln:56:18
+            \_io_decl: (actual_rsp), parent:work@test_program.verify_response
           |vpiActual:
           \_ref_obj: (burstcount), parent:actual_rsp.burstcount
             |vpiName:burstcount
@@ -18922,7 +18858,7 @@ design: (work@top)
             \_ref_obj: (actual_rsp), parent:actual_rsp.burstcount
               |vpiName:actual_rsp
               |vpiActual:
-              \_io_decl: (actual_rsp)
+              \_io_decl: (actual_rsp), parent:work@test_program.verify_response
             |vpiActual:
             \_ref_obj: (burstcount), parent:actual_rsp.burstcount
               |vpiName:burstcount
@@ -18966,7 +18902,7 @@ design: (work@top)
               \_ref_obj: (exp_rsp), parent:exp_rsp.data[i]
                 |vpiName:exp_rsp
                 |vpiActual:
-                \_io_decl: (exp_rsp)
+                \_io_decl: (exp_rsp), parent:work@test_program.verify_response
               |vpiActual:
               \_bit_select: (data), parent:exp_rsp.data[i]
                 |vpiName:data
@@ -18981,7 +18917,7 @@ design: (work@top)
               \_ref_obj: (actual_rsp), parent:actual_rsp.data[i]
                 |vpiName:actual_rsp
                 |vpiActual:
-                \_io_decl: (actual_rsp)
+                \_io_decl: (actual_rsp), parent:work@test_program.verify_response
               |vpiActual:
               \_bit_select: (data), parent:actual_rsp.data[i]
                 |vpiName:data

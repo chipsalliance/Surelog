@@ -1,40 +1,18 @@
 [INF:CM0023] Creating log file ../../build/tests/PragmaProtect/slpp_all/surelog.log.
 
-[INF:CP0300] Compilation...
+[INF:CM0024] Executing with 1 threads.
 
-[INF:CP0303] top.sv:2: Compile module "work@sram".
-
-[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
-
-[INF:CP0302] builtin.sv:33: Compile class "work@process".
-
-[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
-
-[ERR:CP0334] top.sv:74: Colliding compilation unit name: "sram",
-             top.sv:2: previous usage.
-
-[INF:EL0526] Design Elaboration...
-
-[NTE:EL0503] top.sv:2: Top level module "work@sram".
-
-[WRN:EL0505] top.sv:74: Multiply defined module "work@sram",
-             top.sv:2: previous definition.
-
-[NTE:EL0508] Nb Top level modules: 1.
-
-[NTE:EL0509] Max instance depth: 1.
-
-[NTE:EL0510] Nb instances: 1.
-
-[NTE:EL0511] Nb leaf instances: 0.
-
-[INF:UH0706] Creating UHDM Model...
-
-[INF:UH0708] Writing UHDM DB: ../../build/tests/PragmaProtect/slpp_all//surelog.uhdm...
+Running: cd ../../build/tests/PragmaProtect/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
+Running: cd ../../build/tests/PragmaProtect/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
+[SNT:PA0207] top.sv:58:33: Syntax error: mismatched input 'library' expecting {''b0', ''b1', ''B0', ''B1', ''0', ''1', '1'b0', '1'b1', '1'bx', '1'bX', '1'B0', '1'B1', '1'Bx', '1'BX', Integral_number, Real_number, String, '(', 'begin', 'end', Simple_identifier},
+`pragma protect runtime_license=(library="lic.so",feature="runSecret",entry="chk", match=42)
+                                 ^-- work/_6142509188972423790/top.sv:58:33:.
 
 [  FATAL] : 0
-[ SYNTAX] : 0
-[  ERROR] : 1
-[WARNING] : 1
-[   NOTE] : 5
+[ SYNTAX] : 1
+[  ERROR] : 0
+[WARNING] : 0
+[   NOTE] : 0
 
