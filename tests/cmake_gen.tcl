@@ -19,6 +19,14 @@
 #puts "MEMORY ON HOST:\n$mem"
 #puts "CPUs on HOST:\n$cpu"
 
+variable myLocation [file normalize [info script]]
+set myProjetPathNoNormalize [file dirname [file dirname [info script]]]
+
+proc project_path {} {
+    variable myLocation
+    return [file dirname [file dirname $myLocation]]
+}
+
 set workspace_root [file normalize [lindex $argv 0]]
 set output_dir [file normalize [lindex $argv 1]]
 
@@ -50,8 +58,10 @@ proc findFiles { basedir pattern } {
     return $fileList
 }
 
+set totaltest 0
+set runtest 0
 proc load_tests { } {
-    global TESTS TESTS_DIR workspace_root
+    global TESTS TESTS_DIR workspace_root BLACK_LIST totaltest runtest
     set dirs "$workspace_root/tests/ $workspace_root/third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
@@ -59,11 +69,15 @@ proc load_tests { } {
     }
     set testcommand ""
     set LONGESTTESTNAME 1
-    set totaltest 0
     foreach file $fileList {
         regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
         regsub [pwd]/ $testdir "" testdir
-        incr totaltest
+	incr totaltest
+	if {[dict exists $BLACK_LIST $testname]} {
+            # Ignore black listed ones
+            continue
+        }
+        incr runtest
 
         set fid [open $testdir/$testname.sl]
         set testcommand [read $fid]
@@ -95,5 +109,15 @@ proc run_regression { } {
     close $fid
 }
 
+source [project_path]/tests/blacklisted.tcl
+
+if { $tcl_platform(platform) == "windows" } {
+    set BLACK_LIST $WINDOWS_BLACK_LIST
+} else {
+    set BLACK_LIST $UNIX_BLACK_LIST
+}
+
 load_tests
+puts "THERE ARE $totaltest tests"
+puts "RUNNING   $runtest tests"
 run_regression

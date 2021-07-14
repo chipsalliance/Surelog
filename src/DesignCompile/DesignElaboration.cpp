@@ -1560,14 +1560,21 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               }
             }
           } else if (exprtype == UHDM::uhdmref_obj) {
-            complex = true;
-            UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
-            if (ref->Actual_group() == nullptr) {
-              ref->Actual_group(m_helper.bindParameter(
-                  parentDefinition, parentInstance, ref->VpiName(),
-                  m_compileDesign, true));
+            bool isTypeParam = false;
+            if (module) {
+              Parameter* p = module->getParameter(name);
+              if (p) isTypeParam = p->isTypeParam();
             }
-            instance->setComplexValue(name, complexV);
+            if (!isTypeParam) {
+              complex = true;
+              UHDM::ref_obj* ref = (UHDM::ref_obj*)complexV;
+              if (ref->Actual_group() == nullptr) {
+                ref->Actual_group(m_helper.bindParameter(
+                    parentDefinition, parentInstance, ref->VpiName(),
+                    m_compileDesign, true));
+              }
+              instance->setComplexValue(name, complexV);
+            }
           }
         }
         if (complex == false) {
