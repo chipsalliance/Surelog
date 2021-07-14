@@ -337,9 +337,14 @@ class CompileHelper final {
   UHDM::any* bindVariable(DesignComponent* component, const UHDM::any* scope,
                           const std::string& name,
                           CompileDesign* compileDesign);
+
   UHDM::any* bindVariable(DesignComponent* component,
                           ValuedComponentI* instance, const std::string& name,
                           CompileDesign* compileDesign);
+
+  UHDM::any* bindParameter(DesignComponent* component,
+                           ValuedComponentI* instance, const std::string& name,
+                           CompileDesign* compileDesign, bool crossHierarchy);
 
   UHDM::event_control* compileClocking_event(DesignComponent* component,
                                              const FileContent* fC,
