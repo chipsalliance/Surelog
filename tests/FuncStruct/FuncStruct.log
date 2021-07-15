@@ -312,7 +312,7 @@ design: (work@dut)
     |vpiInstance:
     \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
     |vpiIODecl:
-    \_io_decl: (w)
+    \_io_decl: (w), parent:hmac_pkg::compress
       |vpiName:w
       |vpiDirection:1
       |vpiTypedef:
@@ -337,7 +337,7 @@ design: (work@dut)
         |vpiInstance:
         \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
     |vpiIODecl:
-    \_io_decl: (h_i)
+    \_io_decl: (h_i), parent:hmac_pkg::compress
       |vpiName:h_i
       |vpiDirection:1
       |vpiTypedef:
@@ -393,11 +393,11 @@ design: (work@dut)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10, parent:hmac_pkg::compress
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10
           |vpiName:sigma_0
           |vpiFullName:hmac_pkg::compress::sigma_0
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
             |vpiName:sigma_0
             |vpiFullName:hmac_pkg::compress::sigma_0
             |vpiAutomatic:1
@@ -424,13 +424,13 @@ design: (work@dut)
             |vpiSize:64
             |UINT:0
         |vpiRhs:
-        \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25, parent:hmac_pkg::compress
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25
           |vpiName:sigma_0
           |vpiFullName:hmac_pkg::compress::sigma_0
           |vpiActual:
-          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
     |vpiVariables:
-    \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+    \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
   |vpiTypedef:
   \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
 |uhdmallModules:
@@ -543,7 +543,7 @@ design: (work@dut)
                 |vpiInstance:
                 \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
-                \_io_decl: (w)
+                \_io_decl: (w), parent:hmac_pkg::compress
                   |vpiName:w
                   |vpiDirection:1
                   |vpiTypedef:
@@ -568,7 +568,7 @@ design: (work@dut)
                     |vpiInstance:
                     \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
-                \_io_decl: (h_i)
+                \_io_decl: (h_i), parent:hmac_pkg::compress
                   |vpiName:h_i
                   |vpiDirection:1
                   |vpiTypedef:
@@ -624,11 +624,11 @@ design: (work@dut)
                     |vpiOpType:82
                     |vpiBlocking:1
                     |vpiLhs:
-                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10, parent:hmac_pkg::compress
+                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10
                       |vpiName:sigma_0
                       |vpiFullName:hmac_pkg::compress::sigma_0
                       |vpiActual:
-                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
                         |vpiName:sigma_0
                         |vpiFullName:hmac_pkg::compress::sigma_0
                         |vpiAutomatic:1
@@ -655,13 +655,13 @@ design: (work@dut)
                         |vpiSize:64
                         |UINT:0
                     |vpiRhs:
-                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25, parent:hmac_pkg::compress
+                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25
                       |vpiName:sigma_0
                       |vpiFullName:hmac_pkg::compress::sigma_0
                       |vpiActual:
-                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
                 |vpiVariables:
-                \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
               |vpiTypedef:
               \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
     |vpiLhs:
@@ -670,6 +670,66 @@ design: (work@dut)
       |vpiFullName:work@dut.hash
   |vpiTaskFunc:
   \_function: (hmac_pkg::compress), line:3:1, endln:8:12, parent:hmac_pkg::
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:compress
+    |vpiFullName:hmac_pkg::compress
+    |vpiReturn:
+    \_logic_var: , line:3:20, endln:3:30
+    |vpiInstance:
+    \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
+    |vpiIODecl:
+    \_io_decl: (w)
+      |vpiName:w
+      |vpiDirection:1
+      |vpiTypedef:
+      \_logic_typespec: (sha_word_t), line:2:9, endln:2:14
+    |vpiIODecl:
+    \_io_decl: (h_i)
+      |vpiName:h_i
+      |vpiDirection:1
+      |vpiTypedef:
+      \_logic_typespec: 
+      |vpiExpr:
+      \_constant: , line:3:96, endln:3:97
+    |vpiStmt:
+    \_begin: (hmac_pkg::compress), parent:hmac_pkg::compress
+      |vpiFullName:hmac_pkg::compress
+      |vpiStmt:
+      \_assignment: , line:6:3, endln:6:25, parent:hmac_pkg::compress
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10, parent:hmac_pkg::compress
+          |vpiName:sigma_0
+          |vpiFullName:hmac_pkg::compress::sigma_0
+          |vpiActual:
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+            |vpiName:sigma_0
+            |vpiFullName:hmac_pkg::compress::sigma_0
+            |vpiAutomatic:1
+            |vpiTypespec:
+            \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
+        |vpiRhs:
+        \_constant: , line:6:13, endln:6:25
+      |vpiStmt:
+      \_assignment: , line:7:3, endln:7:26, parent:hmac_pkg::compress
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_bit_select: (hmac_pkg::compress::compress), line:7:3, endln:7:11
+          |vpiName:compress
+          |vpiFullName:hmac_pkg::compress::compress
+          |vpiIndex:
+          \_constant: , line:7:12, endln:7:13, parent:hmac_pkg::compress::compress
+        |vpiRhs:
+        \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25, parent:hmac_pkg::compress
+          |vpiName:sigma_0
+          |vpiFullName:hmac_pkg::compress::sigma_0
+          |vpiActual:
+          \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+    |vpiVariables:
+    \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
   |vpiNet:
   \_logic_net: (work@dut.w), line:14:19, parent:work@dut
     |vpiName:w
@@ -795,7 +855,7 @@ design: (work@dut)
                 |vpiInstance:
                 \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
-                \_io_decl: (w)
+                \_io_decl: (w), parent:hmac_pkg::compress
                   |vpiName:w
                   |vpiDirection:1
                   |vpiTypedef:
@@ -820,7 +880,7 @@ design: (work@dut)
                     |vpiInstance:
                     \_package: hmac_pkg (hmac_pkg::) dut.sv:1:1: , endln:9:11, parent:work@dut
                 |vpiIODecl:
-                \_io_decl: (h_i)
+                \_io_decl: (h_i), parent:hmac_pkg::compress
                   |vpiName:h_i
                   |vpiDirection:1
                   |vpiTypedef:
@@ -876,11 +936,11 @@ design: (work@dut)
                     |vpiOpType:82
                     |vpiBlocking:1
                     |vpiLhs:
-                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10, parent:hmac_pkg::compress
+                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:6:3, endln:6:10
                       |vpiName:sigma_0
                       |vpiFullName:hmac_pkg::compress::sigma_0
                       |vpiActual:
-                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
                         |vpiName:sigma_0
                         |vpiFullName:hmac_pkg::compress::sigma_0
                         |vpiAutomatic:1
@@ -907,13 +967,13 @@ design: (work@dut)
                         |vpiSize:64
                         |UINT:0
                     |vpiRhs:
-                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25, parent:hmac_pkg::compress
+                    \_ref_obj: (hmac_pkg::compress::sigma_0), line:7:18, endln:7:25
                       |vpiName:sigma_0
                       |vpiFullName:hmac_pkg::compress::sigma_0
                       |vpiActual:
-                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                      \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
                 |vpiVariables:
-                \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23
+                \_logic_var: (hmac_pkg::compress::sigma_0), line:4:13, endln:4:23, parent:hmac_pkg::compress
               |vpiTypedef:
               \_logic_typespec: (hmac_pkg::sha_word_t), line:2:9, endln:2:14
     |vpiLhs:

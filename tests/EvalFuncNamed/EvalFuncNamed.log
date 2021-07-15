@@ -297,6 +297,121 @@ design: (work@t)
   |vpiName:my_funcs
   |vpiFullName:my_funcs::
   |vpiTaskFunc:
+  \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:simple_minus
+    |vpiFullName:my_module_types::simple_minus
+    |vpiReturn:
+    \_int_var: , line:3:23, endln:3:26
+    |vpiInstance:
+    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value1), parent:my_module_types::simple_minus
+      |vpiName:value1
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:3:47, endln:3:50
+        |vpiInstance:
+        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value2), parent:my_module_types::simple_minus
+      |vpiName:value2
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:3:65, endln:3:68
+        |vpiInstance:
+        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiStmt:
+    \_begin: (my_funcs::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
+      |vpiFullName:my_funcs::simple_minus
+      |vpiStmt:
+      \_assignment: , line:5:8, endln:5:38, parent:my_funcs::simple_minus
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (my_funcs::simple_minus::simple_minus), line:5:8, endln:5:20
+          |vpiName:simple_minus
+          |vpiFullName:my_funcs::simple_minus::simple_minus
+          |vpiActual:
+          \_int_var: , line:3:23, endln:3:26
+        |vpiRhs:
+        \_operation: , line:5:23, endln:5:29
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (my_funcs::simple_minus::value1), line:5:23, endln:5:29
+            |vpiName:value1
+            |vpiFullName:my_funcs::simple_minus::value1
+            |vpiActual:
+            \_io_decl: (value1), parent:my_module_types::simple_minus
+          |vpiOperand:
+          \_ref_obj: (my_funcs::simple_minus::value2), line:5:32, endln:5:38
+            |vpiName:value2
+            |vpiFullName:my_funcs::simple_minus::value2
+            |vpiActual:
+            \_io_decl: (value2), parent:my_module_types::simple_minus
+  |vpiTaskFunc:
+  \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_funcs::
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:simple_func
+    |vpiFullName:my_module_types::simple_func
+    |vpiReturn:
+    \_int_var: , line:9:23, endln:9:26
+    |vpiInstance:
+    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value1), parent:my_module_types::simple_func
+      |vpiName:value1
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:46, endln:9:49
+        |vpiInstance:
+        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value2), parent:my_module_types::simple_func
+      |vpiName:value2
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:64, endln:9:67
+        |vpiInstance:
+        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+    |vpiStmt:
+    \_begin: (my_funcs::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
+      |vpiFullName:my_funcs::simple_func
+      |vpiStmt:
+      \_assignment: , line:11:8, endln:11:68, parent:my_funcs::simple_func
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (my_funcs::simple_func::simple_func), line:11:8, endln:11:19
+          |vpiName:simple_func
+          |vpiFullName:my_funcs::simple_func::simple_func
+          |vpiActual:
+          \_int_var: , line:9:23, endln:9:26
+        |vpiRhs:
+        \_func_call: (simple_minus), line:11:22, endln:11:68
+          |vpiName:simple_minus
+          |vpiFunction:
+          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
+          |vpiArgument:
+          \_ref_obj: (my_funcs::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
+            |vpiName:value1
+            |vpiFullName:my_funcs::simple_func::value1
+            |vpiActual:
+            \_io_decl: (value1), parent:my_module_types::simple_func
+          |vpiArgument:
+          \_ref_obj: (my_funcs::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
+            |vpiName:value2
+            |vpiFullName:my_funcs::simple_func::value2
+            |vpiActual:
+            \_io_decl: (value2), parent:my_module_types::simple_func
+|uhdmallPackages:
+\_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+  |vpiDefName:my_module_types
+  |vpiName:my_module_types
+  |vpiFullName:my_module_types::
+  |vpiTaskFunc:
   \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
     |vpiVisibility:1
     |vpiAutomatic:1
@@ -306,111 +421,18 @@ design: (work@t)
     \_int_var: , line:3:23, endln:3:26
     |vpiInstance:
     \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
-      |vpiDefName:my_module_types
-      |vpiName:my_module_types
-      |vpiFullName:my_module_types::
-      |vpiTaskFunc:
-      \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
-      |vpiTaskFunc:
-      \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
-        |vpiVisibility:1
-        |vpiAutomatic:1
-        |vpiName:simple_func
-        |vpiFullName:my_module_types::simple_func
-        |vpiReturn:
-        \_int_var: , line:9:23, endln:9:26
-        |vpiInstance:
-        \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
-        |vpiIODecl:
-        \_io_decl: (value1)
-          |vpiName:value1
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:9:46, endln:9:49
-            |vpiInstance:
-            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-        |vpiIODecl:
-        \_io_decl: (value2)
-          |vpiName:value2
-          |vpiDirection:1
-          |vpiTypedef:
-          \_int_typespec: , line:9:64, endln:9:67
-            |vpiInstance:
-            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-        |vpiStmt:
-        \_begin: (my_module_types::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
-          |vpiFullName:my_module_types::simple_func
-          |vpiStmt:
-          \_assignment: , line:11:8, endln:11:68, parent:my_module_types::simple_func
-            |vpiOpType:82
-            |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19, parent:my_module_types::simple_func
-              |vpiName:simple_func
-              |vpiFullName:my_module_types::simple_func::simple_func
-            |vpiRhs:
-            \_func_call: (simple_minus), line:11:22, endln:11:68
-              |vpiName:simple_minus
-              |vpiFunction:
-              \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
-              |vpiArgument:
-              \_ref_obj: (my_module_types::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
-                |vpiName:value1
-                |vpiFullName:my_module_types::simple_func::value1
-              |vpiArgument:
-              \_ref_obj: (my_module_types::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
-                |vpiName:value2
-                |vpiFullName:my_module_types::simple_func::value2
-      |vpiTypedef:
-      \_import: (my_funcs), line:17:11, endln:17:22
-      |vpiParamAssign:
-      \_param_assign: , line:19:15, endln:19:27, parent:my_module_types::
-        |vpiRhs:
-        \_constant: , line:19:26, endln:19:27
-          |vpiConstType:9
-          |vpiDecompile:3
-          |vpiSize:64
-          |UINT:3
-        |vpiLhs:
-        \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
-          |vpiName:MY_PARAM
-          |vpiFullName:my_module_types::MY_PARAM
-          |vpiLocalParam:1
-          |UINT:3
-      |vpiParamAssign:
-      \_param_assign: , line:20:15, endln:20:64, parent:my_module_types::
-        |vpiRhs:
-        \_constant: , line:20:27, endln:20:64
-          |vpiConstType:7
-          |vpiDecompile:12
-          |vpiSize:32
-          |INT:12
-        |vpiLhs:
-        \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
-          |vpiName:MY_PARAM2
-          |vpiFullName:my_module_types::MY_PARAM2
-          |vpiLocalParam:1
-          |INT:12
-      |vpiParameter:
-      \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
-      |vpiParameter:
-      \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
     |vpiIODecl:
-    \_io_decl: (value1)
+    \_io_decl: (value1), parent:my_module_types::simple_minus
       |vpiName:value1
       |vpiDirection:1
       |vpiTypedef:
       \_int_typespec: , line:3:47, endln:3:50
-        |vpiInstance:
-        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
     |vpiIODecl:
-    \_io_decl: (value2)
+    \_io_decl: (value2), parent:my_module_types::simple_minus
       |vpiName:value2
       |vpiDirection:1
       |vpiTypedef:
       \_int_typespec: , line:3:65, endln:3:68
-        |vpiInstance:
-        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
     |vpiStmt:
     \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
       |vpiFullName:my_module_types::simple_minus
@@ -419,28 +441,112 @@ design: (work@t)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (my_module_types::simple_minus::simple_minus), line:5:8, endln:5:20, parent:my_module_types::simple_minus
+        \_ref_obj: (my_module_types::simple_minus::simple_minus), line:5:8, endln:5:20
           |vpiName:simple_minus
           |vpiFullName:my_module_types::simple_minus::simple_minus
+          |vpiActual:
+          \_int_var: , line:3:23, endln:3:26
         |vpiRhs:
-        \_operation: , line:5:23, endln:5:29, parent:my_module_types::simple_minus
+        \_operation: , line:5:23, endln:5:29
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (my_module_types::simple_minus::value1), line:5:23, endln:5:29, parent:my_module_types::simple_minus
+          \_ref_obj: (my_module_types::simple_minus::value1), line:5:23, endln:5:29
             |vpiName:value1
             |vpiFullName:my_module_types::simple_minus::value1
             |vpiActual:
-            \_io_decl: (value1)
+            \_io_decl: (value1), parent:my_module_types::simple_minus
           |vpiOperand:
           \_ref_obj: (my_module_types::simple_minus::value2), line:5:32, endln:5:38
             |vpiName:value2
             |vpiFullName:my_module_types::simple_minus::value2
             |vpiActual:
-            \_io_decl: (value2)
+            \_io_decl: (value2), parent:my_module_types::simple_minus
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
-|uhdmallPackages:
-\_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:simple_func
+    |vpiFullName:my_module_types::simple_func
+    |vpiReturn:
+    \_int_var: , line:9:23, endln:9:26
+    |vpiInstance:
+    \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value1), parent:my_module_types::simple_func
+      |vpiName:value1
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:46, endln:9:49
+    |vpiIODecl:
+    \_io_decl: (value2), parent:my_module_types::simple_func
+      |vpiName:value2
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:64, endln:9:67
+    |vpiStmt:
+    \_begin: (my_module_types::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
+      |vpiFullName:my_module_types::simple_func
+      |vpiStmt:
+      \_assignment: , line:11:8, endln:11:68, parent:my_module_types::simple_func
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19
+          |vpiName:simple_func
+          |vpiFullName:my_module_types::simple_func::simple_func
+          |vpiActual:
+          \_int_var: , line:9:23, endln:9:26
+        |vpiRhs:
+        \_func_call: (simple_minus), line:11:22, endln:11:68
+          |vpiName:simple_minus
+          |vpiFunction:
+          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
+          |vpiArgument:
+          \_ref_obj: (my_module_types::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
+            |vpiName:value1
+            |vpiFullName:my_module_types::simple_func::value1
+            |vpiActual:
+            \_io_decl: (value1), parent:my_module_types::simple_func
+          |vpiArgument:
+          \_ref_obj: (my_module_types::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
+            |vpiName:value2
+            |vpiFullName:my_module_types::simple_func::value2
+            |vpiActual:
+            \_io_decl: (value2), parent:my_module_types::simple_func
+  |vpiTypedef:
+  \_import: (my_funcs), line:17:11, endln:17:22
+  |vpiParamAssign:
+  \_param_assign: , line:19:15, endln:19:27, parent:my_module_types::
+    |vpiRhs:
+    \_constant: , line:19:26, endln:19:27
+      |vpiConstType:9
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+    |vpiLhs:
+    \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
+      |vpiName:MY_PARAM
+      |vpiFullName:my_module_types::MY_PARAM
+      |vpiLocalParam:1
+      |UINT:3
+  |vpiParamAssign:
+  \_param_assign: , line:20:15, endln:20:64, parent:my_module_types::
+    |vpiRhs:
+    \_constant: , line:20:27, endln:20:64
+      |vpiConstType:7
+      |vpiDecompile:12
+      |vpiSize:32
+      |INT:12
+    |vpiLhs:
+    \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
+      |vpiName:MY_PARAM2
+      |vpiFullName:my_module_types::MY_PARAM2
+      |vpiLocalParam:1
+      |INT:12
+  |vpiParameter:
+  \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
+  |vpiParameter:
+  \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:work@t
   |vpiName:work@mailbox
@@ -794,6 +900,167 @@ design: (work@t)
       |vpiFullName:my_module_types::
       |vpiTaskFunc:
       \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
+        |vpiVisibility:1
+        |vpiAutomatic:1
+        |vpiName:simple_minus
+        |vpiFullName:my_module_types::simple_minus
+        |vpiReturn:
+        \_int_var: , line:3:23, endln:3:26
+        |vpiInstance:
+        \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+        |vpiIODecl:
+        \_io_decl: (value1), parent:my_module_types::simple_minus
+          |vpiName:value1
+          |vpiDirection:1
+          |vpiTypedef:
+          \_int_typespec: , line:3:47, endln:3:50
+            |vpiInstance:
+            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+              |vpiDefName:my_funcs
+              |vpiName:my_funcs
+              |vpiFullName:my_funcs::
+              |vpiTaskFunc:
+              \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
+                |vpiVisibility:1
+                |vpiAutomatic:1
+                |vpiName:simple_minus
+                |vpiFullName:my_module_types::simple_minus
+                |vpiReturn:
+                \_int_var: , line:3:23, endln:3:26
+                |vpiInstance:
+                \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+                |vpiIODecl:
+                \_io_decl: (value1), parent:my_module_types::simple_minus
+                  |vpiName:value1
+                  |vpiDirection:1
+                  |vpiTypedef:
+                  \_int_typespec: , line:3:47, endln:3:50
+                |vpiIODecl:
+                \_io_decl: (value2), parent:my_module_types::simple_minus
+                  |vpiName:value2
+                  |vpiDirection:1
+                  |vpiTypedef:
+                  \_int_typespec: , line:3:65, endln:3:68
+                    |vpiInstance:
+                    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+                |vpiStmt:
+                \_begin: (my_funcs::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
+                  |vpiFullName:my_funcs::simple_minus
+                  |vpiStmt:
+                  \_assignment: , line:5:8, endln:5:38, parent:my_funcs::simple_minus
+                    |vpiOpType:82
+                    |vpiBlocking:1
+                    |vpiLhs:
+                    \_ref_obj: (my_funcs::simple_minus::simple_minus), line:5:8, endln:5:20
+                      |vpiName:simple_minus
+                      |vpiFullName:my_funcs::simple_minus::simple_minus
+                      |vpiActual:
+                      \_int_var: , line:3:23, endln:3:26
+                    |vpiRhs:
+                    \_operation: , line:5:23, endln:5:29
+                      |vpiOpType:11
+                      |vpiOperand:
+                      \_ref_obj: (my_funcs::simple_minus::value1), line:5:23, endln:5:29
+                        |vpiName:value1
+                        |vpiFullName:my_funcs::simple_minus::value1
+                        |vpiActual:
+                        \_io_decl: (value1), parent:my_module_types::simple_minus
+                      |vpiOperand:
+                      \_ref_obj: (my_funcs::simple_minus::value2), line:5:32, endln:5:38
+                        |vpiName:value2
+                        |vpiFullName:my_funcs::simple_minus::value2
+                        |vpiActual:
+                        \_io_decl: (value2), parent:my_module_types::simple_minus
+              |vpiTaskFunc:
+              \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_funcs::
+                |vpiVisibility:1
+                |vpiAutomatic:1
+                |vpiName:simple_func
+                |vpiFullName:my_module_types::simple_func
+                |vpiReturn:
+                \_int_var: , line:9:23, endln:9:26
+                |vpiInstance:
+                \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+                |vpiIODecl:
+                \_io_decl: (value1), parent:my_module_types::simple_func
+                  |vpiName:value1
+                  |vpiDirection:1
+                  |vpiTypedef:
+                  \_int_typespec: , line:9:46, endln:9:49
+                    |vpiInstance:
+                    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+                |vpiIODecl:
+                \_io_decl: (value2), parent:my_module_types::simple_func
+                  |vpiName:value2
+                  |vpiDirection:1
+                  |vpiTypedef:
+                  \_int_typespec: , line:9:64, endln:9:67
+                    |vpiInstance:
+                    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+                |vpiStmt:
+                \_begin: (my_funcs::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
+                  |vpiFullName:my_funcs::simple_func
+                  |vpiStmt:
+                  \_assignment: , line:11:8, endln:11:68, parent:my_funcs::simple_func
+                    |vpiOpType:82
+                    |vpiBlocking:1
+                    |vpiLhs:
+                    \_ref_obj: (my_funcs::simple_func::simple_func), line:11:8, endln:11:19
+                      |vpiName:simple_func
+                      |vpiFullName:my_funcs::simple_func::simple_func
+                      |vpiActual:
+                      \_int_var: , line:9:23, endln:9:26
+                    |vpiRhs:
+                    \_func_call: (simple_minus), line:11:22, endln:11:68
+                      |vpiName:simple_minus
+                      |vpiFunction:
+                      \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
+                      |vpiArgument:
+                      \_ref_obj: (my_funcs::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
+                        |vpiName:value1
+                        |vpiFullName:my_funcs::simple_func::value1
+                        |vpiActual:
+                        \_io_decl: (value1), parent:my_module_types::simple_func
+                      |vpiArgument:
+                      \_ref_obj: (my_funcs::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
+                        |vpiName:value2
+                        |vpiFullName:my_funcs::simple_func::value2
+                        |vpiActual:
+                        \_io_decl: (value2), parent:my_module_types::simple_func
+        |vpiIODecl:
+        \_io_decl: (value2), parent:my_module_types::simple_minus
+          |vpiName:value2
+          |vpiDirection:1
+          |vpiTypedef:
+          \_int_typespec: , line:3:65, endln:3:68
+        |vpiStmt:
+        \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
+          |vpiFullName:my_module_types::simple_minus
+          |vpiStmt:
+          \_assignment: , line:5:8, endln:5:38, parent:my_module_types::simple_minus
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiLhs:
+            \_ref_obj: (my_module_types::simple_minus::simple_minus), line:5:8, endln:5:20
+              |vpiName:simple_minus
+              |vpiFullName:my_module_types::simple_minus::simple_minus
+              |vpiActual:
+              \_int_var: , line:3:23, endln:3:26
+            |vpiRhs:
+            \_operation: , line:5:23, endln:5:29
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (my_module_types::simple_minus::value1), line:5:23, endln:5:29
+                |vpiName:value1
+                |vpiFullName:my_module_types::simple_minus::value1
+                |vpiActual:
+                \_io_decl: (value1), parent:my_module_types::simple_minus
+              |vpiOperand:
+              \_ref_obj: (my_module_types::simple_minus::value2), line:5:32, endln:5:38
+                |vpiName:value2
+                |vpiFullName:my_module_types::simple_minus::value2
+                |vpiActual:
+                \_io_decl: (value2), parent:my_module_types::simple_minus
       |vpiTaskFunc:
       \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
         |vpiVisibility:1
@@ -805,28 +1072,17 @@ design: (work@t)
         |vpiInstance:
         \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
         |vpiIODecl:
-        \_io_decl: (value1)
+        \_io_decl: (value1), parent:my_module_types::simple_func
           |vpiName:value1
           |vpiDirection:1
           |vpiTypedef:
           \_int_typespec: , line:9:46, endln:9:49
-            |vpiInstance:
-            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-              |vpiDefName:my_funcs
-              |vpiName:my_funcs
-              |vpiFullName:my_funcs::
-              |vpiTaskFunc:
-              \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
-              |vpiTaskFunc:
-              \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
         |vpiIODecl:
-        \_io_decl: (value2)
+        \_io_decl: (value2), parent:my_module_types::simple_func
           |vpiName:value2
           |vpiDirection:1
           |vpiTypedef:
           \_int_typespec: , line:9:64, endln:9:67
-            |vpiInstance:
-            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
         |vpiStmt:
         \_begin: (my_module_types::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
           |vpiFullName:my_module_types::simple_func
@@ -835,9 +1091,11 @@ design: (work@t)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19, parent:my_module_types::simple_func
+            \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19
               |vpiName:simple_func
               |vpiFullName:my_module_types::simple_func::simple_func
+              |vpiActual:
+              \_int_var: , line:9:23, endln:9:26
             |vpiRhs:
             \_func_call: (simple_minus), line:11:22, endln:11:68
               |vpiName:simple_minus
@@ -847,10 +1105,14 @@ design: (work@t)
               \_ref_obj: (my_module_types::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
                 |vpiName:value1
                 |vpiFullName:my_module_types::simple_func::value1
+                |vpiActual:
+                \_io_decl: (value1), parent:my_module_types::simple_func
               |vpiArgument:
               \_ref_obj: (my_module_types::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
                 |vpiName:value2
                 |vpiFullName:my_module_types::simple_func::value2
+                |vpiActual:
+                \_io_decl: (value2), parent:my_module_types::simple_func
       |vpiTypedef:
       \_import: (my_funcs), line:17:11, endln:17:22
       |vpiParamAssign:
@@ -891,16 +1153,12 @@ design: (work@t)
       |vpiDirection:1
       |vpiTypedef:
       \_int_typespec: , line:3:47, endln:3:50
-        |vpiInstance:
-        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
     |vpiIODecl:
     \_io_decl: (value2)
       |vpiName:value2
       |vpiDirection:1
       |vpiTypedef:
       \_int_typespec: , line:3:65, endln:3:68
-        |vpiInstance:
-        \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
     |vpiStmt:
     \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
       |vpiFullName:my_module_types::simple_minus
@@ -929,6 +1187,50 @@ design: (work@t)
             \_io_decl: (value2)
   |vpiTaskFunc:
   \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
+    |vpiVisibility:1
+    |vpiAutomatic:1
+    |vpiName:simple_func
+    |vpiFullName:my_module_types::simple_func
+    |vpiReturn:
+    \_int_var: , line:9:23, endln:9:26
+    |vpiInstance:
+    \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
+    |vpiIODecl:
+    \_io_decl: (value1)
+      |vpiName:value1
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:46, endln:9:49
+    |vpiIODecl:
+    \_io_decl: (value2)
+      |vpiName:value2
+      |vpiDirection:1
+      |vpiTypedef:
+      \_int_typespec: , line:9:64, endln:9:67
+    |vpiStmt:
+    \_begin: (my_module_types::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
+      |vpiFullName:my_module_types::simple_func
+      |vpiStmt:
+      \_assignment: , line:11:8, endln:11:68, parent:my_module_types::simple_func
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19, parent:my_module_types::simple_func
+          |vpiName:simple_func
+          |vpiFullName:my_module_types::simple_func::simple_func
+        |vpiRhs:
+        \_func_call: (simple_minus), line:11:22, endln:11:68
+          |vpiName:simple_minus
+          |vpiFunction:
+          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
+          |vpiArgument:
+          \_ref_obj: (my_module_types::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
+            |vpiName:value1
+            |vpiFullName:my_module_types::simple_func::value1
+          |vpiArgument:
+          \_ref_obj: (my_module_types::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
+            |vpiName:value2
+            |vpiFullName:my_module_types::simple_func::value2
   |vpiNet:
   \_logic_net: (work@t.i_clk), line:26:14, parent:work@t
   |vpiNet:
@@ -1066,7 +1368,7 @@ design: (work@t)
           |vpiName:my_funcs
           |vpiFullName:my_funcs::
           |vpiTaskFunc:
-          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
+          \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
             |vpiVisibility:1
             |vpiAutomatic:1
             |vpiName:simple_minus
@@ -1074,104 +1376,15 @@ design: (work@t)
             |vpiReturn:
             \_int_var: , line:3:23, endln:3:26
             |vpiInstance:
-            \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
-              |vpiDefName:my_module_types
-              |vpiName:my_module_types
-              |vpiFullName:my_module_types::
-              |vpiTaskFunc:
-              \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
-              |vpiTaskFunc:
-              \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
-                |vpiVisibility:1
-                |vpiAutomatic:1
-                |vpiName:simple_func
-                |vpiFullName:my_module_types::simple_func
-                |vpiReturn:
-                \_int_var: , line:9:23, endln:9:26
-                |vpiInstance:
-                \_package: my_module_types (my_module_types::) dut.sv:16:1: , endln:21:11, parent:work@t
-                |vpiIODecl:
-                \_io_decl: (value1)
-                  |vpiName:value1
-                  |vpiDirection:1
-                  |vpiTypedef:
-                  \_int_typespec: , line:9:46, endln:9:49
-                    |vpiInstance:
-                    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-                |vpiIODecl:
-                \_io_decl: (value2)
-                  |vpiName:value2
-                  |vpiDirection:1
-                  |vpiTypedef:
-                  \_int_typespec: , line:9:64, endln:9:67
-                    |vpiInstance:
-                    \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
-                |vpiStmt:
-                \_begin: (my_module_types::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
-                  |vpiFullName:my_module_types::simple_func
-                  |vpiStmt:
-                  \_assignment: , line:11:8, endln:11:68, parent:my_module_types::simple_func
-                    |vpiOpType:82
-                    |vpiBlocking:1
-                    |vpiLhs:
-                    \_ref_obj: (my_module_types::simple_func::simple_func), line:11:8, endln:11:19, parent:my_module_types::simple_func
-                      |vpiName:simple_func
-                      |vpiFullName:my_module_types::simple_func::simple_func
-                    |vpiRhs:
-                    \_func_call: (simple_minus), line:11:22, endln:11:68
-                      |vpiName:simple_minus
-                      |vpiFunction:
-                      \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_module_types::
-                      |vpiArgument:
-                      \_ref_obj: (my_module_types::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
-                        |vpiName:value1
-                        |vpiFullName:my_module_types::simple_func::value1
-                      |vpiArgument:
-                      \_ref_obj: (my_module_types::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
-                        |vpiName:value2
-                        |vpiFullName:my_module_types::simple_func::value2
-              |vpiTypedef:
-              \_import: (my_funcs), line:17:11, endln:17:22
-              |vpiParamAssign:
-              \_param_assign: , line:19:15, endln:19:27, parent:my_module_types::
-                |vpiRhs:
-                \_constant: , line:19:26, endln:19:27
-                  |vpiConstType:9
-                  |vpiDecompile:3
-                  |vpiSize:64
-                  |UINT:3
-                |vpiLhs:
-                \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
-                  |vpiName:MY_PARAM
-                  |vpiFullName:my_module_types::MY_PARAM
-                  |vpiLocalParam:1
-                  |UINT:3
-              |vpiParamAssign:
-              \_param_assign: , line:20:15, endln:20:64, parent:my_module_types::
-                |vpiRhs:
-                \_constant: , line:20:27, endln:20:64
-                  |vpiConstType:7
-                  |vpiDecompile:12
-                  |vpiSize:32
-                  |INT:12
-                |vpiLhs:
-                \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
-                  |vpiName:MY_PARAM2
-                  |vpiFullName:my_module_types::MY_PARAM2
-                  |vpiLocalParam:1
-                  |INT:12
-              |vpiParameter:
-              \_parameter: (my_module_types::MY_PARAM), line:19:15, endln:19:27, parent:my_module_types::
-              |vpiParameter:
-              \_parameter: (my_module_types::MY_PARAM2), line:20:15, endln:20:64, parent:my_module_types::
+            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
             |vpiIODecl:
-            \_io_decl: (value1)
+            \_io_decl: (value1), parent:my_module_types::simple_minus
               |vpiName:value1
               |vpiDirection:1
               |vpiTypedef:
               \_int_typespec: , line:3:47, endln:3:50
             |vpiIODecl:
-            \_io_decl: (value2)
+            \_io_decl: (value2), parent:my_module_types::simple_minus
               |vpiName:value2
               |vpiDirection:1
               |vpiTypedef:
@@ -1179,33 +1392,89 @@ design: (work@t)
                 |vpiInstance:
                 \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
             |vpiStmt:
-            \_begin: (my_module_types::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
-              |vpiFullName:my_module_types::simple_minus
+            \_begin: (my_funcs::simple_minus), line:4:7, endln:6:10, parent:my_module_types::simple_minus
+              |vpiFullName:my_funcs::simple_minus
               |vpiStmt:
-              \_assignment: , line:5:8, endln:5:38, parent:my_module_types::simple_minus
+              \_assignment: , line:5:8, endln:5:38, parent:my_funcs::simple_minus
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (my_module_types::simple_minus::simple_minus), line:5:8, endln:5:20, parent:my_module_types::simple_minus
+                \_ref_obj: (my_funcs::simple_minus::simple_minus), line:5:8, endln:5:20
                   |vpiName:simple_minus
-                  |vpiFullName:my_module_types::simple_minus::simple_minus
+                  |vpiFullName:my_funcs::simple_minus::simple_minus
+                  |vpiActual:
+                  \_int_var: , line:3:23, endln:3:26
                 |vpiRhs:
-                \_operation: , line:5:23, endln:5:29, parent:my_module_types::simple_minus
+                \_operation: , line:5:23, endln:5:29
                   |vpiOpType:11
                   |vpiOperand:
-                  \_ref_obj: (my_module_types::simple_minus::value1), line:5:23, endln:5:29, parent:my_module_types::simple_minus
+                  \_ref_obj: (my_funcs::simple_minus::value1), line:5:23, endln:5:29
                     |vpiName:value1
-                    |vpiFullName:my_module_types::simple_minus::value1
+                    |vpiFullName:my_funcs::simple_minus::value1
                     |vpiActual:
-                    \_io_decl: (value1)
+                    \_io_decl: (value1), parent:my_module_types::simple_minus
                   |vpiOperand:
-                  \_ref_obj: (my_module_types::simple_minus::value2), line:5:32, endln:5:38
+                  \_ref_obj: (my_funcs::simple_minus::value2), line:5:32, endln:5:38
                     |vpiName:value2
-                    |vpiFullName:my_module_types::simple_minus::value2
+                    |vpiFullName:my_funcs::simple_minus::value2
                     |vpiActual:
-                    \_io_decl: (value2)
+                    \_io_decl: (value2), parent:my_module_types::simple_minus
           |vpiTaskFunc:
-          \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_module_types::
+          \_function: (my_module_types::simple_func), line:9:4, endln:13:15, parent:my_funcs::
+            |vpiVisibility:1
+            |vpiAutomatic:1
+            |vpiName:simple_func
+            |vpiFullName:my_module_types::simple_func
+            |vpiReturn:
+            \_int_var: , line:9:23, endln:9:26
+            |vpiInstance:
+            \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+            |vpiIODecl:
+            \_io_decl: (value1), parent:my_module_types::simple_func
+              |vpiName:value1
+              |vpiDirection:1
+              |vpiTypedef:
+              \_int_typespec: , line:9:46, endln:9:49
+                |vpiInstance:
+                \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+            |vpiIODecl:
+            \_io_decl: (value2), parent:my_module_types::simple_func
+              |vpiName:value2
+              |vpiDirection:1
+              |vpiTypedef:
+              \_int_typespec: , line:9:64, endln:9:67
+                |vpiInstance:
+                \_package: my_funcs (my_funcs::) dut.sv:1:1: , endln:14:11, parent:work@t
+            |vpiStmt:
+            \_begin: (my_funcs::simple_func), line:10:7, endln:12:10, parent:my_module_types::simple_func
+              |vpiFullName:my_funcs::simple_func
+              |vpiStmt:
+              \_assignment: , line:11:8, endln:11:68, parent:my_funcs::simple_func
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (my_funcs::simple_func::simple_func), line:11:8, endln:11:19
+                  |vpiName:simple_func
+                  |vpiFullName:my_funcs::simple_func::simple_func
+                  |vpiActual:
+                  \_int_var: , line:9:23, endln:9:26
+                |vpiRhs:
+                \_func_call: (simple_minus), line:11:22, endln:11:68
+                  |vpiName:simple_minus
+                  |vpiFunction:
+                  \_function: (my_module_types::simple_minus), line:3:4, endln:7:15, parent:my_funcs::
+                  |vpiArgument:
+                  \_ref_obj: (my_funcs::simple_func::value1), line:11:60, endln:11:66, parent:simple_minus
+                    |vpiName:value1
+                    |vpiFullName:my_funcs::simple_func::value1
+                    |vpiActual:
+                    \_io_decl: (value1), parent:my_module_types::simple_func
+                  |vpiArgument:
+                  \_ref_obj: (my_funcs::simple_func::value2), line:11:43, endln:11:49, parent:simple_minus
+                    |vpiName:value2
+                    |vpiFullName:my_funcs::simple_func::value2
+                    |vpiActual:
+                    \_io_decl: (value2), parent:my_module_types::simple_func
     |vpiIODecl:
     \_io_decl: (value2), parent:my_module_types::simple_minus
       |vpiName:value2
