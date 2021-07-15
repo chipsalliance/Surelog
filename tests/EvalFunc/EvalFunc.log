@@ -772,7 +772,7 @@ design: (work@top)
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:18:11, parent:work@top
     |vpiIODecl:
-    \_io_decl: (value)
+    \_io_decl: (value), parent:prim_util_pkg::_clog2
       |vpiName:value
       |vpiDirection:1
       |vpiTypedef:
@@ -787,20 +787,20 @@ design: (work@top)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (prim_util_pkg::_clog2::value), line:5:5, endln:5:10, parent:prim_util_pkg::_clog2
+        \_ref_obj: (prim_util_pkg::_clog2::value), line:5:5, endln:5:10
           |vpiName:value
           |vpiFullName:prim_util_pkg::_clog2::value
           |vpiActual:
-          \_io_decl: (value)
+          \_io_decl: (value), parent:prim_util_pkg::_clog2
         |vpiRhs:
-        \_operation: , line:5:13, endln:5:18, parent:prim_util_pkg::_clog2
+        \_operation: , line:5:13, endln:5:18
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (prim_util_pkg::_clog2::value), line:5:13, endln:5:18, parent:prim_util_pkg::_clog2
+          \_ref_obj: (prim_util_pkg::_clog2::value), line:5:13, endln:5:18
             |vpiName:value
             |vpiFullName:prim_util_pkg::_clog2::value
             |vpiActual:
-            \_io_decl: (value)
+            \_io_decl: (value), parent:prim_util_pkg::_clog2
           |vpiOperand:
           \_constant: , line:5:21, endln:5:22
             |vpiConstType:9
@@ -817,6 +817,8 @@ design: (work@top)
           \_ref_obj: (prim_util_pkg::_clog2::value), line:6:22, endln:6:27
             |vpiName:value
             |vpiFullName:prim_util_pkg::_clog2::value
+            |vpiActual:
+            \_io_decl: (value), parent:prim_util_pkg::_clog2
           |vpiOperand:
           \_constant: , line:6:30, endln:6:31
             |vpiConstType:9
@@ -835,21 +837,29 @@ design: (work@top)
           \_chandle_var: (prim_util_pkg::_clog2::result), line:6:10, endln:6:16
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
+            |vpiActual:
+            \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12, parent:prim_util_pkg::_clog2
+              |vpiName:result
+              |vpiFullName:prim_util_pkg::_clog2::result
         |vpiForIncStmt:
         \_assignment: , line:6:33, endln:6:52, parent:prim_util_pkg::_clog2
           |vpiOpType:82
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (prim_util_pkg::_clog2::result), line:6:33, endln:6:39, parent:prim_util_pkg::_clog2
+          \_ref_obj: (prim_util_pkg::_clog2::result), line:6:33, endln:6:39
             |vpiName:result
             |vpiFullName:prim_util_pkg::_clog2::result
+            |vpiActual:
+            \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12, parent:prim_util_pkg::_clog2
           |vpiRhs:
-          \_operation: , line:6:42, endln:6:48, parent:prim_util_pkg::_clog2
+          \_operation: , line:6:42, endln:6:48
             |vpiOpType:24
             |vpiOperand:
-            \_ref_obj: (prim_util_pkg::_clog2::result), line:6:42, endln:6:48, parent:prim_util_pkg::_clog2
+            \_ref_obj: (prim_util_pkg::_clog2::result), line:6:42, endln:6:48
               |vpiName:result
               |vpiFullName:prim_util_pkg::_clog2::result
+              |vpiActual:
+              \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12, parent:prim_util_pkg::_clog2
             |vpiOperand:
             \_constant: , line:6:51, endln:6:52
               |vpiConstType:9
@@ -864,16 +874,20 @@ design: (work@top)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (prim_util_pkg::_clog2::value), line:7:7, endln:7:12, parent:prim_util_pkg::_clog2
+            \_ref_obj: (prim_util_pkg::_clog2::value), line:7:7, endln:7:12
               |vpiName:value
               |vpiFullName:prim_util_pkg::_clog2::value
+              |vpiActual:
+              \_io_decl: (value), parent:prim_util_pkg::_clog2
             |vpiRhs:
-            \_operation: , line:7:15, endln:7:20, parent:prim_util_pkg::_clog2
+            \_operation: , line:7:15, endln:7:20
               |vpiOpType:23
               |vpiOperand:
-              \_ref_obj: (prim_util_pkg::_clog2::value), line:7:15, endln:7:20, parent:prim_util_pkg::_clog2
+              \_ref_obj: (prim_util_pkg::_clog2::value), line:7:15, endln:7:20
                 |vpiName:value
                 |vpiFullName:prim_util_pkg::_clog2::value
+                |vpiActual:
+                \_io_decl: (value), parent:prim_util_pkg::_clog2
               |vpiOperand:
               \_constant: , line:7:24, endln:7:25
                 |vpiConstType:9
@@ -886,10 +900,10 @@ design: (work@top)
         \_ref_obj: (prim_util_pkg::_clog2::result), line:9:12, endln:9:18
           |vpiName:result
           |vpiFullName:prim_util_pkg::_clog2::result
+          |vpiActual:
+          \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12, parent:prim_util_pkg::_clog2
     |vpiVariables:
-    \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12
-      |vpiName:result
-      |vpiFullName:prim_util_pkg::_clog2::result
+    \_int_var: (prim_util_pkg::_clog2::result), line:4:5, endln:4:12, parent:prim_util_pkg::_clog2
   |vpiTaskFunc:
   \_function: (prim_util_pkg::vbits), line:12:3, endln:16:14, parent:prim_util_pkg::
     |vpiVisibility:1
@@ -901,7 +915,7 @@ design: (work@top)
     |vpiInstance:
     \_package: prim_util_pkg (prim_util_pkg::) dut.sv:1:1: , endln:18:11, parent:work@top
     |vpiIODecl:
-    \_io_decl: (value)
+    \_io_decl: (value), parent:prim_util_pkg::vbits
       |vpiName:value
       |vpiDirection:1
       |vpiTypedef:
@@ -920,6 +934,8 @@ design: (work@top)
           \_ref_obj: (prim_util_pkg::vbits::value), line:14:13, endln:14:18
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
+            |vpiActual:
+            \_io_decl: (value), parent:prim_util_pkg::vbits
           |vpiOperand:
           \_constant: , line:14:22, endln:14:23
             |vpiConstType:9
@@ -941,6 +957,8 @@ design: (work@top)
           \_ref_obj: (prim_util_pkg::vbits::value), line:14:53, endln:14:58, parent:prim_util_pkg::_clog2
             |vpiName:value
             |vpiFullName:prim_util_pkg::vbits::value
+            |vpiActual:
+            \_io_decl: (value), parent:prim_util_pkg::vbits
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:22:1: , endln:68:10, parent:work@top
   |vpiDefName:work@top
