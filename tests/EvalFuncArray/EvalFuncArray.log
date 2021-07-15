@@ -269,15 +269,16 @@ design: (unnamed)
     |vpiInstance:
     \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
     |vpiIODecl:
-    \_io_decl: (infos)
+    \_io_decl: (infos), parent:earlgrey::max_info_pages
       |vpiName:infos
       |vpiDirection:1
+      |vpiSize:78
       |vpiTypedef:
       \_int_typespec: , line:12:46, endln:12:49
         |vpiInstance:
         \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
       |vpiRange:
-      \_range: , line:12:56, endln:12:65
+      \_range: , line:12:56, endln:12:65, parent:infos
         |vpiLeftRange:
         \_constant: , line:12:56, endln:12:57
           |vpiConstType:9
@@ -288,8 +289,19 @@ design: (unnamed)
         \_operation: 
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (InfoTypes), line:12:56, endln:12:65
+          \_ref_obj: (earlgrey::max_info_pages::infos::InfoTypes), line:12:56, endln:12:65
             |vpiName:InfoTypes
+            |vpiFullName:earlgrey::max_info_pages::infos::InfoTypes
+            |vpiActual:
+            \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
+              |vpiName:InfoTypes
+              |vpiFullName:earlgrey::InfoTypes
+              |UINT:5
+              |vpiTypespec:
+              \_int_typespec: (InfoTypes), line:10:11, endln:10:14, parent:earlgrey::InfoTypes
+                |vpiName:InfoTypes
+                |vpiInstance:
+                \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
           |vpiOperand:
           \_constant: 
             |vpiConstType:7
@@ -324,6 +336,8 @@ design: (unnamed)
           \_ref_obj: (earlgrey::max_info_pages::InfoTypes), line:15:25, endln:15:34
             |vpiName:InfoTypes
             |vpiFullName:earlgrey::max_info_pages::InfoTypes
+            |vpiActual:
+            \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
         |vpiForInitStmt:
         \_assign_stmt: , parent:earlgrey::max_info_pages
           |vpiRhs:
@@ -340,8 +354,9 @@ design: (unnamed)
         \_operation: , line:15:36, endln:15:37, parent:earlgrey::max_info_pages
           |vpiOpType:62
           |vpiOperand:
-          \_ref_obj: (i), line:15:36, endln:15:37
+          \_ref_obj: (earlgrey::max_info_pages::i), line:15:36, endln:15:37
             |vpiName:i
+            |vpiFullName:earlgrey::max_info_pages::i
         |vpiStmt:
         \_begin: (earlgrey::max_info_pages), line:15:41, endln:19:8, parent:earlgrey::max_info_pages
           |vpiFullName:earlgrey::max_info_pages
@@ -355,13 +370,17 @@ design: (unnamed)
                 |vpiName:infos
                 |vpiFullName:earlgrey::max_info_pages::infos
                 |vpiIndex:
-                \_ref_obj: (earlgrey::max_info_pages::i), line:16:17, endln:16:18, parent:earlgrey::max_info_pages
+                \_ref_obj: (earlgrey::max_info_pages::i), line:16:17, endln:16:18, parent:earlgrey::max_info_pages::infos
                   |vpiName:i
                   |vpiFullName:earlgrey::max_info_pages::i
               |vpiOperand:
               \_ref_obj: (earlgrey::max_info_pages::current_max), line:16:22, endln:16:33
                 |vpiName:current_max
                 |vpiFullName:earlgrey::max_info_pages::current_max
+                |vpiActual:
+                \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
+                  |vpiName:current_max
+                  |vpiFullName:earlgrey::max_info_pages::current_max
             |vpiStmt:
             \_begin: (earlgrey::max_info_pages), line:16:35, endln:18:10
               |vpiFullName:earlgrey::max_info_pages
@@ -370,15 +389,17 @@ design: (unnamed)
                 |vpiOpType:82
                 |vpiBlocking:1
                 |vpiLhs:
-                \_ref_obj: (earlgrey::max_info_pages::current_max), line:17:9, endln:17:20, parent:earlgrey::max_info_pages
+                \_ref_obj: (earlgrey::max_info_pages::current_max), line:17:9, endln:17:20
                   |vpiName:current_max
                   |vpiFullName:earlgrey::max_info_pages::current_max
+                  |vpiActual:
+                  \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
                 |vpiRhs:
                 \_bit_select: (earlgrey::max_info_pages::infos), line:17:23, endln:17:31
                   |vpiName:infos
                   |vpiFullName:earlgrey::max_info_pages::infos
                   |vpiIndex:
-                  \_ref_obj: (earlgrey::max_info_pages::i), line:17:29, endln:17:30, parent:earlgrey::max_info_pages
+                  \_ref_obj: (earlgrey::max_info_pages::i), line:17:29, endln:17:30, parent:earlgrey::max_info_pages::infos
                     |vpiName:i
                     |vpiFullName:earlgrey::max_info_pages::i
       |vpiStmt:
@@ -387,8 +408,10 @@ design: (unnamed)
         \_ref_obj: (earlgrey::max_info_pages::current_max), line:20:12, endln:20:23
           |vpiName:current_max
           |vpiFullName:earlgrey::max_info_pages::current_max
+          |vpiActual:
+          \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
     |vpiVariables:
-    \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8
+    \_int_var: (earlgrey::max_info_pages::current_max), line:14:5, endln:14:8, parent:earlgrey::max_info_pages
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:9:5, parent:earlgrey::
     |vpiRhs:
@@ -416,14 +439,6 @@ design: (unnamed)
       |UINT:5
     |vpiLhs:
     \_parameter: (earlgrey::InfoTypes), line:10:15, endln:10:28, parent:earlgrey::
-      |vpiName:InfoTypes
-      |vpiFullName:earlgrey::InfoTypes
-      |UINT:5
-      |vpiTypespec:
-      \_int_typespec: (InfoTypes), line:10:11, endln:10:14, parent:earlgrey::InfoTypes
-        |vpiName:InfoTypes
-        |vpiInstance:
-        \_package: earlgrey (earlgrey::) dut.sv:1:1: , endln:24:11, parent:unnamed
   |vpiParameter:
   \_parameter: (earlgrey::InfosPerBank), line:3:15, endln:9:5, parent:earlgrey::
   |vpiParameter:

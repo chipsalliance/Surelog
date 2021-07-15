@@ -370,7 +370,7 @@ design: (unnamed)
     |vpiInstance:
     \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiIODecl:
-    \_io_decl: (action_str)
+    \_io_decl: (action_str), parent:toto::uvm_string_to_action
       |vpiName:action_str
       |vpiDirection:1
       |vpiTypedef:
@@ -378,7 +378,7 @@ design: (unnamed)
         |vpiInstance:
         \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiIODecl:
-    \_io_decl: (action)
+    \_io_decl: (action), parent:toto::uvm_string_to_action
       |vpiName:action
       |vpiDirection:2
       |vpiTypedef:
@@ -387,13 +387,14 @@ design: (unnamed)
         |vpiInstance:
         \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiVariables:
-    \_array_var: (toto::uvm_string_to_action)
+    \_array_var: (toto::uvm_string_to_action), parent:toto::uvm_string_to_action
       |vpiFullName:toto::uvm_string_to_action
       |vpiReg:
-      \_string_var: (actions), line:4:7, endln:4:13
+      \_string_var: (toto::uvm_string_to_action::actions), line:4:7, endln:4:13, parent:toto::uvm_string_to_action
         |vpiName:actions
+        |vpiFullName:toto::uvm_string_to_action::actions
       |vpiRange:
-      \_range: , line:4:22, endln:4:23
+      \_range: , line:4:22, endln:4:23, parent:toto::uvm_string_to_action
         |vpiLeftRange:
         \_constant: , line:4:22, endln:4:23
           |vpiConstType:9
@@ -423,7 +424,7 @@ design: (unnamed)
         |vpiOpType:82
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (toto::uvm_object::clone::tmp), line:9:7, endln:9:10, parent:toto::uvm_object::clone
+        \_ref_obj: (toto::uvm_object::clone::tmp), line:9:7, endln:9:10
           |vpiName:tmp
           |vpiFullName:toto::uvm_object::clone::tmp
         |vpiRhs:
@@ -436,14 +437,15 @@ design: (unnamed)
             |vpiSize:4
             |STRING:this
           |vpiArgument:
-          \_func_call: (get_name), line:9:25, endln:9:35
+          \_func_call: (get_name), line:9:25, endln:9:35, parent:create
             |vpiName:get_name
       |vpiStmt:
       \_method_func_call: (copy), line:11:7, endln:11:22, parent:toto::uvm_object::clone
         |vpiName:copy
         |vpiPrefix:
-        \_ref_obj: (tmp)
+        \_ref_obj: (toto::uvm_object::clone::tmp), parent:copy
           |vpiName:tmp
+          |vpiFullName:toto::uvm_object::clone::tmp
         |vpiArgument:
         \_ref_obj: (toto::uvm_object::clone::this), line:11:16, endln:11:20, parent:copy
           |vpiName:this
@@ -466,7 +468,7 @@ design: (unnamed)
         \_operation: , line:17:7, endln:17:23
           |vpiOpType:14
           |vpiOperand:
-          \_ref_obj: (toto::m_initialize::m_b_inst), line:17:7, endln:17:15, parent:toto::m_initialize
+          \_ref_obj: (toto::m_initialize::m_b_inst), line:17:7, endln:17:15
             |vpiName:m_b_inst
             |vpiFullName:toto::m_initialize::m_b_inst
           |vpiOperand:
@@ -483,7 +485,7 @@ design: (unnamed)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (toto::m_initialize::m_b_inst), line:18:6, endln:18:14, parent:toto::m_initialize
+            \_ref_obj: (toto::m_initialize::m_b_inst), line:18:6, endln:18:14
               |vpiName:m_b_inst
               |vpiFullName:toto::m_initialize::m_b_inst
             |vpiRhs:
@@ -494,7 +496,7 @@ design: (unnamed)
             |vpiOpType:82
             |vpiBlocking:1
             |vpiLhs:
-            \_ref_obj: (toto::m_initialize::m_pool), line:19:6, endln:19:12, parent:toto::m_initialize
+            \_ref_obj: (toto::m_initialize::m_pool), line:19:6, endln:19:12
               |vpiName:m_pool
               |vpiFullName:toto::m_initialize::m_pool
             |vpiRhs:
@@ -522,7 +524,7 @@ design: (unnamed)
     |vpiInstance:
     \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiIODecl:
-    \_io_decl: (field)
+    \_io_decl: (field), parent:toto::uvm_reg::add_field
       |vpiName:field
       |vpiDirection:1
       |vpiTypedef:
@@ -536,10 +538,10 @@ design: (unnamed)
       \_hier_path: (fields.get_lsb_pos_in_register), line:27:8, endln:27:52
         |vpiName:fields.get_lsb_pos_in_register
         |vpiActual:
-        \_ref_obj: (fields)
+        \_ref_obj: (fields), parent:fields.get_lsb_pos_in_register
           |vpiName:fields
         |vpiActual:
-        \_ref_obj: (get_lsb_pos_in_register)
+        \_ref_obj: (get_lsb_pos_in_register), parent:fields.get_lsb_pos_in_register
           |vpiName:get_lsb_pos_in_register
       |vpiStmt:
       \_begin: (toto::uvm_reg::add_field), line:27:54, endln:28:7
@@ -577,7 +579,7 @@ design: (unnamed)
     |vpiInstance:
     \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiIODecl:
-    \_io_decl: (element)
+    \_io_decl: (element), parent:toto::uvm_reg_backdoor::start_update_thread
       |vpiName:element
       |vpiDirection:1
       |vpiTypedef:
@@ -609,10 +611,16 @@ design: (unnamed)
             \_ref_obj: (toto::uvm_reg_backdoor::start_update_thread::element), line:39:34, endln:39:41, parent:kill_update_thread
               |vpiName:element
               |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::element
+              |vpiActual:
+              \_io_decl: (element), parent:toto::uvm_reg_backdoor::start_update_thread
     |vpiVariables:
-    \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:7, endln:37:14
+    \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:7, endln:37:14, parent:toto::uvm_reg_backdoor::start_update_thread
       |vpiName:rg
       |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
+      |vpiActual:
+      \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:7, endln:37:14
+        |vpiName:rg
+        |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:unnamed
   |vpiName:work@mailbox
