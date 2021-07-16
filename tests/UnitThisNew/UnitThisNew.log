@@ -1,5 +1,11 @@
 [INF:CM0023] Creating log file ../../build/tests/UnitThisNew/slpp_all/surelog.log.
 
+[INF:CM0024] Executing with 1 threads.
+
+Running: cd ../../build/tests/UnitThisNew/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
+Running: cd ../../build/tests/UnitThisNew/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 LIB:  work
 FILE: dut.sv
 n<> u<0> t<Null_rule> p<292> s<291> l<1:1>
@@ -321,6 +327,16 @@ n<> u<292> t<Top_level_rule> l<1:1> el<45:1>
 
 [INF:UH0707] Elaborating UHDM...
 
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
 [INF:UH0708] Writing UHDM DB: ../../build/tests/UnitThisNew/slpp_all//surelog.uhdm...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/UnitThisNew/slpp_all//surelog.uhdm.chk.html...
@@ -413,7 +429,7 @@ design: (unnamed)
     |vpiName:uvm_object::clone
     |vpiFullName:toto::uvm_object::clone
     |vpiReturn:
-    \_chandle_var: , line:7:14, endln:7:24
+    \_logic_var: 
     |vpiInstance:
     \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiStmt:
@@ -456,7 +472,7 @@ design: (unnamed)
     |vpiName:m_initialize
     |vpiFullName:toto::m_initialize
     |vpiReturn:
-    \_chandle_var: , line:16:10, endln:16:19
+    \_logic_var: 
     |vpiInstance:
     \_package: toto (toto::) dut.sv:1:1: , endln:44:11, parent:unnamed
     |vpiStmt:
@@ -614,13 +630,11 @@ design: (unnamed)
               |vpiActual:
               \_io_decl: (element), parent:toto::uvm_reg_backdoor::start_update_thread
     |vpiVariables:
-    \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:7, endln:37:14, parent:toto::uvm_reg_backdoor::start_update_thread
-      |vpiName:rg
-      |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
+    \_ref_obj: (toto::uvm_reg_backdoor::start_update_thread), line:37:7, endln:37:14, parent:toto::uvm_reg_backdoor::start_update_thread
+      |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
       |vpiActual:
-      \_chandle_var: (toto::uvm_reg_backdoor::start_update_thread::rg), line:37:7, endln:37:14
-        |vpiName:rg
-        |vpiFullName:toto::uvm_reg_backdoor::start_update_thread::rg
+      \_ref_obj: (toto::uvm_reg_backdoor::start_update_thread), line:37:7, endln:37:14
+        |vpiFullName:toto::uvm_reg_backdoor::start_update_thread
 |uhdmallClasses:
 \_class_defn: (work@mailbox) ${SURELOG_DIR}/build/bin/sv/builtin.sv:4:1: , endln:30:9, parent:unnamed
   |vpiName:work@mailbox
@@ -731,7 +745,7 @@ design: (unnamed)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:19, endln:37:26
+    \_logic_var: 
   |vpiMethod:
   \_function: (work@process::status), line:40:3, endln:41:14, parent:work@process
     |vpiMethod:1

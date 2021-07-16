@@ -6400,6 +6400,9 @@ n<> u<6377> t<Top_level_rule> l<1:1> el<807:1>
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
+[ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a variables_operation_group group!
+.
+
 [ERR:CP0316] dut.sv:7: Undefined package "verbosity_pkg".
 
 [ERR:CP0316] dut.sv:8: Undefined package "avalon_mm_pkg".
@@ -6430,6 +6433,46 @@ n<> u<6377> t<Top_level_rule> l<1:1> el<807:1>
 
 [INF:UH0707] Elaborating UHDM...
 
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_handle
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
+VPI ERROR: Bad usage of vpi_iterate
 [INF:UH0708] Writing UHDM DB: ../../build/tests/DollarRoot/slpp_all//surelog.uhdm...
 
 [INF:UH0709] Writing UHDM Html Coverage: ../../build/tests/DollarRoot/slpp_all//surelog.uhdm.chk.html...
@@ -6573,7 +6616,7 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:19, endln:37:26
+    \_logic_var: 
   |vpiMethod:
   \_function: (work@process::status), line:40:3, endln:41:14, parent:work@process
     |vpiMethod:1
@@ -11349,13 +11392,9 @@ design: (work@top)
           \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17, parent:work@test_program.get_expected_command_for_slave
             |vpiFullName:work@test_program.get_expected_command_for_slave
             |vpiVariables:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.write_command_queue_slave), line:691:19, endln:691:44, parent:work@test_program.get_expected_command_for_slave
+            \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave), line:691:19, endln:691:44, parent:work@test_program.get_expected_command_for_slave
               |vpiName:write_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave
-            |vpiLoopVars:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53, parent:work@test_program.get_expected_command_for_slave
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13, parent:work@test_program.get_expected_command_for_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -11477,13 +11516,9 @@ design: (work@top)
           \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17, parent:work@test_program.get_expected_command_for_slave
             |vpiFullName:work@test_program.get_expected_command_for_slave
             |vpiVariables:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.read_command_queue_slave), line:703:19, endln:703:43, parent:work@test_program.get_expected_command_for_slave
+            \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave), line:703:19, endln:703:43, parent:work@test_program.get_expected_command_for_slave
               |vpiName:read_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave
-            |vpiLoopVars:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52, parent:work@test_program.get_expected_command_for_slave
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13, parent:work@test_program.get_expected_command_for_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -17804,17 +17839,11 @@ design: (work@top)
           \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:691:10, endln:691:17, parent:work@test_program.get_expected_command_for_slave
             |vpiFullName:work@test_program.get_expected_command_for_slave
             |vpiVariables:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.write_command_queue_slave), line:691:19, endln:691:44, parent:work@test_program.get_expected_command_for_slave
+            \_ref_obj: (work@test_program.get_expected_command_for_slave.write_command_queue_slave), line:691:19, endln:691:44, parent:work@test_program.get_expected_command_for_slave
               |vpiName:write_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave
               |vpiActual:
               \_array_var: (work@test_program.write_command_queue_slave), line:71:10, endln:71:35, parent:work@test_program
-            |vpiLoopVars:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.slave_id), line:691:45, endln:691:53, parent:work@test_program.get_expected_command_for_slave
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
-              |vpiActual:
-              \_io_decl: (slave_id), parent:work@test_program.get_expected_command_for_slave
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:691:58, endln:698:13, parent:work@test_program.get_expected_command_for_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -17961,17 +17990,11 @@ design: (work@top)
           \_foreach_stmt: (work@test_program.get_expected_command_for_slave), line:703:10, endln:703:17, parent:work@test_program.get_expected_command_for_slave
             |vpiFullName:work@test_program.get_expected_command_for_slave
             |vpiVariables:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.read_command_queue_slave), line:703:19, endln:703:43, parent:work@test_program.get_expected_command_for_slave
+            \_ref_obj: (work@test_program.get_expected_command_for_slave.read_command_queue_slave), line:703:19, endln:703:43, parent:work@test_program.get_expected_command_for_slave
               |vpiName:read_command_queue_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave
               |vpiActual:
               \_array_var: (work@test_program.read_command_queue_slave), line:72:10, endln:72:34, parent:work@test_program
-            |vpiLoopVars:
-            \_chandle_var: (work@test_program.get_expected_command_for_slave.slave_id), line:703:44, endln:703:52, parent:work@test_program.get_expected_command_for_slave
-              |vpiName:slave_id
-              |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
-              |vpiActual:
-              \_io_decl: (slave_id), parent:work@test_program.get_expected_command_for_slave
             |vpiStmt:
             \_begin: (work@test_program.get_expected_command_for_slave), line:703:57, endln:710:13, parent:work@test_program.get_expected_command_for_slave
               |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -19139,7 +19162,7 @@ design: (work@top)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 5
 [WARNING] : 3
 [   NOTE] : 8
 

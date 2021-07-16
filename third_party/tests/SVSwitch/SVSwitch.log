@@ -4,6 +4,10 @@
 
 [NTE:CM0009] Command line argument "+warn=all" ignored.
 
+[INF:CM0024] Executing with 1 threads.
+
+Running: cd ../../../build/tests/SVSwitch/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
 [INF:PP0122] Preprocessing source file "builtin.sv".
 
 [INF:PP0122] Preprocessing source file "Globals.sv".
@@ -28,6 +32,8 @@
 
 [INF:PP0122] Preprocessing source file "testcase.sv".
 
+Running: cd ../../../build/tests/SVSwitch/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 [INF:PA0201] Parsing source file "builtin.sv".
 
 [INF:PA0201] Parsing source file "Globals.sv".
@@ -87,6 +93,9 @@
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
 [INF:CP0302] testcase.sv:12: Compile class "work@small_packet".
+
+[ERR:UH0703] Internal Error: adding wrong object type (ref_obj) in a variables_operation_group group!
+.
 
 [NTE:CP0309] rtl.sv:1: Implicit port type (wire) for "port0",
 there are 7 more instances of this message.
@@ -282,7 +291,7 @@ Instance tree:
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 1
 [WARNING] : 1
 [   NOTE] : 57
 

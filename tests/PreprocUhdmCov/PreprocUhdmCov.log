@@ -1,5 +1,12 @@
 [INF:CM0023] Creating log file ../../build/tests/PreprocUhdmCov/slpp_all/surelog.log.
 
+[INF:CM0024] Executing with 1 threads.
+
+Running: cd ../../build/tests/PreprocUhdmCov/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
+[NTE:PP0105] dut.sv:22: Multiply defined macro "_N",
+             dut.sv:18: previous definition.
+
 [WRN:PP0113] prim_assert.sv:28:8: Unused macro argument "__clk".
 
 [WRN:PP0113] prim_assert.sv:28:8: Unused macro argument "__name".
@@ -8,9 +15,11 @@
 
 [WRN:PP0113] prim_assert.sv:28:8: Unused macro argument "__rst".
 
-[NTE:PP0105] dut.sv:22: Multiply defined macro "_N",
-             dut.sv:18: previous definition.
+[NTE:PP0105] dut.sv:18: Multiply defined macro "_N",
+             dut.sv:22: previous definition.
 
+Running: cd ../../build/tests/PreprocUhdmCov/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 LIB:  work
 FILE: dut.sv
 n<> u<0> t<Null_rule> p<205> s<204> l<4:1> el<39:6>
@@ -396,7 +405,7 @@ design: (work@top)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:19, endln:37:26
+    \_logic_var: 
   |vpiMethod:
   \_function: (work@process::status), line:40:3, endln:41:14, parent:work@process
     |vpiMethod:1
@@ -972,5 +981,5 @@ design: (work@top)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 8
-[   NOTE] : 6
+[   NOTE] : 7
 

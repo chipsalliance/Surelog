@@ -206,9 +206,13 @@ UHDM::any* CompileHelper::compileVariable(
       }
     }
     if (result == nullptr) {
-      chandle_var* ref = s.MakeChandle_var();
-      if (the_type != slChandle_type) ref->VpiName(typeName);
-      result = ref;
+      if (the_type == VObjectType::slChandle_type) {
+        result = s.MakeChandle_var();
+      } else {
+        UHDM::ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(typeName);
+        result = ref;
+      }
     }
     result->VpiFile(fC->getFileName());
     result->VpiLineNo(fC->Line(variable));

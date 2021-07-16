@@ -1,5 +1,14 @@
 [INF:CM0023] Creating log file ../../build/tests/PreprocFunc/slpp_all/surelog.log.
 
+[INF:CM0024] Executing with 1 threads.
+
+Running: cd ../../build/tests/PreprocFunc/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch pp_batch.txt
+Surelog preproc status: 0
+[NTE:PP0105] inc.h:2: Multiply defined macro "min",
+             dut.sv:2: previous definition.
+
+Running: cd ../../build/tests/PreprocFunc/slpp_all/;${SURELOG_DIR}/build/bin/surelog -nostdout -batch parser_batch.txt
+Surelog parsing status: 0
 LIB:  work
 FILE: dut.sv
 n<> u<0> t<Null_rule> p<368> s<367> l<5:1> el<4:2>
@@ -542,7 +551,7 @@ design: (work@asym_ram)
     |vpiName:self
     |vpiFullName:work@process::self
     |vpiReturn:
-    \_chandle_var: , line:37:19, endln:37:26
+    \_logic_var: 
   |vpiMethod:
   \_function: (work@process::status), line:40:3, endln:41:14, parent:work@process
     |vpiMethod:1
@@ -835,7 +844,7 @@ design: (work@asym_ram)
                 |vpiSize:64
                 |UINT:0
               |vpiLhs:
-              \_chandle_var: (work@asym_ram.log2.res), line:23:8, endln:23:11
+              \_ref_obj: (work@asym_ram.log2.res), line:23:8, endln:23:11
                 |vpiName:res
                 |vpiFullName:work@asym_ram.log2.res
             |vpiForIncStmt:
@@ -1225,7 +1234,7 @@ design: (work@asym_ram)
                 |vpiSize:64
                 |UINT:0
               |vpiLhs:
-              \_chandle_var: (work@asym_ram.log2.res), line:23:8, endln:23:11
+              \_ref_obj: (work@asym_ram.log2.res), line:23:8, endln:23:11
                 |vpiName:res
                 |vpiFullName:work@asym_ram.log2.res
                 |vpiActual:
@@ -1399,5 +1408,5 @@ design: (work@asym_ram)
 [ SYNTAX] : 0
 [  ERROR] : 0
 [WARNING] : 1
-[   NOTE] : 5
+[   NOTE] : 6
 
