@@ -1200,7 +1200,9 @@ UHDM::typespec* CompileHelper::compileTypespec(
         result = compileDatastructureTypespec(
             component, fC, type, compileDesign, instance, reduce, "", typeName);
         if (ranges && result) {
-          if (result->UhdmType() == uhdmstruct_typespec) {
+          if (result->UhdmType() == uhdmstruct_typespec ||
+              result->UhdmType() == uhdmenum_typespec ||
+              result->UhdmType() == uhdmunion_typespec) {
             packed_array_typespec* pats = s.MakePacked_array_typespec();
             pats->Elem_typespec(result);
             pats->Ranges(ranges);
