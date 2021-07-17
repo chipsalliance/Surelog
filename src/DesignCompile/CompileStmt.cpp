@@ -1692,10 +1692,11 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     if (var) {
       // Explicit return type
       var->VpiName("");
-    } if (!Function_data_type) {
+    }
+    if (!Function_data_type) {
       // Implicit return type
       var = s.MakeLogic_var();
-    } // else void return type
+    }  // else void return type
     func->Return(var);
   }
 
