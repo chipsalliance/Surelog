@@ -27,6 +27,7 @@
 #include "Design/DummyType.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
+#include "Design/Task.h"
 #include "Design/ParamAssign.h"
 #include "Design/Parameter.h"
 #include "Design/SimpleType.h"

@@ -1,6 +1,6 @@
 #!/usr/bin/tclsh
 
-# Copyright 2019 Alain Dargelas
+# Copyright 2017-2021 Alain Dargelas
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -225,6 +225,36 @@ proc findFiles { basedir pattern {level 0}} {
     return $fileList
 }
 
+proc findDirs { basedir pattern {level 0}} {
+    if {$level > 3} {
+      return
+    }
+    # Fix the directory name, this ensures the directory name is in the
+    # native format for the platform and contains a final directory seperator
+    set basedir [string trimright [file join [file normalize $basedir] { }]]
+    set fileList {}
+
+    # Look in the current directory for matching files, -type {f r}
+    # means ony readable normal files are looked at, -nocomplain stops
+    # an error being thrown if the returned list is empty
+    foreach fileName [glob -nocomplain -type {d r} -path $basedir $pattern] {
+        lappend fileList $fileName
+    }
+
+    # Now look for any sub direcories in the current directory
+    foreach dirName [glob -nocomplain -type {d  r} -path $basedir *] {
+        # Recusively call the routine on the sub directory and append any
+        # new files to the results
+        set subDirList [findDirs $dirName $pattern [expr $level +1]]
+        if { [llength $subDirList] > 0 } {
+            foreach subDirFile $subDirList {
+                lappend fileList $subDirFile
+            }
+        }
+    }
+    return $fileList
+}
+
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX BLACK_LIST
     set dirs "../tests/ ../third_party/tests/"
@@ -425,8 +455,12 @@ proc run_regression { } {
 
         cd $testdir
         if {$DIFF_MODE == 0} {
-            catch {file delete -force slpp_all slpp_unit} dummy
-            catch {file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit} dummy
+	    foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+              file delete -force $f
+	    }
+            foreach f [findDirs $testdir slpp_*] {
+              file delete -force $f
+	    }
         }
         set passstatus "PASS"
         if {$DIFF_MODE == 0} {
@@ -497,8 +531,12 @@ proc run_regression { } {
         if {$DIFF_MODE == 0} {
             if [regexp {Segmentation fault} $result] {
                 set segfault 1
-		catch {file delete -force slpp_all slpp_unit} dummy
-                catch {file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit} dummy
+		foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+		    file delete -force $f
+		}
+		foreach f [findDirs $testdir slpp_*] {
+		    file delete -force $f
+		}
                 if [regexp {\.sh} $command] {
                     catch {set time_result [exec $SHELL $SHELL_ARGS "$TIME $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
                 } else {
@@ -673,9 +711,15 @@ proc run_regression { } {
         }
 
 	if {($DIFF_MODE == 0) && ($passstatus == "PASS")} {
-            file delete -force slpp_all slpp_unit uhdm.dump
-            file delete -force $REGRESSION_PATH/tests/$test/slpp_all  $REGRESSION_PATH/tests/$test/slpp_unit $REGRESSION_PATH/tests/$test/uhdm.dump
-	    file delete -force $testdir/slpp_all $testdir/slpp_unit $testdir/uhdm.dump
+	    foreach f [findDirs $REGRESSION_PATH/tests/$test slpp_*] {
+		file delete -force $f
+	    }
+	    foreach f [findDirs $testdir slpp_*] {
+		file delete -force $f
+	    }
+            file delete -force uhdm.dump
+            file delete -force $REGRESSION_PATH/tests/$test/uhdm.dump
+	    file delete -force $testdir/uhdm.dump
         }
 	
         cd $REGRESSION_PATH/tests

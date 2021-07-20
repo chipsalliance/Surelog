@@ -279,9 +279,18 @@ bool CompileProgram::collectObjects_(CollectType collectType) {
       }
       case VObjectType::slDpi_import_export: {
         if (collectType != CollectType::FUNCTION) break;
-        Function* func = m_helper.compileFunctionPrototype(m_program, fC, id,
-                                                           m_compileDesign);
-        m_program->insertFunction(func);
+        NodeId Import = fC->Child(id);
+          NodeId StringLiteral = fC->Sibling(Import);
+          NodeId Task_prototype = fC->Sibling(StringLiteral);
+          if (fC->Type(Task_prototype) == slTask_prototype) {
+            Task* task = m_helper.compileTaskPrototype(m_program, fC, id,
+                                                             m_compileDesign);
+            m_program->insertTask(task);                                                 
+          } else {
+            Function* func = m_helper.compileFunctionPrototype(m_program, fC, id,
+                                                             m_compileDesign);
+            m_program->insertFunction(func);
+          }
         break;
       }
       default:
