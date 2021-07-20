@@ -26,8 +26,8 @@
 
 #include "Design/FileContent.h"
 #include "Design/Function.h"
-#include "Design/Task.h"
 #include "Design/Parameter.h"
+#include "Design/Task.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/Variable.h"
@@ -178,7 +178,6 @@ Task* DesignComponent::getTask(const std::string& name) const {
 void DesignComponent::insertTask(Task* p) {
   m_tasks.insert(std::make_pair(p->getName(), p));
 }
-
 
 void DesignComponent::addVariable(Variable* var) {
   m_variables.insert(std::make_pair(var->getName(), var));

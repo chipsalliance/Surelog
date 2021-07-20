@@ -691,11 +691,11 @@ bool CompileModule::collectModuleObjects_(CollectType collectType) {
           NodeId Task_prototype = fC->Sibling(StringLiteral);
           if (fC->Type(Task_prototype) == slTask_prototype) {
             Task* task = m_helper.compileTaskPrototype(m_module, fC, id,
-                                                             m_compileDesign);
-            m_module->insertTask(task);                                                 
+                                                       m_compileDesign);
+            m_module->insertTask(task);
           } else {
             Function* func = m_helper.compileFunctionPrototype(m_module, fC, id,
-                                                             m_compileDesign);
+                                                               m_compileDesign);
             m_module->insertFunction(func);
           }
           break;

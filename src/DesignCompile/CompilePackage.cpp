@@ -237,11 +237,11 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           NodeId Task_prototype = fC->Sibling(StringLiteral);
           if (fC->Type(Task_prototype) == slTask_prototype) {
             Task* task = m_helper.compileTaskPrototype(m_package, fC, id,
-                                                             m_compileDesign);
-            m_package->insertTask(task);                                                 
+                                                       m_compileDesign);
+            m_package->insertTask(task);
           } else {
-            Function* func = m_helper.compileFunctionPrototype(m_package, fC, id,
-                                                             m_compileDesign);
+            Function* func = m_helper.compileFunctionPrototype(
+                m_package, fC, id, m_compileDesign);
             m_package->insertFunction(func);
           }
           break;

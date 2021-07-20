@@ -1814,8 +1814,9 @@ bool CompileHelper::compileFunction(DesignComponent* component,
   return true;
 }
 
-Task* CompileHelper::compileTaskPrototype(DesignComponent* scope, const FileContent* fC,
-                             NodeId id, CompileDesign* compileDesign) {
+Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
+                                          const FileContent* fC, NodeId id,
+                                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
   if (task_funcs == nullptr) {
@@ -1832,7 +1833,7 @@ Task* CompileHelper::compileTaskPrototype(DesignComponent* scope, const FileCont
   task->VpiLineNo(fC->Line(id));
   task->VpiColumnNo(fC->Column(id));
   task->VpiEndLineNo(fC->EndLine(id));
-  task->VpiEndColumnNo(fC->EndColumn(id));  
+  task->VpiEndColumnNo(fC->EndColumn(id));
   NodeId Tf_port_list = 0;
   if (fC->Type(task_name) == VObjectType::slStringConst) {
     Tf_port_list = fC->Sibling(task_name);
