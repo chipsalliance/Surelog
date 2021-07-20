@@ -38,6 +38,7 @@ namespace SURELOG {
 
 class Package;
 class Function;
+class Task;
 class Variable;
 class Parameter;
 class ParamAssign;
@@ -75,6 +76,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   typedef std::map<std::string, DataType*> DataTypeMap;
   typedef std::map<std::string, TypeDef*> TypeDefMap;
   typedef std::map<std::string, Function*> FunctionMap;
+  typedef std::map<std::string, Task*> TaskMap;
   typedef std::map<std::string, Variable*> VariableMap;
   typedef std::map<std::string, Parameter*> ParameterMap;
   typedef std::vector<Parameter*> ParameterVec;
@@ -114,6 +116,10 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   FunctionMap& getFunctionMap() { return m_functions; }
   virtual Function* getFunction(const std::string& name) const;
   void insertFunction(Function* p);
+
+  TaskMap& getTaskMap() { return m_tasks; }
+  virtual Task* getTask(const std::string& name) const;
+  void insertTask(Task* p);
 
   void addAccessPackage(Package* p) { m_packages.push_back(p); }
   const std::vector<Package*>& getAccessPackages() const { return m_packages; }
@@ -162,6 +168,7 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::vector<const FileContent*> m_fileContents;
   std::vector<NodeId> m_nodeIds;
   FunctionMap m_functions;
+  TaskMap m_tasks;
 
  private:
   std::map<VObjectType, std::vector<FileCNodeId>> m_objects;

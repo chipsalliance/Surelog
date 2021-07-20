@@ -26,6 +26,7 @@
 #include "Design/Design.h"
 #include "Design/Enum.h"
 #include "Design/Function.h"
+#include "Design/Task.h"
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
@@ -1811,6 +1812,53 @@ bool CompileHelper::compileFunction(DesignComponent* component,
     }
   }
   return true;
+}
+
+Task* CompileHelper::compileTaskPrototype(DesignComponent* scope,
+                                          const FileContent* fC, NodeId id,
+                                          CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = scope->getTask_funcs();
+  if (task_funcs == nullptr) {
+    scope->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = scope->getTask_funcs();
+  }
+  UHDM::task* task = s.MakeTask();
+  task_funcs->push_back(task);
+  NodeId prop = setFuncTaskQualifiers(fC, id, task);
+  NodeId task_prototype = prop;
+  NodeId task_name = fC->Child(task_prototype);
+  std::string taskName = fC->SymName(task_name);
+  task->VpiFile(fC->getFileName());
+  task->VpiLineNo(fC->Line(id));
+  task->VpiColumnNo(fC->Column(id));
+  task->VpiEndLineNo(fC->EndLine(id));
+  task->VpiEndColumnNo(fC->EndColumn(id));
+  NodeId Tf_port_list = 0;
+  if (fC->Type(task_name) == VObjectType::slStringConst) {
+    Tf_port_list = fC->Sibling(task_name);
+  } else if (fC->Type(task_name) == VObjectType::slClass_scope) {
+    NodeId Class_type = fC->Child(task_name);
+    taskName = fC->SymName(fC->Child(Class_type));
+    NodeId suffixname = fC->Sibling(task_name);
+    taskName += "::" + fC->SymName(suffixname);
+    Tf_port_list = fC->Sibling(suffixname);
+  }
+
+  task->VpiName(taskName);
+
+  if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
+    task->Io_decls(
+        compileTfPortList(scope, task, fC, Tf_port_list, compileDesign));
+  } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+    auto results =
+        compileTfPortDecl(scope, task, fC, Tf_port_list, compileDesign);
+    task->Io_decls(results.first);
+  }
+
+  Task* result = new Task(scope, fC, id, taskName);
+  result->compile(*this);
+  return result;
 }
 
 Function* CompileHelper::compileFunctionPrototype(

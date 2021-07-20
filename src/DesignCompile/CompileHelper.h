@@ -33,13 +33,13 @@
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
-//#include "headers/uhdm_forward_decl.h"
 #include "headers/uhdm.h"
 namespace SURELOG {
 class Scope;
 class Statement;
 class Design;
 class CompileDesign;
+class Task;
 typedef std::vector<TfPortItem*> TfPortList;
 
 class FScope : public ValuedComponentI {
@@ -101,6 +101,9 @@ class CompileHelper final {
   Function* compileFunctionPrototype(DesignComponent* scope,
                                      const FileContent* fC, NodeId id,
                                      CompileDesign* compileDesign);
+
+  Task* compileTaskPrototype(DesignComponent* scope, const FileContent* fC,
+                             NodeId id, CompileDesign* compileDesign);
 
   bool compilePortDeclaration(DesignComponent* scope, const FileContent* fC,
                               NodeId id, VObjectType& port_direction,
