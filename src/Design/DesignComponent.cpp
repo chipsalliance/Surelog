@@ -27,6 +27,7 @@
 #include "Design/FileContent.h"
 #include "Design/Function.h"
 #include "Design/Parameter.h"
+#include "Design/Task.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Testbench/Variable.h"
@@ -158,6 +159,24 @@ Function* DesignComponent::getFunction(const std::string& name) const {
 
 void DesignComponent::insertFunction(Function* p) {
   m_functions.insert(std::make_pair(p->getName(), p));
+}
+
+Task* DesignComponent::getTask(const std::string& name) const {
+  TaskMap::const_iterator itr = m_tasks.find(name);
+  if (itr == m_tasks.end()) {
+    const DesignComponent* parent =
+        dynamic_cast<const DesignComponent*>(getParentScope());
+    if (parent) {
+      return parent->getTask(name);
+    } else
+      return NULL;
+  } else {
+    return (*itr).second;
+  }
+}
+
+void DesignComponent::insertTask(Task* p) {
+  m_tasks.insert(std::make_pair(p->getName(), p));
 }
 
 void DesignComponent::addVariable(Variable* var) {

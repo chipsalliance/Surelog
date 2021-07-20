@@ -31,6 +31,7 @@
 #include "Design/Parameter.h"
 #include "Design/SimpleType.h"
 #include "Design/Struct.h"
+#include "Design/Task.h"
 #include "Design/Union.h"
 #include "DesignCompile/CompileHelper.h"
 #include "DesignCompile/UhdmWriter.h"
