@@ -343,6 +343,8 @@ Processing: -cd chapter-5 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -n
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd testbenches -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/1800.2-2017-1.0/src//uvm_pkg.sv -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns uvm_agent_active.sv -l uvm_agent_active.sv.log
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_recorder_defines.svh:81:12: Unused macro argument "TR_HANDLE".
+
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:496:8: Unused macro argument "TYPE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:523:8: Unused macro argument "TYPE".
@@ -356,8 +358,6 @@ Processing: -cd testbenches -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/180
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:797:8: Unused macro argument "ARG".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:806:8: Unused macro argument "OP".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_recorder_defines.svh:81:12: Unused macro argument "TR_HANDLE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_callback_defines.svh:301:8: Unused macro argument "CB".
 
@@ -2063,8 +2063,12 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 `line 1
        ^-- 22.12--line-illegal-5.sv:17:7:.
 
+[SNT:PP0106] :17:7: Syntax error: mismatched input '\n' expecting String,
+`line 1
+       ^-- 22.12--line-illegal-5.sv:17:7:.
+
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -2223,12 +2227,16 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 `line 1 somefile 2
         ^-- 22.12--line-illegal-2.sv:17:8:.
 
+[SNT:PP0106] :17:8: Syntax error: mismatched input 'somefile' expecting String,
+`line 1 somefile 2
+        ^-- 22.12--line-illegal-2.sv:17:8:.
+
 [SNT:PA0207] 22.12--line-illegal-2.sv:17:9: Syntax error: no viable alternative at input 'somefile 2',
 somefile 2
          ^-- ./slpp_all/work/_6142509188972423790/22.12--line-illegal-2.sv:17:9:.
 
 [  FATAL] : 0
-[ SYNTAX] : 2
+[ SYNTAX] : 3
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -2298,9 +2306,15 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 
 [ERR:PP0127] 22.12--line-illegal-3.sv:17: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
 
+[SNT:PP0106] somefile:17:6: Syntax error: extraneous input '-' expecting Number,
+`line -12 "somefile" 3
+      ^-- 22.12--line-illegal-3.sv:17:6:.
+
+[ERR:PP0127] somefile:4294967284: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
+
 [  FATAL] : 0
-[ SYNTAX] : 1
-[  ERROR] : 1
+[ SYNTAX] : 2
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns 22.8--default_nettype.sv -l 22.8--default_nettype.sv.log
@@ -2336,9 +2350,11 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns 22.12--line-illegal-1.sv -l 22.12--line-illegal-1.sv.log
 [ERR:PP0127] 22.12--line-illegal-1.sv:17: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
 
+[ERR:PP0127] somefile:1: Illegal type value for `line directive: 3, legal values are 0, 1, 2.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns 22.6--ifdef-chained-nested.sv -l 22.6--ifdef-chained-nested.sv.log
@@ -2382,8 +2398,12 @@ Processing: -cd chapter-22 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 `line 1 "somefile"
                   ^-- 22.12--line-illegal-4.sv:17:18:.
 
+[SNT:PP0106] somefile:17:18: Syntax error: mismatched input '\n' expecting Spaces,
+`line 1 "somefile"
+                  ^-- 22.12--line-illegal-4.sv:17:18:.
+
 [  FATAL] : 0
-[ SYNTAX] : 1
+[ SYNTAX] : 2
 [  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
@@ -2633,14 +2653,6 @@ Processing: -cd chapter-22/include_directory -I../../../../UVM/1800.2-2017-1.0/s
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-16 -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/1800.2-2017-1.0/src//uvm_pkg.sv -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns 16.9--sequence-rose-uvm.sv -l 16.9--sequence-rose-uvm.sv.log
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "ARG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "FLAG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:797:8: Unused macro argument "ARG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:806:8: Unused macro argument "OP".
-
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_recorder_defines.svh:81:12: Unused macro argument "TR_HANDLE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:496:8: Unused macro argument "TYPE".
@@ -2648,6 +2660,14 @@ Processing: -cd chapter-16 -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/1800
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:523:8: Unused macro argument "TYPE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:550:8: Unused macro argument "TYPE".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "ARG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "FLAG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:797:8: Unused macro argument "ARG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:806:8: Unused macro argument "OP".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_callback_defines.svh:301:8: Unused macro argument "CB".
 
@@ -7535,14 +7555,6 @@ Processing: -cd generic/typedef -I../../../../UVM/1800.2-2017-1.0/src/  -parse -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-18 -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/1800.2-2017-1.0/src//uvm_pkg.sv -parse -nonote -noinfo -nouhdm -timescale=1ns/1ns 18.17.5--interleaving-productions-rand-join_3.sv -l 18.17.5--interleaving-productions-rand-join_3.sv.log
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "ARG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "FLAG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:797:8: Unused macro argument "ARG".
-
-[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:806:8: Unused macro argument "OP".
-
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_recorder_defines.svh:81:12: Unused macro argument "TR_HANDLE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:496:8: Unused macro argument "TYPE".
@@ -7550,6 +7562,14 @@ Processing: -cd chapter-18 -I../../../UVM/1800.2-2017-1.0/src/ ../../../UVM/1800
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:523:8: Unused macro argument "TYPE".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_packer_defines.svh:550:8: Unused macro argument "TYPE".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "ARG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:793:8: Unused macro argument "FLAG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:797:8: Unused macro argument "ARG".
+
+[WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:806:8: Unused macro argument "OP".
 
 [WRN:PP0113] ../../../UVM/1800.2-2017-1.0/src/macros/uvm_callback_defines.svh:301:8: Unused macro argument "CB".
 
@@ -11177,8 +11197,8 @@ Processing: -cd chapter-25 -I../../../UVM/1800.2-2017-1.0/src/  -parse -nonote -
 [   NOTE] : 0
 Processed 1134 tests.
 [  FATAL] : 0
-[ SYNTAX] : 38
-[  ERROR] : 279
+[ SYNTAX] : 42
+[  ERROR] : 281
 [WARNING] : 1755
 [   NOTE] : 0
 
