@@ -713,6 +713,90 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             value->u_plus(sval);
             value->decr();
             return value;
+          case VObjectType::slAssignOp_Add: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->plus(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_Mult: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->mult(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_Sub: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->minus(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_Div: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->div(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_Modulo: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->mod(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_ArithShiftLeft: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->shiftLeft(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_ArithShiftRight: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->shiftRight(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_BitwAnd: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->bitwAnd(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_BitwOr: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->bitwOr(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_BitwXor: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->bitwXor(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_BitwLeftShift: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->shiftLeft(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
+          case VObjectType::slAssignOp_BitwRightShift: {
+            NodeId rval = fC->Sibling(op);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            value->shiftRight(sval, valueR);
+            m_valueFactory.deleteValue(valueR);
+            return value;
+          }
           default:
             break;
         }
