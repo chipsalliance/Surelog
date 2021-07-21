@@ -340,6 +340,10 @@ bool ErrorDefinition::init() {
   rec(ELAB_NO_INTERFACE_DEFINITION, WARNING, ELAB,
       "Cannot find an interface definition for \"%s\"");
   rec(ELAB_TOP_LEVEL_MODULE, NOTE, ELAB, "Top level module \"%s\"");
+  rec(ELAB_TOP_LEVEL_DOES_NOT_EXIST, FATAL, ELAB,
+      "Cmd line top level module does not exist \"%s\"");
+  rec(ELAB_TOP_LEVEL_IS_NOT_A_TOP_LEVEL, WARNING, ELAB,
+      "Cmd line top level is not a top level \"%s\"");
   rec(ELAB_MULTIPLE_TOP_LEVEL_MODULES, NOTE, ELAB,
       "Multiple top level modules in design");
   rec(ELAB_MULTIPLY_DEFINED_MODULE, WARNING, ELAB,

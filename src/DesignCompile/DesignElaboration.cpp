@@ -482,6 +482,53 @@ bool DesignElaboration::identifyTopModules_() {
     Error err(ErrorDefinition::ELAB_MULTIPLE_TOP_LEVEL_MODULES, loc);
     m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
   }
+
+  // User overrides
+  if (!toplevelModuleFound) {
+    for (auto userM : userTopList) {
+      bool found = false;
+      for (auto file : all_files) {
+        if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
+        for (DesignElement& element : file.second->getDesignElements()) {
+          const std::string& elemName = st->getSymbol(element.m_name);
+          if (element.m_type == DesignElement::Module) {
+            if (element.m_parent) {
+              // This is a nested element
+              continue;
+            }
+            if (userM != elemName) {
+              continue;
+            }
+            found = true;
+            Location locUser(0, 0, 0, st->registerSymbol(userM));
+            Error errUser(ErrorDefinition::ELAB_TOP_LEVEL_IS_NOT_A_TOP_LEVEL,
+                          locUser);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(
+                errUser);
+
+            const std::string& libName = file.second->getLibrary()->getName();
+            std::string topname = libName;
+            topname += "@" + elemName;
+            m_uniqueTopLevelModules.insert(topname);
+            m_topLevelModules.emplace_back(topname, file.second);
+            toplevelModuleFound = true;
+            SymbolId topid = st->registerSymbol(topname);
+            Location loc(
+                st->registerSymbol(file.second->getFileName(element.m_node)),
+                element.m_line, 0, topid);
+            Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
+            m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+          }
+        }
+      }
+      if (!found) {
+        Location locUser(0, 0, 0, st->registerSymbol(userM));
+        Error errUser(ErrorDefinition::ELAB_TOP_LEVEL_DOES_NOT_EXIST, locUser);
+        m_compileDesign->getCompiler()->getErrorContainer()->addError(errUser);
+      }
+    }
+  }
+
   if (modulePresent && (!toplevelModuleFound)) {
     Location loc(0);
     Error err(ErrorDefinition::ELAB_NO_TOP_LEVEL_MODULE, loc);
@@ -861,6 +908,9 @@ void DesignElaboration::elaborateInstance_(
         NodeId assignOp = fC->Sibling(var);
         NodeId expr = fC->Sibling(assignOp);
         if (expr == 0) {  // Unary operator like i++
+          expr = var;
+        } else if (fC->Type(assignOp) !=
+                   slAssignOp_Assign) {  // Operators like +=
           expr = var;
         }
         // Generate block
