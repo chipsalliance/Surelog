@@ -19,6 +19,9 @@
 set DEST_DIR "."
 if [regexp {out_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp DEST_DIR] {}
 
+set INPUT_DIR "."
+if [regexp {input_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp INPUT_DIR] {}
+
 set LISTENERS                 "Parser PreProc"
 
 set ANTLR_DEFINITION(Parser)  "parser/SV3_1aParserBaseListener.h"
@@ -35,12 +38,12 @@ set VOBJECTTYPES_PY_H         "API/vobjecttypes_py.h"
 puts "Creating Parser listener $HEADER_OUTPUT(Parser) and object types ${VOBJECTTYPES_CPP_BASENAME}"
 
 proc generate_header { listener } {
-    global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR
+    global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR INPUT_DIR
 
     set oid [open "${DEST_DIR}/$HEADER_OUTPUT($listener)" "w"]
 
     # Read .cpp hand written methods
-    set cid [open $CPP_INPUT($listener)]
+    set cid [open $INPUT_DIR/$CPP_INPUT($listener)]
     set cpp_spec "[read $cid]"
     close $cid
     set lines [split $cpp_spec "\n"]
@@ -51,7 +54,7 @@ proc generate_header { listener } {
     }
 
     # Read Listener definition
-    set hid [open $ANTLR_DEFINITION($listener)]
+    set hid [open $INPUT_DIR/$ANTLR_DEFINITION($listener)]
     set h_spec "[read $hid]"
     close $hid
     set lines [split $h_spec "\n"]
