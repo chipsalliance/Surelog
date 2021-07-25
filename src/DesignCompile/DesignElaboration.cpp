@@ -743,6 +743,7 @@ void DesignElaboration::elaborateInstance_(
     ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config,
     std::vector<ModuleInstance*>& parentSubInstances) {
   if (!parent) return;
+
   std::vector<ModuleInstance*>& allSubInstances = parent->getAllSubInstances();
   std::string genBlkBaseName = "genblk";
   unsigned int genBlkIndex = 1;
@@ -753,6 +754,56 @@ void DesignElaboration::elaborateInstance_(
 
   // Scan for parameters, including DefParams
   collectParams_(params, fC, nodeId, parent, parentParamOverride);
+
+  // Loop checking
+  bool loopDetected = false;
+  ModuleInstance* tmp = parent;
+  DesignComponent* parentDef = tmp->getDefinition();
+  if (tmp) {
+    tmp = tmp->getParent();
+  }
+  while (tmp) {
+    if (tmp->getDefinition() == parentDef) {
+      loopDetected = true;
+      for (auto pvalues : parent->getMappedValues()) {
+        const std::string& name = pvalues.first;
+        Value* pval = pvalues.second.first;
+        Value* val = tmp->getValue(name, m_exprBuilder);
+        if (val) {
+          if (*pval != *val) {
+            loopDetected = false;
+            break;
+          }
+        }
+      }
+      for (auto cvalues : parent->getComplexValues()) {
+        const std::string& name = cvalues.first;
+        UHDM::expr* pval = cvalues.second;
+        UHDM::expr* val = tmp->getComplexValue(name);
+        if (val) {
+          if (pval != val) {
+            loopDetected = false;
+            break;
+          }
+        }
+      }
+      break;
+    }
+    tmp = tmp->getParent();
+  }
+  if (loopDetected) {
+    SymbolTable* st =
+        m_compileDesign->getCompiler()->getErrorContainer()->getSymbolTable();
+    Location loc(st->registerSymbol(fC->getFileName(parent->getNodeId())),
+                 fC->Line(parent->getNodeId()), 0,
+                 st->registerSymbol(parent->getModuleName()));
+    Location loc2(st->registerSymbol(
+                      tmp->getFileContent()->getFileName(tmp->getNodeId())),
+                  tmp->getFileContent()->Line(tmp->getNodeId()), 0);
+    Error err(ErrorDefinition::ELAB_INSTANTIATION_LOOP, loc, loc2);
+    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+    return;
+  }
 
   // Apply DefParams
   Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -805,7 +856,8 @@ void DesignElaboration::elaborateInstance_(
     NodeId childId = 0;
     std::string instName;
     std::string modName;
-    DesignComponent* def = NULL;
+    DesignComponent* def = nullptr;
+    ModuleInstance* child = nullptr;
     NodeId paramOverride = 0;
     Config* subConfig = config;
     VObjectType type = fC->Type(subInstanceId);
@@ -840,8 +892,8 @@ void DesignElaboration::elaborateInstance_(
       modName = builtinGateName(gatetype);
       def = design->getComponentDefinition(modName);
       childId = 0;
-      ModuleInstance* child = factory->newModuleInstance(
-          def, fC, subInstanceId, parent, instName, modName);
+      child = factory->newModuleInstance(def, fC, subInstanceId, parent,
+                                         instName, modName);
       parent->addSubInstance(child);
       bindDataTypes_(parent, def);
       NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
@@ -947,8 +999,8 @@ void DesignElaboration::elaborateInstance_(
               m_compileDesign->getCompiler()->getErrorContainer(), parent);
           funct.operator()();
 
-          ModuleInstance* child = factory->newModuleInstance(
-              def, fC, genBlock, parent, instName, indexedModName);
+          child = factory->newModuleInstance(def, fC, genBlock, parent,
+                                             instName, indexedModName);
           child->setValue(name, m_exprBuilder.clone(currentIndexValue),
                           m_exprBuilder, fC->Line(varId));
           elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
@@ -1134,8 +1186,8 @@ void DesignElaboration::elaborateInstance_(
           m_compileDesign->getCompiler()->getErrorContainer(), parent);
       funct.operator()();
 
-      ModuleInstance* child = factory->newModuleInstance(
-          def, fC, subInstanceId, parent, instName, indexedModName);
+      child = factory->newModuleInstance(def, fC, subInstanceId, parent,
+                                         instName, indexedModName);
       while (childId) {
         elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                            factory, child, config, allSubInstances);
@@ -1231,173 +1283,148 @@ void DesignElaboration::elaborateInstance_(
         paramOverride = tmpId;
       }
 
-      bool loopDetected = false;
-      ModuleInstance* tmp = parent;
-      while (tmp) {
-        if (tmp->getDefinition() == def) {
-          loopDetected = true;
-          break;
+      std::vector<int> from;
+      std::vector<int> to;
+      std::vector<int> index;
+
+      std::vector<VObjectType> insttypes = {
+          VObjectType::slHierarchical_instance,
+          VObjectType::slN_input_gate_instance,
+          VObjectType::slN_output_gate_instance,
+          VObjectType::slPull_gate_instance, VObjectType::slUdp_instance};
+
+      std::vector<NodeId> hierInstIds =
+          fC->sl_collect_all(subInstanceId, insttypes, true);
+
+      NodeId hierInstId = InvalidNodeId;
+      if (hierInstIds.size()) hierInstId = hierInstIds[0];
+
+      if (hierInstId == InvalidNodeId) continue;
+
+      while (hierInstId) {
+        NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
+        NodeId identifierId = 0;
+        if (instId != InvalidNodeId) {
+          identifierId = fC->Child(instId);
+          instName = fC->SymName(identifierId);
         }
-        tmp = tmp->getParent();
-      }
-      if (loopDetected) {
-        SymbolTable* st = m_compileDesign->getCompiler()
-                              ->getErrorContainer()
-                              ->getSymbolTable();
-        Location loc(st->registerSymbol(fC->getFileName(subInstanceId)),
-                     fC->Line(subInstanceId), 0, st->registerSymbol(modName));
-        Location loc2(st->registerSymbol(
-                          tmp->getFileContent()->getFileName(tmp->getNodeId())),
-                      tmp->getFileContent()->Line(tmp->getNodeId()), 0);
-        Error err(ErrorDefinition::ELAB_INSTANTIATION_LOOP, loc, loc2);
-        m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
-      } else {
-        std::vector<int> from;
-        std::vector<int> to;
-        std::vector<int> index;
 
-        std::vector<VObjectType> insttypes = {
-            VObjectType::slHierarchical_instance,
-            VObjectType::slN_input_gate_instance,
-            VObjectType::slN_output_gate_instance,
-            VObjectType::slPull_gate_instance, VObjectType::slUdp_instance};
-
-        std::vector<NodeId> hierInstIds =
-            fC->sl_collect_all(subInstanceId, insttypes, true);
-
-        NodeId hierInstId = InvalidNodeId;
-        if (hierInstIds.size()) hierInstId = hierInstIds[0];
-
-        if (hierInstId == InvalidNodeId) continue;
-
-        while (hierInstId) {
-          NodeId instId = fC->sl_collect(hierInstId, slName_of_instance);
-          NodeId identifierId = 0;
-          if (instId != InvalidNodeId) {
-            identifierId = fC->Child(instId);
-            instName = fC->SymName(identifierId);
-          }
-
-          auto itr =
-              m_instUseClause.find(parent->getFullPathName() + "." + instName);
-          if (itr != m_instUseClause.end()) {
-            UseClause& use = (*itr).second;
-            switch (use.getType()) {
-              case UseClause::UseModule: {
-                std::string name = use.getName();
-                def = design->getComponentDefinition(name);
+        auto itr =
+            m_instUseClause.find(parent->getFullPathName() + "." + instName);
+        if (itr != m_instUseClause.end()) {
+          UseClause& use = (*itr).second;
+          switch (use.getType()) {
+            case UseClause::UseModule: {
+              std::string name = use.getName();
+              def = design->getComponentDefinition(name);
+              if (def) use.setUsed();
+              break;
+            }
+            case UseClause::UseLib: {
+              for (auto lib : use.getLibs()) {
+                modName = lib + "@" + mname;
+                def = design->getComponentDefinition(modName);
+                if (def) {
+                  use.setUsed();
+                  break;
+                }
+              }
+              break;
+            }
+            case UseClause::UseConfig: {
+              std::string useConfig = use.getName();
+              Config* config =
+                  design->getConfigSet()->getMutableConfigByName(useConfig);
+              if (config) {
+                subConfig = config;
+                std::string lib = config->getDesignLib();
+                std::string top = config->getDesignTop();
+                modName = lib + "@" + top;
+                def = design->getComponentDefinition(modName);
                 if (def) use.setUsed();
-                break;
               }
-              case UseClause::UseLib: {
-                for (auto lib : use.getLibs()) {
-                  modName = lib + "@" + mname;
-                  def = design->getComponentDefinition(modName);
-                  if (def) {
-                    use.setUsed();
-                    break;
-                  }
-                }
-                break;
-              }
-              case UseClause::UseConfig: {
-                std::string useConfig = use.getName();
-                Config* config =
-                    design->getConfigSet()->getMutableConfigByName(useConfig);
-                if (config) {
-                  subConfig = config;
-                  std::string lib = config->getDesignLib();
-                  std::string top = config->getDesignTop();
-                  modName = lib + "@" + top;
-                  def = design->getComponentDefinition(modName);
-                  if (def) use.setUsed();
-                }
-              }
-              default:
-                break;
             }
+            default:
+              break;
           }
-
-          if (def)
-            childId = def->getNodeIds()[0];
-          else {
-            SymbolTable* st = m_compileDesign->getCompiler()
-                                  ->getErrorContainer()
-                                  ->getSymbolTable();
-            Location loc(st->registerSymbol(fC->getFileName(subInstanceId)),
-                         fC->Line(subInstanceId), 0,
-                         st->registerSymbol(modName));
-            Error err(ErrorDefinition::ELAB_NO_MODULE_DEFINITION, loc);
-            m_compileDesign->getCompiler()->getErrorContainer()->addError(
-                err, false, false);
-          }
-
-          NodeId unpackedDimId = 0;
-
-          if (identifierId) unpackedDimId = fC->Sibling(identifierId);
-
-          if (unpackedDimId) {
-            // Vector instances
-            while (unpackedDimId) {
-              if (fC->Type(unpackedDimId) == slUnpacked_dimension) {
-                NodeId constantRangeId = fC->Child(unpackedDimId);
-                NodeId leftNode = fC->Child(constantRangeId);
-                NodeId rightNode = fC->Sibling(leftNode);
-                bool validValue;
-                int64_t left = m_helper.getValue(validValue, def, fC, leftNode,
-                                                 m_compileDesign, nullptr,
-                                                 parent, true, false);
-                int64_t right = 0;
-                if (rightNode)
-                  right = m_helper.getValue(validValue, def, fC, rightNode,
-                                            m_compileDesign, nullptr, parent,
-                                            true, false);
-                if (left < right) {
-                  from.push_back(left);
-                  to.push_back(right);
-                  index.push_back(left);
-                } else {
-                  from.push_back(right);
-                  to.push_back(left);
-                  index.push_back(right);
-                }
-              }
-              unpackedDimId = fC->Sibling(unpackedDimId);
-            }
-            recurseInstanceLoop_(from, to, index, 0, def, fC, subInstanceId,
-                                 paramOverride, factory, parent, subConfig,
-                                 instName, modName, allSubInstances);
-          } else {
-            // Simple instance
-            ModuleInstance* child = NULL;
-            if (reuseInstance) {
-              child = parent;
-              child->setNodeId(subInstanceId);
-            } else {
-              child = factory->newModuleInstance(def, fC, subInstanceId, parent,
-                                                 instName, modName);
-            }
-            if (def && (type != VObjectType::slGate_instantiation)) {
-              elaborateInstance_(def->getFileContents()[0], childId,
-                                 paramOverride, factory, child, subConfig,
-                                 allSubInstances);
-            } else {
-              // Build black box model
-              std::vector<std::string> params;
-              collectParams_(params, fC, subInstanceId, child, paramOverride);
-              NetlistElaboration* nelab =
-                  new NetlistElaboration(m_compileDesign);
-              nelab->elaborateInstance(child);
-              delete nelab;
-            }
-            if (!reuseInstance) parent->addSubInstance(child);
-          }
-
-          hierInstId = fC->Sibling(hierInstId);
         }
-        // std::cout << "INST: " << modName << " " << instName << " " << def <<
-        // std::endl;
+
+        if (def)
+          childId = def->getNodeIds()[0];
+        else {
+          SymbolTable* st = m_compileDesign->getCompiler()
+                                ->getErrorContainer()
+                                ->getSymbolTable();
+          Location loc(st->registerSymbol(fC->getFileName(subInstanceId)),
+                       fC->Line(subInstanceId), 0, st->registerSymbol(modName));
+          Error err(ErrorDefinition::ELAB_NO_MODULE_DEFINITION, loc);
+          m_compileDesign->getCompiler()->getErrorContainer()->addError(
+              err, false, false);
+        }
+
+        NodeId unpackedDimId = 0;
+
+        if (identifierId) unpackedDimId = fC->Sibling(identifierId);
+
+        if (unpackedDimId) {
+          // Vector instances
+          while (unpackedDimId) {
+            if (fC->Type(unpackedDimId) == slUnpacked_dimension) {
+              NodeId constantRangeId = fC->Child(unpackedDimId);
+              NodeId leftNode = fC->Child(constantRangeId);
+              NodeId rightNode = fC->Sibling(leftNode);
+              bool validValue;
+              int64_t left = m_helper.getValue(validValue, def, fC, leftNode,
+                                               m_compileDesign, nullptr, parent,
+                                               true, false);
+              int64_t right = 0;
+              if (rightNode)
+                right = m_helper.getValue(validValue, def, fC, rightNode,
+                                          m_compileDesign, nullptr, parent,
+                                          true, false);
+              if (left < right) {
+                from.push_back(left);
+                to.push_back(right);
+                index.push_back(left);
+              } else {
+                from.push_back(right);
+                to.push_back(left);
+                index.push_back(right);
+              }
+            }
+            unpackedDimId = fC->Sibling(unpackedDimId);
+          }
+          recurseInstanceLoop_(from, to, index, 0, def, fC, subInstanceId,
+                               paramOverride, factory, parent, subConfig,
+                               instName, modName, allSubInstances);
+        } else {
+          // Simple instance
+          if (reuseInstance) {
+            child = parent;
+            child->setNodeId(subInstanceId);
+          } else {
+            child = factory->newModuleInstance(def, fC, subInstanceId, parent,
+                                               instName, modName);
+          }
+          if (def && (type != VObjectType::slGate_instantiation)) {
+            elaborateInstance_(def->getFileContents()[0], childId,
+                               paramOverride, factory, child, subConfig,
+                               allSubInstances);
+          } else {
+            // Build black box model
+            std::vector<std::string> params;
+            collectParams_(params, fC, subInstanceId, child, paramOverride);
+            NetlistElaboration* nelab = new NetlistElaboration(m_compileDesign);
+            nelab->elaborateInstance(child);
+            delete nelab;
+          }
+          if (!reuseInstance) parent->addSubInstance(child);
+        }
+
+        hierInstId = fC->Sibling(hierInstId);
       }
+      // std::cout << "INST: " << modName << " " << instName << " " << def <<
+      // std::endl;
     }
   }
 }

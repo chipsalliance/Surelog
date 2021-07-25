@@ -206,7 +206,12 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
             break;
           }
         }
-        if (!duplicate) sfuncs->push_back(func);
+        if (!duplicate) {
+          // ElaboratorListener listener(&s);
+          // task_func* clone =
+          //    (task_func*)UHDM::clone_tree((any*)func, s, &listener);
+          sfuncs->push_back(func);
+        }
       }
       scope->setTask_funcs(sfuncs);
     }

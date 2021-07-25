@@ -3526,6 +3526,7 @@ Instance tree:
 [SCO] work@small_top.u1.B1[7] work@small_top.u1.B1[7]
 [SCO] work@small_top.u1.B1[8] work@small_top.u1.B1[8]
 [SCO] work@small_top.u1.B1[9] work@small_top.u1.B1[9]
+[MOD] work@bottom2 work@bottom1.u1.u2.u2
 [GAT] work@and work@test.g1.g1.u4
 [MOD] work@small_top.u1.B1[0]::M1 [U] work@small_top.u1.B1[0].N1
 [SCO] work@small_top.u1.B1[0].B2[0] work@small_top.u1.B1[0].B2[0]
@@ -8348,7 +8349,7 @@ Instance tree:
 
 [NTE:EL0509] Max instance depth: 6.
 
-[NTE:EL0510] Nb instances: 1239.
+[NTE:EL0510] Nb instances: 1240.
 
 [NTE:EL0511] Nb leaf instances: 1233.
 
@@ -8459,6 +8460,8 @@ Instance tree:
 [NTE:EL0522] small.v:17: Scope "work@small_top.u1.B1[8]".
 
 [NTE:EL0522] small.v:17: Scope "work@small_top.u1.B1[9]".
+
+[NTE:EL0523] top.v:12: Instance "work@bottom1.u1.u2.u2".
 
 [NTE:EL0523] top.v:53: Instance "work@test.g1.g1.u4".
 
@@ -13984,6 +13987,13 @@ design: (work@bottom1)
           \_logic_net: (work@bottom1.u1.u2.b), line:11:32, endln:11:33, parent:work@bottom1.u1.u2
             |vpiName:b
             |vpiFullName:work@bottom1.u1.u2.b
+      |vpiModule:
+      \_module: work@bottom2 (work@bottom1.u1.u2.u2) top.v:12: , parent:work@bottom1.u1.u2
+        |vpiDefName:work@bottom2
+        |vpiName:u2
+        |vpiFullName:work@bottom1.u1.u2.u2
+        |vpiInstance:
+        \_module: work@bottom4 (work@bottom1.u1.u2) top.v:7: , parent:work@bottom1.u1
       |vpiNet:
       \_logic_net: (work@bottom1.u1.u2.a), line:11:23, endln:11:24, parent:work@bottom1.u1.u2
       |vpiNet:
@@ -36316,5 +36326,5 @@ design: (work@bottom1)
 [ SYNTAX] : 0
 [  ERROR] : 1
 [WARNING] : 1213
-[   NOTE] : 2464
+[   NOTE] : 2465
 
