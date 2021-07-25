@@ -207,7 +207,7 @@ add_custom_command(
   COMMAND echo "---------- VObjectTypes, Listener generation"
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/SourceCompile
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/API
-  COMMAND tclsh SourceCompile/generate_parser_listener.tcl out_dir=${PROJECT_SOURCE_DIR}/src
+  COMMAND tclsh SourceCompile/generate_parser_listener.tcl input_dir=${PROJECT_SOURCE_DIR}/src out_dir=${PROJECT_SOURCE_DIR}/src
 )
 
 if (SURELOG_WITH_PYTHON)

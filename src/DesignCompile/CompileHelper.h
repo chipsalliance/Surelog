@@ -68,7 +68,7 @@ class CompileHelper final {
 
   bool importPackage(DesignComponent* scope, Design* design,
                      const FileContent* fC, NodeId id,
-                     CompileDesign* compileDesign);
+                     CompileDesign* compileDesign, bool inPackage = false);
 
   bool compileTfPortList(Procedure* parent, const FileContent* fC, NodeId id,
                          TfPortList& targetList);
