@@ -57,7 +57,7 @@ using namespace UHDM;
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
                                   const FileContent* fC, NodeId id,
-                                  CompileDesign* compileDesign) {
+                                  CompileDesign* compileDesign, bool inPackage) {
   Serializer& s = compileDesign->getSerializer();
   FileCNodeId fnid(fC, id);
   scope->addObject(VObjectType::slPackage_import_item, fnid);
@@ -207,10 +207,14 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
           }
         }
         if (!duplicate) {
-          // ElaboratorListener listener(&s);
-          // task_func* clone =
-          //    (task_func*)UHDM::clone_tree((any*)func, s, &listener);
-          sfuncs->push_back(func);
+          if (inPackage) {
+            ElaboratorListener listener(&s);
+            task_func* clone =
+               (task_func*)UHDM::clone_tree((any*)func, s, &listener);
+            sfuncs->push_back(clone);   
+          } else {
+            sfuncs->push_back(func);
+          }
         }
       }
       scope->setTask_funcs(sfuncs);
