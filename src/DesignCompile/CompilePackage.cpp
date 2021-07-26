@@ -235,7 +235,12 @@ bool CompilePackage::collectObjects_(CollectType collectType) {
           if (collectType != CollectType::FUNCTION) break;
           NodeId Import = fC->Child(id);
           NodeId StringLiteral = fC->Sibling(Import);
-          NodeId Task_prototype = fC->Sibling(StringLiteral);
+          NodeId Context_keyword = fC->Sibling(StringLiteral);
+          NodeId Task_prototype = 0;
+          if (fC->Type(Context_keyword) == slContext_keyword)
+            Task_prototype = fC->Sibling(Context_keyword);
+          else 
+            Task_prototype = Context_keyword;
           if (fC->Type(Task_prototype) == slTask_prototype) {
             Task* task = m_helper.compileTaskPrototype(m_package, fC, id,
                                                        m_compileDesign);
