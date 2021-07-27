@@ -2204,7 +2204,7 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiEndLineNo(fC->Line(typeNameId));
       p->VpiEndColumnNo(fC->Column(typeNameId));
       typespec* tps = compileTypespec(component, fC, ntype, compileDesign, p,
-                                      nullptr, false, "");
+                                      nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {
@@ -2236,7 +2236,7 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiEndColumnNo(fC->EndColumn(Identifier));
       NodeId Data_type = fC->Child(Constant_param_expression);
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
-                                      p, nullptr, false, "");
+                                      p, nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {

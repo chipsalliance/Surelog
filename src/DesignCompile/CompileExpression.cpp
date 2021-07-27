@@ -4398,7 +4398,7 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
               Primary_literal = fC->Child(Constant_primary);
             pattern->Typespec(compileTypespec(component, fC, Primary_literal,
                                               compileDesign, nullptr, instance,
-                                              true, ""));
+                                              true));
           }
           operands->push_back(pattern);
         }
