@@ -39,7 +39,7 @@ class Struct : public DataType {
 
   NodeId getNameId() const { return m_nameId; }
 
-  bool isNet() const;
+  bool isNet() const override;
 
  private:
   const NodeId m_nameId;

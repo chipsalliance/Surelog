@@ -102,7 +102,7 @@ class DataType {
   static bool isString_type(VObjectType type);
   static bool isNumber(VObjectType type);
 
-  virtual bool isNet() { return false; }
+  virtual bool isNet() const { return false; }
 
   UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
