@@ -31,18 +31,18 @@ LogListener::LogResult LogListener::initialize(const std::string &filename) {
   }
   strm.close();
 
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
   this->filename = filename;
   return LogResult::Ok;
 }
 
 std::string LogListener::getLogFilename() const {
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
   return filename;
 }
 
 void LogListener::setMaxQueuedMessageCount(int count) {
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
   maxQueuedMessageCount = count;
 }
 
@@ -52,7 +52,7 @@ int LogListener::getMaxQueuedMessageCount() const {
 }
 
 int LogListener::getQueuedMessageCount() const {
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
   return static_cast<int>(queued.size());
 }
 
@@ -84,7 +84,7 @@ void LogListener::flush(std::ofstream &strm) {
 }
 
 LogListener::LogResult LogListener::flush() {
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
 
   if (queued.empty()) {
     return LogResult::Ok;  // Nothing to flush!
@@ -101,7 +101,7 @@ LogListener::LogResult LogListener::flush() {
 }
 
 LogListener::LogResult LogListener::log(const std::string &message) {
-  std::scoped_lock lock(mutex);
+  std::scoped_lock<std::mutex> lock(mutex);
 
   if (filename.empty()) {
     enqueue(message);
