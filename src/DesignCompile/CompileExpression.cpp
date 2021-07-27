@@ -2372,6 +2372,22 @@ any* CompileHelper::getValue(const std::string& name,
               const std::string& param_name = param->Lhs()->VpiName();
               if (param_name == name) {
                 if (substituteAssignedValue(param->Rhs(), compileDesign)) {
+                  if (param->Rhs()->UhdmType() == uhdmoperation) {
+                    operation* op = (operation*)param->Rhs();
+                    int opType = op->VpiOpType();
+                    if (opType == vpiAssignmentPatternOp) {
+                      const any* lhs = param->Lhs();
+                      any* rhs = (any*)param->Rhs();
+
+                      rhs = expandPatternAssignment((expr*)lhs, (expr*)rhs,
+                                                    component, compileDesign,
+                                                    instance);
+                      param->Rhs(rhs);
+                      reorderAssignmentPattern(component, lhs, rhs,
+                                               compileDesign, instance, 0);
+                    }
+                  }
+
                   ElaboratorListener listener(&s);
                   result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
                   break;
@@ -2436,6 +2452,22 @@ any* CompileHelper::getValue(const std::string& name,
           const std::string& param_name = param->Lhs()->VpiName();
           if (param_name == name) {
             if (substituteAssignedValue(param->Rhs(), compileDesign)) {
+              if (param->Rhs()->UhdmType() == uhdmoperation) {
+                operation* op = (operation*)param->Rhs();
+                int opType = op->VpiOpType();
+                if (opType == vpiAssignmentPatternOp) {
+                  const any* lhs = param->Lhs();
+                  any* rhs = (any*)param->Rhs();
+
+                  rhs =
+                      expandPatternAssignment((expr*)lhs, (expr*)rhs, component,
+                                              compileDesign, instance);
+                  param->Rhs(rhs);
+                  reorderAssignmentPattern(component, lhs, rhs, compileDesign,
+                                           instance, 0);
+                }
+              }
+
               ElaboratorListener listener(&s);
               result = UHDM::clone_tree((any*)param->Rhs(), s, &listener);
               break;
@@ -5903,7 +5935,13 @@ void CompileHelper::reorderAssignmentPattern(DesignComponent* mod,
           if (lrv > rrv) {
             op->VpiReordered(true);
             std::reverse(operands->begin(), operands->end());
-            if (level == 0) instance->setComplexValue(p->VpiName(), op);
+            if (level == 0) {
+              if (instance) {
+                instance->setComplexValue(p->VpiName(), op);
+              } else {
+                mod->setComplexValue(p->VpiName(), op);
+              }
+            }
           }
         }
       }
