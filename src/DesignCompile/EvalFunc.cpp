@@ -397,7 +397,7 @@ expr* CompileHelper::EvalFunc(UHDM::function* func, std::vector<any*>* args,
                               ValuedComponentI* instance,
                               const std::string& fileName, int lineNumber,
                               any* pexpr) {
-  if ((func == nullptr)) {
+  if (func == nullptr) {
     invalidValue = true;
     return nullptr;
   }
