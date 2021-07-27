@@ -216,6 +216,7 @@ bool CompileClass::compile() {
         break;
       case VObjectType::slClass_type:
         compile_class_type_(fC, id);
+        break;
       default:
         break;
     }

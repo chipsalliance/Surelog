@@ -1328,6 +1328,7 @@ void DesignElaboration::elaborateInstance_(
                   use.setUsed();
                   break;
                 }
+                break;
               }
               break;
             }
@@ -1605,9 +1606,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
               bool replay = false;
               // GDB: p replay=true
               if (replay) {
-                (UHDM::expr*)m_helper.compileExpression(
-                    parentDefinition, parentFile, expr, m_compileDesign,
-                    nullptr, parentInstance, true, false);
+                m_helper.compileExpression(parentDefinition, parentFile, expr,
+                                           m_compileDesign, nullptr,
+                                           parentInstance, true, false);
 
                 m_exprBuilder.evalExpr(parentFile, expr, parentInstance, true);
               }
@@ -1678,9 +1679,9 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             bool replay = false;
             // GDB: p replay=true
             if (replay) {
-              (UHDM::expr*)m_helper.compileExpression(
-                  parentDefinition, parentFile, expr, m_compileDesign, nullptr,
-                  parentInstance, true, false);
+              m_helper.compileExpression(parentDefinition, parentFile, expr,
+                                         m_compileDesign, nullptr,
+                                         parentInstance, true, false);
             }
 
             const std::string& pname = parentFile->SymName(child);

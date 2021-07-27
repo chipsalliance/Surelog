@@ -417,7 +417,6 @@ ModuleInstance* NetlistElaboration::getInterfaceInstance_(
   ModuleInstance* parent = instance->getParent();
   const FileContent* fC = instance->getFileContent();
   NodeId Udp_instantiation = instance->getNodeId();
-  const std::string& instName = instance->getFullPathName();
   VObjectType inst_type = fC->Type(Udp_instantiation);
 
   if ((inst_type == VObjectType::slUdp_instantiation) ||
@@ -564,7 +563,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
-  const std::string& instName = instance->getFullPathName();
   VObjectType inst_type = fC->Type(Udp_instantiation);
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();

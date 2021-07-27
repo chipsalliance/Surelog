@@ -714,8 +714,8 @@ bool TestbenchElaboration::bindProperties_() {
       const std::string& signame = sig->getName();
 
       // Packed and unpacked ranges
-      int packedSize;
-      int unpackedSize;
+      int packedSize = 0;
+      int unpackedSize = 0;
       std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(
           classDefinition, fC, packedDimension, m_compileDesign, nullptr,
           nullptr, true, packedSize, false);

@@ -516,6 +516,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       // TODO: flavors
       UHDM::disable* disable = s.MakeDisable();
       stmt = disable;
+      break;
     }
     case VObjectType::slContinueStmt: {
       UHDM::continue_stmt* cstmt = s.MakeContinue_stmt();
