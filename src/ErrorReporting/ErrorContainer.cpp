@@ -396,6 +396,9 @@ bool ErrorContainer::printMessage(Error& error, bool muteStdout) {
 
 bool ErrorContainer::printMessages(bool muteStdout) {
   std::pair<std::string, bool> report = createReport_();
+  for (auto &err:m_errors) {
+    err.m_reported = true;
+  }
 
   if (!muteStdout) {
     std::cout << report.first << std::flush;
