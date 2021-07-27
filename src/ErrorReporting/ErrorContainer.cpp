@@ -298,7 +298,6 @@ std::pair<std::string, bool> ErrorContainer::createReport_() {
     if (std::get<2>(textStatus))  // Filtered
       continue;
     report += std::get<0>(textStatus);
-    msg.m_reported = true;
   }
   return std::make_pair(report, reportFatalError);
 }
@@ -311,7 +310,6 @@ std::pair<std::string, bool> ErrorContainer::createReport_(Error& error) {
   if (std::get<1>(textStatus)) reportFatalError = true;
   if (!std::get<2>(textStatus))  // Filtered
     report += std::get<0>(textStatus);
-  msg.m_reported = true;
   return std::make_pair(report, reportFatalError);
 }
 
