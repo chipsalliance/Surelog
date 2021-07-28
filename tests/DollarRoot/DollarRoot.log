@@ -6800,34 +6800,14 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.cmd), line:251:7, endln:251:14
-            |vpiName:cmd
-            |vpiFullName:work@test_program.cmd
+          \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15, parent:work@test_program
+            |vpiName:actual_rsp
+            |vpiFullName:work@test_program.actual_rsp
             |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-              |vpiName:Command
+            \_struct_typespec: (Response), line:56:12, endln:56:18
+              |vpiName:Response
               |vpiTypespecMember:
-              \_typespec_member: (trans), line:47:37, endln:47:42
-                |vpiName:trans
-                |vpiTypespec:
-                \_enum_typespec: (Transaction), line:37:6, endln:37:17
-                  |vpiName:Transaction
-                  |vpiBaseTypespec:
-                  \_bit_typespec: , line:33:17, endln:33:20
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35:8, endln:35:13
-                    |vpiName:WRITE
-                    |vpiDecompile:0
-                    |UINT:0
-                    |vpiSize:64
-                  |vpiEnumConst:
-                  \_enum_const: (READ), line:36:8, endln:36:12
-                    |vpiName:READ
-                    |vpiDecompile:1
-                    |UINT:1
-                    |vpiSize:64
-              |vpiTypespecMember:
-              \_typespec_member: (burstcount), line:48:37, endln:48:47
+              \_typespec_member: (burstcount), line:58:37, endln:58:47
                 |vpiName:burstcount
                 |vpiTypespec:
                 \_logic_typespec: (Burstcount), line:31:12, endln:31:17
@@ -6877,177 +6857,6 @@ design: (work@top)
                         |vpiSize:64
                         |UINT:0
               |vpiTypespecMember:
-              \_typespec_member: (addr), line:49:37, endln:49:41
-                |vpiName:addr
-                |vpiTypespec:
-                \_logic_typespec: , line:49:8, endln:49:13
-                  |vpiRange:
-                  \_range: , line:49:15, endln:49:26, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:49:15, endln:49:21
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.ADDR_W), line:49:15, endln:49:21, parent:Command
-                        |vpiName:ADDR_W
-                        |vpiFullName:Command.ADDR_W
-                        |vpiActual:
-                        \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:44, parent:work@test_program
-                          |vpiName:ADDR_W
-                          |vpiFullName:work@test_program.ADDR_W
-                          |vpiLocalParam:1
-                          |UINT:13
-                      |vpiOperand:
-                      \_constant: , line:49:22, endln:49:23
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:49:25, endln:49:26
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (data), line:50:37, endln:50:41
-                |vpiName:data
-                |vpiTypespec:
-                \_logic_typespec: , line:50:8, endln:50:13
-                  |vpiRange:
-                  \_range: , line:50:15, endln:50:25, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:50:15, endln:50:21
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.DATA_W), line:50:15, endln:50:21, parent:Command
-                        |vpiName:DATA_W
-                        |vpiFullName:Command.DATA_W
-                        |vpiActual:
-                        \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
-                          |vpiName:DATA_W
-                          |vpiFullName:work@test_program.DATA_W
-                          |vpiLocalParam:1
-                      |vpiOperand:
-                      \_constant: , line:50:22, endln:50:23
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:50:24, endln:50:25
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (byteenable), line:51:37, endln:51:47
-                |vpiName:byteenable
-                |vpiTypespec:
-                \_logic_typespec: , line:51:8, endln:51:13
-                  |vpiRange:
-                  \_range: , line:51:15, endln:51:30, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:51:15, endln:51:26
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
-                        |vpiName:NUM_SYMBOLS
-                        |vpiFullName:Command.NUM_SYMBOLS
-                        |vpiActual:
-                        \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
-                          |vpiName:NUM_SYMBOLS
-                          |vpiFullName:work@test_program.NUM_SYMBOLS
-                          |vpiLocalParam:1
-                          |UINT:4
-                      |vpiOperand:
-                      \_constant: , line:51:27, endln:51:28
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:51:29, endln:51:30
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (cmd_delay), line:52:37, endln:52:46
-                |vpiName:cmd_delay
-                |vpiTypespec:
-                \_bit_typespec: , line:52:8, endln:52:11
-                  |vpiRange:
-                  \_range: , line:52:13, endln:52:17, parent:Command
-                    |vpiLeftRange:
-                    \_constant: , line:52:13, endln:52:15
-                      |vpiConstType:9
-                      |vpiDecompile:31
-                      |vpiSize:64
-                      |UINT:31
-                    |vpiRightRange:
-                    \_constant: , line:52:16, endln:52:17
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (data_idles), line:53:37, endln:53:47
-                |vpiName:data_idles
-                |vpiTypespec:
-                \_bit_typespec: , line:53:8, endln:53:11
-                  |vpiRange:
-                  \_range: , line:53:13, endln:53:17, parent:Command
-                    |vpiLeftRange:
-                    \_constant: , line:53:13, endln:53:15
-                      |vpiConstType:9
-                      |vpiDecompile:31
-                      |vpiSize:64
-                      |UINT:31
-                    |vpiRightRange:
-                    \_constant: , line:53:16, endln:53:17
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15
-            |vpiName:actual_rsp
-            |vpiFullName:work@test_program.actual_rsp
-            |vpiTypespec:
-            \_struct_typespec: (Response), line:56:12, endln:56:18
-              |vpiName:Response
-              |vpiTypespecMember:
-              \_typespec_member: (burstcount), line:58:37, endln:58:47
-                |vpiName:burstcount
-                |vpiTypespec:
-                \_logic_typespec: (Burstcount), line:31:12, endln:31:17
-                  |vpiName:Burstcount
-                  |vpiRange:
-                  \_range: , line:31:19, endln:31:30, parent:Burstcount
-                    |vpiLeftRange:
-                    \_operation: , line:31:19, endln:31:26
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
-                        |vpiName:BURST_W
-                        |vpiFullName:Burstcount.BURST_W
-                      |vpiOperand:
-                      \_constant: , line:31:27, endln:31:28
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:31:29, endln:31:30
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiTypedefAlias:
-                  \_logic_typespec: (Burstcount), line:31:12, endln:31:17
-              |vpiTypespecMember:
               \_typespec_member: (data), line:59:37, endln:59:41
                 |vpiName:data
                 |vpiTypespec:
@@ -7063,6 +6872,9 @@ design: (work@top)
                         |vpiFullName:Response.DATA_W
                         |vpiActual:
                         \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
+                          |vpiName:DATA_W
+                          |vpiFullName:work@test_program.DATA_W
+                          |vpiLocalParam:1
                       |vpiOperand:
                       \_constant: , line:59:21, endln:59:22
                         |vpiConstType:9
@@ -7097,7 +6909,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.exp_rsp), line:252:7, endln:252:15
+          \_struct_var: (work@test_program.exp_rsp), line:252:7, endln:252:15, parent:work@test_program
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
             |vpiTypespec:
@@ -7110,6 +6922,192 @@ design: (work@top)
           \_ref_obj: (work@test_program.cmd), line:254:7, endln:254:10, parent:work@test_program
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.cmd), line:251:7, endln:251:14, parent:work@test_program
+              |vpiName:cmd
+              |vpiFullName:work@test_program.cmd
+              |vpiTypespec:
+              \_struct_typespec: (Command), line:45:12, endln:45:18
+                |vpiName:Command
+                |vpiTypespecMember:
+                \_typespec_member: (trans), line:47:37, endln:47:42
+                  |vpiName:trans
+                  |vpiTypespec:
+                  \_enum_typespec: (Transaction), line:37:6, endln:37:17
+                    |vpiName:Transaction
+                    |vpiBaseTypespec:
+                    \_bit_typespec: , line:33:17, endln:33:20
+                    |vpiEnumConst:
+                    \_enum_const: (WRITE), line:35:8, endln:35:13
+                      |vpiName:WRITE
+                      |vpiDecompile:0
+                      |UINT:0
+                      |vpiSize:64
+                    |vpiEnumConst:
+                    \_enum_const: (READ), line:36:8, endln:36:12
+                      |vpiName:READ
+                      |vpiDecompile:1
+                      |UINT:1
+                      |vpiSize:64
+                |vpiTypespecMember:
+                \_typespec_member: (burstcount), line:48:37, endln:48:47
+                  |vpiName:burstcount
+                  |vpiTypespec:
+                  \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+                    |vpiName:Burstcount
+                    |vpiRange:
+                    \_range: , line:31:19, endln:31:30, parent:Burstcount
+                      |vpiLeftRange:
+                      \_operation: , line:31:19, endln:31:26
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
+                          |vpiName:BURST_W
+                          |vpiFullName:Burstcount.BURST_W
+                        |vpiOperand:
+                        \_constant: , line:31:27, endln:31:28
+                          |vpiConstType:9
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:31:29, endln:31:30
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                    |vpiTypedefAlias:
+                    \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+                |vpiTypespecMember:
+                \_typespec_member: (addr), line:49:37, endln:49:41
+                  |vpiName:addr
+                  |vpiTypespec:
+                  \_logic_typespec: , line:49:8, endln:49:13
+                    |vpiRange:
+                    \_range: , line:49:15, endln:49:26, parent:Command
+                      |vpiLeftRange:
+                      \_operation: , line:49:15, endln:49:21
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (Command.ADDR_W), line:49:15, endln:49:21, parent:Command
+                          |vpiName:ADDR_W
+                          |vpiFullName:Command.ADDR_W
+                          |vpiActual:
+                          \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:44, parent:work@test_program
+                            |vpiName:ADDR_W
+                            |vpiFullName:work@test_program.ADDR_W
+                            |vpiLocalParam:1
+                            |UINT:13
+                        |vpiOperand:
+                        \_constant: , line:49:22, endln:49:23
+                          |vpiConstType:9
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:49:25, endln:49:26
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                |vpiTypespecMember:
+                \_typespec_member: (data), line:50:37, endln:50:41
+                  |vpiName:data
+                  |vpiTypespec:
+                  \_logic_typespec: , line:50:8, endln:50:13
+                    |vpiRange:
+                    \_range: , line:50:15, endln:50:25, parent:Command
+                      |vpiLeftRange:
+                      \_operation: , line:50:15, endln:50:21
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (Command.DATA_W), line:50:15, endln:50:21, parent:Command
+                          |vpiName:DATA_W
+                          |vpiFullName:Command.DATA_W
+                          |vpiActual:
+                          \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
+                        |vpiOperand:
+                        \_constant: , line:50:22, endln:50:23
+                          |vpiConstType:9
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:50:24, endln:50:25
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                |vpiTypespecMember:
+                \_typespec_member: (byteenable), line:51:37, endln:51:47
+                  |vpiName:byteenable
+                  |vpiTypespec:
+                  \_logic_typespec: , line:51:8, endln:51:13
+                    |vpiRange:
+                    \_range: , line:51:15, endln:51:30, parent:Command
+                      |vpiLeftRange:
+                      \_operation: , line:51:15, endln:51:26
+                        |vpiOpType:11
+                        |vpiOperand:
+                        \_ref_obj: (Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
+                          |vpiName:NUM_SYMBOLS
+                          |vpiFullName:Command.NUM_SYMBOLS
+                          |vpiActual:
+                          \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
+                            |vpiName:NUM_SYMBOLS
+                            |vpiFullName:work@test_program.NUM_SYMBOLS
+                            |vpiLocalParam:1
+                            |UINT:4
+                        |vpiOperand:
+                        \_constant: , line:51:27, endln:51:28
+                          |vpiConstType:9
+                          |vpiDecompile:1
+                          |vpiSize:64
+                          |UINT:1
+                      |vpiRightRange:
+                      \_constant: , line:51:29, endln:51:30
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                |vpiTypespecMember:
+                \_typespec_member: (cmd_delay), line:52:37, endln:52:46
+                  |vpiName:cmd_delay
+                  |vpiTypespec:
+                  \_bit_typespec: , line:52:8, endln:52:11
+                    |vpiRange:
+                    \_range: , line:52:13, endln:52:17, parent:Command
+                      |vpiLeftRange:
+                      \_constant: , line:52:13, endln:52:15
+                        |vpiConstType:9
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                      |vpiRightRange:
+                      \_constant: , line:52:16, endln:52:17
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                |vpiTypespecMember:
+                \_typespec_member: (data_idles), line:53:37, endln:53:47
+                  |vpiName:data_idles
+                  |vpiTypespec:
+                  \_bit_typespec: , line:53:8, endln:53:11
+                    |vpiRange:
+                    \_range: , line:53:13, endln:53:17, parent:Command
+                      |vpiLeftRange:
+                      \_constant: , line:53:13, endln:53:15
+                        |vpiConstType:9
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                      |vpiRightRange:
+                      \_constant: , line:53:16, endln:53:17
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
           |vpiRhs:
           \_hier_path: (read_command_queue_master[0].pop_front), line:254:13, endln:254:53, parent:work@test_program
             |vpiName:read_command_queue_master[0].pop_front
@@ -7133,6 +7131,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.actual_rsp), line:255:7, endln:255:17, parent:work@test_program
             |vpiName:actual_rsp
             |vpiFullName:work@test_program.actual_rsp
+            |vpiActual:
+            \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_read_response_from_master_0), line:255:20, endln:255:53
             |vpiName:get_read_response_from_master_0
@@ -7146,6 +7146,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:256:7, endln:256:14, parent:work@test_program
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+            |vpiActual:
+            \_struct_var: (work@test_program.exp_rsp), line:252:7, endln:252:15, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_expected_read_response), line:256:17, endln:256:48
             |vpiName:get_expected_read_response
@@ -7168,6 +7170,12 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:257:35, endln:257:42, parent:verify_response
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:251:7, endln:251:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:252:7, endln:252:15, parent:work@test_program
   |vpiProcess:
   \_always: , line:261:4, endln:263:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -7228,15 +7236,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.actual_cmd), line:284:7, endln:284:14
-            |vpiName:actual_cmd
-            |vpiFullName:work@test_program.actual_cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.exp_cmd), line:284:7, endln:284:14
+          \_struct_var: (work@test_program.exp_cmd), line:284:7, endln:284:14, parent:work@test_program
             |vpiName:exp_cmd
             |vpiFullName:work@test_program.exp_cmd
             |vpiTypespec:
@@ -7244,7 +7244,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.rsp), line:285:7, endln:285:15
+          \_struct_var: (work@test_program.rsp), line:285:7, endln:285:15, parent:work@test_program
             |vpiName:rsp
             |vpiFullName:work@test_program.rsp
             |vpiTypespec:
@@ -7252,7 +7252,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_int_var: (work@test_program.backpressure_cycles), line:287:17, endln:287:20
+          \_int_var: (work@test_program.backpressure_cycles), line:287:17, endln:287:20, parent:work@test_program
             |vpiName:backpressure_cycles
             |vpiFullName:work@test_program.backpressure_cycles
             |vpiAutomatic:1
@@ -7343,6 +7343,12 @@ design: (work@top)
           \_ref_obj: (work@test_program.actual_cmd), line:295:7, endln:295:17, parent:work@test_program
             |vpiName:actual_cmd
             |vpiFullName:work@test_program.actual_cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.actual_cmd), line:284:7, endln:284:14, parent:work@test_program
+              |vpiName:actual_cmd
+              |vpiFullName:work@test_program.actual_cmd
+              |vpiTypespec:
+              \_struct_typespec: (Command), line:45:12, endln:45:18
           |vpiRhs:
           \_func_call: (get_command_from_slave_0), line:295:20, endln:295:46
             |vpiName:get_command_from_slave_0
@@ -7356,6 +7362,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_cmd), line:296:7, endln:296:14, parent:work@test_program
             |vpiName:exp_cmd
             |vpiFullName:work@test_program.exp_cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.exp_cmd), line:284:7, endln:284:14, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_expected_command_for_slave), line:296:17, endln:296:62
             |vpiName:get_expected_command_for_slave
@@ -7448,6 +7456,14 @@ design: (work@top)
               \_ref_obj: (work@test_program.rsp), line:303:49, endln:303:52, parent:push_back
                 |vpiName:rsp
                 |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:284:7, endln:284:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:284:7, endln:284:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:285:7, endln:285:15, parent:work@test_program
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:287:17, endln:287:20, parent:work@test_program
   |vpiProcess:
   \_always: , line:333:4, endln:337:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -7543,15 +7559,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.cmd), line:394:7, endln:394:14
-            |vpiName:cmd
-            |vpiFullName:work@test_program.cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15
+          \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15, parent:work@test_program
             |vpiName:actual_rsp
             |vpiFullName:work@test_program.actual_rsp
             |vpiTypespec:
@@ -7559,7 +7567,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.exp_rsp), line:395:7, endln:395:15
+          \_struct_var: (work@test_program.exp_rsp), line:395:7, endln:395:15, parent:work@test_program
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
             |vpiTypespec:
@@ -7572,6 +7580,12 @@ design: (work@top)
           \_ref_obj: (work@test_program.cmd), line:397:7, endln:397:10, parent:work@test_program
             |vpiName:cmd
             |vpiFullName:work@test_program.cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.cmd), line:394:7, endln:394:14, parent:work@test_program
+              |vpiName:cmd
+              |vpiFullName:work@test_program.cmd
+              |vpiTypespec:
+              \_struct_typespec: (Command), line:45:12, endln:45:18
           |vpiRhs:
           \_hier_path: (read_command_queue_master[1].pop_front), line:397:13, endln:397:53, parent:work@test_program
             |vpiName:read_command_queue_master[1].pop_front
@@ -7595,6 +7609,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.actual_rsp), line:398:7, endln:398:17, parent:work@test_program
             |vpiName:actual_rsp
             |vpiFullName:work@test_program.actual_rsp
+            |vpiActual:
+            \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_read_response_from_master_1), line:398:20, endln:398:53
             |vpiName:get_read_response_from_master_1
@@ -7608,6 +7624,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:399:7, endln:399:14, parent:work@test_program
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+            |vpiActual:
+            \_struct_var: (work@test_program.exp_rsp), line:395:7, endln:395:15, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_expected_read_response), line:399:17, endln:399:48
             |vpiName:get_expected_read_response
@@ -7630,6 +7648,12 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:400:35, endln:400:42, parent:verify_response
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:394:7, endln:394:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:395:7, endln:395:15, parent:work@test_program
   |vpiProcess:
   \_always: , line:404:4, endln:406:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -7690,15 +7714,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.actual_cmd), line:427:7, endln:427:14
-            |vpiName:actual_cmd
-            |vpiFullName:work@test_program.actual_cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.exp_cmd), line:427:7, endln:427:14
+          \_struct_var: (work@test_program.exp_cmd), line:427:7, endln:427:14, parent:work@test_program
             |vpiName:exp_cmd
             |vpiFullName:work@test_program.exp_cmd
             |vpiTypespec:
@@ -7706,7 +7722,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.rsp), line:428:7, endln:428:15
+          \_struct_var: (work@test_program.rsp), line:428:7, endln:428:15, parent:work@test_program
             |vpiName:rsp
             |vpiFullName:work@test_program.rsp
             |vpiTypespec:
@@ -7714,7 +7730,7 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_int_var: (work@test_program.backpressure_cycles), line:430:17, endln:430:20
+          \_int_var: (work@test_program.backpressure_cycles), line:430:17, endln:430:20, parent:work@test_program
             |vpiName:backpressure_cycles
             |vpiFullName:work@test_program.backpressure_cycles
             |vpiAutomatic:1
@@ -7797,6 +7813,12 @@ design: (work@top)
           \_ref_obj: (work@test_program.actual_cmd), line:438:7, endln:438:17, parent:work@test_program
             |vpiName:actual_cmd
             |vpiFullName:work@test_program.actual_cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.actual_cmd), line:427:7, endln:427:14, parent:work@test_program
+              |vpiName:actual_cmd
+              |vpiFullName:work@test_program.actual_cmd
+              |vpiTypespec:
+              \_struct_typespec: (Command), line:45:12, endln:45:18
           |vpiRhs:
           \_func_call: (get_command_from_slave_1), line:438:20, endln:438:46
             |vpiName:get_command_from_slave_1
@@ -7810,6 +7832,8 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_cmd), line:439:7, endln:439:14, parent:work@test_program
             |vpiName:exp_cmd
             |vpiFullName:work@test_program.exp_cmd
+            |vpiActual:
+            \_struct_var: (work@test_program.exp_cmd), line:427:7, endln:427:14, parent:work@test_program
           |vpiRhs:
           \_func_call: (get_expected_command_for_slave), line:439:17, endln:439:62
             |vpiName:get_expected_command_for_slave
@@ -7902,6 +7926,14 @@ design: (work@top)
               \_ref_obj: (work@test_program.rsp), line:446:49, endln:446:52, parent:push_back
                 |vpiName:rsp
                 |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:427:7, endln:427:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:427:7, endln:427:14, parent:work@test_program
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:428:7, endln:428:15, parent:work@test_program
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:430:17, endln:430:20, parent:work@test_program
   |vpiProcess:
   \_always: , line:476:4, endln:480:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -12759,34 +12791,14 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.cmd), line:251:7, endln:251:14
-            |vpiName:cmd
-            |vpiFullName:work@test_program.cmd
+          \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15
+            |vpiName:actual_rsp
+            |vpiFullName:work@test_program.actual_rsp
             |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-              |vpiName:Command
+            \_struct_typespec: (Response), line:56:12, endln:56:18
+              |vpiName:Response
               |vpiTypespecMember:
-              \_typespec_member: (trans), line:47:37, endln:47:42
-                |vpiName:trans
-                |vpiTypespec:
-                \_enum_typespec: (Transaction), line:37:6, endln:37:17
-                  |vpiName:Transaction
-                  |vpiBaseTypespec:
-                  \_bit_typespec: , line:33:17, endln:33:20
-                  |vpiEnumConst:
-                  \_enum_const: (WRITE), line:35:8, endln:35:13
-                    |vpiName:WRITE
-                    |vpiDecompile:0
-                    |UINT:0
-                    |vpiSize:64
-                  |vpiEnumConst:
-                  \_enum_const: (READ), line:36:8, endln:36:12
-                    |vpiName:READ
-                    |vpiDecompile:1
-                    |UINT:1
-                    |vpiSize:64
-              |vpiTypespecMember:
-              \_typespec_member: (burstcount), line:48:37, endln:48:47
+              \_typespec_member: (burstcount), line:58:37, endln:58:47
                 |vpiName:burstcount
                 |vpiTypespec:
                 \_logic_typespec: (Burstcount), line:31:12, endln:31:17
@@ -12836,177 +12848,6 @@ design: (work@top)
                         |vpiSize:64
                         |UINT:0
               |vpiTypespecMember:
-              \_typespec_member: (addr), line:49:37, endln:49:41
-                |vpiName:addr
-                |vpiTypespec:
-                \_logic_typespec: , line:49:8, endln:49:13
-                  |vpiRange:
-                  \_range: , line:49:15, endln:49:26, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:49:15, endln:49:21
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.ADDR_W), line:49:15, endln:49:21, parent:Command
-                        |vpiName:ADDR_W
-                        |vpiFullName:Command.ADDR_W
-                        |vpiActual:
-                        \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:44, parent:work@test_program
-                          |vpiName:ADDR_W
-                          |vpiFullName:work@test_program.ADDR_W
-                          |vpiLocalParam:1
-                          |UINT:13
-                      |vpiOperand:
-                      \_constant: , line:49:22, endln:49:23
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:49:25, endln:49:26
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (data), line:50:37, endln:50:41
-                |vpiName:data
-                |vpiTypespec:
-                \_logic_typespec: , line:50:8, endln:50:13
-                  |vpiRange:
-                  \_range: , line:50:15, endln:50:25, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:50:15, endln:50:21
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.DATA_W), line:50:15, endln:50:21, parent:Command
-                        |vpiName:DATA_W
-                        |vpiFullName:Command.DATA_W
-                        |vpiActual:
-                        \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
-                          |vpiName:DATA_W
-                          |vpiFullName:work@test_program.DATA_W
-                          |vpiLocalParam:1
-                      |vpiOperand:
-                      \_constant: , line:50:22, endln:50:23
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:50:24, endln:50:25
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (byteenable), line:51:37, endln:51:47
-                |vpiName:byteenable
-                |vpiTypespec:
-                \_logic_typespec: , line:51:8, endln:51:13
-                  |vpiRange:
-                  \_range: , line:51:15, endln:51:30, parent:Command
-                    |vpiLeftRange:
-                    \_operation: , line:51:15, endln:51:26
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
-                        |vpiName:NUM_SYMBOLS
-                        |vpiFullName:Command.NUM_SYMBOLS
-                        |vpiActual:
-                        \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
-                          |vpiName:NUM_SYMBOLS
-                          |vpiFullName:work@test_program.NUM_SYMBOLS
-                          |vpiLocalParam:1
-                          |UINT:4
-                      |vpiOperand:
-                      \_constant: , line:51:27, endln:51:28
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:51:29, endln:51:30
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (cmd_delay), line:52:37, endln:52:46
-                |vpiName:cmd_delay
-                |vpiTypespec:
-                \_bit_typespec: , line:52:8, endln:52:11
-                  |vpiRange:
-                  \_range: , line:52:13, endln:52:17, parent:Command
-                    |vpiLeftRange:
-                    \_constant: , line:52:13, endln:52:15
-                      |vpiConstType:9
-                      |vpiDecompile:31
-                      |vpiSize:64
-                      |UINT:31
-                    |vpiRightRange:
-                    \_constant: , line:52:16, endln:52:17
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-              |vpiTypespecMember:
-              \_typespec_member: (data_idles), line:53:37, endln:53:47
-                |vpiName:data_idles
-                |vpiTypespec:
-                \_bit_typespec: , line:53:8, endln:53:11
-                  |vpiRange:
-                  \_range: , line:53:13, endln:53:17, parent:Command
-                    |vpiLeftRange:
-                    \_constant: , line:53:13, endln:53:15
-                      |vpiConstType:9
-                      |vpiDecompile:31
-                      |vpiSize:64
-                      |UINT:31
-                    |vpiRightRange:
-                    \_constant: , line:53:16, endln:53:17
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15
-            |vpiName:actual_rsp
-            |vpiFullName:work@test_program.actual_rsp
-            |vpiTypespec:
-            \_struct_typespec: (Response), line:56:12, endln:56:18
-              |vpiName:Response
-              |vpiTypespecMember:
-              \_typespec_member: (burstcount), line:58:37, endln:58:47
-                |vpiName:burstcount
-                |vpiTypespec:
-                \_logic_typespec: (Burstcount), line:31:12, endln:31:17
-                  |vpiName:Burstcount
-                  |vpiRange:
-                  \_range: , line:31:19, endln:31:30, parent:Burstcount
-                    |vpiLeftRange:
-                    \_operation: , line:31:19, endln:31:26
-                      |vpiOpType:11
-                      |vpiOperand:
-                      \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
-                        |vpiName:BURST_W
-                        |vpiFullName:Burstcount.BURST_W
-                      |vpiOperand:
-                      \_constant: , line:31:27, endln:31:28
-                        |vpiConstType:9
-                        |vpiDecompile:1
-                        |vpiSize:64
-                        |UINT:1
-                    |vpiRightRange:
-                    \_constant: , line:31:29, endln:31:30
-                      |vpiConstType:9
-                      |vpiDecompile:0
-                      |vpiSize:64
-                      |UINT:0
-                  |vpiTypedefAlias:
-                  \_logic_typespec: (Burstcount), line:31:12, endln:31:17
-              |vpiTypespecMember:
               \_typespec_member: (data), line:59:37, endln:59:41
                 |vpiName:data
                 |vpiTypespec:
@@ -13022,6 +12863,9 @@ design: (work@top)
                         |vpiFullName:Response.DATA_W
                         |vpiActual:
                         \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
+                          |vpiName:DATA_W
+                          |vpiFullName:work@test_program.DATA_W
+                          |vpiLocalParam:1
                       |vpiOperand:
                       \_constant: , line:59:21, endln:59:22
                         |vpiConstType:9
@@ -13127,6 +12971,204 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:257:35, endln:257:42, parent:verify_response
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:251:7, endln:251:14, parent:work@test_program
+          |vpiName:cmd
+          |vpiFullName:work@test_program.cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+            |vpiName:Command
+            |vpiTypespecMember:
+            \_typespec_member: (trans), line:47:37, endln:47:42
+              |vpiName:trans
+              |vpiTypespec:
+              \_enum_typespec: (Transaction), line:37:6, endln:37:17
+                |vpiName:Transaction
+                |vpiBaseTypespec:
+                \_bit_typespec: , line:33:17, endln:33:20
+                |vpiEnumConst:
+                \_enum_const: (WRITE), line:35:8, endln:35:13
+                  |vpiName:WRITE
+                  |vpiDecompile:0
+                  |UINT:0
+                  |vpiSize:64
+                |vpiEnumConst:
+                \_enum_const: (READ), line:36:8, endln:36:12
+                  |vpiName:READ
+                  |vpiDecompile:1
+                  |UINT:1
+                  |vpiSize:64
+            |vpiTypespecMember:
+            \_typespec_member: (burstcount), line:48:37, endln:48:47
+              |vpiName:burstcount
+              |vpiTypespec:
+              \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+                |vpiName:Burstcount
+                |vpiRange:
+                \_range: , line:31:19, endln:31:30, parent:Burstcount
+                  |vpiLeftRange:
+                  \_operation: , line:31:19, endln:31:26
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (Burstcount.BURST_W), line:31:19, endln:31:26
+                      |vpiName:BURST_W
+                      |vpiFullName:Burstcount.BURST_W
+                    |vpiOperand:
+                    \_constant: , line:31:27, endln:31:28
+                      |vpiConstType:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                  |vpiRightRange:
+                  \_constant: , line:31:29, endln:31:30
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+                |vpiTypedefAlias:
+                \_logic_typespec: (Burstcount), line:31:12, endln:31:17
+            |vpiTypespecMember:
+            \_typespec_member: (addr), line:49:37, endln:49:41
+              |vpiName:addr
+              |vpiTypespec:
+              \_logic_typespec: , line:49:8, endln:49:13
+                |vpiRange:
+                \_range: , line:49:15, endln:49:26, parent:Command
+                  |vpiLeftRange:
+                  \_operation: , line:49:15, endln:49:21
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (Command.ADDR_W), line:49:15, endln:49:21, parent:Command
+                      |vpiName:ADDR_W
+                      |vpiFullName:Command.ADDR_W
+                      |vpiActual:
+                      \_parameter: (work@test_program.ADDR_W), line:13:15, endln:13:44, parent:work@test_program
+                        |vpiName:ADDR_W
+                        |vpiFullName:work@test_program.ADDR_W
+                        |vpiLocalParam:1
+                        |UINT:13
+                    |vpiOperand:
+                    \_constant: , line:49:22, endln:49:23
+                      |vpiConstType:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                  |vpiRightRange:
+                  \_constant: , line:49:25, endln:49:26
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+            |vpiTypespecMember:
+            \_typespec_member: (data), line:50:37, endln:50:41
+              |vpiName:data
+              |vpiTypespec:
+              \_logic_typespec: , line:50:8, endln:50:13
+                |vpiRange:
+                \_range: , line:50:15, endln:50:25, parent:Command
+                  |vpiLeftRange:
+                  \_operation: , line:50:15, endln:50:21
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (Command.DATA_W), line:50:15, endln:50:21, parent:Command
+                      |vpiName:DATA_W
+                      |vpiFullName:Command.DATA_W
+                      |vpiActual:
+                      \_parameter: (work@test_program.DATA_W), line:17:15, endln:17:64, parent:work@test_program
+                    |vpiOperand:
+                    \_constant: , line:50:22, endln:50:23
+                      |vpiConstType:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                  |vpiRightRange:
+                  \_constant: , line:50:24, endln:50:25
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+            |vpiTypespecMember:
+            \_typespec_member: (byteenable), line:51:37, endln:51:47
+              |vpiName:byteenable
+              |vpiTypespec:
+              \_logic_typespec: , line:51:8, endln:51:13
+                |vpiRange:
+                \_range: , line:51:15, endln:51:30, parent:Command
+                  |vpiLeftRange:
+                  \_operation: , line:51:15, endln:51:26
+                    |vpiOpType:11
+                    |vpiOperand:
+                    \_ref_obj: (Command.NUM_SYMBOLS), line:51:15, endln:51:26, parent:Command
+                      |vpiName:NUM_SYMBOLS
+                      |vpiFullName:Command.NUM_SYMBOLS
+                      |vpiActual:
+                      \_parameter: (work@test_program.NUM_SYMBOLS), line:16:15, endln:16:43, parent:work@test_program
+                        |vpiName:NUM_SYMBOLS
+                        |vpiFullName:work@test_program.NUM_SYMBOLS
+                        |vpiLocalParam:1
+                        |UINT:4
+                    |vpiOperand:
+                    \_constant: , line:51:27, endln:51:28
+                      |vpiConstType:9
+                      |vpiDecompile:1
+                      |vpiSize:64
+                      |UINT:1
+                  |vpiRightRange:
+                  \_constant: , line:51:29, endln:51:30
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+            |vpiTypespecMember:
+            \_typespec_member: (cmd_delay), line:52:37, endln:52:46
+              |vpiName:cmd_delay
+              |vpiTypespec:
+              \_bit_typespec: , line:52:8, endln:52:11
+                |vpiRange:
+                \_range: , line:52:13, endln:52:17, parent:Command
+                  |vpiLeftRange:
+                  \_constant: , line:52:13, endln:52:15
+                    |vpiConstType:9
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |UINT:31
+                  |vpiRightRange:
+                  \_constant: , line:52:16, endln:52:17
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+            |vpiTypespecMember:
+            \_typespec_member: (data_idles), line:53:37, endln:53:47
+              |vpiName:data_idles
+              |vpiTypespec:
+              \_bit_typespec: , line:53:8, endln:53:11
+                |vpiRange:
+                \_range: , line:53:13, endln:53:17, parent:Command
+                  |vpiLeftRange:
+                  \_constant: , line:53:13, endln:53:15
+                    |vpiConstType:9
+                    |vpiDecompile:31
+                    |vpiSize:64
+                    |UINT:31
+                  |vpiRightRange:
+                  \_constant: , line:53:16, endln:53:17
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:252:7, endln:252:15, parent:work@test_program
+          |vpiName:actual_rsp
+          |vpiFullName:work@test_program.actual_rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:252:7, endln:252:15, parent:work@test_program
+          |vpiName:exp_rsp
+          |vpiFullName:work@test_program.exp_rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
   |vpiProcess:
   \_always: , line:261:4, endln:263:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -13184,14 +13226,6 @@ design: (work@top)
       |vpiStmt:
       \_begin: (work@test_program), line:282:59, endln:305:7
         |vpiFullName:work@test_program
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.actual_cmd), line:284:7, endln:284:14
-            |vpiName:actual_cmd
-            |vpiFullName:work@test_program.actual_cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
@@ -13459,6 +13493,29 @@ design: (work@top)
               \_ref_obj: (work@test_program.rsp), line:303:49, endln:303:52, parent:push_back
                 |vpiName:rsp
                 |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:284:7, endln:284:14, parent:work@test_program
+          |vpiName:actual_cmd
+          |vpiFullName:work@test_program.actual_cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:284:7, endln:284:14, parent:work@test_program
+          |vpiName:exp_cmd
+          |vpiFullName:work@test_program.exp_cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:285:7, endln:285:15, parent:work@test_program
+          |vpiName:rsp
+          |vpiFullName:work@test_program.rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:287:17, endln:287:20, parent:work@test_program
+          |vpiName:backpressure_cycles
+          |vpiFullName:work@test_program.backpressure_cycles
+          |vpiAutomatic:1
   |vpiProcess:
   \_always: , line:333:4, endln:337:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -13555,14 +13612,6 @@ design: (work@top)
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
-          \_struct_var: (work@test_program.cmd), line:394:7, endln:394:14
-            |vpiName:cmd
-            |vpiFullName:work@test_program.cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
           \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15
             |vpiName:actual_rsp
             |vpiFullName:work@test_program.actual_rsp
@@ -13642,6 +13691,24 @@ design: (work@top)
           \_ref_obj: (work@test_program.exp_rsp), line:400:35, endln:400:42, parent:verify_response
             |vpiName:exp_rsp
             |vpiFullName:work@test_program.exp_rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.cmd), line:394:7, endln:394:14, parent:work@test_program
+          |vpiName:cmd
+          |vpiFullName:work@test_program.cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_rsp), line:395:7, endln:395:15, parent:work@test_program
+          |vpiName:actual_rsp
+          |vpiFullName:work@test_program.actual_rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_rsp), line:395:7, endln:395:15, parent:work@test_program
+          |vpiName:exp_rsp
+          |vpiFullName:work@test_program.exp_rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
   |vpiProcess:
   \_always: , line:404:4, endln:406:7, parent:work@test_program
     |vpiAlwaysType:1
@@ -13699,14 +13766,6 @@ design: (work@top)
       |vpiStmt:
       \_begin: (work@test_program), line:425:59, endln:448:7
         |vpiFullName:work@test_program
-        |vpiStmt:
-        \_assign_stmt: , parent:work@test_program
-          |vpiLhs:
-          \_struct_var: (work@test_program.actual_cmd), line:427:7, endln:427:14
-            |vpiName:actual_cmd
-            |vpiFullName:work@test_program.actual_cmd
-            |vpiTypespec:
-            \_struct_typespec: (Command), line:45:12, endln:45:18
         |vpiStmt:
         \_assign_stmt: , parent:work@test_program
           |vpiLhs:
@@ -13918,6 +13977,29 @@ design: (work@top)
               \_ref_obj: (work@test_program.rsp), line:446:49, endln:446:52, parent:push_back
                 |vpiName:rsp
                 |vpiFullName:work@test_program.rsp
+        |vpiVariables:
+        \_struct_var: (work@test_program.actual_cmd), line:427:7, endln:427:14, parent:work@test_program
+          |vpiName:actual_cmd
+          |vpiFullName:work@test_program.actual_cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.exp_cmd), line:427:7, endln:427:14, parent:work@test_program
+          |vpiName:exp_cmd
+          |vpiFullName:work@test_program.exp_cmd
+          |vpiTypespec:
+          \_struct_typespec: (Command), line:45:12, endln:45:18
+        |vpiVariables:
+        \_struct_var: (work@test_program.rsp), line:428:7, endln:428:15, parent:work@test_program
+          |vpiName:rsp
+          |vpiFullName:work@test_program.rsp
+          |vpiTypespec:
+          \_struct_typespec: (Response), line:56:12, endln:56:18
+        |vpiVariables:
+        \_int_var: (work@test_program.backpressure_cycles), line:430:17, endln:430:20, parent:work@test_program
+          |vpiName:backpressure_cycles
+          |vpiFullName:work@test_program.backpressure_cycles
+          |vpiAutomatic:1
   |vpiProcess:
   \_always: , line:476:4, endln:480:7, parent:work@test_program
     |vpiAlwaysType:1
