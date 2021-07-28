@@ -298,7 +298,6 @@ std::pair<std::string, bool> ErrorContainer::createReport_() {
     if (std::get<2>(textStatus))  // Filtered
       continue;
     report += std::get<0>(textStatus);
-    msg.m_reported = true;
   }
   return std::make_pair(report, reportFatalError);
 }
@@ -311,7 +310,6 @@ std::pair<std::string, bool> ErrorContainer::createReport_(Error& error) {
   if (std::get<1>(textStatus)) reportFatalError = true;
   if (!std::get<2>(textStatus))  // Filtered
     report += std::get<0>(textStatus);
-  msg.m_reported = true;
   return std::make_pair(report, reportFatalError);
 }
 
@@ -398,6 +396,9 @@ bool ErrorContainer::printMessage(Error& error, bool muteStdout) {
 
 bool ErrorContainer::printMessages(bool muteStdout) {
   std::pair<std::string, bool> report = createReport_();
+  for (auto& err : m_errors) {
+    err.m_reported = true;
+  }
 
   if (!muteStdout) {
     std::cout << report.first << std::flush;

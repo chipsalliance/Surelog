@@ -755,7 +755,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       } else {
         maxMT = atoi(all_arguments[i].c_str());
       }
-      if (maxMT < 0 || maxMT > 512) {
+      if (maxMT > 512) {
         Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_INCORRECT_LEVEL, loc);
         m_errors->addError(err);

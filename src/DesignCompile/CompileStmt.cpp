@@ -152,6 +152,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slSeq_block: {
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
+      UHDM::scope* scope = nullptr;
       if (fC->Type(item) == VObjectType::slStringConst) {
         UHDM::named_begin* begin = s.MakeNamed_begin();
         begin->Stmts(stmts);
@@ -159,11 +160,13 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         stmt = begin;
         begin->VpiName(fC->SymName(item));
         item = fC->Sibling(item);
+        scope = begin;
       } else {
         UHDM::begin* begin = s.MakeBegin();
         begin->Stmts(stmts);
         begin->VpiParent(pstmt);
         stmt = begin;
+        scope = begin;
       }
       while (item) {
         if (item && (fC->Type(item) == VObjectType::slEnd)) {
@@ -173,8 +176,24 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
             compileStmt(component, fC, item, compileDesign, stmt, instance);
         if (cstmts) {
           for (any* cstmt : *cstmts) {
-            stmts->push_back(cstmt);
-            cstmt->VpiParent(stmt);
+            bool isDecl = false;
+            if (cstmt->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* assign = (assign_stmt*)cstmt;
+              if (assign->Rhs() == nullptr) {
+                VectorOfvariables* vars = scope->Variables();
+                if (vars == nullptr) {
+                  isDecl = true;
+                  vars = s.MakeVariablesVec();
+                  scope->Variables(vars);
+                }
+                vars->push_back((UHDM::variables*)assign->Lhs());
+                ((variables*)assign->Lhs())->VpiParent(stmt);
+              }
+            }
+            if (!isDecl) {
+              stmts->push_back(cstmt);
+              cstmt->VpiParent(stmt);
+            }
           }
         }
         item = fC->Sibling(item);
@@ -184,6 +203,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
     case VObjectType::slPar_block: {
       NodeId item = fC->Child(the_stmt);
       VectorOfany* stmts = s.MakeAnyVec();
+      UHDM::scope* scope = nullptr;
       if (fC->Type(item) == VObjectType::slStringConst) {
         UHDM::named_fork* fork = s.MakeNamed_fork();
         fork->Stmts(stmts);
@@ -191,19 +211,37 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
         stmt = fork;
         fork->VpiName(fC->SymName(item));
         item = fC->Sibling(item);
+        scope = fork;
       } else {
         UHDM::fork_stmt* fork = s.MakeFork_stmt();
         fork->Stmts(stmts);
         fork->VpiParent(pstmt);
         stmt = fork;
+        scope = fork;
       }
       while (item) {
         VectorOfany* cstmts =
             compileStmt(component, fC, item, compileDesign, stmt, instance);
         if (cstmts) {
           for (any* cstmt : *cstmts) {
-            stmts->push_back(cstmt);
-            cstmt->VpiParent(stmt);
+            bool isDecl = false;
+            if (cstmt->UhdmType() == uhdmassign_stmt) {
+              assign_stmt* assign = (assign_stmt*)cstmt;
+              if (assign->Rhs() == nullptr) {
+                VectorOfvariables* vars = scope->Variables();
+                if (vars == nullptr) {
+                  isDecl = true;
+                  vars = s.MakeVariablesVec();
+                  scope->Variables(vars);
+                }
+                vars->push_back((UHDM::variables*)assign->Lhs());
+                ((variables*)assign->Lhs())->VpiParent(stmt);
+              }
+            }
+            if (!isDecl) {
+              stmts->push_back(cstmt);
+              cstmt->VpiParent(stmt);
+            }
           }
         }
         item = fC->Sibling(item);
@@ -516,6 +554,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component,
       // TODO: flavors
       UHDM::disable* disable = s.MakeDisable();
       stmt = disable;
+      break;
     }
     case VObjectType::slContinueStmt: {
       UHDM::continue_stmt* cstmt = s.MakeContinue_stmt();

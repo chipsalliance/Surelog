@@ -967,6 +967,7 @@ bool CompileHelper::compileLoop_stmt(Scope* parent, Statement* parentStmt,
       break;
     case VObjectType::slForeach:
       compileForeachLoop_stmt(parent, parentStmt, fC, fC->Sibling(loop));
+      break;
     default:
       break;
   }
@@ -1419,6 +1420,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
               output n1; */
           subNode = fC->Sibling(subNode);
           subType = fC->Type(subNode);
+          [[fallthrough]];
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
         case VObjectType::slInout_declaration: {
@@ -2204,7 +2206,7 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiEndLineNo(fC->Line(typeNameId));
       p->VpiEndColumnNo(fC->Column(typeNameId));
       typespec* tps = compileTypespec(component, fC, ntype, compileDesign, p,
-                                      nullptr, false, "");
+                                      nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {
@@ -2236,7 +2238,7 @@ bool CompileHelper::compileParameterDeclaration(
       p->VpiEndColumnNo(fC->EndColumn(Identifier));
       NodeId Data_type = fC->Child(Constant_param_expression);
       typespec* tps = compileTypespec(component, fC, Data_type, compileDesign,
-                                      p, nullptr, false, "");
+                                      p, nullptr, false);
       p->Typespec(tps);
       if (tps) tps->VpiParent(p);
       if (localParam) {
@@ -2430,7 +2432,7 @@ UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
 
   NodeId dollar_or_string = fC->Child(Tf_call_stmt);
   VObjectType leaf_type = fC->Type(dollar_or_string);
-  NodeId tfNameNode;
+  NodeId tfNameNode = InvalidNodeId;
   UHDM::tf_call* call = nullptr;
   std::string name;
   if (leaf_type == slDollar_keyword) {

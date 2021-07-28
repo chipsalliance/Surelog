@@ -4112,7 +4112,7 @@ UHDM::any* CompileHelper::compileExpression(
                 elems->push_back(ref);
                 ref->VpiName(tmpName);
                 ref->VpiFullName(tmpName);
-                tmpName == "";
+                tmpName = "";
                 is_hierarchical = true;
               }
               tmpName = fC->SymName(dotedName);
@@ -4185,14 +4185,14 @@ UHDM::any* CompileHelper::compileExpression(
               elems->push_back(ref);
               ref->VpiName(tmpName);
               ref->VpiFullName(tmpName);
-              tmpName == "";
+              tmpName = "";
               result = path;
             }
           } else {
             ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(tmpName);
             ref->VpiParent(pexpr);
-            tmpName == "";
+            tmpName = "";
             result = ref;
             break;
           }
@@ -4398,7 +4398,7 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
               Primary_literal = fC->Child(Constant_primary);
             pattern->Typespec(compileTypespec(component, fC, Primary_literal,
                                               compileDesign, nullptr, instance,
-                                              true, ""));
+                                              true));
           }
           operands->push_back(pattern);
         }
