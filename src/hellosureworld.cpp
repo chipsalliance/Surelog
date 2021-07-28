@@ -40,17 +40,14 @@ int main(int argc, const char** argv) {
   clp->noPython();
   bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
-  SURELOG::Design* the_design = NULL;
+  SURELOG::Design* the_design = nullptr;
+  SURELOG::scompiler* compiler = nullptr;
   if (success && (!clp->help())) {
-    SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
+    compiler = SURELOG::start_compiler(clp);
     the_design = SURELOG::get_design(compiler);
-    SURELOG::shutdown_compiler(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
-  delete clp;
-  delete symbolTable;
-  delete errors;
 
   // Browse the Surelog Data Model
   if (the_design) {
@@ -58,6 +55,7 @@ int main(int argc, const char** argv) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =
           [&inst_visit](SURELOG::ModuleInstance* inst) {
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
+            std::cout << "File: " << inst->getFileName() << std::endl;
             for (unsigned int i = 0; i < inst->getNbChildren(); i++) {
               inst_visit(inst->getChildren(i));
             }
@@ -65,6 +63,13 @@ int main(int argc, const char** argv) {
       inst_visit(top);
     }
   }
+
+  if (success && (!clp->help())) {
+    SURELOG::shutdown_compiler(compiler);
+  }
+  delete clp;
+  delete symbolTable;
+  delete errors;
   delete the_design;
   return code;
 }
