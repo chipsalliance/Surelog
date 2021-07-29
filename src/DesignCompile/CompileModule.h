@@ -25,7 +25,6 @@
 #define COMPILEMODULE_H
 
 #include "DesignCompile/CompileHelper.h"
-#include "uhdm.h"
 
 namespace SURELOG {
 
