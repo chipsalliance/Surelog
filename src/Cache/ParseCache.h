@@ -25,7 +25,6 @@
 #define PARSECACHE_H
 
 #include "Cache/Cache.h"
-#include "Cache/parser_generated.h"
 #include "SourceCompile/ParseFile.h"
 
 namespace SURELOG {

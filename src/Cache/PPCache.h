@@ -25,7 +25,6 @@
 #define PPCACHE_H
 
 #include "Cache/Cache.h"
-#include "Cache/preproc_generated.h"
 #include "ErrorReporting/Error.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/SymbolTable.h"

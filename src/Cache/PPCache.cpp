@@ -30,6 +30,7 @@
 #include <ctime>
 
 #include "Cache/Cache.h"
+#include "Cache/preproc_generated.h"
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Package/Precompiled.h"
