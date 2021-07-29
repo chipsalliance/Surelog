@@ -2558,6 +2558,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
     var_select->VpiName(name);
     result = var_select;
   }
+  NodeId lastBitExp = 0;
   while (Bit_select) {
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
@@ -2572,29 +2573,37 @@ UHDM::any* CompileHelper::compileSelectExpression(
         bitexp = Bit_select;
       }
       if (bitexp) {
-        expr* sel =
-            (expr*)compileExpression(component, fC, bitexp, compileDesign,
-                                     pexpr, instance, reduce, muteErrors);
+        while (bitexp) {
+          if ((fC->Type(bitexp) != slConstant_expression) &&
+              (fC->Type(bitexp) != slExpression)) {
+            break;
+          }
+          expr* sel =
+              (expr*)compileExpression(component, fC, bitexp, compileDesign,
+                                       pexpr, instance, reduce, muteErrors);
 
-        if (result) {
-          UHDM::var_select* var_select = (UHDM::var_select*)result;
-          VectorOfexpr* exprs = var_select->Exprs();
-          exprs->push_back(sel);
-          sel->VpiParent(var_select);
-        } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
-          UHDM::var_select* var_select = s.MakeVar_select();
-          VectorOfexpr* exprs = s.MakeExprVec();
-          var_select->Exprs(exprs);
-          var_select->VpiName(name);
-          exprs->push_back(sel);
-          result = var_select;
-          sel->VpiParent(var_select);
-        } else {
-          bit_select* bit_select = s.MakeBit_select();
-          bit_select->VpiName(name);
-          bit_select->VpiIndex(sel);
-          result = bit_select;
-          if (sel->VpiParent() == nullptr) sel->VpiParent(bit_select);
+          if (result) {
+            UHDM::var_select* var_select = (UHDM::var_select*)result;
+            VectorOfexpr* exprs = var_select->Exprs();
+            exprs->push_back(sel);
+            sel->VpiParent(var_select);
+          } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
+            UHDM::var_select* var_select = s.MakeVar_select();
+            VectorOfexpr* exprs = s.MakeExprVec();
+            var_select->Exprs(exprs);
+            var_select->VpiName(name);
+            exprs->push_back(sel);
+            result = var_select;
+            sel->VpiParent(var_select);
+          } else {
+            bit_select* bit_select = s.MakeBit_select();
+            bit_select->VpiName(name);
+            bit_select->VpiIndex(sel);
+            result = bit_select;
+            if (sel->VpiParent() == nullptr) sel->VpiParent(bit_select);
+          }
+          lastBitExp = bitexp;
+          bitexp = fC->Sibling(bitexp);
         }
       }
     } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
@@ -2680,6 +2689,9 @@ UHDM::any* CompileHelper::compileSelectExpression(
       break;
     }
     Bit_select = fC->Sibling(Bit_select);
+    if (lastBitExp && (Bit_select == lastBitExp)) {
+      Bit_select = fC->Sibling(Bit_select);
+    }
   }
   return result;
 }
