@@ -4353,18 +4353,40 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
   // and letting them do the reordering if need be.
   NodeId Structure_pattern_key = fC->Child(Assignment_pattern);
   bool with_key = true;
-  if (fC->Type(Structure_pattern_key) == VObjectType::slExpression) {
+  if (fC->Type(Structure_pattern_key) == VObjectType::slExpression ||
+      fC->Type(Structure_pattern_key) == VObjectType::slConstant_expression) {
     with_key = false;
   }
   while (Structure_pattern_key) {
     NodeId Expression;
     if (!with_key) {
-      Expression = Structure_pattern_key;  // No key '{1,2,...}
+      Expression = Structure_pattern_key;
       if (Expression) {
-        if (any* exp =
+        if (fC->Type(Expression) == slConstant_expression) {
+          // '{2{1}}
+          if (any* exp =
+                  compileExpression(component, fC, Expression, compileDesign,
+                                    operation, instance, reduce, false)) {
+            Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+            Expression = Structure_pattern_key;
+            any* val =
                 compileExpression(component, fC, Expression, compileDesign,
-                                  operation, instance, reduce, false)) {
-          operands->push_back(exp);
+                                  operation, instance, reduce, false);
+            UHDM::operation* op = s.MakeOperation();
+            op->VpiOpType(vpiMultiConcatOp);
+            UHDM::VectorOfany* ops = s.MakeAnyVec();
+            op->Operands(ops);
+            ops->push_back(exp);
+            ops->push_back(val);
+            operands->push_back(op);
+          }
+        } else {
+          // No key '{1,2,...}
+          if (any* exp =
+                  compileExpression(component, fC, Expression, compileDesign,
+                                    operation, instance, reduce, false)) {
+            operands->push_back(exp);
+          }
         }
       }
     } else {
