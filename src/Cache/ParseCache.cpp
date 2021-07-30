@@ -38,6 +38,7 @@
 #include <ctime>
 
 #include "Cache/Cache.h"
+#include "Cache/parser_generated.h"
 #include "CommandLine/CommandLineParser.h"
 #include "Design/FileContent.h"
 #include "ErrorReporting/ErrorContainer.h"

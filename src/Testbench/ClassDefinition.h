@@ -34,8 +34,8 @@
 #include "Testbench/Property.h"
 #include "Testbench/TaskMethod.h"
 #include "Testbench/TypeDef.h"
+#include "headers/containers.h"  // uhdm
 #include "headers/uhdm_forward_decl.h"
-#include "uhdm.h"
 
 namespace SURELOG {
 class CompileClass;

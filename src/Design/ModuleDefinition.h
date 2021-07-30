@@ -34,7 +34,7 @@
 #include "Design/ModPort.h"
 #include "Design/Signal.h"
 #include "Design/ValuedComponentI.h"
-#include "uhdm.h"
+#include "headers/containers.h"  // uhdm
 
 namespace UHDM {
 class udp_defn;
