@@ -791,7 +791,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       Named_port_connection = MemNamed_port_connection;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
-        if (formalId == 0) break;
+        if (formalId == 0) {
+          Named_port_connection = fC->Sibling(Named_port_connection);
+          index++;
+          continue;
+        }
         if (fC->Type(formalId) == VObjectType::slDotStar) {
           // .* connection
           Named_port_connection = fC->Sibling(Named_port_connection);
