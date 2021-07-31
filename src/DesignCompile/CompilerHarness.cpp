@@ -22,16 +22,31 @@
  */
 #include "DesignCompile/CompilerHarness.h"
 
+#include <memory>
+
 namespace SURELOG {
 
+struct CompilerHarness::Holder {
+  Holder()
+      : symbols(new SymbolTable()),
+        errors(new ErrorContainer(symbols.get())),
+        clp(new CommandLineParser(errors.get(), symbols.get(), false, false)),
+        compiler(new Compiler(clp.get(), errors.get(), symbols.get())) {
+    clp->setCacheAllowed(false);
+  }
+
+  std::unique_ptr<SymbolTable> symbols;
+  std::unique_ptr<ErrorContainer> errors;
+  std::unique_ptr<CommandLineParser> clp;
+  std::unique_ptr<Compiler> compiler;
+};
+
 std::unique_ptr<CompileDesign> CompilerHarness::createCompileDesign() {
-  // TODO: ownership of these objects is not handled - they all leak.
-  SymbolTable* symbols = new SymbolTable();
-  ErrorContainer* errors = new ErrorContainer(symbols);
-  CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
-  clp->setCacheAllowed(false);
-  Compiler* compiler = new Compiler(clp, errors, symbols);
-  return std::make_unique<CompileDesign>(compiler);
+  delete m_h;
+  m_h = new Holder();
+  return std::make_unique<CompileDesign>(m_h->compiler.get());
 }
+
+CompilerHarness::~CompilerHarness() { delete m_h; }
 
 }  // namespace SURELOG
