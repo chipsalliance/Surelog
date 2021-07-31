@@ -69,6 +69,10 @@
 using namespace SURELOG;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
+CompileDesign::~CompileDesign() {
+  // TODO: ownership not clear.
+  // delete m_compiler;
+}
 
 bool CompileDesign::compile() {
   // Handle UHDM Internal errors

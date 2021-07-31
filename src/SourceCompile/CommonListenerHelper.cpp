@@ -33,7 +33,10 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-CommonListenerHelper::~CommonListenerHelper() {}
+CommonListenerHelper::~CommonListenerHelper() {
+  // TODO: ownership not clear
+  // delete m_fileContent;
+}
 
 int CommonListenerHelper::registerObject(VObject& object) {
   m_fileContent->getVObjects().push_back(object);

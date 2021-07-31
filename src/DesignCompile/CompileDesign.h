@@ -36,8 +36,9 @@ void decompile(ValuedComponentI* instance);
 
 class CompileDesign {
  public:
+  // Note: takes owernship of compiler
   CompileDesign(Compiler* compiler);
-  virtual ~CompileDesign() {}  // Used in MockCompileDesign
+  virtual ~CompileDesign();  // Used in MockCompileDesign
 
   bool compile();
   bool elaborate();
