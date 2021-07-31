@@ -627,7 +627,7 @@ design: (work@top)
     \_hier_path: (csr_pmp_cfg_ie.mode), line:28:9, endln:28:23
       |vpiName:csr_pmp_cfg_ie.mode
       |vpiActual:
-      \_ref_obj: (csr_pmp_cfg_ie)
+      \_ref_obj: (csr_pmp_cfg_ie), parent:csr_pmp_cfg_ie.mode
         |vpiName:csr_pmp_cfg_ie
       |vpiActual:
       \_ref_obj: (mode)
@@ -719,7 +719,7 @@ design: (work@top)
   \_cont_assign: , line:22:8, endln:22:9, parent:work@top
     |vpiNetDeclAssign:1
     |vpiRhs:
-    \_bit_select: (work@top.enum_test), line:22:12, endln:22:24
+    \_bit_select: (work@top.enum_test), line:22:12, endln:22:24, parent:work@top.enum_test
       |vpiName:enum_test
       |vpiFullName:work@top.enum_test
       |vpiIndex:
@@ -793,7 +793,7 @@ design: (work@top)
                   |vpiTypespec:
                   \_logic_typespec: , line:8:4, endln:8:9
       |vpiActual:
-      \_bit_select: (mode), parent:csr_pmp_cfg_ie.mode[0]
+      \_bit_select: (mode)
         |vpiName:mode
         |vpiIndex:
         \_constant: , line:25:37, endln:25:38
@@ -923,7 +923,7 @@ design: (work@top)
     \_hier_path: (csr_pmp_cfg_i[0].mode), line:24:23, endln:24:44
       |vpiName:csr_pmp_cfg_i[0].mode
       |vpiActual:
-      \_bit_select: (csr_pmp_cfg_i)
+      \_bit_select: (csr_pmp_cfg_i), parent:csr_pmp_cfg_i[0].mode
         |vpiName:csr_pmp_cfg_i
         |vpiIndex:
         \_constant: , line:24:37, endln:24:38
@@ -932,7 +932,7 @@ design: (work@top)
           |vpiSize:64
           |UINT:0
       |vpiActual:
-      \_ref_obj: (mode)
+      \_ref_obj: (mode), parent:csr_pmp_cfg_i[0].mode
         |vpiName:mode
     |vpiTypespec:
     \_enum_typespec: (pmp_cfg_enum), line:5:4, endln:5:16
