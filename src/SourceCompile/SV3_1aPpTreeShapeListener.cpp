@@ -37,12 +37,13 @@ namespace SURELOG {
 SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(
     PreprocessFile *pp, antlr4::CommonTokenStream *tokens,
     PreprocessFile::SpecialInstructions &instructions)
-    : SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) {
-  m_tokens = tokens;
-}
+    : SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions,
+                                                             tokens) {}
 
 void SV3_1aPpTreeShapeListener::enterTop_level_rule(
     SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) {
+  // TODO: setting m_fileContent should happen at construction time.
+  // This also makes it hard to know who the owner is.
   if (m_pp->getFileContent() == NULL) {
     m_fileContent = new FileContent(
         m_pp->getFileId(0), m_pp->getLibrary(),

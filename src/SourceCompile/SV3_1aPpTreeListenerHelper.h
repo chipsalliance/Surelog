@@ -51,8 +51,9 @@ class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
 
  public:
   SV3_1aPpTreeListenerHelper(PreprocessFile* pp,
-                             PreprocessFile::SpecialInstructions& instructions)
-      : CommonListenerHelper(),
+                             PreprocessFile::SpecialInstructions& instructions,
+                             antlr4::CommonTokenStream* tokens)
+      : CommonListenerHelper(nullptr, tokens),
         m_pp(pp),
         m_inActiveBranch(true),
         m_inMacroDefinitionParsing(false),

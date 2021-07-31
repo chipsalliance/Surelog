@@ -43,26 +43,24 @@ namespace SURELOG {
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              antlr4::CommonTokenStream* tokens,
                                              unsigned int lineOffset)
-    : CommonListenerHelper(),
+    : CommonListenerHelper(nullptr, tokens),
       m_pf(pf),
       m_currentElement(NULL),
       m_lineOffset(lineOffset) {
-  if (pf->getCompileSourceFile())
+  if (pf->getCompileSourceFile()) {
     m_ppOutputFileLocation = pf->getCompileSourceFile()
                                  ->getCommandLineParser()
                                  ->usePPOutputFileLocation();
-  m_tokens = tokens;
+  }
 }
 
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseLibraryDef* pf,
                                              antlr4::CommonTokenStream* tokens)
-    : CommonListenerHelper(),
+    : CommonListenerHelper(nullptr, tokens),
       m_pf(NULL),
       m_currentElement(NULL),
       m_lineOffset(0),
-      m_ppOutputFileLocation(false) {
-  m_tokens = tokens;
-}
+      m_ppOutputFileLocation(false) {}
 
 SV3_1aTreeShapeHelper::~SV3_1aTreeShapeHelper() {}
 

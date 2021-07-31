@@ -24,14 +24,14 @@
 
 namespace SURELOG {
 
-CompileDesign* CompilerHarness::getCompileDesign() {
+std::unique_ptr<CompileDesign> CompilerHarness::createCompileDesign() {
+  // TODO: ownership of these objects is not handled - they all leak.
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);
   CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
   clp->setCacheAllowed(false);
   Compiler* compiler = new Compiler(clp, errors, symbols);
-  CompileDesign* compileDesign = new CompileDesign(compiler);
-  return compileDesign;
+  return std::make_unique<CompileDesign>(compiler);
 }
 
 }  // namespace SURELOG
