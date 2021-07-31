@@ -230,7 +230,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
                                CompileSourceFile* csf,
                                SpecialInstructions& instructions,
                                CompilationUnit* comp_unit, Library* library,
-                               std::string macroBody, MacroInfo* macroInfo,
+                               std::string_view macroBody, MacroInfo* macroInfo,
                                unsigned int embeddedMacroCallLine,
                                SymbolId embeddedMacroCallFile)
     : m_fileId(fileId),

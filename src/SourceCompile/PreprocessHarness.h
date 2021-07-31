@@ -27,6 +27,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <string_view>
 #include <thread>
 
 #include "Config/ConfigSet.h"
@@ -42,10 +43,7 @@ namespace SURELOG {
 
 class PreprocessHarness {
  public:
-  std::string preprocess(const std::string& content);
-
- public:
- private:
+  static std::string preprocess(std::string_view content);
 };
 
 };  // namespace SURELOG

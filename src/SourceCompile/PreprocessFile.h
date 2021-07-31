@@ -69,7 +69,7 @@ class PreprocessFile {
                  unsigned int includerLine, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
                  CompilationUnit* compilationUnit, Library* library,
-                 std::string macroBody = "", MacroInfo* = NULL,
+                 std::string_view macroBody = "", MacroInfo* = NULL,
                  unsigned int embeddedMacroCallLine = 0,
                  SymbolId embeddedMacroCallFile = 0);
   PreprocessFile(const PreprocessFile& orig);
