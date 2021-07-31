@@ -33,6 +33,11 @@
 #include "LogListener.h"
 #include "antlr4-runtime.h"
 
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#include <unistd.h>
+#endif
+#include <stdio.h>
+
 using namespace SURELOG;
 
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
@@ -41,19 +46,15 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable,
       m_reportedFatalErrorLogFile(false),
       m_symbolTable(symbolTable),
       m_interpState(NULL),
-      m_logListener(logListener) {
+      m_logListener(logListener ? logListener : new LogListener()),
+      m_listenerOwned(logListener == nullptr) {
   m_interpState = PythonAPI::getMainInterp();
-
-  if (m_logListener == nullptr) {
-    m_logListener = new LogListener;
-  }
   /* Do nothing here */
 }
 
-#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-#include <unistd.h>
-#endif
-#include <stdio.h>
+ErrorContainer::~ErrorContainer() {
+  if (m_listenerOwned) delete m_logListener;
+}
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
@@ -65,10 +66,6 @@ void ErrorContainer::init() {
     }
   }
 }
-
-ErrorContainer::ErrorContainer(const ErrorContainer& orig) {}
-
-ErrorContainer::~ErrorContainer() {}
 
 Error& ErrorContainer::addError(Error& error, bool showDuplicates,
                                 bool reentrantPython) {
