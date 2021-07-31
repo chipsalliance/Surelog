@@ -24,28 +24,24 @@
 #ifndef PARSERHARNESS_H
 #define PARSERHARNESS_H
 
+#include <memory>
 #include <string>
 
 #include "Design/FileContent.h"
-#include "ErrorReporting/Error.h"
-#include "SourceCompile/AntlrParserHandler.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "parser/SV3_1aLexer.h"
-#include "parser/SV3_1aParser.h"
 
 namespace SURELOG {
 
-class SV3_1aTreeShapeListener;
-class SV3_1aPythonListener;
-class AntlrParserErrorListener;
-class CompileSourceFile;
-
 class ParserHarness {
  public:
-  FileContent* parse(const std::string& content);
+  // Parse content and return FileContent or nullptr if it couldn't
+  // be parsed.
+  std::unique_ptr<FileContent> parse(const std::string& content);
 
- public:
+  ~ParserHarness();
+
  private:
+  struct Holder;
+  Holder* m_h = nullptr;
 };
 
 };  // namespace SURELOG
