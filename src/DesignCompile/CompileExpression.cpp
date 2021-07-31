@@ -4376,36 +4376,32 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component,
       fC->Type(Structure_pattern_key) == VObjectType::slConstant_expression) {
     with_key = false;
   }
+  if (!with_key && fC->Type(Structure_pattern_key) == slConstant_expression) {
+    // '{2{1}}
+    NodeId Expression = Structure_pattern_key;
+    if (any* exp = compileExpression(component, fC, Expression, compileDesign,
+                                     operation, instance, reduce, false)) {
+      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+      Expression = Structure_pattern_key;
+      any* val = compileExpression(component, fC, Expression, compileDesign,
+                                   operation, instance, reduce, false);
+
+      operation->VpiOpType(vpiMultiAssignmentPatternOp);
+      operands->push_back(exp);
+      operands->push_back(val);
+    }
+    return result;
+  }
   while (Structure_pattern_key) {
     NodeId Expression;
     if (!with_key) {
       Expression = Structure_pattern_key;
       if (Expression) {
-        if (fC->Type(Expression) == slConstant_expression) {
-          // '{2{1}}
-          if (any* exp =
-                  compileExpression(component, fC, Expression, compileDesign,
-                                    operation, instance, reduce, false)) {
-            Structure_pattern_key = fC->Sibling(Structure_pattern_key);
-            Expression = Structure_pattern_key;
-            any* val =
+        // No key '{1,2,...}
+        if (any* exp =
                 compileExpression(component, fC, Expression, compileDesign,
-                                  operation, instance, reduce, false);
-            UHDM::operation* op = s.MakeOperation();
-            op->VpiOpType(vpiMultiConcatOp);
-            UHDM::VectorOfany* ops = s.MakeAnyVec();
-            op->Operands(ops);
-            ops->push_back(exp);
-            ops->push_back(val);
-            operands->push_back(op);
-          }
-        } else {
-          // No key '{1,2,...}
-          if (any* exp =
-                  compileExpression(component, fC, Expression, compileDesign,
-                                    operation, instance, reduce, false)) {
-            operands->push_back(exp);
-          }
+                                  operation, instance, reduce, false)) {
+          operands->push_back(exp);
         }
       }
     } else {
