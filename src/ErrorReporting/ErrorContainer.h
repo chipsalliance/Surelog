@@ -59,12 +59,13 @@ class ErrorContainer {
 
   ErrorContainer(SymbolTable* symbolTable,
                  LogListener* const logListener = nullptr);
+  virtual ~ErrorContainer();
+
   void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
-  ErrorContainer(const ErrorContainer& orig);
-  virtual ~ErrorContainer();
+
   std::vector<Error>& getErrors() { return m_errors; }
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
@@ -79,15 +80,22 @@ class ErrorContainer {
   void setPythonInterp(void* interpState) { m_interpState = interpState; }
 
  private:
+  ErrorContainer(const ErrorContainer& orig) = delete;
+
   std::pair<std::string, bool> createReport_();
   std::pair<std::string, bool> createReport_(Error& error);
   std::vector<Error> m_errors;
   std::set<std::string> m_errorSet;
+
   CommandLineParser* m_clp;
   bool m_reportedFatalErrorLogFile;
-  SymbolTable* m_symbolTable;
+  SymbolTable* const m_symbolTable;
   void* m_interpState;
-  LogListener* m_logListener;
+
+  LogListener* const m_logListener;
+  // TODO: Ownership of passed log listener not very well defined.
+  // For now, just delete our listener if we own it.
+  const bool m_listenerOwned;
 };
 
 };  // namespace SURELOG
