@@ -65,7 +65,7 @@
 
 namespace SURELOG {
 
-std::string PreprocessHarness::preprocess(const std::string& content) {
+std::string PreprocessHarness::preprocess(std::string_view content) {
   std::string result;
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,
@@ -73,6 +73,7 @@ std::string PreprocessHarness::preprocess(const std::string& content) {
       PreprocessFile::SpecialInstructions::DontFilter,
       PreprocessFile::SpecialInstructions::CheckLoop,
       PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+  // TODO: all these objects leak.
   CompilationUnit* unit = new CompilationUnit(false);
   SymbolTable* symbols = new SymbolTable();
   ErrorContainer* errors = new ErrorContainer(symbols);
