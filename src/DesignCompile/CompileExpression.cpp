@@ -2601,6 +2601,10 @@ UHDM::any* CompileHelper::compileSelectExpression(
             bit_select->VpiIndex(sel);
             result = bit_select;
             if (sel->VpiParent() == nullptr) sel->VpiParent(bit_select);
+            ref_obj* ref = s.MakeRef_obj();
+            bit_select->VpiParent(ref);
+            ref->VpiName(name);
+            ref->VpiParent(pexpr);
           }
           lastBitExp = bitexp;
           bitexp = fC->Sibling(bitexp);
@@ -2637,6 +2641,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
       r1->VpiFullName(name);
       path->Path_elems(elems);
       elems->push_back(r1);
+      r1->VpiParent(path);
       while (Bit_select) {
         if (fC->Type(Bit_select) == VObjectType::slStringConst) {
           NodeId tmp = fC->Sibling(Bit_select);
@@ -2651,6 +2656,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
                 hier_path* p = (hier_path*)sel;
                 for (auto el : *p->Path_elems()) {
                   elems->push_back(el);
+                  el->VpiParent(path);
                   std::string n = el->VpiName();
                   if (el->UhdmType() == uhdmbit_select) {
                     bit_select* s = (bit_select*)el;
@@ -2664,6 +2670,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
                 break;
               } else {
                 elems->push_back(sel);
+                sel->VpiParent(path);
                 hname += "." + sel->VpiName();
               }
             }
@@ -5746,6 +5753,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       select->VpiIndex(index);
       select->VpiName(sval);
       select->VpiFullName(sval);
+      select->VpiParent(path);
       path->Path_elems(elems);
       elems->push_back(select);
       std::string indexval;
@@ -5757,6 +5765,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         }
       }
       ref_obj* selobj = s.MakeRef_obj();
+      selobj->VpiParent(path);
       selobj->VpiName(sel);
       selobj->VpiFullName(sel);
       elems->push_back(selobj);

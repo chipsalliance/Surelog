@@ -256,7 +256,7 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:60, parent:work@top
     |vpiRhs:
-    \_bit_select: (work@top.storage), line:9:27, endln:9:60
+    \_bit_select: (work@top.storage), line:9:27, endln:9:60, parent:work@top.storage
       |vpiName:storage
       |vpiFullName:work@top.storage
       |vpiIndex:
@@ -363,21 +363,21 @@ design: (work@top)
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:60, parent:work@top
     |vpiRhs:
-    \_bit_select: (work@top.storage), line:9:27, endln:9:60
+    \_bit_select: (work@top.storage), line:9:27, endln:9:60, parent:work@top.storage
       |vpiName:storage
       |vpiFullName:work@top.storage
       |vpiIndex:
-      \_part_select: , line:9:35, endln:9:59, parent:work@top.fifo_rptr
+      \_part_select: , line:9:35, endln:9:59, parent:work@top.storage.fifo_rptr
         |vpiConstantSelect:1
         |vpiParent:
-        \_ref_obj: (work@top.fifo_rptr), parent:work@top.storage
+        \_ref_obj: (work@top.storage.fifo_rptr), parent:work@top.storage
         |vpiLeftRange:
         \_operation: , line:9:45, endln:9:54
           |vpiOpType:11
           |vpiOperand:
-          \_ref_obj: (work@top.fifo_rptr.PTR_WIDTH), line:9:45, endln:9:54
+          \_ref_obj: (work@top.storage.fifo_rptr.PTR_WIDTH), line:9:45, endln:9:54
             |vpiName:PTR_WIDTH
-            |vpiFullName:work@top.fifo_rptr.PTR_WIDTH
+            |vpiFullName:work@top.storage.fifo_rptr.PTR_WIDTH
             |vpiActual:
             \_parameter: (work@top.PTR_WIDTH), line:4:28, endln:4:41, parent:work@top
               |vpiName:PTR_WIDTH
