@@ -61,18 +61,14 @@ class SymbolTable {
   // used as an index into this  vector to get the corresponding text-symbol.
   const std::vector<std::string>& getSymbols() const { return m_id2SymbolMap; }
 
-  static const std::string& getBadSymbol() { return s_badSymbol; }
-  static SymbolId getBadId() { return s_badId; }
-  static const std::string& getEmptyMacroMarker() { return s_emptyMacroMarker; }
+  static const std::string& getBadSymbol();
+  static SymbolId getBadId() { return 0; }
+  static const std::string& getEmptyMacroMarker();
 
  private:
   SymbolId m_idCounter;
   std::vector<std::string> m_id2SymbolMap;
   std::unordered_map<std::string, SymbolId> m_symbol2IdMap;
-
-  static const std::string s_badSymbol;
-  static const SymbolId s_badId;
-  static const std::string s_emptyMacroMarker;
 };
 
 };  // namespace SURELOG

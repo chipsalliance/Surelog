@@ -24,16 +24,22 @@
 
 using namespace SURELOG;
 
-const std::string SymbolTable::s_badSymbol("@@BAD_SYMBOL@@");
-const std::string SymbolTable::s_emptyMacroMarker("@@EMPTY_MACRO@@");
-const SymbolId SymbolTable::s_badId = 0;
-
 SymbolTable::SymbolTable() : m_idCounter(1) {
-  m_id2SymbolMap.push_back(s_badSymbol);
-  m_symbol2IdMap.insert(std::make_pair(s_badSymbol, 0));
+  m_id2SymbolMap.push_back(getBadSymbol());
+  m_symbol2IdMap.insert(std::make_pair(getBadSymbol(), 0));
 }
 
 SymbolTable::~SymbolTable() {}
+
+const std::string& SymbolTable::getBadSymbol() {
+  static const std::string k_badSymbol("@@BAD_SYMBOL@@");
+  return k_badSymbol;
+}
+
+const std::string& SymbolTable::getEmptyMacroMarker() {
+  static const std::string k_emptyMacroMarker("@@EMPTY_MACRO@@");
+  return k_emptyMacroMarker;
+}
 
 SymbolId SymbolTable::registerSymbol(const std::string& symbol) {
   // TODO: use std::string_view and heterogeneous lookup
@@ -48,10 +54,10 @@ SymbolId SymbolTable::registerSymbol(const std::string& symbol) {
 SymbolId SymbolTable::getId(const std::string& symbol) const {
   // TODO: use std::string_view and heterogeneous lookup
   auto found = m_symbol2IdMap.find(symbol);
-  return (found == m_symbol2IdMap.end()) ? s_badId : found->second;
+  return (found == m_symbol2IdMap.end()) ? getBadId() : found->second;
 }
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
-  if (id >= m_id2SymbolMap.size()) return s_badSymbol;
+  if (id >= m_id2SymbolMap.size()) return getBadSymbol();
   return m_id2SymbolMap[id];
 }
