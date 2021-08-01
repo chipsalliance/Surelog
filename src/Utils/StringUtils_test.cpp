@@ -159,6 +159,7 @@ TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
   EXPECT_EQ("hello  bar",
             StringUtils::evaluateEnvVars("hello $TESTING_UNKNOWN_VAR/ bar"));
 
+  // Variables set via the environment
   setenv("TESTING_EVAL_FOO", "foo-value", 1);
   setenv("TESTING_EVAL_BAR", "bar-value", 1);
 
@@ -173,6 +174,14 @@ TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
 
   EXPECT_EQ("hello bar-value" EXPECTED_SEPARATOR " bar",
             StringUtils::evaluateEnvVars("hello $TESTING_EVAL_BAR/ bar"));
+
+  // Variables set via registerEnvVar()
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello ${REGISTERED_EVAL_FOO} bar"));
+
+  StringUtils::registerEnvVar("REGISTERED_EVAL_FOO", "foo-reg");
+  EXPECT_EQ("hello foo-reg bar",
+            StringUtils::evaluateEnvVars("hello ${REGISTERED_EVAL_FOO} bar"));
 }
 
 }  // namespace

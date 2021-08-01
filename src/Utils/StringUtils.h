@@ -109,7 +109,7 @@ class StringUtils {
   // Like autoExpandEnvironmentVariables(), but returns modified string.
   static std::string evaluateEnvVars(std::string_view text);
 
-  static void registerEnvVar(std::string var, std::string value) {
+  static void registerEnvVar(std::string_view var, std::string_view value) {
     envVars.insert(std::make_pair(var, value));
   }
 
