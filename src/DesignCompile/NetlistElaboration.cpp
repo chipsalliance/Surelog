@@ -1910,7 +1910,39 @@ UHDM::any* NetlistElaboration::bind_net_(ModuleInstance* instance,
     }
     instance = instance->getParent();
   }
+  if (result == nullptr) {
+    DesignComponent* component = instance->getDefinition();
+    if (component) {
+      for (auto tp : component->getTypeDefMap()) {
+        TypeDef* tpd = tp.second;
+        typespec* tps = tpd->getTypespec();
+        if (tps && tps->UhdmType() == uhdmenum_typespec) {
+          enum_typespec* etps = (enum_typespec*)tps;
+          for (auto n : *etps->Enum_consts()) {
+            if (n->VpiName() == name) {
+              return n;
+            }
+          }
+        }
+      }
+      for (auto tp : component->getDataTypeMap()) {
+        const DataType* dt = tp.second;
+        dt = dt->getActual();
+        typespec* tps = dt->getTypespec();
+        if (tps && tps->UhdmType() == uhdmenum_typespec) {
+          enum_typespec* etps = (enum_typespec*)tps;
+          for (auto n : *etps->Enum_consts()) {
+            if (n->VpiName() == name) {
+              return n;
+            }
+          }
+        }
+      }
+    }
 
+    result = m_helper.getValue(name, instance->getDefinition(), m_compileDesign,
+                               instance, "", 0, nullptr, true, true);
+  }
   if (Netlist* netlist = instance->getNetlist()) {
     if (result == nullptr) {
       if (!strstr(name.c_str(), ".")) {  // Not for hierarchical names
@@ -1991,6 +2023,21 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance,
                   return (any*)decl->Expr();
                 }
               }
+            }
+          }
+        }
+      } else {
+        if (netlist->variables()) {
+          for (variables* var : *netlist->variables()) {
+            if (var->VpiName() == name) {
+              return var;
+            }
+          }
+        }
+        if (netlist->array_vars()) {
+          for (variables* var : *netlist->array_vars()) {
+            if (var->VpiName() == name) {
+              return var;
             }
           }
         }
