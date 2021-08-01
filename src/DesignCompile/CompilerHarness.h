@@ -32,7 +32,13 @@ namespace SURELOG {
 
 class CompilerHarness {
  public:
-  static std::unique_ptr<CompileDesign> createCompileDesign();
+  std::unique_ptr<CompileDesign> createCompileDesign();
+
+  ~CompilerHarness();
+
+ private:
+  struct Holder;
+  Holder *m_h = nullptr;
 };
 
 };  // namespace SURELOG
