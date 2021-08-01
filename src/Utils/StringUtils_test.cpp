@@ -152,5 +152,28 @@ TEST(StringUtilsTest, DoubleStringConversion) {
   EXPECT_EQ("1.9", StringUtils::to_string(1.94, 1));
 }
 
+TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
+  // Variables not set are expanded to an empty string.
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello ${TESTING_UNKNOWN_VAR} bar"));
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello $TESTING_UNKNOWN_VAR/ bar"));
+
+  setenv("TESTING_EVAL_FOO", "foo-value", 1);
+  setenv("TESTING_EVAL_BAR", "bar-value", 1);
+
+  EXPECT_EQ("hello foo-value bar",
+            StringUtils::evaluateEnvVars("hello ${TESTING_EVAL_FOO} bar"));
+
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+#define EXPECTED_SEPARATOR "\\"
+#else
+#define EXPECTED_SEPARATOR "/"
+#endif
+
+  EXPECT_EQ("hello bar-value" EXPECTED_SEPARATOR " bar",
+            StringUtils::evaluateEnvVars("hello $TESTING_EVAL_BAR/ bar"));
+}
+
 }  // namespace
 }  // namespace SURELOG
