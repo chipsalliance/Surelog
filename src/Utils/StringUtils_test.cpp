@@ -142,6 +142,21 @@ TEST(StringUtilsTest, GetLineInString) {
   EXPECT_EQ("", StringUtils::getLineInString(input_text, 5));
 }
 
+TEST(StringUtilsTest, RemoveComments) {
+  EXPECT_EQ("hello ", StringUtils::removeComments("hello // world"));
+  EXPECT_EQ("hello ", StringUtils::removeComments("hello # world"));
+  EXPECT_EQ("hello \nworld",
+            StringUtils::removeComments("hello # world\nworld"));
+
+#if 0
+  // TODO: does not ignore comment-like characters in strings
+  EXPECT_EQ("hello \"#\" world",
+            StringUtils::removeComments("hello \"#\" world # comment"));
+  EXPECT_EQ("hello \"//\" world",
+            StringUtils::removeComments("hello \"//\" world // comment"));
+#endif
+}
+
 TEST(StringUtilsTest, DoubleStringConversion) {
   EXPECT_EQ("3", StringUtils::to_string(3.1415926, 0));
   EXPECT_EQ("3.1", StringUtils::to_string(3.1415926, 1));

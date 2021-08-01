@@ -100,6 +100,7 @@ class StringUtils {
   // Convert double number with given amount of precision.
   static std::string to_string(double a_value, const int n = 3);
 
+  // Remove '//' and '#'-style end-of-line comments
   static std::string removeComments(std::string_view text);
 
   static std::string evaluateEnvVars(std::string_view text);
