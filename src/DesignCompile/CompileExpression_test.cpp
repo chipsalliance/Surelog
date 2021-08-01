@@ -33,10 +33,10 @@ TEST(CompileExpression, ExprFromParseTree1) {
   CompileHelper helper;
   ParserHarness pharness;
   CompilerHarness charness;
-  CompileDesign* compileDesign = charness.getCompileDesign();
+  std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = pharness.parse(
+  auto fC = pharness.parse(
       "module top();"
       "parameter p1 = 1 << 4;"
       "parameter p2 = (1 << 8) >> 4;"
@@ -53,7 +53,8 @@ TEST(CompileExpression, ExprFromParseTree1) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, true, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
+        true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     EXPECT_EQ(helper.get_value(invalidValue, exp), 16);
@@ -63,10 +64,10 @@ TEST(CompileExpression, ExprFromParseTree2) {
   CompileHelper helper;
   ParserHarness pharness;
   CompilerHarness charness;
-  CompileDesign* compileDesign = charness.getCompileDesign();
+  std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = pharness.parse(
+  auto fC = pharness.parse(
       "module top();"
       "parameter p1 = 1'b1 | 1'b0;"
       "parameter p2 = 1'b1 & 1'b1;"
@@ -80,7 +81,8 @@ TEST(CompileExpression, ExprFromParseTree2) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, true, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
+        true);
     EXPECT_EQ(exp->UhdmType(), UHDM::uhdmconstant);
     bool invalidValue = false;
     EXPECT_EQ(helper.get_value(invalidValue, exp), 1);
@@ -90,10 +92,10 @@ TEST(CompileExpression, ExprFromParseTree3) {
   CompileHelper helper;
   ParserHarness pharness;
   CompilerHarness charness;
-  CompileDesign* compileDesign = charness.getCompileDesign();
+  std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = pharness.parse(
+  auto fC = pharness.parse(
       "module top();"
       "parameter p1 = {1'b1, 2'b10}"
       "parameter p2 = '{1'b1, 2'b10}"
@@ -106,10 +108,12 @@ TEST(CompileExpression, ExprFromParseTree3) {
     const std::string& name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, false, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
+        true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
     UHDM::expr* exp2 = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, true, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
+        true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;
@@ -122,7 +126,7 @@ TEST(CompileExpression, ExprFromPpTree) {
   PreprocessHarness ppharness;
   ParserHarness pharness;
   CompilerHarness charness;
-  CompileDesign* compileDesign = charness.getCompileDesign();
+  std::unique_ptr<CompileDesign> compileDesign = charness.createCompileDesign();
   const std::string text = ppharness.preprocess(
       "`define A {1'b1, 2'b10}\n"
       "\n"
@@ -134,7 +138,7 @@ TEST(CompileExpression, ExprFromPpTree) {
       "endmodule\n");
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = pharness.parse(text);
+  auto fC = pharness.parse(text);
   NodeId root = fC->getRootNode();
   std::vector<NodeId> assigns = fC->sl_collect_all(root, slParam_assignment);
   EXPECT_EQ(assigns.size(), 2);
@@ -143,10 +147,12 @@ TEST(CompileExpression, ExprFromPpTree) {
     const std::string& name = fC->SymName(param);
     NodeId rhs = fC->Sibling(param);
     UHDM::expr* exp1 = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, false, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, false,
+        true);
     EXPECT_EQ(exp1->UhdmType(), UHDM::uhdmoperation);
     UHDM::expr* exp2 = (UHDM::expr*)helper.compileExpression(
-        nullptr, fC, rhs, compileDesign, nullptr, nullptr, true, true);
+        nullptr, fC.get(), rhs, compileDesign.get(), nullptr, nullptr, true,
+        true);
     if (name == "p1") {
       EXPECT_EQ(exp2->UhdmType(), UHDM::uhdmconstant);
       bool invalidValue = false;

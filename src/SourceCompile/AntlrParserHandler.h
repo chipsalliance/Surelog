@@ -34,20 +34,15 @@ class AntlrParserErrorListener;
 
 class AntlrParserHandler {
  public:
-  AntlrParserHandler()
-      : m_inputStream(NULL),
-        m_lexer(NULL),
-        m_tokens(NULL),
-        m_parser(NULL),
-        m_tree(NULL),
-        m_errorListener(NULL) {}
+  AntlrParserHandler() {}
   ~AntlrParserHandler();
-  antlr4::ANTLRInputStream* m_inputStream;
-  SV3_1aLexer* m_lexer;
-  antlr4::CommonTokenStream* m_tokens;
-  SV3_1aParser* m_parser;
-  antlr4::tree::ParseTree* m_tree;
-  AntlrParserErrorListener* m_errorListener;
+
+  antlr4::ANTLRInputStream* m_inputStream = nullptr;
+  SV3_1aLexer* m_lexer = nullptr;
+  antlr4::CommonTokenStream* m_tokens = nullptr;
+  SV3_1aParser* m_parser = nullptr;
+  antlr4::tree::ParseTree* m_tree = nullptr;
+  AntlrParserErrorListener* m_errorListener = nullptr;
 };
 
 };  // namespace SURELOG

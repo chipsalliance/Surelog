@@ -61,11 +61,12 @@ class FileContent : public DesignComponent {
               ErrorContainer* errors, FileContent* parent, SymbolId fileChunkId)
       : DesignComponent(NULL, NULL),
         m_fileId(fileId),
+        m_fileChunkId(fileChunkId),
+        m_errors(errors),
         m_library(library),
         m_symbolTable(symbolTable),
-        m_errors(errors),
-        m_parentFile(parent),
-        m_fileChunkId(fileChunkId) {}
+        m_parentFile(parent) {}
+
   void setLibrary(Library* lib) { m_library = lib; }
   ~FileContent() override;
 
@@ -235,12 +236,13 @@ class FileContent : public DesignComponent {
 
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 
-  SymbolId m_fileId;
-  Library* m_library;
-  SymbolTable* m_symbolTable;
-  ErrorContainer* m_errors;
-  FileContent* m_parentFile;  // for file chunks
-  SymbolId m_fileChunkId;
+  const SymbolId m_fileId;
+  const SymbolId m_fileChunkId;
+  ErrorContainer* const m_errors;
+
+  Library* m_library;          // TODO: should be set in constructor and *const
+  SymbolTable* m_symbolTable;  // TODO: should be set in constructor *const
+  FileContent* m_parentFile;   // for file chunks
 };
 
 };  // namespace SURELOG

@@ -107,25 +107,25 @@ class ParseFile {
  private:
   SymbolId m_fileId;
   SymbolId m_ppFileId;
-  CompileSourceFile* m_compileSourceFile;
-  CompilationUnit* m_compilationUnit;
-  Library* m_library;
-  AntlrParserHandler* m_antlrParserHandler;
-  SV3_1aTreeShapeListener* m_listener;
+  CompileSourceFile* const m_compileSourceFile;
+  CompilationUnit* const m_compilationUnit;
+  Library* m_library = nullptr;
+  AntlrParserHandler* m_antlrParserHandler = nullptr;
+  SV3_1aTreeShapeListener* m_listener = nullptr;
   std::vector<LineTranslationInfo> m_lineTranslationVec;
   bool m_usingCachedVersion;
   bool m_keepParserHandler;
-  FileContent* m_fileContent;
+  FileContent* m_fileContent = nullptr;
   bool debug_AstModel;
 
   bool parseOneFile_(std::string fileName, unsigned int lineOffset);
 
   // For file chunk:
   std::vector<ParseFile*> m_children;
-  ParseFile* m_parent;
+  ParseFile* const m_parent;
   unsigned int m_offsetLine;
-  SymbolTable* m_symbolTable;
-  ErrorContainer* m_errors;
+  SymbolTable* const m_symbolTable;
+  ErrorContainer* const m_errors;
   std::string m_profileInfo;
   std::string m_sourceText;  // For Unit tests
 };

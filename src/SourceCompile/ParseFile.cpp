@@ -135,6 +135,7 @@ ParseFile::ParseFile(const std::string& text, CompileSourceFile* csf,
 
 ParseFile::~ParseFile() {
   if (!m_keepParserHandler) delete m_antlrParserHandler;
+  delete m_listener;
 }
 
 SymbolTable* ParseFile::getSymbolTable() {

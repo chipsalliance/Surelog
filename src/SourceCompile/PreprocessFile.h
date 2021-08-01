@@ -69,7 +69,7 @@ class PreprocessFile {
                  unsigned int includerLine, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
                  CompilationUnit* compilationUnit, Library* library,
-                 std::string macroBody = "", MacroInfo* = NULL,
+                 std::string_view macroBody = "", MacroInfo* = NULL,
                  unsigned int embeddedMacroCallLine = 0,
                  SymbolId embeddedMacroCallFile = 0);
   PreprocessFile(const PreprocessFile& orig);
@@ -247,21 +247,16 @@ class PreprocessFile {
   /* Antlr parser container */
   class AntlrParserHandler {
    public:
-    AntlrParserHandler()
-        : m_inputStream(NULL),
-          m_pplexer(NULL),
-          m_pptokens(NULL),
-          m_ppparser(NULL),
-          m_pptree(NULL) {}
+    AntlrParserHandler() {}
     ~AntlrParserHandler();
-    antlr4::ANTLRInputStream* m_inputStream;
-    SV3_1aPpLexer* m_pplexer;
-    antlr4::CommonTokenStream* m_pptokens;
-    SV3_1aPpParser* m_ppparser;
-    antlr4::tree::ParseTree* m_pptree;
-    DescriptiveErrorListener* m_errorListener;
+    antlr4::ANTLRInputStream* m_inputStream = nullptr;
+    SV3_1aPpLexer* m_pplexer = nullptr;
+    antlr4::CommonTokenStream* m_pptokens = nullptr;
+    SV3_1aPpParser* m_ppparser = nullptr;
+    antlr4::tree::ParseTree* m_pptree = nullptr;
+    DescriptiveErrorListener* m_errorListener = nullptr;
   };
-  SV3_1aPpTreeShapeListener* m_listener;
+  SV3_1aPpTreeShapeListener* m_listener = nullptr;
 
  public:
   /* Options */

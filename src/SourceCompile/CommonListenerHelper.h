@@ -39,8 +39,6 @@ static std::string EscapeSequence = "#~@";
 
 class CommonListenerHelper {
  public:
-  CommonListenerHelper() : m_fileContent(NULL), m_tokens(NULL) {}
-
   virtual ~CommonListenerHelper();
 
   virtual SymbolId registerSymbol(const std::string& symbol) = 0;
@@ -90,11 +88,18 @@ class CommonListenerHelper {
                  VObjectType objtype);
 
  protected:
+  CommonListenerHelper(FileContent* file_content,
+                       antlr4::CommonTokenStream* tokens)
+      : m_fileContent(file_content), m_tokens(tokens) {}
+
+  // These should be *const, but they are still set in some places.
+  // TODO: fix these places.
   FileContent* m_fileContent;
+  antlr4::CommonTokenStream* const m_tokens;
+
   typedef std::unordered_map<const antlr4::tree::ParseTree*, NodeId>
       ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
-  antlr4::CommonTokenStream* m_tokens;
 };
 
 };  // namespace SURELOG

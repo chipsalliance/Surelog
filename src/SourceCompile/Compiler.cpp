@@ -69,11 +69,11 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
     : m_commandLineParser(commandLineParser),
       m_errors(errors),
       m_symbolTable(symbolTable),
-      m_commonCompilationUnit(NULL) {
-  m_uhdmDesign = 0;
-  m_librarySet = new LibrarySet();
-  m_configSet = new ConfigSet();
-  m_design = new Design(getErrorContainer(), m_librarySet, m_configSet);
+      m_commonCompilationUnit(nullptr),
+      m_librarySet(new LibrarySet()),
+      m_configSet(new ConfigSet()),
+      m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
+      m_uhdmDesign(0) {
 #ifdef USETBB
   if (getCommandLineParser()->useTbb() &&
       (getCommandLineParser()->getNbMaxTreads() > 0))
@@ -86,19 +86,23 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
     : m_commandLineParser(commandLineParser),
       m_errors(errors),
       m_symbolTable(symbolTable),
-      m_commonCompilationUnit(NULL),
-      m_text(text) {
-  m_uhdmDesign = 0;
-  m_librarySet = new LibrarySet();
-  m_configSet = new ConfigSet();
-  m_design = new Design(getErrorContainer(), m_librarySet, m_configSet);
-}
+      m_commonCompilationUnit(nullptr),
+      m_librarySet(new LibrarySet()),
+      m_configSet(new ConfigSet()),
+      m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
+      m_uhdmDesign(0),
+      m_text(text) {}
 
 Compiler::~Compiler() {
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr;
   for (itr = m_antlrPpMap.begin(); itr != m_antlrPpMap.end(); itr++) {
     delete (*itr).second;
   }
+  // TODO: the following would need to be deleted but it creates issues
+  // when precompilng ovm. Needs further investigation.
+  // delete m_design;
+  // delete m_configSet;
+  // delete m_librarySet;
   delete m_commonCompilationUnit;
   cleanup_();
 }

@@ -24,22 +24,21 @@
 #ifndef COMPILERHARNESS_H
 #define COMPILERHARNESS_H
 
-#include <mutex>
-#include <string>
+#include <memory>
 
 #include "DesignCompile/CompileDesign.h"
-#include "Serializer.h"
-#include "SourceCompile/Compiler.h"
-#include "sv_vpi_user.h"
 
 namespace SURELOG {
 
 class CompilerHarness {
  public:
-  CompileDesign* getCompileDesign();
+  std::unique_ptr<CompileDesign> createCompileDesign();
 
- public:
+  ~CompilerHarness();
+
  private:
+  struct Holder;
+  Holder *m_h = nullptr;
 };
 
 };  // namespace SURELOG

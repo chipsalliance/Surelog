@@ -230,7 +230,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
                                CompileSourceFile* csf,
                                SpecialInstructions& instructions,
                                CompilationUnit* comp_unit, Library* library,
-                               std::string macroBody, MacroInfo* macroInfo,
+                               std::string_view macroBody, MacroInfo* macroInfo,
                                unsigned int embeddedMacroCallLine,
                                SymbolId embeddedMacroCallFile)
     : m_fileId(fileId),
@@ -450,6 +450,7 @@ bool PreprocessFile::preprocess() {
   if (m_listener != NULL) delete m_listener;
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
+  // TODO: this leaks
   tree::ParseTreeWalker::DEFAULT.walk(m_listener,
                                       m_antlrParserHandler->m_pptree);
   if (m_debugAstModel && !precompiled)

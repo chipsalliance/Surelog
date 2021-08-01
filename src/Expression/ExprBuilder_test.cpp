@@ -16,6 +16,7 @@
 
 #include "Expression/ExprBuilder.h"
 
+#include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -67,7 +68,7 @@ TEST(ExprBuilderTest, BasicValueOp) {
   }
   {
     ValueFactory factory;
-    Value* v0 = factory.newStValue();
+    std::unique_ptr<Value> v0(factory.newStValue());
     v0->set("BLAH");
     EXPECT_EQ(v0->uhdmValue(), "STRING:BLAH");
   }
@@ -75,14 +76,14 @@ TEST(ExprBuilderTest, BasicValueOp) {
 TEST(ExprBuilderTest, BuildFrom) {
   {
     ExprBuilder builder;
-    Value* v1 = builder.fromVpiValue("HEX:A", 4);
-    Value* v2 = builder.fromVpiValue("INT:10", 0);
-    Value* v3 = builder.fromString("2'b11");
-    Value* v4 = builder.fromString("4'hFF_FF");
-    Value* v5 = builder.fromString("-0.6");
-    Value* v6 = builder.fromVpiValue("UINT:11", 0);
+    std::unique_ptr<Value> v1(builder.fromVpiValue("HEX:A", 4));
+    std::unique_ptr<Value> v2(builder.fromVpiValue("INT:10", 0));
+    std::unique_ptr<Value> v3(builder.fromString("2'b11"));
+    std::unique_ptr<Value> v4(builder.fromString("4'hFF_FF"));
+    std::unique_ptr<Value> v5(builder.fromString("-0.6"));
+    std::unique_ptr<Value> v6(builder.fromVpiValue("UINT:11", 0));
     LValue v0;
-    v0.equiv(v1, v2);
+    v0.equiv(v1.get(), v2.get());
     EXPECT_EQ(v1->uhdmValue(), "UINT:10");
     EXPECT_EQ(v0.getValueL(), 1);
     EXPECT_EQ(v3->getValueL(), 3);
@@ -96,7 +97,7 @@ TEST(ExprBuilderTest, ExprFromParseTree1) {
   ParserHarness harness;
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = harness.parse(
+  auto fC = harness.parse(
       "module top();"
       "parameter p1 = 5 + 5;"
       "parameter p2 = 2 * 5;"
@@ -107,7 +108,7 @@ TEST(ExprBuilderTest, ExprFromParseTree1) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    Value* val = builder.evalExpr(fC, rhs);
+    std::unique_ptr<Value> val(builder.evalExpr(fC.get(), rhs));
     EXPECT_EQ(val->isValid(), true);
     EXPECT_EQ(val->getValueUL(), 10);
   }
@@ -117,7 +118,7 @@ TEST(ExprBuilderTest, ExprFromParseTree2) {
   ParserHarness harness;
   // Cannot use parameters assignments in next expression, there is no
   // elaboration performed here!
-  FileContent* fC = harness.parse(
+  auto fC = harness.parse(
       "module top();"
       "parameter p1 = 1 << 4;"
       "parameter p2 = (1 << 8) >> 4;"
@@ -129,7 +130,7 @@ TEST(ExprBuilderTest, ExprFromParseTree2) {
   for (NodeId param_assign : assigns) {
     NodeId param = fC->Child(param_assign);
     NodeId rhs = fC->Sibling(param);
-    Value* val = builder.evalExpr(fC, rhs);
+    std::unique_ptr<Value> val(builder.evalExpr(fC.get(), rhs));
     EXPECT_EQ(val->isValid(), true);
     EXPECT_EQ(val->getValueUL(), 16);
   }

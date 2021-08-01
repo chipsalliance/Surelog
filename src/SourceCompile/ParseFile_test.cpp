@@ -29,13 +29,13 @@ namespace {
 TEST(ParserTest, BasicParse) {
   ParserHarness harness;
   {
-    FileContent* fC = harness.parse("module top(); assign a = b; endmodule");
+    auto fC = harness.parse("module top(); assign a = b; endmodule");
     NodeId root = fC->getRootNode();
     NodeId assign = fC->sl_collect(root, slContinuous_assign);
     EXPECT_NE(assign, InvalidNodeId);
   }
   {
-    FileContent* fC = harness.parse("module top(); assign a = !b; endmodule");
+    auto fC = harness.parse("module top(); assign a = !b; endmodule");
     NodeId root = fC->getRootNode();
     NodeId assign = fC->sl_collect(root, slContinuous_assign);
     /*
