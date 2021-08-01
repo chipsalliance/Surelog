@@ -73,35 +73,25 @@ std::string PreprocessHarness::preprocess(std::string_view content) {
       PreprocessFile::SpecialInstructions::DontFilter,
       PreprocessFile::SpecialInstructions::CheckLoop,
       PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
-  // TODO: all these objects leak.
-  CompilationUnit* unit = new CompilationUnit(false);
-  SymbolTable* symbols = new SymbolTable();
-  ErrorContainer* errors = new ErrorContainer(symbols);
-  CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
-  Library* lib = new Library("work", symbols);
-  Compiler* compiler = new Compiler(clp, errors, symbols);
-  CompileSourceFile* csf =
-      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
-  PreprocessFile* pp = new PreprocessFile(0, nullptr, 0, csf, instructions,
-                                          unit, lib, content, nullptr, 0, 0);
+  CompilationUnit unit(false);
+  SymbolTable symbols;
+  ErrorContainer errors(&symbols);
+  CommandLineParser clp(&errors, &symbols, false, false);
+  Library lib("work", &symbols);
+  Compiler compiler(&clp, &errors, &symbols);
+  CompileSourceFile csf(0, &clp, &errors, &compiler, &symbols, &unit, &lib);
+  PreprocessFile pp(0, nullptr, 0, &csf, instructions, &unit, &lib, content,
+                    nullptr, 0, 0);
 
-  if (!pp->preprocess()) {
+  if (!pp.preprocess()) {
     result = "ERROR_PP";
   }
-  bool fatalErrors = errors->hasFatalErrors();
+  bool fatalErrors = errors.hasFatalErrors();
   if (fatalErrors) {
     result = "ERROR_PP";
   }
-  errors->printMessages();
-  if (result.empty()) result = pp->getPreProcessedFileContent();
-  delete unit;
-  delete symbols;
-  delete errors;
-  delete clp;
-  delete lib;
-  delete compiler;
-  delete csf;
-  delete pp;
+  errors.printMessages();
+  if (result.empty()) result = pp.getPreProcessedFileContent();
   return result;
 }
 
