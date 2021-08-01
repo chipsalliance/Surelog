@@ -73,9 +73,15 @@ class Compiler {
                                    PreprocessFile::AntlrParserHandler* pp);
   PreprocessFile::AntlrParserHandler* getAntlrPpHandlerForId(SymbolId);
 
-  LibrarySet* getLibrarySet() { return m_librarySet; }
+  // TODO: this should return a const Design, but can't be because
+  // of Design having a bunch of non-const accessors. Address
+  // these first.
+  // All _modifying_ operations should be calls on the Compiler,
+  // not on the handed out Design object, as the Compiler is owner
+  // of the design.
   Design* getDesign() { return m_design; }
-  vpiHandle getUhdmDesign() { return m_uhdmDesign; }
+
+  const vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
 
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(SymbolId id) const;
