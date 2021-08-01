@@ -100,9 +100,9 @@ class Compiler {
                        CompileSourceFile::Action action);
   bool cleanup_();
 
-  CommandLineParser* m_commandLineParser;
-  ErrorContainer* m_errors;
-  SymbolTable* m_symbolTable;
+  CommandLineParser* const m_commandLineParser;
+  ErrorContainer* const m_errors;
+  SymbolTable* const m_symbolTable;
   CompilationUnit* m_commonCompilationUnit;
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*> m_antlrPpMap;
   std::vector<CompileSourceFile*> m_compilers;
@@ -111,9 +111,9 @@ class Compiler {
   std::vector<CompilationUnit*> m_compilationUnits;
   std::vector<SymbolTable*> m_symbolTables;
   std::vector<ErrorContainer*> m_errorContainers;
-  LibrarySet* m_librarySet;
-  ConfigSet* m_configSet;
-  Design* m_design;
+  LibrarySet* const m_librarySet;
+  ConfigSet* const m_configSet;
+  Design* const m_design;
   vpiHandle m_uhdmDesign;
   std::set<SymbolId> m_libraryFiles;  // -v <file>
   std::string m_text;                 // unit tests

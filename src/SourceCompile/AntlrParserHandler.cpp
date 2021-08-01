@@ -22,12 +22,15 @@
  */
 #include "SourceCompile/AntlrParserHandler.h"
 
+#include "SourceCompile/AntlrParserErrorListener.h"
 #include "antlr4-runtime.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 
 namespace SURELOG {
 AntlrParserHandler::~AntlrParserHandler() {
+  delete m_errorListener;
+  // ParseTree is deleted in antlr4::ParseTreeTracker
   // delete m_tree; // INVALID MEMORY READ can be seen in AdvancedDebug
   delete m_parser;
   delete m_tokens;

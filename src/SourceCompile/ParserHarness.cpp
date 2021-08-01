@@ -27,6 +27,7 @@
 
 #include "Cache/ParseCache.h"
 #include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Package/Precompiled.h"
 #include "SourceCompile/AntlrParserErrorListener.h"
@@ -50,32 +51,42 @@
 
 namespace SURELOG {
 
-FileContent* ParserHarness::parse(const std::string& content) {
-  CompilationUnit* unit = new CompilationUnit(false);
-  SymbolTable* symbols = new SymbolTable();
-  ErrorContainer* errors = new ErrorContainer(symbols);
-  CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
-  clp->setCacheAllowed(false);
-  Library* lib = new Library("work", symbols);
-  Compiler* compiler = new Compiler(clp, errors, symbols);
-  CompileSourceFile* csf =
-      new CompileSourceFile(0, clp, errors, compiler, symbols, unit, lib);
-  ParseFile* pf = new ParseFile(content, csf, unit, lib);
-  FileContent* fC = new FileContent(0, lib, symbols, errors, nullptr, 0);
-  pf->setFileContent(fC);
-  if (!pf->parse()) {
-    return nullptr;
-  }
-  // Do not delete, necessary to inspact the FileContent
-  // delete unit;
-  // delete symbols;
-  // delete errors;
-  delete clp;
-  // delete lib;
-  delete compiler;
-  delete csf;
-  delete pf;
-  return fC;
+struct ParserHarness::Holder {
+  std::unique_ptr<CompilationUnit> unit;
+  std::unique_ptr<SymbolTable> symbols;
+  std::unique_ptr<ErrorContainer> errors;
+  std::unique_ptr<CommandLineParser> clp;
+  std::unique_ptr<Library> lib;
+  std::unique_ptr<Compiler> compiler;
+  std::unique_ptr<CompileSourceFile> csf;
+  std::unique_ptr<ParseFile> pf;
+};
+
+std::unique_ptr<FileContent> ParserHarness::parse(const std::string& content) {
+  delete m_h;
+  m_h = new Holder();
+
+  m_h->unit = std::make_unique<CompilationUnit>(false);
+  m_h->symbols = std::make_unique<SymbolTable>();
+  m_h->errors = std::make_unique<ErrorContainer>(m_h->symbols.get());
+  m_h->clp = std::make_unique<CommandLineParser>(
+      m_h->errors.get(), m_h->symbols.get(), false, false);
+  m_h->clp->setCacheAllowed(false);
+  m_h->lib = std::make_unique<Library>("work", m_h->symbols.get());
+  m_h->compiler = std::make_unique<Compiler>(m_h->clp.get(), m_h->errors.get(),
+                                             m_h->symbols.get());
+  m_h->csf = std::make_unique<CompileSourceFile>(
+      0, m_h->clp.get(), m_h->errors.get(), m_h->compiler.get(),
+      m_h->symbols.get(), m_h->unit.get(), m_h->lib.get());
+  m_h->pf.reset(
+      new ParseFile(content, m_h->csf.get(), m_h->unit.get(), m_h->lib.get()));
+  std::unique_ptr<FileContent> file_content_result(new FileContent(
+      0, m_h->lib.get(), m_h->symbols.get(), m_h->errors.get(), nullptr, 0));
+  m_h->pf->setFileContent(file_content_result.get());
+  if (!m_h->pf->parse()) file_content_result.reset(nullptr);
+  return file_content_result;
 }
+
+ParserHarness::~ParserHarness() { delete m_h; }
 
 }  // namespace SURELOG
