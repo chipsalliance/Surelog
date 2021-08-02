@@ -103,9 +103,14 @@ class StringUtils {
   // Remove '//' and '#'-style end-of-line comments
   static std::string removeComments(std::string_view text);
 
+  // Expand environment variables in the form of ${FOO} or $FOO/
+  // (variable followed by slash) in string. Modifies the string.
+  static void autoExpandEnvironmentVariables(std::string* text);
+
+  // Like autoExpandEnvironmentVariables(), but returns modified string.
   static std::string evaluateEnvVars(std::string_view text);
-  static void autoExpandEnvironmentVariables(std::string& text);
-  static void registerEnvVar(std::string var, std::string value) {
+
+  static void registerEnvVar(std::string_view var, std::string_view value) {
     envVars.insert(std::make_pair(var, value));
   }
 

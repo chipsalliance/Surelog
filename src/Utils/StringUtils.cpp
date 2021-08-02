@@ -313,10 +313,10 @@ std::string StringUtils::removeComments(std::string_view text) {
 
 // Update the input string.
 
-void StringUtils::autoExpandEnvironmentVariables(std::string& text) {
+void StringUtils::autoExpandEnvironmentVariables(std::string* text) {
   static std::regex env("\\$\\{([^}]+)\\}");
   std::smatch match;
-  while (std::regex_search(text, match, env)) {
+  while (std::regex_search(*text, match, env)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());
     if (s == NULL) {
@@ -324,10 +324,10 @@ void StringUtils::autoExpandEnvironmentVariables(std::string& text) {
       if (itr != envVars.end()) var = (*itr).second;
     }
     if (var.empty() && s) var = s;
-    text.replace(match.position(0), match.length(0), var);
+    text->replace(match.position(0), match.length(0), var);
   }
   static std::regex env2("\\$([a-zA-Z0-9_]+)/");
-  while (std::regex_search(text, match, env2)) {
+  while (std::regex_search(*text, match, env2)) {
     std::string var;
     const char* s = getenv(match[1].str().c_str());
     if (s == NULL) {
@@ -340,13 +340,13 @@ void StringUtils::autoExpandEnvironmentVariables(std::string& text) {
 #else
     if (var.size() && (var[var.size() - 1] != '/')) var += "/";
 #endif
-    text.replace(match.position(0), match.length(0), var);
+    text->replace(match.position(0), match.length(0), var);
   }
 }
 
 // Leave input alone and return new string.
 std::string StringUtils::evaluateEnvVars(std::string_view text) {
   std::string input(text.begin(), text.end());
-  autoExpandEnvironmentVariables(input);
+  autoExpandEnvironmentVariables(&input);
   return input;
 }
