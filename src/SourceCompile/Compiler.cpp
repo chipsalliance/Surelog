@@ -98,12 +98,12 @@ Compiler::~Compiler() {
   for (itr = m_antlrPpMap.begin(); itr != m_antlrPpMap.end(); itr++) {
     delete (*itr).second;
   }
-  // TODO: the following would need to be deleted but it creates issues
-  // when precompilng ovm. Needs further investigation.
-  // delete m_design;
-  // delete m_configSet;
-  // delete m_librarySet;
+
+  delete m_design;
+  delete m_configSet;
+  delete m_librarySet;
   delete m_commonCompilationUnit;
+
   cleanup_();
 }
 
