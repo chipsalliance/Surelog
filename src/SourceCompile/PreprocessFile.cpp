@@ -508,6 +508,8 @@ void PreprocessFile::recordMacro(const std::string name, unsigned int line,
   // std::cout << "PP RECORDING MACRO: " << name  << ", FILE: " <<
   // getSymbol(getFileId(line)) << "" << std::endl;
 
+  // TODO: this macro info is leaking. Ownership unclear: is
+  // this to be deleted from m_macros or from m_compilationUnit ?
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.size() ? MacroInfo::WITH_ARGS : MacroInfo::NO_ARGS,
       getFileId(line), line, column, args, tokens);
