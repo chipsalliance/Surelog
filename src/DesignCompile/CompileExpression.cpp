@@ -2566,11 +2566,14 @@ UHDM::any* CompileHelper::compileSelectExpression(
         fC->Type(Bit_select) == VObjectType::slConstant_expression ||
         fC->Type(Bit_select) == VObjectType::slExpression) {
       NodeId bitexp = fC->Child(Bit_select);
+      bool advanceBitSelect = false;
       if (fC->Type(Bit_select) == VObjectType::slConstant_expression) {
         bitexp = Bit_select;
+        advanceBitSelect = true;
       }
       if (fC->Type(Bit_select) == VObjectType::slExpression) {
         bitexp = Bit_select;
+        advanceBitSelect = true;
       }
       if (bitexp) {
         while (bitexp) {
@@ -2607,6 +2610,7 @@ UHDM::any* CompileHelper::compileSelectExpression(
             ref->VpiParent(pexpr);
           }
           lastBitExp = bitexp;
+          if (advanceBitSelect) Bit_select = bitexp;
           bitexp = fC->Sibling(bitexp);
         }
       }

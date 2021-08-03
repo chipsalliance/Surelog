@@ -142,6 +142,21 @@ TEST(StringUtilsTest, GetLineInString) {
   EXPECT_EQ("", StringUtils::getLineInString(input_text, 5));
 }
 
+TEST(StringUtilsTest, RemoveComments) {
+  EXPECT_EQ("hello ", StringUtils::removeComments("hello // world"));
+  EXPECT_EQ("hello ", StringUtils::removeComments("hello # world"));
+  EXPECT_EQ("hello \nworld",
+            StringUtils::removeComments("hello # world\nworld"));
+
+#if 0
+  // TODO: does not ignore comment-like characters in strings
+  EXPECT_EQ("hello \"#\" world",
+            StringUtils::removeComments("hello \"#\" world # comment"));
+  EXPECT_EQ("hello \"//\" world",
+            StringUtils::removeComments("hello \"//\" world // comment"));
+#endif
+}
+
 TEST(StringUtilsTest, DoubleStringConversion) {
   EXPECT_EQ("3", StringUtils::to_string(3.1415926, 0));
   EXPECT_EQ("3.1", StringUtils::to_string(3.1415926, 1));
@@ -150,6 +165,38 @@ TEST(StringUtilsTest, DoubleStringConversion) {
   EXPECT_EQ("2", StringUtils::to_string(1.99, 0));
   EXPECT_EQ("2.0", StringUtils::to_string(1.96, 1));
   EXPECT_EQ("1.9", StringUtils::to_string(1.94, 1));
+}
+
+TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
+  // Variables not set are expanded to an empty string.
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello ${TESTING_UNKNOWN_VAR} bar"));
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello $TESTING_UNKNOWN_VAR/ bar"));
+
+  // Variables set via the environment
+  setenv("TESTING_EVAL_FOO", "foo-value", 1);
+  setenv("TESTING_EVAL_BAR", "bar-value", 1);
+
+  EXPECT_EQ("hello foo-value bar",
+            StringUtils::evaluateEnvVars("hello ${TESTING_EVAL_FOO} bar"));
+
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+#define EXPECTED_SEPARATOR "\\"
+#else
+#define EXPECTED_SEPARATOR "/"
+#endif
+
+  EXPECT_EQ("hello bar-value" EXPECTED_SEPARATOR " bar",
+            StringUtils::evaluateEnvVars("hello $TESTING_EVAL_BAR/ bar"));
+
+  // Variables set via registerEnvVar()
+  EXPECT_EQ("hello  bar",
+            StringUtils::evaluateEnvVars("hello ${REGISTERED_EVAL_FOO} bar"));
+
+  StringUtils::registerEnvVar("REGISTERED_EVAL_FOO", "foo-reg");
+  EXPECT_EQ("hello foo-reg bar",
+            StringUtils::evaluateEnvVars("hello ${REGISTERED_EVAL_FOO} bar"));
 }
 
 }  // namespace
