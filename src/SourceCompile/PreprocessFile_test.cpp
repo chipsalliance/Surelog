@@ -32,6 +32,7 @@ TEST(PreprocessTest, BasicPp) {
     std::string res = harness.preprocess("module top(); endmodule");
     EXPECT_EQ(res, "module top(); endmodule");
   }
+
   {
     std::string res = harness.preprocess(
         "`define FOO(a) a*2\n\n\
@@ -42,6 +43,19 @@ TEST(PreprocessTest, BasicPp) {
               "\n\
     module top();\n\
     assign b = c*2;\n\
+    endmodule");
+  }
+
+  {
+    std::string res = harness.preprocess(
+        "`define BAR(a, b) (a)*2+(b)\n\n\
+    module top();\n\
+    assign b = `BAR(3 * c, 2*d);\n\
+    endmodule");
+    EXPECT_EQ(res,
+              "\n\
+    module top();\n\
+    assign b = (3 * c)*2+(2*d);\n\
     endmodule");
   }
 }
