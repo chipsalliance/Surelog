@@ -1620,6 +1620,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         sm->VpiName(child->getInstanceName());
         sm->VpiDefName(child->getModuleName());
         sm->VpiFullName(child->getFullPathName());
+        const FileContent* defFile = mm->getFileContents()[0];
+        sm->VpiDefFile(defFile->getFileName());
+        sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
         subModules->push_back(sm);
@@ -1688,6 +1691,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         sm->VpiFullName(child->getFullPathName());
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
+        const FileContent* defFile = mm->getFileContents()[0];
+        sm->VpiDefFile(defFile->getFileName());
+        sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         subInterfaces->push_back(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
         if (utype == uhdmmodule) {
@@ -1797,7 +1803,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else {
         // Unknown object type
       }
-    } else if (dynamic_cast<Program*>(childDef)) {
+    } else if (Program* prog = dynamic_cast<Program*>(childDef)) {
       if (subPrograms == nullptr) subPrograms = s.MakeProgramVec();
       program* sm = s.MakeProgram();
       sm->VpiName(child->getInstanceName());
@@ -1805,6 +1811,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       sm->VpiFullName(child->getFullPathName());
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
+      const FileContent* defFile = prog->getFileContents()[0];
+      sm->VpiDefFile(defFile->getFileName());
+      sm->VpiDefLineNo(defFile->Line(prog->getNodeIds()[0]));
       subPrograms->push_back(sm);
       UHDM_OBJECT_TYPE utype = m->UhdmType();
       if (utype == uhdmmodule) {
