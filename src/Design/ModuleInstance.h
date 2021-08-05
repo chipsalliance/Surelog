@@ -60,6 +60,9 @@ class ModuleInstance : public ValuedComponentI {
   std::string getFileName() { return m_fileContent->getFileName(m_nodeId); }
   NodeId getNodeId() { return m_nodeId; }
   unsigned int getLineNb();
+  unsigned short getColumnNb();
+  unsigned int getEndLineNb();
+  unsigned short getEndColumnNb();
   VObjectType getType();
   VObjectType getModuleType();
   SymbolId getFullPathId(SymbolTable* symbols);

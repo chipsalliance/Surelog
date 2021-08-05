@@ -1625,6 +1625,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
+        sm->VpiColumnNo(child->getColumnNb());
+        sm->VpiEndLineNo(child->getEndLineNb());
+        sm->VpiEndColumnNo(child->getEndColumnNb());
         subModules->push_back(sm);
         if (m->UhdmType() == uhdmmodule) {
           ((module*)m)->Modules(subModules);
@@ -1664,6 +1667,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         sm->VpiFullName(child->getFullPathName());
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
+        sm->VpiColumnNo(child->getColumnNb());
+        sm->VpiEndLineNo(child->getEndLineNb());
+        sm->VpiEndColumnNo(child->getEndColumnNb());
         subGenScopeArrays->push_back(sm);
         gen_scope* a_gen_scope = s.MakeGen_scope();
         sm->Gen_scopes(s.MakeGen_scopeVec());
@@ -1691,6 +1697,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         sm->VpiFullName(child->getFullPathName());
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
+        sm->VpiColumnNo(child->getColumnNb());
+        sm->VpiEndLineNo(child->getEndLineNb());
+        sm->VpiEndColumnNo(child->getEndColumnNb());
         const FileContent* defFile = mm->getFileContents()[0];
         sm->VpiDefFile(defFile->getFileName());
         sm->VpiDefLineNo(defFile->Line(mm->getNodeIds()[0]));
@@ -1811,6 +1820,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       sm->VpiFullName(child->getFullPathName());
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
+      sm->VpiColumnNo(child->getColumnNb());
+      sm->VpiEndLineNo(child->getEndLineNb());
+      sm->VpiEndColumnNo(child->getEndColumnNb());
       const FileContent* defFile = prog->getFileContents()[0];
       sm->VpiDefFile(defFile->getFileName());
       sm->VpiDefLineNo(defFile->Line(prog->getNodeIds()[0]));
