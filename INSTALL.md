@@ -13,9 +13,11 @@ Executable: `surelog`
 
    * `sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev`
 
-   * If you don't intent to change the grammar: `sudo apt-get install default-jre`
+   * If you don't intend to change the grammar: `sudo apt-get install default-jre`
 
-   * If you do intent to change the grammar: `sudo apt-get install default-jdk ant`
+   * If you do intend to change the grammar: `sudo apt-get install default-jdk ant`
+
+   * In a [nix environment](https://nixos.org) simply type `nix-shell` to set up the dependencies.
 
 * If you have a version of cmake before 3.13 on your system
   (check with `cmake --version`), you need get a version that is more current.
