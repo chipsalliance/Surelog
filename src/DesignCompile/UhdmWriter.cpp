@@ -431,17 +431,52 @@ unsigned int UhdmWriter::getVpiDirection(VObjectType type) {
 
 unsigned int UhdmWriter::getVpiNetType(VObjectType type) {
   unsigned int nettype = 0;
-  if (type == VObjectType::slNetType_Wire)
-    nettype = vpiWire;
-  else if (type == VObjectType::slIntVec_TypeReg)
-    nettype = vpiReg;
-  else if (type == VObjectType::slNetType_Supply0)
-    nettype = vpiSupply0;
-  else if (type == VObjectType::slNetType_Supply1)
-    nettype = vpiSupply1;
-  else if (type == VObjectType::slIntVec_TypeLogic)
-    nettype = vpiLogicNet;
-  // TODO
+  switch (type) {
+    case VObjectType::slNetType_Wire:
+      nettype = vpiWire;
+      break;
+    case VObjectType::slIntVec_TypeReg:
+      nettype = vpiReg;
+      break;
+    case VObjectType::slNetType_Supply0:
+      nettype = vpiSupply0;
+      break;
+    case VObjectType::slNetType_Supply1:
+      nettype = vpiSupply1;
+      break;
+    case VObjectType::slIntVec_TypeLogic:
+      nettype = vpiLogicNet;
+      break;
+    case VObjectType::slNetType_Wand:
+      nettype = vpiWand;
+      break;
+    case VObjectType::slNetType_Wor:
+      nettype = vpiWor;
+      break;
+    case VObjectType::slNetType_Tri:
+      nettype = vpiTri;
+      break;
+    case VObjectType::slNetType_Tri0:
+      nettype = vpiTri0;
+      break;
+    case VObjectType::slNetType_Tri1:
+      nettype = vpiTri1;
+      break;
+    case VObjectType::slNetType_TriReg:
+      nettype = vpiTriReg;
+      break;
+    case VObjectType::slNetType_TriAnd:
+      nettype = vpiTriAnd;
+      break;
+    case VObjectType::slNetType_TriOr:
+      nettype = vpiTriOr;
+      break;
+    case VObjectType::slNetType_Uwire:
+      nettype = vpiUwire;
+      break;
+    default:
+      break;
+  }
   return nettype;
 }
 
