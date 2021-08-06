@@ -459,14 +459,23 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     case VObjectType::slScalar_Tickb1:
     case VObjectType::slScalar_TickB1:
     case VObjectType::slNumber_Tickb1:
-    case VObjectType::slNumber_TickB1:
-    case VObjectType::slNumber_Tick1: {
+    case VObjectType::slNumber_TickB1: {
       UHDM::constant* c = s.MakeConstant();
       std::string value = "BIN:1";
       c->VpiValue(value);
       c->VpiConstType(vpiBinaryConst);
       c->VpiSize(0);
       c->VpiDecompile("'b1");
+      result = c;
+      break;
+    }
+    case VObjectType::slNumber_Tick1: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:1";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(-1);
+      c->VpiDecompile("'1");
       result = c;
       break;
     }
@@ -489,14 +498,43 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     case VObjectType::slScalar_Tickb0:
     case VObjectType::slScalar_TickB0:
     case VObjectType::slNumber_Tickb0:
-    case VObjectType::slNumber_TickB0:
-    case VObjectType::slNumber_Tick0: {
+    case VObjectType::slNumber_TickB0: {
       UHDM::constant* c = s.MakeConstant();
       std::string value = "BIN:0";
       c->VpiValue(value);
       c->VpiConstType(vpiBinaryConst);
       c->VpiSize(0);
       c->VpiDecompile("'b0");
+      result = c;
+      break;
+    }
+    case VObjectType::slNumber_Tick0: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:0";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(-1);
+      c->VpiDecompile("'0");
+      result = c;
+      break;
+    }
+    case VObjectType::slZ: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:Z";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(-1);
+      c->VpiDecompile("'Z");
+      result = c;
+      break;
+    }
+    case VObjectType::slX: {
+      UHDM::constant* c = s.MakeConstant();
+      std::string value = "BIN:X";
+      c->VpiValue(value);
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiSize(-1);
+      c->VpiDecompile("'X");
       result = c;
       break;
     }
@@ -507,24 +545,13 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
     case VObjectType::slInitVal_1Tickbx:
     case VObjectType::slInitVal_1TickbX:
     case VObjectType::slInitVal_1TickBx:
-    case VObjectType::slInitVal_1TickBX:
-    case VObjectType::slX: {
+    case VObjectType::slInitVal_1TickBX: {
       UHDM::constant* c = s.MakeConstant();
       std::string value = "BIN:X";
       c->VpiValue(value);
       c->VpiConstType(vpiBinaryConst);
       c->VpiSize(1);
       c->VpiDecompile("1'bX");
-      result = c;
-      break;
-    }
-    case VObjectType::slZ: {
-      UHDM::constant* c = s.MakeConstant();
-      std::string value = "BIN:z";
-      c->VpiValue(value);
-      c->VpiConstType(vpiBinaryConst);
-      c->VpiSize(1);
-      c->VpiDecompile("'bz");
       result = c;
       break;
     }
