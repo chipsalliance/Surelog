@@ -222,6 +222,51 @@ jobs:
         name: surelog-windows
         path: ${{ github.workspace }}/install
 
+  macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Configure shell
+      run: |
+        echo 'CC=gcc-9' >> $GITHUB_ENV
+        echo 'CXX=g++-9' >> $GITHUB_ENV
+        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+
+    - name: Show shell configuration
+      run: |
+        env
+        which cmake && cmake --version
+        which make && make --version
+        which swig && swig -version
+        which java && java -version
+        which python && python --version
+        which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        which $CC && $CC --version
+        which $CXX && $CXX --version
+
+    - name: Build
+      run: |
+        make release
+        sudo make install
+
+    - name: Regression tests
+      run: |
+        make regression
+
+    - name: Unit tests
+      run: |
+        make test_install
+        make test/unittest
+
   CodeFormatting:
     runs-on: ubuntu-20.04
 
