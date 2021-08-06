@@ -150,11 +150,11 @@ unsigned short ModuleInstance::getColumnNb() {
 }
 
 unsigned int ModuleInstance::getEndLineNb() {
- return m_fileContent->EndLine(m_nodeId);
+  return m_fileContent->EndLine(m_nodeId);
 }
 
 unsigned short ModuleInstance::getEndColumnNb() {
- return m_fileContent->EndColumn(m_nodeId);
+  return m_fileContent->EndColumn(m_nodeId);
 }
 
 SymbolId ModuleInstance::getFullPathId(SymbolTable* symbols) {
