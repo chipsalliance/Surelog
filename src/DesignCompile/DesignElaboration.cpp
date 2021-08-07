@@ -1344,6 +1344,7 @@ void DesignElaboration::elaborateInstance_(
                 def = design->getComponentDefinition(modName);
                 if (def) use.setUsed();
               }
+              break;
             }
             default:
               break;
