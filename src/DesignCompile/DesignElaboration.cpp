@@ -1131,12 +1131,46 @@ void DesignElaboration::elaborateInstance_(
 
             // refresh instName
             NodeId blockNameId = fC->Child(tmp);
-            if (fC->Type(blockNameId) ==
-                VObjectType::slStringConst) {  // if-else
+            if (fC->Type(blockNameId) == VObjectType::slStringConst ||
+                fC->Type(blockNameId) ==
+                    VObjectType::slGenerate_item) {  // if-else
               namedBlock = true;
-              modName = fC->SymName(blockNameId);
-              subInstanceId = tmp;  // fC->Sibling(blockNameId);
-              childId = subInstanceId;
+              if (fC->Type(blockNameId) == VObjectType::slGenerate_item) {
+                NodeId Generate_item = blockNameId;
+                NodeId Module_or_generate_item = fC->Child(Generate_item);
+                NodeId Module_common_item = fC->Child(Module_or_generate_item);
+                NodeId Conditional_generate_construct =
+                    fC->Child(Module_common_item);
+                NodeId If_generate_construct =
+                    fC->Child(Conditional_generate_construct);
+                if (fC->Type(If_generate_construct) ==
+                    slIf_generate_construct) {
+                  blockIds = fC->sl_collect_all(childId, btypes, true);
+                  namedBlock = false;
+                  if (blockIds.size()) {
+                    NodeId blockId = blockIds[0];
+                    NodeId blockNameId = fC->Child(blockId);
+                    if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+                      namedBlock = true;
+                      modName = fC->SymName(blockNameId);
+                      subInstanceId = fC->Sibling(blockNameId);
+                      childId = subInstanceId;
+                    } else {
+                      subInstanceId = childId;
+                    }
+                  }
+                } else {
+                  modName = "genblk" + std::to_string(genBlkIndex);
+                  genBlkIndex++;
+                  subInstanceId = tmp;
+                  childId = subInstanceId;
+                }
+              } else {
+                modName = fC->SymName(blockNameId);
+                subInstanceId = tmp;
+                childId = subInstanceId;
+              }
+
             } else {  // if-else-if
               blockIds = fC->sl_collect_all(childId, btypes, true);
               namedBlock = false;
