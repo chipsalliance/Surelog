@@ -22,6 +22,10 @@ pkgs.mkShell {
       antlr4
       pkg-config
       libuuid
+      diffutils
+      time
+      gperftools
+      zlib
     ];
 
 }
