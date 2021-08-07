@@ -663,7 +663,14 @@ void DesignElaboration::recurseInstanceLoop_(
     // This is where the real logic goes.
     // indexes[i] contain the value of the i-th index.
     for (unsigned int i = 0; i < indexes.size(); i++) {
-      instanceName += std::to_string(indexes[i]);
+      if (instanceName.size()) {
+        if (instanceName[instanceName.size()-1] == ' ') {
+          instanceName.erase(instanceName.end()-1);
+        }
+        if (instanceName[0]!= '\\')
+          instanceName = "\\" + instanceName;
+      }
+      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "] ";
     }
     ModuleInstance* child = factory->newModuleInstance(
         def, fC, subInstanceId, parent, instanceName, modName);
