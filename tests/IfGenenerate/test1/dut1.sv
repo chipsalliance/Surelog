@@ -8,11 +8,10 @@ module lzc #(
   localparam int  level = 4;
 
     if (level == NUM_LEVELS-1) begin : g_last_level
-    end  else
-      if (1) begin : all_true 
-         localparam int POWER =  2**level;
-        for (genvar l = 0; l < 2**level; l++) begin : g_level
-        end
+    end  else begin
+      localparam int POWER =  2**level;
+      for (genvar l = 0; l < 2**level; l++) begin : g_level
+      end
 	
     end
 
