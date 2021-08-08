@@ -667,9 +667,8 @@ void DesignElaboration::recurseInstanceLoop_(
         if (instanceName[instanceName.size() - 1] == ' ') {
           instanceName.erase(instanceName.end() - 1);
         }
-        if (instanceName[0] != '\\') instanceName = "\\" + instanceName;
       }
-      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "] ";
+      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "]";
     }
     ModuleInstance* child = factory->newModuleInstance(
         def, fC, subInstanceId, parent, instanceName, modName);
