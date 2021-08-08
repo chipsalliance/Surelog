@@ -668,7 +668,7 @@ void DesignElaboration::recurseInstanceLoop_(
           instanceName.erase(instanceName.end() - 1);
         }
       }
-      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "] ";
+      instanceName = instanceName + "[" + std::to_string(indexes[i]) + "]";
     }
     ModuleInstance* child = factory->newModuleInstance(
         def, fC, subInstanceId, parent, instanceName, modName);
