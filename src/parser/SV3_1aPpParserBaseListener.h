@@ -28,6 +28,9 @@ public:
   virtual void enterDescription(SV3_1aPpParser::DescriptionContext * /*ctx*/) override { }
   virtual void exitDescription(SV3_1aPpParser::DescriptionContext * /*ctx*/) override { }
 
+  virtual void enterEscaped_identifier(SV3_1aPpParser::Escaped_identifierContext * /*ctx*/) override { }
+  virtual void exitEscaped_identifier(SV3_1aPpParser::Escaped_identifierContext * /*ctx*/) override { }
+
   virtual void enterMacroInstanceWithArgs(SV3_1aPpParser::MacroInstanceWithArgsContext * /*ctx*/) override { }
   virtual void exitMacroInstanceWithArgs(SV3_1aPpParser::MacroInstanceWithArgsContext * /*ctx*/) override { }
 
@@ -312,9 +315,6 @@ public:
 
   virtual void enterString(SV3_1aPpParser::StringContext * /*ctx*/) override { }
   virtual void exitString(SV3_1aPpParser::StringContext * /*ctx*/) override { }
-
-  virtual void enterEscaped_identifier(SV3_1aPpParser::Escaped_identifierContext * /*ctx*/) override { }
-  virtual void exitEscaped_identifier(SV3_1aPpParser::Escaped_identifierContext * /*ctx*/) override { }
 
   virtual void enterDefault_value(SV3_1aPpParser::Default_valueContext * /*ctx*/) override { }
   virtual void exitDefault_value(SV3_1aPpParser::Default_valueContext * /*ctx*/) override { }

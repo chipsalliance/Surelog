@@ -25,7 +25,8 @@ source_text : ( description ) *;
 null_rule : ; // Placeholder rule that create the "0" VObject, DO NOT REMOVE
 
 description :
-            unterminated_string
+	    escaped_identifier
+            | unterminated_string
 	    | string
 	    | number
             | macro_definition
@@ -94,10 +95,11 @@ description :
 	    | config 
 	    | endconfig 
 	    | text_blob
-	    | escaped_identifier
 	    | pound_delay
 	    | pound_pound_delay
 	    ;
+	    
+escaped_identifier : Escaped_identifier;
 
 macro_instance : (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OPEN macro_actual_args PARENS_CLOSE # MacroInstanceWithArgs
 	       | (Macro_identifier | Macro_Escaped_identifier)                                                    # MacroInstanceNoArgs
@@ -462,8 +464,6 @@ text_blob :   Simple_identifier
 	    ;
 
 string : String ;
-
-escaped_identifier : Escaped_identifier;
 
 default_value : Simple_identifier
 	    | number
