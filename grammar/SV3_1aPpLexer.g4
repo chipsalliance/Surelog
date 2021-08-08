@@ -16,6 +16,10 @@
 
 lexer grammar SV3_1aPpLexer;
 
+Escaped_identifier
+    :	'\\' ~[WS\r\t\n]*? WS
+    ;
+
 // A.9.2 Comments
 
 One_line_comment : '//' Comment_text '\r'? '\n' ;
@@ -321,10 +325,6 @@ COMMA : ',' ;
 EQUAL_OP : '=' ;
 
 DOUBLE_QUOTE : '"';
-
-Escaped_identifier
-    :	'\\' ~[WS\r\t\n]*? WS
-    ;
 
 CURLY_OPEN : '{' ;
 CURLY_CLOSE : '}' ;

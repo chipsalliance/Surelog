@@ -12,71 +12,71 @@
 class  SV3_1aPpParser : public antlr4::Parser {
 public:
   enum {
-    One_line_comment = 1, Block_comment = 2, TICK_VARIABLE = 3, TICK_DEFINE = 4, 
-    TICK_CELLDEFINE = 5, TICK_ENDCELLDEFINE = 6, TICK_DEFAULT_NETTYPE = 7, 
-    TICK_UNDEF = 8, TICK_IFDEF = 9, TICK_IFNDEF = 10, TICK_ELSE = 11, TICK_ELSIF = 12, 
-    TICK_ELSEIF = 13, TICK_ENDIF = 14, TICK_INCLUDE = 15, TICK_PRAGMA = 16, 
-    TICK_BEGIN_KEYWORDS = 17, TICK_END_KEYWORDS = 18, TICK_RESETALL = 19, 
-    TICK_TIMESCALE = 20, TICK_UNCONNECTED_DRIVE = 21, TICK_NOUNCONNECTED_DRIVE = 22, 
-    TICK_LINE = 23, TICK_DEFAULT_DECAY_TIME = 24, TICK_DEFAULT_TRIREG_STRENGTH = 25, 
-    TICK_DELAY_MODE_DISTRIBUTED = 26, TICK_DELAY_MODE_PATH = 27, TICK_DELAY_MODE_UNIT = 28, 
-    TICK_DELAY_MODE_ZERO = 29, TICK_UNDEFINEALL = 30, TICK_ACCELERATE = 31, 
-    TICK_NOACCELERATE = 32, TICK_PROTECT = 33, TICK_USELIB = 34, TICK_DISABLE_PORTFAULTS = 35, 
-    TICK_ENABLE_PORTFAULTS = 36, TICK_NOSUPPRESS_FAULTS = 37, TICK_SUPPRESS_FAULTS = 38, 
-    TICK_SIGNED = 39, TICK_UNSIGNED = 40, TICK_ENDPROTECT = 41, TICK_PROTECTED = 42, 
-    TICK_ENDPROTECTED = 43, TICK_EXPAND_VECTORNETS = 44, TICK_NOEXPAND_VECTORNETS = 45, 
-    TICK_AUTOEXPAND_VECTORNETS = 46, TICK_REMOVE_GATENAME = 47, TICK_NOREMOVE_GATENAMES = 48, 
-    TICK_REMOVE_NETNAME = 49, TICK_NOREMOVE_NETNAMES = 50, TICK_FILE__ = 51, 
-    TICK_LINE__ = 52, MODULE = 53, ENDMODULE = 54, INTERFACE = 55, ENDINTERFACE = 56, 
-    PROGRAM = 57, ENDPROGRAM = 58, PRIMITIVE = 59, ENDPRIMITIVE = 60, PACKAGE = 61, 
-    ENDPACKAGE = 62, CHECKER = 63, ENDCHECKER = 64, CONFIG = 65, ENDCONFIG = 66, 
-    Macro_identifier = 67, Macro_Escaped_identifier = 68, String = 69, Simple_identifier = 70, 
-    Spaces = 71, Pound_Pound_delay = 72, Pound_delay = 73, TIMESCALE = 74, 
-    Number = 75, Fixed_point_number = 76, TEXT_CR = 77, ESCAPED_CR = 78, 
-    CR = 79, TICK_QUOTE = 80, TICK_BACKSLASH_TICK_QUOTE = 81, TICK_TICK = 82, 
-    PARENS_OPEN = 83, PARENS_CLOSE = 84, COMMA = 85, EQUAL_OP = 86, DOUBLE_QUOTE = 87, 
-    Escaped_identifier = 88, CURLY_OPEN = 89, CURLY_CLOSE = 90, SQUARE_OPEN = 91, 
-    SQUARE_CLOSE = 92, Special = 93, ANY = 94
+    Escaped_identifier = 1, One_line_comment = 2, Block_comment = 3, TICK_VARIABLE = 4, 
+    TICK_DEFINE = 5, TICK_CELLDEFINE = 6, TICK_ENDCELLDEFINE = 7, TICK_DEFAULT_NETTYPE = 8, 
+    TICK_UNDEF = 9, TICK_IFDEF = 10, TICK_IFNDEF = 11, TICK_ELSE = 12, TICK_ELSIF = 13, 
+    TICK_ELSEIF = 14, TICK_ENDIF = 15, TICK_INCLUDE = 16, TICK_PRAGMA = 17, 
+    TICK_BEGIN_KEYWORDS = 18, TICK_END_KEYWORDS = 19, TICK_RESETALL = 20, 
+    TICK_TIMESCALE = 21, TICK_UNCONNECTED_DRIVE = 22, TICK_NOUNCONNECTED_DRIVE = 23, 
+    TICK_LINE = 24, TICK_DEFAULT_DECAY_TIME = 25, TICK_DEFAULT_TRIREG_STRENGTH = 26, 
+    TICK_DELAY_MODE_DISTRIBUTED = 27, TICK_DELAY_MODE_PATH = 28, TICK_DELAY_MODE_UNIT = 29, 
+    TICK_DELAY_MODE_ZERO = 30, TICK_UNDEFINEALL = 31, TICK_ACCELERATE = 32, 
+    TICK_NOACCELERATE = 33, TICK_PROTECT = 34, TICK_USELIB = 35, TICK_DISABLE_PORTFAULTS = 36, 
+    TICK_ENABLE_PORTFAULTS = 37, TICK_NOSUPPRESS_FAULTS = 38, TICK_SUPPRESS_FAULTS = 39, 
+    TICK_SIGNED = 40, TICK_UNSIGNED = 41, TICK_ENDPROTECT = 42, TICK_PROTECTED = 43, 
+    TICK_ENDPROTECTED = 44, TICK_EXPAND_VECTORNETS = 45, TICK_NOEXPAND_VECTORNETS = 46, 
+    TICK_AUTOEXPAND_VECTORNETS = 47, TICK_REMOVE_GATENAME = 48, TICK_NOREMOVE_GATENAMES = 49, 
+    TICK_REMOVE_NETNAME = 50, TICK_NOREMOVE_NETNAMES = 51, TICK_FILE__ = 52, 
+    TICK_LINE__ = 53, MODULE = 54, ENDMODULE = 55, INTERFACE = 56, ENDINTERFACE = 57, 
+    PROGRAM = 58, ENDPROGRAM = 59, PRIMITIVE = 60, ENDPRIMITIVE = 61, PACKAGE = 62, 
+    ENDPACKAGE = 63, CHECKER = 64, ENDCHECKER = 65, CONFIG = 66, ENDCONFIG = 67, 
+    Macro_identifier = 68, Macro_Escaped_identifier = 69, String = 70, Simple_identifier = 71, 
+    Spaces = 72, Pound_Pound_delay = 73, Pound_delay = 74, TIMESCALE = 75, 
+    Number = 76, Fixed_point_number = 77, TEXT_CR = 78, ESCAPED_CR = 79, 
+    CR = 80, TICK_QUOTE = 81, TICK_BACKSLASH_TICK_QUOTE = 82, TICK_TICK = 83, 
+    PARENS_OPEN = 84, PARENS_CLOSE = 85, COMMA = 86, EQUAL_OP = 87, DOUBLE_QUOTE = 88, 
+    CURLY_OPEN = 89, CURLY_CLOSE = 90, SQUARE_OPEN = 91, SQUARE_CLOSE = 92, 
+    Special = 93, ANY = 94
   };
 
   enum {
     RuleTop_level_rule = 0, RuleSource_text = 1, RuleNull_rule = 2, RuleDescription = 3, 
-    RuleMacro_instance = 4, RuleUnterminated_string = 5, RuleMacro_actual_args = 6, 
-    RuleComments = 7, RuleNumber = 8, RulePound_delay = 9, RulePound_pound_delay = 10, 
-    RuleMacro_definition = 11, RuleInclude_directive = 12, RuleLine_directive = 13, 
-    RuleDefault_nettype_directive = 14, RuleSv_file_directive = 15, RuleSv_line_directive = 16, 
-    RuleTimescale_directive = 17, RuleUndef_directive = 18, RuleIfdef_directive = 19, 
-    RuleIfdef_directive_in_macro_body = 20, RuleIfndef_directive = 21, RuleIfndef_directive_in_macro_body = 22, 
-    RuleElsif_directive = 23, RuleElsif_directive_in_macro_body = 24, RuleElseif_directive = 25, 
-    RuleElseif_directive_in_macro_body = 26, RuleElse_directive = 27, RuleEndif_directive = 28, 
-    RuleResetall_directive = 29, RuleBegin_keywords_directive = 30, RuleEnd_keywords_directive = 31, 
-    RulePragma_directive = 32, RuleCelldefine_directive = 33, RuleEndcelldefine_directive = 34, 
-    RuleProtect_directive = 35, RuleEndprotect_directive = 36, RuleProtected_directive = 37, 
-    RuleEndprotected_directive = 38, RuleExpand_vectornets_directive = 39, 
-    RuleNoexpand_vectornets_directive = 40, RuleAutoexpand_vectornets_directive = 41, 
-    RuleUselib_directive = 42, RuleDisable_portfaults_directive = 43, RuleEnable_portfaults_directive = 44, 
-    RuleNosuppress_faults_directive = 45, RuleSuppress_faults_directive = 46, 
-    RuleSigned_directive = 47, RuleUnsigned_directive = 48, RuleRemove_gatename_directive = 49, 
-    RuleNoremove_gatenames_directive = 50, RuleRemove_netname_directive = 51, 
-    RuleNoremove_netnames_directive = 52, RuleAccelerate_directive = 53, 
-    RuleNoaccelerate_directive = 54, RuleDefault_trireg_strenght_directive = 55, 
-    RuleDefault_decay_time_directive = 56, RuleUnconnected_drive_directive = 57, 
-    RuleNounconnected_drive_directive = 58, RuleDelay_mode_distributed_directive = 59, 
-    RuleDelay_mode_path_directive = 60, RuleDelay_mode_unit_directive = 61, 
-    RuleDelay_mode_zero_directive = 62, RuleUndefineall_directive = 63, 
-    RuleModule = 64, RuleEndmodule = 65, RuleSv_interface = 66, RuleEndinterface = 67, 
-    RuleProgram = 68, RuleEndprogram = 69, RulePrimitive = 70, RuleEndprimitive = 71, 
-    RuleSv_package = 72, RuleEndpackage = 73, RuleChecker = 74, RuleEndchecker = 75, 
-    RuleConfig = 76, RuleEndconfig = 77, RuleDefine_directive = 78, RuleMultiline_no_args_macro_definition = 79, 
-    RuleMultiline_args_macro_definition = 80, RuleSimple_no_args_macro_definition = 81, 
-    RuleSimple_args_macro_definition = 82, RuleIdentifier_in_macro_body = 83, 
-    RuleSimple_no_args_macro_definition_in_macro_body = 84, RuleSimple_args_macro_definition_in_macro_body = 85, 
-    RuleDirective_in_macro = 86, RuleMacro_arguments = 87, RuleEscaped_macro_definition_body = 88, 
-    RuleEscaped_macro_definition_body_alt1 = 89, RuleEscaped_macro_definition_body_alt2 = 90, 
-    RuleSimple_macro_definition_body = 91, RuleSimple_macro_definition_body_in_macro_body = 92, 
-    RulePragma_expression = 93, RuleMacro_arg = 94, RulePaired_parens = 95, 
-    RuleText_blob = 96, RuleString = 97, RuleEscaped_identifier = 98, RuleDefault_value = 99, 
-    RuleString_blob = 100
+    RuleEscaped_identifier = 4, RuleMacro_instance = 5, RuleUnterminated_string = 6, 
+    RuleMacro_actual_args = 7, RuleComments = 8, RuleNumber = 9, RulePound_delay = 10, 
+    RulePound_pound_delay = 11, RuleMacro_definition = 12, RuleInclude_directive = 13, 
+    RuleLine_directive = 14, RuleDefault_nettype_directive = 15, RuleSv_file_directive = 16, 
+    RuleSv_line_directive = 17, RuleTimescale_directive = 18, RuleUndef_directive = 19, 
+    RuleIfdef_directive = 20, RuleIfdef_directive_in_macro_body = 21, RuleIfndef_directive = 22, 
+    RuleIfndef_directive_in_macro_body = 23, RuleElsif_directive = 24, RuleElsif_directive_in_macro_body = 25, 
+    RuleElseif_directive = 26, RuleElseif_directive_in_macro_body = 27, 
+    RuleElse_directive = 28, RuleEndif_directive = 29, RuleResetall_directive = 30, 
+    RuleBegin_keywords_directive = 31, RuleEnd_keywords_directive = 32, 
+    RulePragma_directive = 33, RuleCelldefine_directive = 34, RuleEndcelldefine_directive = 35, 
+    RuleProtect_directive = 36, RuleEndprotect_directive = 37, RuleProtected_directive = 38, 
+    RuleEndprotected_directive = 39, RuleExpand_vectornets_directive = 40, 
+    RuleNoexpand_vectornets_directive = 41, RuleAutoexpand_vectornets_directive = 42, 
+    RuleUselib_directive = 43, RuleDisable_portfaults_directive = 44, RuleEnable_portfaults_directive = 45, 
+    RuleNosuppress_faults_directive = 46, RuleSuppress_faults_directive = 47, 
+    RuleSigned_directive = 48, RuleUnsigned_directive = 49, RuleRemove_gatename_directive = 50, 
+    RuleNoremove_gatenames_directive = 51, RuleRemove_netname_directive = 52, 
+    RuleNoremove_netnames_directive = 53, RuleAccelerate_directive = 54, 
+    RuleNoaccelerate_directive = 55, RuleDefault_trireg_strenght_directive = 56, 
+    RuleDefault_decay_time_directive = 57, RuleUnconnected_drive_directive = 58, 
+    RuleNounconnected_drive_directive = 59, RuleDelay_mode_distributed_directive = 60, 
+    RuleDelay_mode_path_directive = 61, RuleDelay_mode_unit_directive = 62, 
+    RuleDelay_mode_zero_directive = 63, RuleUndefineall_directive = 64, 
+    RuleModule = 65, RuleEndmodule = 66, RuleSv_interface = 67, RuleEndinterface = 68, 
+    RuleProgram = 69, RuleEndprogram = 70, RulePrimitive = 71, RuleEndprimitive = 72, 
+    RuleSv_package = 73, RuleEndpackage = 74, RuleChecker = 75, RuleEndchecker = 76, 
+    RuleConfig = 77, RuleEndconfig = 78, RuleDefine_directive = 79, RuleMultiline_no_args_macro_definition = 80, 
+    RuleMultiline_args_macro_definition = 81, RuleSimple_no_args_macro_definition = 82, 
+    RuleSimple_args_macro_definition = 83, RuleIdentifier_in_macro_body = 84, 
+    RuleSimple_no_args_macro_definition_in_macro_body = 85, RuleSimple_args_macro_definition_in_macro_body = 86, 
+    RuleDirective_in_macro = 87, RuleMacro_arguments = 88, RuleEscaped_macro_definition_body = 89, 
+    RuleEscaped_macro_definition_body_alt1 = 90, RuleEscaped_macro_definition_body_alt2 = 91, 
+    RuleSimple_macro_definition_body = 92, RuleSimple_macro_definition_body_in_macro_body = 93, 
+    RulePragma_expression = 94, RuleMacro_arg = 95, RulePaired_parens = 96, 
+    RuleText_blob = 97, RuleString = 98, RuleDefault_value = 99, RuleString_blob = 100
   };
 
   explicit SV3_1aPpParser(antlr4::TokenStream *input);
@@ -93,6 +93,7 @@ public:
   class Source_textContext;
   class Null_ruleContext;
   class DescriptionContext;
+  class Escaped_identifierContext;
   class Macro_instanceContext;
   class Unterminated_stringContext;
   class Macro_actual_argsContext;
@@ -187,7 +188,6 @@ public:
   class Paired_parensContext;
   class Text_blobContext;
   class StringContext;
-  class Escaped_identifierContext;
   class Default_valueContext;
   class String_blobContext; 
 
@@ -236,6 +236,7 @@ public:
   public:
     DescriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    Escaped_identifierContext *escaped_identifier();
     Unterminated_stringContext *unterminated_string();
     StringContext *string();
     NumberContext *number();
@@ -305,7 +306,6 @@ public:
     ConfigContext *config();
     EndconfigContext *endconfig();
     Text_blobContext *text_blob();
-    Escaped_identifierContext *escaped_identifier();
     Pound_delayContext *pound_delay();
     Pound_pound_delayContext *pound_pound_delay();
 
@@ -315,6 +315,19 @@ public:
   };
 
   DescriptionContext* description();
+
+  class  Escaped_identifierContext : public antlr4::ParserRuleContext {
+  public:
+    Escaped_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *Escaped_identifier();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Escaped_identifierContext* escaped_identifier();
 
   class  Macro_instanceContext : public antlr4::ParserRuleContext {
   public:
@@ -2106,19 +2119,6 @@ public:
   };
 
   StringContext* string();
-
-  class  Escaped_identifierContext : public antlr4::ParserRuleContext {
-  public:
-    Escaped_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *Escaped_identifier();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Escaped_identifierContext* escaped_identifier();
 
   class  Default_valueContext : public antlr4::ParserRuleContext {
   public:
