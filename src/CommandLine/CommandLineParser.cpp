@@ -1,5 +1,5 @@
 /*
- Copyright 2019 Alain Dargelas
+ Copyright 2017-2021 Alain Dargelas
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ using namespace SURELOG;
 static std::string defaultLogFileName = "surelog.log";
 // !!! Update this number when the grammar changes !!!
 //        This will render the cache invalid
-std::string CommandLineParser::m_versionNumber = "1.06";
+std::string CommandLineParser::m_versionNumber = "1.07";
 
 static const std::vector<std::string> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
