@@ -763,7 +763,16 @@ foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
         log "============================== DIFF ======================================================"
         log "diff $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"
         catch {exec $SHELL $SHELL_ARGS "diff -d $testdir/${testname}.log $REGRESSION_PATH/tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
-        puts $dummy
+	set lines [split $dummy "\n"]
+        set count 0
+	foreach line $lines {
+	    puts $line
+            incr count
+            if {$count > 100} {
+		puts "......"
+		break
+            } 
+        }
     }
 }
 if [info exists DIFF_TESTS] {
