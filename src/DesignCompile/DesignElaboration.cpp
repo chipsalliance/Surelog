@@ -1101,18 +1101,38 @@ void DesignElaboration::elaborateInstance_(
 
                 NodeId Generate_block = tmp;
                 NodeId Generate_item = fC->Child(Generate_block);
-                NodeId Module_or_generate_item = fC->Child(Generate_item);
-                NodeId Module_common_item = fC->Child(Module_or_generate_item);
-                NodeId Conditional_generate_construct =
-                    fC->Child(Module_common_item);
-                NodeId If_generate_construct =
-                    fC->Child(Conditional_generate_construct);
-                NodeId Cond = fC->Child(If_generate_construct);
-                if (fC->Type(Cond) == VObjectType::slConstant_expression) {
-                  bool validValue;
-                  condVal = m_helper.getValue(validValue, def, fC, Cond,
-                                              m_compileDesign, nullptr, parent,
-                                              true, false);
+                NodeId Cond = 0;
+                if (fC->Type(Generate_item) == slGenerate_item) {
+                  NodeId Module_or_generate_item = fC->Child(Generate_item);
+                  NodeId Module_common_item =
+                      fC->Child(Module_or_generate_item);
+                  NodeId Conditional_generate_construct =
+                      fC->Child(Module_common_item);
+                  NodeId If_generate_construct =
+                      fC->Child(Conditional_generate_construct);
+                  Cond = fC->Child(If_generate_construct);
+                  if (fC->Type(Cond) == VObjectType::slConstant_expression) {
+                    bool validValue;
+                    condVal = m_helper.getValue(validValue, def, fC, Cond,
+                                                m_compileDesign, nullptr,
+                                                parent, true, false);
+                  } else {
+                    // It is not an else-if
+                    condVal = true;
+                  }
+                } else if (fC->Type(Generate_item) ==
+                           slGenerate_module_conditional_statement) {
+                  Cond = fC->Child(Generate_item);
+                  if (fC->Type(Cond) == VObjectType::slConstant_expression) {
+                    bool validValue;
+                    condVal = m_helper.getValue(validValue, def, fC, Cond,
+                                                m_compileDesign, nullptr,
+                                                parent, true, false);
+                  } else {
+                    // It is not an else-if
+                    condVal = true;
+                  }
+
                 } else {
                   // It is not an else-if
                   condVal = true;
@@ -1189,6 +1209,8 @@ void DesignElaboration::elaborateInstance_(
                   childId = subInstanceId;
                 } else {
                   subInstanceId = childId;
+                  modName = "genblk" + std::to_string(genBlkIndex);
+                  genBlkIndex++;
                 }
               }
             }
@@ -1232,6 +1254,15 @@ void DesignElaboration::elaborateInstance_(
                            factory, child, config, allSubInstances);
         childId = fC->Sibling(childId);
         if (fC->Type(childId) == slGenerate_block) break;
+        if (fC->Type(childId) == slGenerate_module_item) {
+          NodeId node = fC->Child(childId);
+          if (fC->Type(node) == slGenerate_module_conditional_statement) {
+            break;
+          }
+          if (fC->Type(node) == slGenerate_module_block) {
+            break;
+          }
+        }
         if (fC->Type(childId) == slEnd) break;
       }
       parent->addSubInstance(child);
