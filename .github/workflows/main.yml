@@ -227,6 +227,8 @@ jobs:
 
     - name: Configure shell
       run: |
+        echo 'CC=gcc-11' >> $GITHUB_ENV
+        echo 'CXX=g++-11' >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
 
     - name: Show shell configuration
@@ -238,6 +240,8 @@ jobs:
         which java && java -version
         which python && python --version
         which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
+        which $CC && $CC --version
+        which $CXX && $CXX --version
 
     - name: Build
       run: |
