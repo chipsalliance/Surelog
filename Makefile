@@ -2,7 +2,6 @@
 
 # Use bash as the default shell
 SHELL := /bin/bash
-undefine LC_ALL
 
 ifeq ($(CPU_CORES),)
 	CPU_CORES := $(shell nproc)
