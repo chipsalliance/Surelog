@@ -4,7 +4,9 @@ SystemVerilog 2017 Pre-processor, Parser, Elaborator, UHDM Compiler. Provides IE
 
 ## Goal
 This project aims at providing a complete SystemVerilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench. We are aiming at supporting all open-source cores.
-Current status: Surelog's elaboration trees for BlackParrot and Opentitan cores are equivalent with Verilator's elaboration tree. Ibex completely Synthesizes and runs in Hardware with the Surelog/UHDM/Yosys flow. 
+* Current status: 
+   * Surelog's elaboration trees for [BlackParrot](https://github.com/black-parrot/black-parrot), [Ariane](https://github.com/lowRISC/ariane) and [Earlgrey](https://github.com/lowRISC/opentitan) cores are equivalent with Verilator's elaboration tree. 
+   * [Ibex](https://github.com/lowRISC/ibex) completely Synthesizes and runs in Hardware with the Surelog/UHDM/Yosys flow. 
 
 ## Applications
 
