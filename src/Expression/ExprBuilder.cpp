@@ -909,7 +909,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
     if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*)m_valueFactory.newStValue();
       sval->set(s.c_str() + pos + strlen("HEX:"), Value::Type::Hexadecimal,
-                (s.size() - 4) * 4);
+                (size ? size : (s.size() - 4) * 4));
       val = sval;
     } else {
       val = m_valueFactory.newLValue();
@@ -917,7 +917,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
       if (size)
         val->set(v, Value::Type::Unsigned, size);
       else
-        val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
+        val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
     }
   } else if ((pos = s.find("OCT:")) != std::string::npos) {
     val = m_valueFactory.newLValue();
@@ -925,7 +925,7 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
     if (size)
       val->set(v, Value::Type::Unsigned, size);
     else
-      val->set(v, Value::Type::Unsigned, (s.size() - 4) * 4);
+      val->set(v, Value::Type::Unsigned, (size ? size : (s.size() - 4) * 4));
   } else if ((pos = s.find("STRING:")) != std::string::npos) {
     val = m_valueFactory.newStValue();
     val->set(s.c_str() + pos + strlen("STRING:"));
