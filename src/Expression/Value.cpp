@@ -185,7 +185,7 @@ void SValue::set(double val) {
   m_valid = 1;
   m_negative = val < 0;
 }
-void SValue::set(uint64_t val, Type type, unsigned short size) {
+void SValue::set(uint64_t val, Type type, short size) {
   m_type = type;
   m_value.u_int = val;
   m_size = size;
@@ -833,8 +833,8 @@ void SValue::shiftRight(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
 }
 
-unsigned short LValue::getSize() const {
-  unsigned short size = 0;
+short LValue::getSize() const {
+  short size = 0;
   for (int i = 0; i < m_nbWords; i++) {
     size += m_valueArray[i].m_size;
   }
@@ -999,7 +999,7 @@ LValue::LValue(double val)
   m_negative = (val < 0);
 }
 
-LValue::LValue(int64_t val, Type type, unsigned short size)
+LValue::LValue(int64_t val, Type type, short size)
     : m_type(type),
       m_nbWords(1),
       m_valueArray(new SValue[1]),
@@ -1061,7 +1061,7 @@ void LValue::set(double val) {
   m_negative = (val < 0);
 }
 
-void LValue::set(uint64_t val, Type type, unsigned short size) {
+void LValue::set(uint64_t val, Type type, short size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
