@@ -54,8 +54,8 @@ class Value {
 
   virtual ~Value() {}
 
-  virtual unsigned short getSize() const = 0;  // size in bits
-  virtual unsigned short getSize(
+  virtual short getSize() const = 0;  // size in bits
+  virtual short getSize(
       unsigned int wordIndex) const = 0;  // size in bits of a multi-word value
   // nb of 64 bits words necessary to encode the size
   virtual unsigned short getNbWords() const = 0;
@@ -80,7 +80,7 @@ class Value {
   virtual void set(uint64_t val) = 0;
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(uint64_t val, Type type, unsigned short size) = 0;
+  virtual void set(uint64_t val, Type type, short size) = 0;
   virtual void set(const std::string& val) = 0;
   virtual void set(const std::string& val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
@@ -151,7 +151,7 @@ class SValue : public Value {
       : m_type(Value::Type::Unsigned), m_size(0), m_valid(1), m_negative(0) {
     m_value.u_int = 0;
   }
-  SValue(int64_t val, unsigned short size)
+  SValue(int64_t val, short size)
       : m_type(Value::Type::Integer),
         m_size(size),
         m_valid(1),
@@ -178,8 +178,8 @@ class SValue : public Value {
   }
   ~SValue() final;
 
-  unsigned short getSize() const final { return m_size; }
-  unsigned short getSize(unsigned int wordIndex) const final { return m_size; }
+  short getSize() const final { return m_size; }
+  short getSize(unsigned int wordIndex) const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
@@ -190,7 +190,7 @@ class SValue : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, unsigned short size) final;
+  void set(uint64_t val, Type type, short size) final;
   void set(const std::string& val) final {
     m_type = Value::Type::None;
     m_value.u_int = 0;
@@ -279,7 +279,7 @@ class SValue : public Value {
 
  private:
   Type m_type;
-  unsigned short m_size;
+  short m_size;
   unsigned short m_valid;
   unsigned short m_negative;
 };
@@ -320,11 +320,11 @@ class LValue : public Value {
   LValue(uint64_t val);
   LValue(int64_t val);
   LValue(double val);
-  LValue(int64_t val, Type type, unsigned short size);
+  LValue(int64_t val, Type type, short size);
   ~LValue() final;
 
-  unsigned short getSize() const final;
-  unsigned short getSize(unsigned int wordIndex) const final {
+  short getSize() const final;
+  short getSize(unsigned int wordIndex) const final {
     if (m_valueArray)
       return m_valueArray[wordIndex].m_size;
     else
@@ -340,7 +340,7 @@ class LValue : public Value {
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
-  void set(uint64_t val, Type type, unsigned short size) final;
+  void set(uint64_t val, Type type, short size) final;
   void set(const std::string& val) final {}
   void set(const std::string& val, Type type) final {}
   bool operator<(const Value& rhs) const final;
@@ -414,8 +414,8 @@ class StValue : public Value {
       : m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;
 
-  unsigned short getSize() const final { return m_size; }
-  unsigned short getSize(unsigned int wordIndex) const final { return m_size; }
+  short getSize() const final { return m_size; }
+  short getSize(unsigned int wordIndex) const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
@@ -438,7 +438,7 @@ class StValue : public Value {
     m_value = std::to_string(val);
     m_valid = true;
   }
-  void set(uint64_t val, Type type, unsigned short size) final {
+  void set(uint64_t val, Type type, short size) final {
     m_type = type;
     m_value = std::to_string(val);
     m_size = size;
@@ -450,7 +450,7 @@ class StValue : public Value {
     m_size = val.size();
     m_valid = true;
   }
-  void set(const std::string& val, Type type, unsigned short size) {
+  void set(const std::string& val, Type type, short size) {
     m_type = type;
     m_value = val;
     m_size = size;
@@ -544,7 +544,7 @@ class StValue : public Value {
  private:
   Type m_type;
   std::string m_value;
-  unsigned short m_size;
+  short m_size;
   unsigned short m_valid;
 };
 
