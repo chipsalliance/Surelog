@@ -698,3 +698,7 @@ if (WIN32 AND $<CONFIG:Debug>)
           ${UHDM_BINARY_DIR}/third_party/capnproto/c++/src/kj/CMakeFiles/kj.dir/kj.pdb
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
 endif()
+
+ADD_CUSTOM_TARGET(link_target ALL
+                  COMMAND ${CMAKE_COMMAND} -E create_symlink
+                  build/compile_commands.json ../compile_commands.json)
