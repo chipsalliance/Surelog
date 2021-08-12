@@ -92,7 +92,7 @@ if [regexp {show_diff}  $argv] {
 }
 
 if [regexp {mute}  $argv] {
-    regsub "mite" $argv "" argv
+    regsub "mute" $argv "" argv
     set MUTE 1
 }
 
@@ -803,11 +803,10 @@ if {$DIFF_MODE == 1} {
 if {$result == "PASS"} {
     exit 0
 } else {
-    if {$MUTE == 0} {
-        exit 1
-    } else {
+    if {$MUTE != 0} {
         puts $LOG_CONTENT
     }
+    exit 1
 }
 
 exit 0
