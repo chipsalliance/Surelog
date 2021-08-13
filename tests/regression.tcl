@@ -806,7 +806,6 @@ if {$result == "PASS"} {
     if {$MUTE != 0} {
         puts $LOG_CONTENT
     }
-    exit 1
 }
 
 exit 0
