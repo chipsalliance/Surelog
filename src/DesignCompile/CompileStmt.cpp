@@ -1185,7 +1185,8 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
 
       NodeId unpackedDimension =
           fC->Sibling(fC->Sibling(fC->Child(tf_port_item)));
-      if (fC->Type(unpackedDimension) != slVariable_dimension)
+      if (unpackedDimension &&
+          (fC->Type(unpackedDimension) != slVariable_dimension))
         unpackedDimension = fC->Sibling(unpackedDimension);
       int size;
       std::vector<UHDM::range*>* unpackedDimensions =
