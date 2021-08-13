@@ -378,7 +378,7 @@ void SValue::u_bitwAnd(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res & ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -392,7 +392,7 @@ void SValue::u_bitwNand(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   uint64_t res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res & ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -406,7 +406,7 @@ void SValue::u_bitwOr(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res | ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -420,7 +420,7 @@ void SValue::u_bitwNor(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res | ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -434,7 +434,7 @@ void SValue::u_bitwXor(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res ^ ((val & (1 << i)) >> i);
   }
   m_value.u_int = res;
@@ -448,7 +448,7 @@ void SValue::u_bitwXnor(const Value* a) {
   m_size = aval->m_size;
   uint64_t val = aval->m_value.u_int;
   int res = val & 1;
-  for (unsigned int i = 1; i < m_size; i++) {
+  for (int i = 1; i < m_size; i++) {
     res = res ^ ((val & (1 << i)) >> i);
   }
   m_value.u_int = !res;
@@ -1215,7 +1215,7 @@ void LValue::u_bitwAnd(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res & ((val & (1 << j)) >> j);
     }
   }
@@ -1234,7 +1234,7 @@ void LValue::u_bitwNand(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res & ((val & (1 << j)) >> j);
     }
   }
@@ -1254,7 +1254,7 @@ void LValue::u_bitwOr(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res | ((val & (1 << j)) >> j);
     }
   }
@@ -1274,7 +1274,7 @@ void LValue::u_bitwNor(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res | ((val & (1 << j)) >> j);
     }
   }
@@ -1293,7 +1293,7 @@ void LValue::u_bitwXor(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res ^ ((val & (1 << j)) >> j);
     }
   }
@@ -1312,7 +1312,7 @@ void LValue::u_bitwXnor(const Value* a) {
   for (unsigned int i = 0; i < m_nbWords; i++) {
     uint64_t val = a->getValueUL(i);
     if (i == 0) res = val & 1;
-    for (unsigned int j = 1; j < a->getSize(i); j++) {
+    for (int j = 1; j < a->getSize(i); j++) {
       res = res ^ ((val & (1 << j)) >> j);
     }
   }

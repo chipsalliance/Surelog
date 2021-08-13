@@ -4136,6 +4136,9 @@ UHDM::any* CompileHelper::compileExpression(
                 } else if (index->UhdmType() == uhdmref_obj) {
                   ind = index->VpiName();
                   name += "[" + ind + "]";
+                } else if (index->UhdmType() == uhdmoperation) {
+                  ind = "...";
+                  name += "[" + ind + "]";
                 }
                 select->VpiFullName(name);
                 select->VpiName(name);
@@ -4177,6 +4180,9 @@ UHDM::any* CompileHelper::compileExpression(
               if (Expression == 0) {
                 if (Bit_select) Expression = fC->Sibling(Bit_select);
               }
+              if (dtype == VObjectType::slConstant_expression) {
+                Expression = dotedName;
+              }
 
               is_hierarchical = true;
               if (Expression && (fC->Type(Expression) == slPart_select_range) &&
@@ -4206,7 +4212,8 @@ UHDM::any* CompileHelper::compileExpression(
                 }
               } else if (Expression) {
                 expr* index = (expr*)compileExpression(
-                    component, fC, Expression, compileDesign, pexpr, instance);
+                    component, fC, Expression, compileDesign, pexpr, instance,
+                    reduce, muteErrors);
                 if (index) {
                   bit_select* select = s.MakeBit_select();
                   elems->push_back(select);
@@ -4218,6 +4225,9 @@ UHDM::any* CompileHelper::compileExpression(
                     name += "[" + ind + "]";
                   } else if (index->UhdmType() == uhdmref_obj) {
                     ind = index->VpiName();
+                    name += "[" + ind + "]";
+                  } else if (index->UhdmType() == uhdmoperation) {
+                    ind = "...";
                     name += "[" + ind + "]";
                   }
                 }
