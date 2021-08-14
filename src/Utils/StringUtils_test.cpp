@@ -53,10 +53,65 @@ TEST(StringUtilsTest, TokenizeBalanced) {
                           "[that shall not break]"));
 }
 
-// TODO: tests needed for replaceInTokenVector()
+TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorPattern) {
+  std::vector<std::string> tokens = {"c", "a", "b", "c", "x", "y"};
+
+  // No pattern match
+  StringUtils::replaceInTokenVector(tokens, {"a", "x"}, "foo");
+  EXPECT_THAT(tokens, ElementsAre("c", "a", "b", "c", "x", "y"));
+
+  // Pattern match
+  StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "bar");
+  EXPECT_THAT(tokens, ElementsAre("c", "bar", "x", "y"));
+
+  // Pattern starts multiple times, but only full pattern counts
+  tokens = {"a", "a", "b", "c", "x", "y"};
+  StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "baz");
+  EXPECT_THAT(tokens, ElementsAre("a", "baz", "x", "y"));
+
+  tokens = {"a", "b", "a", "b", "c", "x", "y"};
+  StringUtils::replaceInTokenVector(tokens, {"a", "b", "c"}, "quuz");
+  EXPECT_THAT(tokens, ElementsAre("a", "b", "quuz", "x", "y"));
+}
+
+TEST(StringUtilsTest, ReplaceInTokenVectorWithVectorString) {
+  std::vector<std::string> tokens = {"a", "b", "c"};
+
+  // No pattern match
+  StringUtils::replaceInTokenVector(tokens, "x", "foo");
+  EXPECT_THAT(tokens, ElementsAre("a", "b", "c"));
+
+  // Pattern match
+  StringUtils::replaceInTokenVector(tokens, "b", "bar");
+  EXPECT_THAT(tokens, ElementsAre("a", "bar", "c"));
+
+  // Pattern match with tokens that are double-quotes
+  tokens = {"\"", "b", "\""};
+  StringUtils::replaceInTokenVector(tokens, "b", "baz");
+  EXPECT_THAT(tokens, ElementsAre("\"", "baz", "\""));
+
+  // Pattern match with newline replacement
+  tokens = {"a", "b", "c"};
+  StringUtils::replaceInTokenVector(tokens, "b", "bar\nbaz");
+  EXPECT_THAT(tokens, ElementsAre("a", "bar\nbaz", "c"));
+
+  // Pattern match with newline replacement between double-quote tokens
+  // (surprising feature: replace newline)
+  tokens = {"\"", "b", "\""};
+  StringUtils::replaceInTokenVector(tokens, "b", "bar\nbaz");
+  EXPECT_THAT(tokens, ElementsAre("\"", "barbaz", "\""));
+
+  // Newlines are only replaced if they are not escaped with backslash
+  tokens = {"\"", "b", "\""};
+  StringUtils::replaceInTokenVector(tokens, "b", "bar\\\nbaz");
+  EXPECT_THAT(tokens, ElementsAre("\"", "bar\\\nbaz", "\""));
+}
 
 TEST(StringUtilsTest, GetFirstNonEmptyToken) {
   EXPECT_EQ("hello", StringUtils::getFirstNonEmptyToken({" ", " ", "hello"}));
+
+  // If all tokens are 'empty' (i.e. single space), returns actual empty string.
+  EXPECT_EQ("", StringUtils::getFirstNonEmptyToken({" ", " ", " "}));
 
   // Unlike the name implies, 'empty' actually doesn't mean empty, but
   // one space. The function needs to be renamed, here just documenting.

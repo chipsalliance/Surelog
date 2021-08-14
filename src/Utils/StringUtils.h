@@ -46,9 +46,18 @@ class StringUtils {
   // intact: "double quoted" (parenthesized) [foo] {bar}
   static void tokenizeBalanced(std::string_view str, std::string_view separator,
                                std::vector<std::string>& result);
+
+  // In "token" array, replace sequence of tokens that match "pattern" with
+  // a single element "news"
   static void replaceInTokenVector(std::vector<std::string>& tokens,
-                                   std::vector<std::string> pattern,
+                                   const std::vector<std::string_view>& pattern,
                                    std::string_view news);
+
+  // Replace every item in "tokens" that matches "pattern" with "news".
+  //
+  // Including surprising feature: if the pattern is just between
+  // double-quotes right and left in the tokens-array, carriage return is
+  // removed in "news". TODO: less surprises.
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::string_view pattern,
                                    std::string_view news);
