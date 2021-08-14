@@ -142,39 +142,30 @@ void StringUtils::tokenizeBalanced(std::string_view str,
   }
 }
 
+// Remove carriage return unless it is escaped with backslash.
 static std::string removeCR(std::string_view st) {
+  if (st.find('\n') == std::string::npos) return std::string(st);
+
   std::string result;
-  if (st.find('\n') != std::string::npos) {
-    std::string temp;
-    char c1 = '\0';
-    char c2 = '\0';
-    for (unsigned int t = 0; t < st.size(); t++) {
-      c2 = st[t];
-      if (c2 == '\n') {
-        if (c1 == '\\') {
-          temp += c2;
-        }
-      } else {
-        temp += c2;
-      }
-      c1 = c2;
-    }
-    result = temp;
-  } else {
-    result = st;
+  char previous = '\0';
+  for (const char c : st) {
+    if (c != '\n' || previous == '\\') result += c;
+    previous = c;
   }
   return result;
 }
 
-void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
-                                       std::vector<std::string> pattern,
-                                       std::string_view news) {
+void StringUtils::replaceInTokenVector(
+    std::vector<std::string>& tokens,
+    const std::vector<std::string_view>& pattern, std::string_view news) {
   unsigned int patternIndex = 0;
   std::vector<std::string>::iterator itr;
   bool more = true;
   while (more) {
     more = false;
     for (itr = tokens.begin(); itr != tokens.end(); itr++) {
+      if (patternIndex > 0 && *itr != pattern[patternIndex])
+        patternIndex = 0;  // Restart
       if (*itr == pattern[patternIndex]) {
         patternIndex++;
         if (patternIndex == pattern.size()) {
@@ -183,8 +174,6 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
           itr = tokens.erase(itr - (pattern.size() - 1), itr);
           more = true;
         }
-      } else {
-        patternIndex = 0;
       }
     }
   }
@@ -195,13 +184,11 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::string_view news) {
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
-    std::string actual(news.begin(), news.end());
     if (tokens[i] == pattern) {
-      if (i > 0 && (tokens[i - 1] == "\"")) {
-        if ((i < tokensSize - 1) && (tokens[i + 1] == "\""))
-          actual = removeCR(news);
-      }
-      tokens[i] = actual;
+      const bool surrounded_by_quotes =
+          (i > 0 && (tokens[i - 1] == "\"")) &&
+          ((i < tokensSize - 1) && (tokens[i + 1] == "\""));
+      tokens[i] = surrounded_by_quotes ? removeCR(news) : news;
     }
   }
 }

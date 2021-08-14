@@ -667,7 +667,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     SymbolId embeddedMacroCallFile) {
   std::string result;
   bool found = false;
-  std::vector<std::string>& formal_args = macroInfo->m_arguments;
+  const std::vector<std::string>& formal_args = macroInfo->m_arguments;
   // Don't modify the actual tokens of the macro, make a copy...
   std::vector<std::string> body_tokens = macroInfo->m_tokens;
 
@@ -726,11 +726,12 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     }
   }
 
+  static const std::regex ws_re("[ \t]+");
   for (unsigned int i = 0; i < formal_args.size(); i++) {
     std::vector<std::string> formal_arg_default;
     StringUtils::tokenize(formal_args[i], "=", formal_arg_default);
-    std::string formal =
-        std::regex_replace(formal_arg_default[0], std::regex("[ \t]*"), "");
+    const std::string formal =
+        std::regex_replace(formal_arg_default[0], ws_re, "");
     bool empty_actual = true;
     if (i < actual_args.size()) {
       for (unsigned int ii = 0; ii < actual_args[i].size(); ii++) {
@@ -760,8 +761,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       StringUtils::replaceInTokenVector(body_tokens, formal, actual_args[i]);
     } else {
       if (formal_arg_default.size() == 2) {
-        std::string default_val =
-            std::regex_replace(formal_arg_default[1], std::regex("[ \t]*"), "");
+        const std::string default_val =
+            std::regex_replace(formal_arg_default[1], ws_re, "");
         StringUtils::replaceInTokenVector(body_tokens, {"``", formal, "``"},
                                           default_val);
         StringUtils::replaceInTokenVector(body_tokens, "``" + formal + "``",

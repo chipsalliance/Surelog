@@ -26,38 +26,70 @@ using ::testing::ElementsAre;
 
 namespace SURELOG {
 namespace {
-TEST(PreprocessTest, BasicPp) {
+TEST(PreprocessTest, PreprocessWithoutPPTokens) {
   PreprocessHarness harness;
-  {
-    std::string res = harness.preprocess("module top(); endmodule");
-    EXPECT_EQ(res, "module top(); endmodule");
-  }
-
-  {
-    std::string res = harness.preprocess(
-        "`define FOO(a) a*2\n\n\
-    module top();\n\
-    assign b = `FOO(c);\n\
-    endmodule");
-    EXPECT_EQ(res,
-              "\n\
-    module top();\n\
-    assign b = c*2;\n\
-    endmodule");
-  }
-
-  {
-    std::string res = harness.preprocess(
-        "`define BAR(a, b) (a)*2+(b)\n\n\
-    module top();\n\
-    assign b = `BAR(3 * c, 2*d);\n\
-    endmodule");
-    EXPECT_EQ(res,
-              "\n\
-    module top();\n\
-    assign b = (3 * c)*2+(2*d);\n\
-    endmodule");
-  }
+  const std::string res = harness.preprocess("module top(); endmodule");
+  EXPECT_EQ(res, "module top(); endmodule");
 }
+
+TEST(PreprocessTest, PreprocessSingleParameterExpansion) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOO(a) a*2
+module top();
+  assign b = `FOO(c);
+endmodule)");
+
+  EXPECT_EQ(res, R"(
+module top();
+  assign b = c*2;
+endmodule)");
+}
+
+TEST(PreprocessTest, PreprocessTwoParameterExpansion) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define BAR(a, b) (a)*2+( b )
+module top();
+  assign b = `BAR(3 * c, 2*d);
+endmodule)");
+
+  EXPECT_EQ(res, R"(
+module top();
+  assign b = (3 * c)*2+( 2*d );
+endmodule)");
+}
+
+TEST(PreprocessTest, PreprocessMacroExpansionInMacroCall) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOURTYTWO 42
+`define BAR(a) a * 3
+module top();
+  assign b = `BAR(`FOURTYTWO);
+endmodule)");
+
+  EXPECT_EQ(res, R"(
+module top();
+  assign b = 42 * 3;
+endmodule)");
+}
+
+TEST(PreprocessTest, PreprocessMacroExpansionWithDefaultParameter) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOO(a = 42) a * 2
+module top();
+  assign b = `FOO(1);
+  assign c = `FOO();  // Default applies
+endmodule)");
+
+  EXPECT_EQ(res, R"(
+module top();
+  assign b = 1 * 2;
+  assign c = 42 * 2;  // Default applies
+endmodule)");
+}
+
 }  // namespace
 }  // namespace SURELOG
