@@ -156,8 +156,14 @@ add_custom_command(
 
 # Java
 find_package(Java REQUIRED COMPONENTS Runtime)
-set(ANTLR_JAR_LOCATION
+if(FAST_ANTLR)
+  set(ANTLR_JAR_LOCATION
+    ${PROJECT_SOURCE_DIR}/third_party/fast_antlr4/antlr-4.9.1-complete.jar)
+else()
+  set(ANTLR_JAR_LOCATION
     ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr-4.9.1-complete.jar)
+endif()
+
 
 add_custom_target(GenerateParser DEPENDS
   ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
