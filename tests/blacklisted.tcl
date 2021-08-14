@@ -17,10 +17,14 @@ dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_0_1 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_01_05_21 1
 dict set WINDOWS_BLACK_LIST Earlgrey_nexysvideo 1
+# Test race condition
+dict set WINDOWS_BLACK_LIST SimpleParserTestCache 1
 
 set UNIX_BLACK_LIST [dict create]
 # 2 message diff:
 dict set UNIX_BLACK_LIST UnitElabExternNested 1
+# Test race condition
+dict set UNIX_BLACK_LIST SimpleParserTestCache 1
 
 # RAM size in CI machines
 dict set UNIX_BLACK_LIST Earlgrey_nexysvideo 1
