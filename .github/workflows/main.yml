@@ -56,14 +56,14 @@ jobs:
 
     - name: Build
       run: |
-        make release
+        make optimized
         sudo make install
 
     - name: Test
       run: |
         make test_install
         make test/unittest
-        make regression
+        make regression-opt
 
   msys2-gcc:
     runs-on: windows-latest

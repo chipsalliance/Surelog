@@ -26,7 +26,14 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
-add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+if(FAST_ANTLR)
+  message(
+      WARNING
+        "USING FAST_ANTLR FORK")
+  add_subdirectory(third_party/fast_antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+else()
+  add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+endif(FAST_ANTLR)
 
 set(UHDM_BUILD_TESTS OFF CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
@@ -77,7 +84,7 @@ if(NOT NO_TCMALLOC)
     message("-- Found tcmalloc: ${TCMALLOC_LIBRARY}")
     set(TCMALLOC_COMPILE_OPTIONS
         "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-    )
+	) 
   endif()
 endif()
 
@@ -431,8 +438,12 @@ if (SURELOG_WITH_PYTHON)
   target_link_libraries(surelog PRIVATE ${Python3_LIBRARIES})
 endif()
 
-if($<BOOL:${TCMALLOC_LIBRARY}>)
-  target_link_libraries(surelog PRIVATE tcmalloc)
+#NOT WORKING: if($<BOOL:${TCMALLOC_LIBRARY}>)
+if(NOT NO_TCMALLOC)
+  find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
+  if(TCMALLOC_LIBRARY)
+    target_link_libraries(surelog PRIVATE tcmalloc)
+  endif()
 endif()
 
 if (UNIX)

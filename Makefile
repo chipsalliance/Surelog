@@ -16,8 +16,14 @@ PREFIX ?= /usr/local
 release: run-cmake-release
 	cmake --build build -j $(CPU_CORES)
 
+optimized: run-cmake-optimized
+	cmake --build build -j $(CPU_CORES)
+
 debug: run-cmake-debug
 	cmake --build dbuild -j $(CPU_CORES)
+
+run-cmake-optimized:
+	cmake -DCMAKE_BUILD_TYPE=Release -DFAST_ANTLR=1  -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B build
 
 run-cmake-release:
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B build
@@ -47,10 +53,7 @@ test-parallel: release test/unittest
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
-hellodesign: release
-	pushd build && tclsh ../tests/regression.tcl exe_name=hellodesign test=Inverter && popd
-
-regression: release
+run-regression:
 	cmake -E make_directory build/tests
 	cmake -E remove_directory build/test
 	cmake -E make_directory build/test
@@ -58,6 +61,13 @@ regression: release
 	cmake -S build/test -B build/test/build
 	pushd build && cmake --build test/build -j $(CPU_CORES) && popd
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
+
+hellodesign: release
+	pushd build && tclsh ../tests/regression.tcl exe_name=hellodesign test=Inverter && popd
+
+regression: release run-regression
+
+regression-opt: optimized run-regression
 
 clean:
 	$(RM) -r build dist
