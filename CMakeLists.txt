@@ -60,7 +60,12 @@ message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
 endif()
 
 # Includes
-include_directories("${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src/")
+if(FAST_ANTLR)
+  include_directories("${PROJECT_SOURCE_DIR}/third_party/fast_antlr4/runtime/Cpp/runtime/src/")
+else()
+  include_directories("${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src/")
+endif()
+
 include_directories("${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/include/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/")
