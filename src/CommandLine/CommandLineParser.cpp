@@ -101,7 +101,7 @@ static const std::vector<std::string> helpText = {
     "substitution",
     "  -Pparameter=value     Top level parameter override",
     "  -pvalue+parameter=value Top level parameter override",
-    "  -sverilog             Forces all files to be parsed as SystemVerilog "
+    "  -sverilog/-sv         Forces all files to be parsed as SystemVerilog "
     "files",
     "  -sv <file>            Forces the following file to be parsed as "
     "SystemVerilog file",
@@ -1005,12 +1005,16 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-nocache") {
       m_cacheAllowed = false;
     } else if (all_arguments[i] == "-sv") {
-      i++;
-      SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
-      m_sourceFiles.push_back(id);
-      std::string fileName = all_arguments[i];
-      fileName = FileUtils::basename(fileName);
-      m_svSourceFiles.insert(fileName);
+      if (FileUtils::fileExists(all_arguments[i])) {
+        i++;
+        SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
+        m_sourceFiles.push_back(id);
+        std::string fileName = all_arguments[i];
+        fileName = FileUtils::basename(fileName);
+        m_svSourceFiles.insert(fileName);
+      } else {
+        m_sverilog = true;
+      }
     } else if (all_arguments[i].size() && all_arguments[i] == "--x-assign") {
       Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
