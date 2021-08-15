@@ -5012,6 +5012,14 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
         }
         break;
       }
+      case uhdmpacked_array_typespec: {
+        packed_array_typespec* tmp = (packed_array_typespec*)typespec;
+        const UHDM::typespec* tps = (UHDM::typespec*)tmp->Elem_typespec();
+        bits += Bits(tps, invalidValue, component, compileDesign, instance,
+                     fileName, lineNumber, reduce, sizeMode);
+        ranges = tmp->Ranges();
+        break;
+      }
       default:
         invalidValue = true;
         break;
@@ -5097,6 +5105,18 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       if (suffix && (fC->Type(suffix) == slStringConst)) {
         suffixname = fC->SymName(suffix);
       }
+      break;
+    }
+    case VObjectType::slIntVec_TypeLogic: {
+      result = s.MakeLogic_typespec();
+      break;
+    }
+    case VObjectType::slIntVec_TypeBit: {
+      result = s.MakeBit_typespec();
+      break;
+    }
+    case VObjectType::slIntVec_TypeReg: {
+      result = s.MakeLogic_typespec();
       break;
     }
     case VObjectType::slClass_scope: {
@@ -5258,6 +5278,9 @@ UHDM::any* CompileHelper::compileBits(
     case slIntegerAtomType_LongInt:
     case slIntegerAtomType_Shortint:
     case slIntegerAtomType_Time:
+    case slIntVec_TypeLogic:
+    case slIntVec_TypeBit:
+    case slIntVec_TypeReg:
       typeSpecId = Expression;
       break;
     default: {
