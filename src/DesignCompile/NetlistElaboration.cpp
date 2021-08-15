@@ -1115,7 +1115,7 @@ interface* NetlistElaboration::elab_interface_(
       if (net && (net->UhdmType() == uhdminterface)) {
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
-        if (sigName != instName) //prevent loop in listener
+        if (sigName != instName)  // prevent loop in listener
           n->Actual_group(net);
         net = n;
         io->Expr(net);
