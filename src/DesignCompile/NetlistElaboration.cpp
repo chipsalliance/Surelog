@@ -1104,14 +1104,24 @@ interface* NetlistElaboration::elab_interface_(
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
-      io->VpiName(sig.getName());
+      const std::string& sigName = sig.getName();
+      io->VpiName(sigName);
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
-      any* net = bind_net_(instance, sig.getName());
+      any* net = bind_net_(instance, sigName);
       if (net == nullptr) {
-        net = bind_net_(interf_instance, sig.getName());
+        net = bind_net_(interf_instance, sigName);
       }
-      io->Expr(net);
+      if (net && (net->UhdmType() == uhdminterface)) {
+        ref_obj* n = s.MakeRef_obj();
+        n->VpiName(sigName);
+        if (sigName != instName) //prevent loop in listener
+          n->Actual_group(net);
+        net = n;
+        io->Expr(net);
+      } else {
+        io->Expr(net);
+      }
       ios->push_back(io);
     }
     dest_modport->Io_decls(ios);
