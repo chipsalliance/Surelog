@@ -5014,9 +5014,9 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
       }
       case uhdmpacked_array_typespec: {
         packed_array_typespec* tmp = (packed_array_typespec*)typespec;
-        const UHDM::typespec* tps = (UHDM::typespec*) tmp->Elem_typespec();
+        const UHDM::typespec* tps = (UHDM::typespec*)tmp->Elem_typespec();
         bits += Bits(tps, invalidValue, component, compileDesign, instance,
-                           fileName, lineNumber, reduce, sizeMode);
+                     fileName, lineNumber, reduce, sizeMode);
         ranges = tmp->Ranges();
         break;
       }
