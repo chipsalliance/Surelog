@@ -463,6 +463,9 @@ function(register_gtests)
     # Build binary, link all relevant libs and extract tests
     add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
 
+    target_include_directories(${test_bin} PRIVATE
+      ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src
+      ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
     # For simplicity, we link the test with libsurelog, but there is of
     # course a lot unnecessary churn if headers are modified.
     # Often it is sufficient to just have a few depeendencies.

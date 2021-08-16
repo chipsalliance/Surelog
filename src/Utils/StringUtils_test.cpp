@@ -230,8 +230,13 @@ TEST(StringUtilsTest, EvaluateEnvironmentVariables) {
             StringUtils::evaluateEnvVars("hello $TESTING_UNKNOWN_VAR/ bar"));
 
   // Variables set via the environment
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+  _putenv_s("TESTING_EVAL_FOO", "foo-value");
+  _putenv_s("TESTING_EVAL_BAR", "bar-value");
+#else
   setenv("TESTING_EVAL_FOO", "foo-value", 1);
   setenv("TESTING_EVAL_BAR", "bar-value", 1);
+#endif
 
   EXPECT_EQ("hello foo-value bar",
             StringUtils::evaluateEnvVars("hello ${TESTING_EVAL_FOO} bar"));
