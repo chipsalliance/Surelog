@@ -913,7 +913,11 @@ void DesignElaboration::elaborateInstance_(
              type == VObjectType::slGenerate_module_loop_statement ||
              type == VObjectType::slGenerate_interface_loop_statement) {
       modName = genBlkBaseName + std::to_string(genBlkIndex);
-
+      std::string append = "0";
+      while (parent->getValue(modName, m_exprBuilder)) {
+        modName = genBlkBaseName + append + std::to_string(genBlkIndex);
+        append += "0";
+      }
       std::vector<VObjectType> btypes = {
           VObjectType::slGenerate_module_block,
           VObjectType::slGenerate_interface_block,
@@ -923,16 +927,14 @@ void DesignElaboration::elaborateInstance_(
 
       std::vector<NodeId> blockIds =
           fC->sl_collect_all(subInstanceId, btypes, true);
-      bool namedBlock = false;
       if (blockIds.size()) {
         NodeId blockId = blockIds[0];
         NodeId blockNameId = fC->Child(blockId);
         if (fC->Type(blockNameId) == VObjectType::slStringConst) {
-          namedBlock = true;
           modName = fC->SymName(blockNameId);
         }
       }
-      if (!namedBlock) genBlkIndex++;
+      genBlkIndex++;
       instName = modName;
       std::string fullName;
       std::string libName = fC->getLibrary()->getName();
@@ -1159,7 +1161,6 @@ void DesignElaboration::elaborateInstance_(
             if (fC->Type(blockNameId) == VObjectType::slStringConst ||
                 fC->Type(blockNameId) ==
                     VObjectType::slGenerate_item) {  // if-else
-              namedBlock = true;
               if (fC->Type(blockNameId) == VObjectType::slGenerate_item) {
                 NodeId Generate_item = blockNameId;
                 NodeId Module_or_generate_item = fC->Child(Generate_item);
@@ -1171,12 +1172,10 @@ void DesignElaboration::elaborateInstance_(
                 if (fC->Type(If_generate_construct) ==
                     slIf_generate_construct) {
                   blockIds = fC->sl_collect_all(childId, btypes, true);
-                  namedBlock = false;
                   if (blockIds.size()) {
                     NodeId blockId = blockIds[0];
                     NodeId blockNameId = fC->Child(blockId);
                     if (fC->Type(blockNameId) == VObjectType::slStringConst) {
-                      namedBlock = true;
                       modName = fC->SymName(blockNameId);
                       subInstanceId = fC->Sibling(blockNameId);
                       childId = subInstanceId;
@@ -1185,8 +1184,6 @@ void DesignElaboration::elaborateInstance_(
                     }
                   }
                 } else {
-                  modName = "genblk" + std::to_string(genBlkIndex);
-                  genBlkIndex++;
                   subInstanceId = tmp;
                   childId = subInstanceId;
                 }
@@ -1198,19 +1195,15 @@ void DesignElaboration::elaborateInstance_(
 
             } else {  // if-else-if
               blockIds = fC->sl_collect_all(childId, btypes, true);
-              namedBlock = false;
               if (blockIds.size()) {
                 NodeId blockId = blockIds[0];
                 NodeId blockNameId = fC->Child(blockId);
                 if (fC->Type(blockNameId) == VObjectType::slStringConst) {
-                  namedBlock = true;
                   modName = fC->SymName(blockNameId);
                   subInstanceId = fC->Sibling(blockNameId);
                   childId = subInstanceId;
                 } else {
                   subInstanceId = childId;
-                  modName = "genblk" + std::to_string(genBlkIndex);
-                  genBlkIndex++;
                 }
               }
             }
