@@ -29,8 +29,6 @@ CompilationUnit::CompilationUnit(bool fileunit)
       m_uniqueIdGenerator(0),
       m_uniqueNodeIdGenerator(0) {}
 
-CompilationUnit::CompilationUnit(const CompilationUnit& orig) {}
-
 CompilationUnit::~CompilationUnit() {}
 
 MacroInfo* CompilationUnit::getMacroInfo(const std::string& macroName) {
