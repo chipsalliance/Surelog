@@ -26,6 +26,7 @@
 
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "SourceCompile/SymbolTable.h"
@@ -34,7 +35,7 @@ namespace SURELOG {
 
 class MacroInfo {
  public:
-  MacroInfo(std::string name, int type, SymbolId file, unsigned int line,
+  MacroInfo(std::string_view name, int type, SymbolId file, unsigned int line,
             unsigned short int column,
             const std::vector<std::string>& arguments,
             const std::vector<std::string>& tokens)
@@ -49,13 +50,14 @@ class MacroInfo {
     NO_ARGS,
     WITH_ARGS,
   };
-  std::string m_name;
-  int m_type;
-  SymbolId m_file;
-  unsigned int m_line;
-  unsigned short int m_column;
-  std::vector<std::string> m_arguments;
-  std::vector<std::string> m_tokens;
+
+  const std::string m_name;
+  const int m_type;
+  const SymbolId m_file;
+  const unsigned int m_line;
+  const unsigned short int m_column;
+  const std::vector<std::string> m_arguments;
+  const std::vector<std::string> m_tokens;
 };
 
 typedef std::map<std::string, MacroInfo*> MacroStorage;

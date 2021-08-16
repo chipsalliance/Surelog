@@ -33,13 +33,13 @@ namespace SURELOG {
 class CompilationUnit {
  public:
   CompilationUnit(bool fileunit);
-  CompilationUnit(const CompilationUnit& orig);
+  CompilationUnit(const CompilationUnit& orig) = delete;
   virtual ~CompilationUnit();
 
   void setInDesignElement() { m_inDesignElement = true; }
   void unsetInDesignElement() { m_inDesignElement = false; }
-  bool isInDesignElement() { return m_inDesignElement; }
-  bool isFileUnit() { return m_fileunit; }
+  bool isInDesignElement() const { return m_inDesignElement; }
+  bool isFileUnit() const { return m_fileunit; }
 
   void registerMacroInfo(const std::string& macroName, MacroInfo* macro);
   MacroInfo* getMacroInfo(const std::string& macroName);
@@ -64,7 +64,7 @@ class CompilationUnit {
   }
 
  private:
-  bool m_fileunit;
+  const bool m_fileunit;
   bool m_inDesignElement;
 
   MacroStorageRef m_macros;
