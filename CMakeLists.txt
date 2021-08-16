@@ -52,19 +52,6 @@ message(STATUS "Python3_INCLUDE_DIRS = ${Python3_INCLUDE_DIRS}")
 message(STATUS "Python3_RUNTIME_LIBRARY_DIRS = ${Python3_RUNTIME_LIBRARY_DIRS}")
 endif()
 
-# Includes
-include_directories("${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/include/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/UHDM/headers/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include/")
-include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googlemock/include/")
-
-if (SURELOG_WITH_PYTHON)
-include_directories(${Python3_INCLUDE_DIRS}) # Keep this at the end
-endif()
-
 # Use tcmalloc if installed and not NO_TCMALLOC is on. TODO: don't use negative
 # names, but positive. -DWITH_TCMALLOC=Off is easier to understand than
 # -DNO_TCMALLOC=On
@@ -376,10 +363,17 @@ foreach(gen_src ${surelog_generated_SRC})
   set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
 endforeach()
 
-set(SURELOG_PUBLIC_HEADERS ${PROJECT_SOURCE_DIR}/src/surelog.h)
-
 add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
-set_target_properties(surelog PROPERTIES PUBLIC_HEADER "${SURELOG_PUBLIC_HEADERS}")
+set_target_properties(surelog PROPERTIES PUBLIC_HEADER src/surelog.h)
+target_include_directories(surelog PRIVATE
+  third_party/antlr4/runtime/Cpp/runtime/src
+  third_party/flatbuffers/include
+  third_party/googletest/googletest/include
+  third_party/googletest/googlemock/include)
+target_include_directories(surelog PUBLIC $<INSTALL_INTERFACE:include/surelog>)
+if (SURELOG_WITH_PYTHON)
+  target_include_directories(surelog PUBLIC ${Python3_INCLUDE_DIRS}) # Keep this at the end
+endif()
 if (SURELOG_WITH_PYTHON)
   target_compile_definitions(surelog PUBLIC SURELOG_WITH_PYTHON)
 endif()
@@ -469,6 +463,9 @@ function(register_gtests)
     # Build binary, link all relevant libs and extract tests
     add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
 
+    target_include_directories(${test_bin} PRIVATE
+      ${PROJECT_SOURCE_DIR}/third_party/antlr4/runtime/Cpp/runtime/src
+      ${PROJECT_SOURCE_DIR}/third_party/flatbuffers/include)
     # For simplicity, we link the test with libsurelog, but there is of
     # course a lot unnecessary churn if headers are modified.
     # Often it is sufficient to just have a few depeendencies.
@@ -590,24 +587,31 @@ add_dependencies(hellosureworld PrecompileOVM)
 add_dependencies(hellosureworld PrecompileUVM)
 
 # Installation target
-install(TARGETS surelog-bin RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(
-  TARGETS surelog
+  TARGETS surelog-bin
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(
+  TARGETS surelog antlr4_static flatbuffers
+  EXPORT Surelog
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog)
 install(
-  TARGETS antlr4_static flatbuffers
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
+  TARGETS uhdm capnp kj
+  EXPORT Surelog
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uhdm)
 install(
   DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/python
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/sv
             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/pkg
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
-install(FILES ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine)
-install(FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
-              ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
+        ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.h
         ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.h
@@ -622,15 +626,17 @@ install(
         ${PROJECT_SOURCE_DIR}/src/API/SLAPI.h
         ${PROJECT_SOURCE_DIR}/src/API/Surelog.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/API)
-install(FILES ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
-              ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common)
-install(FILES ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/DesignCompile)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
+        ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/DesignCompile)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Design/ClockingBlock.h
         ${PROJECT_SOURCE_DIR}/src/Design/Design.h
-	${PROJECT_SOURCE_DIR}/src/Design/BindStmt.h
+        ${PROJECT_SOURCE_DIR}/src/Design/BindStmt.h
         ${PROJECT_SOURCE_DIR}/src/Design/Instance.h
         ${PROJECT_SOURCE_DIR}/src/Design/Signal.h
         ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.h
@@ -657,7 +663,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/ModPort.h
         ${PROJECT_SOURCE_DIR}/src/Design/Union.h
         ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.h
-	${PROJECT_SOURCE_DIR}/src/Design/DummyType.h
+        ${PROJECT_SOURCE_DIR}/src/Design/DummyType.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.h
@@ -671,14 +677,17 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Testbench/Program.h
         ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Testbench)
-install(FILES ${PROJECT_SOURCE_DIR}/src/Package/Package.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Package)
-install(FILES ${PROJECT_SOURCE_DIR}/src/Library/Library.h
-              ${PROJECT_SOURCE_DIR}/src/Library/LibrarySet.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Library)
-install(FILES ${PROJECT_SOURCE_DIR}/src/Config/Config.h
-              ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/Package/Package.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Package)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/Library/Library.h
+        ${PROJECT_SOURCE_DIR}/src/Library/LibrarySet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Library)
+install(
+  FILES ${PROJECT_SOURCE_DIR}/src/Config/Config.h
+        ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.h
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
@@ -692,6 +701,11 @@ if (WIN32 AND $<CONFIG:Debug>)
       DESTINATION ${CMAKE_INSTALL_BINDIR})
   endif()
   install(
+    FILES $<TARGET_PDB_FILE:surelog-bin>
+          ${UHDM_BINARY_DIR}/bin/uhdm-dump.pdb
+          ${UHDM_BINARY_DIR}/bin/uhdm-hier.pdb
+    DESTINATION ${CMAKE_INSTALL_BINDIR})
+  install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/surelog.dir/surelog.pdb
           ${FlatBuffers_BINARY_DIR}/CMakeFiles/flatbuffers.dir/flatbuffers.pdb
           ${LIBANTLR4_BINARY_DIR}/runtime/CMakeFiles/antlr4_static.dir/antlr4_static.pdb
@@ -702,6 +716,25 @@ if (WIN32 AND $<CONFIG:Debug>)
           ${UHDM_BINARY_DIR}/third_party/capnproto/c++/src/kj/CMakeFiles/kj.dir/kj.pdb
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/uhdm)
 endif()
+
+install(
+  EXPORT Surelog
+  FILE Surelog.cmake
+  DESTINATION cmake)
+include(CMakePackageConfigHelpers)
+
+# generate the config file that is includes the exports
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake"
+  INSTALL_DESTINATION cmake
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+
+# install the configuration file
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/SurelogConfig.cmake
+  DESTINATION cmake)
 
 ADD_CUSTOM_TARGET(link_target ALL
                   COMMAND ${CMAKE_COMMAND} -E create_symlink
