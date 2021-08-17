@@ -286,6 +286,7 @@ PreprocessFile::PreprocessFile(const PreprocessFile& orig) {}
 
 PreprocessFile::~PreprocessFile() {
   if (m_listener) delete m_listener;
+  for (const auto& name_macro : m_macros) delete name_macro.second;
 }
 
 PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
@@ -447,6 +448,7 @@ bool PreprocessFile::preprocess() {
         m_antlrParserHandler);
   }
   m_result = "";
+  m_lineCount = 0;
   if (m_listener != NULL) delete m_listener;
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
@@ -464,7 +466,8 @@ static unsigned int LinesCount(const std::string& s) {
 }
 
 unsigned int PreprocessFile::getSumLineCount() {
-  unsigned int total = LinesCount(m_result);
+  // unsigned int total = LinesCount(m_result);
+  unsigned int total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
   return total;
 }
@@ -508,8 +511,6 @@ void PreprocessFile::recordMacro(const std::string name, unsigned int line,
   // std::cout << "PP RECORDING MACRO: " << name  << ", FILE: " <<
   // getSymbol(getFileId(line)) << "" << std::endl;
 
-  // TODO: this macro info is leaking. Ownership unclear: is
-  // this to be deleted from m_macros or from m_compilationUnit ?
   MacroInfo* macroInfo = new MacroInfo(
       name, arguments.size() ? MacroInfo::WITH_ARGS : MacroInfo::NO_ARGS,
       getFileId(line), line, column, args, tokens);

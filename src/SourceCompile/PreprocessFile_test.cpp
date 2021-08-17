@@ -91,5 +91,49 @@ module top();
 endmodule)");
 }
 
+TEST(PreprocessTest, IfdefCodeSelectionIfBranch) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOO 1
+module top();
+`ifdef FOO
+  assign a = 42;
+`else
+  assign a = 2;
+`endif
+endmodule)");
+
+  // In the result it is interesting that the `define itself and the else area
+  // is entirely removed and not even showing up as newline.
+  // This could break line counting later in the pipeline.
+  EXPECT_EQ(res, R"(
+module top();
+
+  assign a = 42;
+
+endmodule)");
+}
+
+TEST(PreprocessTest, IfdefCodeSelectionElseBranch) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define BAR 1
+module top();
+`ifdef FOO
+  assign a = 42;
+`else
+  assign a = 2;
+`endif
+endmodule)");
+
+  // Similar observation w.r.t. missing newlines as in previous test.
+  EXPECT_EQ(res, R"(
+module top();
+
+  assign a = 2;
+
+endmodule)");
+}
+
 }  // namespace
 }  // namespace SURELOG

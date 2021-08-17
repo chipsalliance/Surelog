@@ -105,11 +105,6 @@ if (WIN32)
       COMMAND ${CMAKE_COMMAND} -E copy_if_different
             ${Python3_RUNTIME_LIBRARY_DIRS}/python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}$<$<CONFIG:Debug>:_d>.dll
             $<TARGET_FILE_DIR:test_hellosureworld>)
-    else()
-   add_custom_command(
-      TARGET test_hellosureworld
-      POST_BUILD
-            $<TARGET_FILE_DIR:test_hellosureworld>)    
     endif()
 endif()
 
