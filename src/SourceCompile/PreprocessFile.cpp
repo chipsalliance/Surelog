@@ -448,6 +448,7 @@ bool PreprocessFile::preprocess() {
         m_antlrParserHandler);
   }
   m_result = "";
+  m_lineCount = 0;
   if (m_listener != NULL) delete m_listener;
   m_listener = new SV3_1aPpTreeShapeListener(
       this, m_antlrParserHandler->m_pptokens, m_instructions);
@@ -465,7 +466,8 @@ static unsigned int LinesCount(const std::string& s) {
 }
 
 unsigned int PreprocessFile::getSumLineCount() {
-  unsigned int total = LinesCount(m_result);
+  // unsigned int total = LinesCount(m_result);
+  unsigned int total = m_lineCount;
   if (m_includer) total += m_includer->getSumLineCount();
   return total;
 }
