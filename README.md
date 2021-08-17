@@ -50,6 +50,34 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 For more build/test options and system requirements for building see
 [`src/README`](src/README.md) file.
 
+## Use Surelog as an external package with CMake
+
+For your project to use Surelog as an external module, you need to tell CMake where to find Surelog. Note that CMake expects the module directory organized a certain way and Surelog's installation step does that so make sure to run that. You can provide the path to CMake in few different ways -
+
+1. By updating `CMAKE_MODULE_PATH` variable in your project's CMakeLists.txt file by adding the following lines -
+
+```
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} <absolute or relative path to surelog installation folder>)
+find_package(Surelog)
+```
+
+2. By providing the location of the surelog installation with the `find_package` command itself, as in the following -
+```
+find_package(Surelog PATHS <absolute or relative path to surelog installation folder>)
+```
+
+3. By providing the location of the surelog installation as a command line parameter when invoking CMake -
+```
+cmake -DSurelog_DIR=<absolute or relative path to surelog installation folder> -S . -B out
+```
+
+For additional help, refer to cmake documentation on external modules.
+
+Once CMake successfully finds Surelog, all you would need is to add the following line after the call to `add_library/add_executable` in your CMakeLists.txt file.
+```
+target_link_libraries(<your project name> surelog)
+```
+
 ## Usage
 
 ### Surelog commands
