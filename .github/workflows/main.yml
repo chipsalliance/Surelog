@@ -216,6 +216,12 @@ jobs:
         if %errorlevel% neq 0 exit /b %errorlevel%
         make regression
 
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: surelog-windows
+        path: ${{ github.workspace }}/install
+
   CodeFormatting:
     runs-on: ubuntu-20.04
 
