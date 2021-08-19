@@ -1370,8 +1370,12 @@ design: (work@dut)
           \_package: tlul_pkg (tlul_pkg::) dut.sv:22:1: , endln:46:11, parent:work@dut
       |vpiInstance:
       \_package: tlul_pkg (tlul_pkg::) dut.sv:22:1: , endln:46:11, parent:work@dut
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:75:1: , endln:101:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.tl_h_i), parent:tl_h_i
+      |vpiName:tl_h_i
+      |vpiFullName:work@dut.tl_h_i
       |vpiActual:
       \_struct_net: (work@dut.tl_h_i), line:75:39, endln:75:45, parent:work@dut
         |vpiName:tl_h_i
@@ -1708,10 +1712,10 @@ design: (work@dut)
                     |vpiName:dmi_tdi
                     |vpiFullName:work@dmi_jtag.p_shift.dmi_tdi
                   |vpiOperand:
-                  \_part_select: , line:121:26, endln:121:47, parent:work@dmi_jtag.p_shift.dr_q
+                  \_part_select: , line:121:26, endln:121:47, parent:dr_q
                     |vpiConstantSelect:1
                     |vpiParent:
-                    \_ref_obj: (work@dmi_jtag.p_shift.dr_q)
+                    \_ref_obj: (dr_q), parent:dr_q
                     |vpiLeftRange:
                     \_operation: , line:121:31, endln:121:42
                       |vpiOpType:11
@@ -1719,9 +1723,9 @@ design: (work@dut)
                       \_sys_func_call: ($bits), line:121:31, endln:121:42
                         |vpiName:$bits
                         |vpiArgument:
-                        \_ref_obj: (work@dmi_jtag.p_shift.dr_q.dr_q), line:121:37, endln:121:41, parent:$bits
+                        \_ref_obj: (dr_q.dr_q), line:121:37, endln:121:41, parent:$bits
                           |vpiName:dr_q
-                          |vpiFullName:work@dmi_jtag.p_shift.dr_q.dr_q
+                          |vpiFullName:dr_q.dr_q
                           |vpiActual:
                           \_logic_net: (work@dmi_jtag.dr_q), line:112:34, endln:112:38, parent:work@dmi_jtag
                             |vpiName:dr_q

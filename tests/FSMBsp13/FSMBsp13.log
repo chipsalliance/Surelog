@@ -17201,71 +17201,96 @@ design: (work@top)
     \_port: (Clk), line:1:14, endln:1:17, parent:work@top.F1
       |vpiName:Clk
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM1 (work@top.F1) top.v:11:1: , endln:15:21, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (fsm1clk), line:11:14, endln:11:21
+      \_ref_obj: (work@top.fsm1clk), line:11:14, endln:11:21, parent:Clk
         |vpiName:fsm1clk
+        |vpiFullName:work@top.fsm1clk
         |vpiActual:
         \_logic_net: (work@top.fsm1clk), line:3:5, endln:3:12, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F1.Clk), parent:Clk
+        |vpiName:Clk
+        |vpiFullName:work@top.F1.Clk
         |vpiActual:
         \_logic_net: (work@top.F1.Clk), line:1:14, endln:1:17, parent:work@top.F1
     |vpiPort:
     \_port: (Reset), line:1:19, endln:1:24, parent:work@top.F1
       |vpiName:Reset
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM1 (work@top.F1) top.v:11:1: , endln:15:21, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (fsm1rst), line:12:16, endln:12:23
+      \_ref_obj: (work@top.fsm1rst), line:12:16, endln:12:23, parent:Reset
         |vpiName:fsm1rst
+        |vpiFullName:work@top.fsm1rst
         |vpiActual:
         \_logic_net: (work@top.fsm1rst), line:3:32, endln:3:39, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F1.Reset), parent:Reset
+        |vpiName:Reset
+        |vpiFullName:work@top.F1.Reset
         |vpiActual:
         \_logic_net: (work@top.F1.Reset), line:1:19, endln:1:24, parent:work@top.F1
     |vpiPort:
     \_port: (SlowRam), line:1:26, endln:1:33, parent:work@top.F1
       |vpiName:SlowRam
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM1 (work@top.F1) top.v:11:1: , endln:15:21, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (SlowRam), line:13:18, endln:13:25
+      \_ref_obj: (work@top.SlowRam), line:13:18, endln:13:25, parent:SlowRam
         |vpiName:SlowRam
+        |vpiFullName:work@top.SlowRam
         |vpiActual:
-        \_logic_net: (work@top.SlowRam), line:3:41, endln:3:48, parent:work@top
+        \_logic_net: (work@top.F1.SlowRam), line:1:26, endln:1:33, parent:work@top.F1
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F1.SlowRam), parent:SlowRam
+        |vpiName:SlowRam
+        |vpiFullName:work@top.F1.SlowRam
         |vpiActual:
         \_logic_net: (work@top.F1.SlowRam), line:1:26, endln:1:33, parent:work@top.F1
     |vpiPort:
     \_port: (Read), line:1:35, endln:1:39, parent:work@top.F1
       |vpiName:Read
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@FSM1 (work@top.F1) top.v:11:1: , endln:15:21, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (rd), line:14:15, endln:14:17
+      \_ref_obj: (work@top.rd), line:14:15, endln:14:17, parent:Read
         |vpiName:rd
+        |vpiFullName:work@top.rd
         |vpiActual:
         \_logic_net: (work@top.rd), line:7:6, endln:7:8, parent:work@top
           |vpiName:rd
           |vpiFullName:work@top.rd
           |vpiNetType:1
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F1.Read), parent:Read
+        |vpiName:Read
+        |vpiFullName:work@top.F1.Read
         |vpiActual:
         \_logic_net: (work@top.F1.Read), line:5:5, endln:5:9, parent:work@top.F1
     |vpiPort:
     \_port: (Write), line:1:41, endln:1:46, parent:work@top.F1
       |vpiName:Write
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@FSM1 (work@top.F1) top.v:11:1: , endln:15:21, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (wr), line:15:16, endln:15:18
+      \_ref_obj: (work@top.wr), line:15:16, endln:15:18, parent:Write
         |vpiName:wr
+        |vpiFullName:work@top.wr
         |vpiActual:
         \_logic_net: (work@top.wr), line:7:10, endln:7:12, parent:work@top
           |vpiName:wr
           |vpiFullName:work@top.wr
           |vpiNetType:1
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F1.Write), parent:Write
+        |vpiName:Write
+        |vpiFullName:work@top.F1.Write
         |vpiActual:
         \_logic_net: (work@top.F1.Write), line:5:11, endln:5:16, parent:work@top.F1
     |vpiNet:
@@ -18867,48 +18892,66 @@ design: (work@top)
     \_port: (clock), line:1:13, endln:1:18, parent:work@top.F2
       |vpiName:clock
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM2 (work@top.F2) top.v:17:1: , endln:20:22, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (fsm2clk), line:17:16, endln:17:23
+      \_ref_obj: (work@top.fsm2clk), line:17:16, endln:17:23, parent:clock
         |vpiName:fsm2clk
+        |vpiFullName:work@top.fsm2clk
         |vpiActual:
         \_logic_net: (work@top.fsm2clk), line:3:14, endln:3:21, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F2.clock), parent:clock
+        |vpiName:clock
+        |vpiFullName:work@top.F2.clock
         |vpiActual:
         \_logic_net: (work@top.F2.clock), line:1:13, endln:1:18, parent:work@top.F2
     |vpiPort:
     \_port: (reset), line:1:20, endln:1:25, parent:work@top.F2
       |vpiName:reset
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM2 (work@top.F2) top.v:17:1: , endln:20:22, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (fsm2rst), line:18:16, endln:18:23
+      \_ref_obj: (work@top.fsm2rst), line:18:16, endln:18:23, parent:reset
         |vpiName:fsm2rst
+        |vpiFullName:work@top.fsm2rst
         |vpiActual:
         \_logic_net: (work@top.fsm2rst), line:3:50, endln:3:57, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F2.reset), parent:reset
+        |vpiName:reset
+        |vpiFullName:work@top.F2.reset
         |vpiActual:
         \_logic_net: (work@top.F2.reset), line:1:20, endln:1:25, parent:work@top.F2
     |vpiPort:
     \_port: (control), line:1:27, endln:1:34, parent:work@top.F2
       |vpiName:control
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM2 (work@top.F2) top.v:17:1: , endln:20:22, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (ctrl), line:19:18, endln:19:22
+      \_ref_obj: (work@top.ctrl), line:19:18, endln:19:22, parent:control
         |vpiName:ctrl
+        |vpiFullName:work@top.ctrl
         |vpiActual:
         \_logic_net: (work@top.ctrl), line:4:5, endln:4:9, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F2.control), parent:control
+        |vpiName:control
+        |vpiFullName:work@top.F2.control
         |vpiActual:
         \_logic_net: (work@top.F2.control), line:1:27, endln:1:34, parent:work@top.F2
     |vpiPort:
     \_port: (y), line:1:36, endln:1:37, parent:work@top.F2
       |vpiName:y
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@FSM2 (work@top.F2) top.v:17:1: , endln:20:22, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (Fsm2Out), line:20:12, endln:20:19
+      \_ref_obj: (work@top.Fsm2Out), line:20:12, endln:20:19, parent:y
         |vpiName:Fsm2Out
+        |vpiFullName:work@top.Fsm2Out
         |vpiActual:
         \_logic_net: (work@top.Fsm2Out), line:8:12, endln:8:19, parent:work@top
           |vpiName:Fsm2Out
@@ -18929,7 +18972,9 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F2.y), parent:y
+        |vpiName:y
+        |vpiFullName:work@top.F2.y
         |vpiActual:
         \_logic_net: (work@top.F2.y), line:4:11, endln:4:12, parent:work@top.F2
     |vpiTaskFunc:
@@ -19935,61 +19980,84 @@ design: (work@top)
     \_port: (clock), line:1:13, endln:1:18, parent:work@top.F3
       |vpiName:clock
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM3 (work@top.F3) top.v:22:1: , endln:26:24, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (fsm3clk), line:22:16, endln:22:23
+      \_ref_obj: (work@top.fsm3clk), line:22:16, endln:22:23, parent:clock
         |vpiName:fsm3clk
+        |vpiFullName:work@top.fsm3clk
         |vpiActual:
         \_logic_net: (work@top.fsm3clk), line:3:23, endln:3:30, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F3.clock), parent:clock
+        |vpiName:clock
+        |vpiFullName:work@top.F3.clock
         |vpiActual:
         \_logic_net: (work@top.F3.clock), line:1:13, endln:1:18, parent:work@top.F3
     |vpiPort:
     \_port: (keys), line:1:20, endln:1:24, parent:work@top.F3
       |vpiName:keys
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM3 (work@top.F3) top.v:22:1: , endln:26:24, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (keys), line:23:15, endln:23:19
+      \_ref_obj: (work@top.keys), line:23:15, endln:23:19, parent:keys
         |vpiName:keys
+        |vpiFullName:work@top.keys
         |vpiActual:
-        \_logic_net: (work@top.keys), line:5:5, endln:5:9, parent:work@top
+        \_logic_net: (work@top.F3.keys), line:1:20, endln:1:24, parent:work@top.F3
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F3.keys), parent:keys
+        |vpiName:keys
+        |vpiFullName:work@top.F3.keys
         |vpiActual:
         \_logic_net: (work@top.F3.keys), line:1:20, endln:1:24, parent:work@top.F3
     |vpiPort:
     \_port: (brake), line:1:26, endln:1:31, parent:work@top.F3
       |vpiName:brake
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM3 (work@top.F3) top.v:22:1: , endln:26:24, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (brake), line:24:16, endln:24:21
+      \_ref_obj: (work@top.brake), line:24:16, endln:24:21, parent:brake
         |vpiName:brake
+        |vpiFullName:work@top.brake
         |vpiActual:
-        \_logic_net: (work@top.brake), line:5:11, endln:5:16, parent:work@top
+        \_logic_net: (work@top.F3.brake), line:1:26, endln:1:31, parent:work@top.F3
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F3.brake), parent:brake
+        |vpiName:brake
+        |vpiFullName:work@top.F3.brake
         |vpiActual:
         \_logic_net: (work@top.F3.brake), line:1:26, endln:1:31, parent:work@top.F3
     |vpiPort:
     \_port: (accelerate), line:1:33, endln:1:43, parent:work@top.F3
       |vpiName:accelerate
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@FSM3 (work@top.F3) top.v:22:1: , endln:26:24, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (accelerate), line:25:21, endln:25:31
+      \_ref_obj: (work@top.accelerate), line:25:21, endln:25:31, parent:accelerate
         |vpiName:accelerate
+        |vpiFullName:work@top.accelerate
         |vpiActual:
-        \_logic_net: (work@top.accelerate), line:5:27, endln:5:37, parent:work@top
+        \_logic_net: (work@top.F3.accelerate), line:1:33, endln:1:43, parent:work@top.F3
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F3.accelerate), parent:accelerate
+        |vpiName:accelerate
+        |vpiFullName:work@top.F3.accelerate
         |vpiActual:
         \_logic_net: (work@top.F3.accelerate), line:1:33, endln:1:43, parent:work@top.F3
     |vpiPort:
     \_port: (Speed), line:1:45, endln:1:50, parent:work@top.F3
       |vpiName:Speed
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@FSM3 (work@top.F3) top.v:22:1: , endln:26:24, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (speed), line:26:16, endln:26:21
+      \_ref_obj: (work@top.speed), line:26:16, endln:26:21, parent:Speed
         |vpiName:speed
+        |vpiFullName:work@top.speed
         |vpiActual:
         \_logic_net: (work@top.speed), line:9:12, endln:9:17, parent:work@top
           |vpiName:speed
@@ -20010,7 +20078,9 @@ design: (work@top)
               |vpiSize:64
               |UINT:0
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.F3.Speed), parent:Speed
+        |vpiName:Speed
+        |vpiFullName:work@top.F3.Speed
         |vpiActual:
         \_logic_net: (work@top.F3.Speed), line:4:11, endln:4:16, parent:work@top.F3
     |vpiNet:

@@ -2189,8 +2189,12 @@ design: (work@dut1)
   \_port: (i), line:37:36, endln:37:37, parent:work@dut2
     |vpiName:i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@dut2 (work@dut2) dut.sv:35:1: , endln:50:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut2.i), parent:i
+      |vpiName:i
+      |vpiFullName:work@dut2.i
       |vpiActual:
       \_logic_net: (work@dut2.i), line:37:36, endln:37:37, parent:work@dut2
         |vpiName:i
@@ -2213,8 +2217,12 @@ design: (work@dut1)
   \_port: (o), line:38:36, endln:38:37, parent:work@dut2
     |vpiName:o
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@dut2 (work@dut2) dut.sv:35:1: , endln:50:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut2.o), parent:o
+      |vpiName:o
+      |vpiFullName:work@dut2.o
       |vpiActual:
       \_logic_net: (work@dut2.o), line:38:36, endln:38:37, parent:work@dut2
         |vpiName:o
@@ -2620,13 +2628,12 @@ design: (work@dut1)
             |vpiName:fill
             |vpiFullName:work@dut5.fill
           |vpiOperand:
-          \_bit_select: (work@dut5.t), line:96:51, endln:96:55, parent:work@dut5.t
+          \_bit_select: (t), line:96:51, endln:96:55, parent:t
             |vpiName:t
-            |vpiFullName:work@dut5.t
             |vpiIndex:
-            \_ref_obj: (work@dut5.t.j), line:96:53, endln:96:54, parent:work@dut5.t
+            \_ref_obj: (t.j), line:96:53, endln:96:54, parent:t
               |vpiName:j
-              |vpiFullName:work@dut5.t.j
+              |vpiFullName:t.j
         |vpiOperand:
         \_operation: , line:96:61, endln:96:67
           |vpiOpType:22

@@ -2590,7 +2590,7 @@ design: (work@test)
                         \_part_select: , line:61:44, endln:61:61, parent:work@test.UserReadData
                           |vpiConstantSelect:1
                           |vpiParent:
-                          \_ref_obj: (work@test.UserReadData)
+                          \_ref_obj: (work@test.UserReadData), parent:work@test.UserReadData
                           |vpiLeftRange:
                           \_constant: , line:61:57, endln:61:58
                             |vpiConstType:9
@@ -2734,7 +2734,7 @@ design: (work@test)
                       \_part_select: , line:73:25, endln:73:45, parent:work@test.ConnectionState
                         |vpiConstantSelect:1
                         |vpiParent:
-                        \_ref_obj: (work@test.ConnectionState)
+                        \_ref_obj: (work@test.ConnectionState), parent:work@test.ConnectionState
                         |vpiLeftRange:
                         \_constant: , line:73:41, endln:73:42
                           |vpiConstType:9
@@ -2805,8 +2805,12 @@ design: (work@test)
   \_port: (CLK), line:6:11, endln:6:14, parent:work@test
     |vpiName:CLK
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@test (work@test) top.sv:3:1: , endln:85:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@test.CLK), parent:CLK
+      |vpiName:CLK
+      |vpiFullName:work@test.CLK
       |vpiActual:
       \_logic_net: (work@test.CLK), line:6:11, endln:6:14, parent:work@test
   |vpiNet:

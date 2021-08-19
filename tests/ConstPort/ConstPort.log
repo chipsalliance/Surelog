@@ -156,8 +156,12 @@ design: (work@cipher_core)
         |vpiSize:1
       |vpiInstance:
       \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:6:11, parent:work@cipher_core
+    |vpiInstance:
+    \_module: work@cipher_core (work@cipher_core) dut.sv:13:1: , endln:20:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@cipher_core.op_i), parent:op_i
+      |vpiName:op_i
+      |vpiFullName:work@cipher_core.op_i
       |vpiActual:
       \_enum_var: (work@cipher_core.op_i), line:14:32, endln:14:36, parent:work@cipher_core
         |vpiName:op_i
@@ -179,13 +183,18 @@ design: (work@cipher_core)
       |vpiDirection:1
       |vpiTypedef:
       \_enum_typespec: (aes_pkg::ciph_op_e), line:5:3, endln:5:12
+      |vpiInstance:
+      \_module: work@mix_columns (work@cipher_core.key_mix_columns) dut.sv:17:3: , endln:19:5, parent:work@cipher_core
       |vpiHighConn:
-      \_ref_obj: (CIPH_INV), line:18:15, endln:18:23
+      \_ref_obj: (work@cipher_core.CIPH_INV), line:18:15, endln:18:23, parent:op_i
         |vpiName:CIPH_INV
+        |vpiFullName:work@cipher_core.CIPH_INV
         |vpiActual:
         \_enum_const: (CIPH_INV), line:4:3, endln:4:11
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@cipher_core.key_mix_columns.op_i), parent:op_i
+        |vpiName:op_i
+        |vpiFullName:work@cipher_core.key_mix_columns.op_i
         |vpiActual:
         \_enum_var: (work@cipher_core.key_mix_columns.op_i), line:9:32, endln:9:36, parent:work@cipher_core.key_mix_columns
           |vpiName:op_i

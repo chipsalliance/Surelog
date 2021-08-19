@@ -304,14 +304,17 @@ design: (work@testharness)
         |vpiName:clk_i
         |vpiDirection:1
         |vpiHighConn:
-        \_ref_obj: (clk_i), line:25:16, endln:25:21
+        \_ref_obj: (work@testharness.i_peripherals.clk_i), line:25:16, endln:25:21
           |vpiName:clk_i
+          |vpiFullName:work@testharness.i_peripherals.clk_i
           |vpiActual:
           \_logic_net: (work@testharness.i_peripherals.clk_i), parent:work@testharness.i_peripherals
             |vpiName:clk_i
             |vpiFullName:work@testharness.i_peripherals.clk_i
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus.clk_i)
+          |vpiName:clk_i
+          |vpiFullName:work@testharness.i_peripherals.reg_bus.clk_i
           |vpiActual:
           \_logic_net: (work@testharness.i_peripherals.reg_bus.clk_i), line:6:15, endln:6:20, parent:work@testharness.i_peripherals.reg_bus
             |vpiName:clk_i
@@ -368,9 +371,12 @@ design: (work@testharness)
       \_port: (reg_o), line:16:16, endln:16:21, parent:work@testharness.i_peripherals.i_apb_to_reg
         |vpiName:reg_o
         |vpiDirection:5
+        |vpiInstance:
+        \_module: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg) dut.sv:27:1: , endln:27:44, parent:work@testharness.i_peripherals
         |vpiHighConn:
-        \_ref_obj: (reg_bus), line:27:34, endln:27:41
+        \_ref_obj: (work@testharness.i_peripherals.reg_bus), line:27:34, endln:27:41, parent:reg_o
           |vpiName:reg_bus
+          |vpiFullName:work@testharness.i_peripherals.reg_bus
           |vpiActual:
           \_interface: work@REG_BUS (reg_bus) dut.sv:23: 
             |vpiDefName:work@REG_BUS
@@ -385,7 +391,8 @@ design: (work@testharness)
                 |vpiExpr:
                 \_logic_net: (work@testharness.i_peripherals.reg_bus.addr), line:9:28, endln:9:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testharness.i_peripherals.i_apb_to_reg.reg_o), parent:reg_o
+          |vpiFullName:work@testharness.i_peripherals.i_apb_to_reg.reg_o
           |vpiActual:
           \_modport: (out), parent:reg_o
             |vpiName:out
