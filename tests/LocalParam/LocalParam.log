@@ -694,8 +694,12 @@ design: (work@top)
   \_port: (i), line:1:24, endln:1:25, parent:work@top
     |vpiName:i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.i), parent:i
+      |vpiName:i
+      |vpiFullName:work@top.i
       |vpiActual:
       \_logic_net: (work@top.i), line:1:24, endln:1:25, parent:work@top
         |vpiName:i
@@ -705,8 +709,12 @@ design: (work@top)
   \_port: (o1), line:1:38, endln:1:40, parent:work@top
     |vpiName:o1
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o1), parent:o1
+      |vpiName:o1
+      |vpiFullName:work@top.o1
       |vpiActual:
       \_logic_net: (work@top.o1), line:1:38, endln:1:40, parent:work@top
         |vpiName:o1
@@ -716,8 +724,12 @@ design: (work@top)
   \_port: (o2), line:1:53, endln:1:55, parent:work@top
     |vpiName:o2
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o2), parent:o2
+      |vpiName:o2
+      |vpiFullName:work@top.o2
       |vpiActual:
       \_logic_net: (work@top.o2), line:1:53, endln:1:55, parent:work@top
         |vpiName:o2
@@ -734,13 +746,18 @@ design: (work@top)
     \_port: (inp), line:6:53, endln:6:56, parent:work@top.asgn0
       |vpiName:inp
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (i), line:2:37, endln:2:38
+      \_ref_obj: (work@top.i), line:2:37, endln:2:38, parent:inp
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
         \_logic_net: (work@top.i), line:1:24, endln:1:25, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.asgn0.inp), parent:inp
+        |vpiName:inp
+        |vpiFullName:work@top.asgn0.inp
         |vpiActual:
         \_logic_net: (work@top.asgn0.inp), line:6:53, endln:6:56, parent:work@top.asgn0
           |vpiName:inp
@@ -750,13 +767,18 @@ design: (work@top)
     \_port: (out), line:6:69, endln:6:72, parent:work@top.asgn0
       |vpiName:out
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (o1), line:2:46, endln:2:48
+      \_ref_obj: (work@top.o1), line:2:46, endln:2:48, parent:out
         |vpiName:o1
+        |vpiFullName:work@top.o1
         |vpiActual:
         \_logic_net: (work@top.o1), line:1:38, endln:1:40, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.asgn0.out), parent:out
+        |vpiName:out
+        |vpiFullName:work@top.asgn0.out
         |vpiActual:
         \_logic_net: (work@top.asgn0.out), line:6:69, endln:6:72, parent:work@top.asgn0
           |vpiName:out
@@ -834,13 +856,18 @@ design: (work@top)
     \_port: (inp), line:6:53, endln:6:56, parent:work@top.asgn1
       |vpiName:inp
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (i), line:3:37, endln:3:38
+      \_ref_obj: (work@top.i), line:3:37, endln:3:38, parent:inp
         |vpiName:i
+        |vpiFullName:work@top.i
         |vpiActual:
         \_logic_net: (work@top.i), line:1:24, endln:1:25, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.asgn1.inp), parent:inp
+        |vpiName:inp
+        |vpiFullName:work@top.asgn1.inp
         |vpiActual:
         \_logic_net: (work@top.asgn1.inp), line:6:53, endln:6:56, parent:work@top.asgn1
           |vpiName:inp
@@ -850,13 +877,18 @@ design: (work@top)
     \_port: (out), line:6:69, endln:6:72, parent:work@top.asgn1
       |vpiName:out
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
       |vpiHighConn:
-      \_ref_obj: (o2), line:3:46, endln:3:48
+      \_ref_obj: (work@top.o2), line:3:46, endln:3:48, parent:out
         |vpiName:o2
+        |vpiFullName:work@top.o2
         |vpiActual:
         \_logic_net: (work@top.o2), line:1:53, endln:1:55, parent:work@top
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.asgn1.out), parent:out
+        |vpiName:out
+        |vpiFullName:work@top.asgn1.out
         |vpiActual:
         \_logic_net: (work@top.asgn1.out), line:6:69, endln:6:72, parent:work@top.asgn1
           |vpiName:out

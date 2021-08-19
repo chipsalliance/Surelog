@@ -670,8 +670,12 @@ design: (work@testbench)
   \_port: (clk), line:25:31, endln:25:34, parent:work@testbench
     |vpiName:clk
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@testbench.clk), parent:clk
+      |vpiName:clk
+      |vpiFullName:work@testbench.clk
       |vpiActual:
       \_logic_net: (work@testbench.clk), line:25:31, endln:25:34, parent:work@testbench
         |vpiName:clk
@@ -688,8 +692,12 @@ design: (work@testbench)
     \_port: (a), line:1:55, endln:1:56, parent:work@testbench.u1
       |vpiName:a
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@testbench.u1.a), parent:a
+        |vpiName:a
+        |vpiFullName:work@testbench.u1.a
         |vpiActual:
         \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
           |vpiName:a
@@ -699,8 +707,12 @@ design: (work@testbench)
     \_port: (b), line:1:71, endln:1:72, parent:work@testbench.u1
       |vpiName:b
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@bp_lce (work@testbench.u1) dut.sv:27:3: , endln:27:30, parent:work@testbench
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@testbench.u1.b), parent:b
+        |vpiName:b
+        |vpiFullName:work@testbench.u1.b
         |vpiActual:
         \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
           |vpiName:b
@@ -727,13 +739,18 @@ design: (work@testbench)
       \_port: (c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
         |vpiName:c
         |vpiDirection:1
+        |vpiInstance:
+        \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
         |vpiHighConn:
-        \_ref_obj: (a), line:36:30, endln:36:31
+        \_ref_obj: (work@testbench.a), line:36:30, endln:36:31, parent:c
           |vpiName:a
+          |vpiFullName:work@testbench.a
           |vpiActual:
           \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testbench.lce_tracer1.c), parent:c
+          |vpiName:c
+          |vpiFullName:work@testbench.lce_tracer1.c
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.lce_tracer1
             |vpiName:c
@@ -743,13 +760,18 @@ design: (work@testbench)
       \_port: (d), line:8:90, endln:8:91, parent:work@testbench.lce_tracer1
         |vpiName:d
         |vpiDirection:2
+        |vpiInstance:
+        \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.u1
         |vpiHighConn:
-        \_ref_obj: (b), line:36:37, endln:36:38
+        \_ref_obj: (work@testbench.b), line:36:37, endln:36:38, parent:d
           |vpiName:b
+          |vpiFullName:work@testbench.b
           |vpiActual:
           \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testbench.lce_tracer1.d), parent:d
+          |vpiName:d
+          |vpiFullName:work@testbench.lce_tracer1.d
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.lce_tracer1
             |vpiName:d
@@ -810,50 +832,65 @@ design: (work@testbench)
       \_port: (a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
         |vpiName:a
         |vpiDirection:1
+        |vpiInstance:
+        \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.u1
         |vpiHighConn:
-        \_ref_obj: (a), line:42:27, endln:42:28
+        \_ref_obj: (work@testbench.a), line:42:27, endln:42:28, parent:a
           |vpiName:a
-          |vpiActual:
-          \_logic_net: (work@testbench.u1.a), line:1:55, endln:1:56, parent:work@testbench.u1
-        |vpiLowConn:
-        \_ref_obj: 
+          |vpiFullName:work@testbench.a
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
             |vpiName:a
             |vpiFullName:work@testbench.u1.lce_tracer2.a
             |vpiNetType:36
+        |vpiLowConn:
+        \_ref_obj: (work@testbench.lce_tracer2.a), parent:a
+          |vpiName:a
+          |vpiFullName:work@testbench.lce_tracer2.a
+          |vpiActual:
+          \_logic_net: (work@testbench.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.lce_tracer2
       |vpiPort:
       \_port: (b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
         |vpiName:b
         |vpiDirection:2
+        |vpiInstance:
+        \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.u1
         |vpiHighConn:
-        \_ref_obj: (b), line:42:27, endln:42:28
+        \_ref_obj: (work@testbench.b), line:42:27, endln:42:28, parent:b
           |vpiName:b
-          |vpiActual:
-          \_logic_net: (work@testbench.u1.b), line:1:71, endln:1:72, parent:work@testbench.u1
-        |vpiLowConn:
-        \_ref_obj: 
+          |vpiFullName:work@testbench.b
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
             |vpiName:b
             |vpiFullName:work@testbench.u1.lce_tracer2.b
             |vpiNetType:36
+        |vpiLowConn:
+        \_ref_obj: (work@testbench.lce_tracer2.b), parent:b
+          |vpiName:b
+          |vpiFullName:work@testbench.lce_tracer2.b
+          |vpiActual:
+          \_logic_net: (work@testbench.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.lce_tracer2
       |vpiPort:
       \_port: (clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
         |vpiName:clk
         |vpiDirection:1
+        |vpiInstance:
+        \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.u1
         |vpiHighConn:
-        \_ref_obj: (clk), line:42:27, endln:42:28
+        \_ref_obj: (work@testbench.clk), line:42:27, endln:42:28, parent:clk
           |vpiName:clk
-          |vpiActual:
-          \_logic_net: (work@testbench.clk), line:25:31, endln:25:34, parent:work@testbench
-        |vpiLowConn:
-        \_ref_obj: 
+          |vpiFullName:work@testbench.clk
           |vpiActual:
           \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
             |vpiName:clk
             |vpiFullName:work@testbench.u1.lce_tracer2.clk
             |vpiNetType:36
+        |vpiLowConn:
+        \_ref_obj: (work@testbench.lce_tracer2.clk), parent:clk
+          |vpiName:clk
+          |vpiFullName:work@testbench.lce_tracer2.clk
+          |vpiActual:
+          \_logic_net: (work@testbench.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.lce_tracer2
       |vpiContAssign:
       \_cont_assign: , line:14:10, endln:14:14, parent:work@testbench.lce_tracer2
         |vpiRhs:
@@ -939,8 +976,12 @@ design: (work@testbench)
       \_port: (a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
         |vpiName:a
         |vpiDirection:1
+        |vpiInstance:
+        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testbench.tt.u1.a), parent:a
+          |vpiName:a
+          |vpiFullName:work@testbench.tt.u1.a
           |vpiActual:
           \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
             |vpiName:a
@@ -950,8 +991,12 @@ design: (work@testbench)
       \_port: (b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
         |vpiName:b
         |vpiDirection:2
+        |vpiInstance:
+        \_module: work@bp_lce (work@testbench.tt.u1) dut.sv:21:2: , endln:21:29, parent:work@testbench.tt
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@testbench.tt.u1.b), parent:b
+          |vpiName:b
+          |vpiFullName:work@testbench.tt.u1.b
           |vpiActual:
           \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
             |vpiName:b
@@ -978,13 +1023,18 @@ design: (work@testbench)
         \_port: (c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
           |vpiName:c
           |vpiDirection:1
+          |vpiInstance:
+          \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
           |vpiHighConn:
-          \_ref_obj: (a), line:36:30, endln:36:31
+          \_ref_obj: (work@testbench.tt.a), line:36:30, endln:36:31, parent:c
             |vpiName:a
+            |vpiFullName:work@testbench.tt.a
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
           |vpiLowConn:
-          \_ref_obj: 
+          \_ref_obj: (work@testbench.tt.lce_tracer1.c), parent:c
+            |vpiName:c
+            |vpiFullName:work@testbench.tt.lce_tracer1.c
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer1.c), line:8:74, endln:8:75, parent:work@testbench.tt.lce_tracer1
               |vpiName:c
@@ -994,13 +1044,18 @@ design: (work@testbench)
         \_port: (d), line:8:90, endln:8:91, parent:work@testbench.tt.lce_tracer1
           |vpiName:d
           |vpiDirection:2
+          |vpiInstance:
+          \_module: work@bp_me_nonsynth_lce_tracer (work@testbench.tt.lce_tracer1) dut.sv:34:13: , endln:36:41, parent:work@testbench.tt.u1
           |vpiHighConn:
-          \_ref_obj: (b), line:36:37, endln:36:38
+          \_ref_obj: (work@testbench.tt.b), line:36:37, endln:36:38, parent:d
             |vpiName:b
+            |vpiFullName:work@testbench.tt.b
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
           |vpiLowConn:
-          \_ref_obj: 
+          \_ref_obj: (work@testbench.tt.lce_tracer1.d), parent:d
+            |vpiName:d
+            |vpiFullName:work@testbench.tt.lce_tracer1.d
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer1.d), line:8:90, endln:8:91, parent:work@testbench.tt.lce_tracer1
               |vpiName:d
@@ -1061,52 +1116,65 @@ design: (work@testbench)
         \_port: (a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
           |vpiName:a
           |vpiDirection:1
+          |vpiInstance:
+          \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.tt.u1
           |vpiHighConn:
-          \_ref_obj: (a), line:42:27, endln:42:28
+          \_ref_obj: (work@testbench.tt.a), line:42:27, endln:42:28, parent:a
             |vpiName:a
-            |vpiActual:
-            \_logic_net: (work@testbench.tt.u1.a), line:1:55, endln:1:56, parent:work@testbench.tt.u1
-          |vpiLowConn:
-          \_ref_obj: 
+            |vpiFullName:work@testbench.tt.a
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
               |vpiName:a
               |vpiFullName:work@testbench.tt.u1.lce_tracer2.a
               |vpiNetType:36
+          |vpiLowConn:
+          \_ref_obj: (work@testbench.tt.lce_tracer2.a), parent:a
+            |vpiName:a
+            |vpiFullName:work@testbench.tt.lce_tracer2.a
+            |vpiActual:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer2.a), line:13:75, endln:13:76, parent:work@testbench.tt.lce_tracer2
         |vpiPort:
         \_port: (b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
           |vpiName:b
           |vpiDirection:2
+          |vpiInstance:
+          \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.tt.u1
           |vpiHighConn:
-          \_ref_obj: (b), line:42:27, endln:42:28
+          \_ref_obj: (work@testbench.tt.b), line:42:27, endln:42:28, parent:b
             |vpiName:b
-            |vpiActual:
-            \_logic_net: (work@testbench.tt.u1.b), line:1:71, endln:1:72, parent:work@testbench.tt.u1
-          |vpiLowConn:
-          \_ref_obj: 
+            |vpiFullName:work@testbench.tt.b
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
               |vpiName:b
               |vpiFullName:work@testbench.tt.u1.lce_tracer2.b
               |vpiNetType:36
+          |vpiLowConn:
+          \_ref_obj: (work@testbench.tt.lce_tracer2.b), parent:b
+            |vpiName:b
+            |vpiFullName:work@testbench.tt.lce_tracer2.b
+            |vpiActual:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer2.b), line:13:91, endln:13:92, parent:work@testbench.tt.lce_tracer2
         |vpiPort:
         \_port: (clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
           |vpiName:clk
           |vpiDirection:1
+          |vpiInstance:
+          \_module: work@bp_me_nonsynth_lce_tracer2 (work@testbench.tt.lce_tracer2) dut.sv:40:13: , endln:42:31, parent:work@testbench.tt.u1
           |vpiHighConn:
-          \_ref_obj: (clk), line:42:27, endln:42:28
+          \_ref_obj: (work@testbench.tt.clk), line:42:27, endln:42:28, parent:clk
             |vpiName:clk
-            |vpiActual:
-            \_logic_net: (work@testbench.tt.clk), parent:work@testbench.tt
-              |vpiName:clk
-              |vpiFullName:work@testbench.tt.clk
-          |vpiLowConn:
-          \_ref_obj: 
+            |vpiFullName:work@testbench.tt.clk
             |vpiActual:
             \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
               |vpiName:clk
               |vpiFullName:work@testbench.tt.u1.lce_tracer2.clk
               |vpiNetType:36
+          |vpiLowConn:
+          \_ref_obj: (work@testbench.tt.lce_tracer2.clk), parent:clk
+            |vpiName:clk
+            |vpiFullName:work@testbench.tt.lce_tracer2.clk
+            |vpiActual:
+            \_logic_net: (work@testbench.tt.u1.lce_tracer2.clk), line:13:106, endln:13:109, parent:work@testbench.tt.lce_tracer2
         |vpiContAssign:
         \_cont_assign: , line:14:10, endln:14:14, parent:work@testbench.tt.lce_tracer2
           |vpiRhs:
@@ -1176,6 +1244,8 @@ design: (work@testbench)
       \_parameter: (work@testbench.tt.u1.sets_p), line:1:27, endln:1:41, parent:work@testbench.tt.u1
     |vpiNet:
     \_logic_net: (work@testbench.tt.clk), parent:work@testbench.tt
+      |vpiName:clk
+      |vpiFullName:work@testbench.tt.clk
     |vpiInstance:
     \_module: work@testbench (work@testbench) dut.sv:25:1: , endln:52:10
   |vpiGenScopeArray:

@@ -1098,7 +1098,7 @@ design: (work@debug_rom)
               \_part_select: , line:38:18, endln:38:47, parent:work@debug_rom.addr_i
                 |vpiConstantSelect:1
                 |vpiParent:
-                \_ref_obj: (work@debug_rom.addr_i)
+                \_ref_obj: (work@debug_rom.addr_i), parent:work@debug_rom.addr_i
                 |vpiLeftRange:
                 \_operation: , line:38:25, endln:38:42
                   |vpiOpType:24
@@ -1229,24 +1229,36 @@ design: (work@debug_rom)
   \_port: (clk_i), line:4:25, endln:4:30, parent:work@debug_rom
     |vpiName:clk_i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@debug_rom (work@debug_rom) dut.sv:3:2: , endln:51:11
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.clk_i), parent:clk_i
+      |vpiName:clk_i
+      |vpiFullName:work@debug_rom.clk_i
       |vpiActual:
       \_logic_net: (work@debug_rom.clk_i), line:4:25, endln:4:30, parent:work@debug_rom
   |vpiPort:
   \_port: (req_i), line:5:25, endln:5:30, parent:work@debug_rom
     |vpiName:req_i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@debug_rom (work@debug_rom) dut.sv:3:2: , endln:51:11
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.req_i), parent:req_i
+      |vpiName:req_i
+      |vpiFullName:work@debug_rom.req_i
       |vpiActual:
       \_logic_net: (work@debug_rom.req_i), line:5:25, endln:5:30, parent:work@debug_rom
   |vpiPort:
   \_port: (addr_i), line:6:25, endln:6:31, parent:work@debug_rom
     |vpiName:addr_i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@debug_rom (work@debug_rom) dut.sv:3:2: , endln:51:11
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.addr_i), parent:addr_i
+      |vpiName:addr_i
+      |vpiFullName:work@debug_rom.addr_i
       |vpiActual:
       \_logic_net: (work@debug_rom.addr_i), line:6:25, endln:6:31, parent:work@debug_rom
         |vpiName:addr_i
@@ -1270,8 +1282,12 @@ design: (work@debug_rom)
   \_port: (rdata_o), line:7:25, endln:7:32, parent:work@debug_rom
     |vpiName:rdata_o
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@debug_rom (work@debug_rom) dut.sv:3:2: , endln:51:11
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@debug_rom.rdata_o), parent:rdata_o
+      |vpiName:rdata_o
+      |vpiFullName:work@debug_rom.rdata_o
       |vpiActual:
       \_logic_net: (work@debug_rom.rdata_o), line:7:25, endln:7:32, parent:work@debug_rom
   |vpiNet:

@@ -763,8 +763,12 @@ design: (work@top)
   \_port: (b), line:4:25, endln:4:26, parent:work@top
     |vpiName:b
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.b), parent:b
+      |vpiName:b
+      |vpiFullName:work@top.b
       |vpiActual:
       \_logic_net: (work@top.b), line:4:25, endln:4:26, parent:work@top
         |vpiName:b
@@ -774,8 +778,12 @@ design: (work@top)
   \_port: (a), line:4:41, endln:4:42, parent:work@top
     |vpiName:a
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.a), parent:a
+      |vpiName:a
+      |vpiFullName:work@top.a
       |vpiActual:
       \_logic_net: (work@top.a), line:4:41, endln:4:42, parent:work@top
         |vpiName:a
@@ -846,8 +854,9 @@ design: (work@top)
     \_port: (clk_i), parent:work@top.u_ip0_p7
       |vpiName:clk_i
       |vpiHighConn:
-      \_ref_obj: (clk_i), line:33:14, endln:33:19
+      \_ref_obj: (work@top.clk_i), line:33:14, endln:33:19
         |vpiName:clk_i
+        |vpiFullName:work@top.clk_i
         |vpiActual:
         \_logic_net: (work@top.clk_i), parent:work@top
           |vpiName:clk_i

@@ -1500,8 +1500,12 @@ design: (work@and_tb)
   \_port: (o), line:1:28, endln:1:29, parent:work@and_tb
     |vpiName:o
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@and_tb (work@and_tb) tb.v:1:1: , endln:30:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@and_tb.o), parent:o
+      |vpiName:o
+      |vpiFullName:work@and_tb.o
       |vpiActual:
       \_logic_net: (work@and_tb.o), line:1:28, endln:1:29, parent:work@and_tb
   |vpiModule:
@@ -1515,50 +1519,65 @@ design: (work@and_tb)
     \_port: (a), line:1:24, endln:1:25, parent:work@and_tb.dut1
       |vpiName:a
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@dut (work@and_tb.dut1) tb.v:28:3: , endln:28:19, parent:work@and_tb
       |vpiHighConn:
-      \_ref_obj: (a), line:28:12, endln:28:13
+      \_ref_obj: (work@and_tb.a), line:28:12, endln:28:13, parent:a
         |vpiName:a
-        |vpiActual:
-        \_logic_net: (work@and_tb.a), line:2:9, endln:2:10, parent:work@and_tb
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@and_tb.a
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.a), line:1:24, endln:1:25, parent:work@and_tb.dut1
           |vpiName:a
           |vpiFullName:work@and_tb.dut1.a
           |vpiNetType:36
+      |vpiLowConn:
+      \_ref_obj: (work@and_tb.dut1.a), parent:a
+        |vpiName:a
+        |vpiFullName:work@and_tb.dut1.a
+        |vpiActual:
+        \_logic_net: (work@and_tb.dut1.a), line:1:24, endln:1:25, parent:work@and_tb.dut1
     |vpiPort:
     \_port: (b), line:1:39, endln:1:40, parent:work@and_tb.dut1
       |vpiName:b
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@dut (work@and_tb.dut1) tb.v:28:3: , endln:28:19, parent:work@and_tb
       |vpiHighConn:
-      \_ref_obj: (b), line:28:14, endln:28:15
+      \_ref_obj: (work@and_tb.b), line:28:14, endln:28:15, parent:b
         |vpiName:b
-        |vpiActual:
-        \_logic_net: (work@and_tb.b), line:2:12, endln:2:13, parent:work@and_tb
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@and_tb.b
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.b), line:1:39, endln:1:40, parent:work@and_tb.dut1
           |vpiName:b
           |vpiFullName:work@and_tb.dut1.b
           |vpiNetType:36
+      |vpiLowConn:
+      \_ref_obj: (work@and_tb.dut1.b), parent:b
+        |vpiName:b
+        |vpiFullName:work@and_tb.dut1.b
+        |vpiActual:
+        \_logic_net: (work@and_tb.dut1.b), line:1:39, endln:1:40, parent:work@and_tb.dut1
     |vpiPort:
     \_port: (o), line:1:55, endln:1:56, parent:work@and_tb.dut1
       |vpiName:o
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@dut (work@and_tb.dut1) tb.v:28:3: , endln:28:19, parent:work@and_tb
       |vpiHighConn:
-      \_ref_obj: (o), line:28:16, endln:28:17
+      \_ref_obj: (work@and_tb.o), line:28:16, endln:28:17, parent:o
         |vpiName:o
-        |vpiActual:
-        \_logic_net: (work@and_tb.o), line:1:28, endln:1:29, parent:work@and_tb
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@and_tb.o
         |vpiActual:
         \_logic_net: (work@and_tb.dut1.o), line:1:55, endln:1:56, parent:work@and_tb.dut1
           |vpiName:o
           |vpiFullName:work@and_tb.dut1.o
           |vpiNetType:36
+      |vpiLowConn:
+      \_ref_obj: (work@and_tb.dut1.o), parent:o
+        |vpiName:o
+        |vpiFullName:work@and_tb.dut1.o
+        |vpiActual:
+        \_logic_net: (work@and_tb.dut1.o), line:1:55, endln:1:56, parent:work@and_tb.dut1
     |vpiContAssign:
     \_cont_assign: , line:3:10, endln:3:19, parent:work@and_tb.dut1
       |vpiRhs:

@@ -177,9 +177,12 @@ design: (work@Core)
     \_port: (perfCounter), line:9:30, endln:9:41, parent:work@Core.csrUnit
       |vpiName:perfCounter
       |vpiDirection:5
+      |vpiInstance:
+      \_module: work@CSR_Unit (work@Core.csrUnit) dut.sv:16:2: , endln:16:34, parent:work@Core
       |vpiHighConn:
-      \_ref_obj: (perfCounterIF), line:16:19, endln:16:32
+      \_ref_obj: (work@Core.perfCounterIF), line:16:19, endln:16:32, parent:perfCounter
         |vpiName:perfCounterIF
+        |vpiFullName:work@Core.perfCounterIF
         |vpiActual:
         \_interface: work@PerformanceCounterIF (perfCounterIF) dut.sv:14: 
           |vpiDefName:work@PerformanceCounterIF
@@ -192,7 +195,8 @@ design: (work@Core)
               |vpiName:perfCounter
               |vpiDirection:1
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@Core.csrUnit.perfCounter), parent:perfCounter
+        |vpiFullName:work@Core.csrUnit.perfCounter
         |vpiActual:
         \_modport: (CSR), parent:perfCounter
           |vpiName:CSR
@@ -201,8 +205,9 @@ design: (work@Core)
             |vpiName:perfCounter
             |vpiDirection:1
             |vpiExpr:
-            \_ref_obj: (perfCounter)
+            \_ref_obj: (work@Core.csrUnit.perfCounter)
               |vpiName:perfCounter
+              |vpiFullName:work@Core.csrUnit.perfCounter
     |vpiInstance:
     \_module: work@Core (work@Core) dut.sv:13:1: , endln:17:10
 ===================

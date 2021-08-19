@@ -234,8 +234,12 @@ design: (work@top)
   \_port: (o), line:5:26, endln:5:27, parent:work@top
     |vpiName:o
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:5:1: , endln:15:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.o), parent:o
+      |vpiName:o
+      |vpiFullName:work@top.o
       |vpiActual:
       \_logic_net: (work@top.o), line:5:26, endln:5:27, parent:work@top
         |vpiName:o
@@ -282,17 +286,23 @@ design: (work@top)
     \_port: (o), line:1:26, endln:1:27, parent:work@top.d
       |vpiName:o
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@dut (work@top.d) dut.sv:12:4: , endln:12:33, parent:work@top
       |vpiHighConn:
-      \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30
+      \_hier_path: (alert_rx_i.ping_p), line:12:13, endln:12:30, parent:o
         |vpiName:alert_rx_i.ping_p
         |vpiActual:
-        \_ref_obj: (alert_rx_i)
+        \_ref_obj: (alert_rx_i), parent:alert_rx_i.ping_p
           |vpiName:alert_rx_i
+          |vpiActual:
+          \_struct_net: (work@top.alert_rx_i), line:10:16, endln:10:26, parent:work@top
         |vpiActual:
-        \_ref_obj: (ping_p)
+        \_ref_obj: (ping_p), parent:alert_rx_i.ping_p
           |vpiName:ping_p
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@top.d.o), parent:o
+        |vpiName:o
+        |vpiFullName:work@top.d.o
         |vpiActual:
         \_logic_net: (work@top.d.o), line:1:26, endln:1:27, parent:work@top.d
           |vpiName:o

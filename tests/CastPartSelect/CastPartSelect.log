@@ -553,7 +553,7 @@ design: (work@top)
             \_part_select: , line:5:14, endln:5:34, parent:work@top.csr_pipeline_flushes.instr_rdata_i
               |vpiConstantSelect:1
               |vpiParent:
-              \_ref_obj: (work@top.csr_pipeline_flushes.instr_rdata_i)
+              \_ref_obj: (work@top.csr_pipeline_flushes.instr_rdata_i), parent:work@top.csr_pipeline_flushes.instr_rdata_i
               |vpiLeftRange:
               \_constant: , line:5:28, endln:5:30
                 |vpiConstType:9
@@ -593,8 +593,12 @@ design: (work@top)
   \_port: (instr_rdata_i), line:1:32, endln:1:45, parent:work@top
     |vpiName:instr_rdata_i
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@top.instr_rdata_i), parent:instr_rdata_i
+      |vpiName:instr_rdata_i
+      |vpiFullName:work@top.instr_rdata_i
       |vpiActual:
       \_logic_net: (work@top.instr_rdata_i), line:1:32, endln:1:45, parent:work@top
         |vpiName:instr_rdata_i
