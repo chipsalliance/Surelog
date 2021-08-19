@@ -311,8 +311,12 @@ design: (work@dut)
   \_port: (in), line:7:30, endln:7:32, parent:work@dut
     |vpiName:in
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.in), parent:in
+      |vpiName:in
+      |vpiFullName:work@dut.in
       |vpiActual:
       \_logic_net: (work@dut.in), line:7:30, endln:7:32, parent:work@dut
         |vpiName:in
@@ -336,8 +340,12 @@ design: (work@dut)
   \_port: (out), line:7:52, endln:7:55, parent:work@dut
     |vpiName:out
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:7:1: , endln:9:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.out), parent:out
+      |vpiName:out
+      |vpiFullName:work@dut.out
       |vpiActual:
       \_logic_net: (work@dut.out), line:7:52, endln:7:55, parent:work@dut
         |vpiName:out
@@ -368,13 +376,12 @@ design: (work@dut)
     \_port: (in), line:3:27, endln:3:29, parent:work@dut.oth
       |vpiName:in
       |vpiDirection:1
+      |vpiInstance:
+      \_module: work@other (work@dut.oth) dut.sv:8:4: , endln:8:57, parent:work@dut
       |vpiHighConn:
-      \_ref_obj: (in), line:8:41, endln:8:43
+      \_ref_obj: (work@dut.in), line:8:41, endln:8:43, parent:in
         |vpiName:in
-        |vpiActual:
-        \_logic_net: (work@dut.in), line:7:30, endln:7:32, parent:work@dut
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@dut.in
         |vpiActual:
         \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29, parent:work@dut.oth
           |vpiName:in
@@ -394,17 +401,22 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiLowConn:
+      \_ref_obj: (work@dut.oth.in), parent:in
+        |vpiName:in
+        |vpiFullName:work@dut.oth.in
+        |vpiActual:
+        \_logic_net: (work@dut.oth.in), line:3:27, endln:3:29, parent:work@dut.oth
     |vpiPort:
     \_port: (out), line:3:55, endln:3:58, parent:work@dut.oth
       |vpiName:out
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@other (work@dut.oth) dut.sv:8:4: , endln:8:57, parent:work@dut
       |vpiHighConn:
-      \_ref_obj: (out), line:8:51, endln:8:54
+      \_ref_obj: (work@dut.out), line:8:51, endln:8:54, parent:out
         |vpiName:out
-        |vpiActual:
-        \_logic_net: (work@dut.out), line:7:52, endln:7:55, parent:work@dut
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@dut.out
         |vpiActual:
         \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
           |vpiName:out
@@ -424,6 +436,12 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiLowConn:
+      \_ref_obj: (work@dut.oth.out), parent:out
+        |vpiName:out
+        |vpiFullName:work@dut.oth.out
+        |vpiActual:
+        \_logic_net: (work@dut.oth.out), line:3:55, endln:3:58, parent:work@dut.oth
     |vpiContAssign:
     \_cont_assign: , line:4:11, endln:4:19, parent:work@dut.oth
       |vpiRhs:

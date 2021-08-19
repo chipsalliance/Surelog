@@ -344,30 +344,12 @@ design: (work@Mod2)
     \_port: (x), line:1:71, endln:1:72, parent:work@Mod2.mod1
       |vpiName:x
       |vpiDirection:2
+      |vpiInstance:
+      \_module: work@Mod1 (work@Mod2.mod1) dut.sv:9:4: , endln:9:39, parent:work@Mod2
       |vpiHighConn:
-      \_ref_obj: (x), line:9:35, endln:9:36
+      \_ref_obj: (work@Mod2.x), line:9:35, endln:9:36, parent:x
         |vpiName:x
-        |vpiActual:
-        \_logic_net: (work@Mod2.x), line:8:16, endln:8:17, parent:work@Mod2
-          |vpiName:x
-          |vpiFullName:work@Mod2.x
-          |vpiNetType:36
-          |vpiRange:
-          \_range: , line:8:10, endln:8:14
-            |vpiLeftRange:
-            \_constant: , line:8:10, endln:8:12
-              |vpiConstType:9
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-            |vpiRightRange:
-            \_constant: , line:8:13, endln:8:14
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-      |vpiLowConn:
-      \_ref_obj: 
+        |vpiFullName:work@Mod2.x
         |vpiActual:
         \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
           |vpiName:x
@@ -387,6 +369,12 @@ design: (work@Mod2)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiLowConn:
+      \_ref_obj: (work@Mod2.mod1.x), parent:x
+        |vpiName:x
+        |vpiFullName:work@Mod2.mod1.x
+        |vpiActual:
+        \_logic_net: (work@Mod2.mod1.x), line:1:71, endln:1:72, parent:work@Mod2.mod1
     |vpiContAssign:
     \_cont_assign: , line:2:11, endln:2:20, parent:work@Mod2.mod1
       |vpiRhs:
@@ -470,6 +458,23 @@ design: (work@Mod2)
     \_parameter: (work@Mod2.mod1.PARAM), line:1:38, endln:1:48, parent:work@Mod2.mod1
   |vpiNet:
   \_logic_net: (work@Mod2.x), line:8:16, endln:8:17, parent:work@Mod2
+    |vpiName:x
+    |vpiFullName:work@Mod2.x
+    |vpiNetType:36
+    |vpiRange:
+    \_range: , line:8:10, endln:8:14
+      |vpiLeftRange:
+      \_constant: , line:8:10, endln:8:12
+        |vpiConstType:9
+        |vpiDecompile:31
+        |vpiSize:64
+        |UINT:31
+      |vpiRightRange:
+      \_constant: , line:8:13, endln:8:14
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
   |vpiTypedef:
   \_struct_typespec: (Struct), line:6:12, endln:6:18, parent:work@Mod2.STRUCT
     |vpiPacked:1

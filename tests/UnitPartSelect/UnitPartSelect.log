@@ -1337,7 +1337,7 @@ design: (work@toto)
             \_part_select: , line:14:9, endln:14:29, parent:work@toto.ConnectionState
               |vpiConstantSelect:1
               |vpiParent:
-              \_ref_obj: (work@toto.ConnectionState)
+              \_ref_obj: (work@toto.ConnectionState), parent:work@toto.ConnectionState
               |vpiLeftRange:
               \_constant: , line:14:25, endln:14:26
                 |vpiConstType:9
@@ -1415,8 +1415,12 @@ design: (work@toto)
   \_port: (a), line:21:13, endln:21:14, parent:work@dut
     |vpiName:a
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.a), parent:a
+      |vpiName:a
+      |vpiFullName:work@dut.a
       |vpiActual:
       \_logic_net: (work@dut.a), line:24:16, endln:24:17, parent:work@dut
         |vpiName:a
@@ -1440,8 +1444,12 @@ design: (work@toto)
   \_port: (o), line:21:16, endln:21:17, parent:work@dut
     |vpiName:o
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.o), parent:o
+      |vpiName:o
+      |vpiFullName:work@dut.o
       |vpiActual:
       \_logic_net: (work@dut.o), line:25:15, endln:25:16, parent:work@dut
         |vpiName:o
@@ -1467,7 +1475,7 @@ design: (work@toto)
     \_part_select: , line:26:14, endln:26:20, parent:work@dut.a
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (work@dut.a)
+      \_ref_obj: (work@dut.a), parent:work@dut.a
       |vpiLeftRange:
       \_constant: , line:26:16, endln:26:17
         |vpiConstType:9
@@ -1498,8 +1506,12 @@ design: (work@toto)
   \_port: (a), line:30:36, endln:30:37, parent:work@dut_part_select
     |vpiName:a
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_part_select.a), parent:a
+      |vpiName:a
+      |vpiFullName:work@dut_part_select.a
       |vpiActual:
       \_logic_net: (work@dut_part_select.a), line:30:36, endln:30:37, parent:work@dut_part_select
         |vpiName:a
@@ -1522,8 +1534,12 @@ design: (work@toto)
   \_port: (b), line:30:52, endln:30:53, parent:work@dut_part_select
     |vpiName:b
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_part_select.b), parent:b
+      |vpiName:b
+      |vpiFullName:work@dut_part_select.b
       |vpiActual:
       \_logic_net: (work@dut_part_select.b), line:30:52, endln:30:53, parent:work@dut_part_select
         |vpiName:b
@@ -1570,7 +1586,7 @@ design: (work@toto)
     \_part_select: , line:34:19, endln:34:25, parent:work@dut_part_select.a
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (work@dut_part_select.a)
+      \_ref_obj: (work@dut_part_select.a), parent:work@dut_part_select.a
       |vpiLeftRange:
       \_constant: , line:34:21, endln:34:22
         |vpiConstType:9
@@ -1587,7 +1603,7 @@ design: (work@toto)
     \_part_select: , line:34:10, endln:34:11, parent:work@dut_part_select.b
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (work@dut_part_select.b)
+      \_ref_obj: (work@dut_part_select.b), parent:work@dut_part_select.b
       |vpiLeftRange:
       \_constant: , line:34:12, endln:34:13
         |vpiConstType:9
@@ -1650,8 +1666,12 @@ design: (work@toto)
   \_port: (a), line:38:32, endln:38:33, parent:work@dut_no_decl
     |vpiName:a
     |vpiDirection:1
+    |vpiInstance:
+    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_no_decl.a), parent:a
+      |vpiName:a
+      |vpiFullName:work@dut_no_decl.a
       |vpiActual:
       \_logic_net: (work@dut_no_decl.a), line:38:32, endln:38:33, parent:work@dut_no_decl
         |vpiName:a
@@ -1674,8 +1694,12 @@ design: (work@toto)
   \_port: (b), line:38:48, endln:38:49, parent:work@dut_no_decl
     |vpiName:b
     |vpiDirection:2
+    |vpiInstance:
+    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut_no_decl.b), parent:b
+      |vpiName:b
+      |vpiFullName:work@dut_no_decl.b
       |vpiActual:
       \_logic_net: (work@dut_no_decl.b), line:38:48, endln:38:49, parent:work@dut_no_decl
         |vpiName:b
@@ -1722,7 +1746,7 @@ design: (work@toto)
     \_part_select: , line:40:19, endln:40:25, parent:work@dut_no_decl.a
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (work@dut_no_decl.a)
+      \_ref_obj: (work@dut_no_decl.a), parent:work@dut_no_decl.a
       |vpiLeftRange:
       \_constant: , line:40:21, endln:40:22
         |vpiConstType:9
@@ -1739,7 +1763,7 @@ design: (work@toto)
     \_part_select: , line:40:10, endln:40:11, parent:work@dut_no_decl.b
       |vpiConstantSelect:1
       |vpiParent:
-      \_ref_obj: (work@dut_no_decl.b)
+      \_ref_obj: (work@dut_no_decl.b), parent:work@dut_no_decl.b
       |vpiLeftRange:
       \_constant: , line:40:12, endln:40:13
         |vpiConstType:9

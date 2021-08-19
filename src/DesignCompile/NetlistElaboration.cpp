@@ -666,6 +666,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndColumnNo(fC->EndColumn(sigId));
               p->High_conn(ref);
               ref->VpiName(sigName);
+              ref->VpiFullName(parent->getFullPathName() + "." + sigName);
               any* net =
                   bind_net_(parent, instance->getInstanceBinding(), sigName);
               ref->Actual_group(net);
@@ -712,6 +713,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             ref->VpiEndColumnNo(fC->EndColumn(sigId));
             p->High_conn(ref);
             ref->VpiName(sigName);
+            ref->VpiFullName(parent->getFullPathName() + "." + sigName);
             any* net =
                 bind_net_(parent, instance->getInstanceBinding(), sigName);
             ref->Actual_group(net);
@@ -924,12 +926,16 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref->VpiEndLineNo(fC->EndLine(sigId));
           ref->VpiEndColumnNo(fC->EndColumn(sigId));
           ref->VpiName(sigName);
+          ref->VpiFullName(parent->getFullPathName() + "." + sigName);
           p->High_conn(ref);
           ref->Actual_group(net);
         } else if (hexpr != nullptr) {
           p->High_conn(hexpr);
           if (hexpr->UhdmType() == uhdmref_obj) {
             ((ref_obj*)hexpr)->Actual_group(net);
+            ((ref_obj*)hexpr)
+                ->VpiFullName(parent->getFullPathName() + "." +
+                              ((ref_obj*)hexpr)->VpiName());
           }
         }
         p->VpiName(formalName);
@@ -1038,6 +1044,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               ref->VpiEndLineNo(wildcardLineNumber);
               ref->VpiEndColumnNo(wildcardColumnNumber + 1);
               ref->VpiName(sigName);
+              ref->VpiFullName(parent->getFullPathName() + "." + sigName);
               pp->High_conn(ref);
               UHDM::any* net =
                   bind_net_(parent, instance->getInstanceBinding(), sigName);
@@ -1115,6 +1122,7 @@ interface* NetlistElaboration::elab_interface_(
       if (net && (net->UhdmType() == uhdminterface)) {
         ref_obj* n = s.MakeRef_obj();
         n->VpiName(sigName);
+        n->VpiFullName(instance->getFullPathName() + "." + sigName);
         if (sigName != instName)  // prevent loop in listener
           n->Actual_group(net);
         net = n;
@@ -1730,6 +1738,7 @@ bool NetlistElaboration::elab_ports_nets_(
         if (ModPort* orig_modport = sig->getModPort()) {
           portInterf.insert(sig->getName());
           ref_obj* ref = s.MakeRef_obj();
+          ref->VpiFullName(instance->getFullPathName() + "." + sig->getName());
           dest_port->Low_conn(ref);
           Netlist::ModPortMap::iterator itr =
               netlist->getModPortMap().find(signame);
@@ -1797,6 +1806,7 @@ bool NetlistElaboration::elab_ports_nets_(
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           portInterf.insert(sig->getName());
           ref_obj* ref = s.MakeRef_obj();
+          ref->VpiFullName(instance->getFullPathName() + "." + sig->getName());
           dest_port->Low_conn(ref);
           Netlist::InstanceMap::iterator itr =
               netlist->getInstanceMap().find(signame);
@@ -1875,6 +1885,9 @@ bool NetlistElaboration::elab_ports_nets_(
         } else {
           if (any* n = bind_net_(netlist->getParent(), signame)) {
             ref_obj* ref = s.MakeRef_obj();
+            ref->VpiName(signame);
+            ref->VpiFullName(netlist->getParent()->getFullPathName() + "." +
+                             signame);
             ref->Actual_group(n);
             dest_port->Low_conn(ref);
           }

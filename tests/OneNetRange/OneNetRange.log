@@ -568,8 +568,9 @@ design: (work@TOP)
       |vpiName:con_i
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (i), line:20:36, endln:20:37
+      \_ref_obj: (work@TOP.i), line:20:36, endln:20:37
         |vpiName:i
+        |vpiFullName:work@TOP.i
         |vpiActual:
         \_logic_net: (work@TOP.i), line:18:20, endln:18:21, parent:work@TOP
           |vpiName:i
@@ -590,7 +591,9 @@ design: (work@TOP)
               |vpiSize:64
               |UINT:0
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.conntb.con_i)
+        |vpiName:con_i
+        |vpiFullName:work@TOP.conntb.con_i
         |vpiActual:
         \_logic_net: (work@TOP.conntb.con_i), line:8:68, endln:8:73, parent:work@TOP.conntb
           |vpiName:con_i
@@ -615,8 +618,9 @@ design: (work@TOP)
       |vpiName:con_o
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (o), line:20:46, endln:20:47
+      \_ref_obj: (work@TOP.o), line:20:46, endln:20:47
         |vpiName:o
+        |vpiFullName:work@TOP.o
         |vpiActual:
         \_logic_net: (work@TOP.o), line:19:20, endln:19:21, parent:work@TOP
           |vpiName:o
@@ -637,7 +641,9 @@ design: (work@TOP)
               |vpiSize:64
               |UINT:0
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.conntb.con_o)
+        |vpiName:con_o
+        |vpiFullName:work@TOP.conntb.con_o
         |vpiActual:
         \_logic_net: (work@TOP.conntb.con_o), line:8:98, endln:8:103, parent:work@TOP.conntb
           |vpiName:con_o
@@ -699,7 +705,9 @@ design: (work@TOP)
         \_ref_obj: (con_i)
           |vpiName:con_i
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.dut1.i)
+        |vpiName:i
+        |vpiFullName:work@TOP.dut1.i
         |vpiActual:
         \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60, parent:work@TOP.dut1
           |vpiName:i
@@ -733,7 +741,9 @@ design: (work@TOP)
         \_ref_obj: (con_o)
           |vpiName:con_o
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.dut1.o)
+        |vpiName:o
+        |vpiFullName:work@TOP.dut1.o
         |vpiActual:
         \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86, parent:work@TOP.dut1
           |vpiName:o
@@ -765,12 +775,15 @@ design: (work@TOP)
         |vpiName:con_i
         |vpiDirection:1
         |vpiHighConn:
-        \_ref_obj: (i), line:3:44, endln:3:45
+        \_ref_obj: (work@TOP.dut1.i), line:3:44, endln:3:45
           |vpiName:i
+          |vpiFullName:work@TOP.dut1.i
           |vpiActual:
           \_logic_net: (work@TOP.dut1.i), line:2:59, endln:2:60, parent:work@TOP.dut1
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@TOP.dut1.conntb.con_i)
+          |vpiName:con_i
+          |vpiFullName:work@TOP.dut1.conntb.con_i
           |vpiActual:
           \_logic_net: (work@TOP.dut1.conntb.con_i), line:8:68, endln:8:73, parent:work@TOP.dut1.conntb
             |vpiName:con_i
@@ -795,12 +808,15 @@ design: (work@TOP)
         |vpiName:con_o
         |vpiDirection:2
         |vpiHighConn:
-        \_ref_obj: (o), line:3:54, endln:3:55
+        \_ref_obj: (work@TOP.dut1.o), line:3:54, endln:3:55
           |vpiName:o
+          |vpiFullName:work@TOP.dut1.o
           |vpiActual:
           \_logic_net: (work@TOP.dut1.o), line:2:85, endln:2:86, parent:work@TOP.dut1
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@TOP.dut1.conntb.con_o)
+          |vpiName:con_o
+          |vpiFullName:work@TOP.dut1.conntb.con_o
           |vpiActual:
           \_logic_net: (work@TOP.dut1.conntb.con_o), line:8:98, endln:8:103, parent:work@TOP.dut1.conntb
             |vpiName:con_o
@@ -853,14 +869,16 @@ design: (work@TOP)
         |vpiName:conn
         |vpiDirection:5
         |vpiHighConn:
-        \_ref_obj: (conntb), line:4:35, endln:4:41
+        \_ref_obj: (work@TOP.dut1.conntb), line:4:35, endln:4:41
           |vpiName:conntb
+          |vpiFullName:work@TOP.dut1.conntb
           |vpiActual:
           \_interface: work@ConnectTB (conntb) dut.v:3: 
             |vpiDefName:work@ConnectTB
             |vpiName:conntb
         |vpiLowConn:
-        \_ref_obj: 
+        \_ref_obj: (work@TOP.dut1.middle1.conn)
+          |vpiFullName:work@TOP.dut1.middle1.conn
           |vpiActual:
           \_interface: work@ConnectTB (conn) dut.v:4: 
             |vpiDefName:work@ConnectTB
@@ -886,7 +904,9 @@ design: (work@TOP)
             \_ref_obj: (con_i)
               |vpiName:con_i
           |vpiLowConn:
-          \_ref_obj: 
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.inp)
+            |vpiName:inp
+            |vpiFullName:work@TOP.dut1.middle1.sub1.inp
             |vpiActual:
             \_logic_net: (work@TOP.dut1.middle1.sub1.inp), line:15:59, endln:15:62, parent:work@TOP.dut1.middle1.sub1
               |vpiName:inp
@@ -920,7 +940,9 @@ design: (work@TOP)
             \_ref_obj: (con_o)
               |vpiName:con_o
           |vpiLowConn:
-          \_ref_obj: 
+          \_ref_obj: (work@TOP.dut1.middle1.sub1.out)
+            |vpiName:out
+            |vpiFullName:work@TOP.dut1.middle1.sub1.out
             |vpiActual:
             \_logic_net: (work@TOP.dut1.middle1.sub1.out), line:15:87, endln:15:90, parent:work@TOP.dut1.middle1.sub1
               |vpiName:out
@@ -1024,7 +1046,9 @@ design: (work@TOP)
         \_ref_obj: (con_o)
           |vpiName:con_o
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.tb.observe)
+        |vpiName:observe
+        |vpiFullName:work@TOP.tb.observe
         |vpiActual:
         \_logic_net: (work@TOP.tb.observe), line:1:66, endln:1:73, parent:work@TOP.tb
           |vpiName:observe
@@ -1058,7 +1082,9 @@ design: (work@TOP)
         \_ref_obj: (con_i)
           |vpiName:con_i
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: (work@TOP.tb.drive)
+        |vpiName:drive
+        |vpiFullName:work@TOP.tb.drive
         |vpiActual:
         \_logic_net: (work@TOP.tb.drive), line:1:98, endln:1:103, parent:work@TOP.tb
           |vpiName:drive

@@ -520,8 +520,12 @@ design: (work@dut)
           \_package: pr_pkg (pr_pkg::) dut.sv:1:1: , endln:7:11, parent:work@dut
       |vpiInstance:
       \_package: pr_pkg (pr_pkg::) dut.sv:1:1: , endln:7:11, parent:work@dut
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:9:1: , endln:13:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut.alert_tx_o), parent:alert_tx_o
+      |vpiName:alert_tx_o
+      |vpiFullName:work@dut.alert_tx_o
       |vpiActual:
       \_packed_array_net: (work@dut.alert_tx_o), line:10:33, endln:10:43, parent:work@dut
         |vpiName:alert_tx_o
@@ -677,8 +681,12 @@ design: (work@dut)
           \_package: dm (dm::) dut.sv:15:1: , endln:24:11, parent:work@dut
       |vpiInstance:
       \_package: dm (dm::) dut.sv:15:1: , endln:24:11, parent:work@dut
+    |vpiInstance:
+    \_module: work@dut2 (work@dut2) dut.sv:26:1: , endln:33:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut2.hartinfo_i), parent:hartinfo_i
+      |vpiName:hartinfo_i
+      |vpiFullName:work@dut2.hartinfo_i
       |vpiActual:
       \_packed_array_net: (work@dut2.hartinfo_i), line:30:44, endln:30:54, parent:work@dut2
         |vpiName:hartinfo_i
@@ -707,8 +715,12 @@ design: (work@dut)
     |vpiDirection:1
     |vpiTypedef:
     \_struct_typespec: (dm::hartinfo_t), line:16:9, endln:16:15
+    |vpiInstance:
+    \_module: work@dut2 (work@dut2) dut.sv:26:1: , endln:33:10
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: (work@dut2.hart_info_i_without_range), parent:hart_info_i_without_range
+      |vpiName:hart_info_i_without_range
+      |vpiFullName:work@dut2.hart_info_i_without_range
       |vpiActual:
       \_struct_net: (work@dut2.hart_info_i_without_range), line:31:44, endln:31:69, parent:work@dut2
         |vpiName:hart_info_i_without_range
