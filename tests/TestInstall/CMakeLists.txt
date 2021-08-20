@@ -86,7 +86,15 @@ else()
 )
 endif()
 
-if (UNIX)
+if (APPLE)
+  target_link_libraries(test_hellosureworld
+      stdc++fs
+      dl
+      util
+      m
+      pthread
+  )
+elseif (UNIX)
   target_link_libraries(test_hellosureworld
       stdc++fs
       dl
