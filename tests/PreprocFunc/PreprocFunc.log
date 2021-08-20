@@ -450,14 +450,14 @@ design: (work@asym_ram)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -671,14 +671,14 @@ design: (work@asym_ram)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -689,14 +689,14 @@ design: (work@asym_ram)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -707,14 +707,14 @@ design: (work@asym_ram)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -727,14 +727,14 @@ design: (work@asym_ram)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10, parent:work@asym_ram
   |vpiDefName:work@asym_ram
@@ -746,8 +746,6 @@ design: (work@asym_ram)
     |vpiFullName:work@asym_ram.log2
     |vpiReturn:
     \_int_var: , line:13:10, endln:13:17
-    |vpiInstance:
-    \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10, parent:work@asym_ram
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
       |vpiName:value
@@ -778,14 +776,14 @@ design: (work@asym_ram)
         \_assignment: , line:19:3, endln:19:15
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@asym_ram.log2.log2), line:19:3, endln:19:7
-            |vpiName:log2
-            |vpiFullName:work@asym_ram.log2.log2
           |vpiRhs:
           \_ref_obj: (work@asym_ram.log2.value), line:19:10, endln:19:15
             |vpiName:value
             |vpiFullName:work@asym_ram.log2.value
+          |vpiLhs:
+          \_ref_obj: (work@asym_ram.log2.log2), line:19:3, endln:19:7
+            |vpiName:log2
+            |vpiFullName:work@asym_ram.log2.log2
         |vpiElseStmt:
         \_begin: (work@asym_ram.log2), line:21:2, endln:26:5
           |vpiFullName:work@asym_ram.log2
@@ -793,10 +791,6 @@ design: (work@asym_ram)
           \_assignment: , line:22:3, endln:22:20, parent:work@asym_ram.log2
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@asym_ram.log2.shifted), line:22:3, endln:22:10, parent:work@asym_ram.log2
-              |vpiName:shifted
-              |vpiFullName:work@asym_ram.log2.shifted
             |vpiRhs:
             \_operation: , line:22:13, endln:22:18, parent:work@asym_ram.log2
               |vpiOpType:11
@@ -810,22 +804,13 @@ design: (work@asym_ram)
                 |vpiDecompile:1
                 |vpiSize:64
                 |UINT:1
+            |vpiLhs:
+            \_ref_obj: (work@asym_ram.log2.shifted), line:22:3, endln:22:10, parent:work@asym_ram.log2
+              |vpiName:shifted
+              |vpiFullName:work@asym_ram.log2.shifted
           |vpiStmt:
           \_for_stmt: (work@asym_ram.log2), line:23:3, endln:23:6, parent:work@asym_ram.log2
             |vpiFullName:work@asym_ram.log2
-            |vpiCondition:
-            \_operation: , line:23:15, endln:23:22, parent:work@asym_ram.log2
-              |vpiOpType:18
-              |vpiOperand:
-              \_ref_obj: (work@asym_ram.log2.shifted), line:23:15, endln:23:22
-                |vpiName:shifted
-                |vpiFullName:work@asym_ram.log2.shifted
-              |vpiOperand:
-              \_constant: , line:23:23, endln:23:24
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@asym_ram.log2
               |vpiRhs:
@@ -842,10 +827,6 @@ design: (work@asym_ram)
             \_assignment: , line:23:26, endln:23:35, parent:work@asym_ram.log2
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@asym_ram.log2.res), line:23:26, endln:23:29, parent:work@asym_ram.log2
-                |vpiName:res
-                |vpiFullName:work@asym_ram.log2.res
               |vpiRhs:
               \_operation: , line:23:30, endln:23:33, parent:work@asym_ram.log2
                 |vpiOpType:24
@@ -859,14 +840,27 @@ design: (work@asym_ram)
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+              |vpiLhs:
+              \_ref_obj: (work@asym_ram.log2.res), line:23:26, endln:23:29, parent:work@asym_ram.log2
+                |vpiName:res
+                |vpiFullName:work@asym_ram.log2.res
+            |vpiCondition:
+            \_operation: , line:23:15, endln:23:22, parent:work@asym_ram.log2
+              |vpiOpType:18
+              |vpiOperand:
+              \_ref_obj: (work@asym_ram.log2.shifted), line:23:15, endln:23:22
+                |vpiName:shifted
+                |vpiFullName:work@asym_ram.log2.shifted
+              |vpiOperand:
+              \_constant: , line:23:23, endln:23:24
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
             |vpiStmt:
             \_assignment: , line:24:4, endln:24:24, parent:work@asym_ram.log2
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@asym_ram.log2.shifted), line:24:4, endln:24:11, parent:work@asym_ram.log2
-                |vpiName:shifted
-                |vpiFullName:work@asym_ram.log2.shifted
               |vpiRhs:
               \_operation: , line:24:14, endln:24:21, parent:work@asym_ram.log2
                 |vpiOpType:23
@@ -880,18 +874,24 @@ design: (work@asym_ram)
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+              |vpiLhs:
+              \_ref_obj: (work@asym_ram.log2.shifted), line:24:4, endln:24:11, parent:work@asym_ram.log2
+                |vpiName:shifted
+                |vpiFullName:work@asym_ram.log2.shifted
           |vpiStmt:
           \_assignment: , line:25:3, endln:25:13, parent:work@asym_ram.log2
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7, parent:work@asym_ram.log2
-              |vpiName:log2
-              |vpiFullName:work@asym_ram.log2.log2
             |vpiRhs:
             \_ref_obj: (work@asym_ram.log2.res), line:25:10, endln:25:13, parent:work@asym_ram.log2
               |vpiName:res
               |vpiFullName:work@asym_ram.log2.res
+            |vpiLhs:
+            \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7, parent:work@asym_ram.log2
+              |vpiName:log2
+              |vpiFullName:work@asym_ram.log2.log2
+    |vpiInstance:
+    \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10, parent:work@asym_ram
     |vpiVariables:
     \_logic_var: (shifted), line:15:1, endln:15:4
       |vpiName:shifted
@@ -930,6 +930,36 @@ design: (work@asym_ram)
       |vpiName:res
       |vpiTypespec:
       \_int_typespec: , line:16:1, endln:16:8
+  |vpiParameter:
+  \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
+    |vpiName:WIDTHB
+    |vpiFullName:work@asym_ram.WIDTHB
+    |UINT:4
+  |vpiParameter:
+  \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
+    |vpiName:WIDTHA
+    |vpiFullName:work@asym_ram.WIDTHA
+    |UINT:4
+  |vpiParameter:
+  \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
+    |vpiName:maxWIDTH
+    |vpiFullName:work@asym_ram.maxWIDTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
+    |vpiName:minWIDTH
+    |vpiFullName:work@asym_ram.minWIDTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
+    |vpiName:RATIO
+    |vpiFullName:work@asym_ram.RATIO
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
+    |vpiName:log2RATIO
+    |vpiFullName:work@asym_ram.log2RATIO
+    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:21, parent:work@asym_ram
     |vpiRhs:
@@ -940,9 +970,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
-      |vpiName:WIDTHB
-      |vpiFullName:work@asym_ram.WIDTHB
-      |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:7:11, endln:7:21, parent:work@asym_ram
     |vpiRhs:
@@ -953,9 +980,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
-      |vpiName:WIDTHA
-      |vpiFullName:work@asym_ram.WIDTHA
-      |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:30:12, endln:30:66, parent:work@asym_ram
     |vpiRhs:
@@ -993,9 +1017,6 @@ design: (work@asym_ram)
           \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
     |vpiLhs:
     \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
-      |vpiName:maxWIDTH
-      |vpiFullName:work@asym_ram.maxWIDTH
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:35:12, endln:35:66, parent:work@asym_ram
     |vpiRhs:
@@ -1027,9 +1048,6 @@ design: (work@asym_ram)
           \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
     |vpiLhs:
     \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
-      |vpiName:minWIDTH
-      |vpiFullName:work@asym_ram.minWIDTH
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:39:12, endln:39:39, parent:work@asym_ram
     |vpiRhs:
@@ -1048,9 +1066,6 @@ design: (work@asym_ram)
           |vpiLocalParam:1
     |vpiLhs:
     \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
-      |vpiName:RATIO
-      |vpiFullName:work@asym_ram.RATIO
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:42:12, endln:42:35, parent:work@asym_ram
     |vpiRhs:
@@ -1068,21 +1083,6 @@ design: (work@asym_ram)
           |vpiLocalParam:1
     |vpiLhs:
     \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
-      |vpiName:log2RATIO
-      |vpiFullName:work@asym_ram.log2RATIO
-      |vpiLocalParam:1
-  |vpiParameter:
-  \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
 |uhdmtopModules:
 \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10
   |vpiDefName:work@asym_ram
@@ -1094,8 +1094,6 @@ design: (work@asym_ram)
     |vpiFullName:work@asym_ram.log2
     |vpiReturn:
     \_int_var: , line:13:10, endln:13:17
-    |vpiInstance:
-    \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10
     |vpiIODecl:
     \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
       |vpiName:value
@@ -1126,18 +1124,18 @@ design: (work@asym_ram)
         \_assignment: , line:19:3, endln:19:15
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@asym_ram.log2.log2), line:19:3, endln:19:7
-            |vpiName:log2
-            |vpiFullName:work@asym_ram.log2.log2
-            |vpiActual:
-            \_int_var: , line:13:10, endln:13:17
           |vpiRhs:
           \_ref_obj: (work@asym_ram.log2.value), line:19:10, endln:19:15
             |vpiName:value
             |vpiFullName:work@asym_ram.log2.value
             |vpiActual:
             \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
+          |vpiLhs:
+          \_ref_obj: (work@asym_ram.log2.log2), line:19:3, endln:19:7
+            |vpiName:log2
+            |vpiFullName:work@asym_ram.log2.log2
+            |vpiActual:
+            \_int_var: , line:13:10, endln:13:17
         |vpiElseStmt:
         \_begin: (work@asym_ram.log2), line:21:2, endln:26:5
           |vpiFullName:work@asym_ram.log2
@@ -1145,6 +1143,21 @@ design: (work@asym_ram)
           \_assignment: , line:22:3, endln:22:20, parent:work@asym_ram.log2
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_operation: , line:22:13, endln:22:18
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (work@asym_ram.log2.value), line:22:13, endln:22:18
+                |vpiName:value
+                |vpiFullName:work@asym_ram.log2.value
+                |vpiActual:
+                \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
+              |vpiOperand:
+              \_constant: , line:22:19, endln:22:20
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
             |vpiLhs:
             \_ref_obj: (work@asym_ram.log2.shifted), line:22:3, endln:22:10
               |vpiName:shifted
@@ -1183,39 +1196,9 @@ design: (work@asym_ram)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
-            |vpiRhs:
-            \_operation: , line:22:13, endln:22:18
-              |vpiOpType:11
-              |vpiOperand:
-              \_ref_obj: (work@asym_ram.log2.value), line:22:13, endln:22:18
-                |vpiName:value
-                |vpiFullName:work@asym_ram.log2.value
-                |vpiActual:
-                \_io_decl: (value), line:14:15, endln:14:20, parent:work@asym_ram.log2
-              |vpiOperand:
-              \_constant: , line:22:19, endln:22:20
-                |vpiConstType:9
-                |vpiDecompile:1
-                |vpiSize:64
-                |UINT:1
           |vpiStmt:
           \_for_stmt: (work@asym_ram.log2), line:23:3, endln:23:6, parent:work@asym_ram.log2
             |vpiFullName:work@asym_ram.log2
-            |vpiCondition:
-            \_operation: , line:23:15, endln:23:22, parent:work@asym_ram.log2
-              |vpiOpType:18
-              |vpiOperand:
-              \_ref_obj: (work@asym_ram.log2.shifted), line:23:15, endln:23:22
-                |vpiName:shifted
-                |vpiFullName:work@asym_ram.log2.shifted
-                |vpiActual:
-                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:4, parent:work@asym_ram.log2
-              |vpiOperand:
-              \_constant: , line:23:23, endln:23:24
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
             |vpiForInitStmt:
             \_assign_stmt: , parent:work@asym_ram.log2
               |vpiRhs:
@@ -1238,12 +1221,6 @@ design: (work@asym_ram)
             \_assignment: , line:23:26, endln:23:35, parent:work@asym_ram.log2
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@asym_ram.log2.res), line:23:26, endln:23:29
-                |vpiName:res
-                |vpiFullName:work@asym_ram.log2.res
-                |vpiActual:
-                \_int_var: (work@asym_ram.log2.res), line:16:1, endln:16:8, parent:work@asym_ram.log2
               |vpiRhs:
               \_operation: , line:23:30, endln:23:33
                 |vpiOpType:24
@@ -1259,16 +1236,31 @@ design: (work@asym_ram)
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
-            |vpiStmt:
-            \_assignment: , line:24:4, endln:24:24, parent:work@asym_ram.log2
-              |vpiOpType:82
-              |vpiBlocking:1
               |vpiLhs:
-              \_ref_obj: (work@asym_ram.log2.shifted), line:24:4, endln:24:11
+              \_ref_obj: (work@asym_ram.log2.res), line:23:26, endln:23:29
+                |vpiName:res
+                |vpiFullName:work@asym_ram.log2.res
+                |vpiActual:
+                \_int_var: (work@asym_ram.log2.res), line:16:1, endln:16:8, parent:work@asym_ram.log2
+            |vpiCondition:
+            \_operation: , line:23:15, endln:23:22, parent:work@asym_ram.log2
+              |vpiOpType:18
+              |vpiOperand:
+              \_ref_obj: (work@asym_ram.log2.shifted), line:23:15, endln:23:22
                 |vpiName:shifted
                 |vpiFullName:work@asym_ram.log2.shifted
                 |vpiActual:
                 \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:4, parent:work@asym_ram.log2
+              |vpiOperand:
+              \_constant: , line:23:23, endln:23:24
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+            |vpiStmt:
+            \_assignment: , line:24:4, endln:24:24, parent:work@asym_ram.log2
+              |vpiOpType:82
+              |vpiBlocking:1
               |vpiRhs:
               \_operation: , line:24:14, endln:24:21
                 |vpiOpType:23
@@ -1284,26 +1276,64 @@ design: (work@asym_ram)
                   |vpiDecompile:1
                   |vpiSize:64
                   |UINT:1
+              |vpiLhs:
+              \_ref_obj: (work@asym_ram.log2.shifted), line:24:4, endln:24:11
+                |vpiName:shifted
+                |vpiFullName:work@asym_ram.log2.shifted
+                |vpiActual:
+                \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:4, parent:work@asym_ram.log2
           |vpiStmt:
           \_assignment: , line:25:3, endln:25:13, parent:work@asym_ram.log2
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7
-              |vpiName:log2
-              |vpiFullName:work@asym_ram.log2.log2
-              |vpiActual:
-              \_int_var: , line:13:10, endln:13:17
             |vpiRhs:
             \_ref_obj: (work@asym_ram.log2.res), line:25:10, endln:25:13
               |vpiName:res
               |vpiFullName:work@asym_ram.log2.res
               |vpiActual:
               \_int_var: (work@asym_ram.log2.res), line:16:1, endln:16:8, parent:work@asym_ram.log2
+            |vpiLhs:
+            \_ref_obj: (work@asym_ram.log2.log2), line:25:3, endln:25:7
+              |vpiName:log2
+              |vpiFullName:work@asym_ram.log2.log2
+              |vpiActual:
+              \_int_var: , line:13:10, endln:13:17
+    |vpiInstance:
+    \_module: work@asym_ram (work@asym_ram) dut.sv:5:1: , endln:45:10
     |vpiVariables:
     \_logic_var: (work@asym_ram.log2.shifted), line:15:1, endln:15:4, parent:work@asym_ram.log2
     |vpiVariables:
     \_int_var: (work@asym_ram.log2.res), line:16:1, endln:16:8, parent:work@asym_ram.log2
+  |vpiParameter:
+  \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
+    |vpiName:WIDTHB
+    |vpiFullName:work@asym_ram.WIDTHB
+    |UINT:4
+  |vpiParameter:
+  \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
+    |vpiName:WIDTHA
+    |vpiFullName:work@asym_ram.WIDTHA
+    |UINT:4
+  |vpiParameter:
+  \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
+    |vpiName:maxWIDTH
+    |vpiFullName:work@asym_ram.maxWIDTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
+    |vpiName:minWIDTH
+    |vpiFullName:work@asym_ram.minWIDTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
+    |vpiName:RATIO
+    |vpiFullName:work@asym_ram.RATIO
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
+    |vpiName:log2RATIO
+    |vpiFullName:work@asym_ram.log2RATIO
+    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:21, parent:work@asym_ram
     |vpiRhs:
@@ -1314,9 +1344,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
-      |vpiName:WIDTHB
-      |vpiFullName:work@asym_ram.WIDTHB
-      |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:7:11, endln:7:21, parent:work@asym_ram
     |vpiRhs:
@@ -1327,9 +1354,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
-      |vpiName:WIDTHA
-      |vpiFullName:work@asym_ram.WIDTHA
-      |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:30:12, endln:30:66, parent:work@asym_ram
     |vpiRhs:
@@ -1340,9 +1364,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
-      |vpiName:maxWIDTH
-      |vpiFullName:work@asym_ram.maxWIDTH
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:35:12, endln:35:66, parent:work@asym_ram
     |vpiRhs:
@@ -1353,9 +1374,6 @@ design: (work@asym_ram)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
-      |vpiName:minWIDTH
-      |vpiFullName:work@asym_ram.minWIDTH
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:39:12, endln:39:39, parent:work@asym_ram
     |vpiRhs:
@@ -1366,9 +1384,6 @@ design: (work@asym_ram)
       |INT:1
     |vpiLhs:
     \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
-      |vpiName:RATIO
-      |vpiFullName:work@asym_ram.RATIO
-      |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:42:12, endln:42:35, parent:work@asym_ram
     |vpiRhs:
@@ -1379,21 +1394,6 @@ design: (work@asym_ram)
       |INT:1
     |vpiLhs:
     \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
-      |vpiName:log2RATIO
-      |vpiFullName:work@asym_ram.log2RATIO
-      |vpiLocalParam:1
-  |vpiParameter:
-  \_parameter: (work@asym_ram.WIDTHB), line:6:11, endln:6:21, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.WIDTHA), line:7:11, endln:7:21, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.maxWIDTH), line:30:12, endln:30:66, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.minWIDTH), line:35:12, endln:35:66, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.RATIO), line:39:12, endln:39:39, parent:work@asym_ram
-  |vpiParameter:
-  \_parameter: (work@asym_ram.log2RATIO), line:42:12, endln:42:35, parent:work@asym_ram
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

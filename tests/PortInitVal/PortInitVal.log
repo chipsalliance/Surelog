@@ -141,6 +141,17 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10, parent:work@dut
   |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiPort:
+  \_port: (b), line:1:13, parent:work@dut
+    |vpiName:b
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@dut.b), line:1:13, parent:work@dut
+        |vpiName:b
+        |vpiFullName:work@dut.b
+        |vpiNetType:48
   |vpiProcess:
   \_always: , line:4:9, endln:6:12, parent:work@dut
     |vpiAlwaysType:1
@@ -164,6 +175,12 @@ design: (work@dut)
           \_assignment: , line:5:23, endln:5:28
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:5:27, endln:5:28
+              |vpiConstType:9
+              |vpiDecompile:1
+              |vpiSize:64
+              |UINT:1
             |vpiLhs:
             \_ref_obj: (work@dut.b), line:5:23, endln:5:24
               |vpiName:b
@@ -173,23 +190,6 @@ design: (work@dut)
                 |vpiName:b
                 |vpiFullName:work@dut.b
                 |vpiNetType:48
-            |vpiRhs:
-            \_constant: , line:5:27, endln:5:28
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-  |vpiPort:
-  \_port: (b), line:1:13, parent:work@dut
-    |vpiName:b
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@dut.b), line:1:13, parent:work@dut
-        |vpiName:b
-        |vpiFullName:work@dut.b
-        |vpiNetType:48
   |vpiContAssign:
   \_cont_assign: , line:7:11, endln:7:16, parent:work@dut
     |vpiRhs:
@@ -211,6 +211,23 @@ design: (work@dut)
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
   |vpiDefName:work@dut
   |vpiName:work@dut
+  |vpiPort:
+  \_port: (b), line:1:13, endln:1:14, parent:work@dut
+    |vpiName:b
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@dut.b), parent:b
+      |vpiName:b
+      |vpiFullName:work@dut.b
+      |vpiActual:
+      \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
+        |vpiName:b
+        |vpiFullName:work@dut.b
+        |vpiNetType:48
+    |vpiTypedef:
+    \_logic_typespec: , line:3:16, endln:3:19
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
   |vpiProcess:
   \_always: , line:4:9, endln:6:12, parent:work@dut
     |vpiAlwaysType:1
@@ -234,35 +251,18 @@ design: (work@dut)
           \_assignment: , line:5:23, endln:5:28
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_ref_obj: (work@dut.b), line:5:23, endln:5:24
-              |vpiName:b
-              |vpiFullName:work@dut.b
-              |vpiActual:
-              \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
-                |vpiName:b
-                |vpiFullName:work@dut.b
-                |vpiNetType:48
             |vpiRhs:
             \_constant: , line:5:27, endln:5:28
               |vpiConstType:9
               |vpiDecompile:1
               |vpiSize:64
               |UINT:1
-  |vpiPort:
-  \_port: (b), line:1:13, endln:1:14, parent:work@dut
-    |vpiName:b
-    |vpiDirection:2
-    |vpiTypedef:
-    \_logic_typespec: , line:3:16, endln:3:19
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:9:10
-    |vpiLowConn:
-    \_ref_obj: (work@dut.b), parent:b
-      |vpiName:b
-      |vpiFullName:work@dut.b
-      |vpiActual:
-      \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
+            |vpiLhs:
+            \_ref_obj: (work@dut.b), line:5:23, endln:5:24
+              |vpiName:b
+              |vpiFullName:work@dut.b
+              |vpiActual:
+              \_logic_net: (work@dut.b), line:1:13, endln:1:14, parent:work@dut
   |vpiContAssign:
   \_cont_assign: , line:2:14, endln:2:15, parent:work@dut
     |vpiNetDeclAssign:1

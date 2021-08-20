@@ -143,14 +143,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -364,14 +364,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -382,14 +382,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -400,14 +400,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -420,18 +420,26 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:12:10, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiParameter:
+  \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
+    |vpiName:AsyncOn
+    |vpiFullName:work@top.AsyncOn
+    |BIN:0
+    |vpiTypespec:
+    \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@top.AsyncOn
+      |vpiName:AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:31, parent:work@top
     |vpiRhs:
@@ -442,14 +450,6 @@ design: (work@top)
       |BIN:0
     |vpiLhs:
     \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
-      |vpiName:AsyncOn
-      |vpiFullName:work@top.AsyncOn
-      |BIN:0
-      |vpiTypespec:
-      \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@top.AsyncOn
-        |vpiName:AsyncOn
-  |vpiParameter:
-  \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:12:10
   |vpiDefName:work@top
@@ -471,6 +471,14 @@ design: (work@top)
         |vpiName:diff_pd
         |vpiFullName:work@top.gen_no_async.diff_pd
         |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
+    |vpiName:AsyncOn
+    |vpiFullName:work@top.AsyncOn
+    |BIN:0
+    |vpiTypespec:
+    \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@top.AsyncOn
+      |vpiName:AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:31, parent:work@top
     |vpiRhs:
@@ -481,14 +489,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
-      |vpiName:AsyncOn
-      |vpiFullName:work@top.AsyncOn
-      |BIN:0
-      |vpiTypespec:
-      \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@top.AsyncOn
-        |vpiName:AsyncOn
-  |vpiParameter:
-  \_parameter: (work@top.AsyncOn), line:3:17, endln:3:31, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

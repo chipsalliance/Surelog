@@ -174,14 +174,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -395,14 +395,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -413,14 +413,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -431,14 +431,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -451,14 +451,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:17:10, parent:work@top
   |vpiDefName:work@top
@@ -555,6 +555,19 @@ design: (work@top)
   \_clocking_block: (work@top.cb), line:9:3, endln:9:49, parent:work@top
     |vpiName:cb
     |vpiFullName:work@top.cb
+    |vpiClockingEvent:
+    \_event_control: , parent:work@top.cb
+      |vpiCondition:
+      \_operation: , line:9:24, endln:9:31
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (work@top.cb.clk), line:9:32, endln:9:35
+          |vpiName:clk
+          |vpiFullName:work@top.cb.clk
+          |vpiActual:
+          \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
+            |vpiName:clk
+            |vpiFullName:work@top.clk
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:17:10, parent:work@top
       |vpiDefName:work@top
@@ -572,8 +585,6 @@ design: (work@top)
               |vpiName:clk
               |vpiActual:
               \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
-                |vpiName:clk
-                |vpiFullName:work@top.clk
       |vpiDefaultClocking:
       \_clocking_block: (unnamed_clocking_block), line:5:3, endln:7:14
         |vpiOutputEdge:50
@@ -643,24 +654,11 @@ design: (work@top)
               |vpiName:to
       |vpiNet:
       \_logic_net: (work@top.clk), line:2:8, parent:work@top
-    |vpiClockingEvent:
-    \_event_control: , parent:work@top.cb
-      |vpiCondition:
-      \_operation: , line:9:24, endln:9:31
-        |vpiOpType:39
-        |vpiOperand:
-        \_ref_obj: (work@top.cb.clk), line:9:32, endln:9:35
-          |vpiName:clk
-          |vpiFullName:work@top.cb.clk
-          |vpiActual:
-          \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
   |vpiDefaultClocking:
   \_clocking_block: (work@top.unnamed_clocking_block), line:5:3, endln:7:14, parent:work@top
     |vpiOutputEdge:50
     |vpiName:unnamed_clocking_block
     |vpiFullName:work@top.unnamed_clocking_block
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10, parent:work@top
     |vpiInputSkew:
     \_delay_control: , parent:work@top.unnamed_clocking_block
       |#1
@@ -675,24 +673,24 @@ design: (work@top)
           |vpiFullName:work@top.unnamed_clocking_block.clk
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10, parent:work@top
   |vpiPort:
   \_port: (clk), line:2:8, endln:2:11, parent:work@top
     |vpiName:clk
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10
     |vpiLowConn:
     \_ref_obj: (work@top.clk), parent:clk
       |vpiName:clk
       |vpiFullName:work@top.clk
       |vpiActual:
       \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10
   |vpiClockingBlock:
   \_clocking_block: (work@top.cb1), line:11:3, endln:15:14, parent:work@top
     |vpiName:cb1
     |vpiFullName:work@top.cb1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10
     |vpiInputSkew:
     \_delay_control: , parent:work@top.cb1
       |#1
@@ -710,6 +708,8 @@ design: (work@top)
           |vpiFullName:work@top.cb1.clk
           |vpiActual:
           \_logic_net: (work@top.clk), line:2:8, endln:2:11, parent:work@top
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:17:10
     |vpiClockingIODecl:
     \_clocking_io_decl: (from_Dut), parent:work@top.cb1
       |vpiName:from_Dut

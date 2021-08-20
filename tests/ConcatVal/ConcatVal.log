@@ -290,14 +290,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -511,14 +511,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -529,14 +529,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -547,14 +547,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -567,14 +567,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
   |vpiDefName:work@dut
@@ -655,8 +655,6 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
     |vpiIODecl:
     \_io_decl: (state_in)
       |vpiName:state_in
@@ -714,6 +712,62 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
       |vpiFullName:work@dut.sbox4_64bit
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+    |vpiName:PRESENT_SBOX4
+    |vpiFullName:work@dut.PRESENT_SBOX4
+    |vpiTypespec:
+    \_logic_typespec: (PRESENT_SBOX4), line:2:13, endln:2:18, parent:work@dut.PRESENT_SBOX4
+      |vpiName:PRESENT_SBOX4
+      |vpiRange:
+      \_range: , line:2:20, endln:2:24
+        |vpiLeftRange:
+        \_constant: , line:2:20, endln:2:22
+          |vpiConstType:9
+          |vpiDecompile:15
+          |vpiSize:64
+          |UINT:15
+        |vpiRightRange:
+        \_constant: , line:2:23, endln:2:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:2:26, endln:2:29
+        |vpiLeftRange:
+        \_constant: , line:2:26, endln:2:27
+          |vpiConstType:9
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+        |vpiRightRange:
+        \_constant: , line:2:28, endln:2:29
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParamAssign:
+  \_param_assign: , line:2:31, endln:2:59, parent:work@dut
+    |vpiRhs:
+    \_operation: , line:2:47, endln:2:59
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , line:2:48, endln:2:52
+        |vpiConstType:5
+        |vpiDecompile:4'h2
+        |vpiSize:4
+        |HEX:2
+      |vpiOperand:
+      \_constant: , line:2:54, endln:2:58
+        |vpiConstType:5
+        |vpiDecompile:4'h1
+        |vpiSize:4
+        |HEX:1
+    |vpiLhs:
+    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
   |vpiTypedef:
   \_enum_typespec: (exc_cause_e), line:11:5, endln:11:16
     |vpiName:exc_cause_e
@@ -751,60 +805,6 @@ design: (work@dut)
       |vpiDecompile:5'd11
       |BIN:001011
       |vpiSize:6
-  |vpiParamAssign:
-  \_param_assign: , line:2:31, endln:2:59, parent:work@dut
-    |vpiRhs:
-    \_operation: , line:2:47, endln:2:59
-      |vpiOpType:33
-      |vpiOperand:
-      \_constant: , line:2:48, endln:2:52
-        |vpiConstType:5
-        |vpiDecompile:4'h2
-        |vpiSize:4
-        |HEX:2
-      |vpiOperand:
-      \_constant: , line:2:54, endln:2:58
-        |vpiConstType:5
-        |vpiDecompile:4'h1
-        |vpiSize:4
-        |HEX:1
-    |vpiLhs:
-    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
-      |vpiName:PRESENT_SBOX4
-      |vpiFullName:work@dut.PRESENT_SBOX4
-      |vpiTypespec:
-      \_logic_typespec: (PRESENT_SBOX4), line:2:13, endln:2:18, parent:work@dut.PRESENT_SBOX4
-        |vpiName:PRESENT_SBOX4
-        |vpiRange:
-        \_range: , line:2:20, endln:2:24
-          |vpiLeftRange:
-          \_constant: , line:2:20, endln:2:22
-            |vpiConstType:9
-            |vpiDecompile:15
-            |vpiSize:64
-            |UINT:15
-          |vpiRightRange:
-          \_constant: , line:2:23, endln:2:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:2:26, endln:2:29
-          |vpiLeftRange:
-          \_constant: , line:2:26, endln:2:27
-            |vpiConstType:9
-            |vpiDecompile:3
-            |vpiSize:64
-            |UINT:3
-          |vpiRightRange:
-          \_constant: , line:2:28, endln:2:29
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-  |vpiParameter:
-  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
   |vpiDefName:work@dut
@@ -885,8 +885,6 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
     |vpiIODecl:
     \_io_decl: (state_in), parent:work@dut.sbox4_64bit
       |vpiName:state_in
@@ -944,6 +942,30 @@ design: (work@dut)
     |vpiStmt:
     \_begin: (work@dut.sbox4_64bit), parent:work@dut.sbox4_64bit
       |vpiFullName:work@dut.sbox4_64bit
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
+  |vpiParameter:
+  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
+  |vpiParamAssign:
+  \_param_assign: , line:2:31, endln:2:59, parent:work@dut
+    |vpiRhs:
+    \_operation: , line:2:47, endln:2:59
+      |vpiOpType:33
+      |vpiReordered:1
+      |vpiOperand:
+      \_constant: , line:2:54, endln:2:58
+        |vpiConstType:5
+        |vpiDecompile:4'h1
+        |vpiSize:4
+        |HEX:1
+      |vpiOperand:
+      \_constant: , line:2:48, endln:2:52
+        |vpiConstType:5
+        |vpiDecompile:4'h2
+        |vpiSize:4
+        |HEX:2
+    |vpiLhs:
+    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
   |vpiTypedef:
   \_enum_typespec: (exc_cause_e), line:11:5, endln:11:16
     |vpiName:exc_cause_e
@@ -981,28 +1003,6 @@ design: (work@dut)
       |vpiDecompile:5'd11
       |BIN:001011
       |vpiSize:6
-  |vpiParamAssign:
-  \_param_assign: , line:2:31, endln:2:59, parent:work@dut
-    |vpiRhs:
-    \_operation: , line:2:47, endln:2:59
-      |vpiOpType:33
-      |vpiReordered:1
-      |vpiOperand:
-      \_constant: , line:2:54, endln:2:58
-        |vpiConstType:5
-        |vpiDecompile:4'h1
-        |vpiSize:4
-        |HEX:1
-      |vpiOperand:
-      \_constant: , line:2:48, endln:2:52
-        |vpiConstType:5
-        |vpiDecompile:4'h2
-        |vpiSize:4
-        |HEX:2
-    |vpiLhs:
-    \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.PRESENT_SBOX4), line:2:31, endln:2:59, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

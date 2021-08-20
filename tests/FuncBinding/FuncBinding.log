@@ -40,6 +40,66 @@ design: (work@fsm_using_function)
 \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10, parent:work@fsm_using_function
   |vpiDefName:work@fsm_using_function
   |vpiFullName:work@fsm_using_function
+  |vpiPort:
+  \_port: (clock), line:2:11, parent:work@fsm_using_function
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.clock), line:2:11, parent:work@fsm_using_function
+        |vpiName:clock
+        |vpiFullName:work@fsm_using_function.clock
+  |vpiPort:
+  \_port: (reset), line:3:11, parent:work@fsm_using_function
+    |vpiName:reset
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.reset), line:3:11, parent:work@fsm_using_function
+        |vpiName:reset
+        |vpiFullName:work@fsm_using_function.reset
+  |vpiPort:
+  \_port: (req_0), line:4:11, parent:work@fsm_using_function
+    |vpiName:req_0
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.req_0), line:4:11, parent:work@fsm_using_function
+        |vpiName:req_0
+        |vpiFullName:work@fsm_using_function.req_0
+  |vpiPort:
+  \_port: (req_1), line:5:11, parent:work@fsm_using_function
+    |vpiName:req_1
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.req_1), line:5:11, parent:work@fsm_using_function
+        |vpiName:req_1
+        |vpiFullName:work@fsm_using_function.req_1
+  |vpiPort:
+  \_port: (gnt_0), line:6:12, parent:work@fsm_using_function
+    |vpiName:gnt_0
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.gnt_0), line:6:12, parent:work@fsm_using_function
+        |vpiName:gnt_0
+        |vpiFullName:work@fsm_using_function.gnt_0
+  |vpiPort:
+  \_port: (gnt_1), line:7:12, parent:work@fsm_using_function
+    |vpiName:gnt_1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@fsm_using_function.gnt_1), line:7:12, parent:work@fsm_using_function
+        |vpiName:gnt_1
+        |vpiFullName:work@fsm_using_function.gnt_1
   |vpiProcess:
   \_always: , line:15:1, endln:18:4, parent:work@fsm_using_function
     |vpiAlwaysType:1
@@ -197,6 +257,12 @@ design: (work@fsm_using_function)
             |vpiStmt:
             \_assignment: , line:48:5, endln:48:26, parent:work@fsm_using_function.FSM_SEQ
               |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@fsm_using_function.FSM_SEQ.IDLE), line:48:22, endln:48:26, parent:work@fsm_using_function.FSM_SEQ
+                |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
+                |vpiActual:
+                \_enum_const: (IDLE), line:11:27, endln:11:31
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:48:5, endln:48:15, parent:work@fsm_using_function.FSM_SEQ
                 |vpiName:curr_state
@@ -206,18 +272,18 @@ design: (work@fsm_using_function)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
-              |vpiRhs:
-              \_ref_obj: (work@fsm_using_function.FSM_SEQ.IDLE), line:48:22, endln:48:26, parent:work@fsm_using_function.FSM_SEQ
-                |vpiName:IDLE
-                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
-                |vpiActual:
-                \_enum_const: (IDLE), line:11:27, endln:11:31
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.FSM_SEQ), line:49:11, endln:51:5
             |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , line:50:5, endln:50:32, parent:work@fsm_using_function.FSM_SEQ
               |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@fsm_using_function.FSM_SEQ.next_state), line:50:22, endln:50:32, parent:work@fsm_using_function.FSM_SEQ
+                |vpiName:next_state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
+                |vpiActual:
+                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:50:5, endln:50:15, parent:work@fsm_using_function.FSM_SEQ
                 |vpiName:curr_state
@@ -227,72 +293,6 @@ design: (work@fsm_using_function)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
-              |vpiRhs:
-              \_ref_obj: (work@fsm_using_function.FSM_SEQ.next_state), line:50:22, endln:50:32, parent:work@fsm_using_function.FSM_SEQ
-                |vpiName:next_state
-                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
-                |vpiActual:
-                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (clock), line:2:11, parent:work@fsm_using_function
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.clock), line:2:11, parent:work@fsm_using_function
-        |vpiName:clock
-        |vpiFullName:work@fsm_using_function.clock
-  |vpiPort:
-  \_port: (reset), line:3:11, parent:work@fsm_using_function
-    |vpiName:reset
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.reset), line:3:11, parent:work@fsm_using_function
-        |vpiName:reset
-        |vpiFullName:work@fsm_using_function.reset
-  |vpiPort:
-  \_port: (req_0), line:4:11, parent:work@fsm_using_function
-    |vpiName:req_0
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.req_0), line:4:11, parent:work@fsm_using_function
-        |vpiName:req_0
-        |vpiFullName:work@fsm_using_function.req_0
-  |vpiPort:
-  \_port: (req_1), line:5:11, parent:work@fsm_using_function
-    |vpiName:req_1
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.req_1), line:5:11, parent:work@fsm_using_function
-        |vpiName:req_1
-        |vpiFullName:work@fsm_using_function.req_1
-  |vpiPort:
-  \_port: (gnt_0), line:6:12, parent:work@fsm_using_function
-    |vpiName:gnt_0
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.gnt_0), line:6:12, parent:work@fsm_using_function
-        |vpiName:gnt_0
-        |vpiFullName:work@fsm_using_function.gnt_0
-  |vpiPort:
-  \_port: (gnt_1), line:7:12, parent:work@fsm_using_function
-    |vpiName:gnt_1
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@fsm_using_function.gnt_1), line:7:12, parent:work@fsm_using_function
-        |vpiName:gnt_1
-        |vpiFullName:work@fsm_using_function.gnt_1
   |vpiTaskFunc:
   \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12, parent:work@fsm_using_function
     |vpiVisibility:1
@@ -300,8 +300,6 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiReturn:
     \_logic_var: 
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10, parent:work@fsm_using_function
     |vpiIODecl:
     \_io_decl: (state)
       |vpiName:state
@@ -395,16 +393,16 @@ design: (work@fsm_using_function)
             \_assignment: , line:24:12, endln:24:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:24:12, endln:24:24, parent:work@fsm_using_function.fsm_function
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:24:27, endln:24:31, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_enum_const: (GNT0), line:11:36, endln:11:40
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:24:12, endln:24:24, parent:work@fsm_using_function.fsm_function
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
           |vpiElseStmt:
           \_if_else: , line:25:23, endln:25:36
             |vpiCondition:
@@ -429,16 +427,16 @@ design: (work@fsm_using_function)
               \_assignment: , line:26:12, endln:26:30, parent:work@fsm_using_function.fsm_function
                 |vpiOpType:82
                 |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:26:12, endln:26:24, parent:work@fsm_using_function.fsm_function
-                  |vpiName:future_state
-                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
                 |vpiRhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:26:26, endln:26:30, parent:work@fsm_using_function.fsm_function
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                   |vpiActual:
                   \_enum_const: (GNT1), line:11:45, endln:11:49
+                |vpiLhs:
+                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:26:12, endln:26:24, parent:work@fsm_using_function.fsm_function
+                  |vpiName:future_state
+                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:27:19, endln:29:13
               |vpiFullName:work@fsm_using_function.fsm_function
@@ -446,16 +444,16 @@ design: (work@fsm_using_function)
               \_assignment: , line:28:12, endln:28:31, parent:work@fsm_using_function.fsm_function
                 |vpiOpType:82
                 |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:28:12, endln:28:24, parent:work@fsm_using_function.fsm_function
-                  |vpiName:future_state
-                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
                 |vpiRhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:28:27, endln:28:31, parent:work@fsm_using_function.fsm_function
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                   |vpiActual:
                   \_enum_const: (IDLE), line:11:27, endln:11:31
+                |vpiLhs:
+                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:28:12, endln:28:24, parent:work@fsm_using_function.fsm_function
+                  |vpiName:future_state
+                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
       |vpiCaseItem:
       \_case_item: , line:30:3, endln:34:13
         |vpiExpr:
@@ -488,16 +486,16 @@ design: (work@fsm_using_function)
             \_assignment: , line:31:12, endln:31:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:31:12, endln:31:24, parent:work@fsm_using_function.fsm_function
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:31:27, endln:31:31, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_enum_const: (GNT0), line:11:36, endln:11:40
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:31:12, endln:31:24, parent:work@fsm_using_function.fsm_function
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:32:19, endln:34:13
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -505,16 +503,16 @@ design: (work@fsm_using_function)
             \_assignment: , line:33:12, endln:33:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:33:12, endln:33:24, parent:work@fsm_using_function.fsm_function
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:33:27, endln:33:31, parent:work@fsm_using_function.fsm_function
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_enum_const: (IDLE), line:11:27, endln:11:31
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:33:12, endln:33:24, parent:work@fsm_using_function.fsm_function
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
       |vpiCaseItem:
       \_case_item: , line:35:3, endln:39:13
         |vpiExpr:
@@ -547,16 +545,16 @@ design: (work@fsm_using_function)
             \_assignment: , line:36:12, endln:36:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:36:12, endln:36:24, parent:work@fsm_using_function.fsm_function
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:36:27, endln:36:31, parent:work@fsm_using_function.fsm_function
                 |vpiName:GNT1
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                 |vpiActual:
                 \_enum_const: (GNT1), line:11:45, endln:11:49
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:36:12, endln:36:24, parent:work@fsm_using_function.fsm_function
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:37:19, endln:39:13
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -564,32 +562,34 @@ design: (work@fsm_using_function)
             \_assignment: , line:38:12, endln:38:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:38:12, endln:38:24, parent:work@fsm_using_function.fsm_function
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:38:27, endln:38:31, parent:work@fsm_using_function.fsm_function
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_enum_const: (IDLE), line:11:27, endln:11:31
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:38:12, endln:38:24, parent:work@fsm_using_function.fsm_function
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
       |vpiCaseItem:
       \_case_item: , line:40:3, endln:40:33
         |vpiStmt:
         \_assignment: , line:40:13, endln:40:32
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:40:13, endln:40:25
-            |vpiName:future_state
-            |vpiFullName:work@fsm_using_function.fsm_function.future_state
           |vpiRhs:
           \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:40:28, endln:40:32
             |vpiName:IDLE
             |vpiFullName:work@fsm_using_function.fsm_function.IDLE
             |vpiActual:
             \_enum_const: (IDLE), line:11:27, endln:11:31
+          |vpiLhs:
+          \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:40:13, endln:40:25
+            |vpiName:future_state
+            |vpiFullName:work@fsm_using_function.fsm_function.future_state
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10, parent:work@fsm_using_function
   |vpiNet:
   \_logic_net: (work@fsm_using_function.clock), line:2:11, parent:work@fsm_using_function
   |vpiNet:
@@ -616,6 +616,102 @@ design: (work@fsm_using_function)
 \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
   |vpiDefName:work@fsm_using_function
   |vpiName:work@fsm_using_function
+  |vpiPort:
+  \_port: (clock), line:2:11, endln:2:16, parent:work@fsm_using_function
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.clock), parent:clock
+      |vpiName:clock
+      |vpiFullName:work@fsm_using_function.clock
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16, parent:work@fsm_using_function
+        |vpiName:clock
+        |vpiFullName:work@fsm_using_function.clock
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
+  |vpiPort:
+  \_port: (reset), line:3:11, endln:3:16, parent:work@fsm_using_function
+    |vpiName:reset
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.reset), parent:reset
+      |vpiName:reset
+      |vpiFullName:work@fsm_using_function.reset
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16, parent:work@fsm_using_function
+        |vpiName:reset
+        |vpiFullName:work@fsm_using_function.reset
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
+  |vpiPort:
+  \_port: (req_0), line:4:11, endln:4:16, parent:work@fsm_using_function
+    |vpiName:req_0
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.req_0), parent:req_0
+      |vpiName:req_0
+      |vpiFullName:work@fsm_using_function.req_0
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16, parent:work@fsm_using_function
+        |vpiName:req_0
+        |vpiFullName:work@fsm_using_function.req_0
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
+  |vpiPort:
+  \_port: (req_1), line:5:11, endln:5:16, parent:work@fsm_using_function
+    |vpiName:req_1
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.req_1), parent:req_1
+      |vpiName:req_1
+      |vpiFullName:work@fsm_using_function.req_1
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16, parent:work@fsm_using_function
+        |vpiName:req_1
+        |vpiFullName:work@fsm_using_function.req_1
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
+  |vpiPort:
+  \_port: (gnt_0), line:6:12, endln:6:17, parent:work@fsm_using_function
+    |vpiName:gnt_0
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.gnt_0), parent:gnt_0
+      |vpiName:gnt_0
+      |vpiFullName:work@fsm_using_function.gnt_0
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.gnt_0), line:6:12, endln:6:17, parent:work@fsm_using_function
+        |vpiName:gnt_0
+        |vpiFullName:work@fsm_using_function.gnt_0
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
+  |vpiPort:
+  \_port: (gnt_1), line:7:12, endln:7:17, parent:work@fsm_using_function
+    |vpiName:gnt_1
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@fsm_using_function.gnt_1), parent:gnt_1
+      |vpiName:gnt_1
+      |vpiFullName:work@fsm_using_function.gnt_1
+      |vpiActual:
+      \_bit_var: (work@fsm_using_function.gnt_1), line:7:12, endln:7:17, parent:work@fsm_using_function
+        |vpiName:gnt_1
+        |vpiFullName:work@fsm_using_function.gnt_1
+        |vpiAutomatic:1
+        |vpiVisibility:1
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
   |vpiProcess:
   \_always: , line:15:1, endln:18:4, parent:work@fsm_using_function
     |vpiAlwaysType:1
@@ -630,10 +726,6 @@ design: (work@fsm_using_function)
           |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
           \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16, parent:work@fsm_using_function
-            |vpiName:clock
-            |vpiFullName:work@fsm_using_function.clock
-            |vpiAutomatic:1
-            |vpiVisibility:1
       |vpiStmt:
       \_named_begin: (work@fsm_using_function.FUN), line:16:1, endln:18:4
         |vpiName:FUN
@@ -698,20 +790,12 @@ design: (work@fsm_using_function)
               |vpiFullName:work@fsm_using_function.FUN.req_0
               |vpiActual:
               \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16, parent:work@fsm_using_function
-                |vpiName:req_0
-                |vpiFullName:work@fsm_using_function.req_0
-                |vpiAutomatic:1
-                |vpiVisibility:1
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.req_1), line:17:54, endln:17:59, parent:fsm_function
               |vpiName:req_1
               |vpiFullName:work@fsm_using_function.FUN.req_1
               |vpiActual:
               \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16, parent:work@fsm_using_function
-                |vpiName:req_1
-                |vpiFullName:work@fsm_using_function.req_1
-                |vpiAutomatic:1
-                |vpiVisibility:1
             |vpiArgument:
             \_ref_obj: (work@fsm_using_function.FUN.next_state), line:17:61, endln:17:71, parent:fsm_function
               |vpiName:next_state
@@ -759,10 +843,6 @@ design: (work@fsm_using_function)
               |vpiFullName:work@fsm_using_function.FSM_SEQ.reset
               |vpiActual:
               \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16, parent:work@fsm_using_function
-                |vpiName:reset
-                |vpiFullName:work@fsm_using_function.reset
-                |vpiAutomatic:1
-                |vpiVisibility:1
             |vpiOperand:
             \_constant: , line:47:15, endln:47:19
               |vpiConstType:3
@@ -775,6 +855,12 @@ design: (work@fsm_using_function)
             |vpiStmt:
             \_assignment: , line:48:5, endln:48:26, parent:work@fsm_using_function.FSM_SEQ
               |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@fsm_using_function.FSM_SEQ.IDLE), line:48:22, endln:48:26
+                |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
+                |vpiActual:
+                \_enum_const: (IDLE), line:11:27, endln:11:31
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:48:5, endln:48:15
                 |vpiName:curr_state
@@ -784,18 +870,18 @@ design: (work@fsm_using_function)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
-              |vpiRhs:
-              \_ref_obj: (work@fsm_using_function.FSM_SEQ.IDLE), line:48:22, endln:48:26
-                |vpiName:IDLE
-                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
-                |vpiActual:
-                \_enum_const: (IDLE), line:11:27, endln:11:31
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.FSM_SEQ), line:49:11, endln:51:5
             |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , line:50:5, endln:50:32, parent:work@fsm_using_function.FSM_SEQ
               |vpiOpType:82
+              |vpiRhs:
+              \_ref_obj: (work@fsm_using_function.FSM_SEQ.next_state), line:50:22, endln:50:32
+                |vpiName:next_state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
+                |vpiActual:
+                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29, parent:work@fsm_using_function
               |vpiLhs:
               \_ref_obj: (work@fsm_using_function.FSM_SEQ.curr_state), line:50:5, endln:50:15
                 |vpiName:curr_state
@@ -805,92 +891,6 @@ design: (work@fsm_using_function)
               |vpiDelayControl:
               \_delay_control: 
                 |#1
-              |vpiRhs:
-              \_ref_obj: (work@fsm_using_function.FSM_SEQ.next_state), line:50:22, endln:50:32
-                |vpiName:next_state
-                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
-                |vpiActual:
-                \_enum_var: (work@fsm_using_function.next_state), line:12:19, endln:12:29, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (clock), line:2:11, endln:2:16, parent:work@fsm_using_function
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.clock), parent:clock
-      |vpiName:clock
-      |vpiFullName:work@fsm_using_function.clock
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (reset), line:3:11, endln:3:16, parent:work@fsm_using_function
-    |vpiName:reset
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.reset), parent:reset
-      |vpiName:reset
-      |vpiFullName:work@fsm_using_function.reset
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.reset), line:3:11, endln:3:16, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (req_0), line:4:11, endln:4:16, parent:work@fsm_using_function
-    |vpiName:req_0
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.req_0), parent:req_0
-      |vpiName:req_0
-      |vpiFullName:work@fsm_using_function.req_0
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.req_0), line:4:11, endln:4:16, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (req_1), line:5:11, endln:5:16, parent:work@fsm_using_function
-    |vpiName:req_1
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.req_1), parent:req_1
-      |vpiName:req_1
-      |vpiFullName:work@fsm_using_function.req_1
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.req_1), line:5:11, endln:5:16, parent:work@fsm_using_function
-  |vpiPort:
-  \_port: (gnt_0), line:6:12, endln:6:17, parent:work@fsm_using_function
-    |vpiName:gnt_0
-    |vpiDirection:2
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.gnt_0), parent:gnt_0
-      |vpiName:gnt_0
-      |vpiFullName:work@fsm_using_function.gnt_0
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.gnt_0), line:6:12, endln:6:17, parent:work@fsm_using_function
-        |vpiName:gnt_0
-        |vpiFullName:work@fsm_using_function.gnt_0
-        |vpiAutomatic:1
-        |vpiVisibility:1
-  |vpiPort:
-  \_port: (gnt_1), line:7:12, endln:7:17, parent:work@fsm_using_function
-    |vpiName:gnt_1
-    |vpiDirection:2
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
-    |vpiLowConn:
-    \_ref_obj: (work@fsm_using_function.gnt_1), parent:gnt_1
-      |vpiName:gnt_1
-      |vpiFullName:work@fsm_using_function.gnt_1
-      |vpiActual:
-      \_bit_var: (work@fsm_using_function.gnt_1), line:7:12, endln:7:17, parent:work@fsm_using_function
-        |vpiName:gnt_1
-        |vpiFullName:work@fsm_using_function.gnt_1
-        |vpiAutomatic:1
-        |vpiVisibility:1
   |vpiTaskFunc:
   \_function: (work@fsm_using_function.fsm_function), line:21:1, endln:42:12, parent:work@fsm_using_function
     |vpiVisibility:1
@@ -898,8 +898,6 @@ design: (work@fsm_using_function)
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiReturn:
     \_logic_var: 
-    |vpiInstance:
-    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
     |vpiIODecl:
     \_io_decl: (state), parent:work@fsm_using_function.fsm_function
       |vpiName:state
@@ -993,18 +991,18 @@ design: (work@fsm_using_function)
             \_assignment: , line:24:12, endln:24:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:24:12, endln:24:24
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                |vpiActual:
-                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:24:27, endln:24:31
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_enum_const: (GNT0), line:11:36, endln:11:40
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:24:12, endln:24:24
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                |vpiActual:
+                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
           |vpiElseStmt:
           \_if_else: , line:25:23, endln:25:36
             |vpiCondition:
@@ -1029,18 +1027,18 @@ design: (work@fsm_using_function)
               \_assignment: , line:26:12, endln:26:30, parent:work@fsm_using_function.fsm_function
                 |vpiOpType:82
                 |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:26:12, endln:26:24
-                  |vpiName:future_state
-                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                  |vpiActual:
-                  \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:26:26, endln:26:30
                   |vpiName:GNT1
                   |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                   |vpiActual:
                   \_enum_const: (GNT1), line:11:45, endln:11:49
+                |vpiLhs:
+                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:26:12, endln:26:24
+                  |vpiName:future_state
+                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                  |vpiActual:
+                  \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
             |vpiElseStmt:
             \_begin: (work@fsm_using_function.fsm_function), line:27:19, endln:29:13
               |vpiFullName:work@fsm_using_function.fsm_function
@@ -1048,18 +1046,18 @@ design: (work@fsm_using_function)
               \_assignment: , line:28:12, endln:28:31, parent:work@fsm_using_function.fsm_function
                 |vpiOpType:82
                 |vpiBlocking:1
-                |vpiLhs:
-                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:28:12, endln:28:24
-                  |vpiName:future_state
-                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                  |vpiActual:
-                  \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:28:27, endln:28:31
                   |vpiName:IDLE
                   |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                   |vpiActual:
                   \_enum_const: (IDLE), line:11:27, endln:11:31
+                |vpiLhs:
+                \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:28:12, endln:28:24
+                  |vpiName:future_state
+                  |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                  |vpiActual:
+                  \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
       |vpiCaseItem:
       \_case_item: , line:30:3, endln:34:13
         |vpiExpr:
@@ -1092,18 +1090,18 @@ design: (work@fsm_using_function)
             \_assignment: , line:31:12, endln:31:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:31:12, endln:31:24
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                |vpiActual:
-                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT0), line:31:27, endln:31:31
                 |vpiName:GNT0
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_enum_const: (GNT0), line:11:36, endln:11:40
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:31:12, endln:31:24
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                |vpiActual:
+                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:32:19, endln:34:13
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -1111,18 +1109,18 @@ design: (work@fsm_using_function)
             \_assignment: , line:33:12, endln:33:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:33:12, endln:33:24
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                |vpiActual:
-                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:33:27, endln:33:31
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_enum_const: (IDLE), line:11:27, endln:11:31
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:33:12, endln:33:24
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                |vpiActual:
+                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
       |vpiCaseItem:
       \_case_item: , line:35:3, endln:39:13
         |vpiExpr:
@@ -1155,18 +1153,18 @@ design: (work@fsm_using_function)
             \_assignment: , line:36:12, endln:36:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:36:12, endln:36:24
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                |vpiActual:
-                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.GNT1), line:36:27, endln:36:31
                 |vpiName:GNT1
                 |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                 |vpiActual:
                 \_enum_const: (GNT1), line:11:45, endln:11:49
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:36:12, endln:36:24
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                |vpiActual:
+                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
           |vpiElseStmt:
           \_begin: (work@fsm_using_function.fsm_function), line:37:19, endln:39:13
             |vpiFullName:work@fsm_using_function.fsm_function
@@ -1174,36 +1172,38 @@ design: (work@fsm_using_function)
             \_assignment: , line:38:12, endln:38:31, parent:work@fsm_using_function.fsm_function
               |vpiOpType:82
               |vpiBlocking:1
-              |vpiLhs:
-              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:38:12, endln:38:24
-                |vpiName:future_state
-                |vpiFullName:work@fsm_using_function.fsm_function.future_state
-                |vpiActual:
-                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
               |vpiRhs:
               \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:38:27, endln:38:31
                 |vpiName:IDLE
                 |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_enum_const: (IDLE), line:11:27, endln:11:31
+              |vpiLhs:
+              \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:38:12, endln:38:24
+                |vpiName:future_state
+                |vpiFullName:work@fsm_using_function.fsm_function.future_state
+                |vpiActual:
+                \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
       |vpiCaseItem:
       \_case_item: , line:40:3, endln:40:33
         |vpiStmt:
         \_assignment: , line:40:13, endln:40:32
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:40:13, endln:40:25
-            |vpiName:future_state
-            |vpiFullName:work@fsm_using_function.fsm_function.future_state
-            |vpiActual:
-            \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
           |vpiRhs:
           \_ref_obj: (work@fsm_using_function.fsm_function.IDLE), line:40:28, endln:40:32
             |vpiName:IDLE
             |vpiFullName:work@fsm_using_function.fsm_function.IDLE
             |vpiActual:
             \_enum_const: (IDLE), line:11:27, endln:11:31
+          |vpiLhs:
+          \_ref_obj: (work@fsm_using_function.fsm_function.future_state), line:40:13, endln:40:25
+            |vpiName:future_state
+            |vpiFullName:work@fsm_using_function.fsm_function.future_state
+            |vpiActual:
+            \_io_decl: (future_state), parent:work@fsm_using_function.fsm_function
+    |vpiInstance:
+    \_module: work@fsm_using_function (work@fsm_using_function) dut.sv:1:1: , endln:53:10
   |vpiVariables:
   \_bit_var: (work@fsm_using_function.clock), line:2:11, endln:2:16, parent:work@fsm_using_function
   |vpiVariables:

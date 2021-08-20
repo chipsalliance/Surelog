@@ -304,14 +304,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -525,14 +525,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -543,14 +543,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -561,14 +561,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -581,14 +581,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:4:1: , endln:50:17, parent:work@top
   |vpiDefName:work@top
@@ -677,8 +677,6 @@ design: (work@top)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17, parent:work@top
     |vpiIODecl:
     \_io_decl: (state_in)
       |vpiName:state_in
@@ -736,6 +734,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.prince_shiftrows_32bit), parent:work@top.prince_shiftrows_32bit
       |vpiFullName:work@top.prince_shiftrows_32bit
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.b), line:4:25, parent:work@top
   |vpiNet:
@@ -763,8 +763,6 @@ design: (work@top)
   \_port: (b), line:4:25, endln:4:26, parent:work@top
     |vpiName:b
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
     |vpiLowConn:
     \_ref_obj: (work@top.b), parent:b
       |vpiName:b
@@ -774,12 +772,12 @@ design: (work@top)
         |vpiName:b
         |vpiFullName:work@top.b
         |vpiNetType:36
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
   |vpiPort:
   \_port: (a), line:4:41, endln:4:42, parent:work@top
     |vpiName:a
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
     |vpiLowConn:
     \_ref_obj: (work@top.a), parent:a
       |vpiName:a
@@ -789,6 +787,8 @@ design: (work@top)
         |vpiName:a
         |vpiFullName:work@top.a
         |vpiNetType:36
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
   |vpiContAssign:
   \_cont_assign: , line:9:11, endln:9:16, parent:work@top
     |vpiRhs:
@@ -896,8 +896,6 @@ design: (work@top)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
     |vpiIODecl:
     \_io_decl: (state_in), parent:work@top.prince_shiftrows_32bit
       |vpiName:state_in
@@ -955,6 +953,8 @@ design: (work@top)
     |vpiStmt:
     \_begin: (work@top.prince_shiftrows_32bit), parent:work@top.prince_shiftrows_32bit
       |vpiFullName:work@top.prince_shiftrows_32bit
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:4:1: , endln:50:17
   |vpiNet:
   \_logic_net: (work@top.b), line:4:25, endln:4:26, parent:work@top
   |vpiNet:

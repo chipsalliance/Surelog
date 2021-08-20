@@ -66,14 +66,14 @@ design: (unnamed)
       \_io_decl: (bound)
         |vpiName:bound
         |vpiDirection:1
-        |vpiTypedef:
-        \_int_typespec: , line:15:17, endln:15:20
         |vpiExpr:
         \_constant: , line:15:29, endln:15:30
           |vpiConstType:9
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+        |vpiTypedef:
+        \_int_typespec: , line:15:17, endln:15:20
       |vpiStmt:
       \_method_func_call: (super.new), parent:pack::C::new
         |vpiName:super.new
@@ -113,6 +113,12 @@ design: (unnamed)
       \_assignment: , line:20:5, endln:20:10, parent:pack::C::set
         |vpiOpType:82
         |vpiBlocking:1
+        |vpiRhs:
+        \_ref_obj: (pack::C::set::i), line:20:9, endln:20:10
+          |vpiName:i
+          |vpiFullName:pack::C::set::i
+          |vpiActual:
+          \_io_decl: (i), parent:pack::C::set
         |vpiLhs:
         \_ref_obj: (pack::C::set::x), line:20:5, endln:20:6
           |vpiName:x
@@ -123,12 +129,6 @@ design: (unnamed)
             |vpiFullName:pack::C::x
             |vpiAutomatic:1
             |vpiVisibility:1
-        |vpiRhs:
-        \_ref_obj: (pack::C::set::i), line:20:9, endln:20:10
-          |vpiName:i
-          |vpiFullName:pack::C::set::i
-          |vpiActual:
-          \_io_decl: (i), parent:pack::C::set
     |vpiMethod:
     \_function: (pack::C::get), line:22:3, endln:24:14, parent:pack::C
       |vpiMethod:1
@@ -179,6 +179,13 @@ design: (unnamed)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
+    |vpiParameter:
+    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
+      |vpiName:WIDTH
+      |vpiFullName:pack::Vector::WIDTH
+      |UINT:1
+    |vpiParameter:
+    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
     |vpiParamAssign:
     \_param_assign: , line:5:26, endln:5:33, parent:pack::Vector
       |vpiRhs:
@@ -189,9 +196,6 @@ design: (unnamed)
         |UINT:1
       |vpiLhs:
       \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
-        |vpiName:WIDTH
-        |vpiFullName:pack::Vector::WIDTH
-        |UINT:1
     |vpiParamAssign:
     \_param_assign: , line:5:26, endln:5:33, parent:pack::Vector
       |vpiRhs:
@@ -202,10 +206,6 @@ design: (unnamed)
         |UINT:1
       |vpiLhs:
       \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
-    |vpiParameter:
-    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
-    |vpiParameter:
-    \_parameter: (pack::Vector::WIDTH), line:5:26, endln:5:33, parent:pack::Vector
   |vpiClassDefn:
   \_class_defn: (pack::ovm_queue) dut.sv:9:1: , endln:10:9, parent:pack::
     |vpiName:ovm_queue

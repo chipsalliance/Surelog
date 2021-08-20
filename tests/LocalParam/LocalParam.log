@@ -294,14 +294,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -515,14 +515,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -533,14 +533,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -551,14 +551,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -571,14 +571,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@assigner (work@assigner) dut.sv:6:1: , endln:12:10, parent:work@top
   |vpiDefName:work@assigner
@@ -609,6 +609,20 @@ design: (work@top)
   \_logic_net: (work@assigner.inp), line:6:53, parent:work@assigner
   |vpiNet:
   \_logic_net: (work@assigner.out), line:6:69, parent:work@assigner
+  |vpiParameter:
+  \_parameter: (work@assigner.invert), line:6:29, endln:6:39, parent:work@assigner
+    |vpiName:invert
+    |vpiFullName:work@assigner.invert
+    |UINT:0
+  |vpiParameter:
+  \_parameter: (work@assigner.do_invert), line:7:17, endln:7:30, parent:work@assigner
+    |vpiName:do_invert
+    |vpiFullName:work@assigner.do_invert
+    |vpiLocalParam:1
+    |UINT:0
+    |vpiTypespec:
+    \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@assigner.do_invert
+      |vpiName:do_invert
   |vpiParamAssign:
   \_param_assign: , line:6:29, endln:6:39, parent:work@assigner
     |vpiRhs:
@@ -619,9 +633,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@assigner.invert), line:6:29, endln:6:39, parent:work@assigner
-      |vpiName:invert
-      |vpiFullName:work@assigner.invert
-      |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:7:17, endln:7:30, parent:work@assigner
     |vpiRhs:
@@ -632,17 +643,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@assigner.do_invert), line:7:17, endln:7:30, parent:work@assigner
-      |vpiName:do_invert
-      |vpiFullName:work@assigner.do_invert
-      |vpiLocalParam:1
-      |UINT:0
-      |vpiTypespec:
-      \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@assigner.do_invert
-        |vpiName:do_invert
-  |vpiParameter:
-  \_parameter: (work@assigner.invert), line:6:29, endln:6:39, parent:work@assigner
-  |vpiParameter:
-  \_parameter: (work@assigner.do_invert), line:7:17, endln:7:30, parent:work@assigner
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
   |vpiDefName:work@top
@@ -694,8 +694,6 @@ design: (work@top)
   \_port: (i), line:1:24, endln:1:25, parent:work@top
     |vpiName:i
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
     \_ref_obj: (work@top.i), parent:i
       |vpiName:i
@@ -705,12 +703,12 @@ design: (work@top)
         |vpiName:i
         |vpiFullName:work@top.i
         |vpiNetType:1
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
   |vpiPort:
   \_port: (o1), line:1:38, endln:1:40, parent:work@top
     |vpiName:o1
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
     \_ref_obj: (work@top.o1), parent:o1
       |vpiName:o1
@@ -720,12 +718,12 @@ design: (work@top)
         |vpiName:o1
         |vpiFullName:work@top.o1
         |vpiNetType:48
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
   |vpiPort:
   \_port: (o2), line:1:53, endln:1:55, parent:work@top
     |vpiName:o2
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
     |vpiLowConn:
     \_ref_obj: (work@top.o2), parent:o2
       |vpiName:o2
@@ -735,6 +733,8 @@ design: (work@top)
         |vpiName:o2
         |vpiFullName:work@top.o2
         |vpiNetType:48
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
   |vpiModule:
   \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
     |vpiDefName:work@assigner
@@ -746,8 +746,6 @@ design: (work@top)
     \_port: (inp), line:6:53, endln:6:56, parent:work@top.asgn0
       |vpiName:inp
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
       |vpiHighConn:
       \_ref_obj: (work@top.i), line:2:37, endln:2:38, parent:inp
         |vpiName:i
@@ -763,12 +761,12 @@ design: (work@top)
           |vpiName:inp
           |vpiFullName:work@top.asgn0.inp
           |vpiNetType:1
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
     |vpiPort:
     \_port: (out), line:6:69, endln:6:72, parent:work@top.asgn0
       |vpiName:out
       |vpiDirection:2
-      |vpiInstance:
-      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
       |vpiHighConn:
       \_ref_obj: (work@top.o1), line:2:46, endln:2:48, parent:out
         |vpiName:o1
@@ -784,6 +782,8 @@ design: (work@top)
           |vpiName:out
           |vpiFullName:work@top.asgn0.out
           |vpiNetType:48
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn0) dut.sv:2:3: , endln:2:51, parent:work@top
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.asgn0.genblk1), line:8:2, endln:9:21, parent:work@top.asgn0
       |vpiName:genblk1
@@ -811,6 +811,20 @@ design: (work@top)
     \_logic_net: (work@top.asgn0.out), line:6:69, endln:6:72, parent:work@top.asgn0
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    |vpiParameter:
+    \_parameter: (work@top.asgn0.invert), line:6:29, endln:6:39, parent:work@top.asgn0
+      |vpiName:invert
+      |vpiFullName:work@top.asgn0.invert
+      |UINT:0
+    |vpiParameter:
+    \_parameter: (work@top.asgn0.do_invert), line:7:17, endln:7:30, parent:work@top.asgn0
+      |vpiName:do_invert
+      |vpiFullName:work@top.asgn0.do_invert
+      |vpiLocalParam:1
+      |UINT:0
+      |vpiTypespec:
+      \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@top.asgn0.do_invert
+        |vpiName:do_invert
     |vpiParamAssign:
     \_param_assign: , line:6:29, endln:6:39, parent:work@top.asgn0
       |vpiRhs:
@@ -821,9 +835,6 @@ design: (work@top)
         |UINT:0
       |vpiLhs:
       \_parameter: (work@top.asgn0.invert), line:6:29, endln:6:39, parent:work@top.asgn0
-        |vpiName:invert
-        |vpiFullName:work@top.asgn0.invert
-        |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:7:17, endln:7:30, parent:work@top.asgn0
       |vpiRhs:
@@ -834,17 +845,6 @@ design: (work@top)
         |UINT:0
       |vpiLhs:
       \_parameter: (work@top.asgn0.do_invert), line:7:17, endln:7:30, parent:work@top.asgn0
-        |vpiName:do_invert
-        |vpiFullName:work@top.asgn0.do_invert
-        |vpiLocalParam:1
-        |UINT:0
-        |vpiTypespec:
-        \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@top.asgn0.do_invert
-          |vpiName:do_invert
-    |vpiParameter:
-    \_parameter: (work@top.asgn0.invert), line:6:29, endln:6:39, parent:work@top.asgn0
-    |vpiParameter:
-    \_parameter: (work@top.asgn0.do_invert), line:7:17, endln:7:30, parent:work@top.asgn0
   |vpiModule:
   \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
     |vpiDefName:work@assigner
@@ -856,8 +856,6 @@ design: (work@top)
     \_port: (inp), line:6:53, endln:6:56, parent:work@top.asgn1
       |vpiName:inp
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
       |vpiHighConn:
       \_ref_obj: (work@top.i), line:3:37, endln:3:38, parent:inp
         |vpiName:i
@@ -873,12 +871,12 @@ design: (work@top)
           |vpiName:inp
           |vpiFullName:work@top.asgn1.inp
           |vpiNetType:1
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
     |vpiPort:
     \_port: (out), line:6:69, endln:6:72, parent:work@top.asgn1
       |vpiName:out
       |vpiDirection:2
-      |vpiInstance:
-      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
       |vpiHighConn:
       \_ref_obj: (work@top.o2), line:3:46, endln:3:48, parent:out
         |vpiName:o2
@@ -894,6 +892,8 @@ design: (work@top)
           |vpiName:out
           |vpiFullName:work@top.asgn1.out
           |vpiNetType:48
+      |vpiInstance:
+      \_module: work@assigner (work@top.asgn1) dut.sv:3:3: , endln:3:51, parent:work@top
     |vpiGenScopeArray:
     \_gen_scope_array: (work@top.asgn1.genblk2), line:10:2, endln:11:22, parent:work@top.asgn1
       |vpiName:genblk2
@@ -924,6 +924,20 @@ design: (work@top)
     \_logic_net: (work@top.asgn1.out), line:6:69, endln:6:72, parent:work@top.asgn1
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    |vpiParameter:
+    \_parameter: (work@top.asgn1.invert), line:6:29, endln:6:39, parent:work@top.asgn1
+      |vpiName:invert
+      |vpiFullName:work@top.asgn1.invert
+      |UINT:0
+    |vpiParameter:
+    \_parameter: (work@top.asgn1.do_invert), line:7:17, endln:7:30, parent:work@top.asgn1
+      |vpiName:do_invert
+      |vpiFullName:work@top.asgn1.do_invert
+      |vpiLocalParam:1
+      |UINT:0
+      |vpiTypespec:
+      \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@top.asgn1.do_invert
+        |vpiName:do_invert
     |vpiParamAssign:
     \_param_assign: , line:6:29, endln:6:39, parent:work@top.asgn1
       |vpiRhs:
@@ -934,9 +948,6 @@ design: (work@top)
         |UINT:1
       |vpiLhs:
       \_parameter: (work@top.asgn1.invert), line:6:29, endln:6:39, parent:work@top.asgn1
-        |vpiName:invert
-        |vpiFullName:work@top.asgn1.invert
-        |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:7:17, endln:7:30, parent:work@top.asgn1
       |vpiRhs:
@@ -947,17 +958,6 @@ design: (work@top)
         |UINT:0
       |vpiLhs:
       \_parameter: (work@top.asgn1.do_invert), line:7:17, endln:7:30, parent:work@top.asgn1
-        |vpiName:do_invert
-        |vpiFullName:work@top.asgn1.do_invert
-        |vpiLocalParam:1
-        |UINT:0
-        |vpiTypespec:
-        \_int_typespec: (do_invert), line:7:13, endln:7:16, parent:work@top.asgn1.do_invert
-          |vpiName:do_invert
-    |vpiParameter:
-    \_parameter: (work@top.asgn1.invert), line:6:29, endln:6:39, parent:work@top.asgn1
-    |vpiParameter:
-    \_parameter: (work@top.asgn1.do_invert), line:7:17, endln:7:30, parent:work@top.asgn1
   |vpiNet:
   \_logic_net: (work@top.i), line:1:24, endln:1:25, parent:work@top
   |vpiNet:

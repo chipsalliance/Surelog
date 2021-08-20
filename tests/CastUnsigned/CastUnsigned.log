@@ -229,14 +229,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -450,14 +450,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -468,14 +468,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -486,14 +486,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -506,18 +506,40 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@M (work@M) dut.sv:15:1: , endln:17:10, parent:work@top
   |vpiDefName:work@M
   |vpiFullName:work@M
+  |vpiParameter:
+  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
+    |vpiName:P
+    |vpiFullName:work@M.P
+    |BIN:0
+    |vpiTypespec:
+    \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
+      |vpiName:P
+      |vpiRange:
+      \_range: , line:16:21, endln:16:24
+        |vpiLeftRange:
+        \_constant: , line:16:21, endln:16:22
+          |vpiConstType:9
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+        |vpiRightRange:
+        \_constant: , line:16:23, endln:16:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:16:26, endln:16:32, parent:work@M
     |vpiRhs:
@@ -528,28 +550,6 @@ design: (work@top)
       |BIN:0
     |vpiLhs:
     \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
-      |vpiName:P
-      |vpiFullName:work@M.P
-      |BIN:0
-      |vpiTypespec:
-      \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
-        |vpiName:P
-        |vpiRange:
-        \_range: , line:16:21, endln:16:24
-          |vpiLeftRange:
-          \_constant: , line:16:21, endln:16:22
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:16:23, endln:16:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-  |vpiParameter:
-  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:2:1: , endln:13:10, parent:work@top
   |vpiDefName:work@top
@@ -586,6 +586,13 @@ design: (work@top)
           \_assignment: , line:9:9, endln:9:36, parent:work@top.proc_stall_tieoff
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($unsigned), line:9:24, endln:9:36, parent:work@top.proc_stall_tieoff
+              |vpiName:$unsigned
+              |vpiArgument:
+              \_ref_obj: (work@top.proc_stall_tieoff.i), line:9:34, endln:9:35, parent:$unsigned
+                |vpiName:i
+                |vpiFullName:work@top.proc_stall_tieoff.i
             |vpiLhs:
             \_hier_path: (hw2reg.stall), line:9:9, endln:9:15, parent:work@top.proc_stall_tieoff
               |vpiName:hw2reg.stall
@@ -595,16 +602,11 @@ design: (work@top)
               |vpiActual:
               \_ref_obj: (stall)
                 |vpiName:stall
-            |vpiRhs:
-            \_sys_func_call: ($unsigned), line:9:24, endln:9:36, parent:work@top.proc_stall_tieoff
-              |vpiName:$unsigned
-              |vpiArgument:
-              \_ref_obj: (work@top.proc_stall_tieoff.i), line:9:34, endln:9:35, parent:$unsigned
-                |vpiName:i
-                |vpiFullName:work@top.proc_stall_tieoff.i
-  |vpiTypedef:
-  \_interface_typespec: (foo_if), line:3:19, endln:3:26
-    |vpiName:foo_if
+  |vpiParameter:
+  \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+    |vpiName:INIT
+    |vpiFullName:work@top.INIT
+    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:4:19, endln:4:28, parent:work@top
     |vpiRhs:
@@ -615,11 +617,9 @@ design: (work@top)
       |BIN:0
     |vpiLhs:
     \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
-      |vpiName:INIT
-      |vpiFullName:work@top.INIT
-      |BIN:0
-  |vpiParameter:
-  \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+  |vpiTypedef:
+  \_interface_typespec: (foo_if), line:3:19, endln:3:26
+    |vpiName:foo_if
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:2:1: , endln:13:10
   |vpiDefName:work@top
@@ -656,6 +656,13 @@ design: (work@top)
           \_assignment: , line:9:9, endln:9:36, parent:work@top.proc_stall_tieoff
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($unsigned), line:9:24, endln:9:36
+              |vpiName:$unsigned
+              |vpiArgument:
+              \_ref_obj: (work@top.proc_stall_tieoff.i), line:9:34, endln:9:35, parent:$unsigned
+                |vpiName:i
+                |vpiFullName:work@top.proc_stall_tieoff.i
             |vpiLhs:
             \_hier_path: (hw2reg.stall), line:9:9, endln:9:15
               |vpiName:hw2reg.stall
@@ -665,16 +672,11 @@ design: (work@top)
               |vpiActual:
               \_ref_obj: (stall), parent:hw2reg.stall
                 |vpiName:stall
-            |vpiRhs:
-            \_sys_func_call: ($unsigned), line:9:24, endln:9:36
-              |vpiName:$unsigned
-              |vpiArgument:
-              \_ref_obj: (work@top.proc_stall_tieoff.i), line:9:34, endln:9:35, parent:$unsigned
-                |vpiName:i
-                |vpiFullName:work@top.proc_stall_tieoff.i
-  |vpiTypedef:
-  \_interface_typespec: (foo_if), line:3:19, endln:3:26
-    |vpiName:foo_if
+  |vpiParameter:
+  \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+    |vpiName:INIT
+    |vpiFullName:work@top.INIT
+    |BIN:0
   |vpiParamAssign:
   \_param_assign: , line:4:19, endln:4:28, parent:work@top
     |vpiRhs:
@@ -685,15 +687,35 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
-      |vpiName:INIT
-      |vpiFullName:work@top.INIT
-      |BIN:0
-  |vpiParameter:
-  \_parameter: (work@top.INIT), line:4:19, endln:4:28, parent:work@top
+  |vpiTypedef:
+  \_interface_typespec: (foo_if), line:3:19, endln:3:26
+    |vpiName:foo_if
 |uhdmtopModules:
 \_module: work@M (work@M) dut.sv:15:1: , endln:17:10
   |vpiDefName:work@M
   |vpiName:work@M
+  |vpiParameter:
+  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
+    |vpiName:P
+    |vpiFullName:work@M.P
+    |BIN:0
+    |vpiTypespec:
+    \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
+      |vpiName:P
+      |vpiRange:
+      \_range: , line:16:21, endln:16:24, parent:P
+        |vpiLeftRange:
+        \_constant: , line:16:21, endln:16:22
+          |vpiConstType:9
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+        |vpiRightRange:
+        \_constant: , line:16:23, endln:16:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:16:26, endln:16:32, parent:work@M
     |vpiRhs:
@@ -704,28 +726,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
-      |vpiName:P
-      |vpiFullName:work@M.P
-      |BIN:0
-      |vpiTypespec:
-      \_logic_typespec: (P), line:16:14, endln:16:19, parent:work@M.P
-        |vpiName:P
-        |vpiRange:
-        \_range: , line:16:21, endln:16:24, parent:P
-          |vpiLeftRange:
-          \_constant: , line:16:21, endln:16:22
-            |vpiConstType:9
-            |vpiDecompile:7
-            |vpiSize:64
-            |UINT:7
-          |vpiRightRange:
-          \_constant: , line:16:23, endln:16:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-  |vpiParameter:
-  \_parameter: (work@M.P), line:16:26, endln:16:32, parent:work@M
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

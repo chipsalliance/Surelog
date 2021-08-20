@@ -305,6 +305,12 @@ design: (unnamed)
   |vpiDefName:tnoc_pkg
   |vpiName:tnoc_pkg
   |vpiFullName:tnoc_pkg::
+  |vpiParameter:
+  \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:tnoc_pkg::
+    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+    |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
+    |vpiLocalParam:1
+    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:46, parent:tnoc_pkg::
     |vpiRhs:
@@ -315,12 +321,6 @@ design: (unnamed)
       |UINT:1
     |vpiLhs:
     \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:tnoc_pkg::
-      |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-      |vpiFullName:tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG
-      |vpiLocalParam:1
-      |UINT:1
-  |vpiParameter:
-  \_parameter: (tnoc_pkg::TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:tnoc_pkg::
 |uhdmallInterfaces:
 \_interface: work@tnoc_port_control_if (work@tnoc_port_control_if) dut.sv:6:1: , endln:34:13, parent:unnamed
   |vpiDefName:work@tnoc_port_control_if
@@ -396,8 +396,28 @@ design: (unnamed)
     |vpiName:end_of_packet
     |vpiFullName:work@tnoc_port_control_if.end_of_packet
     |vpiNetType:36
-  |vpiTypedef:
-  \_import: (tnoc_pkg), line:7:11, endln:7:22
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:work@tnoc_port_control_if
+    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
+    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
+    |vpiImported:tnoc_pkg
+    |vpiLocalParam:1
+    |UINT:1
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
+    |vpiName:PACKET_CONFIG
+    |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
+    |vpiTypespec:
+    \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
+      |vpiName:tnoc_packet_config
+  |vpiParameter:
+  \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
+    |vpiName:CHANNELS
+    |vpiFullName:work@tnoc_port_control_if.CHANNELS
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_int_typespec: (CHANNELS), line:11:15, endln:11:18, parent:work@tnoc_port_control_if.CHANNELS
+      |vpiName:CHANNELS
   |vpiParamAssign:
   \_param_assign: , line:2:15, endln:2:46, parent:work@tnoc_port_control_if
     |vpiRhs:
@@ -420,11 +440,6 @@ design: (unnamed)
       |vpiName:TNOC_DEFAULT_PACKET_CONFIG
     |vpiLhs:
     \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
-      |vpiName:PACKET_CONFIG
-      |vpiFullName:work@tnoc_port_control_if.PACKET_CONFIG
-      |vpiTypespec:
-      \_unsupported_typespec: (tnoc_packet_config), line:9:13, endln:9:31, parent:work@tnoc_port_control_if.PACKET_CONFIG
-        |vpiName:tnoc_packet_config
   |vpiParamAssign:
   \_param_assign: , line:11:19, endln:11:61, parent:work@tnoc_port_control_if
     |vpiRhs:
@@ -438,23 +453,8 @@ design: (unnamed)
         |vpiName:virtual_channels
     |vpiLhs:
     \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
-      |vpiName:CHANNELS
-      |vpiFullName:work@tnoc_port_control_if.CHANNELS
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_int_typespec: (CHANNELS), line:11:15, endln:11:18, parent:work@tnoc_port_control_if.CHANNELS
-        |vpiName:CHANNELS
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG), line:2:15, endln:2:46, parent:work@tnoc_port_control_if
-    |vpiName:TNOC_DEFAULT_PACKET_CONFIG
-    |vpiFullName:work@tnoc_port_control_if.TNOC_DEFAULT_PACKET_CONFIG
-    |vpiImported:tnoc_pkg
-    |vpiLocalParam:1
-    |UINT:1
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.PACKET_CONFIG), line:9:33, endln:9:76, parent:work@tnoc_port_control_if
-  |vpiParameter:
-  \_parameter: (work@tnoc_port_control_if.CHANNELS), line:11:19, endln:11:61, parent:work@tnoc_port_control_if
+  |vpiTypedef:
+  \_import: (tnoc_pkg), line:7:11, endln:7:22
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

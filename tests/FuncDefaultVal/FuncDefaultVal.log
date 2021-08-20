@@ -222,8 +222,6 @@ design: (work@top)
     |vpiFullName:work@top.dasm
     |vpiReturn:
     \_string_var: , line:5:10, endln:5:16
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:10:10, parent:work@top
     |vpiIODecl:
     \_io_decl: (tid)
       |vpiName:tid
@@ -241,10 +239,6 @@ design: (work@top)
       \_assignment: , line:6:5, endln:6:86, parent:work@top.dasm
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9, parent:work@top.dasm
-          |vpiName:dasm
-          |vpiFullName:work@top.dasm.dasm
         |vpiRhs:
         \_operation: , line:6:12, endln:6:34, parent:work@top.dasm
           |vpiOpType:32
@@ -304,6 +298,10 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.tid), line:6:82, endln:6:85, parent:dasm16
               |vpiName:tid
               |vpiFullName:work@top.dasm.tid
+        |vpiLhs:
+        \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9, parent:work@top.dasm
+          |vpiName:dasm
+          |vpiFullName:work@top.dasm.dasm
       |vpiStmt:
       \_if_stmt: , line:7:5, endln:7:36, parent:work@top.dasm
         |vpiCondition:
@@ -314,6 +312,10 @@ design: (work@top)
         \_assignment: , line:7:14, endln:7:35
           |vpiOpType:82
           |vpiBlocking:1
+          |vpiRhs:
+          \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
+            |vpiName:regv
+            |vpiFullName:work@top.dasm.regv
           |vpiLhs:
           \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:17
             |vpiName:gpr
@@ -326,10 +328,8 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.gpr.regn), line:7:23, endln:7:27, parent:work@top.dasm.gpr
               |vpiName:regn
               |vpiFullName:work@top.dasm.gpr.regn
-          |vpiRhs:
-          \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
-            |vpiName:regv
-            |vpiFullName:work@top.dasm.regv
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:10:10, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.gpr), line:3:18, parent:work@top
     |vpiName:gpr
@@ -345,8 +345,6 @@ design: (work@top)
     |vpiFullName:work@top.dasm
     |vpiReturn:
     \_string_var: , line:5:10, endln:5:16
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
     |vpiIODecl:
     \_io_decl: (tid), parent:work@top.dasm
       |vpiName:tid
@@ -364,12 +362,6 @@ design: (work@top)
       \_assignment: , line:6:5, endln:6:86, parent:work@top.dasm
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9
-          |vpiName:dasm
-          |vpiFullName:work@top.dasm.dasm
-          |vpiActual:
-          \_string_var: , line:5:10, endln:5:16
         |vpiRhs:
         \_operation: , line:6:12, endln:6:34
           |vpiOpType:32
@@ -433,6 +425,12 @@ design: (work@top)
               |vpiFullName:work@top.dasm.tid
               |vpiActual:
               \_io_decl: (tid), parent:work@top.dasm
+        |vpiLhs:
+        \_ref_obj: (work@top.dasm.dasm), line:6:5, endln:6:9
+          |vpiName:dasm
+          |vpiFullName:work@top.dasm.dasm
+          |vpiActual:
+          \_string_var: , line:5:10, endln:5:16
       |vpiStmt:
       \_if_stmt: , line:7:5, endln:7:36, parent:work@top.dasm
         |vpiCondition:
@@ -443,6 +441,10 @@ design: (work@top)
         \_assignment: , line:7:14, endln:7:35
           |vpiOpType:82
           |vpiBlocking:1
+          |vpiRhs:
+          \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
+            |vpiName:regv
+            |vpiFullName:work@top.dasm.regv
           |vpiLhs:
           \_var_select: (work@top.dasm.gpr), line:7:14, endln:7:17
             |vpiName:gpr
@@ -457,10 +459,8 @@ design: (work@top)
             \_ref_obj: (work@top.dasm.gpr.regn), line:7:23, endln:7:27, parent:work@top.dasm.gpr
               |vpiName:regn
               |vpiFullName:work@top.dasm.gpr.regn
-          |vpiRhs:
-          \_ref_obj: (work@top.dasm.regv), line:7:31, endln:7:35
-            |vpiName:regv
-            |vpiFullName:work@top.dasm.regv
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:10:10
   |vpiVariables:
   \_array_var: (work@top.gpr), line:3:18, endln:3:21, parent:work@top
     |vpiArrayType:1

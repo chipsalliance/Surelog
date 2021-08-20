@@ -242,14 +242,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -463,14 +463,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -481,14 +481,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -499,14 +499,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -519,14 +519,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:6:10, parent:work@dut
   |vpiDefName:work@dut
@@ -535,6 +535,30 @@ design: (work@dut)
 \_module: work@test (work@test) dut.sv:8:1: , endln:20:10, parent:work@dut
   |vpiDefName:work@test
   |vpiFullName:work@test
+  |vpiParameter:
+  \_parameter: (work@test.Width), line:9:16, endln:9:36, parent:work@test
+    |vpiName:Width
+    |vpiFullName:work@test.Width
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: (Width), line:9:12, endln:9:15, parent:work@test.Width
+      |vpiName:Width
+  |vpiParameter:
+  \_parameter: (work@test.DataBitsPerMask), line:10:16, endln:10:35, parent:work@test
+    |vpiName:DataBitsPerMask
+    |vpiFullName:work@test.DataBitsPerMask
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (DataBitsPerMask), line:10:12, endln:10:15, parent:work@test.DataBitsPerMask
+      |vpiName:DataBitsPerMask
+  |vpiParameter:
+  \_parameter: (work@test.MaskWidth), line:12:24, endln:12:59, parent:work@test
+    |vpiName:MaskWidth
+    |vpiFullName:work@test.MaskWidth
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_int_typespec: (MaskWidth), line:12:20, endln:12:23, parent:work@test.MaskWidth
+      |vpiName:MaskWidth
   |vpiParamAssign:
   \_param_assign: , line:9:16, endln:9:36, parent:work@test
     |vpiRhs:
@@ -545,12 +569,6 @@ design: (work@dut)
       |UINT:32
     |vpiLhs:
     \_parameter: (work@test.Width), line:9:16, endln:9:36, parent:work@test
-      |vpiName:Width
-      |vpiFullName:work@test.Width
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: (Width), line:9:12, endln:9:15, parent:work@test.Width
-        |vpiName:Width
   |vpiParamAssign:
   \_param_assign: , line:10:16, endln:10:35, parent:work@test
     |vpiRhs:
@@ -561,12 +579,6 @@ design: (work@dut)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@test.DataBitsPerMask), line:10:16, endln:10:35, parent:work@test
-      |vpiName:DataBitsPerMask
-      |vpiFullName:work@test.DataBitsPerMask
-      |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (DataBitsPerMask), line:10:12, endln:10:15, parent:work@test.DataBitsPerMask
-        |vpiName:DataBitsPerMask
   |vpiParamAssign:
   \_param_assign: , line:12:24, endln:12:59, parent:work@test
     |vpiRhs:
@@ -588,18 +600,6 @@ design: (work@dut)
             |vpiName:DataBitsPerMask
     |vpiLhs:
     \_parameter: (work@test.MaskWidth), line:12:24, endln:12:59, parent:work@test
-      |vpiName:MaskWidth
-      |vpiFullName:work@test.MaskWidth
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_int_typespec: (MaskWidth), line:12:20, endln:12:23, parent:work@test.MaskWidth
-        |vpiName:MaskWidth
-  |vpiParameter:
-  \_parameter: (work@test.Width), line:9:16, endln:9:36, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.DataBitsPerMask), line:10:16, endln:10:35, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.MaskWidth), line:12:24, endln:12:59, parent:work@test
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:6:10
   |vpiDefName:work@dut
@@ -681,6 +681,30 @@ design: (work@dut)
           |UINT:3
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:1:1: , endln:6:10
+    |vpiParameter:
+    \_parameter: (work@dut.t.Width), line:9:16, endln:9:36, parent:work@dut.t
+      |vpiName:Width
+      |vpiFullName:work@dut.t.Width
+      |UINT:32
+      |vpiTypespec:
+      \_int_typespec: (Width), line:9:12, endln:9:15, parent:work@dut.t.Width
+        |vpiName:Width
+    |vpiParameter:
+    \_parameter: (work@dut.t.DataBitsPerMask), line:10:16, endln:10:35, parent:work@dut.t
+      |vpiName:DataBitsPerMask
+      |vpiFullName:work@dut.t.DataBitsPerMask
+      |UINT:2
+      |vpiTypespec:
+      \_int_typespec: (DataBitsPerMask), line:10:12, endln:10:15, parent:work@dut.t.DataBitsPerMask
+        |vpiName:DataBitsPerMask
+    |vpiParameter:
+    \_parameter: (work@dut.t.MaskWidth), line:12:24, endln:12:59, parent:work@dut.t
+      |vpiName:MaskWidth
+      |vpiFullName:work@dut.t.MaskWidth
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: (MaskWidth), line:12:20, endln:12:23, parent:work@dut.t.MaskWidth
+        |vpiName:MaskWidth
     |vpiParamAssign:
     \_param_assign: , line:9:16, endln:9:36, parent:work@dut.t
       |vpiRhs:
@@ -691,12 +715,6 @@ design: (work@dut)
         |UINT:32
       |vpiLhs:
       \_parameter: (work@dut.t.Width), line:9:16, endln:9:36, parent:work@dut.t
-        |vpiName:Width
-        |vpiFullName:work@dut.t.Width
-        |UINT:32
-        |vpiTypespec:
-        \_int_typespec: (Width), line:9:12, endln:9:15, parent:work@dut.t.Width
-          |vpiName:Width
     |vpiParamAssign:
     \_param_assign: , line:10:16, endln:10:35, parent:work@dut.t
       |vpiRhs:
@@ -707,12 +725,6 @@ design: (work@dut)
         |UINT:8
       |vpiLhs:
       \_parameter: (work@dut.t.DataBitsPerMask), line:10:16, endln:10:35, parent:work@dut.t
-        |vpiName:DataBitsPerMask
-        |vpiFullName:work@dut.t.DataBitsPerMask
-        |UINT:2
-        |vpiTypespec:
-        \_int_typespec: (DataBitsPerMask), line:10:12, endln:10:15, parent:work@dut.t.DataBitsPerMask
-          |vpiName:DataBitsPerMask
     |vpiParamAssign:
     \_param_assign: , line:12:24, endln:12:59, parent:work@dut.t
       |vpiRhs:
@@ -723,18 +735,6 @@ design: (work@dut)
         |INT:4
       |vpiLhs:
       \_parameter: (work@dut.t.MaskWidth), line:12:24, endln:12:59, parent:work@dut.t
-        |vpiName:MaskWidth
-        |vpiFullName:work@dut.t.MaskWidth
-        |vpiLocalParam:1
-        |vpiTypespec:
-        \_int_typespec: (MaskWidth), line:12:20, endln:12:23, parent:work@dut.t.MaskWidth
-          |vpiName:MaskWidth
-    |vpiParameter:
-    \_parameter: (work@dut.t.Width), line:9:16, endln:9:36, parent:work@dut.t
-    |vpiParameter:
-    \_parameter: (work@dut.t.DataBitsPerMask), line:10:16, endln:10:35, parent:work@dut.t
-    |vpiParameter:
-    \_parameter: (work@dut.t.MaskWidth), line:12:24, endln:12:59, parent:work@dut.t
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

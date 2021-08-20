@@ -235,33 +235,37 @@ design: (work@aes_core)
   |vpiDefName:aes_pkg
   |vpiName:aes_pkg
   |vpiFullName:aes_pkg::
-  |vpiTypedef:
-  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-    |vpiPacked:1
-    |vpiName:aes_pkg::ctrl_reg_t
-    |vpiTypespecMember:
-    \_typespec_member: (manual_operation), line:3:15, endln:3:31
-      |vpiName:manual_operation
-      |vpiTypespec:
-      \_logic_typespec: , line:3:3, endln:3:8
-        |vpiRange:
-        \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
-          |vpiLeftRange:
-          \_constant: , line:3:9, endln:3:11
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:3:12, endln:3:13
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiInstance:
-        \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-    |vpiInstance:
-    \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+  |vpiParameter:
+  \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
+    |vpiName:CTRL_RESET
+    |vpiFullName:aes_pkg::CTRL_RESET
+    |vpiTypespec:
+    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+      |vpiPacked:1
+      |vpiName:aes_pkg::ctrl_reg_t
+      |vpiTypespecMember:
+      \_typespec_member: (manual_operation), line:3:15, endln:3:31
+        |vpiName:manual_operation
+        |vpiTypespec:
+        \_logic_typespec: , line:3:3, endln:3:8
+          |vpiRange:
+          \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
+            |vpiLeftRange:
+            \_constant: , line:3:9, endln:3:11
+              |vpiConstType:9
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+            |vpiRightRange:
+            \_constant: , line:3:12, endln:3:13
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+          |vpiInstance:
+          \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+      |vpiInstance:
+      \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
   |vpiParamAssign:
   \_param_assign: , line:6:22, endln:8:2, parent:aes_pkg::
     |vpiRhs:
@@ -269,23 +273,19 @@ design: (work@aes_core)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: 
-        |vpiTypespec:
-        \_string_typespec: (manual_operation), line:7:3, endln:7:19
-          |vpiName:manual_operation
         |vpiPattern:
         \_constant: , line:7:21, endln:7:23
           |vpiConstType:3
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
+        |vpiTypespec:
+        \_string_typespec: (manual_operation), line:7:3, endln:7:19
+          |vpiName:manual_operation
     |vpiLhs:
     \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
-      |vpiName:CTRL_RESET
-      |vpiFullName:aes_pkg::CTRL_RESET
-      |vpiTypespec:
-      \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-  |vpiParameter:
-  \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
+  |vpiTypedef:
+  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
 |uhdmallModules:
 \_module: work@aes_core (work@aes_core) dut.sv:22:1: , endln:26:10, parent:work@aes_core
   |vpiDefName:work@aes_core
@@ -294,64 +294,92 @@ design: (work@aes_core)
   \_logic_net: (work@aes_core.ctrl_q), line:24:14, parent:work@aes_core
     |vpiName:ctrl_q
     |vpiFullName:work@aes_core.ctrl_q
-  |vpiTypedef:
-  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-    |vpiPacked:1
-    |vpiName:aes_pkg::ctrl_reg_t
-    |vpiTypespecMember:
-    \_typespec_member: (manual_operation), line:3:15, endln:3:31
-      |vpiName:manual_operation
-      |vpiTypespec:
-      \_logic_typespec: , line:3:3, endln:3:8
-        |vpiRange:
-        \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
-          |vpiLeftRange:
-          \_constant: , line:3:9, endln:3:11
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:3:12, endln:3:13
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiInstance:
-        \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-          |vpiDefName:aes_pkg
-          |vpiName:aes_pkg
-          |vpiFullName:aes_pkg::
-          |vpiTypedef:
-          \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-          |vpiParamAssign:
-          \_param_assign: , line:6:22, endln:8:2, parent:aes_pkg::
-            |vpiRhs:
-            \_operation: , line:6:35, endln:8:2
-              |vpiOpType:75
-              |vpiOperand:
-              \_tagged_pattern: 
-                |vpiTypespec:
-                \_string_typespec: (manual_operation), line:7:3, endln:7:19
-                  |vpiName:manual_operation
-                |vpiPattern:
-                \_constant: , line:7:21, endln:7:23
-                  |vpiConstType:3
-                  |vpiDecompile:'0
-                  |vpiSize:-1
-                  |BIN:0
-            |vpiLhs:
+  |vpiParameter:
+  \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:8:2, parent:work@aes_core
+    |vpiName:CTRL_RESET
+    |vpiFullName:work@aes_core.CTRL_RESET
+    |vpiImported:aes_pkg
+    |vpiTypespec:
+    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:work@aes_core.CTRL_RESET
+      |vpiPacked:1
+      |vpiName:aes_pkg::ctrl_reg_t
+      |vpiTypespecMember:
+      \_typespec_member: (manual_operation), line:3:15, endln:3:31, parent:aes_pkg::ctrl_reg_t
+        |vpiName:manual_operation
+        |vpiTypespec:
+        \_logic_typespec: , line:3:3, endln:3:8, parent:manual_operation
+          |vpiRange:
+          \_range: , line:3:9, endln:3:13
+            |vpiLeftRange:
+            \_constant: , line:3:9, endln:3:11
+              |vpiConstType:9
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+            |vpiRightRange:
+            \_constant: , line:3:12, endln:3:13
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+          |vpiInstance:
+          \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+            |vpiDefName:aes_pkg
+            |vpiName:aes_pkg
+            |vpiFullName:aes_pkg::
+            |vpiParameter:
             \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
               |vpiName:CTRL_RESET
               |vpiFullName:aes_pkg::CTRL_RESET
               |vpiTypespec:
               \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-          |vpiParameter:
-          \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
-    |vpiInstance:
-    \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-  |vpiTypedef:
-  \_import: (aes_pkg), line:23:10, endln:23:20
+                |vpiPacked:1
+                |vpiName:aes_pkg::ctrl_reg_t
+                |vpiTypespecMember:
+                \_typespec_member: (manual_operation), line:3:15, endln:3:31
+                  |vpiName:manual_operation
+                  |vpiTypespec:
+                  \_logic_typespec: , line:3:3, endln:3:8
+                    |vpiRange:
+                    \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
+                      |vpiLeftRange:
+                      \_constant: , line:3:9, endln:3:11
+                        |vpiConstType:9
+                        |vpiDecompile:31
+                        |vpiSize:64
+                        |UINT:31
+                      |vpiRightRange:
+                      \_constant: , line:3:12, endln:3:13
+                        |vpiConstType:9
+                        |vpiDecompile:0
+                        |vpiSize:64
+                        |UINT:0
+                    |vpiInstance:
+                    \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+                |vpiInstance:
+                \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+            |vpiParamAssign:
+            \_param_assign: , line:6:22, endln:8:2, parent:aes_pkg::
+              |vpiRhs:
+              \_operation: , line:6:35, endln:8:2
+                |vpiOpType:75
+                |vpiOperand:
+                \_tagged_pattern: 
+                  |vpiPattern:
+                  \_constant: , line:7:21, endln:7:23
+                    |vpiConstType:3
+                    |vpiDecompile:'0
+                    |vpiSize:-1
+                    |BIN:0
+                  |vpiTypespec:
+                  \_string_typespec: (manual_operation), line:7:3, endln:7:19
+                    |vpiName:manual_operation
+              |vpiLhs:
+              \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
+            |vpiTypedef:
+            \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+      |vpiInstance:
+      \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
   |vpiParamAssign:
   \_param_assign: , line:6:22, endln:8:2, parent:work@aes_core
     |vpiRhs:
@@ -359,15 +387,15 @@ design: (work@aes_core)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: 
-        |vpiTypespec:
-        \_string_typespec: (manual_operation), line:7:3, endln:7:19
-          |vpiName:manual_operation
         |vpiPattern:
         \_constant: , line:7:21, endln:7:23
           |vpiConstType:3
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
+        |vpiTypespec:
+        \_string_typespec: (manual_operation), line:7:3, endln:7:19
+          |vpiName:manual_operation
     |vpiLhs:
     \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:8:2
       |vpiName:CTRL_RESET
@@ -400,6 +428,288 @@ design: (work@aes_core)
             \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
         |vpiInstance:
         \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+  |vpiTypedef:
+  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+  |vpiTypedef:
+  \_import: (aes_pkg), line:23:10, endln:23:20
+|uhdmallModules:
+\_module: work@shadow (work@shadow) dut.sv:16:1: , endln:20:10, parent:work@aes_core
+  |vpiDefName:work@shadow
+  |vpiFullName:work@shadow
+  |vpiParameter:
+  \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:37, parent:work@shadow
+    |vpiName:RESVAL
+    |vpiFullName:work@shadow.RESVAL
+    |BIN:0
+    |vpiTypespec:
+    \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@shadow.RESVAL
+      |vpiName:RESVAL
+      |vpiRange:
+      \_range: , line:17:20, endln:17:24
+        |vpiLeftRange:
+        \_constant: , line:17:20, endln:17:22
+          |vpiConstType:9
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+        |vpiRightRange:
+        \_constant: , line:17:23, endln:17:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParamAssign:
+  \_param_assign: , line:17:26, endln:17:37, parent:work@shadow
+    |vpiRhs:
+    \_constant: , line:17:35, endln:17:37
+      |vpiConstType:3
+      |vpiDecompile:'0
+      |vpiSize:-1
+      |BIN:0
+    |vpiLhs:
+    \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:37, parent:work@shadow
+|uhdmallModules:
+\_module: work@subreg (work@subreg) dut.sv:11:1: , endln:14:10, parent:work@aes_core
+  |vpiDefName:work@subreg
+  |vpiFullName:work@subreg
+  |vpiParameter:
+  \_parameter: (work@subreg.RESVAL), line:12:26, endln:12:37, parent:work@subreg
+    |vpiName:RESVAL
+    |vpiFullName:work@subreg.RESVAL
+    |BIN:0
+    |vpiTypespec:
+    \_logic_typespec: (RESVAL), line:12:13, endln:12:18, parent:work@subreg.RESVAL
+      |vpiName:RESVAL
+      |vpiRange:
+      \_range: , line:12:20, endln:12:24
+        |vpiLeftRange:
+        \_constant: , line:12:20, endln:12:22
+          |vpiConstType:9
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+        |vpiRightRange:
+        \_constant: , line:12:23, endln:12:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParamAssign:
+  \_param_assign: , line:12:26, endln:12:37, parent:work@subreg
+    |vpiRhs:
+    \_constant: , line:12:35, endln:12:37
+      |vpiConstType:3
+      |vpiDecompile:'0
+      |vpiSize:-1
+      |BIN:0
+    |vpiLhs:
+    \_parameter: (work@subreg.RESVAL), line:12:26, endln:12:37, parent:work@subreg
+|uhdmtopModules:
+\_module: work@aes_core (work@aes_core) dut.sv:22:1: , endln:26:10
+  |vpiDefName:work@aes_core
+  |vpiName:work@aes_core
+  |vpiModule:
+  \_module: work@shadow (work@aes_core.shadow_reg) dut.sv:25:3: , endln:25:46, parent:work@aes_core
+    |vpiDefName:work@shadow
+    |vpiDefFile:dut.sv
+    |vpiDefLineNo:16
+    |vpiName:shadow_reg
+    |vpiFullName:work@aes_core.shadow_reg
+    |vpiModule:
+    \_module: work@subreg (work@aes_core.shadow_reg.commit_reg) dut.sv:19:3: , endln:19:42, parent:work@aes_core.shadow_reg
+      |vpiDefName:work@subreg
+      |vpiDefFile:dut.sv
+      |vpiDefLineNo:11
+      |vpiName:commit_reg
+      |vpiFullName:work@aes_core.shadow_reg.commit_reg
+      |vpiInstance:
+      \_module: work@shadow (work@aes_core.shadow_reg) dut.sv:25:3: , endln:25:46, parent:work@aes_core
+      |vpiParameter:
+      \_parameter: (work@aes_core.shadow_reg.commit_reg.RESVAL), line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
+        |vpiName:RESVAL
+        |vpiFullName:work@aes_core.shadow_reg.commit_reg.RESVAL
+        |BIN:0
+        |vpiTypespec:
+        \_logic_typespec: (RESVAL), line:12:13, endln:12:18, parent:work@aes_core.shadow_reg.commit_reg.RESVAL
+          |vpiName:RESVAL
+          |vpiRange:
+          \_range: , line:12:20, endln:12:24, parent:RESVAL
+            |vpiLeftRange:
+            \_constant: , line:12:20, endln:12:22
+              |vpiConstType:9
+              |vpiDecompile:31
+              |vpiSize:64
+              |UINT:31
+            |vpiRightRange:
+            \_constant: , line:12:23, endln:12:24
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+      |vpiParamAssign:
+      \_param_assign: , line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
+        |vpiRhs:
+        \_operation: , line:19:20, endln:19:26
+          |vpiOpType:75
+          |vpiOperand:
+          \_tagged_pattern: 
+            |vpiPattern:
+            \_constant: , line:7:21, endln:7:23
+              |vpiConstType:3
+              |vpiDecompile:'0
+              |vpiSize:-1
+              |BIN:0
+            |vpiTypespec:
+            \_string_typespec: (manual_operation), line:7:3, endln:7:19
+              |vpiName:manual_operation
+          |vpiTypespec:
+          \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@shadow.RESVAL
+            |vpiName:RESVAL
+            |vpiRange:
+            \_range: , line:17:20, endln:17:24
+              |vpiLeftRange:
+              \_constant: , line:17:20, endln:17:22
+                |vpiConstType:9
+                |vpiDecompile:31
+                |vpiSize:64
+                |UINT:31
+              |vpiRightRange:
+              \_constant: , line:17:23, endln:17:24
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+        |vpiLhs:
+        \_parameter: (work@aes_core.shadow_reg.commit_reg.RESVAL), line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
+    |vpiInstance:
+    \_module: work@aes_core (work@aes_core) dut.sv:22:1: , endln:26:10
+    |vpiParameter:
+    \_parameter: (work@aes_core.shadow_reg.RESVAL), line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
+      |vpiName:RESVAL
+      |vpiFullName:work@aes_core.shadow_reg.RESVAL
+      |BIN:0
+      |vpiTypespec:
+      \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@aes_core.shadow_reg.RESVAL
+        |vpiName:RESVAL
+        |vpiRange:
+        \_range: , line:17:20, endln:17:24, parent:RESVAL
+          |vpiLeftRange:
+          \_constant: , line:17:20, endln:17:22
+            |vpiConstType:9
+            |vpiDecompile:31
+            |vpiSize:64
+            |UINT:31
+          |vpiRightRange:
+          \_constant: , line:17:23, endln:17:24
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiParamAssign:
+    \_param_assign: , line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
+      |vpiRhs:
+      \_operation: , line:25:20, endln:25:30
+        |vpiOpType:75
+        |vpiOperand:
+        \_tagged_pattern: 
+          |vpiPattern:
+          \_constant: , line:7:21, endln:7:23
+            |vpiConstType:3
+            |vpiDecompile:'0
+            |vpiSize:-1
+            |BIN:0
+          |vpiTypespec:
+          \_string_typespec: (manual_operation), line:7:3, endln:7:19
+            |vpiName:manual_operation
+        |vpiTypespec:
+        \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:work@aes_core.CTRL_RESET
+          |vpiPacked:1
+          |vpiName:aes_pkg::ctrl_reg_t
+          |vpiTypespecMember:
+          \_typespec_member: (manual_operation), line:3:15, endln:3:31, parent:aes_pkg::ctrl_reg_t
+            |vpiName:manual_operation
+            |vpiTypespec:
+            \_logic_typespec: , line:3:3, endln:3:8, parent:manual_operation
+              |vpiRange:
+              \_range: , line:3:9, endln:3:13
+                |vpiLeftRange:
+                \_constant: , line:3:9, endln:3:11
+                  |vpiConstType:9
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |UINT:31
+                |vpiRightRange:
+                \_constant: , line:3:12, endln:3:13
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
+              |vpiInstance:
+              \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+                |vpiDefName:aes_pkg
+                |vpiName:aes_pkg
+                |vpiFullName:aes_pkg::
+                |vpiParameter:
+                \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
+                  |vpiName:CTRL_RESET
+                  |vpiFullName:aes_pkg::CTRL_RESET
+                  |vpiTypespec:
+                  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+                    |vpiPacked:1
+                    |vpiName:aes_pkg::ctrl_reg_t
+                    |vpiTypespecMember:
+                    \_typespec_member: (manual_operation), line:3:15, endln:3:31
+                      |vpiName:manual_operation
+                      |vpiTypespec:
+                      \_logic_typespec: , line:3:3, endln:3:8
+                        |vpiRange:
+                        \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
+                          |vpiLeftRange:
+                          \_constant: , line:3:9, endln:3:11
+                            |vpiConstType:9
+                            |vpiDecompile:31
+                            |vpiSize:64
+                            |UINT:31
+                          |vpiRightRange:
+                          \_constant: , line:3:12, endln:3:13
+                            |vpiConstType:9
+                            |vpiDecompile:0
+                            |vpiSize:64
+                            |UINT:0
+                        |vpiInstance:
+                        \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+                    |vpiInstance:
+                    \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+                |vpiParamAssign:
+                \_param_assign: , line:6:22, endln:8:2, parent:aes_pkg::
+                  |vpiRhs:
+                  \_operation: , line:6:35, endln:8:2
+                    |vpiOpType:75
+                    |vpiOperand:
+                    \_tagged_pattern: 
+                      |vpiPattern:
+                      \_constant: , line:7:21, endln:7:23
+                        |vpiConstType:3
+                        |vpiDecompile:'0
+                        |vpiSize:-1
+                        |BIN:0
+                      |vpiTypespec:
+                      \_string_typespec: (manual_operation), line:7:3, endln:7:19
+                        |vpiName:manual_operation
+                  |vpiLhs:
+                  \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
+                |vpiTypedef:
+                \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+          |vpiInstance:
+          \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
+      |vpiLhs:
+      \_parameter: (work@aes_core.shadow_reg.RESVAL), line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
+  |vpiNet:
+  \_struct_net: (work@aes_core.ctrl_q), line:24:14, endln:24:20, parent:work@aes_core
+    |vpiName:ctrl_q
+    |vpiFullName:work@aes_core.ctrl_q
+    |vpiTypespec:
+    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
   |vpiParameter:
   \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:8:2, parent:work@aes_core
     |vpiName:CTRL_RESET
@@ -432,288 +742,6 @@ design: (work@aes_core)
           \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
       |vpiInstance:
       \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-|uhdmallModules:
-\_module: work@shadow (work@shadow) dut.sv:16:1: , endln:20:10, parent:work@aes_core
-  |vpiDefName:work@shadow
-  |vpiFullName:work@shadow
-  |vpiParamAssign:
-  \_param_assign: , line:17:26, endln:17:37, parent:work@shadow
-    |vpiRhs:
-    \_constant: , line:17:35, endln:17:37
-      |vpiConstType:3
-      |vpiDecompile:'0
-      |vpiSize:-1
-      |BIN:0
-    |vpiLhs:
-    \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:37, parent:work@shadow
-      |vpiName:RESVAL
-      |vpiFullName:work@shadow.RESVAL
-      |BIN:0
-      |vpiTypespec:
-      \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@shadow.RESVAL
-        |vpiName:RESVAL
-        |vpiRange:
-        \_range: , line:17:20, endln:17:24
-          |vpiLeftRange:
-          \_constant: , line:17:20, endln:17:22
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:17:23, endln:17:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-  |vpiParameter:
-  \_parameter: (work@shadow.RESVAL), line:17:26, endln:17:37, parent:work@shadow
-|uhdmallModules:
-\_module: work@subreg (work@subreg) dut.sv:11:1: , endln:14:10, parent:work@aes_core
-  |vpiDefName:work@subreg
-  |vpiFullName:work@subreg
-  |vpiParamAssign:
-  \_param_assign: , line:12:26, endln:12:37, parent:work@subreg
-    |vpiRhs:
-    \_constant: , line:12:35, endln:12:37
-      |vpiConstType:3
-      |vpiDecompile:'0
-      |vpiSize:-1
-      |BIN:0
-    |vpiLhs:
-    \_parameter: (work@subreg.RESVAL), line:12:26, endln:12:37, parent:work@subreg
-      |vpiName:RESVAL
-      |vpiFullName:work@subreg.RESVAL
-      |BIN:0
-      |vpiTypespec:
-      \_logic_typespec: (RESVAL), line:12:13, endln:12:18, parent:work@subreg.RESVAL
-        |vpiName:RESVAL
-        |vpiRange:
-        \_range: , line:12:20, endln:12:24
-          |vpiLeftRange:
-          \_constant: , line:12:20, endln:12:22
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:12:23, endln:12:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-  |vpiParameter:
-  \_parameter: (work@subreg.RESVAL), line:12:26, endln:12:37, parent:work@subreg
-|uhdmtopModules:
-\_module: work@aes_core (work@aes_core) dut.sv:22:1: , endln:26:10
-  |vpiDefName:work@aes_core
-  |vpiName:work@aes_core
-  |vpiModule:
-  \_module: work@shadow (work@aes_core.shadow_reg) dut.sv:25:3: , endln:25:46, parent:work@aes_core
-    |vpiDefName:work@shadow
-    |vpiDefFile:dut.sv
-    |vpiDefLineNo:16
-    |vpiName:shadow_reg
-    |vpiFullName:work@aes_core.shadow_reg
-    |vpiModule:
-    \_module: work@subreg (work@aes_core.shadow_reg.commit_reg) dut.sv:19:3: , endln:19:42, parent:work@aes_core.shadow_reg
-      |vpiDefName:work@subreg
-      |vpiDefFile:dut.sv
-      |vpiDefLineNo:11
-      |vpiName:commit_reg
-      |vpiFullName:work@aes_core.shadow_reg.commit_reg
-      |vpiInstance:
-      \_module: work@shadow (work@aes_core.shadow_reg) dut.sv:25:3: , endln:25:46, parent:work@aes_core
-      |vpiParamAssign:
-      \_param_assign: , line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
-        |vpiRhs:
-        \_operation: , line:19:20, endln:19:26
-          |vpiOpType:75
-          |vpiOperand:
-          \_tagged_pattern: 
-            |vpiTypespec:
-            \_string_typespec: (manual_operation), line:7:3, endln:7:19
-              |vpiName:manual_operation
-            |vpiPattern:
-            \_constant: , line:7:21, endln:7:23
-              |vpiConstType:3
-              |vpiDecompile:'0
-              |vpiSize:-1
-              |BIN:0
-          |vpiTypespec:
-          \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@shadow.RESVAL
-            |vpiName:RESVAL
-            |vpiRange:
-            \_range: , line:17:20, endln:17:24
-              |vpiLeftRange:
-              \_constant: , line:17:20, endln:17:22
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:17:23, endln:17:24
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-        |vpiLhs:
-        \_parameter: (work@aes_core.shadow_reg.commit_reg.RESVAL), line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
-          |vpiName:RESVAL
-          |vpiFullName:work@aes_core.shadow_reg.commit_reg.RESVAL
-          |BIN:0
-          |vpiTypespec:
-          \_logic_typespec: (RESVAL), line:12:13, endln:12:18, parent:work@aes_core.shadow_reg.commit_reg.RESVAL
-            |vpiName:RESVAL
-            |vpiRange:
-            \_range: , line:12:20, endln:12:24, parent:RESVAL
-              |vpiLeftRange:
-              \_constant: , line:12:20, endln:12:22
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:12:23, endln:12:24
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-      |vpiParameter:
-      \_parameter: (work@aes_core.shadow_reg.commit_reg.RESVAL), line:12:26, endln:12:37, parent:work@aes_core.shadow_reg.commit_reg
-    |vpiInstance:
-    \_module: work@aes_core (work@aes_core) dut.sv:22:1: , endln:26:10
-    |vpiParamAssign:
-    \_param_assign: , line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
-      |vpiRhs:
-      \_operation: , line:25:20, endln:25:30
-        |vpiOpType:75
-        |vpiOperand:
-        \_tagged_pattern: 
-          |vpiTypespec:
-          \_string_typespec: (manual_operation), line:7:3, endln:7:19
-            |vpiName:manual_operation
-          |vpiPattern:
-          \_constant: , line:7:21, endln:7:23
-            |vpiConstType:3
-            |vpiDecompile:'0
-            |vpiSize:-1
-            |BIN:0
-        |vpiTypespec:
-        \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:work@aes_core.CTRL_RESET
-          |vpiPacked:1
-          |vpiName:aes_pkg::ctrl_reg_t
-          |vpiTypespecMember:
-          \_typespec_member: (manual_operation), line:3:15, endln:3:31, parent:aes_pkg::ctrl_reg_t
-            |vpiName:manual_operation
-            |vpiTypespec:
-            \_logic_typespec: , line:3:3, endln:3:8, parent:manual_operation
-              |vpiRange:
-              \_range: , line:3:9, endln:3:13
-                |vpiLeftRange:
-                \_constant: , line:3:9, endln:3:11
-                  |vpiConstType:9
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |UINT:31
-                |vpiRightRange:
-                \_constant: , line:3:12, endln:3:13
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
-              |vpiInstance:
-              \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-                |vpiDefName:aes_pkg
-                |vpiName:aes_pkg
-                |vpiFullName:aes_pkg::
-                |vpiTypedef:
-                \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-                  |vpiPacked:1
-                  |vpiName:aes_pkg::ctrl_reg_t
-                  |vpiTypespecMember:
-                  \_typespec_member: (manual_operation), line:3:15, endln:3:31
-                    |vpiName:manual_operation
-                    |vpiTypespec:
-                    \_logic_typespec: , line:3:3, endln:3:8
-                      |vpiRange:
-                      \_range: , line:3:9, endln:3:13, parent:aes_pkg::ctrl_reg_t
-                        |vpiLeftRange:
-                        \_constant: , line:3:9, endln:3:11
-                          |vpiConstType:9
-                          |vpiDecompile:31
-                          |vpiSize:64
-                          |UINT:31
-                        |vpiRightRange:
-                        \_constant: , line:3:12, endln:3:13
-                          |vpiConstType:9
-                          |vpiDecompile:0
-                          |vpiSize:64
-                          |UINT:0
-                      |vpiInstance:
-                      \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-                  |vpiInstance:
-                  \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-                |vpiParamAssign:
-                \_param_assign: , line:6:22, endln:8:2, parent:aes_pkg::
-                  |vpiRhs:
-                  \_operation: , line:6:35, endln:8:2
-                    |vpiOpType:75
-                    |vpiOperand:
-                    \_tagged_pattern: 
-                      |vpiTypespec:
-                      \_string_typespec: (manual_operation), line:7:3, endln:7:19
-                        |vpiName:manual_operation
-                      |vpiPattern:
-                      \_constant: , line:7:21, endln:7:23
-                        |vpiConstType:3
-                        |vpiDecompile:'0
-                        |vpiSize:-1
-                        |BIN:0
-                  |vpiLhs:
-                  \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
-                    |vpiName:CTRL_RESET
-                    |vpiFullName:aes_pkg::CTRL_RESET
-                    |vpiTypespec:
-                    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-                |vpiParameter:
-                \_parameter: (aes_pkg::CTRL_RESET), line:6:22, endln:8:2, parent:aes_pkg::
-          |vpiInstance:
-          \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-      |vpiLhs:
-      \_parameter: (work@aes_core.shadow_reg.RESVAL), line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
-        |vpiName:RESVAL
-        |vpiFullName:work@aes_core.shadow_reg.RESVAL
-        |BIN:0
-        |vpiTypespec:
-        \_logic_typespec: (RESVAL), line:17:13, endln:17:18, parent:work@aes_core.shadow_reg.RESVAL
-          |vpiName:RESVAL
-          |vpiRange:
-          \_range: , line:17:20, endln:17:24, parent:RESVAL
-            |vpiLeftRange:
-            \_constant: , line:17:20, endln:17:22
-              |vpiConstType:9
-              |vpiDecompile:31
-              |vpiSize:64
-              |UINT:31
-            |vpiRightRange:
-            \_constant: , line:17:23, endln:17:24
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-    |vpiParameter:
-    \_parameter: (work@aes_core.shadow_reg.RESVAL), line:17:26, endln:17:37, parent:work@aes_core.shadow_reg
-  |vpiNet:
-  \_struct_net: (work@aes_core.ctrl_q), line:24:14, endln:24:20, parent:work@aes_core
-    |vpiName:ctrl_q
-    |vpiFullName:work@aes_core.ctrl_q
-    |vpiTypespec:
-    \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-  |vpiTypedef:
-  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
-  |vpiTypedef:
-  \_import: (aes_pkg), line:23:10, endln:23:20
   |vpiParamAssign:
   \_param_assign: , line:6:22, endln:8:2, parent:work@aes_core
     |vpiRhs:
@@ -721,49 +749,21 @@ design: (work@aes_core)
       |vpiOpType:75
       |vpiOperand:
       \_tagged_pattern: 
-        |vpiTypespec:
-        \_string_typespec: (manual_operation), line:7:3, endln:7:19
-          |vpiName:manual_operation
         |vpiPattern:
         \_constant: , line:7:21, endln:7:23
           |vpiConstType:3
           |vpiDecompile:'0
           |vpiSize:-1
           |BIN:0
+        |vpiTypespec:
+        \_string_typespec: (manual_operation), line:7:3, endln:7:19
+          |vpiName:manual_operation
     |vpiLhs:
     \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:8:2, parent:work@aes_core
-      |vpiName:CTRL_RESET
-      |vpiFullName:work@aes_core.CTRL_RESET
-      |vpiImported:aes_pkg
-      |vpiTypespec:
-      \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:work@aes_core.CTRL_RESET
-        |vpiPacked:1
-        |vpiName:aes_pkg::ctrl_reg_t
-        |vpiTypespecMember:
-        \_typespec_member: (manual_operation), line:3:15, endln:3:31, parent:aes_pkg::ctrl_reg_t
-          |vpiName:manual_operation
-          |vpiTypespec:
-          \_logic_typespec: , line:3:3, endln:3:8, parent:manual_operation
-            |vpiRange:
-            \_range: , line:3:9, endln:3:13
-              |vpiLeftRange:
-              \_constant: , line:3:9, endln:3:11
-                |vpiConstType:9
-                |vpiDecompile:31
-                |vpiSize:64
-                |UINT:31
-              |vpiRightRange:
-              \_constant: , line:3:12, endln:3:13
-                |vpiConstType:9
-                |vpiDecompile:0
-                |vpiSize:64
-                |UINT:0
-            |vpiInstance:
-            \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-        |vpiInstance:
-        \_package: aes_pkg (aes_pkg::) dut.sv:1:1: , endln:9:11, parent:work@aes_core
-  |vpiParameter:
-  \_parameter: (work@aes_core.CTRL_RESET), line:6:22, endln:8:2, parent:work@aes_core
+  |vpiTypedef:
+  \_struct_typespec: (aes_pkg::ctrl_reg_t), line:2:9, endln:2:15, parent:aes_pkg::CTRL_RESET
+  |vpiTypedef:
+  \_import: (aes_pkg), line:23:10, endln:23:20
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

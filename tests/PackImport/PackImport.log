@@ -95,10 +95,29 @@ design: (work@top)
   |vpiDefName:ibex_tracer_pkg
   |vpiName:ibex_tracer_pkg
   |vpiFullName:ibex_tracer_pkg::
-  |vpiTypedef:
-  \_enum_typespec: (ibex_pkg::opcode_e), line:8:3, endln:8:11
-  |vpiTypedef:
-  \_import: (ibex_pkg), line:12:8, endln:12:19
+  |vpiParameter:
+  \_parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59, parent:ibex_tracer_pkg::
+    |vpiName:INSN_LUI
+    |vpiFullName:ibex_tracer_pkg::INSN_LUI
+    |vpiTypespec:
+    \_logic_typespec: (INSN_LUI), line:13:11, endln:13:16, parent:ibex_tracer_pkg::INSN_LUI
+      |vpiName:INSN_LUI
+      |vpiRange:
+      \_range: , line:13:18, endln:13:22
+        |vpiLeftRange:
+        \_constant: , line:13:18, endln:13:20
+          |vpiConstType:9
+          |vpiDecompile:31
+          |vpiSize:64
+          |UINT:31
+        |vpiRightRange:
+        \_constant: , line:13:21, endln:13:22
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiInstance:
+      \_package: ibex_tracer_pkg (ibex_tracer_pkg::) dut.sv:11:1: , endln:14:11, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:13:24, endln:13:59, parent:ibex_tracer_pkg::
     |vpiRhs:
@@ -118,29 +137,10 @@ design: (work@top)
           |vpiName:OPCODE_LUI
     |vpiLhs:
     \_parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59, parent:ibex_tracer_pkg::
-      |vpiName:INSN_LUI
-      |vpiFullName:ibex_tracer_pkg::INSN_LUI
-      |vpiTypespec:
-      \_logic_typespec: (INSN_LUI), line:13:11, endln:13:16, parent:ibex_tracer_pkg::INSN_LUI
-        |vpiName:INSN_LUI
-        |vpiRange:
-        \_range: , line:13:18, endln:13:22
-          |vpiLeftRange:
-          \_constant: , line:13:18, endln:13:20
-            |vpiConstType:9
-            |vpiDecompile:31
-            |vpiSize:64
-            |UINT:31
-          |vpiRightRange:
-          \_constant: , line:13:21, endln:13:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiInstance:
-        \_package: ibex_tracer_pkg (ibex_tracer_pkg::) dut.sv:11:1: , endln:14:11, parent:work@top
-  |vpiParameter:
-  \_parameter: (ibex_tracer_pkg::INSN_LUI), line:13:24, endln:13:59, parent:ibex_tracer_pkg::
+  |vpiTypedef:
+  \_enum_typespec: (ibex_pkg::opcode_e), line:8:3, endln:8:11
+  |vpiTypedef:
+  \_import: (ibex_pkg), line:12:8, endln:12:19
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:18:1: , endln:20:10, parent:work@top
   |vpiDefName:work@top

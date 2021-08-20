@@ -573,14 +573,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -763,14 +763,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -781,14 +781,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -799,14 +799,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -819,14 +819,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallInterfaces:
 \_interface: work@abc_if (work@abc_if) top.sv:1:1: , endln:13:13, parent:work@top
   |vpiDefName:work@abc_if
@@ -855,6 +855,14 @@ design: (work@top)
     |vpiName:clk_i
     |vpiFullName:work@abc_if.clk_i
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:34, parent:work@abc_if
+    |vpiName:NO_Input
+    |vpiFullName:work@abc_if.NO_Input
+    |UINT:3
+    |vpiTypespec:
+    \_int_typespec: (NO_Input), line:1:20, endln:1:23, parent:work@abc_if.NO_Input
+      |vpiName:NO_Input
   |vpiParamAssign:
   \_param_assign: , line:1:24, endln:1:34, parent:work@abc_if
     |vpiRhs:
@@ -865,14 +873,6 @@ design: (work@top)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:34, parent:work@abc_if
-      |vpiName:NO_Input
-      |vpiFullName:work@abc_if.NO_Input
-      |UINT:3
-      |vpiTypespec:
-      \_int_typespec: (NO_Input), line:1:20, endln:1:23, parent:work@abc_if.NO_Input
-        |vpiName:NO_Input
-  |vpiParameter:
-  \_parameter: (work@abc_if.NO_Input), line:1:24, endln:1:34, parent:work@abc_if
 |uhdmallInterfaces:
 \_interface: work@pins_if (work@pins_if) top.sv:22:1: , endln:32:13, parent:work@top
   |vpiDefName:work@pins_if
@@ -894,6 +894,14 @@ design: (work@top)
     |vpiName:pins_o
     |vpiFullName:work@pins_if.pins_o
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@pins_if.Width), line:22:36, endln:22:45, parent:work@pins_if
+    |vpiName:Width
+    |vpiFullName:work@pins_if.Width
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: (Width), line:22:32, endln:22:35, parent:work@pins_if.Width
+      |vpiName:Width
   |vpiParamAssign:
   \_param_assign: , line:22:36, endln:22:45, parent:work@pins_if
     |vpiRhs:
@@ -904,14 +912,6 @@ design: (work@top)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@pins_if.Width), line:22:36, endln:22:45, parent:work@pins_if
-      |vpiName:Width
-      |vpiFullName:work@pins_if.Width
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: (Width), line:22:32, endln:22:35, parent:work@pins_if.Width
-        |vpiName:Width
-  |vpiParameter:
-  \_parameter: (work@pins_if.Width), line:22:36, endln:22:45, parent:work@pins_if
 |uhdmallModules:
 \_module: work@top (work@top) top.sv:16:1: , endln:19:10, parent:work@top
   |vpiDefName:work@top
@@ -932,6 +932,14 @@ design: (work@top)
         |vpiFullName:work@top2.pins
   |vpiNet:
   \_logic_net: (work@top2.pins), line:34:61, parent:work@top2
+  |vpiParameter:
+  \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
+    |vpiName:Width
+    |vpiFullName:work@top2.Width
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (Width), line:34:26, endln:34:29, parent:work@top2.Width
+      |vpiName:Width
   |vpiParamAssign:
   \_param_assign: , line:34:30, endln:34:39, parent:work@top2
     |vpiRhs:
@@ -942,14 +950,6 @@ design: (work@top)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
-      |vpiName:Width
-      |vpiFullName:work@top2.Width
-      |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (Width), line:34:26, endln:34:29, parent:work@top2.Width
-        |vpiName:Width
-  |vpiParameter:
-  \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
 |uhdmtopModules:
 \_module: work@top (work@top) top.sv:16:1: , endln:19:10
   |vpiDefName:work@top
@@ -1085,6 +1085,14 @@ design: (work@top)
           |UINT:0
     |vpiInstance:
     \_module: work@top (work@top) top.sv:16:1: , endln:19:10
+    |vpiParameter:
+    \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:34, parent:work@top.intf
+      |vpiName:NO_Input
+      |vpiFullName:work@top.intf.NO_Input
+      |UINT:3
+      |vpiTypespec:
+      \_int_typespec: (NO_Input), line:1:20, endln:1:23, parent:work@top.intf.NO_Input
+        |vpiName:NO_Input
     |vpiParamAssign:
     \_param_assign: , line:1:24, endln:1:34, parent:work@top.intf
       |vpiRhs:
@@ -1095,14 +1103,6 @@ design: (work@top)
         |UINT:3
       |vpiLhs:
       \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:34, parent:work@top.intf
-        |vpiName:NO_Input
-        |vpiFullName:work@top.intf.NO_Input
-        |UINT:3
-        |vpiTypespec:
-        \_int_typespec: (NO_Input), line:1:20, endln:1:23, parent:work@top.intf.NO_Input
-          |vpiName:NO_Input
-    |vpiParameter:
-    \_parameter: (work@top.intf.NO_Input), line:1:24, endln:1:34, parent:work@top.intf
 |uhdmtopModules:
 \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
   |vpiDefName:work@top2
@@ -1301,6 +1301,14 @@ design: (work@top)
           |UINT:0
     |vpiInstance:
     \_module: work@top2 (work@top2) top.sv:34:1: , endln:43:10
+    |vpiParameter:
+    \_parameter: (work@top2.intf.Width), line:22:36, endln:22:45, parent:work@top2.intf
+      |vpiName:Width
+      |vpiFullName:work@top2.intf.Width
+      |UINT:1
+      |vpiTypespec:
+      \_int_typespec: (Width), line:22:32, endln:22:35, parent:work@top2.intf.Width
+        |vpiName:Width
     |vpiParamAssign:
     \_param_assign: , line:22:36, endln:22:45, parent:work@top2.intf
       |vpiRhs:
@@ -1311,14 +1319,6 @@ design: (work@top)
         |UINT:2
       |vpiLhs:
       \_parameter: (work@top2.intf.Width), line:22:36, endln:22:45, parent:work@top2.intf
-        |vpiName:Width
-        |vpiFullName:work@top2.intf.Width
-        |UINT:1
-        |vpiTypespec:
-        \_int_typespec: (Width), line:22:32, endln:22:35, parent:work@top2.intf.Width
-          |vpiName:Width
-    |vpiParameter:
-    \_parameter: (work@top2.intf.Width), line:22:36, endln:22:45, parent:work@top2.intf
   |vpiGenScopeArray:
   \_gen_scope_array: (work@top2.each_pin[0]), line:38:40, endln:40:8, parent:work@top2
     |vpiName:each_pin[0]
@@ -1427,6 +1427,14 @@ design: (work@top)
       \_parameter: (work@top2.each_pin[1].i), line:38, parent:work@top2.each_pin[1]
   |vpiNet:
   \_logic_net: (work@top2.pins), line:34:61, endln:34:65, parent:work@top2
+  |vpiParameter:
+  \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
+    |vpiName:Width
+    |vpiFullName:work@top2.Width
+    |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (Width), line:34:26, endln:34:29, parent:work@top2.Width
+      |vpiName:Width
   |vpiParamAssign:
   \_param_assign: , line:34:30, endln:34:39, parent:work@top2
     |vpiRhs:
@@ -1437,14 +1445,6 @@ design: (work@top)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
-      |vpiName:Width
-      |vpiFullName:work@top2.Width
-      |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (Width), line:34:26, endln:34:29, parent:work@top2.Width
-        |vpiName:Width
-  |vpiParameter:
-  \_parameter: (work@top2.Width), line:34:30, endln:34:39, parent:work@top2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
