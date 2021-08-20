@@ -245,14 +245,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -466,14 +466,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -484,14 +484,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -502,14 +502,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -522,14 +522,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10, parent:work@dut
   |vpiDefName:work@dut
@@ -603,6 +603,11 @@ design: (work@dut)
   \_logic_net: (work@rvdff.rst_l), line:7:36, parent:work@rvdff
   |vpiNet:
   \_logic_net: (work@rvdff.dout), line:9:31, parent:work@rvdff
+  |vpiParameter:
+  \_parameter: (work@rvdff.WIDTH), line:3:27, endln:3:34, parent:work@rvdff
+    |vpiName:WIDTH
+    |vpiFullName:work@rvdff.WIDTH
+    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:3:27, endln:3:34, parent:work@rvdff
     |vpiRhs:
@@ -613,11 +618,6 @@ design: (work@dut)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@rvdff.WIDTH), line:3:27, endln:3:34, parent:work@rvdff
-      |vpiName:WIDTH
-      |vpiFullName:work@rvdff.WIDTH
-      |UINT:1
-  |vpiParameter:
-  \_parameter: (work@rvdff.WIDTH), line:3:27, endln:3:34, parent:work@rvdff
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
   |vpiDefName:work@dut
@@ -626,8 +626,6 @@ design: (work@dut)
   \_port: (rst_l), line:16:31, endln:16:36, parent:work@dut
     |vpiName:rst_l
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
     |vpiLowConn:
     \_ref_obj: (work@dut.rst_l), parent:rst_l
       |vpiName:rst_l
@@ -637,6 +635,8 @@ design: (work@dut)
         |vpiName:rst_l
         |vpiFullName:work@dut.rst_l
         |vpiNetType:36
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
   |vpiModule:
   \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiDefName:work@rvdff
@@ -648,8 +648,6 @@ design: (work@dut)
     \_port: (din), line:5:30, endln:5:33, parent:work@dut.freezerfpc_ff
       |vpiName:din
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
       |vpiHighConn:
       \_operation: , line:18:38, endln:18:74, parent:din
         |vpiOpType:33
@@ -684,12 +682,12 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiInstance:
+      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
     \_port: (clk), line:6:28, endln:6:31, parent:work@dut.freezerfpc_ff
       |vpiName:clk
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
       |vpiHighConn:
       \_ref_obj: (work@dut.free_clk), line:17:40, endln:17:48, parent:clk
         |vpiName:free_clk
@@ -707,12 +705,12 @@ design: (work@dut)
           |vpiName:clk
           |vpiFullName:work@dut.freezerfpc_ff.clk
           |vpiNetType:36
+      |vpiInstance:
+      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
     \_port: (rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
       |vpiName:rst_l
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
       |vpiHighConn:
       \_ref_obj: (work@dut.rst_l), line:17:30, endln:17:31, parent:rst_l
         |vpiName:rst_l
@@ -728,12 +726,12 @@ design: (work@dut)
         |vpiFullName:work@dut.freezerfpc_ff.rst_l
         |vpiActual:
         \_logic_net: (work@dut.freezerfpc_ff.rst_l), line:7:36, endln:7:41, parent:work@dut.freezerfpc_ff
+      |vpiInstance:
+      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiPort:
     \_port: (dout), line:9:31, endln:9:35, parent:work@dut.freezerfpc_ff
       |vpiName:dout
       |vpiDirection:2
-      |vpiInstance:
-      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
       |vpiHighConn:
       \_operation: , line:19:39, endln:19:74, parent:dout
         |vpiOpType:33
@@ -768,6 +766,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiInstance:
+      \_module: work@rvdff (work@dut.freezerfpc_ff) dut.sv:17:3: , endln:19:77, parent:work@dut
     |vpiNet:
     \_logic_net: (work@dut.freezerfpc_ff.din), line:5:30, endln:5:33, parent:work@dut.freezerfpc_ff
     |vpiNet:
@@ -778,6 +778,11 @@ design: (work@dut)
     \_logic_net: (work@dut.freezerfpc_ff.dout), line:9:31, endln:9:35, parent:work@dut.freezerfpc_ff
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:15:1: , endln:21:10
+    |vpiParameter:
+    \_parameter: (work@dut.freezerfpc_ff.WIDTH), line:3:27, endln:3:34, parent:work@dut.freezerfpc_ff
+      |vpiName:WIDTH
+      |vpiFullName:work@dut.freezerfpc_ff.WIDTH
+      |UINT:1
     |vpiParamAssign:
     \_param_assign: , line:3:27, endln:3:34, parent:work@dut.freezerfpc_ff
       |vpiRhs:
@@ -788,11 +793,6 @@ design: (work@dut)
         |UINT:2
       |vpiLhs:
       \_parameter: (work@dut.freezerfpc_ff.WIDTH), line:3:27, endln:3:34, parent:work@dut.freezerfpc_ff
-        |vpiName:WIDTH
-        |vpiFullName:work@dut.freezerfpc_ff.WIDTH
-        |UINT:1
-    |vpiParameter:
-    \_parameter: (work@dut.freezerfpc_ff.WIDTH), line:3:27, endln:3:34, parent:work@dut.freezerfpc_ff
   |vpiNet:
   \_logic_net: (work@dut.rst_l), line:16:31, endln:16:36, parent:work@dut
   |vpiNet:

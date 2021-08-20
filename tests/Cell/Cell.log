@@ -102,14 +102,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -292,14 +292,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -310,14 +310,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -328,14 +328,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -348,19 +348,24 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@assigner (work@assigner) ${SURELOG_DIR}/tests/Cell/cell.v:1:1: , endln:6:10, parent:work@top
   |vpiDefName:work@assigner
   |vpiCellInstance:1
   |vpiFullName:work@assigner
+  |vpiParameter:
+  \_parameter: (work@assigner.invert), line:1:29, endln:1:39, parent:work@assigner
+    |vpiName:invert
+    |vpiFullName:work@assigner.invert
+    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:1:29, endln:1:39, parent:work@assigner
     |vpiRhs:
@@ -371,16 +376,16 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@assigner.invert), line:1:29, endln:1:39, parent:work@assigner
-      |vpiName:invert
-      |vpiFullName:work@assigner.invert
-      |UINT:0
-  |vpiParameter:
-  \_parameter: (work@assigner.invert), line:1:29, endln:1:39, parent:work@assigner
 |uhdmallModules:
 \_module: work@middleman (work@middleman) ${SURELOG_DIR}/tests/Cell/cell.v:8:1: , endln:10:10, parent:work@top
   |vpiDefName:work@middleman
   |vpiCellInstance:1
   |vpiFullName:work@middleman
+  |vpiParameter:
+  \_parameter: (work@middleman.invert), line:8:30, endln:8:40, parent:work@middleman
+    |vpiName:invert
+    |vpiFullName:work@middleman.invert
+    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:8:30, endln:8:40, parent:work@middleman
     |vpiRhs:
@@ -391,11 +396,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@middleman.invert), line:8:30, endln:8:40, parent:work@middleman
-      |vpiName:invert
-      |vpiFullName:work@middleman.invert
-      |UINT:0
-  |vpiParameter:
-  \_parameter: (work@middleman.invert), line:8:30, endln:8:40, parent:work@middleman
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:4:10, parent:work@top
   |vpiDefName:work@top
@@ -442,6 +442,11 @@ design: (work@top)
               |vpiFullName:work@top.mdl1.asgn.genblk2.out
       |vpiInstance:
       \_module: work@middleman (work@top.mdl1) dut.sv:2:4: , endln:2:35, parent:work@top
+      |vpiParameter:
+      \_parameter: (work@top.mdl1.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl1.asgn
+        |vpiName:invert
+        |vpiFullName:work@top.mdl1.asgn.invert
+        |UINT:0
       |vpiParamAssign:
       \_param_assign: , line:1:29, endln:1:39, parent:work@top.mdl1.asgn
         |vpiRhs:
@@ -452,13 +457,13 @@ design: (work@top)
           |UINT:1
         |vpiLhs:
         \_parameter: (work@top.mdl1.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl1.asgn
-          |vpiName:invert
-          |vpiFullName:work@top.mdl1.asgn.invert
-          |UINT:0
-      |vpiParameter:
-      \_parameter: (work@top.mdl1.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl1.asgn
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    |vpiParameter:
+    \_parameter: (work@top.mdl1.invert), line:8:30, endln:8:40, parent:work@top.mdl1
+      |vpiName:invert
+      |vpiFullName:work@top.mdl1.invert
+      |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:8:30, endln:8:40, parent:work@top.mdl1
       |vpiRhs:
@@ -469,11 +474,6 @@ design: (work@top)
         |UINT:1
       |vpiLhs:
       \_parameter: (work@top.mdl1.invert), line:8:30, endln:8:40, parent:work@top.mdl1
-        |vpiName:invert
-        |vpiFullName:work@top.mdl1.invert
-        |UINT:0
-    |vpiParameter:
-    \_parameter: (work@top.mdl1.invert), line:8:30, endln:8:40, parent:work@top.mdl1
   |vpiModule:
   \_module: work@middleman (work@top.mdl0) dut.sv:3:4: , endln:3:35, parent:work@top
     |vpiDefName:work@middleman
@@ -509,6 +509,11 @@ design: (work@top)
               |vpiFullName:work@top.mdl0.asgn.genblk1.out
       |vpiInstance:
       \_module: work@middleman (work@top.mdl0) dut.sv:3:4: , endln:3:35, parent:work@top
+      |vpiParameter:
+      \_parameter: (work@top.mdl0.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl0.asgn
+        |vpiName:invert
+        |vpiFullName:work@top.mdl0.asgn.invert
+        |UINT:0
       |vpiParamAssign:
       \_param_assign: , line:1:29, endln:1:39, parent:work@top.mdl0.asgn
         |vpiRhs:
@@ -519,13 +524,13 @@ design: (work@top)
           |UINT:0
         |vpiLhs:
         \_parameter: (work@top.mdl0.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl0.asgn
-          |vpiName:invert
-          |vpiFullName:work@top.mdl0.asgn.invert
-          |UINT:0
-      |vpiParameter:
-      \_parameter: (work@top.mdl0.asgn.invert), line:1:29, endln:1:39, parent:work@top.mdl0.asgn
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:1:1: , endln:4:10
+    |vpiParameter:
+    \_parameter: (work@top.mdl0.invert), line:8:30, endln:8:40, parent:work@top.mdl0
+      |vpiName:invert
+      |vpiFullName:work@top.mdl0.invert
+      |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:8:30, endln:8:40, parent:work@top.mdl0
       |vpiRhs:
@@ -536,11 +541,6 @@ design: (work@top)
         |UINT:0
       |vpiLhs:
       \_parameter: (work@top.mdl0.invert), line:8:30, endln:8:40, parent:work@top.mdl0
-        |vpiName:invert
-        |vpiFullName:work@top.mdl0.invert
-        |UINT:0
-    |vpiParameter:
-    \_parameter: (work@top.mdl0.invert), line:8:30, endln:8:40, parent:work@top.mdl0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

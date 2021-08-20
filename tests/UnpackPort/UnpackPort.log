@@ -210,14 +210,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -431,14 +431,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -449,14 +449,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -467,14 +467,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -487,14 +487,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10, parent:work@dut
   |vpiDefName:work@dut
@@ -542,31 +542,6 @@ design: (work@dut)
   \_port: (var3), line:1:12, endln:1:16, parent:work@dut
     |vpiName:var3
     |vpiDirection:2
-    |vpiTypedef:
-    \_struct_typespec: (struct2), line:2:11, endln:2:17
-      |vpiPacked:1
-      |vpiName:struct2
-      |vpiTypespecMember:
-      \_typespec_member: (third), line:3:19, endln:3:24
-        |vpiName:third
-        |vpiTypespec:
-        \_logic_typespec: , line:3:7, endln:3:12
-          |vpiRange:
-          \_range: , line:3:14, endln:3:17, parent:struct2
-            |vpiLeftRange:
-            \_constant: , line:3:14, endln:3:15
-              |vpiConstType:9
-              |vpiDecompile:5
-              |vpiSize:64
-              |UINT:5
-            |vpiRightRange:
-            \_constant: , line:3:16, endln:3:17
-              |vpiConstType:9
-              |vpiDecompile:0
-              |vpiSize:64
-              |UINT:0
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10
     |vpiLowConn:
     \_ref_obj: (work@dut.var3), parent:var3
       |vpiName:var3
@@ -581,6 +556,27 @@ design: (work@dut)
           |vpiFullName:work@dut.var3
           |vpiTypespec:
           \_struct_typespec: (struct2), line:2:11, endln:2:17
+            |vpiPacked:1
+            |vpiName:struct2
+            |vpiTypespecMember:
+            \_typespec_member: (third), line:3:19, endln:3:24
+              |vpiName:third
+              |vpiTypespec:
+              \_logic_typespec: , line:3:7, endln:3:12
+                |vpiRange:
+                \_range: , line:3:14, endln:3:17, parent:struct2
+                  |vpiLeftRange:
+                  \_constant: , line:3:14, endln:3:15
+                    |vpiConstType:9
+                    |vpiDecompile:5
+                    |vpiSize:64
+                    |UINT:5
+                  |vpiRightRange:
+                  \_constant: , line:3:16, endln:3:17
+                    |vpiConstType:9
+                    |vpiDecompile:0
+                    |vpiSize:64
+                    |UINT:0
         |vpiRange:
         \_range: , line:6:24, endln:6:25
           |vpiLeftRange:
@@ -603,6 +599,10 @@ design: (work@dut)
               |vpiConstType:7
               |vpiSize:64
               |INT:1
+    |vpiTypedef:
+    \_struct_typespec: (struct2), line:2:11, endln:2:17
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:11:10
   |vpiGenScopeArray:
   \_gen_scope_array: (work@dut.g_fill[0]), line:8:30, endln:10:6, parent:work@dut
     |vpiName:g_fill[0]

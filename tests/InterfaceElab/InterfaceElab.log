@@ -225,6 +225,13 @@ design: (work@testharness)
     |vpiName:addr
     |vpiFullName:work@REG_BUS.addr
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@REG_BUS.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@REG_BUS
+    |vpiName:ADDR_WIDTH
+    |vpiFullName:work@REG_BUS.ADDR_WIDTH
+    |vpiTypespec:
+    \_int_typespec: (ADDR_WIDTH), line:4:13, endln:4:16, parent:work@REG_BUS.ADDR_WIDTH
+      |vpiName:ADDR_WIDTH
   |vpiParamAssign:
   \_param_assign: , line:4:17, endln:4:32, parent:work@REG_BUS
     |vpiRhs:
@@ -238,13 +245,6 @@ design: (work@testharness)
         |UINT:1
     |vpiLhs:
     \_parameter: (work@REG_BUS.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@REG_BUS
-      |vpiName:ADDR_WIDTH
-      |vpiFullName:work@REG_BUS.ADDR_WIDTH
-      |vpiTypespec:
-      \_int_typespec: (ADDR_WIDTH), line:4:13, endln:4:16, parent:work@REG_BUS.ADDR_WIDTH
-        |vpiName:ADDR_WIDTH
-  |vpiParameter:
-  \_parameter: (work@REG_BUS.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@REG_BUS
 |uhdmallModules:
 \_module: work@apb_to_reg (work@apb_to_reg) dut.sv:15:1: , endln:19:10, parent:work@testharness
   |vpiDefName:work@apb_to_reg
@@ -343,6 +343,13 @@ design: (work@testharness)
             |UINT:0
       |vpiInstance:
       \_module: work@peripherals (work@testharness.i_peripherals) dut.sv:34:3: , endln:34:33, parent:work@testharness
+      |vpiParameter:
+      \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@testharness.i_peripherals.reg_bus
+        |vpiName:ADDR_WIDTH
+        |vpiFullName:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
+        |vpiTypespec:
+        \_int_typespec: (ADDR_WIDTH), line:4:13, endln:4:16, parent:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
+          |vpiName:ADDR_WIDTH
       |vpiParamAssign:
       \_param_assign: , line:4:17, endln:4:32, parent:work@testharness.i_peripherals.reg_bus
         |vpiRhs:
@@ -353,13 +360,6 @@ design: (work@testharness)
           |UINT:32
         |vpiLhs:
         \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@testharness.i_peripherals.reg_bus
-          |vpiName:ADDR_WIDTH
-          |vpiFullName:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
-          |vpiTypespec:
-          \_int_typespec: (ADDR_WIDTH), line:4:13, endln:4:16, parent:work@testharness.i_peripherals.reg_bus.ADDR_WIDTH
-            |vpiName:ADDR_WIDTH
-      |vpiParameter:
-      \_parameter: (work@testharness.i_peripherals.reg_bus.ADDR_WIDTH), line:4:17, endln:4:32, parent:work@testharness.i_peripherals.reg_bus
     |vpiModule:
     \_module: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg) dut.sv:27:1: , endln:27:44, parent:work@testharness.i_peripherals
       |vpiDefName:work@apb_to_reg
@@ -371,8 +371,6 @@ design: (work@testharness)
       \_port: (reg_o), line:16:16, endln:16:21, parent:work@testharness.i_peripherals.i_apb_to_reg
         |vpiName:reg_o
         |vpiDirection:5
-        |vpiInstance:
-        \_module: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg) dut.sv:27:1: , endln:27:44, parent:work@testharness.i_peripherals
         |vpiHighConn:
         \_ref_obj: (work@testharness.i_peripherals.reg_bus), line:27:34, endln:27:41, parent:reg_o
           |vpiName:reg_bus
@@ -418,6 +416,8 @@ design: (work@testharness)
                     |vpiDecompile:0
                     |vpiSize:64
                     |UINT:0
+        |vpiInstance:
+        \_module: work@apb_to_reg (work@testharness.i_peripherals.i_apb_to_reg) dut.sv:27:1: , endln:27:44, parent:work@testharness.i_peripherals
       |vpiInstance:
       \_module: work@peripherals (work@testharness.i_peripherals) dut.sv:34:3: , endln:34:33, parent:work@testharness
     |vpiNet:

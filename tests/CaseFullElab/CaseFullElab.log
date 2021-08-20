@@ -458,14 +458,14 @@ design: (work@FSM)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -679,14 +679,14 @@ design: (work@FSM)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -697,14 +697,14 @@ design: (work@FSM)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -715,14 +715,14 @@ design: (work@FSM)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -735,18 +735,73 @@ design: (work@FSM)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12, parent:work@FSM
   |vpiDefName:work@FSM
   |vpiFullName:work@FSM
+  |vpiPort:
+  \_port: (clock), line:1:12, parent:work@FSM
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@FSM.clock), line:3:8, parent:work@FSM
+        |vpiName:clock
+        |vpiFullName:work@FSM.clock
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (keys), line:1:19, parent:work@FSM
+    |vpiName:keys
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@FSM.keys), line:3:15, parent:work@FSM
+        |vpiName:keys
+        |vpiFullName:work@FSM.keys
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (brake), line:1:25, parent:work@FSM
+    |vpiName:brake
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@FSM.brake), line:3:21, parent:work@FSM
+        |vpiName:brake
+        |vpiFullName:work@FSM.brake
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (accelerate), line:1:32, parent:work@FSM
+    |vpiName:accelerate
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@FSM.accelerate), line:3:28, parent:work@FSM
+        |vpiName:accelerate
+        |vpiFullName:work@FSM.accelerate
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (Speed), line:1:44, parent:work@FSM
+    |vpiName:Speed
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@FSM.Speed), line:5:13, parent:work@FSM
+        |vpiName:Speed
+        |vpiFullName:work@FSM.Speed
+        |vpiNetType:48
   |vpiProcess:
   \_always: , line:17:3, endln:40:6, parent:work@FSM
     |vpiAlwaysType:1
@@ -843,12 +898,6 @@ design: (work@FSM)
                   |vpiStmt:
                   \_assignment: , line:23:15, endln:23:28
                     |vpiOpType:82
-                    |vpiLhs:
-                    \_ref_obj: (work@FSM.FSM3.Speed), line:23:15, endln:23:20
-                      |vpiName:Speed
-                      |vpiFullName:work@FSM.FSM3.Speed
-                      |vpiActual:
-                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                     |vpiRhs:
                     \_ref_obj: (work@FSM.FSM3.Slow), line:23:24, endln:23:28
                       |vpiName:Slow
@@ -858,6 +907,12 @@ design: (work@FSM)
                         |vpiName:Slow
                         |vpiFullName:work@FSM.Slow
                         |BIN:0011
+                    |vpiLhs:
+                    \_ref_obj: (work@FSM.FSM3.Speed), line:23:15, endln:23:20
+                      |vpiName:Speed
+                      |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiCaseItem:
                 \_case_item: , line:24:7, endln:24:31
                   |vpiExpr:
@@ -872,12 +927,6 @@ design: (work@FSM)
                   |vpiStmt:
                   \_assignment: , line:24:15, endln:24:30
                     |vpiOpType:82
-                    |vpiLhs:
-                    \_ref_obj: (work@FSM.FSM3.Speed), line:24:15, endln:24:20
-                      |vpiName:Speed
-                      |vpiFullName:work@FSM.FSM3.Speed
-                      |vpiActual:
-                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                     |vpiRhs:
                     \_ref_obj: (work@FSM.FSM3.Faster), line:24:24, endln:24:30
                       |vpiName:Faster
@@ -887,6 +936,12 @@ design: (work@FSM)
                         |vpiName:Faster
                         |vpiFullName:work@FSM.Faster
                         |BIN:0110
+                    |vpiLhs:
+                    \_ref_obj: (work@FSM.FSM3.Speed), line:24:15, endln:24:20
+                      |vpiName:Speed
+                      |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiCaseItem:
                 \_case_item: , line:25:7, endln:26:10
                   |vpiStmt:
@@ -923,18 +978,18 @@ design: (work@FSM)
                 |vpiStmt:
                 \_assignment: , line:31:15, endln:31:30
                   |vpiOpType:82
-                  |vpiLhs:
-                  \_ref_obj: (work@FSM.FSM3.Speed), line:31:15, endln:31:20
-                    |vpiName:Speed
-                    |vpiFullName:work@FSM.FSM3.Speed
-                    |vpiActual:
-                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                   |vpiRhs:
                   \_ref_obj: (work@FSM.FSM3.Faster), line:31:24, endln:31:30
                     |vpiName:Faster
                     |vpiFullName:work@FSM.FSM3.Faster
                     |vpiActual:
                     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
+                  |vpiLhs:
+                  \_ref_obj: (work@FSM.FSM3.Speed), line:31:15, endln:31:20
+                    |vpiName:Speed
+                    |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
               |vpiCaseItem:
               \_case_item: , line:32:7, endln:32:31
                 |vpiExpr:
@@ -946,18 +1001,18 @@ design: (work@FSM)
                 |vpiStmt:
                 \_assignment: , line:32:15, endln:32:30
                   |vpiOpType:82
-                  |vpiLhs:
-                  \_ref_obj: (work@FSM.FSM3.Speed), line:32:15, endln:32:20
-                    |vpiName:Speed
-                    |vpiFullName:work@FSM.FSM3.Speed
-                    |vpiActual:
-                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                   |vpiRhs:
                   \_ref_obj: (work@FSM.FSM3.Faster), line:32:24, endln:32:30
                     |vpiName:Faster
                     |vpiFullName:work@FSM.FSM3.Faster
                     |vpiActual:
                     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
+                  |vpiLhs:
+                  \_ref_obj: (work@FSM.FSM3.Speed), line:32:15, endln:32:20
+                    |vpiName:Speed
+                    |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
               |vpiCaseItem:
               \_case_item: , line:33:7, endln:34:10
                 |vpiStmt:
@@ -969,73 +1024,18 @@ design: (work@FSM)
               |vpiStmt:
               \_assignment: , line:37:5, endln:37:19, parent:work@FSM.FSM3
                 |vpiOpType:82
-                |vpiLhs:
-                \_ref_obj: (work@FSM.FSM3.Speed), line:37:5, endln:37:10, parent:work@FSM.FSM3
-                  |vpiName:Speed
-                  |vpiFullName:work@FSM.FSM3.Speed
-                  |vpiActual:
-                  \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiRhs:
                 \_ref_obj: (work@FSM.FSM3.Speed), line:37:14, endln:37:19, parent:work@FSM.FSM3
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
                   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
-  |vpiPort:
-  \_port: (clock), line:1:12, parent:work@FSM
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@FSM.clock), line:3:8, parent:work@FSM
-        |vpiName:clock
-        |vpiFullName:work@FSM.clock
-        |vpiNetType:1
-  |vpiPort:
-  \_port: (keys), line:1:19, parent:work@FSM
-    |vpiName:keys
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@FSM.keys), line:3:15, parent:work@FSM
-        |vpiName:keys
-        |vpiFullName:work@FSM.keys
-        |vpiNetType:1
-  |vpiPort:
-  \_port: (brake), line:1:25, parent:work@FSM
-    |vpiName:brake
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@FSM.brake), line:3:21, parent:work@FSM
-        |vpiName:brake
-        |vpiFullName:work@FSM.brake
-        |vpiNetType:1
-  |vpiPort:
-  \_port: (accelerate), line:1:32, parent:work@FSM
-    |vpiName:accelerate
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@FSM.accelerate), line:3:28, parent:work@FSM
-        |vpiName:accelerate
-        |vpiFullName:work@FSM.accelerate
-        |vpiNetType:1
-  |vpiPort:
-  \_port: (Speed), line:1:44, parent:work@FSM
-    |vpiName:Speed
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@FSM.Speed), line:5:13, parent:work@FSM
-        |vpiName:Speed
-        |vpiFullName:work@FSM.Speed
-        |vpiNetType:48
+                |vpiLhs:
+                \_ref_obj: (work@FSM.FSM3.Speed), line:37:5, endln:37:10, parent:work@FSM.FSM3
+                  |vpiName:Speed
+                  |vpiFullName:work@FSM.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
   |vpiNet:
   \_logic_net: (work@FSM.clock), line:3:8, parent:work@FSM
   |vpiNet:
@@ -1061,6 +1061,41 @@ design: (work@FSM)
     |vpiName:Ctrl3
     |vpiFullName:work@FSM.Ctrl3
     |vpiNetType:48
+  |vpiParameter:
+  \_parameter: (work@FSM.Stop), line:9:13, endln:9:30, parent:work@FSM
+    |vpiName:Stop
+    |vpiFullName:work@FSM.Stop
+    |BIN:0000
+  |vpiParameter:
+  \_parameter: (work@FSM.Move), line:10:13, endln:10:30, parent:work@FSM
+    |vpiName:Move
+    |vpiFullName:work@FSM.Move
+    |BIN:0001
+  |vpiParameter:
+  \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
+    |vpiName:Turn
+    |vpiFullName:work@FSM.Turn
+    |BIN:0010
+  |vpiParameter:
+  \_parameter: (work@FSM.Slow), line:12:13, endln:12:30, parent:work@FSM
+    |vpiName:Slow
+    |vpiFullName:work@FSM.Slow
+    |BIN:0011
+  |vpiParameter:
+  \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
+    |vpiName:Medium
+    |vpiFullName:work@FSM.Medium
+    |BIN:0100
+  |vpiParameter:
+  \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
+    |vpiName:Fast
+    |vpiFullName:work@FSM.Fast
+    |BIN:0101
+  |vpiParameter:
+  \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
+    |vpiName:Faster
+    |vpiFullName:work@FSM.Faster
+    |BIN:0110
   |vpiParamAssign:
   \_param_assign: , line:9:13, endln:9:30, parent:work@FSM
     |vpiRhs:
@@ -1071,9 +1106,6 @@ design: (work@FSM)
       |BIN:0000
     |vpiLhs:
     \_parameter: (work@FSM.Stop), line:9:13, endln:9:30, parent:work@FSM
-      |vpiName:Stop
-      |vpiFullName:work@FSM.Stop
-      |BIN:0000
   |vpiParamAssign:
   \_param_assign: , line:10:13, endln:10:30, parent:work@FSM
     |vpiRhs:
@@ -1084,9 +1116,6 @@ design: (work@FSM)
       |BIN:0001
     |vpiLhs:
     \_parameter: (work@FSM.Move), line:10:13, endln:10:30, parent:work@FSM
-      |vpiName:Move
-      |vpiFullName:work@FSM.Move
-      |BIN:0001
   |vpiParamAssign:
   \_param_assign: , line:11:13, endln:11:30, parent:work@FSM
     |vpiRhs:
@@ -1097,9 +1126,6 @@ design: (work@FSM)
       |BIN:0010
     |vpiLhs:
     \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
-      |vpiName:Turn
-      |vpiFullName:work@FSM.Turn
-      |BIN:0010
   |vpiParamAssign:
   \_param_assign: , line:12:13, endln:12:30, parent:work@FSM
     |vpiRhs:
@@ -1110,9 +1136,6 @@ design: (work@FSM)
       |BIN:0011
     |vpiLhs:
     \_parameter: (work@FSM.Slow), line:12:13, endln:12:30, parent:work@FSM
-      |vpiName:Slow
-      |vpiFullName:work@FSM.Slow
-      |BIN:0011
   |vpiParamAssign:
   \_param_assign: , line:13:13, endln:13:30, parent:work@FSM
     |vpiRhs:
@@ -1123,9 +1146,6 @@ design: (work@FSM)
       |BIN:0100
     |vpiLhs:
     \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
-      |vpiName:Medium
-      |vpiFullName:work@FSM.Medium
-      |BIN:0100
   |vpiParamAssign:
   \_param_assign: , line:14:13, endln:14:30, parent:work@FSM
     |vpiRhs:
@@ -1136,9 +1156,6 @@ design: (work@FSM)
       |BIN:0101
     |vpiLhs:
     \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
-      |vpiName:Fast
-      |vpiFullName:work@FSM.Fast
-      |BIN:0101
   |vpiParamAssign:
   \_param_assign: , line:15:13, endln:15:30, parent:work@FSM
     |vpiRhs:
@@ -1149,27 +1166,99 @@ design: (work@FSM)
       |BIN:0110
     |vpiLhs:
     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
-      |vpiName:Faster
-      |vpiFullName:work@FSM.Faster
-      |BIN:0110
-  |vpiParameter:
-  \_parameter: (work@FSM.Stop), line:9:13, endln:9:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Move), line:10:13, endln:10:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Slow), line:12:13, endln:12:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
 |uhdmtopModules:
 \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
   |vpiDefName:work@FSM
   |vpiName:work@FSM
+  |vpiPort:
+  \_port: (clock), line:1:12, endln:1:17, parent:work@FSM
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@FSM.clock), parent:clock
+      |vpiName:clock
+      |vpiFullName:work@FSM.clock
+      |vpiActual:
+      \_logic_net: (work@FSM.clock), line:3:8, endln:3:13, parent:work@FSM
+        |vpiName:clock
+        |vpiFullName:work@FSM.clock
+        |vpiNetType:1
+    |vpiInstance:
+    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
+  |vpiPort:
+  \_port: (keys), line:1:19, endln:1:23, parent:work@FSM
+    |vpiName:keys
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@FSM.keys), parent:keys
+      |vpiName:keys
+      |vpiFullName:work@FSM.keys
+      |vpiActual:
+      \_logic_net: (work@FSM.keys), line:3:15, endln:3:19, parent:work@FSM
+        |vpiName:keys
+        |vpiFullName:work@FSM.keys
+        |vpiNetType:1
+    |vpiInstance:
+    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
+  |vpiPort:
+  \_port: (brake), line:1:25, endln:1:30, parent:work@FSM
+    |vpiName:brake
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@FSM.brake), parent:brake
+      |vpiName:brake
+      |vpiFullName:work@FSM.brake
+      |vpiActual:
+      \_logic_net: (work@FSM.brake), line:3:21, endln:3:26, parent:work@FSM
+        |vpiName:brake
+        |vpiFullName:work@FSM.brake
+        |vpiNetType:1
+    |vpiInstance:
+    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
+  |vpiPort:
+  \_port: (accelerate), line:1:32, endln:1:42, parent:work@FSM
+    |vpiName:accelerate
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@FSM.accelerate), parent:accelerate
+      |vpiName:accelerate
+      |vpiFullName:work@FSM.accelerate
+      |vpiActual:
+      \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38, parent:work@FSM
+        |vpiName:accelerate
+        |vpiFullName:work@FSM.accelerate
+        |vpiNetType:1
+    |vpiInstance:
+    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
+  |vpiPort:
+  \_port: (Speed), line:1:44, endln:1:49, parent:work@FSM
+    |vpiName:Speed
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@FSM.Speed), parent:Speed
+      |vpiName:Speed
+      |vpiFullName:work@FSM.Speed
+      |vpiActual:
+      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
+        |vpiName:Speed
+        |vpiFullName:work@FSM.Speed
+        |vpiNetType:48
+        |vpiRange:
+        \_range: , line:5:8, endln:5:11
+          |vpiLeftRange:
+          \_constant: , line:5:8, endln:5:9
+            |vpiConstType:9
+            |vpiDecompile:3
+            |vpiSize:64
+            |UINT:3
+          |vpiRightRange:
+          \_constant: , line:5:10, endln:5:11
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiInstance:
+    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
   |vpiProcess:
   \_always: , line:17:3, endln:40:6, parent:work@FSM
     |vpiAlwaysType:1
@@ -1187,9 +1276,6 @@ design: (work@FSM)
             |vpiFullName:work@FSM.clock
             |vpiActual:
             \_logic_net: (work@FSM.clock), line:3:8, endln:3:13, parent:work@FSM
-              |vpiName:clock
-              |vpiFullName:work@FSM.clock
-              |vpiNetType:1
         |vpiOperand:
         \_operation: , line:17:29, endln:17:36
           |vpiOpType:40
@@ -1199,9 +1285,6 @@ design: (work@FSM)
             |vpiFullName:work@FSM.keys
             |vpiActual:
             \_logic_net: (work@FSM.keys), line:3:15, endln:3:19, parent:work@FSM
-              |vpiName:keys
-              |vpiFullName:work@FSM.keys
-              |vpiNetType:1
       |vpiStmt:
       \_named_begin: (work@FSM.FSM3), line:17:43, endln:40:6
         |vpiName:FSM3
@@ -1225,9 +1308,6 @@ design: (work@FSM)
                 |vpiFullName:work@FSM.FSM3.accelerate
                 |vpiActual:
                 \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38, parent:work@FSM
-                  |vpiName:accelerate
-                  |vpiFullName:work@FSM.accelerate
-                  |vpiNetType:1
               |vpiStmt:
               \_case_stmt: , line:22:7, endln:27:14
                 |vpiCaseType:1
@@ -1237,23 +1317,6 @@ design: (work@FSM)
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
                   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
-                    |vpiName:Speed
-                    |vpiFullName:work@FSM.Speed
-                    |vpiNetType:48
-                    |vpiRange:
-                    \_range: , line:5:8, endln:5:11
-                      |vpiLeftRange:
-                      \_constant: , line:5:8, endln:5:9
-                        |vpiConstType:9
-                        |vpiDecompile:3
-                        |vpiSize:64
-                        |UINT:3
-                      |vpiRightRange:
-                      \_constant: , line:5:10, endln:5:11
-                        |vpiConstType:9
-                        |vpiDecompile:0
-                        |vpiSize:64
-                        |UINT:0
                 |vpiCaseItem:
                 \_case_item: , line:23:7, endln:23:29
                   |vpiExpr:
@@ -1268,12 +1331,6 @@ design: (work@FSM)
                   |vpiStmt:
                   \_assignment: , line:23:15, endln:23:28
                     |vpiOpType:82
-                    |vpiLhs:
-                    \_ref_obj: (work@FSM.FSM3.Speed), line:23:15, endln:23:20
-                      |vpiName:Speed
-                      |vpiFullName:work@FSM.FSM3.Speed
-                      |vpiActual:
-                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                     |vpiRhs:
                     \_ref_obj: (work@FSM.FSM3.Slow), line:23:24, endln:23:28
                       |vpiName:Slow
@@ -1283,6 +1340,12 @@ design: (work@FSM)
                         |vpiName:Slow
                         |vpiFullName:work@FSM.Slow
                         |BIN:0011
+                    |vpiLhs:
+                    \_ref_obj: (work@FSM.FSM3.Speed), line:23:15, endln:23:20
+                      |vpiName:Speed
+                      |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiCaseItem:
                 \_case_item: , line:24:7, endln:24:31
                   |vpiExpr:
@@ -1297,12 +1360,6 @@ design: (work@FSM)
                   |vpiStmt:
                   \_assignment: , line:24:15, endln:24:30
                     |vpiOpType:82
-                    |vpiLhs:
-                    \_ref_obj: (work@FSM.FSM3.Speed), line:24:15, endln:24:20
-                      |vpiName:Speed
-                      |vpiFullName:work@FSM.FSM3.Speed
-                      |vpiActual:
-                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                     |vpiRhs:
                     \_ref_obj: (work@FSM.FSM3.Faster), line:24:24, endln:24:30
                       |vpiName:Faster
@@ -1312,6 +1369,12 @@ design: (work@FSM)
                         |vpiName:Faster
                         |vpiFullName:work@FSM.Faster
                         |BIN:0110
+                    |vpiLhs:
+                    \_ref_obj: (work@FSM.FSM3.Speed), line:24:15, endln:24:20
+                      |vpiName:Speed
+                      |vpiFullName:work@FSM.FSM3.Speed
+                      |vpiActual:
+                      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiCaseItem:
                 \_case_item: , line:25:7, endln:26:10
                   |vpiStmt:
@@ -1325,9 +1388,6 @@ design: (work@FSM)
               |vpiFullName:work@FSM.FSM3.brake
               |vpiActual:
               \_logic_net: (work@FSM.brake), line:3:21, endln:3:26, parent:work@FSM
-                |vpiName:brake
-                |vpiFullName:work@FSM.brake
-                |vpiNetType:1
             |vpiStmt:
             \_case_stmt: , line:30:5, endln:35:12
               |vpiCaseType:1
@@ -1348,18 +1408,18 @@ design: (work@FSM)
                 |vpiStmt:
                 \_assignment: , line:31:15, endln:31:30
                   |vpiOpType:82
-                  |vpiLhs:
-                  \_ref_obj: (work@FSM.FSM3.Speed), line:31:15, endln:31:20
-                    |vpiName:Speed
-                    |vpiFullName:work@FSM.FSM3.Speed
-                    |vpiActual:
-                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                   |vpiRhs:
                   \_ref_obj: (work@FSM.FSM3.Faster), line:31:24, endln:31:30
                     |vpiName:Faster
                     |vpiFullName:work@FSM.FSM3.Faster
                     |vpiActual:
                     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
+                  |vpiLhs:
+                  \_ref_obj: (work@FSM.FSM3.Speed), line:31:15, endln:31:20
+                    |vpiName:Speed
+                    |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
               |vpiCaseItem:
               \_case_item: , line:32:7, endln:32:31
                 |vpiExpr:
@@ -1371,18 +1431,18 @@ design: (work@FSM)
                 |vpiStmt:
                 \_assignment: , line:32:15, endln:32:30
                   |vpiOpType:82
-                  |vpiLhs:
-                  \_ref_obj: (work@FSM.FSM3.Speed), line:32:15, endln:32:20
-                    |vpiName:Speed
-                    |vpiFullName:work@FSM.FSM3.Speed
-                    |vpiActual:
-                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                   |vpiRhs:
                   \_ref_obj: (work@FSM.FSM3.Faster), line:32:24, endln:32:30
                     |vpiName:Faster
                     |vpiFullName:work@FSM.FSM3.Faster
                     |vpiActual:
                     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
+                  |vpiLhs:
+                  \_ref_obj: (work@FSM.FSM3.Speed), line:32:15, endln:32:20
+                    |vpiName:Speed
+                    |vpiFullName:work@FSM.FSM3.Speed
+                    |vpiActual:
+                    \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
               |vpiCaseItem:
               \_case_item: , line:33:7, endln:34:10
                 |vpiStmt:
@@ -1394,78 +1454,18 @@ design: (work@FSM)
               |vpiStmt:
               \_assignment: , line:37:5, endln:37:19, parent:work@FSM.FSM3
                 |vpiOpType:82
-                |vpiLhs:
-                \_ref_obj: (work@FSM.FSM3.Speed), line:37:5, endln:37:10
-                  |vpiName:Speed
-                  |vpiFullName:work@FSM.FSM3.Speed
-                  |vpiActual:
-                  \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
                 |vpiRhs:
                 \_ref_obj: (work@FSM.FSM3.Speed), line:37:14, endln:37:19
                   |vpiName:Speed
                   |vpiFullName:work@FSM.FSM3.Speed
                   |vpiActual:
                   \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
-  |vpiPort:
-  \_port: (clock), line:1:12, endln:1:17, parent:work@FSM
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
-    |vpiLowConn:
-    \_ref_obj: (work@FSM.clock), parent:clock
-      |vpiName:clock
-      |vpiFullName:work@FSM.clock
-      |vpiActual:
-      \_logic_net: (work@FSM.clock), line:3:8, endln:3:13, parent:work@FSM
-  |vpiPort:
-  \_port: (keys), line:1:19, endln:1:23, parent:work@FSM
-    |vpiName:keys
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
-    |vpiLowConn:
-    \_ref_obj: (work@FSM.keys), parent:keys
-      |vpiName:keys
-      |vpiFullName:work@FSM.keys
-      |vpiActual:
-      \_logic_net: (work@FSM.keys), line:3:15, endln:3:19, parent:work@FSM
-  |vpiPort:
-  \_port: (brake), line:1:25, endln:1:30, parent:work@FSM
-    |vpiName:brake
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
-    |vpiLowConn:
-    \_ref_obj: (work@FSM.brake), parent:brake
-      |vpiName:brake
-      |vpiFullName:work@FSM.brake
-      |vpiActual:
-      \_logic_net: (work@FSM.brake), line:3:21, endln:3:26, parent:work@FSM
-  |vpiPort:
-  \_port: (accelerate), line:1:32, endln:1:42, parent:work@FSM
-    |vpiName:accelerate
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
-    |vpiLowConn:
-    \_ref_obj: (work@FSM.accelerate), parent:accelerate
-      |vpiName:accelerate
-      |vpiFullName:work@FSM.accelerate
-      |vpiActual:
-      \_logic_net: (work@FSM.accelerate), line:3:28, endln:3:38, parent:work@FSM
-  |vpiPort:
-  \_port: (Speed), line:1:44, endln:1:49, parent:work@FSM
-    |vpiName:Speed
-    |vpiDirection:2
-    |vpiInstance:
-    \_module: work@FSM (work@FSM) top.sv:1:1: , endln:42:12
-    |vpiLowConn:
-    \_ref_obj: (work@FSM.Speed), parent:Speed
-      |vpiName:Speed
-      |vpiFullName:work@FSM.Speed
-      |vpiActual:
-      \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
+                |vpiLhs:
+                \_ref_obj: (work@FSM.FSM3.Speed), line:37:5, endln:37:10
+                  |vpiName:Speed
+                  |vpiFullName:work@FSM.FSM3.Speed
+                  |vpiActual:
+                  \_logic_net: (work@FSM.Speed), line:5:13, endln:5:18, parent:work@FSM
   |vpiNet:
   \_logic_net: (work@FSM.clock), line:3:8, endln:3:13, parent:work@FSM
   |vpiNet:
@@ -1491,6 +1491,29 @@ design: (work@FSM)
     |vpiName:Ctrl3
     |vpiFullName:work@FSM.Ctrl3
     |vpiNetType:48
+  |vpiParameter:
+  \_parameter: (work@FSM.Stop), line:9:13, endln:9:30, parent:work@FSM
+  |vpiParameter:
+  \_parameter: (work@FSM.Move), line:10:13, endln:10:30, parent:work@FSM
+  |vpiParameter:
+  \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
+    |vpiName:Turn
+    |vpiFullName:work@FSM.Turn
+    |BIN:0010
+  |vpiParameter:
+  \_parameter: (work@FSM.Slow), line:12:13, endln:12:30, parent:work@FSM
+  |vpiParameter:
+  \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
+    |vpiName:Medium
+    |vpiFullName:work@FSM.Medium
+    |BIN:0100
+  |vpiParameter:
+  \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
+    |vpiName:Fast
+    |vpiFullName:work@FSM.Fast
+    |BIN:0101
+  |vpiParameter:
+  \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
   |vpiParamAssign:
   \_param_assign: , line:9:13, endln:9:30, parent:work@FSM
     |vpiRhs:
@@ -1521,9 +1544,6 @@ design: (work@FSM)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
-      |vpiName:Turn
-      |vpiFullName:work@FSM.Turn
-      |BIN:0010
   |vpiParamAssign:
   \_param_assign: , line:12:13, endln:12:30, parent:work@FSM
     |vpiRhs:
@@ -1544,9 +1564,6 @@ design: (work@FSM)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
-      |vpiName:Medium
-      |vpiFullName:work@FSM.Medium
-      |BIN:0100
   |vpiParamAssign:
   \_param_assign: , line:14:13, endln:14:30, parent:work@FSM
     |vpiRhs:
@@ -1557,9 +1574,6 @@ design: (work@FSM)
       |UINT:5
     |vpiLhs:
     \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
-      |vpiName:Fast
-      |vpiFullName:work@FSM.Fast
-      |BIN:0101
   |vpiParamAssign:
   \_param_assign: , line:15:13, endln:15:30, parent:work@FSM
     |vpiRhs:
@@ -1570,20 +1584,6 @@ design: (work@FSM)
       |UINT:6
     |vpiLhs:
     \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Stop), line:9:13, endln:9:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Move), line:10:13, endln:10:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Turn), line:11:13, endln:11:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Slow), line:12:13, endln:12:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Medium), line:13:13, endln:13:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Fast), line:14:13, endln:14:30, parent:work@FSM
-  |vpiParameter:
-  \_parameter: (work@FSM.Faster), line:15:13, endln:15:30, parent:work@FSM
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

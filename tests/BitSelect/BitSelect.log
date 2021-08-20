@@ -218,6 +218,14 @@ design: (work@dut)
 \_module: work@alert_sender (work@alert_sender) dut.sv:1:1: , endln:5:10, parent:work@dut
   |vpiDefName:work@alert_sender
   |vpiFullName:work@alert_sender
+  |vpiParameter:
+  \_parameter: (work@alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@alert_sender
+    |vpiName:AsyncOn
+    |vpiFullName:work@alert_sender.AsyncOn
+    |BIN:0
+    |vpiTypespec:
+    \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@alert_sender.AsyncOn
+      |vpiName:AsyncOn
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:31, parent:work@alert_sender
     |vpiRhs:
@@ -228,18 +236,49 @@ design: (work@dut)
       |BIN:0
     |vpiLhs:
     \_parameter: (work@alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@alert_sender
-      |vpiName:AsyncOn
-      |vpiFullName:work@alert_sender.AsyncOn
-      |BIN:0
-      |vpiTypespec:
-      \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@alert_sender.AsyncOn
-        |vpiName:AsyncOn
-  |vpiParameter:
-  \_parameter: (work@alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@alert_sender
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:6:1: , endln:15:10, parent:work@dut
   |vpiDefName:work@dut
   |vpiFullName:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
+    |vpiName:NumAlerts
+    |vpiFullName:work@dut.NumAlerts
+    |UINT:3
+    |vpiTypespec:
+    \_int_typespec: (NumAlerts), line:7:11, endln:7:14, parent:work@dut.NumAlerts
+      |vpiName:NumAlerts
+  |vpiParameter:
+  \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
+    |vpiName:AlertAsyncOn
+    |vpiFullName:work@dut.AlertAsyncOn
+    |vpiTypespec:
+    \_logic_typespec: (AlertAsyncOn), line:8:11, endln:8:16, parent:work@dut.AlertAsyncOn
+      |vpiName:AlertAsyncOn
+      |vpiRange:
+      \_range: , line:8:18, endln:8:31
+        |vpiLeftRange:
+        \_operation: , line:8:18, endln:8:27
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (NumAlerts), line:8:18, endln:8:27
+            |vpiName:NumAlerts
+          |vpiOperand:
+          \_constant: , line:8:28, endln:8:29
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:8:30, endln:8:31
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
+    |vpiName:res
+    |vpiFullName:work@dut.res
   |vpiParamAssign:
   \_param_assign: , line:7:33, endln:7:46, parent:work@dut
     |vpiRhs:
@@ -250,12 +289,6 @@ design: (work@dut)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
-      |vpiName:NumAlerts
-      |vpiFullName:work@dut.NumAlerts
-      |UINT:3
-      |vpiTypespec:
-      \_int_typespec: (NumAlerts), line:7:11, endln:7:14, parent:work@dut.NumAlerts
-        |vpiName:NumAlerts
   |vpiParamAssign:
   \_param_assign: , line:8:33, endln:8:65, parent:work@dut
     |vpiRhs:
@@ -272,31 +305,6 @@ design: (work@dut)
         |BIN:1
     |vpiLhs:
     \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
-      |vpiName:AlertAsyncOn
-      |vpiFullName:work@dut.AlertAsyncOn
-      |vpiTypespec:
-      \_logic_typespec: (AlertAsyncOn), line:8:11, endln:8:16, parent:work@dut.AlertAsyncOn
-        |vpiName:AlertAsyncOn
-        |vpiRange:
-        \_range: , line:8:18, endln:8:31
-          |vpiLeftRange:
-          \_operation: , line:8:18, endln:8:27
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (NumAlerts), line:8:18, endln:8:27
-              |vpiName:NumAlerts
-            |vpiOperand:
-            \_constant: , line:8:28, endln:8:29
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:8:30, endln:8:31
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:9:11, endln:9:33, parent:work@dut
     |vpiRhs:
@@ -310,14 +318,6 @@ design: (work@dut)
         |UINT:0
     |vpiLhs:
     \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
-      |vpiName:res
-      |vpiFullName:work@dut.res
-  |vpiParameter:
-  \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:6:1: , endln:15:10
   |vpiDefName:work@dut
@@ -336,6 +336,14 @@ design: (work@dut)
         |vpiDefLineNo:1
         |vpiName:i_alert_sender
         |vpiFullName:work@dut.gen_alert_tx[0].i_alert_sender
+        |vpiParameter:
+        \_parameter: (work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[0].i_alert_sender
+          |vpiName:AsyncOn
+          |vpiFullName:work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn
+          |BIN:0
+          |vpiTypespec:
+          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn
+            |vpiName:AsyncOn
         |vpiParamAssign:
         \_param_assign: , line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[0].i_alert_sender
           |vpiRhs:
@@ -351,14 +359,6 @@ design: (work@dut)
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn
-              |vpiName:AsyncOn
-        |vpiParameter:
-        \_parameter: (work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[0].i_alert_sender
-          |vpiName:AsyncOn
-          |vpiFullName:work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn
-          |BIN:0
-          |vpiTypespec:
-          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[0].i_alert_sender.AsyncOn
       |vpiParameter:
       \_parameter: (work@dut.gen_alert_tx[0].i), line:10, parent:work@dut.gen_alert_tx[0]
         |vpiName:i
@@ -378,6 +378,14 @@ design: (work@dut)
         |vpiDefLineNo:1
         |vpiName:i_alert_sender
         |vpiFullName:work@dut.gen_alert_tx[1].i_alert_sender
+        |vpiParameter:
+        \_parameter: (work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[1].i_alert_sender
+          |vpiName:AsyncOn
+          |vpiFullName:work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn
+          |BIN:0
+          |vpiTypespec:
+          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn
+            |vpiName:AsyncOn
         |vpiParamAssign:
         \_param_assign: , line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[1].i_alert_sender
           |vpiRhs:
@@ -393,14 +401,6 @@ design: (work@dut)
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn
-              |vpiName:AsyncOn
-        |vpiParameter:
-        \_parameter: (work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[1].i_alert_sender
-          |vpiName:AsyncOn
-          |vpiFullName:work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn
-          |BIN:0
-          |vpiTypespec:
-          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[1].i_alert_sender.AsyncOn
       |vpiParameter:
       \_parameter: (work@dut.gen_alert_tx[1].i), line:10, parent:work@dut.gen_alert_tx[1]
         |vpiName:i
@@ -420,6 +420,14 @@ design: (work@dut)
         |vpiDefLineNo:1
         |vpiName:i_alert_sender
         |vpiFullName:work@dut.gen_alert_tx[2].i_alert_sender
+        |vpiParameter:
+        \_parameter: (work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[2].i_alert_sender
+          |vpiName:AsyncOn
+          |vpiFullName:work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn
+          |BIN:0
+          |vpiTypespec:
+          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn
+            |vpiName:AsyncOn
         |vpiParamAssign:
         \_param_assign: , line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[2].i_alert_sender
           |vpiRhs:
@@ -435,19 +443,51 @@ design: (work@dut)
             |BIN:0
             |vpiTypespec:
             \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn
-              |vpiName:AsyncOn
-        |vpiParameter:
-        \_parameter: (work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn), line:3:17, endln:3:31, parent:work@dut.gen_alert_tx[2].i_alert_sender
-          |vpiName:AsyncOn
-          |vpiFullName:work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn
-          |BIN:0
-          |vpiTypespec:
-          \_bit_typespec: (AsyncOn), line:3:13, endln:3:16, parent:work@dut.gen_alert_tx[2].i_alert_sender.AsyncOn
       |vpiParameter:
       \_parameter: (work@dut.gen_alert_tx[2].i), line:10, parent:work@dut.gen_alert_tx[2]
         |vpiName:i
         |vpiFullName:work@dut.gen_alert_tx[2].i
         |UINT:2
+  |vpiParameter:
+  \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
+    |vpiName:NumAlerts
+    |vpiFullName:work@dut.NumAlerts
+    |UINT:3
+    |vpiTypespec:
+    \_int_typespec: (NumAlerts), line:7:11, endln:7:14, parent:work@dut.NumAlerts
+      |vpiName:NumAlerts
+  |vpiParameter:
+  \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
+    |vpiName:AlertAsyncOn
+    |vpiFullName:work@dut.AlertAsyncOn
+    |vpiTypespec:
+    \_logic_typespec: (AlertAsyncOn), line:8:11, endln:8:16, parent:work@dut.AlertAsyncOn
+      |vpiName:AlertAsyncOn
+      |vpiRange:
+      \_range: , line:8:18, endln:8:31, parent:AlertAsyncOn
+        |vpiLeftRange:
+        \_operation: , line:8:18, endln:8:27
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (work@dut.AlertAsyncOn.AlertAsyncOn.NumAlerts), line:8:18, endln:8:27
+            |vpiName:NumAlerts
+            |vpiFullName:work@dut.AlertAsyncOn.AlertAsyncOn.NumAlerts
+          |vpiOperand:
+          \_constant: , line:8:28, endln:8:29
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:8:30, endln:8:31
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
+    |vpiName:res
+    |vpiFullName:work@dut.res
   |vpiParamAssign:
   \_param_assign: , line:7:33, endln:7:46, parent:work@dut
     |vpiRhs:
@@ -458,12 +498,6 @@ design: (work@dut)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
-      |vpiName:NumAlerts
-      |vpiFullName:work@dut.NumAlerts
-      |UINT:3
-      |vpiTypespec:
-      \_int_typespec: (NumAlerts), line:7:11, endln:7:14, parent:work@dut.NumAlerts
-        |vpiName:NumAlerts
   |vpiParamAssign:
   \_param_assign: , line:8:33, endln:8:65, parent:work@dut
     |vpiRhs:
@@ -474,32 +508,6 @@ design: (work@dut)
       |UINT:7
     |vpiLhs:
     \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
-      |vpiName:AlertAsyncOn
-      |vpiFullName:work@dut.AlertAsyncOn
-      |vpiTypespec:
-      \_logic_typespec: (AlertAsyncOn), line:8:11, endln:8:16, parent:work@dut.AlertAsyncOn
-        |vpiName:AlertAsyncOn
-        |vpiRange:
-        \_range: , line:8:18, endln:8:31, parent:AlertAsyncOn
-          |vpiLeftRange:
-          \_operation: , line:8:18, endln:8:27
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@dut.AlertAsyncOn.AlertAsyncOn.NumAlerts), line:8:18, endln:8:27
-              |vpiName:NumAlerts
-              |vpiFullName:work@dut.AlertAsyncOn.AlertAsyncOn.NumAlerts
-            |vpiOperand:
-            \_constant: , line:8:28, endln:8:29
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:8:30, endln:8:31
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:9:11, endln:9:33, parent:work@dut
     |vpiRhs:
@@ -510,14 +518,6 @@ design: (work@dut)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
-      |vpiName:res
-      |vpiFullName:work@dut.res
-  |vpiParameter:
-  \_parameter: (work@dut.NumAlerts), line:7:33, endln:7:46, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.AlertAsyncOn), line:8:33, endln:8:65, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.res), line:9:11, endln:9:33, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

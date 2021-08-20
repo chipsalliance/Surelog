@@ -226,14 +226,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -447,14 +447,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -465,14 +465,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -483,14 +483,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -503,14 +503,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:12:10, parent:work@dut
   |vpiDefName:work@dut
@@ -525,6 +525,16 @@ design: (work@dut)
       \_assignment: , line:9:5, endln:9:47, parent:work@dut
         |vpiOpType:82
         |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:9:22, endln:9:47
+          |vpiOpType:67
+          |vpiOperand:
+          \_ref_obj: (work@dut.device), line:9:40, endln:9:46
+            |vpiName:device
+            |vpiFullName:work@dut.device
+          |vpiTypespec:
+          \_int_typespec: (NumBitsDeviceSel), line:5:27, endln:5:27
+            |vpiName:NumBitsDeviceSel
         |vpiLhs:
         \_ref_obj: (work@dut.device_sel_req), line:9:5, endln:9:19, parent:work@dut
           |vpiName:device_sel_req
@@ -548,16 +558,6 @@ design: (work@dut)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
-        |vpiRhs:
-        \_operation: , line:9:22, endln:9:47
-          |vpiOpType:67
-          |vpiOperand:
-          \_ref_obj: (work@dut.device), line:9:40, endln:9:46
-            |vpiName:device
-            |vpiFullName:work@dut.device
-          |vpiTypespec:
-          \_int_typespec: (NumBitsDeviceSel), line:5:27, endln:5:27
-            |vpiName:NumBitsDeviceSel
   |vpiNet:
   \_logic_net: (work@dut.device_sel_req), line:6:32, parent:work@dut
     |vpiName:device_sel_req
@@ -567,6 +567,22 @@ design: (work@dut)
   \_logic_net: (work@dut.device), line:7:7, parent:work@dut
     |vpiName:device
     |vpiFullName:work@dut.device
+  |vpiParameter:
+  \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
+    |vpiName:NrDevices
+    |vpiFullName:work@dut.NrDevices
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: (NrDevices), line:2:13, endln:2:16, parent:work@dut.NrDevices
+      |vpiName:NrDevices
+  |vpiParameter:
+  \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
+    |vpiName:NumBitsDeviceSel
+    |vpiFullName:work@dut.NumBitsDeviceSel
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_int_typespec: (NumBitsDeviceSel), line:5:14, endln:5:17, parent:work@dut.NumBitsDeviceSel
+      |vpiName:NumBitsDeviceSel
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30, parent:work@dut
     |vpiRhs:
@@ -577,12 +593,6 @@ design: (work@dut)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
-      |vpiName:NrDevices
-      |vpiFullName:work@dut.NrDevices
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: (NrDevices), line:2:13, endln:2:16, parent:work@dut.NrDevices
-        |vpiName:NrDevices
   |vpiParamAssign:
   \_param_assign: , line:5:27, endln:5:83, parent:work@dut
     |vpiRhs:
@@ -622,16 +632,6 @@ design: (work@dut)
         |UINT:1
     |vpiLhs:
     \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
-      |vpiName:NumBitsDeviceSel
-      |vpiFullName:work@dut.NumBitsDeviceSel
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_int_typespec: (NumBitsDeviceSel), line:5:14, endln:5:17, parent:work@dut.NumBitsDeviceSel
-        |vpiName:NumBitsDeviceSel
-  |vpiParameter:
-  \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:12:10
   |vpiDefName:work@dut
@@ -646,6 +646,28 @@ design: (work@dut)
       \_assignment: , line:9:5, endln:9:47, parent:work@dut
         |vpiOpType:82
         |vpiBlocking:1
+        |vpiRhs:
+        \_operation: , line:9:22, endln:9:47
+          |vpiOpType:67
+          |vpiOperand:
+          \_ref_obj: (work@dut.device), line:9:40, endln:9:46
+            |vpiName:device
+            |vpiFullName:work@dut.device
+            |vpiActual:
+            \_int_var: (work@dut.device), line:7:7, endln:7:13, parent:work@dut
+              |vpiName:device
+              |vpiFullName:work@dut.device
+              |vpiAutomatic:1
+              |vpiVisibility:1
+              |vpiExpr:
+              \_constant: , line:7:16, endln:7:17
+                |vpiConstType:9
+                |vpiDecompile:2
+                |vpiSize:64
+                |UINT:2
+          |vpiTypespec:
+          \_int_typespec: (NumBitsDeviceSel), line:5:27, endln:5:27
+            |vpiName:NumBitsDeviceSel
         |vpiLhs:
         \_ref_obj: (work@dut.device_sel_req), line:9:5, endln:9:19
           |vpiName:device_sel_req
@@ -669,32 +691,26 @@ design: (work@dut)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
-        |vpiRhs:
-        \_operation: , line:9:22, endln:9:47
-          |vpiOpType:67
-          |vpiOperand:
-          \_ref_obj: (work@dut.device), line:9:40, endln:9:46
-            |vpiName:device
-            |vpiFullName:work@dut.device
-            |vpiActual:
-            \_int_var: (work@dut.device), line:7:7, endln:7:13, parent:work@dut
-              |vpiName:device
-              |vpiFullName:work@dut.device
-              |vpiAutomatic:1
-              |vpiVisibility:1
-              |vpiExpr:
-              \_constant: , line:7:16, endln:7:17
-                |vpiConstType:9
-                |vpiDecompile:2
-                |vpiSize:64
-                |UINT:2
-          |vpiTypespec:
-          \_int_typespec: (NumBitsDeviceSel), line:5:27, endln:5:27
-            |vpiName:NumBitsDeviceSel
   |vpiNet:
   \_logic_net: (work@dut.device_sel_req), line:6:32, endln:6:46, parent:work@dut
   |vpiVariables:
   \_int_var: (work@dut.device), line:7:7, endln:7:13, parent:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
+    |vpiName:NrDevices
+    |vpiFullName:work@dut.NrDevices
+    |UINT:1
+    |vpiTypespec:
+    \_int_typespec: (NrDevices), line:2:13, endln:2:16, parent:work@dut.NrDevices
+      |vpiName:NrDevices
+  |vpiParameter:
+  \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
+    |vpiName:NumBitsDeviceSel
+    |vpiFullName:work@dut.NumBitsDeviceSel
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_int_typespec: (NumBitsDeviceSel), line:5:14, endln:5:17, parent:work@dut.NumBitsDeviceSel
+      |vpiName:NumBitsDeviceSel
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30, parent:work@dut
     |vpiRhs:
@@ -705,12 +721,6 @@ design: (work@dut)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
-      |vpiName:NrDevices
-      |vpiFullName:work@dut.NrDevices
-      |UINT:1
-      |vpiTypespec:
-      \_int_typespec: (NrDevices), line:2:13, endln:2:16, parent:work@dut.NrDevices
-        |vpiName:NrDevices
   |vpiParamAssign:
   \_param_assign: , line:5:27, endln:5:83, parent:work@dut
     |vpiRhs:
@@ -721,16 +731,6 @@ design: (work@dut)
       |INT:2
     |vpiLhs:
     \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
-      |vpiName:NumBitsDeviceSel
-      |vpiFullName:work@dut.NumBitsDeviceSel
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_int_typespec: (NumBitsDeviceSel), line:5:14, endln:5:17, parent:work@dut.NumBitsDeviceSel
-        |vpiName:NumBitsDeviceSel
-  |vpiParameter:
-  \_parameter: (work@dut.NrDevices), line:2:17, endln:2:30, parent:work@dut
-  |vpiParameter:
-  \_parameter: (work@dut.NumBitsDeviceSel), line:5:27, endln:5:83, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

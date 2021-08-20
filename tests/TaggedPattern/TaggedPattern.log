@@ -205,14 +205,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -426,14 +426,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -444,14 +444,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -462,14 +462,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -482,14 +482,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:14:11, parent:work@top
   |vpiDefName:work@top
@@ -503,6 +503,15 @@ design: (work@top)
       \_assignment: , line:9:3, endln:9:22, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
+        |vpiRhs:
+        \_tagged_pattern: (v2), line:9:8, endln:9:14
+          |vpiName:v2
+          |vpiPattern:
+          \_constant: , line:9:19, endln:9:21
+            |vpiConstType:9
+            |vpiDecompile:10
+            |vpiSize:64
+            |UINT:10
         |vpiLhs:
         \_ref_obj: (work@top.un), line:9:3, endln:9:5, parent:work@top
           |vpiName:un
@@ -552,25 +561,10 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
-        |vpiRhs:
-        \_tagged_pattern: (v2), line:9:8, endln:9:14
-          |vpiName:v2
-          |vpiPattern:
-          \_constant: , line:9:19, endln:9:21
-            |vpiConstType:9
-            |vpiDecompile:10
-            |vpiSize:64
-            |UINT:10
       |vpiStmt:
       \_assignment: , line:10:3, endln:10:22, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@top.un), line:10:3, endln:10:5, parent:work@top
-          |vpiName:un
-          |vpiFullName:work@top.un
-          |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10:8, endln:10:14
           |vpiName:v1
@@ -580,6 +574,12 @@ design: (work@top)
             |vpiDecompile:85
             |vpiSize:64
             |UINT:85
+        |vpiLhs:
+        \_ref_obj: (work@top.un), line:10:3, endln:10:5, parent:work@top
+          |vpiName:un
+          |vpiFullName:work@top.un
+          |vpiActual:
+          \_struct_net: (work@top.un), line:6:4, endln:6:6, parent:work@top
       |vpiStmt:
       \_sys_func_call: ($display), line:11:3, endln:11:50, parent:work@top
         |vpiName:$display
@@ -612,6 +612,15 @@ design: (work@top)
       \_assignment: , line:9:3, endln:9:22, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
+        |vpiRhs:
+        \_tagged_pattern: (v2), line:9:8, endln:9:14
+          |vpiName:v2
+          |vpiPattern:
+          \_constant: , line:9:19, endln:9:21
+            |vpiConstType:9
+            |vpiDecompile:10
+            |vpiSize:64
+            |UINT:10
         |vpiLhs:
         \_ref_obj: (work@top.un), line:9:3, endln:9:5
           |vpiName:un
@@ -661,25 +670,10 @@ design: (work@top)
                       |vpiDecompile:0
                       |vpiSize:64
                       |UINT:0
-        |vpiRhs:
-        \_tagged_pattern: (v2), line:9:8, endln:9:14
-          |vpiName:v2
-          |vpiPattern:
-          \_constant: , line:9:19, endln:9:21
-            |vpiConstType:9
-            |vpiDecompile:10
-            |vpiSize:64
-            |UINT:10
       |vpiStmt:
       \_assignment: , line:10:3, endln:10:22, parent:work@top
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@top.un), line:10:3, endln:10:5
-          |vpiName:un
-          |vpiFullName:work@top.un
-          |vpiActual:
-          \_struct_net: (work@top.un), line:6:4, endln:6:6, parent:work@top
         |vpiRhs:
         \_tagged_pattern: (v1), line:10:8, endln:10:14
           |vpiName:v1
@@ -689,6 +683,12 @@ design: (work@top)
             |vpiDecompile:85
             |vpiSize:64
             |UINT:85
+        |vpiLhs:
+        \_ref_obj: (work@top.un), line:10:3, endln:10:5
+          |vpiName:un
+          |vpiFullName:work@top.un
+          |vpiActual:
+          \_struct_net: (work@top.un), line:6:4, endln:6:6, parent:work@top
       |vpiStmt:
       \_sys_func_call: ($display), line:11:3, endln:11:50, parent:work@top
         |vpiName:$display

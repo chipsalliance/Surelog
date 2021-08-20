@@ -71,8 +71,6 @@ design: (work@top)
     |vpiFullName:fpnew_pkg::num_operands
     |vpiReturn:
     \_int_var: , line:7:20, endln:7:23
-    |vpiInstance:
-    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
     |vpiIODecl:
     \_io_decl: (grp)
       |vpiName:grp
@@ -208,6 +206,8 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
   |vpiTypedef:
   \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
 |uhdmallModules:
@@ -226,13 +226,10 @@ design: (work@top)
     |vpiFullName:fpnew_pkg::num_operands
     |vpiReturn:
     \_int_var: , line:7:20, endln:7:23
-    |vpiInstance:
-    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
-      |vpiDefName:fpnew_pkg
-      |vpiName:fpnew_pkg
-      |vpiFullName:fpnew_pkg::
-      |vpiTaskFunc:
-      \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14, parent:fpnew_pkg::
+    |vpiIODecl:
+    \_io_decl: (grp)
+      |vpiName:grp
+      |vpiDirection:1
       |vpiTypedef:
       \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
         |vpiName:fpnew_pkg::opgroup_e
@@ -254,6 +251,13 @@ design: (work@top)
               |UINT:0
           |vpiInstance:
           \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
+            |vpiDefName:fpnew_pkg
+            |vpiName:fpnew_pkg
+            |vpiFullName:fpnew_pkg::
+            |vpiTaskFunc:
+            \_function: (fpnew_pkg::num_operands), line:7:1, endln:15:14, parent:fpnew_pkg::
+            |vpiTypedef:
+            \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
         |vpiEnumConst:
         \_enum_const: (ADDMUL), line:3:5, endln:3:11
           |vpiName:ADDMUL
@@ -280,12 +284,6 @@ design: (work@top)
           |vpiSize:64
         |vpiInstance:
         \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
-    |vpiIODecl:
-    \_io_decl: (grp)
-      |vpiName:grp
-      |vpiDirection:1
-      |vpiTypedef:
-      \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
     |vpiStmt:
     \_case_stmt: , line:8:5, endln:14:12, parent:fpnew_pkg::num_operands
       |vpiCaseType:1
@@ -370,10 +368,12 @@ design: (work@top)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
-  |vpiTypedef:
-  \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
-  |vpiTypedef:
-  \_import: (fpnew_pkg), line:23:11, endln:23:23
+    |vpiInstance:
+    \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
+  |vpiParameter:
+  \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
+    |vpiName:p
+    |vpiFullName:work@top.p
   |vpiParamAssign:
   \_param_assign: , line:25:14, endln:25:39, parent:work@top
     |vpiRhs:
@@ -388,10 +388,10 @@ design: (work@top)
         \_enum_const: (DIVSQRT), line:3:13, endln:3:20
     |vpiLhs:
     \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
-      |vpiName:p
-      |vpiFullName:work@top.p
-  |vpiParameter:
-  \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
+  |vpiTypedef:
+  \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
+  |vpiTypedef:
+  \_import: (fpnew_pkg), line:23:11, endln:23:23
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:22:1: , endln:30:10
   |vpiDefName:work@top
@@ -410,6 +410,20 @@ design: (work@top)
         |vpiDefLineNo:19
         |vpiName:good
         |vpiFullName:work@top.genblk1.good
+  |vpiParameter:
+  \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
+    |vpiName:p
+    |vpiFullName:work@top.p
+  |vpiParamAssign:
+  \_param_assign: , line:25:14, endln:25:39, parent:work@top
+    |vpiRhs:
+    \_constant: , line:25:18, endln:25:39
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:32
+      |INT:2
+    |vpiLhs:
+    \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
   |vpiTypedef:
   \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
     |vpiName:fpnew_pkg::opgroup_e
@@ -442,8 +456,6 @@ design: (work@top)
           |vpiFullName:fpnew_pkg::num_operands
           |vpiReturn:
           \_int_var: , line:7:20, endln:7:23
-          |vpiInstance:
-          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
           |vpiIODecl:
           \_io_decl: (grp)
             |vpiName:grp
@@ -550,6 +562,8 @@ design: (work@top)
                   |vpiDecompile:0
                   |vpiSize:64
                   |UINT:0
+          |vpiInstance:
+          \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
         |vpiTypedef:
         \_enum_typespec: (fpnew_pkg::opgroup_e), line:4:5, endln:4:14
     |vpiEnumConst:
@@ -564,20 +578,6 @@ design: (work@top)
     \_package: fpnew_pkg (fpnew_pkg::) dut.sv:1:1: , endln:17:11, parent:work@top
   |vpiTypedef:
   \_import: (fpnew_pkg), line:23:11, endln:23:23
-  |vpiParamAssign:
-  \_param_assign: , line:25:14, endln:25:39, parent:work@top
-    |vpiRhs:
-    \_constant: , line:25:18, endln:25:39
-      |vpiConstType:7
-      |vpiDecompile:2
-      |vpiSize:32
-      |INT:2
-    |vpiLhs:
-    \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
-      |vpiName:p
-      |vpiFullName:work@top.p
-  |vpiParameter:
-  \_parameter: (work@top.p), line:25:14, endln:25:39, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

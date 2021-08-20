@@ -238,14 +238,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -459,14 +459,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -477,14 +477,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -495,14 +495,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -515,14 +515,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:20:10, parent:work@top
   |vpiDefName:work@top
@@ -537,6 +537,59 @@ design: (work@top)
     |vpiName:sbox_enc
     |vpiFullName:work@top.sbox_enc
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
+    |vpiName:RhoOffset
+    |vpiFullName:work@top.RhoOffset
+    |vpiLocalParam:1
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:13:29, endln:13:30, parent:work@top.RhoOffset
+      |vpiLeftRange:
+      \_constant: , line:13:29, endln:13:30
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:13:29, endln:13:30
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+        |vpiOperand:
+        \_constant: 
+          |vpiConstType:7
+          |vpiSize:64
+          |INT:1
+    |vpiRange:
+    \_range: , line:13:32, endln:13:33, parent:work@top.RhoOffset
+      |vpiLeftRange:
+      \_constant: , line:13:32, endln:13:33
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:13:32, endln:13:33
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+        |vpiOperand:
+        \_constant: 
+          |vpiConstType:7
+          |vpiSize:64
+          |INT:1
+    |vpiTypespec:
+    \_int_typespec: (RhoOffset), line:13:14, endln:13:17, parent:work@top.RhoOffset
+      |vpiName:RhoOffset
   |vpiParamAssign:
   \_param_assign: , line:13:18, endln:17:7, parent:work@top
     |vpiRhs:
@@ -574,59 +627,6 @@ design: (work@top)
           |UINT:300
     |vpiLhs:
     \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
-      |vpiName:RhoOffset
-      |vpiFullName:work@top.RhoOffset
-      |vpiLocalParam:1
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:13:29, endln:13:30, parent:work@top.RhoOffset
-        |vpiLeftRange:
-        \_constant: , line:13:29, endln:13:30
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_operation: 
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:13:29, endln:13:30
-            |vpiConstType:9
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-          |vpiOperand:
-          \_constant: 
-            |vpiConstType:7
-            |vpiSize:64
-            |INT:1
-      |vpiRange:
-      \_range: , line:13:32, endln:13:33, parent:work@top.RhoOffset
-        |vpiLeftRange:
-        \_constant: , line:13:32, endln:13:33
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_operation: 
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:13:32, endln:13:33
-            |vpiConstType:9
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-          |vpiOperand:
-          \_constant: 
-            |vpiConstType:7
-            |vpiSize:64
-            |INT:1
-      |vpiTypespec:
-      \_int_typespec: (RhoOffset), line:13:14, endln:13:17, parent:work@top.RhoOffset
-        |vpiName:RhoOffset
-  |vpiParameter:
-  \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:20:10
   |vpiDefName:work@top
@@ -754,6 +754,59 @@ design: (work@top)
           |INT:1
     |vpiExpr:
     \_operation: , line:8:37, endln:11:4
+  |vpiParameter:
+  \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
+    |vpiName:RhoOffset
+    |vpiFullName:work@top.RhoOffset
+    |vpiLocalParam:1
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:13:29, endln:13:30, parent:work@top.RhoOffset
+      |vpiLeftRange:
+      \_constant: , line:13:29, endln:13:30
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:13:29, endln:13:30
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+        |vpiOperand:
+        \_constant: 
+          |vpiConstType:7
+          |vpiSize:64
+          |INT:1
+    |vpiRange:
+    \_range: , line:13:32, endln:13:33, parent:work@top.RhoOffset
+      |vpiLeftRange:
+      \_constant: , line:13:32, endln:13:33
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_operation: 
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , line:13:32, endln:13:33
+          |vpiConstType:9
+          |vpiDecompile:5
+          |vpiSize:64
+          |UINT:5
+        |vpiOperand:
+        \_constant: 
+          |vpiConstType:7
+          |vpiSize:64
+          |INT:1
+    |vpiTypespec:
+    \_int_typespec: (RhoOffset), line:13:14, endln:13:17, parent:work@top.RhoOffset
+      |vpiName:RhoOffset
   |vpiParamAssign:
   \_param_assign: , line:13:18, endln:17:7, parent:work@top
     |vpiRhs:
@@ -791,59 +844,6 @@ design: (work@top)
           |UINT:300
     |vpiLhs:
     \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
-      |vpiName:RhoOffset
-      |vpiFullName:work@top.RhoOffset
-      |vpiLocalParam:1
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:13:29, endln:13:30, parent:work@top.RhoOffset
-        |vpiLeftRange:
-        \_constant: , line:13:29, endln:13:30
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_operation: 
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:13:29, endln:13:30
-            |vpiConstType:9
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-          |vpiOperand:
-          \_constant: 
-            |vpiConstType:7
-            |vpiSize:64
-            |INT:1
-      |vpiRange:
-      \_range: , line:13:32, endln:13:33, parent:work@top.RhoOffset
-        |vpiLeftRange:
-        \_constant: , line:13:32, endln:13:33
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_operation: 
-          |vpiOpType:11
-          |vpiOperand:
-          \_constant: , line:13:32, endln:13:33
-            |vpiConstType:9
-            |vpiDecompile:5
-            |vpiSize:64
-            |UINT:5
-          |vpiOperand:
-          \_constant: 
-            |vpiConstType:7
-            |vpiSize:64
-            |INT:1
-      |vpiTypespec:
-      \_int_typespec: (RhoOffset), line:13:14, endln:13:17, parent:work@top.RhoOffset
-        |vpiName:RhoOffset
-  |vpiParameter:
-  \_parameter: (work@top.RhoOffset), line:13:18, endln:17:7, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
