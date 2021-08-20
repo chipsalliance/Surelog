@@ -223,14 +223,14 @@ design: (work@bp_be_rec_to_fp)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -444,14 +444,14 @@ design: (work@bp_be_rec_to_fp)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -462,14 +462,14 @@ design: (work@bp_be_rec_to_fp)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -480,14 +480,14 @@ design: (work@bp_be_rec_to_fp)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -500,14 +500,14 @@ design: (work@bp_be_rec_to_fp)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10, parent:work@bp_be_rec_to_fp
   |vpiDefName:work@bp_be_rec_to_fp
@@ -522,6 +522,23 @@ design: (work@bp_be_rec_to_fp)
     |vpiName:wrong_range
     |vpiFullName:work@bp_be_rec_to_fp.wrong_range
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
+    |vpiName:sp_exp_width_gp
+    |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
+    |vpiLocalParam:1
+    |UINT:8
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
+    |vpiName:dp_exp_width_gp
+    |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
+    |vpiLocalParam:1
+    |UINT:11
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
+    |vpiName:bias_adj_lp
+    |vpiFullName:work@bp_be_rec_to_fp.bias_adj_lp
+    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -532,10 +549,6 @@ design: (work@bp_be_rec_to_fp)
       |UINT:8
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
-      |vpiName:sp_exp_width_gp
-      |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
-      |vpiLocalParam:1
-      |UINT:8
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -546,10 +559,6 @@ design: (work@bp_be_rec_to_fp)
       |UINT:11
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
-      |vpiName:dp_exp_width_gp
-      |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
-      |vpiLocalParam:1
-      |UINT:11
   |vpiParamAssign:
   \_param_assign: , line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -593,15 +602,6 @@ design: (work@bp_be_rec_to_fp)
             |UINT:11
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
-      |vpiName:bias_adj_lp
-      |vpiFullName:work@bp_be_rec_to_fp.bias_adj_lp
-      |vpiLocalParam:1
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
 |uhdmtopModules:
 \_module: work@bp_be_rec_to_fp (work@bp_be_rec_to_fp) dut.sv:1:1: , endln:10:10
   |vpiDefName:work@bp_be_rec_to_fp
@@ -667,6 +667,20 @@ design: (work@bp_be_rec_to_fp)
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
+    |vpiName:sp_exp_width_gp
+    |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
+    |vpiLocalParam:1
+    |UINT:8
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
+    |vpiName:dp_exp_width_gp
+    |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
+    |vpiLocalParam:1
+    |UINT:11
+  |vpiParameter:
+  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
   |vpiParamAssign:
   \_param_assign: , line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -677,10 +691,6 @@ design: (work@bp_be_rec_to_fp)
       |UINT:8
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
-      |vpiName:sp_exp_width_gp
-      |vpiFullName:work@bp_be_rec_to_fp.sp_exp_width_gp
-      |vpiLocalParam:1
-      |UINT:8
   |vpiParamAssign:
   \_param_assign: , line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -691,10 +701,6 @@ design: (work@bp_be_rec_to_fp)
       |UINT:11
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
-      |vpiName:dp_exp_width_gp
-      |vpiFullName:work@bp_be_rec_to_fp.dp_exp_width_gp
-      |vpiLocalParam:1
-      |UINT:11
   |vpiParamAssign:
   \_param_assign: , line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
     |vpiRhs:
@@ -705,12 +711,6 @@ design: (work@bp_be_rec_to_fp)
       |INT:-1792
     |vpiLhs:
     \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.sp_exp_width_gp), line:2:14, endln:2:35, parent:work@bp_be_rec_to_fp
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.dp_exp_width_gp), line:3:14, endln:3:36, parent:work@bp_be_rec_to_fp
-  |vpiParameter:
-  \_parameter: (work@bp_be_rec_to_fp.bias_adj_lp), line:4:14, endln:4:75, parent:work@bp_be_rec_to_fp
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

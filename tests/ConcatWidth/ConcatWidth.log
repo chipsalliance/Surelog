@@ -302,14 +302,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -523,14 +523,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -541,14 +541,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -559,14 +559,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -579,24 +579,52 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:18:10, parent:work@top
   |vpiDefName:work@top
   |vpiFullName:work@top
+  |vpiPort:
+  \_port: (clk), line:4:17, parent:work@top
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@top.clk), line:4:17, parent:work@top
+        |vpiName:clk
+        |vpiFullName:work@top.clk
+        |vpiNetType:36
+  |vpiPort:
+  \_port: (out), line:5:37, parent:work@top
+    |vpiName:out
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@top.out), line:5:37, parent:work@top
+        |vpiName:out
+        |vpiFullName:work@top.out
+        |vpiNetType:36
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
     \_assignment: , line:12:9, endln:12:20
       |vpiOpType:82
       |vpiBlocking:1
+      |vpiRhs:
+      \_constant: , line:12:19, endln:12:20
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
       |vpiLhs:
       \_ref_obj: (work@top.counter), line:12:9, endln:12:16
         |vpiName:counter
@@ -620,12 +648,6 @@ design: (work@top)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-      |vpiRhs:
-      \_constant: , line:12:19, endln:12:20
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
   |vpiProcess:
   \_always: , line:13:5, endln:15:8, parent:work@top
     |vpiAlwaysType:1
@@ -650,29 +672,6 @@ design: (work@top)
         \_assignment: , line:14:9, endln:14:80, parent:work@top
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@top.counter_upd), line:14:9, endln:14:20, parent:work@top
-            |vpiName:counter_upd
-            |vpiFullName:work@top.counter_upd
-            |vpiActual:
-            \_logic_net: (work@top.counter_upd), line:9:30, endln:9:41, parent:work@top
-              |vpiName:counter_upd
-              |vpiFullName:work@top.counter_upd
-              |vpiNetType:36
-              |vpiRange:
-              \_range: , line:9:12, endln:9:28
-                |vpiLeftRange:
-                \_constant: , line:9:12, endln:9:24
-                  |vpiConstType:7
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |INT:31
-                |vpiRightRange:
-                \_constant: , line:9:27, endln:9:28
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
           |vpiRhs:
           \_operation: , line:14:23, endln:14:48, parent:work@top
             |vpiOpType:24
@@ -744,28 +743,29 @@ design: (work@top)
                 |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
-  |vpiPort:
-  \_port: (clk), line:4:17, parent:work@top
-    |vpiName:clk
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@top.clk), line:4:17, parent:work@top
-        |vpiName:clk
-        |vpiFullName:work@top.clk
-        |vpiNetType:36
-  |vpiPort:
-  \_port: (out), line:5:37, parent:work@top
-    |vpiName:out
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@top.out), line:5:37, parent:work@top
-        |vpiName:out
-        |vpiFullName:work@top.out
-        |vpiNetType:36
+          |vpiLhs:
+          \_ref_obj: (work@top.counter_upd), line:14:9, endln:14:20, parent:work@top
+            |vpiName:counter_upd
+            |vpiFullName:work@top.counter_upd
+            |vpiActual:
+            \_logic_net: (work@top.counter_upd), line:9:30, endln:9:41, parent:work@top
+              |vpiName:counter_upd
+              |vpiFullName:work@top.counter_upd
+              |vpiNetType:36
+              |vpiRange:
+              \_range: , line:9:12, endln:9:28
+                |vpiLeftRange:
+                \_constant: , line:9:12, endln:9:24
+                  |vpiConstType:7
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |INT:31
+                |vpiRightRange:
+                \_constant: , line:9:27, endln:9:28
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:16:29, parent:work@top
     |vpiRhs:
@@ -790,6 +790,14 @@ design: (work@top)
     |vpiName:counter_upd
     |vpiFullName:work@top.counter_upd
     |vpiNetType:36
+  |vpiParameter:
+  \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
+    |vpiName:CounterWidth
+    |vpiFullName:work@top.CounterWidth
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: (CounterWidth), line:2:15, endln:2:18, parent:work@top.CounterWidth
+      |vpiName:CounterWidth
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:36, parent:work@top
     |vpiRhs:
@@ -800,24 +808,66 @@ design: (work@top)
       |UINT:32
     |vpiLhs:
     \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
-      |vpiName:CounterWidth
-      |vpiFullName:work@top.CounterWidth
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: (CounterWidth), line:2:15, endln:2:18, parent:work@top.CounterWidth
-        |vpiName:CounterWidth
-  |vpiParameter:
-  \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:1:1: , endln:18:10
   |vpiDefName:work@top
   |vpiName:work@top
+  |vpiPort:
+  \_port: (clk), line:4:17, endln:4:20, parent:work@top
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@top.clk), parent:clk
+      |vpiName:clk
+      |vpiFullName:work@top.clk
+      |vpiActual:
+      \_logic_net: (work@top.clk), line:4:17, endln:4:20, parent:work@top
+        |vpiName:clk
+        |vpiFullName:work@top.clk
+        |vpiNetType:36
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:18:10
+  |vpiPort:
+  \_port: (out), line:5:37, endln:5:40, parent:work@top
+    |vpiName:out
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@top.out), parent:out
+      |vpiName:out
+      |vpiFullName:work@top.out
+      |vpiActual:
+      \_logic_net: (work@top.out), line:5:37, endln:5:40, parent:work@top
+        |vpiName:out
+        |vpiFullName:work@top.out
+        |vpiNetType:36
+        |vpiRange:
+        \_range: , line:5:19, endln:5:35
+          |vpiLeftRange:
+          \_constant: , line:5:19, endln:5:31
+            |vpiConstType:7
+            |vpiDecompile:31
+            |vpiSize:64
+            |INT:31
+          |vpiRightRange:
+          \_constant: , line:5:34, endln:5:35
+            |vpiConstType:9
+            |vpiDecompile:0
+            |vpiSize:64
+            |UINT:0
+    |vpiInstance:
+    \_module: work@top (work@top) dut.sv:1:1: , endln:18:10
   |vpiProcess:
   \_initial: , parent:work@top
     |vpiStmt:
     \_assignment: , line:12:9, endln:12:20
       |vpiOpType:82
       |vpiBlocking:1
+      |vpiRhs:
+      \_constant: , line:12:19, endln:12:20
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
       |vpiLhs:
       \_ref_obj: (work@top.counter), line:12:9, endln:12:16
         |vpiName:counter
@@ -841,12 +891,6 @@ design: (work@top)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
-      |vpiRhs:
-      \_constant: , line:12:19, endln:12:20
-        |vpiConstType:9
-        |vpiDecompile:0
-        |vpiSize:64
-        |UINT:0
   |vpiProcess:
   \_always: , line:13:5, endln:15:8, parent:work@top
     |vpiAlwaysType:1
@@ -861,9 +905,6 @@ design: (work@top)
           |vpiFullName:work@top.clk
           |vpiActual:
           \_logic_net: (work@top.clk), line:4:17, endln:4:20, parent:work@top
-            |vpiName:clk
-            |vpiFullName:work@top.clk
-            |vpiNetType:36
       |vpiStmt:
       \_begin: (work@top), line:13:27, endln:15:8
         |vpiFullName:work@top
@@ -871,29 +912,6 @@ design: (work@top)
         \_assignment: , line:14:9, endln:14:80, parent:work@top
           |vpiOpType:82
           |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (work@top.counter_upd), line:14:9, endln:14:20
-            |vpiName:counter_upd
-            |vpiFullName:work@top.counter_upd
-            |vpiActual:
-            \_logic_net: (work@top.counter_upd), line:9:30, endln:9:41, parent:work@top
-              |vpiName:counter_upd
-              |vpiFullName:work@top.counter_upd
-              |vpiNetType:36
-              |vpiRange:
-              \_range: , line:9:12, endln:9:28
-                |vpiLeftRange:
-                \_constant: , line:9:12, endln:9:24
-                  |vpiConstType:7
-                  |vpiDecompile:31
-                  |vpiSize:64
-                  |INT:31
-                |vpiRightRange:
-                \_constant: , line:9:27, endln:9:28
-                  |vpiConstType:9
-                  |vpiDecompile:0
-                  |vpiSize:64
-                  |UINT:0
           |vpiRhs:
           \_operation: , line:14:23, endln:14:48
             |vpiOpType:24
@@ -965,47 +983,29 @@ design: (work@top)
                 |vpiDecompile:1'b1
                 |vpiSize:1
                 |BIN:1
-  |vpiPort:
-  \_port: (clk), line:4:17, endln:4:20, parent:work@top
-    |vpiName:clk
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:18:10
-    |vpiLowConn:
-    \_ref_obj: (work@top.clk), parent:clk
-      |vpiName:clk
-      |vpiFullName:work@top.clk
-      |vpiActual:
-      \_logic_net: (work@top.clk), line:4:17, endln:4:20, parent:work@top
-  |vpiPort:
-  \_port: (out), line:5:37, endln:5:40, parent:work@top
-    |vpiName:out
-    |vpiDirection:2
-    |vpiInstance:
-    \_module: work@top (work@top) dut.sv:1:1: , endln:18:10
-    |vpiLowConn:
-    \_ref_obj: (work@top.out), parent:out
-      |vpiName:out
-      |vpiFullName:work@top.out
-      |vpiActual:
-      \_logic_net: (work@top.out), line:5:37, endln:5:40, parent:work@top
-        |vpiName:out
-        |vpiFullName:work@top.out
-        |vpiNetType:36
-        |vpiRange:
-        \_range: , line:5:19, endln:5:35
-          |vpiLeftRange:
-          \_constant: , line:5:19, endln:5:31
-            |vpiConstType:7
-            |vpiDecompile:31
-            |vpiSize:64
-            |INT:31
-          |vpiRightRange:
-          \_constant: , line:5:34, endln:5:35
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
+          |vpiLhs:
+          \_ref_obj: (work@top.counter_upd), line:14:9, endln:14:20
+            |vpiName:counter_upd
+            |vpiFullName:work@top.counter_upd
+            |vpiActual:
+            \_logic_net: (work@top.counter_upd), line:9:30, endln:9:41, parent:work@top
+              |vpiName:counter_upd
+              |vpiFullName:work@top.counter_upd
+              |vpiNetType:36
+              |vpiRange:
+              \_range: , line:9:12, endln:9:28
+                |vpiLeftRange:
+                \_constant: , line:9:12, endln:9:24
+                  |vpiConstType:7
+                  |vpiDecompile:31
+                  |vpiSize:64
+                  |INT:31
+                |vpiRightRange:
+                \_constant: , line:9:27, endln:9:28
+                  |vpiConstType:9
+                  |vpiDecompile:0
+                  |vpiSize:64
+                  |UINT:0
   |vpiContAssign:
   \_cont_assign: , line:16:12, endln:16:29, parent:work@top
     |vpiRhs:
@@ -1028,6 +1028,8 @@ design: (work@top)
   \_logic_net: (work@top.counter), line:8:18, endln:8:25, parent:work@top
   |vpiNet:
   \_logic_net: (work@top.counter_upd), line:9:30, endln:9:41, parent:work@top
+  |vpiParameter:
+  \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:2:19, endln:2:36, parent:work@top
     |vpiRhs:
@@ -1038,8 +1040,6 @@ design: (work@top)
       |UINT:32
     |vpiLhs:
     \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.CounterWidth), line:2:19, endln:2:36, parent:work@top
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

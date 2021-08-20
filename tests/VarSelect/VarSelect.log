@@ -244,14 +244,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -465,14 +465,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -483,14 +483,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -501,14 +501,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -521,14 +521,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:3:1: , endln:14:10, parent:work@top
   |vpiDefName:work@top
@@ -541,19 +541,6 @@ design: (work@top)
       |vpiStmt:
       \_for_stmt: (work@top), line:8:5, endln:8:8, parent:work@top
         |vpiFullName:work@top
-        |vpiCondition:
-        \_operation: , line:8:19, endln:8:20, parent:work@top
-          |vpiOpType:20
-          |vpiOperand:
-          \_ref_obj: (work@top.i), line:8:19, endln:8:20
-            |vpiName:i
-            |vpiFullName:work@top.i
-          |vpiOperand:
-          \_constant: , line:8:21, endln:8:23
-            |vpiConstType:9
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@top
           |vpiRhs:
@@ -572,6 +559,19 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (i), line:8:25, endln:8:26
             |vpiName:i
+        |vpiCondition:
+        \_operation: , line:8:19, endln:8:20, parent:work@top
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@top.i), line:8:19, endln:8:20
+            |vpiName:i
+            |vpiFullName:work@top.i
+          |vpiOperand:
+          \_constant: , line:8:21, endln:8:23
+            |vpiConstType:9
+            |vpiDecompile:32
+            |vpiSize:64
+            |UINT:32
         |vpiStmt:
         \_begin: (work@top), line:8:30, endln:11:9, parent:work@top
           |vpiFullName:work@top
@@ -579,6 +579,12 @@ design: (work@top)
           \_assignment: , line:9:3, endln:9:24, parent:work@top
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:9:22, endln:9:24
+              |vpiConstType:3
+              |vpiDecompile:'0
+              |vpiSize:-1
+              |BIN:0
             |vpiLhs:
             \_bit_select: (work@top.test_net), line:9:3, endln:9:11, parent:work@top.test_net
               |vpiName:test_net
@@ -587,16 +593,16 @@ design: (work@top)
               \_ref_obj: (work@top.i), line:9:12, endln:9:13, parent:work@top
                 |vpiName:i
                 |vpiFullName:work@top.i
-            |vpiRhs:
-            \_constant: , line:9:22, endln:9:24
-              |vpiConstType:3
-              |vpiDecompile:'0
-              |vpiSize:-1
-              |BIN:0
           |vpiStmt:
           \_assignment: , line:10:3, endln:10:24, parent:work@top
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:10:20, endln:10:24
+              |vpiConstType:3
+              |vpiDecompile:1'b1
+              |vpiSize:1
+              |BIN:1
             |vpiLhs:
             \_var_select: (work@top.test_net), line:10:3, endln:10:11
               |vpiName:test_net
@@ -609,12 +615,6 @@ design: (work@top)
               \_ref_obj: (work@top.test_net.i), line:10:15, endln:10:16, parent:work@top.test_net
                 |vpiName:i
                 |vpiFullName:work@top.test_net.i
-            |vpiRhs:
-            \_constant: , line:10:20, endln:10:24
-              |vpiConstType:3
-              |vpiDecompile:1'b1
-              |vpiSize:1
-              |BIN:1
   |vpiContAssign:
   \_cont_assign: , line:4:9, endln:4:23, parent:work@top
     |vpiRhs:
@@ -656,19 +656,6 @@ design: (work@top)
       |vpiStmt:
       \_for_stmt: (work@top), line:8:5, endln:8:8, parent:work@top
         |vpiFullName:work@top
-        |vpiCondition:
-        \_operation: , line:8:19, endln:8:20, parent:work@top
-          |vpiOpType:20
-          |vpiOperand:
-          \_ref_obj: (work@top.i), line:8:19, endln:8:20
-            |vpiName:i
-            |vpiFullName:work@top.i
-          |vpiOperand:
-          \_constant: , line:8:21, endln:8:23
-            |vpiConstType:9
-            |vpiDecompile:32
-            |vpiSize:64
-            |UINT:32
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@top
           |vpiRhs:
@@ -688,6 +675,19 @@ design: (work@top)
           \_ref_obj: (work@top.i), line:8:25, endln:8:26
             |vpiName:i
             |vpiFullName:work@top.i
+        |vpiCondition:
+        \_operation: , line:8:19, endln:8:20, parent:work@top
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@top.i), line:8:19, endln:8:20
+            |vpiName:i
+            |vpiFullName:work@top.i
+          |vpiOperand:
+          \_constant: , line:8:21, endln:8:23
+            |vpiConstType:9
+            |vpiDecompile:32
+            |vpiSize:64
+            |UINT:32
         |vpiStmt:
         \_begin: (work@top), line:8:30, endln:11:9, parent:work@top
           |vpiFullName:work@top
@@ -695,6 +695,12 @@ design: (work@top)
           \_assignment: , line:9:3, endln:9:24, parent:work@top
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:9:22, endln:9:24
+              |vpiConstType:3
+              |vpiDecompile:'0
+              |vpiSize:-1
+              |BIN:0
             |vpiLhs:
             \_bit_select: (work@top.test_net), line:9:3, endln:9:11, parent:work@top.test_net
               |vpiName:test_net
@@ -703,16 +709,16 @@ design: (work@top)
               \_ref_obj: (work@top.test_net.i), line:9:12, endln:9:13, parent:work@top.test_net
                 |vpiName:i
                 |vpiFullName:work@top.test_net.i
-            |vpiRhs:
-            \_constant: , line:9:22, endln:9:24
-              |vpiConstType:3
-              |vpiDecompile:'0
-              |vpiSize:-1
-              |BIN:0
           |vpiStmt:
           \_assignment: , line:10:3, endln:10:24, parent:work@top
             |vpiOpType:82
             |vpiBlocking:1
+            |vpiRhs:
+            \_constant: , line:10:20, endln:10:24
+              |vpiConstType:3
+              |vpiDecompile:1'b1
+              |vpiSize:1
+              |BIN:1
             |vpiLhs:
             \_var_select: (work@top.test_net), line:10:3, endln:10:11
               |vpiName:test_net
@@ -725,12 +731,6 @@ design: (work@top)
               \_ref_obj: (work@top.test_net.i), line:10:15, endln:10:16, parent:work@top.test_net
                 |vpiName:i
                 |vpiFullName:work@top.test_net.i
-            |vpiRhs:
-            \_constant: , line:10:20, endln:10:24
-              |vpiConstType:3
-              |vpiDecompile:1'b1
-              |vpiSize:1
-              |BIN:1
   |vpiContAssign:
   \_cont_assign: , line:4:9, endln:4:23, parent:work@top
     |vpiRhs:

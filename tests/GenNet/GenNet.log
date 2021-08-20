@@ -294,6 +294,19 @@ design: (work@dut)
         |vpiFullName:work@prim_subreg_arb.q
   |vpiNet:
   \_logic_net: (work@prim_subreg_arb.q), line:5:18, parent:work@prim_subreg_arb
+  |vpiParameter:
+  \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
+    |vpiName:DW
+    |vpiFullName:work@prim_subreg_arb.DW
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: (DW), line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
+      |vpiName:DW
+  |vpiParameter:
+  \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
+    |vpiName:SWACCESS
+    |vpiFullName:work@prim_subreg_arb.SWACCESS
+    |STRING:RW
   |vpiParamAssign:
   \_param_assign: , line:2:17, endln:2:30, parent:work@prim_subreg_arb
     |vpiRhs:
@@ -304,12 +317,6 @@ design: (work@dut)
       |UINT:32
     |vpiLhs:
     \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
-      |vpiName:DW
-      |vpiFullName:work@prim_subreg_arb.DW
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: (DW), line:2:13, endln:2:16, parent:work@prim_subreg_arb.DW
-        |vpiName:DW
   |vpiParamAssign:
   \_param_assign: , line:3:17, endln:3:32, parent:work@prim_subreg_arb
     |vpiRhs:
@@ -320,13 +327,6 @@ design: (work@dut)
       |STRING:RW
     |vpiLhs:
     \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
-      |vpiName:SWACCESS
-      |vpiFullName:work@prim_subreg_arb.SWACCESS
-      |STRING:RW
-  |vpiParameter:
-  \_parameter: (work@prim_subreg_arb.DW), line:2:17, endln:2:30, parent:work@prim_subreg_arb
-  |vpiParameter:
-  \_parameter: (work@prim_subreg_arb.SWACCESS), line:3:17, endln:3:32, parent:work@prim_subreg_arb
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10
   |vpiDefName:work@dut
@@ -342,8 +342,6 @@ design: (work@dut)
     \_port: (q), line:5:18, endln:5:19, parent:work@dut.m1
       |vpiName:q
       |vpiDirection:1
-      |vpiInstance:
-      \_module: work@prim_subreg_arb (work@dut.m1) dut.sv:19:2: , endln:22:9, parent:work@dut
       |vpiLowConn:
       \_ref_obj: (work@dut.m1.q), parent:q
         |vpiName:q
@@ -366,6 +364,8 @@ design: (work@dut)
               |vpiDecompile:0
               |vpiSize:64
               |UINT:0
+      |vpiInstance:
+      \_module: work@prim_subreg_arb (work@dut.m1) dut.sv:19:2: , endln:22:9, parent:work@dut
     |vpiGenScopeArray:
     \_gen_scope_array: (work@dut.m1.gen_ro), line:12:5, endln:12:32, parent:work@dut.m1
       |vpiName:gen_ro
@@ -410,6 +410,19 @@ design: (work@dut)
     \_logic_net: (work@dut.m1.q), line:5:18, endln:5:19, parent:work@dut.m1
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:17:1: , endln:23:10
+    |vpiParameter:
+    \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
+      |vpiName:DW
+      |vpiFullName:work@dut.m1.DW
+      |UINT:32
+      |vpiTypespec:
+      \_int_typespec: (DW), line:2:13, endln:2:16, parent:work@dut.m1.DW
+        |vpiName:DW
+    |vpiParameter:
+    \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
+      |vpiName:SWACCESS
+      |vpiFullName:work@dut.m1.SWACCESS
+      |STRING:RW
     |vpiParamAssign:
     \_param_assign: , line:2:17, endln:2:30, parent:work@dut.m1
       |vpiRhs:
@@ -420,12 +433,6 @@ design: (work@dut)
         |UINT:32
       |vpiLhs:
       \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
-        |vpiName:DW
-        |vpiFullName:work@dut.m1.DW
-        |UINT:32
-        |vpiTypespec:
-        \_int_typespec: (DW), line:2:13, endln:2:16, parent:work@dut.m1.DW
-          |vpiName:DW
     |vpiParamAssign:
     \_param_assign: , line:3:17, endln:3:32, parent:work@dut.m1
       |vpiRhs:
@@ -436,13 +443,6 @@ design: (work@dut)
         |STRING:RO
       |vpiLhs:
       \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
-        |vpiName:SWACCESS
-        |vpiFullName:work@dut.m1.SWACCESS
-        |STRING:RW
-    |vpiParameter:
-    \_parameter: (work@dut.m1.DW), line:2:17, endln:2:30, parent:work@dut.m1
-    |vpiParameter:
-    \_parameter: (work@dut.m1.SWACCESS), line:3:17, endln:3:32, parent:work@dut.m1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

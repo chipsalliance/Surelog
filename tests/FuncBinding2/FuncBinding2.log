@@ -40,6 +40,27 @@ design: (work@vend), id:51
 \_module: work@vend (work@vend), id:52 dut.sv:1:1: , endln:33:10, parent:work@vend, parID:51
   |vpiDefName:work@vend
   |vpiFullName:work@vend
+  |vpiPort:
+  \_port: (clock), id:53, line:1:13, parent:work@vend, parID:52
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: , id:58
+      |vpiActual:
+      \_logic_net: (work@vend.clock), id:57, line:1:13, parent:work@vend, parID:52
+        |vpiName:clock
+        |vpiFullName:work@vend.clock
+  |vpiPort:
+  \_port: (newspaper), id:54, line:1:20, parent:work@vend, parID:52
+    |vpiName:newspaper
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: , id:59
+      |vpiActual:
+      \_logic_net: (work@vend.newspaper), id:55, line:5:6, parent:work@vend, parID:52
+        |vpiName:newspaper
+        |vpiFullName:work@vend.newspaper
+        |vpiNetType:1
   |vpiProcess:
   \_always: , id:33, line:28:1, endln:31:4, parent:work@vend, parID:52
     |vpiAlwaysType:1
@@ -74,27 +95,6 @@ design: (work@vend), id:51
           \_ref_obj: (work@vend.newspaper), id:39, line:30:10, endln:30:19, parID:38
             |vpiName:newspaper
             |vpiFullName:work@vend.newspaper
-  |vpiPort:
-  \_port: (clock), id:53, line:1:13, parent:work@vend, parID:52
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: , id:58
-      |vpiActual:
-      \_logic_net: (work@vend.clock), id:57, line:1:13, parent:work@vend, parID:52
-        |vpiName:clock
-        |vpiFullName:work@vend.clock
-  |vpiPort:
-  \_port: (newspaper), id:54, line:1:20, parent:work@vend, parID:52
-    |vpiName:newspaper
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: , id:59
-      |vpiActual:
-      \_logic_net: (work@vend.newspaper), id:55, line:5:6, parent:work@vend, parID:52
-        |vpiName:newspaper
-        |vpiFullName:work@vend.newspaper
-        |vpiNetType:1
   |vpiTaskFunc:
   \_function: (work@vend.fsm), id:0, line:10:1, endln:26:12, parent:work@vend, parID:52
     |vpiVisibility:1
@@ -116,8 +116,6 @@ design: (work@vend), id:51
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@vend (work@vend), id:52 dut.sv:1:1: , endln:33:10, parent:work@vend, parID:51
     |vpiIODecl:
     \_io_decl: (fsm_PRES_STATE), id:13, line:11:13, endln:11:27, parent:work@vend.fsm, parID:0
       |vpiName:fsm_PRES_STATE
@@ -188,24 +186,20 @@ design: (work@vend), id:51
                 \_assignment: , id:29, line:20:17, endln:20:37, parent:work@vend.fsm, parID:26
                   |vpiOpType:82
                   |vpiBlocking:1
-                  |vpiLhs:
-                  \_ref_obj: (work@vend.fsm.fsm_newspaper), id:27, line:20:17, endln:20:30, parent:work@vend.fsm, parID:26
-                    |vpiName:fsm_newspaper
-                    |vpiFullName:work@vend.fsm.fsm_newspaper
                   |vpiRhs:
                   \_constant: , id:28, line:20:33, endln:20:37, parID:29
                     |vpiConstType:3
                     |vpiDecompile:1'b0
                     |vpiSize:1
                     |BIN:0
+                  |vpiLhs:
+                  \_ref_obj: (work@vend.fsm.fsm_newspaper), id:27, line:20:17, endln:20:30, parent:work@vend.fsm, parID:26
+                    |vpiName:fsm_newspaper
+                    |vpiFullName:work@vend.fsm.fsm_newspaper
       |vpiStmt:
       \_assignment: , id:32, line:24:1, endln:24:20, parent:work@vend.fsm, parID:16
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@vend.fsm.fsm), id:30, line:24:1, endln:24:4, parent:work@vend.fsm, parID:16
-          |vpiName:fsm
-          |vpiFullName:work@vend.fsm.fsm
         |vpiRhs:
         \_ref_obj: (work@vend.fsm.fsm_newspaper), id:31, line:24:7, endln:24:20, parent:work@vend.fsm, parID:16
           |vpiName:fsm_newspaper
@@ -215,12 +209,23 @@ design: (work@vend), id:51
             |vpiName:fsm_newspaper
             |vpiTypespec:
             \_logic_typespec: , id:14, line:12:1, endln:12:4
+        |vpiLhs:
+        \_ref_obj: (work@vend.fsm.fsm), id:30, line:24:1, endln:24:4, parent:work@vend.fsm, parID:16
+          |vpiName:fsm
+          |vpiFullName:work@vend.fsm.fsm
+    |vpiInstance:
+    \_module: work@vend (work@vend), id:52 dut.sv:1:1: , endln:33:10, parent:work@vend, parID:51
     |vpiVariables:
     \_logic_var: (fsm_newspaper), id:15, line:12:1, endln:12:4
   |vpiNet:
   \_logic_net: (work@vend.newspaper), id:55, line:5:6, parent:work@vend, parID:52
   |vpiNet:
   \_logic_net: (work@vend.clock), id:57, line:1:13, parent:work@vend, parID:52
+  |vpiParameter:
+  \_parameter: (work@vend.s0), id:1, line:7:11, endln:7:21, parent:work@vend, parID:52
+    |vpiName:s0
+    |vpiFullName:work@vend.s0
+    |BIN:00
   |vpiParamAssign:
   \_param_assign: , id:2, line:7:11, endln:7:21, parent:work@vend, parID:52
     |vpiRhs:
@@ -231,15 +236,39 @@ design: (work@vend), id:51
       |BIN:00
     |vpiLhs:
     \_parameter: (work@vend.s0), id:1, line:7:11, endln:7:21, parent:work@vend, parID:52
-      |vpiName:s0
-      |vpiFullName:work@vend.s0
-      |BIN:00
-  |vpiParameter:
-  \_parameter: (work@vend.s0), id:1, line:7:11, endln:7:21, parent:work@vend, parID:52
 |uhdmtopModules:
 \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
   |vpiDefName:work@vend
   |vpiName:work@vend
+  |vpiPort:
+  \_port: (clock), id:71, line:1:13, endln:1:18, parent:work@vend, parID:60
+    |vpiName:clock
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: (work@vend.clock), id:72, parent:clock, parID:71
+      |vpiName:clock
+      |vpiFullName:work@vend.clock
+      |vpiActual:
+      \_logic_net: (work@vend.clock), id:48, line:1:13, endln:1:18, parent:work@vend, parID:60
+        |vpiName:clock
+        |vpiFullName:work@vend.clock
+    |vpiInstance:
+    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
+  |vpiPort:
+  \_port: (newspaper), id:73, line:1:20, endln:1:29, parent:work@vend, parID:60
+    |vpiName:newspaper
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: (work@vend.newspaper), id:74, parent:newspaper, parID:73
+      |vpiName:newspaper
+      |vpiFullName:work@vend.newspaper
+      |vpiActual:
+      \_logic_net: (work@vend.newspaper), id:47, line:5:6, endln:5:15, parent:work@vend, parID:60
+        |vpiName:newspaper
+        |vpiFullName:work@vend.newspaper
+        |vpiNetType:1
+    |vpiInstance:
+    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
   |vpiProcess:
   \_always: , id:62, line:28:1, endln:31:4, parent:work@vend, parID:60
     |vpiAlwaysType:1
@@ -254,8 +283,6 @@ design: (work@vend), id:51
           |vpiFullName:work@vend.clock
           |vpiActual:
           \_logic_net: (work@vend.clock), id:48, line:1:13, endln:1:18, parent:work@vend, parID:60
-            |vpiName:clock
-            |vpiFullName:work@vend.clock
       |vpiStmt:
       \_begin: (work@vend), id:66, line:29:1, endln:31:4, parID:63
         |vpiFullName:work@vend
@@ -276,33 +303,6 @@ design: (work@vend), id:51
             |vpiFullName:work@vend.newspaper
             |vpiActual:
             \_logic_net: (work@vend.newspaper), id:47, line:5:6, endln:5:15, parent:work@vend, parID:60
-              |vpiName:newspaper
-              |vpiFullName:work@vend.newspaper
-              |vpiNetType:1
-  |vpiPort:
-  \_port: (clock), id:71, line:1:13, endln:1:18, parent:work@vend, parID:60
-    |vpiName:clock
-    |vpiDirection:1
-    |vpiInstance:
-    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
-    |vpiLowConn:
-    \_ref_obj: (work@vend.clock), id:72, parent:clock, parID:71
-      |vpiName:clock
-      |vpiFullName:work@vend.clock
-      |vpiActual:
-      \_logic_net: (work@vend.clock), id:48, line:1:13, endln:1:18, parent:work@vend, parID:60
-  |vpiPort:
-  \_port: (newspaper), id:73, line:1:20, endln:1:29, parent:work@vend, parID:60
-    |vpiName:newspaper
-    |vpiDirection:2
-    |vpiInstance:
-    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
-    |vpiLowConn:
-    \_ref_obj: (work@vend.newspaper), id:74, parent:newspaper, parID:73
-      |vpiName:newspaper
-      |vpiFullName:work@vend.newspaper
-      |vpiActual:
-      \_logic_net: (work@vend.newspaper), id:47, line:5:6, endln:5:15, parent:work@vend, parID:60
   |vpiTaskFunc:
   \_function: (work@vend.fsm), id:75, line:10:1, endln:26:12, parent:work@vend, parID:60
     |vpiVisibility:1
@@ -324,8 +324,6 @@ design: (work@vend), id:51
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
     |vpiIODecl:
     \_io_decl: (fsm_PRES_STATE), id:76, line:11:13, endln:11:27, parent:work@vend.fsm, parID:75
       |vpiName:fsm_PRES_STATE
@@ -396,6 +394,12 @@ design: (work@vend), id:51
                 \_assignment: , id:88, line:20:17, endln:20:37, parent:work@vend.fsm, parID:87
                   |vpiOpType:82
                   |vpiBlocking:1
+                  |vpiRhs:
+                  \_constant: , id:28, line:20:33, endln:20:37, parID:29
+                    |vpiConstType:3
+                    |vpiDecompile:1'b0
+                    |vpiSize:1
+                    |BIN:0
                   |vpiLhs:
                   \_ref_obj: (work@vend.fsm.fsm_newspaper), id:89, line:20:17, endln:20:30, parID:88
                     |vpiName:fsm_newspaper
@@ -406,34 +410,32 @@ design: (work@vend), id:51
                       |vpiFullName:work@vend.fsm.fsm_newspaper
                       |vpiTypespec:
                       \_logic_typespec: , id:14, line:12:1, endln:12:4
-                  |vpiRhs:
-                  \_constant: , id:28, line:20:33, endln:20:37, parID:29
-                    |vpiConstType:3
-                    |vpiDecompile:1'b0
-                    |vpiSize:1
-                    |BIN:0
       |vpiStmt:
       \_assignment: , id:90, line:24:1, endln:24:20, parent:work@vend.fsm, parID:78
         |vpiOpType:82
         |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (work@vend.fsm.fsm), id:91, line:24:1, endln:24:4, parID:90
-          |vpiName:fsm
-          |vpiFullName:work@vend.fsm.fsm
-          |vpiActual:
-          \_logic_var: , id:7, line:10:11, endln:10:14
         |vpiRhs:
         \_ref_obj: (work@vend.fsm.fsm_newspaper), id:92, line:24:7, endln:24:20, parID:90
           |vpiName:fsm_newspaper
           |vpiFullName:work@vend.fsm.fsm_newspaper
           |vpiActual:
           \_logic_var: (work@vend.fsm.fsm_newspaper), id:77, line:12:1, endln:12:4, parent:work@vend.fsm, parID:75
+        |vpiLhs:
+        \_ref_obj: (work@vend.fsm.fsm), id:91, line:24:1, endln:24:4, parID:90
+          |vpiName:fsm
+          |vpiFullName:work@vend.fsm.fsm
+          |vpiActual:
+          \_logic_var: , id:7, line:10:11, endln:10:14
+    |vpiInstance:
+    \_module: work@vend (work@vend), id:60 dut.sv:1:1: , endln:33:10
     |vpiVariables:
     \_logic_var: (work@vend.fsm.fsm_newspaper), id:77, line:12:1, endln:12:4, parent:work@vend.fsm, parID:75
   |vpiNet:
   \_logic_net: (work@vend.newspaper), id:47, line:5:6, endln:5:15, parent:work@vend, parID:60
   |vpiNet:
   \_logic_net: (work@vend.clock), id:48, line:1:13, endln:1:18, parent:work@vend, parID:60
+  |vpiParameter:
+  \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
   |vpiParamAssign:
   \_param_assign: , id:45, line:7:11, endln:7:21, parent:work@vend, parID:60
     |vpiRhs:
@@ -444,8 +446,6 @@ design: (work@vend), id:51
       |UINT:0
     |vpiLhs:
     \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
-  |vpiParameter:
-  \_parameter: (work@vend.s0), id:61, line:7:11, endln:7:21, parent:work@vend, parID:60
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

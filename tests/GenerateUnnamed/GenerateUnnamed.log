@@ -802,14 +802,14 @@ design: (work@test1)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -992,14 +992,14 @@ design: (work@test1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -1010,14 +1010,14 @@ design: (work@test1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -1028,14 +1028,14 @@ design: (work@test1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -1048,14 +1048,14 @@ design: (work@test1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@test1 (work@test1) top.v:1:1: , endln:56:10, parent:work@test1
   |vpiDefName:work@test1
@@ -1075,6 +1075,16 @@ design: (work@test1)
     |vpiName:c
     |vpiFullName:work@test1.c
     |vpiNetType:1
+  |vpiParameter:
+  \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
+    |vpiName:p
+    |vpiFullName:work@test1.p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
+    |vpiName:q
+    |vpiFullName:work@test1.q
+    |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:2:13, endln:2:18, parent:work@test1
     |vpiRhs:
@@ -1085,9 +1095,6 @@ design: (work@test1)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
-      |vpiName:p
-      |vpiFullName:work@test1.p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:2:20, endln:2:25, parent:work@test1
     |vpiRhs:
@@ -1098,13 +1105,6 @@ design: (work@test1)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
-      |vpiName:q
-      |vpiFullName:work@test1.q
-      |UINT:4
-  |vpiParameter:
-  \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
-  |vpiParameter:
-  \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
 |uhdmallModules:
 \_module: work@test2 (work@test2) top.v:60:1: , endln:115:10, parent:work@test1
   |vpiDefName:work@test2
@@ -1124,6 +1124,16 @@ design: (work@test1)
     |vpiName:c
     |vpiFullName:work@test2.c
     |vpiNetType:1
+  |vpiParameter:
+  \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
+    |vpiName:p
+    |vpiFullName:work@test2.p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
+    |vpiName:q
+    |vpiFullName:work@test2.q
+    |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:61:13, endln:61:18, parent:work@test2
     |vpiRhs:
@@ -1134,9 +1144,6 @@ design: (work@test1)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
-      |vpiName:p
-      |vpiFullName:work@test2.p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:61:20, endln:61:25, parent:work@test2
     |vpiRhs:
@@ -1147,13 +1154,6 @@ design: (work@test1)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
-      |vpiName:q
-      |vpiFullName:work@test2.q
-      |UINT:4
-  |vpiParameter:
-  \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
-  |vpiParameter:
-  \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
 |uhdmtopModules:
 \_module: work@test1 (work@test1) top.v:1:1: , endln:56:10
   |vpiDefName:work@test1
@@ -1341,6 +1341,16 @@ design: (work@test1)
   \_logic_net: (work@test1.b), line:3:11, endln:3:12, parent:work@test1
   |vpiNet:
   \_logic_net: (work@test1.c), line:3:14, endln:3:15, parent:work@test1
+  |vpiParameter:
+  \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
+    |vpiName:p
+    |vpiFullName:work@test1.p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
+    |vpiName:q
+    |vpiFullName:work@test1.q
+    |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:2:13, endln:2:18, parent:work@test1
     |vpiRhs:
@@ -1351,9 +1361,6 @@ design: (work@test1)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
-      |vpiName:p
-      |vpiFullName:work@test1.p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:2:20, endln:2:25, parent:work@test1
     |vpiRhs:
@@ -1364,13 +1371,6 @@ design: (work@test1)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
-      |vpiName:q
-      |vpiFullName:work@test1.q
-      |UINT:4
-  |vpiParameter:
-  \_parameter: (work@test1.p), line:2:13, endln:2:18, parent:work@test1
-  |vpiParameter:
-  \_parameter: (work@test1.q), line:2:20, endln:2:25, parent:work@test1
 |uhdmtopModules:
 \_module: work@test2 (work@test2) top.v:60:1: , endln:115:10
   |vpiDefName:work@test2
@@ -1558,6 +1558,16 @@ design: (work@test1)
   \_logic_net: (work@test2.b), line:62:11, endln:62:12, parent:work@test2
   |vpiNet:
   \_logic_net: (work@test2.c), line:62:14, endln:62:15, parent:work@test2
+  |vpiParameter:
+  \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
+    |vpiName:p
+    |vpiFullName:work@test2.p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
+    |vpiName:q
+    |vpiFullName:work@test2.q
+    |UINT:4
   |vpiParamAssign:
   \_param_assign: , line:61:13, endln:61:18, parent:work@test2
     |vpiRhs:
@@ -1568,9 +1578,6 @@ design: (work@test1)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
-      |vpiName:p
-      |vpiFullName:work@test2.p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:61:20, endln:61:25, parent:work@test2
     |vpiRhs:
@@ -1581,13 +1588,6 @@ design: (work@test1)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
-      |vpiName:q
-      |vpiFullName:work@test2.q
-      |UINT:4
-  |vpiParameter:
-  \_parameter: (work@test2.p), line:61:13, endln:61:18, parent:work@test2
-  |vpiParameter:
-  \_parameter: (work@test2.q), line:61:20, endln:61:25, parent:work@test2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

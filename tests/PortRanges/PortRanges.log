@@ -270,14 +270,14 @@ design: (work@DFlipflop8Bit)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -491,14 +491,14 @@ design: (work@DFlipflop8Bit)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -509,14 +509,14 @@ design: (work@DFlipflop8Bit)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -527,14 +527,14 @@ design: (work@DFlipflop8Bit)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -547,14 +547,14 @@ design: (work@DFlipflop8Bit)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10, parent:work@DFlipflop8Bit
   |vpiDefName:work@DFlipflop8Bit
@@ -671,8 +671,6 @@ design: (work@DFlipflop8Bit)
   \_port: (A1), line:1:22, endln:1:24, parent:work@DFlipflop8Bit
     |vpiName:A1
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit.A1), parent:A1
       |vpiName:A1
@@ -696,28 +694,12 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
   |vpiPort:
   \_port: (Q1), line:1:26, endln:1:28, parent:work@DFlipflop8Bit
     |vpiName:Q1
     |vpiDirection:2
-    |vpiTypedef:
-    \_logic_typespec: , line:3:8, endln:3:11
-      |vpiRange:
-      \_range: , line:3:13, endln:3:16, parent:Q1
-        |vpiLeftRange:
-        \_constant: , line:3:13, endln:3:14
-          |vpiConstType:9
-          |vpiDecompile:7
-          |vpiSize:64
-          |UINT:7
-        |vpiRightRange:
-        \_constant: , line:3:15, endln:3:16
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit.Q1), parent:Q1
       |vpiName:Q1
@@ -741,12 +723,28 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiTypedef:
+    \_logic_typespec: , line:3:8, endln:3:11
+      |vpiRange:
+      \_range: , line:3:13, endln:3:16, parent:Q1
+        |vpiLeftRange:
+        \_constant: , line:3:13, endln:3:14
+          |vpiConstType:9
+          |vpiDecompile:7
+          |vpiSize:64
+          |UINT:7
+        |vpiRightRange:
+        \_constant: , line:3:15, endln:3:16
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
   |vpiPort:
   \_port: (A2), line:1:30, endln:1:32, parent:work@DFlipflop8Bit
     |vpiName:A2
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit.A2), parent:A2
       |vpiName:A2
@@ -769,12 +767,12 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
   |vpiPort:
   \_port: (Q2), line:1:34, endln:1:36, parent:work@DFlipflop8Bit
     |vpiName:Q2
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit.Q2), parent:Q2
       |vpiName:Q2
@@ -797,6 +795,8 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit (work@DFlipflop8Bit) dut.sv:1:1: , endln:9:10
   |vpiNet:
   \_logic_net: (work@DFlipflop8Bit.A1), line:1:22, endln:1:24, parent:work@DFlipflop8Bit
   |vpiNet:
@@ -813,8 +813,6 @@ design: (work@DFlipflop8Bit)
   \_port: (A3), line:12:35, endln:12:37, parent:work@DFlipflop8Bit2
     |vpiName:A3
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit2.A3), parent:A3
       |vpiName:A3
@@ -837,12 +835,12 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
   |vpiPort:
   \_port: (A4), line:13:40, endln:13:42, parent:work@DFlipflop8Bit2
     |vpiName:A4
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit2.A4), parent:A4
       |vpiName:A4
@@ -866,12 +864,12 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
   |vpiPort:
   \_port: (Q3), line:14:36, endln:14:38, parent:work@DFlipflop8Bit2
     |vpiName:Q3
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit2.Q3), parent:Q3
       |vpiName:Q3
@@ -894,12 +892,12 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
   |vpiPort:
   \_port: (Q4), line:15:40, endln:15:42, parent:work@DFlipflop8Bit2
     |vpiName:Q4
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
     |vpiLowConn:
     \_ref_obj: (work@DFlipflop8Bit2.Q4), parent:Q4
       |vpiName:Q4
@@ -923,6 +921,8 @@ design: (work@DFlipflop8Bit)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@DFlipflop8Bit2 (work@DFlipflop8Bit2) dut.sv:12:1: , endln:17:10
   |vpiNet:
   \_logic_net: (work@DFlipflop8Bit2.A3), line:12:35, endln:12:37, parent:work@DFlipflop8Bit2
   |vpiNet:

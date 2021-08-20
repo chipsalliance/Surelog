@@ -13315,14 +13315,14 @@ design: (work@bottom1)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -13505,14 +13505,14 @@ design: (work@bottom1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -13523,14 +13523,14 @@ design: (work@bottom1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -13541,14 +13541,14 @@ design: (work@bottom1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -13561,14 +13561,14 @@ design: (work@bottom1)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@bottom1 (work@bottom1) top.v:1:1: , endln:4:10, parent:work@bottom1
   |vpiDefName:work@bottom1
@@ -13746,6 +13746,21 @@ design: (work@bottom1)
 \_module: work@small_test (work@small_test) small.v:5:1: , endln:54:10, parent:work@bottom1
   |vpiDefName:work@small_test
   |vpiFullName:work@small_test
+  |vpiParameter:
+  \_parameter: (work@small_test.SIZE), line:8:27, endln:8:37, parent:work@small_test
+    |vpiName:SIZE
+    |vpiFullName:work@small_test.SIZE
+    |REAL:t.ttts
+  |vpiParameter:
+  \_parameter: (work@small_test.dummy), line:9:14, endln:9:23, parent:work@small_test
+    |vpiName:dummy
+    |vpiFullName:work@small_test.dummy
+    |UINT:5
+  |vpiParameter:
+  \_parameter: (work@small_test.p1), line:10:11, endln:10:23, parent:work@small_test
+    |vpiName:p1
+    |vpiFullName:work@small_test.p1
+    |BIN:100
   |vpiParamAssign:
   \_param_assign: , line:8:27, endln:8:37, parent:work@small_test
     |vpiRhs:
@@ -13756,9 +13771,6 @@ design: (work@bottom1)
       |REAL:t.ttts
     |vpiLhs:
     \_parameter: (work@small_test.SIZE), line:8:27, endln:8:37, parent:work@small_test
-      |vpiName:SIZE
-      |vpiFullName:work@small_test.SIZE
-      |REAL:t.ttts
   |vpiParamAssign:
   \_param_assign: , line:9:14, endln:9:23, parent:work@small_test
     |vpiRhs:
@@ -13769,9 +13781,6 @@ design: (work@bottom1)
       |UINT:5
     |vpiLhs:
     \_parameter: (work@small_test.dummy), line:9:14, endln:9:23, parent:work@small_test
-      |vpiName:dummy
-      |vpiFullName:work@small_test.dummy
-      |UINT:5
   |vpiParamAssign:
   \_param_assign: , line:10:11, endln:10:23, parent:work@small_test
     |vpiRhs:
@@ -13782,15 +13791,6 @@ design: (work@bottom1)
       |BIN:100
     |vpiLhs:
     \_parameter: (work@small_test.p1), line:10:11, endln:10:23, parent:work@small_test
-      |vpiName:p1
-      |vpiFullName:work@small_test.p1
-      |BIN:100
-  |vpiParameter:
-  \_parameter: (work@small_test.SIZE), line:8:27, endln:8:37, parent:work@small_test
-  |vpiParameter:
-  \_parameter: (work@small_test.dummy), line:9:14, endln:9:23, parent:work@small_test
-  |vpiParameter:
-  \_parameter: (work@small_test.p1), line:10:11, endln:10:23, parent:work@small_test
 |uhdmallModules:
 \_module: work@small_top (work@small_top) small.v:1:1: , endln:3:10, parent:work@bottom1
   |vpiDefName:work@small_top
@@ -13823,6 +13823,16 @@ design: (work@bottom1)
   \_logic_net: (work@test.a), line:35:13, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.b), line:35:16, parent:work@test
+  |vpiParameter:
+  \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
+    |vpiName:POWER1
+    |vpiFullName:work@test.POWER1
+    |UINT:1
+  |vpiParameter:
+  \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
+    |vpiName:POWER2
+    |vpiFullName:work@test.POWER2
+    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:37:13, endln:37:23, parent:work@test
     |vpiRhs:
@@ -13833,9 +13843,6 @@ design: (work@bottom1)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
-      |vpiName:POWER1
-      |vpiFullName:work@test.POWER1
-      |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:38:13, endln:38:23, parent:work@test
     |vpiRhs:
@@ -13846,13 +13853,6 @@ design: (work@bottom1)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
-      |vpiName:POWER2
-      |vpiFullName:work@test.POWER2
-      |UINT:1
-  |vpiParameter:
-  \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
 |uhdmallModules:
 \_module: work@top (work@top) top.v:26:1: , endln:31:10, parent:work@bottom1
   |vpiDefName:work@top
@@ -15888,6 +15888,30 @@ design: (work@bottom1)
 \_module: work@test (work@test) top.v:35:1: , endln:76:10
   |vpiDefName:work@test
   |vpiName:work@test
+  |vpiPort:
+  \_port: (a), line:35:13, endln:35:14, parent:work@test
+    |vpiName:a
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: (work@test.a)
+      |vpiName:a
+      |vpiFullName:work@test.a
+      |vpiActual:
+      \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
+        |vpiName:a
+        |vpiFullName:work@test.a
+  |vpiPort:
+  \_port: (b), line:35:16, endln:35:17, parent:work@test
+    |vpiName:b
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: (work@test.b)
+      |vpiName:b
+      |vpiFullName:work@test.b
+      |vpiActual:
+      \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
+        |vpiName:b
+        |vpiFullName:work@test.b
   |vpiPrimitive:
   \_gate: work@and (work@test.u0), line:39, parent:work@test
     |vpiDefName:work@and
@@ -15903,8 +15927,6 @@ design: (work@bottom1)
         |vpiFullName:work@test.a
         |vpiActual:
         \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
-          |vpiName:a
-          |vpiFullName:work@test.a
     |vpiPrimTerm:
     \_prim_term: , line:39:12, parent:work@test.u0
       |vpiDirection:1
@@ -15915,8 +15937,6 @@ design: (work@bottom1)
         |vpiFullName:work@test.b
         |vpiActual:
         \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
-          |vpiName:b
-          |vpiFullName:work@test.b
   |vpiPrimitive:
   \_gate: work@and (work@test.u4), line:58, parent:work@test
     |vpiDefName:work@and
@@ -15942,26 +15962,6 @@ design: (work@bottom1)
         |vpiFullName:work@test.b
         |vpiActual:
         \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
-  |vpiPort:
-  \_port: (a), line:35:13, endln:35:14, parent:work@test
-    |vpiName:a
-    |vpiDirection:5
-    |vpiLowConn:
-    \_ref_obj: (work@test.a)
-      |vpiName:a
-      |vpiFullName:work@test.a
-      |vpiActual:
-      \_logic_net: (work@test.a), line:35:13, endln:35:14, parent:work@test
-  |vpiPort:
-  \_port: (b), line:35:16, endln:35:17, parent:work@test
-    |vpiName:b
-    |vpiDirection:5
-    |vpiLowConn:
-    \_ref_obj: (work@test.b)
-      |vpiName:b
-      |vpiFullName:work@test.b
-      |vpiActual:
-      \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
   |vpiGenScopeArray:
   \_gen_scope_array: (work@test.g1), line:44:7, endln:44:19, parent:work@test
     |vpiName:g1
@@ -16083,6 +16083,16 @@ design: (work@bottom1)
   \_logic_net: (work@test.b), line:35:16, endln:35:17, parent:work@test
   |vpiNet:
   \_logic_net: (work@test.c), parent:work@test
+  |vpiParameter:
+  \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
+    |vpiName:POWER1
+    |vpiFullName:work@test.POWER1
+    |UINT:1
+  |vpiParameter:
+  \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
+    |vpiName:POWER2
+    |vpiFullName:work@test.POWER2
+    |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:37:13, endln:37:23, parent:work@test
     |vpiRhs:
@@ -16093,9 +16103,6 @@ design: (work@bottom1)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
-      |vpiName:POWER1
-      |vpiFullName:work@test.POWER1
-      |UINT:1
   |vpiParamAssign:
   \_param_assign: , line:38:13, endln:38:23, parent:work@test
     |vpiRhs:
@@ -16106,13 +16113,6 @@ design: (work@bottom1)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
-      |vpiName:POWER2
-      |vpiFullName:work@test.POWER2
-      |UINT:1
-  |vpiParameter:
-  \_parameter: (work@test.POWER1), line:37:13, endln:37:23, parent:work@test
-  |vpiParameter:
-  \_parameter: (work@test.POWER2), line:38:13, endln:38:23, parent:work@test
 |uhdmtopModules:
 \_module: work@small_top (work@small_top) small.v:1:1: , endln:3:10
   |vpiDefName:work@small_top
@@ -36589,6 +36589,21 @@ design: (work@bottom1)
           |UINT:9
     |vpiInstance:
     \_module: work@small_top (work@small_top) small.v:1:1: , endln:3:10
+    |vpiParameter:
+    \_parameter: (work@small_top.u1.SIZE), line:8:27, endln:8:37, parent:work@small_top.u1
+      |vpiName:SIZE
+      |vpiFullName:work@small_top.u1.SIZE
+      |REAL:t.ttts
+    |vpiParameter:
+    \_parameter: (work@small_top.u1.dummy), line:9:14, endln:9:23, parent:work@small_top.u1
+      |vpiName:dummy
+      |vpiFullName:work@small_top.u1.dummy
+      |UINT:5
+    |vpiParameter:
+    \_parameter: (work@small_top.u1.p1), line:10:11, endln:10:23, parent:work@small_top.u1
+      |vpiName:p1
+      |vpiFullName:work@small_top.u1.p1
+      |BIN:100
     |vpiParamAssign:
     \_param_assign: , line:8:27, endln:8:37, parent:work@small_top.u1
       |vpiRhs:
@@ -36599,9 +36614,6 @@ design: (work@bottom1)
         |UINT:10
       |vpiLhs:
       \_parameter: (work@small_top.u1.SIZE), line:8:27, endln:8:37, parent:work@small_top.u1
-        |vpiName:SIZE
-        |vpiFullName:work@small_top.u1.SIZE
-        |REAL:t.ttts
     |vpiParamAssign:
     \_param_assign: , line:9:14, endln:9:23, parent:work@small_top.u1
       |vpiRhs:
@@ -36612,9 +36624,6 @@ design: (work@bottom1)
         |UINT:2
       |vpiLhs:
       \_parameter: (work@small_top.u1.dummy), line:9:14, endln:9:23, parent:work@small_top.u1
-        |vpiName:dummy
-        |vpiFullName:work@small_top.u1.dummy
-        |UINT:5
     |vpiParamAssign:
     \_param_assign: , line:10:11, endln:10:23, parent:work@small_top.u1
       |vpiRhs:
@@ -36625,15 +36634,6 @@ design: (work@bottom1)
         |UINT:4
       |vpiLhs:
       \_parameter: (work@small_top.u1.p1), line:10:11, endln:10:23, parent:work@small_top.u1
-        |vpiName:p1
-        |vpiFullName:work@small_top.u1.p1
-        |BIN:100
-    |vpiParameter:
-    \_parameter: (work@small_top.u1.SIZE), line:8:27, endln:8:37, parent:work@small_top.u1
-    |vpiParameter:
-    \_parameter: (work@small_top.u1.dummy), line:9:14, endln:9:23, parent:work@small_top.u1
-    |vpiParameter:
-    \_parameter: (work@small_top.u1.p1), line:10:11, endln:10:23, parent:work@small_top.u1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

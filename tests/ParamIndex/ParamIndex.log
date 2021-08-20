@@ -345,6 +345,31 @@ design: (work@top)
   \_logic_net: (work@bottom.DATA2), line:22:9, parent:work@bottom
     |vpiName:DATA2
     |vpiFullName:work@bottom.DATA2
+  |vpiParameter:
+  \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
+    |vpiFullName:work@bottom.TP1
+    |vpiName:TP1
+    |vpiTypespec:
+    \_logic_typespec: , line:19:38, endln:19:43, parent:work@bottom.TP1
+  |vpiParameter:
+  \_parameter: (work@bottom.SIZE), line:19:55, endln:19:62, parent:work@bottom
+    |vpiName:SIZE
+    |vpiFullName:work@bottom.SIZE
+    |UINT:10
+  |vpiParameter:
+  \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
+    |vpiFullName:work@bottom.TP2
+    |vpiName:TP2
+    |vpiTypespec:
+    \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+  |vpiParameter:
+  \_parameter: (work@bottom.PPP), line:19:104, endln:19:114, parent:work@bottom
+    |vpiName:PPP
+    |vpiFullName:work@bottom.PPP
+    |UINT:1150
+    |vpiTypespec:
+    \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@bottom.PPP
+      |vpiName:PPP
   |vpiParamAssign:
   \_param_assign: , line:19:55, endln:19:62, parent:work@bottom
     |vpiRhs:
@@ -355,9 +380,6 @@ design: (work@top)
       |UINT:10
     |vpiLhs:
     \_parameter: (work@bottom.SIZE), line:19:55, endln:19:62, parent:work@bottom
-      |vpiName:SIZE
-      |vpiFullName:work@bottom.SIZE
-      |UINT:10
   |vpiParamAssign:
   \_param_assign: , line:19:104, endln:19:114, parent:work@bottom
     |vpiRhs:
@@ -368,28 +390,6 @@ design: (work@top)
       |UINT:1150
     |vpiLhs:
     \_parameter: (work@bottom.PPP), line:19:104, endln:19:114, parent:work@bottom
-      |vpiName:PPP
-      |vpiFullName:work@bottom.PPP
-      |UINT:1150
-      |vpiTypespec:
-      \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@bottom.PPP
-        |vpiName:PPP
-  |vpiParameter:
-  \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
-    |vpiFullName:work@bottom.TP1
-    |vpiName:TP1
-    |vpiTypespec:
-    \_logic_typespec: , line:19:38, endln:19:43, parent:work@bottom.TP1
-  |vpiParameter:
-  \_parameter: (work@bottom.SIZE), line:19:55, endln:19:62, parent:work@bottom
-  |vpiParameter:
-  \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
-    |vpiFullName:work@bottom.TP2
-    |vpiName:TP2
-    |vpiTypespec:
-    \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
-  |vpiParameter:
-  \_parameter: (work@bottom.PPP), line:19:104, endln:19:114, parent:work@bottom
 |uhdmallModules:
 \_module: work@mid (work@mid) dut.sv:11:1: , endln:17:10, parent:work@top
   |vpiDefName:work@mid
@@ -473,6 +473,31 @@ design: (work@top)
         |vpiVisibility:1
         |vpiTypespec:
         \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+      |vpiParameter:
+      \_type_parameter: (work@top.u0.u1.TP1), parent:work@top.u0.u1
+        |vpiFullName:work@top.u0.u1.TP1
+        |vpiName:TP1
+        |vpiTypespec:
+        \_int_typespec: , line:3:24, endln:3:27, parent:work@top.u0.u1.TP1
+      |vpiParameter:
+      \_parameter: (work@top.u0.u1.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u1
+        |vpiName:SIZE
+        |vpiFullName:work@top.u0.u1.SIZE
+        |UINT:10
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
+        |vpiFullName:work@bottom.TP2
+        |vpiName:TP2
+        |vpiTypespec:
+        \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+      |vpiParameter:
+      \_parameter: (work@top.u0.u1.PPP), line:19:104, endln:19:114, parent:work@top.u0.u1
+        |vpiName:PPP
+        |vpiFullName:work@top.u0.u1.PPP
+        |UINT:1150
+        |vpiTypespec:
+        \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u1.PPP
+          |vpiName:PPP
       |vpiParamAssign:
       \_param_assign: , line:19:55, endln:19:62, parent:work@top.u0.u1
         |vpiRhs:
@@ -483,9 +508,6 @@ design: (work@top)
           |UINT:10
         |vpiLhs:
         \_parameter: (work@top.u0.u1.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u1
-          |vpiName:SIZE
-          |vpiFullName:work@top.u0.u1.SIZE
-          |UINT:10
       |vpiParamAssign:
       \_param_assign: , line:19:104, endln:19:114, parent:work@top.u0.u1
         |vpiRhs:
@@ -496,28 +518,6 @@ design: (work@top)
           |UINT:1150
         |vpiLhs:
         \_parameter: (work@top.u0.u1.PPP), line:19:104, endln:19:114, parent:work@top.u0.u1
-          |vpiName:PPP
-          |vpiFullName:work@top.u0.u1.PPP
-          |UINT:1150
-          |vpiTypespec:
-          \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u1.PPP
-            |vpiName:PPP
-      |vpiParameter:
-      \_type_parameter: (work@top.u0.u1.TP1), parent:work@top.u0.u1
-        |vpiFullName:work@top.u0.u1.TP1
-        |vpiName:TP1
-        |vpiTypespec:
-        \_int_typespec: , line:3:24, endln:3:27, parent:work@top.u0.u1.TP1
-      |vpiParameter:
-      \_parameter: (work@top.u0.u1.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u1
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
-        |vpiFullName:work@bottom.TP2
-        |vpiName:TP2
-        |vpiTypespec:
-        \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
-      |vpiParameter:
-      \_parameter: (work@top.u0.u1.PPP), line:19:104, endln:19:114, parent:work@top.u0.u1
     |vpiModule:
     \_module: work@bottom (work@top.u0.u2) dut.sv:14:2: , endln:14:38, parent:work@top.u0
       |vpiDefName:work@bottom
@@ -562,6 +562,27 @@ design: (work@top)
         |vpiVisibility:1
         |vpiTypespec:
         \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+      |vpiParameter:
+      \_type_parameter: (work@top.u0.u2.TP1), parent:work@top.u0.u2
+        |vpiFullName:work@top.u0.u2.TP1
+        |vpiName:TP1
+        |vpiTypespec:
+        \_int_typespec: , line:14:16, endln:14:19, parent:work@top.u0.u2.TP1
+      |vpiParameter:
+      \_parameter: (work@top.u0.u2.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u2
+        |vpiName:SIZE
+        |vpiFullName:work@top.u0.u2.SIZE
+        |UINT:10
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
+      |vpiParameter:
+      \_parameter: (work@top.u0.u2.PPP), line:19:104, endln:19:114, parent:work@top.u0.u2
+        |vpiName:PPP
+        |vpiFullName:work@top.u0.u2.PPP
+        |UINT:1150
+        |vpiTypespec:
+        \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u2.PPP
+          |vpiName:PPP
       |vpiParamAssign:
       \_param_assign: , line:19:55, endln:19:62, parent:work@top.u0.u2
         |vpiRhs:
@@ -572,9 +593,6 @@ design: (work@top)
           |UINT:20
         |vpiLhs:
         \_parameter: (work@top.u0.u2.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u2
-          |vpiName:SIZE
-          |vpiFullName:work@top.u0.u2.SIZE
-          |UINT:10
       |vpiParamAssign:
       \_param_assign: , line:19:104, endln:19:114, parent:work@top.u0.u2
         |vpiRhs:
@@ -585,24 +603,6 @@ design: (work@top)
           |UINT:1150
         |vpiLhs:
         \_parameter: (work@top.u0.u2.PPP), line:19:104, endln:19:114, parent:work@top.u0.u2
-          |vpiName:PPP
-          |vpiFullName:work@top.u0.u2.PPP
-          |UINT:1150
-          |vpiTypespec:
-          \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u2.PPP
-            |vpiName:PPP
-      |vpiParameter:
-      \_type_parameter: (work@top.u0.u2.TP1), parent:work@top.u0.u2
-        |vpiFullName:work@top.u0.u2.TP1
-        |vpiName:TP1
-        |vpiTypespec:
-        \_int_typespec: , line:14:16, endln:14:19, parent:work@top.u0.u2.TP1
-      |vpiParameter:
-      \_parameter: (work@top.u0.u2.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u2
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
-      |vpiParameter:
-      \_parameter: (work@top.u0.u2.PPP), line:19:104, endln:19:114, parent:work@top.u0.u2
     |vpiModule:
     \_module: work@bottom (work@top.u0.u3) dut.sv:15:2: , endln:15:38, parent:work@top.u0
       |vpiDefName:work@bottom
@@ -647,6 +647,27 @@ design: (work@top)
         |vpiVisibility:1
         |vpiTypespec:
         \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
+        |vpiFullName:work@bottom.TP1
+        |vpiName:TP1
+        |vpiTypespec:
+        \_logic_typespec: , line:19:38, endln:19:43, parent:work@bottom.TP1
+      |vpiParameter:
+      \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u3
+        |vpiName:SIZE
+        |vpiFullName:work@top.u0.u3.SIZE
+        |UINT:10
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
+      |vpiParameter:
+      \_parameter: (work@top.u0.u3.PPP), line:19:104, endln:19:114, parent:work@top.u0.u3
+        |vpiName:PPP
+        |vpiFullName:work@top.u0.u3.PPP
+        |UINT:1150
+        |vpiTypespec:
+        \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u3.PPP
+          |vpiName:PPP
       |vpiParamAssign:
       \_param_assign: , line:19:55, endln:19:62, parent:work@top.u0.u3
         |vpiRhs:
@@ -657,9 +678,6 @@ design: (work@top)
           |UINT:1120
         |vpiLhs:
         \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u3
-          |vpiName:SIZE
-          |vpiFullName:work@top.u0.u3.SIZE
-          |UINT:10
       |vpiParamAssign:
       \_param_assign: , line:19:104, endln:19:114, parent:work@top.u0.u3
         |vpiRhs:
@@ -670,24 +688,6 @@ design: (work@top)
           |UINT:1130
         |vpiLhs:
         \_parameter: (work@top.u0.u3.PPP), line:19:104, endln:19:114, parent:work@top.u0.u3
-          |vpiName:PPP
-          |vpiFullName:work@top.u0.u3.PPP
-          |UINT:1150
-          |vpiTypespec:
-          \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u3.PPP
-            |vpiName:PPP
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
-        |vpiFullName:work@bottom.TP1
-        |vpiName:TP1
-        |vpiTypespec:
-        \_logic_typespec: , line:19:38, endln:19:43, parent:work@bottom.TP1
-      |vpiParameter:
-      \_parameter: (work@top.u0.u3.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u3
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
-      |vpiParameter:
-      \_parameter: (work@top.u0.u3.PPP), line:19:104, endln:19:114, parent:work@top.u0.u3
     |vpiModule:
     \_module: work@bottom (work@top.u0.u4) dut.sv:16:2: , endln:16:39, parent:work@top.u0
       |vpiDefName:work@bottom
@@ -732,6 +732,23 @@ design: (work@top)
         |vpiVisibility:1
         |vpiTypespec:
         \_int_typespec: , line:19:85, endln:19:88, parent:work@bottom.TP2
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
+      |vpiParameter:
+      \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u4
+        |vpiName:SIZE
+        |vpiFullName:work@top.u0.u4.SIZE
+        |UINT:10
+      |vpiParameter:
+      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
+      |vpiParameter:
+      \_parameter: (work@top.u0.u4.PPP), line:19:104, endln:19:114, parent:work@top.u0.u4
+        |vpiName:PPP
+        |vpiFullName:work@top.u0.u4.PPP
+        |UINT:1150
+        |vpiTypespec:
+        \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u4.PPP
+          |vpiName:PPP
       |vpiParamAssign:
       \_param_assign: , line:19:55, endln:19:62, parent:work@top.u0.u4
         |vpiRhs:
@@ -742,9 +759,6 @@ design: (work@top)
           |UINT:1140
         |vpiLhs:
         \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u4
-          |vpiName:SIZE
-          |vpiFullName:work@top.u0.u4.SIZE
-          |UINT:10
       |vpiParamAssign:
       \_param_assign: , line:19:104, endln:19:114, parent:work@top.u0.u4
         |vpiRhs:
@@ -755,20 +769,6 @@ design: (work@top)
           |UINT:1150
         |vpiLhs:
         \_parameter: (work@top.u0.u4.PPP), line:19:104, endln:19:114, parent:work@top.u0.u4
-          |vpiName:PPP
-          |vpiFullName:work@top.u0.u4.PPP
-          |UINT:1150
-          |vpiTypespec:
-          \_int_typespec: (PPP), line:19:100, endln:19:103, parent:work@top.u0.u4.PPP
-            |vpiName:PPP
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP1), line:19:32, endln:19:35, parent:work@bottom
-      |vpiParameter:
-      \_parameter: (work@top.u0.u4.SIZE), line:19:55, endln:19:62, parent:work@top.u0.u4
-      |vpiParameter:
-      \_type_parameter: (work@bottom.TP2), line:19:79, endln:19:82, parent:work@bottom
-      |vpiParameter:
-      \_parameter: (work@top.u0.u4.PPP), line:19:104, endln:19:114, parent:work@top.u0.u4
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:2:1: , endln:9:10
     |vpiVariables:

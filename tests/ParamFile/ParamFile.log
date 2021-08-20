@@ -253,6 +253,11 @@ design: (work@dut)
         |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@dut.o), line:3:26, parent:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
+    |vpiName:SRAMInitFile
+    |vpiFullName:work@dut.SRAMInitFile
+    |STRING:
   |vpiParamAssign:
   \_param_assign: , line:4:14, endln:4:31, parent:work@dut
     |vpiRhs:
@@ -261,15 +266,21 @@ design: (work@dut)
       |STRING:
     |vpiLhs:
     \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
-      |vpiName:SRAMInitFile
-      |vpiFullName:work@dut.SRAMInitFile
-      |STRING:
-  |vpiParameter:
-  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
 |uhdmallModules:
 \_module: work@ram_1p (work@ram_1p) dut.sv:12:1: , endln:30:10, parent:work@dut
   |vpiDefName:work@ram_1p
   |vpiFullName:work@ram_1p
+  |vpiPort:
+  \_port: (out), line:15:22, parent:work@ram_1p
+    |vpiName:out
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
+        |vpiName:out
+        |vpiFullName:work@ram_1p.out
+        |vpiNetType:36
   |vpiProcess:
   \_initial: , parent:work@ram_1p
     |vpiStmt:
@@ -364,19 +375,13 @@ design: (work@dut)
             \_ref_obj: (work@ram_1p.gen_nomeminit.out), line:26:14, endln:26:17
               |vpiName:out
               |vpiFullName:work@ram_1p.gen_nomeminit.out
-  |vpiPort:
-  \_port: (out), line:15:22, parent:work@ram_1p
-    |vpiName:out
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
-        |vpiName:out
-        |vpiFullName:work@ram_1p.out
-        |vpiNetType:36
   |vpiNet:
   \_logic_net: (work@ram_1p.out), line:15:22, parent:work@ram_1p
+  |vpiParameter:
+  \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
+    |vpiName:MemInitFile
+    |vpiFullName:work@ram_1p.MemInitFile
+    |STRING:
   |vpiParamAssign:
   \_param_assign: , line:13:23, endln:13:39, parent:work@ram_1p
     |vpiRhs:
@@ -385,11 +390,6 @@ design: (work@dut)
       |STRING:
     |vpiLhs:
     \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
-      |vpiName:MemInitFile
-      |vpiFullName:work@ram_1p.MemInitFile
-      |STRING:
-  |vpiParameter:
-  \_parameter: (work@ram_1p.MemInitFile), line:13:23, endln:13:39, parent:work@ram_1p
 |uhdmtopModules:
 \_module: work@dut (work@dut) dut.sv:3:1: , endln:10:10
   |vpiDefName:work@dut
@@ -437,6 +437,11 @@ design: (work@dut)
     \_logic_net: (work@dut.u_ram.out), line:15:22, endln:15:25, parent:work@dut.u_ram
     |vpiInstance:
     \_module: work@dut (work@dut) dut.sv:3:1: , endln:10:10
+    |vpiParameter:
+    \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
+      |vpiName:MemInitFile
+      |vpiFullName:work@dut.u_ram.MemInitFile
+      |STRING:
     |vpiParamAssign:
     \_param_assign: , line:13:23, endln:13:39, parent:work@dut.u_ram
       |vpiRhs:
@@ -445,13 +450,13 @@ design: (work@dut)
         |STRING:
       |vpiLhs:
       \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
-        |vpiName:MemInitFile
-        |vpiFullName:work@dut.u_ram.MemInitFile
-        |STRING:
-    |vpiParameter:
-    \_parameter: (work@dut.u_ram.MemInitFile), line:13:23, endln:13:39, parent:work@dut.u_ram
   |vpiNet:
   \_logic_net: (work@dut.o), line:3:26, endln:3:27, parent:work@dut
+  |vpiParameter:
+  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
+    |vpiName:SRAMInitFile
+    |vpiFullName:work@dut.SRAMInitFile
+    |STRING:
   |vpiParamAssign:
   \_param_assign: , line:4:14, endln:4:31, parent:work@dut
     |vpiRhs:
@@ -460,11 +465,6 @@ design: (work@dut)
       |STRING:
     |vpiLhs:
     \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
-      |vpiName:SRAMInitFile
-      |vpiFullName:work@dut.SRAMInitFile
-      |STRING:
-  |vpiParameter:
-  \_parameter: (work@dut.SRAMInitFile), line:4:14, endln:4:31, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

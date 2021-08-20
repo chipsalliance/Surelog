@@ -2963,14 +2963,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -3184,14 +3184,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -3202,14 +3202,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -3220,14 +3220,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -3240,18 +3240,44 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@bottom (work@bottom) dut.sv:79:1: , endln:88:10, parent:work@top
   |vpiDefName:work@bottom
   |vpiFullName:work@bottom
+  |vpiParameter:
+  \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
+    |vpiName:A3
+    |vpiFullName:work@bottom.A3
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:81:20, endln:81:23, parent:work@bottom.A3
+      |vpiLeftRange:
+      \_constant: , line:81:20, endln:81:21
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_constant: , line:81:22, endln:81:23
+        |vpiConstType:9
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (A3), line:81:13, endln:81:16, parent:work@bottom.A3
+      |vpiName:A3
+  |vpiParameter:
+  \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
+    |vpiName:A
+    |vpiFullName:work@bottom.A
   |vpiParamAssign:
   \_param_assign: , line:81:17, endln:81:36, parent:work@bottom
     |vpiRhs:
@@ -3277,26 +3303,6 @@ design: (work@top)
         |UINT:3
     |vpiLhs:
     \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
-      |vpiName:A3
-      |vpiFullName:work@bottom.A3
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:81:20, endln:81:23, parent:work@bottom.A3
-        |vpiLeftRange:
-        \_constant: , line:81:20, endln:81:21
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_constant: , line:81:22, endln:81:23
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (A3), line:81:13, endln:81:16, parent:work@bottom.A3
-        |vpiName:A3
   |vpiParamAssign:
   \_param_assign: , line:82:13, endln:82:22, parent:work@bottom
     |vpiRhs:
@@ -3310,16 +3316,36 @@ design: (work@top)
         |UINT:2
     |vpiLhs:
     \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
-      |vpiName:A
-      |vpiFullName:work@bottom.A
-  |vpiParameter:
-  \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
-  |vpiParameter:
-  \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
 |uhdmallModules:
 \_module: work@middle (work@middle) dut.sv:67:1: , endln:76:10, parent:work@top
   |vpiDefName:work@middle
   |vpiFullName:work@middle
+  |vpiParameter:
+  \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
+    |vpiName:A3
+    |vpiFullName:work@middle.A3
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:69:20, endln:69:23, parent:work@middle.A3
+      |vpiLeftRange:
+      \_constant: , line:69:20, endln:69:21
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_constant: , line:69:22, endln:69:23
+        |vpiConstType:9
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (A3), line:69:13, endln:69:16, parent:work@middle.A3
+      |vpiName:A3
+  |vpiParameter:
+  \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
+    |vpiName:A
+    |vpiFullName:work@middle.A
   |vpiParamAssign:
   \_param_assign: , line:69:17, endln:69:37, parent:work@middle
     |vpiRhs:
@@ -3345,26 +3371,6 @@ design: (work@top)
         |UINT:3
     |vpiLhs:
     \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
-      |vpiName:A3
-      |vpiFullName:work@middle.A3
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:69:20, endln:69:23, parent:work@middle.A3
-        |vpiLeftRange:
-        \_constant: , line:69:20, endln:69:21
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_constant: , line:69:22, endln:69:23
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (A3), line:69:13, endln:69:16, parent:work@middle.A3
-        |vpiName:A3
   |vpiParamAssign:
   \_param_assign: , line:70:13, endln:70:22, parent:work@middle
     |vpiRhs:
@@ -3378,12 +3384,6 @@ design: (work@top)
         |UINT:0
     |vpiLhs:
     \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
-      |vpiName:A
-      |vpiFullName:work@middle.A
-  |vpiParameter:
-  \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
-  |vpiParameter:
-  \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:3:1: , endln:64:10, parent:work@top
   |vpiDefName:work@top
@@ -3411,6 +3411,187 @@ design: (work@top)
             |vpiName:output_dirs_sparse_lp
             |vpiFullName:work@top.output_dirs_sparse_lp
             |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiLocalParam:1
+    |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
+    |vpiName:dims_p
+    |vpiFullName:work@top.dims_p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
+    |vpiName:dirs_lp
+    |vpiFullName:work@top.dirs_lp
+  |vpiParameter:
+  \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
+    |vpiName:StrictXY
+    |vpiFullName:work@top.StrictXY
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_bit_typespec: (StrictXY), line:8:14, endln:8:17, parent:work@top.StrictXY
+      |vpiName:StrictXY
+      |vpiRange:
+      \_range: , line:8:19, endln:8:22
+        |vpiLeftRange:
+        \_constant: , line:8:19, endln:8:20
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:8:21, endln:8:22
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:8:24, endln:8:27
+        |vpiLeftRange:
+        \_constant: , line:8:24, endln:8:25
+          |vpiConstType:9
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+        |vpiRightRange:
+        \_constant: , line:8:26, endln:8:27
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:8:29, endln:8:32
+        |vpiLeftRange:
+        \_constant: , line:8:29, endln:8:30
+          |vpiConstType:9
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+        |vpiRightRange:
+        \_constant: , line:8:31, endln:8:32
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
+    |vpiName:StrictX
+    |vpiFullName:work@top.StrictX
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_bit_typespec: (StrictX), line:27:16, endln:27:19, parent:work@top.StrictX
+      |vpiName:StrictX
+      |vpiRange:
+      \_range: , line:27:21, endln:27:24
+        |vpiLeftRange:
+        \_constant: , line:27:21, endln:27:22
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:27:23, endln:27:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:27:26, endln:27:29
+        |vpiLeftRange:
+        \_constant: , line:27:26, endln:27:27
+          |vpiConstType:9
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+        |vpiRightRange:
+        \_constant: , line:27:28, endln:27:29
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:27:31, endln:27:34
+        |vpiLeftRange:
+        \_constant: , line:27:31, endln:27:32
+          |vpiConstType:9
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+        |vpiRightRange:
+        \_constant: , line:27:33, endln:27:34
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
+    |vpiName:routing_matrix_p
+    |vpiFullName:work@top.routing_matrix_p
+    |vpiTypespec:
+    \_bit_typespec: (routing_matrix_p), line:40:12, endln:40:15, parent:work@top.routing_matrix_p
+      |vpiName:routing_matrix_p
+      |vpiRange:
+      \_range: , line:40:17, endln:40:20
+        |vpiLeftRange:
+        \_constant: , line:40:17, endln:40:18
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:19, endln:40:20
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:40:22, endln:40:33
+        |vpiLeftRange:
+        \_operation: , line:40:22, endln:40:29
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (dirs_lp), line:40:22, endln:40:29
+            |vpiName:dirs_lp
+          |vpiOperand:
+          \_constant: , line:40:30, endln:40:31
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:32, endln:40:33
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:40:35, endln:40:46
+        |vpiLeftRange:
+        \_operation: , line:40:35, endln:40:42
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (dirs_lp), line:40:35, endln:40:42
+            |vpiName:dirs_lp
+          |vpiOperand:
+          \_constant: , line:40:43, endln:40:44
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:45, endln:40:46
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
+    |vpiName:output_dirs_sparse_lp
+    |vpiFullName:work@top.output_dirs_sparse_lp
+    |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18, parent:work@top
     |vpiRhs:
@@ -3421,10 +3602,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
-      |vpiName:i
-      |vpiFullName:work@top.i
-      |vpiLocalParam:1
-      |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:5:12, endln:5:35, parent:work@top
     |vpiRhs:
@@ -3435,9 +3612,6 @@ design: (work@top)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
-      |vpiName:dims_p
-      |vpiFullName:work@top.dims_p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:39, parent:work@top
     |vpiRhs:
@@ -3463,8 +3637,6 @@ design: (work@top)
         |UINT:1
     |vpiLhs:
     \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
-      |vpiName:dirs_lp
-      |vpiFullName:work@top.dirs_lp
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:25:33, parent:work@top
     |vpiRhs:
@@ -3538,54 +3710,6 @@ design: (work@top)
           |BIN:11111
     |vpiLhs:
     \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
-      |vpiName:StrictXY
-      |vpiFullName:work@top.StrictXY
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_bit_typespec: (StrictXY), line:8:14, endln:8:17, parent:work@top.StrictXY
-        |vpiName:StrictXY
-        |vpiRange:
-        \_range: , line:8:19, endln:8:22
-          |vpiLeftRange:
-          \_constant: , line:8:19, endln:8:20
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:8:21, endln:8:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:8:24, endln:8:27
-          |vpiLeftRange:
-          \_constant: , line:8:24, endln:8:25
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-          |vpiRightRange:
-          \_constant: , line:8:26, endln:8:27
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:8:29, endln:8:32
-          |vpiLeftRange:
-          \_constant: , line:8:29, endln:8:30
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-          |vpiRightRange:
-          \_constant: , line:8:31, endln:8:32
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:27:36, endln:38:32, parent:work@top
     |vpiRhs:
@@ -3635,54 +3759,6 @@ design: (work@top)
           |BIN:111
     |vpiLhs:
     \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
-      |vpiName:StrictX
-      |vpiFullName:work@top.StrictX
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_bit_typespec: (StrictX), line:27:16, endln:27:19, parent:work@top.StrictX
-        |vpiName:StrictX
-        |vpiRange:
-        \_range: , line:27:21, endln:27:24
-          |vpiLeftRange:
-          \_constant: , line:27:21, endln:27:22
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:27:23, endln:27:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:27:26, endln:27:29
-          |vpiLeftRange:
-          \_constant: , line:27:26, endln:27:27
-            |vpiConstType:9
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-          |vpiRightRange:
-          \_constant: , line:27:28, endln:27:29
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:27:31, endln:27:34
-          |vpiLeftRange:
-          \_constant: , line:27:31, endln:27:32
-            |vpiConstType:9
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-          |vpiRightRange:
-          \_constant: , line:27:33, endln:27:34
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:40:48, endln:40:102, parent:work@top
     |vpiRhs:
@@ -3808,65 +3884,6 @@ design: (work@top)
                 |UINT:0
     |vpiLhs:
     \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
-      |vpiName:routing_matrix_p
-      |vpiFullName:work@top.routing_matrix_p
-      |vpiTypespec:
-      \_bit_typespec: (routing_matrix_p), line:40:12, endln:40:15, parent:work@top.routing_matrix_p
-        |vpiName:routing_matrix_p
-        |vpiRange:
-        \_range: , line:40:17, endln:40:20
-          |vpiLeftRange:
-          \_constant: , line:40:17, endln:40:18
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:19, endln:40:20
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:40:22, endln:40:33
-          |vpiLeftRange:
-          \_operation: , line:40:22, endln:40:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (dirs_lp), line:40:22, endln:40:29
-              |vpiName:dirs_lp
-            |vpiOperand:
-            \_constant: , line:40:30, endln:40:31
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:32, endln:40:33
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:40:35, endln:40:46
-          |vpiLeftRange:
-          \_operation: , line:40:35, endln:40:42
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (dirs_lp), line:40:35, endln:40:42
-              |vpiName:dirs_lp
-            |vpiOperand:
-            \_constant: , line:40:43, endln:40:44
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:45, endln:40:46
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:45:12, endln:51:249, parent:work@top
     |vpiRhs:
@@ -6221,23 +6238,6 @@ design: (work@top)
             |BIN:1
     |vpiLhs:
     \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
-      |vpiName:output_dirs_sparse_lp
-      |vpiFullName:work@top.output_dirs_sparse_lp
-      |vpiLocalParam:1
-  |vpiParameter:
-  \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
 |uhdmtopModules:
 \_module: work@top (work@top) dut.sv:3:1: , endln:64:10
   |vpiDefName:work@top
@@ -6265,6 +6265,186 @@ design: (work@top)
             |vpiName:output_dirs_sparse_lp
             |vpiFullName:work@top.output_dirs_sparse_lp
             |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiLocalParam:1
+    |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
+    |vpiName:dims_p
+    |vpiFullName:work@top.dims_p
+    |UINT:2
+  |vpiParameter:
+  \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
+    |vpiName:dirs_lp
+    |vpiFullName:work@top.dirs_lp
+  |vpiParameter:
+  \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
+    |vpiName:StrictXY
+    |vpiFullName:work@top.StrictXY
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_bit_typespec: (StrictXY), line:8:14, endln:8:17, parent:work@top.StrictXY
+      |vpiName:StrictXY
+      |vpiRange:
+      \_range: , line:8:19, endln:8:22, parent:StrictXY
+        |vpiLeftRange:
+        \_constant: , line:8:19, endln:8:20
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:8:21, endln:8:22
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:8:24, endln:8:27, parent:StrictXY
+        |vpiLeftRange:
+        \_constant: , line:8:24, endln:8:25
+          |vpiConstType:9
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+        |vpiRightRange:
+        \_constant: , line:8:26, endln:8:27
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:8:29, endln:8:32, parent:StrictXY
+        |vpiLeftRange:
+        \_constant: , line:8:29, endln:8:30
+          |vpiConstType:9
+          |vpiDecompile:4
+          |vpiSize:64
+          |UINT:4
+        |vpiRightRange:
+        \_constant: , line:8:31, endln:8:32
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
+    |vpiName:StrictX
+    |vpiFullName:work@top.StrictX
+    |vpiLocalParam:1
+    |vpiTypespec:
+    \_bit_typespec: (StrictX), line:27:16, endln:27:19, parent:work@top.StrictX
+      |vpiName:StrictX
+      |vpiRange:
+      \_range: , line:27:21, endln:27:24, parent:StrictX
+        |vpiLeftRange:
+        \_constant: , line:27:21, endln:27:22
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:27:23, endln:27:24
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:27:26, endln:27:29, parent:StrictX
+        |vpiLeftRange:
+        \_constant: , line:27:26, endln:27:27
+          |vpiConstType:9
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+        |vpiRightRange:
+        \_constant: , line:27:28, endln:27:29
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:27:31, endln:27:34, parent:StrictX
+        |vpiLeftRange:
+        \_constant: , line:27:31, endln:27:32
+          |vpiConstType:9
+          |vpiDecompile:2
+          |vpiSize:64
+          |UINT:2
+        |vpiRightRange:
+        \_constant: , line:27:33, endln:27:34
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
+    |vpiName:routing_matrix_p
+    |vpiFullName:work@top.routing_matrix_p
+    |vpiTypespec:
+    \_bit_typespec: (routing_matrix_p), line:40:12, endln:40:15, parent:work@top.routing_matrix_p
+      |vpiName:routing_matrix_p
+      |vpiRange:
+      \_range: , line:40:17, endln:40:20, parent:routing_matrix_p
+        |vpiLeftRange:
+        \_constant: , line:40:17, endln:40:18
+          |vpiConstType:9
+          |vpiDecompile:1
+          |vpiSize:64
+          |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:19, endln:40:20
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:40:22, endln:40:33, parent:routing_matrix_p
+        |vpiLeftRange:
+        \_operation: , line:40:22, endln:40:29
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (work@top.routing_matrix_p.routing_matrix_p.dirs_lp), line:40:22, endln:40:29
+            |vpiName:dirs_lp
+            |vpiFullName:work@top.routing_matrix_p.routing_matrix_p.dirs_lp
+          |vpiOperand:
+          \_constant: , line:40:30, endln:40:31
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:32, endln:40:33
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+      |vpiRange:
+      \_range: , line:40:35, endln:40:46, parent:routing_matrix_p
+        |vpiLeftRange:
+        \_operation: , line:40:35, endln:40:42
+          |vpiOpType:11
+          |vpiOperand:
+          \_ref_obj: (work@top.routing_matrix_p.routing_matrix_p.dirs_lp), line:40:35, endln:40:42
+            |vpiName:dirs_lp
+            |vpiFullName:work@top.routing_matrix_p.routing_matrix_p.dirs_lp
+          |vpiOperand:
+          \_constant: , line:40:43, endln:40:44
+            |vpiConstType:9
+            |vpiDecompile:1
+            |vpiSize:64
+            |UINT:1
+        |vpiRightRange:
+        \_constant: , line:40:45, endln:40:46
+          |vpiConstType:9
+          |vpiDecompile:0
+          |vpiSize:64
+          |UINT:0
+  |vpiParameter:
+  \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
   |vpiParamAssign:
   \_param_assign: , line:4:13, endln:4:18, parent:work@top
     |vpiRhs:
@@ -6275,10 +6455,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
-      |vpiName:i
-      |vpiFullName:work@top.i
-      |vpiLocalParam:1
-      |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:5:12, endln:5:35, parent:work@top
     |vpiRhs:
@@ -6289,9 +6465,6 @@ design: (work@top)
       |UINT:2
     |vpiLhs:
     \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
-      |vpiName:dims_p
-      |vpiFullName:work@top.dims_p
-      |UINT:2
   |vpiParamAssign:
   \_param_assign: , line:6:11, endln:6:39, parent:work@top
     |vpiRhs:
@@ -6302,8 +6475,6 @@ design: (work@top)
       |INT:5
     |vpiLhs:
     \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
-      |vpiName:dirs_lp
-      |vpiFullName:work@top.dirs_lp
   |vpiParamAssign:
   \_param_assign: , line:8:34, endln:25:33, parent:work@top
     |vpiRhs:
@@ -6380,54 +6551,6 @@ design: (work@top)
           |BIN:01111
     |vpiLhs:
     \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
-      |vpiName:StrictXY
-      |vpiFullName:work@top.StrictXY
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_bit_typespec: (StrictXY), line:8:14, endln:8:17, parent:work@top.StrictXY
-        |vpiName:StrictXY
-        |vpiRange:
-        \_range: , line:8:19, endln:8:22, parent:StrictXY
-          |vpiLeftRange:
-          \_constant: , line:8:19, endln:8:20
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:8:21, endln:8:22
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:8:24, endln:8:27, parent:StrictXY
-          |vpiLeftRange:
-          \_constant: , line:8:24, endln:8:25
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-          |vpiRightRange:
-          \_constant: , line:8:26, endln:8:27
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:8:29, endln:8:32, parent:StrictXY
-          |vpiLeftRange:
-          \_constant: , line:8:29, endln:8:30
-            |vpiConstType:9
-            |vpiDecompile:4
-            |vpiSize:64
-            |UINT:4
-          |vpiRightRange:
-          \_constant: , line:8:31, endln:8:32
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:27:36, endln:38:32, parent:work@top
     |vpiRhs:
@@ -6480,121 +6603,12 @@ design: (work@top)
           |BIN:011
     |vpiLhs:
     \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
-      |vpiName:StrictX
-      |vpiFullName:work@top.StrictX
-      |vpiLocalParam:1
-      |vpiTypespec:
-      \_bit_typespec: (StrictX), line:27:16, endln:27:19, parent:work@top.StrictX
-        |vpiName:StrictX
-        |vpiRange:
-        \_range: , line:27:21, endln:27:24, parent:StrictX
-          |vpiLeftRange:
-          \_constant: , line:27:21, endln:27:22
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:27:23, endln:27:24
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:27:26, endln:27:29, parent:StrictX
-          |vpiLeftRange:
-          \_constant: , line:27:26, endln:27:27
-            |vpiConstType:9
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-          |vpiRightRange:
-          \_constant: , line:27:28, endln:27:29
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:27:31, endln:27:34, parent:StrictX
-          |vpiLeftRange:
-          \_constant: , line:27:31, endln:27:32
-            |vpiConstType:9
-            |vpiDecompile:2
-            |vpiSize:64
-            |UINT:2
-          |vpiRightRange:
-          \_constant: , line:27:33, endln:27:34
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:40:48, endln:40:102, parent:work@top
     |vpiRhs:
     \_operation: , line:9:31, endln:25:33
     |vpiLhs:
     \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
-      |vpiName:routing_matrix_p
-      |vpiFullName:work@top.routing_matrix_p
-      |vpiTypespec:
-      \_bit_typespec: (routing_matrix_p), line:40:12, endln:40:15, parent:work@top.routing_matrix_p
-        |vpiName:routing_matrix_p
-        |vpiRange:
-        \_range: , line:40:17, endln:40:20, parent:routing_matrix_p
-          |vpiLeftRange:
-          \_constant: , line:40:17, endln:40:18
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:19, endln:40:20
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:40:22, endln:40:33, parent:routing_matrix_p
-          |vpiLeftRange:
-          \_operation: , line:40:22, endln:40:29
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.routing_matrix_p.routing_matrix_p.dirs_lp), line:40:22, endln:40:29
-              |vpiName:dirs_lp
-              |vpiFullName:work@top.routing_matrix_p.routing_matrix_p.dirs_lp
-            |vpiOperand:
-            \_constant: , line:40:30, endln:40:31
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:32, endln:40:33
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
-        |vpiRange:
-        \_range: , line:40:35, endln:40:46, parent:routing_matrix_p
-          |vpiLeftRange:
-          \_operation: , line:40:35, endln:40:42
-            |vpiOpType:11
-            |vpiOperand:
-            \_ref_obj: (work@top.routing_matrix_p.routing_matrix_p.dirs_lp), line:40:35, endln:40:42
-              |vpiName:dirs_lp
-              |vpiFullName:work@top.routing_matrix_p.routing_matrix_p.dirs_lp
-            |vpiOperand:
-            \_constant: , line:40:43, endln:40:44
-              |vpiConstType:9
-              |vpiDecompile:1
-              |vpiSize:64
-              |UINT:1
-          |vpiRightRange:
-          \_constant: , line:40:45, endln:40:46
-            |vpiConstType:9
-            |vpiDecompile:0
-            |vpiSize:64
-            |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:45:12, endln:51:249, parent:work@top
     |vpiRhs:
@@ -6605,24 +6619,36 @@ design: (work@top)
       |INT:5
     |vpiLhs:
     \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.i), line:4:13, endln:4:18, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.dims_p), line:5:12, endln:5:35, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.dirs_lp), line:6:11, endln:6:39, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.StrictXY), line:8:34, endln:25:33, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.StrictX), line:27:36, endln:38:32, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.routing_matrix_p), line:40:48, endln:40:102, parent:work@top
-  |vpiParameter:
-  \_parameter: (work@top.output_dirs_sparse_lp), line:45:12, endln:51:249, parent:work@top
 |uhdmtopModules:
 \_module: work@middle (work@middle) dut.sv:67:1: , endln:76:10
   |vpiDefName:work@middle
   |vpiName:work@middle
+  |vpiParameter:
+  \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
+    |vpiName:A3
+    |vpiFullName:work@middle.A3
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:69:20, endln:69:23, parent:work@middle.A3
+      |vpiLeftRange:
+      \_constant: , line:69:20, endln:69:21
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_constant: , line:69:22, endln:69:23
+        |vpiConstType:9
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (A3), line:69:13, endln:69:16, parent:work@middle.A3
+      |vpiName:A3
+  |vpiParameter:
+  \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
+    |vpiName:A
+    |vpiFullName:work@middle.A
   |vpiParamAssign:
   \_param_assign: , line:69:17, endln:69:37, parent:work@middle
     |vpiRhs:
@@ -6648,26 +6674,6 @@ design: (work@top)
         |UINT:3
     |vpiLhs:
     \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
-      |vpiName:A3
-      |vpiFullName:work@middle.A3
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:69:20, endln:69:23, parent:work@middle.A3
-        |vpiLeftRange:
-        \_constant: , line:69:20, endln:69:21
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_constant: , line:69:22, endln:69:23
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (A3), line:69:13, endln:69:16, parent:work@middle.A3
-        |vpiName:A3
   |vpiParamAssign:
   \_param_assign: , line:70:13, endln:70:22, parent:work@middle
     |vpiRhs:
@@ -6678,16 +6684,36 @@ design: (work@top)
       |UINT:1
     |vpiLhs:
     \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
-      |vpiName:A
-      |vpiFullName:work@middle.A
-  |vpiParameter:
-  \_parameter: (work@middle.A3), line:69:17, endln:69:37, parent:work@middle
-  |vpiParameter:
-  \_parameter: (work@middle.A), line:70:13, endln:70:22, parent:work@middle
 |uhdmtopModules:
 \_module: work@bottom (work@bottom) dut.sv:79:1: , endln:88:10
   |vpiDefName:work@bottom
   |vpiName:work@bottom
+  |vpiParameter:
+  \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
+    |vpiName:A3
+    |vpiFullName:work@bottom.A3
+    |vpiSize:1
+    |vpiRange:
+    \_range: , line:81:20, endln:81:23, parent:work@bottom.A3
+      |vpiLeftRange:
+      \_constant: , line:81:20, endln:81:21
+        |vpiConstType:9
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+      |vpiRightRange:
+      \_constant: , line:81:22, endln:81:23
+        |vpiConstType:9
+        |vpiDecompile:2
+        |vpiSize:64
+        |UINT:2
+    |vpiTypespec:
+    \_int_typespec: (A3), line:81:13, endln:81:16, parent:work@bottom.A3
+      |vpiName:A3
+  |vpiParameter:
+  \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
+    |vpiName:A
+    |vpiFullName:work@bottom.A
   |vpiParamAssign:
   \_param_assign: , line:81:17, endln:81:36, parent:work@bottom
     |vpiRhs:
@@ -6713,26 +6739,6 @@ design: (work@top)
         |UINT:3
     |vpiLhs:
     \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
-      |vpiName:A3
-      |vpiFullName:work@bottom.A3
-      |vpiSize:1
-      |vpiRange:
-      \_range: , line:81:20, endln:81:23, parent:work@bottom.A3
-        |vpiLeftRange:
-        \_constant: , line:81:20, endln:81:21
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-        |vpiRightRange:
-        \_constant: , line:81:22, endln:81:23
-          |vpiConstType:9
-          |vpiDecompile:2
-          |vpiSize:64
-          |UINT:2
-      |vpiTypespec:
-      \_int_typespec: (A3), line:81:13, endln:81:16, parent:work@bottom.A3
-        |vpiName:A3
   |vpiParamAssign:
   \_param_assign: , line:82:13, endln:82:22, parent:work@bottom
     |vpiRhs:
@@ -6743,12 +6749,6 @@ design: (work@top)
       |UINT:3
     |vpiLhs:
     \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
-      |vpiName:A
-      |vpiFullName:work@bottom.A
-  |vpiParameter:
-  \_parameter: (work@bottom.A3), line:81:17, endln:81:36, parent:work@bottom
-  |vpiParameter:
-  \_parameter: (work@bottom.A), line:82:13, endln:82:22, parent:work@bottom
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

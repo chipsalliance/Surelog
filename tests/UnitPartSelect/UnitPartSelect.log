@@ -624,14 +624,14 @@ design: (work@toto)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -845,14 +845,14 @@ design: (work@toto)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -863,14 +863,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -881,14 +881,14 @@ design: (work@toto)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -901,14 +901,14 @@ design: (work@toto)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10, parent:work@toto
   |vpiDefName:work@dut
@@ -1166,6 +1166,12 @@ design: (work@toto)
         |vpiStmt:
         \_assignment: , line:9:5, endln:9:24, parent:work@toto
           |vpiOpType:82
+          |vpiRhs:
+          \_constant: , line:9:20, endln:9:24
+            |vpiConstType:3
+            |vpiDecompile:1'b1
+            |vpiSize:1
+            |BIN:1
           |vpiLhs:
           \_bit_select: (work@toto.state), line:9:5, endln:9:10, parent:work@toto.state
             |vpiName:state
@@ -1179,12 +1185,6 @@ design: (work@toto)
                 |vpiName:IDLE
                 |vpiFullName:work@toto.IDLE
                 |UINT:0
-          |vpiRhs:
-          \_constant: , line:9:20, endln:9:24
-            |vpiConstType:3
-            |vpiDecompile:1'b1
-            |vpiSize:1
-            |BIN:1
         |vpiStmt:
         \_if_stmt: , line:11:5, endln:12:8, parent:work@toto
           |vpiCondition:
@@ -1248,6 +1248,11 @@ design: (work@toto)
     |vpiName:next
     |vpiFullName:work@toto.next
     |vpiNetType:48
+  |vpiParameter:
+  \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
+    |vpiName:IDLE
+    |vpiFullName:work@toto.IDLE
+    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:3:13, endln:3:21, parent:work@toto
     |vpiRhs:
@@ -1258,11 +1263,6 @@ design: (work@toto)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
-      |vpiName:IDLE
-      |vpiFullName:work@toto.IDLE
-      |UINT:0
-  |vpiParameter:
-  \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
 |uhdmtopModules:
 \_module: work@toto (work@toto) top.sv:1:1: , endln:19:10
   |vpiDefName:work@toto
@@ -1285,6 +1285,12 @@ design: (work@toto)
         |vpiStmt:
         \_assignment: , line:9:5, endln:9:24, parent:work@toto
           |vpiOpType:82
+          |vpiRhs:
+          \_constant: , line:9:20, endln:9:24
+            |vpiConstType:3
+            |vpiDecompile:1'b1
+            |vpiSize:1
+            |BIN:1
           |vpiLhs:
           \_bit_select: (work@toto.state), line:9:5, endln:9:10, parent:work@toto.state
             |vpiName:state
@@ -1298,12 +1304,6 @@ design: (work@toto)
                 |vpiName:IDLE
                 |vpiFullName:work@toto.IDLE
                 |UINT:0
-          |vpiRhs:
-          \_constant: , line:9:20, endln:9:24
-            |vpiConstType:3
-            |vpiDecompile:1'b1
-            |vpiSize:1
-            |BIN:1
         |vpiStmt:
         \_if_stmt: , line:11:5, endln:12:8, parent:work@toto
           |vpiCondition:
@@ -1395,6 +1395,8 @@ design: (work@toto)
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+  |vpiParameter:
+  \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
   |vpiParamAssign:
   \_param_assign: , line:3:13, endln:3:21, parent:work@toto
     |vpiRhs:
@@ -1405,8 +1407,6 @@ design: (work@toto)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
-  |vpiParameter:
-  \_parameter: (work@toto.IDLE), line:3:13, endln:3:21, parent:work@toto
 |uhdmtopModules:
 \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
   |vpiDefName:work@dut
@@ -1415,8 +1415,6 @@ design: (work@toto)
   \_port: (a), line:21:13, endln:21:14, parent:work@dut
     |vpiName:a
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
     |vpiLowConn:
     \_ref_obj: (work@dut.a), parent:a
       |vpiName:a
@@ -1440,12 +1438,12 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
   |vpiPort:
   \_port: (o), line:21:16, endln:21:17, parent:work@dut
     |vpiName:o
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
     |vpiLowConn:
     \_ref_obj: (work@dut.o), parent:o
       |vpiName:o
@@ -1469,6 +1467,8 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) top.sv:21:1: , endln:27:10
   |vpiContAssign:
   \_cont_assign: , line:26:10, endln:26:20, parent:work@dut
     |vpiRhs:
@@ -1506,8 +1506,6 @@ design: (work@toto)
   \_port: (a), line:30:36, endln:30:37, parent:work@dut_part_select
     |vpiName:a
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
     |vpiLowConn:
     \_ref_obj: (work@dut_part_select.a), parent:a
       |vpiName:a
@@ -1530,12 +1528,12 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
   |vpiPort:
   \_port: (b), line:30:52, endln:30:53, parent:work@dut_part_select
     |vpiName:b
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
     |vpiLowConn:
     \_ref_obj: (work@dut_part_select.b), parent:b
       |vpiName:b
@@ -1558,6 +1556,8 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut_part_select (work@dut_part_select) top.sv:30:1: , endln:35:10
   |vpiContAssign:
   \_cont_assign: , line:33:10, endln:33:21, parent:work@dut_part_select
     |vpiRhs:
@@ -1666,8 +1666,6 @@ design: (work@toto)
   \_port: (a), line:38:32, endln:38:33, parent:work@dut_no_decl
     |vpiName:a
     |vpiDirection:1
-    |vpiInstance:
-    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
     |vpiLowConn:
     \_ref_obj: (work@dut_no_decl.a), parent:a
       |vpiName:a
@@ -1690,12 +1688,12 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
   |vpiPort:
   \_port: (b), line:38:48, endln:38:49, parent:work@dut_no_decl
     |vpiName:b
     |vpiDirection:2
-    |vpiInstance:
-    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
     |vpiLowConn:
     \_ref_obj: (work@dut_no_decl.b), parent:b
       |vpiName:b
@@ -1718,6 +1716,8 @@ design: (work@toto)
             |vpiDecompile:0
             |vpiSize:64
             |UINT:0
+    |vpiInstance:
+    \_module: work@dut_no_decl (work@dut_no_decl) top.sv:38:1: , endln:41:10
   |vpiContAssign:
   \_cont_assign: , line:39:10, endln:39:21, parent:work@dut_no_decl
     |vpiRhs:

@@ -90,6 +90,11 @@ design: (work@tlul_socket_m1)
   |vpiDefName:tlul_pkg
   |vpiName:tlul_pkg
   |vpiFullName:tlul_pkg::
+  |vpiParameter:
+  \_parameter: (tlul_pkg::ArbiterImpl), line:9:13, endln:9:36, parent:tlul_pkg::
+    |vpiName:ArbiterImpl
+    |vpiFullName:tlul_pkg::ArbiterImpl
+    |STRING:BINTREE
   |vpiParamAssign:
   \_param_assign: , line:9:13, endln:9:36, parent:tlul_pkg::
     |vpiRhs:
@@ -100,11 +105,6 @@ design: (work@tlul_socket_m1)
       |STRING:BINTREE
     |vpiLhs:
     \_parameter: (tlul_pkg::ArbiterImpl), line:9:13, endln:9:36, parent:tlul_pkg::
-      |vpiName:ArbiterImpl
-      |vpiFullName:tlul_pkg::ArbiterImpl
-      |STRING:BINTREE
-  |vpiParameter:
-  \_parameter: (tlul_pkg::ArbiterImpl), line:9:13, endln:9:36, parent:tlul_pkg::
 |uhdmallModules:
 \_module: work@prim_arbiter_tree (work@prim_arbiter_tree) top.v:16:1: , endln:47:10, parent:work@tlul_socket_m1
   |vpiDefName:work@prim_arbiter_tree
@@ -133,6 +133,30 @@ design: (work@tlul_socket_m1)
   \_logic_net: (work@prim_arbiter_tree.clk_i), line:21:9, parent:work@prim_arbiter_tree
   |vpiNet:
   \_logic_net: (work@prim_arbiter_tree.rst_ni), line:22:9, parent:work@prim_arbiter_tree
+  |vpiParameter:
+  \_parameter: (work@prim_arbiter_tree.N), line:17:26, endln:17:32, parent:work@prim_arbiter_tree
+    |vpiName:N
+    |vpiFullName:work@prim_arbiter_tree.N
+    |UINT:4
+    |vpiTypespec:
+    \_int_typespec: (N), line:17:13, endln:17:16, parent:work@prim_arbiter_tree.N
+      |vpiName:N
+  |vpiParameter:
+  \_parameter: (work@prim_arbiter_tree.DW), line:18:26, endln:18:33, parent:work@prim_arbiter_tree
+    |vpiName:DW
+    |vpiFullName:work@prim_arbiter_tree.DW
+    |UINT:32
+    |vpiTypespec:
+    \_int_typespec: (DW), line:18:13, endln:18:16, parent:work@prim_arbiter_tree.DW
+      |vpiName:DW
+  |vpiParameter:
+  \_parameter: (work@prim_arbiter_tree.Lock), line:19:17, endln:19:33, parent:work@prim_arbiter_tree
+    |vpiName:Lock
+    |vpiFullName:work@prim_arbiter_tree.Lock
+    |BIN:1
+    |vpiTypespec:
+    \_bit_typespec: (Lock), line:19:13, endln:19:16, parent:work@prim_arbiter_tree.Lock
+      |vpiName:Lock
   |vpiParamAssign:
   \_param_assign: , line:17:26, endln:17:32, parent:work@prim_arbiter_tree
     |vpiRhs:
@@ -143,12 +167,6 @@ design: (work@tlul_socket_m1)
       |UINT:4
     |vpiLhs:
     \_parameter: (work@prim_arbiter_tree.N), line:17:26, endln:17:32, parent:work@prim_arbiter_tree
-      |vpiName:N
-      |vpiFullName:work@prim_arbiter_tree.N
-      |UINT:4
-      |vpiTypespec:
-      \_int_typespec: (N), line:17:13, endln:17:16, parent:work@prim_arbiter_tree.N
-        |vpiName:N
   |vpiParamAssign:
   \_param_assign: , line:18:26, endln:18:33, parent:work@prim_arbiter_tree
     |vpiRhs:
@@ -159,12 +177,6 @@ design: (work@tlul_socket_m1)
       |UINT:32
     |vpiLhs:
     \_parameter: (work@prim_arbiter_tree.DW), line:18:26, endln:18:33, parent:work@prim_arbiter_tree
-      |vpiName:DW
-      |vpiFullName:work@prim_arbiter_tree.DW
-      |UINT:32
-      |vpiTypespec:
-      \_int_typespec: (DW), line:18:13, endln:18:16, parent:work@prim_arbiter_tree.DW
-        |vpiName:DW
   |vpiParamAssign:
   \_param_assign: , line:19:17, endln:19:33, parent:work@prim_arbiter_tree
     |vpiRhs:
@@ -175,18 +187,6 @@ design: (work@tlul_socket_m1)
       |BIN:1
     |vpiLhs:
     \_parameter: (work@prim_arbiter_tree.Lock), line:19:17, endln:19:33, parent:work@prim_arbiter_tree
-      |vpiName:Lock
-      |vpiFullName:work@prim_arbiter_tree.Lock
-      |BIN:1
-      |vpiTypespec:
-      \_bit_typespec: (Lock), line:19:13, endln:19:16, parent:work@prim_arbiter_tree.Lock
-        |vpiName:Lock
-  |vpiParameter:
-  \_parameter: (work@prim_arbiter_tree.N), line:17:26, endln:17:32, parent:work@prim_arbiter_tree
-  |vpiParameter:
-  \_parameter: (work@prim_arbiter_tree.DW), line:18:26, endln:18:33, parent:work@prim_arbiter_tree
-  |vpiParameter:
-  \_parameter: (work@prim_arbiter_tree.Lock), line:19:17, endln:19:33, parent:work@prim_arbiter_tree
 |uhdmallModules:
 \_module: work@tlul_socket_m1 (work@tlul_socket_m1) top.v:49:1: , endln:68:10, parent:work@tlul_socket_m1
   |vpiDefName:work@tlul_socket_m1
@@ -323,6 +323,29 @@ design: (work@tlul_socket_m1)
                       \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
                         |vpiName:o
                         |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.o
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:base0
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0
+                  |vpiLocalParam:1
+                  |INT:0
+                  |vpiTypespec:
+                  \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0
+                    |vpiName:base0
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:base1
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1
+                  |vpiLocalParam:1
+                  |INT:1
+                  |vpiTypespec:
+                  \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1
+                    |vpiName:base1
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
+                  |vpiName:level
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].level
+                  |UINT:0
                 |vpiParamAssign:
                 \_param_assign: , line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiRhs:
@@ -333,13 +356,6 @@ design: (work@tlul_socket_m1)
                     |INT:0
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
-                    |vpiName:base0
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0
-                    |vpiLocalParam:1
-                    |INT:0
-                    |vpiTypespec:
-                    \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0
-                      |vpiName:base0
                 |vpiParamAssign:
                 \_param_assign: , line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
                   |vpiRhs:
@@ -350,22 +366,6 @@ design: (work@tlul_socket_m1)
                     |INT:1
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
-                    |vpiName:base1
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1
-                    |vpiLocalParam:1
-                    |INT:1
-                    |vpiTypespec:
-                    \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1
-                      |vpiName:base1
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0]
-                  |vpiName:level
-                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[0].level
-                  |UINT:0
             |vpiGenScopeArray:
             \_gen_scope_array: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]), line:37:57, endln:43:19, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
               |vpiName:gen_tree[1]
@@ -408,6 +408,29 @@ design: (work@tlul_socket_m1)
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].o
                       |vpiActual:
                       \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:base0
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0
+                  |vpiLocalParam:1
+                  |INT:1
+                  |vpiTypespec:
+                  \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0
+                    |vpiName:base0
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:base1
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1
+                  |vpiLocalParam:1
+                  |INT:3
+                  |vpiTypespec:
+                  \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1
+                    |vpiName:base1
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
+                  |vpiName:level
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].level
+                  |UINT:1
                 |vpiParamAssign:
                 \_param_assign: , line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiRhs:
@@ -418,13 +441,6 @@ design: (work@tlul_socket_m1)
                     |INT:1
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
-                    |vpiName:base0
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0
-                    |vpiLocalParam:1
-                    |INT:1
-                    |vpiTypespec:
-                    \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0
-                      |vpiName:base0
                 |vpiParamAssign:
                 \_param_assign: , line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
                   |vpiRhs:
@@ -435,22 +451,6 @@ design: (work@tlul_socket_m1)
                     |INT:3
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
-                    |vpiName:base1
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1
-                    |vpiLocalParam:1
-                    |INT:3
-                    |vpiTypespec:
-                    \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1
-                      |vpiName:base1
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1]
-                  |vpiName:level
-                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[1].level
-                  |UINT:1
             |vpiGenScopeArray:
             \_gen_scope_array: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]), line:37:57, endln:43:19, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
               |vpiName:gen_tree[2]
@@ -493,6 +493,29 @@ design: (work@tlul_socket_m1)
                       |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].o
                       |vpiActual:
                       \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:base0
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0
+                  |vpiLocalParam:1
+                  |INT:3
+                  |vpiTypespec:
+                  \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0
+                    |vpiName:base0
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:base1
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1
+                  |vpiLocalParam:1
+                  |INT:7
+                  |vpiTypespec:
+                  \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1
+                    |vpiName:base1
+                |vpiParameter:
+                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
+                  |vpiName:level
+                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].level
+                  |UINT:2
                 |vpiParamAssign:
                 \_param_assign: , line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiRhs:
@@ -503,13 +526,6 @@ design: (work@tlul_socket_m1)
                     |INT:3
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
-                    |vpiName:base0
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0
-                    |vpiLocalParam:1
-                    |INT:3
-                    |vpiTypespec:
-                    \_int_typespec: (base0), line:39:18, endln:39:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0
-                      |vpiName:base0
                 |vpiParamAssign:
                 \_param_assign: , line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
                   |vpiRhs:
@@ -520,22 +536,15 @@ design: (work@tlul_socket_m1)
                     |INT:7
                   |vpiLhs:
                   \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
-                    |vpiName:base1
-                    |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1
-                    |vpiLocalParam:1
-                    |INT:7
-                    |vpiTypespec:
-                    \_int_typespec: (base1), line:40:18, endln:40:21, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1
-                      |vpiName:base1
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base0), line:39:31, endln:39:51, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].base1), line:40:31, endln:40:55, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
-                |vpiParameter:
-                \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].level), line:37, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2]
-                  |vpiName:level
-                  |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.gen_tree[2].level
-                  |UINT:2
+            |vpiParameter:
+            \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS), line:34:29, endln:34:49, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
+              |vpiName:N_LEVELS
+              |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS
+              |vpiLocalParam:1
+              |UINT:2
+              |vpiTypespec:
+              \_int_typespec: (N_LEVELS), line:34:16, endln:34:19, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS
+                |vpiName:N_LEVELS
             |vpiParamAssign:
             \_param_assign: , line:34:29, endln:34:49, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
               |vpiRhs:
@@ -546,15 +555,6 @@ design: (work@tlul_socket_m1)
                 |UINT:2
               |vpiLhs:
               \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS), line:34:29, endln:34:49, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
-                |vpiName:N_LEVELS
-                |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS
-                |vpiLocalParam:1
-                |UINT:2
-                |vpiTypespec:
-                \_int_typespec: (N_LEVELS), line:34:16, endln:34:19, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS
-                  |vpiName:N_LEVELS
-            |vpiParameter:
-            \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case.N_LEVELS), line:34:29, endln:34:49, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.gen_normal_case
         |vpiNet:
         \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.clk_i), line:21:9, endln:21:14, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
         |vpiNet:
@@ -565,6 +565,30 @@ design: (work@tlul_socket_m1)
         \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.b), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
         |vpiNet:
         \_logic_net: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.o), parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+        |vpiParameter:
+        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.N), line:17:26, endln:17:32, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+          |vpiName:N
+          |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.N
+          |UINT:4
+          |vpiTypespec:
+          \_int_typespec: (N), line:17:13, endln:17:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.N
+            |vpiName:N
+        |vpiParameter:
+        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW), line:18:26, endln:18:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+          |vpiName:DW
+          |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW
+          |UINT:32
+          |vpiTypespec:
+          \_int_typespec: (DW), line:18:13, endln:18:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW
+            |vpiName:DW
+        |vpiParameter:
+        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock), line:19:17, endln:19:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
+          |vpiName:Lock
+          |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock
+          |BIN:1
+          |vpiTypespec:
+          \_bit_typespec: (Lock), line:19:13, endln:19:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock
+            |vpiName:Lock
         |vpiParamAssign:
         \_param_assign: , line:17:26, endln:17:32, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
           |vpiRhs:
@@ -575,12 +599,6 @@ design: (work@tlul_socket_m1)
             |UINT:4
           |vpiLhs:
           \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.N), line:17:26, endln:17:32, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-            |vpiName:N
-            |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.N
-            |UINT:4
-            |vpiTypespec:
-            \_int_typespec: (N), line:17:13, endln:17:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.N
-              |vpiName:N
         |vpiParamAssign:
         \_param_assign: , line:18:26, endln:18:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
           |vpiRhs:
@@ -591,12 +609,6 @@ design: (work@tlul_socket_m1)
             |UINT:0
           |vpiLhs:
           \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW), line:18:26, endln:18:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-            |vpiName:DW
-            |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW
-            |UINT:32
-            |vpiTypespec:
-            \_int_typespec: (DW), line:18:13, endln:18:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW
-              |vpiName:DW
         |vpiParamAssign:
         \_param_assign: , line:19:17, endln:19:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
           |vpiRhs:
@@ -607,18 +619,6 @@ design: (work@tlul_socket_m1)
             |UINT:1
           |vpiLhs:
           \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock), line:19:17, endln:19:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-            |vpiName:Lock
-            |vpiFullName:work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock
-            |BIN:1
-            |vpiTypespec:
-            \_bit_typespec: (Lock), line:19:13, endln:19:16, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock
-              |vpiName:Lock
-        |vpiParameter:
-        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.N), line:17:26, endln:17:32, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-        |vpiParameter:
-        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.DW), line:18:26, endln:18:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
-        |vpiParameter:
-        \_parameter: (work@tlul_socket_m1.gen_tree_arb.u_reqarb.Lock), line:19:17, endln:19:33, parent:work@tlul_socket_m1.gen_tree_arb.u_reqarb
   |vpiNet:
   \_logic_net: (work@tlul_socket_m1.clk_i), parent:work@tlul_socket_m1
   |vpiNet:

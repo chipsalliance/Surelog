@@ -181,14 +181,14 @@ design: (work@top)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -402,14 +402,14 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -420,14 +420,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -438,14 +438,14 @@ design: (work@top)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -458,18 +458,32 @@ design: (work@top)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@bsg_counter_set_en (work@bsg_counter_set_en) dut.sv:2:1: , endln:7:10, parent:work@top
   |vpiDefName:work@bsg_counter_set_en
   |vpiFullName:work@bsg_counter_set_en
+  |vpiParameter:
+  \_parameter: (work@bsg_counter_set_en.max_val_p), line:3:15, endln:3:30, parent:work@bsg_counter_set_en
+    |vpiName:max_val_p
+    |vpiFullName:work@bsg_counter_set_en.max_val_p
+    |STRING:inv
+  |vpiParameter:
+  \_parameter: (work@bsg_counter_set_en.lg_max_val_lp), line:4:17, endln:4:52, parent:work@bsg_counter_set_en
+    |vpiName:lg_max_val_lp
+    |vpiFullName:work@bsg_counter_set_en.lg_max_val_lp
+  |vpiParameter:
+  \_parameter: (work@bsg_counter_set_en.reset_val_p), line:5:17, endln:5:30, parent:work@bsg_counter_set_en
+    |vpiName:reset_val_p
+    |vpiFullName:work@bsg_counter_set_en.reset_val_p
+    |UINT:0
   |vpiParamAssign:
   \_param_assign: , line:3:15, endln:3:30, parent:work@bsg_counter_set_en
     |vpiRhs:
@@ -480,9 +494,6 @@ design: (work@top)
       |STRING:inv
     |vpiLhs:
     \_parameter: (work@bsg_counter_set_en.max_val_p), line:3:15, endln:3:30, parent:work@bsg_counter_set_en
-      |vpiName:max_val_p
-      |vpiFullName:work@bsg_counter_set_en.max_val_p
-      |STRING:inv
   |vpiParamAssign:
   \_param_assign: , line:4:17, endln:4:52, parent:work@bsg_counter_set_en
     |vpiRhs:
@@ -507,8 +518,6 @@ design: (work@top)
           |UINT:1
     |vpiLhs:
     \_parameter: (work@bsg_counter_set_en.lg_max_val_lp), line:4:17, endln:4:52, parent:work@bsg_counter_set_en
-      |vpiName:lg_max_val_lp
-      |vpiFullName:work@bsg_counter_set_en.lg_max_val_lp
   |vpiParamAssign:
   \_param_assign: , line:5:17, endln:5:30, parent:work@bsg_counter_set_en
     |vpiRhs:
@@ -519,15 +528,6 @@ design: (work@top)
       |UINT:0
     |vpiLhs:
     \_parameter: (work@bsg_counter_set_en.reset_val_p), line:5:17, endln:5:30, parent:work@bsg_counter_set_en
-      |vpiName:reset_val_p
-      |vpiFullName:work@bsg_counter_set_en.reset_val_p
-      |UINT:0
-  |vpiParameter:
-  \_parameter: (work@bsg_counter_set_en.max_val_p), line:3:15, endln:3:30, parent:work@bsg_counter_set_en
-  |vpiParameter:
-  \_parameter: (work@bsg_counter_set_en.lg_max_val_lp), line:4:17, endln:4:52, parent:work@bsg_counter_set_en
-  |vpiParameter:
-  \_parameter: (work@bsg_counter_set_en.reset_val_p), line:5:17, endln:5:30, parent:work@bsg_counter_set_en
 |uhdmallModules:
 \_module: work@top (work@top) dut.sv:9:1: , endln:17:10, parent:work@top
   |vpiDefName:work@top
@@ -545,6 +545,20 @@ design: (work@top)
     |vpiFullName:work@top.mtime_counter
     |vpiInstance:
     \_module: work@top (work@top) dut.sv:9:1: , endln:17:10
+    |vpiParameter:
+    \_parameter: (work@top.mtime_counter.max_val_p), line:3:15, endln:3:30, parent:work@top.mtime_counter
+      |vpiName:max_val_p
+      |vpiFullName:work@top.mtime_counter.max_val_p
+      |STRING:inv
+    |vpiParameter:
+    \_parameter: (work@top.mtime_counter.lg_max_val_lp), line:4:17, endln:4:52, parent:work@top.mtime_counter
+      |vpiName:lg_max_val_lp
+      |vpiFullName:work@top.mtime_counter.lg_max_val_lp
+    |vpiParameter:
+    \_parameter: (work@top.mtime_counter.reset_val_p), line:5:17, endln:5:30, parent:work@top.mtime_counter
+      |vpiName:reset_val_p
+      |vpiFullName:work@top.mtime_counter.reset_val_p
+      |UINT:0
     |vpiParamAssign:
     \_param_assign: , line:3:15, endln:3:30, parent:work@top.mtime_counter
       |vpiRhs:
@@ -555,9 +569,6 @@ design: (work@top)
         |STRING:inv
       |vpiLhs:
       \_parameter: (work@top.mtime_counter.max_val_p), line:3:15, endln:3:30, parent:work@top.mtime_counter
-        |vpiName:max_val_p
-        |vpiFullName:work@top.mtime_counter.max_val_p
-        |STRING:inv
     |vpiParamAssign:
     \_param_assign: , line:4:17, endln:4:52, parent:work@top.mtime_counter
       |vpiRhs:
@@ -568,8 +579,6 @@ design: (work@top)
         |UINT:10
       |vpiLhs:
       \_parameter: (work@top.mtime_counter.lg_max_val_lp), line:4:17, endln:4:52, parent:work@top.mtime_counter
-        |vpiName:lg_max_val_lp
-        |vpiFullName:work@top.mtime_counter.lg_max_val_lp
     |vpiParamAssign:
     \_param_assign: , line:5:17, endln:5:30, parent:work@top.mtime_counter
       |vpiRhs:
@@ -580,15 +589,6 @@ design: (work@top)
         |UINT:0
       |vpiLhs:
       \_parameter: (work@top.mtime_counter.reset_val_p), line:5:17, endln:5:30, parent:work@top.mtime_counter
-        |vpiName:reset_val_p
-        |vpiFullName:work@top.mtime_counter.reset_val_p
-        |UINT:0
-    |vpiParameter:
-    \_parameter: (work@top.mtime_counter.max_val_p), line:3:15, endln:3:30, parent:work@top.mtime_counter
-    |vpiParameter:
-    \_parameter: (work@top.mtime_counter.lg_max_val_lp), line:4:17, endln:4:52, parent:work@top.mtime_counter
-    |vpiParameter:
-    \_parameter: (work@top.mtime_counter.reset_val_p), line:5:17, endln:5:30, parent:work@top.mtime_counter
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

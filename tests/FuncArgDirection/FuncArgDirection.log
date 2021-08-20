@@ -290,14 +290,14 @@ design: (work@dut)
     \_io_decl: (bound)
       |vpiName:bound
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:6:17, endln:6:20
       |vpiExpr:
       \_constant: , line:6:29, endln:6:30
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:6:17, endln:6:20
   |vpiMethod:
   \_function: (work@mailbox::num), line:9:3, endln:10:14, parent:work@mailbox
     |vpiMethod:1
@@ -511,14 +511,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:60:16, endln:60:19
       |vpiExpr:
       \_constant: , line:60:31, endln:60:32
         |vpiConstType:9
         |vpiDecompile:0
         |vpiSize:64
         |UINT:0
+      |vpiTypedef:
+      \_int_typespec: , line:60:16, endln:60:19
   |vpiMethod:
   \_task: (work@semaphore::put), line:63:3, endln:64:10, parent:work@semaphore
     |vpiMethod:1
@@ -529,14 +529,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::put
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:63:12, endln:63:15
       |vpiExpr:
       \_constant: , line:63:27, endln:63:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:63:12, endln:63:15
   |vpiMethod:
   \_task: (work@semaphore::get), line:66:3, endln:67:10, parent:work@semaphore
     |vpiMethod:1
@@ -547,14 +547,14 @@ design: (work@dut)
     \_io_decl: (keyCount), parent:work@semaphore::get
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:66:12, endln:66:15
       |vpiExpr:
       \_constant: , line:66:27, endln:66:28
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:66:12, endln:66:15
   |vpiMethod:
   \_function: (work@semaphore::try_get), line:69:3, endln:70:14, parent:work@semaphore
     |vpiMethod:1
@@ -567,14 +567,14 @@ design: (work@dut)
     \_io_decl: (keyCount)
       |vpiName:keyCount
       |vpiDirection:1
-      |vpiTypedef:
-      \_int_typespec: , line:69:24, endln:69:27
       |vpiExpr:
       \_constant: , line:69:39, endln:69:40
         |vpiConstType:9
         |vpiDecompile:1
         |vpiSize:64
         |UINT:1
+      |vpiTypedef:
+      \_int_typespec: , line:69:24, endln:69:27
 |uhdmallModules:
 \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
   |vpiDefName:work@dut
@@ -647,8 +647,6 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
     |vpiIODecl:
     \_io_decl: (in)
       |vpiName:in
@@ -675,19 +673,6 @@ design: (work@dut)
       |vpiStmt:
       \_for_stmt: (work@dut.aes_rev_order_bit), line:4:3, endln:4:6, parent:work@dut.aes_rev_order_bit
         |vpiFullName:work@dut.aes_rev_order_bit
-        |vpiCondition:
-        \_operation: , line:4:17, endln:4:18, parent:work@dut.aes_rev_order_bit
-          |vpiOpType:20
-          |vpiOperand:
-          \_ref_obj: (work@dut.aes_rev_order_bit.i), line:4:17, endln:4:18
-            |vpiName:i
-            |vpiFullName:work@dut.aes_rev_order_bit.i
-          |vpiOperand:
-          \_constant: , line:4:19, endln:4:20
-            |vpiConstType:9
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@dut.aes_rev_order_bit
           |vpiRhs:
@@ -706,6 +691,19 @@ design: (work@dut)
           |vpiOperand:
           \_ref_obj: (i), line:4:22, endln:4:23
             |vpiName:i
+        |vpiCondition:
+        \_operation: , line:4:17, endln:4:18, parent:work@dut.aes_rev_order_bit
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@dut.aes_rev_order_bit.i), line:4:17, endln:4:18
+            |vpiName:i
+            |vpiFullName:work@dut.aes_rev_order_bit.i
+          |vpiOperand:
+          \_constant: , line:4:19, endln:4:20
+            |vpiConstType:9
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
         |vpiStmt:
         \_begin: (work@dut.aes_rev_order_bit), line:4:27, endln:6:6, parent:work@dut.aes_rev_order_bit
           |vpiFullName:work@dut.aes_rev_order_bit
@@ -713,14 +711,6 @@ design: (work@dut)
           \_assignment: , line:5:5, endln:5:21, parent:work@dut.aes_rev_order_bit
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_bit_select: (work@dut.aes_rev_order_bit.out), line:5:5, endln:5:8, parent:work@dut.aes_rev_order_bit.out
-              |vpiName:out
-              |vpiFullName:work@dut.aes_rev_order_bit.out
-              |vpiIndex:
-              \_ref_obj: (work@dut.aes_rev_order_bit.i), line:5:9, endln:5:10, parent:work@dut.aes_rev_order_bit
-                |vpiName:i
-                |vpiFullName:work@dut.aes_rev_order_bit.i
             |vpiRhs:
             \_bit_select: (work@dut.aes_rev_order_bit.in), line:5:14, endln:5:21, parent:work@dut.aes_rev_order_bit.in
               |vpiName:in
@@ -738,12 +728,22 @@ design: (work@dut)
                 \_ref_obj: (work@dut.aes_rev_order_bit.i), line:5:19, endln:5:20
                   |vpiName:i
                   |vpiFullName:work@dut.aes_rev_order_bit.i
+            |vpiLhs:
+            \_bit_select: (work@dut.aes_rev_order_bit.out), line:5:5, endln:5:8, parent:work@dut.aes_rev_order_bit.out
+              |vpiName:out
+              |vpiFullName:work@dut.aes_rev_order_bit.out
+              |vpiIndex:
+              \_ref_obj: (work@dut.aes_rev_order_bit.i), line:5:9, endln:5:10, parent:work@dut.aes_rev_order_bit
+                |vpiName:i
+                |vpiFullName:work@dut.aes_rev_order_bit.i
       |vpiStmt:
       \_return_stmt: , line:7:3, endln:7:9, parent:work@dut.aes_rev_order_bit
         |vpiCondition:
         \_ref_obj: (work@dut.aes_rev_order_bit.out), line:7:10, endln:7:13
           |vpiName:out
           |vpiFullName:work@dut.aes_rev_order_bit.out
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10, parent:work@dut
     |vpiVariables:
     \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:3, endln:3:8
       |vpiName:out
@@ -865,8 +865,6 @@ design: (work@dut)
           |vpiDecompile:0
           |vpiSize:64
           |UINT:0
-    |vpiInstance:
-    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
     |vpiIODecl:
     \_io_decl: (in), parent:work@dut.aes_rev_order_bit
       |vpiName:in
@@ -893,19 +891,6 @@ design: (work@dut)
       |vpiStmt:
       \_for_stmt: (work@dut.aes_rev_order_bit), line:4:3, endln:4:6, parent:work@dut.aes_rev_order_bit
         |vpiFullName:work@dut.aes_rev_order_bit
-        |vpiCondition:
-        \_operation: , line:4:17, endln:4:18, parent:work@dut.aes_rev_order_bit
-          |vpiOpType:20
-          |vpiOperand:
-          \_ref_obj: (work@dut.aes_rev_order_bit.i), line:4:17, endln:4:18
-            |vpiName:i
-            |vpiFullName:work@dut.aes_rev_order_bit.i
-          |vpiOperand:
-          \_constant: , line:4:19, endln:4:20
-            |vpiConstType:9
-            |vpiDecompile:8
-            |vpiSize:64
-            |UINT:8
         |vpiForInitStmt:
         \_assign_stmt: , parent:work@dut.aes_rev_order_bit
           |vpiRhs:
@@ -925,6 +910,19 @@ design: (work@dut)
           \_ref_obj: (work@dut.aes_rev_order_bit.i), line:4:22, endln:4:23
             |vpiName:i
             |vpiFullName:work@dut.aes_rev_order_bit.i
+        |vpiCondition:
+        \_operation: , line:4:17, endln:4:18, parent:work@dut.aes_rev_order_bit
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (work@dut.aes_rev_order_bit.i), line:4:17, endln:4:18
+            |vpiName:i
+            |vpiFullName:work@dut.aes_rev_order_bit.i
+          |vpiOperand:
+          \_constant: , line:4:19, endln:4:20
+            |vpiConstType:9
+            |vpiDecompile:8
+            |vpiSize:64
+            |UINT:8
         |vpiStmt:
         \_begin: (work@dut.aes_rev_order_bit), line:4:27, endln:6:6, parent:work@dut.aes_rev_order_bit
           |vpiFullName:work@dut.aes_rev_order_bit
@@ -932,14 +930,6 @@ design: (work@dut)
           \_assignment: , line:5:5, endln:5:21, parent:work@dut.aes_rev_order_bit
             |vpiOpType:82
             |vpiBlocking:1
-            |vpiLhs:
-            \_bit_select: (work@dut.aes_rev_order_bit.out), line:5:5, endln:5:8, parent:work@dut.aes_rev_order_bit.out
-              |vpiName:out
-              |vpiFullName:work@dut.aes_rev_order_bit.out
-              |vpiIndex:
-              \_ref_obj: (work@dut.aes_rev_order_bit.out.i), line:5:9, endln:5:10, parent:work@dut.aes_rev_order_bit.out
-                |vpiName:i
-                |vpiFullName:work@dut.aes_rev_order_bit.out.i
             |vpiRhs:
             \_bit_select: (work@dut.aes_rev_order_bit.in), line:5:14, endln:5:21, parent:work@dut.aes_rev_order_bit.in
               |vpiName:in
@@ -957,6 +947,14 @@ design: (work@dut)
                 \_ref_obj: (work@dut.aes_rev_order_bit.in.i), line:5:19, endln:5:20
                   |vpiName:i
                   |vpiFullName:work@dut.aes_rev_order_bit.in.i
+            |vpiLhs:
+            \_bit_select: (work@dut.aes_rev_order_bit.out), line:5:5, endln:5:8, parent:work@dut.aes_rev_order_bit.out
+              |vpiName:out
+              |vpiFullName:work@dut.aes_rev_order_bit.out
+              |vpiIndex:
+              \_ref_obj: (work@dut.aes_rev_order_bit.out.i), line:5:9, endln:5:10, parent:work@dut.aes_rev_order_bit.out
+                |vpiName:i
+                |vpiFullName:work@dut.aes_rev_order_bit.out.i
       |vpiStmt:
       \_return_stmt: , line:7:3, endln:7:9, parent:work@dut.aes_rev_order_bit
         |vpiCondition:
@@ -981,6 +979,8 @@ design: (work@dut)
                 |vpiDecompile:0
                 |vpiSize:64
                 |UINT:0
+    |vpiInstance:
+    \_module: work@dut (work@dut) dut.sv:1:1: , endln:15:10
     |vpiVariables:
     \_logic_var: (work@dut.aes_rev_order_bit.out), line:3:3, endln:3:8, parent:work@dut.aes_rev_order_bit
   |vpiNet:
