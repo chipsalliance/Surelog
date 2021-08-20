@@ -88,7 +88,6 @@ endif()
 
 if (APPLE)
   target_link_libraries(test_hellosureworld
-      stdc++fs
       dl
       util
       m
