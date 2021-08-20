@@ -260,14 +260,14 @@ jobs:
         make release
         sudo make install
 
-    - name: Regression tests
-      run: |
-        make regression
-
     - name: Unit tests
       run: |
         make test_install
         make test/unittest
+
+    - name: Regression tests
+      run: |
+        make regression
 
   macos-clang:
     runs-on: macos-latest
