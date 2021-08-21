@@ -1927,8 +1927,13 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (expr) {
               if (expr->UhdmType() == UHDM::uhdmconstant) {
                 UHDM::constant* c = (UHDM::constant*)expr;
+                if (p) c->Typespec(p->getTypespec());
                 const std::string& v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
+                if (p)
+                  m_helper.valueRange(value, p->getTypespec(),
+                                      instance->getDefinition(),
+                                      m_compileDesign, instance);
               } else if (expr->UhdmType() == UHDM::uhdmoperation) {
                 if (instance) {
                   complex = true;

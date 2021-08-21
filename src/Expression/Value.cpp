@@ -170,6 +170,8 @@ void SValue::set(uint64_t val) {
   m_size = 64;
   m_valid = 1;
   m_negative = 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 void SValue::set(int64_t val) {
   m_type = Value::Type::Integer;
@@ -177,6 +179,8 @@ void SValue::set(int64_t val) {
   m_size = 64;
   m_valid = 1;
   m_negative = val < 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 void SValue::set(double val) {
   m_type = Value::Type::Double;
@@ -184,6 +188,8 @@ void SValue::set(double val) {
   m_size = 64;
   m_valid = 1;
   m_negative = val < 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 void SValue::set(uint64_t val, Type type, short size) {
   m_type = type;
@@ -191,6 +197,8 @@ void SValue::set(uint64_t val, Type type, short size) {
   m_size = size;
   m_valid = 1;
   m_negative = 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void SValue::u_plus(const Value* a) {
@@ -947,6 +955,8 @@ LValue::LValue(const LValue& val)
       m_valueArray(new SValue[val.m_nbWords]),
       m_valid(val.isValid()),
       m_negative(val.isNegative()),
+      m_lrange(val.getLRange()),
+      m_rrange(val.getRRange()),
       m_prev(nullptr),
       m_next(nullptr) {
   for (int i = 0; i < val.m_nbWords; i++) {
@@ -965,8 +975,12 @@ LValue::LValue(uint64_t val)
   m_valueArray[0].m_value.u_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = 0;
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 LValue::LValue(int64_t val)
@@ -980,8 +994,12 @@ LValue::LValue(int64_t val)
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = (val < 0);
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 LValue::LValue(double val)
@@ -995,8 +1013,12 @@ LValue::LValue(double val)
   m_valueArray[0].m_value.d_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = (val < 0);
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 LValue::LValue(int64_t val, Type type, short size)
@@ -1010,8 +1032,12 @@ LValue::LValue(int64_t val, Type type, short size)
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = size;
   m_valueArray[0].m_negative = (val < 0);
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = (val < 0);
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void LValue::set(uint64_t val) {
@@ -1022,8 +1048,12 @@ void LValue::set(uint64_t val) {
   m_valueArray[0].m_value.u_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = 0;
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void LValue::set(int64_t val) {
@@ -1034,8 +1064,12 @@ void LValue::set(int64_t val) {
   m_valueArray[0].m_value.s_int = val;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = (val < 0);
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void LValue::set(double val) {
@@ -1057,8 +1091,12 @@ void LValue::set(double val) {
   m_valueArray[0].m_type = m_type;
   m_valueArray[0].m_size = 64;
   m_valueArray[0].m_negative = (val < 0);
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = (val < 0);
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void LValue::set(uint64_t val, Type type, short size) {
@@ -1069,8 +1107,12 @@ void LValue::set(uint64_t val, Type type, short size) {
   m_valueArray[0].m_value.u_int = val;
   m_valueArray[0].m_size = size;
   m_valueArray[0].m_negative = 0;
+  m_valueArray[0].m_lrange = 0;
+  m_valueArray[0].m_rrange = 0;
   m_valid = 1;
   m_negative = 0;
+  m_lrange = 0;
+  m_rrange = 0;
 }
 
 void LValue::adjust(const Value* a) {
