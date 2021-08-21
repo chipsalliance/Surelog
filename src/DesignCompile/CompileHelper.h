@@ -500,6 +500,11 @@ class CompileHelper final {
                                    const std::string& fileName, int lineNumber,
                                    bool muteErrors);
 
+  bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
+                  CompileDesign* compileDesign, ValuedComponentI* instance);
+
+  void setRange(UHDM::constant* c, Value* val, CompileDesign* compileDesign);
+
  private:
   CompileHelper(const CompileHelper&) = delete;
 

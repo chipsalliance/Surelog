@@ -90,8 +90,26 @@ expr* CompileHelper::reduceBitSelect(
     int64_t val = get_value(invalidValue, exp);
     std::string binary = NumUtils::toBinary(exp->VpiSize(), val);
     constant* c = s.MakeConstant();
+    unsigned short lr = 0;
+    unsigned short rr = 0;
+    if (const typespec* tps = exp->Typespec()) {
+      if (tps->UhdmType() == uhdmlogic_typespec) {
+        logic_typespec* lts = (logic_typespec*)tps;
+        VectorOfrange* ranges = lts->Ranges();
+        if (ranges) {
+          range* r = ranges->at(0);
+          bool invalidValue = false;
+          lr = get_value(invalidValue, r->Left_expr());
+          rr = get_value(invalidValue, r->Right_expr());
+        }
+      }
+    }
     c->VpiSize(1);
     if (index_val < binary.size()) {
+      // TODO: If range does not start at 0
+      if (lr > rr) {
+        index_val = binary.size() - index_val - 1;
+      }
       char bitv = binary[index_val];
       int v = bitv - '0';
       c->VpiValue("BIN:" + std::to_string(v));
@@ -2362,6 +2380,7 @@ any* CompileHelper::getValue(const std::string& name,
           if (Value* sval = pack->getValue(varName)) {
             UHDM::constant* c = s.MakeConstant();
             c->VpiValue(sval->uhdmValue());
+            setRange(c, sval, compileDesign);
             c->VpiDecompile(sval->decompiledValue());
             c->VpiConstType(sval->vpiValType());
             c->VpiSize(sval->getSize());
@@ -2381,6 +2400,7 @@ any* CompileHelper::getValue(const std::string& name,
       if (sval && sval->isValid()) {
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue(sval->uhdmValue());
+        setRange(c, sval, compileDesign);
         c->VpiDecompile(sval->decompiledValue());
         c->VpiConstType(sval->vpiValType());
         c->VpiSize(sval->getSize());
@@ -2447,6 +2467,7 @@ any* CompileHelper::getValue(const std::string& name,
         if (sval && sval->isValid()) {
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
+          setRange(c, sval, compileDesign);
           c->VpiDecompile(sval->decompiledValue());
           c->VpiConstType(sval->vpiValType());
           c->VpiSize(sval->getSize());
@@ -2465,6 +2486,7 @@ any* CompileHelper::getValue(const std::string& name,
       if (sval && sval->isValid()) {
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue(sval->uhdmValue());
+        setRange(c, sval, compileDesign);
         c->VpiDecompile(sval->decompiledValue());
         c->VpiConstType(sval->vpiValType());
         c->VpiSize(sval->getSize());
@@ -2516,6 +2538,7 @@ any* CompileHelper::getValue(const std::string& name,
           if (n->VpiName() == name) {
             UHDM::constant* c = s.MakeConstant();
             c->VpiValue(n->VpiValue());
+            setRange(c, sval, compileDesign);
             c->VpiSize(64);
             c->VpiConstType(vpiUIntConst);
             result = c;
