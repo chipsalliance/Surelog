@@ -280,6 +280,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
       Value* value = instance->getValue(paramName, m_exprBuilder);
       if (value && value->isValid()) {
         constant* c = s.MakeConstant();
+        const any* orig_p = mod_assign->Lhs();
+        if (orig_p->UhdmType() == uhdmparameter) {
+          c->Typespec((typespec*)((parameter*)orig_p)->Typespec());
+        } else {
+          c->Typespec((typespec*)((type_parameter*)orig_p)->Typespec());
+        }
         c->VpiValue(value->uhdmValue());
         c->VpiDecompile(value->decompiledValue());
         c->VpiFile(assign->getFileContent()->getFileName());

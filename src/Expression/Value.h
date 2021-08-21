@@ -68,7 +68,9 @@ class Value {
 
   virtual bool isNegative() const = 0;
   virtual void setNegative() = 0;
-
+  virtual void setRange(unsigned short lrange, unsigned short rrange) = 0;
+  virtual unsigned short getLRange() const = 0;
+  virtual unsigned short getRRange() const = 0;
   // is large value (more than one 64 bit word)
   virtual bool isLValue() const = 0;
 
@@ -180,6 +182,12 @@ class SValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
+  void setRange(unsigned short lrange, unsigned short rrange) {
+    m_lrange = lrange;
+    m_rrange = rrange;
+  }
+  unsigned short getLRange() const final { return m_lrange; };
+  unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
@@ -282,6 +290,8 @@ class SValue : public Value {
   short m_size;
   unsigned short m_valid;
   unsigned short m_negative;
+  unsigned short m_lrange = 0;
+  unsigned short m_rrange = 0;
 };
 
 class ValueFactory {
@@ -330,6 +340,12 @@ class LValue : public Value {
     else
       return 0;
   }
+  void setRange(unsigned short lrange, unsigned short rrange) {
+    m_lrange = lrange;
+    m_rrange = rrange;
+  }
+  unsigned short getLRange() const final { return m_lrange; };
+  unsigned short getRRange() const final { return m_rrange; };
   unsigned short getNbWords() const final { return m_nbWords; }
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
@@ -401,6 +417,8 @@ class LValue : public Value {
   SValue* m_valueArray;
   unsigned short m_valid;
   unsigned short m_negative;
+  unsigned short m_lrange = 0;
+  unsigned short m_rrange = 0;
   LValue* m_prev;
   LValue* m_next;
 };
@@ -416,6 +434,9 @@ class StValue : public Value {
 
   short getSize() const final { return m_size; }
   short getSize(unsigned int wordIndex) const final { return m_size; }
+  void setRange(unsigned short lrange, unsigned short rrange) {}
+  unsigned short getLRange() const final { return 0; };
+  unsigned short getRRange() const final { return 0; };
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }

@@ -2139,10 +2139,8 @@ bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
     range* r = nullptr;
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (component && dynamic_cast<Package*>(component)) {
-        if (lts->Ranges() && lts->Ranges()->size() >= 1) {
-          r = (*lts->Ranges())[0];
-        }
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
       }
     } else if (ttps == uhdmarray_typespec) {
       array_typespec* lts = (array_typespec*)ts;
@@ -2344,6 +2342,7 @@ bool CompileHelper::compileParameterDeclaration(
           new Parameter(fC, name, fC->SymName(name),
                         fC->Child(Data_type_or_implicit), port_param);
       p->setUhdmParam(param);
+      p->setTypespec(ts);
       if (isMultiDimension) p->setMultidimension();
       component->insertParameter(p);
 
@@ -2409,6 +2408,9 @@ bool CompileHelper::compileParameterDeclaration(
               }
             }
           }
+        }
+        if (rhs->UhdmType() == uhdmconstant) {
+          ((constant*)rhs)->Typespec(ts);
         }
         param_assign->Rhs(rhs);
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
@@ -3164,4 +3166,80 @@ UHDM::expr* CompileHelper::expandPatternAssignment(UHDM::expr* lhs,
     }
   }
   return result;
+}
+
+bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
+                               DesignComponent* component,
+                               CompileDesign* compileDesign,
+                               ValuedComponentI* instance) {
+  if (!ts) return false;
+  range* r = nullptr;
+
+  UHDM_OBJECT_TYPE type = ts->UhdmType();
+  switch (type) {
+    case uhdmlogic_typespec: {
+      logic_typespec* lts = (logic_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+      break;
+    }
+    case uhdmarray_typespec: {
+      array_typespec* lts = (array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+      break;
+    }
+    case uhdmpacked_array_typespec: {
+      packed_array_typespec* lts = (packed_array_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+      break;
+    }
+    case uhdmbit_typespec: {
+      bit_typespec* lts = (bit_typespec*)ts;
+      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+        r = (*lts->Ranges())[0];
+      }
+    }
+    default:
+      break;
+  }
+  if (r) {
+    bool invalidValue = false;
+    expr* lv = reduceExpr((any*)r->Left_expr(), invalidValue, component,
+                          compileDesign, instance, "", 0, nullptr, true);
+    expr* rv = reduceExpr((any*)r->Right_expr(), invalidValue, component,
+                          compileDesign, instance, "", 0, nullptr, true);
+    int64_t lvv = get_value(invalidValue, lv);
+    int64_t rvv = get_value(invalidValue, rv);
+    if (invalidValue == false) {
+      val->setRange(lvv, rvv);
+    }
+  }
+  return false;
+}
+
+void CompileHelper::setRange(UHDM::constant* c, Value* val,
+                             CompileDesign* compileDesign) {
+  if (!val || !c) return;
+  Serializer& s = compileDesign->getSerializer();
+  unsigned short lr = val->getLRange();
+  unsigned short rr = val->getRRange();
+  if (lr || rr) {
+    logic_typespec* tps = s.MakeLogic_typespec();
+    c->Typespec(tps);
+    range* r = s.MakeRange();
+    VectorOfrange* ranges = s.MakeRangeVec();
+    ranges->push_back(r);
+    tps->Ranges(ranges);
+    constant* lc = s.MakeConstant();
+    lc->VpiValue("UINT:" + std::to_string(lr));
+    r->Left_expr(lc);
+    constant* rc = s.MakeConstant();
+    rc->VpiValue("UINT:" + std::to_string(rr));
+    r->Right_expr(rc);
+  }
 }

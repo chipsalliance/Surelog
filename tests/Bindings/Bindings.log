@@ -1220,6 +1220,8 @@ design: (work@dut1)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: (TxWidth), line:6:13, endln:6:16, parent:pack1::TxWidth
     |vpiLhs:
     \_parameter: (pack1::TxWidth), line:6:17, endln:6:28, parent:pack1::
   |vpiParamAssign:
@@ -1230,6 +1232,8 @@ design: (work@dut1)
       |vpiDecompile:5
       |vpiSize:4
       |UINT:5
+      |vpiTypespec:
+      \_enum_typespec: (pack1::lc_tx_t), line:11:7, endln:11:14, parent:pack1::LC_TX_DEFAULT
     |vpiLhs:
     \_parameter: (pack1::LC_TX_DEFAULT), line:15:22, endln:15:41, parent:pack1::
   |vpiTypedef:
@@ -1719,6 +1723,8 @@ design: (work@dut1)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: (NrDevices), line:21:13, endln:21:16, parent:work@dut1.NrDevices
     |vpiLhs:
     \_parameter: (work@dut1.NrDevices), line:21:17, endln:21:30, parent:work@dut1
   |vpiParamAssign:
@@ -1911,6 +1917,8 @@ design: (work@dut1)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: (LfsrDw), line:54:26, endln:54:29, parent:work@dut3.LfsrDw
     |vpiLhs:
     \_parameter: (work@dut3.LfsrDw), line:54:45, endln:54:61, parent:work@dut3
 |uhdmallModules:
@@ -2069,6 +2077,8 @@ design: (work@dut1)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: (TxWidth), line:86:13, endln:86:16, parent:work@dut5.TxWidth
     |vpiLhs:
     \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:28, parent:work@dut5
   |vpiParamAssign:
@@ -2169,6 +2179,9 @@ design: (work@dut1)
       |vpiDecompile:1
       |vpiSize:64
       |UINT:1
+      |vpiTypespec:
+      \_int_typespec: (NrDevices), line:21:13, endln:21:16, parent:work@dut1.NrDevices
+        |vpiName:NrDevices
     |vpiLhs:
     \_parameter: (work@dut1.NrDevices), line:21:17, endln:21:30, parent:work@dut1
   |vpiParamAssign:
@@ -2179,6 +2192,9 @@ design: (work@dut1)
       |vpiDecompile:1
       |vpiSize:64
       |INT:1
+      |vpiTypespec:
+      \_int_typespec: (NumBitsDeviceSel), line:24:14, endln:24:17, parent:work@dut1.NumBitsDeviceSel
+        |vpiName:NumBitsDeviceSel
     |vpiLhs:
     \_parameter: (work@dut1.NumBitsDeviceSel), line:24:27, endln:24:83, parent:work@dut1
 |uhdmtopModules:
@@ -2605,6 +2621,9 @@ design: (work@dut1)
       |vpiDecompile:3
       |vpiSize:64
       |UINT:3
+      |vpiTypespec:
+      \_int_typespec: (LfsrDw), line:54:26, endln:54:29, parent:work@dut3.LfsrDw
+        |vpiName:LfsrDw
     |vpiLhs:
     \_parameter: (work@dut3.LfsrDw), line:54:45, endln:54:61, parent:work@dut3
 |uhdmtopModules:
@@ -2809,6 +2828,9 @@ design: (work@dut1)
       |vpiDecompile:4
       |vpiSize:64
       |UINT:4
+      |vpiTypespec:
+      \_int_typespec: (TxWidth), line:86:13, endln:86:16, parent:work@dut5.TxWidth
+        |vpiName:TxWidth
     |vpiLhs:
     \_parameter: (work@dut5.TxWidth), line:86:17, endln:86:28, parent:work@dut5
   |vpiParamAssign:
@@ -2819,85 +2841,87 @@ design: (work@dut1)
       |vpiDecompile:5
       |vpiSize:4
       |UINT:5
+      |vpiTypespec:
+      \_enum_typespec: (lc_tx_t), line:90:7, endln:90:14
+        |vpiName:lc_tx_t
+        |vpiBaseTypespec:
+        \_logic_typespec: , line:87:18, endln:87:23, parent:lc_tx_t
+          |vpiRange:
+          \_range: , line:87:25, endln:87:36
+            |vpiLeftRange:
+            \_operation: , line:87:25, endln:87:32
+              |vpiOpType:11
+              |vpiOperand:
+              \_ref_obj: (lc_tx_t.TxWidth), line:87:25, endln:87:32
+                |vpiName:TxWidth
+                |vpiFullName:lc_tx_t.TxWidth
+              |vpiOperand:
+              \_constant: , line:87:33, endln:87:34
+                |vpiConstType:9
+                |vpiDecompile:1
+                |vpiSize:64
+                |UINT:1
+            |vpiRightRange:
+            \_constant: , line:87:35, endln:87:36
+              |vpiConstType:9
+              |vpiDecompile:0
+              |vpiSize:64
+              |UINT:0
+        |vpiEnumConst:
+        \_enum_const: (On), line:88:7, endln:88:9, parent:lc_tx_t
+          |vpiName:On
+          |vpiDecompile:4'b1010
+          |UINT:10
+          |vpiSize:4
+        |vpiEnumConst:
+        \_enum_const: (Off), line:89:7, endln:89:10, parent:lc_tx_t
+          |vpiName:Off
+          |vpiDecompile:4'b0101
+          |UINT:5
+          |vpiSize:4
+        |vpiTypedefAlias:
+        \_enum_typespec: (lc_tx_e), line:90:7, endln:90:14
+          |vpiName:lc_tx_e
+          |vpiBaseTypespec:
+          \_logic_typespec: , line:87:18, endln:87:23
+            |vpiRange:
+            \_range: , line:87:25, endln:87:36
+              |vpiLeftRange:
+              \_operation: , line:87:25, endln:87:32
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (TxWidth), line:87:25, endln:87:32
+                  |vpiName:TxWidth
+                |vpiOperand:
+                \_constant: , line:87:33, endln:87:34
+                  |vpiConstType:9
+                  |vpiDecompile:1
+                  |vpiSize:64
+                  |UINT:1
+              |vpiRightRange:
+              \_constant: , line:87:35, endln:87:36
+                |vpiConstType:9
+                |vpiDecompile:0
+                |vpiSize:64
+                |UINT:0
+          |vpiEnumConst:
+          \_enum_const: (On), line:88:7, endln:88:9
+            |vpiName:On
+            |vpiDecompile:4'b1010
+            |UINT:10
+            |vpiSize:4
+          |vpiEnumConst:
+          \_enum_const: (Off), line:89:7, endln:89:10
+            |vpiName:Off
+            |vpiDecompile:4'b0101
+            |UINT:5
+            |vpiSize:4
     |vpiLhs:
     \_parameter: (work@dut5.LC_TX_DEFAULT), line:94:22, endln:94:41, parent:work@dut5
   |vpiTypedef:
   \_enum_typespec: (lc_tx_e), line:90:7, endln:90:14
-    |vpiName:lc_tx_e
-    |vpiBaseTypespec:
-    \_logic_typespec: , line:87:18, endln:87:23
-      |vpiRange:
-      \_range: , line:87:25, endln:87:36
-        |vpiLeftRange:
-        \_operation: , line:87:25, endln:87:32
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (TxWidth), line:87:25, endln:87:32
-            |vpiName:TxWidth
-          |vpiOperand:
-          \_constant: , line:87:33, endln:87:34
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiRightRange:
-        \_constant: , line:87:35, endln:87:36
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiEnumConst:
-    \_enum_const: (On), line:88:7, endln:88:9
-      |vpiName:On
-      |vpiDecompile:4'b1010
-      |UINT:10
-      |vpiSize:4
-    |vpiEnumConst:
-    \_enum_const: (Off), line:89:7, endln:89:10
-      |vpiName:Off
-      |vpiDecompile:4'b0101
-      |UINT:5
-      |vpiSize:4
   |vpiTypedef:
   \_enum_typespec: (lc_tx_t), line:90:7, endln:90:14
-    |vpiName:lc_tx_t
-    |vpiBaseTypespec:
-    \_logic_typespec: , line:87:18, endln:87:23, parent:lc_tx_t
-      |vpiRange:
-      \_range: , line:87:25, endln:87:36
-        |vpiLeftRange:
-        \_operation: , line:87:25, endln:87:32
-          |vpiOpType:11
-          |vpiOperand:
-          \_ref_obj: (lc_tx_t.TxWidth), line:87:25, endln:87:32
-            |vpiName:TxWidth
-            |vpiFullName:lc_tx_t.TxWidth
-          |vpiOperand:
-          \_constant: , line:87:33, endln:87:34
-            |vpiConstType:9
-            |vpiDecompile:1
-            |vpiSize:64
-            |UINT:1
-        |vpiRightRange:
-        \_constant: , line:87:35, endln:87:36
-          |vpiConstType:9
-          |vpiDecompile:0
-          |vpiSize:64
-          |UINT:0
-    |vpiEnumConst:
-    \_enum_const: (On), line:88:7, endln:88:9, parent:lc_tx_t
-      |vpiName:On
-      |vpiDecompile:4'b1010
-      |UINT:10
-      |vpiSize:4
-    |vpiEnumConst:
-    \_enum_const: (Off), line:89:7, endln:89:10, parent:lc_tx_t
-      |vpiName:Off
-      |vpiDecompile:4'b0101
-      |UINT:5
-      |vpiSize:4
-    |vpiTypedefAlias:
-    \_enum_typespec: (lc_tx_e), line:90:7, endln:90:14
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
