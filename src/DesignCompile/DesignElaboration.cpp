@@ -1927,9 +1927,11 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
             if (expr) {
               if (expr->UhdmType() == UHDM::uhdmconstant) {
                 UHDM::constant* c = (UHDM::constant*)expr;
-                if (UHDM::typespec* ts = p->getTypespec()) {
-                  if (ts->UhdmType() != UHDM::uhdmunsupported_typespec)
-                    if (p) c->Typespec(p->getTypespec());
+                if (p) {
+                  if (UHDM::typespec* ts = p->getTypespec()) {
+                    if (ts->UhdmType() != UHDM::uhdmunsupported_typespec)
+                      c->Typespec(p->getTypespec());
+                  }
                 }
                 const std::string& v = c->VpiValue();
                 value = m_exprBuilder.fromVpiValue(v, c->VpiSize());
