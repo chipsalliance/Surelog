@@ -2848,7 +2848,11 @@ UHDM::any* CompileHelper::compileExpression(
                                            reduce, muteErrors);
         if (exp) {
           operands->push_back(exp);
-          exp->VpiParent(operation);
+          if (exp->VpiParent()) {
+            ((any*)exp->VpiParent())->VpiParent(operation);
+          } else {
+            exp->VpiParent(operation);
+          }
         }
         Expression = fC->Sibling(Expression);
       }
@@ -4869,6 +4873,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(
       } else if (!name.empty()) {
         UHDM::ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(name);
+        ref->VpiDefName(name);
         part_select->VpiParent(ref);
       }
       part_select->VpiConstantSelect(true);
