@@ -1,0 +1,12 @@
+`define  DDR_ANA_DQS_RCVR_CAL_P_C_RANGE            3:0
+`define  DDR_ANA_DQS_RCVR_CAL_P_T_RANGE            7:4
+`define  DDR_ANA_DQS_RCVR_CAL_N_C_RANGE            11:8
+`define  DDR_ANA_DQS_RCVR_CAL_N_T_RANGE            15:12
+`define  DDR_ANA_DQS_RCVR_FB_EN_RANGE              18:16
+`define  DDR_ANA_DQS_RCVR_DCPATH_EN_RANGE          19
+`define  DDR_ANA_DQS_RCVR_EN_RANGE                 20
+`define  DDR_ANA_DQS_RCVR_RXCAL_EN_RANGE           21
+`define  DDR_ANA_DQS_RCVR_SE_MODE_RANGE            22
+`define  DDR_ANA_DQS_RCVR_SW_OVR_RANGE             23
+`define  DDR_ANA_DQS_RCVR_EDGE_DET_BYP_RANGE       24
+`define  DDR_ANA_DQS_RCVR_EDGE_DET_REFSEL_RANGE    25

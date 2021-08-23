@@ -1,0 +1,69 @@
+`let DDR_NUM_DFI_DATA_PHASES         = 8
+`let DDR_NUM_DFI_CMDADDRESS_PHASES   = 8
+`let DDR_NUM_PHY_DATA_PHASES         = 8
+`let DDR_NUM_DP_DATA_PHASES          = 4
+`let DDR_DIS_ODRSTAGE                = 1
+`let DDR_SER_4TO1                    = 0
+`let DDR_DES_4TO1                    = 0
+`let DDR_EN_ANA_SER                  = 1
+`let DDR_REMOVE_DDR_PI               = 0
+`let DDR_NUM_FEEDTHR_DQS_SLICES      = 0
+`let DDR_NUM_DQS_SLICES              = 9
+   `let DDR_NUM_TXRX_DQS_SLICES      = 2
+`let DDR_NUM_DQ_SLICES               = 9
+`let DDR_NUM_CA_SLICES               = 11
+`let DDR_NUM_ADR_SLICES              = 7
+`let DDR_NUM_FEEDTHR_CK_SLICES       = 8
+`let DDR_NUM_CK_SLICES               = 1
+   `let DDR_NUM_TXRX_CK_SLICES       = 1
+`let DDR_RESETN                      = 1
+`let DDR_PROTOCOL                    = 0
+`let DDR_ERROR                       = 0
+`let DDR_MSG                         = 0
+`let DQS_WCK_IDX                     = 0
+`let DQS_DQS_IDX                     = 1
+`let LPDDR5_EXCLUSIVE                = 0
+`let LPDDR4_EXCLUSIVE                = 0
+`let JEDEC_PROTOCOL                  = 1
+`let DUAL_CHANNEL                    = 0
+`let AHB_MASTER                      = 1
+`let RETENTION                       = 0
+`let TWOX16_CHANNEL                  = 0
+`let ONEX32_CHANNEL                  = 1
+`if(`ONEX32_CHANNEL == 1)
+   `let DDR_NUM_DFI_CH               = 1
+   `let DDR_NUM_DFI_DQ               = 4
+   `let DDR_NUM_DFI_CA               = 1
+   `let DDR_NUM_PHY_CH               = 2
+   `let DDR_PHY2DFI_CH_RATIO         = 2
+   `let DDR_NUM_DQ_PER_CH            = 2
+   `let DDR_NUM_CA_PER_CH            = 1
+`else
+  `if (`TWOX16_CHANNEL == 1)
+   `let DDR_NUM_DFI_CH               = 2
+   `let DDR_NUM_DFI_DQ               = 2
+   `let DDR_NUM_DFI_CA               = 1
+   `let DDR_NUM_PHY_CH               = 2
+   `let DDR_PHY2DFI_CH_RATIO         = 1
+   `let DDR_NUM_DQ_PER_CH            = 2
+   `let DDR_NUM_CA_PER_CH            = 1
+  `else
+   `let DDR_NUM_DFI_CH               = 1
+   `let DDR_NUM_DFI_DQ               = 2
+   `let DDR_NUM_DFI_CA               = 1
+   `let DDR_NUM_PHY_CH               = 1
+   `let DDR_PHY2DFI_CH_RATIO         = 1
+   `let DDR_NUM_DQ_PER_CH            = 2
+   `let DDR_NUM_CA_PER_CH            = 1
+  `endif
+`endif
+`let MC_LPDDR4                       = 0
+`if(`MC_LPDDR4 == 1)
+   `let DDR_NUM_MC_ADR_SLICES        = 6
+   `let DDR_NUM_MC_DATA_PHASES       = 4
+   `let DDR_NUM_MC_CMDADDRESS_PHASES = 4
+`else
+   `let DDR_NUM_MC_ADR_SLICES        = 7
+   `let DDR_NUM_MC_DATA_PHASES       = 8
+   `let DDR_NUM_MC_CMDADDRESS_PHASES = 4
+`endif
