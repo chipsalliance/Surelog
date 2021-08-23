@@ -6,12 +6,29 @@ on:
 
 jobs:
   linux:
+    name: Check · ${{ matrix.mode }}
+
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - test
+        - regression
+        - install
+    env:
+      MODE: ${{ matrix.mode }}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.8.0
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install dependencies
       run: |
         sudo apt-get update -qq
@@ -30,7 +47,8 @@ jobs:
       with:
         python-version: 3.8
 
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
       with:
         submodules: recursive
         fetch-depth: 0
@@ -54,16 +72,22 @@ jobs:
         which $CC && $CC --version
         which $CXX && $CXX --version
 
-    - name: Build
+    - name: ${{ matrix.env.mode }} Surelog
+      if: matrix.mode == 'test'
+      run: |
+        make test/unittest-d
+
+    - name: ${{ matrix.env.mode }} Surelog
+      if: matrix.mode == 'regression'
+      run: |
+        make regression
+
+    - name: ${{ matrix.env.mode }} Surelog
+      if: matrix.mode == 'install'
       run: |
         make release
-        sudo make install
-
-    - name: Test
-      run: |
-        make test_install
-        make test/unittest
-        make regression
+          sudo make install
+          make test_install
 
   msys2-gcc:
     runs-on: windows-latest
