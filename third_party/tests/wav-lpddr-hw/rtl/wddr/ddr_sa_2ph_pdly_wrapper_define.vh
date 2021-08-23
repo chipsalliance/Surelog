@@ -1,0 +1,4 @@
+`define DDR_ANA_SA_2PH_PDLY_DLY_GEAR_0_RANGE               1:0
+`define DDR_ANA_SA_2PH_PDLY_DLY_CTRL_0_RANGE               7:2
+`define DDR_ANA_SA_2PH_PDLY_DLY_GEAR_180_RANGE            17:16
+`define DDR_ANA_SA_2PH_PDLY_DLY_CTRL_180_RANGE            23:18

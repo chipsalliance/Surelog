@@ -1,0 +1,1754 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Integration &mdash; WDDR 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Software" href="software.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> WDDR
+          
+
+          
+            
+            <img src="_static/wavious_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-files">Design Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configurations">Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ports">Ports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ahb-lite-slave-interface">AHB-Lite Slave Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ahb-lite-master-interface">AHB-Lite Master Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dfiv5-0-interface">DFIv5.0 Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lpddr4x-interface">LPDDR4x Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lpddr5-interface">LPDDR5 Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technology">Technology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rtl-tech">rtl/tech</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtl-custom-ip">rtl/custom_ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtl-ddr-ip">rtl/ddr_ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtl-mvppll-ip">rtl/mvppll_ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rtl-wddr">rtl/wddr</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regs.html">Registers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verif.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">How to request help?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WDDR</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/integration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="integration">
+<h1>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h1>
+<p>The Wavious DDR PHY supports LPDDR4x and LPDDR5 standards and is provided in a 1x32 configuration (Memory Controller side) consisting of two 1x16 channels (DRAM side). The 1x32 channel configuration is chosen to mitigate MCU+SRAM area overhead to DRAM interface width.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>1x16 configuation may be supported in a future release version.</p></li>
+<li><p>LPDDR5 configuration support may be limited in current release version.</p></li>
+<li><p>DDR5 configuation may be supported in a future release version.</p></li>
+<li><p>HBM configuation may be supported in a future release version.</p></li>
+</ul>
+</div>
+<div class="section" id="design-files">
+<h2>Design Files<a class="headerlink" href="#design-files" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./rtl
+|-- ahb
+|   |-- wav_ahb.sv
+|   `-- wav_ahb_pkg.sv
+|-- component
+|   `-- wav_component_lib.sv
+|-- custom_ip
+|   |-- wphy_2to1_14g_rvt.sv
+|   |-- wphy_cgc_diff_lvt.sv
+|   |-- wphy_cgc_diff_rh_lvt.sv
+|   |-- wphy_cgc_diff_rh_svt.sv
+|   |-- wphy_cgc_diff_svt.sv
+|   |-- wphy_clk_div_2ph_4g_dlymatch_lvt.sv
+|   |-- wphy_clk_div_2ph_4g_dlymatch_svt.sv
+|   |-- wphy_clk_div_2ph_4g_lvt.sv
+|   |-- wphy_clk_div_2ph_4g_svt.sv
+|   |-- wphy_clk_div_4ph_10g_dlymatch_svt.sv
+|   |-- wphy_clk_div_4ph_10g_svt.sv
+|   |-- wphy_clkmux_3to1_diff.sv
+|   |-- wphy_clkmux_3to1_diff_slvt.sv
+|   |-- wphy_clkmux_diff.sv
+|   |-- wphy_gfcm_lvt.sv
+|   |-- wphy_gfcm_svt.sv
+|   |-- wphy_pi_4g.sv
+|   |-- wphy_pi_dly_match_4g.sv
+|   |-- wphy_prog_dly_se_4g.sv
+|   |-- wphy_prog_dly_se_4g_small.sv
+|   `-- wphy_sa_4g_2ph_pdly_no_esd.sv
+|-- ddr_ip
+|   |-- wphy_lp4x5_cke_drvr_w_lpbk.sv
+|   |-- wphy_lp4x5_cmn.sv
+|   |-- wphy_lp4x5_cmn_clks_svt.sv
+|   |-- wphy_lp4x5_dq_drvr_w_lpbk.sv
+|   |-- wphy_lp4x5_dqs_drvr_w_lpbk.sv
+|   `-- wphy_lp4x5_dqs_rcvr_no_esd.sv
+|-- ibex
+|   |-- ibex_alu.sv
+|   |-- ibex_branch_predict.sv
+|   |-- ibex_compressed_decoder.sv
+|   |-- ibex_controller.sv
+|   |-- ibex_core.sv
+|   |-- ibex_counter.sv
+|   |-- ibex_cs_registers.sv
+|   |-- ibex_csr.sv
+|   |-- ibex_decoder.sv
+|   |-- ibex_ex_block.sv
+|   |-- ibex_fetch_fifo.sv
+|   |-- ibex_id_stage.sv
+|   |-- ibex_if_stage.sv
+|   |-- ibex_load_store_unit.sv
+|   |-- ibex_multdiv_fast.sv
+|   |-- ibex_multdiv_slow.sv
+|   |-- ibex_pkg.sv
+|   |-- ibex_pmp.sv
+|   |-- ibex_prefetch_buffer.sv
+|   |-- ibex_register_file_ff.sv
+|   |-- ibex_wb_stage.sv
+|   |-- prim_assert.sv
+|   |-- prim_assert_dummy_macros.svh
+|   `-- prim_assert_standard_macros.svh
+|-- jtag
+|   `-- wav_jtag_lib.sv
+|-- mcu_ibex
+|   |-- prim_clock_gating.sv
+|   |-- wav_mcu_ahb_csr.sv
+|   |-- wav_mcu_csr.sv
+|   |-- wav_mcu_csr_defs.vh
+|   |-- wav_mcu_ibex.sv
+|   |-- wav_mcu_pkg.sv
+|   |-- wav_mcuintf_ahb_csr.sv
+|   |-- wav_mcuintf_csr.sv
+|   |-- wav_mcuintf_csr_defs.vh
+|   |-- wav_mcutop_ahb_csr.sv
+|   |-- wav_mcutop_csr.sv
+|   `-- wav_mcutop_csr_defs.vh
+|-- mvp_pll
+|   |-- mvp_fll.v
+|   |-- mvp_pll_clk_control.v
+|   |-- mvp_pll_dig.v
+|   |-- mvp_pll_regs_top.v
+|   |-- mvp_pll_sm.v
+|   |-- mvp_sync_pulse.v
+|   |-- wav_reg_model_mvp_pll.svh
+|   `-- wav_reg_model_mvp_pll_no_reg_test.svh
+|-- mvppll_ip
+|   `-- wphy_rpll_mvp_4g.sv
+|-- pll_shared
+|   `-- wav_pll_shared_lib.v
+|-- tech
+    |-- ddr_custom_lib.sv
+|   |-- ddr_stdcell_lib.sv
+|   |-- wav_legacy_stdcell_lib.v
+|   |-- wav_stdcell_lib.sv
+|   `-- wav_tcm_sp.sv
+`-- wddr
+    |-- Wpin_uart_lib.sv
+    |-- ddr_2to1_wrapper.sv
+    |-- ddr_ahb.sv
+    |-- ddr_ca_ahb_csr.sv
+    |-- ddr_ca_csr.sv
+    |-- ddr_ca_csr_defs.vh
+    |-- ddr_ca_csr_wrapper.sv
+    |-- ddr_cke_drvr_lpbk_wrapper.sv
+    |-- ddr_cke_drvr_lpbk_wrapper_cmn_define.vh
+    |-- ddr_cke_drvr_lpbk_wrapper_define.vh
+    |-- ddr_clkmux_3to1_diff_wrapper.sv
+    |-- ddr_clkmux_diff_wrapper.sv
+    |-- ddr_clkmux_diff_wrapper_define.vh
+    |-- ddr_cmn.sv
+    |-- ddr_cmn_ahb_csr.sv
+    |-- ddr_cmn_csp_define.vh
+    |-- ddr_cmn_csr.sv
+    |-- ddr_cmn_csr_defs.vh
+    |-- ddr_cmn_wrapper.sv
+    |-- ddr_cmn_wrapper_define.vh
+    |-- ddr_component_lib.sv
+    |-- ddr_ctrl_ahb_csr.sv
+    |-- ddr_ctrl_csr.sv
+    |-- ddr_ctrl_csr_defs.vh
+    |-- ddr_ctrl_plane.sv
+    |-- ddr_dfi.sv
+    |-- ddr_dfi_ahb_csr.sv
+    |-- ddr_dfi_csr.sv
+    |-- ddr_dfi_csr_defs.vh
+    |-- ddr_dfich_ahb_csr.sv
+    |-- ddr_dfich_csr.sv
+    |-- ddr_dfich_csr_defs.vh
+    |-- ddr_dp.sv
+    |-- ddr_dq_ahb_csr.sv
+    |-- ddr_dq_csr.sv
+    |-- ddr_dq_csr_defs.vh
+    |-- ddr_dq_csr_wrapper.sv
+    |-- ddr_dq_drvr_lpbk_wrapper.sv
+    |-- ddr_dq_drvr_lpbk_wrapper_cmn_define.vh
+    |-- ddr_dq_drvr_lpbk_wrapper_define.vh
+    |-- ddr_dq_task.svh
+    |-- ddr_dqs_drvr_lpbk_wrapper.sv
+    |-- ddr_dqs_drvr_lpbk_wrapper_cmn_define.vh
+    |-- ddr_dqs_drvr_lpbk_wrapper_define.vh
+    |-- ddr_dqs_rcvr_no_esd_wrapper.sv
+    |-- ddr_dqs_rcvr_wrapper_cmn_define.vh
+    |-- ddr_dqs_rcvr_wrapper_define.vh
+    |-- ddr_fifo.sv
+    |-- ddr_fsw_ahb_csr.sv
+    |-- ddr_fsw_csr.sv
+    |-- ddr_fsw_csr_defs.vh
+    |-- ddr_global_define.vh
+    |-- ddr_global_pkg.sv
+    |-- ddr_phy.sv
+    |-- ddr_phy_1x32.sv
+    |-- ddr_pi_b2t_dec.sv
+    |-- ddr_pi_match_wrapper.sv
+    |-- ddr_pi_match_wrapper_define.vh
+    |-- ddr_pi_small_wrapper_define.vh
+    |-- ddr_pi_wrapper.sv
+    |-- ddr_pi_wrapper_define.vh
+    |-- ddr_pmon_dig.sv
+    |-- ddr_pmon_freqdet.sv
+    |-- ddr_prog_dly_dec.sv
+    |-- ddr_prog_dly_se_small_wrapper.sv
+    |-- ddr_prog_dly_se_wrapper.sv
+    |-- ddr_prog_dly_se_wrapper_define.vh
+    |-- ddr_prog_dly_wrapper_define.vh
+    |-- ddr_project_define.vh
+    |-- ddr_project_vpp.vhh
+    |-- ddr_rx.sv
+    |-- ddr_sa_2ph_pdly_no_esd_wrapper.sv
+    |-- ddr_sa_2ph_pdly_wrapper_define.vh
+    |-- ddr_sa_2ph_wrapper_cmn_define.vh
+    |-- ddr_sa_2ph_wrapper_define.vh
+    |-- ddr_sa_4ph_wrapper_cmn_define.vh
+    |-- ddr_sa_4ph_wrapper_define.vh
+    |-- ddr_snoop.sv
+    `-- ddr_tx.sv
+
+12 directories, 160 files
+</pre></div>
+</div>
+</div>
+<div class="section" id="configurations">
+<h2>Configurations<a class="headerlink" href="#configurations" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Protocol: LP4x, LP5</p></li>
+<li><p>Channels: 1x16, 2x16, 4x16, 1x32, etc.</p></li>
+<li><p>Frequency (MHz): 422.4, 806.4, 1612.8, 2112, 3187.2, etc.</p></li>
+<li><p>Frequency Ratio: 1:2, 1:4</p></li>
+<li><p>Rank: Single, dual</p></li>
+<li><p>Signaling: Terminated/unterminated, differential/single-ended (CK, WCK)</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Frequencies are not limit ot those listed.</p></li>
+<li><p>LPDDR5 configuration support may be limited in current release version.</p></li>
+<li><p>1:1 and 1:8 frequency ratio may be supported in future release version.</p></li>
+<li><p>Currently, only the 1x32 channel configuration is available. Other configuraitons may be supported in future release version.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="ports">
+<h2>Ports<a class="headerlink" href="#ports" title="Permalink to this headline">¶</a></h2>
+<p>The Wavious DDR PHY standard interfaces include: 1149.1 TAP, DFIv5.0, AHB-Lite, and LPDDR4x/LPDDR5. For specific signal descriptions and functions, please refer to the interface protocol specifications.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Port Name</p></th>
+<th class="head"><p>Direction</p></th>
+<th class="head"><p>Width</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td colspan="3"><p><strong>Global Clocks and Reset</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_phy_rst</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Global PHY reset</p></td>
+</tr>
+<tr class="row-even"><td><p>i_ana_refclk</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Analog reference clock &#64;38.4Mhz (low jitter)</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_refclk</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Reference clock &#64;38.4Mhz</p></td>
+</tr>
+<tr class="row-even"><td><p>o_refclk_on</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td><p>Refence clock on request</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_refclk_alt</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Reference clock alternative</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Test</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_gpb</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td><p>General purpose bus</p></td>
+</tr>
+<tr class="row-even"><td><p>o_gpb</p></td>
+<td><p>output</p></td>
+<td><p>[7:0]</p></td>
+<td><p>General purpose bus</p></td>
+</tr>
+<tr class="row-odd"><td><p>o_debug</p></td>
+<td><p>output</p></td>
+<td><p>[31:0]</p></td>
+<td><p>Debug bus (low frequency)</p></td>
+</tr>
+<tr class="row-even"><td><p>i_freeze_n</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Freeze IO (active low)</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_hiz_n</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>High impedance (active low)</p></td>
+</tr>
+<tr class="row-even"><td><p>i_iddq_mode</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>IDDQ mode enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>o_dtst</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td><p>Digital clock test (high frequency)</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>Interrupts</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_irq</p></td>
+<td><p>input</p></td>
+<td><p>[3:0]</p></td>
+<td><p>Interrupt</p></td>
+</tr>
+<tr class="row-even"><td><p>o_irq</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td><p>Interrupt</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><strong>DFT</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_scan_mode</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Scan mode enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_scan_clk</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Scan clock</p></td>
+</tr>
+<tr class="row-even"><td><p>i_scan_en</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Scan shift enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_scan_freq_en</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td><p>Scan clock tree frequency enable</p></td>
+</tr>
+<tr class="row-even"><td><p>i_scan_cgc_ctrl</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>CGC override enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_scan_rst_ctrl</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Reset override enable</p></td>
+</tr>
+<tr class="row-even"><td><p>i_scan_set_ctrl</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>Set override enable</p></td>
+</tr>
+<tr class="row-odd"><td><p>i_scan</p></td>
+<td><p>input</p></td>
+<td><p>[15:0]</p></td>
+<td><p>Scan chain in</p></td>
+</tr>
+<tr class="row-even"><td><p>o_scan</p></td>
+<td><p>output</p></td>
+<td><p>[15:0]</p></td>
+<td><p>Scan chain out</p></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><strong>TAP</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_jtag_tck</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_jtag_trst_n</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_jtag_tms</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_jtag_tdi</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_jtag_tdo</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td colspan="3"><p><strong>AHB</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_clk</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_clk_on</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td><p>AHB clock on request</p></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_rst</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_csr_rst</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>AHB CSR reset</p></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>AHB Slave</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_haddr</p></td>
+<td><p>input</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hwrite</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_hsel</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hwdata</p></td>
+<td><p>input</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_htrans</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hsize</p></td>
+<td><p>input</p></td>
+<td><p>[2:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_hburst</p></td>
+<td><p>input</p></td>
+<td><p>[2:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hreadyin</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>HREADY</p></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_hready</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td><p>HREADYOUT</p></td>
+</tr>
+<tr class="row-even"><td><p>o_ahb_hrdata</p></td>
+<td><p>output</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_hresp</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>AHB Master</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_haddr</p></td>
+<td><p>output</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_ahb_hwrite</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_hwdata</p></td>
+<td><p>output</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_ahb_htrans</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_hsize</p></td>
+<td><p>output</p></td>
+<td><p>[2:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_ahb_hburst</p></td>
+<td><p>output</p></td>
+<td><p>[2:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_ahb_hbusreq</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hgrant</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_hready</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_ahb_hrdata</p></td>
+<td><p>input</p></td>
+<td><p>[31:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_ahb_hresp</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>DFI V5.0</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_clk_on</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td><p>DFI clock on request</p></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_clk</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_ctrlupd_ack</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_ctrlupd_req</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_phyupd_ack</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_phyupd_req</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_phyupd_type</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_freq_fsp</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_freq_ratio</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_frequency</p></td>
+<td><p>input</p></td>
+<td><p>[4:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_init_complete</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_init_start</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_phymstr_ack</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_phymstr_cs_state</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_phymstr_req</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_phymstr_state_sel</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_phymstr_type</p></td>
+<td><p>output</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_lp_ctrl_ack</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_lp_ctrl_req</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_lp_ctrl_wakeup</p></td>
+<td><p>input</p></td>
+<td><p>[5:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_lp_data_ack</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_lp_data_req</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_lp_data_wakeup</p></td>
+<td><p>input</p></td>
+<td><p>[5:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_reset_n_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_reset_n_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_reset_n_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_reset_n_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_address_p0</p></td>
+<td><p>input</p></td>
+<td><p>[13:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_address_p1</p></td>
+<td><p>input</p></td>
+<td><p>[13:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_address_p2</p></td>
+<td><p>input</p></td>
+<td><p>[13:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_address_p3</p></td>
+<td><p>input</p></td>
+<td><p>[13:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_cke_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_cke_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_cke_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_cke_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_cs_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_cs_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_cs_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_cs_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_dram_clk_disable_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_dram_clk_disable_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_dram_clk_disable_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_dram_clk_disable_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_p0</p></td>
+<td><p>input</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_p1</p></td>
+<td><p>input</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_p2</p></td>
+<td><p>input</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_p3</p></td>
+<td><p>input</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_parity_in_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_parity_in_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_parity_in_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_parity_in_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_cs_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_cs_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_cs_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_cs_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_mask_p0</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_mask_p1</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_mask_p2</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_mask_p3</p></td>
+<td><p>input</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_en_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_en_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wrdata_en_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wrdata_en_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_cs_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_cs_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_cs_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_cs_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_en_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_en_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_en_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_en_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_toggle_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_toggle_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_wck_toggle_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_wck_toggle_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_rddata_cs_p0</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_rddata_cs_p1</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_rddata_cs_p2</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_rddata_cs_p3</p></td>
+<td><p>input</p></td>
+<td><p>[1:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_rddata_en_p0</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_rddata_en_p1</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>i_dfi_rddata_en_p2</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>i_dfi_rddata_en_p3</p></td>
+<td><p>input</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_dbi_w0</p></td>
+<td><p>output</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_dbi_w1</p></td>
+<td><p>output</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_dbi_w2</p></td>
+<td><p>output</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_dbi_w3</p></td>
+<td><p>output</p></td>
+<td><p>[7:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_w0</p></td>
+<td><p>output</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_w1</p></td>
+<td><p>output</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_w2</p></td>
+<td><p>output</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_w3</p></td>
+<td><p>output</p></td>
+<td><p>[63:0]</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_valid_w0</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_valid_w1</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>o_dfi_rddata_valid_w2</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>o_dfi_rddata_valid_w3</p></td>
+<td><p>output</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td colspan="3"><p><strong>LPDDR4x/LPDDR5</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ddr_rext</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>Connect to 240 Ohm resistor</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ddr_test</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>High frequency test pad</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ddr_reset_n</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_ca0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_ca1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_ca2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_ca3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_ca4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_ca5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_ca6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_cs0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_cs1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_cke0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR4x only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_cke1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR4x only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_ca_ck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_ca_ck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dbim</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_dq0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dq1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_dq2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dq3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_dq4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dq5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_dq6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dq7</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_wck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_wck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq0_dqs_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq0_dqs_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dbim</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_dq0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dq1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_dq2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dq3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_dq4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dq5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_dq6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dq7</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_wck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_wck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch0_ddr_dq1_dqs_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch0_ddr_dq1_dqs_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_ca0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_ca1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_ca2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_ca3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_ca4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_ca5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_ca6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_cs0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_cs1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_cke0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR4x only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_cke1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR4x only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_ca_ck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_ca_ck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dbim</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_dq0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dq1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_dq2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dq3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_dq4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dq5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_dq6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dq7</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_wck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_wck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq0_dqs_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq0_dqs_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dbim</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_dq0</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dq1</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_dq2</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dq3</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_dq4</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dq5</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_dq6</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dq7</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_wck_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_wck_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td><p>LPDDR5 only</p></td>
+</tr>
+<tr class="row-even"><td><p>pad_ch1_ddr_dq1_dqs_c</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>pad_ch1_ddr_dq1_dqs_t</p></td>
+<td><p>inout</p></td>
+<td><p>1</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="interfaces">
+<h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ahb-lite-slave-interface">
+<h3>AHB-Lite Slave Interface<a class="headerlink" href="#ahb-lite-slave-interface" title="Permalink to this headline">¶</a></h3>
+<p>The AHB slave interface is used for configuration and status register access. The AHB slave interface does not support HPROT or HMASTLOCK signals.</p>
+</div>
+<div class="section" id="ahb-lite-master-interface">
+<h3>AHB-Lite Master Interface<a class="headerlink" href="#ahb-lite-master-interface" title="Permalink to this headline">¶</a></h3>
+<p>The DDR PHY’s AHB master interface enables the embedded RISC-V MicroController Unit (MCU) to control PHY-external logic, such as, Memory Controller interfaces and CSRs, sensors, etc. The AHB master interface does not support HPROT or HMASTLOCK signals.</p>
+</div>
+<div class="section" id="dfiv5-0-interface">
+<h3>DFIv5.0 Interface<a class="headerlink" href="#dfiv5-0-interface" title="Permalink to this headline">¶</a></h3>
+<p>The DFIv5.0 compliant interface provides connectivity to a compatible Memory Controller. The DDR PHY uses an embedded PLL to generate a low jitter DRAM clock and provides a DFI clock to the Memory Controller.</p>
+<p>The DDR PHY supports the following DFI features.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>1:2 and 1:4 frequency ratios</p></li>
+</ul>
+</div></blockquote>
+<p>The DDR PHY currently does not support the following DFI features.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Error interface</p></li>
+<li><p>Message interface</p></li>
+<li><p>ODT signal</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="lpddr4x-interface">
+<h3>LPDDR4x Interface<a class="headerlink" href="#lpddr4x-interface" title="Permalink to this headline">¶</a></h3>
+<p>The LPDDR4x compliant interface supports up to two 1x16 channels and two ranks. The DDR PHY does not support the ODT output pin. DRAM termination shall be set through MRW.</p>
+</div>
+<div class="section" id="lpddr5-interface">
+<h3>LPDDR5 Interface<a class="headerlink" href="#lpddr5-interface" title="Permalink to this headline">¶</a></h3>
+<p>The LPDDR5 compliant interface supports up to two 1x16 channels and two ranks. The DDR PHY does not support the ODT output pin. DRAM termination shall be set through MRW.</p>
+</div>
+</div>
+<div class="section" id="technology">
+<h2>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h2>
+<p>The Wavious DDR PHY has been initially developed in the GF12LPP process. Although the DDR PHY is highly digital in nature (e.g. no bandgaps) to improve portability to various foundries and process nodes, the DRAM protocol high transfer rates and varying channel characteristics require high performance mixed-signal and analog PHY circuits. The Wavious DDR PHY design includes various wrappers to ease standard cell migration and analog models for simulations. To port the DDR PHY to other process nodes, designers must perform two tasks. Firstly, designers must incorporate process-specific standard cells into the technology wrappers. Secondly, designers must create analog and mixed-signal schematics/layout which implement high performance circuits. The sections below describe the specific wrappers and models that can be leveraged to support DDR PHY process technology porting.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Datasheets for mixed-signal and analog circuits will be included in future releases.</p></li>
+</ul>
+</div>
+<div class="section" id="rtl-tech">
+<h3>rtl/tech<a class="headerlink" href="#rtl-tech" title="Permalink to this headline">¶</a></h3>
+<p>This directory includes standard cell wrappers. The DDR PHY design uses these wrappers exclusively to maximize code reuse. Designers should map technology specific cells into these wrappers.</p>
+<ul class="simple">
+<li><p><strong>ddr_custom_lib.sv</strong>   - DDR cells for high performance datapath</p></li>
+<li><p><strong>ddr_stdcell_lib.sv</strong>  - DDR cells for physical design (may be the same as wav_stdcell_lib cells depending on performance requirements)</p></li>
+<li><p><strong>wav_stdcell_lib.sv</strong>  - General cells for physical design</p></li>
+<li><p><strong>wav_tcm_sp.sv</strong>       - Single port SRAM for tightly coupled memory</p></li>
+</ul>
+</div>
+<div class="section" id="rtl-custom-ip">
+<h3>rtl/custom_ip<a class="headerlink" href="#rtl-custom-ip" title="Permalink to this headline">¶</a></h3>
+<p>This directory includes high performance mixed-signal circuit models that are used in various contexts within the DDR PHY. Designers must create process-specific mixed-signal schematics/layout for these circuits.</p>
+<ul class="simple">
+<li><p><strong>wphy_2to1_14g_rvt.sv</strong>                 - Differential 2:1 serializer</p></li>
+<li><p><strong>wphy_cgc_diff_lvt.sv</strong>                 - Differential clock gating cell (rest low)</p></li>
+<li><p><strong>wphy_cgc_diff_svt.sv</strong>                 - Differential clock gating cell (rest low)</p></li>
+<li><p><strong>wphy_cgc_diff_rh_lvt.sv</strong>              - Differential clock gating cell (rest high)</p></li>
+<li><p><strong>wphy_cgc_diff_rh_svt.sv</strong>              - Differential clock gating cell (rest high)</p></li>
+<li><p><strong>wphy_clk_div_2ph_4g_dlymatch_lvt.sv</strong>  - 2 phase clock divider delay match</p></li>
+<li><p><strong>wphy_clk_div_2ph_4g_dlymatch_svt.sv</strong>  - 2 phase clock divider delay match</p></li>
+<li><p><strong>wphy_clk_div_2ph_4g_lvt.sv</strong>           - 2 phase clock divider</p></li>
+<li><p><strong>wphy_clk_div_2ph_4g_svt.sv</strong>           - 2 phase clock divider</p></li>
+<li><p><strong>wphy_clk_div_4ph_10g_dlymatch_svt.sv</strong> - 4 phase clock divider delay match</p></li>
+<li><p><strong>wphy_clk_div_4ph_10g_svt.sv</strong>          - 4 phase clock divider</p></li>
+<li><p><strong>wphy_clkmux_3to1_diff.sv</strong>             - Differential 3:1 clock mux</p></li>
+<li><p><strong>wphy_clkmux_3to1_diff_slvt.sv</strong>        - Differential 3:1 clock mux (low latency)</p></li>
+<li><p><strong>wphy_clkmux_diff.sv</strong>                  - Differential 2:1 clock mux</p></li>
+<li><p><strong>wphy_gfcm_lvt.sv</strong>                     - Glitch free clock mux</p></li>
+<li><p><strong>wphy_gfcm_svt.sv</strong>                     - Glitch free clock mux</p></li>
+<li><p><strong>wphy_pi_4g.sv</strong>                        - Phase interpolator</p></li>
+<li><p><strong>wphy_pi_dly_match_4g.sv</strong>              - Phase interpolator delay match</p></li>
+<li><p><strong>wphy_prog_dly_se_4g.sv</strong>               - Programmable delay</p></li>
+<li><p><strong>wphy_prog_dly_se_4g_small.sv</strong>         - Programmable delay (low latency)</p></li>
+<li><p><strong>wphy_sa_4g_2ph_pdly_no_esd.sv</strong>        - Sense amplifier without ESD</p></li>
+</ul>
+</div>
+<div class="section" id="rtl-ddr-ip">
+<h3>rtl/ddr_ip<a class="headerlink" href="#rtl-ddr-ip" title="Permalink to this headline">¶</a></h3>
+<p>This directory includes DDR PHY specific analog and mixed-signal components including IO pad models. Designers must create process-specific analog and mixed-signal schematics/layout for these circuits.</p>
+<ul class="simple">
+<li><p><strong>wphy_lp4x5_cmn.sv</strong>                    - Common clock</p></li>
+<li><p><strong>wphy_lp4x5_cmn_clks_svt.sv</strong>           - Common clock driver</p></li>
+<li><p><strong>wphy_lp4x5_cke_drvr_w_lpbk.sv</strong>        - CKE pad driver</p></li>
+<li><p><strong>wphy_lp4x5_dq_drvr_w_lpbk.sv</strong>         - DQ pad driver with loopback and ESD</p></li>
+<li><p><strong>wphy_lp4x5_dqs_drvr_w_lpbk.sv</strong>        - DQS pad driver with loopback and ESD</p></li>
+<li><p><strong>wphy_lp4x5_dqs_rcvr_no_esd.sv</strong>        - DQS pad receiver without ESD</p></li>
+</ul>
+</div>
+<div class="section" id="rtl-mvppll-ip">
+<h3>rtl/mvppll_ip<a class="headerlink" href="#rtl-mvppll-ip" title="Permalink to this headline">¶</a></h3>
+<p>This directory includes the multi-VCO PLL analog model. Designers must create process-specific analog and mixed-signal schematics/layout for these circuits.</p>
+<ul class="simple">
+<li><p><strong>wphy_rpll_mvp_4g.sv</strong>                  - Multi-VCO PLL</p></li>
+</ul>
+</div>
+<div class="section" id="rtl-wddr">
+<h3>rtl/wddr<a class="headerlink" href="#rtl-wddr" title="Permalink to this headline">¶</a></h3>
+<p>This directory includes the DDR PHY foundation digital control and datapath circuits. All blocks within this directory can be synthesized to a target technology assuming that standard cell wrappers have been updated appropriately. The Wavious DDR PHY is highly configurable and uses a common slice-based design methodology that is leveraged for DQ, DQS, CA, CK, CS, CKE, DBI, DM, etc. functional slices. Depending on design constraints (schedules, area, power, performance, etc), designers can implement the DDR PHY datapath in a physical design flow or a custom layout flow. The implementation methodology will have implications for tool flows, timing closure, signoff, etc. that should be carefully considered.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="software.html" class="btn btn-neutral float-right" title="Software" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Wavious LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

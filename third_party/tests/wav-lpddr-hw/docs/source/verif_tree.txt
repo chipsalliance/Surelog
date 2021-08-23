@@ -1,0 +1,239 @@
+verif
+|-- flist
+|   |-- ddr_phy.behav.f
+|   `-- ddr_phy.f
+|-- run
+|   |-- README
+|   |-- denali.f
+|   |-- in.tcl
+|   |-- input.tcl
+|   |-- simulate.sh
+|-- sv
+|   |-- agents
+|   |   |-- APB
+|   |   |   |-- APB_agent
+|   |   |   |   |-- reg_to_apb_adapter.sv
+|   |   |   |   |-- wav_APB_Agent_config.sv
+|   |   |   |   |-- wav_APB_Agent_lib.svh
+|   |   |   |   |-- wav_APB_agent.sv
+|   |   |   |   |-- wav_APB_agent_pkg.sv
+|   |   |   |   |-- wav_APB_driver.sv
+|   |   |   |   |-- wav_APB_if.sv
+|   |   |   |   |-- wav_APB_monitor.sv
+|   |   |   |   |-- wav_APB_seq_lib.sv
+|   |   |   |   |-- wav_APB_sequencer.sv
+|   |   |   |   |-- wav_APB_transfer.sv
+|   |   |   |   |-- wav_APB_vif.sv
+|   |   |   |   `-- wav_defines.svh
+|   |   |   |-- apb_to_ahb.v
+|   |   |   |-- sequences
+|   |   |   |   |-- wav_APB_SEQ_pkg.sv
+|   |   |   |   |-- wav_APB_seq_lib.svh
+|   |   |   |   `-- wav_base2apb_seq.sv
+|   |   |   |-- wav_APB_lib.svh
+|   |   |   `-- wav_APB_pkg.sv
+|   |   |-- dfimc -> <CADENCE DIR>
+|   |   |-- lpddr4 -> <CADENCE_DIR>
+|   |   `-- mm
+|   |       `-- wav_mm.sv
+|   |-- register
+|   |   |-- wddr_reg_model.sv
+|   |   |-- wddr_reg_model.svh
+|   |   |-- wddr_reg_model_no_reg_test.svh
+|   |   |-- wddrss_reg_model.sv
+|   |   `-- wddrss_reg_model.svh
+|   |-- sequences
+|   |   |-- dfimc
+|   |   |   |-- dfiBaseSeq.sv
+|   |   |   |-- dfiDEBUG_BUSSeq.sv
+|   |   |   |-- dfiDRVR_ConTXM0Seq.sv
+|   |   |   |-- dfiDRVR_DQ_ConTXM0Seq.sv
+|   |   |   |-- dfiFreqswSeq.sv
+|   |   |   |-- dfiLPDERXM0R1Seq.sv
+|   |   |   |-- dfiLPDERXM0Seq.sv
+|   |   |   |-- dfiLPDERXM1R0Seq.sv
+|   |   |   |-- dfiLPDERXM1R1Seq.sv
+|   |   |   |-- dfiLPDERXSAM0R1Seq.sv
+|   |   |   |-- dfiLPDERXSAM0Seq.sv
+|   |   |   |-- dfiLPDERXSAM1R0Seq.sv
+|   |   |   |-- dfiLPDERXSAM1R1Seq.sv
+|   |   |   |-- dfiLPDETXM0R1Seq.sv
+|   |   |   |-- dfiLPDETXM0Seq.sv
+|   |   |   |-- dfiLPDETXM1R0Seq.sv
+|   |   |   |-- dfiLPDETXM1R1Seq.sv
+|   |   |   |-- dfiRXRCSM0Seq.sv
+|   |   |   |-- dfiRXRCSM1Seq.sv
+|   |   |   |-- dfiRXRDQSM0Seq.sv
+|   |   |   |-- dfiRXRDQSM1Seq.sv
+|   |   |   |-- dfiRXRENM0Seq.sv
+|   |   |   |-- dfiRXRENM1Seq.sv
+|   |   |   |-- dfiRandSeq.sv
+|   |   |   |-- dfiRefreshallSeq.sv
+|   |   |   |-- dfiRefreshbankSeq.sv
+|   |   |   |-- dfiSeqlib.sv
+|   |   |   |-- dfiStatusSeq.sv
+|   |   |   |-- dfiTransferSeq.sv
+|   |   |   |-- dfiTurnSeq.sv
+|   |   |   |-- dfiWrap32_rdap32Seq.sv
+|   |   |   |-- dfifreeze_seq.sv
+|   |   |   |-- dfihiz_seq.sv
+|   |   |   |-- dfiwr16_preSeq.sv
+|   |   |   |-- dfiwr32_preSeq.sv
+|   |   |   |-- interface
+|   |   |   |   |-- dfi2nmodeSeq.sv
+|   |   |   |   |-- dfiLowPowerSeq.sv
+|   |   |   |   |-- dfiMcuLpSeq.sv
+|   |   |   |   |-- dfiMcuPhymasSeq.sv
+|   |   |   |   |-- dfiMcuPhymasterSeq.sv
+|   |   |   |   |-- dfiMcuUpdateSeq.sv
+|   |   |   |   |-- dfiPhymasterSeq.sv
+|   |   |   |   |-- dfiStatusSeq.sv
+|   |   |   |   `-- dfiUpdateSeq.sv
+|   |   |   |-- rank
+|   |   |   |   |-- dfiR0R1allcmdSeq.sv
+|   |   |   |   |-- dfiR0_tccd1Seq.sv
+|   |   |   |   |-- dfiR0allcmdSeq.sv
+|   |   |   |   |-- dfiR0walkgapallcmdSeq.sv
+|   |   |   |   |-- dfiR1_tccd1Seq.sv
+|   |   |   |   |-- dfiR1allcmdSeq.sv
+|   |   |   |   |-- dfiR1walkgapallcmdSeq.sv
+|   |   |   |   |-- dfiRankswitchSeq.sv
+|   |   |   |   `-- dfiWalkgap_rankswitchSeq.sv
+|   |   |   `-- sweep
+|   |   |       |-- dfiPI0M0Seq.sv
+|   |   |       |-- dfiPI0M1Seq.sv
+|   |   |       |-- dfiPIRTM0Seq.sv
+|   |   |       |-- dfiPIRTM1Seq.sv
+|   |   |       |-- dfiPhymasterSeq.sv
+|   |   |       |-- dfiSweepM012DqsSeq.sv
+|   |   |       |-- dfiSweepM012Seq.sv
+|   |   |       |-- dfiSweepM014DqsSeq.sv
+|   |   |       |-- dfiSweepM014Seq.sv
+|   |   |       |-- dfiSweepM0DqsSeq.sv
+|   |   |       |-- dfiSweepM0Seq.sv
+|   |   |       |-- dfiSweepM112DqsSeq.sv
+|   |   |       |-- dfiSweepM112Seq.sv
+|   |   |       |-- dfiSweepM114DqsSeq.sv
+|   |   |       |-- dfiSweepM114Seq.sv
+|   |   |       |-- dfiSweepM1DqsSeq.sv
+|   |   |       |-- dfiSweepM1Seq.sv
+|   |   |       `-- dfiSweepSeq.sv
+|   |   |-- dt
+|   |   |   |-- wddr_dt_ddr_seq.sv
+|   |   |   |-- wddr_dt_ddr_spice_seq.sv
+|   |   |   |-- wddr_dt_dfistatus_seq.sv
+|   |   |   |-- wddr_dt_freqsw_seq.sv
+|   |   |   |-- wddr_dt_mcu_seq.sv
+|   |   |   |-- wddr_dt_pll_seq.sv
+|   |   |   `-- wddr_dt_tasks.sv
+|   |   |-- regs
+|   |   |   |-- wddr_reg_access_seq.sv
+|   |   |   |-- wddr_reg_bitbash_seq.sv
+|   |   |   |-- wddr_reg_direct_seq.sv
+|   |   |   `-- wddr_reg_reset_seq.sv
+|   |   |-- wddr_base_m1_tasks.sv
+|   |   |-- wddr_base_seq.sv
+|   |   |-- wddr_base_tasks.sv
+|   |   |-- wddr_bringup_seq.sv
+|   |   |-- wddr_bringup_tasks.sv
+|   |   |-- wddr_config.sv
+|   |   |-- wddr_mcu_load_mem.sv
+|   |   `-- wddr_seq_lib.svh
+|   `-- wddr_pkg.sv
+|-- tb_top
+|   |-- ddr_tb_defines.vh
+|   |-- lpddr4_command_decoder.v
+|   |-- wddr_tb.sv
+|   `-- wddr_tb_top.sv
+`-- tests
+    |-- FC_Sweep
+    |   |-- wddr_dfi_sweep_m0_12_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_12_test.sv
+    |   |-- wddr_dfi_sweep_m0_14_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_14_test.sv
+    |   |-- wddr_dfi_sweep_m0_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_test.sv
+    |   |-- wddr_dfi_sweep_m1_12_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_12_test.sv
+    |   |-- wddr_dfi_sweep_m1_14_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_14_test.sv
+    |   |-- wddr_dfi_sweep_m1_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_test.sv
+    |   `-- wddr_dfi_sweep_test.sv
+    |-- PI_Sweep
+    |   |-- wddr_dfi_PI_0_m0_test.sv
+    |   |-- wddr_dfi_PI_0_m1_test.sv
+    |   |-- wddr_dfi_PI_RT_m0_test.sv
+    |   |-- wddr_dfi_PI_RT_m1_test.sv
+    |   |-- wddr_dfi_rx_rcs_pi_m0_test.sv
+    |   |-- wddr_dfi_rx_rcs_pi_m1_test.sv
+    |   |-- wddr_dfi_rx_ren_pi_m0_test.sv
+    |   |-- wddr_dfi_rx_ren_pi_m1_test.sv
+    |   |-- wddr_dfi_rxrdqs_m0_test.sv
+    |   `-- wddr_dfi_rxrdqs_m1_test.sv
+    |-- dt
+    |   |-- wddr_dt_ddr_spice_test.sv
+    |   |-- wddr_dt_ddr_test.sv
+    |   |-- wddr_dt_dfistatus_test.sv
+    |   |-- wddr_dt_freqsw_test.sv
+    |   |-- wddr_dt_mcu_test.sv
+    |   |-- wddr_dt_mcuboot_test.sv
+    |   |-- wddr_dt_mcuhost_test.sv
+    |   `-- wddr_dt_pll_test.sv
+    |-- mcu
+    |   |-- wddr_mcu_dfilp_test.sv
+    |   |-- wddr_mcu_dfiphymas_test.sv
+    |   |-- wddr_mcu_dfiupdate_test.sv
+    |   |-- wddr_mcu_freqsw_test.sv
+    |   `-- wddr_mcu_load_mem_test.sv
+    |-- regs
+    |   |-- wddr_reg_access_test.sv
+    |   |-- wddr_reg_bitbash_test.sv
+    |   |-- wddr_reg_direct_test.sv
+    |   `-- wddr_reg_reset_test.sv
+    |-- wddr_base_test.sv
+    |-- wddr_dfi_2nmode_test.sv
+    |-- wddr_dfi_DEBUG_Bus_test.sv
+    |-- wddr_dfi_DRVR_ConTXM0_test.sv
+    |-- wddr_dfi_DRVR_DQ_ConTXM0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m1_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_m0_test.sv
+    |-- wddr_dfi_LPDE_RX_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_RX_m1_r1_test.sv
+    |-- wddr_dfi_LPDE_TX_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_TX_m0_test.sv
+    |-- wddr_dfi_LPDE_TX_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_TX_m1_r1_test.sv
+    |-- wddr_dfi_LPD_RX_SA_m0_test.sv
+    |-- wddr_dfi_LPD_RX_m0_test.sv
+    |-- wddr_dfi_LPD_TX_m0_test.sv
+    |-- wddr_dfi_freqsw_test.sv
+    |-- wddr_dfi_low_power_test.sv
+    |-- wddr_dfi_phymaster_test.sv
+    |-- wddr_dfi_r0_allcmd_test.sv
+    |-- wddr_dfi_r0_tccd1_test.sv
+    |-- wddr_dfi_r0_walkgap_allcmd_test.sv
+    |-- wddr_dfi_r0r1_200allcmd_test.sv
+    |-- wddr_dfi_r1_allcmd_test.sv
+    |-- wddr_dfi_r1_tccd1_test.sv
+    |-- wddr_dfi_r1_walkgap_allcmd_test.sv
+    |-- wddr_dfi_rand_test.sv
+    |-- wddr_dfi_rank_switch_test.sv
+    |-- wddr_dfi_refreshall_test.sv
+    |-- wddr_dfi_refreshbank_test.sv
+    |-- wddr_dfi_status_test.sv
+    |-- wddr_dfi_test.sv
+    |-- wddr_dfi_turn_test.sv
+    |-- wddr_dfi_update_test.sv
+    |-- wddr_dfi_walkgap_rankswitch_test.sv
+    |-- wddr_dfi_wr16_pre_test.sv
+    |-- wddr_dfi_wr32_pre_test.sv
+    |-- wddr_dfi_wrap32_rdap32_test.sv
+    |-- wddr_dfifreeze_test.sv
+    |-- wddr_dfihiz_test.sv
+    |-- wddr_test_lib.svh
+    `-- wddr_test_pkg.sv

@@ -1,0 +1,2 @@
+`define  DDR_ANA_DQS_RCVR_DLY_CTRL_C_RANGE         7:0
+`define  DDR_ANA_DQS_RCVR_DLY_CTRL_T_RANGE        15:8
