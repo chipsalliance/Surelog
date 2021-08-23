@@ -17,6 +17,7 @@ dict set WINDOWS_BLACK_LIST YosysOpenSparc 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_0_1 1
 dict set WINDOWS_BLACK_LIST Earlgrey_Verilator_01_05_21 1
 dict set WINDOWS_BLACK_LIST Earlgrey_nexysvideo 1
+dict set WINDOWS_BLACK_LIST Lpddr 1
 # race condition
 dict set WINDOWS_BLACK_LIST SimpleParserTestCache 1
 
@@ -29,5 +30,6 @@ dict set UNIX_BLACK_LIST BlackParrot 1
 dict set UNIX_BLACK_LIST BlackPBe 1
 dict set UNIX_BLACK_LIST BlackUnicore 1
 dict set UNIX_BLACK_LIST BlackUcode 1
+dict set UNIX_BLACK_LIST Lpddr 1
 # race condition
 dict set UNIX_BLACK_LIST SimpleParserTestCache 1
