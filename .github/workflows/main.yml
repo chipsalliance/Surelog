@@ -33,7 +33,7 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt install -y \
-          g++-7 ccache \
+          g++-7 \
           tclsh \
           default-jre \
           cmake \
@@ -53,12 +53,17 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: linux-${{ matrix.mode }}
+
     - name: Configure shell
       run: |
         echo 'CC=gcc-7' >> $GITHUB_ENV
         echo 'CXX=g++-7' >> $GITHUB_ENV
-        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
+        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -72,12 +77,6 @@ jobs:
         which tclsh && echo 'puts [info patchlevel];exit 0' | tclsh
         which $CC && $CC --version
         which $CXX && $CXX --version
-
-    - name: Use ccache
-      uses: actions/cache@v1
-      with:
-        path: ~/.ccache
-        key: ccache-${{ matrix.mode }}
 
     - name: Test
       if: matrix.mode == 'test'
@@ -284,10 +283,16 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: macos-gcc
+
     - name: Configure shell
       run: |
         echo 'CC=gcc-9' >> $GITHUB_ENV
         echo 'CXX=g++-9' >> $GITHUB_ENV
+        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
 
     - name: Show shell configuration
@@ -337,9 +342,15 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: macos-clang
+
     - name: Configure shell
       run: |
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
