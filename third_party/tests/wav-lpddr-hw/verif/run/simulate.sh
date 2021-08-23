@@ -62,12 +62,11 @@ LOGS_DIR=${VERIF}/run
 EXTRA_CMD=""
 
 WORK_LIB_XRUN=""
-SIMULATOR="xrun"
 PROFILE_CMD=""
 
 SAVE_CMD_XRUN="-access rwc -input input.tcl"
 NO_BUILD_XRUN=""
-
+SIMULATOR="$1"
 SW=""
 MM=""
 DFIMC=""
@@ -252,10 +251,6 @@ do
             echo "Dumping CA Spice VCD"
             DUMP_SPICE_STIM="+define+DUMP_SPICE_VCD +define+DDR_SPICE_VCD_DDR_CA +define+DDR_SPICE_PRINT_DDR_CA"
             ;;
-        *)
-            echo "$0: Unsupported argument '$1'"
-            exit 1
-            ;;
     esac
     shift
 done
@@ -263,7 +258,7 @@ done
 if [ "$CLN_BUILD" == "TRUE" ]
 then
     printf "\n\n$0: ---> Cleaning...\n"
-    xrun -clean
+    $SIMULATOR -clean
     exit 0
 fi
 
@@ -301,8 +296,8 @@ fi
 
 function xrun_cmd {
 
-xrun $*                                                                           \
-    -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
+$SIMULATOR $*                                                                           \
+    -parse -lowmem -mp 8 -verbose ../../../../UVM/uvm-1.2/src/uvm_pkg.sv -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
     -top wddr_tb_top  +define+no_warning -warn_multiple_driver                    \
     "+define+no_warning" $IS_GLS $DUMP_SPICE_STIM                                 \
     -uvm -ALLOWREDEFINITION +UVM_TIMEOUT=$UVM_TO                                  \
@@ -311,8 +306,10 @@ xrun $*                                                                         
     $SW $MM $NOSB $DFIMC $LP4 +MVP_FORCE_PLL $COVERAGE                            \
     $EXTRA_CMD                                                                    \
     +define+LPK                                                                   \
-    +define+DENALI_SV_NC +define+DENALI_UVM -uvmhome CDNS-1.2                     \
-    -timescale "1ns/1ps"  -vtimescale "1ns/1ps"                                   \
+    +define+DENALI_SV_NC +define+DENALI_UVM                   \
+    -timescale="1ns/1ps"                                    \
+    +incdir+../../../../UVM/uvm-1.2/src \
+    ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
     +incdir+${VERIF}                                                              \
     +incdir+${VERIF}/run                                                          \
     +incdir+${VERIF}/tb_top                                                       \
@@ -323,8 +320,8 @@ xrun $*                                                                         
     +incdir+${VERIF}/sv/sequences                                                 \
     +incdir+${VERIF}/sv/sequences/dt                                              \
     +incdir+${VERIF}/sv/sequences/regs                                            \
-    -snapshot work_wddr                                                           \
-    $SAVE_CMD_XRUN  $WORK_LIB_XRUN -svseed $SEED                                  \
+                                                           \
+      $WORK_LIB_XRUN                                   \
     $RTL_FILES                                                                    \
     ${RTL}/wddr/ddr_global_pkg.sv                                                 \
     ${RTL}/mcu_ibex/wav_mcu_pkg.sv                                                \
