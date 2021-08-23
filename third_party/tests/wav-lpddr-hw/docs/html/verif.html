@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Verification &mdash; WDDR 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Registers" href="regs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> WDDR
+          
+
+          
+            
+            <img src="_static/wavious_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regs.html">Registers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Verification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#uvm-testbench-files">UVM Testbench Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadence-memory-controller-vip-files">Cadence Memory Controller VIP Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cadence-dram-vip-files">Cadence DRAM VIP Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">How to request help?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WDDR</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Verification</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/verif.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="verification">
+<h1>Verification<a class="headerlink" href="#verification" title="Permalink to this headline">¶</a></h1>
+<p>The Wavious DDR PHY supports a UVM testbench with Memory Controller and LPDDR DRAM models from Cadence. Users must obtain a license for and install the Cadence VIP to run the Wavious DDR PHY regressions.</p>
+<div class="section" id="uvm-testbench-files">
+<h2>UVM Testbench Files<a class="headerlink" href="#uvm-testbench-files" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>verif
+|-- flist
+|   |-- ddr_phy.behav.f
+|   `-- ddr_phy.f
+|-- run
+|   |-- README
+|   |-- denali.f
+|   |-- in.tcl
+|   |-- input.tcl
+|   |-- simulate.sh
+|-- sv
+|   |-- agents
+|   |   |-- APB
+|   |   |   |-- APB_agent
+|   |   |   |   |-- reg_to_apb_adapter.sv
+|   |   |   |   |-- wav_APB_Agent_config.sv
+|   |   |   |   |-- wav_APB_Agent_lib.svh
+|   |   |   |   |-- wav_APB_agent.sv
+|   |   |   |   |-- wav_APB_agent_pkg.sv
+|   |   |   |   |-- wav_APB_driver.sv
+|   |   |   |   |-- wav_APB_if.sv
+|   |   |   |   |-- wav_APB_monitor.sv
+|   |   |   |   |-- wav_APB_seq_lib.sv
+|   |   |   |   |-- wav_APB_sequencer.sv
+|   |   |   |   |-- wav_APB_transfer.sv
+|   |   |   |   |-- wav_APB_vif.sv
+|   |   |   |   `-- wav_defines.svh
+|   |   |   |-- apb_to_ahb.v
+|   |   |   |-- sequences
+|   |   |   |   |-- wav_APB_SEQ_pkg.sv
+|   |   |   |   |-- wav_APB_seq_lib.svh
+|   |   |   |   `-- wav_base2apb_seq.sv
+|   |   |   |-- wav_APB_lib.svh
+|   |   |   `-- wav_APB_pkg.sv
+|   |   |-- dfimc -&gt; &lt;CADENCE DIR&gt;
+|   |   |-- lpddr4 -&gt; &lt;CADENCE_DIR&gt;
+|   |   `-- mm
+|   |       `-- wav_mm.sv
+|   |-- register
+|   |   |-- wddr_reg_model.sv
+|   |   |-- wddr_reg_model.svh
+|   |   |-- wddr_reg_model_no_reg_test.svh
+|   |   |-- wddrss_reg_model.sv
+|   |   `-- wddrss_reg_model.svh
+|   |-- sequences
+|   |   |-- dfimc
+|   |   |   |-- dfiBaseSeq.sv
+|   |   |   |-- dfiDEBUG_BUSSeq.sv
+|   |   |   |-- dfiDRVR_ConTXM0Seq.sv
+|   |   |   |-- dfiDRVR_DQ_ConTXM0Seq.sv
+|   |   |   |-- dfiFreqswSeq.sv
+|   |   |   |-- dfiLPDERXM0R1Seq.sv
+|   |   |   |-- dfiLPDERXM0Seq.sv
+|   |   |   |-- dfiLPDERXM1R0Seq.sv
+|   |   |   |-- dfiLPDERXM1R1Seq.sv
+|   |   |   |-- dfiLPDERXSAM0R1Seq.sv
+|   |   |   |-- dfiLPDERXSAM0Seq.sv
+|   |   |   |-- dfiLPDERXSAM1R0Seq.sv
+|   |   |   |-- dfiLPDERXSAM1R1Seq.sv
+|   |   |   |-- dfiLPDETXM0R1Seq.sv
+|   |   |   |-- dfiLPDETXM0Seq.sv
+|   |   |   |-- dfiLPDETXM1R0Seq.sv
+|   |   |   |-- dfiLPDETXM1R1Seq.sv
+|   |   |   |-- dfiRXRCSM0Seq.sv
+|   |   |   |-- dfiRXRCSM1Seq.sv
+|   |   |   |-- dfiRXRDQSM0Seq.sv
+|   |   |   |-- dfiRXRDQSM1Seq.sv
+|   |   |   |-- dfiRXRENM0Seq.sv
+|   |   |   |-- dfiRXRENM1Seq.sv
+|   |   |   |-- dfiRandSeq.sv
+|   |   |   |-- dfiRefreshallSeq.sv
+|   |   |   |-- dfiRefreshbankSeq.sv
+|   |   |   |-- dfiSeqlib.sv
+|   |   |   |-- dfiStatusSeq.sv
+|   |   |   |-- dfiTransferSeq.sv
+|   |   |   |-- dfiTurnSeq.sv
+|   |   |   |-- dfiWrap32_rdap32Seq.sv
+|   |   |   |-- dfifreeze_seq.sv
+|   |   |   |-- dfihiz_seq.sv
+|   |   |   |-- dfiwr16_preSeq.sv
+|   |   |   |-- dfiwr32_preSeq.sv
+|   |   |   |-- interface
+|   |   |   |   |-- dfi2nmodeSeq.sv
+|   |   |   |   |-- dfiLowPowerSeq.sv
+|   |   |   |   |-- dfiMcuLpSeq.sv
+|   |   |   |   |-- dfiMcuPhymasSeq.sv
+|   |   |   |   |-- dfiMcuPhymasterSeq.sv
+|   |   |   |   |-- dfiMcuUpdateSeq.sv
+|   |   |   |   |-- dfiPhymasterSeq.sv
+|   |   |   |   |-- dfiStatusSeq.sv
+|   |   |   |   `-- dfiUpdateSeq.sv
+|   |   |   |-- rank
+|   |   |   |   |-- dfiR0R1allcmdSeq.sv
+|   |   |   |   |-- dfiR0_tccd1Seq.sv
+|   |   |   |   |-- dfiR0allcmdSeq.sv
+|   |   |   |   |-- dfiR0walkgapallcmdSeq.sv
+|   |   |   |   |-- dfiR1_tccd1Seq.sv
+|   |   |   |   |-- dfiR1allcmdSeq.sv
+|   |   |   |   |-- dfiR1walkgapallcmdSeq.sv
+|   |   |   |   |-- dfiRankswitchSeq.sv
+|   |   |   |   `-- dfiWalkgap_rankswitchSeq.sv
+|   |   |   `-- sweep
+|   |   |       |-- dfiPI0M0Seq.sv
+|   |   |       |-- dfiPI0M1Seq.sv
+|   |   |       |-- dfiPIRTM0Seq.sv
+|   |   |       |-- dfiPIRTM1Seq.sv
+|   |   |       |-- dfiPhymasterSeq.sv
+|   |   |       |-- dfiSweepM012DqsSeq.sv
+|   |   |       |-- dfiSweepM012Seq.sv
+|   |   |       |-- dfiSweepM014DqsSeq.sv
+|   |   |       |-- dfiSweepM014Seq.sv
+|   |   |       |-- dfiSweepM0DqsSeq.sv
+|   |   |       |-- dfiSweepM0Seq.sv
+|   |   |       |-- dfiSweepM112DqsSeq.sv
+|   |   |       |-- dfiSweepM112Seq.sv
+|   |   |       |-- dfiSweepM114DqsSeq.sv
+|   |   |       |-- dfiSweepM114Seq.sv
+|   |   |       |-- dfiSweepM1DqsSeq.sv
+|   |   |       |-- dfiSweepM1Seq.sv
+|   |   |       `-- dfiSweepSeq.sv
+|   |   |-- dt
+|   |   |   |-- wddr_dt_ddr_seq.sv
+|   |   |   |-- wddr_dt_ddr_spice_seq.sv
+|   |   |   |-- wddr_dt_dfistatus_seq.sv
+|   |   |   |-- wddr_dt_freqsw_seq.sv
+|   |   |   |-- wddr_dt_mcu_seq.sv
+|   |   |   |-- wddr_dt_pll_seq.sv
+|   |   |   `-- wddr_dt_tasks.sv
+|   |   |-- regs
+|   |   |   |-- wddr_reg_access_seq.sv
+|   |   |   |-- wddr_reg_bitbash_seq.sv
+|   |   |   |-- wddr_reg_direct_seq.sv
+|   |   |   `-- wddr_reg_reset_seq.sv
+|   |   |-- wddr_base_m1_tasks.sv
+|   |   |-- wddr_base_seq.sv
+|   |   |-- wddr_base_tasks.sv
+|   |   |-- wddr_bringup_seq.sv
+|   |   |-- wddr_bringup_tasks.sv
+|   |   |-- wddr_config.sv
+|   |   |-- wddr_mcu_load_mem.sv
+|   |   `-- wddr_seq_lib.svh
+|   `-- wddr_pkg.sv
+|-- tb_top
+|   |-- ddr_tb_defines.vh
+|   |-- lpddr4_command_decoder.v
+|   |-- wddr_tb.sv
+|   `-- wddr_tb_top.sv
+`-- tests
+    |-- FC_Sweep
+    |   |-- wddr_dfi_sweep_m0_12_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_12_test.sv
+    |   |-- wddr_dfi_sweep_m0_14_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_14_test.sv
+    |   |-- wddr_dfi_sweep_m0_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m0_test.sv
+    |   |-- wddr_dfi_sweep_m1_12_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_12_test.sv
+    |   |-- wddr_dfi_sweep_m1_14_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_14_test.sv
+    |   |-- wddr_dfi_sweep_m1_dqs_test.sv
+    |   |-- wddr_dfi_sweep_m1_test.sv
+    |   `-- wddr_dfi_sweep_test.sv
+    |-- PI_Sweep
+    |   |-- wddr_dfi_PI_0_m0_test.sv
+    |   |-- wddr_dfi_PI_0_m1_test.sv
+    |   |-- wddr_dfi_PI_RT_m0_test.sv
+    |   |-- wddr_dfi_PI_RT_m1_test.sv
+    |   |-- wddr_dfi_rx_rcs_pi_m0_test.sv
+    |   |-- wddr_dfi_rx_rcs_pi_m1_test.sv
+    |   |-- wddr_dfi_rx_ren_pi_m0_test.sv
+    |   |-- wddr_dfi_rx_ren_pi_m1_test.sv
+    |   |-- wddr_dfi_rxrdqs_m0_test.sv
+    |   `-- wddr_dfi_rxrdqs_m1_test.sv
+    |-- dt
+    |   |-- wddr_dt_ddr_spice_test.sv
+    |   |-- wddr_dt_ddr_test.sv
+    |   |-- wddr_dt_dfistatus_test.sv
+    |   |-- wddr_dt_freqsw_test.sv
+    |   |-- wddr_dt_mcu_test.sv
+    |   |-- wddr_dt_mcuboot_test.sv
+    |   |-- wddr_dt_mcuhost_test.sv
+    |   `-- wddr_dt_pll_test.sv
+    |-- mcu
+    |   |-- wddr_mcu_dfilp_test.sv
+    |   |-- wddr_mcu_dfiphymas_test.sv
+    |   |-- wddr_mcu_dfiupdate_test.sv
+    |   |-- wddr_mcu_freqsw_test.sv
+    |   `-- wddr_mcu_load_mem_test.sv
+    |-- regs
+    |   |-- wddr_reg_access_test.sv
+    |   |-- wddr_reg_bitbash_test.sv
+    |   |-- wddr_reg_direct_test.sv
+    |   `-- wddr_reg_reset_test.sv
+    |-- wddr_base_test.sv
+    |-- wddr_dfi_2nmode_test.sv
+    |-- wddr_dfi_DEBUG_Bus_test.sv
+    |-- wddr_dfi_DRVR_ConTXM0_test.sv
+    |-- wddr_dfi_DRVR_DQ_ConTXM0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_RX_SA_m1_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_RX_m0_test.sv
+    |-- wddr_dfi_LPDE_RX_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_RX_m1_r1_test.sv
+    |-- wddr_dfi_LPDE_TX_m0_r1_test.sv
+    |-- wddr_dfi_LPDE_TX_m0_test.sv
+    |-- wddr_dfi_LPDE_TX_m1_r0_test.sv
+    |-- wddr_dfi_LPDE_TX_m1_r1_test.sv
+    |-- wddr_dfi_LPD_RX_SA_m0_test.sv
+    |-- wddr_dfi_LPD_RX_m0_test.sv
+    |-- wddr_dfi_LPD_TX_m0_test.sv
+    |-- wddr_dfi_freqsw_test.sv
+    |-- wddr_dfi_low_power_test.sv
+    |-- wddr_dfi_phymaster_test.sv
+    |-- wddr_dfi_r0_allcmd_test.sv
+    |-- wddr_dfi_r0_tccd1_test.sv
+    |-- wddr_dfi_r0_walkgap_allcmd_test.sv
+    |-- wddr_dfi_r0r1_200allcmd_test.sv
+    |-- wddr_dfi_r1_allcmd_test.sv
+    |-- wddr_dfi_r1_tccd1_test.sv
+    |-- wddr_dfi_r1_walkgap_allcmd_test.sv
+    |-- wddr_dfi_rand_test.sv
+    |-- wddr_dfi_rank_switch_test.sv
+    |-- wddr_dfi_refreshall_test.sv
+    |-- wddr_dfi_refreshbank_test.sv
+    |-- wddr_dfi_status_test.sv
+    |-- wddr_dfi_test.sv
+    |-- wddr_dfi_turn_test.sv
+    |-- wddr_dfi_update_test.sv
+    |-- wddr_dfi_walkgap_rankswitch_test.sv
+    |-- wddr_dfi_wr16_pre_test.sv
+    |-- wddr_dfi_wr32_pre_test.sv
+    |-- wddr_dfi_wrap32_rdap32_test.sv
+    |-- wddr_dfifreeze_test.sv
+    |-- wddr_dfihiz_test.sv
+    |-- wddr_test_lib.svh
+    `-- wddr_test_pkg.sv
+</pre></div>
+</div>
+</div>
+<div class="section" id="cadence-memory-controller-vip-files">
+<h2>Cadence Memory Controller VIP Files<a class="headerlink" href="#cadence-memory-controller-vip-files" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>|-- dfimc
+    |-- cdnDfiUvmUserAgent.sv
+    |-- cdnDfimcUvmUserAgent.sv
+    |-- cdnDfimcUvmUserDriver.sv
+    |-- cdnDfimcUvmUserEnv.sv
+    |-- cdnDfimcUvmUserInstance.sv
+    |-- cdnDfimcUvmUserMonitor.sv
+    |-- cdnDfimcUvmUserScoreboard.sv
+    |-- cdnDfimcUvmUserSeqLib.sv
+    |-- cdnDfimcUvmUserSve.sv
+    |-- cdnDfimcUvmUserTop.sv
+    |-- cdnDfimcUvmUserVirtualSequencer.sv
+    |-- config_uvm
+    |-- sequences
+    |-- soma_uvm
+    |   |-- activeDfiMC.soma
+    |   |-- activeDfiMC.v
+    |   |-- passiveDfi.soma
+    |   `-- passiveDfi.v
+    `-- vip_lib
+        |-- libcdnvipcuvm.so
+        `-- libcdnvipuvmdpi.so
+</pre></div>
+</div>
+</div>
+<div class="section" id="cadence-dram-vip-files">
+<h2>Cadence DRAM VIP Files<a class="headerlink" href="#cadence-dram-vip-files" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>|-- lpddr4
+    |-- cdnLpddr4UvmBankStateInstance.sv
+    |-- cdnLpddr4UvmBankStateInstanceChA.sv
+    |-- cdnLpddr4UvmBankStateInstanceChB.sv
+    |-- cdnLpddr4UvmChipStateInstance.sv
+    |-- cdnLpddr4UvmChipStateInstanceChA.sv
+    |-- cdnLpddr4UvmChipStateInstanceChB.sv
+    |-- cdnLpddr4UvmDenRegInstance.sv
+    |-- cdnLpddr4UvmUserAgent.sv
+    |-- cdnLpddr4UvmUserBanksState.sv
+    |-- cdnLpddr4UvmUserDriver.sv
+    |-- cdnLpddr4UvmUserEnv.sv
+    |-- cdnLpddr4UvmUserInstance.sv
+    |-- cdnLpddr4UvmUserMonitor.sv
+    |-- cdnLpddr4UvmUserObjects.sv
+    |-- cdnLpddr4UvmUserRegInstChA.sv
+    |-- cdnLpddr4UvmUserRegInstChB.sv
+    |-- cdnLpddr4UvmUserSve.sv
+    |-- cdnLpddr4UvmUserTop.sv
+    |-- jedec_lpddr4_16gb_2133.spc
+    |-- jedec_lpddr4_16gb_4266.spc
+    |-- lp4_debug_enums.sv
+    |-- lp4_debug_interface.sv
+    |-- lpddr4.v
+    `-- vip_lib
+        |-- libcdnvipcuvm.so
+        `-- libcdnvipuvmdpi.so
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="regs.html" class="btn btn-neutral float-left" title="Registers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Wavious LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

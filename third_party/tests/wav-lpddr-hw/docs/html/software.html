@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Software &mdash; WDDR 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Registers" href="regs.html" />
+    <link rel="prev" title="Integration" href="integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> WDDR
+          
+
+          
+            
+            <img src="_static/wavious_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration.html">Integration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mcu-subsystem">MCU subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mailbox-communication">Mailbox Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-messages">Supported Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#messages-from-host-to-mcu">Messages from HOST to MCU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#messages-from-mcu-to-host">Messages from MCU to HOST</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#boot-procedure-from-host-level">Boot procedure (from HOST level)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regs.html">Registers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verif.html">Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">How to request help?</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WDDR</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Software</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/software.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="software">
+<h1>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the programmers model for WDDR. As described earlier, the WDDR Physical Interface (PHY) IP includes an intergrated RISC-V MCU and dedicated SRAM for ITCM and DTCM. A software binary for the MCU is included with the WDDR hardware release.</p>
+<div class="section" id="mcu-subsystem">
+<h2>MCU subsystem<a class="headerlink" href="#mcu-subsystem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>MCU core is lowRISC 32 bit ibex core (<a class="reference external" href="https://github.com/lowRISC/ibex">https://github.com/lowRISC/ibex</a>)</p></li>
+<li><p>64 kB ITCM</p></li>
+<li><p>64 kB DTCM</p></li>
+<li><p>Mailbox communication with HOST</p>
+<ul>
+<li><p>HOST to MCU mailbox</p></li>
+<li><p>MCU to HOST mailbox</p></li>
+</ul>
+</li>
+<li><p>Control registers for MCU</p></li>
+</ul>
+<p>The high level description of MCU subsystem from software point of view is shown below.</p>
+<div class="figure align-center" id="id1">
+<img alt="_images/mcu_subsystem.png" src="_images/mcu_subsystem.png" />
+<p class="caption"><span class="caption-text">MCU subsystem</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="mailbox-communication">
+<h2>Mailbox Communication<a class="headerlink" href="#mailbox-communication" title="Permalink to this headline">¶</a></h2>
+<p>A four-register mailbox is supported to allow a HOST to send messages to the MCU:</p>
+<ul class="simple">
+<li><p>WAV_MCU__MCUINTF__HOST2MCU_MSG_DATA</p></li>
+<li><p>WAV_MCU__MCUINTF__HOST2MCU_MSG_ID</p></li>
+<li><p>WAV_MCU__MCUINTF__HOST2MCU_MSG_REQ</p></li>
+<li><p>WAV_MCU__MCUINTF__HOST2MCU_MSG_ACK</p></li>
+</ul>
+<p>A four-register mailbox is supported to allow the MCU to send messages to a HOST:</p>
+<ul class="simple">
+<li><p>WAV_MCU__MCUINTF__MCU2HOST_MSG_DATA</p></li>
+<li><p>WAV_MCU__MCUINTF__MCU2HOST_MSG_ID</p></li>
+<li><p>WAV_MCU__MCUINTF__MCU2HOST_MSG_REQ</p></li>
+<li><p>WAV_MCU__MCUINTF__MCU2HOST_MSG_ACK</p></li>
+</ul>
+<div class="figure align-center" id="id2">
+<img alt="_images/mcu_mailbox.png" src="_images/mcu_mailbox.png" />
+<p class="caption"><span class="caption-text">MCU MailBox</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The procedure to send a message from HOST to MCU is listed below:</p>
+<ol class="arabic simple">
+<li><p>HOST sets registers <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_DATA</span></code> with required ID and DATA (list of supported ID/DATA is described below).</p></li>
+<li><p>HOST sets <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_REQ=0x1</span></code> to inticate that MCU mailbox has a message.</p></li>
+<li><p>MCU will read <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_DATA</span></code>.</p></li>
+<li><p>MCU will clear <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_REQ=0x0</span></code> and set <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_ACK=0x1</span></code> acknowledging to the HOST that message has been received.</p></li>
+<li><p>HOST need to clear <code class="docutils literal notranslate"><span class="pre">HOST2MCU_MSG_ACK=0x0</span></code>.</p></li>
+</ol>
+</div>
+<div class="section" id="supported-messages">
+<h2>Supported Messages<a class="headerlink" href="#supported-messages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="messages-from-host-to-mcu">
+<h3>Messages from HOST to MCU<a class="headerlink" href="#messages-from-host-to-mcu" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>HOST2MCU_MSG_ID</p></th>
+<th class="head"><p>HOST2MCU_MSG_DATA</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>N/A</p></td>
+<td><p>0x0</p></td>
+<td><p>N/A</p></td>
+<td><p>Intentionally ommitted message</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware Version Request</p></td>
+<td><p>0x2</p></td>
+<td><p>N/A</p></td>
+<td><p>HOST is requesting Firmware version</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware Version Request</p></td>
+<td><p>0x4</p></td>
+<td><p>N/A</p></td>
+<td><p>HOST is requesting HW version</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCU Boot Request</p></td>
+<td><p>0x6</p></td>
+<td><p>N/A</p></td>
+<td><p>HOST is requesting to perform boot procedure</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="messages-from-mcu-to-host">
+<h3>Messages from MCU to HOST<a class="headerlink" href="#messages-from-mcu-to-host" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>MCU2HOST_MSG_ID</p></th>
+<th class="head"><p>MCU2HOST_MSG_DATA</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Message Interface Ready Response</p></td>
+<td><p>0x1</p></td>
+<td><p>N/A</p></td>
+<td><p>MCU indicates messaging interface is ready to be used</p></td>
+</tr>
+<tr class="row-odd"><td><p>Firmware Version Response</p></td>
+<td><p>0x3</p></td>
+<td><p>$version</p></td>
+<td><p>MCU is returning Firmware $version currentlly running on MCU</p></td>
+</tr>
+<tr class="row-even"><td><p>Hardware Version Response</p></td>
+<td><p>0x5</p></td>
+<td><p>$version</p></td>
+<td><p>MCU is returning HW $version</p></td>
+</tr>
+<tr class="row-odd"><td><p>MCU Boot Response</p></td>
+<td><p>0x7</p></td>
+<td><p>$ret</p></td>
+<td><p>MCU is responding boot has been complete ($ret = 0x0, SUCCESS; $ret = 0x1, FAILED)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="boot-procedure-from-host-level">
+<h2>Boot procedure (from HOST level)<a class="headerlink" href="#boot-procedure-from-host-level" title="Permalink to this headline">¶</a></h2>
+<p>The boot procedure is listed in the order below:</p>
+<ol class="arabic simple">
+<li><p>Clear reset to WDDR.</p></li>
+<li><p>Move ITCM image to ITCM address <code class="docutils literal notranslate"><span class="pre">0x10000</span></code>.</p></li>
+<li><p>Move DTCM image to DTCM address <code class="docutils literal notranslate"><span class="pre">0x50000</span></code>.</p></li>
+<li><p>Enable MCU by setting <code class="docutils literal notranslate"><span class="pre">FETCH_EN=0x1</span></code> within <code class="docutils literal notranslate"><span class="pre">WAV_MCU__MCUTOP__CFG</span></code>.</p></li>
+<li><p>Wait until mesage <code class="docutils literal notranslate"><span class="pre">Message</span> <span class="pre">Interface</span> <span class="pre">Ready</span> <span class="pre">Response</span></code> is received.</p></li>
+<li><p>If desired, send <code class="docutils literal notranslate"><span class="pre">Firmware/HW</span> <span class="pre">Version</span> <span class="pre">Request</span></code> message and wait for MCU to respond.</p></li>
+<li><p>Send <code class="docutils literal notranslate"><span class="pre">MCU</span> <span class="pre">Boot</span> <span class="pre">Request</span></code> message to MCU.</p></li>
+<li><p>Wait till <code class="docutils literal notranslate"><span class="pre">MCU</span> <span class="pre">Boot</span> <span class="pre">Response</span></code> message is received.</p></li>
+</ol>
+<p>Note, with current version of Firmware, MCU is performing boot automatically and messaging is not supported.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="regs.html" class="btn btn-neutral float-right" title="Registers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="integration.html" class="btn btn-neutral float-left" title="Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Wavious LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

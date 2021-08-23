@@ -1,0 +1,2 @@
+`define DDR_ANA_CKMUX_DDRCLK_SEL_RANGE       1:0
+`define DDR_ANA_CKMUX_QDRCLK_SEL_RANGE       3:2

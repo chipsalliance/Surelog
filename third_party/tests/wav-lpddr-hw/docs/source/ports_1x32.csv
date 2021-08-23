@@ -1,0 +1,230 @@
+i_phy_rst,input,1
+i_dfi_clk_on,input,1
+o_dfi_clk,output,1
+i_ana_refclk,input,1
+i_refclk,input,1
+o_refclk_on,output,1
+i_refclk_alt,input,1
+i_irq,input, [3:0]
+o_irq,output, [1:0]
+i_gpb,input, [7:0]
+o_gpb,output, [7:0]
+i_scan_mode,input,1
+i_scan_clk,input,1
+i_scan_en,input,1
+i_scan_freq_en,input, [7:0]
+i_scan_cgc_ctrl,input,1
+i_scan_rst_ctrl,input,1
+i_scan_set_ctrl,input,1
+i_scan,input, [15:0]
+o_scan,output, [15:0]
+i_freeze_n,input,1
+i_hiz_n,input,1
+i_iddq_mode,input,1
+o_dtst,output,1
+i_jtag_tck,input,1
+i_jtag_trst_n,input,1
+i_jtag_tms,input,1
+i_jtag_tdi,input,1
+o_jtag_tdo,output,1
+i_ahb_clk,input,1
+o_ahb_clk_on,output,1
+i_ahb_rst,input,1
+i_ahb_csr_rst,input,1
+i_ahb_haddr,input, [31:0]
+i_ahb_hwrite,input,1
+i_ahb_hsel,input,1
+i_ahb_hwdata,input, [31:0]
+i_ahb_htrans,input, [1:0]
+i_ahb_hsize,input, [2:0]
+i_ahb_hburst,input, [2:0]
+i_ahb_hreadyin,input,1
+o_ahb_hready,output,1
+o_ahb_hrdata,output, [31:0]
+o_ahb_hresp,output, [1:0]
+o_ahb_haddr,output, [31:0]
+o_ahb_hwrite,output,1
+o_ahb_hwdata,output, [31:0]
+o_ahb_htrans,output, [1:0]
+o_ahb_hsize,output, [2:0]
+o_ahb_hburst,output, [2:0]
+o_ahb_hbusreq,output,1
+i_ahb_hgrant,input,1
+i_ahb_hready,input,1
+i_ahb_hrdata,input, [31:0]
+i_ahb_hresp,input, [1:0]
+o_dfi_ctrlupd_ack,output,1
+i_dfi_ctrlupd_req,input,1
+i_dfi_phyupd_ack,input,1
+o_dfi_phyupd_req,output,1
+o_dfi_phyupd_type,output, [1:0]
+i_dfi_freq_fsp,input, [1:0]
+i_dfi_freq_ratio,input, [1:0]
+i_dfi_frequency,input, [4:0]
+o_dfi_init_complete,output,1
+i_dfi_init_start,input,1
+i_dfi_phymstr_ack,input,1
+o_dfi_phymstr_cs_state,output, [1:0]
+o_dfi_phymstr_req,output,1
+o_dfi_phymstr_state_sel,output,1
+o_dfi_phymstr_type,output, [1:0]
+o_dfi_lp_ctrl_ack,output,1
+i_dfi_lp_ctrl_req,input,1
+i_dfi_lp_ctrl_wakeup,input, [5:0]
+o_dfi_lp_data_ack,output,1
+i_dfi_lp_data_req,input,1
+i_dfi_lp_data_wakeup,input, [5:0]
+i_dfi_reset_n_p0,input,1
+i_dfi_reset_n_p1,input,1
+i_dfi_reset_n_p2,input,1
+i_dfi_reset_n_p3,input,1
+i_dfi_address_p0,input, [13:0]
+i_dfi_address_p1,input, [13:0]
+i_dfi_address_p2,input, [13:0]
+i_dfi_address_p3,input, [13:0]
+i_dfi_cke_p0,input, [1:0]
+i_dfi_cke_p1,input, [1:0]
+i_dfi_cke_p2,input, [1:0]
+i_dfi_cke_p3,input, [1:0]
+i_dfi_cs_p0,input, [1:0]
+i_dfi_cs_p1,input, [1:0]
+i_dfi_cs_p2,input, [1:0]
+i_dfi_cs_p3,input, [1:0]
+i_dfi_dram_clk_disable_p0,input,1
+i_dfi_dram_clk_disable_p1,input,1
+i_dfi_dram_clk_disable_p2,input,1
+i_dfi_dram_clk_disable_p3,input,1
+i_dfi_wrdata_p0,input, [63:0]
+i_dfi_wrdata_p1,input, [63:0]
+i_dfi_wrdata_p2,input, [63:0]
+i_dfi_wrdata_p3,input, [63:0]
+i_dfi_parity_in_p0,input,1
+i_dfi_parity_in_p1,input,1
+i_dfi_parity_in_p2,input,1
+i_dfi_parity_in_p3,input,1
+i_dfi_wrdata_cs_p0,input, [1:0]
+i_dfi_wrdata_cs_p1,input, [1:0]
+i_dfi_wrdata_cs_p2,input, [1:0]
+i_dfi_wrdata_cs_p3,input, [1:0]
+i_dfi_wrdata_mask_p0,input, [7:0]
+i_dfi_wrdata_mask_p1,input, [7:0]
+i_dfi_wrdata_mask_p2,input, [7:0]
+i_dfi_wrdata_mask_p3,input, [7:0]
+i_dfi_wrdata_en_p0,input,1
+i_dfi_wrdata_en_p1,input,1
+i_dfi_wrdata_en_p2,input,1
+i_dfi_wrdata_en_p3,input,1
+i_dfi_wck_cs_p0,input, [1:0]
+i_dfi_wck_cs_p1,input, [1:0]
+i_dfi_wck_cs_p2,input, [1:0]
+i_dfi_wck_cs_p3,input, [1:0]
+i_dfi_wck_en_p0,input,1
+i_dfi_wck_en_p1,input,1
+i_dfi_wck_en_p2,input,1
+i_dfi_wck_en_p3,input,1
+i_dfi_wck_toggle_p0,input, [1:0]
+i_dfi_wck_toggle_p1,input, [1:0]
+i_dfi_wck_toggle_p2,input, [1:0]
+i_dfi_wck_toggle_p3,input, [1:0]
+i_dfi_rddata_cs_p0,input, [1:0]
+i_dfi_rddata_cs_p1,input, [1:0]
+i_dfi_rddata_cs_p2,input, [1:0]
+i_dfi_rddata_cs_p3,input, [1:0]
+i_dfi_rddata_en_p0,input,1
+i_dfi_rddata_en_p1,input,1
+i_dfi_rddata_en_p2,input,1
+i_dfi_rddata_en_p3,input,1
+o_dfi_rddata_dbi_w0,output, [7:0]
+o_dfi_rddata_dbi_w1,output, [7:0]
+o_dfi_rddata_dbi_w2,output, [7:0]
+o_dfi_rddata_dbi_w3,output, [7:0]
+o_dfi_rddata_w0,output, [63:0]
+o_dfi_rddata_w1,output, [63:0]
+o_dfi_rddata_w2,output, [63:0]
+o_dfi_rddata_w3,output, [63:0]
+o_dfi_rddata_valid_w0,output,1
+o_dfi_rddata_valid_w1,output,1
+o_dfi_rddata_valid_w2,output,1
+o_dfi_rddata_valid_w3,output,1
+pad_ddr_rext,inout,1
+pad_ddr_test,inout,1
+pad_ddr_reset_n,inout,1
+pad_ch0_ddr_ca_ca0,inout,1
+pad_ch0_ddr_ca_ca1,inout,1
+pad_ch0_ddr_ca_ca2,inout,1
+pad_ch0_ddr_ca_ca3,inout,1
+pad_ch0_ddr_ca_ca4,inout,1
+pad_ch0_ddr_ca_ca5,inout,1
+pad_ch0_ddr_ca_ca6,inout,1
+pad_ch0_ddr_ca_cs0,inout,1
+pad_ch0_ddr_ca_cs1,inout,1
+pad_ch0_ddr_ca_cke0,inout,1
+pad_ch0_ddr_ca_cke1,inout,1
+pad_ch0_ddr_ca_ck_c,inout,1
+pad_ch0_ddr_ca_ck_t,inout,1
+pad_ch0_ddr_dq0_dbim,inout,1
+pad_ch0_ddr_dq0_dq0,inout,1
+pad_ch0_ddr_dq0_dq1,inout,1
+pad_ch0_ddr_dq0_dq2,inout,1
+pad_ch0_ddr_dq0_dq3,inout,1
+pad_ch0_ddr_dq0_dq4,inout,1
+pad_ch0_ddr_dq0_dq5,inout,1
+pad_ch0_ddr_dq0_dq6,inout,1
+pad_ch0_ddr_dq0_dq7,inout,1
+pad_ch0_ddr_dq0_wck_c,inout,1
+pad_ch0_ddr_dq0_wck_t,inout,1
+pad_ch0_ddr_dq0_dqs_c,inout,1
+pad_ch0_ddr_dq0_dqs_t,inout,1
+pad_ch0_ddr_dq1_dbim,inout,1
+pad_ch0_ddr_dq1_dq0,inout,1
+pad_ch0_ddr_dq1_dq1,inout,1
+pad_ch0_ddr_dq1_dq2,inout,1
+pad_ch0_ddr_dq1_dq3,inout,1
+pad_ch0_ddr_dq1_dq4,inout,1
+pad_ch0_ddr_dq1_dq5,inout,1
+pad_ch0_ddr_dq1_dq6,inout,1
+pad_ch0_ddr_dq1_dq7,inout,1
+pad_ch0_ddr_dq1_wck_c,inout,1
+pad_ch0_ddr_dq1_wck_t,inout,1
+pad_ch0_ddr_dq1_dqs_c,inout,1
+pad_ch0_ddr_dq1_dqs_t,inout,1
+pad_ch1_ddr_ca_ca0,inout,1
+pad_ch1_ddr_ca_ca1,inout,1
+pad_ch1_ddr_ca_ca2,inout,1
+pad_ch1_ddr_ca_ca3,inout,1
+pad_ch1_ddr_ca_ca4,inout,1
+pad_ch1_ddr_ca_ca5,inout,1
+pad_ch1_ddr_ca_ca6,inout,1
+pad_ch1_ddr_ca_cs0,inout,1
+pad_ch1_ddr_ca_cs1,inout,1
+pad_ch1_ddr_ca_cke0,inout,1
+pad_ch1_ddr_ca_cke1,inout,1
+pad_ch1_ddr_ca_ck_c,inout,1
+pad_ch1_ddr_ca_ck_t,inout,1
+pad_ch1_ddr_dq0_dbim,inout,1
+pad_ch1_ddr_dq0_dq0,inout,1
+pad_ch1_ddr_dq0_dq1,inout,1
+pad_ch1_ddr_dq0_dq2,inout,1
+pad_ch1_ddr_dq0_dq3,inout,1
+pad_ch1_ddr_dq0_dq4,inout,1
+pad_ch1_ddr_dq0_dq5,inout,1
+pad_ch1_ddr_dq0_dq6,inout,1
+pad_ch1_ddr_dq0_dq7,inout,1
+pad_ch1_ddr_dq0_wck_c,inout,1
+pad_ch1_ddr_dq0_wck_t,inout,1
+pad_ch1_ddr_dq0_dqs_c,inout,1
+pad_ch1_ddr_dq0_dqs_t,inout,1
+pad_ch1_ddr_dq1_dbim,inout,1
+pad_ch1_ddr_dq1_dq0,inout,1
+pad_ch1_ddr_dq1_dq1,inout,1
+pad_ch1_ddr_dq1_dq2,inout,1
+pad_ch1_ddr_dq1_dq3,inout,1
+pad_ch1_ddr_dq1_dq4,inout,1
+pad_ch1_ddr_dq1_dq5,inout,1
+pad_ch1_ddr_dq1_dq6,inout,1
+pad_ch1_ddr_dq1_dq7,inout,1
+pad_ch1_ddr_dq1_wck_c,inout,1
+pad_ch1_ddr_dq1_wck_t,inout,1
+pad_ch1_ddr_dq1_dqs_c,inout,1
+pad_ch1_ddr_dq1_dqs_t,inout,1
+o_debug,output, [31:0]
