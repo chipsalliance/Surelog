@@ -103,6 +103,12 @@ jobs:
         shell: msys2 {0}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install core dependencies
       run: choco install -y swig --side-by-side --version=3.0.12
       shell: powershell
@@ -187,6 +193,12 @@ jobs:
         shell: cmd
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install Core Dependencies
       run: |
         choco install -y make
@@ -257,6 +269,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
@@ -304,6 +322,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
@@ -345,6 +369,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v2
       with:
