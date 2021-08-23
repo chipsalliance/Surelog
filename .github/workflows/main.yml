@@ -25,7 +25,7 @@ jobs:
     steps:
 
     - name: Cancel previous
-      uses: styfle/cancel-workflow-action@0.8.0
+      uses: styfle/cancel-workflow-action@0.9.1
       with:
         access_token: ${{ github.token }}
 
@@ -33,7 +33,7 @@ jobs:
       run: |
         sudo apt-get update -qq
         sudo apt install -y \
-          g++-7 \
+          g++-7 ccache \
           tclsh \
           default-jre \
           cmake \
@@ -58,6 +58,7 @@ jobs:
         echo 'CC=gcc-7' >> $GITHUB_ENV
         echo 'CXX=g++-7' >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -72,22 +73,28 @@ jobs:
         which $CC && $CC --version
         which $CXX && $CXX --version
 
-    - name: ${{ matrix.env.mode }} Surelog
+    - name: Use ccache
+      uses: actions/cache@v1
+      with:
+        path: ~/.ccache
+        key: ccache-${{ matrix.mode }}
+
+    - name: Test
       if: matrix.mode == 'test'
       run: |
         make test/unittest-d
 
-    - name: ${{ matrix.env.mode }} Surelog
+    - name: Regression
       if: matrix.mode == 'regression'
       run: |
         make regression
 
-    - name: ${{ matrix.env.mode }} Surelog
+    - name: Install Test
       if: matrix.mode == 'install'
       run: |
         make release
-          sudo make install
-          make test_install
+        sudo make install
+        make test_install
 
   msys2-gcc:
     runs-on: windows-latest
@@ -338,7 +345,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-
     - name: Checkout code
       uses: actions/checkout@v2
       with:
