@@ -73,6 +73,11 @@ bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
                        ->getCommandLineParser()
                        ->getParametersSubstitution();
     }
+    for (auto operand : *op->Operands()) {
+      if (!substituteAssignedValue(operand, compileDesign)) {
+        return false;
+      }
+    }
   }
   return substitute;
 }
