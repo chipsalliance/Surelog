@@ -128,6 +128,8 @@ class ParseFile {
   ErrorContainer* const m_errors;
   std::string m_profileInfo;
   std::string m_sourceText;  // For Unit tests
+  std::vector<unsigned int> lineInfoCache;
+  std::vector<SymbolId> fileInfoCache;
 };
 
 };  // namespace SURELOG

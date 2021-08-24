@@ -174,36 +174,53 @@ SymbolId ParseFile::getFileId(unsigned int line) {
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
-    bool inRange = false;
-    unsigned int indexOpeningRange = 0;
-    unsigned int index = infos.size() - 1;
-    while (1) {
-      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
-        const std::string& file = pp->getSymbol(infos[index].m_sectionFile);
-        SymbolId fileId = getSymbolTable()->registerSymbol(file);
-        return (fileId);
-      }
-      if (infos[index].m_type == 2) {
-        if (!inRange) {
-          inRange = true;
-          indexOpeningRange = infos[index].m_indexOpening;
-        }
-      } else {
-        if (inRange) {
-          if (index == indexOpeningRange) inRange = false;
-        }
-      }
-      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
-          (infos[index].m_indexClosing > -1) &&
-          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
-        const std::string& file = pp->getSymbol(infos[index].m_sectionFile);
-        SymbolId fileId = getSymbolTable()->registerSymbol(file);
-        return (fileId);
-      }
-      if (index == 0) break;
-      index--;
+    if (fileInfoCache.size()) {
+      return fileInfoCache[line];
     }
-    return m_fileId;
+    fileInfoCache.resize(pp->getSumLineCount() + 10);
+
+    for (unsigned int lineItr = 0; lineItr < pp->getSumLineCount() + 10;
+         lineItr++) {
+      fileInfoCache[lineItr] = m_fileId;
+
+      bool inRange = false;
+      unsigned int indexOpeningRange = 0;
+      unsigned int index = infos.size() - 1;
+      while (1) {
+        if ((lineItr >= infos[index].m_originalLine) &&
+            (infos[index].m_type == 2)) {
+          // const std::string& file =
+          // pp->getSymbol(infos[index].m_sectionFile); SymbolId fileId =
+          // getSymbolTable()->registerSymbol(file);
+          SymbolId fileId = infos[index].m_sectionFile;
+          fileInfoCache[lineItr] = fileId;
+          break;
+        }
+        if (infos[index].m_type == 2) {
+          if (!inRange) {
+            inRange = true;
+            indexOpeningRange = infos[index].m_indexOpening;
+          }
+        } else {
+          if (inRange) {
+            if (index == indexOpeningRange) inRange = false;
+          }
+        }
+        if ((lineItr >= infos[index].m_originalLine) &&
+            (infos[index].m_type == 1) && (infos[index].m_indexClosing > -1) &&
+            (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
+          // const std::string& file =
+          // pp->getSymbol(infos[index].m_sectionFile); SymbolId fileId =
+          // getSymbolTable()->registerSymbol(file);
+          SymbolId fileId = infos[index].m_sectionFile;
+          fileInfoCache[lineItr] = fileId;
+          break;
+        }
+        if (index == 0) break;
+        index--;
+      }
+    }
+    return fileInfoCache[line];
   } else {
     return m_fileId;
   }
@@ -215,37 +232,49 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
-    bool inRange = false;
-    unsigned int indexOpeningRange = 0;
-    unsigned int index = infos.size() - 1;
-    while (1) {
-      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
-        unsigned int l = infos[index].m_sectionStartLine +
-                         (line - infos[index].m_originalLine);
-        return l;
-      }
-
-      if (infos[index].m_type == 2) {
-        if (!inRange) {
-          inRange = true;
-          indexOpeningRange = infos[index].m_indexOpening;
-        }
-      } else {
-        if (inRange) {
-          if (index == indexOpeningRange) inRange = false;
-        }
-      }
-      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
-          (infos[index].m_indexClosing > -1) &&
-          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
-        unsigned int l = infos[index].m_sectionStartLine +
-                         (line - infos[index].m_originalLine);
-        return l;
-      }
-      if (index == 0) break;
-      index--;
+    if (lineInfoCache.size()) {
+      return lineInfoCache[line];
     }
-    return line;
+    lineInfoCache.resize(pp->getSumLineCount() + 10);
+    lineInfoCache[0] = 1;
+    for (unsigned int lineItr = 1; lineItr < pp->getSumLineCount() + 10;
+         lineItr++) {
+      lineInfoCache[lineItr] = lineItr;
+      bool inRange = false;
+      unsigned int indexOpeningRange = 0;
+      unsigned int index = infos.size() - 1;
+      while (1) {
+        if ((lineItr >= infos[index].m_originalLine) &&
+            (infos[index].m_type == 2)) {
+          unsigned int l = infos[index].m_sectionStartLine +
+                           (lineItr - infos[index].m_originalLine);
+          lineInfoCache[lineItr] = l;
+          break;
+        }
+
+        if (infos[index].m_type == 2) {
+          if (!inRange) {
+            inRange = true;
+            indexOpeningRange = infos[index].m_indexOpening;
+          }
+        } else {
+          if (inRange) {
+            if (index == indexOpeningRange) inRange = false;
+          }
+        }
+        if ((lineItr >= infos[index].m_originalLine) &&
+            (infos[index].m_type == 1) && (infos[index].m_indexClosing > -1) &&
+            (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
+          unsigned int l = infos[index].m_sectionStartLine +
+                           (lineItr - infos[index].m_originalLine);
+          lineInfoCache[lineItr] = l;
+          break;
+        }
+        if (index == 0) break;
+        index--;
+      }
+    }
+    return lineInfoCache[line];
   } else {
     return line;
   }
