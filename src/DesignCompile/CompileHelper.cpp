@@ -1818,7 +1818,12 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       NodeId intVec_TypeReg = fC->Child(data_type);
       NodeId packedDimension = fC->Sibling(intVec_TypeReg);
       if (fC->Type(packedDimension) == slStringConst) {
-        packedDimension = 0;  // class or package name;
+        // class or package name;
+        if (fC->Type(fC->Sibling(packedDimension)) == slPacked_dimension) {
+          packedDimension = fC->Sibling(packedDimension);
+        } else {
+          packedDimension = 0;
+        }
       } else if (fC->Type(packedDimension) == slSigning_Signed) {
         is_signed = true;
         packedDimension = fC->Sibling(packedDimension);
