@@ -174,7 +174,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
-    if (fileInfoCache.size()) {
+    if (!fileInfoCache.empty()) {
       return fileInfoCache[line];
     }
     fileInfoCache.resize(pp->getSumLineCount() + 10);
@@ -232,7 +232,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   if (!pp) return 0;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
-    if (lineInfoCache.size()) {
+    if (!lineInfoCache.empty()) {
       return lineInfoCache[line];
     }
     lineInfoCache.resize(pp->getSumLineCount() + 10);
