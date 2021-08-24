@@ -296,8 +296,12 @@ fi
 
 function xrun_cmd {
 
-$SIMULATOR $*                                                                           \
-    -parse -lowmem -mp 8 -verbose ../../../../UVM/uvm-1.2/src/uvm_pkg.sv -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
+$SIMULATOR $*                                                                     \
+    -parse -lowmem -mp 8 -verbose \
+    +incdir+../../../../UVM/uvm-1.2/src \
+    ../../../../UVM/uvm-1.2/src/uvm_pkg.sv \
+    ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
+    -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
     -top wddr_tb_top  +define+no_warning -warn_multiple_driver                    \
     "+define+no_warning" $IS_GLS $DUMP_SPICE_STIM                                 \
     -uvm -ALLOWREDEFINITION +UVM_TIMEOUT=$UVM_TO                                  \
