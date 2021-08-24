@@ -289,7 +289,7 @@ std::string StringUtils::removeComments(std::string_view text) {
       inComment = true;
       result.erase(result.end() - 1);
     }
-    if (c2 == '#') inComment = true;
+    if ((c1 == ' ' || c1 == '\0' || c1 == '\t') && c2 == '#') inComment = true;
     if (c2 == '\n') inComment = false;
     if (!inComment) result += c2;
     c1 = c2;
