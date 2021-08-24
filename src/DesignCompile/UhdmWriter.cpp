@@ -1957,12 +1957,13 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
         m_design->getOrderedPackageDefinitions();
     for (auto& pack : m_design->getPackageDefinitions()) {
       if (pack.first == "builtin") {
-        packages.insert(packages.begin(), pack.second);
+        if (pack.second) packages.insert(packages.begin(), pack.second);
         break;
       }
     }
     VectorOfpackage* v2 = s.MakePackageVec();
     for (Package* pack : packages) {
+      if (!pack) continue;
       if (pack->getFileContents().size() &&
           pack->getType() == VObjectType::slPackage_declaration) {
         const FileContent* fC = pack->getFileContents()[0];
