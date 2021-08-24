@@ -19,6 +19,10 @@ endif
 
 PREFIX ?= /usr/local
 
+# If 'on', then the progress messages are printed. If 'off', makes it easier
+# to detect actual warnings and errors  in the build output.
+RULE_MESSAGES ?= on
+
 release: run-cmake-release
 	cmake --build build -j $(CPU_CORES)
 
@@ -26,10 +30,13 @@ debug: run-cmake-debug
 	cmake --build dbuild -j $(CPU_CORES)
 
 run-cmake-release:
-	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B build
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B build
 
 run-cmake-debug:
-	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -S . -B dbuild
+	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -S . -B dbuild
+
+run-cmake-coverage:
+	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -DMY_CXX_WARNING_FLAGS="--coverage" -S . -B coverage-build
 
 test/unittest: run-cmake-release
 	cmake --build build --target UnitTests -j $(CPU_CORES)
@@ -38,6 +45,17 @@ test/unittest: run-cmake-release
 test/unittest-d: run-cmake-debug
 	cmake --build dbuild --target UnitTests -j $(CPU_CORES)
 	pushd dbuild && ctest --output-on-failure && popd
+
+test/unittest-coverage: run-cmake-coverage
+	cmake --build coverage-build --target UnitTests -j $(CPU_CORES)
+	pushd coverage-build && ctest --output-on-failure && popd
+
+coverage-build/surelog.coverage: test/unittest-coverage
+	lcov --no-external --exclude "*_test.cpp" --capture --directory src --directory coverage-build/ --output-file coverage-build/surelog.coverage
+
+coverage-build/html: coverage-build/surelog.coverage
+	genhtml --output-directory coverage-build/html $^
+	realpath coverage-build/html/index.html
 
 test/regression: run-cmake-release
 	cd build && ../tests/regression.tcl mt=0 show_diff
@@ -66,7 +84,7 @@ regression: release
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
 clean:
-	$(RM) -r build dist
+	$(RM) -r build dbuild coverage-build dist
 
 install: release
 	cmake --install build
