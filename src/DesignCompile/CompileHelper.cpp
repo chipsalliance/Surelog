@@ -3208,6 +3208,7 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
       if (lts->Ranges() && lts->Ranges()->size() >= 1) {
         r = (*lts->Ranges())[0];
       }
+      break;
     }
     default:
       break;
