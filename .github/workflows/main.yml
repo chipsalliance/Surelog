@@ -6,12 +6,29 @@ on:
 
 jobs:
   linux:
+    name: Check · ${{ matrix.mode }}
+
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        mode:
+        - test
+        - regression
+        - install
+    env:
+      MODE: ${{ matrix.mode }}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install dependencies
       run: |
         sudo apt-get update -qq
@@ -30,15 +47,22 @@ jobs:
       with:
         python-version: 3.8
 
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
       with:
         submodules: recursive
         fetch-depth: 0
+
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: linux-${{ matrix.mode }}
 
     - name: Configure shell
       run: |
         echo 'CC=gcc-7' >> $GITHUB_ENV
         echo 'CXX=g++-7' >> $GITHUB_ENV
+        echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
 
     - name: Show shell configuration
@@ -54,16 +78,22 @@ jobs:
         which $CC && $CC --version
         which $CXX && $CXX --version
 
-    - name: Build
+    - name: Test
+      if: matrix.mode == 'test'
+      run: |
+        make test/unittest-d
+
+    - name: Regression
+      if: matrix.mode == 'regression'
+      run: |
+        make regression
+
+    - name: Install Test
+      if: matrix.mode == 'install'
       run: |
         make release
         sudo make install
-
-    - name: Test
-      run: |
         make test_install
-        make test/unittest
-        make regression
 
   msys2-gcc:
     runs-on: windows-latest
@@ -72,6 +102,12 @@ jobs:
         shell: msys2 {0}
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install core dependencies
       run: choco install -y swig --side-by-side --version=3.0.12
       shell: powershell
@@ -156,6 +192,12 @@ jobs:
         shell: cmd
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - name: Install Core Dependencies
       run: |
         choco install -y make
@@ -226,6 +268,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
@@ -235,10 +283,16 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: macos-gcc
+
     - name: Configure shell
       run: |
         echo 'CC=gcc-9' >> $GITHUB_ENV
         echo 'CXX=g++-9' >> $GITHUB_ENV
+        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
 
     - name: Show shell configuration
@@ -273,6 +327,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+    - name: Cancel previous
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
@@ -282,9 +342,15 @@ jobs:
         submodules: recursive
         fetch-depth: 0
 
+    - name: Use ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: macos-clang
+
     - name: Configure shell
       run: |
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo "PATH=$(brew --prefix)/opt/ccache/libexec:$PATH" >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
