@@ -1,6 +1,6 @@
 # This is a nix-shell for use with the nix package manager.
 # If you have nix installed, you may simply run `nix-shell`
-# in this repo, and have all dependencies ready in the new shell. 
+# in this repo, and have all dependencies ready in the new shell.
 
 {pkgs ? import (builtins.fetchTarball {
   # Descriptive name to make the store path easier to identify
@@ -14,7 +14,7 @@
 
 pkgs.mkShell {
   buildInputs = with pkgs;
-    [ 
+    [
       cmake
       swig
       tcl
@@ -26,6 +26,7 @@ pkgs.mkShell {
       time
       gperftools
       zlib
+      lcov
     ];
 
 }
