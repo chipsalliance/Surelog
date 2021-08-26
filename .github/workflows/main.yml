@@ -18,6 +18,7 @@ jobs:
         mode:
         - test
         - regression
+        - coverage
         - install
     env:
       MODE: ${{ matrix.mode }}
@@ -41,7 +42,11 @@ jobs:
           swig \
           google-perftools \
           libgoogle-perftools-dev \
-          uuid-dev
+          uuid-dev \
+          lcov
+        sudo ln -sf /usr/bin/g++-7 /usr/bin/g++
+        sudo ln -sf /usr/bin/gcc-7 /usr/bin/gcc
+        sudo ln -sf /usr/bin/gcov-7 /usr/bin/gcov
 
     - uses: actions/setup-python@v2
       with:
@@ -87,6 +92,19 @@ jobs:
       if: matrix.mode == 'regression'
       run: |
         make regression
+
+    - name: Coverage
+      if: matrix.mode == 'coverage'
+      run: |
+        make coverage-build/surelog.coverage
+
+    - name: Upload coverage
+      # will show up under https://app.codecov.io/gh/chipsalliance/Surelog
+      if: matrix.mode == 'coverage'
+      uses: codecov/codecov-action@v2
+      with:
+        files: coverage-build/surelog.coverage
+        fail_ci_if_error: false
 
     - name: Install Test
       if: matrix.mode == 'install'
