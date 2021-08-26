@@ -553,12 +553,13 @@ void PreprocessFile::checkMacroArguments_(
         StringUtils::trim(StringUtils::rtrimEqual(StringUtils::trim(s))));
   }
   for (auto s : tokens) {
-    tokenSet.insert(StringUtils::trim(s));
+    std::string tok = StringUtils::trim(s);
+    tok = StringUtils::replaceAll(tok, "``", "");
+    tok = StringUtils::replaceAll(tok, "`", "");
+    tokenSet.insert(tok);
   }
   for (auto s : argSet) {
-    if (tokenSet.find(s) == tokenSet.end() &&
-        tokenSet.find("``" + s + "``") == tokenSet.end() &&
-        tokenSet.find(s + "``") == tokenSet.end()) {
+    if (tokenSet.find(s) == tokenSet.end()) {
       Location loc(m_fileId, line, column, registerSymbol(s));
       Error err(ErrorDefinition::PP_MACRO_UNUSED_ARGUMENT, loc);
       addError(err);

@@ -297,13 +297,13 @@ fi
 function xrun_cmd {
 
 $SIMULATOR $*                                                                     \
-    -parse -lowmem -mp 8 -verbose \
+    -parse  -verbose \
     +incdir+../../../../UVM/uvm-1.2/src \
     ../../../../UVM/uvm-1.2/src/uvm_pkg.sv \
     ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
     -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
     -top wddr_tb_top  +define+no_warning -warn_multiple_driver                    \
-    "+define+no_warning" $IS_GLS $DUMP_SPICE_STIM                                 \
+    +define+no_warning $IS_GLS $DUMP_SPICE_STIM                                 \
     -uvm -ALLOWREDEFINITION +UVM_TIMEOUT=$UVM_TO                                  \
     +define+NOTBV=true +nowarn+FUNTSK +nowarn+UEXPSC +nowarn+ENUMERR              \
     +UVM_VERBOSITY=UVM_FULL +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR              \
@@ -311,9 +311,7 @@ $SIMULATOR $*                                                                   
     $EXTRA_CMD                                                                    \
     +define+LPK                                                                   \
     +define+DENALI_SV_NC +define+DENALI_UVM                   \
-    -timescale="1ns/1ps"                                    \
-    +incdir+../../../../UVM/uvm-1.2/src \
-    ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
+    -timescale=1ns/1ps                                    \
     +incdir+${VERIF}                                                              \
     +incdir+${VERIF}/run                                                          \
     +incdir+${VERIF}/tb_top                                                       \
