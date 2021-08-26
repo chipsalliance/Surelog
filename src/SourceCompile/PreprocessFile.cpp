@@ -670,8 +670,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   std::string result;
   bool found = false;
   const std::vector<std::string>& formal_args = macroInfo->m_arguments;
-  // Don't modify the actual tokens of the macro, make a copy...
-  std::vector<std::string> body_tokens = macroInfo->m_tokens;
+  const std::vector<std::string>& orig_body_tokens = macroInfo->m_tokens;
 
   if (instructions.m_check_macro_loop) {
     bool loop = loopChecker.addEdge(callingFile->m_fileId, getId(name));
@@ -692,6 +691,17 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       }
     }
   }
+  // Don't modify the actual tokens of the macro, make a copy...
+  std::vector<std::string> body_tokens;
+  for (const std::string& tok : orig_body_tokens) {
+    if (tok == "``_``") {
+      body_tokens.push_back("``");
+      body_tokens.push_back("_");
+      body_tokens.push_back("``");
+    } else {
+      body_tokens.push_back(tok);
+    }
+  }
 
   StringUtils::replaceInTokenVector(body_tokens, "`\"", "\"");
   StringUtils::replaceInTokenVector(body_tokens, "`\\`\"", "\\\"");
@@ -704,6 +714,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
           SpecialInstructions::CheckLoop,
           SpecialInstructions::AsIsUndefinedMacroInstr::ComplainUndefinedMacro);
     }
+    actual_args[i] = StringUtils::trim(actual_args[i]);
   }
 
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
@@ -748,6 +759,8 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
         actual_args[i] = "";
       }
 
+      StringUtils::replaceInTokenVector(body_tokens, {"``", "`" + formal, "``"},
+                                        "`" + actual_args[i]);
       StringUtils::replaceInTokenVector(body_tokens, {"``", formal, "``"},
                                         actual_args[i]);
       StringUtils::replaceInTokenVector(body_tokens, "``" + formal + "``",
