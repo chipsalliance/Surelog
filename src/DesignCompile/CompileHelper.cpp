@@ -2144,22 +2144,22 @@ bool CompileHelper::isDecreasingRange(UHDM::typespec* ts,
     range* r = nullptr;
     if (ttps == uhdmlogic_typespec) {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
     } else if (ttps == uhdmarray_typespec) {
       array_typespec* lts = (array_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
     } else if (ttps == uhdmpacked_array_typespec) {
       packed_array_typespec* lts = (packed_array_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
     } else if (ttps == uhdmbit_typespec) {
       bit_typespec* lts = (bit_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
     }
@@ -3184,30 +3184,31 @@ bool CompileHelper::valueRange(Value* val, UHDM::typespec* ts,
   switch (type) {
     case uhdmlogic_typespec: {
       logic_typespec* lts = (logic_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       break;
     }
     case uhdmarray_typespec: {
       array_typespec* lts = (array_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       break;
     }
     case uhdmpacked_array_typespec: {
       packed_array_typespec* lts = (packed_array_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
       break;
     }
     case uhdmbit_typespec: {
       bit_typespec* lts = (bit_typespec*)ts;
-      if (lts->Ranges() && lts->Ranges()->size() >= 1) {
+      if (lts->Ranges() && !lts->Ranges()->empty()) {
         r = (*lts->Ranges())[0];
       }
+      break;
     }
     default:
       break;

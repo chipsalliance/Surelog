@@ -14,9 +14,9 @@ git submodule update --init --recursive
 
 * cmake >= 3.13
 
-### Ubuntu/Debian 
+### Ubuntu/Debian
 
-`sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev default-jre`
+`sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev default-jre lcov`
 
 *Note:* If you intend to change the grammar, add: `sudo apt-get install ant`
 
@@ -47,12 +47,26 @@ For debug builds:
 make debug
 ```
 
+As a guide where unit tests are not covering code yet (we're using [gtest]),
+run
+
+```
+make coverage-build/html
+```
+
+This creates an HTML output allowing to drill down to each line indicating
+if it was covered in a unit test.
+
+Helping out here would be in particular useful to the project, as most code
+is only covered by regression tests currently but not by targeted unittests
+explicitly probing the correctness of the implemented functionality.
+
 Installation:
 ```
 make install
 ```
 
-The installation path may be set by specifying a `PREFIX`. The default is `/usr/local`. 
+The installation path may be set by specifying a `PREFIX`. The default is `/usr/local`.
 For example:
 ```
 make install PREFIX=~/.local
@@ -60,3 +74,5 @@ make install PREFIX=~/.local
 
 
   * or see [`src/README`](./src/README.md)
+
+[gtest]: https://github.com/google/googletest
