@@ -1076,7 +1076,7 @@ task_prototype : TASK identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )?
 
 block_item_declaration  
     : ( attribute_instance )* ( data_declaration                 
-                              | local_parameter_declaration      
+                              | local_parameter_declaration SEMICOLUMN      
                               | parameter_declaration SEMICOLUMN 
                               | overload_declaration )             
                               ; 

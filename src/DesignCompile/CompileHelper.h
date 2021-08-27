@@ -169,6 +169,9 @@ class CompileHelper final {
                                    bool port_param, bool reduce,
                                    bool muteErrors);
 
+  NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId,
+                               UHDM::task_func* func);
+
   bool compileTask(DesignComponent* component, const FileContent* fC,
                    NodeId nodeId, CompileDesign* compileDesign,
                    bool isMethod = false);

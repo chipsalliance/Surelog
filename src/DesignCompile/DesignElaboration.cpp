@@ -1443,7 +1443,7 @@ void DesignElaboration::elaborateInstance_(
                                                m_compileDesign, nullptr, parent,
                                                true, false);
               int64_t right = 0;
-              if (rightNode)
+              if (rightNode && (fC->Type(rightNode) == slConstant_expression))
                 right = m_helper.getValue(validValue, def, fC, rightNode,
                                           m_compileDesign, nullptr, parent,
                                           true, false);

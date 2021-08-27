@@ -297,7 +297,7 @@ fi
 function xrun_cmd {
 
 $SIMULATOR $*                                                                     \
-    -parse  -verbose \
+    -parse -lowmem  -verbose \
     +incdir+../../../../UVM/uvm-1.2/src \
     ../../../../UVM/uvm-1.2/src/uvm_pkg.sv \
     ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
