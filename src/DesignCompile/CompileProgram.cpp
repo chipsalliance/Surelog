@@ -64,7 +64,7 @@ bool CompileProgram::compile() {
 
   Error err1(ErrorDefinition::COMP_COMPILE_PROGRAM, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
-  errors->regiterCmdLine(
+  errors->registerCmdLine(
       m_compileDesign->getCompiler()->getCommandLineParser());
   errors->addError(err1);
   errors->printMessage(

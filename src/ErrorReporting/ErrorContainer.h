@@ -61,12 +61,12 @@ class ErrorContainer {
                  LogListener* const logListener = nullptr);
   virtual ~ErrorContainer();
 
-  void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
+  void registerCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
 
-  std::vector<Error>& getErrors() { return m_errors; }
+  const std::vector<Error>& getErrors() const { return m_errors; }
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
   bool printStats(Stats stats, bool muteStdout = false);

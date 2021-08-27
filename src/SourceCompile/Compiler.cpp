@@ -159,7 +159,7 @@ bool Compiler::ppinit_() {
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
     m_errorContainers.push_back(errors);
-    errors->regiterCmdLine(m_commandLineParser);
+    errors->registerCmdLine(m_commandLineParser);
 
     const std::string fileName =
         m_commandLineParser->getSymbolTable().getSymbol(source_file_id);
@@ -211,7 +211,7 @@ bool Compiler::ppinit_() {
     }
     ErrorContainer* errors = new ErrorContainer(symbols);
     m_errorContainers.push_back(errors);
-    errors->regiterCmdLine(m_commandLineParser);
+    errors->registerCmdLine(m_commandLineParser);
 
     std::string fullPath = FileUtils::getFullPath(
         m_commandLineParser->getSymbolTable().getSymbol(id));
@@ -254,7 +254,7 @@ bool Compiler::ppinit_() {
       }
       ErrorContainer* errors = new ErrorContainer(symbols);
       m_errorContainers.push_back(errors);
-      errors->regiterCmdLine(m_commandLineParser);
+      errors->registerCmdLine(m_commandLineParser);
 
       CompileSourceFile* compiler = new CompileSourceFile(
           id, m_commandLineParser, errors, this, symbols, comp_unit, &lib);
@@ -636,7 +636,7 @@ bool Compiler::parseinit_() {
         // fileContent->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
         m_errorContainers.push_back(errors);
-        errors->regiterCmdLine(m_commandLineParser);
+        errors->registerCmdLine(m_commandLineParser);
         compiler->setErrorContainer(errors);
       }
 
@@ -660,7 +660,7 @@ bool Compiler::parseinit_() {
         chunkCompiler->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
         m_errorContainers.push_back(errors);
-        errors->regiterCmdLine(m_commandLineParser);
+        errors->registerCmdLine(m_commandLineParser);
         chunkCompiler->setErrorContainer(errors);
         // chunkCompiler->getParser ()->setFileContent (fileContent);
 
@@ -681,7 +681,7 @@ bool Compiler::parseinit_() {
         compiler->setSymbolTable(symbols);
         ErrorContainer* errors = new ErrorContainer(symbols);
         m_errorContainers.push_back(errors);
-        errors->regiterCmdLine(m_commandLineParser);
+        errors->registerCmdLine(m_commandLineParser);
         compiler->setErrorContainer(errors);
       }
 

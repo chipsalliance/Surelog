@@ -65,6 +65,8 @@
 
 namespace SURELOG {
 
+PreprocessHarness::PreprocessHarness() : m_errors(&m_symbols) {}
+
 std::string PreprocessHarness::preprocess(std::string_view content) {
   std::string result;
   PreprocessFile::SpecialInstructions instructions(
@@ -74,23 +76,20 @@ std::string PreprocessHarness::preprocess(std::string_view content) {
       PreprocessFile::SpecialInstructions::CheckLoop,
       PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
   CompilationUnit unit(false);
-  SymbolTable symbols;
-  ErrorContainer errors(&symbols);
-  CommandLineParser clp(&errors, &symbols, false, false);
-  Library lib("work", &symbols);
-  Compiler compiler(&clp, &errors, &symbols);
-  CompileSourceFile csf(0, &clp, &errors, &compiler, &symbols, &unit, &lib);
+  CommandLineParser clp(&m_errors, &m_symbols, false, false);
+  Library lib("work", &m_symbols);
+  Compiler compiler(&clp, &m_errors, &m_symbols);
+  CompileSourceFile csf(0, &clp, &m_errors, &compiler, &m_symbols, &unit, &lib);
   PreprocessFile pp(0, nullptr, 0, &csf, instructions, &unit, &lib, content,
                     nullptr, 0, 0);
 
   if (!pp.preprocess()) {
     result = "ERROR_PP";
   }
-  bool fatalErrors = errors.hasFatalErrors();
-  if (fatalErrors) {
+  if (m_errors.hasFatalErrors()) {
     result = "ERROR_PP";
   }
-  errors.printMessages();
+  m_errors.printMessages();
   if (result.empty()) result = pp.getPreProcessedFileContent();
   return result;
 }

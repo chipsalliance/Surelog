@@ -49,8 +49,8 @@ class Error {
   /* Do not create Copy constructor, use default*/
   // Error(const Error& orig);
   virtual ~Error();
-  std::vector<Location>& getLocations() { return m_locations; }
-  ErrorDefinition::ErrorType getType() { return m_errorId; }
+  const std::vector<Location>& getLocations() const { return m_locations; }
+  const ErrorDefinition::ErrorType getType() const { return m_errorId; }
 
  private:
   std::vector<Location> m_locations;

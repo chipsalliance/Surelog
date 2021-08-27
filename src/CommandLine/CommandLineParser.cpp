@@ -333,7 +333,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_uhdmStats(false),
       m_lowMem(false),
       m_writeUhdm(true) {
-  m_errors->regiterCmdLine(this);
+  m_errors->registerCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
   m_compileAllDirectory = m_symbolTable->registerSymbol("slpp_all/");
