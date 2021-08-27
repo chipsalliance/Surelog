@@ -54,7 +54,7 @@ using namespace SURELOG;
 static std::string defaultLogFileName = "surelog.log";
 // !!! Update this number when the grammar changes !!!
 //        This will render the cache invalid
-std::string CommandLineParser::m_versionNumber = "1.07";
+std::string CommandLineParser::m_versionNumber = "1.08";
 
 static const std::vector<std::string> copyright = {
     "Copyright (c) 2017-2021 Alain Dargelas,",
@@ -914,10 +914,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-filtercomments") {
       m_filterComments = true;
     } else if (all_arguments[i] == "-parse") {
-      m_writePpOutput = true;
-      m_parse = true;
-      m_compile = true;
-      m_elaborate = true;
+        m_writePpOutput = true;
+        m_parse = true;
+        m_compile = true;
+        m_elaborate = true;
     } else if (all_arguments[i] == "-parseonly") {
       m_writePpOutput = true;
       m_parse = true;

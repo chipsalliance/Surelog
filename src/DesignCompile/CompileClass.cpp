@@ -443,9 +443,22 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
      n<> u<147> t<Task_declaration> p<148> c<146> l<37>
      n<> u<148> t<Class_method> p<149> c<147> l<37>
      */
-    NodeId task_body_decl = fC->Child(func_decl);
-    NodeId task_name = fC->Child(task_body_decl);
-    taskName = fC->SymName(task_name);
+
+    NodeId task_decl = m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
+    NodeId Task_body_declaration = 0;
+    if (fC->Type(task_decl) == slTask_body_declaration)
+      Task_body_declaration = task_decl;
+    else
+      Task_body_declaration = fC->Child(task_decl);
+    NodeId task_name = fC->Child(Task_body_declaration);
+    if (fC->Type(task_name) == VObjectType::slStringConst)
+      taskName = fC->SymName(task_name);
+    else if (fC->Type(task_name) == VObjectType::slClass_scope) {
+      NodeId Class_type = fC->Child(task_name);
+      taskName = fC->SymName(fC->Child(Class_type));
+      taskName += "::" + fC->SymName(fC->Sibling(task_name));
+      taskName = fC->Sibling(task_name);
+    }
 
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
     m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
@@ -462,8 +475,22 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
      */
     NodeId func_prototype = fC->Child(func_decl);
     if (fC->Type(func_prototype) == VObjectType::slTask_prototype) {
-      NodeId task_name = fC->Child(func_prototype);
-      taskName = fC->SymName(task_name);
+      NodeId task_decl =
+          m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
+      NodeId Task_body_declaration = 0;
+      if (fC->Type(task_decl) == slTask_body_declaration)
+        Task_body_declaration = task_decl;
+      else
+        Task_body_declaration = fC->Child(task_decl);
+      NodeId task_name = fC->Child(Task_body_declaration);
+      if (fC->Type(task_name) == VObjectType::slStringConst)
+        taskName = fC->SymName(task_name);
+      else if (fC->Type(task_name) == VObjectType::slClass_scope) {
+        NodeId Class_type = fC->Child(task_name);
+        taskName = fC->SymName(fC->Child(Class_type));
+        taskName += "::" + fC->SymName(fC->Sibling(task_name));
+        taskName = fC->Sibling(task_name);
+      }
 
       m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
       m_helper.compileTask(m_class, fC, fC->Child(id), m_compileDesign, true);
