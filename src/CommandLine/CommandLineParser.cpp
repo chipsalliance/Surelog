@@ -914,10 +914,10 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-filtercomments") {
       m_filterComments = true;
     } else if (all_arguments[i] == "-parse") {
-        m_writePpOutput = true;
-        m_parse = true;
-        m_compile = true;
-        m_elaborate = true;
+      m_writePpOutput = true;
+      m_parse = true;
+      m_compile = true;
+      m_elaborate = true;
     } else if (all_arguments[i] == "-parseonly") {
       m_writePpOutput = true;
       m_parse = true;

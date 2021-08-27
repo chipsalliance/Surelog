@@ -444,7 +444,8 @@ bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
      n<> u<148> t<Class_method> p<149> c<147> l<37>
      */
 
-    NodeId task_decl = m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
+    NodeId task_decl =
+        m_helper.setFuncTaskQualifiers(fC, fC->Child(id), nullptr);
     NodeId Task_body_declaration = 0;
     if (fC->Type(task_decl) == slTask_body_declaration)
       Task_body_declaration = task_decl;
