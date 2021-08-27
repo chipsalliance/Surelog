@@ -5083,8 +5083,8 @@ public:
     virtual size_t getRuleIndex() const override;
     Data_declarationContext *data_declaration();
     Local_parameter_declarationContext *local_parameter_declaration();
-    Parameter_declarationContext *parameter_declaration();
     antlr4::tree::TerminalNode *SEMICOLUMN();
+    Parameter_declarationContext *parameter_declaration();
     Overload_declarationContext *overload_declaration();
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);

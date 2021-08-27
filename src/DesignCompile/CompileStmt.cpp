@@ -1218,8 +1218,8 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(
   return ios;
 }
 
-NodeId setFuncTaskQualifiers(const FileContent* fC, NodeId nodeId,
-                             task_func* func) {
+NodeId CompileHelper::setFuncTaskQualifiers(const FileContent* fC,
+                                            NodeId nodeId, task_func* func) {
   NodeId func_decl = nodeId;
   VObjectType func_type = fC->Type(nodeId);
 

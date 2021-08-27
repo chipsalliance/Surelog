@@ -225,29 +225,30 @@ bool ParseCache::save() {
   /* Cache the design content */
   FileContent* fcontent = m_parse->getFileContent();
   std::vector<flatbuffers::Offset<PARSECACHE::DesignElement>> element_vec;
-  for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
-    DesignElement& elem = fcontent->getDesignElements()[i];
-    TimeInfo& info = elem.m_timeInfo;
-    auto timeInfo = CACHE::CreateTimeInfo(
-        builder, static_cast<uint16_t>(info.m_type),
-        canonicalSymbols.getId(
-            m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_fileId)),
-        info.m_line, static_cast<uint16_t>(info.m_timeUnit),
-        info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
-        info.m_timePrecisionValue);
-    element_vec.push_back(PARSECACHE::CreateDesignElement(
-        builder,
-        canonicalSymbols.getId(
-            m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                elem.m_name)),
-        canonicalSymbols.getId(
-            m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                elem.m_fileId)),
-        elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column,
-        elem.m_endLine, elem.m_endColumn, timeInfo, elem.m_parent,
-        elem.m_node));
-  }
+  if (fcontent)
+    for (unsigned int i = 0; i < fcontent->getDesignElements().size(); i++) {
+      DesignElement& elem = fcontent->getDesignElements()[i];
+      TimeInfo& info = elem.m_timeInfo;
+      auto timeInfo = CACHE::CreateTimeInfo(
+          builder, static_cast<uint16_t>(info.m_type),
+          canonicalSymbols.getId(
+              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                  info.m_fileId)),
+          info.m_line, static_cast<uint16_t>(info.m_timeUnit),
+          info.m_timeUnitValue, static_cast<uint16_t>(info.m_timePrecision),
+          info.m_timePrecisionValue);
+      element_vec.push_back(PARSECACHE::CreateDesignElement(
+          builder,
+          canonicalSymbols.getId(
+              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                  elem.m_name)),
+          canonicalSymbols.getId(
+              m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                  elem.m_fileId)),
+          elem.m_type, elem.m_uniqueId, elem.m_line, elem.m_column,
+          elem.m_endLine, elem.m_endColumn, timeInfo, elem.m_parent,
+          elem.m_node));
+    }
   auto elementList = builder.CreateVector(element_vec);
 
   /* Cache the design objects */
