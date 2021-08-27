@@ -395,6 +395,6 @@ bool ErrorDefinition::init() {
   rec(UHDM_WRITE_DB, INFO, UHDM, "Writing UHDM DB: %s..");
   rec(UHDM_WRITE_HTML_COVERAGE, INFO, UHDM, "Writing UHDM Html Coverage: %s..");
   rec(UHDM_LOAD_DB, INFO, UHDM, "Loading UHDM DB: %s..");
-  rec(UHDM_VISITOR, INFO, UHDM, "Decompling UHDM..");
+  rec(UHDM_VISITOR, INFO, UHDM, "Decompiling UHDM..");
   return true;
 }

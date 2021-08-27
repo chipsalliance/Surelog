@@ -2143,13 +2143,16 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getUhdmStats())
     printUhdmStats(s);
 
-  {
-    Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
-    m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
-    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
-        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
+    {
+      Error err(ErrorDefinition::UHDM_WRITE_DB, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err);
+      m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+          m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+    }
+
+    s.Save(uhdmFile);
   }
-  s.Save(uhdmFile);
 
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm() ||
       m_compileDesign->getCompiler()->getCommandLineParser()->getCoverUhdm()) {
@@ -2167,30 +2170,45 @@ vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
     delete uhdmchecker;
   }
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
-    Location loc(
+    if (m_compileDesign->getCompiler()->getCommandLineParser()->writeUhdm()) {
+      Location loc(
         m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
             uhdmFile));
-    Error err1(ErrorDefinition::UHDM_LOAD_DB, loc);
-    m_compileDesign->getCompiler()->getErrorContainer()->addError(err1);
-    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+      Error err1(ErrorDefinition::UHDM_LOAD_DB, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err1);
+      m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+      const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
+
+      Error err2(ErrorDefinition::UHDM_VISITOR, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err2);
+      m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
         m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
 
-    const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
-
-    Error err2(ErrorDefinition::UHDM_VISITOR, loc);
-    m_compileDesign->getCompiler()->getErrorContainer()->addError(err2);
-    m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
-        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
-
-    std::cout << "====== UHDM =======\n";
-    if (restoredDesigns.size()) {
-      designHandle = restoredDesigns[0];
-    }
-    vpi_show_ids(
+      std::cout << "====== UHDM =======\n";
+      if (restoredDesigns.size()) {
+        designHandle = restoredDesigns[0];
+      }
+      vpi_show_ids(
         m_compileDesign->getCompiler()->getCommandLineParser()->showVpiIds());
-    std::string restored = visit_designs(restoredDesigns);
-    std::cout << restored;
-    std::cout << "===================\n";
+      std::string restored = visit_designs(restoredDesigns);
+      std::cout << restored;
+      std::cout << "===================\n";
+    } else {
+      Location loc(
+        m_compileDesign->getCompiler()->getSymbolTable()->registerSymbol(
+            "in-memory uhdm"));
+      Error err2(ErrorDefinition::UHDM_VISITOR, loc);
+      m_compileDesign->getCompiler()->getErrorContainer()->addError(err2);
+      m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
+        m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
+      std::cout << "====== UHDM =======\n";
+      vpi_show_ids(
+        m_compileDesign->getCompiler()->getCommandLineParser()->showVpiIds());
+      std::string result = visit_designs({designHandle});
+      std::cout << result;
+      std::cout << "===================\n";        
+    }
   }
   m_compileDesign->getCompiler()->getErrorContainer()->printMessages(
       m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
