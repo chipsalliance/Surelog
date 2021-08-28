@@ -64,6 +64,9 @@ using namespace UHDM;
 bool CompileHelper::substituteAssignedValue(const UHDM::any* oper,
                                             CompileDesign* compileDesign) {
   bool substitute = true;
+  if (!oper) {
+    return false;
+  }
   UHDM_OBJECT_TYPE opType = oper->UhdmType();
   if (opType == uhdmoperation) {
     operation* op = (operation*)oper;
