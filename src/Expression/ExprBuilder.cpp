@@ -902,9 +902,16 @@ Value* ExprBuilder::fromVpiValue(const std::string& s, unsigned short size) {
         break;
     }
   } else if ((pos = s.find("BIN:")) != std::string::npos) {
-    val = m_valueFactory.newLValue();
-    uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
-    val->set(v, Value::Type::Unsigned, size ? size : 0);
+    if (strstr(s.c_str(), "X") || strstr(s.c_str(), "Z")) {
+      StValue* sval = (StValue*)m_valueFactory.newStValue();
+      sval->set(s.c_str() + pos + strlen("BIN:"), Value::Type::Binary,
+                (size ? size : s.size()));
+      val = sval;
+    } else {
+      val = m_valueFactory.newLValue();
+      uint64_t v = std::strtoull(s.c_str() + pos + strlen("BIN:"), 0, 2);
+      val->set(v, Value::Type::Unsigned, size ? size : 0);
+    }
   } else if ((pos = s.find("HEX:")) != std::string::npos) {
     if (s.size() > 20) {  // HEX:FFFFFFFFFFFFFFFF
       StValue* sval = (StValue*)m_valueFactory.newStValue();
