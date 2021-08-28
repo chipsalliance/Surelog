@@ -301,6 +301,10 @@ $SIMULATOR $*                                                                   
     +incdir+../../../../UVM/uvm-1.2/src \
     ../../../../UVM/uvm-1.2/src/uvm_pkg.sv \
     ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
+    $APB_PKG                                                                      \
+    $WDDR_PKG                                                                     \
+    ${RTL}/wddr/ddr_global_pkg.sv                                                 \
+    ${RTL}/mcu_ibex/wav_mcu_pkg.sv                                                \
     -stop_on_build_error -sv -64bit -disable_sem2009 -licqueue                    \
     -top wddr_tb_top  +define+no_warning -warn_multiple_driver                    \
     +define+no_warning $IS_GLS $DUMP_SPICE_STIM                                 \
@@ -325,12 +329,8 @@ $SIMULATOR $*                                                                   
                                                            \
       $WORK_LIB_XRUN                                   \
     $RTL_FILES                                                                    \
-    ${RTL}/wddr/ddr_global_pkg.sv                                                 \
-    ${RTL}/mcu_ibex/wav_mcu_pkg.sv                                                \
-    $APB_PKG                                                                      \
     ${VERIF}/sv/agents/mm/wav_mm.sv                                               \
     ${VERIF}/sv/agents/APB/apb_to_ahb.v                                           \
-    $WDDR_PKG                                                                     \
     ${VERIF}/tb_top/wddr_tb_top.sv
 }
 

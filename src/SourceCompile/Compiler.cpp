@@ -998,7 +998,7 @@ bool Compiler::compile() {
     std::string directory = m_commandLineParser->getSymbolTable().getSymbol(
         m_commandLineParser->getFullCompileDir());
     std::string uhdmFile = directory + "/surelog.uhdm";
-   
+
     m_uhdmDesign = compileDesign->writeUHDM(uhdmFile);
     // Do not delete as now UHDM has to live past the compilation step
     // delete compileDesign;

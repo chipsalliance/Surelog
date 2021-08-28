@@ -1427,39 +1427,58 @@ bool CompileHelper::compileTask(DesignComponent* component,
     while (Statement_or_null) {
       if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
         break;
-      if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null,
-                                         compileDesign, begin)) {
-        for (any* st : *sts) {
-          UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
-          if (stmt_type == uhdmparam_assign) {
-            UHDM::VectorOfparam_assign* param_assigns = task->Param_assigns();
-            if (param_assigns == nullptr) {
-              task->Param_assigns(s.MakeParam_assignVec());
-              param_assigns = task->Param_assigns();
-            }
-            if (param_assign* pst = dynamic_cast<param_assign*>(st))
-              param_assigns->push_back(pst);
-          } else if (stmt_type == uhdmassign_stmt) {
-            assign_stmt* stmt = (assign_stmt*)st;
-            if (stmt->Rhs() == nullptr ||
-                dynamic_cast<variables*>((expr*)stmt->Lhs())) {
-              // Declaration
-              VectorOfvariables* vars = task->Variables();
-              if (vars == nullptr) {
-                task->Variables(s.MakeVariablesVec());
-                vars = task->Variables();
+      if (fC->Type(fC->Child(Statement_or_null)) == slTf_port_declaration) {
+        auto results =
+            compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
+        if (task->Io_decls() == nullptr) {
+          task->Io_decls(results.first);
+        } else {
+          for (auto v : *results.first) {
+            task->Io_decls()->push_back(v);
+          }
+        }
+        if (task->Variables()) {
+          task->Variables(results.second);
+        } else {
+          for (auto v : *results.second) {
+            task->Variables()->push_back(v);
+          }
+        }
+      } else {
+        if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null,
+                                           compileDesign, begin)) {
+          for (any* st : *sts) {
+            UHDM_OBJECT_TYPE stmt_type = st->UhdmType();
+            if (stmt_type == uhdmparam_assign) {
+              UHDM::VectorOfparam_assign* param_assigns = task->Param_assigns();
+              if (param_assigns == nullptr) {
+                task->Param_assigns(s.MakeParam_assignVec());
+                param_assigns = task->Param_assigns();
               }
-              vars->push_back((variables*)stmt->Lhs());
-              if (stmt->Rhs() != nullptr) {
+              if (param_assign* pst = dynamic_cast<param_assign*>(st))
+                param_assigns->push_back(pst);
+            } else if (stmt_type == uhdmassign_stmt) {
+              assign_stmt* stmt = (assign_stmt*)st;
+              if (stmt->Rhs() == nullptr ||
+                  dynamic_cast<variables*>((expr*)stmt->Lhs())) {
+                // Declaration
+                VectorOfvariables* vars = task->Variables();
+                if (vars == nullptr) {
+                  task->Variables(s.MakeVariablesVec());
+                  vars = task->Variables();
+                }
+                vars->push_back((variables*)stmt->Lhs());
+                if (stmt->Rhs() != nullptr) {
+                  stmts->push_back(st);
+                }
+              } else {
                 stmts->push_back(st);
               }
             } else {
               stmts->push_back(st);
             }
-          } else {
-            stmts->push_back(st);
+            st->VpiParent(begin);
           }
-          st->VpiParent(begin);
         }
       }
       Statement_or_null = fC->Sibling(Statement_or_null);
