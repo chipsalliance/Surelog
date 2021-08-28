@@ -312,7 +312,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
 #else
       m_pythonAllowed(false),
 #endif
-      m_nbLinesForFileSplitting(500),
+      m_nbLinesForFileSplitting(10000000),
       m_pythonEvalScriptPerFile(false),
       m_pythonEvalScript(false),
       m_pythonEvalScriptPerFileId(0),

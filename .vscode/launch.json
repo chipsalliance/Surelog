@@ -600,6 +600,25 @@
             ]
         },
         {
+            "name": "LowMemPkg",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "LowMemPkg.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/LowMemPkg",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "HelloUhdm",
             "type": "cppdbg",
             "request": "launch",

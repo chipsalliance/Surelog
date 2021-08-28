@@ -1,0 +1,1 @@
+-parse -lowmem  wddr_pkg.sv dut.sv -nobuiltin -d ast -elabuhdm -d uhdm
