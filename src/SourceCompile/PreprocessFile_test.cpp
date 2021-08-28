@@ -26,6 +26,14 @@ using ::testing::ElementsAre;
 
 namespace SURELOG {
 namespace {
+
+static bool ContainsError(const ErrorContainer &errors,
+                          ErrorDefinition::ErrorType etype) {
+  return std::count_if(
+      errors.getErrors().begin(), errors.getErrors().end(),
+      [etype](const Error &e) { return e.getType() == etype; });
+}
+
 TEST(PreprocessTest, PreprocessWithoutPPTokens) {
   PreprocessHarness harness;
   const std::string res = harness.preprocess("module top(); endmodule");
@@ -52,11 +60,13 @@ TEST(PreprocessTest, PreprocessTwoParameterExpansion) {
 `define BAR(a, b) (a)*2+( b )
 module top();
   assign b = `BAR(3 * c, 2*d);
+  assign c = `BAR(((4 * c)), ((3*d)));
 endmodule)");
 
   EXPECT_EQ(res, R"(
 module top();
   assign b = (3 * c)*2+( 2*d );
+  assign c = (((4 * c)))*2+( ((3*d)) );
 endmodule)");
 }
 
@@ -88,6 +98,51 @@ endmodule)");
 module top();
   assign b = 1 * 2;
   assign c = 42 * 2;  // Default applies
+endmodule)");
+}
+
+TEST(PreprocessTest, PreprocessMacroReportErrorOnTooManyParameters) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOO_FUN(a) a * 42
+module top();
+  assign a = `FOO_FUN(123, 12);
+endmodule)");
+
+  EXPECT_TRUE(ContainsError(harness.collected_errors(),
+                            ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
+
+  EXPECT_EQ(res, R"(
+module top();
+  assign a = 123 * 42;
+endmodule)");
+}
+
+// With zero arg macro, the testing for too many args fails.
+// Documenting a bug: this results in unexpected results.
+TEST(PreprocessTest, PreprocessMacroReportErrorOnOneInsteadZeroParameters) {
+  PreprocessHarness harness;
+  const std::string res = harness.preprocess(R"(
+`define FOO_FUN() 42
+module top();
+  assign a = `FOO_FUN(123);
+endmodule)");
+
+  // BUG: this is actually not reporting an error, but leaving the parameter in
+  // parenthesis at the end. This is probably internally due to FOO_FUN not
+  // distinguishing non-arg macros vs. macro-calls with no parameters.
+#if 0
+  EXPECT_TRUE(ContainsError(harness.collected_errors(),
+                            ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
+#endif
+
+  // This is currently what we get as output instead, but this should be
+  // either nothing or not include the leftover superfluous parameter
+  EXPECT_EQ(res, R"(
+module top();
+  assign a = 42
+(123)
+;
 endmodule)");
 }
 

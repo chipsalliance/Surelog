@@ -130,23 +130,21 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
                    SymbolTable& canonicalSymbols,
                    ErrorContainer* errorContainer, SymbolTable* symbols,
                    SymbolId subjectId) {
-  std::vector<Error>& errors = errorContainer->getErrors();
+  const std::vector<Error>& errors = errorContainer->getErrors();
   std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> error_vec;
-  for (unsigned int i = 0; i < errors.size(); i++) {
-    Error& error = errors[i];
-    std::vector<Location>& locs = error.getLocations();
-    if (locs.size()) {
+  for (const Error& error : errors) {
+    const std::vector<Location>& locs = error.getLocations();
+    if (!locs.empty()) {
       bool matchSubject = false;
-      for (unsigned int j = 0; j < locs.size(); j++) {
-        if (locs[j].m_fileId == subjectId) {
+      for (const Location& loc : locs) {
+        if (loc.m_fileId == subjectId) {
           matchSubject = true;
           break;
         }
       }
       if (matchSubject) {
         std::vector<flatbuffers::Offset<SURELOG::CACHE::Location>> location_vec;
-        for (unsigned int j = 0; j < locs.size(); j++) {
-          Location& loc = locs[j];
+        for (const Location& loc : locs) {
           SymbolId canonicalFileId =
               canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
           SymbolId canonicalObjectId =
