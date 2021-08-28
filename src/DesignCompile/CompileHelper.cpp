@@ -2382,20 +2382,22 @@ bool CompileHelper::compileParameterDeclaration(
         param->VpiLocalParam(true);
       }
       parameters->push_back(param);
+
+      ParamAssign* assign =
+          new ParamAssign(fC, name, value, isMultiDimension, port_param);
+      UHDM::param_assign* param_assign = s.MakeParam_assign();
+      assign->setUhdmParamAssign(param_assign);
+      component->addParamAssign(assign);
+      param_assign->VpiFile(fC->getFileName());
+      param_assign->VpiLineNo(fC->Line(Param_assignment));
+      param_assign->VpiColumnNo(fC->Column(Param_assignment));
+      param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
+      param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
+      param_assigns->push_back(param_assign);
+      param->Expr(unpacked);
+      param_assign->Lhs(param);
+
       if (value) {
-        ParamAssign* assign =
-            new ParamAssign(fC, name, value, isMultiDimension, port_param);
-        UHDM::param_assign* param_assign = s.MakeParam_assign();
-        assign->setUhdmParamAssign(param_assign);
-        component->addParamAssign(assign);
-        param_assign->VpiFile(fC->getFileName());
-        param_assign->VpiLineNo(fC->Line(Param_assignment));
-        param_assign->VpiColumnNo(fC->Column(Param_assignment));
-        param_assign->VpiEndLineNo(fC->EndLine(Param_assignment));
-        param_assign->VpiEndColumnNo(fC->EndColumn(Param_assignment));
-        param_assigns->push_back(param_assign);
-        param->Expr(unpacked);
-        param_assign->Lhs(param);
         expr* rhs = (expr*)compileExpression(component, fC, value,
                                              compileDesign, nullptr, instance,
                                              reduce && (!isMultiDimension));

@@ -346,10 +346,12 @@ bool NetlistElaboration::elab_parameters_(ModuleInstance* instance,
     }
     if (override == false) {
       // Default
-      expr* rhs = (expr*)m_helper.compileExpression(
-          mod, assign->getFileContent(), assign->getAssignId(), m_compileDesign,
-          nullptr, instance, !isMultidimensional);
-      inst_assign->Rhs(rhs);
+      if (assign->getAssignId()) {
+        expr* rhs = (expr*)m_helper.compileExpression(
+            mod, assign->getFileContent(), assign->getAssignId(),
+            m_compileDesign, nullptr, instance, !isMultidimensional);
+        inst_assign->Rhs(rhs);
+      }
     }
 
     if (inst_assign) assigns->push_back(inst_assign);
