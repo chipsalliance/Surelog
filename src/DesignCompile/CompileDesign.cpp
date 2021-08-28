@@ -88,7 +88,7 @@ bool CompileDesign::compile() {
   Location loc(0);
   Error err1(ErrorDefinition::COMP_COMPILE, loc);
   ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
-  errors->regiterCmdLine(getCompiler()->getCommandLineParser());
+  errors->registerCmdLine(getCompiler()->getCommandLineParser());
   errors->addError(err1);
   errors->printMessage(err1,
                        getCompiler()->getCommandLineParser()->muteStdout());
@@ -256,7 +256,7 @@ bool CompileDesign::elaborate() {
   Location loc(0);
   Error err2(ErrorDefinition::ELAB_ELABORATING_DESIGN, loc);
   ErrorContainer* errors = new ErrorContainer(getCompiler()->getSymbolTable());
-  errors->regiterCmdLine(getCompiler()->getCommandLineParser());
+  errors->registerCmdLine(getCompiler()->getCommandLineParser());
   errors->addError(err2);
   errors->printMessage(err2,
                        getCompiler()->getCommandLineParser()->muteStdout());
@@ -281,7 +281,7 @@ bool CompileDesign::compilation_() {
         new SymbolTable(m_compiler->getCommandLineParser()->getSymbolTable());
     m_symbolTables.push_back(symbols);
     ErrorContainer* errors = new ErrorContainer(symbols);
-    errors->regiterCmdLine(m_compiler->getCommandLineParser());
+    errors->registerCmdLine(m_compiler->getCommandLineParser());
     m_errorContainers.push_back(errors);
     index++;
   } while (index < maxThreadCount);

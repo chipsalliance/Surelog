@@ -43,7 +43,14 @@ namespace SURELOG {
 
 class PreprocessHarness {
  public:
-  static std::string preprocess(std::string_view content);
+  PreprocessHarness();
+  std::string preprocess(std::string_view content);
+
+  const ErrorContainer &collected_errors() const { return m_errors; }
+
+ private:
+  SymbolTable m_symbols;
+  ErrorContainer m_errors;
 };
 
 };  // namespace SURELOG

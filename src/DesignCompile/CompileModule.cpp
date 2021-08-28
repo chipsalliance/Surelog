@@ -93,7 +93,7 @@ bool CompileModule::compile() {
 
   Error err(errType, loc);
   ErrorContainer* errors = new ErrorContainer(m_symbols);
-  errors->regiterCmdLine(
+  errors->registerCmdLine(
       m_compileDesign->getCompiler()->getCommandLineParser());
   errors->addError(err);
   errors->printMessage(

@@ -1428,8 +1428,8 @@ bool CompileHelper::compileTask(DesignComponent* component,
       if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
         break;
       if (fC->Type(fC->Child(Statement_or_null)) == slTf_port_declaration) {
-        auto results =
-            compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign);
+        auto results = compileTfPortDecl(component, task, fC, Statement_or_null,
+                                         compileDesign);
         if (task->Io_decls() == nullptr) {
           task->Io_decls(results.first);
         } else {
@@ -1443,6 +1443,19 @@ bool CompileHelper::compileTask(DesignComponent* component,
           for (auto v : *results.second) {
             task->Variables()->push_back(v);
           }
+        }
+        while (fC->Type(Statement_or_null) ==
+               VObjectType::slTf_item_declaration) {
+          NodeId Tf_port_declaration = fC->Child(Statement_or_null);
+          if (fC->Type(Tf_port_declaration) == slTf_port_declaration) {
+          } else if (fC->Type(Tf_port_declaration) ==
+                     slBlock_item_declaration) {
+            NodeId ItemNode = fC->Child(Tf_port_declaration);
+            if (fC->Type(ItemNode) != slData_declaration) break;
+          } else {
+            break;
+          }
+          Statement_or_null = fC->Sibling(Statement_or_null);
         }
       } else {
         if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null,
