@@ -66,7 +66,6 @@ std::string FileContent::printObjects() const {
   std::string fileName = m_symbolTable->getSymbol(m_fileId);
   if (strstr(fileName.c_str(), "/bin/sv/builtin.sv")) return "";
   text += "FILE: " + fileName + "\n";
-
   for (auto object : m_objects) {
     text +=
         object.print(m_symbolTable, index, GetDefinitionFile(index), m_fileId);

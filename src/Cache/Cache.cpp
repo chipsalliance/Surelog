@@ -207,6 +207,9 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
   if (!fcontent) return object_vec;
+  if (fcontent->getVObjects().size() > 0x00000000000FFFFFF) {
+    std::cout << "INTERNAL ERROR: Cache is saturated\n";
+  }
   for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
     VObject& object = fcontent->getVObjects()[i];
 
@@ -227,26 +230,39 @@ std::vector<CACHE::VObject> Cache::cacheVObjects(FileContent* fcontent,
     uint64_t field3 = 0;
     uint64_t field4 = 0;
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
-    field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
-    field1 |= (((uint64_t)object.m_type)
-               << (20));  // 12 Bits => Filled 32 Bits (Of 64)
-    field1 |= (((uint64_t)object.m_column)
+    field1 |= 0x00000000000FFFFF & (name);  // 20 Bits => Filled 20 Bits (Of 64)
+    field1 |=
+        0x00000000FFF00000 & (((uint64_t)object.m_type)
+                              << (20));  // 12 Bits => Filled 32 Bits (Of 64)
+    field1 |= 0x0000FFFF00000000 &
+              (((uint64_t)object.m_column)
                << (20 + 12));  // 16 Bits => Filled 48 Bits (Of 64)
     field1 |=
-        ((uint64_t)object.m_parent
-         << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
-    field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_definition)
-               << (4));  // 20 Bits => Filled 24 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_child)
-               << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
+        0xFFFF000000000000 &
+        (((uint64_t)object.m_parent
+          << (20 + 12 + 16)));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
+    field2 |= 0x00000000000000FF &
+              (object.m_parent >> (16));  //  8 Bits => Filled  8 Bits (Of 64)
     field2 |=
+        0x00000000FFFFFF00 & (((uint64_t)object.m_definition)
+                              << (8));  // 24 Bits => Filled 32 Bits (Of 64)
+    field2 |= 0x00FFFFFF00000000 &
+              (((uint64_t)object.m_child)
+               << (8 + 24));  // 24 Bits => Filled 56 Bits (Of 64)
+    field2 |=
+        0xFF00000000000000 &
         (((uint64_t)object.m_sibling)
-         << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
-    field3 |= (uint64_t)object.m_fileId;
-    field3 |= (((uint64_t)object.m_line) << (32));
-    field4 |= ((uint64_t)object.m_endLine);
-    field4 |= (((uint64_t)object.m_endColumn) << (32));
+         << (8 + 24 + 24));  // 8/24 Bits => Filled 64 Bits (Of 64) , Word Full
+    field3 |= 0x000000000000FFFF &
+              (object.m_sibling >> (8));  //  16 Bits => Filled  16 Bits (Of 64)
+    field3 |=
+        0x0000000FFFFF0000 & (((uint64_t)object.m_fileId)
+                              << (16));  // 20 Bits => Filled  36 Bits (Of 64)
+    field3 |= 0x00FFFFF000000000 &
+              (((uint64_t)object.m_line)
+               << (16 + 20));  // 20 Bits => Filled 56 Bits (Of 64)
+    field4 |= 0x00000000FFFFFFFF & ((uint64_t)object.m_endLine);
+    field4 |= 0xFFFFFFFF00000000 & (((uint64_t)object.m_endColumn) << (32));
     SURELOG::CACHE::VObject vostruct(field1, field2, field3, field4);
     object_vec.push_back(vostruct);
   }
@@ -282,12 +298,13 @@ void Cache::restoreVObjects(
     unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
     unsigned short column = (field1 & 0x0000FFFF00000000) >> (20 + 12);
     NodeId parent = (field1 & 0xFFFF000000000000) >> (20 + 12 + 16);
-    parent |= (field2 & 0x000000000000000F) << (16);
-    NodeId definition = (field2 & 0x0000000000FFFFF0) >> (4);
-    NodeId child = (field2 & 0x00000FFFFF000000) >> (4 + 20);
-    NodeId sibling = (field2 & 0xFFFFF00000000000) >> (4 + 20 + 20);
-    SymbolId fileId = (field3 & 0x00000000FFFFFFFF);
-    unsigned int line = (field3 & 0xFFFFFFFF00000000) >> (32);
+    parent |= (field2 & 0x00000000000000FF) << (16);
+    NodeId definition = (field2 & 0x00000000FFFFFF00) >> (8);
+    NodeId child = (field2 & 0x00FFFFFF00000000) >> (8 + 24);
+    NodeId sibling = (field2 & 0xFF00000000000000) >> (8 + 24 + 24);
+    sibling |= (field3 & 0x000000000000FFFF) << (8);
+    SymbolId fileId = (field3 & 0x0000000FFFFF0000) >> (16);
+    unsigned int line = (field3 & 0x00FFFFF000000000) >> (16 + 20);
     unsigned int endLine = (field4 & 0x00000000FFFFFFFF);
     unsigned short endColumn = (field4 & 0xFFFFFFFF00000000) >> (32);
     VObject object(fileTable.registerSymbol(canonicalSymbols.getSymbol(name)),
