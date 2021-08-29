@@ -153,7 +153,7 @@ bool PPCache::restore_(std::string cacheFileName, bool errorsOnly) {
           incinfo->m_sectionStartLine(),
           m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(
               sectionFileName),
-          incinfo->m_originalLine(), incinfo->m_type(),
+          incinfo->m_originalLine(), (IncludeFileInfo::Action)incinfo->m_type(),
           incinfo->m_indexOpening(), incinfo->m_indexClosing());
       m_pp->getIncludeFileInfo().push_back(inf);
     }

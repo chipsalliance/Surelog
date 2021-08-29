@@ -218,7 +218,7 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   if ((!m_compileSourceFile->m_commandLineParser->parseOnly()) &&
       (!m_compileSourceFile->m_commandLineParser->lowMem())) {
-    IncludeFileInfo info(0, m_fileId, 0, 2);
+    IncludeFileInfo info(0, m_fileId, 0, IncludeFileInfo::POP);
     info.m_indexClosing = 0;
     info.m_indexOpening = 0;
     getIncludeFileInfo().push_back(info);
@@ -522,7 +522,7 @@ void PreprocessFile::recordMacro(const std::string name, unsigned int line,
 std::string PreprocessFile::reportIncludeInfo() {
   std::string report;
   for (auto info : m_includeFileInfo) {
-    std::string type = (info.m_type == 1) ? "in" : "out";
+    std::string type = (info.m_type == IncludeFileInfo::PUSH) ? "in" : "out";
     report += std::to_string(info.m_originalLine) + " " +
               getSymbol(info.m_sectionFile) + " " +
               std::to_string(info.m_sectionStartLine) + " " + type + "\n";

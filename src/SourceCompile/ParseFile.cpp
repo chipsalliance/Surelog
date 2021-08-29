@@ -188,15 +188,12 @@ SymbolId ParseFile::getFileId(unsigned int line) {
       unsigned int index = infos.size() - 1;
       while (1) {
         if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == 2)) {
-          // const std::string& file =
-          // pp->getSymbol(infos[index].m_sectionFile); SymbolId fileId =
-          // getSymbolTable()->registerSymbol(file);
+            (infos[index].m_type == IncludeFileInfo::POP)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           break;
         }
-        if (infos[index].m_type == 2) {
+        if (infos[index].m_type == IncludeFileInfo::POP) {
           if (!inRange) {
             inRange = true;
             indexOpeningRange = infos[index].m_indexOpening;
@@ -207,11 +204,9 @@ SymbolId ParseFile::getFileId(unsigned int line) {
           }
         }
         if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == 1) && (infos[index].m_indexClosing > -1) &&
+            (infos[index].m_type == IncludeFileInfo::PUSH) &&
+            (infos[index].m_indexClosing > -1) &&
             (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
-          // const std::string& file =
-          // pp->getSymbol(infos[index].m_sectionFile); SymbolId fileId =
-          // getSymbolTable()->registerSymbol(file);
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
           break;
@@ -245,14 +240,14 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
       unsigned int index = infos.size() - 1;
       while (1) {
         if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == 2)) {
+            (infos[index].m_type == IncludeFileInfo::POP)) {
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalLine);
           lineInfoCache[lineItr] = l;
           break;
         }
 
-        if (infos[index].m_type == 2) {
+        if (infos[index].m_type == IncludeFileInfo::POP) {
           if (!inRange) {
             inRange = true;
             indexOpeningRange = infos[index].m_indexOpening;
@@ -263,7 +258,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
           }
         }
         if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == 1) && (infos[index].m_indexClosing > -1) &&
+            (infos[index].m_type == IncludeFileInfo::PUSH) &&
+            (infos[index].m_indexClosing > -1) &&
             (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
           unsigned int l = infos[index].m_sectionStartLine +
                            (lineItr - infos[index].m_originalLine);
