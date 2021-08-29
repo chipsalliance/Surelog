@@ -26,7 +26,7 @@
 DUMP="./"
 LOCAL="FALSE"
 
-ROOTDIR="../.."
+ROOTDIR="$(pwd)/../.."
 export RTL="$ROOTDIR/rtl"
 export sw="$ROOTDIR/sw"
 VERIF="$ROOTDIR/verif"
@@ -297,7 +297,7 @@ fi
 function xrun_cmd {
 
 $SIMULATOR $*                                                                     \
-    -parse -lowmem  -verbose \
+    -parse -lowmem -mp 8 -verbose  \
     +incdir+../../../../UVM/uvm-1.2/src \
     ../../../../UVM/uvm-1.2/src/uvm_pkg.sv \
     ../../../../UVM/uvm-1.2/src/uvm_macros.svh \
