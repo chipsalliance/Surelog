@@ -119,7 +119,7 @@ class ParseFile {
   bool debug_AstModel;
 
   bool parseOneFile_(std::string fileName, unsigned int lineOffset);
-
+  void buildLineInfoCache_();
   // For file chunk:
   std::vector<ParseFile*> m_children;
   ParseFile* const m_parent;
