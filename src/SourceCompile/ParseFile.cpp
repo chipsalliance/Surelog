@@ -166,23 +166,19 @@ void ParseFile::addError(Error& error) {
   getCompileSourceFile()->getErrorContainer()->addError(error);
 }
 
-SymbolId ParseFile::getFileId(unsigned int line) {
-  if (!getCompileSourceFile()) {
-    return m_fileId;
-  }
+void ParseFile::buildLineInfoCache_() {
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
-  if (!pp) return 0;
+  if (!pp) return;
   auto& infos = pp->getIncludeFileInfo();
   if (infos.size()) {
-    if (!fileInfoCache.empty()) {
-      return fileInfoCache[line];
-    }
     fileInfoCache.resize(pp->getSumLineCount() + 10);
-
-    for (unsigned int lineItr = 0; lineItr < pp->getSumLineCount() + 10;
+    lineInfoCache.resize(pp->getSumLineCount() + 10);
+    lineInfoCache[0] = 1;
+    fileInfoCache[0] = m_fileId;
+    for (unsigned int lineItr = 1; lineItr < pp->getSumLineCount() + 10;
          lineItr++) {
       fileInfoCache[lineItr] = m_fileId;
-
+      lineInfoCache[lineItr] = lineItr;
       bool inRange = false;
       unsigned int indexOpeningRange = 0;
       unsigned int index = infos.size() - 1;
@@ -191,6 +187,9 @@ SymbolId ParseFile::getFileId(unsigned int line) {
             (infos[index].m_type == IncludeFileInfo::POP)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
+          unsigned int l = infos[index].m_sectionStartLine +
+                           (lineItr - infos[index].m_originalLine);
+          lineInfoCache[lineItr] = l;
           break;
         }
         if (infos[index].m_type == IncludeFileInfo::POP) {
@@ -209,12 +208,30 @@ SymbolId ParseFile::getFileId(unsigned int line) {
             (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
           SymbolId fileId = infos[index].m_sectionFile;
           fileInfoCache[lineItr] = fileId;
+          unsigned int l = infos[index].m_sectionStartLine +
+                           (lineItr - infos[index].m_originalLine);
+          lineInfoCache[lineItr] = l;
           break;
         }
         if (index == 0) break;
         index--;
       }
     }
+  }
+}
+
+SymbolId ParseFile::getFileId(unsigned int line) {
+  if (!getCompileSourceFile()) {
+    return m_fileId;
+  }
+  PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
+  if (!pp) return 0;
+  auto& infos = pp->getIncludeFileInfo();
+  if (infos.size()) {
+    if (!fileInfoCache.empty()) {
+      return fileInfoCache[line];
+    }
+    buildLineInfoCache_();
     return fileInfoCache[line];
   } else {
     return m_fileId;
@@ -230,46 +247,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
     if (!lineInfoCache.empty()) {
       return lineInfoCache[line];
     }
-    lineInfoCache.resize(pp->getSumLineCount() + 10);
-    lineInfoCache[0] = 1;
-    for (unsigned int lineItr = 1; lineItr < pp->getSumLineCount() + 10;
-         lineItr++) {
-      lineInfoCache[lineItr] = lineItr;
-      bool inRange = false;
-      unsigned int indexOpeningRange = 0;
-      unsigned int index = infos.size() - 1;
-      while (1) {
-        if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == IncludeFileInfo::POP)) {
-          unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalLine);
-          lineInfoCache[lineItr] = l;
-          break;
-        }
-
-        if (infos[index].m_type == IncludeFileInfo::POP) {
-          if (!inRange) {
-            inRange = true;
-            indexOpeningRange = infos[index].m_indexOpening;
-          }
-        } else {
-          if (inRange) {
-            if (index == indexOpeningRange) inRange = false;
-          }
-        }
-        if ((lineItr >= infos[index].m_originalLine) &&
-            (infos[index].m_type == IncludeFileInfo::PUSH) &&
-            (infos[index].m_indexClosing > -1) &&
-            (lineItr < infos[infos[index].m_indexClosing].m_originalLine)) {
-          unsigned int l = infos[index].m_sectionStartLine +
-                           (lineItr - infos[index].m_originalLine);
-          lineInfoCache[lineItr] = l;
-          break;
-        }
-        if (index == 0) break;
-        index--;
-      }
-    }
+    buildLineInfoCache_();
     return lineInfoCache[line];
   } else {
     return line;
@@ -344,7 +322,8 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   antlrParserHandler->m_tokens->fill();
 
   if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-    // m_profileInfo += "Tokenizer: " + std::to_string (tmr.elapsed_rounded ())
+    // m_profileInfo += "Tokenizer: " + std::to_string (tmr.elapsed_rounded
+    // ())
     // + " " + fileName + "\n";
     tmr.reset();
   }
@@ -444,8 +423,8 @@ bool ParseFile::parse() {
 
   // This is not a parent Parser object
   if (m_children.size() == 0) {
-    // std::cout << std::endl << "Parsing " << getSymbol(m_ppFileId) << " Line:
-    // " << m_offsetLine << std::endl << std::flush;
+    // std::cout << std::endl << "Parsing " << getSymbol(m_ppFileId) << "
+    // Line: " << m_offsetLine << std::endl << std::flush;
 
     parseOneFile_(getSymbol(m_ppFileId), m_offsetLine);
 
