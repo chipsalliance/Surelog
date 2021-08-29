@@ -76,7 +76,7 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
   std::stringstream(tmp) >> keyword;
   unsigned int type = 0;
   if (keyword == "SLline") {
-    IncludeFileInfo info(0, 0, 0, 0);
+    IncludeFileInfo info(0, 0, 0, IncludeFileInfo::NONE);
     ss >> tmp;
     std::stringstream(tmp) >> info.m_sectionStartLine;
     ss >> tmp;
@@ -88,12 +88,12 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
     ss >> tmp;
     std::stringstream(tmp) >> type;
 
-    if (type == 1) {
+    if (type == IncludeFileInfo::PUSH) {
       // Push
       info.m_originalLine = lineNb;
-      info.m_type = type;
+      info.m_type = IncludeFileInfo::PUSH;
       m_includeFileInfo.push(info);
-    } else if (type == 2) {
+    } else if (type == IncludeFileInfo::POP) {
       // Pop
       if (m_includeFileInfo.size()) m_includeFileInfo.pop();
       if (m_includeFileInfo.size()) {
@@ -101,7 +101,7 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
         m_includeFileInfo.top().m_originalLine = lineNb;
         m_includeFileInfo.top().m_sectionStartLine =
             info.m_sectionStartLine - 1;
-        m_includeFileInfo.top().m_type = type;
+        m_includeFileInfo.top().m_type = IncludeFileInfo::POP;
       }
     }
   }
@@ -448,8 +448,9 @@ void AnalyzeFile::analyze() {
 
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
-  IncludeFileInfo info(
-      1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName), 1, 1);
+  IncludeFileInfo info(1,
+                       m_clp->mutableSymbolTable()->registerSymbol(m_fileName),
+                       1, IncludeFileInfo::PUSH);
   m_includeFileInfo.push(info);
   unsigned int linesWriten = 0;
   for (unsigned int i = 0; i < fileChunks.size(); i++) {

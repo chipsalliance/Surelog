@@ -30,15 +30,16 @@ namespace SURELOG {
 
 class IncludeFileInfo {
  public:
+  typedef enum { NONE = 0, PUSH = 1, POP = 2 } Action;
   IncludeFileInfo()
       : m_sectionStartLine(0),
         m_sectionFile(0),
         m_originalLine(0),
-        m_type(0),
+        m_type(NONE),
         m_indexOpening(-1),
         m_indexClosing(-1) {}
   IncludeFileInfo(unsigned int sectionStartLine, SymbolId sectionFile,
-                  unsigned int originalLine, unsigned int type)
+                  unsigned int originalLine, Action type)
       : m_sectionStartLine(sectionStartLine),
         m_sectionFile(sectionFile),
         m_originalLine(originalLine),
@@ -53,8 +54,8 @@ class IncludeFileInfo {
         m_indexOpening(i.m_indexOpening),
         m_indexClosing(i.m_indexClosing) {}
   IncludeFileInfo(unsigned int sectionStartLine, SymbolId sectionFile,
-                  unsigned int originalLine, unsigned int type,
-                  int indexOpening, int indexClosing)
+                  unsigned int originalLine, Action type, int indexOpening,
+                  int indexClosing)
       : m_sectionStartLine(sectionStartLine),
         m_sectionFile(sectionFile),
         m_originalLine(originalLine),
@@ -64,7 +65,7 @@ class IncludeFileInfo {
   unsigned int m_sectionStartLine;
   SymbolId m_sectionFile;
   unsigned int m_originalLine;
-  unsigned int m_type;  // 1 or 2, push or pop
+  Action m_type;  // 1 or 2, push or pop
   int m_indexOpening;
   int m_indexClosing;
 };
