@@ -1929,8 +1929,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                 UHDM::constant* c = (UHDM::constant*)expr;
                 if (p) {
                   if (UHDM::typespec* ts = p->getTypespec()) {
-                    if (ts->UhdmType() != UHDM::uhdmunsupported_typespec)
+                    if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
                       c->Typespec(p->getTypespec());
+                      m_helper.adjustSize(c, ts);
+                    }
                   }
                 }
                 const std::string& v = c->VpiValue();
