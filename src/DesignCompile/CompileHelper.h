@@ -508,6 +508,8 @@ class CompileHelper final {
 
   void setRange(UHDM::constant* c, Value* val, CompileDesign* compileDesign);
 
+  void adjustSize(UHDM::constant* c, UHDM::typespec* ts);
+   
  private:
   CompileHelper(const CompileHelper&) = delete;
 
