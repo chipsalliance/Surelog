@@ -2417,7 +2417,9 @@ bool CompileHelper::compileParameterDeclaration(
           }
         }
         if (rhs->UhdmType() == uhdmconstant) {
-          ((constant*)rhs)->Typespec(ts);
+          constant* c = (constant*)rhs;
+          c->Typespec(ts);
+          adjustSize(c, ts);
         }
         param_assign->Rhs(rhs);
         if (rhs && (rhs->UhdmType() == uhdmconstant)) {
@@ -2431,6 +2433,26 @@ bool CompileHelper::compileParameterDeclaration(
 
   compileDesign->unlockSerializer();
   return true;
+}
+
+void CompileHelper::adjustSize(UHDM::constant* c, UHDM::typespec* ts) {
+  if (ts == nullptr){
+    return;
+  }
+  switch (ts->UhdmType()) {
+    case uhdmlogic_typespec: {
+      logic_typespec* ltps = (logic_typespec*)ts;
+      if (ltps->Ranges() == nullptr) c->VpiSize(1);
+      break;
+    }
+    case uhdmbit_typespec: {
+      bit_typespec* ltps = (bit_typespec*)ts;
+      if (ltps->Ranges() == nullptr) c->VpiSize(1);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 UHDM::any* CompileHelper::compileTfCall(DesignComponent* component,
