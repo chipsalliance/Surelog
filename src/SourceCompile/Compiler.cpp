@@ -506,7 +506,16 @@ bool Compiler::createMultiProcessPreProcessor_() {
       for (auto id_value : m_commandLineParser->getDefineList()) {
         const std::string defName =
             m_commandLineParser->getSymbolTable().getSymbol(id_value.first);
-        fileList += " -D" + defName + "=" + id_value.second;
+        std::string val;
+        for (unsigned int index = 0; index < id_value.second.size(); index++) {
+          char c = id_value.second[index];
+          if (c == '#') {
+            val += '\\';
+          }
+          val += c;
+        }
+
+        fileList += " -D" + defName + "=" + val;
       }
 
       // Source files (.v, .sv on the command line)
