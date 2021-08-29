@@ -721,6 +721,8 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
 
           if (unpackedDimensions) {
             array_var* arr = s.MakeArray_var();
+            arr->VpiName(fC->SymName(Var));
+            var->VpiName("");
             arr->Ranges(unpackedDimensions);
             VectorOfvariables* vars = s.MakeVariablesVec();
             arr->Variables(vars);
