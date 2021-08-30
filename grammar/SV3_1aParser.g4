@@ -1522,7 +1522,7 @@ bins_selection : bins_keyword identifier ASSIGN_OP select_expression ( IFF OPEN_
 select_expression  
     : select_condition                                
     | BANG select_condition                           
-    | select_expression ( binary_operator_prec10 | binary_operator_prec11 ) select_expression 
+    | select_expression ( LOGICAL_AND | LOGICAL_OR ) select_expression 
     | OPEN_PARENS select_expression CLOSE_PARENS      
     | select_expression WITH OPEN_PARENS expression CLOSE_PARENS ( matches expression )?                         
     | identifier                                      
@@ -3148,90 +3148,6 @@ variable_lvalue
 nonrange_variable_lvalue : 
       ( implicit_class_handle DOT | package_scope )? hierarchical_identifier nonrange_select ; 
      
-
-unary_operator
-    : PLUS  # Unary_Plus
-    | MINUS  # Unary_Minus
-    | BANG  # Unary_Not
-    | TILDA  # Unary_Tilda
-    | BITW_AND     # Unary_BitwAnd
-    | BITW_OR     # Unary_BitwOr
-    | BITW_XOR       # Unary_BitwXor
-    | REDUCTION_NAND  # Unary_ReductNand
-    | REDUCTION_NOR  # Unary_ReductNor
-    | REDUCTION_XNOR1  # Unary_ReductXnor1
-    | REDUCTION_XNOR2  # Unary_ReductXnor2
-    ; 
-
-binary_operator_prec1 
-    :  STARSTAR       # BinOp_MultMult
-    ;
-
-binary_operator_prec2
-    : STAR     # BinOp_Mult
-    | DIV     # BinOp_Div
-    | PERCENT     # BinOp_Percent
-    ;
-    
-binary_operator_prec3
-    : PLUS     # BinOp_Plus
-    | MINUS    # BinOp_Minus
-    ;
-
-binary_operator_prec4
-    : SHIFT_RIGHT     # BinOp_ShiftRight
-    | SHIFT_LEFT     # BinOp_ShiftLeft
-    | ARITH_SHIFT_RIGHT     # BinOp_ArithShiftRight
-    | ARITH_SHIFT_LEFT     # BinOp_ArithShiftLeft
-    ;
-    
-binary_operator_prec5
-    : LESS     # BinOp_Less
-    | LESS_EQUAL     # BinOp_LessEqual
-    | GREATER     # BinOp_Great
-    | GREATER_EQUAL     # BinOp_GreatEqual
-    | INSIDE            # InsideOp
-    ;
-    
-binary_operator_prec6
-    : EQUIV     # BinOp_Equiv
-    | NOTEQUAL     # BinOp_Not
-    | BINARY_WILDCARD_EQUAL # BinOp_WildcardEqual
-    | BINARY_WILDCARD_NOTEQUAL # BinOp_WildcardNotEqual
-    | FOUR_STATE_LOGIC_EQUAL      # BinOp_FourStateLogicEqual
-    | FOUR_STATE_LOGIC_NOTEQUAL     # BinOp_FourStateLogicNotEqual
-    | WILD_EQUAL_OP     # BinOp_WildEqual
-    | WILD_NOTEQUAL_OP     # BinOp_WildNotEqual
-    ;
-
-binary_operator_prec7
-    : BITW_AND     # BinOp_BitwAnd
-    ;
-
-binary_operator_prec8
-    : REDUCTION_XNOR1     # BinOp_ReductXnor1
-    | REDUCTION_XNOR2     # BinOp_ReductXnor2
-    | REDUCTION_NAND  # BinOp_ReductNand
-    | REDUCTION_NOR  # BinOp_ReductNor
-    | BITW_XOR       # BinOp_BitwXor
-    ;
-
-binary_operator_prec9
-    : BITW_OR     # BinOp_BitwOr
-    ;
-
-binary_operator_prec10
-    : LOGICAL_AND # BinOp_LogicAnd
-    ;
-
-binary_operator_prec11
-    : LOGICAL_OR # BinOp_LogicOr
-    ;
-
-binary_operator_prec12
-    : IMPLY                # BinOp_Imply
-    | EQUIVALENCE          # BinOp_Equivalence
-    ; 
 
 inc_or_dec_operator
     : PLUSPLUS  
