@@ -582,13 +582,43 @@ constant* compileConst(const FileContent* fC, NodeId child, Serializer& s) {
       break;
     }
     case VObjectType::slTime_literal: {
-      // TODO:
+      NodeId intC = fC->Child(child);
+      std::string value = fC->SymName(intC);
+      NodeId unitId = fC->Sibling(intC);
+      TimeInfo::Unit unit = TimeInfo::unitFromString(fC->SymName(unitId));
+      uint64_t val = std::strtoull(value.c_str(), 0, 10);
+      switch (unit) {
+        case TimeInfo::Unit::Second: {
+          val = 1e12 * val;
+          break;
+        }
+        case TimeInfo::Unit::Millisecond: {
+          val = 1e9 * val;
+          break;
+        }
+        case TimeInfo::Unit::Nanosecond: {
+          val = 1e6 * val;
+          break;
+        }
+        case TimeInfo::Unit::Microsecond: {
+          val = 1e3 * val;
+          break;
+        }
+        case TimeInfo::Unit::Picosecond: {
+          val = 1 * val;
+          break;
+        }
+        case TimeInfo::Unit::Femtosecond: {
+          val = 1e-3 * val;
+          break;
+        }
+        default:
+          break;
+      }
       UHDM::constant* c = s.MakeConstant();
-      std::string value = "BIN:0";
-      c->VpiValue(value);
-      c->VpiConstType(vpiBinaryConst);
-      c->VpiSize(1);
-      c->VpiDecompile("1'b0");
+      c->VpiValue("UINT:" + std::to_string(val));
+      c->VpiConstType(vpiUIntConst);
+      c->VpiSize(64);
       result = c;
       break;
     }
