@@ -6,7 +6,7 @@ on:
 
 jobs:
   linux:
-    name: Check · ${{ matrix.mode }}
+    name: ${{ matrix.mode }}
 
     runs-on: ubuntu-latest
     defaults:
@@ -68,7 +68,7 @@ jobs:
         echo 'CC=gcc-7' >> $GITHUB_ENV
         echo 'CXX=g++-7' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
-        echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo 'PREFIX=/tmp/surelog-install' >> $GITHUB_ENV
 
     - name: Show shell configuration
       run: |
@@ -110,7 +110,8 @@ jobs:
       if: matrix.mode == 'install'
       run: |
         make release
-        sudo make install
+        make install
+        make clean   # make sure we only see installation artifacts
         make test_install
 
   msys2-gcc:
