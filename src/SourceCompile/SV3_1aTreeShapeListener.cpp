@@ -654,6 +654,26 @@ void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimePrecision(
   }
 }
 
+void SV3_1aTreeShapeListener::exitTime_literal(
+    SV3_1aParser::Time_literalContext *ctx) {
+  auto pair = getTimeValue(ctx);
+  uint64_t value = pair.first;
+  if (ctx->Integral_number())
+    addVObject((antlr4::ParserRuleContext *)ctx->Integral_number(),
+               std::to_string(value), VObjectType::slIntConst);
+  else if (ctx->Real_number())
+    addVObject((antlr4::ParserRuleContext *)ctx->Real_number(),
+               std::to_string(value), VObjectType::slIntConst);
+  addVObject(ctx->time_unit(), ctx->time_unit()->getText(),
+             VObjectType::slTime_unit);
+  addVObject(ctx, VObjectType::slTime_literal);
+}
+
+void SV3_1aTreeShapeListener::exitTime_unit(
+    SV3_1aParser::Time_unitContext *ctx) {
+  addVObject(ctx, ctx->getText(), VObjectType::slTime_unit);
+}
+
 void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimeUnitTimePrecision(
     SV3_1aParser::TimeUnitsDecl_TimeUnitTimePrecisionContext *ctx) {
   if (m_currentElement) {
