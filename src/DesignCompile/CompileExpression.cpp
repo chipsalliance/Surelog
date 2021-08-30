@@ -4237,6 +4237,7 @@ UHDM::any* CompileHelper::compileExpression(
               }
               tmpName = fC->SymName(dotedName);
             } else if (dtype == VObjectType::slSelect ||
+                       dtype == VObjectType::slBit_select ||
                        dtype == VObjectType::slConstant_bit_select ||
                        dtype == VObjectType::slConstant_expression) {
               std::string ind;
