@@ -128,22 +128,8 @@ module top();
   assign a = `FOO_FUN(123);
 endmodule)");
 
-  // BUG: this is actually not reporting an error, but leaving the parameter in
-  // parenthesis at the end. This is probably internally due to FOO_FUN not
-  // distinguishing non-arg macros vs. macro-calls with no parameters.
-#if 0
   EXPECT_TRUE(ContainsError(harness.collected_errors(),
                             ErrorDefinition::PP_TOO_MANY_ARGS_MACRO));
-#endif
-
-  // This is currently what we get as output instead, but this should be
-  // either nothing or not include the leftover superfluous parameter
-  EXPECT_EQ(res, R"(
-module top();
-  assign a = 42
-(123)
-;
-endmodule)");
 }
 
 TEST(PreprocessTest, IfdefCodeSelectionIfBranch) {
