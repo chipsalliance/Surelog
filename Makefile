@@ -90,7 +90,7 @@ install: release
 	cmake --install build
 
 test_install: release
-	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_RULE_MESSAGES=$(RULE_MESSAGES) -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
 	cmake --build tests/TestInstall/build -j $(CPU_CORES)
 
 uninstall:

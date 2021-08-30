@@ -6,7 +6,7 @@ on:
 
 jobs:
   linux:
-    name: Check · ${{ matrix.mode }}
+    name: ${{ matrix.mode }} Check
 
     runs-on: ubuntu-latest
     defaults:
@@ -69,6 +69,7 @@ jobs:
         echo 'CXX=g++-7' >> $GITHUB_ENV
         echo 'PATH=/usr/lib/ccache:'"$PATH" >> $GITHUB_ENV
         echo 'PREFIX=/usr/local' >> $GITHUB_ENV
+        echo 'RULE_MESSAGES=off' >> $GITHUB_ENV  # only relevant compile output
 
     - name: Show shell configuration
       run: |
