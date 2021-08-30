@@ -661,6 +661,21 @@ std::string PreprocessFile::evaluateMacroInstance(
   return result;
 }
 
+
+static bool isKeyword (const std::vector<std::string>& body_tokens) {
+  if (body_tokens.empty()) 
+    return false;
+  std::string first = body_tokens[0];
+  for (const std::string& keyword : {"assert", "assume"}) {
+    if (first == keyword)
+      return true;
+  }
+  if (first[0] == '$') {
+    return true;
+  }
+  return false;
+}
+
 std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     const std::string name, std::vector<std::string>& actual_args,
     PreprocessFile* callingFile, unsigned int callingLine,
@@ -717,6 +732,11 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
     actual_args[i] = StringUtils::trim(actual_args[i]);
   }
 
+  bool keyword = false;
+  if ((formal_args.size() == 0) && actual_args.size()) {
+    keyword = isKeyword(body_tokens);
+  }
+
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
     if (formal_args.size() == 0 &&
         (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {
@@ -724,18 +744,25 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
                    macroInfo->m_column + name.size() + 1, getId(name));
       Error err(ErrorDefinition::PP_MACRO_HAS_SPACE_BEFORE_ARGS, loc);
       addError(err);
-    } else {
-      if ((!Waiver::macroArgCheck(name)) && (formal_args.size() > 0)) {
-        Location loc(callingFile->getFileId(callingLine),
-                     callingFile->getLineNb(callingLine), 0, getId(name));
-        Location arg(0, 0, 0,
-                     registerSymbol(std::to_string(actual_args.size())));
-        Location def(macroInfo->m_file, macroInfo->m_line, 0,
-                     registerSymbol(std::to_string(formal_args.size())));
-        std::vector<Location> locs = {arg, def};
-        Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
-        addError(err);
-      }
+    } else if ((!Waiver::macroArgCheck(name)) && (formal_args.size() > 0)) {
+      Location loc(callingFile->getFileId(callingLine),
+                   callingFile->getLineNb(callingLine), 0, getId(name));
+      Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
+      Location def(macroInfo->m_file, macroInfo->m_line, 0,
+                   registerSymbol(std::to_string(formal_args.size())));
+      std::vector<Location> locs = {arg, def};
+      Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
+      addError(err);
+
+    } else if ((!keyword) && (formal_args.size() == 0) && actual_args.size()) {
+      Location loc(callingFile->getFileId(callingLine),
+                   callingFile->getLineNb(callingLine), 0, getId(name));
+      Location arg(0, 0, 0, registerSymbol(std::to_string(actual_args.size())));
+      Location def(macroInfo->m_file, macroInfo->m_line, 0,
+                   registerSymbol(std::to_string(formal_args.size())));
+      std::vector<Location> locs = {arg, def};
+      Error err(ErrorDefinition::PP_TOO_MANY_ARGS_MACRO, loc, &locs);
+      addError(err);
     }
   }
 
@@ -823,7 +850,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   for (auto token : body_tokens) {
     body += token;
   }
-  if (actual_args.size() && (formal_args.size() == 0)) {
+  if (keyword && actual_args.size() && (formal_args.size() == 0)) {
     body += "(";
     body += actual_args[0];
     body += ")";
