@@ -2619,6 +2619,16 @@ VectorOfany* CompileHelper::compileTfCallArguments(
         argOrder.push_back(exp);
       }
       argumentNode = fC->Sibling(argumentNode);
+    } else if (((fC->Type(argumentNode) == slUnary_Tilda) ||
+                (fC->Type(argumentNode) == slUnary_Not)) &&
+               (fC->Type(sibling) == slExpression)) {
+      // arg by position
+      Expression = argumentNode;
+      UHDM::any* exp =
+          compileExpression(component, fC, Expression, compileDesign, call,
+                            instance, reduce, muteErrors);
+      if (exp) arguments->push_back(exp);
+      argumentNode = fC->Sibling(argumentNode);
     } else {
       // arg by position
       Expression = argumentNode;
