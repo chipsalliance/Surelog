@@ -2436,7 +2436,7 @@ bool CompileHelper::compileParameterDeclaration(
 }
 
 void CompileHelper::adjustSize(UHDM::constant* c, UHDM::typespec* ts) {
-  if (ts == nullptr){
+  if (ts == nullptr) {
     return;
   }
   switch (ts->UhdmType()) {
