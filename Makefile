@@ -84,12 +84,12 @@ regression: release
 	pushd build && tclsh ../tests/regression.tcl diff_mode show_diff && popd
 
 clean:
-	$(RM) -r build dbuild coverage-build dist
+	$(RM) -r build dbuild coverage-build dist tests/TestInstall/build
 
 install: release
 	cmake --install build
 
-test_install: release
+test_install:
 	cmake -DCMAKE_BUILD_TYPE=Release -DINSTALL_DIR=$(PREFIX) -S tests/TestInstall -B tests/TestInstall/build
 	cmake --build tests/TestInstall/build -j $(CPU_CORES)
 
