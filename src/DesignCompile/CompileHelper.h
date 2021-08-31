@@ -494,14 +494,22 @@ class CompileHelper final {
                                const std::string& fileName, unsigned int lineNo,
                                unsigned short columnNo);
 
-  UHDM::expr* hierarchicalSelector(std::vector<std::string>& select_path,
-                                   unsigned int level, UHDM::any* object,
-                                   bool& invalidValue,
-                                   DesignComponent* component,
-                                   CompileDesign* compileDesign,
-                                   ValuedComponentI* instance, UHDM::any* pexpr,
-                                   const std::string& fileName, int lineNumber,
-                                   bool muteErrors);
+  UHDM::any* hierarchicalSelector(std::vector<std::string>& select_path,
+                                  unsigned int level, UHDM::any* object,
+                                  bool& invalidValue,
+                                  DesignComponent* component,
+                                  CompileDesign* compileDesign,
+                                  ValuedComponentI* instance, UHDM::any* pexpr,
+                                  const std::string& fileName, int lineNumber,
+                                  bool muteErrors, bool returnTypespec);
+
+  UHDM::any* decodeHierPath(UHDM::hier_path* path, bool& invalidValue,
+                            DesignComponent* component,
+                            CompileDesign* compileDesign,
+                            ValuedComponentI* instance,
+                            const std::string& fileName, int lineNumber,
+                            UHDM::any* pexpr, bool muteErrors,
+                            bool returnTypespec);
 
   bool valueRange(Value* val, UHDM::typespec* tps, DesignComponent* component,
                   CompileDesign* compileDesign, ValuedComponentI* instance);
