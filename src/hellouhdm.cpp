@@ -85,7 +85,7 @@ int main(int argc, const char** argv) {
     if (vpi_get(vpiType, the_design) == vpiDesign) {
       // C++ top handle from which the entire design can be traversed using the
       // C++ API
-      udesign = (UHDM::design*)((uhdm_handle*)the_design)->object;
+      udesign = UhdmDesignFromVpiHandle(the_design);
       result += "Design name (C++): " + udesign->VpiName() + "\n";
     }
     // Example demonstrating the classic VPI API traversal of the folded model
