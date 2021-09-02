@@ -486,6 +486,7 @@ register_gtests(
   src/SourceCompile/ParseFile_test.cpp
   src/DesignCompile/CompileExpression_test.cpp
   src/DesignCompile/Elaboration_test.cpp
+  src/DesignCompile/Uhdm_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)

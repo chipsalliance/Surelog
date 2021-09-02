@@ -1705,6 +1705,7 @@ bool NetlistElaboration::elab_ports_nets_(
       continue;
     }
     int portIndex = 0;
+    int lastPortDirection = vpiInout;
     for (Signal* sig : *signals) {
       const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
@@ -1712,8 +1713,10 @@ bool NetlistElaboration::elab_ports_nets_(
         if (!do_ports) continue;
         // Ports pass
         port* dest_port = s.MakePort();
-        dest_port->VpiDirection(
-            UhdmWriter::getVpiDirection(sig->getDirection()));
+        if (sig->getDirection() != slNoType) {
+          lastPortDirection = UhdmWriter::getVpiDirection(sig->getDirection());
+        }
+        dest_port->VpiDirection(lastPortDirection);
         std::string signame;
         if (fC->Type(sig->getNodeId()) == slStringConst) {
           signame = sig->getName();
