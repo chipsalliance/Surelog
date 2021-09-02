@@ -413,7 +413,7 @@ bool writeElabParameters(Serializer& s, ModuleInstance* instance,
 }
 
 unsigned int UhdmWriter::getVpiDirection(VObjectType type) {
-  unsigned int direction = vpiNoDirection;
+  unsigned int direction = vpiInout;
   if (type == VObjectType::slPortDir_Inp ||
       type == VObjectType::slTfPortDir_Inp)
     direction = vpiInput;
@@ -486,6 +486,7 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
                        ModPortMap& modPortMap,
                        SignalBaseClassMap& signalBaseMap, SignalMap& signalMap,
                        ModuleInstance* instance = nullptr) {
+  int lastPortDirection = vpiInout;
   for (Signal* orig_port : orig_ports) {
     port* dest_port = s.MakePort();
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
@@ -493,9 +494,10 @@ static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     const FileContent* fC = orig_port->getFileContent();
     if (fC->Type(orig_port->getNodeId()) == slStringConst)
       dest_port->VpiName(orig_port->getName());
-    unsigned int direction =
-        UhdmWriter::getVpiDirection(orig_port->getDirection());
-    dest_port->VpiDirection(direction);
+    if (orig_port->getDirection() != slNoType)
+      lastPortDirection =
+          UhdmWriter::getVpiDirection(orig_port->getDirection());
+    dest_port->VpiDirection(lastPortDirection);
     dest_port->VpiLineNo(
         orig_port->getFileContent()->Line(orig_port->getNodeId()));
     dest_port->VpiColumnNo(

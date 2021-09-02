@@ -126,16 +126,16 @@ TEST(Elaboration, ExprUsePackage) {
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
-  std::tie(design, fC, compileDesign) = eharness.elaborate(
-      "`define FOO 4\n"
-      "package pkg;\n"
-      "  parameter p0 = `FOO;\n"
-      "endpackage\n"
-      "module top();\n"
-      "  parameter p1 = 1 << pkg::p0;\n"
-      "  parameter p2 = (p1 >> 2) << 2;\n"
-      "  parameter p3 = (p2 * 2) / 2;\n"
-      "endmodule\n");
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  `define FOO 4
+  package pkg;
+    parameter p0 = `FOO;
+  endpackage
+  module top();
+    parameter p1 = 1 << pkg::p0;
+    parameter p2 = (p1 >> 2) << 2;
+    parameter p3 = (p2 * 2) / 2;
+  endmodule)");
 
   // Get handles
   auto insts = design->getTopLevelModuleInstances();
@@ -173,22 +173,22 @@ TEST(Elaboration, DollarBits) {
   FileContent* fC;
   CompileDesign* compileDesign;
   // Preprocess, Parse, Compile, Elaborate
-  std::tie(design, fC, compileDesign) = eharness.elaborate(
-      "package pkg;\n"
-      "  typedef struct packed {\n"
-      "    logic[7:0] x;\n"
-      "    logic      z;\n"
-      "  } struct_t;\n"
-      "endpackage : pkg\n"
-      "module dut #(parameter int Width = 1) ();\n"
-      "endmodule\n"
-      "module top (input pkg::struct_t in);\n"
-      "localparam int SyncWidth = $bits({in,in.x});\n"
-      "dut #(.Width($bits({in.x}))) dut1();\n"
-      "dut #(.Width($bits({in}))) dut2();\n"
-      "dut #(.Width($bits(in))) dut3();\n"
-      "dut #(.Width($bits({in,in.x}))) dut4();\n"
-      "endmodule // top\n");
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  package pkg;
+    typedef struct packed {
+      logic[7:0] x;
+      logic      z;
+    } struct_t;
+  endpackage : pkg
+  module dut #(parameter int Width = 1) ();
+  endmodule
+  module top (input pkg::struct_t in);
+    localparam int SyncWidth = $bits({in,in.x});
+    dut #(.Width($bits({in.x}))) dut1();
+    dut #(.Width($bits({in}))) dut2();
+    dut #(.Width($bits(in))) dut3();
+    dut #(.Width($bits({in,in.x}))) dut4();
+  endmodule // top)");
   auto insts = design->getTopLevelModuleInstances();
   ModuleInstance* top = nullptr;
   if (insts.size()) {
