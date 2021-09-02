@@ -73,7 +73,8 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
       m_librarySet(new LibrarySet()),
       m_configSet(new ConfigSet()),
       m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
-      m_uhdmDesign(0) {
+      m_uhdmDesign(0),
+      m_compileDesign(nullptr) {
 #ifdef USETBB
   if (getCommandLineParser()->useTbb() &&
       (getCommandLineParser()->getNbMaxTreads() > 0))
@@ -91,7 +92,8 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
       m_configSet(new ConfigSet()),
       m_design(new Design(getErrorContainer(), m_librarySet, m_configSet)),
       m_uhdmDesign(0),
-      m_text(text) {}
+      m_text(text),
+      m_compileDesign(nullptr) {}
 
 Compiler::~Compiler() {
   std::map<SymbolId, PreprocessFile::AntlrParserHandler*>::iterator itr;
@@ -964,8 +966,8 @@ bool Compiler::compile() {
 
   if (parseOk && m_commandLineParser->compile()) {
     // Compile Design, has its own thread management
-    CompileDesign* compileDesign = new CompileDesign(this);
-    compileDesign->compile();
+    m_compileDesign = new CompileDesign(this);
+    m_compileDesign->compile();
     m_errors->printMessages(m_commandLineParser->muteStdout());
 
     if (m_commandLineParser->profile()) {
@@ -977,7 +979,7 @@ bool Compiler::compile() {
     }
 
     if (m_commandLineParser->elaborate()) {
-      compileDesign->elaborate();
+      m_compileDesign->elaborate();
       m_errors->printMessages(m_commandLineParser->muteStdout());
 
       if (m_commandLineParser->profile()) {
@@ -1008,7 +1010,7 @@ bool Compiler::compile() {
         m_commandLineParser->getFullCompileDir());
     std::string uhdmFile = directory + "/surelog.uhdm";
 
-    m_uhdmDesign = compileDesign->writeUHDM(uhdmFile);
+    m_uhdmDesign = m_compileDesign->writeUHDM(uhdmFile);
     // Do not delete as now UHDM has to live past the compilation step
     // delete compileDesign;
   }

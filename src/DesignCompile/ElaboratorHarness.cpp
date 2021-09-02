@@ -32,22 +32,19 @@ std::tuple<Design*, FileContent*, CompileDesign*> ElaboratorHarness::elaborate(
   CommandLineParser* clp = new CommandLineParser(errors, symbols, false, false);
   clp->setCacheAllowed(false);
   clp->setParse(true);
+  clp->setCompile(true);
   clp->setElabUhdm(true);
+  clp->setWriteUhdm(false);
   Compiler* compiler = new Compiler(clp, errors, symbols, content);
   compiler->compile();
-  auto compilers = compiler->getCompileSourceFiles();
-  CompileDesign* compileDesign = new CompileDesign(compiler);
-  compileDesign->compile();
-  compileDesign->elaborate();
-
-  Design* design = compileDesign->getCompiler()->getDesign();
+  Design* design = compiler->getDesign();
   FileContent* fC = nullptr;
-  if (compilers.size()) {
-    CompileSourceFile* csf = compilers.at(0);
+  if (compiler->getCompileSourceFiles().size()) {
+    CompileSourceFile* csf = compiler->getCompileSourceFiles().at(0);
     ParseFile* pf = csf->getParser();
     fC = pf->getFileContent();
   }
-  result = std::make_tuple(design, fC, compileDesign);
+  result = std::make_tuple(design, fC, compiler->getCompileDesign());
   return result;
 }
 

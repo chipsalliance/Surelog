@@ -5417,6 +5417,10 @@ UHDM::any* CompileHelper::compileBits(
     Expression = fC->Child(Expression);
   }
   NodeId typeSpecId = 0;
+  uint64_t bits = 0;
+  bool invalidValue = false;
+  const typespec* tps = nullptr;
+  const any* exp = nullptr;
   switch (fC->Type(Expression)) {
     case slIntegerAtomType_Byte:
     case slIntegerAtomType_Int:
@@ -5431,34 +5435,56 @@ UHDM::any* CompileHelper::compileBits(
     default: {
       NodeId Primary = fC->Child(Expression);
       NodeId Primary_literal = fC->Child(Primary);
-      NodeId StringConst = fC->Child(Primary_literal);
-      typeSpecId = StringConst;
+      if (fC->Type(Primary_literal) == slConcatenation) {
+        NodeId ConcatExpression = fC->Child(Primary_literal);
+        while (ConcatExpression) {
+          NodeId Primary = fC->Child(ConcatExpression);
+          NodeId Primary_literal = fC->Child(Primary);
+          NodeId StringConst = fC->Child(Primary_literal);
+          typeSpecId = StringConst;
+          tps = getTypespec(component, fC, typeSpecId, compileDesign, instance,
+                            reduce);
+          if (!reduce && tps) {
+            UHDM::ExprEval eval;
+            if (eval.isFullySpecified(tps)) {
+              reduce = true;
+            }
+          }
+          if (reduce && tps)
+            bits += Bits(tps, invalidValue, component, compileDesign, instance,
+                         fC->getFileName(typeSpecId), fC->Line(typeSpecId),
+                         reduce, sizeMode);
+          ConcatExpression = fC->Sibling(ConcatExpression);
+        }
+      } else {
+        NodeId StringConst = fC->Child(Primary_literal);
+        typeSpecId = StringConst;
+      }
     }
   }
 
-  uint64_t bits = 0;
-  bool invalidValue = false;
-  const typespec* tps =
-      getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
-  any* exp = nullptr;
-  if (!reduce && tps) {
-    UHDM::ExprEval eval;
-    if (eval.isFullySpecified(tps)) {
-      reduce = true;
+  if (bits == 0) {
+    tps =
+        getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
+    if (!reduce && tps) {
+      UHDM::ExprEval eval;
+      if (eval.isFullySpecified(tps)) {
+        reduce = true;
+      }
     }
-  }
-  if (reduce && tps)
-    bits = Bits(tps, invalidValue, component, compileDesign, instance,
-                fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
-                sizeMode);
-
-  if (reduce && (!tps)) {
-    exp = compileExpression(component, fC, Expression, compileDesign, nullptr,
-                            instance, true, true);
-    if (exp) {
-      bits = Bits(exp, invalidValue, component, compileDesign, instance,
+    if (reduce && tps)
+      bits = Bits(tps, invalidValue, component, compileDesign, instance,
                   fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
                   sizeMode);
+
+    if (reduce && (!tps)) {
+      exp = compileExpression(component, fC, Expression, compileDesign, nullptr,
+                              instance, true, true);
+      if (exp) {
+        bits = Bits(exp, invalidValue, component, compileDesign, instance,
+                    fC->getFileName(typeSpecId), fC->Line(typeSpecId), reduce,
+                    sizeMode);
+      }
     }
   }
 
