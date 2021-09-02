@@ -49,6 +49,7 @@ namespace SURELOG {
 
 class PreprocessFile;
 class FileContent;
+class CompileDesign;
 
 class Compiler {
  public:
@@ -82,7 +83,7 @@ class Compiler {
   Design* getDesign() { return m_design; }
 
   const vpiHandle getUhdmDesign() const { return m_uhdmDesign; }
-
+  CompileDesign* getCompileDesign() { return m_compileDesign; }
   ErrorContainer::Stats getErrorStats() const;
   bool isLibraryFile(SymbolId id) const;
 
@@ -123,6 +124,7 @@ class Compiler {
   vpiHandle m_uhdmDesign;
   std::set<SymbolId> m_libraryFiles;  // -v <file>
   std::string m_text;                 // unit tests
+  CompileDesign* m_compileDesign;
 #ifdef USETBB
   tbb::task_group m_taskGroup;
 #endif

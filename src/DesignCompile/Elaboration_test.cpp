@@ -164,5 +164,65 @@ TEST(Elaboration, ExprUsePackage) {
     EXPECT_EQ(helper.get_value(invalidValue, exp), 16);
   }
 }
+
+TEST(Elaboration, DollarBits) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate
+  std::tie(design, fC, compileDesign) = eharness.elaborate(
+      "package pkg;\n"
+      "  typedef struct packed {\n"
+      "    logic[7:0] x;\n"
+      "    logic      z;\n"
+      "  } struct_t;\n"
+      "endpackage : pkg\n"
+      "module dut #(parameter int Width = 1) ();\n"
+      "endmodule\n"
+      "module top (input pkg::struct_t in);\n"
+      "localparam int SyncWidth = $bits({in,in.x});\n"
+      "dut #(.Width($bits({in.x}))) dut1();\n"
+      "dut #(.Width($bits({in}))) dut2();\n"
+      "dut #(.Width($bits(in))) dut3();\n"
+      "dut #(.Width($bits({in,in.x}))) dut4();\n"
+      "endmodule // top\n");
+  auto insts = design->getTopLevelModuleInstances();
+  ModuleInstance* top = nullptr;
+  if (insts.size()) {
+    top = insts.at(0);
+  }
+  EXPECT_NE(top, nullptr);
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(helper.get_value(invalidValue, rhs), 17);
+    }
+    for (auto sub : *topMod->Modules()) {
+      const std::string& instName = sub->VpiName();
+      for (auto passign : *sub->Param_assigns()) {
+        UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+        bool invalidValue = false;
+        uint64_t val = helper.get_value(invalidValue, rhs);
+        if (instName == "dut1") {
+          EXPECT_EQ(val, 8);
+        } else if (instName == "dut2") {
+          EXPECT_EQ(val, 9);
+        } else if (instName == "dut3") {
+          EXPECT_EQ(val, 9);
+        } else if (instName == "dut4") {
+          EXPECT_EQ(val, 17);
+        }
+      }
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
