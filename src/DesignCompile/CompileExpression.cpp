@@ -4907,14 +4907,14 @@ UHDM::any* CompileHelper::compilePartSelectRange(
             uint64_t iv = cvv->getValueUL();
             uint64_t mask = 0;
             if (fC->Type(op) == VObjectType::slIncPartSelectOp) {
-              for (int i = l; i > int(l - r); i--) {
-                mask |= 1 << i;
+              for (uint64_t i = l; i > uint64_t(l - r); i--) {
+                mask |= ((uint64_t)1 << i);
               }
               res = iv & mask;
               res = res >> (l - r);
             } else {
-              for (int i = l; i < int(l + r); i++) {
-                mask |= 1 << i;
+              for (uint64_t i = l; i < uint64_t(l + r); i++) {
+                mask |= ((uint64_t)1 << i);
               }
               res = iv & mask;
               res = res >> l;
