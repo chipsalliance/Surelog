@@ -73,7 +73,7 @@ bool Build(vpiHandle design_handle) {
   return true;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, const char **argv) {
   if (argc < 2) return 0;
 
   // Read command line, compile a design, use -parse argument
@@ -83,18 +83,20 @@ int main(int argc, char *argv[]) {
       new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser *const clp =
       new SURELOG::CommandLineParser(errors, symbolTable, false, false);
+  clp->noPython();
+  clp->setwritePpOutput(true);
   clp->setParse(true);
   clp->setCompile(true);
   clp->setElaborate(true);  // Request Surelog instance tree elaboration
   clp->setElabUhdm(true);   // Request UHDM Uniquification/Elaboration
-  bool success = clp->parseCommandLine(argc, const_cast<const char **>(argv));
+  bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
 
-  vpiHandle the_design = nullptr;
+  vpiHandle vpi_design = nullptr;
+  SURELOG::scompiler *compiler = nullptr;
   if (success && (!clp->help())) {
-    SURELOG::scompiler *compiler = SURELOG::start_compiler(clp);
-    the_design = SURELOG::get_uhdm_design(compiler);
-    SURELOG::shutdown_compiler(compiler);
+    compiler = SURELOG::start_compiler(clp);
+    vpi_design = SURELOG::get_uhdm_design(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
@@ -102,11 +104,14 @@ int main(int argc, char *argv[]) {
   SURELOG::ErrorContainer::Stats stats = errors->getErrorStats();
   errors->printStats(stats, false);
 
+  if (vpi_design == nullptr) return code;
+
+  if (!Build(vpi_design)) return -1;
+
+  // Do not delete these objects until you are done with UHDM
+  SURELOG::shutdown_compiler(compiler);
   delete clp;
   delete symbolTable;
   delete errors;
-
-  if (the_design == nullptr) return code;
-
-  if (!Build(the_design)) return -1;
+  return 0;
 }
