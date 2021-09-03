@@ -48,16 +48,13 @@ int main(int argc, const char** argv) {
   bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
   vpiHandle the_design = 0;
+  SURELOG::scompiler* compiler = nullptr;
   if (success && (!clp->help())) {
-    SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
+    compiler = SURELOG::start_compiler(clp);
     the_design = SURELOG::get_uhdm_design(compiler);
-    SURELOG::shutdown_compiler(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }
-  delete clp;
-  delete symbolTable;
-  delete errors;
 
   std::string result;
 
@@ -202,5 +199,11 @@ int main(int argc, const char** argv) {
     }
   }
   std::cout << result << std::endl;
+
+  // Do not delete these objects until you are done with UHDM
+  SURELOG::shutdown_compiler(compiler);
+  delete clp;
+  delete symbolTable;
+  delete errors;
   return code;
 }
