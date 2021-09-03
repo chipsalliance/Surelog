@@ -132,7 +132,7 @@ add_custom_command(
 # Java
 find_package(Java REQUIRED COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION
-    ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr-4.9.1-complete.jar)
+    ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.9.3-complete.jar)
 
 add_custom_target(GenerateParser DEPENDS
   ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
@@ -177,7 +177,7 @@ add_custom_command(
              SV3_1aLexer.g4    SV3_1aParser.g4
              SV3_1aPpLexer.g4  SV3_1aPpParser.g4
              SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4
-  DEPENDS ${surelog_grammars}
+  DEPENDS ${ANTLR_JAR_LOCATION} ${surelog_grammars}
   COMMAND ${CMAKE_COMMAND} -E touch ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
 )
 
