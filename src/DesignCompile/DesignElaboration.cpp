@@ -1953,7 +1953,15 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
                         m_compileDesign, instance);
                     instance->setComplexValue(name, expr);
                   }
-
+                  /*
+                  if (p) {
+                    if (UHDM::typespec* ts = p->getTypespec()) {
+                      if (ts->UhdmType() != UHDM::uhdmunsupported_typespec) {
+                        op->Typespec(p->getTypespec());
+                      }
+                    }
+                  }
+                  */
                   m_helper.reorderAssignmentPattern(module, p->getUhdmParam(),
                                                     expr, m_compileDesign,
                                                     instance, 0);
