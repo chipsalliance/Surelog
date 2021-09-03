@@ -3762,7 +3762,7 @@ UHDM::any* CompileHelper::compileExpression(
                             } else {
                               tps = ((UHDM::parameter*)lhs)->Typespec();
                             }
-                            if (tps) {
+                            if (tps && (res->Typespec() == nullptr)) {
                               res->Typespec((UHDM::typespec*)tps);
                             }
                             break;
@@ -3795,7 +3795,7 @@ UHDM::any* CompileHelper::compileExpression(
                         } else {
                           tps = ((UHDM::parameter*)lhs)->Typespec();
                         }
-                        if (tps) {
+                        if (tps && (res->Typespec() == nullptr)) {
                           res->Typespec((UHDM::typespec*)tps);
                         }
                         break;
