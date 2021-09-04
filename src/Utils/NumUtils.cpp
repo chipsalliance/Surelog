@@ -41,7 +41,7 @@ std::string NumUtils::hexToBin(const std::string &s) {
       n = 10 + i - 'A';
     for (int8_t j = 3; j >= 0; --j) out.push_back((n & (1 << j)) ? '1' : '0');
   }
-
+  out = trimLeadingZeros(out);
   return out;
 }
 
@@ -59,7 +59,6 @@ std::string NumUtils::binToHex(const std::string &s) {
     else
       out.push_back('A' + n - 10);
   }
-
   return out;
 }
 
@@ -79,4 +78,17 @@ std::string NumUtils::toBinary(unsigned int size, uint64_t val) {
     result += tmp[i];
   return result;
 }
+
+std::string NumUtils::trimLeadingZeros(const std::string &s) {
+  const uint64_t sSize = s.size();
+  std::string res;
+  bool nonZero = false;
+  for (unsigned int i = 0; i < sSize; i++) {
+    const char c = s[i];
+    if (c != '0') nonZero = true;
+    if (nonZero) res += c;
+  }
+  return res;
+}
+
 }  // namespace SURELOG
