@@ -224,5 +224,38 @@ TEST(Elaboration, DollarBits) {
   }
 }
 
+TEST(Elaboration, DollarBitsHier) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  package my_pkg;
+    typedef struct packed {
+      logic [1:0] rxblvl;
+      logic [15:0] nco;
+    } uart_reg2hw_ctrl_reg_t;
+    typedef struct  packed {
+      uart_reg2hw_ctrl_reg_t ctrl;
+    } uart_reg2hw_t;
+  endpackage // my_pkg
+  module top;
+    my_pkg::uart_reg2hw_t reg2hw;
+    parameter o = $bits(reg2hw.ctrl.nco);
+  endmodule)");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(helper.get_value(invalidValue, rhs), 16);
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

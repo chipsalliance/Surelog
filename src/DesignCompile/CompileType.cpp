@@ -707,8 +707,7 @@ int_typespec* CompileHelper::buildIntTypespec(
 UHDM::typespec* CompileHelper::compileTypespec(
     DesignComponent* component, const FileContent* fC, NodeId type,
     CompileDesign* compileDesign, UHDM::any* pstmt,
-    SURELOG::ValuedComponentI* instance, bool reduce, bool isVariable,
-    const std::string& suffixname) {
+    SURELOG::ValuedComponentI* instance, bool reduce, bool isVariable) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
