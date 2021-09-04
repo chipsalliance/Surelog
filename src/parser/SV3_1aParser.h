@@ -3681,60 +3681,17 @@ public:
   class  Integer_atom_typeContext : public antlr4::ParserRuleContext {
   public:
     Integer_atom_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Integer_atom_typeContext() = default;
-    void copyFrom(Integer_atom_typeContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  IntegerAtomType_ShortintContext : public Integer_atom_typeContext {
-  public:
-    IntegerAtomType_ShortintContext(Integer_atom_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *SHORTINT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntegerAtomType_IntContext : public Integer_atom_typeContext {
-  public:
-    IntegerAtomType_IntContext(Integer_atom_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *INT();
-    antlr4::tree::TerminalNode *INTEGER();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntegerAtomType_TimeContext : public Integer_atom_typeContext {
-  public:
-    IntegerAtomType_TimeContext(Integer_atom_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *TIME();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntegerAtomType_ByteContext : public Integer_atom_typeContext {
-  public:
-    IntegerAtomType_ByteContext(Integer_atom_typeContext *ctx);
-
     antlr4::tree::TerminalNode *BYTE();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntegerAtomType_LongIntContext : public Integer_atom_typeContext {
-  public:
-    IntegerAtomType_LongIntContext(Integer_atom_typeContext *ctx);
-
+    antlr4::tree::TerminalNode *SHORTINT();
+    antlr4::tree::TerminalNode *INT();
     antlr4::tree::TerminalNode *LONGINT();
+    antlr4::tree::TerminalNode *INTEGER();
+    antlr4::tree::TerminalNode *TIME();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Integer_atom_typeContext* integer_atom_type();
@@ -3742,41 +3699,14 @@ public:
   class  Integer_vector_typeContext : public antlr4::ParserRuleContext {
   public:
     Integer_vector_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Integer_vector_typeContext() = default;
-    void copyFrom(Integer_vector_typeContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  IntVec_TypeBitContext : public Integer_vector_typeContext {
-  public:
-    IntVec_TypeBitContext(Integer_vector_typeContext *ctx);
-
     antlr4::tree::TerminalNode *BIT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntVec_TypeRegContext : public Integer_vector_typeContext {
-  public:
-    IntVec_TypeRegContext(Integer_vector_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *REG();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IntVec_TypeLogicContext : public Integer_vector_typeContext {
-  public:
-    IntVec_TypeLogicContext(Integer_vector_typeContext *ctx);
-
     antlr4::tree::TerminalNode *LOGIC();
+    antlr4::tree::TerminalNode *REG();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Integer_vector_typeContext* integer_vector_type();
@@ -3784,41 +3714,14 @@ public:
   class  Non_integer_typeContext : public antlr4::ParserRuleContext {
   public:
     Non_integer_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Non_integer_typeContext() = default;
-    void copyFrom(Non_integer_typeContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  NonIntType_RealTimeContext : public Non_integer_typeContext {
-  public:
-    NonIntType_RealTimeContext(Non_integer_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *REALTIME();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NonIntType_ShortRealContext : public Non_integer_typeContext {
-  public:
-    NonIntType_ShortRealContext(Non_integer_typeContext *ctx);
-
     antlr4::tree::TerminalNode *SHORTREAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NonIntType_RealContext : public Non_integer_typeContext {
-  public:
-    NonIntType_RealContext(Non_integer_typeContext *ctx);
-
     antlr4::tree::TerminalNode *REAL();
+    antlr4::tree::TerminalNode *REALTIME();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Non_integer_typeContext* non_integer_type();

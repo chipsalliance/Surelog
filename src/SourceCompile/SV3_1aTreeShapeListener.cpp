@@ -1775,4 +1775,39 @@ void SV3_1aTreeShapeListener::exitPort_direction(
     addVObject(ctx, VObjectType::slPortDir_Ref);
   }
 }
+
+void SV3_1aTreeShapeListener::exitInteger_atom_type(
+    SV3_1aParser::Integer_atom_typeContext *ctx) {
+  if (ctx->INT())
+    addVObject(ctx, VObjectType::slIntegerAtomType_Int);
+  else if (ctx->BYTE())
+    addVObject(ctx, VObjectType::slIntegerAtomType_Byte);
+  else if (ctx->SHORTINT())
+    addVObject(ctx, VObjectType::slIntegerAtomType_Shortint);
+  else if (ctx->LONGINT())
+    addVObject(ctx, VObjectType::slIntegerAtomType_LongInt);
+  else if (ctx->INTEGER())
+    addVObject(ctx, VObjectType::slIntegerAtomType_Int);
+  else if (ctx->TIME())
+    addVObject(ctx, VObjectType::slIntegerAtomType_Time);
+}
+
+void SV3_1aTreeShapeListener::exitInteger_vector_type(SV3_1aParser::Integer_vector_typeContext * ctx) { 
+  if (ctx->LOGIC())
+    addVObject (ctx, VObjectType::slIntVec_TypeLogic); 
+  else if (ctx->REG())
+    addVObject (ctx, VObjectType::slIntVec_TypeReg);
+  else if (ctx->BIT())
+    addVObject (ctx, VObjectType::slIntVec_TypeBit); 
+}
+
+void SV3_1aTreeShapeListener::exitNon_integer_type(SV3_1aParser::Non_integer_typeContext * ctx) { 
+  if (ctx->SHORTREAL())
+    addVObject (ctx, VObjectType::slNonIntType_ShortReal); 
+  else if (ctx->REAL())
+    addVObject (ctx, VObjectType::slNonIntType_Real);
+  else if (ctx->REALTIME())
+    addVObject (ctx, VObjectType::slNonIntType_RealTime); 
+}
+
 }  // namespace SURELOG
