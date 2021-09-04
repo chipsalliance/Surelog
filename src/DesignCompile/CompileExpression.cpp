@@ -5213,6 +5213,27 @@ uint64_t CompileHelper::Bits(const UHDM::any* typespec, bool& invalidValue,
   return bits;
 }
 
+const typespec* getMemberTypespec(const typespec* tpss,
+                                  const std::vector<std::string>& suffixes,
+                                  uint32_t index) {
+  const typespec* result = nullptr;
+  if (tpss->UhdmType() == uhdmstruct_typespec) {
+    const struct_typespec* ts = (const struct_typespec*)tpss;
+    for (typespec_member* memb : *ts->Members()) {
+      if (memb->VpiName() == suffixes[index]) {
+        result = memb->Typespec();
+        if (index < (suffixes.size() - 1)) {
+          if (result->UhdmType() == uhdmstruct_typespec) {
+            result = getMemberTypespec(result, suffixes, index + 1);
+          }
+        }
+        break;
+      }
+    }
+  }
+  return result;
+}
+
 const typespec* CompileHelper::getTypespec(DesignComponent* component,
                                            const FileContent* fC, NodeId id,
                                            CompileDesign* compileDesign,
@@ -5222,7 +5243,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
   const DataType* dtype = nullptr;
   const typespec* result = nullptr;
   std::string basename;
-  std::string suffixname;
+  std::vector<std::string> suffixnames;
   switch (fC->Type(id)) {
     case slIntegerAtomType_Byte: {
       result = s.MakeByte_typespec();
@@ -5247,8 +5268,9 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
     case VObjectType::slStringConst: {
       basename = fC->SymName(id);
       NodeId suffix = fC->Sibling(id);
-      if (suffix && (fC->Type(suffix) == slStringConst)) {
-        suffixname = fC->SymName(suffix);
+      while (suffix && (fC->Type(suffix) == slStringConst)) {
+        suffixnames.push_back(fC->SymName(suffix));
+        suffix = fC->Sibling(suffix);
       }
       break;
     }
@@ -5316,7 +5338,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       if (sig->getTypeSpecId()) {
         result =
             compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign,
-                            nullptr, instance, reduce, true, suffixname);
+                            nullptr, instance, reduce, true);
       } else {
         NodeId Packed_dimension = sig->getPackedDimension();
         if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
@@ -5339,14 +5361,8 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       const Struct* st = dynamic_cast<const Struct*>(dt);
       if (st) {
         result = st->getTypespec();
-        if (!suffixname.empty()) {
-          struct_typespec* tpss = (struct_typespec*)result;
-          for (typespec_member* memb : *tpss->Members()) {
-            if (memb->VpiName() == suffixname) {
-              result = memb->Typespec();
-              break;
-            }
-          }
+        if (!suffixnames.empty()) {
+          result = getMemberTypespec(result, suffixnames, 0);
         }
         break;
       }
@@ -5373,14 +5389,8 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
           for (port* p : *netlist->ports()) {
             if (p->VpiName() == basename) {
               const typespec* tps = p->Typespec();
-              if (tps && (tps->UhdmType() == uhdmstruct_typespec)) {
-                struct_typespec* tpss = (struct_typespec*)tps;
-                for (typespec_member* memb : *tpss->Members()) {
-                  if (memb->VpiName() == suffixname) {
-                    result = memb->Typespec();
-                    break;
-                  }
-                }
+              if (!suffixnames.empty()) {
+                result = getMemberTypespec(tps, suffixnames, 0);
               }
             }
             if (result) break;
@@ -5389,16 +5399,8 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component,
       }
     }
   } else {
-    if (suffixname.size()) {
-      if (result && (result->UhdmType() == uhdmstruct_typespec)) {
-        struct_typespec* tpss = (struct_typespec*)result;
-        for (typespec_member* memb : *tpss->Members()) {
-          if (memb->VpiName() == suffixname) {
-            result = memb->Typespec();
-            break;
-          }
-        }
-      }
+    if (!suffixnames.empty()) {
+      result = getMemberTypespec(result, suffixnames, 0);
     }
   }
   return result;

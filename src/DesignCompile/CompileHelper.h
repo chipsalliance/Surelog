@@ -215,8 +215,7 @@ class CompileHelper final {
                                   const FileContent* fC, NodeId nodeId,
                                   CompileDesign* compileDesign,
                                   UHDM::any* pstmt, ValuedComponentI* instance,
-                                  bool reduce, bool isVariable = false,
-                                  const std::string& suffixname = "");
+                                  bool reduce, bool isVariable = false);
 
   UHDM::typespec* compileDatastructureTypespec(
       DesignComponent* component, const FileContent* fC, NodeId type,
