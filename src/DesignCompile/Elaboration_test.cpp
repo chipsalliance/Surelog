@@ -257,5 +257,33 @@ TEST(Elaboration, DollarBitsHier) {
   }
 }
 
+TEST(Elaboration, ConcatHexa) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  module dut();
+    localparam logic [31:0] JT = {
+      4'h0,     
+      16'h4F54, 
+      11'h426,  
+      1'b1      
+    };
+  endmodule)");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(helper.get_value(invalidValue, rhs), 83183693);
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG

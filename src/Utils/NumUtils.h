@@ -39,6 +39,8 @@ class NumUtils {
 
   static std::string toBinary(unsigned int size, uint64_t val);
 
+  static std::string trimLeadingZeros(const std::string &s);
+
  private:
   NumUtils() = delete;
   NumUtils(const NumUtils &orig) = delete;
