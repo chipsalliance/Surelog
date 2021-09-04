@@ -3736,7 +3736,7 @@ UHDM::any* CompileHelper::compileExpression(
           if (result) break;
 
           if (sval == NULL || (sval && !sval->isValid())) {
-            if (instance && reduce) {
+            if (instance) {
               ModuleInstance* inst = dynamic_cast<ModuleInstance*>(instance);
               if (inst) {
                 Netlist* netlist = inst->getNetlist();
@@ -3749,23 +3749,26 @@ UHDM::any* CompileHelper::compileExpression(
                         const std::string& param_name =
                             param_ass->Lhs()->VpiName();
                         if (param_name == name) {
-                          if (substituteAssignedValue(param_ass->Rhs(),
-                                                      compileDesign)) {
-                            ElaboratorListener listener(&s);
-                            result = UHDM::clone_tree((any*)param_ass->Rhs(), s,
-                                                      &listener);
-                            const any* lhs = param_ass->Lhs();
-                            expr* res = (expr*)result;
-                            const typespec* tps = nullptr;
-                            if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
-                              tps = ((UHDM::type_parameter*)lhs)->Typespec();
-                            } else {
-                              tps = ((UHDM::parameter*)lhs)->Typespec();
+                          if (reduce ||
+                              (param_ass->Rhs()->UhdmType() == uhdmconstant)) {
+                            if (substituteAssignedValue(param_ass->Rhs(),
+                                                        compileDesign)) {
+                              ElaboratorListener listener(&s);
+                              result = UHDM::clone_tree((any*)param_ass->Rhs(),
+                                                        s, &listener);
+                              const any* lhs = param_ass->Lhs();
+                              expr* res = (expr*)result;
+                              const typespec* tps = nullptr;
+                              if (lhs->UhdmType() == UHDM::uhdmtype_parameter) {
+                                tps = ((UHDM::type_parameter*)lhs)->Typespec();
+                              } else {
+                                tps = ((UHDM::parameter*)lhs)->Typespec();
+                              }
+                              if (tps && (res->Typespec() == nullptr)) {
+                                res->Typespec((UHDM::typespec*)tps);
+                              }
+                              break;
                             }
-                            if (tps && (res->Typespec() == nullptr)) {
-                              res->Typespec((UHDM::typespec*)tps);
-                            }
-                            break;
                           }
                         }
                       }
