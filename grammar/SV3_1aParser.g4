@@ -757,28 +757,26 @@ integer_type
     | integer_atom_type   
     ; 
 
-integer_atom_type  
-    : BYTE     # IntegerAtomType_Byte 
-    | SHORTINT # IntegerAtomType_Shortint 
-    | INT      # IntegerAtomType_Int 
-    | LONGINT  # IntegerAtomType_LongInt 
-    | INTEGER  # IntegerAtomType_Int 
-    | TIME     # IntegerAtomType_Time 
+integer_atom_type
+    : BYTE    
+    | SHORTINT  
+    | INT    
+    | LONGINT  
+    | INTEGER 
+    | TIME    
     ; 
 
-integer_vector_type  
-    : BIT    # IntVec_TypeBit 
-    | LOGIC  # IntVec_TypeLogic 
-    | REG    # IntVec_TypeReg 
+integer_vector_type
+    : BIT    
+    | LOGIC 
+    | REG   
     ; 
 
-
-non_integer_type  
-    : SHORTREAL  # NonIntType_ShortReal 
-    | REAL       # NonIntType_Real 
-    | REALTIME   # NonIntType_RealTime 
+non_integer_type
+    : SHORTREAL 
+    | REAL      
+    | REALTIME   
     ; 
-
 
 net_type  
     : SUPPLY0 

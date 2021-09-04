@@ -445,38 +445,14 @@ public:
   virtual void enterInteger_type(SV3_1aParser::Integer_typeContext * /*ctx*/) override { }
   virtual void exitInteger_type(SV3_1aParser::Integer_typeContext * /*ctx*/) override { }
 
-  virtual void enterIntegerAtomType_Byte(SV3_1aParser::IntegerAtomType_ByteContext * /*ctx*/) override { }
-  virtual void exitIntegerAtomType_Byte(SV3_1aParser::IntegerAtomType_ByteContext * /*ctx*/) override { }
+  virtual void enterInteger_atom_type(SV3_1aParser::Integer_atom_typeContext * /*ctx*/) override { }
+  virtual void exitInteger_atom_type(SV3_1aParser::Integer_atom_typeContext * /*ctx*/) override { }
 
-  virtual void enterIntegerAtomType_Shortint(SV3_1aParser::IntegerAtomType_ShortintContext * /*ctx*/) override { }
-  virtual void exitIntegerAtomType_Shortint(SV3_1aParser::IntegerAtomType_ShortintContext * /*ctx*/) override { }
+  virtual void enterInteger_vector_type(SV3_1aParser::Integer_vector_typeContext * /*ctx*/) override { }
+  virtual void exitInteger_vector_type(SV3_1aParser::Integer_vector_typeContext * /*ctx*/) override { }
 
-  virtual void enterIntegerAtomType_Int(SV3_1aParser::IntegerAtomType_IntContext * /*ctx*/) override { }
-  virtual void exitIntegerAtomType_Int(SV3_1aParser::IntegerAtomType_IntContext * /*ctx*/) override { }
-
-  virtual void enterIntegerAtomType_LongInt(SV3_1aParser::IntegerAtomType_LongIntContext * /*ctx*/) override { }
-  virtual void exitIntegerAtomType_LongInt(SV3_1aParser::IntegerAtomType_LongIntContext * /*ctx*/) override { }
-
-  virtual void enterIntegerAtomType_Time(SV3_1aParser::IntegerAtomType_TimeContext * /*ctx*/) override { }
-  virtual void exitIntegerAtomType_Time(SV3_1aParser::IntegerAtomType_TimeContext * /*ctx*/) override { }
-
-  virtual void enterIntVec_TypeBit(SV3_1aParser::IntVec_TypeBitContext * /*ctx*/) override { }
-  virtual void exitIntVec_TypeBit(SV3_1aParser::IntVec_TypeBitContext * /*ctx*/) override { }
-
-  virtual void enterIntVec_TypeLogic(SV3_1aParser::IntVec_TypeLogicContext * /*ctx*/) override { }
-  virtual void exitIntVec_TypeLogic(SV3_1aParser::IntVec_TypeLogicContext * /*ctx*/) override { }
-
-  virtual void enterIntVec_TypeReg(SV3_1aParser::IntVec_TypeRegContext * /*ctx*/) override { }
-  virtual void exitIntVec_TypeReg(SV3_1aParser::IntVec_TypeRegContext * /*ctx*/) override { }
-
-  virtual void enterNonIntType_ShortReal(SV3_1aParser::NonIntType_ShortRealContext * /*ctx*/) override { }
-  virtual void exitNonIntType_ShortReal(SV3_1aParser::NonIntType_ShortRealContext * /*ctx*/) override { }
-
-  virtual void enterNonIntType_Real(SV3_1aParser::NonIntType_RealContext * /*ctx*/) override { }
-  virtual void exitNonIntType_Real(SV3_1aParser::NonIntType_RealContext * /*ctx*/) override { }
-
-  virtual void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * /*ctx*/) override { }
-  virtual void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * /*ctx*/) override { }
+  virtual void enterNon_integer_type(SV3_1aParser::Non_integer_typeContext * /*ctx*/) override { }
+  virtual void exitNon_integer_type(SV3_1aParser::Non_integer_typeContext * /*ctx*/) override { }
 
   virtual void enterNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) override { }
   virtual void exitNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) override { }

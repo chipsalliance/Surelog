@@ -443,38 +443,14 @@ public:
   virtual void enterInteger_type(SV3_1aParser::Integer_typeContext *ctx) = 0;
   virtual void exitInteger_type(SV3_1aParser::Integer_typeContext *ctx) = 0;
 
-  virtual void enterIntegerAtomType_Byte(SV3_1aParser::IntegerAtomType_ByteContext *ctx) = 0;
-  virtual void exitIntegerAtomType_Byte(SV3_1aParser::IntegerAtomType_ByteContext *ctx) = 0;
+  virtual void enterInteger_atom_type(SV3_1aParser::Integer_atom_typeContext *ctx) = 0;
+  virtual void exitInteger_atom_type(SV3_1aParser::Integer_atom_typeContext *ctx) = 0;
 
-  virtual void enterIntegerAtomType_Shortint(SV3_1aParser::IntegerAtomType_ShortintContext *ctx) = 0;
-  virtual void exitIntegerAtomType_Shortint(SV3_1aParser::IntegerAtomType_ShortintContext *ctx) = 0;
+  virtual void enterInteger_vector_type(SV3_1aParser::Integer_vector_typeContext *ctx) = 0;
+  virtual void exitInteger_vector_type(SV3_1aParser::Integer_vector_typeContext *ctx) = 0;
 
-  virtual void enterIntegerAtomType_Int(SV3_1aParser::IntegerAtomType_IntContext *ctx) = 0;
-  virtual void exitIntegerAtomType_Int(SV3_1aParser::IntegerAtomType_IntContext *ctx) = 0;
-
-  virtual void enterIntegerAtomType_LongInt(SV3_1aParser::IntegerAtomType_LongIntContext *ctx) = 0;
-  virtual void exitIntegerAtomType_LongInt(SV3_1aParser::IntegerAtomType_LongIntContext *ctx) = 0;
-
-  virtual void enterIntegerAtomType_Time(SV3_1aParser::IntegerAtomType_TimeContext *ctx) = 0;
-  virtual void exitIntegerAtomType_Time(SV3_1aParser::IntegerAtomType_TimeContext *ctx) = 0;
-
-  virtual void enterIntVec_TypeBit(SV3_1aParser::IntVec_TypeBitContext *ctx) = 0;
-  virtual void exitIntVec_TypeBit(SV3_1aParser::IntVec_TypeBitContext *ctx) = 0;
-
-  virtual void enterIntVec_TypeLogic(SV3_1aParser::IntVec_TypeLogicContext *ctx) = 0;
-  virtual void exitIntVec_TypeLogic(SV3_1aParser::IntVec_TypeLogicContext *ctx) = 0;
-
-  virtual void enterIntVec_TypeReg(SV3_1aParser::IntVec_TypeRegContext *ctx) = 0;
-  virtual void exitIntVec_TypeReg(SV3_1aParser::IntVec_TypeRegContext *ctx) = 0;
-
-  virtual void enterNonIntType_ShortReal(SV3_1aParser::NonIntType_ShortRealContext *ctx) = 0;
-  virtual void exitNonIntType_ShortReal(SV3_1aParser::NonIntType_ShortRealContext *ctx) = 0;
-
-  virtual void enterNonIntType_Real(SV3_1aParser::NonIntType_RealContext *ctx) = 0;
-  virtual void exitNonIntType_Real(SV3_1aParser::NonIntType_RealContext *ctx) = 0;
-
-  virtual void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
-  virtual void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
+  virtual void enterNon_integer_type(SV3_1aParser::Non_integer_typeContext *ctx) = 0;
+  virtual void exitNon_integer_type(SV3_1aParser::Non_integer_typeContext *ctx) = 0;
 
   virtual void enterNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
   virtual void exitNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
