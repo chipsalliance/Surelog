@@ -639,10 +639,6 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
               long long iv = std::strtoll(v.c_str(), 0, 8);
               v = NumUtils::toBinary(isize, iv);
             }
-            unsigned int vsize = v.size();
-            if (isize) {
-              for (unsigned int i = 0; i < isize - vsize; i++) v = "0" + v;
-            }
             svalue += v;
           } else {
             std::string v = token;
