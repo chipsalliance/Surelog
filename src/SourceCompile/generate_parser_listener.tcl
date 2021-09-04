@@ -293,6 +293,19 @@ set TYPES(slPortDir_Out) 1
 set TYPES(slPortDir_Inout) 1 
 set TYPES(slPortDir_Ref) 1 
 
+set TYPES(slIntegerAtomType_Byte) 1 
+set TYPES(slIntegerAtomType_Shortint) 1  
+set TYPES(slIntegerAtomType_Int) 1  
+set TYPES(slIntegerAtomType_LongInt) 1  
+set TYPES(slIntegerAtomType_Int) 1 
+set TYPES(slIntegerAtomType_Time) 1 
+set TYPES(slIntVec_TypeBit) 1  
+set TYPES(slIntVec_TypeLogic) 1
+set TYPES(slIntVec_TypeReg) 1 
+set TYPES(slNonIntType_ShortReal) 1
+set TYPES(slNonIntType_Real) 1 
+set TYPES(slNonIntType_RealTime) 1 
+   
 set TYPES(slUnary_Plus) 1
 set TYPES(slUnary_Minus) 1
 set TYPES(slUnary_Not) 1
