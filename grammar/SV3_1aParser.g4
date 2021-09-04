@@ -217,10 +217,10 @@ port_expression :
 port_reference : identifier constant_select ; 
 
 port_direction  
-    : INPUT  # PortDir_Inp 
-    | OUTPUT # PortDir_Out 
-    | INOUT  # PortDir_Inout 
-    | REF    # PortDir_Ref 
+    : INPUT  
+    | OUTPUT 
+    | INOUT  
+    | REF 
     ;     
      
 net_port_header : ( port_direction )? net_port_type ; 
