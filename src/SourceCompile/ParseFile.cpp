@@ -44,6 +44,7 @@
 #include "Utils/Timer.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
+#include "Recognizer.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
