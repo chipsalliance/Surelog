@@ -285,5 +285,33 @@ TEST(Elaboration, ConcatHexa) {
   }
 }
 
+TEST(Elaboration, ParamSubstituteWhenConstant) {
+  CompileHelper helper;
+  ElaboratorHarness eharness;
+  Design* design;
+  FileContent* fC;
+  CompileDesign* compileDesign;
+  // Preprocess, Parse, Compile, Elaborate
+  std::tie(design, fC, compileDesign) = eharness.elaborate(R"(
+  package aes_pkg;
+    parameter logic [7:0][3:0] X = 32'habcd;
+  endpackage 
+  module aes_cipher_core;
+    import aes_pkg::*;
+    parameter logic [7:0][3:0] P = X;
+  endmodule )");
+  Compiler* compiler = compileDesign->getCompiler();
+  vpiHandle hdesign = compiler->getUhdmDesign();
+  UHDM::design* udesign = UhdmDesignFromVpiHandle(hdesign);
+  for (auto topMod : *udesign->TopModules()) {
+    for (auto passign : *topMod->Param_assigns()) {
+      UHDM::expr* rhs = (UHDM::expr*)passign->Rhs();
+      bool invalidValue = false;
+      EXPECT_EQ(rhs->UhdmType(), UHDM::uhdmconstant);
+      EXPECT_EQ(helper.get_value(invalidValue, rhs), 43981);
+    }
+  }
+}
+
 }  // namespace
 }  // namespace SURELOG
