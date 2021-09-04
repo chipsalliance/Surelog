@@ -136,17 +136,8 @@ public:
   virtual void enterPort_reference(SV3_1aParser::Port_referenceContext * /*ctx*/) override { }
   virtual void exitPort_reference(SV3_1aParser::Port_referenceContext * /*ctx*/) override { }
 
-  virtual void enterPortDir_Inp(SV3_1aParser::PortDir_InpContext * /*ctx*/) override { }
-  virtual void exitPortDir_Inp(SV3_1aParser::PortDir_InpContext * /*ctx*/) override { }
-
-  virtual void enterPortDir_Out(SV3_1aParser::PortDir_OutContext * /*ctx*/) override { }
-  virtual void exitPortDir_Out(SV3_1aParser::PortDir_OutContext * /*ctx*/) override { }
-
-  virtual void enterPortDir_Inout(SV3_1aParser::PortDir_InoutContext * /*ctx*/) override { }
-  virtual void exitPortDir_Inout(SV3_1aParser::PortDir_InoutContext * /*ctx*/) override { }
-
-  virtual void enterPortDir_Ref(SV3_1aParser::PortDir_RefContext * /*ctx*/) override { }
-  virtual void exitPortDir_Ref(SV3_1aParser::PortDir_RefContext * /*ctx*/) override { }
+  virtual void enterPort_direction(SV3_1aParser::Port_directionContext * /*ctx*/) override { }
+  virtual void exitPort_direction(SV3_1aParser::Port_directionContext * /*ctx*/) override { }
 
   virtual void enterNet_port_header(SV3_1aParser::Net_port_headerContext * /*ctx*/) override { }
   virtual void exitNet_port_header(SV3_1aParser::Net_port_headerContext * /*ctx*/) override { }

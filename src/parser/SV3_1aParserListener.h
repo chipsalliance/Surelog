@@ -134,17 +134,8 @@ public:
   virtual void enterPort_reference(SV3_1aParser::Port_referenceContext *ctx) = 0;
   virtual void exitPort_reference(SV3_1aParser::Port_referenceContext *ctx) = 0;
 
-  virtual void enterPortDir_Inp(SV3_1aParser::PortDir_InpContext *ctx) = 0;
-  virtual void exitPortDir_Inp(SV3_1aParser::PortDir_InpContext *ctx) = 0;
-
-  virtual void enterPortDir_Out(SV3_1aParser::PortDir_OutContext *ctx) = 0;
-  virtual void exitPortDir_Out(SV3_1aParser::PortDir_OutContext *ctx) = 0;
-
-  virtual void enterPortDir_Inout(SV3_1aParser::PortDir_InoutContext *ctx) = 0;
-  virtual void exitPortDir_Inout(SV3_1aParser::PortDir_InoutContext *ctx) = 0;
-
-  virtual void enterPortDir_Ref(SV3_1aParser::PortDir_RefContext *ctx) = 0;
-  virtual void exitPortDir_Ref(SV3_1aParser::PortDir_RefContext *ctx) = 0;
+  virtual void enterPort_direction(SV3_1aParser::Port_directionContext *ctx) = 0;
+  virtual void exitPort_direction(SV3_1aParser::Port_directionContext *ctx) = 0;
 
   virtual void enterNet_port_header(SV3_1aParser::Net_port_headerContext *ctx) = 0;
   virtual void exitNet_port_header(SV3_1aParser::Net_port_headerContext *ctx) = 0;
