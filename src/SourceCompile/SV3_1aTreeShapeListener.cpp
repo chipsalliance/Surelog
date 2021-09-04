@@ -1762,4 +1762,17 @@ void SV3_1aTreeShapeListener::exitParameter_declaration(
   }
   addVObject(ctx, VObjectType::slParameter_declaration);
 }
+
+void SV3_1aTreeShapeListener::exitPort_direction(
+    SV3_1aParser::Port_directionContext *ctx) {
+  if (ctx->INPUT()) {
+    addVObject(ctx, VObjectType::slPortDir_Inp);
+  } else if (ctx->OUTPUT()) {
+    addVObject(ctx, VObjectType::slPortDir_Out);
+  } else if (ctx->INOUT()) {
+    addVObject(ctx, VObjectType::slPortDir_Inout);
+  } else if (ctx->REF()) {
+    addVObject(ctx, VObjectType::slPortDir_Ref);
+  }
+}
 }  // namespace SURELOG

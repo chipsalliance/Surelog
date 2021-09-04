@@ -288,6 +288,11 @@ set TYPES(slDotStar) 1
 set TYPES(slNonBlockingTriggerEvent) 1
 set TYPES(slPound_Pound_delay) 1
 
+set TYPES(slPortDir_Inp) 1 
+set TYPES(slPortDir_Out) 1 
+set TYPES(slPortDir_Inout) 1 
+set TYPES(slPortDir_Ref) 1 
+
 set TYPES(slUnary_Plus) 1
 set TYPES(slUnary_Minus) 1
 set TYPES(slUnary_Not) 1

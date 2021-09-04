@@ -1843,50 +1843,15 @@ public:
   class  Port_directionContext : public antlr4::ParserRuleContext {
   public:
     Port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Port_directionContext() = default;
-    void copyFrom(Port_directionContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  PortDir_InpContext : public Port_directionContext {
-  public:
-    PortDir_InpContext(Port_directionContext *ctx);
-
     antlr4::tree::TerminalNode *INPUT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PortDir_OutContext : public Port_directionContext {
-  public:
-    PortDir_OutContext(Port_directionContext *ctx);
-
     antlr4::tree::TerminalNode *OUTPUT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PortDir_RefContext : public Port_directionContext {
-  public:
-    PortDir_RefContext(Port_directionContext *ctx);
-
-    antlr4::tree::TerminalNode *REF();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PortDir_InoutContext : public Port_directionContext {
-  public:
-    PortDir_InoutContext(Port_directionContext *ctx);
-
     antlr4::tree::TerminalNode *INOUT();
+    antlr4::tree::TerminalNode *REF();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Port_directionContext* port_direction();
