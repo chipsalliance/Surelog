@@ -1792,22 +1792,24 @@ void SV3_1aTreeShapeListener::exitInteger_atom_type(
     addVObject(ctx, VObjectType::slIntegerAtomType_Time);
 }
 
-void SV3_1aTreeShapeListener::exitInteger_vector_type(SV3_1aParser::Integer_vector_typeContext * ctx) { 
+void SV3_1aTreeShapeListener::exitInteger_vector_type(
+    SV3_1aParser::Integer_vector_typeContext *ctx) {
   if (ctx->LOGIC())
-    addVObject (ctx, VObjectType::slIntVec_TypeLogic); 
+    addVObject(ctx, VObjectType::slIntVec_TypeLogic);
   else if (ctx->REG())
-    addVObject (ctx, VObjectType::slIntVec_TypeReg);
+    addVObject(ctx, VObjectType::slIntVec_TypeReg);
   else if (ctx->BIT())
-    addVObject (ctx, VObjectType::slIntVec_TypeBit); 
+    addVObject(ctx, VObjectType::slIntVec_TypeBit);
 }
 
-void SV3_1aTreeShapeListener::exitNon_integer_type(SV3_1aParser::Non_integer_typeContext * ctx) { 
+void SV3_1aTreeShapeListener::exitNon_integer_type(
+    SV3_1aParser::Non_integer_typeContext *ctx) {
   if (ctx->SHORTREAL())
-    addVObject (ctx, VObjectType::slNonIntType_ShortReal); 
+    addVObject(ctx, VObjectType::slNonIntType_ShortReal);
   else if (ctx->REAL())
-    addVObject (ctx, VObjectType::slNonIntType_Real);
+    addVObject(ctx, VObjectType::slNonIntType_Real);
   else if (ctx->REALTIME())
-    addVObject (ctx, VObjectType::slNonIntType_RealTime); 
+    addVObject(ctx, VObjectType::slNonIntType_RealTime);
 }
 
 }  // namespace SURELOG
