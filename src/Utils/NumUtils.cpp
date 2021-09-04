@@ -76,7 +76,6 @@ std::string NumUtils::toBinary(unsigned int size, uint64_t val) {
   std::string result;
   for (unsigned int i = bitFieldSize - size; i < bitFieldSize; i++)
     result += tmp[i];
-  result = trimLeadingZeros(result);
   return result;
 }
 
