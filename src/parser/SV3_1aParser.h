@@ -10,6 +10,7 @@
 
 
 class  SV3_1aParser : public antlr4::Parser {
+  IMPLEMENT_RTTI(SV3_1aParser, antlr4::Parser)
 public:
   enum {
     QMARK = 1, TICK_b0 = 2, TICK_b1 = 3, TICK_B0 = 4, TICK_B1 = 5, TICK_0 = 6, 
@@ -1052,6 +1053,7 @@ public:
   class Use_clauseContext; 
 
   class  Top_level_ruleContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Top_level_ruleContext, antlr4::ParserRuleContext)
   public:
     Top_level_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1067,6 +1069,7 @@ public:
   Top_level_ruleContext* top_level_rule();
 
   class  Top_level_library_ruleContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Top_level_library_ruleContext, antlr4::ParserRuleContext)
   public:
     Top_level_library_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1082,6 +1085,7 @@ public:
   Top_level_library_ruleContext* top_level_library_rule();
 
   class  Library_textContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Library_textContext, antlr4::ParserRuleContext)
   public:
     Library_textContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1096,6 +1100,7 @@ public:
   Library_textContext* library_text();
 
   class  Library_descriptionsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Library_descriptionsContext, antlr4::ParserRuleContext)
   public:
     Library_descriptionsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1112,6 +1117,7 @@ public:
   Library_descriptionsContext* library_descriptions();
 
   class  Library_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Library_declarationContext, antlr4::ParserRuleContext)
   public:
     Library_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1132,6 +1138,7 @@ public:
   Library_declarationContext* library_declaration();
 
   class  File_path_specContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(File_path_specContext, antlr4::ParserRuleContext)
   public:
     File_path_specContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1156,6 +1163,7 @@ public:
   File_path_specContext* file_path_spec();
 
   class  Include_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Include_statementContext, antlr4::ParserRuleContext)
   public:
     Include_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1171,6 +1179,7 @@ public:
   Include_statementContext* include_statement();
 
   class  Source_textContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Source_textContext, antlr4::ParserRuleContext)
   public:
     Source_textContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1186,6 +1195,7 @@ public:
   Source_textContext* source_text();
 
   class  Null_ruleContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Null_ruleContext, antlr4::ParserRuleContext)
   public:
     Null_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1198,6 +1208,7 @@ public:
   Null_ruleContext* null_rule();
 
   class  DescriptionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(DescriptionContext, antlr4::ParserRuleContext)
   public:
     DescriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1222,6 +1233,7 @@ public:
   DescriptionContext* description();
 
   class  Module_nonansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_nonansi_headerContext, antlr4::ParserRuleContext)
   public:
     Module_nonansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1244,6 +1256,7 @@ public:
   Module_nonansi_headerContext* module_nonansi_header();
 
   class  Module_ansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_ansi_headerContext, antlr4::ParserRuleContext)
   public:
     Module_ansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1266,6 +1279,7 @@ public:
   Module_ansi_headerContext* module_ansi_header();
 
   class  Module_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_declarationContext, antlr4::ParserRuleContext)
   public:
     Module_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1299,6 +1313,7 @@ public:
   Module_declarationContext* module_declaration();
 
   class  Module_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_keywordContext, antlr4::ParserRuleContext)
   public:
     Module_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1313,6 +1328,7 @@ public:
   Module_keywordContext* module_keyword();
 
   class  Interface_nonansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_nonansi_headerContext, antlr4::ParserRuleContext)
   public:
     Interface_nonansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1335,6 +1351,7 @@ public:
   Interface_nonansi_headerContext* interface_nonansi_header();
 
   class  Interface_ansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_ansi_headerContext, antlr4::ParserRuleContext)
   public:
     Interface_ansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1357,6 +1374,7 @@ public:
   Interface_ansi_headerContext* interface_ansi_header();
 
   class  Interface_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_declarationContext, antlr4::ParserRuleContext)
   public:
     Interface_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1388,6 +1406,7 @@ public:
   Interface_declarationContext* interface_declaration();
 
   class  Program_nonansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Program_nonansi_headerContext, antlr4::ParserRuleContext)
   public:
     Program_nonansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1409,6 +1428,7 @@ public:
   Program_nonansi_headerContext* program_nonansi_header();
 
   class  Program_ansi_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Program_ansi_headerContext, antlr4::ParserRuleContext)
   public:
     Program_ansi_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1431,6 +1451,7 @@ public:
   Program_ansi_headerContext* program_ansi_header();
 
   class  Checker_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_declarationContext, antlr4::ParserRuleContext)
   public:
     Checker_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1456,6 +1477,7 @@ public:
   Checker_declarationContext* checker_declaration();
 
   class  Program_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Program_declarationContext, antlr4::ParserRuleContext)
   public:
     Program_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1488,6 +1510,7 @@ public:
   Program_declarationContext* program_declaration();
 
   class  Class_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_declarationContext, antlr4::ParserRuleContext)
   public:
     Class_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1521,6 +1544,7 @@ public:
   Class_declarationContext* class_declaration();
 
   class  Interface_class_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_class_typeContext, antlr4::ParserRuleContext)
   public:
     Interface_class_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1535,6 +1559,7 @@ public:
   Interface_class_typeContext* interface_class_type();
 
   class  Interface_class_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_class_declarationContext, antlr4::ParserRuleContext)
   public:
     Interface_class_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1562,6 +1587,7 @@ public:
   Interface_class_declarationContext* interface_class_declaration();
 
   class  Interface_class_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_class_itemContext, antlr4::ParserRuleContext)
   public:
     Interface_class_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1581,6 +1607,7 @@ public:
   Interface_class_itemContext* interface_class_item();
 
   class  Interface_class_methodContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_class_methodContext, antlr4::ParserRuleContext)
   public:
     Interface_class_methodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1596,6 +1623,7 @@ public:
   Interface_class_methodContext* interface_class_method();
 
   class  Package_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_declarationContext, antlr4::ParserRuleContext)
   public:
     Package_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1619,6 +1647,7 @@ public:
   Package_declarationContext* package_declaration();
 
   class  Timeunits_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timeunits_declarationContext, antlr4::ParserRuleContext)
   public:
     Timeunits_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -1632,6 +1661,7 @@ public:
   };
 
   class  TimeUnitsDecl_TimeUnitDivContext : public Timeunits_declarationContext {
+    IMPLEMENT_RTTI(TimeUnitsDecl_TimeUnitDivContext, Timeunits_declarationContext)
   public:
     TimeUnitsDecl_TimeUnitDivContext(Timeunits_declarationContext *ctx);
 
@@ -1645,6 +1675,7 @@ public:
   };
 
   class  TimeUnitsDecl_TimePrecisionTimeUnitContext : public Timeunits_declarationContext {
+    IMPLEMENT_RTTI(TimeUnitsDecl_TimePrecisionTimeUnitContext, Timeunits_declarationContext)
   public:
     TimeUnitsDecl_TimePrecisionTimeUnitContext(Timeunits_declarationContext *ctx);
 
@@ -1659,6 +1690,7 @@ public:
   };
 
   class  TimeUnitsDecl_TimeUnitTimePrecisionContext : public Timeunits_declarationContext {
+    IMPLEMENT_RTTI(TimeUnitsDecl_TimeUnitTimePrecisionContext, Timeunits_declarationContext)
   public:
     TimeUnitsDecl_TimeUnitTimePrecisionContext(Timeunits_declarationContext *ctx);
 
@@ -1673,6 +1705,7 @@ public:
   };
 
   class  TimeUnitsDecl_TimeUnitContext : public Timeunits_declarationContext {
+    IMPLEMENT_RTTI(TimeUnitsDecl_TimeUnitContext, Timeunits_declarationContext)
   public:
     TimeUnitsDecl_TimeUnitContext(Timeunits_declarationContext *ctx);
 
@@ -1684,6 +1717,7 @@ public:
   };
 
   class  TimeUnitsDecl_TimePrecisionContext : public Timeunits_declarationContext {
+    IMPLEMENT_RTTI(TimeUnitsDecl_TimePrecisionContext, Timeunits_declarationContext)
   public:
     TimeUnitsDecl_TimePrecisionContext(Timeunits_declarationContext *ctx);
 
@@ -1697,6 +1731,7 @@ public:
   Timeunits_declarationContext* timeunits_declaration();
 
   class  Parameter_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parameter_port_listContext, antlr4::ParserRuleContext)
   public:
     Parameter_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1717,6 +1752,7 @@ public:
   Parameter_port_listContext* parameter_port_list();
 
   class  Parameter_port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parameter_port_declarationContext, antlr4::ParserRuleContext)
   public:
     Parameter_port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1735,6 +1771,7 @@ public:
   Parameter_port_declarationContext* parameter_port_declaration();
 
   class  List_of_portsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_portsContext, antlr4::ParserRuleContext)
   public:
     List_of_portsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1753,6 +1790,7 @@ public:
   List_of_portsContext* list_of_ports();
 
   class  List_of_port_declarationsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_port_declarationsContext, antlr4::ParserRuleContext)
   public:
     List_of_port_declarationsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1773,6 +1811,7 @@ public:
   List_of_port_declarationsContext* list_of_port_declarations();
 
   class  Port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Port_declarationContext, antlr4::ParserRuleContext)
   public:
     Port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1792,6 +1831,7 @@ public:
   Port_declarationContext* port_declaration();
 
   class  PortContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(PortContext, antlr4::ParserRuleContext)
   public:
     PortContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1809,6 +1849,7 @@ public:
   PortContext* port();
 
   class  Port_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Port_expressionContext, antlr4::ParserRuleContext)
   public:
     Port_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1827,6 +1868,7 @@ public:
   Port_expressionContext* port_expression();
 
   class  Port_referenceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Port_referenceContext, antlr4::ParserRuleContext)
   public:
     Port_referenceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1841,6 +1883,7 @@ public:
   Port_referenceContext* port_reference();
 
   class  Port_directionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Port_directionContext, antlr4::ParserRuleContext)
   public:
     Port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1857,6 +1900,7 @@ public:
   Port_directionContext* port_direction();
 
   class  Net_port_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_port_headerContext, antlr4::ParserRuleContext)
   public:
     Net_port_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1871,6 +1915,7 @@ public:
   Net_port_headerContext* net_port_header();
 
   class  Variable_port_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_port_headerContext, antlr4::ParserRuleContext)
   public:
     Variable_port_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1885,6 +1930,7 @@ public:
   Variable_port_headerContext* variable_port_header();
 
   class  Interface_port_headerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_port_headerContext, antlr4::ParserRuleContext)
   public:
     Interface_port_headerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1901,6 +1947,7 @@ public:
   Interface_port_headerContext* interface_port_header();
 
   class  Ansi_port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ansi_port_declarationContext, antlr4::ParserRuleContext)
   public:
     Ansi_port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1927,6 +1974,7 @@ public:
   Ansi_port_declarationContext* ansi_port_declaration();
 
   class  Elaboration_system_taskContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Elaboration_system_taskContext, antlr4::ParserRuleContext)
   public:
     Elaboration_system_taskContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1947,6 +1995,7 @@ public:
   Elaboration_system_taskContext* elaboration_system_task();
 
   class  Module_common_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_common_itemContext, antlr4::ParserRuleContext)
   public:
     Module_common_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1972,6 +2021,7 @@ public:
   Module_common_itemContext* module_common_item();
 
   class  Module_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_itemContext, antlr4::ParserRuleContext)
   public:
     Module_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -1987,6 +2037,7 @@ public:
   Module_itemContext* module_item();
 
   class  Module_or_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_or_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Module_or_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2006,6 +2057,7 @@ public:
   Module_or_generate_itemContext* module_or_generate_item();
 
   class  Module_or_generate_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_or_generate_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Module_or_generate_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2028,6 +2080,7 @@ public:
   Module_or_generate_item_declarationContext* module_or_generate_item_declaration();
 
   class  Non_port_module_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Non_port_module_itemContext, antlr4::ParserRuleContext)
   public:
     Non_port_module_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2052,6 +2105,7 @@ public:
   Non_port_module_itemContext* non_port_module_item();
 
   class  Parameter_overrideContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parameter_overrideContext, antlr4::ParserRuleContext)
   public:
     Parameter_overrideContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2067,6 +2121,7 @@ public:
   Parameter_overrideContext* parameter_override();
 
   class  Bind_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bind_directiveContext, antlr4::ParserRuleContext)
   public:
     Bind_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2088,6 +2143,7 @@ public:
   Bind_directiveContext* bind_directive();
 
   class  Bind_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bind_instantiationContext, antlr4::ParserRuleContext)
   public:
     Bind_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2102,6 +2158,7 @@ public:
   Bind_instantiationContext* bind_instantiation();
 
   class  Interface_or_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_or_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Interface_or_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2124,6 +2181,7 @@ public:
   Interface_or_generate_itemContext* interface_or_generate_item();
 
   class  Extern_tf_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Extern_tf_declarationContext, antlr4::ParserRuleContext)
   public:
     Extern_tf_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2141,6 +2199,7 @@ public:
   Extern_tf_declarationContext* extern_tf_declaration();
 
   class  Interface_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_itemContext, antlr4::ParserRuleContext)
   public:
     Interface_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2156,6 +2215,7 @@ public:
   Interface_itemContext* interface_item();
 
   class  Non_port_interface_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Non_port_interface_itemContext, antlr4::ParserRuleContext)
   public:
     Non_port_interface_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2177,6 +2237,7 @@ public:
   Non_port_interface_itemContext* non_port_interface_item();
 
   class  Program_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Program_itemContext, antlr4::ParserRuleContext)
   public:
     Program_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2192,6 +2253,7 @@ public:
   Program_itemContext* program_item();
 
   class  Non_port_program_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Non_port_program_itemContext, antlr4::ParserRuleContext)
   public:
     Non_port_program_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2215,6 +2277,7 @@ public:
   Non_port_program_itemContext* non_port_program_item();
 
   class  Program_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Program_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Program_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2231,6 +2294,7 @@ public:
   Program_generate_itemContext* program_generate_item();
 
   class  Checker_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_port_listContext, antlr4::ParserRuleContext)
   public:
     Checker_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2247,6 +2311,7 @@ public:
   Checker_port_listContext* checker_port_list();
 
   class  Checker_port_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_port_itemContext, antlr4::ParserRuleContext)
   public:
     Checker_port_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2269,6 +2334,7 @@ public:
   Checker_port_itemContext* checker_port_item();
 
   class  Checker_or_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_or_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Checker_or_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2288,6 +2354,7 @@ public:
   Checker_or_generate_itemContext* checker_or_generate_item();
 
   class  Checker_or_generate_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_or_generate_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Checker_or_generate_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2318,6 +2385,7 @@ public:
   Checker_or_generate_item_declarationContext* checker_or_generate_item_declaration();
 
   class  Checker_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Checker_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2334,6 +2402,7 @@ public:
   Checker_generate_itemContext* checker_generate_item();
 
   class  Class_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_itemContext, antlr4::ParserRuleContext)
   public:
     Class_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2358,6 +2427,7 @@ public:
   Class_itemContext* class_item();
 
   class  Class_propertyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_propertyContext, antlr4::ParserRuleContext)
   public:
     Class_propertyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2381,6 +2451,7 @@ public:
   Class_propertyContext* class_property();
 
   class  Pure_virtual_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pure_virtual_qualifierContext, antlr4::ParserRuleContext)
   public:
     Pure_virtual_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2395,6 +2466,7 @@ public:
   Pure_virtual_qualifierContext* pure_virtual_qualifier();
 
   class  Extern_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Extern_qualifierContext, antlr4::ParserRuleContext)
   public:
     Extern_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2408,6 +2480,7 @@ public:
   Extern_qualifierContext* extern_qualifier();
 
   class  Class_methodContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_methodContext, antlr4::ParserRuleContext)
   public:
     Class_methodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2432,6 +2505,7 @@ public:
   Class_methodContext* class_method();
 
   class  Class_constructor_prototypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_constructor_prototypeContext, antlr4::ParserRuleContext)
   public:
     Class_constructor_prototypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2449,6 +2523,7 @@ public:
   Class_constructor_prototypeContext* class_constructor_prototype();
 
   class  Class_constraintContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_constraintContext, antlr4::ParserRuleContext)
   public:
     Class_constraintContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2463,6 +2538,7 @@ public:
   Class_constraintContext* class_constraint();
 
   class  Class_item_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_item_qualifierContext, antlr4::ParserRuleContext)
   public:
     Class_item_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -2476,6 +2552,7 @@ public:
   };
 
   class  ClassItemQualifier_StaticContext : public Class_item_qualifierContext {
+    IMPLEMENT_RTTI(ClassItemQualifier_StaticContext, Class_item_qualifierContext)
   public:
     ClassItemQualifier_StaticContext(Class_item_qualifierContext *ctx);
 
@@ -2485,6 +2562,7 @@ public:
   };
 
   class  ClassItemQualifier_LocalContext : public Class_item_qualifierContext {
+    IMPLEMENT_RTTI(ClassItemQualifier_LocalContext, Class_item_qualifierContext)
   public:
     ClassItemQualifier_LocalContext(Class_item_qualifierContext *ctx);
 
@@ -2494,6 +2572,7 @@ public:
   };
 
   class  ClassItemQualifier_ProtectedContext : public Class_item_qualifierContext {
+    IMPLEMENT_RTTI(ClassItemQualifier_ProtectedContext, Class_item_qualifierContext)
   public:
     ClassItemQualifier_ProtectedContext(Class_item_qualifierContext *ctx);
 
@@ -2505,6 +2584,7 @@ public:
   Class_item_qualifierContext* class_item_qualifier();
 
   class  Property_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_qualifierContext, antlr4::ParserRuleContext)
   public:
     Property_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -2518,6 +2598,7 @@ public:
   };
 
   class  PropQualifier_ClassItemContext : public Property_qualifierContext {
+    IMPLEMENT_RTTI(PropQualifier_ClassItemContext, Property_qualifierContext)
   public:
     PropQualifier_ClassItemContext(Property_qualifierContext *ctx);
 
@@ -2527,6 +2608,7 @@ public:
   };
 
   class  PropQualifier_RandContext : public Property_qualifierContext {
+    IMPLEMENT_RTTI(PropQualifier_RandContext, Property_qualifierContext)
   public:
     PropQualifier_RandContext(Property_qualifierContext *ctx);
 
@@ -2536,6 +2618,7 @@ public:
   };
 
   class  PropQualifier_RandcContext : public Property_qualifierContext {
+    IMPLEMENT_RTTI(PropQualifier_RandcContext, Property_qualifierContext)
   public:
     PropQualifier_RandcContext(Property_qualifierContext *ctx);
 
@@ -2547,6 +2630,7 @@ public:
   Property_qualifierContext* property_qualifier();
 
   class  Method_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Method_qualifierContext, antlr4::ParserRuleContext)
   public:
     Method_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -2560,6 +2644,7 @@ public:
   };
 
   class  MethodQualifier_VirtualContext : public Method_qualifierContext {
+    IMPLEMENT_RTTI(MethodQualifier_VirtualContext, Method_qualifierContext)
   public:
     MethodQualifier_VirtualContext(Method_qualifierContext *ctx);
 
@@ -2569,6 +2654,7 @@ public:
   };
 
   class  MethodQualifier_ClassItemContext : public Method_qualifierContext {
+    IMPLEMENT_RTTI(MethodQualifier_ClassItemContext, Method_qualifierContext)
   public:
     MethodQualifier_ClassItemContext(Method_qualifierContext *ctx);
 
@@ -2580,6 +2666,7 @@ public:
   Method_qualifierContext* method_qualifier();
 
   class  Method_prototypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Method_prototypeContext, antlr4::ParserRuleContext)
   public:
     Method_prototypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2594,6 +2681,7 @@ public:
   Method_prototypeContext* method_prototype();
 
   class  Super_dot_newContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Super_dot_newContext, antlr4::ParserRuleContext)
   public:
     Super_dot_newContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2609,6 +2697,7 @@ public:
   Super_dot_newContext* super_dot_new();
 
   class  Class_constructor_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_constructor_declarationContext, antlr4::ParserRuleContext)
   public:
     Class_constructor_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2640,6 +2729,7 @@ public:
   Class_constructor_declarationContext* class_constructor_declaration();
 
   class  Constraint_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_declarationContext, antlr4::ParserRuleContext)
   public:
     Constraint_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2656,6 +2746,7 @@ public:
   Constraint_declarationContext* constraint_declaration();
 
   class  Constraint_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_blockContext, antlr4::ParserRuleContext)
   public:
     Constraint_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2672,6 +2763,7 @@ public:
   Constraint_blockContext* constraint_block();
 
   class  Constraint_block_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_block_itemContext, antlr4::ParserRuleContext)
   public:
     Constraint_block_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2690,6 +2782,7 @@ public:
   Constraint_block_itemContext* constraint_block_item();
 
   class  Solve_before_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Solve_before_listContext, antlr4::ParserRuleContext)
   public:
     Solve_before_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2706,6 +2799,7 @@ public:
   Solve_before_listContext* solve_before_list();
 
   class  Constraint_primaryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_primaryContext, antlr4::ParserRuleContext)
   public:
     Constraint_primaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2732,6 +2826,7 @@ public:
   Constraint_primaryContext* constraint_primary();
 
   class  Constraint_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_expressionContext, antlr4::ParserRuleContext)
   public:
     Constraint_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2763,6 +2858,7 @@ public:
   Constraint_expressionContext* constraint_expression();
 
   class  Uniqueness_constraintContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Uniqueness_constraintContext, antlr4::ParserRuleContext)
   public:
     Uniqueness_constraintContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2779,6 +2875,7 @@ public:
   Uniqueness_constraintContext* uniqueness_constraint();
 
   class  Constraint_setContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_setContext, antlr4::ParserRuleContext)
   public:
     Constraint_setContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2795,6 +2892,7 @@ public:
   Constraint_setContext* constraint_set();
 
   class  Dist_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dist_listContext, antlr4::ParserRuleContext)
   public:
     Dist_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2811,6 +2909,7 @@ public:
   Dist_listContext* dist_list();
 
   class  Dist_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dist_itemContext, antlr4::ParserRuleContext)
   public:
     Dist_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2825,6 +2924,7 @@ public:
   Dist_itemContext* dist_item();
 
   class  Dist_weightContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dist_weightContext, antlr4::ParserRuleContext)
   public:
     Dist_weightContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -2838,6 +2938,7 @@ public:
   };
 
   class  DistWeight_AssignValueContext : public Dist_weightContext {
+    IMPLEMENT_RTTI(DistWeight_AssignValueContext, Dist_weightContext)
   public:
     DistWeight_AssignValueContext(Dist_weightContext *ctx);
 
@@ -2848,6 +2949,7 @@ public:
   };
 
   class  DistWeight_AssignRangeContext : public Dist_weightContext {
+    IMPLEMENT_RTTI(DistWeight_AssignRangeContext, Dist_weightContext)
   public:
     DistWeight_AssignRangeContext(Dist_weightContext *ctx);
 
@@ -2861,6 +2963,7 @@ public:
   Dist_weightContext* dist_weight();
 
   class  Constraint_prototypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constraint_prototypeContext, antlr4::ParserRuleContext)
   public:
     Constraint_prototypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2879,6 +2982,7 @@ public:
   Constraint_prototypeContext* constraint_prototype();
 
   class  Extern_constraint_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Extern_constraint_declarationContext, antlr4::ParserRuleContext)
   public:
     Extern_constraint_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2896,6 +3000,7 @@ public:
   Extern_constraint_declarationContext* extern_constraint_declaration();
 
   class  Identifier_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Identifier_listContext, antlr4::ParserRuleContext)
   public:
     Identifier_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2912,6 +3017,7 @@ public:
   Identifier_listContext* identifier_list();
 
   class  Package_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_itemContext, antlr4::ParserRuleContext)
   public:
     Package_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2929,6 +3035,7 @@ public:
   Package_itemContext* package_item();
 
   class  Package_or_generate_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_or_generate_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Package_or_generate_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2957,6 +3064,7 @@ public:
   Package_or_generate_item_declarationContext* package_or_generate_item_declaration();
 
   class  Anonymous_programContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Anonymous_programContext, antlr4::ParserRuleContext)
   public:
     Anonymous_programContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2974,6 +3082,7 @@ public:
   Anonymous_programContext* anonymous_program();
 
   class  Anonymous_program_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Anonymous_program_itemContext, antlr4::ParserRuleContext)
   public:
     Anonymous_program_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -2993,6 +3102,7 @@ public:
   Anonymous_program_itemContext* anonymous_program_item();
 
   class  Local_parameter_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Local_parameter_declarationContext, antlr4::ParserRuleContext)
   public:
     Local_parameter_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3009,6 +3119,7 @@ public:
   Local_parameter_declarationContext* local_parameter_declaration();
 
   class  Parameter_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parameter_declarationContext, antlr4::ParserRuleContext)
   public:
     Parameter_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3025,6 +3136,7 @@ public:
   Parameter_declarationContext* parameter_declaration();
 
   class  Specparam_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specparam_declarationContext, antlr4::ParserRuleContext)
   public:
     Specparam_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3041,6 +3153,7 @@ public:
   Specparam_declarationContext* specparam_declaration();
 
   class  Inout_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Inout_declarationContext, antlr4::ParserRuleContext)
   public:
     Inout_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3056,6 +3169,7 @@ public:
   Inout_declarationContext* inout_declaration();
 
   class  Input_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Input_declarationContext, antlr4::ParserRuleContext)
   public:
     Input_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3073,6 +3187,7 @@ public:
   Input_declarationContext* input_declaration();
 
   class  Output_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Output_declarationContext, antlr4::ParserRuleContext)
   public:
     Output_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3090,6 +3205,7 @@ public:
   Output_declarationContext* output_declaration();
 
   class  Interface_port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_port_declarationContext, antlr4::ParserRuleContext)
   public:
     Interface_port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3106,6 +3222,7 @@ public:
   Interface_port_declarationContext* interface_port_declaration();
 
   class  Ref_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ref_declarationContext, antlr4::ParserRuleContext)
   public:
     Ref_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3121,6 +3238,7 @@ public:
   Ref_declarationContext* ref_declaration();
 
   class  Data_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Data_declarationContext, antlr4::ParserRuleContext)
   public:
     Data_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3140,6 +3258,7 @@ public:
   Data_declarationContext* data_declaration();
 
   class  Variable_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_declarationContext, antlr4::ParserRuleContext)
   public:
     Variable_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3158,6 +3277,7 @@ public:
   Variable_declarationContext* variable_declaration();
 
   class  Package_import_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_import_declarationContext, antlr4::ParserRuleContext)
   public:
     Package_import_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3176,6 +3296,7 @@ public:
   Package_import_declarationContext* package_import_declaration();
 
   class  Package_import_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_import_itemContext, antlr4::ParserRuleContext)
   public:
     Package_import_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3192,6 +3313,7 @@ public:
   Package_import_itemContext* package_import_item();
 
   class  Package_export_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_export_declarationContext, antlr4::ParserRuleContext)
   public:
     Package_export_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3210,6 +3332,7 @@ public:
   Package_export_declarationContext* package_export_declaration();
 
   class  Genvar_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_declarationContext, antlr4::ParserRuleContext)
   public:
     Genvar_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3225,6 +3348,7 @@ public:
   Genvar_declarationContext* genvar_declaration();
 
   class  Net_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_declarationContext, antlr4::ParserRuleContext)
   public:
     Net_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3255,6 +3379,7 @@ public:
   Net_declarationContext* net_declaration();
 
   class  Type_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Type_declarationContext, antlr4::ParserRuleContext)
   public:
     Type_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3282,6 +3407,7 @@ public:
   Type_declarationContext* type_declaration();
 
   class  Enum_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enum_keywordContext, antlr4::ParserRuleContext)
   public:
     Enum_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3295,6 +3421,7 @@ public:
   Enum_keywordContext* enum_keyword();
 
   class  Struct_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Struct_keywordContext, antlr4::ParserRuleContext)
   public:
     Struct_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3308,6 +3435,7 @@ public:
   Struct_keywordContext* struct_keyword();
 
   class  Union_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Union_keywordContext, antlr4::ParserRuleContext)
   public:
     Union_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3321,6 +3449,7 @@ public:
   Union_keywordContext* union_keyword();
 
   class  Class_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_keywordContext, antlr4::ParserRuleContext)
   public:
     Class_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3334,6 +3463,7 @@ public:
   Class_keywordContext* class_keyword();
 
   class  Interface_class_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_class_keywordContext, antlr4::ParserRuleContext)
   public:
     Interface_class_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3348,6 +3478,7 @@ public:
   Interface_class_keywordContext* interface_class_keyword();
 
   class  Net_type_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_type_declarationContext, antlr4::ParserRuleContext)
   public:
     Net_type_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3368,6 +3499,7 @@ public:
   Net_type_declarationContext* net_type_declaration();
 
   class  LifetimeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(LifetimeContext, antlr4::ParserRuleContext)
   public:
     LifetimeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -3381,6 +3513,7 @@ public:
   };
 
   class  Lifetime_StaticContext : public LifetimeContext {
+    IMPLEMENT_RTTI(Lifetime_StaticContext, LifetimeContext)
   public:
     Lifetime_StaticContext(LifetimeContext *ctx);
 
@@ -3390,6 +3523,7 @@ public:
   };
 
   class  Lifetime_AutomaticContext : public LifetimeContext {
+    IMPLEMENT_RTTI(Lifetime_AutomaticContext, LifetimeContext)
   public:
     Lifetime_AutomaticContext(LifetimeContext *ctx);
 
@@ -3401,6 +3535,7 @@ public:
   LifetimeContext* lifetime();
 
   class  Casting_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Casting_typeContext, antlr4::ParserRuleContext)
   public:
     Casting_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3422,6 +3557,7 @@ public:
   Casting_typeContext* casting_type();
 
   class  Data_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Data_typeContext, antlr4::ParserRuleContext)
   public:
     Data_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3468,6 +3604,7 @@ public:
   Data_typeContext* data_type();
 
   class  Packed_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Packed_keywordContext, antlr4::ParserRuleContext)
   public:
     Packed_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3481,6 +3618,7 @@ public:
   Packed_keywordContext* packed_keyword();
 
   class  String_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(String_typeContext, antlr4::ParserRuleContext)
   public:
     String_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3494,6 +3632,7 @@ public:
   String_typeContext* string_type();
 
   class  String_valueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(String_valueContext, antlr4::ParserRuleContext)
   public:
     String_valueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3507,6 +3646,7 @@ public:
   String_valueContext* string_value();
 
   class  Chandle_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Chandle_typeContext, antlr4::ParserRuleContext)
   public:
     Chandle_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3520,6 +3660,7 @@ public:
   Chandle_typeContext* chandle_type();
 
   class  Event_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Event_typeContext, antlr4::ParserRuleContext)
   public:
     Event_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3533,6 +3674,7 @@ public:
   Event_typeContext* event_type();
 
   class  Const_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Const_typeContext, antlr4::ParserRuleContext)
   public:
     Const_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3546,6 +3688,7 @@ public:
   Const_typeContext* const_type();
 
   class  Var_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Var_typeContext, antlr4::ParserRuleContext)
   public:
     Var_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3559,6 +3702,7 @@ public:
   Var_typeContext* var_type();
 
   class  Data_type_or_implicitContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Data_type_or_implicitContext, antlr4::ParserRuleContext)
   public:
     Data_type_or_implicitContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3575,6 +3719,7 @@ public:
   Data_type_or_implicitContext* data_type_or_implicit();
 
   class  Implicit_data_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Implicit_data_typeContext, antlr4::ParserRuleContext)
   public:
     Implicit_data_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3590,6 +3735,7 @@ public:
   Implicit_data_typeContext* implicit_data_type();
 
   class  Enum_base_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enum_base_typeContext, antlr4::ParserRuleContext)
   public:
     Enum_base_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3607,6 +3753,7 @@ public:
   Enum_base_typeContext* enum_base_type();
 
   class  Enum_name_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enum_name_declarationContext, antlr4::ParserRuleContext)
   public:
     Enum_name_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3627,6 +3774,7 @@ public:
   Enum_name_declarationContext* enum_name_declaration();
 
   class  Class_scopeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_scopeContext, antlr4::ParserRuleContext)
   public:
     Class_scopeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3641,6 +3789,7 @@ public:
   Class_scopeContext* class_scope();
 
   class  Class_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_typeContext, antlr4::ParserRuleContext)
   public:
     Class_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3665,6 +3814,7 @@ public:
   Class_typeContext* class_type();
 
   class  Integer_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Integer_typeContext, antlr4::ParserRuleContext)
   public:
     Integer_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3679,6 +3829,7 @@ public:
   Integer_typeContext* integer_type();
 
   class  Integer_atom_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Integer_atom_typeContext, antlr4::ParserRuleContext)
   public:
     Integer_atom_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3697,6 +3848,7 @@ public:
   Integer_atom_typeContext* integer_atom_type();
 
   class  Integer_vector_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Integer_vector_typeContext, antlr4::ParserRuleContext)
   public:
     Integer_vector_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3712,6 +3864,7 @@ public:
   Integer_vector_typeContext* integer_vector_type();
 
   class  Non_integer_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Non_integer_typeContext, antlr4::ParserRuleContext)
   public:
     Non_integer_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3727,6 +3880,7 @@ public:
   Non_integer_typeContext* non_integer_type();
 
   class  Net_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_typeContext, antlr4::ParserRuleContext)
   public:
     Net_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3751,6 +3905,7 @@ public:
   Net_typeContext* net_type();
 
   class  Net_port_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_port_typeContext, antlr4::ParserRuleContext)
   public:
     Net_port_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3768,6 +3923,7 @@ public:
   Net_port_typeContext* net_port_type();
 
   class  Variable_port_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_port_typeContext, antlr4::ParserRuleContext)
   public:
     Variable_port_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3784,6 +3940,7 @@ public:
   Variable_port_typeContext* variable_port_type();
 
   class  Var_data_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Var_data_typeContext, antlr4::ParserRuleContext)
   public:
     Var_data_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3799,6 +3956,7 @@ public:
   Var_data_typeContext* var_data_type();
 
   class  SigningContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(SigningContext, antlr4::ParserRuleContext)
   public:
     SigningContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -3812,6 +3970,7 @@ public:
   };
 
   class  Signing_UnsignedContext : public SigningContext {
+    IMPLEMENT_RTTI(Signing_UnsignedContext, SigningContext)
   public:
     Signing_UnsignedContext(SigningContext *ctx);
 
@@ -3821,6 +3980,7 @@ public:
   };
 
   class  Signing_SignedContext : public SigningContext {
+    IMPLEMENT_RTTI(Signing_SignedContext, SigningContext)
   public:
     Signing_SignedContext(SigningContext *ctx);
 
@@ -3832,6 +3992,7 @@ public:
   SigningContext* signing();
 
   class  Simple_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_typeContext, antlr4::ParserRuleContext)
   public:
     Simple_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3847,6 +4008,7 @@ public:
   Simple_typeContext* simple_type();
 
   class  Random_qualifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Random_qualifierContext, antlr4::ParserRuleContext)
   public:
     Random_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -3860,6 +4022,7 @@ public:
   };
 
   class  RandomQualifier_RandCContext : public Random_qualifierContext {
+    IMPLEMENT_RTTI(RandomQualifier_RandCContext, Random_qualifierContext)
   public:
     RandomQualifier_RandCContext(Random_qualifierContext *ctx);
 
@@ -3869,6 +4032,7 @@ public:
   };
 
   class  RandomQualifier_RandContext : public Random_qualifierContext {
+    IMPLEMENT_RTTI(RandomQualifier_RandContext, Random_qualifierContext)
   public:
     RandomQualifier_RandContext(Random_qualifierContext *ctx);
 
@@ -3880,6 +4044,7 @@ public:
   Random_qualifierContext* random_qualifier();
 
   class  Struct_union_memberContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Struct_union_memberContext, antlr4::ParserRuleContext)
   public:
     Struct_union_memberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3898,6 +4063,7 @@ public:
   Struct_union_memberContext* struct_union_member();
 
   class  Data_type_or_voidContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Data_type_or_voidContext, antlr4::ParserRuleContext)
   public:
     Data_type_or_voidContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3912,6 +4078,7 @@ public:
   Data_type_or_voidContext* data_type_or_void();
 
   class  Struct_unionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Struct_unionContext, antlr4::ParserRuleContext)
   public:
     Struct_unionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3927,6 +4094,7 @@ public:
   Struct_unionContext* struct_union();
 
   class  Tagged_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tagged_keywordContext, antlr4::ParserRuleContext)
   public:
     Tagged_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3940,6 +4108,7 @@ public:
   Tagged_keywordContext* tagged_keyword();
 
   class  Type_referenceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Type_referenceContext, antlr4::ParserRuleContext)
   public:
     Type_referenceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3957,6 +4126,7 @@ public:
   Type_referenceContext* type_reference();
 
   class  Drive_strengthContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Drive_strengthContext, antlr4::ParserRuleContext)
   public:
     Drive_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3982,6 +4152,7 @@ public:
   Drive_strengthContext* drive_strength();
 
   class  Strength0Context : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Strength0Context, antlr4::ParserRuleContext)
   public:
     Strength0Context(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -3998,6 +4169,7 @@ public:
   Strength0Context* strength0();
 
   class  Strength1Context : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Strength1Context, antlr4::ParserRuleContext)
   public:
     Strength1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4014,6 +4186,7 @@ public:
   Strength1Context* strength1();
 
   class  Charge_strengthContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Charge_strengthContext, antlr4::ParserRuleContext)
   public:
     Charge_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4029,6 +4202,7 @@ public:
   Charge_strengthContext* charge_strength();
 
   class  Delay3Context : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay3Context, antlr4::ParserRuleContext)
   public:
     Delay3Context(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4049,6 +4223,7 @@ public:
   Delay3Context* delay3();
 
   class  Delay2Context : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay2Context, antlr4::ParserRuleContext)
   public:
     Delay2Context(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4068,6 +4243,7 @@ public:
   Delay2Context* delay2();
 
   class  Pound_delay_valueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pound_delay_valueContext, antlr4::ParserRuleContext)
   public:
     Pound_delay_valueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4085,6 +4261,7 @@ public:
   Pound_delay_valueContext* pound_delay_value();
 
   class  Delay_valueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_valueContext, antlr4::ParserRuleContext)
   public:
     Delay_valueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4103,6 +4280,7 @@ public:
   Delay_valueContext* delay_value();
 
   class  List_of_defparam_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_defparam_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_defparam_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4119,6 +4297,7 @@ public:
   List_of_defparam_assignmentsContext* list_of_defparam_assignments();
 
   class  List_of_interface_identifiersContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_interface_identifiersContext, antlr4::ParserRuleContext)
   public:
     List_of_interface_identifiersContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4137,6 +4316,7 @@ public:
   List_of_interface_identifiersContext* list_of_interface_identifiers();
 
   class  List_of_net_decl_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_net_decl_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_net_decl_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4153,6 +4333,7 @@ public:
   List_of_net_decl_assignmentsContext* list_of_net_decl_assignments();
 
   class  List_of_param_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_param_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_param_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4169,6 +4350,7 @@ public:
   List_of_param_assignmentsContext* list_of_param_assignments();
 
   class  List_of_port_identifiersContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_port_identifiersContext, antlr4::ParserRuleContext)
   public:
     List_of_port_identifiersContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4187,6 +4369,7 @@ public:
   List_of_port_identifiersContext* list_of_port_identifiers();
 
   class  List_of_specparam_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_specparam_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_specparam_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4203,6 +4386,7 @@ public:
   List_of_specparam_assignmentsContext* list_of_specparam_assignments();
 
   class  List_of_tf_variable_identifiersContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_tf_variable_identifiersContext, antlr4::ParserRuleContext)
   public:
     List_of_tf_variable_identifiersContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4225,6 +4409,7 @@ public:
   List_of_tf_variable_identifiersContext* list_of_tf_variable_identifiers();
 
   class  List_of_type_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_type_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_type_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4245,6 +4430,7 @@ public:
   List_of_type_assignmentsContext* list_of_type_assignments();
 
   class  List_of_variable_decl_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_variable_decl_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_variable_decl_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4261,6 +4447,7 @@ public:
   List_of_variable_decl_assignmentsContext* list_of_variable_decl_assignments();
 
   class  List_of_variable_identifiersContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_variable_identifiersContext, antlr4::ParserRuleContext)
   public:
     List_of_variable_identifiersContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4279,6 +4466,7 @@ public:
   List_of_variable_identifiersContext* list_of_variable_identifiers();
 
   class  List_of_variable_port_identifiersContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_variable_port_identifiersContext, antlr4::ParserRuleContext)
   public:
     List_of_variable_port_identifiersContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4301,6 +4489,7 @@ public:
   List_of_variable_port_identifiersContext* list_of_variable_port_identifiers();
 
   class  List_of_virtual_interface_declContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_virtual_interface_declContext, antlr4::ParserRuleContext)
   public:
     List_of_virtual_interface_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4319,6 +4508,7 @@ public:
   List_of_virtual_interface_declContext* list_of_virtual_interface_decl();
 
   class  Defparam_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Defparam_assignmentContext, antlr4::ParserRuleContext)
   public:
     Defparam_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4334,6 +4524,7 @@ public:
   Defparam_assignmentContext* defparam_assignment();
 
   class  Net_decl_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_decl_assignmentContext, antlr4::ParserRuleContext)
   public:
     Net_decl_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4351,6 +4542,7 @@ public:
   Net_decl_assignmentContext* net_decl_assignment();
 
   class  Param_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Param_assignmentContext, antlr4::ParserRuleContext)
   public:
     Param_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4368,6 +4560,7 @@ public:
   Param_assignmentContext* param_assignment();
 
   class  Specparam_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specparam_assignmentContext, antlr4::ParserRuleContext)
   public:
     Specparam_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4384,6 +4577,7 @@ public:
   Specparam_assignmentContext* specparam_assignment();
 
   class  Pulse_control_specparamContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pulse_control_specparamContext, antlr4::ParserRuleContext)
   public:
     Pulse_control_specparamContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4408,6 +4602,7 @@ public:
   Pulse_control_specparamContext* pulse_control_specparam();
 
   class  Variable_decl_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_decl_assignmentContext, antlr4::ParserRuleContext)
   public:
     Variable_decl_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4432,6 +4627,7 @@ public:
   Variable_decl_assignmentContext* variable_decl_assignment();
 
   class  Class_newContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Class_newContext, antlr4::ParserRuleContext)
   public:
     Class_newContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4450,6 +4646,7 @@ public:
   Class_newContext* class_new();
 
   class  Dynamic_array_newContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dynamic_array_newContext, antlr4::ParserRuleContext)
   public:
     Dynamic_array_newContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4469,6 +4666,7 @@ public:
   Dynamic_array_newContext* dynamic_array_new();
 
   class  Unpacked_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unpacked_dimensionContext, antlr4::ParserRuleContext)
   public:
     Unpacked_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4486,6 +4684,7 @@ public:
   Unpacked_dimensionContext* unpacked_dimension();
 
   class  Packed_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Packed_dimensionContext, antlr4::ParserRuleContext)
   public:
     Packed_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4502,6 +4701,7 @@ public:
   Packed_dimensionContext* packed_dimension();
 
   class  Associative_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Associative_dimensionContext, antlr4::ParserRuleContext)
   public:
     Associative_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4518,6 +4718,7 @@ public:
   Associative_dimensionContext* associative_dimension();
 
   class  Variable_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_dimensionContext, antlr4::ParserRuleContext)
   public:
     Variable_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4534,6 +4735,7 @@ public:
   Variable_dimensionContext* variable_dimension();
 
   class  Queue_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Queue_dimensionContext, antlr4::ParserRuleContext)
   public:
     Queue_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4551,6 +4753,7 @@ public:
   Queue_dimensionContext* queue_dimension();
 
   class  Unsized_dimensionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unsized_dimensionContext, antlr4::ParserRuleContext)
   public:
     Unsized_dimensionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4565,6 +4768,7 @@ public:
   Unsized_dimensionContext* unsized_dimension();
 
   class  Function_data_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_data_typeContext, antlr4::ParserRuleContext)
   public:
     Function_data_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4579,6 +4783,7 @@ public:
   Function_data_typeContext* function_data_type();
 
   class  Function_data_type_or_implicitContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_data_type_or_implicitContext, antlr4::ParserRuleContext)
   public:
     Function_data_type_or_implicitContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4595,6 +4800,7 @@ public:
   Function_data_type_or_implicitContext* function_data_type_or_implicit();
 
   class  Function_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_declarationContext, antlr4::ParserRuleContext)
   public:
     Function_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4610,6 +4816,7 @@ public:
   Function_declarationContext* function_declaration();
 
   class  Function_body_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_body_declarationContext, antlr4::ParserRuleContext)
   public:
     Function_body_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4640,6 +4847,7 @@ public:
   Function_body_declarationContext* function_body_declaration();
 
   class  Function_prototypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_prototypeContext, antlr4::ParserRuleContext)
   public:
     Function_prototypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4658,6 +4866,7 @@ public:
   Function_prototypeContext* function_prototype();
 
   class  Dpi_import_exportContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dpi_import_exportContext, antlr4::ParserRuleContext)
   public:
     Dpi_import_exportContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4682,6 +4891,7 @@ public:
   Dpi_import_exportContext* dpi_import_export();
 
   class  Context_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Context_keywordContext, antlr4::ParserRuleContext)
   public:
     Context_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4695,6 +4905,7 @@ public:
   Context_keywordContext* context_keyword();
 
   class  Function_name_declContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_name_declContext, antlr4::ParserRuleContext)
   public:
     Function_name_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4709,6 +4920,7 @@ public:
   Function_name_declContext* function_name_decl();
 
   class  Task_name_declContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Task_name_declContext, antlr4::ParserRuleContext)
   public:
     Task_name_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4723,6 +4935,7 @@ public:
   Task_name_declContext* task_name_decl();
 
   class  Pure_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pure_keywordContext, antlr4::ParserRuleContext)
   public:
     Pure_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4736,6 +4949,7 @@ public:
   Pure_keywordContext* pure_keyword();
 
   class  Task_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Task_declarationContext, antlr4::ParserRuleContext)
   public:
     Task_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4751,6 +4965,7 @@ public:
   Task_declarationContext* task_declaration();
 
   class  Task_body_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Task_body_declarationContext, antlr4::ParserRuleContext)
   public:
     Task_body_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4780,6 +4995,7 @@ public:
   Task_body_declarationContext* task_body_declaration();
 
   class  Tf_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tf_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Tf_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4794,6 +5010,7 @@ public:
   Tf_item_declarationContext* tf_item_declaration();
 
   class  Tf_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tf_port_listContext, antlr4::ParserRuleContext)
   public:
     Tf_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4810,6 +5027,7 @@ public:
   Tf_port_listContext* tf_port_list();
 
   class  Tf_port_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tf_port_itemContext, antlr4::ParserRuleContext)
   public:
     Tf_port_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4832,6 +5050,7 @@ public:
   Tf_port_itemContext* tf_port_item();
 
   class  Tf_port_directionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tf_port_directionContext, antlr4::ParserRuleContext)
   public:
     Tf_port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -4845,6 +5064,7 @@ public:
   };
 
   class  TfPortDir_RefContext : public Tf_port_directionContext {
+    IMPLEMENT_RTTI(TfPortDir_RefContext, Tf_port_directionContext)
   public:
     TfPortDir_RefContext(Tf_port_directionContext *ctx);
 
@@ -4854,6 +5074,7 @@ public:
   };
 
   class  TfPortDir_ConstRefContext : public Tf_port_directionContext {
+    IMPLEMENT_RTTI(TfPortDir_ConstRefContext, Tf_port_directionContext)
   public:
     TfPortDir_ConstRefContext(Tf_port_directionContext *ctx);
 
@@ -4864,6 +5085,7 @@ public:
   };
 
   class  TfPortDir_OutContext : public Tf_port_directionContext {
+    IMPLEMENT_RTTI(TfPortDir_OutContext, Tf_port_directionContext)
   public:
     TfPortDir_OutContext(Tf_port_directionContext *ctx);
 
@@ -4873,6 +5095,7 @@ public:
   };
 
   class  TfPortDir_InpContext : public Tf_port_directionContext {
+    IMPLEMENT_RTTI(TfPortDir_InpContext, Tf_port_directionContext)
   public:
     TfPortDir_InpContext(Tf_port_directionContext *ctx);
 
@@ -4882,6 +5105,7 @@ public:
   };
 
   class  TfPortDir_InoutContext : public Tf_port_directionContext {
+    IMPLEMENT_RTTI(TfPortDir_InoutContext, Tf_port_directionContext)
   public:
     TfPortDir_InoutContext(Tf_port_directionContext *ctx);
 
@@ -4893,6 +5117,7 @@ public:
   Tf_port_directionContext* tf_port_direction();
 
   class  Tf_port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tf_port_declarationContext, antlr4::ParserRuleContext)
   public:
     Tf_port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4912,6 +5137,7 @@ public:
   Tf_port_declarationContext* tf_port_declaration();
 
   class  Task_prototypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Task_prototypeContext, antlr4::ParserRuleContext)
   public:
     Task_prototypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4929,6 +5155,7 @@ public:
   Task_prototypeContext* task_prototype();
 
   class  Block_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Block_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Block_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4948,6 +5175,7 @@ public:
   Block_item_declarationContext* block_item_declaration();
 
   class  Overload_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Overload_declarationContext, antlr4::ParserRuleContext)
   public:
     Overload_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -4969,6 +5197,7 @@ public:
   Overload_declarationContext* overload_declaration();
 
   class  Overload_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Overload_operatorContext, antlr4::ParserRuleContext)
   public:
     Overload_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -4982,6 +5211,7 @@ public:
   };
 
   class  OverloadOp_MinusContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_MinusContext, Overload_operatorContext)
   public:
     OverloadOp_MinusContext(Overload_operatorContext *ctx);
 
@@ -4991,6 +5221,7 @@ public:
   };
 
   class  OverloadOp_GreaterEqualContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_GreaterEqualContext, Overload_operatorContext)
   public:
     OverloadOp_GreaterEqualContext(Overload_operatorContext *ctx);
 
@@ -5000,6 +5231,7 @@ public:
   };
 
   class  OverloadOp_LessContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_LessContext, Overload_operatorContext)
   public:
     OverloadOp_LessContext(Overload_operatorContext *ctx);
 
@@ -5009,6 +5241,7 @@ public:
   };
 
   class  OverloadOp_PercentContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_PercentContext, Overload_operatorContext)
   public:
     OverloadOp_PercentContext(Overload_operatorContext *ctx);
 
@@ -5018,6 +5251,7 @@ public:
   };
 
   class  OverloadOp_NotEqualContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_NotEqualContext, Overload_operatorContext)
   public:
     OverloadOp_NotEqualContext(Overload_operatorContext *ctx);
 
@@ -5027,6 +5261,7 @@ public:
   };
 
   class  OverloadOp_MultContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_MultContext, Overload_operatorContext)
   public:
     OverloadOp_MultContext(Overload_operatorContext *ctx);
 
@@ -5036,6 +5271,7 @@ public:
   };
 
   class  OverloadOp_EquivContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_EquivContext, Overload_operatorContext)
   public:
     OverloadOp_EquivContext(Overload_operatorContext *ctx);
 
@@ -5045,6 +5281,7 @@ public:
   };
 
   class  OverloadOp_EqualContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_EqualContext, Overload_operatorContext)
   public:
     OverloadOp_EqualContext(Overload_operatorContext *ctx);
 
@@ -5054,6 +5291,7 @@ public:
   };
 
   class  OverloadOp_LessEqualContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_LessEqualContext, Overload_operatorContext)
   public:
     OverloadOp_LessEqualContext(Overload_operatorContext *ctx);
 
@@ -5063,6 +5301,7 @@ public:
   };
 
   class  OverloadOp_PlusPlusContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_PlusPlusContext, Overload_operatorContext)
   public:
     OverloadOp_PlusPlusContext(Overload_operatorContext *ctx);
 
@@ -5072,6 +5311,7 @@ public:
   };
 
   class  OverloadOp_GreaterContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_GreaterContext, Overload_operatorContext)
   public:
     OverloadOp_GreaterContext(Overload_operatorContext *ctx);
 
@@ -5081,6 +5321,7 @@ public:
   };
 
   class  OverloadOp_MinusMinusContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_MinusMinusContext, Overload_operatorContext)
   public:
     OverloadOp_MinusMinusContext(Overload_operatorContext *ctx);
 
@@ -5090,6 +5331,7 @@ public:
   };
 
   class  OverloadOp_StarStarContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_StarStarContext, Overload_operatorContext)
   public:
     OverloadOp_StarStarContext(Overload_operatorContext *ctx);
 
@@ -5099,6 +5341,7 @@ public:
   };
 
   class  OverloadOp_PlusContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_PlusContext, Overload_operatorContext)
   public:
     OverloadOp_PlusContext(Overload_operatorContext *ctx);
 
@@ -5108,6 +5351,7 @@ public:
   };
 
   class  OverloadOp_DivContext : public Overload_operatorContext {
+    IMPLEMENT_RTTI(OverloadOp_DivContext, Overload_operatorContext)
   public:
     OverloadOp_DivContext(Overload_operatorContext *ctx);
 
@@ -5119,6 +5363,7 @@ public:
   Overload_operatorContext* overload_operator();
 
   class  Overload_proto_formalsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Overload_proto_formalsContext, antlr4::ParserRuleContext)
   public:
     Overload_proto_formalsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5135,6 +5380,7 @@ public:
   Overload_proto_formalsContext* overload_proto_formals();
 
   class  Virtual_interface_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Virtual_interface_declarationContext, antlr4::ParserRuleContext)
   public:
     Virtual_interface_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5152,6 +5398,7 @@ public:
   Virtual_interface_declarationContext* virtual_interface_declaration();
 
   class  Modport_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_itemContext, antlr4::ParserRuleContext)
   public:
     Modport_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5171,6 +5418,7 @@ public:
   Modport_itemContext* modport_item();
 
   class  Modport_ports_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_ports_declarationContext, antlr4::ParserRuleContext)
   public:
     Modport_ports_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5190,6 +5438,7 @@ public:
   Modport_ports_declarationContext* modport_ports_declaration();
 
   class  Modport_simple_ports_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_simple_ports_declarationContext, antlr4::ParserRuleContext)
   public:
     Modport_simple_ports_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5207,6 +5456,7 @@ public:
   Modport_simple_ports_declarationContext* modport_simple_ports_declaration();
 
   class  Modport_simple_portContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_simple_portContext, antlr4::ParserRuleContext)
   public:
     Modport_simple_portContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5225,6 +5475,7 @@ public:
   Modport_simple_portContext* modport_simple_port();
 
   class  Modport_hierarchical_ports_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_hierarchical_ports_declarationContext, antlr4::ParserRuleContext)
   public:
     Modport_hierarchical_ports_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5243,6 +5494,7 @@ public:
   Modport_hierarchical_ports_declarationContext* modport_hierarchical_ports_declaration();
 
   class  Modport_tf_ports_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_tf_ports_declarationContext, antlr4::ParserRuleContext)
   public:
     Modport_tf_ports_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5261,6 +5513,7 @@ public:
   Modport_tf_ports_declarationContext* modport_tf_ports_declaration();
 
   class  Modport_tf_portContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Modport_tf_portContext, antlr4::ParserRuleContext)
   public:
     Modport_tf_portContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5275,6 +5528,7 @@ public:
   Modport_tf_portContext* modport_tf_port();
 
   class  Concurrent_assertion_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Concurrent_assertion_itemContext, antlr4::ParserRuleContext)
   public:
     Concurrent_assertion_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5291,6 +5545,7 @@ public:
   Concurrent_assertion_itemContext* concurrent_assertion_item();
 
   class  Concurrent_assertion_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Concurrent_assertion_statementContext, antlr4::ParserRuleContext)
   public:
     Concurrent_assertion_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5308,6 +5563,7 @@ public:
   Concurrent_assertion_statementContext* concurrent_assertion_statement();
 
   class  Assert_property_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assert_property_statementContext, antlr4::ParserRuleContext)
   public:
     Assert_property_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5326,6 +5582,7 @@ public:
   Assert_property_statementContext* assert_property_statement();
 
   class  Assume_property_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assume_property_statementContext, antlr4::ParserRuleContext)
   public:
     Assume_property_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5344,6 +5601,7 @@ public:
   Assume_property_statementContext* assume_property_statement();
 
   class  Cover_property_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cover_property_statementContext, antlr4::ParserRuleContext)
   public:
     Cover_property_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5362,6 +5620,7 @@ public:
   Cover_property_statementContext* cover_property_statement();
 
   class  Expect_property_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Expect_property_statementContext, antlr4::ParserRuleContext)
   public:
     Expect_property_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5379,6 +5638,7 @@ public:
   Expect_property_statementContext* expect_property_statement();
 
   class  Cover_sequence_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cover_sequence_statementContext, antlr4::ParserRuleContext)
   public:
     Cover_sequence_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5403,6 +5663,7 @@ public:
   Cover_sequence_statementContext* cover_sequence_statement();
 
   class  Restrict_property_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Restrict_property_statementContext, antlr4::ParserRuleContext)
   public:
     Restrict_property_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5421,6 +5682,7 @@ public:
   Restrict_property_statementContext* restrict_property_statement();
 
   class  Property_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_instanceContext, antlr4::ParserRuleContext)
   public:
     Property_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5437,6 +5699,7 @@ public:
   Property_instanceContext* property_instance();
 
   class  Property_actual_argContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_actual_argContext, antlr4::ParserRuleContext)
   public:
     Property_actual_argContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5451,6 +5714,7 @@ public:
   Property_actual_argContext* property_actual_arg();
 
   class  Concurrent_assertion_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Concurrent_assertion_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Concurrent_assertion_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5465,6 +5729,7 @@ public:
   Concurrent_assertion_item_declarationContext* concurrent_assertion_item_declaration();
 
   class  Assertion_item_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assertion_item_declarationContext, antlr4::ParserRuleContext)
   public:
     Assertion_item_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5480,6 +5745,7 @@ public:
   Assertion_item_declarationContext* assertion_item_declaration();
 
   class  Property_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_declarationContext, antlr4::ParserRuleContext)
   public:
     Property_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5505,6 +5771,7 @@ public:
   Property_declarationContext* property_declaration();
 
   class  Property_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_port_listContext, antlr4::ParserRuleContext)
   public:
     Property_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5521,6 +5788,7 @@ public:
   Property_port_listContext* property_port_list();
 
   class  Property_port_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_port_itemContext, antlr4::ParserRuleContext)
   public:
     Property_port_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5543,6 +5811,7 @@ public:
   Property_port_itemContext* property_port_item();
 
   class  Property_lvar_port_directionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_lvar_port_directionContext, antlr4::ParserRuleContext)
   public:
     Property_lvar_port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5556,6 +5825,7 @@ public:
   Property_lvar_port_directionContext* property_lvar_port_direction();
 
   class  Property_formal_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_formal_typeContext, antlr4::ParserRuleContext)
   public:
     Property_formal_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5570,6 +5840,7 @@ public:
   Property_formal_typeContext* property_formal_type();
 
   class  Property_specContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_specContext, antlr4::ParserRuleContext)
   public:
     Property_specContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5589,6 +5860,7 @@ public:
   Property_specContext* property_spec();
 
   class  Property_exprContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_exprContext, antlr4::ParserRuleContext)
   public:
     Property_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5645,6 +5917,7 @@ public:
   Property_exprContext* property_expr();
   Property_exprContext* property_expr(int precedence);
   class  Property_case_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Property_case_itemContext, antlr4::ParserRuleContext)
   public:
     Property_case_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5665,6 +5938,7 @@ public:
   Property_case_itemContext* property_case_item();
 
   class  Sequence_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_declarationContext, antlr4::ParserRuleContext)
   public:
     Sequence_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5690,6 +5964,7 @@ public:
   Sequence_declarationContext* sequence_declaration();
 
   class  Sequence_exprContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_exprContext, antlr4::ParserRuleContext)
   public:
     Sequence_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5723,6 +5998,7 @@ public:
   Sequence_exprContext* sequence_expr();
   Sequence_exprContext* sequence_expr(int precedence);
   class  Cycle_delay_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cycle_delay_rangeContext, antlr4::ParserRuleContext)
   public:
     Cycle_delay_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5743,6 +6019,7 @@ public:
   Cycle_delay_rangeContext* cycle_delay_range();
 
   class  Sequence_method_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_method_callContext, antlr4::ParserRuleContext)
   public:
     Sequence_method_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5758,6 +6035,7 @@ public:
   Sequence_method_callContext* sequence_method_call();
 
   class  Sequence_match_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_match_itemContext, antlr4::ParserRuleContext)
   public:
     Sequence_match_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5773,6 +6051,7 @@ public:
   Sequence_match_itemContext* sequence_match_item();
 
   class  Sequence_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_port_listContext, antlr4::ParserRuleContext)
   public:
     Sequence_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5789,6 +6068,7 @@ public:
   Sequence_port_listContext* sequence_port_list();
 
   class  Sequence_port_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_port_itemContext, antlr4::ParserRuleContext)
   public:
     Sequence_port_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5811,6 +6091,7 @@ public:
   Sequence_port_itemContext* sequence_port_item();
 
   class  Sequence_lvar_port_directionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_lvar_port_directionContext, antlr4::ParserRuleContext)
   public:
     Sequence_lvar_port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -5824,6 +6105,7 @@ public:
   };
 
   class  SeqLvarPortDir_OutputContext : public Sequence_lvar_port_directionContext {
+    IMPLEMENT_RTTI(SeqLvarPortDir_OutputContext, Sequence_lvar_port_directionContext)
   public:
     SeqLvarPortDir_OutputContext(Sequence_lvar_port_directionContext *ctx);
 
@@ -5833,6 +6115,7 @@ public:
   };
 
   class  SeqLvarPortDir_InoutContext : public Sequence_lvar_port_directionContext {
+    IMPLEMENT_RTTI(SeqLvarPortDir_InoutContext, Sequence_lvar_port_directionContext)
   public:
     SeqLvarPortDir_InoutContext(Sequence_lvar_port_directionContext *ctx);
 
@@ -5842,6 +6125,7 @@ public:
   };
 
   class  SeqLvarPortDir_InputContext : public Sequence_lvar_port_directionContext {
+    IMPLEMENT_RTTI(SeqLvarPortDir_InputContext, Sequence_lvar_port_directionContext)
   public:
     SeqLvarPortDir_InputContext(Sequence_lvar_port_directionContext *ctx);
 
@@ -5853,6 +6137,7 @@ public:
   Sequence_lvar_port_directionContext* sequence_lvar_port_direction();
 
   class  Sequence_formal_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_formal_typeContext, antlr4::ParserRuleContext)
   public:
     Sequence_formal_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -5866,6 +6151,7 @@ public:
   };
 
   class  SeqFormatType_DataContext : public Sequence_formal_typeContext {
+    IMPLEMENT_RTTI(SeqFormatType_DataContext, Sequence_formal_typeContext)
   public:
     SeqFormatType_DataContext(Sequence_formal_typeContext *ctx);
 
@@ -5875,6 +6161,7 @@ public:
   };
 
   class  SeqFormatType_UntypedContext : public Sequence_formal_typeContext {
+    IMPLEMENT_RTTI(SeqFormatType_UntypedContext, Sequence_formal_typeContext)
   public:
     SeqFormatType_UntypedContext(Sequence_formal_typeContext *ctx);
 
@@ -5884,6 +6171,7 @@ public:
   };
 
   class  SeqFormatType_SequenceContext : public Sequence_formal_typeContext {
+    IMPLEMENT_RTTI(SeqFormatType_SequenceContext, Sequence_formal_typeContext)
   public:
     SeqFormatType_SequenceContext(Sequence_formal_typeContext *ctx);
 
@@ -5895,6 +6183,7 @@ public:
   Sequence_formal_typeContext* sequence_formal_type();
 
   class  Sequence_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_instanceContext, antlr4::ParserRuleContext)
   public:
     Sequence_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5911,6 +6200,7 @@ public:
   Sequence_instanceContext* sequence_instance();
 
   class  Sequence_list_of_argumentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_list_of_argumentsContext, antlr4::ParserRuleContext)
   public:
     Sequence_list_of_argumentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5935,6 +6225,7 @@ public:
   Sequence_list_of_argumentsContext* sequence_list_of_arguments();
 
   class  Sequence_actual_argContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequence_actual_argContext, antlr4::ParserRuleContext)
   public:
     Sequence_actual_argContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5949,6 +6240,7 @@ public:
   Sequence_actual_argContext* sequence_actual_arg();
 
   class  Actual_arg_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Actual_arg_listContext, antlr4::ParserRuleContext)
   public:
     Actual_arg_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5973,6 +6265,7 @@ public:
   Actual_arg_listContext* actual_arg_list();
 
   class  Actual_arg_exprContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Actual_arg_exprContext, antlr4::ParserRuleContext)
   public:
     Actual_arg_exprContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -5987,6 +6280,7 @@ public:
   Actual_arg_exprContext* actual_arg_expr();
 
   class  Boolean_abbrevContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Boolean_abbrevContext, antlr4::ParserRuleContext)
   public:
     Boolean_abbrevContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6002,6 +6296,7 @@ public:
   Boolean_abbrevContext* boolean_abbrev();
 
   class  Consecutive_repetitionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Consecutive_repetitionContext, antlr4::ParserRuleContext)
   public:
     Consecutive_repetitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6020,6 +6315,7 @@ public:
   Consecutive_repetitionContext* consecutive_repetition();
 
   class  Non_consecutive_repetitionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Non_consecutive_repetitionContext, antlr4::ParserRuleContext)
   public:
     Non_consecutive_repetitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6035,6 +6331,7 @@ public:
   Non_consecutive_repetitionContext* non_consecutive_repetition();
 
   class  Goto_repetitionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Goto_repetitionContext, antlr4::ParserRuleContext)
   public:
     Goto_repetitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6050,6 +6347,7 @@ public:
   Goto_repetitionContext* goto_repetition();
 
   class  Const_or_range_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Const_or_range_expressionContext, antlr4::ParserRuleContext)
   public:
     Const_or_range_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6064,6 +6362,7 @@ public:
   Const_or_range_expressionContext* const_or_range_expression();
 
   class  Cycle_delay_const_range_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cycle_delay_const_range_expressionContext, antlr4::ParserRuleContext)
   public:
     Cycle_delay_const_range_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6080,6 +6379,7 @@ public:
   Cycle_delay_const_range_expressionContext* cycle_delay_const_range_expression();
 
   class  Expression_or_distContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Expression_or_distContext, antlr4::ParserRuleContext)
   public:
     Expression_or_distContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6097,6 +6397,7 @@ public:
   Expression_or_distContext* expression_or_dist();
 
   class  Assertion_variable_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assertion_variable_declarationContext, antlr4::ParserRuleContext)
   public:
     Assertion_variable_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6112,6 +6413,7 @@ public:
   Assertion_variable_declarationContext* assertion_variable_declaration();
 
   class  Let_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Let_declarationContext, antlr4::ParserRuleContext)
   public:
     Let_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6132,6 +6434,7 @@ public:
   Let_declarationContext* let_declaration();
 
   class  Let_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Let_port_listContext, antlr4::ParserRuleContext)
   public:
     Let_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6148,6 +6451,7 @@ public:
   Let_port_listContext* let_port_list();
 
   class  Let_port_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Let_port_itemContext, antlr4::ParserRuleContext)
   public:
     Let_port_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6168,6 +6472,7 @@ public:
   Let_port_itemContext* let_port_item();
 
   class  Let_formal_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Let_formal_typeContext, antlr4::ParserRuleContext)
   public:
     Let_formal_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6182,6 +6487,7 @@ public:
   Let_formal_typeContext* let_formal_type();
 
   class  Covergroup_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Covergroup_declarationContext, antlr4::ParserRuleContext)
   public:
     Covergroup_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6206,6 +6512,7 @@ public:
   Covergroup_declarationContext* covergroup_declaration();
 
   class  Coverage_spec_or_optionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Coverage_spec_or_optionContext, antlr4::ParserRuleContext)
   public:
     Coverage_spec_or_optionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6223,6 +6530,7 @@ public:
   Coverage_spec_or_optionContext* coverage_spec_or_option();
 
   class  Coverage_optionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Coverage_optionContext, antlr4::ParserRuleContext)
   public:
     Coverage_optionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6240,6 +6548,7 @@ public:
   Coverage_optionContext* coverage_option();
 
   class  Coverage_specContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Coverage_specContext, antlr4::ParserRuleContext)
   public:
     Coverage_specContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6254,6 +6563,7 @@ public:
   Coverage_specContext* coverage_spec();
 
   class  Coverage_eventContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Coverage_eventContext, antlr4::ParserRuleContext)
   public:
     Coverage_eventContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6275,6 +6585,7 @@ public:
   Coverage_eventContext* coverage_event();
 
   class  Block_event_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Block_event_expressionContext, antlr4::ParserRuleContext)
   public:
     Block_event_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6293,6 +6604,7 @@ public:
   Block_event_expressionContext* block_event_expression();
   Block_event_expressionContext* block_event_expression(int precedence);
   class  Hierarchical_btf_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Hierarchical_btf_identifierContext, antlr4::ParserRuleContext)
   public:
     Hierarchical_btf_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6318,6 +6630,7 @@ public:
   Hierarchical_btf_identifierContext* hierarchical_btf_identifier();
 
   class  Cover_pointContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cover_pointContext, antlr4::ParserRuleContext)
   public:
     Cover_pointContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6339,6 +6652,7 @@ public:
   Cover_pointContext* cover_point();
 
   class  Bins_or_emptyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_or_emptyContext, antlr4::ParserRuleContext)
   public:
     Bins_or_emptyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6359,6 +6673,7 @@ public:
   Bins_or_emptyContext* bins_or_empty();
 
   class  Bins_or_optionsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_or_optionsContext, antlr4::ParserRuleContext)
   public:
     Bins_or_optionsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6394,6 +6709,7 @@ public:
   Bins_or_optionsContext* bins_or_options();
 
   class  Bins_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_keywordContext, antlr4::ParserRuleContext)
   public:
     Bins_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -6407,6 +6723,7 @@ public:
   };
 
   class  Bins_IgnoreContext : public Bins_keywordContext {
+    IMPLEMENT_RTTI(Bins_IgnoreContext, Bins_keywordContext)
   public:
     Bins_IgnoreContext(Bins_keywordContext *ctx);
 
@@ -6416,6 +6733,7 @@ public:
   };
 
   class  Bins_BinsContext : public Bins_keywordContext {
+    IMPLEMENT_RTTI(Bins_BinsContext, Bins_keywordContext)
   public:
     Bins_BinsContext(Bins_keywordContext *ctx);
 
@@ -6425,6 +6743,7 @@ public:
   };
 
   class  Bins_IllegalContext : public Bins_keywordContext {
+    IMPLEMENT_RTTI(Bins_IllegalContext, Bins_keywordContext)
   public:
     Bins_IllegalContext(Bins_keywordContext *ctx);
 
@@ -6436,6 +6755,7 @@ public:
   Bins_keywordContext* bins_keyword();
 
   class  Range_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Range_listContext, antlr4::ParserRuleContext)
   public:
     Range_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6452,6 +6772,7 @@ public:
   Range_listContext* range_list();
 
   class  Trans_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Trans_listContext, antlr4::ParserRuleContext)
   public:
     Trans_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6472,6 +6793,7 @@ public:
   Trans_listContext* trans_list();
 
   class  Trans_setContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Trans_setContext, antlr4::ParserRuleContext)
   public:
     Trans_setContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6488,6 +6810,7 @@ public:
   Trans_setContext* trans_set();
 
   class  Trans_range_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Trans_range_listContext, antlr4::ParserRuleContext)
   public:
     Trans_range_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6506,6 +6829,7 @@ public:
   Trans_range_listContext* trans_range_list();
 
   class  Repeat_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Repeat_rangeContext, antlr4::ParserRuleContext)
   public:
     Repeat_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6521,6 +6845,7 @@ public:
   Repeat_rangeContext* repeat_range();
 
   class  Cover_crossContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cover_crossContext, antlr4::ParserRuleContext)
   public:
     Cover_crossContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6542,6 +6867,7 @@ public:
   Cover_crossContext* cover_cross();
 
   class  List_of_cross_itemsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_cross_itemsContext, antlr4::ParserRuleContext)
   public:
     List_of_cross_itemsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6558,6 +6884,7 @@ public:
   List_of_cross_itemsContext* list_of_cross_items();
 
   class  Cross_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cross_itemContext, antlr4::ParserRuleContext)
   public:
     Cross_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6571,6 +6898,7 @@ public:
   Cross_itemContext* cross_item();
 
   class  Cross_bodyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cross_bodyContext, antlr4::ParserRuleContext)
   public:
     Cross_bodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6587,6 +6915,7 @@ public:
   Cross_bodyContext* cross_body();
 
   class  Cross_body_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cross_body_itemContext, antlr4::ParserRuleContext)
   public:
     Cross_body_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6602,6 +6931,7 @@ public:
   Cross_body_itemContext* cross_body_item();
 
   class  Bins_selection_or_optionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_selection_or_optionContext, antlr4::ParserRuleContext)
   public:
     Bins_selection_or_optionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6618,6 +6948,7 @@ public:
   Bins_selection_or_optionContext* bins_selection_or_option();
 
   class  Bins_selectionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_selectionContext, antlr4::ParserRuleContext)
   public:
     Bins_selectionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6638,6 +6969,7 @@ public:
   Bins_selectionContext* bins_selection();
 
   class  Select_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Select_expressionContext, antlr4::ParserRuleContext)
   public:
     Select_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6663,6 +6995,7 @@ public:
   Select_expressionContext* select_expression();
   Select_expressionContext* select_expression(int precedence);
   class  Select_conditionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Select_conditionContext, antlr4::ParserRuleContext)
   public:
     Select_conditionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6683,6 +7016,7 @@ public:
   Select_conditionContext* select_condition();
 
   class  Bins_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bins_expressionContext, antlr4::ParserRuleContext)
   public:
     Bins_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6698,6 +7032,7 @@ public:
   Bins_expressionContext* bins_expression();
 
   class  Open_range_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Open_range_listContext, antlr4::ParserRuleContext)
   public:
     Open_range_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6714,6 +7049,7 @@ public:
   Open_range_listContext* open_range_list();
 
   class  Gate_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Gate_instantiationContext, antlr4::ParserRuleContext)
   public:
     Gate_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6759,6 +7095,7 @@ public:
   Gate_instantiationContext* gate_instantiation();
 
   class  Cmos_switch_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cmos_switch_instanceContext, antlr4::ParserRuleContext)
   public:
     Cmos_switch_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6779,6 +7116,7 @@ public:
   Cmos_switch_instanceContext* cmos_switch_instance();
 
   class  Enable_gate_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enable_gate_instanceContext, antlr4::ParserRuleContext)
   public:
     Enable_gate_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6799,6 +7137,7 @@ public:
   Enable_gate_instanceContext* enable_gate_instance();
 
   class  Mos_switch_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Mos_switch_instanceContext, antlr4::ParserRuleContext)
   public:
     Mos_switch_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6819,6 +7158,7 @@ public:
   Mos_switch_instanceContext* mos_switch_instance();
 
   class  N_input_gate_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(N_input_gate_instanceContext, antlr4::ParserRuleContext)
   public:
     N_input_gate_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6839,6 +7179,7 @@ public:
   N_input_gate_instanceContext* n_input_gate_instance();
 
   class  N_output_gate_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(N_output_gate_instanceContext, antlr4::ParserRuleContext)
   public:
     N_output_gate_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6859,6 +7200,7 @@ public:
   N_output_gate_instanceContext* n_output_gate_instance();
 
   class  Pass_switch_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pass_switch_instanceContext, antlr4::ParserRuleContext)
   public:
     Pass_switch_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6877,6 +7219,7 @@ public:
   Pass_switch_instanceContext* pass_switch_instance();
 
   class  Pass_enable_switch_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pass_enable_switch_instanceContext, antlr4::ParserRuleContext)
   public:
     Pass_enable_switch_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6897,6 +7240,7 @@ public:
   Pass_enable_switch_instanceContext* pass_enable_switch_instance();
 
   class  Pull_gate_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pull_gate_instanceContext, antlr4::ParserRuleContext)
   public:
     Pull_gate_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6913,6 +7257,7 @@ public:
   Pull_gate_instanceContext* pull_gate_instance();
 
   class  Pulldown_strengthContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pulldown_strengthContext, antlr4::ParserRuleContext)
   public:
     Pulldown_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6930,6 +7275,7 @@ public:
   Pulldown_strengthContext* pulldown_strength();
 
   class  Pullup_strengthContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pullup_strengthContext, antlr4::ParserRuleContext)
   public:
     Pullup_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -6947,6 +7293,7 @@ public:
   Pullup_strengthContext* pullup_strength();
 
   class  Cmos_switchtypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cmos_switchtypeContext, antlr4::ParserRuleContext)
   public:
     Cmos_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -6960,6 +7307,7 @@ public:
   };
 
   class  CmosSwitchType_RCmosContext : public Cmos_switchtypeContext {
+    IMPLEMENT_RTTI(CmosSwitchType_RCmosContext, Cmos_switchtypeContext)
   public:
     CmosSwitchType_RCmosContext(Cmos_switchtypeContext *ctx);
 
@@ -6969,6 +7317,7 @@ public:
   };
 
   class  CmosSwitchType_CmosContext : public Cmos_switchtypeContext {
+    IMPLEMENT_RTTI(CmosSwitchType_CmosContext, Cmos_switchtypeContext)
   public:
     CmosSwitchType_CmosContext(Cmos_switchtypeContext *ctx);
 
@@ -6980,6 +7329,7 @@ public:
   Cmos_switchtypeContext* cmos_switchtype();
 
   class  Enable_gatetypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enable_gatetypeContext, antlr4::ParserRuleContext)
   public:
     Enable_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -6993,6 +7343,7 @@ public:
   };
 
   class  EnableGateType_Bufif0Context : public Enable_gatetypeContext {
+    IMPLEMENT_RTTI(EnableGateType_Bufif0Context, Enable_gatetypeContext)
   public:
     EnableGateType_Bufif0Context(Enable_gatetypeContext *ctx);
 
@@ -7002,6 +7353,7 @@ public:
   };
 
   class  EnableGateType_Notif0Context : public Enable_gatetypeContext {
+    IMPLEMENT_RTTI(EnableGateType_Notif0Context, Enable_gatetypeContext)
   public:
     EnableGateType_Notif0Context(Enable_gatetypeContext *ctx);
 
@@ -7011,6 +7363,7 @@ public:
   };
 
   class  EnableGateType_Notif1Context : public Enable_gatetypeContext {
+    IMPLEMENT_RTTI(EnableGateType_Notif1Context, Enable_gatetypeContext)
   public:
     EnableGateType_Notif1Context(Enable_gatetypeContext *ctx);
 
@@ -7020,6 +7373,7 @@ public:
   };
 
   class  EnableGateType_Bufif1Context : public Enable_gatetypeContext {
+    IMPLEMENT_RTTI(EnableGateType_Bufif1Context, Enable_gatetypeContext)
   public:
     EnableGateType_Bufif1Context(Enable_gatetypeContext *ctx);
 
@@ -7031,6 +7385,7 @@ public:
   Enable_gatetypeContext* enable_gatetype();
 
   class  Mos_switchtypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Mos_switchtypeContext, antlr4::ParserRuleContext)
   public:
     Mos_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -7044,6 +7399,7 @@ public:
   };
 
   class  MosSwitchType_PMosContext : public Mos_switchtypeContext {
+    IMPLEMENT_RTTI(MosSwitchType_PMosContext, Mos_switchtypeContext)
   public:
     MosSwitchType_PMosContext(Mos_switchtypeContext *ctx);
 
@@ -7053,6 +7409,7 @@ public:
   };
 
   class  MosSwitchType_NMosContext : public Mos_switchtypeContext {
+    IMPLEMENT_RTTI(MosSwitchType_NMosContext, Mos_switchtypeContext)
   public:
     MosSwitchType_NMosContext(Mos_switchtypeContext *ctx);
 
@@ -7062,6 +7419,7 @@ public:
   };
 
   class  MosSwitchType_RPMosContext : public Mos_switchtypeContext {
+    IMPLEMENT_RTTI(MosSwitchType_RPMosContext, Mos_switchtypeContext)
   public:
     MosSwitchType_RPMosContext(Mos_switchtypeContext *ctx);
 
@@ -7071,6 +7429,7 @@ public:
   };
 
   class  MosSwitchType_RNMosContext : public Mos_switchtypeContext {
+    IMPLEMENT_RTTI(MosSwitchType_RNMosContext, Mos_switchtypeContext)
   public:
     MosSwitchType_RNMosContext(Mos_switchtypeContext *ctx);
 
@@ -7082,6 +7441,7 @@ public:
   Mos_switchtypeContext* mos_switchtype();
 
   class  N_input_gatetypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(N_input_gatetypeContext, antlr4::ParserRuleContext)
   public:
     N_input_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -7095,6 +7455,7 @@ public:
   };
 
   class  NInpGate_XorContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_XorContext, N_input_gatetypeContext)
   public:
     NInpGate_XorContext(N_input_gatetypeContext *ctx);
 
@@ -7104,6 +7465,7 @@ public:
   };
 
   class  NInpGate_NandContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_NandContext, N_input_gatetypeContext)
   public:
     NInpGate_NandContext(N_input_gatetypeContext *ctx);
 
@@ -7113,6 +7475,7 @@ public:
   };
 
   class  NInpGate_AndContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_AndContext, N_input_gatetypeContext)
   public:
     NInpGate_AndContext(N_input_gatetypeContext *ctx);
 
@@ -7122,6 +7485,7 @@ public:
   };
 
   class  NInpGate_OrContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_OrContext, N_input_gatetypeContext)
   public:
     NInpGate_OrContext(N_input_gatetypeContext *ctx);
 
@@ -7131,6 +7495,7 @@ public:
   };
 
   class  NInpGate_XnorContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_XnorContext, N_input_gatetypeContext)
   public:
     NInpGate_XnorContext(N_input_gatetypeContext *ctx);
 
@@ -7140,6 +7505,7 @@ public:
   };
 
   class  NInpGate_NorContext : public N_input_gatetypeContext {
+    IMPLEMENT_RTTI(NInpGate_NorContext, N_input_gatetypeContext)
   public:
     NInpGate_NorContext(N_input_gatetypeContext *ctx);
 
@@ -7151,6 +7517,7 @@ public:
   N_input_gatetypeContext* n_input_gatetype();
 
   class  N_output_gatetypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(N_output_gatetypeContext, antlr4::ParserRuleContext)
   public:
     N_output_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -7164,6 +7531,7 @@ public:
   };
 
   class  NOutGate_BufContext : public N_output_gatetypeContext {
+    IMPLEMENT_RTTI(NOutGate_BufContext, N_output_gatetypeContext)
   public:
     NOutGate_BufContext(N_output_gatetypeContext *ctx);
 
@@ -7173,6 +7541,7 @@ public:
   };
 
   class  NOutGate_NotContext : public N_output_gatetypeContext {
+    IMPLEMENT_RTTI(NOutGate_NotContext, N_output_gatetypeContext)
   public:
     NOutGate_NotContext(N_output_gatetypeContext *ctx);
 
@@ -7184,6 +7553,7 @@ public:
   N_output_gatetypeContext* n_output_gatetype();
 
   class  Pass_en_switchtypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pass_en_switchtypeContext, antlr4::ParserRuleContext)
   public:
     Pass_en_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -7197,6 +7567,7 @@ public:
   };
 
   class  PassEnSwitch_RTranif1Context : public Pass_en_switchtypeContext {
+    IMPLEMENT_RTTI(PassEnSwitch_RTranif1Context, Pass_en_switchtypeContext)
   public:
     PassEnSwitch_RTranif1Context(Pass_en_switchtypeContext *ctx);
 
@@ -7206,6 +7577,7 @@ public:
   };
 
   class  PassEnSwitch_Tranif0Context : public Pass_en_switchtypeContext {
+    IMPLEMENT_RTTI(PassEnSwitch_Tranif0Context, Pass_en_switchtypeContext)
   public:
     PassEnSwitch_Tranif0Context(Pass_en_switchtypeContext *ctx);
 
@@ -7215,6 +7587,7 @@ public:
   };
 
   class  PassEnSwitch_Tranif1Context : public Pass_en_switchtypeContext {
+    IMPLEMENT_RTTI(PassEnSwitch_Tranif1Context, Pass_en_switchtypeContext)
   public:
     PassEnSwitch_Tranif1Context(Pass_en_switchtypeContext *ctx);
 
@@ -7224,6 +7597,7 @@ public:
   };
 
   class  PassEnSwitch_RTranif0Context : public Pass_en_switchtypeContext {
+    IMPLEMENT_RTTI(PassEnSwitch_RTranif0Context, Pass_en_switchtypeContext)
   public:
     PassEnSwitch_RTranif0Context(Pass_en_switchtypeContext *ctx);
 
@@ -7235,6 +7609,7 @@ public:
   Pass_en_switchtypeContext* pass_en_switchtype();
 
   class  Pass_switchtypeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pass_switchtypeContext, antlr4::ParserRuleContext)
   public:
     Pass_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -7248,6 +7623,7 @@ public:
   };
 
   class  PassSwitch_RTranContext : public Pass_switchtypeContext {
+    IMPLEMENT_RTTI(PassSwitch_RTranContext, Pass_switchtypeContext)
   public:
     PassSwitch_RTranContext(Pass_switchtypeContext *ctx);
 
@@ -7257,6 +7633,7 @@ public:
   };
 
   class  PassSwitch_TranContext : public Pass_switchtypeContext {
+    IMPLEMENT_RTTI(PassSwitch_TranContext, Pass_switchtypeContext)
   public:
     PassSwitch_TranContext(Pass_switchtypeContext *ctx);
 
@@ -7268,6 +7645,7 @@ public:
   Pass_switchtypeContext* pass_switchtype();
 
   class  Module_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_instantiationContext, antlr4::ParserRuleContext)
   public:
     Module_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7287,6 +7665,7 @@ public:
   Module_instantiationContext* module_instantiation();
 
   class  Parameter_value_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parameter_value_assignmentContext, antlr4::ParserRuleContext)
   public:
     Parameter_value_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7305,6 +7684,7 @@ public:
   Parameter_value_assignmentContext* parameter_value_assignment();
 
   class  List_of_parameter_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_parameter_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_parameter_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7323,6 +7703,7 @@ public:
   List_of_parameter_assignmentsContext* list_of_parameter_assignments();
 
   class  Ordered_parameter_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ordered_parameter_assignmentContext, antlr4::ParserRuleContext)
   public:
     Ordered_parameter_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7336,6 +7717,7 @@ public:
   Ordered_parameter_assignmentContext* ordered_parameter_assignment();
 
   class  Named_parameter_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Named_parameter_assignmentContext, antlr4::ParserRuleContext)
   public:
     Named_parameter_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7353,6 +7735,7 @@ public:
   Named_parameter_assignmentContext* named_parameter_assignment();
 
   class  Hierarchical_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Hierarchical_instanceContext, antlr4::ParserRuleContext)
   public:
     Hierarchical_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7369,6 +7752,7 @@ public:
   Hierarchical_instanceContext* hierarchical_instance();
 
   class  Name_of_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Name_of_instanceContext, antlr4::ParserRuleContext)
   public:
     Name_of_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7384,6 +7768,7 @@ public:
   Name_of_instanceContext* name_of_instance();
 
   class  List_of_port_connectionsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_port_connectionsContext, antlr4::ParserRuleContext)
   public:
     List_of_port_connectionsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7402,6 +7787,7 @@ public:
   List_of_port_connectionsContext* list_of_port_connections();
 
   class  Ordered_port_connectionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ordered_port_connectionContext, antlr4::ParserRuleContext)
   public:
     Ordered_port_connectionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7417,6 +7803,7 @@ public:
   Ordered_port_connectionContext* ordered_port_connection();
 
   class  Named_port_connectionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Named_port_connectionContext, antlr4::ParserRuleContext)
   public:
     Named_port_connectionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7437,6 +7824,7 @@ public:
   Named_port_connectionContext* named_port_connection();
 
   class  Checker_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Checker_instantiationContext, antlr4::ParserRuleContext)
   public:
     Checker_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7454,6 +7842,7 @@ public:
   Checker_instantiationContext* checker_instantiation();
 
   class  List_of_checker_port_connectionsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_checker_port_connectionsContext, antlr4::ParserRuleContext)
   public:
     List_of_checker_port_connectionsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7471,6 +7860,7 @@ public:
   List_of_checker_port_connectionsContext* list_of_checker_port_connections();
 
   class  Ordered_checker_port_connectionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ordered_checker_port_connectionContext, antlr4::ParserRuleContext)
   public:
     Ordered_checker_port_connectionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7486,6 +7876,7 @@ public:
   Ordered_checker_port_connectionContext* ordered_checker_port_connection();
 
   class  Named_checker_port_connectionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Named_checker_port_connectionContext, antlr4::ParserRuleContext)
   public:
     Named_checker_port_connectionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7506,6 +7897,7 @@ public:
   Named_checker_port_connectionContext* named_checker_port_connection();
 
   class  Generated_module_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generated_module_instantiationContext, antlr4::ParserRuleContext)
   public:
     Generated_module_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7522,6 +7914,7 @@ public:
   Generated_module_instantiationContext* generated_module_instantiation();
 
   class  Generate_module_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_itemContext, antlr4::ParserRuleContext)
   public:
     Generate_module_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7541,6 +7934,7 @@ public:
   Generate_module_itemContext* generate_module_item();
 
   class  Generate_module_conditional_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_conditional_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_module_conditional_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7560,6 +7954,7 @@ public:
   Generate_module_conditional_statementContext* generate_module_conditional_statement();
 
   class  Generate_module_case_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_case_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_module_case_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7579,6 +7974,7 @@ public:
   Generate_module_case_statementContext* generate_module_case_statement();
 
   class  Genvar_module_case_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_module_case_itemContext, antlr4::ParserRuleContext)
   public:
     Genvar_module_case_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7598,6 +7994,7 @@ public:
   Genvar_module_case_itemContext* genvar_module_case_item();
 
   class  Generate_module_loop_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_loop_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_module_loop_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7619,6 +8016,7 @@ public:
   Generate_module_loop_statementContext* generate_module_loop_statement();
 
   class  Genvar_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_assignmentContext, antlr4::ParserRuleContext)
   public:
     Genvar_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7635,6 +8033,7 @@ public:
   Genvar_assignmentContext* genvar_assignment();
 
   class  Genvar_decl_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_decl_assignmentContext, antlr4::ParserRuleContext)
   public:
     Genvar_decl_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7651,6 +8050,7 @@ public:
   Genvar_decl_assignmentContext* genvar_decl_assignment();
 
   class  Generate_module_named_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_named_blockContext, antlr4::ParserRuleContext)
   public:
     Generate_module_named_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7672,6 +8072,7 @@ public:
   Generate_module_named_blockContext* generate_module_named_block();
 
   class  Generate_module_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_module_blockContext, antlr4::ParserRuleContext)
   public:
     Generate_module_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7692,6 +8093,7 @@ public:
   Generate_module_blockContext* generate_module_block();
 
   class  Generated_interface_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generated_interface_instantiationContext, antlr4::ParserRuleContext)
   public:
     Generated_interface_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7708,6 +8110,7 @@ public:
   Generated_interface_instantiationContext* generated_interface_instantiation();
 
   class  Generate_interface_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_itemContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7727,6 +8130,7 @@ public:
   Generate_interface_itemContext* generate_interface_item();
 
   class  Generate_interface_conditional_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_conditional_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_conditional_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7746,6 +8150,7 @@ public:
   Generate_interface_conditional_statementContext* generate_interface_conditional_statement();
 
   class  Generate_interface_case_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_case_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_case_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7765,6 +8170,7 @@ public:
   Generate_interface_case_statementContext* generate_interface_case_statement();
 
   class  Genvar_interface_case_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_interface_case_itemContext, antlr4::ParserRuleContext)
   public:
     Genvar_interface_case_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7784,6 +8190,7 @@ public:
   Genvar_interface_case_itemContext* genvar_interface_case_item();
 
   class  Generate_interface_loop_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_loop_statementContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_loop_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7805,6 +8212,7 @@ public:
   Generate_interface_loop_statementContext* generate_interface_loop_statement();
 
   class  Generate_interface_named_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_named_blockContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_named_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7826,6 +8234,7 @@ public:
   Generate_interface_named_blockContext* generate_interface_named_block();
 
   class  Generate_interface_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_interface_blockContext, antlr4::ParserRuleContext)
   public:
     Generate_interface_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7846,6 +8255,7 @@ public:
   Generate_interface_blockContext* generate_interface_block();
 
   class  Generate_regionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_regionContext, antlr4::ParserRuleContext)
   public:
     Generate_regionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7862,6 +8272,7 @@ public:
   Generate_regionContext* generate_region();
 
   class  Loop_generate_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Loop_generate_constructContext, antlr4::ParserRuleContext)
   public:
     Loop_generate_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7883,6 +8294,7 @@ public:
   Loop_generate_constructContext* loop_generate_construct();
 
   class  Genvar_initializationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_initializationContext, antlr4::ParserRuleContext)
   public:
     Genvar_initializationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7899,6 +8311,7 @@ public:
   Genvar_initializationContext* genvar_initialization();
 
   class  Genvar_iterationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Genvar_iterationContext, antlr4::ParserRuleContext)
   public:
     Genvar_iterationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7915,6 +8328,7 @@ public:
   Genvar_iterationContext* genvar_iteration();
 
   class  Conditional_generate_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Conditional_generate_constructContext, antlr4::ParserRuleContext)
   public:
     Conditional_generate_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7929,6 +8343,7 @@ public:
   Conditional_generate_constructContext* conditional_generate_construct();
 
   class  If_generate_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(If_generate_constructContext, antlr4::ParserRuleContext)
   public:
     If_generate_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7948,6 +8363,7 @@ public:
   If_generate_constructContext* if_generate_construct();
 
   class  Case_generate_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_generate_constructContext, antlr4::ParserRuleContext)
   public:
     Case_generate_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7967,6 +8383,7 @@ public:
   Case_generate_constructContext* case_generate_construct();
 
   class  Case_generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_generate_itemContext, antlr4::ParserRuleContext)
   public:
     Case_generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -7986,6 +8403,7 @@ public:
   Case_generate_itemContext* case_generate_item();
 
   class  Generate_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_blockContext, antlr4::ParserRuleContext)
   public:
     Generate_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8006,6 +8424,7 @@ public:
   Generate_blockContext* generate_block();
 
   class  Generate_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Generate_itemContext, antlr4::ParserRuleContext)
   public:
     Generate_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8021,6 +8440,7 @@ public:
   Generate_itemContext* generate_item();
 
   class  Udp_nonansi_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_nonansi_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_nonansi_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8041,6 +8461,7 @@ public:
   Udp_nonansi_declarationContext* udp_nonansi_declaration();
 
   class  Udp_ansi_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_ansi_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_ansi_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8061,6 +8482,7 @@ public:
   Udp_ansi_declarationContext* udp_ansi_declaration();
 
   class  Udp_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8090,6 +8512,7 @@ public:
   Udp_declarationContext* udp_declaration();
 
   class  Udp_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_port_listContext, antlr4::ParserRuleContext)
   public:
     Udp_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8106,6 +8529,7 @@ public:
   Udp_port_listContext* udp_port_list();
 
   class  Udp_declaration_port_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_declaration_port_listContext, antlr4::ParserRuleContext)
   public:
     Udp_declaration_port_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8123,6 +8547,7 @@ public:
   Udp_declaration_port_listContext* udp_declaration_port_list();
 
   class  Udp_port_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_port_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_port_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8139,6 +8564,7 @@ public:
   Udp_port_declarationContext* udp_port_declaration();
 
   class  Udp_output_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_output_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_output_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8158,6 +8584,7 @@ public:
   Udp_output_declarationContext* udp_output_declaration();
 
   class  Udp_input_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_input_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_input_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8174,6 +8601,7 @@ public:
   Udp_input_declarationContext* udp_input_declaration();
 
   class  Udp_reg_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_reg_declarationContext, antlr4::ParserRuleContext)
   public:
     Udp_reg_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8190,6 +8618,7 @@ public:
   Udp_reg_declarationContext* udp_reg_declaration();
 
   class  Udp_bodyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_bodyContext, antlr4::ParserRuleContext)
   public:
     Udp_bodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8204,6 +8633,7 @@ public:
   Udp_bodyContext* udp_body();
 
   class  Combinational_bodyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Combinational_bodyContext, antlr4::ParserRuleContext)
   public:
     Combinational_bodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8220,6 +8650,7 @@ public:
   Combinational_bodyContext* combinational_body();
 
   class  Combinational_entryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Combinational_entryContext, antlr4::ParserRuleContext)
   public:
     Combinational_entryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8236,6 +8667,7 @@ public:
   Combinational_entryContext* combinational_entry();
 
   class  Sequential_bodyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequential_bodyContext, antlr4::ParserRuleContext)
   public:
     Sequential_bodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8253,6 +8685,7 @@ public:
   Sequential_bodyContext* sequential_body();
 
   class  Udp_initial_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_initial_statementContext, antlr4::ParserRuleContext)
   public:
     Udp_initial_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8270,6 +8703,7 @@ public:
   Udp_initial_statementContext* udp_initial_statement();
 
   class  Init_valContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Init_valContext, antlr4::ParserRuleContext)
   public:
     Init_valContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -8283,6 +8717,7 @@ public:
   };
 
   class  InitVal_1Tickb1Context : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1Tickb1Context, Init_valContext)
   public:
     InitVal_1Tickb1Context(Init_valContext *ctx);
 
@@ -8292,6 +8727,7 @@ public:
   };
 
   class  InitVal_1TickB1Context : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickB1Context, Init_valContext)
   public:
     InitVal_1TickB1Context(Init_valContext *ctx);
 
@@ -8301,6 +8737,7 @@ public:
   };
 
   class  InitVal_1Tickb0Context : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1Tickb0Context, Init_valContext)
   public:
     InitVal_1Tickb0Context(Init_valContext *ctx);
 
@@ -8310,6 +8747,7 @@ public:
   };
 
   class  InitVal_1TickB0Context : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickB0Context, Init_valContext)
   public:
     InitVal_1TickB0Context(Init_valContext *ctx);
 
@@ -8319,6 +8757,7 @@ public:
   };
 
   class  InitVal_1TickbxContext : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickbxContext, Init_valContext)
   public:
     InitVal_1TickbxContext(Init_valContext *ctx);
 
@@ -8328,6 +8767,7 @@ public:
   };
 
   class  InitVal_1TickbXContext : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickbXContext, Init_valContext)
   public:
     InitVal_1TickbXContext(Init_valContext *ctx);
 
@@ -8337,6 +8777,7 @@ public:
   };
 
   class  InitVal_1TickBxContext : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickBxContext, Init_valContext)
   public:
     InitVal_1TickBxContext(Init_valContext *ctx);
 
@@ -8346,6 +8787,7 @@ public:
   };
 
   class  InitVal_1TickBXContext : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_1TickBXContext, Init_valContext)
   public:
     InitVal_1TickBXContext(Init_valContext *ctx);
 
@@ -8355,6 +8797,7 @@ public:
   };
 
   class  InitVal_IntegralContext : public Init_valContext {
+    IMPLEMENT_RTTI(InitVal_IntegralContext, Init_valContext)
   public:
     InitVal_IntegralContext(Init_valContext *ctx);
 
@@ -8366,6 +8809,7 @@ public:
   Init_valContext* init_val();
 
   class  Sequential_entryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Sequential_entryContext, antlr4::ParserRuleContext)
   public:
     Sequential_entryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8384,6 +8828,7 @@ public:
   Sequential_entryContext* sequential_entry();
 
   class  Seq_input_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Seq_input_listContext, antlr4::ParserRuleContext)
   public:
     Seq_input_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8398,6 +8843,7 @@ public:
   Seq_input_listContext* seq_input_list();
 
   class  Level_input_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Level_input_listContext, antlr4::ParserRuleContext)
   public:
     Level_input_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8412,6 +8858,7 @@ public:
   Level_input_listContext* level_input_list();
 
   class  Edge_input_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_input_listContext, antlr4::ParserRuleContext)
   public:
     Edge_input_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8427,6 +8874,7 @@ public:
   Edge_input_listContext* edge_input_list();
 
   class  Edge_indicatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_indicatorContext, antlr4::ParserRuleContext)
   public:
     Edge_indicatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8444,6 +8892,7 @@ public:
   Edge_indicatorContext* edge_indicator();
 
   class  Next_stateContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Next_stateContext, antlr4::ParserRuleContext)
   public:
     Next_stateContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8458,6 +8907,7 @@ public:
   Next_stateContext* next_state();
 
   class  Output_symbolContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Output_symbolContext, antlr4::ParserRuleContext)
   public:
     Output_symbolContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8472,6 +8922,7 @@ public:
   Output_symbolContext* output_symbol();
 
   class  Level_symbolContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Level_symbolContext, antlr4::ParserRuleContext)
   public:
     Level_symbolContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8487,6 +8938,7 @@ public:
   Level_symbolContext* level_symbol();
 
   class  Edge_symbolContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_symbolContext, antlr4::ParserRuleContext)
   public:
     Edge_symbolContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8501,6 +8953,7 @@ public:
   Edge_symbolContext* edge_symbol();
 
   class  Udp_instantiationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_instantiationContext, antlr4::ParserRuleContext)
   public:
     Udp_instantiationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8521,6 +8974,7 @@ public:
   Udp_instantiationContext* udp_instantiation();
 
   class  Udp_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Udp_instanceContext, antlr4::ParserRuleContext)
   public:
     Udp_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8541,6 +8995,7 @@ public:
   Udp_instanceContext* udp_instance();
 
   class  Continuous_assignContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Continuous_assignContext, antlr4::ParserRuleContext)
   public:
     Continuous_assignContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8561,6 +9016,7 @@ public:
   Continuous_assignContext* continuous_assign();
 
   class  List_of_net_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_net_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_net_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8577,6 +9033,7 @@ public:
   List_of_net_assignmentsContext* list_of_net_assignments();
 
   class  List_of_variable_assignmentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_variable_assignmentsContext, antlr4::ParserRuleContext)
   public:
     List_of_variable_assignmentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8593,6 +9050,7 @@ public:
   List_of_variable_assignmentsContext* list_of_variable_assignments();
 
   class  Net_aliasContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_aliasContext, antlr4::ParserRuleContext)
   public:
     Net_aliasContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8611,6 +9069,7 @@ public:
   Net_aliasContext* net_alias();
 
   class  Net_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_assignmentContext, antlr4::ParserRuleContext)
   public:
     Net_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8626,6 +9085,7 @@ public:
   Net_assignmentContext* net_assignment();
 
   class  Initial_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Initial_constructContext, antlr4::ParserRuleContext)
   public:
     Initial_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8640,6 +9100,7 @@ public:
   Initial_constructContext* initial_construct();
 
   class  Always_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Always_constructContext, antlr4::ParserRuleContext)
   public:
     Always_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8654,6 +9115,7 @@ public:
   Always_constructContext* always_construct();
 
   class  Always_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Always_keywordContext, antlr4::ParserRuleContext)
   public:
     Always_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -8667,6 +9129,7 @@ public:
   };
 
   class  AlwaysKeywd_CombContext : public Always_keywordContext {
+    IMPLEMENT_RTTI(AlwaysKeywd_CombContext, Always_keywordContext)
   public:
     AlwaysKeywd_CombContext(Always_keywordContext *ctx);
 
@@ -8676,6 +9139,7 @@ public:
   };
 
   class  AlwaysKeywd_LatchContext : public Always_keywordContext {
+    IMPLEMENT_RTTI(AlwaysKeywd_LatchContext, Always_keywordContext)
   public:
     AlwaysKeywd_LatchContext(Always_keywordContext *ctx);
 
@@ -8685,6 +9149,7 @@ public:
   };
 
   class  AlwaysKeywd_FFContext : public Always_keywordContext {
+    IMPLEMENT_RTTI(AlwaysKeywd_FFContext, Always_keywordContext)
   public:
     AlwaysKeywd_FFContext(Always_keywordContext *ctx);
 
@@ -8694,6 +9159,7 @@ public:
   };
 
   class  AlwaysKeywd_AlwaysContext : public Always_keywordContext {
+    IMPLEMENT_RTTI(AlwaysKeywd_AlwaysContext, Always_keywordContext)
   public:
     AlwaysKeywd_AlwaysContext(Always_keywordContext *ctx);
 
@@ -8705,6 +9171,7 @@ public:
   Always_keywordContext* always_keyword();
 
   class  Blocking_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Blocking_assignmentContext, antlr4::ParserRuleContext)
   public:
     Blocking_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8731,6 +9198,7 @@ public:
   Blocking_assignmentContext* blocking_assignment();
 
   class  Operator_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Operator_assignmentContext, antlr4::ParserRuleContext)
   public:
     Operator_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8746,6 +9214,7 @@ public:
   Operator_assignmentContext* operator_assignment();
 
   class  Assignment_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_operatorContext, antlr4::ParserRuleContext)
   public:
     Assignment_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8771,6 +9240,7 @@ public:
   Assignment_operatorContext* assignment_operator();
 
   class  Nonblocking_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Nonblocking_assignmentContext, antlr4::ParserRuleContext)
   public:
     Nonblocking_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8787,6 +9257,7 @@ public:
   Nonblocking_assignmentContext* nonblocking_assignment();
 
   class  Procedural_continuous_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Procedural_continuous_assignmentContext, antlr4::ParserRuleContext)
   public:
     Procedural_continuous_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8807,6 +9278,7 @@ public:
   Procedural_continuous_assignmentContext* procedural_continuous_assignment();
 
   class  Variable_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_assignmentContext, antlr4::ParserRuleContext)
   public:
     Variable_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8822,6 +9294,7 @@ public:
   Variable_assignmentContext* variable_assignment();
 
   class  Action_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Action_blockContext, antlr4::ParserRuleContext)
   public:
     Action_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8837,6 +9310,7 @@ public:
   Action_blockContext* action_block();
 
   class  Seq_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Seq_blockContext, antlr4::ParserRuleContext)
   public:
     Seq_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8859,6 +9333,7 @@ public:
   Seq_blockContext* seq_block();
 
   class  Par_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Par_blockContext, antlr4::ParserRuleContext)
   public:
     Par_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8883,6 +9358,7 @@ public:
   Par_blockContext* par_block();
 
   class  Join_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Join_keywordContext, antlr4::ParserRuleContext)
   public:
     Join_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8896,6 +9372,7 @@ public:
   Join_keywordContext* join_keyword();
 
   class  Join_any_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Join_any_keywordContext, antlr4::ParserRuleContext)
   public:
     Join_any_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8909,6 +9386,7 @@ public:
   Join_any_keywordContext* join_any_keyword();
 
   class  Join_none_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Join_none_keywordContext, antlr4::ParserRuleContext)
   public:
     Join_none_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8922,6 +9400,7 @@ public:
   Join_none_keywordContext* join_none_keyword();
 
   class  Statement_or_nullContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Statement_or_nullContext, antlr4::ParserRuleContext)
   public:
     Statement_or_nullContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8938,6 +9417,7 @@ public:
   Statement_or_nullContext* statement_or_null();
 
   class  StatementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(StatementContext, antlr4::ParserRuleContext)
   public:
     StatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8955,6 +9435,7 @@ public:
   StatementContext* statement();
 
   class  Statement_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Statement_itemContext, antlr4::ParserRuleContext)
   public:
     Statement_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -8990,6 +9471,7 @@ public:
   Statement_itemContext* statement_item();
 
   class  Function_statement_or_nullContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Function_statement_or_nullContext, antlr4::ParserRuleContext)
   public:
     Function_statement_or_nullContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9006,6 +9488,7 @@ public:
   Function_statement_or_nullContext* function_statement_or_null();
 
   class  Procedural_timing_control_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Procedural_timing_control_statementContext, antlr4::ParserRuleContext)
   public:
     Procedural_timing_control_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9020,6 +9503,7 @@ public:
   Procedural_timing_control_statementContext* procedural_timing_control_statement();
 
   class  Delay_or_event_controlContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_or_event_controlContext, antlr4::ParserRuleContext)
   public:
     Delay_or_event_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9038,6 +9522,7 @@ public:
   Delay_or_event_controlContext* delay_or_event_control();
 
   class  Delay_controlContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_controlContext, antlr4::ParserRuleContext)
   public:
     Delay_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9055,6 +9540,7 @@ public:
   Delay_controlContext* delay_control();
 
   class  Event_controlContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Event_controlContext, antlr4::ParserRuleContext)
   public:
     Event_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9075,6 +9561,7 @@ public:
   Event_controlContext* event_control();
 
   class  Event_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Event_expressionContext, antlr4::ParserRuleContext)
   public:
     Event_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9098,6 +9585,7 @@ public:
   Event_expressionContext* event_expression();
   Event_expressionContext* event_expression(int precedence);
   class  Or_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Or_operatorContext, antlr4::ParserRuleContext)
   public:
     Or_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9111,6 +9599,7 @@ public:
   Or_operatorContext* or_operator();
 
   class  Comma_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Comma_operatorContext, antlr4::ParserRuleContext)
   public:
     Comma_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9124,6 +9613,7 @@ public:
   Comma_operatorContext* comma_operator();
 
   class  Procedural_timing_controlContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Procedural_timing_controlContext, antlr4::ParserRuleContext)
   public:
     Procedural_timing_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9139,6 +9629,7 @@ public:
   Procedural_timing_controlContext* procedural_timing_control();
 
   class  Jump_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Jump_statementContext, antlr4::ParserRuleContext)
   public:
     Jump_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9156,6 +9647,7 @@ public:
   Jump_statementContext* jump_statement();
 
   class  Final_constructContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Final_constructContext, antlr4::ParserRuleContext)
   public:
     Final_constructContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9170,6 +9662,7 @@ public:
   Final_constructContext* final_construct();
 
   class  Wait_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Wait_statementContext, antlr4::ParserRuleContext)
   public:
     Wait_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9195,6 +9688,7 @@ public:
   Wait_statementContext* wait_statement();
 
   class  Event_triggerContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Event_triggerContext, antlr4::ParserRuleContext)
   public:
     Event_triggerContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9212,6 +9706,7 @@ public:
   Event_triggerContext* event_trigger();
 
   class  Disable_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Disable_statementContext, antlr4::ParserRuleContext)
   public:
     Disable_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9228,6 +9723,7 @@ public:
   Disable_statementContext* disable_statement();
 
   class  Conditional_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Conditional_statementContext, antlr4::ParserRuleContext)
   public:
     Conditional_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9253,6 +9749,7 @@ public:
   Conditional_statementContext* conditional_statement();
 
   class  Unique_priorityContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unique_priorityContext, antlr4::ParserRuleContext)
   public:
     Unique_priorityContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9268,6 +9765,7 @@ public:
   Unique_priorityContext* unique_priority();
 
   class  Cond_predicateContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cond_predicateContext, antlr4::ParserRuleContext)
   public:
     Cond_predicateContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9284,6 +9782,7 @@ public:
   Cond_predicateContext* cond_predicate();
 
   class  Expression_or_cond_patternContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Expression_or_cond_patternContext, antlr4::ParserRuleContext)
   public:
     Expression_or_cond_patternContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9299,6 +9798,7 @@ public:
   Expression_or_cond_patternContext* expression_or_cond_pattern();
 
   class  MatchesContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(MatchesContext, antlr4::ParserRuleContext)
   public:
     MatchesContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9312,6 +9812,7 @@ public:
   MatchesContext* matches();
 
   class  Case_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_statementContext, antlr4::ParserRuleContext)
   public:
     Case_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9338,6 +9839,7 @@ public:
   Case_statementContext* case_statement();
 
   class  Case_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_keywordContext, antlr4::ParserRuleContext)
   public:
     Case_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9353,6 +9855,7 @@ public:
   Case_keywordContext* case_keyword();
 
   class  Case_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_itemContext, antlr4::ParserRuleContext)
   public:
     Case_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9372,6 +9875,7 @@ public:
   Case_itemContext* case_item();
 
   class  Case_pattern_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_pattern_itemContext, antlr4::ParserRuleContext)
   public:
     Case_pattern_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9390,6 +9894,7 @@ public:
   Case_pattern_itemContext* case_pattern_item();
 
   class  Case_inside_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Case_inside_itemContext, antlr4::ParserRuleContext)
   public:
     Case_inside_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9406,6 +9911,7 @@ public:
   Case_inside_itemContext* case_inside_item();
 
   class  Randcase_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Randcase_statementContext, antlr4::ParserRuleContext)
   public:
     Randcase_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9422,6 +9928,7 @@ public:
   Randcase_statementContext* randcase_statement();
 
   class  Randcase_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Randcase_itemContext, antlr4::ParserRuleContext)
   public:
     Randcase_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9437,6 +9944,7 @@ public:
   Randcase_itemContext* randcase_item();
 
   class  PatternContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(PatternContext, antlr4::ParserRuleContext)
   public:
     PatternContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9464,6 +9972,7 @@ public:
   PatternContext* pattern();
 
   class  Assignment_patternContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_patternContext, antlr4::ParserRuleContext)
   public:
     Assignment_patternContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9492,6 +10001,7 @@ public:
   Assignment_patternContext* assignment_pattern();
 
   class  Structure_pattern_keyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Structure_pattern_keyContext, antlr4::ParserRuleContext)
   public:
     Structure_pattern_keyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9506,6 +10016,7 @@ public:
   Structure_pattern_keyContext* structure_pattern_key();
 
   class  Array_pattern_keyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Array_pattern_keyContext, antlr4::ParserRuleContext)
   public:
     Array_pattern_keyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9520,6 +10031,7 @@ public:
   Array_pattern_keyContext* array_pattern_key();
 
   class  Assignment_pattern_keyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_pattern_keyContext, antlr4::ParserRuleContext)
   public:
     Assignment_pattern_keyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9534,6 +10046,7 @@ public:
   Assignment_pattern_keyContext* assignment_pattern_key();
 
   class  Assignment_pattern_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_pattern_expressionContext, antlr4::ParserRuleContext)
   public:
     Assignment_pattern_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9548,6 +10061,7 @@ public:
   Assignment_pattern_expressionContext* assignment_pattern_expression();
 
   class  Assignment_pattern_expression_typeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_pattern_expression_typeContext, antlr4::ParserRuleContext)
   public:
     Assignment_pattern_expression_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9564,6 +10078,7 @@ public:
   Assignment_pattern_expression_typeContext* assignment_pattern_expression_type();
 
   class  Constant_assignment_pattern_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_assignment_pattern_expressionContext, antlr4::ParserRuleContext)
   public:
     Constant_assignment_pattern_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9577,6 +10092,7 @@ public:
   Constant_assignment_pattern_expressionContext* constant_assignment_pattern_expression();
 
   class  Assignment_pattern_net_lvalueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_pattern_net_lvalueContext, antlr4::ParserRuleContext)
   public:
     Assignment_pattern_net_lvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9596,6 +10112,7 @@ public:
   Assignment_pattern_net_lvalueContext* assignment_pattern_net_lvalue();
 
   class  Assignment_pattern_variable_lvalueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assignment_pattern_variable_lvalueContext, antlr4::ParserRuleContext)
   public:
     Assignment_pattern_variable_lvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9615,6 +10132,7 @@ public:
   Assignment_pattern_variable_lvalueContext* assignment_pattern_variable_lvalue();
 
   class  Loop_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Loop_statementContext, antlr4::ParserRuleContext)
   public:
     Loop_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9646,6 +10164,7 @@ public:
   Loop_statementContext* loop_statement();
 
   class  For_initializationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(For_initializationContext, antlr4::ParserRuleContext)
   public:
     For_initializationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9663,6 +10182,7 @@ public:
   For_initializationContext* for_initialization();
 
   class  For_variable_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(For_variable_declarationContext, antlr4::ParserRuleContext)
   public:
     For_variable_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9685,6 +10205,7 @@ public:
   For_variable_declarationContext* for_variable_declaration();
 
   class  For_stepContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(For_stepContext, antlr4::ParserRuleContext)
   public:
     For_stepContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9701,6 +10222,7 @@ public:
   For_stepContext* for_step();
 
   class  For_step_assignmentContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(For_step_assignmentContext, antlr4::ParserRuleContext)
   public:
     For_step_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9716,6 +10238,7 @@ public:
   For_step_assignmentContext* for_step_assignment();
 
   class  Loop_variablesContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Loop_variablesContext, antlr4::ParserRuleContext)
   public:
     Loop_variablesContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9732,6 +10255,7 @@ public:
   Loop_variablesContext* loop_variables();
 
   class  Subroutine_call_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Subroutine_call_statementContext, antlr4::ParserRuleContext)
   public:
     Subroutine_call_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9750,6 +10274,7 @@ public:
   Subroutine_call_statementContext* subroutine_call_statement();
 
   class  Assertion_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Assertion_itemContext, antlr4::ParserRuleContext)
   public:
     Assertion_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9764,6 +10289,7 @@ public:
   Assertion_itemContext* assertion_item();
 
   class  Deferred_immediate_assertion_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Deferred_immediate_assertion_itemContext, antlr4::ParserRuleContext)
   public:
     Deferred_immediate_assertion_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9779,6 +10305,7 @@ public:
   Deferred_immediate_assertion_itemContext* deferred_immediate_assertion_item();
 
   class  Procedural_assertion_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Procedural_assertion_statementContext, antlr4::ParserRuleContext)
   public:
     Procedural_assertion_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9794,6 +10321,7 @@ public:
   Procedural_assertion_statementContext* procedural_assertion_statement();
 
   class  Immediate_assertion_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Immediate_assertion_statementContext, antlr4::ParserRuleContext)
   public:
     Immediate_assertion_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9808,6 +10336,7 @@ public:
   Immediate_assertion_statementContext* immediate_assertion_statement();
 
   class  Simple_immediate_assertion_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_immediate_assertion_statementContext, antlr4::ParserRuleContext)
   public:
     Simple_immediate_assertion_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9823,6 +10352,7 @@ public:
   Simple_immediate_assertion_statementContext* simple_immediate_assertion_statement();
 
   class  Simple_immediate_assert_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_immediate_assert_statementContext, antlr4::ParserRuleContext)
   public:
     Simple_immediate_assert_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9840,6 +10370,7 @@ public:
   Simple_immediate_assert_statementContext* simple_immediate_assert_statement();
 
   class  Simple_immediate_assume_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_immediate_assume_statementContext, antlr4::ParserRuleContext)
   public:
     Simple_immediate_assume_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9857,6 +10388,7 @@ public:
   Simple_immediate_assume_statementContext* simple_immediate_assume_statement();
 
   class  Simple_immediate_cover_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_immediate_cover_statementContext, antlr4::ParserRuleContext)
   public:
     Simple_immediate_cover_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9874,6 +10406,7 @@ public:
   Simple_immediate_cover_statementContext* simple_immediate_cover_statement();
 
   class  Deferred_immediate_assertion_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Deferred_immediate_assertion_statementContext, antlr4::ParserRuleContext)
   public:
     Deferred_immediate_assertion_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9889,6 +10422,7 @@ public:
   Deferred_immediate_assertion_statementContext* deferred_immediate_assertion_statement();
 
   class  Deferred_immediate_assert_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Deferred_immediate_assert_statementContext, antlr4::ParserRuleContext)
   public:
     Deferred_immediate_assert_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9909,6 +10443,7 @@ public:
   Deferred_immediate_assert_statementContext* deferred_immediate_assert_statement();
 
   class  Deferred_immediate_assume_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Deferred_immediate_assume_statementContext, antlr4::ParserRuleContext)
   public:
     Deferred_immediate_assume_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9929,6 +10464,7 @@ public:
   Deferred_immediate_assume_statementContext* deferred_immediate_assume_statement();
 
   class  Deferred_immediate_cover_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Deferred_immediate_cover_statementContext, antlr4::ParserRuleContext)
   public:
     Deferred_immediate_cover_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9949,6 +10485,7 @@ public:
   Deferred_immediate_cover_statementContext* deferred_immediate_cover_statement();
 
   class  Clocking_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_declarationContext, antlr4::ParserRuleContext)
   public:
     Clocking_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9972,6 +10509,7 @@ public:
   Clocking_declarationContext* clocking_declaration();
 
   class  Clocking_eventContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_eventContext, antlr4::ParserRuleContext)
   public:
     Clocking_eventContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -9989,6 +10527,7 @@ public:
   Clocking_eventContext* clocking_event();
 
   class  Clocking_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_itemContext, antlr4::ParserRuleContext)
   public:
     Clocking_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10009,6 +10548,7 @@ public:
   Clocking_itemContext* clocking_item();
 
   class  Default_skewContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Default_skewContext, antlr4::ParserRuleContext)
   public:
     Default_skewContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -10022,6 +10562,7 @@ public:
   };
 
   class  DefaultSkew_IntputOutputContext : public Default_skewContext {
+    IMPLEMENT_RTTI(DefaultSkew_IntputOutputContext, Default_skewContext)
   public:
     DefaultSkew_IntputOutputContext(Default_skewContext *ctx);
 
@@ -10034,6 +10575,7 @@ public:
   };
 
   class  DefaultSkew_OutputContext : public Default_skewContext {
+    IMPLEMENT_RTTI(DefaultSkew_OutputContext, Default_skewContext)
   public:
     DefaultSkew_OutputContext(Default_skewContext *ctx);
 
@@ -10044,6 +10586,7 @@ public:
   };
 
   class  DefaultSkew_IntputContext : public Default_skewContext {
+    IMPLEMENT_RTTI(DefaultSkew_IntputContext, Default_skewContext)
   public:
     DefaultSkew_IntputContext(Default_skewContext *ctx);
 
@@ -10056,6 +10599,7 @@ public:
   Default_skewContext* default_skew();
 
   class  Clocking_directionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_directionContext, antlr4::ParserRuleContext)
   public:
     Clocking_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -10069,6 +10613,7 @@ public:
   };
 
   class  ClockingDir_InputOutputContext : public Clocking_directionContext {
+    IMPLEMENT_RTTI(ClockingDir_InputOutputContext, Clocking_directionContext)
   public:
     ClockingDir_InputOutputContext(Clocking_directionContext *ctx);
 
@@ -10081,6 +10626,7 @@ public:
   };
 
   class  ClockingDir_InputContext : public Clocking_directionContext {
+    IMPLEMENT_RTTI(ClockingDir_InputContext, Clocking_directionContext)
   public:
     ClockingDir_InputContext(Clocking_directionContext *ctx);
 
@@ -10091,6 +10637,7 @@ public:
   };
 
   class  ClockingDir_OutputContext : public Clocking_directionContext {
+    IMPLEMENT_RTTI(ClockingDir_OutputContext, Clocking_directionContext)
   public:
     ClockingDir_OutputContext(Clocking_directionContext *ctx);
 
@@ -10101,6 +10648,7 @@ public:
   };
 
   class  ClockingDir_InoutContext : public Clocking_directionContext {
+    IMPLEMENT_RTTI(ClockingDir_InoutContext, Clocking_directionContext)
   public:
     ClockingDir_InoutContext(Clocking_directionContext *ctx);
 
@@ -10112,6 +10660,7 @@ public:
   Clocking_directionContext* clocking_direction();
 
   class  List_of_clocking_decl_assignContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_clocking_decl_assignContext, antlr4::ParserRuleContext)
   public:
     List_of_clocking_decl_assignContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10128,6 +10677,7 @@ public:
   List_of_clocking_decl_assignContext* list_of_clocking_decl_assign();
 
   class  Clocking_decl_assignContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_decl_assignContext, antlr4::ParserRuleContext)
   public:
     Clocking_decl_assignContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10152,6 +10702,7 @@ public:
   Clocking_decl_assignContext* clocking_decl_assign();
 
   class  Clocking_skewContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_skewContext, antlr4::ParserRuleContext)
   public:
     Clocking_skewContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10166,6 +10717,7 @@ public:
   Clocking_skewContext* clocking_skew();
 
   class  Edge_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_identifierContext, antlr4::ParserRuleContext)
   public:
     Edge_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -10179,6 +10731,7 @@ public:
   };
 
   class  Edge_EdgeContext : public Edge_identifierContext {
+    IMPLEMENT_RTTI(Edge_EdgeContext, Edge_identifierContext)
   public:
     Edge_EdgeContext(Edge_identifierContext *ctx);
 
@@ -10188,6 +10741,7 @@ public:
   };
 
   class  Edge_NegedgeContext : public Edge_identifierContext {
+    IMPLEMENT_RTTI(Edge_NegedgeContext, Edge_identifierContext)
   public:
     Edge_NegedgeContext(Edge_identifierContext *ctx);
 
@@ -10197,6 +10751,7 @@ public:
   };
 
   class  Edge_PosedgeContext : public Edge_identifierContext {
+    IMPLEMENT_RTTI(Edge_PosedgeContext, Edge_identifierContext)
   public:
     Edge_PosedgeContext(Edge_identifierContext *ctx);
 
@@ -10208,6 +10763,7 @@ public:
   Edge_identifierContext* edge_identifier();
 
   class  Clocking_driveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clocking_driveContext, antlr4::ParserRuleContext)
   public:
     Clocking_driveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10224,6 +10780,7 @@ public:
   Clocking_driveContext* clocking_drive();
 
   class  Cycle_delayContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cycle_delayContext, antlr4::ParserRuleContext)
   public:
     Cycle_delayContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10243,6 +10800,7 @@ public:
   Cycle_delayContext* cycle_delay();
 
   class  ClockvarContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(ClockvarContext, antlr4::ParserRuleContext)
   public:
     ClockvarContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10266,6 +10824,7 @@ public:
   ClockvarContext* clockvar();
 
   class  Clockvar_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Clockvar_expressionContext, antlr4::ParserRuleContext)
   public:
     Clockvar_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10280,6 +10839,7 @@ public:
   Clockvar_expressionContext* clockvar_expression();
 
   class  Randsequence_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Randsequence_statementContext, antlr4::ParserRuleContext)
   public:
     Randsequence_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10299,6 +10859,7 @@ public:
   Randsequence_statementContext* randsequence_statement();
 
   class  ProductionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(ProductionContext, antlr4::ParserRuleContext)
   public:
     ProductionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10322,6 +10883,7 @@ public:
   ProductionContext* production();
 
   class  Rs_ruleContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_ruleContext, antlr4::ParserRuleContext)
   public:
     Rs_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10338,6 +10900,7 @@ public:
   Rs_ruleContext* rs_rule();
 
   class  Rs_production_listContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_production_listContext, antlr4::ParserRuleContext)
   public:
     Rs_production_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10359,6 +10922,7 @@ public:
   Rs_production_listContext* rs_production_list();
 
   class  Rs_code_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_code_blockContext, antlr4::ParserRuleContext)
   public:
     Rs_code_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10377,6 +10941,7 @@ public:
   Rs_code_blockContext* rs_code_block();
 
   class  Rs_prodContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_prodContext, antlr4::ParserRuleContext)
   public:
     Rs_prodContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10394,6 +10959,7 @@ public:
   Rs_prodContext* rs_prod();
 
   class  Production_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Production_itemContext, antlr4::ParserRuleContext)
   public:
     Production_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10410,6 +10976,7 @@ public:
   Production_itemContext* production_item();
 
   class  Rs_if_elseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_if_elseContext, antlr4::ParserRuleContext)
   public:
     Rs_if_elseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10429,6 +10996,7 @@ public:
   Rs_if_elseContext* rs_if_else();
 
   class  Rs_repeatContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_repeatContext, antlr4::ParserRuleContext)
   public:
     Rs_repeatContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10446,6 +11014,7 @@ public:
   Rs_repeatContext* rs_repeat();
 
   class  Rs_caseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_caseContext, antlr4::ParserRuleContext)
   public:
     Rs_caseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10465,6 +11034,7 @@ public:
   Rs_caseContext* rs_case();
 
   class  Rs_case_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Rs_case_itemContext, antlr4::ParserRuleContext)
   public:
     Rs_case_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10484,6 +11054,7 @@ public:
   Rs_case_itemContext* rs_case_item();
 
   class  Specify_blockContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specify_blockContext, antlr4::ParserRuleContext)
   public:
     Specify_blockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10500,6 +11071,7 @@ public:
   Specify_blockContext* specify_block();
 
   class  Specify_itemContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specify_itemContext, antlr4::ParserRuleContext)
   public:
     Specify_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10517,6 +11089,7 @@ public:
   Specify_itemContext* specify_item();
 
   class  Pulsestyle_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pulsestyle_declarationContext, antlr4::ParserRuleContext)
   public:
     Pulsestyle_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10533,6 +11106,7 @@ public:
   Pulsestyle_declarationContext* pulsestyle_declaration();
 
   class  Showcancelled_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Showcancelled_declarationContext, antlr4::ParserRuleContext)
   public:
     Showcancelled_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10549,6 +11123,7 @@ public:
   Showcancelled_declarationContext* showcancelled_declaration();
 
   class  Path_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Path_declarationContext, antlr4::ParserRuleContext)
   public:
     Path_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10565,6 +11140,7 @@ public:
   Path_declarationContext* path_declaration();
 
   class  Simple_path_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Simple_path_declarationContext, antlr4::ParserRuleContext)
   public:
     Simple_path_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10581,6 +11157,7 @@ public:
   Simple_path_declarationContext* simple_path_declaration();
 
   class  Parallel_path_descriptionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parallel_path_descriptionContext, antlr4::ParserRuleContext)
   public:
     Parallel_path_descriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10600,6 +11177,7 @@ public:
   Parallel_path_descriptionContext* parallel_path_description();
 
   class  Full_path_descriptionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Full_path_descriptionContext, antlr4::ParserRuleContext)
   public:
     Full_path_descriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10619,6 +11197,7 @@ public:
   Full_path_descriptionContext* full_path_description();
 
   class  List_of_path_inputsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_path_inputsContext, antlr4::ParserRuleContext)
   public:
     List_of_path_inputsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10635,6 +11214,7 @@ public:
   List_of_path_inputsContext* list_of_path_inputs();
 
   class  List_of_path_outputsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_path_outputsContext, antlr4::ParserRuleContext)
   public:
     List_of_path_outputsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10651,6 +11231,7 @@ public:
   List_of_path_outputsContext* list_of_path_outputs();
 
   class  Specify_input_terminal_descriptorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specify_input_terminal_descriptorContext, antlr4::ParserRuleContext)
   public:
     Specify_input_terminal_descriptorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10669,6 +11250,7 @@ public:
   Specify_input_terminal_descriptorContext* specify_input_terminal_descriptor();
 
   class  Specify_output_terminal_descriptorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specify_output_terminal_descriptorContext, antlr4::ParserRuleContext)
   public:
     Specify_output_terminal_descriptorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10687,6 +11269,7 @@ public:
   Specify_output_terminal_descriptorContext* specify_output_terminal_descriptor();
 
   class  Path_delay_valueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Path_delay_valueContext, antlr4::ParserRuleContext)
   public:
     Path_delay_valueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10702,6 +11285,7 @@ public:
   Path_delay_valueContext* path_delay_value();
 
   class  List_of_path_delay_expressionsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_path_delay_expressionsContext, antlr4::ParserRuleContext)
   public:
     List_of_path_delay_expressionsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10732,6 +11316,7 @@ public:
   List_of_path_delay_expressionsContext* list_of_path_delay_expressions();
 
   class  T_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10745,6 +11330,7 @@ public:
   T_path_delay_expressionContext* t_path_delay_expression();
 
   class  Trise_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Trise_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Trise_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10758,6 +11344,7 @@ public:
   Trise_path_delay_expressionContext* trise_path_delay_expression();
 
   class  Tfall_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tfall_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tfall_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10771,6 +11358,7 @@ public:
   Tfall_path_delay_expressionContext* tfall_path_delay_expression();
 
   class  Tz_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tz_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tz_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10784,6 +11372,7 @@ public:
   Tz_path_delay_expressionContext* tz_path_delay_expression();
 
   class  T01_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T01_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T01_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10797,6 +11386,7 @@ public:
   T01_path_delay_expressionContext* t01_path_delay_expression();
 
   class  T10_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T10_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T10_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10810,6 +11400,7 @@ public:
   T10_path_delay_expressionContext* t10_path_delay_expression();
 
   class  T0z_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T0z_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T0z_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10823,6 +11414,7 @@ public:
   T0z_path_delay_expressionContext* t0z_path_delay_expression();
 
   class  Tz1_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tz1_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tz1_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10836,6 +11428,7 @@ public:
   Tz1_path_delay_expressionContext* tz1_path_delay_expression();
 
   class  T1z_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T1z_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T1z_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10849,6 +11442,7 @@ public:
   T1z_path_delay_expressionContext* t1z_path_delay_expression();
 
   class  Tz0_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tz0_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tz0_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10862,6 +11456,7 @@ public:
   Tz0_path_delay_expressionContext* tz0_path_delay_expression();
 
   class  T0x_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T0x_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T0x_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10875,6 +11470,7 @@ public:
   T0x_path_delay_expressionContext* t0x_path_delay_expression();
 
   class  Tx1_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tx1_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tx1_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10888,6 +11484,7 @@ public:
   Tx1_path_delay_expressionContext* tx1_path_delay_expression();
 
   class  T1x_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(T1x_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     T1x_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10901,6 +11498,7 @@ public:
   T1x_path_delay_expressionContext* t1x_path_delay_expression();
 
   class  Tx0_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tx0_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tx0_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10914,6 +11512,7 @@ public:
   Tx0_path_delay_expressionContext* tx0_path_delay_expression();
 
   class  Txz_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Txz_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Txz_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10927,6 +11526,7 @@ public:
   Txz_path_delay_expressionContext* txz_path_delay_expression();
 
   class  Tzx_path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Tzx_path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Tzx_path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10940,6 +11540,7 @@ public:
   Tzx_path_delay_expressionContext* tzx_path_delay_expression();
 
   class  Path_delay_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Path_delay_expressionContext, antlr4::ParserRuleContext)
   public:
     Path_delay_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10953,6 +11554,7 @@ public:
   Path_delay_expressionContext* path_delay_expression();
 
   class  Edge_sensitive_path_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_sensitive_path_declarationContext, antlr4::ParserRuleContext)
   public:
     Edge_sensitive_path_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10969,6 +11571,7 @@ public:
   Edge_sensitive_path_declarationContext* edge_sensitive_path_declaration();
 
   class  Parallel_edge_sensitive_path_descriptionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Parallel_edge_sensitive_path_descriptionContext, antlr4::ParserRuleContext)
   public:
     Parallel_edge_sensitive_path_descriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -10991,6 +11594,7 @@ public:
   Parallel_edge_sensitive_path_descriptionContext* parallel_edge_sensitive_path_description();
 
   class  Full_edge_sensitive_path_descriptionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Full_edge_sensitive_path_descriptionContext, antlr4::ParserRuleContext)
   public:
     Full_edge_sensitive_path_descriptionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11013,6 +11617,7 @@ public:
   Full_edge_sensitive_path_descriptionContext* full_edge_sensitive_path_description();
 
   class  State_dependent_path_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(State_dependent_path_declarationContext, antlr4::ParserRuleContext)
   public:
     State_dependent_path_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11032,6 +11637,7 @@ public:
   State_dependent_path_declarationContext* state_dependent_path_declaration();
 
   class  System_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(System_timing_checkContext, antlr4::ParserRuleContext)
   public:
     System_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11056,6 +11662,7 @@ public:
   System_timing_checkContext* system_timing_check();
 
   class  Dollar_setup_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_setup_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_setup_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11079,6 +11686,7 @@ public:
   Dollar_setup_timing_checkContext* dollar_setup_timing_check();
 
   class  Dollar_hold_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_hold_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_hold_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11102,6 +11710,7 @@ public:
   Dollar_hold_timing_checkContext* dollar_hold_timing_check();
 
   class  Dollar_setuphold_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_setuphold_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_setuphold_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11130,6 +11739,7 @@ public:
   Dollar_setuphold_timing_checkContext* dollar_setuphold_timing_check();
 
   class  Dollar_recovery_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_recovery_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_recovery_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11153,6 +11763,7 @@ public:
   Dollar_recovery_timing_checkContext* dollar_recovery_timing_check();
 
   class  Dollar_removal_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_removal_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_removal_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11176,6 +11787,7 @@ public:
   Dollar_removal_timing_checkContext* dollar_removal_timing_check();
 
   class  Dollar_recrem_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_recrem_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_recrem_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11204,6 +11816,7 @@ public:
   Dollar_recrem_timing_checkContext* dollar_recrem_timing_check();
 
   class  Dollar_skew_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_skew_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_skew_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11227,6 +11840,7 @@ public:
   Dollar_skew_timing_checkContext* dollar_skew_timing_check();
 
   class  Dollar_timeskew_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_timeskew_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_timeskew_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11252,6 +11866,7 @@ public:
   Dollar_timeskew_timing_checkContext* dollar_timeskew_timing_check();
 
   class  Dollar_fullskew_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_fullskew_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_fullskew_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11278,6 +11893,7 @@ public:
   Dollar_fullskew_timing_checkContext* dollar_fullskew_timing_check();
 
   class  Dollar_period_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_period_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_period_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11300,6 +11916,7 @@ public:
   Dollar_period_timing_checkContext* dollar_period_timing_check();
 
   class  Dollar_width_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_width_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_width_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11323,6 +11940,7 @@ public:
   Dollar_width_timing_checkContext* dollar_width_timing_check();
 
   class  Dollar_nochange_timing_checkContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_nochange_timing_checkContext, antlr4::ParserRuleContext)
   public:
     Dollar_nochange_timing_checkContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11347,6 +11965,7 @@ public:
   Dollar_nochange_timing_checkContext* dollar_nochange_timing_check();
 
   class  Delayed_dataContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delayed_dataContext, antlr4::ParserRuleContext)
   public:
     Delayed_dataContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11363,6 +11982,7 @@ public:
   Delayed_dataContext* delayed_data();
 
   class  Delayed_referenceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delayed_referenceContext, antlr4::ParserRuleContext)
   public:
     Delayed_referenceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11379,6 +11999,7 @@ public:
   Delayed_referenceContext* delayed_reference();
 
   class  End_edge_offsetContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(End_edge_offsetContext, antlr4::ParserRuleContext)
   public:
     End_edge_offsetContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11392,6 +12013,7 @@ public:
   End_edge_offsetContext* end_edge_offset();
 
   class  Event_based_flagContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Event_based_flagContext, antlr4::ParserRuleContext)
   public:
     Event_based_flagContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11405,6 +12027,7 @@ public:
   Event_based_flagContext* event_based_flag();
 
   class  NotifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(NotifierContext, antlr4::ParserRuleContext)
   public:
     NotifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11418,6 +12041,7 @@ public:
   NotifierContext* notifier();
 
   class  Reference_eventContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Reference_eventContext, antlr4::ParserRuleContext)
   public:
     Reference_eventContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11431,6 +12055,7 @@ public:
   Reference_eventContext* reference_event();
 
   class  Remain_active_flagContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Remain_active_flagContext, antlr4::ParserRuleContext)
   public:
     Remain_active_flagContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11444,6 +12069,7 @@ public:
   Remain_active_flagContext* remain_active_flag();
 
   class  Stamptime_conditionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Stamptime_conditionContext, antlr4::ParserRuleContext)
   public:
     Stamptime_conditionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11457,6 +12083,7 @@ public:
   Stamptime_conditionContext* stamptime_condition();
 
   class  Start_edge_offsetContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Start_edge_offsetContext, antlr4::ParserRuleContext)
   public:
     Start_edge_offsetContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11470,6 +12097,7 @@ public:
   Start_edge_offsetContext* start_edge_offset();
 
   class  ThresholdContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(ThresholdContext, antlr4::ParserRuleContext)
   public:
     ThresholdContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11483,6 +12111,7 @@ public:
   ThresholdContext* threshold();
 
   class  Timing_check_limitContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timing_check_limitContext, antlr4::ParserRuleContext)
   public:
     Timing_check_limitContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11496,6 +12125,7 @@ public:
   Timing_check_limitContext* timing_check_limit();
 
   class  Timing_check_eventContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timing_check_eventContext, antlr4::ParserRuleContext)
   public:
     Timing_check_eventContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11512,6 +12142,7 @@ public:
   Timing_check_eventContext* timing_check_event();
 
   class  Controlled_timing_check_eventContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Controlled_timing_check_eventContext, antlr4::ParserRuleContext)
   public:
     Controlled_timing_check_eventContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11528,6 +12159,7 @@ public:
   Controlled_timing_check_eventContext* controlled_timing_check_event();
 
   class  Timing_check_event_controlContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timing_check_event_controlContext, antlr4::ParserRuleContext)
   public:
     Timing_check_event_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -11541,6 +12173,7 @@ public:
   };
 
   class  TimingCheckEventControl_NegedgeContext : public Timing_check_event_controlContext {
+    IMPLEMENT_RTTI(TimingCheckEventControl_NegedgeContext, Timing_check_event_controlContext)
   public:
     TimingCheckEventControl_NegedgeContext(Timing_check_event_controlContext *ctx);
 
@@ -11550,6 +12183,7 @@ public:
   };
 
   class  TimingCheckEventControl_PosedgeContext : public Timing_check_event_controlContext {
+    IMPLEMENT_RTTI(TimingCheckEventControl_PosedgeContext, Timing_check_event_controlContext)
   public:
     TimingCheckEventControl_PosedgeContext(Timing_check_event_controlContext *ctx);
 
@@ -11559,6 +12193,7 @@ public:
   };
 
   class  TimingCheckEventControl_EdgeContext : public Timing_check_event_controlContext {
+    IMPLEMENT_RTTI(TimingCheckEventControl_EdgeContext, Timing_check_event_controlContext)
   public:
     TimingCheckEventControl_EdgeContext(Timing_check_event_controlContext *ctx);
 
@@ -11570,6 +12205,7 @@ public:
   Timing_check_event_controlContext* timing_check_event_control();
 
   class  Specify_terminal_descriptorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Specify_terminal_descriptorContext, antlr4::ParserRuleContext)
   public:
     Specify_terminal_descriptorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11584,6 +12220,7 @@ public:
   Specify_terminal_descriptorContext* specify_terminal_descriptor();
 
   class  Edge_control_specifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_control_specifierContext, antlr4::ParserRuleContext)
   public:
     Edge_control_specifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11603,6 +12240,7 @@ public:
   Edge_control_specifierContext* edge_control_specifier();
 
   class  Edge_descriptorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Edge_descriptorContext, antlr4::ParserRuleContext)
   public:
     Edge_descriptorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11617,6 +12255,7 @@ public:
   Edge_descriptorContext* edge_descriptor();
 
   class  Timing_check_conditionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timing_check_conditionContext, antlr4::ParserRuleContext)
   public:
     Timing_check_conditionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11632,6 +12271,7 @@ public:
   Timing_check_conditionContext* timing_check_condition();
 
   class  Scalar_timing_check_conditionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Scalar_timing_check_conditionContext, antlr4::ParserRuleContext)
   public:
     Scalar_timing_check_conditionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11651,6 +12291,7 @@ public:
   Scalar_timing_check_conditionContext* scalar_timing_check_condition();
 
   class  Scalar_constantContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Scalar_constantContext, antlr4::ParserRuleContext)
   public:
     Scalar_constantContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -11664,6 +12305,7 @@ public:
   };
 
   class  Scalar_1Tickb1Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_1Tickb1Context, Scalar_constantContext)
   public:
     Scalar_1Tickb1Context(Scalar_constantContext *ctx);
 
@@ -11673,6 +12315,7 @@ public:
   };
 
   class  Scalar_1TickB1Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_1TickB1Context, Scalar_constantContext)
   public:
     Scalar_1TickB1Context(Scalar_constantContext *ctx);
 
@@ -11682,6 +12325,7 @@ public:
   };
 
   class  Scalar_1Tickb0Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_1Tickb0Context, Scalar_constantContext)
   public:
     Scalar_1Tickb0Context(Scalar_constantContext *ctx);
 
@@ -11691,6 +12335,7 @@ public:
   };
 
   class  Scalar_1TickB0Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_1TickB0Context, Scalar_constantContext)
   public:
     Scalar_1TickB0Context(Scalar_constantContext *ctx);
 
@@ -11700,6 +12345,7 @@ public:
   };
 
   class  Scalar_IntegralContext : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_IntegralContext, Scalar_constantContext)
   public:
     Scalar_IntegralContext(Scalar_constantContext *ctx);
 
@@ -11709,6 +12355,7 @@ public:
   };
 
   class  Scalar_Tickb0Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_Tickb0Context, Scalar_constantContext)
   public:
     Scalar_Tickb0Context(Scalar_constantContext *ctx);
 
@@ -11718,6 +12365,7 @@ public:
   };
 
   class  Scalar_TickB0Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_TickB0Context, Scalar_constantContext)
   public:
     Scalar_TickB0Context(Scalar_constantContext *ctx);
 
@@ -11727,6 +12375,7 @@ public:
   };
 
   class  Scalar_Tickb1Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_Tickb1Context, Scalar_constantContext)
   public:
     Scalar_Tickb1Context(Scalar_constantContext *ctx);
 
@@ -11736,6 +12385,7 @@ public:
   };
 
   class  Scalar_TickB1Context : public Scalar_constantContext {
+    IMPLEMENT_RTTI(Scalar_TickB1Context, Scalar_constantContext)
   public:
     Scalar_TickB1Context(Scalar_constantContext *ctx);
 
@@ -11747,6 +12397,7 @@ public:
   Scalar_constantContext* scalar_constant();
 
   class  ConcatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(ConcatenationContext, antlr4::ParserRuleContext)
   public:
     ConcatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11769,6 +12420,7 @@ public:
   ConcatenationContext* concatenation();
 
   class  Constant_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_concatenationContext, antlr4::ParserRuleContext)
   public:
     Constant_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11791,6 +12443,7 @@ public:
   Constant_concatenationContext* constant_concatenation();
 
   class  Array_member_labelContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Array_member_labelContext, antlr4::ParserRuleContext)
   public:
     Array_member_labelContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11806,6 +12459,7 @@ public:
   Array_member_labelContext* array_member_label();
 
   class  Constant_multiple_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_multiple_concatenationContext, antlr4::ParserRuleContext)
   public:
     Constant_multiple_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11822,6 +12476,7 @@ public:
   Constant_multiple_concatenationContext* constant_multiple_concatenation();
 
   class  Module_path_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_path_concatenationContext, antlr4::ParserRuleContext)
   public:
     Module_path_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11840,6 +12495,7 @@ public:
   Module_path_concatenationContext* module_path_concatenation();
 
   class  Module_path_multiple_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_path_multiple_concatenationContext, antlr4::ParserRuleContext)
   public:
     Module_path_multiple_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11856,6 +12512,7 @@ public:
   Module_path_multiple_concatenationContext* module_path_multiple_concatenation();
 
   class  Multiple_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Multiple_concatenationContext, antlr4::ParserRuleContext)
   public:
     Multiple_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11872,6 +12529,7 @@ public:
   Multiple_concatenationContext* multiple_concatenation();
 
   class  Streaming_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Streaming_concatenationContext, antlr4::ParserRuleContext)
   public:
     Streaming_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11889,6 +12547,7 @@ public:
   Streaming_concatenationContext* streaming_concatenation();
 
   class  Stream_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Stream_operatorContext, antlr4::ParserRuleContext)
   public:
     Stream_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11903,6 +12562,7 @@ public:
   Stream_operatorContext* stream_operator();
 
   class  Slice_sizeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Slice_sizeContext, antlr4::ParserRuleContext)
   public:
     Slice_sizeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11917,6 +12577,7 @@ public:
   Slice_sizeContext* slice_size();
 
   class  Stream_concatenationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Stream_concatenationContext, antlr4::ParserRuleContext)
   public:
     Stream_concatenationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11935,6 +12596,7 @@ public:
   Stream_concatenationContext* stream_concatenation();
 
   class  Stream_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Stream_expressionContext, antlr4::ParserRuleContext)
   public:
     Stream_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11952,6 +12614,7 @@ public:
   Stream_expressionContext* stream_expression();
 
   class  Array_range_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Array_range_expressionContext, antlr4::ParserRuleContext)
   public:
     Array_range_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11967,6 +12630,7 @@ public:
   Array_range_expressionContext* array_range_expression();
 
   class  Empty_queueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Empty_queueContext, antlr4::ParserRuleContext)
   public:
     Empty_queueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -11981,6 +12645,7 @@ public:
   Empty_queueContext* empty_queue();
 
   class  Subroutine_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Subroutine_callContext, antlr4::ParserRuleContext)
   public:
     Subroutine_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12012,6 +12677,7 @@ public:
   Subroutine_callContext* subroutine_call();
 
   class  List_of_argumentsContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(List_of_argumentsContext, antlr4::ParserRuleContext)
   public:
     List_of_argumentsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12036,6 +12702,7 @@ public:
   List_of_argumentsContext* list_of_arguments();
 
   class  Method_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Method_callContext, antlr4::ParserRuleContext)
   public:
     Method_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12053,6 +12720,7 @@ public:
   Method_callContext* method_call();
 
   class  Method_call_bodyContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Method_call_bodyContext, antlr4::ParserRuleContext)
   public:
     Method_call_bodyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12072,6 +12740,7 @@ public:
   Method_call_bodyContext* method_call_body();
 
   class  Built_in_method_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Built_in_method_callContext, antlr4::ParserRuleContext)
   public:
     Built_in_method_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12086,6 +12755,7 @@ public:
   Built_in_method_callContext* built_in_method_call();
 
   class  Array_manipulation_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Array_manipulation_callContext, antlr4::ParserRuleContext)
   public:
     Array_manipulation_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12108,6 +12778,7 @@ public:
   Array_manipulation_callContext* array_manipulation_call();
 
   class  Randomize_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Randomize_callContext, antlr4::ParserRuleContext)
   public:
     Randomize_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12132,6 +12803,7 @@ public:
   Randomize_callContext* randomize_call();
 
   class  Method_call_rootContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Method_call_rootContext, antlr4::ParserRuleContext)
   public:
     Method_call_rootContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12159,6 +12831,7 @@ public:
   Method_call_rootContext* method_call_root();
 
   class  Array_method_nameContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Array_method_nameContext, antlr4::ParserRuleContext)
   public:
     Array_method_nameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12176,6 +12849,7 @@ public:
   Array_method_nameContext* array_method_name();
 
   class  Unique_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unique_callContext, antlr4::ParserRuleContext)
   public:
     Unique_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12189,6 +12863,7 @@ public:
   Unique_callContext* unique_call();
 
   class  And_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(And_callContext, antlr4::ParserRuleContext)
   public:
     And_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12202,6 +12877,7 @@ public:
   And_callContext* and_call();
 
   class  Or_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Or_callContext, antlr4::ParserRuleContext)
   public:
     Or_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12215,6 +12891,7 @@ public:
   Or_callContext* or_call();
 
   class  Xor_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Xor_callContext, antlr4::ParserRuleContext)
   public:
     Xor_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12228,6 +12905,7 @@ public:
   Xor_callContext* xor_call();
 
   class  Inc_or_dec_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Inc_or_dec_expressionContext, antlr4::ParserRuleContext)
   public:
     Inc_or_dec_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12244,6 +12922,7 @@ public:
   Inc_or_dec_expressionContext* inc_or_dec_expression();
 
   class  Constant_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_expressionContext, antlr4::ParserRuleContext)
   public:
     Constant_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12303,6 +12982,7 @@ public:
   Constant_expressionContext* constant_expression();
   Constant_expressionContext* constant_expression(int precedence);
   class  Conditional_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Conditional_operatorContext, antlr4::ParserRuleContext)
   public:
     Conditional_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12316,6 +12996,7 @@ public:
   Conditional_operatorContext* conditional_operator();
 
   class  Constant_mintypmax_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_mintypmax_expressionContext, antlr4::ParserRuleContext)
   public:
     Constant_mintypmax_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12332,6 +13013,7 @@ public:
   Constant_mintypmax_expressionContext* constant_mintypmax_expression();
 
   class  Constant_param_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_param_expressionContext, antlr4::ParserRuleContext)
   public:
     Constant_param_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12347,6 +13029,7 @@ public:
   Constant_param_expressionContext* constant_param_expression();
 
   class  Param_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Param_expressionContext, antlr4::ParserRuleContext)
   public:
     Param_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12362,6 +13045,7 @@ public:
   Param_expressionContext* param_expression();
 
   class  Constant_range_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_range_expressionContext, antlr4::ParserRuleContext)
   public:
     Constant_range_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12376,6 +13060,7 @@ public:
   Constant_range_expressionContext* constant_range_expression();
 
   class  Constant_part_select_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_part_select_rangeContext, antlr4::ParserRuleContext)
   public:
     Constant_part_select_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12390,6 +13075,7 @@ public:
   Constant_part_select_rangeContext* constant_part_select_range();
 
   class  Constant_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_rangeContext, antlr4::ParserRuleContext)
   public:
     Constant_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12405,6 +13091,7 @@ public:
   Constant_rangeContext* constant_range();
 
   class  Constant_indexed_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_indexed_rangeContext, antlr4::ParserRuleContext)
   public:
     Constant_indexed_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12420,6 +13107,7 @@ public:
   Constant_indexed_rangeContext* constant_indexed_range();
 
   class  ExpressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(ExpressionContext, antlr4::ParserRuleContext)
   public:
     ExpressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12501,6 +13189,7 @@ public:
   ExpressionContext* expression();
   ExpressionContext* expression(int precedence);
   class  Value_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Value_rangeContext, antlr4::ParserRuleContext)
   public:
     Value_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12518,6 +13207,7 @@ public:
   Value_rangeContext* value_range();
 
   class  Mintypmax_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Mintypmax_expressionContext, antlr4::ParserRuleContext)
   public:
     Mintypmax_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12534,6 +13224,7 @@ public:
   Mintypmax_expressionContext* mintypmax_expression();
 
   class  Module_path_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_path_expressionContext, antlr4::ParserRuleContext)
   public:
     Module_path_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12555,6 +13246,7 @@ public:
   Module_path_expressionContext* module_path_expression();
   Module_path_expressionContext* module_path_expression(int precedence);
   class  Module_path_mintypmax_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_path_mintypmax_expressionContext, antlr4::ParserRuleContext)
   public:
     Module_path_mintypmax_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12571,6 +13263,7 @@ public:
   Module_path_mintypmax_expressionContext* module_path_mintypmax_expression();
 
   class  Range_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Range_expressionContext, antlr4::ParserRuleContext)
   public:
     Range_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12585,6 +13278,7 @@ public:
   Range_expressionContext* range_expression();
 
   class  Part_select_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Part_select_rangeContext, antlr4::ParserRuleContext)
   public:
     Part_select_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12599,6 +13293,7 @@ public:
   Part_select_rangeContext* part_select_range();
 
   class  Part_select_opContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Part_select_opContext, antlr4::ParserRuleContext)
   public:
     Part_select_opContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12613,6 +13308,7 @@ public:
   Part_select_opContext* part_select_op();
 
   class  Part_select_op_columnContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Part_select_op_columnContext, antlr4::ParserRuleContext)
   public:
     Part_select_op_columnContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12628,6 +13324,7 @@ public:
   Part_select_op_columnContext* part_select_op_column();
 
   class  Indexed_rangeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Indexed_rangeContext, antlr4::ParserRuleContext)
   public:
     Indexed_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12643,6 +13340,7 @@ public:
   Indexed_rangeContext* indexed_range();
 
   class  Constant_primaryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_primaryContext, antlr4::ParserRuleContext)
   public:
     Constant_primaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12676,6 +13374,7 @@ public:
   Constant_primaryContext* constant_primary();
 
   class  Module_path_primaryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Module_path_primaryContext, antlr4::ParserRuleContext)
   public:
     Module_path_primaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12696,6 +13395,7 @@ public:
   Module_path_primaryContext* module_path_primary();
 
   class  Complex_func_callContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Complex_func_callContext, antlr4::ParserRuleContext)
   public:
     Complex_func_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12732,6 +13432,7 @@ public:
   Complex_func_callContext* complex_func_call();
 
   class  PrimaryContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(PrimaryContext, antlr4::ParserRuleContext)
   public:
     PrimaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12769,6 +13470,7 @@ public:
   PrimaryContext* primary();
 
   class  This_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(This_keywordContext, antlr4::ParserRuleContext)
   public:
     This_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12782,6 +13484,7 @@ public:
   This_keywordContext* this_keyword();
 
   class  Super_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Super_keywordContext, antlr4::ParserRuleContext)
   public:
     Super_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12795,6 +13498,7 @@ public:
   Super_keywordContext* super_keyword();
 
   class  Dollar_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_keywordContext, antlr4::ParserRuleContext)
   public:
     Dollar_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12808,6 +13512,7 @@ public:
   Dollar_keywordContext* dollar_keyword();
 
   class  Dollar_root_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Dollar_root_keywordContext, antlr4::ParserRuleContext)
   public:
     Dollar_root_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12822,6 +13527,7 @@ public:
   Dollar_root_keywordContext* dollar_root_keyword();
 
   class  This_dot_superContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(This_dot_superContext, antlr4::ParserRuleContext)
   public:
     This_dot_superContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12837,6 +13543,7 @@ public:
   This_dot_superContext* this_dot_super();
 
   class  Null_keywordContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Null_keywordContext, antlr4::ParserRuleContext)
   public:
     Null_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12850,6 +13557,7 @@ public:
   Null_keywordContext* null_keyword();
 
   class  Time_literalContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Time_literalContext, antlr4::ParserRuleContext)
   public:
     Time_literalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12865,6 +13573,7 @@ public:
   Time_literalContext* time_literal();
 
   class  Time_unitContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Time_unitContext, antlr4::ParserRuleContext)
   public:
     Time_unitContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12878,6 +13587,7 @@ public:
   Time_unitContext* time_unit();
 
   class  Implicit_class_handleContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Implicit_class_handleContext, antlr4::ParserRuleContext)
   public:
     Implicit_class_handleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12893,6 +13603,7 @@ public:
   Implicit_class_handleContext* implicit_class_handle();
 
   class  Bit_selectContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Bit_selectContext, antlr4::ParserRuleContext)
   public:
     Bit_selectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12911,6 +13622,7 @@ public:
   Bit_selectContext* bit_select();
 
   class  SelectContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(SelectContext, antlr4::ParserRuleContext)
   public:
     SelectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12932,6 +13644,7 @@ public:
   SelectContext* select();
 
   class  Nonrange_selectContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Nonrange_selectContext, antlr4::ParserRuleContext)
   public:
     Nonrange_selectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12950,6 +13663,7 @@ public:
   Nonrange_selectContext* nonrange_select();
 
   class  Constant_bit_selectContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_bit_selectContext, antlr4::ParserRuleContext)
   public:
     Constant_bit_selectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12968,6 +13682,7 @@ public:
   Constant_bit_selectContext* constant_bit_select();
 
   class  Constant_selectContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_selectContext, antlr4::ParserRuleContext)
   public:
     Constant_selectContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -12989,6 +13704,7 @@ public:
   Constant_selectContext* constant_select();
 
   class  Primary_literalContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Primary_literalContext, antlr4::ParserRuleContext)
   public:
     Primary_literalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13006,6 +13722,7 @@ public:
   Primary_literalContext* primary_literal();
 
   class  Constant_castContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Constant_castContext, antlr4::ParserRuleContext)
   public:
     Constant_castContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13025,6 +13742,7 @@ public:
   Constant_castContext* constant_cast();
 
   class  CastContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(CastContext, antlr4::ParserRuleContext)
   public:
     CastContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13044,6 +13762,7 @@ public:
   CastContext* cast();
 
   class  Net_lvalueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Net_lvalueContext, antlr4::ParserRuleContext)
   public:
     Net_lvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13066,6 +13785,7 @@ public:
   Net_lvalueContext* net_lvalue();
 
   class  Variable_lvalueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Variable_lvalueContext, antlr4::ParserRuleContext)
   public:
     Variable_lvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13092,6 +13812,7 @@ public:
   Variable_lvalueContext* variable_lvalue();
 
   class  Nonrange_variable_lvalueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Nonrange_variable_lvalueContext, antlr4::ParserRuleContext)
   public:
     Nonrange_variable_lvalueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13109,6 +13830,7 @@ public:
   Nonrange_variable_lvalueContext* nonrange_variable_lvalue();
 
   class  Inc_or_dec_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Inc_or_dec_operatorContext, antlr4::ParserRuleContext)
   public:
     Inc_or_dec_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13123,6 +13845,7 @@ public:
   Inc_or_dec_operatorContext* inc_or_dec_operator();
 
   class  Unary_module_path_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unary_module_path_operatorContext, antlr4::ParserRuleContext)
   public:
     Unary_module_path_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -13136,6 +13859,7 @@ public:
   };
 
   class  UnaryModOp_ReductXnor2Context : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_ReductXnor2Context, Unary_module_path_operatorContext)
   public:
     UnaryModOp_ReductXnor2Context(Unary_module_path_operatorContext *ctx);
 
@@ -13145,6 +13869,7 @@ public:
   };
 
   class  UnaryModOp_NotContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_NotContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_NotContext(Unary_module_path_operatorContext *ctx);
 
@@ -13154,6 +13879,7 @@ public:
   };
 
   class  UnaryModOp_ReductNandContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_ReductNandContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_ReductNandContext(Unary_module_path_operatorContext *ctx);
 
@@ -13163,6 +13889,7 @@ public:
   };
 
   class  UnaryModOp_ReductXNor1Context : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_ReductXNor1Context, Unary_module_path_operatorContext)
   public:
     UnaryModOp_ReductXNor1Context(Unary_module_path_operatorContext *ctx);
 
@@ -13172,6 +13899,7 @@ public:
   };
 
   class  UnaryModOp_TildaContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_TildaContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_TildaContext(Unary_module_path_operatorContext *ctx);
 
@@ -13181,6 +13909,7 @@ public:
   };
 
   class  UnaryModOp_BitwOrContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_BitwOrContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_BitwOrContext(Unary_module_path_operatorContext *ctx);
 
@@ -13190,6 +13919,7 @@ public:
   };
 
   class  UnaryModOp_ReductNorContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_ReductNorContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_ReductNorContext(Unary_module_path_operatorContext *ctx);
 
@@ -13199,6 +13929,7 @@ public:
   };
 
   class  UnaryModOp_BitwXorContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_BitwXorContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_BitwXorContext(Unary_module_path_operatorContext *ctx);
 
@@ -13208,6 +13939,7 @@ public:
   };
 
   class  UnaryModOp_BitwAndContext : public Unary_module_path_operatorContext {
+    IMPLEMENT_RTTI(UnaryModOp_BitwAndContext, Unary_module_path_operatorContext)
   public:
     UnaryModOp_BitwAndContext(Unary_module_path_operatorContext *ctx);
 
@@ -13219,6 +13951,7 @@ public:
   Unary_module_path_operatorContext* unary_module_path_operator();
 
   class  Binary_module_path_operatorContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Binary_module_path_operatorContext, antlr4::ParserRuleContext)
   public:
     Binary_module_path_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -13232,6 +13965,7 @@ public:
   };
 
   class  BinModOp_EquivContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_EquivContext, Binary_module_path_operatorContext)
   public:
     BinModOp_EquivContext(Binary_module_path_operatorContext *ctx);
 
@@ -13241,6 +13975,7 @@ public:
   };
 
   class  BinModOp_BitwXorContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_BitwXorContext, Binary_module_path_operatorContext)
   public:
     BinModOp_BitwXorContext(Binary_module_path_operatorContext *ctx);
 
@@ -13250,6 +13985,7 @@ public:
   };
 
   class  BinModOp_LogicOrContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_LogicOrContext, Binary_module_path_operatorContext)
   public:
     BinModOp_LogicOrContext(Binary_module_path_operatorContext *ctx);
 
@@ -13259,6 +13995,7 @@ public:
   };
 
   class  BinModOp_NotEqualContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_NotEqualContext, Binary_module_path_operatorContext)
   public:
     BinModOp_NotEqualContext(Binary_module_path_operatorContext *ctx);
 
@@ -13268,6 +14005,7 @@ public:
   };
 
   class  BinModOp_LogicAndContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_LogicAndContext, Binary_module_path_operatorContext)
   public:
     BinModOp_LogicAndContext(Binary_module_path_operatorContext *ctx);
 
@@ -13277,6 +14015,7 @@ public:
   };
 
   class  BinModOp_BitwAndContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_BitwAndContext, Binary_module_path_operatorContext)
   public:
     BinModOp_BitwAndContext(Binary_module_path_operatorContext *ctx);
 
@@ -13286,6 +14025,7 @@ public:
   };
 
   class  BinModOp_BitwOrContext : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_BitwOrContext, Binary_module_path_operatorContext)
   public:
     BinModOp_BitwOrContext(Binary_module_path_operatorContext *ctx);
 
@@ -13295,6 +14035,7 @@ public:
   };
 
   class  BinModOp_ReductXnor1Context : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_ReductXnor1Context, Binary_module_path_operatorContext)
   public:
     BinModOp_ReductXnor1Context(Binary_module_path_operatorContext *ctx);
 
@@ -13304,6 +14045,7 @@ public:
   };
 
   class  BinModOp_ReductXnor2Context : public Binary_module_path_operatorContext {
+    IMPLEMENT_RTTI(BinModOp_ReductXnor2Context, Binary_module_path_operatorContext)
   public:
     BinModOp_ReductXnor2Context(Binary_module_path_operatorContext *ctx);
 
@@ -13315,6 +14057,7 @@ public:
   Binary_module_path_operatorContext* binary_module_path_operator();
 
   class  NumberContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(NumberContext, antlr4::ParserRuleContext)
   public:
     NumberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
@@ -13328,6 +14071,7 @@ public:
   };
 
   class  Number_RealContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_RealContext, NumberContext)
   public:
     Number_RealContext(NumberContext *ctx);
 
@@ -13337,6 +14081,7 @@ public:
   };
 
   class  Number_1Tickb0Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_1Tickb0Context, NumberContext)
   public:
     Number_1Tickb0Context(NumberContext *ctx);
 
@@ -13346,6 +14091,7 @@ public:
   };
 
   class  Number_1TickB0Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickB0Context, NumberContext)
   public:
     Number_1TickB0Context(NumberContext *ctx);
 
@@ -13355,6 +14101,7 @@ public:
   };
 
   class  Number_1Tickb1Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_1Tickb1Context, NumberContext)
   public:
     Number_1Tickb1Context(NumberContext *ctx);
 
@@ -13364,6 +14111,7 @@ public:
   };
 
   class  Number_1TickB1Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickB1Context, NumberContext)
   public:
     Number_1TickB1Context(NumberContext *ctx);
 
@@ -13373,6 +14121,7 @@ public:
   };
 
   class  Number_1TickbxContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickbxContext, NumberContext)
   public:
     Number_1TickbxContext(NumberContext *ctx);
 
@@ -13382,6 +14131,7 @@ public:
   };
 
   class  Number_1TickbXContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickbXContext, NumberContext)
   public:
     Number_1TickbXContext(NumberContext *ctx);
 
@@ -13391,6 +14141,7 @@ public:
   };
 
   class  Number_1TickBxContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickBxContext, NumberContext)
   public:
     Number_1TickBxContext(NumberContext *ctx);
 
@@ -13400,6 +14151,7 @@ public:
   };
 
   class  Number_1TickBXContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_1TickBXContext, NumberContext)
   public:
     Number_1TickBXContext(NumberContext *ctx);
 
@@ -13409,6 +14161,7 @@ public:
   };
 
   class  Number_IntegralContext : public NumberContext {
+    IMPLEMENT_RTTI(Number_IntegralContext, NumberContext)
   public:
     Number_IntegralContext(NumberContext *ctx);
 
@@ -13418,6 +14171,7 @@ public:
   };
 
   class  Number_Tick0Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_Tick0Context, NumberContext)
   public:
     Number_Tick0Context(NumberContext *ctx);
 
@@ -13427,6 +14181,7 @@ public:
   };
 
   class  Number_Tick1Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_Tick1Context, NumberContext)
   public:
     Number_Tick1Context(NumberContext *ctx);
 
@@ -13436,6 +14191,7 @@ public:
   };
 
   class  Number_Tickb0Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_Tickb0Context, NumberContext)
   public:
     Number_Tickb0Context(NumberContext *ctx);
 
@@ -13445,6 +14201,7 @@ public:
   };
 
   class  Number_TickB0Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_TickB0Context, NumberContext)
   public:
     Number_TickB0Context(NumberContext *ctx);
 
@@ -13454,6 +14211,7 @@ public:
   };
 
   class  Number_Tickb1Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_Tickb1Context, NumberContext)
   public:
     Number_Tickb1Context(NumberContext *ctx);
 
@@ -13463,6 +14221,7 @@ public:
   };
 
   class  Number_TickB1Context : public NumberContext {
+    IMPLEMENT_RTTI(Number_TickB1Context, NumberContext)
   public:
     Number_TickB1Context(NumberContext *ctx);
 
@@ -13474,6 +14233,7 @@ public:
   NumberContext* number();
 
   class  Unbased_unsized_literalContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unbased_unsized_literalContext, antlr4::ParserRuleContext)
   public:
     Unbased_unsized_literalContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13490,6 +14250,7 @@ public:
   Unbased_unsized_literalContext* unbased_unsized_literal();
 
   class  Attribute_instanceContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Attribute_instanceContext, antlr4::ParserRuleContext)
   public:
     Attribute_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13508,6 +14269,7 @@ public:
   Attribute_instanceContext* attribute_instance();
 
   class  Attr_specContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Attr_specContext, antlr4::ParserRuleContext)
   public:
     Attr_specContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13523,6 +14285,7 @@ public:
   Attr_specContext* attr_spec();
 
   class  Attr_nameContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Attr_nameContext, antlr4::ParserRuleContext)
   public:
     Attr_nameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13536,6 +14299,7 @@ public:
   Attr_nameContext* attr_name();
 
   class  Hierarchical_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Hierarchical_identifierContext, antlr4::ParserRuleContext)
   public:
     Hierarchical_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13567,6 +14331,7 @@ public:
   Hierarchical_identifierContext* hierarchical_identifier();
 
   class  IdentifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(IdentifierContext, antlr4::ParserRuleContext)
   public:
     IdentifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13584,6 +14349,7 @@ public:
   IdentifierContext* identifier();
 
   class  Interface_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Interface_identifierContext, antlr4::ParserRuleContext)
   public:
     Interface_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13607,6 +14373,7 @@ public:
   Interface_identifierContext* interface_identifier();
 
   class  Package_scopeContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Package_scopeContext, antlr4::ParserRuleContext)
   public:
     Package_scopeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13626,6 +14393,7 @@ public:
   Package_scopeContext* package_scope();
 
   class  Ps_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ps_identifierContext, antlr4::ParserRuleContext)
   public:
     Ps_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13650,6 +14418,7 @@ public:
   Ps_identifierContext* ps_identifier();
 
   class  Ps_or_hierarchical_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ps_or_hierarchical_identifierContext, antlr4::ParserRuleContext)
   public:
     Ps_or_hierarchical_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13665,6 +14434,7 @@ public:
   Ps_or_hierarchical_identifierContext* ps_or_hierarchical_identifier();
 
   class  Ps_or_hierarchical_array_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ps_or_hierarchical_array_identifierContext, antlr4::ParserRuleContext)
   public:
     Ps_or_hierarchical_array_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13691,6 +14461,7 @@ public:
   Ps_or_hierarchical_array_identifierContext* ps_or_hierarchical_array_identifier();
 
   class  Ps_or_hierarchical_sequence_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ps_or_hierarchical_sequence_identifierContext, antlr4::ParserRuleContext)
   public:
     Ps_or_hierarchical_sequence_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13715,6 +14486,7 @@ public:
   Ps_or_hierarchical_sequence_identifierContext* ps_or_hierarchical_sequence_identifier();
 
   class  Ps_type_identifierContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Ps_type_identifierContext, antlr4::ParserRuleContext)
   public:
     Ps_type_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13731,6 +14503,7 @@ public:
   Ps_type_identifierContext* ps_type_identifier();
 
   class  System_taskContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(System_taskContext, antlr4::ParserRuleContext)
   public:
     System_taskContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13749,6 +14522,7 @@ public:
   System_taskContext* system_task();
 
   class  System_task_namesContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(System_task_namesContext, antlr4::ParserRuleContext)
   public:
     System_task_namesContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13770,6 +14544,7 @@ public:
   System_task_namesContext* system_task_names();
 
   class  Top_directivesContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Top_directivesContext, antlr4::ParserRuleContext)
   public:
     Top_directivesContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13822,6 +14597,7 @@ public:
   Top_directivesContext* top_directives();
 
   class  Pragma_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pragma_directiveContext, antlr4::ParserRuleContext)
   public:
     Pragma_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13840,6 +14616,7 @@ public:
   Pragma_directiveContext* pragma_directive();
 
   class  Pragma_expressionContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pragma_expressionContext, antlr4::ParserRuleContext)
   public:
     Pragma_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13857,6 +14634,7 @@ public:
   Pragma_expressionContext* pragma_expression();
 
   class  Pragma_valueContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Pragma_valueContext, antlr4::ParserRuleContext)
   public:
     Pragma_valueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13878,6 +14656,7 @@ public:
   Pragma_valueContext* pragma_value();
 
   class  Timescale_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Timescale_directiveContext, antlr4::ParserRuleContext)
   public:
     Timescale_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13896,6 +14675,7 @@ public:
   Timescale_directiveContext* timescale_directive();
 
   class  Begin_keywords_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Begin_keywords_directiveContext, antlr4::ParserRuleContext)
   public:
     Begin_keywords_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13910,6 +14690,7 @@ public:
   Begin_keywords_directiveContext* begin_keywords_directive();
 
   class  End_keywords_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(End_keywords_directiveContext, antlr4::ParserRuleContext)
   public:
     End_keywords_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13923,6 +14704,7 @@ public:
   End_keywords_directiveContext* end_keywords_directive();
 
   class  Unconnected_drive_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unconnected_drive_directiveContext, antlr4::ParserRuleContext)
   public:
     Unconnected_drive_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13939,6 +14721,7 @@ public:
   Unconnected_drive_directiveContext* unconnected_drive_directive();
 
   class  Nounconnected_drive_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Nounconnected_drive_directiveContext, antlr4::ParserRuleContext)
   public:
     Nounconnected_drive_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13952,6 +14735,7 @@ public:
   Nounconnected_drive_directiveContext* nounconnected_drive_directive();
 
   class  Default_nettype_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Default_nettype_directiveContext, antlr4::ParserRuleContext)
   public:
     Default_nettype_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13967,6 +14751,7 @@ public:
   Default_nettype_directiveContext* default_nettype_directive();
 
   class  Uselib_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Uselib_directiveContext, antlr4::ParserRuleContext)
   public:
     Uselib_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13980,6 +14765,7 @@ public:
   Uselib_directiveContext* uselib_directive();
 
   class  Celldefine_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Celldefine_directiveContext, antlr4::ParserRuleContext)
   public:
     Celldefine_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -13993,6 +14779,7 @@ public:
   Celldefine_directiveContext* celldefine_directive();
 
   class  Endcelldefine_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Endcelldefine_directiveContext, antlr4::ParserRuleContext)
   public:
     Endcelldefine_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14006,6 +14793,7 @@ public:
   Endcelldefine_directiveContext* endcelldefine_directive();
 
   class  Protect_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Protect_directiveContext, antlr4::ParserRuleContext)
   public:
     Protect_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14019,6 +14807,7 @@ public:
   Protect_directiveContext* protect_directive();
 
   class  Endprotect_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Endprotect_directiveContext, antlr4::ParserRuleContext)
   public:
     Endprotect_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14032,6 +14821,7 @@ public:
   Endprotect_directiveContext* endprotect_directive();
 
   class  Protected_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Protected_directiveContext, antlr4::ParserRuleContext)
   public:
     Protected_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14045,6 +14835,7 @@ public:
   Protected_directiveContext* protected_directive();
 
   class  Endprotected_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Endprotected_directiveContext, antlr4::ParserRuleContext)
   public:
     Endprotected_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14058,6 +14849,7 @@ public:
   Endprotected_directiveContext* endprotected_directive();
 
   class  Expand_vectornets_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Expand_vectornets_directiveContext, antlr4::ParserRuleContext)
   public:
     Expand_vectornets_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14071,6 +14863,7 @@ public:
   Expand_vectornets_directiveContext* expand_vectornets_directive();
 
   class  Noexpand_vectornets_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Noexpand_vectornets_directiveContext, antlr4::ParserRuleContext)
   public:
     Noexpand_vectornets_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14084,6 +14877,7 @@ public:
   Noexpand_vectornets_directiveContext* noexpand_vectornets_directive();
 
   class  Autoexpand_vectornets_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Autoexpand_vectornets_directiveContext, antlr4::ParserRuleContext)
   public:
     Autoexpand_vectornets_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14097,6 +14891,7 @@ public:
   Autoexpand_vectornets_directiveContext* autoexpand_vectornets_directive();
 
   class  Disable_portfaults_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Disable_portfaults_directiveContext, antlr4::ParserRuleContext)
   public:
     Disable_portfaults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14110,6 +14905,7 @@ public:
   Disable_portfaults_directiveContext* disable_portfaults_directive();
 
   class  Enable_portfaults_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Enable_portfaults_directiveContext, antlr4::ParserRuleContext)
   public:
     Enable_portfaults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14123,6 +14919,7 @@ public:
   Enable_portfaults_directiveContext* enable_portfaults_directive();
 
   class  Nosuppress_faults_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Nosuppress_faults_directiveContext, antlr4::ParserRuleContext)
   public:
     Nosuppress_faults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14136,6 +14933,7 @@ public:
   Nosuppress_faults_directiveContext* nosuppress_faults_directive();
 
   class  Suppress_faults_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Suppress_faults_directiveContext, antlr4::ParserRuleContext)
   public:
     Suppress_faults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14149,6 +14947,7 @@ public:
   Suppress_faults_directiveContext* suppress_faults_directive();
 
   class  Signed_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Signed_directiveContext, antlr4::ParserRuleContext)
   public:
     Signed_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14162,6 +14961,7 @@ public:
   Signed_directiveContext* signed_directive();
 
   class  Unsigned_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Unsigned_directiveContext, antlr4::ParserRuleContext)
   public:
     Unsigned_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14175,6 +14975,7 @@ public:
   Unsigned_directiveContext* unsigned_directive();
 
   class  Remove_gatename_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Remove_gatename_directiveContext, antlr4::ParserRuleContext)
   public:
     Remove_gatename_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14188,6 +14989,7 @@ public:
   Remove_gatename_directiveContext* remove_gatename_directive();
 
   class  Noremove_gatenames_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Noremove_gatenames_directiveContext, antlr4::ParserRuleContext)
   public:
     Noremove_gatenames_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14201,6 +15003,7 @@ public:
   Noremove_gatenames_directiveContext* noremove_gatenames_directive();
 
   class  Remove_netname_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Remove_netname_directiveContext, antlr4::ParserRuleContext)
   public:
     Remove_netname_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14214,6 +15017,7 @@ public:
   Remove_netname_directiveContext* remove_netname_directive();
 
   class  Noremove_netnames_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Noremove_netnames_directiveContext, antlr4::ParserRuleContext)
   public:
     Noremove_netnames_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14227,6 +15031,7 @@ public:
   Noremove_netnames_directiveContext* noremove_netnames_directive();
 
   class  Accelerate_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Accelerate_directiveContext, antlr4::ParserRuleContext)
   public:
     Accelerate_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14240,6 +15045,7 @@ public:
   Accelerate_directiveContext* accelerate_directive();
 
   class  Noaccelerate_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Noaccelerate_directiveContext, antlr4::ParserRuleContext)
   public:
     Noaccelerate_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14253,6 +15059,7 @@ public:
   Noaccelerate_directiveContext* noaccelerate_directive();
 
   class  Default_trireg_strenght_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Default_trireg_strenght_directiveContext, antlr4::ParserRuleContext)
   public:
     Default_trireg_strenght_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14267,6 +15074,7 @@ public:
   Default_trireg_strenght_directiveContext* default_trireg_strenght_directive();
 
   class  Default_decay_time_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Default_decay_time_directiveContext, antlr4::ParserRuleContext)
   public:
     Default_decay_time_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14282,6 +15090,7 @@ public:
   Default_decay_time_directiveContext* default_decay_time_directive();
 
   class  Delay_mode_distributed_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_mode_distributed_directiveContext, antlr4::ParserRuleContext)
   public:
     Delay_mode_distributed_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14295,6 +15104,7 @@ public:
   Delay_mode_distributed_directiveContext* delay_mode_distributed_directive();
 
   class  Delay_mode_path_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_mode_path_directiveContext, antlr4::ParserRuleContext)
   public:
     Delay_mode_path_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14308,6 +15118,7 @@ public:
   Delay_mode_path_directiveContext* delay_mode_path_directive();
 
   class  Delay_mode_unit_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_mode_unit_directiveContext, antlr4::ParserRuleContext)
   public:
     Delay_mode_unit_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14321,6 +15132,7 @@ public:
   Delay_mode_unit_directiveContext* delay_mode_unit_directive();
 
   class  Delay_mode_zero_directiveContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Delay_mode_zero_directiveContext, antlr4::ParserRuleContext)
   public:
     Delay_mode_zero_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14334,6 +15146,7 @@ public:
   Delay_mode_zero_directiveContext* delay_mode_zero_directive();
 
   class  Surelog_macro_not_definedContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Surelog_macro_not_definedContext, antlr4::ParserRuleContext)
   public:
     Surelog_macro_not_definedContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14347,6 +15160,7 @@ public:
   Surelog_macro_not_definedContext* surelog_macro_not_defined();
 
   class  SllineContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(SllineContext, antlr4::ParserRuleContext)
   public:
     SllineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14363,6 +15177,7 @@ public:
   SllineContext* slline();
 
   class  Config_declarationContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Config_declarationContext, antlr4::ParserRuleContext)
   public:
     Config_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14387,6 +15202,7 @@ public:
   Config_declarationContext* config_declaration();
 
   class  Design_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Design_statementContext, antlr4::ParserRuleContext)
   public:
     Design_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14405,6 +15221,7 @@ public:
   Design_statementContext* design_statement();
 
   class  Config_rule_statementContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Config_rule_statementContext, antlr4::ParserRuleContext)
   public:
     Config_rule_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14424,6 +15241,7 @@ public:
   Config_rule_statementContext* config_rule_statement();
 
   class  Default_clauseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Default_clauseContext, antlr4::ParserRuleContext)
   public:
     Default_clauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14437,6 +15255,7 @@ public:
   Default_clauseContext* default_clause();
 
   class  Inst_clauseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Inst_clauseContext, antlr4::ParserRuleContext)
   public:
     Inst_clauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14451,6 +15270,7 @@ public:
   Inst_clauseContext* inst_clause();
 
   class  Inst_nameContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Inst_nameContext, antlr4::ParserRuleContext)
   public:
     Inst_nameContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14467,6 +15287,7 @@ public:
   Inst_nameContext* inst_name();
 
   class  Cell_clauseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Cell_clauseContext, antlr4::ParserRuleContext)
   public:
     Cell_clauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14483,6 +15304,7 @@ public:
   Cell_clauseContext* cell_clause();
 
   class  Liblist_clauseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Liblist_clauseContext, antlr4::ParserRuleContext)
   public:
     Liblist_clauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14498,6 +15320,7 @@ public:
   Liblist_clauseContext* liblist_clause();
 
   class  Use_clause_configContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Use_clause_configContext, antlr4::ParserRuleContext)
   public:
     Use_clause_configContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
@@ -14520,6 +15343,7 @@ public:
   Use_clause_configContext* use_clause_config();
 
   class  Use_clauseContext : public antlr4::ParserRuleContext {
+    IMPLEMENT_RTTI(Use_clauseContext, antlr4::ParserRuleContext)
   public:
     Use_clauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;

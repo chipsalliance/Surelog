@@ -12,6 +12,7 @@
  * This interface defines an abstract listener for a parse tree produced by SV3_1aParser.
  */
 class  SV3_1aParserListener : public antlr4::tree::ParseTreeListener {
+IMPLEMENT_RTTI(SV3_1aParserListener, antlr4::tree::ParseTreeListener)
 public:
 
   virtual void enterTop_level_rule(SV3_1aParser::Top_level_ruleContext *ctx) = 0;
